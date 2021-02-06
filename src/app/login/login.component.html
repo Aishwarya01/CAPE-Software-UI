@@ -6,7 +6,7 @@
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()"  class="pt-3">
         <div class="form-group">
             <label for="username">Username</label>
-            <mdb-icon fas icon="user-alt"></mdb-icon>
+            <!-- <mdb-icon fas icon="user-alt"></mdb-icon> -->
             <input type="text" #username formControlName="username"  requied class="form-control" placeholder="Enter your email address" ngModel/>
             <b>{{username.className}}</b>
         </div>
