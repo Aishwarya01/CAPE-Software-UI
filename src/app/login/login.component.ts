@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("Alfred");
+    console.log("Arun");
   }
 
 }

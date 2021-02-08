@@ -1,6 +1,31 @@
+.brand-logo {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.brand-logo img{
+    width: 150px;
+}
+
 .login-title {
+    margin-top: 2rem;
     color: #9e97aa;
     text-align: center;
     font-weight: bold;
     font-size: 1.5rem;
 }
+
+.input-icon i {
+    position: absolute;
+}
+
+.input-icons { 
+    width: 100%; 
+    margin-bottom: 10px; 
+} 
+  
+.icon { 
+    padding: 10px; 
+    min-width: 40px; 
+} 
+  

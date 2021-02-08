@@ -1,14 +1,22 @@
 
-<div class="login-header">
-    <h3 class="login-title">Inspection of LV System For Safety</h3>
-</div>
+
 <div class="container">
+    <div class="brand-logo">
+        <img src="assets/img/Cape-logo.png">
+    </div>
+    <div class="login-header">
+        <h3 class="login-title">Inspection of LV System For Safety</h3>
+    </div>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()"  class="pt-3">
         <div class="form-group">
             <label for="username">Username</label>
-            <!-- <mdb-icon fas icon="user-alt"></mdb-icon> -->
-            <input type="text" #username formControlName="username"  requied class="form-control" placeholder="Enter your email address" ngModel/>
-            <b>{{username.className}}</b>
+            <div class="input-group">
+                <div class="input-icon">
+                    <span></span>
+                    <i class="bi bi-person-fill icon"></i>
+                </div>     
+                <input type="text" formControlName="username"  requied class="form-control" placeholder="Enter your email address" maxlength="50"/> 
+            </div>                
         </div>
         <div class="form-group">
             <label for="password">Password</label>
