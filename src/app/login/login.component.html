@@ -10,17 +10,17 @@
             </div>
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                 <div class="form-group">
-                    <label for="username">Username</label>
+                    <label for="email">Email</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
                                 <i class="bi bi-envelope-fill"></i>
                             </span>
                         </div>     
-                        <input type="text" formControlName="username"  requied class="form-control" placeholder="Enter your email address" maxlength="50" 
+                        <input type="text" formControlName="email"  requied class="form-control" placeholder="Enter your email address" maxlength="50" 
                         [ngClass]="{ 'is-invalid': submitted && f.username.errors }"/> 
-                        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-                            <div *ngIf="f.username.errors.required">Username is required</div>
+                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                            <div *ngIf="f.email.errors.required">Email is required</div>
                         </div>
                     </div>                
                 </div>
