@@ -15,17 +15,12 @@
     font-size: 1.5rem;
 }
 
-.input-icon i {
-    position: absolute;
+.auth-form-btn {
+    margin-top: 30px;
 }
 
-.input-icons { 
-    width: 100%; 
-    margin-bottom: 10px; 
-} 
-  
-.icon { 
-    padding: 10px; 
-    min-width: 40px; 
-} 
+.register {
+    padding-top: 30px;
+    padding-left: 40px;
+}
   
