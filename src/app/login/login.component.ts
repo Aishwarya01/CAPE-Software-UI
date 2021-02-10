@@ -13,14 +13,15 @@ import { LoginserviceService } from '../services/loginservice.service';
 })
 export class LoginComponent implements OnInit {
   loginForm = new FormGroup({
-    email: new FormControl(),
-    password: new FormControl()
+    email: new FormControl(''),
+    password: new FormControl(''),
+    remember: new FormControl('')
   });
   
   loading = false;
   submitted = false;
   returnUrl= String;
-
+  
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,7 +34,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.loginForm  =  this.formBuilder.group({
       email: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      remember: ['', Validators.required]
   });
   // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
