@@ -9,14 +9,14 @@ export class LoginserviceService {
 
   constructor ( private http: HttpClient) { }
   
-  login (username: String ,password: String) {
-    return this.http.post<any>(`/loginsuccess`, { username: username, password: password })
-    .pipe(map(user => {
-        if (user && user.token) {
-            localStorage.setItem('currentUser', JSON.stringify(user));
+  login (email: String ,password: String) {
+    return this.http.post<any>(`/loginsuccess`, { email: email, password: password })
+    .pipe(map(email => {
+        if (email && email.token) {
+            localStorage.setItem('currentUser', JSON.stringify(email));
         }
 
-        return user;
+        return email;
     }));
 }
   }

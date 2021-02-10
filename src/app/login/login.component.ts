@@ -33,7 +33,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm  =  this.formBuilder.group({
-      email: ['', Validators.required],
+      email: ['', [
+        Validators.required,
+        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       password: ['', Validators.required],
       remember: ['', Validators.required]
   });
@@ -53,7 +55,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading=true;
-    this.loginservice.login(this.f.username.value, this.f.password.value)
+    this.loginservice.login(this.f.email.value, this.f.password.value)
       .pipe(first())
       .subscribe(
         data => {
