@@ -9,15 +9,17 @@ export class LoginserviceService {
   apiUrl = environment.apiUrl
   constructor(private http: HttpClient) { }
 
-  login(email: String, password: String) {
+  
+  login (email: String ,password: String) {
     return this.http.post<any>(`$apiUrl/authenticate`, { email: email, password: password })
-      .pipe(map(user => {
-        if (user && user.token) {
-          localStorage.setItem('currentUser', JSON.stringify(user));
+    .pipe(map(email => {
+        if (email && email.token) {
+            localStorage.setItem('currentUser', JSON.stringify(email));
         }
 
-        return user;
-      }));
+        return email;
+    }));
+
   }
 }
 

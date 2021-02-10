@@ -1,7 +1,7 @@
 
-<div class="container">
+<div class="container centre">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="brand-logo">
                 <img src="assets/img/Cape-logo.png">
             </div>
@@ -17,10 +17,11 @@
                                 <i class="bi bi-envelope-fill"></i>
                             </span>
                         </div>     
-                        <input type="text" formControlName="email" requied class="form-control" placeholder="Enter your email address" maxlength="50" 
-                        [ngClass]="{ 'is-invalid': submitted && f.username.errors }"/> 
+                        <input type="email" formControlName="email" requied class="form-control" placeholder="Enter your email address" maxlength="50" 
+                        [ngClass]="{ 'is-invalid': submitted && f.email.errors }"/> 
                         <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                             <div *ngIf="f.email.errors.required">Email is required</div>
+                            <div *ngIf="f.email.errors.pattern">Enter valid email</div>
                         </div>
                     </div>                
                 </div>
@@ -32,10 +33,11 @@
                                 <i class="bi bi-lock-fill"></i>
                             </span>
                         </div>
-                        <input type="password" formControlName="password" class="form-control" placeholder="Enter your password" 
+                        <input type="password" formControlName="password" class="form-control" placeholder="Enter your password" minlength="8" maxlength="15" 
                         [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
                         <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                             <div *ngIf="f.password.errors.required">Password is required</div>
+                            <div *ngIf="f.password.errors.minlength">Password must be at least 8 characters</div>
                         </div>
                     </div>
                 </div>
@@ -46,7 +48,7 @@
                    </div> 
                     <div><a href="#">Forgot Password?</a></div>
                 </div>
-                <button [disabled]="loading" class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"><i class="bi bi-key-fill"></i> LOGIN</button>
+                <button [disabled]="loading" class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"><i class="bi bi-key-fill"></i> Login</button>
                 
                 <a [routerLink]="['/register']" class="btn btn-link register"><p>Don't have an account register here</p></a>
             </form>
