@@ -12,12 +12,7 @@ export class LoginserviceService {
   apiUrl = environment.apiUrl
   constructor ( private http: HttpClient) { }
   
-  public login (user :User): Observable<any> {
-    return this.http.post<any>("http://localhost:8080/login", user)
-  }
-}
-
-
-
+  public login(user :User): Observable<any> {
+    return this.http.post<any>('apiUrl/autheticate', user)
   }
 }
