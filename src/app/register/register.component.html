@@ -18,7 +18,7 @@
                             </span>
                         </div>     
                         <input type="text" formControlName="firstname" class="form-control" placeholder="Enter your firstname"
-                        [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }"/>  
+                        [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }" [(ngModel)]="user.firstName"/>  
                         <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
                             <div *ngIf="f.firstname.errors.required">firstname is required</div>
                         </div>          
@@ -32,7 +32,7 @@
                                 <i class="bi bi-person-lines-fill"></i>                            
                             </span>
                         </div>     
-                        <input type="text" formControlName="lastname" class="form-control" placeholder="Enter your lastname"/>           
+                        <input type="text" formControlName="lastname" class="form-control" placeholder="Enter your lastname" [(ngModel)]="user.lastName"/>           
                     </div> 
                 </div>
                 <div class="form-group">
@@ -44,7 +44,7 @@
                             </span>
                         </div>     
                         <input type="email" formControlName="email" class="form-control" placeholder="Enter your email address" maxlength="50"
-                        [ngClass]="{ 'is-invalid': submitted && f.email.errors }"/>     
+                        [ngClass]="{ 'is-invalid': submitted && f.email.errors }" [(ngModel)]="user.email"/>     
                         <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                             <div *ngIf="f.email.errors.required">Email is required</div>
                             <div *ngIf="f.email.errors.pattern">Enter valid email</div>
@@ -76,7 +76,7 @@
                             </span>
                         </div>     
                         <input type="password" formControlName="password" class="form-control" placeholder="Enter your password" minlength="8" maxlength="15"
-                        [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>  
+                        [ngClass]="{ 'is-invalid': submitted && f.password.errors }" [(ngModel)]=user.password/>  
                         <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                             <div *ngIf="f.password.errors.required">Password is required</div>
                             <div *ngIf="f.password.errors.minlength">Password must be at least 8 characters</div>
@@ -101,7 +101,7 @@
             <button [disabled]="loading" style="float:right;"  class="btn btn-outline-danger cancel"><i class="bi bi-x icon"></i>cancel</button>
         </div>
                 
-            </form>
+    </form>
         </div>
     </div>    
 </div>    

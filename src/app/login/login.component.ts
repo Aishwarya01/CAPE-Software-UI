@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from  '@angular/forms';
 import { Router,ActivatedRoute } from '@angular/router';
-
-import { first } from 'rxjs/operators';
-import { AlertserviceService } from '../services/alertservice.service';
+import { User } from '../model/user';
 import { LoginserviceService } from '../services/loginservice.service';
 
 @Component({
@@ -21,13 +19,13 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl= String;
+  user = new User();
   
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private loginservice: LoginserviceService,
-    private alertservice: AlertserviceService
+    private loginservice: LoginserviceService
     ) {}
   
 
@@ -39,7 +37,6 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required],
       remember: ['', Validators.required]
   });
-  // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   get f(){
@@ -55,17 +52,15 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading=true;
-    this.loginservice.login(this.f.email.value, this.f.password.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          // this.router.navigate([this.returnUrl]);
-          console.log("Success");
-        },
-        error => {
-          this.alertservice.error(error);
-          this.loading=false;
-        });
+
+    this.loginservice.login(this.user).subscribe(
+      data=> { 
+        console.log("HIHDHDS");
+        this.router.navigate(['/loginsuccess'])
+      },
+      error => console.log("dhfkjdhf")
+    )
+    
     }
   }
 
