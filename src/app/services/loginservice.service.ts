@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
+import { User } from '../model/user';
+import { environment } from 'src/environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class LoginserviceService {
   apiUrl = environment.apiUrl
-  constructor(private http: HttpClient) { }
+  constructor ( private http: HttpClient) { }
+  
+  public login (user :User): Observable<any> {
+    return this.http.post<any>("http://localhost:8080/login", user)
+  }
+}
 
 
-  login(email: String, password: String) {
-    return this.http.post<any>(`$apiUrl/authenticate`, { email: email, password: password })
-      .pipe(map(email => {
-        if (email && email.token) {
-          localStorage.setItem('currentUser', JSON.stringify(email));
-        }
-        return email;
-      }));
 
   }
 }
