@@ -10,7 +10,7 @@
             </div>
             <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                 <div class="form-group">
-                    <label for="firstname">*Firstname</label>
+                    <label for="firstname">* Firstname</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -36,7 +36,7 @@
                     </div> 
                 </div>
                 <div class="form-group">
-                    <label for="username">Email</label>
+                    <label for="username">* Email</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -53,22 +53,26 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="username">Register Type</label>
+                    <label for="username">* Register Type</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
                                 <i class="bi bi-person-fill"></i>                            
                             </span>
                         </div>  
-                        <select  formControlName="registertype" class="form-control">
-                            <option>Select registertype</option>
+                        <select  formControlName="registertype" class="form-control" 
+                        [ngClass]="{ 'is-invalid': submitted && f.registertype.errors }" [(ngModel)]="user.registertype">
+                            
                             <option *ngFor="let register of registertypelist">{{register}}</option>
                         </select>   
+                        <div *ngIf="submitted && f.registertype.errors" class="invalid-feedback">
+                            <div *ngIf="f.registertype.errors.required">Please slect register type</div>
+                        </div>
                     </div> 
                 </div>
 
                 <div class="form-group">
-                    <label for="password">Password</label>
+                    <label for="password">* Password</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -84,21 +88,26 @@
                     </div> 
                 </div>
                 <div class="form-group">
-                    <label for="password">Confirm Password</label>
+                    <label for="password">* Confirm Password</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
                                 <i class="bi bi-lock-fill"></i>
                             </span>
                         </div>     
-                        <input type="text" formControlName="confirmpassword" class="form-control" placeholder="Enter your password again"/>
+                        <input type="text" formControlName="confirmpassword" class="form-control" placeholder="Enter your password again" pattern="{{ user.password }}"
+                        [ngClass]="{ 'is-invalid': submitted && f.confirmpassword.errors }"/>
+                        <div *ngIf="submitted && f.confirmpassword.errors" class="invalid-feedback">
+                            <div *ngIf="f.confirmpassword.errors.required">Confirm Password is required</div>
+                            <div *ngIf="f.confirmpassword.errors.pattern">Password and confirmpassword must be same</div>
+                        </div>
                     </div>            
                 </div>
 
         <div style="display: inline;">
             <button [disabled]="loading" style="float: left;" type="submit" class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"><i class="bi bi-person-plus-fill icon"></i> Register</button>
 
-            <button [disabled]="loading" style="float:right;"  class="btn btn-outline-danger cancel"><i class="bi bi-x icon"></i>cancel</button>
+            <button [disabled]="loading" style="float:right;"  class="btn btn-outline-danger cancel"><i class="bi bi-x icon"></i> Cancel</button>
         </div>
                 
     </form>
