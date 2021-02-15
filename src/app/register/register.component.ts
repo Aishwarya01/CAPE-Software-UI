@@ -52,14 +52,14 @@ export class RegisterComponent implements OnInit {
   console.log("Success");
   this.submitted=true;
 
-  if(this.registerForm.invalid) {
-    return;
-  }
+  // if(this.registerForm.invalid) {
+  //   return;
+  // }
 
   this.loading=true;
   this.registerservice.register(this.user).subscribe(
     data=> { 
-      console.log("Success");
+      console.log("REgister Success");
       this.router.navigate(['/login'])
     },
     error => console.log("Failed")
