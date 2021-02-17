@@ -3,7 +3,7 @@ export class User {
     firstName: string;
     lastName: string;
     email: string;
-    registertype: String;
+    userType: String;
     password: string;  
     
     constructor () {

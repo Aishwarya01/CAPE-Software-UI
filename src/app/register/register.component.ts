@@ -15,14 +15,15 @@ export class RegisterComponent implements OnInit {
     firstname: new FormControl(''),
     lastname: new FormControl(''),
     email: new FormControl(''),
-    registertype: new FormControl(''),
+    usertype: new FormControl(''),
     password: new FormControl(''),
     confirmpassword: new FormControl(''),
   });
   loading = false;
   submitted = false;
-  registertypelist: any= ['User','Viewer','Admin'];
+  usertypelist: any= ['User','Viewer','Admin'];
   user = new User();
+  msg="";
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,7 +38,7 @@ export class RegisterComponent implements OnInit {
       email: ['', [
         Validators.required,
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-      registertype: ['',Validators.required],
+      usertype: ['',Validators.required],
       password: ['', Validators.required],
       confirmpassword: ['',Validators.required],
       remember: ['', Validators.required]
@@ -60,7 +61,8 @@ export class RegisterComponent implements OnInit {
   this.registerservice.register(this.user).subscribe(
     data=> { 
       console.log("REgister Success");
-      this.router.navigate(['/login'])
+      this.msg="Register Success";
+      this.router.navigate(['']);
     },
     error => console.log("Failed")
   )
