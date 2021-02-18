@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
     this.loginservice.login(this.user).subscribe(
       data=> { 
         console.log("Response Success");
-        this.router.navigate(['/loginsuccess'])
+        this.router.navigate(['/home'])
       },
       error => {
         console.log("Exception occured");

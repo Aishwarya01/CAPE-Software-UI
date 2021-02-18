@@ -54,7 +54,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="username">* Register Type</label>
+                    <label for="username">* User Type</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -63,7 +63,7 @@
                         </div>  
                         <select  formControlName="usertype" class="form-control" 
                         [ngClass]="{ 'is-invalid': submitted && f.usertype.errors }" [(ngModel)]="user.userType">
-                            
+                            <option value="" selected>Select Type</option>
                             <option *ngFor="let user of usertypelist">{{user}}</option>
                         </select>   
                         <div *ngIf="submitted && f.usertype.errors" class="invalid-feedback">
@@ -96,7 +96,7 @@
                                 <i class="bi bi-lock-fill"></i>
                             </span>
                         </div>     
-                        <input type="text" formControlName="confirmpassword" class="form-control" placeholder="Enter your password again" pattern="{{ user.password }}"
+                        <input type="password" formControlName="confirmpassword" class="form-control" placeholder="Enter your password again" pattern="{{ user.password }}"
                         [ngClass]="{ 'is-invalid': submitted && f.confirmpassword.errors }"/>
                         <div *ngIf="submitted && f.confirmpassword.errors" class="invalid-feedback">
                             <div *ngIf="f.confirmpassword.errors.required">Confirm Password is required</div>
@@ -108,7 +108,7 @@
         <div style="display: inline;">
             <button [disabled]="loading" style="float: left;" type="submit" class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"><i class="bi bi-person-plus-fill icon"></i> Register</button>
 
-            <button [disabled]="loading" style="float:right;"  class="btn btn-outline-danger cancel"><i class="bi bi-x icon"></i> Cancel</button>
+            <button [disabled]="loading" [routerLink]="['/login']" style="float:right;"  class="btn btn-outline-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
         </div>
                 
     </form>

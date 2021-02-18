@@ -58,6 +58,8 @@ export class RegisterComponent implements OnInit {
   // }
 
   this.loading=true;
+  this.user.userName= this.registerForm.value.email;
+  this.user.active= true;
   this.registerservice.register(this.user).subscribe(
     data=> { 
       console.log("REgister Success");
