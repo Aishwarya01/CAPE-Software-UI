@@ -18,6 +18,7 @@ export class RegisterComponent implements OnInit {
     usertype: new FormControl(''),
     password: new FormControl(''),
     confirmpassword: new FormControl(''),
+    isActive: new FormControl('')
   });
   loading = false;
   submitted = false;
@@ -41,13 +42,15 @@ export class RegisterComponent implements OnInit {
       usertype: ['',Validators.required],
       password: ['', Validators.required],
       confirmpassword: ['',Validators.required],
-      remember: ['', Validators.required]
+      isActive: ['', Validators.required]
   });
   }
 
   get f(){
     return this.registerForm.controls;
   }
+  
+ 
 
   onSubmit(){
   console.log("Success");
@@ -57,9 +60,13 @@ export class RegisterComponent implements OnInit {
   //   return;
   // }
 
+
   this.loading=true;
   this.user.userName= this.registerForm.value.email;
-  this.user.active= true;
+  if(this.user.active == undefined) {
+    this.user.active=false;
+  }
+  console.log(this.user);
   this.registerservice.register(this.user).subscribe(
     data=> { 
       console.log("REgister Success");
