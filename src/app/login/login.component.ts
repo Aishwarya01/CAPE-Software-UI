@@ -19,8 +19,8 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl= String;
-  user = new User();
-  
+   user = new User();
+  msg="";
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,21 +44,23 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("Arun");
     this.submitted=true;
 
-    if(this.loginForm.invalid) {
-      return;
-    }
+    // if(this.loginForm.invalid) {
+    //   return;
+    // }
 
     this.loading=true;
 
     this.loginservice.login(this.user).subscribe(
       data=> { 
-        console.log("HIHDHDS");
-        this.router.navigate(['/loginsuccess'])
+        console.log("Response Success");
+        this.router.navigate(['/home'])
       },
-      error => console.log("dhfkjdhf")
+      error => {
+        console.log("Exception occured");
+       this.msg="Please enter a valid Email and Password";
+      }
     )
     
     }

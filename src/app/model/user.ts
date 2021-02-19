@@ -1,9 +1,12 @@
 export class User {
     id: number;
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;  
+    firstName: String;
+    lastName: String;
+    email: String;
+    userName: String;
+    userType: String;
+    password: String;  
+    active: boolean;
     
     constructor () {
     }
