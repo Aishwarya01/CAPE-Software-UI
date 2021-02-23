@@ -17,23 +17,23 @@ const httpoption ={
 })
 export class LoginserviceService {
   apiUrl = environment.apiUrl;
-  private currentUserSubject: BehaviorSubject<User>;
-  public currentUser: Observable<User>;
+ 
 
 
   constructor ( private http: HttpClient) { 
   
   }
 
-  public get currentUserValue(): User {
-    return this.currentUserSubject.value;
-}
+  public get loggedIn(): boolean {  
+    return (localStorage.getItem('currentUser') !== null);  
+  } 
   
   public login(user :User): Observable<any> {
     return this.http.post<any>(this.apiUrl+'/autheticate', user, httpoption)
+    // return this.http.post<any>('http://localhost:8080//login', user, httpoption)
+
     .pipe(map(User => {
-      localStorage.setItem('currentUser', JSON.stringify(user));
-      this.currentUserSubject.next(user);
+      localStorage.setItem('currentUser', "loggedIn");
       return user;
     }));
   }
