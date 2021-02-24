@@ -24,21 +24,23 @@ export class LoginserviceService {
   
   }
 
-  public get loggedIn(): boolean {  
-    return (localStorage.getItem('currentUser') !== null);  
-  } 
+  // public get loggedIn(): boolean {  
+  //   return (localStorage.getItem('currentUser') !== null);  
+  // } 
   
   public login(user :User): Observable<any> {
-    return this.http.post<any>(this.apiUrl+'/autheticate', user, httpoption)
-    // return this.http.post<any>('http://localhost:8080//login', user, httpoption)
+    // return this.http.post<any>(this.apiUrl+'/autheticate', user, httpoption)
+    return this.http.post<any>('http://localhost:8080//login', user, httpoption)
 
-    .pipe(map(User => {
-      localStorage.setItem('currentUser', "loggedIn");
+    .pipe(map(user => {
+      localStorage.setItem('currentUser', JSON.stringify(user));
+      console.log(localStorage.getItem('currentUser'));
       return user;
     }));
   }
 
  public logout() {
     localStorage.removeItem('currentUser');
+   console.log(localStorage.getItem('currentUser'));
 }
 }

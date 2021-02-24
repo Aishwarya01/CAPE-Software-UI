@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from  '@angular/forms
 import { Route, Router } from '@angular/router';
 import { RegisterserviceService } from '../services/registerservice.service';
 import { User } from '../model/user';
+import { Roles } from '../model/roles';
 
 @Component({
   selector: 'app-register',
@@ -24,6 +25,7 @@ export class RegisterComponent implements OnInit {
   submitted = false;
   usertypelist: any= ['User','Viewer','Admin'];
   user = new User();
+  roles = new Roles();
   msg="";
 
   constructor(
@@ -63,6 +65,9 @@ export class RegisterComponent implements OnInit {
 
   this.loading=true;
   this.user.userName= this.registerForm.value.email;
+  console.log(this.registerForm.value.email);
+//  this.user.roles=this.registerForm.value.userType;
+
   if(this.user.active == undefined) {
     this.user.active=false;
   }

@@ -1,3 +1,6 @@
+import { Roles } from "./roles";
+
+
 export class User {
     id: number;
     firstName: String;
@@ -7,7 +10,8 @@ export class User {
     userType: String;
     password: String;  
     active: boolean;
-    
+    roles : Roles[];
+ 
     constructor () {
     }
 }
