@@ -28,13 +28,12 @@ export class LoginserviceService {
   //   return (localStorage.getItem('currentUser') !== null);  
   // } 
   
-  public login(user :User): Observable<any> {
+  public login(email: String, password: String): Observable<any> {
     // return this.http.post<any>(this.apiUrl+'/autheticate', user, httpoption)
-    return this.http.post<any>(this.apiUrl+'/authenticate', user, httpoption)
+    return this.http.post<any>(this.apiUrl+'/authenticate', { email, password }, httpoption)
 
     .pipe(map(user => {
       localStorage.setItem('currentUser', JSON.stringify(user));
-      console.log(localStorage.getItem('currentUser'));
       return user;
     }));
   }

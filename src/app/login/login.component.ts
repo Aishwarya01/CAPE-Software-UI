@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
 
     this.loading=true;
 
-    this.loginservice.login(this.user).subscribe(
+    this.loginservice.login(this.user.email, this.user.password).subscribe(
       data=> { 
         console.log("Response Success");
         this.router.navigate(['/home'])
