@@ -18,8 +18,8 @@ const httpoption = {
 export class LoginserviceService {
   apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }
-  public login(email: String, password: String): Observable<any> {
-    return this.http.post<any>(this.apiUrl + '/authenticate', { email, password }, httpoption)
+  public login(userName: String, password: String): Observable<any> {
+    return this.http.post<any>(this.apiUrl + '/authenticate', { userName, password }, httpoption)
       .pipe(map(user => {
         localStorage.setItem('currentUser', JSON.stringify(user));
         return user;
