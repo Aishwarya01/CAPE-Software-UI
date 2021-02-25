@@ -61,13 +61,13 @@
                                 <i class="bi bi-person-fill"></i>                            
                             </span>
                         </div>  
-                        <select  formControlName="usertype" class="form-control" 
-                        [ngClass]="{ 'is-invalid': submitted && f.usertype.errors }" [(ngModel)]="user.userType">
+                        <select  formControlName="userType" class="form-control" 
+                        [ngClass]="{ 'is-invalid': submitted && f.userType.errors }" [(ngModel)]="user.userType">
                             <option value="" selected>Select Type</option>
-                            <option *ngFor="let user of usertypelist">{{user}}</option>
+                            <option *ngFor="let user of usertypelist">{{user | uppercase}}</option>
                         </select>   
-                        <div *ngIf="submitted && f.usertype.errors" class="invalid-feedback">
-                            <div *ngIf="f.usertype.errors.required">Please select user type</div>
+                        <div *ngIf="submitted && f.userType.errors" class="invalid-feedback">
+                            <div *ngIf="f.userType.errors.required">Please select user type</div>
                         </div>
                     </div> 
                 </div>

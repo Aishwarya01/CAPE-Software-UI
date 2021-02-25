@@ -1,5 +1,5 @@
-export class Roles {
-    role: String;
+export class Role {
+    role: String ;
     
     constructor () { }
 }
