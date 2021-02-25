@@ -17,13 +17,26 @@ const httpoption = {
 })
 export class LoginserviceService {
   apiUrl = environment.apiUrl;
-  constructor(private http: HttpClient) { }
-  public login(userName: String, password: String): Observable<any> {
-    return this.http.post<any>(this.apiUrl + '/authenticate', { userName, password }, httpoption)
-      .pipe(map(user => {
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        return user;
-      }));
+ 
+
+
+  constructor ( private http: HttpClient) { 
+  
+  }
+
+  // public get loggedIn(): boolean {  
+  //   return (localStorage.getItem('currentUser') !== null);  
+  // } 
+  
+  public login(user :User): Observable<any> {
+    // return this.http.post<any>(this.apiUrl+'/autheticate', user, httpoption)
+    return this.http.post<any>(this.apiUrl+'/authenticate', user, httpoption)
+
+    .pipe(map(user => {
+      localStorage.setItem('currentUser', JSON.stringify(user));
+      console.log(localStorage.getItem('currentUser'));
+      return user;
+    }));
   }
 
   public logout() {

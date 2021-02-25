@@ -12,13 +12,15 @@ import { LoginserviceService } from '../services/loginservice.service';
 export class LoginComponent implements OnInit {
   loginForm = new FormGroup({
     email: new FormControl(''),
-    password: new FormControl('')
+    password: new FormControl(''),
+    remember: new FormControl('')
   });
 
   loading = false;
   submitted = false;
-  user = new User();
-  msg = "";
+  returnUrl= String;
+   user = new User();
+  msg="";
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,8 +34,9 @@ export class LoginComponent implements OnInit {
       email: ['', [
         Validators.required,
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-      password: ['', Validators.required]
-    });
+      password: ['', Validators.required],
+      remember: ['', Validators.required]
+  });
   }
 
   get f() {
@@ -41,16 +44,16 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
+    this.submitted=true;
 
-    //breaks here if form is invalid
-    if (this.loginForm.invalid) {
-      return;
-    }
-    this.user.userName = this.user.email;
-    this.loading = true;
-    this.loginservice.login(this.user.userName, this.user.password).subscribe(
-      data => {
+    // if(this.loginForm.invalid) {
+    //   return;
+    // }
+
+    this.loading=true;
+
+    this.loginservice.login(this.user).subscribe(
+      data=> { 
         console.log("Response Success");
         this.router.navigate(['/home'])
       },
