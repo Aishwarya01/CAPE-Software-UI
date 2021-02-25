@@ -24,13 +24,15 @@ export class LoginserviceService {
   
   }
 
-  // public get loggedIn(): boolean {  
-  //   return (localStorage.getItem('currentUser') !== null);  
-  // } 
   
+<<<<<<< Updated upstream
   public login(user :User): Observable<any> {
     // return this.http.post<any>(this.apiUrl+'/autheticate', user, httpoption)
     return this.http.post<any>(this.apiUrl+'/authenticate', user, httpoption)
+=======
+  public login(email: String,password: String): Observable<any> {
+    return this.http.post<any>(this.apiUrl+'/autheticate', {email,password}, httpoption)
+>>>>>>> Stashed changes
 
     .pipe(map(user => {
       localStorage.setItem('currentUser', JSON.stringify(user));

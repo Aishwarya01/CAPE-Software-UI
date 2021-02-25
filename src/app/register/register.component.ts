@@ -18,8 +18,7 @@ export class RegisterComponent implements OnInit {
     email: new FormControl(''),
     userType: new FormControl(''),
     password: new FormControl(''),
-    confirmpassword: new FormControl(''),
-    active: new FormControl('')
+    confirmpassword: new FormControl('')
   });
   loading = false;
   submitted = false;
@@ -41,8 +40,7 @@ export class RegisterComponent implements OnInit {
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       userType: ['', Validators.required],
       password: ['', Validators.required],
-      confirmpassword: ['', Validators.required],
-      isActive: ['', Validators.required]
+      confirmpassword: ['', Validators.required]
     });
   }
 
@@ -52,6 +50,11 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+
+    //breaks here if form is invalid
+    if(this.registerForm.invalid) {
+      return;
+    }
     this.loading = true;
     this.user.userName = this.registerForm.value.email;
     this.user.role = this.registerForm.value.userType;
