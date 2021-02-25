@@ -47,9 +47,8 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-    this.user.userName = this.user.email;
     this.loading = true;
-    this.loginservice.login(this.user.userName, this.user.password).subscribe(
+    this.loginservice.login(this.user.email, this.user.password).subscribe(
       data => {
         console.log("Response Success");
         this.router.navigate(['/home'])
