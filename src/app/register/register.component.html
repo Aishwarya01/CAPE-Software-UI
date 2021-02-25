@@ -21,7 +21,7 @@
                         <input type="text" formControlName="firstname" class="form-control" placeholder="Enter your firstname"
                         [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }" [(ngModel)]="user.firstName"/>  
                         <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
-                            <div *ngIf="f.firstname.errors.required">firstname is required</div>
+                            <div *ngIf="f.firstname.errors.required">Firstname is required</div>
                         </div>          
                     </div> 
                 </div>
@@ -100,7 +100,7 @@
                         [ngClass]="{ 'is-invalid': submitted && f.confirmpassword.errors }"/>
                         <div *ngIf="submitted && f.confirmpassword.errors" class="invalid-feedback">
                             <div *ngIf="f.confirmpassword.errors.required">Confirm Password is required</div>
-                            <div *ngIf="f.confirmpassword.errors.pattern">Password and confirmpassword must be same</div>
+                            <div *ngIf="f.confirmpassword.errors.pattern">Password and Confirm password must be same</div>
                         </div>
                     </div>            
                 </div>
