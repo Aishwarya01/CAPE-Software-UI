@@ -12,8 +12,7 @@ import { LoginserviceService } from '../services/loginservice.service';
 export class LoginComponent implements OnInit {
   loginForm = new FormGroup({
     email: new FormControl(''),
-    password: new FormControl(''),
-    remember: new FormControl('')
+    password: new FormControl('')
   });
 
   loading = false;
@@ -34,8 +33,7 @@ export class LoginComponent implements OnInit {
       email: ['', [
         Validators.required,
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-      password: ['', Validators.required],
-      remember: ['', Validators.required]
+      password: ['', Validators.required]
   });
   }
 
