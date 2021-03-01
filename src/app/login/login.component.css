@@ -18,6 +18,10 @@
     font-size: 1.5rem;
 }
 
+.input-group{
+    width: 400px;
+}
+
 .auth-form-btn {
     margin-top: 30px;
 }
