@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../model/user';
+import { ForgotpasswordService } from '../services/forgotpassword.service';
 
 @Component({
   selector: 'app-updatepassword',
@@ -19,14 +20,17 @@ export class UpdatepasswordComponent implements OnInit {
 
   loading = false;
   submitted = false;
-  returnUrl= String;
-   user = new User();
+  user = new User();
   msg="";
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router,
-  ) { }
+    private router: ActivatedRoute,
+    private route: Router,
+    private forgotpasswordsevice: ForgotpasswordService
+    ) {
+    this.user.email=JSON.stringify(this.router.snapshot.paramMap.get('email'))
+    }
 
   ngOnInit(): void {
     this.updatepassform = this.formBuilder.group({
@@ -36,6 +40,8 @@ export class UpdatepasswordComponent implements OnInit {
       password: ['', Validators.required],
       confirmpassword: ['', Validators.required],
       });
+
+      
   }
   
   get f() {
@@ -51,6 +57,17 @@ export class UpdatepasswordComponent implements OnInit {
     }
 
     this.loading=true;
+
+    this.forgotpasswordsevice.updatePassword(this.user.email, this.user.password).subscribe(
+      data=> { 
+        this.route.navigate(['/login']);
+      },
+      error => {
+        console.log("Exception occured");
+        this.msg = "Something went wrong";
+        this.loading=false;
+      }
+    )
   }
 
 }

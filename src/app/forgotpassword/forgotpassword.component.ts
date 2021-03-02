@@ -48,14 +48,14 @@ export class ForgotpasswordComponent implements OnInit {
 
     this.loading=true;
 
-    this.forgotpasswordservice.forgotpassword(this.user.email).subscribe(
+    this.forgotpasswordservice.forgotPassword(this.user.email).subscribe(
       data=> { 
-        console.log("Response Success");
-        this.router.navigate(['/updatepassword'])
+        this.router.navigate(['/updatepassword', {email: data}])
       },
       error => {
         console.log("Exception occured");
         this.msg = "Email is not registered with us";
+        this.loading=false;
       }
     )
   }

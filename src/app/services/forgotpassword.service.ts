@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 const httpoption = {
   headers: new HttpHeaders({
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/json', 
   })
 };
 
@@ -19,9 +19,12 @@ export class ForgotpasswordService {
   constructor ( private http: HttpClient) {
 
   } 
-  
 
-  public forgotpassword(email: String): Observable<any> {
+  public forgotPassword(email: String): Observable<any> {
     return this.http.get<any>(this.apiUrl+'/forgotPassword'+'/'+email, { responseType: 'text' as 'json' })
+  }
+
+  public updatePassword(email: String, password: String): Observable<any> {
+    return this.http.put<any>(this.apiUrl+'/updatePassword',  { email, password }, httpoption)
   }
 }
