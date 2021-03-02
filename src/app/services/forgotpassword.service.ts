@@ -22,6 +22,6 @@ export class ForgotpasswordService {
   
 
   public forgotpassword(email: String): Observable<any> {
-    return this.http.post<any>(this.apiUrl+'/forgotpassword'+'/'+email, { email }, httpoption)
+    return this.http.get<any>(this.apiUrl+'/forgotPassword'+'/'+email, { responseType: 'text' as 'json' })
   }
 }
