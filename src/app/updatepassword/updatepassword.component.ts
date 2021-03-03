@@ -21,7 +21,7 @@ export class UpdatepasswordComponent implements OnInit {
   loading = false;
   submitted = false;
   user = new User();
-  msg="";
+  showErrorMessage= false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,14 +29,11 @@ export class UpdatepasswordComponent implements OnInit {
     private route: Router,
     private forgotpasswordsevice: ForgotpasswordService
     ) {
-    this.user.email=JSON.stringify(this.router.snapshot.paramMap.get('email'))
+      this.user.email=this.router.snapshot.paramMap.get('email') || '{}'
     }
 
   ngOnInit(): void {
     this.updatepassform = this.formBuilder.group({
-      email: ['', [
-        Validators.required,
-        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       password: ['', Validators.required],
       confirmpassword: ['', Validators.required],
       });
@@ -63,8 +60,8 @@ export class UpdatepasswordComponent implements OnInit {
         this.route.navigate(['/login']);
       },
       error => {
-        console.log("Exception occured");
-        this.msg = "Something went wrong";
+        this.showErrorMessage=true;
+        this.updatepassform.reset();
         this.loading=false;
       }
     )

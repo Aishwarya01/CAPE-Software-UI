@@ -10,6 +10,7 @@ const httpoption = {
   })
 };
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -25,6 +26,6 @@ export class ForgotpasswordService {
   }
 
   public updatePassword(email: String, password: String): Observable<any> {
-    return this.http.put<any>(this.apiUrl+'/updatePassword',  { email, password }, httpoption)
+    return this.http.put<any>(this.apiUrl+'/updatePassword',  { email, password }, { responseType: 'text' as 'json' } )
   }
 }

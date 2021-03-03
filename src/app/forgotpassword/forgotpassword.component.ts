@@ -18,7 +18,7 @@ export class ForgotpasswordComponent implements OnInit {
   loading = false;
   submitted = false;
   user = new User();
-  msg="";
+  showErrorMessage=false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -53,8 +53,8 @@ export class ForgotpasswordComponent implements OnInit {
         this.router.navigate(['/updatepassword', {email: data}])
       },
       error => {
-        console.log("Exception occured");
-        this.msg = "Email is not registered with us";
+        this.showErrorMessage=true;
+        this.forgotpassform.reset();
         this.loading=false;
       }
     )

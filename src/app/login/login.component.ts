@@ -17,9 +17,8 @@ export class LoginComponent implements OnInit {
 
   loading = false;
   submitted = false;
-  returnUrl= String;
    user = new User();
-  msg="";
+   showErrorMessage=false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -57,8 +56,10 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/home'])
       },
       error => {
-        console.log("Exception occured");
-        this.msg = "Please enter a valid Email and Password";
+        this.showErrorMessage=true;
+        this.loginForm.reset();
+        this.loading=false;
+
       }
     )
 
