@@ -6,10 +6,10 @@
                 <img src="assets/img/Cape-logo.png">
             </div>
             <div class="login-header">
-                <h3 class="login-title">Inspection of LV System For Safety</h3>
+                <h3 class="login-title">Register to Cape Electric Applications</h3>
             </div>
             <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-                <div class="invalid-feedback">{{msg}}</div>
+                <span class="invalid-feedback">{{msg}}</span>
                 <div class="form-group">
                     <label for="firstname">* Firstname</label>
                     <div class="input-group">
@@ -21,7 +21,7 @@
                         <input type="text" formControlName="firstname" class="form-control" placeholder="Enter your firstname"
                         [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }" [(ngModel)]="user.firstName"/>  
                         <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
-                            <div *ngIf="f.firstname.errors.required">firstname is required</div>
+                            <div *ngIf="f.firstname.errors.required">Firstname is required</div>
                         </div>          
                     </div> 
                 </div>
@@ -61,13 +61,13 @@
                                 <i class="bi bi-person-fill"></i>                            
                             </span>
                         </div>  
-                        <select  formControlName="usertype" class="form-control" 
-                        [ngClass]="{ 'is-invalid': submitted && f.usertype.errors }" [(ngModel)]="user.userType">
+                        <select  formControlName="userType" class="form-control" 
+                        [ngClass]="{ 'is-invalid': submitted && f.userType.errors }" [(ngModel)]="user.userType">
                             <option value="" selected>Select Type</option>
-                            <option *ngFor="let user of usertypelist">{{user}}</option>
+                            <option *ngFor="let user of usertypelist">{{user | uppercase}}</option>
                         </select>   
-                        <div *ngIf="submitted && f.usertype.errors" class="invalid-feedback">
-                            <div *ngIf="f.usertype.errors.required">Please select user type</div>
+                        <div *ngIf="submitted && f.userType.errors" class="invalid-feedback">
+                            <div *ngIf="f.userType.errors.required">Please select user type</div>
                         </div>
                     </div> 
                 </div>
@@ -81,7 +81,7 @@
                             </span>
                         </div>     
                         <input type="password" formControlName="password" class="form-control" placeholder="Enter your password" minlength="8" maxlength="15"
-                        [ngClass]="{ 'is-invalid': submitted && f.password.errors }" [(ngModel)]=user.password/>  
+                        [ngClass]="{ 'is-invalid': submitted && f.password.errors }" [(ngModel)]="user.password"/>  
                         <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                             <div *ngIf="f.password.errors.required">Password is required</div>
                             <div *ngIf="f.password.errors.minlength">Password must be at least 8 characters</div>
@@ -100,10 +100,14 @@
                         [ngClass]="{ 'is-invalid': submitted && f.confirmpassword.errors }"/>
                         <div *ngIf="submitted && f.confirmpassword.errors" class="invalid-feedback">
                             <div *ngIf="f.confirmpassword.errors.required">Confirm Password is required</div>
-                            <div *ngIf="f.confirmpassword.errors.pattern">Password and confirmpassword must be same</div>
+                            <div *ngIf="f.confirmpassword.errors.pattern">Password and Confirm password must be same</div>
                         </div>
                     </div>            
                 </div>
+                <div class="form-check">
+                    <input type="checkbox" formControlName="isActive" [(ngModel)]="user.active"/>
+                    Active
+                </div> 
 
         <div style="display: inline;">
             <button [disabled]="loading" style="float: left;" type="submit" class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"><i class="bi bi-person-plus-fill icon"></i> Register</button>

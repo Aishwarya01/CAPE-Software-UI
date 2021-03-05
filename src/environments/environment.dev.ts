@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  environmentName: 'development',
-  apiUrl: 'http://localhost:8082/api/v1'
+  environmentName: 'dev',
+  apiUrl: 'https://lv-inspection-system-backend.herokuapp.com/api/v1'
 };
 
 /*
