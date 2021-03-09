@@ -3,12 +3,20 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Menu</mat-toolbar>
+    <mat-toolbar>
+      <div class="brand-logo">
+        <a href="#"><img src="assets/img/Cape-logo.png"></a>
+      </div>
+    </mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item [routerLink]="['/home']">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
+      <a mat-list-item  [routerLink]="['/home']">Verification of LV system (IEC 60364-6)</a>
+      <a mat-list-item  [routerLink]="['/home']">Verification of HV system (up to 33 kV) (IEC 61936-1)</a>
+      <a mat-list-item  [routerLink]="['/home']">Lightning protection conformity assessment, risk assessment,  inspection and maintenance (IEC 62305-3 & 4) </a>
+      <a mat-list-item  [routerLink]="['/home']">EMC assessment of an installation (IEC 61000-5-1)</a>
+      <a mat-list-item  [routerLink]="['/home']">Failure analysis of electronic systems</a>
+      <a mat-list-item  [routerLink]="['/home']">Conformity and project analysis</a>   
     </mat-nav-list>
+
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
@@ -16,12 +24,13 @@
         type="button"
         aria-label="Toggle sidenav"
         mat-icon-button
-        (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
+        (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>lv-inspection-safety-ui</span>
+      <span>Cape Electric Applications</span>
+      <span class="spacer"></span>
+      <button class="btn btn-info" (click)="logout()">Logout</button>
     </mat-toolbar>
-    <!-- Add Content Here -->
+    <ng-content></ng-content>
   </mat-sidenav-content>
 </mat-sidenav-container>
