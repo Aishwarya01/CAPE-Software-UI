@@ -1,11 +1,11 @@
 
 export class User {
     id: number = 0;
-    firstName: String = '';
-    lastName: String = '';
+    firstname: String = '';
+    lastname: String = '';
     email: String = '';
-    userName: String = '';
-    userType: String = '';
+    username: String = '';
+    usertype: String = '';
     password: String = '';  
     active: boolean = false;
     role: String = '';

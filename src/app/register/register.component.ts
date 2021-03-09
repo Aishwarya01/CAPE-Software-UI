@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
       email: ['', [
         Validators.required,
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-      userType: ['', Validators.required],
+      usertype: ['', Validators.required],
       password: ['', Validators.required],
       confirmpassword: ['', Validators.required],
       isActive: ['', Validators.required]
@@ -59,11 +59,10 @@ export class RegisterComponent implements OnInit {
     }
 
     this.loading = true;
-    this.user.userName = this.registerForm.value.email;
-    this.user.role = this.registerForm.value.userType;
+    this.user.username = this.registerForm.value.email;
+    this.user.role = this.registerForm.value.usertype;
     this.registerservice.register(this.user).subscribe(
       data => {
-        console.log("REgister Success");
         this.msg = "Register Success";
         this.router.navigate(['/login']);
       },

@@ -6,40 +6,43 @@ import { User } from '../model/user';
 import { environment } from 'src/environments/environment';
 
 
-const httpoption = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-  })
-};
-
 @Injectable({
   providedIn: 'root'
 })
 export class LoginserviceService {
   apiUrl = environment.apiUrl;
- 
+  USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser';
+  public token: String = '';
 
+  constructor(private http: HttpClient) {
 
-  constructor ( private http: HttpClient) { 
-  
   }
 
-  // public get loggedIn(): boolean {  
-  //   return (localStorage.getItem('currentUser') !== null);  
-  // } 
-  
   public login(email: String, password: String): Observable<any> {
-    // return this.http.post<any>(this.apiUrl+'/autheticate', user, httpoption)
-    return this.http.post<any>(this.apiUrl+'/authenticate', { email, password }, httpoption)
-
-    .pipe(map(user => {
-      localStorage.setItem('currentUser', JSON.stringify(user));
-      return user;
-    }));
+    return this.http.post<any>(this.apiUrl + '/authenticate', { email, password })
+      .pipe(
+        map(userData => {
+          sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, JSON.stringify(userData.users));
+          this.token = userData.token
+          return userData;
+        }));
   }
 
-  public logout() {
-    localStorage.removeItem('currentUser');
-    console.log(localStorage.getItem('currentUser'));
+  logout() {
+    sessionStorage.removeItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
+    this.token = '';
+  }
+
+
+  isUserLoggedIn() {
+    let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME)
+    if (user === null) return false
+    return true
+  }
+
+  getLoggedInUserName() {
+    let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME)
+    if (user === null) return ''
+    return user
   }
 }
