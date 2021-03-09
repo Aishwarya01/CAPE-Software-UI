@@ -4,13 +4,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-const httpoption = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json', 
-  })
-};
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -25,7 +18,5 @@ export class ForgotpasswordService {
     return this.http.get<any>(this.apiUrl+'/forgotPassword'+'/'+email, { responseType: 'text' as 'json' })
   }
 
-  public updatePassword(email: String, password: String): Observable<any> {
-    return this.http.put<any>(this.apiUrl+'/updatePassword',  { email, password }, { responseType: 'text' as 'json' } )
-  }
+  
 }
