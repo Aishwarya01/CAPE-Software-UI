@@ -18,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { HeaderComponent } from './header/header.component';
 import { BasicAuthHtppInterceptorService } from './services/basic-auth-interceptor.service';
 
 @NgModule({
@@ -28,7 +29,8 @@ import { BasicAuthHtppInterceptorService } from './services/basic-auth-intercept
     HomeComponent,
     ForgotpasswordComponent,
     UpdatepasswordComponent,
-    MainNavComponent
+    MainNavComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
