@@ -9,6 +9,7 @@
 
 .sidenav-container {
   height: 100%;
+
 }
 
 .sidenav {
@@ -17,6 +18,11 @@
 
 .sidenav .mat-toolbar {
   background: inherit;
+  margin-bottom: 20px;
+}
+
+.active-list-item {
+  color: #3F51B5 !important; /* Note: You could also use a custom theme */
 }
 
 
@@ -28,4 +34,8 @@
 
 .spacer {
   flex: 1 1 auto;
+}
+
+.spacer-row {
+  padding: 10px;
 }

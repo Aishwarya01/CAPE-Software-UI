@@ -18,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import {MatMenuModule} from '@angular/material/menu';
 import { HeaderComponent } from './header/header.component';
 import { BasicAuthHtppInterceptorService } from './services/basic-auth-interceptor.service';
 
@@ -44,7 +45,8 @@ import { BasicAuthHtppInterceptorService } from './services/basic-auth-intercept
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatMenuModule
   ],
   providers: [ { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }],
   bootstrap: [AppComponent]
