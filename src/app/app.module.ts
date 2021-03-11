@@ -21,6 +21,7 @@ import { MatListModule } from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
 import { HeaderComponent } from './header/header.component';
 import { BasicAuthHtppInterceptorService } from './services/basic-auth-interceptor.service';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { BasicAuthHtppInterceptorService } from './services/basic-auth-intercept
     ForgotpasswordComponent,
     UpdatepasswordComponent,
     MainNavComponent,
-    HeaderComponent
+    HeaderComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

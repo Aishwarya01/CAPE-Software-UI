@@ -3,7 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { LoginserviceService } from '../services/loginservice.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-nav',
@@ -17,14 +17,21 @@ export class MainNavComponent {
       map(result => result.matches),
       shareReplay()
     );
-
+  email: String = '';
   constructor(private breakpointObserver: BreakpointObserver,
               private loginservice: LoginserviceService,
-              private route: Router) {}
+              private router: ActivatedRoute,
+              private route: Router) {
+                this.email=this.router.snapshot.paramMap.get('email') || '{}'
+              }
 
   logout(){
     this.loginservice.logout();
     this.route.navigate(['login']);
+  }
+
+  changePassword(email: String){
+    this.route.navigate(['changePassword', {email: email}])
   }
 
 }

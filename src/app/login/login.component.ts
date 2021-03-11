@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
 
     this.loginservice.login(this.user.email, this.user.password).subscribe(
       data=> { 
-        this.router.navigate(['/home'])
+        this.router.navigate(['/home', {email: data.users.email}])
       },
       error => {
         this.showErrorMessage=true;

@@ -22,7 +22,8 @@ export class ForgotpasswordComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router,
+    private router: ActivatedRoute,
+    private route: Router,
     private forgotpasswordservice: ForgotpasswordService,
   ) { }
 
@@ -47,10 +48,9 @@ export class ForgotpasswordComponent implements OnInit {
     }
 
     this.loading=true;
-
     this.forgotpasswordservice.forgotPassword(this.user.email).subscribe(
       data=> { 
-        this.router.navigate(['/updatepassword', {email: data}])
+        this.route.navigate(['/updatepassword', {email: data}])
       },
       error => {
         this.showErrorMessage=true;
