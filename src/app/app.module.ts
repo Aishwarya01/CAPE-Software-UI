@@ -22,6 +22,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import { HeaderComponent } from './header/header.component';
 import { BasicAuthHtppInterceptorService } from './services/basic-auth-interceptor.service';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     UpdatepasswordComponent,
     MainNavComponent,
     HeaderComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

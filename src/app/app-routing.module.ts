@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { UpdatepasswordComponent } from './updatepassword/updatepassword.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {path: '', redirectTo: "/login", pathMatch: 'full' },
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: 'updatepassword' ,component: UpdatepasswordComponent},
   {path: 'register',component:RegisterComponent},
   {path: 'changePassword', component:ChangePasswordComponent},
+  {path: 'profile',component:ProfileComponent},
   {path: 'home',component:HomeComponent, canActivate:[AuthenticationGuard]}
 ];
 

@@ -34,4 +34,8 @@ export class MainNavComponent {
     this.route.navigate(['changePassword', {email: email}])
   }
 
+  profileUpdate(email: String) {
+    this.route.navigate(['profile', {email: email}])
+  }
+
 }
