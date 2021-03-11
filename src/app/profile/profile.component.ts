@@ -33,7 +33,8 @@ export class ProfileComponent implements OnInit {
     ) { 
       this.user.email=this.router.snapshot.paramMap.get('email') || '{}'
       this.ProfileService.getUser(this.user.email).subscribe(
-        data => console.log(data)
+        data =>{data.firstname}    
+        
       )
     }
 

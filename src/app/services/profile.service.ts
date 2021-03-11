@@ -17,6 +17,6 @@ export class ProfileService {
   }
 
   public getUser (email: String): Observable<any> {
-    return this.http.get<any>(this.apiUrl+'/getUser'+'/'+email, { responseType: 'text' as 'json' })
+    return this.http.get<any>(this.apiUrl+'/retrieveUserInformation'+'/'+email, { responseType: 'text' as 'json' })
   }
 }
