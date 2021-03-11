@@ -21,10 +21,6 @@
   margin-bottom: 20px;
 }
 
-.active-list-item {
-  color: #3F51B5 !important; /* Note: You could also use a custom theme */
-}
-
 
 .mat-toolbar.mat-primary {
   position: sticky;
