@@ -51,10 +51,10 @@
       </button>
       <span>Cape Electric Applications</span>
       <span class="spacer"></span>
-      <button mat-button [matMenuTriggerFor]="menu">User Name</button>
+      <button mat-button [matMenuTriggerFor]="menu">{{email}}</button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item>Profile</button>
-        <button mat-menu-item>Change Password</button>
+        <button mat-menu-item (click)="changePassword(email)">Change Password</button>
         <button  mat-menu-item (click)="logout()">Logout</button>
       </mat-menu>
       
