@@ -70,13 +70,13 @@
             
                             
                             <div class="form-check">
-                                <input type="checkbox"  formControlName="isActive"/>
+                                <input type="checkbox"  formControlName="isActive" [(ngModel)]="user.active"/>
                                 Active
                             </div> 
             
                             <div style="display: inline;">
                                 <button [disabled]="loading" style="float: left;" type="submit" class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"><i class="bi bi-person-plus-fill icon"></i> Update</button>
-                                <button [disabled]="loading" [routerLink]="['/home']" style="float:right;"  class="btn btn-outline-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
+                                <button [disabled]="loading" (click)="cancel()" style="float:right;"  class="btn btn-outline-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
                             </div>                            
                         </form>
                     </div>

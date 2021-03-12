@@ -29,11 +29,11 @@ export class ProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: ActivatedRoute,
     private route: Router,
-    private ProfileService: ProfileService
+    private profileService: ProfileService
     ) { 
       this.user.email=this.router.snapshot.paramMap.get('email') || '{}'
-      this.ProfileService.getUser(this.user.email).subscribe(
-        data =>{ this.user= JSON.parse(data)  ,  
+      this.profileService.getUser(this.user.email).subscribe(
+        data =>{ this.user= JSON.parse(data),
         console.log(this.user) }
         
       )
@@ -41,13 +41,13 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.profileForm = this.formBuilder.group({
-      firstname: ['', Validators.required],
-      lastname: ['', Validators.required],
-      email: ['', [
+      firstname: [this.user.firstname, Validators.required],
+      lastname: [this.user.lastname, Validators.required],
+      email: [this.user.email, [
         Validators.required,
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-      usertype: ['', Validators.required],
-      isActive: ['', Validators.required]
+      usertype: [this.user.usertype, Validators.required],
+      isActive: [this.user.active, Validators.required]
     });
   }
 
@@ -68,12 +68,17 @@ export class ProfileComponent implements OnInit {
     this.loading = true;
     // this.user.username = this.profileForm.value.email;
     this.user.role = this.profileForm.value.usertype;
-    this.ProfileService.updateProfile(this.user).subscribe(
+    this.profileService.updateProfile(this.user).subscribe(
       data => {
         this.msg = "Profile Updated Successfully";
-        this.route.navigate(['/home']);
+        console.log(data);
+        this.route.navigate(['/home', {email: data}]);
       },
       error => console.log("Failed")
     )
+  }
+
+  cancel(){
+    this.route.navigate(['/home', {email: this.user.email}]);
   }
 }

@@ -13,7 +13,7 @@ export class ProfileService {
   constructor ( private http: HttpClient) { }
   
   public  updateProfile (user :User): Observable<any> {
-    return this.http.put<any>(this.apiUrl+'/', user)
+    return this.http.put<any>(this.apiUrl+'/updateUserProfile', user, { responseType: 'text' as 'json' })
   }
 
   public getUser (email: String): Observable<any> {

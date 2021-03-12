@@ -68,4 +68,8 @@ export class ChangePasswordComponent implements OnInit {
     )
   }
 
+  cancel(){
+    this.route.navigate(['/home', {email: this.changePassword.email}]);
+  }
+
 }
