@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { LoginserviceService } from '../services/loginservice.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import { LvInspectionDetailsComponent } from '../lv-inspection-details/lv-inspection-details.component';
 
 @Component({
   selector: 'app-main-nav',
@@ -21,7 +23,8 @@ export class MainNavComponent {
   constructor(private breakpointObserver: BreakpointObserver,
               private loginservice: LoginserviceService,
               private router: ActivatedRoute,
-              private route: Router) {
+              private route: Router,
+              private dialog: MatDialog) {
                 this.email=this.router.snapshot.paramMap.get('email') || '{}'
               }
 
@@ -36,6 +39,15 @@ export class MainNavComponent {
 
   profileUpdate(email: String) {
     this.route.navigate(['profile', {email: email}])
+  }
+
+  loadLVInformation(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "100%";
+    dialogConfig.height = "300%";
+    this.dialog.open(LvInspectionDetailsComponent, dialogConfig)
   }
 
 }

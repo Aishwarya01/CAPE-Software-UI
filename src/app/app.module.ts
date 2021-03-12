@@ -23,6 +23,8 @@ import { HeaderComponent } from './header/header.component';
 import { BasicAuthHtppInterceptorService } from './services/basic-auth-interceptor.service';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ProfileComponent } from './profile/profile.component';
+import { LvInspectionDetailsComponent } from './lv-inspection-details/lv-inspection-details.component';
+import { MaterialModule } from './material/material.module';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { ProfileComponent } from './profile/profile.component';
     MainNavComponent,
     HeaderComponent,
     ChangePasswordComponent,
-    ProfileComponent
+    ProfileComponent,
+    LvInspectionDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -50,9 +53,11 @@ import { ProfileComponent } from './profile/profile.component';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    MatMenuModule
+    MatMenuModule,
+    MaterialModule
   ],
   providers: [ { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [LvInspectionDetailsComponent]
 })
 export class AppModule { }
