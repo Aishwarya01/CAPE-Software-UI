@@ -1,52 +1,97 @@
 <html>
-    <head>Verification of LV system (IEC 60364-6)</head>
-    <body>
-        <h2>Verification of LV system (IEC 60364-6)</h2>
+<body>
+    <button style="float: right;" type="submit"
+        class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"
+        (click)="onNavigateToQuestionaire()">Skip</button>
+    <h2>VERIFICATION OF LV SYSTEMS (IEC 60364-6)</h2>
+    <div>
+        <br>
+        <p>IEC 60364 gives the rules for the design, erection, and verification of electrical installations up to 1000 V
+            AC and 1500 V DC. These rules are adopted/followed worldwide as wiring rules. Some of the adopted national
+            versions of this standard are BS7671 in UK, VDE0100 in Germany … etc. The NFPA 70 (NEC) of USA closely
+            follows the fundamental safety measures recommended in IEC 60364.
+            In India the standard is adopted as IS732 for general installations and Part 3 of National Building Code of
+            India part 3 for special locations.
+            The rules are intended to provide for the safety of persons, livestock and property against dangers and
+            damage which may arise in the reasonable use of electrical installations and to provide for the proper
+            functioning of those installations.
+            The rules are applicable in design, erection and verification of electrical installations such as
+            residential, commercial, public, industrial, agricultural and horticultural, prefabricated buildings,
+            caravans, caravan sites and similar sites, construction sites, exhibitions, fairs and other installations
+            for temporary purposes, marinas, external lighting and similar installations, medical locations, mobile or
+            transportable units, photovoltaic systems, low-voltage generating sets etc.
+            Verification ensures safety of the installation and its conformity to the standard in design, selection and
+            erection of the installation. Initial and periodic verifications are necessary.
+        </p>
+        <p> <u>Electrical installation up to 1000 V AC and 1500 V DC shall be inspected for</u>></p>
         <div>
-        <p>IEC 60364 gives the rules for the design, erection, and verification of electrical installations up to 1000 V AC and 1500 V DC. These rules are adopted/followed worldwide as wiring rules. Some of the adopted national versions of this standard are BS7671 in UK, VDE0100 in Germany … etc. The NFPA 70 (NEC) of USA closely follows the fundamental safety measures recommended in IEC 60364.
-            In india the standard is adopted as IS732 for general installations and Part 3 of National Building Code of India part 3 for special locations.
-            The rules are intended to provide for the safety of persons, livestock and property against dangers and damage which may arise in the reasonable use of electrical installations and to provide for the proper functioning of those installations. 
-            The rules are applicable in design, erection and verification of electrical installations such as residential, commercial, public, industrial, agricultural and horticultural, prefabricated buildings, caravans, caravan sites and similar sites, construction sites, exhibitions, fairs and other installations for temporary purposes, marinas, external lighting and similar installations, medical locations, mobile or transportable units, photovoltaic systems, low-voltage generating sets etc.
-            Verification ensures safety of the installation and its conformity to the standard in design, selection and rection of the installation. Initial and periodic verifications are necessary. 
+            <p>1. Method of protection against electric shock (see IEC 60364-4-41); (4.2)</p>
+            <p>2. Presence of fire barriers and other precautions against propagation of fire and protection against
+                thermal effects (see IEC 60364-4-42 and IEC 60364-5-52:2009, Clause 527); (4.3 & 5.2.10)</p>
+            <p>3. Selection of conductors for current-carrying capacity (see IEC 60364-4-43 and IEC 60364-5-52:2009,
+                Clauses 523); (4.4, 5.2.6 and 5.2.8)</p>
+            <p>4. Single-pole switching devices connected in the line conductors (5.3.7)</p>
+            <p>5. Choice, setting, selectivity and coordination of protective and monitoring devices (see IEC
+                60364-5-53:2001, Clause 536); (5.3.7)</p>
+            <p>6. Selection, location and installation of suitable overvoltage protective devices (SPD) where specified
+                (see IEC 60364-5-53: Clause 534); (5.3.5)</p>
+            <p>7. Selection, location and installation of suitable isolating and switching devices (see IEC 60364-5-53,
+                Clause 536); (5.3.6)</p>
+            <p>8. Selection of equipment and protective measures appropriate to external influences and mechanical
+                stresses (see IEC 60364-4-42: Clause 422, IEC 60364-5-51: 512.2 and IEC 60364-5-52: Clause 522); 4.3.2,
+                5.1.2.2 and 5.2.5</p>
+            <p>9. Identification of neutral and protective conductors (see IEC 60364-5-51:2005, 514.3); 5.1.4.3</p>
+            <p>10. Presence of diagrams, warning notices or similar information (see IEC 60364-5-51: 514.5); 5.1.4.5</p>
+            <p>11. Identification of circuits, overcurrent protective devices, switches, terminals etc. (see IEC
+                60364-5-51:2005, Clause 514); 5.1.4</p>
+            <p>12. Adequacy of termination and connection of cables and conductors (see IEC 60364-5-52:2009, Clause
+                526); 5.2.9</p>
+            <p>13. Selection and installation of earthing arrangements, protective conductors and their connections (see
+                IEC 60364-5-54); 5.4</p>
+            <p>14. Accessibility of equipment for convenience of operation, identification and maintenance (see IEC
+                60364-5-51: Clauses 513 and 514); 5.1.3 and 5.1.4</p>
+            <p>15. Measures against electromagnetic disturbances (see IEC 60364-4-44: Clause 444); (4.5.4)</p>
+            <p>16. Exposed-conductive-parts are connected to the earthing arrangement (see IEC 60364-4-41: Clause 411);
+                (4.2.11)</p>
+            <p>17. Selection and erection of the wiring systems (see IEC 60364-5-52:2009, Clauses 521 and 522). (5.2.4 &
+                5.2.5)</p>
+            <p>18. Particular requirements for special installations or locations (upcoming NEC)</p>
+            <p>19. Compliance to IEC61000-5-1 (electronic systems and information technology equipment)</p>
+        </div>
+        <div>
+            <p><u>Electrical installation up to 1000 V AC and 1500 V DC shall be tested for</u></p>
+            <p>a. Continuity of conductors </p>
+            <p>b. Insulation resistance </p>
+            <p>c. Insulation resistance of SELV, PELV or electrical separation</p>
+            <p>d. Floor and wall resistance/impedance</p>
+            <p>e. Polarity test</p>
+            <p>f. Effectiveness of automatic disconnection of supply</p>
+            <p>g. Effectiveness of additional protection</p>
+            <p>h. Phase sequence </p>
+            <p>i. Functional tests </p>
+            <p>j. Voltage drop </p>
+            <p>k. PAT</p>
+        </div>
+        <div>
+            <p>Special locations require additional inspection and testing.
+                The special locations are solar PV, medical locations, swimming pools, cconstruction and demolition
+                sites, agricultural and horticultural premises, conducting locations with restricted movement, caravan
+                parks, camping parks and similar locations, marine and similar location, exhibitions, shows and stands,
+                furniture, external lighting installations, extra low voltage Lighting Installation, mobile or
+                transportable units, recreational, Assembly Buildings & workplace, caravan & motor caravan, supplies for
+                Electrical Vehicles, operating or maintenance gangway, temporary electrical installations for amusement
+                devices and booths at fairgrounds, amusement parks and circuses, heating cables & embedded heating
+                systems
+                RUSH is designed to cater to the modern electrical safety requirements of IS and IEC standards and it
+                provide the results in the recommended formats from various national regulations. It is developed as an
+                efficient, intelligent and user-friendly application, by which the users can find out probable hazards
+                that could arise in future and do preventive measures to avoid accidents from electricity.
             </p>
-            <p>Electrical installation up to 1000 V AC and 1500 V DC shall be inspected for</p>
+        </div>
+    </div>
+    <button style="float: right;" type="submit"
+        class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"
+        (click)="onNavigateToQuestionaire()">Continue</button>
+</body>
 
-            <p>1. method of protection against electric shock (see IEC 60364-4-41); (4.2)</p>
-            <p>2. presence of fire barriers and other precautions against propagation of fire and protection against thermal effects (see IEC 60364-4-42 and IEC 60364-5-52:2009, Clause 527); (4.3 & 5.2.10)</p>
-            <p>3. selection of conductors for current-carrying capacity (see IEC 60364-4-43 and IEC 60364-5-52:2009, Clauses 523); (4.4, 5.2.6 and 5.2.8)</p>
-            <p>4. single-pole switching devices connected in the line conductors (5.3.7)</p>
-            <p>5. choice, setting, selectivity and coordination of protective and monitoring devices (see IEC 60364-5-53:2001, Clause 536); (5.3.7)</p>
-            <p>6. selection, location and installation of suitable overvoltage protective devices (SPD) where specified (see IEC 60364-5-53: Clause 534); (5.3.5)</p>
-            <p>7. selection, location and installation of suitable isolating and switching devices (see IEC 60364-5-53, Clause 536); (5.3.6)</p>
-            <p>8. selection of equipment and protective measures appropriate to external influences and mechanical stresses (see IEC 60364-4-42: Clause 422, IEC 60364-5-51: 512.2 and IEC 60364-5-52: Clause 522); 4.3.2, 5.1.2.2 and 5.2.5</p>
-            <p>9. identification of neutral and protective conductors (see IEC 60364-5-51:2005, 514.3); 5.1.4.3</p>
-            <p>10. presence of diagrams, warning notices or similar information (see IEC 60364-5-51: 514.5); 5.1.4.5</p>
-            <p>11. identification of circuits, overcurrent protective devices, switches, terminals etc. (see IEC 60364-5-51:2005, Clause 514); 5.1.4</p>
-            <p>12. adequacy of termination and connection of cables and conductors (see IEC 60364-5-52:2009, Clause 526); 5.2.9</p>
-            <p>13. selection and installation of earthing arrangements, protective conductors and their connections (see IEC 60364-5-54); 5.4</p>
-            <p>14. accessibility of equipment for convenience of operation, identification and maintenance (see IEC 60364-5-51: Clauses 513 and 514); 5.1.3 and 5.1.4</p>
-            <p>15. measures against electromagnetic disturbances (see IEC 60364-4-44: Clause 444); (4.5.4)</p>
-            <p>16. exposed-conductive-parts are connected to the earthing arrangement (see IEC 60364-4-41: Clause 411); (4.2.11)</p>
-            <p>17. selection and erection of the wiring systems (see IEC 60364-5-52:2009, Clauses 521 and 522). (5.2.4 & 5.2.5)</p>
-            <p>18. particular requirements for special installations or locations (upcoming NEC)</p>
-            <p>19.Compliance to IEC61000-5-1 (electronic systems and information technology equipment)</p>
-            <p>Electrical installation up to 1000 V AC and 1500 V DC shall be tested for
-
-              <p>a. continuity of conductors </p>
-              <p>b. insulation resistance </p>
-              <p>c. insulation resistance of SELV, PELV or electrical separation</p>
-              <p>d. floor and wall resistance/impedance</p>
-              <p>e. polarity test</p>
-              <p>f. effectiveness of automatic disconnection of supply</p>
-              <p>g. effectiveness of additional protection</p>
-              <p>h. phase sequence </p>
-              <p>i. functional tests </p>
-              <p>j. voltage drop </p>
-              <p>k. PAT</p>
-            <p>Special locations require additional inspection and testing. 
-                The special locations are solar PV, medical locations, swimming pools, cconstruction and demolition sites, agricultural and horticultural premises, conducting locations with restricted movement, caravan parks, camping parks and similar locations, marine and similar location, exhibitions, shows and stands, furniture, external lighting installations, extra low voltage Lighting Installation, mobile or transportable units, recreational, Assembly Buildings & workplace, caravan & motor caravan, supplies for Electrical Vehicles, operating or maintenance gangway, temporary electrical installations for amusement devices and booths at fairgrounds, amusement parks and circuses, heating cables & embedded heating systems
-                RUSH is designed to cater to the modern electrical safety requirements of IS and IEC standards and it provide the results in the recommended formats from various national regulations. It is developed as an efficient, intelligent and user-friendly application, by which the users can find out probable hazards that could arise in future and do preventive measures to avoid accidents from electricity.
-                </p>
-            </div>
-    </body>
 </html>

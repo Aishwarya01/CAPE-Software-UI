@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-lv-inspection-details',
   templateUrl: './lv-inspection-details.component.html',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LvInspectionDetailsComponent implements OnInit {
 
-  constructor() { }
+  constructor( ) { }
 
   ngOnInit(): void {
   }
 
+  onClose(){
+    alert("Are you sure want to proceed further");
+    
+  }
+
+  onNavigateToQuestionaire(){
+    console.log("Navigate To Questionaire");
+  }
 }
