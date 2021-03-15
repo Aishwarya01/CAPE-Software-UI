@@ -19,23 +19,23 @@ export class MainNavComponent {
     );
   email: String = '';
   constructor(private breakpointObserver: BreakpointObserver,
-              private loginservice: LoginserviceService,
-              private router: ActivatedRoute,
-              private route: Router) {
-                this.email=this.router.snapshot.paramMap.get('email') || '{}'
-              }
+    private loginservice: LoginserviceService,
+    private router: ActivatedRoute,
+    private route: Router) {
+    this.email = this.router.snapshot.paramMap.get('email') || '{}'
+  }
 
-  logout(){
+  logout() {
     this.loginservice.logout();
     this.route.navigate(['login']);
   }
 
-  changePassword(email: String){
-    this.route.navigate(['changePassword', {email: email}])
+  changePassword(email: String) {
+    this.route.navigate(['changePassword', { email: email }])
   }
 
   profileUpdate(email: String) {
-    this.route.navigate(['profile', {email: email}])
+    this.route.navigate(['profile', { email: email }])
   }
 
 }
