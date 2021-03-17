@@ -25,6 +25,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { ProfileComponent } from './profile/profile.component';
 import { LvInspectionDetailsComponent } from './lv-inspection-details/lv-inspection-details.component';
 import { MaterialModule } from './material/material.module';
+import { RiskAssessmentInspectionMaintenanceComponent } from './risk-assessment-inspection-maintenance/risk-assessment-inspection-maintenance.component';
+import { EmcAssessmentInstallationComponent } from './emc-assessment-installation/emc-assessment-installation.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { MaterialModule } from './material/material.module';
     HeaderComponent,
     ChangePasswordComponent,
     ProfileComponent,
-    LvInspectionDetailsComponent
+    LvInspectionDetailsComponent,
+    RiskAssessmentInspectionMaintenanceComponent,
+    EmcAssessmentInstallationComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +61,6 @@ import { MaterialModule } from './material/material.module';
     MaterialModule
   ],
   providers: [ { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }],
-  bootstrap: [AppComponent],
-  entryComponents: [LvInspectionDetailsComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

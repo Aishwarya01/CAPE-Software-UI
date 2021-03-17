@@ -7,3 +7,6 @@
 ol.d {
     list-style-type: lower-alpha;
 }
+ol.line {
+    list-style-type:  "--";
+}
