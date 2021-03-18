@@ -8,7 +8,7 @@
     </mat-toolbar>
     <mat-nav-list>
       <mat-list-item *ngFor="let type of applicationTypes">
-        <a [routerLink]="['/home']">{{ type.name }}</a>
+        <a [routerLink]="['/home']">{{ type.type }}</a>
         <button mat-icon-button (click)="showLinkDescription(type.id)">
           <mat-icon>info</mat-icon>
         </button>
