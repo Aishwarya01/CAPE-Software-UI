@@ -9,7 +9,6 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
 import { UpdatepasswordComponent } from './updatepassword/updatepassword.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ProfileComponent } from './profile/profile.component';
-import { LvInspectionDetailsComponent } from './lv-inspection-details/lv-inspection-details.component';
 
 const routes: Routes = [
   {path: '', redirectTo: "/login", pathMatch: 'full' },
@@ -19,7 +18,6 @@ const routes: Routes = [
   {path: 'register',component:RegisterComponent},
   {path: 'changePassword', component:ChangePasswordComponent},
   {path: 'profile',component:ProfileComponent},
-  {path: 'loadLVInformationDetails', component: LvInspectionDetailsComponent},
   {path: 'home',component:HomeComponent, canActivate:[AuthenticationGuard]}
 ];
 

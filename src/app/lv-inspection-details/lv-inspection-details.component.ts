@@ -15,7 +15,6 @@ export class LvInspectionDetailsComponent implements OnInit {
 
   onClose(){
     alert("Are you sure want to proceed further");
-    
   }
 
   onNavigateToQuestionaire(){
