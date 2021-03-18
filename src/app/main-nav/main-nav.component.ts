@@ -18,7 +18,8 @@ import { ApplicationType } from '../model/applicationtype';
 })
 export class MainNavComponent {
 
-  @ViewChild('ref', { read: ViewContainerRef }) viewContainerRef: ViewContainerRef; 
+  @ViewChild('ref', { read: ViewContainerRef })
+  viewContainerRef!: ViewContainerRef; 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -86,5 +87,4 @@ export class MainNavComponent {
         break;
     }
   }
-
 }
