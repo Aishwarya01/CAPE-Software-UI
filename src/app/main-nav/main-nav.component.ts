@@ -56,6 +56,9 @@ export class MainNavComponent {
     this.route.navigate(['profile', { email: email }])
   }
 
+  addApplicationTypes(){
+
+  }
   showLinkDescription(id: any) {
     switch(id){
       case 1 :
