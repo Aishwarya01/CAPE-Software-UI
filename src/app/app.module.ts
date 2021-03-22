@@ -63,6 +63,7 @@ import { AddApplicationTypesComponent } from './add-application-types/add-applic
     MaterialModule
   ],
   providers: [ { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ AddApplicationTypesComponent ]
 })
 export class AppModule { }

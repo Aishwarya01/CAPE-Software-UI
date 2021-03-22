@@ -3,28 +3,44 @@
         Add Application Types
     </head>
     <body>
-        <h2> New Application Type</h2>
+        <h2>New Application Type</h2>
         <form [formGroup]="addApplicationTypeForm" (ngSubmit)="onSubmit()">
-            <div *ngIf="showErrorMessage" class="alert alert-danger">Please enter a valid Applicaiton Type</div>
+            <div *ngIf="showErrorMessage" class="alert alert-danger">Please enter a valid Id and Application Type</div>
             <div class="form-group">
-                <label for="applicationType">Application Type</label>
+                <label for="id">Id</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text">
                             <i class="bi bi-envelope-fill"></i>
                         </span>
-                    </div>     
-                    <input type="type" formControlName="type" requied class="form-control" placeholder="Enter your application Type" maxlength="50" 
-                    [ngClass]="{ 'is-invalid': submitted && f.applicationType.errors }" [(ngModel)]="applicationType.type"/> 
-                    <div *ngIf="submitted && f.applicationType.errors" class="invalid-feedback">
-                        <div *ngIf="f.applicationType.errors.required">ApplicationType is required</div>
-                        <div *ngIf="f.applicationType.errors.pattern">Enter valid ApplicationType</div>
+                    </div>
+                   <input type="id" formControlName="id" requied class="form-control" placeholder="Enter your application id" maxlength="50" 
+                    [ngClass]="{ 'is-invalid': submitted && f.id.errors }" [(ngModel)]="applicationType.id"/> 
+                    <div *ngIf="submitted && f.id.errors" class="invalid-feedback">
+                        <div *ngIf="f.id.errors.required">Application Id is required</div>
+                        <div *ngIf="f.id.errors.pattern">Enter valid Application Id</div>
+                    </div>
+                </div>                
+            </div>
+            <div class="form-group">
+                <label for="type">Application Type</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="bi bi-envelope-fill"></i>
+                        </span>
+                    </div>
+                   <input type="type" formControlName="type" requied class="form-control" placeholder="Enter your application Type" maxlength="50" 
+                    [ngClass]="{ 'is-invalid': submitted && f.type.errors }" [(ngModel)]="applicationType.type"/> 
+                    <div *ngIf="submitted && f.type.errors" class="invalid-feedback">
+                        <div *ngIf="f.type.errors.required">ApplicationType is required</div>
+                        <div *ngIf="f.type.errors.pattern">Enter valid ApplicationType</div>
                     </div>
                 </div>                
             </div>
             <div style="display: inline;">
                 <button [disabled]="loading" style="float: left;" type="submit" class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"><i class="bi icon"></i> Add</button>
-                <button [disabled]="loading" style="float:right;"  class="btn btn-outline-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
+                <button [disabled]="loading" (click)="cancel()" style="float:right;" class="btn btn-outline-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
             </div> 
             </form>
     </body>
