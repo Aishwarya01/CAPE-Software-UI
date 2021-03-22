@@ -27,6 +27,7 @@ import { LvInspectionDetailsComponent } from './lv-inspection-details/lv-inspect
 import { MaterialModule } from './material/material.module';
 import { RiskAssessmentInspectionMaintenanceComponent } from './risk-assessment-inspection-maintenance/risk-assessment-inspection-maintenance.component';
 import { EmcAssessmentInstallationComponent } from './emc-assessment-installation/emc-assessment-installation.component';
+import { AddApplicationTypesComponent } from './add-application-types/add-application-types.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { EmcAssessmentInstallationComponent } from './emc-assessment-installatio
     ProfileComponent,
     LvInspectionDetailsComponent,
     RiskAssessmentInspectionMaintenanceComponent,
-    EmcAssessmentInstallationComponent
+    EmcAssessmentInstallationComponent,
+    AddApplicationTypesComponent
   ],
   imports: [
     BrowserModule,

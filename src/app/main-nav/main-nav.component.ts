@@ -10,6 +10,8 @@ import { RiskAssessmentInspectionMaintenanceComponent } from '../risk-assessment
 import { EmcAssessmentInstallationComponent } from '../emc-assessment-installation/emc-assessment-installation.component';
 import { MainNavService } from '../services/main-nav.service';
 import { ApplicationType } from '../model/applicationtype';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AddApplicationTypesComponent } from '../add-application-types/add-application-types.component';
 
 @Component({
   selector: 'app-main-nav',
@@ -33,7 +35,8 @@ export class MainNavComponent {
     private router: ActivatedRoute,
     private route: Router,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private mainNavService: MainNavService) {
+    private mainNavService: MainNavService,
+    private dialog: MatDialog) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
 
     this.mainNavService.retrieveApplicationTypes().subscribe(
@@ -56,6 +59,16 @@ export class MainNavComponent {
     this.route.navigate(['profile', { email: email }])
   }
 
+  addApplicationTypes(){
+    
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "25%";
+    dialogConfig.height = "50%";
+    this.dialog.open(AddApplicationTypesComponent, dialogConfig)
+  
+}
   showLinkDescription(id: any) {
     switch(id){
       case 1 :
