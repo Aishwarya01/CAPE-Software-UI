@@ -21,6 +21,7 @@ export class AddApplicationTypesComponent implements OnInit {
     private applicationService: AddApplicationService,
     public activeModal: NgbActiveModal) { }
   msg = "";
+  @Input()
   applicationType = new ApplicationType();
   addApplicationTypeForm = new FormGroup({
     id: new FormControl(''),
@@ -56,7 +57,8 @@ export class AddApplicationTypesComponent implements OnInit {
     this.applicationService.addApplicationType(this.applicationType).subscribe(
       data => {
         this.msg = "Add application Type Success";
-        this.activeModal.close();
+        this.passEntry.emit(this.applicationType);
+        this.activeModal.close(this.applicationType);
         this.router.navigate(['/home', {email: this.email}]);
       }
     )

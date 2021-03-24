@@ -65,6 +65,11 @@ export class MainNavComponent {
   openModal() {
     const modalRef = this.modalService.open(AddApplicationTypesComponent);
     modalRef.componentInstance.email = this.email;
+    modalRef.result.then((result) => {
+      if (result) {
+      this.applicationTypes.push(result);
+      }
+      });
   }
   showLinkDescription(id: any) {
     switch (id) {
