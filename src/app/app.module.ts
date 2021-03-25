@@ -28,6 +28,7 @@ import { MaterialModule } from './material/material.module';
 import { RiskAssessmentInspectionMaintenanceComponent } from './risk-assessment-inspection-maintenance/risk-assessment-inspection-maintenance.component';
 import { EmcAssessmentInstallationComponent } from './emc-assessment-installation/emc-assessment-installation.component';
 import { AddApplicationTypesComponent } from './add-application-types/add-application-types.component';
+import { UpdateApplicationTypesComponent } from './update-application-types/update-application-types.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { AddApplicationTypesComponent } from './add-application-types/add-applic
     LvInspectionDetailsComponent,
     RiskAssessmentInspectionMaintenanceComponent,
     EmcAssessmentInstallationComponent,
-    AddApplicationTypesComponent
+    AddApplicationTypesComponent,
+    UpdateApplicationTypesComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +66,6 @@ import { AddApplicationTypesComponent } from './add-application-types/add-applic
   ],
   providers: [ { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }],
   bootstrap: [AppComponent],
-  entryComponents: [ AddApplicationTypesComponent ]
+  entryComponents: [ AddApplicationTypesComponent, UpdateApplicationTypesComponent ]
 })
 export class AppModule { }

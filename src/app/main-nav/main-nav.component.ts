@@ -13,6 +13,8 @@ import { ApplicationType } from '../model/applicationtype';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddApplicationTypesComponent } from '../add-application-types/add-application-types.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UpdateApplicationTypesComponent } from '../update-application-types/update-application-types.component';
+import { ApplicationTypeService } from '../services/application.service';
 
 @Component({
   selector: 'app-main-nav',
@@ -32,17 +34,18 @@ export class MainNavComponent {
   applicationTypes: ApplicationType[] = [];
 
   email: String = '';
-  
+  id: number = 0;
+  type: String = '';
   constructor(private breakpointObserver: BreakpointObserver,
     private loginservice: LoginserviceService,
     private router: ActivatedRoute,
     private route: Router,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private mainNavService: MainNavService,
+    private applicationService: ApplicationTypeService,
     private modalService: NgbModal) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
 
-    this.mainNavService.retrieveApplicationTypes().subscribe(
+    this.applicationService.retrieveApplicationTypes().subscribe(
       data => {
         this.applicationTypes = data;
       }
@@ -101,5 +104,21 @@ export class MainNavComponent {
         this.viewContainerRef.clear();
         break;
     }
+  }
+
+  editApplicationType(id: any, type: String){
+    const modalRef = this.modalService.open(UpdateApplicationTypesComponent);
+    modalRef.componentInstance.id = id;
+    modalRef.componentInstance.type = type;
+    modalRef.result.then((result) => {
+      if (result) {
+      this.applicationTypes.push(result);
+      }
+      });
+
+  }
+
+  deleteApplicationType(id: any){
+
   }
 }

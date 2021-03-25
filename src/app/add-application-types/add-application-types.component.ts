@@ -4,7 +4,7 @@ import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dial
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApplicationType } from '../model/applicationtype';
-import { AddApplicationService } from '../services/add-application.service';
+import { ApplicationTypeService } from '../services/application.service';
 
 @Component({
   selector: 'app-add-application-types',
@@ -18,7 +18,7 @@ export class AddApplicationTypesComponent implements OnInit {
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
   constructor(private formBuilder: FormBuilder,
     private router: Router,
-    private applicationService: AddApplicationService,
+    private applicationService: ApplicationTypeService,
     public activeModal: NgbActiveModal) { }
   msg = "";
   @Input()

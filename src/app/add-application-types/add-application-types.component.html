@@ -30,7 +30,7 @@
                             <i class="bi bi-envelope-fill"></i>
                         </span>
                     </div>
-                   <input type="type" formControlName="type" requied class="form-control" placeholder="Enter your application Type" maxlength="50" 
+                   <input type="type" formControlName="type" required class="form-control" placeholder="Enter your application Type" maxlength="50" 
                     [ngClass]="{ 'is-invalid': submitted && f.type.errors }" [(ngModel)]="applicationType.type"/> 
                     <div *ngIf="submitted && f.type.errors" class="invalid-feedback">
                         <div *ngIf="f.type.errors.required">ApplicationType is required</div>

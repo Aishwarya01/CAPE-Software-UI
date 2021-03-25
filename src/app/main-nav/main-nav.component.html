@@ -8,11 +8,17 @@
     </mat-toolbar>
     <mat-nav-list>
       <mat-list-item *ngFor="let type of applicationTypes">
-        <a [routerLink]="['/home']">{{ type.type }}</a>
+        <a [routerLink]="['/home']" class="text-spacer">{{ type.type }}</a>
         <button mat-icon-button (click)="showLinkDescription(type.id)">
           <mat-icon>info</mat-icon>
         </button>
-        <mat-divider class="spacer-row"></mat-divider>
+        <button mat-icon-button (click)="editApplicationType(type.id, type.type)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="deleteApplicationType(type.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <!-- <mat-divider class="spacer-row"></mat-divider> -->
       </mat-list-item>
     </mat-nav-list>
     <button mat-icon-button (click)="openModal()" style="float: right;" >
