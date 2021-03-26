@@ -69,7 +69,6 @@ export class ProfileComponent implements OnInit {
     this.profileService.updateProfile(this.user).subscribe(
       data => {
         this.msg = "Profile Updated Successfully";
-        console.log(data);
         this.route.navigate(['/home', {email: data}]);
       },
       error => console.log("Failed")

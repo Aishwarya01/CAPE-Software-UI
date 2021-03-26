@@ -12,8 +12,6 @@ export class MainNavService {
   apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }
 
-  public retrieveApplicationTypes(): Observable<any>{
-    return this.http.get<ApplicationType>(this.apiUrl+'/retrieveApplicationTypes')
-  }
+  
   
 }

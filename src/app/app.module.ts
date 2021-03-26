@@ -27,6 +27,9 @@ import { LvInspectionDetailsComponent } from './lv-inspection-details/lv-inspect
 import { MaterialModule } from './material/material.module';
 import { RiskAssessmentInspectionMaintenanceComponent } from './risk-assessment-inspection-maintenance/risk-assessment-inspection-maintenance.component';
 import { EmcAssessmentInstallationComponent } from './emc-assessment-installation/emc-assessment-installation.component';
+import { AddApplicationTypesComponent } from './add-application-types/add-application-types.component';
+import { UpdateApplicationTypesComponent } from './update-application-types/update-application-types.component';
+import { NgxPrintModule } from 'ngx-print';
 
 @NgModule({
   declarations: [
@@ -42,7 +45,10 @@ import { EmcAssessmentInstallationComponent } from './emc-assessment-installatio
     ProfileComponent,
     LvInspectionDetailsComponent,
     RiskAssessmentInspectionMaintenanceComponent,
-    EmcAssessmentInstallationComponent
+    EmcAssessmentInstallationComponent,
+    AddApplicationTypesComponent,
+    UpdateApplicationTypesComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -58,9 +64,11 @@ import { EmcAssessmentInstallationComponent } from './emc-assessment-installatio
     MatIconModule,
     MatListModule,
     MatMenuModule,
-    MaterialModule
+    MaterialModule,
+    NgxPrintModule
   ],
   providers: [ { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ AddApplicationTypesComponent, UpdateApplicationTypesComponent ]
 })
 export class AppModule { }
