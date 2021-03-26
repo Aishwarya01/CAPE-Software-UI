@@ -36,9 +36,9 @@ export class UpdateApplicationTypesComponent implements OnInit {
   submitted = false;
   showErrorMessage = false;
   ngOnInit(): void {
+    console.log(this.email);
     this.applicationType.id = this.id
     this.applicationType.type = this.type;
-    console.log(this.applicationType.type)
     this.updateApplicationTypeForm = this.formBuilder.group({
       id: [this.applicationType.id, Validators.required],
       type: [this.applicationType.type, Validators.required]
@@ -58,16 +58,14 @@ export class UpdateApplicationTypesComponent implements OnInit {
     }
     this.applicationType.type = this.updateApplicationTypeForm.value.type;
     this.loading = true;
-    this.applicationService.addApplicationType(this.applicationType).subscribe(
+    this.applicationService.updateApplicationType(this.applicationType).subscribe(
       data => {
-        this.msg = "Add application Type Success";
+        this.msg = "Update application Type Success";
         this.passEntry.emit(this.applicationType);
         this.activeModal.close(this.applicationType);
         this.router.navigate(['/home', {email: this.email}]);
       }
     )
-    
-
   }
 
   cancel() {

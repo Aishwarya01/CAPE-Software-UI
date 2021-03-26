@@ -20,10 +20,14 @@ export class ApplicationTypeService {
   }
 
   public updateApplicationType(applicationType: ApplicationType): Observable<any>{
-    return this.http.put<any>(this.apiUrl + '/updateApplicationTypes', applicationType)
+    return this.http.put<any>(this.apiUrl + '/updateApplicationTypes', applicationType, { responseType: 'text' as 'json' })
   }
 
   public retrieveApplicationTypes(): Observable<any>{
     return this.http.get<ApplicationType>(this.apiUrl+'/retrieveApplicationTypes')
+  }
+
+  public deleteApplicationType(id: number): Observable<any>{
+    return this.http.delete(this.apiUrl+ '/deleteApplicationType'+'/'+ id)
   }
 }

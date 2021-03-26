@@ -44,12 +44,15 @@ export class MainNavComponent {
     private applicationService: ApplicationTypeService,
     private modalService: NgbModal) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
+    this.retrieveApplicationTypes();
+  }
 
+  retrieveApplicationTypes() {
     this.applicationService.retrieveApplicationTypes().subscribe(
       data => {
         this.applicationTypes = data;
       }
-    )
+    );
   }
 
   logout() {
@@ -70,9 +73,9 @@ export class MainNavComponent {
     modalRef.componentInstance.email = this.email;
     modalRef.result.then((result) => {
       if (result) {
-      this.applicationTypes.push(result);
+        this.applicationTypes.push(result);
       }
-      });
+    });
   }
   showLinkDescription(id: any) {
     switch (id) {
@@ -106,19 +109,24 @@ export class MainNavComponent {
     }
   }
 
-  editApplicationType(id: any, type: String){
+  editApplicationType(id: any, type: String) {
     const modalRef = this.modalService.open(UpdateApplicationTypesComponent);
+    modalRef.componentInstance.email = this.email;
     modalRef.componentInstance.id = id;
     modalRef.componentInstance.type = type;
     modalRef.result.then((result) => {
       if (result) {
-      this.applicationTypes.push(result);
-      }
-      });
-
+        this.retrieveApplicationTypes();
+       }
+    });
   }
 
-  deleteApplicationType(id: any){
-
+  deleteApplicationType(id: any) {
+    this.applicationService.deleteApplicationType(id).subscribe (
+      response => {
+        console.log(response);
+        this.retrieveApplicationTypes();
+      }
+    );
   }
 }

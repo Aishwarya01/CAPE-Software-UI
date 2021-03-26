@@ -3,8 +3,10 @@
     <button style="float: right;" type="submit"
         class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"
         (click)="onNavigateToQuestionaire()">Skip</button>
+    <button style="float: right;" class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn" 
+         printSectionId="printdiv" ngxPrint>Print</button>
     <h2>Verification of LV Systems (IEC 60364-6)</h2>
-    <div>
+    <div id="printdiv">
         <br>
         <p>IEC 60364 gives the rules for the design, erection, and verification of electrical installations up to 1000 V
             AC and 1500 V DC. These rules are adopted/followed worldwide as wiring rules. Some of the adopted national
