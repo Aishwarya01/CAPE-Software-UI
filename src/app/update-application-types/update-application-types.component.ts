@@ -36,7 +36,6 @@ export class UpdateApplicationTypesComponent implements OnInit {
   submitted = false;
   showErrorMessage = false;
   ngOnInit(): void {
-    console.log(this.email);
     this.applicationType.id = this.id
     this.applicationType.type = this.type;
     this.updateApplicationTypeForm = this.formBuilder.group({

@@ -125,7 +125,6 @@ export class MainNavComponent {
     if(window.confirm('Are sure you want to delete this item ?')){
       this.applicationService.deleteApplicationType(id).subscribe (
         response => {
-          console.log(response);
           this.retrieveApplicationTypes();
         }
       );
