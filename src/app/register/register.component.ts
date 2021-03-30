@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Route, Router } from '@angular/router';
 import { RegisterserviceService } from '../services/registerservice.service';
 import { User } from '../model/user';
-import { Role } from '../model/roles';
 
 @Component({
   selector: 'app-register',
@@ -23,15 +22,18 @@ export class RegisterComponent implements OnInit {
   });
   loading = false;
   submitted = false;
-  usertypelist: any = ['User', 'Viewer', 'Admin'];
+  usertypelist: any = ['User', 'Viewer', 'Manager', 'Admin'];
   user = new User();
   msg = "";
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private registerservice: RegisterserviceService) { }
+    private registerservice: RegisterserviceService) {
+   
+    }
 
+   
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
       firstname: ['', Validators.required],
@@ -68,5 +70,14 @@ export class RegisterComponent implements OnInit {
       },
       error => console.log("Failed")
     )
+  }
+
+  loadUserTypeBasedOnEmail(email: String){
+    if(!email.includes("@capeindia.net")){
+      this.usertypelist = ['User', 'Viewer']
+    } else{
+      this.usertypelist = ['User', 'Manager', 'Admin']
+    }
+    
   }
 }

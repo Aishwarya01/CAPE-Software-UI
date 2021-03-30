@@ -49,7 +49,7 @@
                                         </span>
                                     </div>     
                                     <input type="email" formControlName="email" class="form-control" placeholder="Enter your email address" maxlength="50"
-                                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }" [(ngModel)]="user.email"/>     
+                                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }" [(ngModel)]="user.email" (change)="loadUserTypeBasedOnEmail(user.email)"/>     
                                     <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                                         <div *ngIf="f.email.errors.required">Email is required</div>
                                         <div *ngIf="f.email.errors.pattern">Enter valid email</div>
