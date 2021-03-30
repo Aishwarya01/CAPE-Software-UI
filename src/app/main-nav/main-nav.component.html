@@ -21,7 +21,7 @@
         <!-- <mat-divider class="spacer-row"></mat-divider> -->
       </mat-list-item>
     </mat-nav-list>
-    <button mat-icon-button (click)="openModal()" style="float: right;" >
+    <button mat-icon-button (click)="openModal()" style="float: right;" [hidden]="displayIconsBasedOnEmail()">
       <mat-icon>add_box</mat-icon>
     </button>
 
