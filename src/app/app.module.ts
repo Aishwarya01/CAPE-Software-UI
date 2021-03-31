@@ -30,6 +30,7 @@ import { EmcAssessmentInstallationComponent } from './emc-assessment-installatio
 import { AddApplicationTypesComponent } from './add-application-types/add-application-types.component';
 import { UpdateApplicationTypesComponent } from './update-application-types/update-application-types.component';
 import { NgxPrintModule } from 'ngx-print';
+import { VerificationlvComponent } from './verificationlv/verificationlv.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { NgxPrintModule } from 'ngx-print';
     RiskAssessmentInspectionMaintenanceComponent,
     EmcAssessmentInstallationComponent,
     AddApplicationTypesComponent,
-    UpdateApplicationTypesComponent
+    UpdateApplicationTypesComponent,
+    VerificationlvComponent
     
   ],
   imports: [

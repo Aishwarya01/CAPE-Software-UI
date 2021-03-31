@@ -16,6 +16,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
   imports: [
@@ -35,7 +37,9 @@ import { MatSortModule } from '@angular/material/sort';
     MatIconModule,
     MatPaginatorModule,
     MatSortModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTabsModule,
+    MatStepperModule
   ],
   exports: [
     MatToolbarModule,
@@ -53,8 +57,9 @@ import { MatSortModule } from '@angular/material/sort';
     MatIconModule,
     MatPaginatorModule,
     MatSortModule,
-    MatDialogModule
-
+    MatDialogModule,
+    MatTabsModule,
+    MatStepperModule
   ],
   declarations: []
 })
