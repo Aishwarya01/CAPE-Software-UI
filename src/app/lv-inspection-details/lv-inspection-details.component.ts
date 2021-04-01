@@ -14,16 +14,16 @@ export class LvInspectionDetailsComponent {
 
   @ViewChild('reference', { read: ViewContainerRef })
   viewContainerRef!: ViewContainerRef;
-
+  destroy: boolean = false;
 
   constructor(private breakpointObserver: BreakpointObserver,
     private componentFactoryResolver: ComponentFactoryResolver) { }
 
   onNavigateToQuestionaire() {
-    console.log("Navigate To Questionaire");
+    console.log("Navigate To Questionnaire");
     this.viewContainerRef.clear();
-    const verificationLv = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
-    const verificationLvRef = this.viewContainerRef.createComponent(verificationLv);
-    verificationLvRef.changeDetectorRef.detectChanges();
+    this.destroy = true;
+    
   }
+  
 }
