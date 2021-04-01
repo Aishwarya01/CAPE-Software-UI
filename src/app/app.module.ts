@@ -71,6 +71,6 @@ import { VerificationlvComponent } from './verificationlv/verificationlv.compone
   ],
   providers: [ { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }],
   bootstrap: [AppComponent],
-  entryComponents: [ AddApplicationTypesComponent, UpdateApplicationTypesComponent ]
+  entryComponents: [ AddApplicationTypesComponent, UpdateApplicationTypesComponent, VerificationlvComponent ]
 })
 export class AppModule { }

@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -32,7 +32,8 @@ export class MainNavComponent {
     );
 
   applicationTypes: ApplicationType[] = [];
-
+  @Output() passEntry: EventEmitter<any> = new EventEmitter();
+  
   email: String = '';
   id: number = 0;
   type: String = '';
@@ -82,6 +83,7 @@ export class MainNavComponent {
       case 1:
         this.viewContainerRef.clear();
         const lvInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LvInspectionDetailsComponent);
+        this.passEntry.emit(this.viewContainerRef);
         const lvInspectionRef = this.viewContainerRef.createComponent(lvInspectionFactory);
         lvInspectionRef.changeDetectorRef.detectChanges();
         break;
