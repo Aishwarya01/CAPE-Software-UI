@@ -18,6 +18,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   imports: [
@@ -39,7 +40,8 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatSortModule,
     MatDialogModule,
     MatTabsModule,
-    MatStepperModule
+    MatStepperModule,
+    MatCardModule
   ],
   exports: [
     MatToolbarModule,
@@ -59,7 +61,8 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatSortModule,
     MatDialogModule,
     MatTabsModule,
-    MatStepperModule
+    MatStepperModule,
+    MatCardModule
   ],
   declarations: []
 })
