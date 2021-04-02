@@ -68,7 +68,6 @@ import { NgxPrintModule } from 'ngx-print';
     NgxPrintModule
   ],
   providers: [ { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }],
-  bootstrap: [AppComponent],
-  entryComponents: [ AddApplicationTypesComponent, UpdateApplicationTypesComponent ]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
