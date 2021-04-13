@@ -4,6 +4,11 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { DepartmentaddComponent } from '../departmentadd/departmentadd.component';
+import { SiteaddComponent } from '../siteadd/siteadd.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ClientaddComponent } from '../clientadd/clientadd.component';
+import { MatDialog } from '@angular/material/dialog';
 
 export interface PeriodicElement {
   clientName: string;
@@ -56,7 +61,9 @@ export class VerificationlvComponent implements OnInit,AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   
 
-  constructor(private _formBuilder: FormBuilder) { }
+  constructor(private _formBuilder: FormBuilder,
+              private modalService: NgbModal,
+              public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.firstFormGroup = this._formBuilder.group({
@@ -75,6 +82,40 @@ export class VerificationlvComponent implements OnInit,AfterViewInit {
 
   delete() {
     console.log("ARUN");
+  }
+
+  addClient() {
+    const dialogRef = this.dialog.open(ClientaddComponent, {
+      width: '500px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+  
+    });
+  }
+
+  addDepartment() {
+    const modalRef = this.modalService.open(DepartmentaddComponent);
+    // modalRef.componentInstance.email = this.email;
+    // modalRef.componentInstance.id = id;
+    // modalRef.componentInstance.type = type;
+    // modalRef.result.then((result) => {
+    //   if (result) {
+    //     this.retrieveApplicationTypes();
+    //    }
+    // });
+  }
+
+  addSite() {
+    const modalRef = this.modalService.open(SiteaddComponent);
+    // modalRef.componentInstance.email = this.email;
+    // modalRef.componentInstance.id = id;
+    // modalRef.componentInstance.type = type;
+    // modalRef.result.then((result) => {
+    //   if (result) {
+    //     this.retrieveApplicationTypes();
+    //    }
+    // });
   }
 
 }

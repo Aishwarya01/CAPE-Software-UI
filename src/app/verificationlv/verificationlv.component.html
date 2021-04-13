@@ -6,7 +6,7 @@
                 <ng-template matStepLabel>Company</ng-template>
                 <div class="card" style="width: 855px;">
                   <div class="card-header">
-                    <button style="width: 50px; border: 0px;">
+                    <button style="width: 50px; border: 0px;" (click)="addClient()">
                       <mat-icon>add_box</mat-icon>
                     </button>
                     <button style="width: 50px; margin-left: 10px; border: 0px;">
@@ -109,7 +109,7 @@
                     
                     <div class="col-md-6" style="margin-top:30px;">
                       <div style="margin-bottom: 10px;">
-                        <button class="btn btn-info"><mat-icon>add_box</mat-icon> Add</button>
+                        <button class="btn btn-info" (click)="addDepartment()"><mat-icon>add_box</mat-icon> Add</button>
                       </div>
                       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
 
@@ -210,7 +210,7 @@
                   
                   <div class="col-md-6" style="margin-top:30px;">
                     <div style="margin-bottom: 10px;">
-                      <button class="btn btn-info"><mat-icon>add_box</mat-icon> Add</button>
+                      <button class="btn btn-info" (click)="addSite()"><mat-icon>add_box</mat-icon> Add</button>
                     </div>
                     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
 
