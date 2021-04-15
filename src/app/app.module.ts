@@ -27,9 +27,9 @@ import { LvInspectionDetailsComponent } from './lv-inspection-details/lv-inspect
 import { MaterialModule } from './material/material.module';
 import { RiskAssessmentInspectionMaintenanceComponent } from './risk-assessment-inspection-maintenance/risk-assessment-inspection-maintenance.component';
 import { EmcAssessmentInstallationComponent } from './emc-assessment-installation/emc-assessment-installation.component';
-import { AddApplicationTypesComponent } from './add-application-types/add-application-types.component';
-import { UpdateApplicationTypesComponent } from './update-application-types/update-application-types.component';
 import { NgxPrintModule } from 'ngx-print';
+import { AddComponent } from './applicationType/add/add.component';
+import { UpdateComponent } from './applicationType/update/update.component';
 
 @NgModule({
   declarations: [
@@ -46,8 +46,8 @@ import { NgxPrintModule } from 'ngx-print';
     LvInspectionDetailsComponent,
     RiskAssessmentInspectionMaintenanceComponent,
     EmcAssessmentInstallationComponent,
-    AddApplicationTypesComponent,
-    UpdateApplicationTypesComponent
+    AddComponent,
+    UpdateComponent
     
   ],
   imports: [

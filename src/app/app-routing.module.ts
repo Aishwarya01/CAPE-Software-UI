@@ -9,7 +9,7 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
 import { UpdatepasswordComponent } from './updatepassword/updatepassword.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ProfileComponent } from './profile/profile.component';
-import { AddApplicationTypesComponent } from './add-application-types/add-application-types.component';
+import { AddComponent } from './applicationType/add/add.component';
 
 const routes: Routes = [
   {path: '', redirectTo: "/login", pathMatch: 'full' },
@@ -19,7 +19,7 @@ const routes: Routes = [
   {path: 'register',component:RegisterComponent},
   {path: 'changePassword', component:ChangePasswordComponent},
   {path: 'profile',component:ProfileComponent},
-  {path: 'addApplicationType', component: AddApplicationTypesComponent},
+  {path: 'addApplicationType', component: AddComponent},
   {path: 'home',component:HomeComponent, canActivate:[AuthenticationGuard]}
 ];
 
