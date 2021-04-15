@@ -7,7 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { DepartmentaddComponent } from '../Company/departmentadd/departmentadd.component';
 import { SiteaddComponent } from '../Company/siteadd/siteadd.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ClientaddComponent } from '../Company/clientadd/clientadd.component';
+import { ClientaddComponent } from '../Company/client/clientadd/clientadd.component';
 import { MatDialog } from '@angular/material/dialog';
 
 export interface PeriodicElement {

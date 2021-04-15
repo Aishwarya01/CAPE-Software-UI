@@ -33,7 +33,7 @@ import { NgxPrintModule } from 'ngx-print';
 import { VerificationlvComponent } from './verificationlv/verificationlv.component';
 import { DepartmentaddComponent } from './Company/departmentadd/departmentadd.component';
 import { SiteaddComponent } from './Company/siteadd/siteadd.component';
-import { ClientaddComponent } from './Company/clientadd/clientadd.component';
+import { ClientaddComponent } from './Company/client/clientadd/clientadd.component';
 
 @NgModule({
   declarations: [
