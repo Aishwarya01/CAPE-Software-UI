@@ -4,10 +4,10 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { DepartmentaddComponent } from '../departmentadd/departmentadd.component';
-import { SiteaddComponent } from '../siteadd/siteadd.component';
+import { DepartmentaddComponent } from '../Company/departmentadd/departmentadd.component';
+import { SiteaddComponent } from '../Company/siteadd/siteadd.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ClientaddComponent } from '../clientadd/clientadd.component';
+import { ClientaddComponent } from '../Company/clientadd/clientadd.component';
 import { MatDialog } from '@angular/material/dialog';
 
 export interface PeriodicElement {

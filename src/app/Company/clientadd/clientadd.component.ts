@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ClientService } from '../services/client.service';
-import { Company } from '../model/company';
+import { ClientService } from '../../services/client.service';
+import { Company } from '../../model/company';
 
 
 @Component({
