@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { MatPaginator } from '@angular/material/paginator';
@@ -9,6 +9,9 @@ import { SiteaddComponent } from '../Company/siteadd/siteadd.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClientaddComponent } from '../Company/client/clientadd/clientadd.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
+import { Company } from '../model/company';
+import { ClientupdateComponent } from '../Company/client/clientupdate/clientupdate/clientupdate.component';
 
 export interface PeriodicElement {
   clientName: string;
@@ -50,6 +53,10 @@ export class VerificationlvComponent implements OnInit,AfterViewInit {
   displayedColumns: string[] = ['action','clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
   clientList: any = ['User', 'Viewer', 'Admin'];
+  company=new Company;
+  email: String = '';
+  clientName: String = '';
+  inActive: boolean = false;
 
 
   firstFormGroup: FormGroup;
@@ -60,10 +67,14 @@ export class VerificationlvComponent implements OnInit,AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   
-
+  @Output() passEntry: EventEmitter<any> = new EventEmitter();
   constructor(private _formBuilder: FormBuilder,
               private modalService: NgbModal,
-              public dialog: MatDialog) { }
+              private dialog: MatDialog,
+              private router: ActivatedRoute,) {
+                this.email=this.router.snapshot.paramMap.get('email') || '{}'
+                console.log(this.company.userName)
+               }
 
   ngOnInit(): void {
     this.firstFormGroup = this._formBuilder.group({
@@ -85,9 +96,32 @@ export class VerificationlvComponent implements OnInit,AfterViewInit {
   }
 
   addClient() {
-    const dialogRef = this.dialog.open(ClientaddComponent, {
+    // const dialogRef = this.dialog.open(ClientaddComponent, {
+    //   dialogRef.componentInstance.email = this.email,
+    //   width: '500px',
+    // });
+
+    // dialogRef.afterClosed().subscribe(result => {
+  
+    // });
+
+    const modalRef = this.modalService.open(ClientaddComponent);
+    modalRef.componentInstance.email = this.email;
+    // modalRef.componentInstance.id = id;
+    // modalRef.componentInstance.type = type;
+    // modalRef.result.then((result) => {
+    //   if (result) {
+    //     this.retrieveApplicationTypes();
+    //    }
+    // });
+  }
+
+  updateClient() {
+      const dialogRef = this.dialog.open(ClientupdateComponent, {
       width: '500px',
     });
+    dialogRef.componentInstance.clientName=this.clientName;
+    dialogRef.componentInstance.inActive=this.inActive;
 
     dialogRef.afterClosed().subscribe(result => {
   

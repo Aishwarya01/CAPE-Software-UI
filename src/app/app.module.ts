@@ -34,6 +34,7 @@ import { VerificationlvComponent } from './verificationlv/verificationlv.compone
 import { DepartmentaddComponent } from './Company/departmentadd/departmentadd.component';
 import { SiteaddComponent } from './Company/siteadd/siteadd.component';
 import { ClientaddComponent } from './Company/client/clientadd/clientadd.component';
+import { ClientupdateComponent } from './Company/client/clientupdate/clientupdate/clientupdate.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { ClientaddComponent } from './Company/client/clientadd/clientadd.compone
     VerificationlvComponent,
     DepartmentaddComponent,
     SiteaddComponent,
-    ClientaddComponent
+    ClientaddComponent,
+    ClientupdateComponent
     
   ],
   imports: [

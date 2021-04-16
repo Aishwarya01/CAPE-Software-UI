@@ -1,8 +1,9 @@
 export class Company {
-    clientName: string;
+    clientName: String;
     inActive: boolean;
+    userName: String;
     createdDate: Date;
-    createdBy: string;
+    createdBy: String;
     updatedDate: Date;
-    updatedBy: string;
+    updatedBy: String;
 }

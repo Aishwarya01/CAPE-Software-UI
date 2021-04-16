@@ -13,6 +13,6 @@ export class ClientService {
   constructor ( private http: HttpClient) { }
   
   public  addClient (company :Company): Observable<any> {
-    return this.http.post<any>(this.apiUrl+'/addcompany', company)
+    return this.http.post<any>(this.apiUrl+'/addCompany', company)
   }
 }

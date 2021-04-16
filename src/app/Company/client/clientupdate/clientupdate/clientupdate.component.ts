@@ -1,17 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ClientService } from '../../../services/client.service';
-import { Company } from '../../../model/company';
-import { ActivatedRoute } from '@angular/router';
-
+import { Company } from 'src/app/model/company';
+import { ClientService } from 'src/app/services/client.service';
 
 @Component({
-  selector: 'app-clientadd',
-  templateUrl: './clientadd.component.html',
-  styleUrls: ['./clientadd.component.css']
+  selector: 'app-clientupdate',
+  templateUrl: './clientupdate.component.html',
+  styleUrls: ['./clientupdate.component.css']
 })
-export class ClientaddComponent implements OnInit {
+export class ClientupdateComponent implements OnInit {
+
 
   addClientForm = new FormGroup({
     clientName: new FormControl(''),
@@ -20,12 +19,18 @@ export class ClientaddComponent implements OnInit {
   company = new Company();
 
   @Input()
+  clientName: String = '';
+  @Input()
+  inActive: boolean = false;
+  @Input()
   email: String = '';
   constructor(public dialog: MatDialog,
               public clientService: ClientService ) { 
               }
 
   ngOnInit(): void {
+    this.company.clientName=this.clientName;
+    this.company.inActive=this.inActive;
   }
 
   cancel() {
@@ -35,7 +40,7 @@ export class ClientaddComponent implements OnInit {
   onSubmit() {
     this.company.userName=this.email
     console.log(this.company)
-    this.clientService.addClient(this.company).subscribe(data=> console.log("HI"))
+    // this.clientService.addClient(this.company).subscribe(data=> console.log("HI"))
   }
 
 }
