@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Company } from 'src/app/model/company';
 import { ClientService } from 'src/app/services/client.service';
 
@@ -25,7 +26,8 @@ export class ClientupdateComponent implements OnInit {
   @Input()
   email: String = '';
   constructor(public dialog: MatDialog,
-              public clientService: ClientService ) { 
+              public clientService: ClientService,
+              public activeModal: NgbActiveModal ) { 
               }
 
   ngOnInit(): void {
@@ -35,6 +37,7 @@ export class ClientupdateComponent implements OnInit {
 
   cancel() {
     this.dialog.closeAll();
+    this.activeModal.close();
   }
  
   onSubmit() {
