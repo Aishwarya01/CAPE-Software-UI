@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ClientService } from '../../../services/client.service';
 import { Company } from '../../../model/company';
 import { ActivatedRoute } from '@angular/router';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class ClientaddComponent implements OnInit {
   @Input()
   email: String = '';
   constructor(public dialog: MatDialog,
-              public clientService: ClientService ) { 
+              public clientService: ClientService,
+              public activeModal: NgbActiveModal ) { 
               }
 
   ngOnInit(): void {
@@ -30,6 +32,7 @@ export class ClientaddComponent implements OnInit {
 
   cancel() {
     this.dialog.closeAll();
+    this.activeModal.close();
   }
  
   onSubmit() {
