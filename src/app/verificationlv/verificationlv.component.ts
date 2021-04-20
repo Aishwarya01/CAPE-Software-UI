@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild, ChangeDetectorRef } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { MatPaginator } from '@angular/material/paginator';
@@ -12,34 +12,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Company } from '../model/company';
 import { ClientupdateComponent } from '../Company/client/clientupdate/clientupdate/clientupdate.component';
+import { User } from '../model/user';
+import { ClientService } from '../services/client.service';
 
-export interface PeriodicElement {
-  clientName: string;
-  inActive: boolean;
-  createdDate: Date;
-  createdBy: string;
-  updatedDate: Date;
-  updatedBy: string;
-}
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {clientName: 'WIPRO', inActive: true, createdDate: new Date("26/03/2021"), createdBy: 'Arun', updatedDate: new Date("27/03/2021"), updatedBy: 'Arunkumar'},
-  {clientName: 'HCL', inActive: true, createdDate: new Date("26/03/2021"), createdBy: 'AK', updatedDate: new Date("27/03/2021"), updatedBy: 'Arunkumar'},
-  {clientName: 'TCS', inActive: true, createdDate: new Date("26/03/2021"), createdBy: 'KUMAR', updatedDate: new Date("27/03/2021"), updatedBy: 'Arunkumar'},
-  {clientName: 'CAPE', inActive: true, createdDate: new Date("26/03/2021"), createdBy: 'Arun Kumar', updatedDate: new Date("27/03/2021"), updatedBy: 'Arunkumar'},
-  {clientName: 'WIPRO', inActive: true, createdDate: new Date("26/03/2021"), createdBy: 'Arun', updatedDate: new Date("27/03/2021"), updatedBy: 'Arunkumar'},
-  {clientName: 'HCL', inActive: true, createdDate: new Date("26/03/2021"), createdBy: 'AK', updatedDate: new Date("27/03/2021"), updatedBy: 'Arunkumar'},
-  {clientName: 'TCS', inActive: true, createdDate: new Date("26/03/2021"), createdBy: 'KUMAR', updatedDate: new Date("27/03/2021"), updatedBy: 'Arunkumar'},
-  {clientName: 'CAPE', inActive: true, createdDate: new Date("26/03/2021"), createdBy: 'Arun Kumar', updatedDate: new Date("27/03/2021"), updatedBy: 'Arunkumar'},
-  {clientName: 'WIPRO', inActive: true, createdDate: new Date("26/03/2021"), createdBy: 'Arun', updatedDate: new Date("27/03/2021"), updatedBy: 'Arunkumar'},
-  {clientName: 'HCL', inActive: true, createdDate: new Date("26/03/2021"), createdBy: 'AK', updatedDate: new Date("27/03/2021"), updatedBy: 'Arunkumar'},
-  {clientName: 'TCS', inActive: true, createdDate: new Date("26/03/2021"), createdBy: 'KUMAR', updatedDate: new Date("27/03/2021"), updatedBy: 'Arunkumar'},
-  {clientName: 'CAPE', inActive: true, createdDate: new Date("26/03/2021"), createdBy: 'Arun Kumar', updatedDate: new Date("27/03/2021"), updatedBy: 'Arunkumar'},
-  {clientName: 'WIPRO', inActive: true, createdDate: new Date("26/03/2021"), createdBy: 'Arun', updatedDate: new Date("27/03/2021"), updatedBy: 'Arunkumar'},
-  {clientName: 'HCL', inActive: true, createdDate: new Date("26/03/2021"), createdBy: 'AK', updatedDate: new Date("27/03/2021"), updatedBy: 'Arunkumar'},
-  {clientName: 'TCS', inActive: true, createdDate: new Date("26/03/2021"), createdBy: 'KUMAR', updatedDate: new Date("27/03/2021"), updatedBy: 'Arunkumar'},
-  {clientName: 'CAPE', inActive: true, createdDate: new Date("26/03/2021"), createdBy: 'Arun Kumar', updatedDate: new Date("27/03/2021"), updatedBy: 'Arunkumar'}
-];
+const ELEMENT_DATA: Company[] = [];
 
 @Component({
   selector: 'app-verificationlv',
@@ -57,6 +34,7 @@ export class VerificationlvComponent implements OnInit,AfterViewInit {
   email: String = '';
   clientName: String = '';
   inActive: boolean = false;
+  user =new User;
 
 
   firstFormGroup: FormGroup;
@@ -71,9 +49,11 @@ export class VerificationlvComponent implements OnInit,AfterViewInit {
   constructor(private _formBuilder: FormBuilder,
               private modalService: NgbModal,
               private dialog: MatDialog,
-              private router: ActivatedRoute,) {
+              private router: ActivatedRoute,
+              private clientService: ClientService,
+              private ChangeDetectorRef: ChangeDetectorRef) {
                 this.email=this.router.snapshot.paramMap.get('email') || '{}'
-                console.log(this.company.userName)
+                this.retrieveClient();
                }
 
   ngOnInit(): void {
@@ -84,6 +64,8 @@ export class VerificationlvComponent implements OnInit,AfterViewInit {
       secondCtrl: ['', Validators.required]
     });
 
+    this.refresh();
+
   }
   
   ngAfterViewInit() {
@@ -91,22 +73,30 @@ export class VerificationlvComponent implements OnInit,AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  delete() {
-    console.log("ARUN");
+  delete(clientname: String) {
+    this.clientService.deleteClient(this.email,clientname)
+  }
+
+  retrieveClient() {
+    this.clientService.retrieveClient(this.email).subscribe(
+      data =>{ 
+        // this.company= JSON.parse(data)
+        this.dataSource.data = data;
+      }
+      )
   }
 
   addClient() {
-    // const dialogRef = this.dialog.open(ClientaddComponent, {
-    //   dialogRef.componentInstance.email = this.email,
-    //   width: '500px',
-    // });
+    const dialogRef = this.dialog.open(ClientaddComponent, {
+      width: '500px',
+    });
+    dialogRef.componentInstance.email = this.email,
+    dialogRef.afterClosed().subscribe(result => {
+      this.refresh();
+    });
 
-    // dialogRef.afterClosed().subscribe(result => {
-  
-    // });
-
-    const modalRef = this.modalService.open(ClientaddComponent);
-    modalRef.componentInstance.email = this.email;
+    // const modalRef = this.modalService.open(ClientaddComponent);
+    // modalRef.componentInstance.email = this.email;
     // modalRef.componentInstance.id = id;
     // modalRef.componentInstance.type = type;
     // modalRef.result.then((result) => {
@@ -116,12 +106,12 @@ export class VerificationlvComponent implements OnInit,AfterViewInit {
     // });
   }
 
-  updateClient() {
+  updateClient(clientName: String, inActive: boolean) {
       const dialogRef = this.dialog.open(ClientupdateComponent, {
       width: '500px',
     });
-    dialogRef.componentInstance.clientName=this.clientName;
-    dialogRef.componentInstance.inActive=this.inActive;
+    dialogRef.componentInstance.clientName=clientName;
+    dialogRef.componentInstance.inActive=inActive;
 
     dialogRef.afterClosed().subscribe(result => {
   
@@ -150,6 +140,10 @@ export class VerificationlvComponent implements OnInit,AfterViewInit {
     //     this.retrieveApplicationTypes();
     //    }
     // });
+  }
+
+  refresh() {
+    this.ChangeDetectorRef.detectChanges();
   }
 
 }

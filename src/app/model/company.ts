@@ -1,6 +1,6 @@
 export class Company {
     clientName: String;
-    inActive: boolean;
+    inActive: boolean= false;
     userName: String;
     createdDate: Date;
     createdBy: String;
