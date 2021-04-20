@@ -11,10 +11,10 @@ import { EmcAssessmentInstallationComponent } from '../emc-assessment-installati
 import { MainNavService } from '../services/main-nav.service';
 import { ApplicationType } from '../model/applicationtype';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { AddApplicationTypesComponent } from '../add-application-types/add-application-types.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { UpdateApplicationTypesComponent } from '../update-application-types/update-application-types.component';
 import { ApplicationTypeService } from '../services/application.service';
+import { UpdateComponent } from '../applicationType/update/update.component';
+import { AddComponent } from '../applicationType/add/add.component';
 
 @Component({
   selector: 'app-main-nav',
@@ -70,7 +70,7 @@ export class MainNavComponent {
   }
 
   openModal() {
-    const modalRef = this.modalService.open(AddApplicationTypesComponent);
+    const modalRef = this.modalService.open(AddComponent);
     modalRef.componentInstance.email = this.email;
     modalRef.result.then((result) => {
       if (result) {
@@ -111,7 +111,7 @@ export class MainNavComponent {
   }
 
   editApplicationType(id: any, type: String) {
-    const modalRef = this.modalService.open(UpdateApplicationTypesComponent);
+    const modalRef = this.modalService.open(UpdateComponent);
     modalRef.componentInstance.email = this.email;
     modalRef.componentInstance.id = id;
     modalRef.componentInstance.type = type;
@@ -130,5 +130,9 @@ export class MainNavComponent {
         }
       );
     }
+  }
+
+  displayIconsBasedOnEmail(): boolean{
+    return !this.email.includes("@capeindia.net")
   }
 }

@@ -27,14 +27,9 @@ import { LvInspectionDetailsComponent } from './lv-inspection-details/lv-inspect
 import { MaterialModule } from './material/material.module';
 import { RiskAssessmentInspectionMaintenanceComponent } from './risk-assessment-inspection-maintenance/risk-assessment-inspection-maintenance.component';
 import { EmcAssessmentInstallationComponent } from './emc-assessment-installation/emc-assessment-installation.component';
-import { AddApplicationTypesComponent } from './add-application-types/add-application-types.component';
-import { UpdateApplicationTypesComponent } from './update-application-types/update-application-types.component';
 import { NgxPrintModule } from 'ngx-print';
-import { VerificationlvComponent } from './verificationlv/verificationlv.component';
-import { DepartmentaddComponent } from './Company/departmentadd/departmentadd.component';
-import { SiteaddComponent } from './Company/siteadd/siteadd.component';
-import { ClientaddComponent } from './Company/client/clientadd/clientadd.component';
-import { ClientupdateComponent } from './Company/client/clientupdate/clientupdate/clientupdate.component';
+import { AddComponent } from './applicationType/add/add.component';
+import { UpdateComponent } from './applicationType/update/update.component';
 
 @NgModule({
   declarations: [
@@ -51,13 +46,8 @@ import { ClientupdateComponent } from './Company/client/clientupdate/clientupdat
     LvInspectionDetailsComponent,
     RiskAssessmentInspectionMaintenanceComponent,
     EmcAssessmentInstallationComponent,
-    AddApplicationTypesComponent,
-    UpdateApplicationTypesComponent,
-    VerificationlvComponent,
-    DepartmentaddComponent,
-    SiteaddComponent,
-    ClientaddComponent,
-    ClientupdateComponent
+    AddComponent,
+    UpdateComponent
     
   ],
   imports: [
@@ -78,7 +68,6 @@ import { ClientupdateComponent } from './Company/client/clientupdate/clientupdat
     NgxPrintModule
   ],
   providers: [ { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }],
-  bootstrap: [AppComponent],
-  entryComponents: [ AddApplicationTypesComponent, UpdateApplicationTypesComponent, VerificationlvComponent ]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
