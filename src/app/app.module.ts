@@ -30,6 +30,7 @@ import { EmcAssessmentInstallationComponent } from './emc-assessment-installatio
 import { NgxPrintModule } from 'ngx-print';
 import { AddComponent } from './applicationType/add/add.component';
 import { UpdateComponent } from './applicationType/update/update.component';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,9 @@ import { UpdateComponent } from './applicationType/update/update.component';
     MatListModule,
     MatMenuModule,
     MaterialModule,
-    NgxPrintModule
+    NgxPrintModule,
+    MatTableModule,
+    MatTableDataSource
   ],
   providers: [ { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }],
   bootstrap: [AppComponent]
