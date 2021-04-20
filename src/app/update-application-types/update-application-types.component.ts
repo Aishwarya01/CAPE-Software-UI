@@ -3,15 +3,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ApplicationType } from 'src/app/model/applicationtype';
-import { ApplicationTypeService } from 'src/app/services/application.service';
+import { ApplicationType } from '../model/applicationtype';
+import { ApplicationTypeService } from '../services/application.service';
 
 @Component({
-  selector: 'app-update',
-  templateUrl: './update.component.html',
-  styleUrls: ['./update.component.css']
+  selector: 'app-update-application-types',
+  templateUrl: './update-application-types.component.html',
+  styleUrls: ['./update-application-types.component.css']
 })
-export class UpdateComponent implements OnInit {
+export class UpdateApplicationTypesComponent implements OnInit {
 
   updateApplicationTypeForm = new FormGroup({
     id: new FormControl(''),

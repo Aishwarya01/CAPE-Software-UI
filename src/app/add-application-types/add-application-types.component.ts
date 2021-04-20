@@ -1,20 +1,17 @@
-import { EventEmitter } from '@angular/core';
-import { Output } from '@angular/core';
-import { Input } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ApplicationType } from 'src/app/model/applicationtype';
-import { ApplicationTypeService } from 'src/app/services/application.service';
+import { ApplicationType } from '../model/applicationtype';
+import { ApplicationTypeService } from '../services/application.service';
 
 @Component({
-  selector: 'app-add',
-  templateUrl: './add.component.html',
-  styleUrls: ['./add.component.css']
+  selector: 'app-add-application-types',
+  templateUrl: './add-application-types.component.html',
+  styleUrls: ['./add-application-types.component.css']
 })
-export class AddComponent implements OnInit {
-
+export class AddApplicationTypesComponent implements OnInit {
   @Input()
   email: String = '';
 
@@ -72,6 +69,5 @@ export class AddComponent implements OnInit {
   cancel() {
     const modalRef = this.activeModal.close();
   }
-
 
 }
