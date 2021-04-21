@@ -14,9 +14,10 @@ import { Company } from '../model/company';
 import { ClientupdateComponent } from '../Company/client/clientupdate/clientupdate/clientupdate.component';
 import { User } from '../model/user';
 import { ClientService } from '../services/client.service';
+import { DataSource } from '@angular/cdk/collections';
+import { Observable } from 'rxjs';
 
 
-const ELEMENT_DATA: Company[] = [];
 
 @Component({
   selector: 'app-verificationlv',
@@ -27,10 +28,12 @@ const ELEMENT_DATA: Company[] = [];
   }]
 })
 export class VerificationlvComponent implements OnInit,AfterViewInit {
-  displayedColumns: string[] = ['action','clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  displayedColumns1: string[] = ['action','clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
+  displayedColumns2: string[] = ['action','clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
+  displayedColumns3: string[] = ['action','clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
+  dataSource : MatTableDataSource<Company []>;
   clientList: any = ['User', 'Viewer', 'Admin'];
-  company=new Company;
+  
   email: String = '';
   clientName: String = '';
   inActive: boolean = false;
@@ -53,7 +56,7 @@ export class VerificationlvComponent implements OnInit,AfterViewInit {
               private clientService: ClientService,
               private ChangeDetectorRef: ChangeDetectorRef) {
                 this.email=this.router.snapshot.paramMap.get('email') || '{}'
-                this.retrieveClient();
+                // this.retrieveClient();
                }
 
   ngOnInit(): void {
@@ -63,7 +66,7 @@ export class VerificationlvComponent implements OnInit,AfterViewInit {
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
-
+    this.retrieveClient();
     this.refresh();
 
   }
@@ -81,8 +84,8 @@ export class VerificationlvComponent implements OnInit,AfterViewInit {
     this.clientService.retrieveClient(this.email).subscribe(
       data =>{ 
         // this.company= JSON.parse(data)
-        this.dataSource.data = data;
-      }
+        // this.dataSource.data = data;
+        this.dataSource = new MatTableDataSource(data);      }
       )
   }
 
@@ -147,3 +150,14 @@ export class VerificationlvComponent implements OnInit,AfterViewInit {
   }
 
 }
+
+// export class ExampleDataSource extends DataSource<any> {
+
+//   /** Connect function called by the table to retrieve one stream containing the data to render. */
+//   connect(): Observable<Company[]> {
+//     return Observable.of(data);
+//   }
+
+//   disconnect() {}
+  
+// }
