@@ -35,6 +35,7 @@ import { DepartmentaddComponent } from './Company/departmentadd/departmentadd.co
 import { SiteaddComponent } from './Company/siteadd/siteadd.component';
 import { ClientaddComponent } from './Company/client/clientadd/clientadd.component';
 import { ClientupdateComponent } from './Company/client/clientupdate/clientupdate/clientupdate.component';
+import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 
 @NgModule({
   declarations: [
