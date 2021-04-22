@@ -30,7 +30,7 @@ export class VerificationlvComponent implements OnInit {
   displayedColumns1: string[] = ['action','clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
   displayedColumns2: string[] = ['action','clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
   displayedColumns3: string[] = ['action','clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
-  dataSource : MatTableDataSource<Company[]>;
+  dataSource! : MatTableDataSource<Company[]>;
   clientList: any = ['User', 'Viewer', 'Admin'];
   
   email: String = '';
@@ -39,13 +39,13 @@ export class VerificationlvComponent implements OnInit {
   user =new User;
 
 
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
+  firstFormGroup!: FormGroup;
+  secondFormGroup!: FormGroup;
   // ThirdFormGroup: FormGroup;
   // fourthFormGroup: FormGroup;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
   
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
   constructor(private _formBuilder: FormBuilder,
@@ -93,6 +93,7 @@ export class VerificationlvComponent implements OnInit {
     dialogRef.componentInstance.email = this.email,
     dialogRef.afterClosed().subscribe(result => {
       this.refresh();
+      this.retrieveClientDetails();
     });
   }
 
@@ -102,6 +103,7 @@ export class VerificationlvComponent implements OnInit {
     });
     dialogRef.componentInstance.clientName=clientName;
     dialogRef.componentInstance.inActive=inActive;
+    dialogRef.componentInstance.email = this.email;
     dialogRef.afterClosed().subscribe(result => {
       this.refresh();
     });
@@ -109,14 +111,7 @@ export class VerificationlvComponent implements OnInit {
 
   addDepartment() {
     const modalRef = this.modalService.open(DepartmentaddComponent);
-    // modalRef.componentInstance.email = this.email;
-    // modalRef.componentInstance.id = id;
-    // modalRef.componentInstance.type = type;
-    // modalRef.result.then((result) => {
-    //   if (result) {
-    //     this.retrieveApplicationTypes();
-    //    }
-    // });
+   
   }
 
   addSite() {
