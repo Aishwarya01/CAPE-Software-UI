@@ -14,8 +14,7 @@ import { Company } from '../model/company';
 import { ClientupdateComponent } from '../Company/client/clientupdate/clientupdate/clientupdate.component';
 import { User } from '../model/user';
 import { ClientService } from '../services/client.service';
-import { DataSource } from '@angular/cdk/collections';
-import { Observable } from 'rxjs';
+
 
 
 
@@ -27,11 +26,11 @@ import { Observable } from 'rxjs';
     provide: STEPPER_GLOBAL_OPTIONS, useValue: {showError: true}
   }]
 })
-export class VerificationlvComponent implements OnInit,AfterViewInit {
+export class VerificationlvComponent implements OnInit {
   displayedColumns1: string[] = ['action','clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
   displayedColumns2: string[] = ['action','clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
   displayedColumns3: string[] = ['action','clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
-  dataSource : MatTableDataSource<Company>;
+  dataSource : MatTableDataSource<Company[]>;
   clientList: any = ['User', 'Viewer', 'Admin'];
   
   email: String = '';
@@ -56,7 +55,6 @@ export class VerificationlvComponent implements OnInit,AfterViewInit {
               private clientService: ClientService,
               private ChangeDetectorRef: ChangeDetectorRef) {
                 this.email=this.router.snapshot.paramMap.get('email') || '{}'
-                // this.retrieveClient();
                }
 
   ngOnInit(): void {
@@ -66,27 +64,26 @@ export class VerificationlvComponent implements OnInit,AfterViewInit {
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
-    this.retrieveClient();
     this.refresh();
-
+    this.retrieveClientDetails();
   }
-  
-  ngAfterViewInit() {
-    
+
+  private retrieveClientDetails() {
+    this.clientService.retrieveClient(this.email).subscribe(
+      data => {
+        this.dataSource = new MatTableDataSource(JSON.parse(data));
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
   }
 
   delete(clientname: String) {
-    this.clientService.deleteClient(this.email,clientname)
-  }
-
-  retrieveClient() {
-    this.clientService.retrieveClient(this.email).subscribe(
-      data =>{ 
-        this.dataSource = JSON.parse(data);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+    this.clientService.deleteClient(this.email,clientname).subscribe(
+      data => {
+        this.retrieveClientDetails();
       }
-      )
+    )
+    this.refresh();
   }
 
   addClient() {
@@ -106,7 +103,7 @@ export class VerificationlvComponent implements OnInit,AfterViewInit {
     dialogRef.componentInstance.clientName=clientName;
     dialogRef.componentInstance.inActive=inActive;
     dialogRef.afterClosed().subscribe(result => {
-  
+      this.refresh();
     });
   }
 
