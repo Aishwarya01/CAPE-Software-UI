@@ -39,7 +39,11 @@ export class ClientaddComponent implements OnInit {
   onSubmit() {
     this.company.userName=this.email
     console.log(this.company)
-    this.clientService.addClient(this.company).subscribe(data=> console.log("HI"))
+    this.clientService.addClient(this.company).subscribe(
+      data=> {
+        this.dialog.closeAll();
+      }
+      )
   }
 
 }
