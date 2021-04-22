@@ -16,7 +16,8 @@
                     
                   </div>
                   <div class="card-body">
-                    <mat-table #table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+
                       <!--- Note that these columns can be defined in any order.
                             The actual rendered columns are set as a property on the row definition" -->
                     
@@ -67,11 +68,7 @@
                       <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
                       <tr mat-row *matRowDef="let row; columns: displayedColumns1;" [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}"  (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></tr>
 
-                    </mat-table>
-                    <!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
-
-                      
-                    </table> -->
+                    </table>
 
                     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
                   </div>

@@ -31,7 +31,7 @@ export class VerificationlvComponent implements OnInit,AfterViewInit {
   displayedColumns1: string[] = ['action','clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
   displayedColumns2: string[] = ['action','clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
   displayedColumns3: string[] = ['action','clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
-  dataSource : MatTableDataSource<Company []>;
+  dataSource : MatTableDataSource<Company>;
   clientList: any = ['User', 'Viewer', 'Admin'];
   
   email: String = '';
@@ -72,8 +72,7 @@ export class VerificationlvComponent implements OnInit,AfterViewInit {
   }
   
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    
   }
 
   delete(clientname: String) {
@@ -83,9 +82,10 @@ export class VerificationlvComponent implements OnInit,AfterViewInit {
   retrieveClient() {
     this.clientService.retrieveClient(this.email).subscribe(
       data =>{ 
-        // this.company= JSON.parse(data)
-        // this.dataSource.data = data;
-        this.dataSource = new MatTableDataSource(data);      }
+        this.dataSource = JSON.parse(data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
       )
   }
 
@@ -97,16 +97,6 @@ export class VerificationlvComponent implements OnInit,AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       this.refresh();
     });
-
-    // const modalRef = this.modalService.open(ClientaddComponent);
-    // modalRef.componentInstance.email = this.email;
-    // modalRef.componentInstance.id = id;
-    // modalRef.componentInstance.type = type;
-    // modalRef.result.then((result) => {
-    //   if (result) {
-    //     this.retrieveApplicationTypes();
-    //    }
-    // });
   }
 
   updateClient(clientName: String, inActive: boolean) {
@@ -115,7 +105,6 @@ export class VerificationlvComponent implements OnInit,AfterViewInit {
     });
     dialogRef.componentInstance.clientName=clientName;
     dialogRef.componentInstance.inActive=inActive;
-
     dialogRef.afterClosed().subscribe(result => {
   
     });
@@ -135,14 +124,6 @@ export class VerificationlvComponent implements OnInit,AfterViewInit {
 
   addSite() {
     const modalRef = this.modalService.open(SiteaddComponent);
-    // modalRef.componentInstance.email = this.email;
-    // modalRef.componentInstance.id = id;
-    // modalRef.componentInstance.type = type;
-    // modalRef.result.then((result) => {
-    //   if (result) {
-    //     this.retrieveApplicationTypes();
-    //    }
-    // });
   }
 
   refresh() {
@@ -150,14 +131,3 @@ export class VerificationlvComponent implements OnInit,AfterViewInit {
   }
 
 }
-
-// export class ExampleDataSource extends DataSource<any> {
-
-//   /** Connect function called by the table to retrieve one stream containing the data to render. */
-//   connect(): Observable<Company[]> {
-//     return Observable.of(data);
-//   }
-
-//   disconnect() {}
-  
-// }

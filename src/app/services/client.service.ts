@@ -16,16 +16,13 @@ export class ClientService {
     return this.http.post<any>(this.apiUrl+'/addCompany', company, { responseType: 'text' as 'json' })
   }
 
+  public  updateClient (company :Company): Observable<any> {
+    return this.http.put<any>(this.apiUrl+'/updateCompany', company, { responseType: 'text' as 'json' })
+  }
+
   public  deleteClient (email: String, clientname: String): Observable<any> {
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      }),
-      body: {
-        clientname
-      }
-    }
-    return this.http.delete<any>(this.apiUrl+'/deleteCompany'+'/'+email, options)
+    console.log(email+" "+clientname)
+    return this.http.delete<any>(this.apiUrl+'/deleteCompany'+'/'+email+'/'+clientname)
   }
 
   public retrieveClient(email: String): Observable<any>{
