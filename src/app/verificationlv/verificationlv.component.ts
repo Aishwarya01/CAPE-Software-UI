@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild, ChangeDetectorRef } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -23,20 +23,20 @@ import { ClientService } from '../services/client.service';
   templateUrl: './verificationlv.component.html',
   styleUrls: ['./verificationlv.component.css'],
   providers: [{
-    provide: STEPPER_GLOBAL_OPTIONS, useValue: {showError: true}
+    provide: STEPPER_GLOBAL_OPTIONS, useValue: { showError: true }
   }]
 })
 export class VerificationlvComponent implements OnInit {
-  displayedColumns1: string[] = ['action','clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
-  displayedColumns2: string[] = ['action','clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
-  displayedColumns3: string[] = ['action','clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
-  dataSource! : MatTableDataSource<Company[]>;
+  displayedColumns1: string[] = ['action', 'clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
+  displayedColumns2: string[] = ['action', 'clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
+  displayedColumns3: string[] = ['action', 'clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
+  dataSource!: MatTableDataSource<Company[]>;
   clientList: any = ['User', 'Viewer', 'Admin'];
-  
+
   email: String = '';
   clientName: String = '';
   inActive: boolean = false;
-  user =new User;
+  user = new User;
 
 
   firstFormGroup!: FormGroup;
@@ -46,16 +46,16 @@ export class VerificationlvComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  
+
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
   constructor(private _formBuilder: FormBuilder,
-              private modalService: NgbModal,
-              private dialog: MatDialog,
-              private router: ActivatedRoute,
-              private clientService: ClientService,
-              private ChangeDetectorRef: ChangeDetectorRef) {
-                this.email=this.router.snapshot.paramMap.get('email') || '{}'
-               }
+    private modalService: NgbModal,
+    private dialog: MatDialog,
+    private router: ActivatedRoute,
+    private clientService: ClientService,
+    private ChangeDetectorRef: ChangeDetectorRef) {
+    this.email = this.router.snapshot.paramMap.get('email') || '{}'
+  }
 
   ngOnInit(): void {
     this.firstFormGroup = this._formBuilder.group({
@@ -78,7 +78,7 @@ export class VerificationlvComponent implements OnInit {
   }
 
   delete(clientname: String) {
-    this.clientService.deleteClient(this.email,clientname).subscribe(
+    this.clientService.deleteClient(this.email, clientname).subscribe(
       data => {
         this.retrieveClientDetails();
       }
@@ -91,18 +91,19 @@ export class VerificationlvComponent implements OnInit {
       width: '500px',
     });
     dialogRef.componentInstance.email = this.email,
-    dialogRef.afterClosed().subscribe(result => {
-      this.refresh();
-      this.retrieveClientDetails();
-    });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(result)
+        this.refresh();
+        this.retrieveClientDetails();
+      });
   }
 
   updateClient(clientName: String, inActive: boolean) {
-      const dialogRef = this.dialog.open(ClientupdateComponent, {
+    const dialogRef = this.dialog.open(ClientupdateComponent, {
       width: '500px',
     });
-    dialogRef.componentInstance.clientName=clientName;
-    dialogRef.componentInstance.inActive=inActive;
+    dialogRef.componentInstance.clientName = clientName;
+    dialogRef.componentInstance.inActive = inActive;
     dialogRef.componentInstance.email = this.email;
     dialogRef.afterClosed().subscribe(result => {
       this.refresh();
@@ -111,7 +112,7 @@ export class VerificationlvComponent implements OnInit {
 
   addDepartment() {
     const modalRef = this.modalService.open(DepartmentaddComponent);
-   
+
   }
 
   addSite() {

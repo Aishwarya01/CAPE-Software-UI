@@ -31,3 +31,6 @@ mat-header-cell.mat-header-cell {
     outline: 1px solid #f3f3f3;
     color: #c9c8c8;
 }
+.mousechange:hover {
+  cursor: pointer;
+}
