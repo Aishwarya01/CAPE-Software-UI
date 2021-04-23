@@ -31,6 +31,9 @@ export class ClientupdateComponent implements OnInit {
   @Input()
   createdDate= new Date;
 
+  @Input()
+  companyCd: String = '';
+
   constructor(public dialog: MatDialog,
               public clientService: ClientService ) { 
               }
@@ -41,6 +44,7 @@ export class ClientupdateComponent implements OnInit {
     this.company.inActive=this.inActive;
     this.company.createdBy=this.createdBy;
     this.company.createdDate=this.createdDate;
+    this.company.companyCd = this.companyCd;
   }
 
   cancel() {

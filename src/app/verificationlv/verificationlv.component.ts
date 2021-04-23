@@ -27,7 +27,7 @@ import { ClientService } from '../services/client.service';
   }]
 })
 export class VerificationlvComponent implements OnInit {
-  displayedColumns1: string[] = ['action', 'clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
+  displayedColumns1: string[] = ['action', 'companyCd', 'clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
   displayedColumns2: string[] = ['action', 'clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
   displayedColumns3: string[] = ['action', 'clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
   dataSource!: MatTableDataSource<Company[]>;
@@ -37,10 +37,10 @@ export class VerificationlvComponent implements OnInit {
   clientName: String = '';
   inActive: boolean = false;
   user = new User;
-  companyId: number;
+  companyId: number=0;
   createdBy: String = '';
   createdDate =new Date;
-
+  companyCd: String = '';
 
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
@@ -95,13 +95,12 @@ export class VerificationlvComponent implements OnInit {
     });
     dialogRef.componentInstance.email = this.email,
       dialogRef.afterClosed().subscribe(result => {
-        console.log(result)
         this.refresh();
         this.retrieveClientDetails();
       });
   }
 
-  updateClient(companyId: number, clientName: String, inActive: boolean, createdDate: Date,createdBy: String ) {
+  updateClient(companyId: number, companyCd: String, clientName: String, inActive: boolean, createdDate: Date,createdBy: String ) {
       const dialogRef = this.dialog.open(ClientupdateComponent, {
       width: '500px',
     });
@@ -111,6 +110,7 @@ export class VerificationlvComponent implements OnInit {
     dialogRef.componentInstance.createdBy = createdBy;
     dialogRef.componentInstance.createdDate = createdDate;
     dialogRef.componentInstance.email = this.email;
+    dialogRef.componentInstance.companyCd = companyCd;
     dialogRef.afterClosed().subscribe(result => {
       this.refresh();
       this.retrieveClientDetails();

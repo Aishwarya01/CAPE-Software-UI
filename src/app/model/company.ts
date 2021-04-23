@@ -1,5 +1,6 @@
 export class Company {
     companyId: number;
+    companyCd: String;
     clientName: String;
     inActive: boolean= false;
     userName: String;
