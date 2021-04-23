@@ -37,6 +37,9 @@ export class VerificationlvComponent implements OnInit {
   clientName: String = '';
   inActive: boolean = false;
   user = new User;
+  companyId: number;
+  createdBy: String = '';
+  createdDate =new Date;
 
 
   firstFormGroup!: FormGroup;
@@ -98,15 +101,19 @@ export class VerificationlvComponent implements OnInit {
       });
   }
 
-  updateClient(clientName: String, inActive: boolean) {
-    const dialogRef = this.dialog.open(ClientupdateComponent, {
+  updateClient(companyId: number, clientName: String, inActive: boolean, createdDate: Date,createdBy: String ) {
+      const dialogRef = this.dialog.open(ClientupdateComponent, {
       width: '500px',
     });
     dialogRef.componentInstance.clientName = clientName;
     dialogRef.componentInstance.inActive = inActive;
+    dialogRef.componentInstance.companyId = companyId;
+    dialogRef.componentInstance.createdBy = createdBy;
+    dialogRef.componentInstance.createdDate = createdDate;
     dialogRef.componentInstance.email = this.email;
     dialogRef.afterClosed().subscribe(result => {
       this.refresh();
+      this.retrieveClientDetails();
     });
   }
 
