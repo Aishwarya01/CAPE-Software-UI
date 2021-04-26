@@ -14,6 +14,7 @@ import { Company } from '../model/company';
 import { ClientupdateComponent } from '../Company/client/clientupdate/clientupdate/clientupdate.component';
 import { User } from '../model/user';
 import { ClientService } from '../services/client.service';
+import { DepartmentService } from '../services/department.service';
 
 
 
@@ -27,12 +28,16 @@ import { ClientService } from '../services/client.service';
   }]
 })
 export class VerificationlvComponent implements OnInit {
-  displayedColumns1: string[] = ['action', 'companyCd', 'clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
-  displayedColumns2: string[] = ['action', 'clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
-  displayedColumns3: string[] = ['action', 'clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
-  dataSource!: MatTableDataSource<Company[]>;
-  clientList: any = ['User', 'Viewer', 'Admin'];
 
+  companyColumns: string[] = ['action', 'companyCd', 'clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
+  departmentColumns: string[] = ['action', 'clientName', 'departmentName', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
+  siteColumns: string[] = ['action', 'clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
+  company_dataSource!: MatTableDataSource<Company[]>;
+  department_dataSource!: MatTableDataSource<Company[]>;
+  site_dataSource!: MatTableDataSource<Company[]>;
+
+  clientList: any = [];
+  company =new Company;
   email: String = '';
   clientName: String = '';
   inActive: boolean = false;
@@ -41,6 +46,7 @@ export class VerificationlvComponent implements OnInit {
   createdBy: String = '';
   createdDate =new Date;
   companyCd: String = '';
+
 
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
@@ -56,16 +62,18 @@ export class VerificationlvComponent implements OnInit {
     private dialog: MatDialog,
     private router: ActivatedRoute,
     private clientService: ClientService,
+    private departmentService: DepartmentService,
     private ChangeDetectorRef: ChangeDetectorRef) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
 
   ngOnInit(): void {
     this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required]
+      firstCtrl: ['', Validators.required],      
     });
     this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
+      secondCtrl: ['', Validators.required],
+      clientname: ['', Validators.required],
     });
     this.refresh();
     this.retrieveClientDetails();
@@ -74,11 +82,23 @@ export class VerificationlvComponent implements OnInit {
   private retrieveClientDetails() {
     this.clientService.retrieveClient(this.email).subscribe(
       data => {
-        this.dataSource = new MatTableDataSource(JSON.parse(data));
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        this.company_dataSource = new MatTableDataSource(JSON.parse(data));
+        this.clientList= JSON.parse(data);
+        this.company_dataSource.paginator = this.paginator;
+        this.company_dataSource.sort = this.sort;
       });
   }
+
+   retrieveDepartmentDetails() {
+    // this.departmentService.retrieveDepartment(this.email,this.company).subscribe(
+    //   data => {
+    //     this.department_dataSource = new MatTableDataSource(JSON.parse(data));
+    //     // this.clientList= JSON.parse(data);
+    //     this.department_dataSource.paginator = this.paginator;
+    //     this.department_dataSource.sort = this.sort;
+    //   });
+  }
+
 
   delete(clientname: String) {
     this.clientService.deleteClient(this.email, clientname).subscribe(

@@ -13,7 +13,7 @@
                     
                   </div>
                   <div class="card-body">
-                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+                    <table mat-table [dataSource]="company_dataSource" class="mat-elevation-z8" matSort>
 
                       <!--- Note that these columns can be defined in any order.
                             The actual rendered columns are set as a property on the row definition" -->
@@ -69,8 +69,8 @@
                         <td mat-cell *matCellDef="let element"> {{element.updatedBy}} </td>
                       </ng-container>
                     
-                      <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
-                      <tr mat-row *matRowDef="let row; columns: displayedColumns1;" [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}"  (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></tr>
+                      <tr mat-header-row *matHeaderRowDef="companyColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: companyColumns;" [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}"  (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></tr>
 
                     </table>
 
@@ -99,14 +99,14 @@
                             <label style="display: table-cell;
                           width: 1px;
                           white-space: nowrap;">Client Name:</label><span style="display: table-cell; width: 500px;
-                          padding: 0 4px 0 20px;"><select class="form-control">
+                          padding: 0 4px 0 20px;"><select  formControlName="clientname" class="form-control" [(ngModel)]="company.clientName">
                             <option value="" selected>Select Client Name</option>
-                            <option *ngFor="let client of clientList">{{client | uppercase}}</option>
+                            <option *ngFor="let client of clientList">{{client.clientName}}</option>
                          </select></span>
                           </div>                                
                         </div>
                         <div class="col-md-6" >
-                          <button  class="btn btn-info" style="float: right; margin-right: 200px;">Submit</button>
+                          <button  class="btn btn-info" style="float: right; margin-right: 200px;" (click)="retrieveDepartmentDetails()">Submit</button>
                         </div>
                       </div>
                     </div> 
@@ -115,7 +115,7 @@
                       <div style="margin-bottom: 10px;">
                         <button class="btn btn-info" (click)="addDepartment()"><mat-icon>add_box</mat-icon> </button>
                       </div>
-                      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+                      <table mat-table [dataSource]="department_dataSource" class="mat-elevation-z8" matSort>
 
                         <!--- Note that these columns can be defined in any order.
                               The actual rendered columns are set as a property on the row definition" -->
@@ -136,9 +136,9 @@
                           <td mat-cell *matCellDef="let element"> {{element.clientName}} </td>
                         </ng-container>
                          <!-- Name Column -->
-                        <ng-container matColumnDef="inActive">
-                          <th mat-header-cell *matHeaderCellDef> Department Name </th>
-                          <td mat-cell *matCellDef="let element"><input type="checkbox" disabled="disabled"> </td>
+                        <ng-container matColumnDef="departmentName">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Department Name </th>
+                          <td mat-cell *matCellDef="let element"> {{element.clientName}} </td>                        
                         </ng-container>
                          <!-- Name Column -->
                         <ng-container matColumnDef="createdDate">
@@ -164,8 +164,8 @@
                           <td mat-cell *matCellDef="let element"> {{element.updatedBy}} </td>
                         </ng-container>
                       
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+                        <tr mat-header-row *matHeaderRowDef="departmentColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: departmentColumns;"></tr>
   
                       </table>
                       
@@ -194,7 +194,7 @@
                           white-space: nowrap;">Client Name:</label><span style="display: table-cell; width: 1000px;
                           padding: 0 4px 0 20px;"><select class="form-control">
                             <option value="" selected>Select Client Name</option>
-                            <option *ngFor="let client of clientList">{{client | uppercase}}</option>
+                            <option *ngFor="let client of clientList">{{client.clientName}}</option>
                          </select></span>
                            
                          <label style="display: table-cell;
@@ -202,7 +202,7 @@
                           white-space: nowrap;">Department Name:</label><span style="display: table-cell; width: 1000px;
                           padding: 0 4px 0 20px;"><select class="form-control">
                             <option value="" selected>Select Department Name</option>
-                            <option *ngFor="let client of clientList">{{client | uppercase}}</option>
+                            <option *ngFor="let client of clientList">{{client.clientName}}</option>
                          </select></span>
                         </div>                                
                       </div>
@@ -216,7 +216,7 @@
                     <div style="margin-bottom: 10px;">
                       <button class="btn btn-info" (click)="addSite()"><mat-icon>add_box</mat-icon> Add</button>
                     </div>
-                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+                    <table mat-table [dataSource]="site_dataSource" class="mat-elevation-z8" matSort>
 
                       <!--- Note that these columns can be defined in any order.
                             The actual rendered columns are set as a property on the row definition" -->
@@ -265,8 +265,8 @@
                         <td mat-cell *matCellDef="let element"> {{element.updatedBy}} </td>
                       </ng-container>
                     
-                      <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
-                      <tr mat-row *matRowDef="let row; columns: displayedColumns3;"></tr>
+                      <tr mat-header-row *matHeaderRowDef="siteColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: siteColumns;"></tr>
 
                     </table>
                     
