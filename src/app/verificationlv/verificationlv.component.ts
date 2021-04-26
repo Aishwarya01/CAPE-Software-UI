@@ -4,7 +4,7 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { DepartmentaddComponent } from '../Company/departmentadd/departmentadd.component';
+import { DepartmentaddComponent } from '../department/departmentadd/departmentadd.component';
 import { SiteaddComponent } from '../Company/siteadd/siteadd.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClientaddComponent } from '../Company/client/clientadd/clientadd.component';
@@ -14,6 +14,9 @@ import { Company } from '../model/company';
 import { ClientupdateComponent } from '../Company/client/clientupdate/clientupdate/clientupdate.component';
 import { User } from '../model/user';
 import { ClientService } from '../services/client.service';
+import { DepartmentService } from '../services/department.service';
+import { Department } from '../model/department';
+
 
 
 
@@ -37,6 +40,7 @@ export class VerificationlvComponent implements OnInit {
 
   clientList: any = [];
   company =new Company;
+  department = new Department;
   email: String = '';
   clientName: String = '';
   inActive: boolean = false;
@@ -61,6 +65,7 @@ export class VerificationlvComponent implements OnInit {
     private dialog: MatDialog,
     private router: ActivatedRoute,
     private clientService: ClientService,
+    private departmentService: DepartmentService,
     private ChangeDetectorRef: ChangeDetectorRef) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
@@ -88,13 +93,12 @@ export class VerificationlvComponent implements OnInit {
   }
 
    retrieveDepartmentDetails() {
-    // this.departmentService.retrieveDepartment(this.email,this.company).subscribe(
-    //   data => {
-    //     this.department_dataSource = new MatTableDataSource(JSON.parse(data));
-    //     // this.clientList= JSON.parse(data);
-    //     this.department_dataSource.paginator = this.paginator;
-    //     this.department_dataSource.sort = this.sort;
-    //   });
+    this.departmentService.retrieveDepartment(this.email,this.company).subscribe(
+      data => {
+        this.department_dataSource = new MatTableDataSource(JSON.parse(data));
+        this.department_dataSource.paginator = this.paginator;
+        this.department_dataSource.sort = this.sort;
+      });
   }
 
 
@@ -111,7 +115,7 @@ export class VerificationlvComponent implements OnInit {
     const dialogRef = this.dialog.open(ClientaddComponent, {
       width: '500px',
     });
-    dialogRef.componentInstance.email = this.email,
+    dialogRef.componentInstance.email = this.email;
       dialogRef.afterClosed().subscribe(result => {
         this.refresh();
         this.retrieveClientDetails();
@@ -136,8 +140,14 @@ export class VerificationlvComponent implements OnInit {
   }
 
   addDepartment() {
-    const modalRef = this.modalService.open(DepartmentaddComponent);
-
+    const dialogRef = this.dialog.open(DepartmentaddComponent, {
+      width: '500px',
+    });
+    dialogRef.componentInstance.email = this.email;
+      dialogRef.afterClosed().subscribe(result => {
+        this.refresh();
+        this.retrieveDepartmentDetails();
+      });
   }
 
   addSite() {

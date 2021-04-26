@@ -31,7 +31,7 @@ import { AddApplicationTypesComponent } from './add-application-types/add-applic
 import { UpdateApplicationTypesComponent } from './update-application-types/update-application-types.component';
 import { NgxPrintModule } from 'ngx-print';
 import { VerificationlvComponent } from './verificationlv/verificationlv.component';
-import { DepartmentaddComponent } from './Company/departmentadd/departmentadd.component';
+import { DepartmentaddComponent } from './department/departmentadd/departmentadd.component';
 import { SiteaddComponent } from './Company/siteadd/siteadd.component';
 import { ClientaddComponent } from './Company/client/clientadd/clientadd.component';
 import { ClientupdateComponent } from './Company/client/clientupdate/clientupdate/clientupdate.component';
