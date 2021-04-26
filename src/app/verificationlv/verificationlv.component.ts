@@ -14,7 +14,6 @@ import { Company } from '../model/company';
 import { ClientupdateComponent } from '../Company/client/clientupdate/clientupdate/clientupdate.component';
 import { User } from '../model/user';
 import { ClientService } from '../services/client.service';
-import { DepartmentService } from '../services/department.service';
 
 
 
@@ -62,7 +61,6 @@ export class VerificationlvComponent implements OnInit {
     private dialog: MatDialog,
     private router: ActivatedRoute,
     private clientService: ClientService,
-    private departmentService: DepartmentService,
     private ChangeDetectorRef: ChangeDetectorRef) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
