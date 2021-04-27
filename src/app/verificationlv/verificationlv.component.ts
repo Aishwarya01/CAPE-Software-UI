@@ -94,7 +94,6 @@ export class VerificationlvComponent implements OnInit {
   }
 
    retrieveDepartmentDetails() {
-    console.log(this.company)
     this.departmentService.retrieveDepartment(this.email,this.company).subscribe(
       data => {
         this.department_dataSource = new MatTableDataSource(JSON.parse(data));
