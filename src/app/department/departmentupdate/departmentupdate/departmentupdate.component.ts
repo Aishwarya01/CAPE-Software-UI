@@ -50,7 +50,6 @@ department = new Department;
   }
  
   onSubmit() {
-    console.log(this.department);
     this.departmentService.updateDepartment(this.department).subscribe(data=> 
       {
         this.dialog.closeAll();

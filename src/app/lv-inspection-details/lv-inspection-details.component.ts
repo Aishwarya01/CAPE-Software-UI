@@ -20,7 +20,6 @@ export class LvInspectionDetailsComponent {
     private componentFactoryResolver: ComponentFactoryResolver) { }
 
   onNavigateToQuestionaire() {
-    console.log("Navigate To Questionnaire");
     this.viewContainerRef.clear();
     this.destroy = true;
     
