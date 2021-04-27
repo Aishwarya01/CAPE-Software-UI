@@ -187,7 +187,7 @@
                 <div class="card-body"> 
                   <div class="search-bar"> 
                     <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-md-10">
                         <div class="form-group">
                           <label style="display: table-cell;
                           width: 1px;
@@ -206,7 +206,7 @@
                          </select></span>
                         </div>                                
                       </div>
-                      <div class="col-md-6" >
+                      <div class="col-md-2" >
                         <button  class="btn btn-info" style="float: right; margin-right: 50px;">Submit</button>
                       </div>
                     </div>
@@ -214,7 +214,7 @@
                   
                   <div class="col-md-6" style="margin-top:30px;">
                     <div style="margin-bottom: 10px;">
-                      <button class="btn btn-info" (click)="addSite()"><mat-icon>add_box</mat-icon> Add</button>
+                      <button class="btn btn-info" (click)="addSite()"><mat-icon>add_box</mat-icon></button>
                     </div>
                     <table mat-table [dataSource]="site_dataSource" class="mat-elevation-z8" matSort>
 
@@ -226,7 +226,7 @@
                         <th mat-header-cell *matHeaderCellDef > Action </th>
                         <td mat-cell *matCellDef="let element"> 
                         <button class="btn btn-outline-danger delete" (click)="delete(clientName)">
-                          <mat-icon>delete</mat-icon><label>Delete</label>
+                          <mat-icon>delete</mat-icon><label></label>
                         </button> 
                       </td>
                       </ng-container>
