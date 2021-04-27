@@ -16,9 +16,7 @@ import { User } from '../model/user';
 import { ClientService } from '../services/client.service';
 import { DepartmentService } from '../services/department.service';
 import { Department } from '../model/department';
-
-
-
+import { DepartmentupdateComponent } from '../department/departmentupdate/departmentupdate/departmentupdate.component';
 
 
 @Component({
@@ -43,12 +41,15 @@ export class VerificationlvComponent implements OnInit {
   department = new Department;
   email: String = '';
   clientName: String = '';
+  departmentName: String = '';
   inActive: boolean = false;
   user = new User;
   companyId: number=0;
+  departmentId: number=0;
   createdBy: String = '';
   createdDate =new Date;
   companyCd: String = '';
+  departmentCd: String = '';
 
 
   firstFormGroup!: FormGroup;
@@ -93,6 +94,7 @@ export class VerificationlvComponent implements OnInit {
   }
 
    retrieveDepartmentDetails() {
+    console.log(this.company)
     this.departmentService.retrieveDepartment(this.email,this.company).subscribe(
       data => {
         this.department_dataSource = new MatTableDataSource(JSON.parse(data));
@@ -102,7 +104,7 @@ export class VerificationlvComponent implements OnInit {
   }
 
 
-  delete(clientname: String) {
+  deleteClient(clientname: String) {
     this.clientService.deleteClient(this.email, clientname).subscribe(
       data => {
         this.retrieveClientDetails();
@@ -150,8 +152,38 @@ export class VerificationlvComponent implements OnInit {
       });
   }
 
+  updateDepartment(departmentId: number, departmentName: String, departmentCd: String, clientName: String, createdDate: Date,createdBy: String ) {
+    const dialogRef = this.dialog.open(DepartmentupdateComponent, {
+    width: '500px',
+  });
+  dialogRef.componentInstance.clientName = clientName;
+  dialogRef.componentInstance.departmentName = departmentName;
+  dialogRef.componentInstance.departmentId = departmentId;
+  dialogRef.componentInstance.createdBy = createdBy;
+  dialogRef.componentInstance.createdDate = createdDate;
+  dialogRef.componentInstance.email = this.email;
+  dialogRef.componentInstance.departmentCd = departmentCd;
+  dialogRef.afterClosed().subscribe(result => {
+    this.refresh();
+    this.retrieveDepartmentDetails();
+  });
+}
+
+deleteDepartment(departmentId: number) {
+  this.departmentService.deleteDepartment(this.email, departmentId).subscribe(
+    data => {
+      this.retrieveDepartmentDetails();
+    }
+  )
+  this.refresh();
+}
+
   addSite() {
     const modalRef = this.modalService.open(SiteaddComponent);
+  }
+
+  deleteSite(clientName: String) {
+
   }
 
   refresh() {

@@ -22,7 +22,7 @@
                       <ng-container matColumnDef="action">
                         <th mat-header-cell *matHeaderCellDef > Action </th>
                         <td mat-cell *matCellDef="let element"> 
-                        <button class="btn btn-outline-danger delete" (click)="delete(element.clientName)">
+                        <button class="btn btn-outline-danger delete" (click)="deleteClient(element.clientName)">
                           <mat-icon>delete</mat-icon>
                         </button> 
                       </td>
@@ -124,7 +124,7 @@
                         <ng-container matColumnDef="action">
                           <th mat-header-cell *matHeaderCellDef > Action </th>
                           <td mat-cell *matCellDef="let element"> 
-                          <button class="btn btn-outline-danger delete" (click)="delete(clientName)">
+                          <button class="btn btn-outline-danger delete" (click)="deleteDepartment(element.departmentId)">
                             <mat-icon>delete</mat-icon>
                           </button> 
                         </td>
@@ -138,12 +138,12 @@
                          <!-- Name Column -->
                         <ng-container matColumnDef="departmentName">
                           <th mat-header-cell *matHeaderCellDef mat-sort-header> Department Name </th>
-                          <td mat-cell *matCellDef="let element"> {{element.clientName}} </td>                        
+                          <td mat-cell *matCellDef="let element" (click)="updateDepartment(element.departmentId, element.departmentName, element.departmentCd, element.clientName,element.createdDate,element.createdBy)" class="mousechange"> {{element.departmentName}} </td>                        
                         </ng-container>
                          <!-- Name Column -->
                         <ng-container matColumnDef="createdDate">
                           <th mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </th>
-                          <td mat-cell *matCellDef="let element"> {{element.createdDate}} </td>
+                          <td mat-cell *matCellDef="let element"> {{element.createdDate | date : 'shortDate'}} </td>
                         </ng-container>
                       
                         <!-- Weight Column -->
@@ -155,7 +155,7 @@
                         <!-- Symbol Column -->
                         <ng-container matColumnDef="updatedDate">
                           <th mat-header-cell *matHeaderCellDef mat-sort-header> Updated Date </th>
-                          <td mat-cell *matCellDef="let element"> {{element.updatedDate}} </td>
+                          <td mat-cell *matCellDef="let element"> {{element.updatedDate | date : 'shortDate'}} </td>
                         </ng-container>
   
                         <!-- Symbol Column -->
@@ -165,7 +165,7 @@
                         </ng-container>
                       
                         <tr mat-header-row *matHeaderRowDef="departmentColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: departmentColumns;"></tr>
+                        <tr mat-row *matRowDef="let row; columns: departmentColumns;" [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}"  (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></tr>
   
                       </table>
                       
@@ -225,7 +225,7 @@
                       <ng-container matColumnDef="action">
                         <th mat-header-cell *matHeaderCellDef > Action </th>
                         <td mat-cell *matCellDef="let element"> 
-                        <button class="btn btn-outline-danger delete" (click)="delete(clientName)">
+                        <button class="btn btn-outline-danger delete" (click)="deleteSite(clientName)">
                           <mat-icon>delete</mat-icon><label></label>
                         </button> 
                       </td>
@@ -244,7 +244,7 @@
                        <!-- Name Column -->
                       <ng-container matColumnDef="createdDate">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </th>
-                        <td mat-cell *matCellDef="let element"> {{element.createdDate}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.createdDate | date : 'shortDate'}} </td>
                       </ng-container>
                     
                       <!-- Weight Column -->
@@ -256,7 +256,7 @@
                       <!-- Symbol Column -->
                       <ng-container matColumnDef="updatedDate">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Updated Date </th>
-                        <td mat-cell *matCellDef="let element"> {{element.updatedDate}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.updatedDate | date : 'shortDate'}} </td>
                       </ng-container>
 
                       <!-- Symbol Column -->

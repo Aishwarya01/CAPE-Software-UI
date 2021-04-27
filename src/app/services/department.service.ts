@@ -17,15 +17,15 @@ export class DepartmentService {
     return this.http.post<any>(this.apiUrl + '/addDepartment', department, { responseType: 'text' as 'json' })
   }
 
-  // public updateClient(company: Company): Observable<any> {
-  //   return this.http.put<any>(this.apiUrl + '/updateCompany', company, { responseType: 'text' as 'json' })
-  // }
+  public updateDepartment(department: Department): Observable<any> {
+    return this.http.put<any>(this.apiUrl + '/updateDepartment', department, { responseType: 'text' as 'json' })
+  }
 
-  // public deleteClient(email: String, clientname: String): Observable<any> {
-  //   return this.http.delete<any>(this.apiUrl + '/deleteCompany' + '/' + email + '/' + clientname)
-  // }
+  public deleteDepartment(email: String, departmentId: number, ): Observable<any> {
+    return this.http.delete<any>(this.apiUrl + '/deleteCompany' + '/' + email + '/' + departmentId)
+  }
 
   public retrieveDepartment(email: String, company: Company): Observable<any> {
-    console.log(company+ "" + email);
     return this.http.get<Company>(this.apiUrl + '/retriveDepartment' + '/' + email+ '/' +company.clientName, { responseType: 'text' as 'json' })
-  }}
+  }
+}

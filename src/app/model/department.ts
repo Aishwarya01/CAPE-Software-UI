@@ -1,7 +1,6 @@
 export class Department {
         departmentId: number;
-        companyId: number;
-        companyCd: String;
+        departmentCd: String;
         clientName: String;
         departmentName: String;
         inActive: boolean= false;
