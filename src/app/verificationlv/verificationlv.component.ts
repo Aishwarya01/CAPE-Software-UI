@@ -37,6 +37,7 @@ export class VerificationlvComponent implements OnInit {
   site_dataSource!: MatTableDataSource<Company[]>;
 
   clientList: any = [];
+  departmentList: any = [];
   company =new Company;
   department = new Department;
   email: String = '';
@@ -97,6 +98,7 @@ export class VerificationlvComponent implements OnInit {
     this.departmentService.retrieveDepartment(this.email,this.company).subscribe(
       data => {
         this.department_dataSource = new MatTableDataSource(JSON.parse(data));
+        this.departmentList = JSON.parse(data);
         this.department_dataSource.paginator = this.paginator;
         this.department_dataSource.sort = this.sort;
       });
