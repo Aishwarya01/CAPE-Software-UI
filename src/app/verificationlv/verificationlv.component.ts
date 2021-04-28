@@ -5,7 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { DepartmentaddComponent } from '../department/departmentadd/departmentadd.component';
-import { SiteaddComponent } from '../Company/siteadd/siteadd.component';
+import { SiteaddComponent } from '../site/siteadd/siteadd.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClientaddComponent } from '../Company/client/clientadd/clientadd.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -200,7 +200,14 @@ deleteDepartment(departmentId: number) {
 }
 
   addSite() {
-    const modalRef = this.modalService.open(SiteaddComponent);
+    const dialogRef = this.dialog.open(SiteaddComponent, {
+      width: '1000px',
+    });
+    // dialogRef.componentInstance.email = this.email;
+      dialogRef.afterClosed().subscribe(result => {
+        this.refresh();
+        this.retrieveClientDetails();
+      });
   }
 
   deleteSite(clientName: String) {
