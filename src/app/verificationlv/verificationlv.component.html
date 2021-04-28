@@ -9,7 +9,7 @@
                     <button style="width: 50px; border: 0px;" (click)="addClient()">
                       <mat-icon>add_box</mat-icon>
                     </button>                   
-                    <input type="checkbox" style="width: 50px; height: 20px;"><label style="margin-left: -10px;">Show InActive</label> 
+                    <input type="checkbox" style="width: 50px; height: 20px;" formControlName="retrieveIsActive"  (change)="retrieveIsActiveData()" [(ngModel)]="isChecked"><label style="margin-left: -10px;">Show InActive</label> 
                     
                   </div>
                   <div class="card-body">
@@ -202,7 +202,7 @@
                           white-space: nowrap;">Department Name:</label><span style="display: table-cell; width: 1000px;
                           padding: 0 4px 0 20px;"><select class="form-control">
                             <option value="" selected>Select Department Name</option>
-                            <option *ngFor="let department of departmentList">{{department.departmentName}}</option>
+                            <option *ngFor="let client of clientList">{{client.clientName}}</option>
                          </select></span>
                         </div>                                
                       </div>

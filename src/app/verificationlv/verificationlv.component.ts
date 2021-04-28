@@ -37,6 +37,7 @@ export class VerificationlvComponent implements OnInit {
   site_dataSource!: MatTableDataSource<Company[]>;
 
   clientList: any = [];
+  inActiveData: any =[];
   departmentList: any = [];
   company =new Company;
   department = new Department;
@@ -51,6 +52,7 @@ export class VerificationlvComponent implements OnInit {
   createdDate =new Date;
   companyCd: String = '';
   departmentCd: String = '';
+  isChecked: boolean = false;
 
 
   firstFormGroup!: FormGroup;
@@ -74,7 +76,8 @@ export class VerificationlvComponent implements OnInit {
 
   ngOnInit(): void {
     this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required],      
+      firstCtrl: ['', Validators.required],
+      retrieveIsActive: ['', Validators.required],      
     });
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required],
@@ -84,11 +87,28 @@ export class VerificationlvComponent implements OnInit {
     this.retrieveClientDetails();
   }
 
+  retrieveIsActiveData() {
+    this.retrieveClientDetails();
+  }
+
   private retrieveClientDetails() {
     this.clientService.retrieveClient(this.email).subscribe(
       data => {
-        this.company_dataSource = new MatTableDataSource(JSON.parse(data));
-        this.clientList= JSON.parse(data);
+        if(this.isChecked) {
+            this.inActiveData = [];
+            for (let arr of JSON.parse(data)) {
+              if(arr.inActive){
+                this.inActiveData.push(arr);
+              }          
+            }
+        }
+        else {
+            this.inActiveData = []
+            this.inActiveData=JSON.parse(data);
+            this.clientList=JSON.parse(data);
+        }
+        
+        this.company_dataSource = new MatTableDataSource(this.inActiveData);
         this.company_dataSource.paginator = this.paginator;
         this.company_dataSource.sort = this.sort;
       });
