@@ -17,6 +17,8 @@ import { ClientService } from '../services/client.service';
 import { DepartmentService } from '../services/department.service';
 import { Department } from '../model/department';
 import { DepartmentupdateComponent } from '../department/departmentupdate/departmentupdate/departmentupdate.component';
+import { SiteService } from '../services/site.service';
+import { Site } from '../model/site';
 
 
 @Component({
@@ -39,8 +41,10 @@ export class VerificationlvComponent implements OnInit {
   clientList: any = [];
   inActiveData: any =[];
   departmentList: any = [];
+  clientArray : any = [];
   company =new Company;
   department = new Department;
+  site = new Site;
   email: String = '';
   clientName: String = '';
   departmentName: String = '';
@@ -70,6 +74,7 @@ export class VerificationlvComponent implements OnInit {
     private router: ActivatedRoute,
     private clientService: ClientService,
     private departmentService: DepartmentService,
+    private siteService: SiteService,
     private ChangeDetectorRef: ChangeDetectorRef) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
@@ -106,6 +111,10 @@ export class VerificationlvComponent implements OnInit {
             this.inActiveData = []
             this.inActiveData=JSON.parse(data);
             this.clientList=JSON.parse(data);
+            this.clientArray = [];
+            for(let arr of JSON.parse(data)) {
+              this.clientArray.push(arr);
+            }
         }
         
         this.company_dataSource = new MatTableDataSource(this.inActiveData);
@@ -123,6 +132,14 @@ export class VerificationlvComponent implements OnInit {
       });
   }
 
+  retrieveSiteDetails() {
+    this.siteService.retrieveSite(this.site).subscribe(
+      data => {
+        this.site_dataSource = new MatTableDataSource(JSON.parse(data));
+        this.site_dataSource.paginator = this.paginator;
+        this.site_dataSource.sort = this.sort;
+      });
+  }
 
   deleteClient(clientname: String) {
     this.clientService.deleteClient(this.email, clientname).subscribe(
@@ -202,7 +219,7 @@ deleteDepartment(departmentId: number) {
     const dialogRef = this.dialog.open(SiteaddComponent, {
       width: '1000px',
     });
-    // dialogRef.componentInstance.email = this.email;
+    dialogRef.componentInstance.email = this.email;
       dialogRef.afterClosed().subscribe(result => {
         this.refresh();
         this.retrieveClientDetails();
@@ -214,12 +231,15 @@ deleteDepartment(departmentId: number) {
   }
 
   changeClient (e: any) {
-    this.company.clientName=e.target.value;
-    console.log(this.company)
-    this.departmentService.retrieveDepartment(this.email,this.company).subscribe(
-      data => {
-        this.departmentList = JSON.parse(data);
-      });
+    let changedValue = e.target.value;
+    this.departmentList = [];
+    for(let arr of this.clientArray) {
+      if( arr.clientName == changedValue) {
+        for(let arr1 of arr.department) {
+          this.departmentList.push(arr1.departmentName)
+        }
+      }
+    }
   }
 
   refresh() {
