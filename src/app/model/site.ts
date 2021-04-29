@@ -10,7 +10,7 @@ export class Site {
     personIncharge: String;
     phoneNumber: number;
     personInchargeEmail: String;
-    siteLocation: String;
+    city: String;
     addressLine_1: String;
     addressLine_2: String;
     landMark: String;
