@@ -101,7 +101,7 @@
                           white-space: nowrap;">Client Name:</label><span style="display: table-cell; width: 500px;
                           padding: 0 4px 0 20px;"><select formControlName="clientname" class="form-control" [(ngModel)]="company.clientName"
                           (change)="retrieveDepartmentDetails()">
-                            <option value="" selected>Select Client Name</option>
+                            <option value="0" selected>Select Client Name</option>
                             <option *ngFor="let client of clientList">{{client.clientName}}</option>
                          </select></span>
                           </div>                                
