@@ -1,5 +1,5 @@
 <mat-tab-group>
-    <mat-tab label="Client Details">
+    <mat-tab label="Company Details">
         <mat-horizontal-stepper #stepper>
             <mat-step [stepControl]="firstFormGroup" errorMessage="Company details are required.">
               <form [formGroup]="firstFormGroup">
@@ -99,14 +99,12 @@
                             <label style="display: table-cell;
                           width: 1px;
                           white-space: nowrap;">Client Name:</label><span style="display: table-cell; width: 500px;
-                          padding: 0 4px 0 20px;"><select  formControlName="clientname" class="form-control" [(ngModel)]="company.clientName">
+                          padding: 0 4px 0 20px;"><select formControlName="clientname" class="form-control" [(ngModel)]="company.clientName"
+                          (change)="retrieveDepartmentDetails()">
                             <option value="" selected>Select Client Name</option>
                             <option *ngFor="let client of clientList">{{client.clientName}}</option>
                          </select></span>
                           </div>                                
-                        </div>
-                        <div class="col-md-6" >
-                          <button  class="btn btn-info" style="float: right; margin-right: 200px;" (click)="retrieveDepartmentDetails()">Submit</button>
                         </div>
                       </div>
                     </div> 
@@ -205,9 +203,6 @@
                             <option *ngFor="let department of departmentList">{{department.departmentName}}</option>
                          </select></span>
                         </div>                                
-                      </div>
-                      <div class="col-md-2" >
-                        <button  class="btn btn-info" style="float: right; margin-right: 50px;">Submit</button>
                       </div>
                     </div>
                   </div> 
