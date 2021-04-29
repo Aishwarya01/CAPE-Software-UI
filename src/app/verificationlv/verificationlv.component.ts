@@ -31,7 +31,7 @@ export class VerificationlvComponent implements OnInit {
 
   companyColumns: string[] = ['action', 'companyCd', 'clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
   departmentColumns: string[] = ['action', 'clientName', 'departmentName', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
-  siteColumns: string[] = ['action', 'clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
+  siteColumns: string[] = ['action', 'clientName', 'departmentName', 'siteName','personIncharge','personInchargeEmail','addressLine1','addressLine2','landMark','city','state','country','pinCode','contactNumber','createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
   company_dataSource!: MatTableDataSource<Company[]>;
   department_dataSource!: MatTableDataSource<Company[]>;
   site_dataSource!: MatTableDataSource<Company[]>;
@@ -118,7 +118,6 @@ export class VerificationlvComponent implements OnInit {
     this.departmentService.retrieveDepartment(this.email,this.company).subscribe(
       data => {
         this.department_dataSource = new MatTableDataSource(JSON.parse(data));
-        this.departmentList = JSON.parse(data);
         this.department_dataSource.paginator = this.paginator;
         this.department_dataSource.sort = this.sort;
       });
@@ -212,6 +211,15 @@ deleteDepartment(departmentId: number) {
 
   deleteSite(clientName: String) {
 
+  }
+
+  changeClient (e: any) {
+    this.company.clientName=e.target.value;
+    console.log(this.company)
+    this.departmentService.retrieveDepartment(this.email,this.company).subscribe(
+      data => {
+        this.departmentList = JSON.parse(data);
+      });
   }
 
   refresh() {
