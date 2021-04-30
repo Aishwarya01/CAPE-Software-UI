@@ -256,8 +256,10 @@ deleteDepartment(departmentId: number) {
   }
 
   deleteSite(siteId: number) {
-    this.siteService.deleteSite(this.email, siteId).subscribe(
+    debugger;
+    this.siteService.deleteSite(siteId).subscribe(
       data => {
+        console.log(data);
         this.retrieveSiteDetails();
       }
     )

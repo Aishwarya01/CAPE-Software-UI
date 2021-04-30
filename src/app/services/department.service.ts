@@ -21,7 +21,7 @@ export class DepartmentService {
     return this.http.put<any>(this.apiUrl + '/updateDepartment', department, { responseType: 'text' as 'json' })
   }
 
-  public deleteDepartment(email: String, departmentId: number, ): Observable<any> {
+  public deleteDepartment(email: String, departmentId: number ): Observable<any> {
     return this.http.delete<any>(this.apiUrl + '/deleteDepartment' + '/' + email + '/' + departmentId)
   }
 
