@@ -55,6 +55,12 @@ export class SiteaddComponent implements OnInit {
         }
       }
     )
+
+    this.siteService.retrieveCountry().subscribe(
+      data => {
+        this.countryList = JSON.parse(data);
+      }
+    )
   }
 
   changeClient(e: any) {
@@ -67,6 +73,19 @@ export class SiteaddComponent implements OnInit {
         }
       }
     }
+  }
+
+  changeCountry(e: any) {
+    let changedValue = e.target.value;
+    this.stateList = [];
+      for(let arr of this.countryList) {
+        if( arr.name == changedValue) {
+          this.siteService.retrieveState(arr.code).subscribe(
+            data => {
+              this.stateList = JSON.parse(data)
+            }
+          )};
+      }
   }
 
   cancel() {

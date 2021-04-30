@@ -27,4 +27,12 @@ export class SiteService {
   public retrieveSite(site: Site): Observable<any> {
     return this.http.get<Site>(this.apiUrl + '/retriveSite' + '/' + site.clientName+ '/' +site.departmentName, { responseType: 'text' as 'json' })
   }
+
+  public retrieveCountry(): Observable<any> {
+    return this.http.get<any>(this.apiUrl + '/fetchCountries', { responseType: 'text' as 'json' })
+  }
+
+  public retrieveState(countryName: String): Observable<any> {
+    return this.http.get<any>(this.apiUrl + '/fetchStatesByCountryCode' + '/' +countryName, { responseType: 'text' as 'json' })
+  }
 }

@@ -73,9 +73,9 @@
 
             <div class="col-md-4">
                 <label>Country:</label>
-                <select  formControlName="country" class="form-control" [(ngModel)]="site.country" >
+                <select  formControlName="country" class="form-control" (change)="changeCountry($event)" [(ngModel)]="site.country" >
                     <option value="0" selected>Select Country Name</option>
-                    <option *ngFor="let country of countryList">{{country}}</option>
+                    <option *ngFor="let country of countryList">{{country.name}}</option>
                 </select>
             </div>
 
@@ -83,7 +83,7 @@
                 <label>State:</label>
                 <select  formControlName="state" class="form-control" [(ngModel)]="site.state">
                     <option value="0" selected>Select State Name</option>
-                    <option *ngFor="let state of stateList">{{state}}</option>
+                    <option *ngFor="let state of stateList">{{state.name}}</option>
                 </select>
             </div>
         </div>
