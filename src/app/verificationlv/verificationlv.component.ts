@@ -19,6 +19,7 @@ import { Department } from '../model/department';
 import { DepartmentupdateComponent } from '../department/departmentupdate/departmentupdate/departmentupdate.component';
 import { SiteService } from '../services/site.service';
 import { Site } from '../model/site';
+import { SiteupdateComponent } from '../site/siteupdate/siteupdate.component';
 
 
 @Component({
@@ -225,9 +226,42 @@ deleteDepartment(departmentId: number) {
         this.retrieveClientDetails();
       });
   }
+  
+  updateSite(userName: String, clientName: String,departmentName: String,  site : String, siteId : number, siteCd : String, country : String, state : String, city : String, landMark : String, personIncharge : String, personInchargeEmail : String, addressLine_1: String, addressLine_2: String, phoneNumber: number, zipCode: number, createdDate: Date,createdBy: String) {    
+    const dialogRef = this.dialog.open(SiteupdateComponent, {
+      width: '1000px',
+    });
+    dialogRef.componentInstance.userName = userName;
+    dialogRef.componentInstance.clientName = clientName;
+    dialogRef.componentInstance.departmentName = departmentName;
+    dialogRef.componentInstance.siteName = site;
+    dialogRef.componentInstance.siteId = siteId;
+    dialogRef.componentInstance.siteCd = siteCd;
+    dialogRef.componentInstance.country = country;
+    dialogRef.componentInstance.state = state;
+    dialogRef.componentInstance.city = city;
+    dialogRef.componentInstance.landMark = landMark;
+    dialogRef.componentInstance.addressLine_1 = addressLine_1;
+    dialogRef.componentInstance.addressLine_2 = addressLine_2;
+    dialogRef.componentInstance.personIncharge = personIncharge;
+    dialogRef.componentInstance.personInchargeEmail = personInchargeEmail;
+    dialogRef.componentInstance.phoneNumber = phoneNumber;
+    dialogRef.componentInstance.zipCode = zipCode;
+    dialogRef.componentInstance.createdBy = createdBy;
+    dialogRef.componentInstance.createdDate = createdDate;
+    dialogRef.afterClosed().subscribe(result => {
+      this.refresh();
+      this.retrieveSiteDetails();
+    });
+  }
 
-  deleteSite(clientName: String) {
-
+  deleteSite(siteId: number) {
+    this.siteService.deleteSite(this.email, siteId).subscribe(
+      data => {
+        this.retrieveSiteDetails();
+      }
+    )
+    this.refresh();
   }
 
   changeClient (e: any) {

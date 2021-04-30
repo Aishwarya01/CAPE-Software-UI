@@ -221,7 +221,7 @@
                       <ng-container matColumnDef="action">
                         <th style="width: auto;" mat-header-cell *matHeaderCellDef > Action </th>
                         <td style="width: auto;" mat-cell *matCellDef="let element"> 
-                        <button class="btn btn-outline-danger delete" (click)="deleteSite(clientName)">
+                        <button class="btn btn-outline-danger delete" (click)="deleteSite(element.siteId)">
                           <mat-icon>delete</mat-icon><label></label>
                         </button> 
                       </td>
@@ -239,7 +239,7 @@
                       <!-- Name Column -->
                       <ng-container matColumnDef="siteName">
                         <th style="width: auto;" mat-header-cell *matHeaderCellDef> Site Name </th>
-                        <td style="width: auto;" mat-cell *matCellDef="let element"> {{element.site}} </td>
+                        <td style="width: auto;" mat-cell *matCellDef="let element" (click)="updateSite( element.userName, element.clientName, element.departmentName,  element.site, element.siteId, element.siteCd, element.country, element.state, element.city, element.landMark, element.personIncharge, element.personInchargeEmail, element.addressLine_1, element.addressLine_2, element.phoneNumber, element.zipCode, element.createdDate,element.createdBy)" class="mousechange"> {{element.site}} </td>
                       </ng-container>
                       <!-- Name Column -->
                       <ng-container matColumnDef="personIncharge">
