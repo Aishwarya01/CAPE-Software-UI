@@ -125,7 +125,7 @@ export class VerificationlvComponent implements OnInit {
   }
 
    retrieveDepartmentDetails() {
-    this.departmentService.retrieveDepartment(this.email,this.company).subscribe(
+    this.departmentService.retrieveDepartment(this.email,this.company.clientName).subscribe(
       data => {
         this.department_dataSource = new MatTableDataSource(JSON.parse(data));
         this.department_dataSource.paginator = this.paginator;
@@ -256,10 +256,8 @@ deleteDepartment(departmentId: number) {
   }
 
   deleteSite(siteId: number) {
-    debugger;
     this.siteService.deleteSite(siteId).subscribe(
       data => {
-        console.log(data);
         this.retrieveSiteDetails();
       }
     )
@@ -269,13 +267,14 @@ deleteDepartment(departmentId: number) {
   changeClient (e: any) {
     let changedValue = e.target.value;
     this.departmentList = [];
-    for(let arr of this.clientArray) {
-      if( arr.clientName == changedValue) {
-        for(let arr1 of arr.department) {
-          this.departmentList.push(arr1.departmentName)
-        }
+      for(let arr of this.clientList) {
+        if( arr.clientName == changedValue) {
+          this.departmentService.retrieveDepartment(this.email,arr.clientName).subscribe(
+            data => {
+              this.departmentList = JSON.parse(data)
+            }
+          )};
       }
-    }
   }
 
   refresh() {

@@ -201,7 +201,7 @@
                           padding: 0 4px 0 20px;"><select class="form-control" [(ngModel)]="site.departmentName"
                           (change)="retrieveSiteDetails()">
                             <option value="0" selected>Select Department Name</option>
-                            <option *ngFor="let department of departmentList">{{department}}</option>
+                            <option *ngFor="let department of departmentList">{{department.departmentName}}</option>
                          </select></span>
                         </div>                                
                       </div>

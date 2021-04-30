@@ -25,7 +25,7 @@ export class DepartmentService {
     return this.http.delete<any>(this.apiUrl + '/deleteDepartment' + '/' + email + '/' + departmentId)
   }
 
-  public retrieveDepartment(email: String, company: Company): Observable<any> {
-    return this.http.get<Company>(this.apiUrl + '/retriveDepartment' + '/' + email+ '/' +company.clientName, { responseType: 'text' as 'json' })
+  public retrieveDepartment(email: String, clientName: String): Observable<any> {
+    return this.http.get<Company>(this.apiUrl + '/retriveDepartment' + '/' + email+ '/' +clientName, { responseType: 'text' as 'json' })
   }
 }

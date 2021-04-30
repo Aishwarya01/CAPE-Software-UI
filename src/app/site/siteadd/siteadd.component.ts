@@ -66,13 +66,14 @@ export class SiteaddComponent implements OnInit {
   changeClient(e: any) {
     let changedValue = e.target.value;
     this.departmentList = [];
-    for(let arr of this.clientArray) {
-      if( arr.clientName == changedValue) {
-        for(let arr1 of arr.department) {
-          this.departmentList.push(arr1.departmentName)
-        }
+      for(let arr of this.clientList) {
+        if( arr.clientName == changedValue) {
+          this.departmentService.retrieveDepartment(this.email,arr.clientName).subscribe(
+            data => {
+              this.departmentList = JSON.parse(data)
+            }
+          )};
       }
-    }
   }
 
   changeCountry(e: any) {

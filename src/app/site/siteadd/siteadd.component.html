@@ -15,7 +15,7 @@
                 <label>Department:</label>
                 <select  formControlName="departmentName" class="form-control" [(ngModel)]="site.departmentName" >
                     <option value="0" selected>Select Department Name</option>
-                    <option *ngFor="let department of departmentList">{{department}}</option>
+                    <option *ngFor="let department of departmentList">{{department.departmentName}}</option>
                 </select>
             </div>    
 
