@@ -33,11 +33,23 @@ import { SiteupdateComponent } from '../site/siteupdate/siteupdate.component';
 export class VerificationlvComponent implements OnInit {
 
   companyColumns: string[] = ['action', 'companyCd', 'clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
-  departmentColumns: string[] = ['action', 'clientName', 'departmentName', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
-  siteColumns: string[] = ['action', 'clientName', 'departmentName', 'siteName','personIncharge','personInchargeEmail','addressLine1','addressLine2','landMark','city','state','country','pinCode','contactNumber','createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
   company_dataSource!: MatTableDataSource<Company[]>;
+  @ViewChild('companyPaginator', { static: true }) companyPaginator!: MatPaginator;
+  @ViewChild('companySort', {static: true}) companySort!: MatSort;
+
+
+  departmentColumns: string[] = ['action', 'clientName', 'departmentName', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
   department_dataSource!: MatTableDataSource<Company[]>;
+  @ViewChild('departmentPaginator', { static: true }) departmentPaginator!: MatPaginator;
+  @ViewChild('departmentSort', {static: true}) departmentSort!: MatSort;
+
+
+  siteColumns: string[] = ['action', 'clientName', 'departmentName', 'siteName','personIncharge','personInchargeEmail','addressLine1','addressLine2','landMark','city','state','country','pinCode','contactNumber','createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
   site_dataSource!: MatTableDataSource<Company[]>;
+  @ViewChild('sitePaginator', { static: true }) sitePaginator!: MatPaginator;
+  @ViewChild('siteSort', {static: true}) siteSort!: MatSort;
+
+
 
   clientList: any = [];
   inActiveData: any =[];
@@ -65,8 +77,10 @@ export class VerificationlvComponent implements OnInit {
   // ThirdFormGroup: FormGroup;
   // fourthFormGroup: FormGroup;
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  // @ViewChild(MatSort) sort!: MatSort;
+
+  // @ViewChild('TableOnePaginator', {static: true}) tableOnePaginator: MatPaginator;
+  // @ViewChild('TableOneSort', {static: true}) tableOneSort: MatSort;
 
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
   constructor(private _formBuilder: FormBuilder,
@@ -119,8 +133,8 @@ export class VerificationlvComponent implements OnInit {
         }
         
         this.company_dataSource = new MatTableDataSource(this.inActiveData);
-        this.company_dataSource.paginator = this.paginator;
-        this.company_dataSource.sort = this.sort;
+        this.company_dataSource.paginator = this.companyPaginator;
+        this.company_dataSource.sort = this.companySort;
       });
   }
 
@@ -128,8 +142,8 @@ export class VerificationlvComponent implements OnInit {
     this.departmentService.retrieveDepartment(this.email,this.company.clientName).subscribe(
       data => {
         this.department_dataSource = new MatTableDataSource(JSON.parse(data));
-        this.department_dataSource.paginator = this.paginator;
-        this.department_dataSource.sort = this.sort;
+        this.department_dataSource.paginator = this.departmentPaginator;
+        this.department_dataSource.sort = this.departmentSort;
       });
   }
 
@@ -137,8 +151,8 @@ export class VerificationlvComponent implements OnInit {
     this.siteService.retrieveSite(this.site).subscribe(
       data => {
         this.site_dataSource = new MatTableDataSource(JSON.parse(data));
-        this.site_dataSource.paginator = this.paginator;
-        this.site_dataSource.sort = this.sort;
+        this.site_dataSource.paginator = this.sitePaginator;
+        this.site_dataSource.sort = this.siteSort;
       });
   }
 

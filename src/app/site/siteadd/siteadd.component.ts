@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Site } from 'src/app/model/site';
 import { ClientService } from 'src/app/services/client.service';
@@ -19,7 +19,7 @@ export class SiteaddComponent implements OnInit {
     siteName: new FormControl(''),
     personIncharge: new FormControl(''),
     contactNo: new FormControl(''),
-    email: new FormControl(''),
+    personInchargeEmail: new FormControl(''),
     siteLocation: new FormControl(''),
     AddressLine1: new FormControl(''),
     AddressLine2: new FormControl(''),
@@ -35,6 +35,9 @@ export class SiteaddComponent implements OnInit {
   countryList: any = [];
   stateList: any = [];
   site = new Site();
+  loading = false;
+  submitted = false;
+  showErrorMessage=false;
 
   @Input()
   email: String = '';
@@ -42,10 +45,28 @@ export class SiteaddComponent implements OnInit {
               public clientService: ClientService,
               public departmentService: DepartmentService,
               public siteService: SiteService,
+              public formBuilder: FormBuilder
               ) { 
               }
 
   ngOnInit(): void {
+    this.addSiteForm = this.formBuilder.group({
+      clientName: ['', Validators.required],
+      departmentName: ['', Validators.required],
+      siteName: ['', Validators.required],
+      personIncharge: ['', Validators.required],
+      contactNo: ['', Validators.required],
+      personInchargeEmail: ['', [
+        Validators.required,
+        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+      siteLocation: ['', Validators.required],
+      AddressLine1: ['', Validators.required],
+      AddressLine2: ['', Validators.required],
+      siteLandmark: ['', Validators.required],
+      country: ['', Validators.required],
+      state: ['', Validators.required],
+      pincode: ['', Validators.required],
+      });
     this.clientService.retrieveClient(this.email).subscribe(
       data => {
         this.clientArray = [];
@@ -93,11 +114,28 @@ export class SiteaddComponent implements OnInit {
     this.dialog.closeAll();
   }
 
+  get f() {
+    return this.addSiteForm.controls;
+  }
+
+
   onSubmit() {
+    this.submitted = true;
+
+    //Breaks if form is invalid
+    if(this.addSiteForm.invalid) {
+      return;
+    }
+    this.loading = true;
     this.site.userName = this.email;
     this.siteService.addSIte(this.site).subscribe(
       data=> {
         this.dialog.closeAll();
+      },
+      error => {
+        this.showErrorMessage=true;
+        this.addSiteForm.reset();
+        this.loading=false;
       }
       )
   }

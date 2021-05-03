@@ -12,6 +12,7 @@ import { DepartmentService } from 'src/app/services/department.service';
 export class DepartmentupdateComponent implements OnInit {
 
   updateDepartmentForm = new FormGroup({
+    clientName: new FormControl(''),
     departmentName: new FormControl(''),
   }); 
 department = new Department;

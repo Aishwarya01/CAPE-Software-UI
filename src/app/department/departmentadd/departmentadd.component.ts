@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Company } from 'src/app/model/company';
 import { Department } from 'src/app/model/department';
@@ -18,18 +18,26 @@ export class DepartmentaddComponent implements OnInit {
     departmentname: new FormControl('')
   }); 
   department = new Department();
+  loading = false;
+  submitted = false;
+  showErrorMessage=false;
 
   @Input()
   email: String = '';
   clientList: any = [];
   constructor(public dialog: MatDialog,
               public clientService: ClientService,
-              public departmentService: DepartmentService) { 
+              public departmentService: DepartmentService,
+              private formBuilder: FormBuilder
+              ) { 
                 
               }
 
   ngOnInit(): void {
-    console.log(this.email)
+    this.addDepartmentForm = this.formBuilder.group({
+      clientname: ['', Validators.required],
+      departmentname: ['', Validators.required]
+      });
     this.clientService.retrieveClient(this.email).subscribe(
       data => {       
         this.clientList= JSON.parse(data);
@@ -41,12 +49,28 @@ export class DepartmentaddComponent implements OnInit {
     this.dialog.closeAll();
   }
 
+  get f() {
+    return this.addDepartmentForm.controls;
+  }
+
   onSubmit() {
+    this.submitted = true;
+
+    //Breaks if form is invalid
+    if(this.addDepartmentForm.invalid) {
+      return;
+    }
+    this.loading = true;
+
     this.department.userName=this.email
-    console.log(this.department)
     this.departmentService.addDepartment(this.department).subscribe(
-      data=> {
+      data => {
         this.dialog.closeAll();
+      },
+      error => {
+        this.showErrorMessage=true;
+        this.addDepartmentForm.reset();
+        this.loading=false;
       }
       )
   }
