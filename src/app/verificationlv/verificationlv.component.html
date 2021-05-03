@@ -35,7 +35,7 @@
                     
                       <!-- Name Column -->
                       <ng-container matColumnDef="clientName">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Client Name </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Company Name </th>
                         <td mat-cell *matCellDef="let element" (click)="updateClient(element.companyId,element.companyCd, element.clientName,element.inActive,element.createdDate,element.createdBy)" class="mousechange"> {{element.clientName}} </td>
                       </ng-container>
                       
@@ -129,9 +129,9 @@
                         </ng-container>
                       
                         <!-- Name Column -->
-                        <ng-container matColumnDef="clientName">
-                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Client Name </th>
-                          <td mat-cell *matCellDef="let element"> {{element.clientName}} </td>
+                        <ng-container matColumnDef="departmentCd">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Department Code </th>
+                          <td mat-cell *matCellDef="let element"> {{element.departmentCd}} </td>
                         </ng-container>
                          <!-- Name Column -->
                         <ng-container matColumnDef="departmentName">
@@ -226,17 +226,10 @@
                         </button> 
                       </td>
                       </ng-container>
-                      <!-- Name Column -->
-                      <ng-container matColumnDef="clientName">
-                        <th  mat-header-cell *matHeaderCellDef mat-sort-header> Client Name </th>
-                        <td  mat-cell *matCellDef="let element"> {{element.clientName}} </td>
+                      <ng-container matColumnDef="siteCd">
+                        <th  mat-header-cell *matHeaderCellDef mat-sort-header> Site Code </th>
+                        <td  mat-cell *matCellDef="let element"> {{element.siteCd}} </td>
                       </ng-container>
-                       <!-- Name Column -->
-                      <ng-container matColumnDef="departmentName">
-                        <th  mat-header-cell *matHeaderCellDef mat-sort-header> Department Name </th>
-                        <td  mat-cell *matCellDef="let element"> {{element.departmentName}} </td>
-                      </ng-container>
-                      <!-- Name Column -->
                       <ng-container matColumnDef="siteName">
                         <th  mat-header-cell *matHeaderCellDef mat-sort-header> Site Name </th>
                         <td  mat-cell *matCellDef="let element" (click)="updateSite( element.userName, element.clientName, element.departmentName,  element.site, element.siteId, element.siteCd, element.country, element.state, element.city, element.landMark, element.personIncharge, element.personInchargeEmail, element.addressLine_1, element.addressLine_2, element.phoneNumber, element.zipCode, element.createdDate,element.createdBy)" class="mousechange"> {{element.site}} </td>
@@ -246,45 +239,18 @@
                         <th  mat-header-cell *matHeaderCellDef mat-sort-header> Person Incharge </th>
                         <td  mat-cell *matCellDef="let element"> {{element.personIncharge}} </td>
                       </ng-container>
+                      <ng-container matColumnDef="designation">
+                        <th  mat-header-cell *matHeaderCellDef mat-sort-header> Designation </th>
+                        <td  mat-cell *matCellDef="let element"> {{element.designation}} </td>
+                      </ng-container>
                       <!-- Name Column -->
                       <ng-container matColumnDef="personInchargeEmail">
                         <th  mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
                         <td  mat-cell *matCellDef="let element"> {{element.personInchargeEmail}} </td>
                       </ng-container>
-                      <!-- Name Column -->
-                      <ng-container matColumnDef="addressLine1">
-                        <th  mat-header-cell *matHeaderCellDef> Address Line 1 </th>
-                        <td  mat-cell *matCellDef="let element"> {{element.addressLine_1}} </td>
-                      </ng-container>
-                      <!-- Name Column -->
-                      <ng-container matColumnDef="addressLine2">
-                        <th  mat-header-cell *matHeaderCellDef> Address Line 2</th>
-                        <td  mat-cell *matCellDef="let element"> {{element.addressLine_2}} </td>
-                      </ng-container>
-                      <!-- Name Column -->
-                      <ng-container matColumnDef="landMark">
-                        <th  mat-header-cell *matHeaderCellDef mat-sort-header> LandMark </th>
-                        <td  mat-cell *matCellDef="let element"> {{element.landMark}} </td>
-                      </ng-container>
-                      <!-- Name Column -->
-                      <ng-container matColumnDef="city">
-                        <th  mat-header-cell *matHeaderCellDef mat-sort-header> City </th>
-                        <td mat-cell *matCellDef="let element"> {{element.city}} </td>
-                      </ng-container>
-                      <!-- Name Column -->
-                      <ng-container matColumnDef="state">
-                        <th  mat-header-cell *matHeaderCellDef mat-sort-header> State </th>
-                        <td  mat-cell *matCellDef="let element"> {{element.state}} </td>
-                      </ng-container>
-                      <!-- Name Column -->
                       <ng-container matColumnDef="country">
                         <th  mat-header-cell *matHeaderCellDef mat-sort-header> Country </th>
                         <td  mat-cell *matCellDef="let element"> {{element.country}} </td>
-                      </ng-container>
-                      <!-- Name Column -->
-                      <ng-container matColumnDef="pinCode">
-                        <th  mat-header-cell *matHeaderCellDef mat-sort-header> Pincode </th>
-                        <td  mat-cell *matCellDef="let element"> {{element.zipCode}} </td>
                       </ng-container>
                       <!-- Name Column -->
                       <ng-container matColumnDef="contactNumber">

@@ -38,13 +38,13 @@ export class VerificationlvComponent implements OnInit {
   @ViewChild('companySort', {static: true}) companySort!: MatSort;
 
 
-  departmentColumns: string[] = ['action', 'clientName', 'departmentName', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
+  departmentColumns: string[] = ['action', 'departmentCd', 'departmentName', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
   department_dataSource!: MatTableDataSource<Company[]>;
   @ViewChild('departmentPaginator', { static: true }) departmentPaginator!: MatPaginator;
   @ViewChild('departmentSort', {static: true}) departmentSort!: MatSort;
 
 
-  siteColumns: string[] = ['action', 'clientName', 'departmentName', 'siteName','personIncharge','personInchargeEmail','addressLine1','addressLine2','landMark','city','state','country','pinCode','contactNumber','createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
+  siteColumns: string[] = ['action','siteCd', 'siteName','personIncharge','personInchargeEmail','designation','country','contactNumber','createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
   site_dataSource!: MatTableDataSource<Company[]>;
   @ViewChild('sitePaginator', { static: true }) sitePaginator!: MatPaginator;
   @ViewChild('siteSort', {static: true}) siteSort!: MatSort;

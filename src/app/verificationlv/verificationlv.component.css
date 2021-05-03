@@ -1,5 +1,6 @@
 table {
     width: 811px;
+    overflow-x: scroll
   }
 
   .mat-row.hovered {
@@ -12,7 +13,8 @@ table {
 
 mat-cell.mat-cell,
 mat-header-cell.mat-header-cell {
-  overflow: visible;
+  overflow-x: scroll;
+  min-width: 200px;
 }
 
 .delete {   
