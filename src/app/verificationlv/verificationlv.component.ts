@@ -233,6 +233,7 @@ deleteDepartment(departmentId: number) {
   addSite() {
     const dialogRef = this.dialog.open(SiteaddComponent, {
       width: '1000px',
+      maxHeight: '90vh',
     });
     dialogRef.componentInstance.email = this.email;
       dialogRef.afterClosed().subscribe(result => {

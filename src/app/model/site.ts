@@ -7,9 +7,7 @@ export class Site {
     siteId: number;
     siteCd: String;
     userName: String;
-    personIncharge: String;
-    phoneNumber: number;
-    personInchargeEmail: String;
+    
     city: String;
     addressLine_1: String;
     addressLine_2: String;
@@ -21,4 +19,12 @@ export class Site {
     createdBy: String;
     updatedDate: Date;
     updatedBy: String;  
+    personInfo: PersonInfo[];
+}
+
+export class PersonInfo {
+    personIncharge: String;
+    designation: String;
+    phoneNumber: number;
+    personInchargeEmail: String;
 }

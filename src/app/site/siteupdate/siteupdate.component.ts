@@ -93,9 +93,9 @@ export class SiteupdateComponent implements OnInit {
     this.site.landMark=this.landMark;
     this.site.addressLine_1=this.addressLine_1;
     this.site.addressLine_2=this.addressLine_2;
-    this.site.personIncharge=this.personIncharge;
-    this.site.personInchargeEmail=this.personInchargeEmail;
-    this.site.phoneNumber=this.phoneNumber;
+    // this.site.personIncharge=this.personIncharge;
+    // this.site.personInchargeEmail=this.personInchargeEmail;
+    // this.site.phoneNumber=this.phoneNumber;
     this.site.zipCode=this.zipCode;
     this.site.createdBy=this.createdBy;
     this.site.createdDate=this.createdDate;

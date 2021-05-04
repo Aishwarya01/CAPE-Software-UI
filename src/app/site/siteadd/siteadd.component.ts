@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Site } from 'src/app/model/site';
 import { ClientService } from 'src/app/services/client.service';
@@ -38,6 +38,8 @@ export class SiteaddComponent implements OnInit {
   loading = false;
   submitted = false;
   showErrorMessage=false;
+  arr: FormArray;
+
 
   @Input()
   email: String = '';
@@ -54,11 +56,7 @@ export class SiteaddComponent implements OnInit {
       clientName: ['', Validators.required],
       departmentName: ['', Validators.required],
       siteName: ['', Validators.required],
-      personIncharge: ['', Validators.required],
-      contactNo: ['', Validators.required],
-      personInchargeEmail: ['', [
-        Validators.required,
-        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+      arr: this.formBuilder.array([this.createItem()]),
       siteLocation: ['', Validators.required],
       AddressLine1: ['', Validators.required],
       AddressLine2: ['', Validators.required],
@@ -118,6 +116,30 @@ export class SiteaddComponent implements OnInit {
     return this.addSiteForm.controls;
   }
 
+  createItem() {
+    return this.formBuilder.group({
+      personIncharge: ['', Validators.required],
+      designation: ['', Validators.required],
+      contactNo: ['', Validators.required],
+      personInchargeEmail: ['', [
+        Validators.required,
+        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+    })
+  }
+
+  addItem() {
+    this.arr = this.addSiteForm.get('arr') as FormArray;
+    this.arr.push(this.createItem());
+  }
+
+  removeItem(index: any) {
+    (this.addSiteForm.get('arr') as FormArray).removeAt(index);
+  }
+
+  getControls(): AbstractControl[] {
+    return (<FormArray> this.addSiteForm.get('arr')).controls
+  }
+
 
   onSubmit() {
     this.submitted = true;
@@ -127,6 +149,10 @@ export class SiteaddComponent implements OnInit {
       return;
     }
     this.loading = true;
+    console.log(this.addSiteForm.value.arr);
+
+    this.site.personInfo=this.addSiteForm.value.arr;
+    
     this.site.userName = this.email;
     this.siteService.addSIte(this.site).subscribe(
       data=> {
