@@ -38,7 +38,7 @@ export class SiteaddComponent implements OnInit {
   loading = false;
   submitted = false;
   showErrorMessage=false;
-  arr: FormArray;
+  arr!: FormArray;
 
 
   @Input()

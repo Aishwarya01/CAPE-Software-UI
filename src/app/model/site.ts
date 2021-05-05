@@ -19,10 +19,10 @@ export class Site {
     createdBy: String;
     updatedDate: Date;
     updatedBy: String;  
-    sitePersons: sitePersons[];
+    sitePersons: SitePersons[];
 }
 
-export class sitePersons {
+export class SitePersons {
     personIncharge: String;
     designation: String;
     contactNo: number;
