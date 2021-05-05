@@ -71,6 +71,9 @@ export class VerificationlvComponent implements OnInit {
   departmentCd: String = '';
   isChecked: boolean = false;
 
+  panelOpenState = false;
+
+
 
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;

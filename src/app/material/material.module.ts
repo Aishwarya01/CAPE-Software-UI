@@ -20,6 +20,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatCardModule } from '@angular/material/card';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatTabsModule,
     MatStepperModule,
     MatCardModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatExpansionModule
   ],
   exports: [
     MatToolbarModule,
@@ -66,7 +68,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatTabsModule,
     MatStepperModule,
     MatCardModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatExpansionModule
   ],
   declarations: []
 })
