@@ -332,7 +332,130 @@
           </mat-expansion-panel-header>
           <p>I'm visible because I am open</p>
         </mat-expansion-panel>
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Desinear-2
+              
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <h1>Desinear-2</h1>
+          
+          <div class="row">
+            <div class="col-md-4">
+              <label>PersonName:</label>        
+              <input type="text"   class="form-control"  placeholder="Enter Person Name">
+          </div> 
+          <div class="col-md-3">
+            <label>Contact No:</label>        
+            <input type="number"  formControlName="contactNo" class="form-control"  placeholder="Enter Contact Number" >
+        </div>
+        <div class="col-md-4">
+          <label>Email:</label>        
+          <input type="text"   class="form-control" placeholder="Enter Email Address" >
+      </div> 
+      </div>
+      
+       
+            
+         
+          
+        </mat-expansion-panel>
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Desinear-1
+              
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <h1>Desinear-1</h1>
+          
+          <div class ="form group">
+          <div class="row">
+          <div class="col-md-4">
+            <label>PersonName:</label>        
+            <input type="text"   class="form-control"  placeholder="Enter Person Name">
+        </div>
+        <div class="col-md-4">
+          <label>Contact No:</label>        
+          <input type="number"   class="form-control"  placeholder="Enter Contact Number" >
+      </div>
+      <div class="col-md-4">
+        <label>Email:</label>        
+        <input type="text"   class="form-control" placeholder="Enter Email Address" >
+        </div>
+        </div>
+        <div class ="form group">
+         <div class="row">
+            <div class="col-md-4">
+              <label>Manager Name:</label>        
+              <input type="text"   class="form-control"  placeholder="Enter Manager Name">
+          </div>
+      <div class="col-md-4">
+        <label>Contact No:</label>        
+        <input type="text"  class="form-control"  placeholder="Enter Contact No" >
+    </div>
+    <div class="col-md-4">
+      <label>Email:</label>        
+      <input type="text"   class="form-control" placeholder="Enter Email Address" >
+      </div>
+    </div> 
+    </div>
+  </div>
+  <div class ="form group">
+  <div class="row">
+  <div class="col-md-4">
+    <label>Company Name:</label>        
+    <input type="text"   class="form-control"  placeholder="Enter Company Name" >
+</div>
 
+<div class="col-md-4">
+  <label>AddressLine1:</label>        
+  <input type="text"   class="form-control"  placeholder="Enter Address Line1" >
+</div>
+
+<div class="col-md-4">
+  <label>AddressLine2:</label>        
+  <input type="text"   class="form-control"  placeholder="Enter Address Line2" >
+</div>
+</div>
+</div>
+<div class="form-group">
+        <div class="row">
+            <div class="col-md-4">
+                <label> Landmark:</label>        
+                <input type="text"  class="form-control"  placeholder="Enter Landmark" >
+            </div>
+            <div class="col-md-4">
+              <label>Country:</label>
+              <select   class="form-control"  >
+               
+              </select>
+          </div>
+          <div class="col-md-4">
+            <label>State:</label>
+            <select   class="form-control" >
+             </select>
+             </div>
+             <div class="form-group">    
+              <div class="row">
+                  <div class="col-md-4">
+                      <label>Pincode:</label>        
+                      <input type="number"   class="form-control"  placeholder="Enter Pincode" [(ngModel)]="site.zipCode">
+                  </div>
+              </div>   
+          </div> 
+        
+
+   </div>
+    </div>
+        
+        
+        
+        
+        </mat-expansion-panel>
       </mat-accordion>
     </mat-tab>
     <mat-tab label="Incomplete Saved Reports"></mat-tab>
