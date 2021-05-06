@@ -316,11 +316,10 @@
           <mat-expansion-panel-header>
             <mat-panel-title>
               Installation Details
-            </mat-panel-title>
-            
-          </mat-expansion-panel-header>
-          <p>I'm visible because I am open</p>
-        </mat-expansion-panel>
+            <mat-expansion-panel (opened)="panelOpenState = true"
+                                 (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
 
         <mat-expansion-panel (opened)="panelOpenState = true"
                              (closed)="panelOpenState = false">

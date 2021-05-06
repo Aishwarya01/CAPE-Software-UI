@@ -71,7 +71,12 @@ export class VerificationlvComponent implements OnInit {
   departmentCd: String = '';
   isChecked: boolean = false;
 
+  // Second Tab dependencies
   panelOpenState = false;
+  installationList: String[]= ['New installation','First verification of an existing','Addition of an existing installation','Alteration in an existing installation','Periodic verification'];
+  premiseList: String[]= ['Domestic(Individual)','Domestic(Apartment)','Commercial','IT/Office','Data center','Industrial(Non Ex environment)','Industrial(Ex environment)'];
+  evidenceList: String[]= ['YES', 'NO', 'Not Apparent'];
+  previousRecordList: String[]= ['YES', 'NO'];
 
 
 

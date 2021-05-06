@@ -36,3 +36,8 @@ mat-header-cell.mat-header-cell {
 .mousechange:hover {
   cursor: pointer;
 }
+
+.client-description {
+  width: 800px;
+  height: 100px;
+}
