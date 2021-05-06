@@ -298,164 +298,117 @@
           </mat-horizontal-stepper>
     </mat-tab>
     <mat-tab label="Inspection Verification & Testing of Installation"> 
-      <mat-accordion>
+      <div class="card">
+        <div class="card-body">
+          <mat-accordion>
         
-        <mat-expansion-panel (opened)="panelOpenState = true"
-                             (closed)="panelOpenState = false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Details of Report
-            </mat-panel-title>
-            
-          </mat-expansion-panel-header>
-          <p>I'm visible because I am open</p>
-        </mat-expansion-panel>
-
-        <mat-expansion-panel (opened)="panelOpenState = true"
-                             (closed)="panelOpenState = false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Installation Details
             <mat-expansion-panel (opened)="panelOpenState = true"
                                  (closed)="panelOpenState = false">
               <mat-expansion-panel-header>
                 <mat-panel-title>
-
-        <mat-expansion-panel (opened)="panelOpenState = true"
-                             (closed)="panelOpenState = false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Self aware panel
-            </mat-panel-title>
-            
-          </mat-expansion-panel-header>
-          <p>I'm visible because I am open</p>
-        </mat-expansion-panel>
-        <mat-expansion-panel (opened)="panelOpenState = true"
-                             (closed)="panelOpenState = false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Desinear-2
-              
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <h1>Desinear-2</h1>
-          
-          <div class="row">
-            <div class="col-md-4">
-              <label>PersonName:</label>        
-              <input type="text"   class="form-control"  placeholder="Enter Person Name">
-          </div> 
-          <div class="col-md-3">
-            <label>Contact No:</label>        
-            <input type="number"  formControlName="contactNo" class="form-control"  placeholder="Enter Contact Number" >
-        </div>
-        <div class="col-md-4">
-          <label>Email:</label>        
-          <input type="text"   class="form-control" placeholder="Enter Email Address" >
-      </div> 
-      </div>
-      
-       
-            
-         
-          
-        </mat-expansion-panel>
-        <mat-expansion-panel (opened)="panelOpenState = true"
-                             (closed)="panelOpenState = false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Desinear-1
-              
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <h1>Desinear-1</h1>
-          
-          <div class ="form group">
-          <div class="row">
-          <div class="col-md-4">
-            <label>PersonName:</label>        
-            <input type="text"   class="form-control"  placeholder="Enter Person Name">
-        </div>
-        <div class="col-md-4">
-          <label>Contact No:</label>        
-          <input type="number"   class="form-control"  placeholder="Enter Contact Number" >
-      </div>
-      <div class="col-md-4">
-        <label>Email:</label>        
-        <input type="text"   class="form-control" placeholder="Enter Email Address" >
-        </div>
-        </div>
-        <div class ="form group">
-         <div class="row">
-            <div class="col-md-4">
-              <label>Manager Name:</label>        
-              <input type="text"   class="form-control"  placeholder="Enter Manager Name">
-          </div>
-      <div class="col-md-4">
-        <label>Contact No:</label>        
-        <input type="text"  class="form-control"  placeholder="Enter Contact No" >
-    </div>
-    <div class="col-md-4">
-      <label>Email:</label>        
-      <input type="text"   class="form-control" placeholder="Enter Email Address" >
-      </div>
-    </div> 
-    </div>
-  </div>
-  <div class ="form group">
-  <div class="row">
-  <div class="col-md-4">
-    <label>Company Name:</label>        
-    <input type="text"   class="form-control"  placeholder="Enter Company Name" >
-</div>
-
-<div class="col-md-4">
-  <label>AddressLine1:</label>        
-  <input type="text"   class="form-control"  placeholder="Enter Address Line1" >
-</div>
-
-<div class="col-md-4">
-  <label>AddressLine2:</label>        
-  <input type="text"   class="form-control"  placeholder="Enter Address Line2" >
-</div>
-</div>
-</div>
-<div class="form-group">
-        <div class="row">
-            <div class="col-md-4">
-                <label> Landmark:</label>        
-                <input type="text"  class="form-control"  placeholder="Enter Landmark" >
-            </div>
-            <div class="col-md-4">
-              <label>Country:</label>
-              <select   class="form-control"  >
-               
-              </select>
-          </div>
-          <div class="col-md-4">
-            <label>State:</label>
-            <select   class="form-control" >
-             </select>
-             </div>
-             <div class="form-group">    
+                  <h3>Details of Report</h3> 
+                </mat-panel-title>
+                
+              </mat-expansion-panel-header>
+    
+              <mat-form-field class="client-description ">
+                <mat-label>Description of Report</mat-label>
+                <textarea matInput  maxlength="500" placeholder="Ex. Report description..."></textarea>
+              </mat-form-field>
+    
+              <mat-form-field class="client-description ">
+                <mat-label>Reason for the Report</mat-label>
+                <textarea matInput  maxlength="500" placeholder="Ex. Report reason..."></textarea>
+              </mat-form-field>
+    
+            </mat-expansion-panel>
+    
+            <mat-expansion-panel (opened)="panelOpenState = true"
+                                 (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <h3>Installation Details</h3> 
+                </mat-panel-title>
+                
+              </mat-expansion-panel-header>
               <div class="row">
-                  <div class="col-md-4">
-                      <label>Pincode:</label>        
-                      <input type="number"   class="form-control"  placeholder="Enter Pincode" [(ngModel)]="site.zipCode">
-                  </div>
-              </div>   
-          </div> 
-        
+                <div class="col-md-4">
+                    <div class="form-group">                    
+                      <label>Type of Installation:</label>
+                      <select class="form-control">
+                        <option value="0" selected>Select option</option>
+                        <option *ngFor="let value of installationList">{{value}}</option>
+                      </select>
+                    </div>
+                </div>
 
-   </div>
-    </div>
-        
-        
-        
-        
-        </mat-expansion-panel>
-      </mat-accordion>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Description of the premise:</label>
+                    <select class="form-control">
+                      <option value="0" selected>Select option</option>
+                      <option *ngFor="let value of premiseList">{{value}}</option>
+                   </select>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <p>Estimated age of wiring system      years</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <label>Evidence of addition/alterations:</label>
+                  <select class="form-control">
+                    <option value="0" selected>Select option</option>
+                    <option *ngFor="let value of evidenceList">{{value}}</option>
+                  </select>
+                </div>
+
+                <div class="col-md-3" *ngIf="true">
+                        <p>If yes estimated age       years</p>
+                </div>
+
+                <div class="col-md-4">
+                  <label>Previous records available:</label>
+                  <select class="form-control">
+                    <option value="0" selected>Select option</option>
+                    <option *ngFor="let value of previousRecordList">{{value}}</option>
+                  </select>
+                </div>
+
+                <div class="col-md-4">
+                  <p>Last date of inspection (date picker here)</p>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4"> 
+                  <mat-form-field class="client-description ">
+                    <mat-label>Extent of installation covered by this report *</mat-label>
+                    <textarea matInput  maxlength="500" placeholder="Ex. Report reason..."></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+                   
+            </mat-expansion-panel>
+    
+            <mat-expansion-panel (opened)="panelOpenState = true"
+                                 (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <h3>Self aware panel</h3> 
+                </mat-panel-title>
+                
+              </mat-expansion-panel-header>
+              <p>I'm visible because I am open</p>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div>      
     </mat-tab>
     <mat-tab label="Incomplete Saved Reports"></mat-tab>
     <mat-tab label="Final Reports"></mat-tab>
