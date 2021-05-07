@@ -189,9 +189,9 @@
                         <div class="form-group">
                           <label style="display: table-cell;
                           width: 1px;
-                          white-space: nowrap;">Client Name:</label><span style="display: table-cell; width: 1000px;
+                          white-space: nowrap;">Company Name:</label><span style="display: table-cell; width: 1000px;
                           padding: 0 4px 0 20px;"><select class="form-control" (change)="changeClient($event)" [(ngModel)]="site.clientName">
-                            <option value="0" selected>Select Client Name</option>
+                            <option value="0" selected>Select Company Name</option>
                             <option *ngFor="let client of clientList">{{client.clientName}}</option>
                          </select></span>
                            
@@ -235,27 +235,9 @@
                         <td  mat-cell *matCellDef="let element" (click)="updateSite( element.userName, element.clientName, element.departmentName,  element.site, element.siteId, element.siteCd, element.country, element.state, element.city, element.landMark, element.personIncharge, element.personInchargeEmail, element.addressLine_1, element.addressLine_2, element.phoneNumber, element.zipCode, element.createdDate,element.createdBy)" class="mousechange"> {{element.site}} </td>
                       </ng-container>
                       <!-- Name Column -->
-                      <ng-container matColumnDef="personIncharge">
-                        <th  mat-header-cell *matHeaderCellDef mat-sort-header> Person Incharge </th>
-                        <td  mat-cell *matCellDef="let element"> {{element.personIncharge}} </td>
-                      </ng-container>
-                      <ng-container matColumnDef="designation">
-                        <th  mat-header-cell *matHeaderCellDef mat-sort-header> Designation </th>
-                        <td  mat-cell *matCellDef="let element"> {{element.designation}} </td>
-                      </ng-container>
-                      <!-- Name Column -->
-                      <ng-container matColumnDef="personInchargeEmail">
-                        <th  mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-                        <td  mat-cell *matCellDef="let element"> {{element.personInchargeEmail}} </td>
-                      </ng-container>
-                      <ng-container matColumnDef="country">
-                        <th  mat-header-cell *matHeaderCellDef mat-sort-header> Country </th>
-                        <td  mat-cell *matCellDef="let element"> {{element.country}} </td>
-                      </ng-container>
-                      <!-- Name Column -->
-                      <ng-container matColumnDef="contactNumber">
-                        <th  mat-header-cell *matHeaderCellDef> Contact Number </th>
-                        <td  mat-cell *matCellDef="let element"> {{element.phoneNumber}} </td>
+                      <ng-container matColumnDef="city">
+                        <th  mat-header-cell *matHeaderCellDef mat-sort-header> City </th>
+                        <td  mat-cell *matCellDef="let element"> {{element.city}} </td>
                       </ng-container>
                        <!-- Name Column -->
                       <ng-container matColumnDef="createdDate">
