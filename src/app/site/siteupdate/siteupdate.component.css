@@ -20,5 +20,6 @@
 }
 
 .mousechange:hover {
+    cursor: pointer;
 }
 
