@@ -232,13 +232,14 @@
                       </ng-container>
                       <ng-container matColumnDef="siteName">
                         <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef mat-sort-header> Site Name </th>
-                        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element" (click)="updateSite( element.userName, element.clientName, element.departmentName,  element.site, element.siteId, element.siteCd, element.country, element.city, element.landMark, element.sitePersons, element.addressLine_1, element.addressLine_2, element.zipCode, element.createdDate,element.createdBy)" class="mousechange"> {{element.site}} </td>
+                        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element" (click)="updateSite( element.userName, element.clientName, element.departmentName,  element.site, element.siteId, element.siteCd, element.country, element.state, element.city, element.landMark, element.sitePersons, element.addressLine_1, element.addressLine_2, element.zipCode, element.createdDate,element.createdBy)" class="mousechange"> {{element.site}} </td>
                       </ng-container>
                       <!-- Name Column -->
                       <ng-container matColumnDef="country">
                         <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef mat-sort-header> Country </th>
                         <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element"> {{element.country}} </td>
                       </ng-container>
+                      
                       <ng-container matColumnDef="city">
                         <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef mat-sort-header> City </th>
                         <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element"> {{element.city}} </td>
