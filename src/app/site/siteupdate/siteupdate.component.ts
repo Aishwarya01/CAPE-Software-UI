@@ -13,7 +13,7 @@ import { SiteService } from 'src/app/services/site.service';
 })
 export class SiteupdateComponent implements OnInit {
 
-  addSiteForm = new FormGroup({
+  updateSiteForm = new FormGroup({
     clientName: new FormControl(''),
     departmentName: new FormControl(''),
     siteName: new FormControl(''),
@@ -34,6 +34,9 @@ export class SiteupdateComponent implements OnInit {
   stateList: any = [];
   site = new Site();
   arr: any = [];
+  loading = false;
+  submitted = false;
+  showErrorMessage=false;
 
 
   @Input()
@@ -116,23 +119,23 @@ export class SiteupdateComponent implements OnInit {
   }
 
   addItem() {
-    this.arr = this.addSiteForm.get('arr') as FormArray;
+    this.arr = this.updateSiteForm.get('arr') as FormArray;
     this.arr.push(this.createItem());
   }
 
   removeItem(index: any) {
-    (this.addSiteForm.get('arr') as FormArray).removeAt(index);
+    (this.updateSiteForm.get('arr') as FormArray).removeAt(index);
   }
 
   getControls(): AbstractControl[] {
-    return (<FormArray> this.addSiteForm.get('arr')).controls
+    return (<FormArray> this.updateSiteForm.get('arr')).controls
   }
 
   populateData() {
     for (let item of this.sitePersons) {
       this.arr.push(this.createGroup(item));
     }
-    this.addSiteForm.setControl('arr', this.formBuilder.array(this.arr || []))
+    this.updateSiteForm.setControl('arr', this.formBuilder.array(this.arr || []))
   }
 
 
@@ -146,10 +149,30 @@ export class SiteupdateComponent implements OnInit {
   }
 
   onSubmit() {
+    this.submitted = true;
+
+    //Breaks if form is invalid
+    if(this.updateSiteForm.invalid) {
+      return;
+    }
+    this.loading = true;
+    console.log(this.updateSiteForm.value.arr);
+
+    this.site.sitePersons=this.updateSiteForm.value.arr;
+    for(let i of this.site.sitePersons) {
+      i.inActive=true;
+    }
+    console.log(this.site)
+    // this.site.userName = this.email;
     this.siteService.updateSite(this.site).subscribe(
       data=> {
         this.dialog.closeAll();
+      },
+      error => {
+        this.showErrorMessage=true;
+        this.loading=false;
       }
       )
   }
-}
+
+  }
