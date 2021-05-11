@@ -250,9 +250,10 @@ deleteDepartment(departmentId: number) {
       });
   }
   
-  updateSite(userName: String, clientName: String,departmentName: String,  site : String, siteId : number, siteCd : String, country : String, state : String, city : String, landMark : String, personIncharge : String, personInchargeEmail : String, addressLine_1: String, addressLine_2: String, phoneNumber: number, zipCode: number, createdDate: Date,createdBy: String) {    
+  updateSite(userName: String, clientName: String,departmentName: String,  site : String, siteId : number, siteCd : String, country : String, state : String, city : String, landMark : String, sitePersons : any[], addressLine_1: String, addressLine_2: String, zipCode: number, createdDate: Date,createdBy: String) {    
     const dialogRef = this.dialog.open(SiteupdateComponent, {
       width: '1000px',
+      maxHeight: '90vh',
     });
     dialogRef.componentInstance.userName = userName;
     dialogRef.componentInstance.clientName = clientName;
@@ -266,9 +267,7 @@ deleteDepartment(departmentId: number) {
     dialogRef.componentInstance.landMark = landMark;
     dialogRef.componentInstance.addressLine_1 = addressLine_1;
     dialogRef.componentInstance.addressLine_2 = addressLine_2;
-    dialogRef.componentInstance.personIncharge = personIncharge;
-    dialogRef.componentInstance.personInchargeEmail = personInchargeEmail;
-    dialogRef.componentInstance.phoneNumber = phoneNumber;
+    dialogRef.componentInstance.sitePersons = sitePersons;
     dialogRef.componentInstance.zipCode = zipCode;
     dialogRef.componentInstance.createdBy = createdBy;
     dialogRef.componentInstance.createdDate = createdDate;
