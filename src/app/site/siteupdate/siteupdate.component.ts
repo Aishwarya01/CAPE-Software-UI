@@ -101,7 +101,6 @@ export class SiteupdateComponent implements OnInit {
     this.site.createdBy=this.createdBy;
     this.site.createdDate=this.createdDate;
     this.populateData();
-    console.log(this.sitePersons)
   }
 
   cancel() {
@@ -161,12 +160,14 @@ export class SiteupdateComponent implements OnInit {
       return;
     }
     this.loading = true;
-    console.log(this.updateSiteForm.value.arr);
+    for(let i of this.updateSiteForm.value.arr) {
+      if(i.inActive == "") {
+        i.inActive = true;
+      }
+    }
+    console.log(this.updateSiteForm.value.arr.dirty)
 
     this.site.sitePersons=this.updateSiteForm.value.arr;
-
-    console.log(this.site)
-    // this.site.userName = this.email;
     this.siteService.updateSite(this.site).subscribe(
       data=> {
         this.dialog.closeAll();
