@@ -101,6 +101,7 @@ export class SiteupdateComponent implements OnInit {
     this.site.createdBy=this.createdBy;
     this.site.createdDate=this.createdDate;
     this.populateData();
+    console.log(this.sitePersons)
   }
 
   cancel() {
@@ -115,6 +116,8 @@ export class SiteupdateComponent implements OnInit {
       personInchargeEmail: ['', [
         Validators.required,
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+      siteId: [''],
+      inActive: ['']
     })
   }
 
@@ -145,6 +148,8 @@ export class SiteupdateComponent implements OnInit {
       designation: new FormControl(item.designation),
       contactNo: new FormControl(item.contactNo),
       personInchargeEmail: new FormControl(item.personInchargeEmail),
+      siteId: new FormControl(item.personId),
+      inActive: new FormControl(item.inActive)
     });
   }
 
@@ -159,9 +164,7 @@ export class SiteupdateComponent implements OnInit {
     console.log(this.updateSiteForm.value.arr);
 
     this.site.sitePersons=this.updateSiteForm.value.arr;
-    for(let i of this.site.sitePersons) {
-      i.inActive=true;
-    }
+
     console.log(this.site)
     // this.site.userName = this.email;
     this.siteService.updateSite(this.site).subscribe(

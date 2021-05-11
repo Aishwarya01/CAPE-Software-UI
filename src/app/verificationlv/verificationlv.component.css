@@ -1,6 +1,6 @@
 table {
     width: 811px;
-    overflow-x: scroll
+    text-align: center;
   }
 
   .mat-row.hovered {

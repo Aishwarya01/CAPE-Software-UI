@@ -27,6 +27,7 @@
             <div class="row"><h2>Person Incharge Details:</h2> </div>
         
             <div class="row">
+                
                 <div class="col-md-3">
                     <label>Person Incharge:</label>        
                     <input type="text"  formControlName="personIncharge" class="form-control"  value="{{a.value.personIncharge}}"  placeholder="Enter Person Incharge" >
@@ -45,6 +46,13 @@
                 <div class="col-md-3">
                     <label>Email:</label>        
                     <input type="text"  formControlName="personInchargeEmail" class="form-control"  value="{{a.value.personInchargeEmail}}" placeholder="Enter Email Address" >
+                </div>
+
+                <div class="col-md-3" *ngIf="false">       
+                    <input type="text"  formControlName="siteId" class="form-control"  value="{{a.value.personId}}" >
+                </div>
+                <div class="col-md-3" *ngIf="false">       
+                    <input type="checkbox"  formControlName="inActive" class="form-control"  value="{{a.value.inActive}}" >
                 </div>       
                 <mat-icon class="mousechange" *ngIf="getControls().length > 1" (click)="removeItem(i)" style="float:right; padding-left: 916px;">delete</mat-icon>
             </div>                            
