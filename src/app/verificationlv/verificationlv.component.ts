@@ -44,7 +44,7 @@ export class VerificationlvComponent implements OnInit {
   @ViewChild('departmentSort', {static: true}) departmentSort!: MatSort;
 
 
-  siteColumns: string[] = ['action','siteCd', 'siteName','country','state','city','createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
+  siteColumns: string[] = ['action','siteCd', 'siteName','country','city','createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
   site_dataSource!: MatTableDataSource<Company[]>;
   @ViewChild('sitePaginator', { static: true }) sitePaginator!: MatPaginator;
   @ViewChild('siteSort', {static: true}) siteSort!: MatSort;
@@ -250,7 +250,7 @@ deleteDepartment(departmentId: number) {
       });
   }
   
-  updateSite(userName: String, clientName: String,departmentName: String,  site : String, siteId : number, siteCd : String, country : String, state : String, city : String, landMark : String, sitePersons : any[], addressLine_1: String, addressLine_2: String, zipCode: number, createdDate: Date,createdBy: String) {    
+  updateSite(userName: String, clientName: String,departmentName: String,  site : String, siteId : number, siteCd : String, country : String, city : String, landMark : String, sitePersons : any[], addressLine_1: String, addressLine_2: String, zipCode: number, createdDate: Date,createdBy: String) {    
     const dialogRef = this.dialog.open(SiteupdateComponent, {
       width: '1000px',
       maxHeight: '90vh',
