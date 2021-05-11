@@ -261,8 +261,7 @@ deleteDepartment(departmentId: number) {
     dialogRef.componentInstance.siteName = site;
     dialogRef.componentInstance.siteId = siteId;
     dialogRef.componentInstance.siteCd = siteCd;
-    dialogRef.componentInstance.country = country;
-    dialogRef.componentInstance.state = state;
+    dialogRef.componentInstance.country = country
     dialogRef.componentInstance.city = city;
     dialogRef.componentInstance.landMark = landMark;
     dialogRef.componentInstance.addressLine_1 = addressLine_1;
