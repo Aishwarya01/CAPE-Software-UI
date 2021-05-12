@@ -6,7 +6,7 @@
                 <ng-template matStepLabel>Company</ng-template>
                 <div class="card" style="width: 855px; overflow: auto;">
                   <div class="card-header">
-                    <button style="width: 50px; border: 0px;" (click)="addClient()">
+                    <button class="btn btn-info" (click)="addClient()">
                       <mat-icon>add_box</mat-icon>
                     </button>                   
                     <input type="checkbox" style="width: 50px; height: 20px;" formControlName="retrieveIsActive" (change)="retrieveIsActiveData()"  [(ngModel)]="isChecked"><label style="margin-left: -10px;">Show InActive</label> 
