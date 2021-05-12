@@ -129,10 +129,10 @@ export class SiteupdateComponent implements OnInit {
   }
 
   removeItem(index: any, personIncharge: String, designation: String, contactNo: number, personInchargeEmail: String, personId: number, inActive: boolean) {
-    if(!isNaN(personId) ) {
+    if(personIncharge != "" ) {
        this.jsonArray = {"personIncharge": personIncharge, "designation": designation, "contactNo": contactNo, "personInchargeEmail": personInchargeEmail, "personId": personId, "inActive": false}
-    }
-    this.deletedArray.push(this.jsonArray);
+       this.deletedArray.push(this.jsonArray);
+      }
     (this.updateSiteForm.get('arr') as FormArray).removeAt(index);
   }
 
