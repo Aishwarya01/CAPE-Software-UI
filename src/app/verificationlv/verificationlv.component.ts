@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild, ChangeDetectorRef, VERSION } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray,  FormControl } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -20,7 +21,6 @@ import { DepartmentupdateComponent } from '../department/departmentupdate/depart
 import { SiteService } from '../services/site.service';
 import { Site } from '../model/site';
 import { SiteupdateComponent } from '../site/siteupdate/siteupdate.component';
-
 
 @Component({
   selector: 'app-verificationlv',
@@ -50,7 +50,7 @@ export class VerificationlvComponent implements OnInit {
   @ViewChild('siteSort', {static: true}) siteSort!: MatSort;
 
 
-
+  
   clientList: any = [];
   inActiveData: any =[];
   departmentList: any = [];
@@ -70,6 +70,7 @@ export class VerificationlvComponent implements OnInit {
   companyCd: String = '';
   departmentCd: String = '';
   isChecked: boolean = false;
+  
 
   // Second Tab dependencies
   panelOpenState = false;
@@ -90,8 +91,11 @@ export class VerificationlvComponent implements OnInit {
   // @ViewChild('TableOnePaginator', {static: true}) tableOnePaginator: MatPaginator;
   // @ViewChild('TableOneSort', {static: true}) tableOneSort: MatSort;
 
-  @Output() passEntry: EventEmitter<any> = new EventEmitter();
-  constructor(private _formBuilder: FormBuilder,
+  @Output() passEntry: EventEmitter<any> = new EventEmitter();  
+  adddesinearForm!: FormGroup;
+  formBuilder: any;
+  arr!: FormArray; 
+   constructor(private _formBuilder: FormBuilder,
     private modalService: NgbModal,
     private dialog: MatDialog,
     private router: ActivatedRoute,
@@ -111,8 +115,14 @@ export class VerificationlvComponent implements OnInit {
       secondCtrl: ['', Validators.required],
       clientname: ['', Validators.required],
     });
+    this.adddesinearForm = this._formBuilder.group({
+      arr: this._formBuilder.array([this.createItem()])
+    })
+    
+    arr: this._formBuilder.array([this.createItem()]),
     this.refresh();
     this.retrieveClientDetails();
+    
   }
 
   retrieveIsActiveData() {
@@ -302,5 +312,34 @@ deleteDepartment(departmentId: number) {
   refresh() {
     this.ChangeDetectorRef.detectChanges();
   }
+  get f() {
+    return this.adddesinearForm.controls;
+  }
+  
+  
+       createItem() {
+        return this._formBuilder.group({
+          PersonName: [''],
+          ContactNo: [''],
+          Email: [''],
+
+        })
+  }
+
+  addItem() {
+    this.arr = this.adddesinearForm.get('arr') as FormArray;
+    this.arr.push(this.createItem());
+  }
+  getControls(): AbstractControl[] {
+    return (<FormArray> this.adddesinearForm.get('arr')).controls
+  }
+  removeItem(index: any) {
+    (this.adddesinearForm.get('arr') as FormArray).removeAt(index);
+  }
+
+  
 
 }
+
+  
+  
