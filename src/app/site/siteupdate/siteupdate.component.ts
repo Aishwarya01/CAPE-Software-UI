@@ -37,6 +37,8 @@ export class SiteupdateComponent implements OnInit {
   loading = false;
   submitted = false;
   showErrorMessage=false;
+  jsonArray: any = [];
+  deletedArray: any =[];
 
 
   @Input()
@@ -75,6 +77,7 @@ export class SiteupdateComponent implements OnInit {
   createdBy: String = '';
   @Input()
   createdDate= new Date;
+
 
   constructor(public dialog: MatDialog,
               public clientService: ClientService,
@@ -115,7 +118,7 @@ export class SiteupdateComponent implements OnInit {
       personInchargeEmail: ['', [
         Validators.required,
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-      siteId: [''],
+      personId: [''],
       inActive: ['']
     })
   }
@@ -125,7 +128,11 @@ export class SiteupdateComponent implements OnInit {
     this.arr.push(this.createItem());
   }
 
-  removeItem(index: any) {
+  removeItem(index: any, personIncharge: String, designation: String, contactNo: number, personInchargeEmail: String, personId: number, inActive: boolean) {
+    if(personIncharge != "" ) {
+       this.jsonArray = {"personIncharge": personIncharge, "designation": designation, "contactNo": contactNo, "personInchargeEmail": personInchargeEmail, "personId": personId, "inActive": false}
+       this.deletedArray.push(this.jsonArray);
+      }
     (this.updateSiteForm.get('arr') as FormArray).removeAt(index);
   }
 
@@ -143,12 +150,12 @@ export class SiteupdateComponent implements OnInit {
 
   createGroup(item: any): FormGroup {
     return this.formBuilder.group({
-      personIncharge: new FormControl(item.personIncharge),
-      designation: new FormControl(item.designation),
-      contactNo: new FormControl(item.contactNo),
-      personInchargeEmail: new FormControl(item.personInchargeEmail),
-      siteId: new FormControl(item.personId),
-      inActive: new FormControl(item.inActive)
+      personIncharge: new FormControl({disabled: true ,value: item.personIncharge}),
+      designation: new FormControl({disabled: true, value: item.designation}),
+      contactNo: new FormControl({disabled: true ,value: item.contactNo}),
+      personInchargeEmail: new FormControl({disabled: true,value: item.personInchargeEmail}),
+      personId: new FormControl({disabled: true ,value: item.personId}),
+      inActive: new FormControl({disabled: true, value:item.inActive})
     });
   }
 
@@ -159,15 +166,20 @@ export class SiteupdateComponent implements OnInit {
     if(this.updateSiteForm.invalid) {
       return;
     }
+
     this.loading = true;
     for(let i of this.updateSiteForm.value.arr) {
       if(i.inActive == "") {
         i.inActive = true;
       }
     }
-    console.log(this.updateSiteForm.value.arr.dirty)
-
-    this.site.sitePersons=this.updateSiteForm.value.arr;
+    
+    this.site.sitePersons=this.updateSiteForm.getRawValue().arr;
+      
+    for( let j of this.deletedArray) {
+      this.site.sitePersons.push(j);
+    }
+    console.log(this.site)
     this.siteService.updateSite(this.site).subscribe(
       data=> {
         this.dialog.closeAll();

@@ -281,6 +281,7 @@ deleteDepartment(departmentId: number) {
     dialogRef.componentInstance.zipCode = zipCode;
     dialogRef.componentInstance.createdBy = createdBy;
     dialogRef.componentInstance.createdDate = createdDate;
+
     dialogRef.afterClosed().subscribe(result => {
       this.refresh();
       this.retrieveSiteDetails();

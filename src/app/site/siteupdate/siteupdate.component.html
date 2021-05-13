@@ -49,12 +49,12 @@
                 </div>
 
                 <div class="col-md-3" *ngIf="false">       
-                    <input type="text"  formControlName="siteId" class="form-control"  value="{{a.value.personId}}" >
+                    <input type="text"  formControlName="personId" class="form-control"  value="{{a.value.personId}}" >
                 </div>
                 <div class="col-md-3" *ngIf="false">       
                     <input type="checkbox"  formControlName="inActive" class="form-control"  value="{{a.value.inActive}}" >
                 </div>       
-                <mat-icon class="mousechange" *ngIf="getControls().length > 1" (click)="removeItem(i)" style="float:right; padding-left: 916px;">delete</mat-icon>
+                <mat-icon class="mousechange" *ngIf="getControls().length > 1" (click)="removeItem(i,a.value.personIncharge,a.value.designation,a.value.contactNo,a.value.personInchargeEmail,a.value.personId,a.value.inActive)" style="float:right; padding-left: 916px;">delete</mat-icon>
             </div>                            
         </div>   
     </div>
