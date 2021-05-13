@@ -150,12 +150,12 @@ export class SiteupdateComponent implements OnInit {
 
   createGroup(item: any): FormGroup {
     return this.formBuilder.group({
-      personIncharge: new FormControl(item.personIncharge),
-      designation: new FormControl(item.designation),
-      contactNo: new FormControl(item.contactNo),
-      personInchargeEmail: new FormControl(item.personInchargeEmail),
-      personId: new FormControl(item.personId),
-      inActive: new FormControl(item.inActive)
+      personIncharge: new FormControl({disabled: true ,value: item.personIncharge}),
+      designation: new FormControl({disabled: true, value: item.designation}),
+      contactNo: new FormControl({disabled: true ,value: item.contactNo}),
+      personInchargeEmail: new FormControl({disabled: true,value: item.personInchargeEmail}),
+      personId: new FormControl({disabled: true ,value: item.personId}),
+      inActive: new FormControl({disabled: true, value:item.inActive})
     });
   }
 
@@ -173,13 +173,12 @@ export class SiteupdateComponent implements OnInit {
         i.inActive = true;
       }
     }
-
-    this.site.sitePersons=this.updateSiteForm.value.arr;
+    debugger
+    this.site.sitePersons=this.updateSiteForm.value.arr.getRawValue();
       
     for( let j of this.deletedArray) {
       this.site.sitePersons.push(j);
     }
-    
     console.log(this.site)
     this.siteService.updateSite(this.site).subscribe(
       data=> {
