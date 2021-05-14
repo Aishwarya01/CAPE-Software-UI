@@ -425,13 +425,13 @@
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
               <mat-panel-title>
-                <h3>Details of client / person ordering this report </h3>
+                <h3>Details of Client / Person Ordering this Report </h3>
               </mat-panel-title>
             </mat-expansion-panel-header>
             <div class="row">
               <div class="col-md-4">
                 <mat-form-field class="client-description ">
-                  <mat-label>Details of client / person ordering this report</mat-label>
+                  <mat-label>Details of client / person Ordering this Report</mat-label>
                   <textarea matInput maxlength="500" placeholder=" Report reason..."></textarea>
                 </mat-form-field>
               </div>
@@ -518,7 +518,7 @@
             <mat-expansion-panel-header>
 
               <mat-panel-title>
-                <h3> Liability and declaration</h3>
+                <h3> Liability and Declaration</h3>
               </mat-panel-title>
 
             </mat-expansion-panel-header>
@@ -665,7 +665,7 @@
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
               <mat-panel-title>
-                <h3>Next inspection</h3>
+                <h3>Next Inspection</h3>
               </mat-panel-title>
             </mat-expansion-panel-header>
             <p>I/We recommend that installation is further inspected and tested after an interval of not more than</p>
@@ -674,10 +674,10 @@
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
               <mat-panel-title>
-                <h3>Details of Signatories to the verification report</h3>
+                <h3>Details of Signatories to the Verification Report</h3>
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <h2>Designer Details</h2>
+            <h3>Designer Details</h3>
 
             <form [formGroup]="addDesignerForm">
 
@@ -687,7 +687,7 @@
               <div formArrayName="arrDesigner" *ngFor="let a of getDesignerControls(); let i = index">
                 <div class="form-group" [formGroupName]="i">
                   <div class="row">
-                    <h2>Designer - {{i+1}}</h2>
+                    <h3>Designer - {{i+1}}</h3>
                   </div>
 
                   <div class="row">
