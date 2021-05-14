@@ -684,7 +684,7 @@
                 style="float:right; padding-right: 37px; padding-top: 30px;">add_box</mat-icon>
 
               <div formArrayName="arrDesigner" *ngFor="let a of getDesignerControls(); let i = index">
-                <div class="form-group container" [formGroupName]="i">
+                <div class="form-group" [formGroupName]="i">
                   <div class="row">
                     <h2>Designer - {{i+1}}</h2>
                   </div>
@@ -708,7 +708,7 @@
                         placeholder="Enter Email Address">
                     </div>
                     <mat-icon class="mousechange" *ngIf="getDesignerControls().length > 1"
-                      (click)="removeDesignerItem(i)" style="float:right; padding-left: 916px;">delete</mat-icon>
+                      (click)="removeDesignerItem(i)" style="float:right; padding-left: 1055px;">delete</mat-icon>
                   </div>
                 </div>
               </div>

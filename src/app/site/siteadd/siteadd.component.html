@@ -29,7 +29,7 @@
     <mat-icon class="mousechange" (click)="addItem()" style="float:right; padding-right: 37px; padding-top: 30px;">add_box</mat-icon>
 
     <div formArrayName="arr" *ngFor="let a of getControls(); let i = index">
-        <div class="form-group container" [formGroupName]="i">
+        <div class="form-group" [formGroupName]="i">
             <div class="row"><h2>Person Incharge Details:</h2> </div>
         
             <div class="row">
