@@ -39,5 +39,9 @@ mat-header-cell.mat-header-cell {
 
 .client-description {
   width: 800px;
+  height: 150px;
+}
+
+.client-box-description {
   height: 100px;
 }
