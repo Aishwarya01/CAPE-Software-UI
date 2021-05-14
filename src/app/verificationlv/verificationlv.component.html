@@ -429,180 +429,182 @@
             </mat-expansion-panel-header>
             <p>I'm visible because I am open</p>
           </mat-expansion-panel>
+
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h3>Details of client / person ordering this report </h3>
+              </mat-panel-title>
+      
+            </mat-expansion-panel-header>
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field class="client-description ">
+                  <mat-label>Details of client / person ordering this report</mat-label>
+                  <textarea matInput maxlength="500" placeholder=" Report reason..."></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label> Name:</label>
+                  <input type="text" class="form-control" placeholder="Enter Name">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label> Purpose:</label>
+                  <input type="text" class="form-control" placeholder="Enter purpose">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label>Address:</label>
+                <mat-form-field class="client-description ">
+                  <textarea matInput maxlength="75" placeholder=" Enter address"></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+            <h1>Details of installation referred in this report</h1>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label> Occipiers:</label>
+                  <input type="text" class="form-control" placeholder="Occipiers Name">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label> Purpose:</label>
+                  <input type="text" class="form-control" placeholder="Enter purpose">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label>Address:</label>
+                <mat-form-field class="client-description ">
+                  <textarea matInput maxlength="75" placeholder=" Enter address"></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Details of Signatories to the verification report
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <h2>Designer Details</h2>
+      
+            <form  [formGroup]="addDesignerForm">
+              
+              <mat-icon class="mousechange" (click)="addItem()" style="float:right; padding-right: 37px; padding-top: 30px;">add_box</mat-icon>
+          
+              <div formArrayName="arrDesigner" *ngFor="let a of getDesignerControls(); let i = index">
+                  <div class="form-group container" [formGroupName]="i">
+                      <div class="row"><h2>Designer </h2></div>
+                  
+                      <div class="row">
+                          <div class="col-md-4">
+                              <label>Person Name:</label>        
+                              <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name" >
+                          </div>
+              
+                          <div class="col-md-4">
+                              <label>Contact No:</label>        
+                              <input type="number"  formControlName="designercontactNo" class="form-control"  placeholder="Enter Contact Number" >
+                          </div>
+              
+                          <div class="col-md-4">
+                              <label>Email:</label>        
+                              <input type="text"  formControlName="DesignerEmail" class="form-control"  placeholder="Enter Email Address" >
+                          </div>       
+                          <mat-icon class="mousechange" *ngIf="getDesignerControls().length > 1" (click)="removeDesignerItem(i)" style="float:right; padding-left: 916px;">delete</mat-icon>
+                      </div>                            
+                  </div>   
+              </div>
+
+              <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Manager Name:</label>        
+                        <input type="text"  formControlName="managerName" class="form-control"  placeholder="Enter Manager Name" >
+                    </div>
+        
+                    <div class="col-md-4">
+                      <label>Contact No:</label>        
+                      <input type="number"  formControlName="managercontactNo" class="form-control"  placeholder="Enter Contact Number" >
+                    </div>
+      
+                    <div class="col-md-4">
+                        <label>Email:</label>        
+                        <input type="text"  formControlName="managerEmail" class="form-control"  placeholder="Enter Email Address" >
+                    </div>
+                </div>
+              </div>
+          
+          
+              <div class="form-group">
+                  <div class="row">
+                      <div class="col-md-4">
+                          <label>Company Name:</label>        
+                          <input type="text"  formControlName="companyName" class="form-control"  placeholder="Enter Company Name" >
+                      </div>
+          
+                      <div class="col-md-4">
+                          <label>AddressLine1:</label>        
+                          <input type="text"  formControlName="AddressLine1" class="form-control"  placeholder="Enter Address Line1" >
+                      </div>
+          
+                      <div class="col-md-4">
+                          <label>AddressLine2:</label>        
+                          <input type="text"  formControlName="AddressLine2" class="form-control"  placeholder="Enter Address Line2" >
+                      </div>
+                  </div>
+              </div>
+          
+              <div class="form-group">
+                  <div class="row">
+                      <div class="col-md-4">
+                          <label>Site Landmark:</label>        
+                          <input type="text"  formControlName="designerLandmark" class="form-control"  placeholder="Enter Landmark" >
+                      </div>
+          
+                      <div class="col-md-4">
+                          <label>Country:</label>
+                          <select  formControlName="country" class="form-control" (change)="changeCountry($event)"  >
+                              <option value="0" selected>Select Country Name</option>
+                              <option *ngFor="let country of countryList">{{country.name}}</option>
+                          </select>
+                      </div>
+          
+                      <div class="col-md-4">
+                          <label>State:</label>
+                          <select  formControlName="state" class="form-control" >
+                              <option value="0" selected>Select State Name</option>
+                              <option *ngFor="let state of stateList">{{state.name}}</option>
+                          </select>
+                      </div>
+                  </div>
+              </div>
+          
+              <div class="form-group">    
+                  <div class="row">
+                      <div class="col-md-4">
+                          <label>Pincode:</label>        
+                          <input type="number"  formControlName="designerPincode" class="form-control"  placeholder="Enter Pincode" >
+                      </div>
+                  </div>   
+              </div>
+              
+          </form>
+          </mat-expansion-panel>
+
         </mat-accordion>
       </div>
     </div>
-    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <h3>Details of client / person ordering this report </h3>
-        </mat-panel-title>
-
-      </mat-expansion-panel-header>
-      <div class="row">
-        <div class="col-md-4">
-          <mat-form-field class="client-description ">
-            <mat-label>Details of client / person ordering this report</mat-label>
-            <textarea matInput maxlength="500" placeholder=" Report reason..."></textarea>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="form-group">
-            <label> Name:</label>
-            <input type="text" class="form-control" placeholder="Enter Name">
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label> Purpose:</label>
-            <input type="text" class="form-control" placeholder="Enter purpose">
-          </div>
-        </div>
-        <div class="col-md-4">
-          <label>Address:</label>
-          <mat-form-field class="client-description ">
-            <textarea matInput maxlength="75" placeholder=" Enter address"></textarea>
-          </mat-form-field>
-        </div>
-      </div>
-      <h1>Details of installation referred in this report</h1>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="form-group">
-            <label> Occipiers:</label>
-            <input type="text" class="form-control" placeholder="Occipiers Name">
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label> Purpose:</label>
-            <input type="text" class="form-control" placeholder="Enter purpose">
-          </div>
-        </div>
-        <div class="col-md-4">
-          <label>Address:</label>
-          <mat-form-field class="client-description ">
-            <textarea matInput maxlength="75" placeholder=" Enter address"></textarea>
-          </mat-form-field>
-        </div>
-      </div>
-    </mat-expansion-panel>
-    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Designer-1
-
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <h1>Designer-1</h1>
-
-      <div class="form group">
-        <div class="row">
-          <div class="col-md-4">
-            <label>PersonName:</label>
-            <input type="text" class="form-control" placeholder="Enter Person Name">
-          </div>
-          <div class="col-md-4">
-            <label>Contact No:</label>
-            <input type="number" class="form-control" placeholder="Enter Contact Number">
-          </div>
-          <div class="col-md-4">
-            <label>Email:</label>
-            <input type="text" class="form-control" placeholder="Enter Email Address">
-          </div>
-        </div>
-        <div class="form group">
-          <div class="row">
-            <div class="col-md-4">
-              <label>Manager Name:</label>
-              <input type="text" class="form-control" placeholder="Enter Manager Name">
-            </div>
-            <div class="col-md-4">
-              <label>Contact No:</label>
-              <input type="text" class="form-control" placeholder="Enter Contact No">
-            </div>
-            <div class="col-md-4">
-              <label>Email:</label>
-              <input type="text" class="form-control" placeholder="Enter Email Address">
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="form group">
-        <div class="row">
-          <div class="col-md-4">
-            <label>Company Name:</label>
-            <input type="text" class="form-control" placeholder="Enter Company Name">
-          </div>
-          <div class="col-md-4">
-            <label>AddressLine1:</label>
-            <input type="text" class="form-control" placeholder="Enter Address Line1">
-          </div>
-          <div class="col-md-4">
-            <label>AddressLine2:</label>
-            <input type="text" class="form-control" placeholder="Enter Address Line2">
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="row">
-          <div class="col-md-4">
-            <label> Landmark:</label>
-            <input type="text" class="form-control" placeholder="Enter Landmark">
-          </div>
-          <div class="col-md-4">
-            <label>Country:</label>
-            <select class="form-control">
-
-            </select>
-          </div>
-          <div class="col-md-4">
-            <label>State:</label>
-            <select class="form-control">
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="row">
-          <div class="col-md-4">
-            <label>Pincode:</label>
-            <input type="number" class="form-control" placeholder="Enter Pincode" [(ngModel)]="site.zipCode">
-          </div>
-        </div>
-      </div>
-      <form [formGroup]="adddesinearForm">
-        <mat-icon class="mousechange" (click)="addItem()" style="float:right; padding-right: 37px; padding-top: 30px;">
-          add_box
-        </mat-icon>
-        <div formArrayName="arr" *ngFor="let a of getControls(); let i = index">
-          <div class="form-group container" [formGroupName]="i">
-            <h2>Designer-2:</h2>
-
-            <div class="row">
-              <div class="col-md-4">
-                <label>Person Name:</label>
-                <input type="text" class="form-control" placeholder="Enter Person Incharge">
-              </div>
-              <div class="col-md-4">
-                <label>Contact No:</label>
-                <input type="number" class="form-control" placeholder="Enter Contact Number">
-              </div>
-              <div class="col-md-4">
-                <label>Email:</label>
-                <input type="text" class="form-control" placeholder="Enter Email Address">
-                <mat-icon class="mousechange" *ngIf="getControls().length  " (click)="removeItem(i)"
-                  style="float:right; padding-left: 916px;">delete</mat-icon>
-              </div>
-            </div>
-          </div>
-        </div>
-      </form>
-
-
-    </mat-expansion-panel>
+    
+    
   </mat-tab>
   <mat-tab label="Incomplete Saved Reports"></mat-tab>
   <mat-tab label="Final Reports"></mat-tab>

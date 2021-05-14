@@ -49,12 +49,28 @@ export class VerificationlvComponent implements OnInit {
   @ViewChild('sitePaginator', { static: true }) sitePaginator!: MatPaginator;
   @ViewChild('siteSort', {static: true}) siteSort!: MatSort;
 
+  addDesignerForm = new FormGroup ({
+    arrDesigner: this._formBuilder.array([this.createItem()]),
+    managerName: new FormControl(''),
+    managercontactNo: new FormControl(''),
+    managerEmail: new FormControl(''),
+    companyName: new FormControl(''),
+    AddressLine1: new FormControl(''),
+    AddressLine2: new FormControl(''),
+    designerLandmark: new FormControl(''),
+    country: new FormControl(''),
+    state: new FormControl(''),
+    designerPincode: new FormControl(''),
+  })
+
 
   
   clientList: any = [];
   inActiveData: any =[];
   departmentList: any = [];
   clientArray : any = [];
+  countryList: any = [];
+  stateList: any = [];
   company =new Company;
   department = new Department;
   site = new Site;
@@ -92,9 +108,8 @@ export class VerificationlvComponent implements OnInit {
   // @ViewChild('TableOneSort', {static: true}) tableOneSort: MatSort;
 
   @Output() passEntry: EventEmitter<any> = new EventEmitter();  
-  adddesinearForm!: FormGroup;
   formBuilder: any;
-  arr!: FormArray; 
+  arrDesigner!: FormArray; 
    constructor(private _formBuilder: FormBuilder,
     private modalService: NgbModal,
     private dialog: MatDialog,
@@ -106,6 +121,8 @@ export class VerificationlvComponent implements OnInit {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
 
+  
+
   ngOnInit(): void {
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required],
@@ -115,11 +132,12 @@ export class VerificationlvComponent implements OnInit {
       secondCtrl: ['', Validators.required],
       clientname: ['', Validators.required],
     });
-    this.adddesinearForm = this._formBuilder.group({
-      arr: this._formBuilder.array([this.createItem()])
-    })
-    
-    arr: this._formBuilder.array([this.createItem()]),
+
+    this.siteService.retrieveCountry().subscribe(
+      data => {
+        this.countryList = JSON.parse(data);
+      }
+    )
     this.refresh();
     this.retrieveClientDetails();
     
@@ -313,32 +331,42 @@ deleteDepartment(departmentId: number) {
   refresh() {
     this.ChangeDetectorRef.detectChanges();
   }
-  get f() {
-    return this.adddesinearForm.controls;
-  }
   
-  
-       createItem() {
-        return this._formBuilder.group({
-          PersonName: [''],
-          ContactNo: [''],
-          Email: [''],
+  // Deisgner details forms
 
-        })
+  createItem() {
+    return this._formBuilder.group({
+      personName: ['', Validators.required],
+      designercontactNo: ['', Validators.required],
+      DesignerEmail: ['', Validators.required]
+    })
   }
 
   addItem() {
-    this.arr = this.adddesinearForm.get('arr') as FormArray;
-    this.arr.push(this.createItem());
+    this.arrDesigner = this.addDesignerForm.get('arrDesigner') as FormArray;
+    this.arrDesigner.push(this.createItem());
   }
-  getControls(): AbstractControl[] {
-    return (<FormArray> this.adddesinearForm.get('arr')).controls
-  }
-  removeItem(index: any) {
-    (this.adddesinearForm.get('arr') as FormArray).removeAt(index);
+  
+  getDesignerControls(): AbstractControl[] {
+    return (<FormArray> this.addDesignerForm.get('arrDesigner')).controls
   }
 
-  
+  removeDesignerItem(index: any) {
+    (this.addDesignerForm.get('arrDesigner') as FormArray).removeAt(index);
+  }
+
+  changeCountry(e: any) {
+    let changedValue = e.target.value;
+    this.stateList = [];
+      for(let arr of this.countryList) {
+        if( arr.name == changedValue) {
+          this.siteService.retrieveState(arr.code).subscribe(
+            data => {
+              this.stateList = JSON.parse(data)
+            }
+          )};
+      }
+  }
 
 }
 
