@@ -429,66 +429,244 @@
             </mat-expansion-panel-header>
             <p>I'm visible because I am open</p>
           </mat-expansion-panel>
+<mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <h3>Details of client / person ordering this report </h3>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <div class="row">
+    <div class="col-md-4">
+      <mat-form-field class="client-description ">
+        <mat-label>Details of client / person ordering this report</mat-label>
+        <textarea matInput maxlength="500" placeholder=" Report reason..."></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Name:</label>
+        <input type="text" class="form-control" placeholder="Enter Name">
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Purpose:</label>
+        <input type="text" class="form-control" placeholder="Enter purpose">
+      </div>
+    </div>
+    <div class="col-md-4">
+      <label>Address:</label>
+      <mat-form-field class="client-description ">
+        <textarea matInput maxlength="75" placeholder=" Enter address"></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+  <h1>Details of installation referred in this report</h1>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Occipiers:</label>
+        <input type="text" class="form-control" placeholder="Occipiers Name">
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Purpose:</label>
+        <input type="text" class="form-control" placeholder="Enter purpose">
+      </div>
+    </div>
+     <div class="col-md-4">
+      <label>Address:</label>
+      <mat-form-field class="client-description ">
+        <textarea matInput maxlength="75" placeholder=" Enter address"></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+  <h1>Date of starting the verfication</h1>
+  <div class="row">
+    <div class="col-md-4">
+      <mat-form-field class="client-description ">
+        <mat-label>Date of starting the verfication</mat-label>
+        <textarea matInput maxlength="75" placeholder=" Start of verification..."></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+  <h1>Name of engineer who carries out verification</h1>
+  <div class="row">
+    <div class="col-md-4">
+      <mat-form-field class="client-description ">
+        <mat-label>Name of engineer who carries out verification</mat-label>
+        <textarea matInput maxlength="75" placeholder=" Start of verification..."></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+  <h1>Designation:</h1>
+  <div class="row">
+    <div class="col-md-4">
+      <mat-form-field class="client-description ">
+        <mat-label>Designation</mat-label>
+        <textarea matInput maxlength="75" placeholder=" Start Designation..."></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+  <h1>Company:</h1>
+  <div class="row">
+    <div class="col-md-4">
+      <mat-form-field class="client-description ">
+        <mat-label>Company</mat-label>
+        <textarea matInput maxlength="75" placeholder=" Enter company..."></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+</mat-expansion-panel>
+<mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+  <mat-expansion-panel-header>
 
-          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                <h3>Details of client / person ordering this report </h3>
-              </mat-panel-title>
-      
-            </mat-expansion-panel-header>
-            <div class="row">
-              <div class="col-md-4">
-                <mat-form-field class="client-description ">
-                  <mat-label>Details of client / person ordering this report</mat-label>
-                  <textarea matInput maxlength="500" placeholder=" Report reason..."></textarea>
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label> Name:</label>
-                  <input type="text" class="form-control" placeholder="Enter Name">
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label> Purpose:</label>
-                  <input type="text" class="form-control" placeholder="Enter purpose">
-                </div>
-              </div>
-              <div class="col-md-4">
-                <label>Address:</label>
-                <mat-form-field class="client-description ">
-                  <textarea matInput maxlength="75" placeholder=" Enter address"></textarea>
-                </mat-form-field>
-              </div>
-            </div>
-            <h1>Details of installation referred in this report</h1>
-            <div class="row">
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label> Occipiers:</label>
-                  <input type="text" class="form-control" placeholder="Occipiers Name">
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label> Purpose:</label>
-                  <input type="text" class="form-control" placeholder="Enter purpose">
-                </div>
-              </div>
-              <div class="col-md-4">
-                <label>Address:</label>
-                <mat-form-field class="client-description ">
-                  <textarea matInput maxlength="75" placeholder=" Enter address"></textarea>
-                </mat-form-field>
-              </div>
-            </div>
-          </mat-expansion-panel>
+    <mat-panel-title>
+      <h3> Liability and declaration</h3>
+    </mat-panel-title>
 
-          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+  </mat-expansion-panel-header>
+  <h1>Declaration of designer of the electrical installation</h1>
+
+  <p>I/we being the person responsible for the design of the electrical installation (as indicated by my/our signatures
+    below), particulars of which are described above, having exercised reasonable skill and care when carrying out the
+    design hereby declare that design work for which I/We have been responsible is to the best of my/our knowledge and
+    belief in accordance with IEC 60364 </p>
+  <p>The extent of liability of the signatory or signatories is limited to the work described above as the subject of
+    this report.</p>
+  <h1>Desinear-1</h1>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Signature:</label>
+        <section class="signature-component">
+          <canvas id="signature-pad" width="200" height="50"></canvas>
+        </section>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Date:</label>
+        <input type="date" class="form-control" placeholder="Enter Date">
+      </div>
+      <div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Name:</label>
+        <input type="text" class="form-control" placeholder="Enter Name">
+      </div>
+    </div>
+
+  </div>
+  <h1>Desinear-2</h1>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Signature:</label>
+        <section class="signature-component">
+          <canvas id="signature-pad" width="200" height="50"></canvas>
+        </section>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Date:</label>
+        <input type="date" class="form-control" placeholder="Enter Date">
+      </div>
+      <div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Name:</label>
+        <input type="text" class="form-control" placeholder="Enter Name">
+      </div>
+    </div>
+
+  </div>
+  <h1>Declaration of contractor of installation</h1>
+
+  <p>I/we being the person responsible for the construction of the electrical installation (as indicated by my/our
+    signatures below), particulars of which are described above, having exercised reasonable skill and care when
+    carrying out the design hereby declare that the design work for which I/We have been responsible is to the best of
+    my/our knowledge and belief in accordance with IEC 60364
+  </p>
+  <p>The extent of liability of the signatory is limited to the work described above as the subject of this report.</p>
+  <h1>Contractor</h1>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Signature:</label>
+        <section class="signature-component">
+          <canvas id="signature-pad" width="200" height="50"></canvas>
+        </section>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Date:</label>
+        <input type="date" class="form-control" placeholder="Enter Date">
+      </div>
+      <div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Name:</label>
+        <input type="text" class="form-control" placeholder="Enter Name">
+      </div>
+    </div>
+
+  </div>
+  <h1>Declaration of Safety Engineer (Inspector)</h1>
+
+  <p>I/we being the person responsible for the inspection & testing of the electrical installation (as indicated by
+    my/our signatures below), particulars of which are described above, having exercised reasonable skill and care when
+    carrying out the design hereby declare that the design work for which I/We have been responsible is to the best of
+    my/our knowledge and belief in accordance with IEC 60364
+  </p>
+  <p>The extent of liability of the signatory is limited to the work described above as the subject of this report.</p>
+  <h1>Inspector</h1>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Signature:</label>
+        <section class="signature-component">
+          <canvas id="signature-pad" width="200" height="50"></canvas>
+        </section>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Date:</label>
+        <input type="date" class="form-control" placeholder="Enter Date">
+      </div>
+      <div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Name:</label>
+        <input type="text" class="form-control" placeholder="Enter Name">
+      </div>
+    </div>
+  </div>
+</mat-expansion-panel>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h3>Next inspection</h3>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <p>I/We recommend that installation is further inspected and tested after an interval of not more than</p>
+      <textarea matInput maxlength="9" placeholder=" enter year only"></textarea>
+    </mat-expansion-panel>
+<mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 Details of Signatories to the verification report
