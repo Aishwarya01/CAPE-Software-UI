@@ -326,6 +326,33 @@
   <mat-tab label="Inspection Verification & Testing of Installation">
     <div class="card">
       <div class="card-body">
+        <div class="search-bar">
+          <div class="row">
+            <div class="col-md-10">
+              <div class="form-group">
+                <label style="display: table-cell;
+                      width: 1px;
+                      white-space: nowrap;">Company Name:</label><span style="display: table-cell; width: 1000px;
+                      padding: 0 4px 0 20px;"><select class="form-control" (change)="changeClient($event)"
+                    [(ngModel)]="site.clientName">
+                    <option value="0" selected>Select Company Name</option>
+                    <option *ngFor="let client of clientList">{{client.clientName}}</option>
+                  </select></span>
+
+                <label style="display: table-cell;
+                      width: 1px;
+                      white-space: nowrap;">Department Name:</label><span style="display: table-cell; width: 1000px;
+                      padding: 0 4px 0 20px;"><select class="form-control" [(ngModel)]="site.departmentName"
+                    (change)="retrieveSiteDetails()">
+                    <option value="0" selected>Select Department Name</option>
+                    <option *ngFor="let department of departmentList">{{department.departmentName}}</option>
+                  </select></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
         <mat-accordion>
 
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -335,15 +362,16 @@
               </mat-panel-title>
 
             </mat-expansion-panel-header>
+              
 
             <mat-form-field class="client-description ">
               <mat-label><h3>Description of Report</h3></mat-label>
-              <textarea matInput class="client-box-description" maxlength="500" placeholder="Ex. Report description..."></textarea>
+              <textarea matInput class="client-box-description" maxlength="500" placeholder="Ex. Report description..." [(ngModel)]="reportDetails.descriptionReport"></textarea>
             </mat-form-field>
 
             <mat-form-field class="client-description ">
               <mat-label><h3>Reason for the Report</h3></mat-label>
-              <textarea matInput class="client-box-description" maxlength="500" placeholder="Ex. Report reason..."></textarea>
+              <textarea matInput class="client-box-description" maxlength="500" placeholder="Ex. Report reason..." [(ngModel)]="reportDetails.reasonOfReport"></textarea>
             </mat-form-field>
 
           </mat-expansion-panel>
@@ -359,7 +387,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label>Type of Installation:</label>
-                  <select class="form-control">
+                  <select class="form-control" [(ngModel)]="reportDetails.installationType">
                     <option value="0" selected>Select option</option>
                     <option *ngFor="let value of installationList">{{value}}</option>
                   </select>
@@ -369,7 +397,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label>Description of the premise:</label>
-                  <select class="form-control">
+                  <select class="form-control" [(ngModel)]="reportDetails.descriptionPremise">
                     <option value="0" selected>Select option</option>
                     <option *ngFor="let value of premiseList">{{value}}</option>
                   </select>
@@ -377,8 +405,8 @@
               </div>
 
               <div class="col-md-4">
-                <div class="form-group">
-                  <p>Estimated age of wiring system years</p>
+                <div class="form-group" >
+                  <p>Estimated age of wiring system <input type="text" [(ngModel)]="reportDetails.estimatedWireAge">years</p>
                 </div>
               </div>
             </div>
@@ -386,19 +414,19 @@
             <div class="row">
               <div class="col-md-4">
                 <label>Evidence of addition/alterations:</label>
-                <select class="form-control">
+                <select class="form-control" [(ngModel)]="reportDetails.evidanceAddition">
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of evidenceList">{{value}}</option>
                 </select>
               </div>
 
               <div class="col-md-3" *ngIf="true">
-                <p>If yes estimated age years</p>
+                <p>If yes estimated age <input type="text" [(ngModel)]="reportDetails.estimateAgeYes">years</p>
               </div>
 
               <div class="col-md-4">
                 <label>Previous records available:</label>
-                <select class="form-control">
+                <select class="form-control" [(ngModel)]="reportDetails.previousRecords">
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of previousRecordList">{{value}}</option>
                 </select>
@@ -406,7 +434,7 @@
 
               <div class="col-md-4">
                 <p>Last date of inspection</p>
-                <input type="date" class="form-control" placeholder="Enter Date">              
+                <input type="date" class="form-control" placeholder="Enter Date" [(ngModel)]="reportDetails.lastInspection">              
               </div>
             </div>
 
@@ -414,7 +442,7 @@
               <div class="col-md-4">
                 <mat-form-field class="client-description ">
                   <mat-label><h3>Extent of installation covered by this report *</h3> </mat-label>
-                  <textarea matInput class="client-box-description" maxlength="500" placeholder="Ex. Report reason..."></textarea>
+                  <textarea matInput class="client-box-description" maxlength="500" placeholder="Ex. Report reason..." [(ngModel)]="reportDetails.extentInstallation"></textarea>
                 </mat-form-field>
               </div>
             </div>
@@ -432,7 +460,7 @@
               <div class="col-md-4">
                 <mat-form-field class="client-description ">
                   <mat-label><h3>Details of client / person ordering this report  (maximum length is 50 )</h3></mat-label>
-                  <textarea matInput class="client-box-description" maxlength="50" placeholder=" Ex. Name, address ,purpose ,relation with end user.."></textarea>
+                  <textarea matInput class="client-box-description" maxlength="50" placeholder=" Ex. Name, address ,purpose ,relation with end user.." [(ngModel)]="reportDetails.clientDetails"></textarea>
                 </mat-form-field>
               </div>
             </div>
@@ -441,7 +469,7 @@
               <div class="col-md-4">
                 <mat-form-field class="client-description ">
                   <mat-label><h3>Details of installation referred in this report  (maximum length is 75 )</h3></mat-label>
-                  <textarea matInput class="client-box-description" maxlength="75" placeholder=" Ex. Occupier ,address details etc.."></textarea>
+                  <textarea matInput class="client-box-description" maxlength="75" placeholder=" Ex. Occupier ,address details etc.." [(ngModel)]="reportDetails.installationDetails"></textarea>
                 </mat-form-field>
               </div>
             </div>
@@ -450,17 +478,17 @@
               <div class="row">
                 <div class="col-md-4">
                   <h3>Date of starting the verification </h3>
-                  <input type="date" class="form-control" placeholder="Enter Date">              
+                  <input type="date" class="form-control" placeholder="Enter Date" [(ngModel)]="reportDetails.verficationDate">              
                 </div>
   
                 <div class="col-md-4">
                   <label>Name of Engineer who carries out verification:</label>
-                  <input type="text" class="form-control" placeholder="Enter Engineer Name">
+                  <input type="text" class="form-control" placeholder="Enter Engineer Name" [(ngModel)]="reportDetails.verifedEngineer">
                 </div>
   
                 <div class="col-md-4">
                   <label>Designation:</label>
-                  <input type="text" class="form-control" style="margin-top: 20px;" placeholder="Enter Designation">
+                  <input type="text" class="form-control" style="margin-top: 20px;" placeholder="Enter Designation" [(ngModel)]="reportDetails.designation">
                 </div>
               </div>
             </div>
@@ -469,12 +497,12 @@
               <div class="row">
                 <div class="col-md-4">
                   <label>Company:</label>
-                  <input type="text" class="form-control" style="margin-top: 20px;" placeholder="Enter Company Name">
+                  <input type="text" class="form-control" style="margin-top: 20px;" placeholder="Enter Company Name" [(ngModel)]="reportDetails.company">
                 </div>
   
                 <div class="col-md-4">
                   <label>Read and confirmed the extent and limitations:</label>
-                  <select class="form-control">
+                  <select class="form-control" [(ngModel)]="reportDetails.extentInstallation">
                     <option value="0" selected>Select option</option>
                     <option *ngFor="let value of previousRecordList">{{value}}</option>
                   </select>              
@@ -611,49 +639,44 @@
             </mat-expansion-panel-header>
             <h2>Designer Details</h2>
       
-            <form  [formGroup]="addDesignerForm">
+            <form  [formGroup]="addDesigner1Form">
+              <h2>Designer 1</h2>
               
-              <mat-icon class="mousechange" (click)="addItem()" style="float:right; padding-right: 37px; padding-top: 30px;">add_box</mat-icon>
+                <div class="form-group" >
+                  <div class="row">
+                      <div class="col-md-4">
+                          <label>Person Name:</label>        
+                          <input type="text"  formControlName="designer1PersonName" class="form-control"  placeholder="Enter Person Name" >
+                      </div>
           
-              <div formArrayName="arrDesigner" *ngFor="let a of getDesignerControls(); let i = index">
-                  <div class="form-group" [formGroupName]="i">
-                      <h2>Designer <label>{{i+1}}</label></h2>
-
-                      <div class="row">
-                          <div class="col-md-4">
-                              <label>Person Name:</label>        
-                              <input type="text"  formControlName="designerPersonName" class="form-control"  placeholder="Enter Person Name" >
-                          </div>
-              
-                          <div class="col-md-4">
-                              <label>Contact No:</label>        
-                              <input type="number"  formControlName="designerContactNo" class="form-control"  placeholder="Enter Contact Number" >
-                          </div>
-              
-                          <div class="col-md-4">
-                              <label>Email:</label>        
-                              <input type="text"  formControlName="designerEmail" class="form-control"  placeholder="Enter Email Address" >
-                          </div>       
-                          <mat-icon class="mousechange" *ngIf="getDesignerControls().length > 1" (click)="removeDesignerItem(i)" style="float:right; padding-left: 916px;">delete</mat-icon>
-                      </div>                            
-                  </div>   
-              </div>
+                      <div class="col-md-4">
+                          <label>Contact No:</label>        
+                          <input type="number"  formControlName="designer1ContactNo" class="form-control"  placeholder="Enter Contact Number" >
+                      </div>
+          
+                      <div class="col-md-4">
+                          <label>Email:</label>        
+                          <input type="text"  formControlName="designer1Email" class="form-control"  placeholder="Enter Email Address" >
+                      </div>       
+                  </div>                            
+              </div>   
+    
 
               <div class="form-group">
                 <div class="row">
                     <div class="col-md-4">
                         <label>Manager Name:</label>        
-                        <input type="text"  formControlName="designerManagerName" class="form-control"  placeholder="Enter Manager Name" >
+                        <input type="text"  formControlName="designer1ManagerName" class="form-control"  placeholder="Enter Manager Name" >
                     </div>
         
                     <div class="col-md-4">
                       <label>Contact No:</label>        
-                      <input type="number"  formControlName="designerManagerContactNo" class="form-control"  placeholder="Enter Contact Number" >
+                      <input type="number"  formControlName="designer1ManagerContactNo" class="form-control"  placeholder="Enter Contact Number" >
                     </div>
       
                     <div class="col-md-4">
                         <label>Email:</label>        
-                        <input type="text"  formControlName="designerManagerEmail" class="form-control"  placeholder="Enter Email Address" >
+                        <input type="text"  formControlName="designer1ManagerEmail" class="form-control"  placeholder="Enter Email Address" >
                     </div>
                 </div>
               </div>
@@ -663,17 +686,17 @@
                   <div class="row">
                       <div class="col-md-4">
                           <label>Company Name:</label>        
-                          <input type="text"  formControlName="designerCompanyName" class="form-control"  placeholder="Enter Company Name" >
+                          <input type="text"  formControlName="designer1CompanyName" class="form-control"  placeholder="Enter Company Name" >
                       </div>
           
                       <div class="col-md-4">
                           <label>AddressLine1:</label>        
-                          <input type="text"  formControlName="designerAddressLine1" class="form-control"  placeholder="Enter Address Line1" >
+                          <input type="text"  formControlName="designer1AddressLine1" class="form-control"  placeholder="Enter Address Line1" >
                       </div>
           
                       <div class="col-md-4">
                           <label>AddressLine2:</label>        
-                          <input type="text"  formControlName="designerAddressLine2" class="form-control"  placeholder="Enter Address Line2" >
+                          <input type="text"  formControlName="designer1AddressLine2" class="form-control"  placeholder="Enter Address Line2" >
                       </div>
                   </div>
               </div>
@@ -682,12 +705,12 @@
                   <div class="row">
                       <div class="col-md-4">
                           <label>Site Landmark:</label>        
-                          <input type="text"  formControlName="designerLandmark" class="form-control"  placeholder="Enter Landmark" >
+                          <input type="text"  formControlName="designer1Landmark" class="form-control"  placeholder="Enter Landmark" >
                       </div>
           
                       <div class="col-md-4">
                           <label>Country:</label>
-                          <select  formControlName="designerCountry" class="form-control" (change)="designerchangeCountry($event)"  >
+                          <select  formControlName="designer1Country" class="form-control" (change)="designer1changeCountry($event)"  >
                               <option value="0" selected>Select Country Name</option>
                               <option *ngFor="let country of countryList">{{country.name}}</option>
                           </select>
@@ -695,7 +718,7 @@
           
                       <div class="col-md-4">
                           <label>State:</label>
-                          <select  formControlName="designerState" class="form-control" >
+                          <select  formControlName="designer1State" class="form-control" >
                               <option value="0" selected>Select State Name</option>
                               <option *ngFor="let state of stateList">{{state.name}}</option>
                           </select>
@@ -707,12 +730,114 @@
                   <div class="row">
                       <div class="col-md-4">
                           <label>Pincode:</label>        
-                          <input type="number"  formControlName="designerPincode" class="form-control"  placeholder="Enter Pincode" >
+                          <input type="number"  formControlName="designer1Pincode" class="form-control"  placeholder="Enter Pincode" >
+                      </div>
+                      <div class="col-md-4" *ngIf="false">
+                        <input type="text"  formControlName="designer1Role" class="form-control" value="designer">
                       </div>
                   </div>   
-              </div>
-              
+              </div>              
           </form>
+
+          <form  [formGroup]="addDesigner2Form">
+            <h2>Designer 2</h2>
+            
+              <div class="form-group" >
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Person Name:</label>        
+                        <input type="text"  formControlName="designer2PersonName" class="form-control"  placeholder="Enter Person Name" >
+                    </div>
+        
+                    <div class="col-md-4">
+                        <label>Contact No:</label>        
+                        <input type="number"  formControlName="designer2ContactNo" class="form-control"  placeholder="Enter Contact Number" >
+                    </div>
+        
+                    <div class="col-md-4">
+                        <label>Email:</label>        
+                        <input type="text"  formControlName="designer2Email" class="form-control"  placeholder="Enter Email Address" >
+                    </div>       
+                </div>                            
+            </div>   
+  
+
+            <div class="form-group">
+              <div class="row">
+                  <div class="col-md-4">
+                      <label>Manager Name:</label>        
+                      <input type="text"  formControlName="designer2ManagerName" class="form-control"  placeholder="Enter Manager Name" >
+                  </div>
+      
+                  <div class="col-md-4">
+                    <label>Contact No:</label>        
+                    <input type="number"  formControlName="designer2ManagerContactNo" class="form-control"  placeholder="Enter Contact Number" >
+                  </div>
+    
+                  <div class="col-md-4">
+                      <label>Email:</label>        
+                      <input type="text"  formControlName="designer2ManagerEmail" class="form-control"  placeholder="Enter Email Address" >
+                  </div>
+              </div>
+            </div>
+        
+        
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Company Name:</label>        
+                        <input type="text"  formControlName="designer2CompanyName" class="form-control"  placeholder="Enter Company Name" >
+                    </div>
+        
+                    <div class="col-md-4">
+                        <label>AddressLine1:</label>        
+                        <input type="text"  formControlName="designer2AddressLine1" class="form-control"  placeholder="Enter Address Line1" >
+                    </div>
+        
+                    <div class="col-md-4">
+                        <label>AddressLine2:</label>        
+                        <input type="text"  formControlName="designer2AddressLine2" class="form-control"  placeholder="Enter Address Line2" >
+                    </div>
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Site Landmark:</label>        
+                        <input type="text"  formControlName="designer2Landmark" class="form-control"  placeholder="Enter Landmark" >
+                    </div>
+        
+                    <div class="col-md-4">
+                        <label>Country:</label>
+                        <select  formControlName="designer2Country" class="form-control" (change)="designer1changeCountry($event)"  >
+                            <option value="0" selected>Select Country Name</option>
+                            <option *ngFor="let country of countryList">{{country.name}}</option>
+                        </select>
+                    </div>
+        
+                    <div class="col-md-4">
+                        <label>State:</label>
+                        <select  formControlName="designer2State" class="form-control" >
+                            <option value="0" selected>Select State Name</option>
+                            <option *ngFor="let state of stateList">{{state.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="form-group">    
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Pincode:</label>        
+                        <input type="number"  formControlName="designer2Pincode" class="form-control"  placeholder="Enter Pincode" >
+                    </div>
+                    <div class="col-md-4" *ngIf="false">
+                      <input type="text"  formControlName="designer2Role" class="form-control" value="designer">
+                    </div>
+                </div>   
+            </div>              
+        </form>
           </mat-expansion-panel>
 
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -815,6 +940,9 @@
                       <div class="col-md-4">
                           <label>Pincode:</label>        
                           <input type="number"  formControlName="contractorPincode" class="form-control"  placeholder="Enter Pincode" >
+                      </div>
+                      <div class="col-md-4" *ngIf="false">
+                        <input type="text"  formControlName="contractorRole" class="form-control" value="contractor">
                       </div>
                   </div>   
               </div>
@@ -921,15 +1049,21 @@
                           <label>Pincode:</label>        
                           <input type="number"  formControlName="inspectorPincode" class="form-control"  placeholder="Enter Pincode" >
                       </div>
+
+                      <div class="col-md-4" *ngIf="false">
+                        <input type="text"  formControlName="inspectorRole" class="form-control" value="inspector">
+                      </div>
                   </div>   
               </div>
               
           </form>
           </mat-expansion-panel>
-
-          
-
         </mat-accordion>
+
+        <div style="display: inline;">
+            <button  style="float: left;" type="submit" (click)="nextTab()" class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"><i class="bi bi-person-plus-fill icon"></i> Next</button>
+            <button  [routerLink]="['/login']" style="float:right;"  class="btn btn-outline-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
+        </div>
       </div>
     </div>
     

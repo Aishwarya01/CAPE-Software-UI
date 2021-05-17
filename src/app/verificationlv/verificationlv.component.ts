@@ -21,6 +21,7 @@ import { DepartmentupdateComponent } from '../department/departmentupdate/depart
 import { SiteService } from '../services/site.service';
 import { Site } from '../model/site';
 import { SiteupdateComponent } from '../site/siteupdate/siteupdate.component';
+import { Reportdetails } from '../model/reportdetails';
 
 @Component({
   selector: 'app-verificationlv',
@@ -49,18 +50,39 @@ export class VerificationlvComponent implements OnInit {
   @ViewChild('sitePaginator', { static: true }) sitePaginator!: MatPaginator;
   @ViewChild('siteSort', {static: true}) siteSort!: MatSort;
 
-  addDesignerForm = new FormGroup ({
-    arrDesigner: this._formBuilder.array([this.createItem()]),
-    designerManagerName: new FormControl(''),
-    designerManagerContactNo: new FormControl(''),
-    designerManagerEmail: new FormControl(''),
-    designerCompanyName: new FormControl(''),
-    designerAddressLine1: new FormControl(''),
-    designerAddressLine2: new FormControl(''),
-    designerLandmark: new FormControl(''),
-    designerCountry: new FormControl(''),
-    designerState: new FormControl(''),
-    designerPincode: new FormControl(''),
+  addDesigner1Form = new FormGroup ({
+    designer1PersonName: new FormControl(''),
+    designer1ContactNo: new FormControl(''),
+    designer1Email: new FormControl(''),
+    designer1ManagerName: new FormControl(''),
+    designer1ManagerContactNo: new FormControl(''),
+    designer1ManagerEmail: new FormControl(''),
+    designer1CompanyName: new FormControl(''),
+    designer1AddressLine1: new FormControl(''),
+    designer1AddressLine2: new FormControl(''),
+    designer1Landmark: new FormControl(''),
+    designer1Country: new FormControl(''),
+    designer1State: new FormControl(''),
+    designer1Pincode: new FormControl(''),
+    designer1Role: new FormControl('')
+
+  })
+
+  addDesigner2Form = new FormGroup ({
+    designer2PersonName: new FormControl(''),
+    designer2ContactNo: new FormControl(''),
+    designer2Email: new FormControl(''),
+    designer2ManagerName: new FormControl(''),
+    designer2ManagerContactNo: new FormControl(''),
+    designer2ManagerEmail: new FormControl(''),
+    designer2CompanyName: new FormControl(''),
+    designer2AddressLine1: new FormControl(''),
+    designer2AddressLine2: new FormControl(''),
+    designer2Landmark: new FormControl(''),
+    designer2Country: new FormControl(''),
+    designer2State: new FormControl(''),
+    designer2Pincode: new FormControl(''),
+    designer2Role: new FormControl('')
   })
 
   addContractorForm = new FormGroup ({
@@ -77,6 +99,7 @@ export class VerificationlvComponent implements OnInit {
     contractorCountry: new FormControl(''),
     contractorState: new FormControl(''),
     contractorPincode: new FormControl(''),
+    contractorRole: new FormControl('')
   })
 
   addInspectorForm = new FormGroup ({
@@ -93,6 +116,7 @@ export class VerificationlvComponent implements OnInit {
     inspectorCountry: new FormControl(''),
     inspectorState: new FormControl(''),
     inspectorPincode: new FormControl(''),
+    inspectorRole: new FormControl('')
   })
 
 
@@ -118,6 +142,9 @@ export class VerificationlvComponent implements OnInit {
   companyCd: String = '';
   departmentCd: String = '';
   isChecked: boolean = false;
+
+
+  reportDetails =new Reportdetails;
   
 
   // Second Tab dependencies
@@ -362,28 +389,22 @@ deleteDepartment(departmentId: number) {
   
   // Deisgner details forms
 
-  createItem() {
-    return this._formBuilder.group({
-      designerPersonName: ['', Validators.required],
-      designerContactNo: ['', Validators.required],
-      designerEmail: ['', Validators.required]
-    })
-  }
-
-  addItem() {
-    this.arrDesigner = this.addDesignerForm.get('arrDesigner') as FormArray;
-    this.arrDesigner.push(this.createItem());
-  }
   
-  getDesignerControls(): AbstractControl[] {
-    return (<FormArray> this.addDesignerForm.get('arrDesigner')).controls
+
+  designer1changeCountry(e: any) {
+    let changedValue = e.target.value;
+    this.stateList = [];
+      for(let arr of this.countryList) {
+        if( arr.name == changedValue) {
+          this.siteService.retrieveState(arr.code).subscribe(
+            data => {
+              this.stateList = JSON.parse(data)
+            }
+          )};
+      }
   }
 
-  removeDesignerItem(index: any) {
-    (this.addDesignerForm.get('arrDesigner') as FormArray).removeAt(index);
-  }
-
-  designerchangeCountry(e: any) {
+  designer2changeCountry(e: any) {
     let changedValue = e.target.value;
     this.stateList = [];
       for(let arr of this.countryList) {
@@ -424,6 +445,29 @@ deleteDepartment(departmentId: number) {
             }
           )};
       }
+  }
+
+  nextTab() {
+
+    console.log(this.addDesigner1Form.value);
+    console.log(this.addDesigner2Form.value);
+    console.log(this.addContractorForm.value);
+    console.log(this.addInspectorForm.value);
+
+    this.reportDetails.SignatorDetails.push(this.addDesigner1Form.value);
+    this.reportDetails.SignatorDetails.push(this.addDesigner2Form.value);
+    this.reportDetails.SignatorDetails.push(this.addContractorForm.value);
+    this.reportDetails.SignatorDetails.push(this.addContractorForm.value);
+
+    console.log(this.reportDetails);
+    this.site.userName = this.email;
+    this.siteService.addSIte(this.site).subscribe(
+      data=> {
+        this.dialog.closeAll();
+      },
+      error => {
+      }
+      )
   }
 
 }
