@@ -51,16 +51,48 @@ export class VerificationlvComponent implements OnInit {
 
   addDesignerForm = new FormGroup ({
     arrDesigner: this._formBuilder.array([this.createItem()]),
-    managerName: new FormControl(''),
-    managercontactNo: new FormControl(''),
-    managerEmail: new FormControl(''),
-    companyName: new FormControl(''),
-    AddressLine1: new FormControl(''),
-    AddressLine2: new FormControl(''),
+    designerManagerName: new FormControl(''),
+    designerManagerContactNo: new FormControl(''),
+    designerManagerEmail: new FormControl(''),
+    designerCompanyName: new FormControl(''),
+    designerAddressLine1: new FormControl(''),
+    designerAddressLine2: new FormControl(''),
     designerLandmark: new FormControl(''),
-    country: new FormControl(''),
-    state: new FormControl(''),
+    designerCountry: new FormControl(''),
+    designerState: new FormControl(''),
     designerPincode: new FormControl(''),
+  })
+
+  addContractorForm = new FormGroup ({
+    contractorPersonName: new FormControl(''),
+    contractorContactNo: new FormControl(''),
+    contractorEmail: new FormControl(''),
+    contractorManagerName: new FormControl(''),
+    contractorManagerContactNo: new FormControl(''),
+    contractorManagerEmail: new FormControl(''),
+    contractorCompanyName: new FormControl(''),
+    contractorAddressLine1: new FormControl(''),
+    contractorAddressLine2: new FormControl(''),
+    contractorLandmark: new FormControl(''),
+    contractorCountry: new FormControl(''),
+    contractorState: new FormControl(''),
+    contractorPincode: new FormControl(''),
+  })
+
+  addInspectorForm = new FormGroup ({
+    inspectorPersonName: new FormControl(''),
+    inspectorContactNo: new FormControl(''),
+    inspectorEmail: new FormControl(''),
+    inspectorManagerName: new FormControl(''),
+    inspectorManagerContactNo: new FormControl(''),
+    inspectorManagerEmail: new FormControl(''),
+    inspectorCompanyName: new FormControl(''),
+    inspectorAddressLine1: new FormControl(''),
+    inspectorAddressLine2: new FormControl(''),
+    inspectorLandmark: new FormControl(''),
+    inspectorCountry: new FormControl(''),
+    inspectorState: new FormControl(''),
+    inspectorPincode: new FormControl(''),
   })
 
 
@@ -102,10 +134,6 @@ export class VerificationlvComponent implements OnInit {
   // ThirdFormGroup: FormGroup;
   // fourthFormGroup: FormGroup;
 
-  // @ViewChild(MatSort) sort!: MatSort;
-
-  // @ViewChild('TableOnePaginator', {static: true}) tableOnePaginator: MatPaginator;
-  // @ViewChild('TableOneSort', {static: true}) tableOneSort: MatSort;
 
   @Output() passEntry: EventEmitter<any> = new EventEmitter();  
   formBuilder: any;
@@ -336,9 +364,9 @@ deleteDepartment(departmentId: number) {
 
   createItem() {
     return this._formBuilder.group({
-      personName: ['', Validators.required],
-      designercontactNo: ['', Validators.required],
-      DesignerEmail: ['', Validators.required]
+      designerPersonName: ['', Validators.required],
+      designerContactNo: ['', Validators.required],
+      designerEmail: ['', Validators.required]
     })
   }
 
@@ -355,7 +383,37 @@ deleteDepartment(departmentId: number) {
     (this.addDesignerForm.get('arrDesigner') as FormArray).removeAt(index);
   }
 
-  changeCountry(e: any) {
+  designerchangeCountry(e: any) {
+    let changedValue = e.target.value;
+    this.stateList = [];
+      for(let arr of this.countryList) {
+        if( arr.name == changedValue) {
+          this.siteService.retrieveState(arr.code).subscribe(
+            data => {
+              this.stateList = JSON.parse(data)
+            }
+          )};
+      }
+  }
+
+  // Contractor details forms
+
+  contractorchangeCountry(e: any) {
+    let changedValue = e.target.value;
+    this.stateList = [];
+      for(let arr of this.countryList) {
+        if( arr.name == changedValue) {
+          this.siteService.retrieveState(arr.code).subscribe(
+            data => {
+              this.stateList = JSON.parse(data)
+            }
+          )};
+      }
+  }
+
+  // Inspector details forms
+
+  inspectorchangeCountry(e: any) {
     let changedValue = e.target.value;
     this.stateList = [];
       for(let arr of this.countryList) {
