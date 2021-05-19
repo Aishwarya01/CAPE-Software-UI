@@ -175,7 +175,7 @@ export class SiteupdateComponent implements OnInit {
     }
     
     this.site.sitePersons=this.updateSiteForm.getRawValue().arr;
-    debugger
+      
     for( let j of this.deletedArray) {
       this.site.sitePersons.push(j);
     }

@@ -22,6 +22,7 @@ import { SiteService } from '../services/site.service';
 import { Site } from '../model/site';
 import { SiteupdateComponent } from '../site/siteupdate/siteupdate.component';
 import { Reportdetails } from '../model/reportdetails';
+import { ReportDetailsService } from '../services/report-details.service';
 
 @Component({
   selector: 'app-verificationlv',
@@ -120,27 +121,27 @@ export class VerificationlvComponent implements OnInit {
   })
 
   designer1Acknowledge = new FormGroup ({
-    designer1Signature: new FormControl(''),
-    designer1Date: new FormControl(''),
-    designer1Name: new FormControl('')
+    signature: new FormControl(''),
+    declarationDate: new FormControl(''),
+    declarationName: new FormControl('')
   })
 
   designer2Acknowledge = new FormGroup ({
-    designer2Signature: new FormControl(''),
-    designer2Date: new FormControl(''),
-    designer2Name: new FormControl('')
+    signature: new FormControl(''),
+    declarationDate: new FormControl(''),
+    declarationName: new FormControl('')
   })
 
   contractorAcknowledge = new FormGroup ({
-    contractorSignature: new FormControl(''),
-    contractorDate: new FormControl(''),
-    contractorName: new FormControl('')
+    signature: new FormControl(''),
+    declarationDate: new FormControl(''),
+    declarationName: new FormControl('')
   })
 
   inspectorAcknowledge = new FormGroup ({
-    inspectorSignature: new FormControl(''),
-    inspectorDate: new FormControl(''),
-    inspectorName: new FormControl('')
+    signature: new FormControl(''),
+    declarationDate: new FormControl(''),
+    declarationName: new FormControl('')
   })
   
   clientList: any = [];
@@ -172,6 +173,8 @@ export class VerificationlvComponent implements OnInit {
 
 
 
+
+
   reportDetails =new Reportdetails;
   
 
@@ -199,6 +202,7 @@ export class VerificationlvComponent implements OnInit {
     private router: ActivatedRoute,
     private clientService: ClientService,
     private departmentService: DepartmentService,
+    private reportDetailsService: ReportDetailsService,
     private siteService: SiteService,
     private ChangeDetectorRef: ChangeDetectorRef) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
@@ -582,27 +586,27 @@ deleteDepartment(departmentId: number) {
   nextTab() {
     
     this.addDesigner1Form.value.designer1Arr[0].signatorRole= this.designerRole;
+
     this.addDesigner2Form.value.designer2Arr[0].signatorRole= this.designerRole;
+
     this.addContractorForm.value.contractorArr[0].signatorRole= this.contractorRole;
+
     this.addInspectorForm.value.inspectorArr[0].signatorRole= this.inspectorRole;
 
-    console.log(this.addDesigner1Form.value.designer1Arr);
-    console.log(this.addDesigner2Form.value.designer2Arr);
-    console.log(this.addContractorForm.value.contractorArr);
-    console.log(this.addInspectorForm.value.inspectorArr);
-
-  
-debugger
-    this.reportDetails.SignatorDetails = this.addDesigner1Form.value.designer1Arr;
-    this.reportDetails.SignatorDetails.push(this.addDesigner2Form.value.designer2Arr);
-
+    console.log(this.designer1Acknowledge.value);
     
 
+    this.reportDetails.SignatorDetails = this.addDesigner1Form.value.designer1Arr;
+    if(this.addDesigner2Form.value.designer2Arr[0].personName != "") {
+      this.reportDetails.SignatorDetails=this.reportDetails.SignatorDetails.concat(this.addDesigner2Form.value.designer2Arr);
+    }
+      this.reportDetails.SignatorDetails=this.reportDetails.SignatorDetails.concat(this.addContractorForm.value.contractorArr,this.addInspectorForm.value.inspectorArr);
+        
+
     console.log(this.reportDetails);
-    this.site.userName = this.email;
-    this.siteService.addSIte(this.site).subscribe(
+    this.reportDetailsService.addReportDetails(this.reportDetails).subscribe(
       data=> {
-        this.dialog.closeAll();
+        console.log("worked");
       },
       error => {
       }
