@@ -39,8 +39,9 @@ export class SignatorDetails {
     addressLine1: String;
     addressLine2: String;
     landMark: String;
-    State: String;
+    state: String;
     pinCode: number;
+    country: String;
     declarationName: String;
     declarationDate: Date;
 }

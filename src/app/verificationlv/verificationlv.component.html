@@ -524,105 +524,114 @@
                 </mat-expansion-panel-header>
                 <h3><b>Declaration of designer  of the electrical installation:</b></h3>
                 <div class="form-group">
-                  <p>
-                    I/we being the person responsible for the design of the electrical installation (as indicated by my/our signatures below), particulars of which are described above, having exercised reasonable skill and care when carrying out the design hereby declare that design work for which I/We have been responsible is to the best of my/our knowledge and belief in accordance with IEC 60364					
-                  </p>
-                  <p>
-                    The extent of liability of the signatory or signatories is limited to the work described above as the subject of this report.					
-                  </p>
-    
-                  <h2>Designer 1:</h2>
-                  <div class="row">
-                    <div class="col-md-4">
-                      <label>Signature:</label>
-                      <input type="text" class="form-control">
+                  <form [formGroup] = "designer1Acknowledge">
+                    <p>
+                      I/we being the person responsible for the design of the electrical installation (as indicated by my/our signatures below), particulars of which are described above, having exercised reasonable skill and care when carrying out the design hereby declare that design work for which I/We have been responsible is to the best of my/our knowledge and belief in accordance with IEC 60364					
+                    </p>
+                    <p>
+                      The extent of liability of the signatory or signatories is limited to the work described above as the subject of this report.					
+                    </p>
+      
+                    <h2>Designer 1:</h2>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label>Signature:</label>
+                        <input type="text" formControlName="designer1Signature" class="form-control">
+                      </div>
+      
+                      <div class="col-md-4">
+                        <label>Date:</label>
+                        <input type="date" formControlName="designer1Date" class="form-control" placeholder="Enter Date">              
+                      </div>
+      
+                      <div class="col-md-4">
+                        <label>Name (In block letters) :</label>
+                        <input type="text" formControlName="designer1Name" class="form-control" placeholder="Enter Designer Name">
+                      </div>
                     </div>
-    
-                    <div class="col-md-4">
-                      <label>Date:</label>
-                      <input type="date" class="form-control" placeholder="Enter Date">              
+                  </form>
+
+                  <form [formGroup] = "designer2Acknowledge">
+                    <h2>Designer 2:</h2>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label>Signature:</label>
+                        <input type="text" formControlName="designer2Signature" class="form-control">
+                      </div>
+      
+                      <div class="col-md-4">
+                        <label>Date:</label>
+                        <input type="date" formControlName="designer2Date" class="form-control" placeholder="Enter Date">              
+                      </div>
+      
+                      <div class="col-md-4">
+                        <label>Name (In block letters) :</label>
+                        <input type="text" formControlName="designer2Name" class="form-control" placeholder="Enter Designer Name">
+                      </div>
                     </div>
-    
-                    <div class="col-md-4">
-                      <label>Name (In block letters) :</label>
-                      <input type="text" class="form-control" placeholder="Enter Designer Name">
-                    </div>
-                  </div>
-    
-                  <h2>Designer 2:</h2>
-                  <div class="row">
-                    <div class="col-md-4">
-                      <label>Signature:</label>
-                      <input type="text" class="form-control">
-                    </div>
-    
-                    <div class="col-md-4">
-                      <label>Date:</label>
-                      <input type="date" class="form-control" placeholder="Enter Date">              
-                    </div>
-    
-                    <div class="col-md-4">
-                      <label>Name (In block letters) :</label>
-                      <input type="text" class="form-control" placeholder="Enter Designer Name">
-                    </div>
-                  </div>
+                  </form>
                 </div>
-    
-                <h3><b>Declaration of contractor of installation:</b></h3>
+                
                 <div class="form-group">
-                  <p>
-                    I/we being the person responsible for the construction of the electrical installation (as indicated by my/our signatures below), particulars of which are described above, having exercised reasonable skill and care when carrying out the design hereby declare that the design work for which I/We have been responsible is to the best of my/our knowledge and belief in accordance with IEC 60364					
-                  </p>
-                  <p>
-                    The extent of liability of the signatory is limited to the work described above as the subject of this report.					
-                  </p>
-    
-                  <h2>Contractor:</h2>
-                  <div class="row">
-                    <div class="col-md-4">
-                      <label>Signature:</label>
-                      <input type="text" class="form-control">
-                    </div>
-    
-                    <div class="col-md-4">
-                      <label>Date:</label>
-                      <input type="date" class="form-control" placeholder="Enter Date">              
-                    </div>
-    
-                    <div class="col-md-4">
-                      <label>Name (In block letters) :</label>
-                      <input type="text" class="form-control" placeholder="Enter Contractor Name">
-                    </div>
-                  </div>
+                  <form [formGroup] = "contractorAcknowledge">
+                    <h3><b>Declaration of contractor of installation:</b></h3>
+                      <p>
+                        I/we being the person responsible for the construction of the electrical installation (as indicated by my/our signatures below), particulars of which are described above, having exercised reasonable skill and care when carrying out the design hereby declare that the design work for which I/We have been responsible is to the best of my/our knowledge and belief in accordance with IEC 60364					
+                      </p>
+                      <p>
+                        The extent of liability of the signatory is limited to the work described above as the subject of this report.					
+                      </p>
+        
+                      <h2>Contractor:</h2>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label>Signature:</label>
+                          <input type="text" formControlName="contractorSignature" class="form-control">
+                        </div>
+        
+                        <div class="col-md-4">
+                          <label>Date:</label>
+                          <input type="date" formControlName="contractorDate" class="form-control" placeholder="Enter Date">              
+                        </div>
+        
+                        <div class="col-md-4">
+                          <label>Name (In block letters) :</label>
+                          <input type="text" formControlName="contractorName" class="form-control" placeholder="Enter Contractor Name">
+                        </div>
+                      </div>
+                  </form>
                 </div>
-    
-                <h3><b>Declaration of Safety Engineer (Inspector):</b></h3>
+                
                 <div class="form-group">
-                  <p>
-                    I/we being the person responsible for the inspection & testing  of the electrical installation (as indicated by my/our signatures below), particulars of which are described above, having exercised reasonable skill and care when carrying out the design hereby declare that the design work for which I/We have been responsible is to the best of my/our knowledge and belief in accordance with IEC 60364					
-                  </p>
-                  <p>
-                    The extent of liability of the signatory is limited to the work described above as the subject of this report.					
-                  </p>
-    
-                  <h2>Inspector:</h2>
-                  <div class="row">
-                    <div class="col-md-4">
-                      <label>Signature:</label>
-                      <input type="text" class="form-control">
-                    </div>
-    
-                    <div class="col-md-4">
-                      <label>Date:</label>
-                      <input type="date" class="form-control" placeholder="Enter Date">              
-                    </div>
-    
-                    <div class="col-md-4">
-                      <label>Name (In block letters) :</label>
-                      <input type="text" class="form-control" placeholder="Enter Inspector Name">
-                    </div>
-                  </div>
+                  <form [formGroup] = "inspectorAcknowledge">
+                    <h3><b>Declaration of Safety Engineer (Inspector):</b></h3>
+                      <p>
+                        I/we being the person responsible for the inspection & testing  of the electrical installation (as indicated by my/our signatures below), particulars of which are described above, having exercised reasonable skill and care when carrying out the design hereby declare that the design work for which I/We have been responsible is to the best of my/our knowledge and belief in accordance with IEC 60364					
+                      </p>
+                      <p>
+                        The extent of liability of the signatory is limited to the work described above as the subject of this report.					
+                      </p>
+        
+                      <h2>Inspector:</h2>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label>Signature:</label>
+                          <input type="text" formControlName="inspectorSignature" class="form-control">
+                        </div>
+        
+                        <div class="col-md-4">
+                          <label>Date:</label>
+                          <input type="date" formControlName="inspectorDate" class="form-control" placeholder="Enter Date">              
+                        </div>
+        
+                        <div class="col-md-4">
+                          <label>Name (In block letters) :</label>
+                          <input type="text" formControlName="inspectorName" class="form-control" placeholder="Enter Inspector Name">
+                        </div>
+                      </div>
+                  </form>
                 </div>
+        
               </mat-expansion-panel>
     
               <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -641,206 +650,215 @@
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <h2>Designer Details</h2>
-          
-                <form  [formGroup]="addDesigner1Form">
-                  <h2>Designer 1</h2>
-                  
-                    <div class="form-group" >
-                      <div class="row">
-                          <div class="col-md-4">
-                              <label>Person Name:</label>        
-                              <input type="text"  formControlName="designer1PersonName" class="form-control"  placeholder="Enter Person Name" >
-                          </div>
-              
-                          <div class="col-md-4">
-                              <label>Contact No:</label>        
-                              <input type="number"  formControlName="designer1ContactNo" class="form-control"  placeholder="Enter Contact Number" >
-                          </div>
-              
-                          <div class="col-md-4">
-                              <label>Email:</label>        
-                              <input type="text"  formControlName="designer1Email" class="form-control"  placeholder="Enter Email Address" >
-                          </div>       
-                      </div>                            
-                  </div>   
-        
-    
-                  <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label>Manager Name:</label>        
-                            <input type="text"  formControlName="designer1ManagerName" class="form-control"  placeholder="Enter Manager Name" >
-                        </div>
-            
-                        <div class="col-md-4">
-                          <label>Contact No:</label>        
-                          <input type="number"  formControlName="designer1ManagerContactNo" class="form-control"  placeholder="Enter Contact Number" >
-                        </div>
-          
-                        <div class="col-md-4">
-                            <label>Email:</label>        
-                            <input type="text"  formControlName="designer1ManagerEmail" class="form-control"  placeholder="Enter Email Address" >
-                        </div>
-                    </div>
-                  </div>
-              
-              
-                  <div class="form-group">
-                      <div class="row">
-                          <div class="col-md-4">
-                              <label>Company Name:</label>        
-                              <input type="text"  formControlName="designer1CompanyName" class="form-control"  placeholder="Enter Company Name" >
-                          </div>
-              
-                          <div class="col-md-4">
-                              <label>AddressLine1:</label>        
-                              <input type="text"  formControlName="designer1AddressLine1" class="form-control"  placeholder="Enter Address Line1" >
-                          </div>
-              
-                          <div class="col-md-4">
-                              <label>AddressLine2:</label>        
-                              <input type="text"  formControlName="designer1AddressLine2" class="form-control"  placeholder="Enter Address Line2" >
-                          </div>
-                      </div>
-                  </div>
-              
-                  <div class="form-group">
-                      <div class="row">
-                          <div class="col-md-4">
-                              <label>Site Landmark:</label>        
-                              <input type="text"  formControlName="designer1Landmark" class="form-control"  placeholder="Enter Landmark" >
-                          </div>
-              
-                          <div class="col-md-4">
-                              <label>Country:</label>
-                              <select  formControlName="designer1Country" class="form-control" (change)="designer1changeCountry($event)"  >
-                                  <option value="0" selected>Select Country Name</option>
-                                  <option *ngFor="let country of countryList">{{country.name}}</option>
-                              </select>
-                          </div>
-              
-                          <div class="col-md-4">
-                              <label>State:</label>
-                              <select  formControlName="designer1State" class="form-control" >
-                                  <option value="0" selected>Select State Name</option>
-                                  <option *ngFor="let state of stateList">{{state.name}}</option>
-                              </select>
-                          </div>
-                      </div>
-                  </div>
-              
-                  <div class="form-group">    
-                      <div class="row">
-                          <div class="col-md-4">
-                              <label>Pincode:</label>        
-                              <input type="number"  formControlName="designer1Pincode" class="form-control"  placeholder="Enter Pincode" >
-                          </div>
-                          <div class="col-md-4" *ngIf="false">
-                            <input type="text"  formControlName="designer1Role" class="form-control" value="designer">
-                          </div>
-                      </div>   
-                  </div>              
-              </form>
-    
-              <form  [formGroup]="addDesigner2Form">
-                <h2>Designer 2</h2>
                 
-                  <div class="form-group" >
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label>Person Name:</label>        
-                            <input type="text"  formControlName="designer2PersonName" class="form-control"  placeholder="Enter Person Name" >
-                        </div>
-            
-                        <div class="col-md-4">
-                            <label>Contact No:</label>        
-                            <input type="number"  formControlName="designer2ContactNo" class="form-control"  placeholder="Enter Contact Number" >
-                        </div>
-            
-                        <div class="col-md-4">
-                            <label>Email:</label>        
-                            <input type="text"  formControlName="designer2Email" class="form-control"  placeholder="Enter Email Address" >
-                        </div>       
-                    </div>                            
-                </div>   
-      
-    
-                <div class="form-group">
-                  <div class="row">
-                      <div class="col-md-4">
-                          <label>Manager Name:</label>        
-                          <input type="text"  formControlName="designer2ManagerName" class="form-control"  placeholder="Enter Manager Name" >
-                      </div>
+
+                <form  [formGroup]="addDesigner1Form" >
+                  <div formArrayName="designer1Arr" *ngFor="let a of getDesigner1Controls(); let i = index">
+                    <div class="form-group" [formGroupName]="i">
+                      <h2>Designer 1</h2>
+                  
+                      <div class="form-group" >
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Person Name:</label>        
+                                <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name" >
+                            </div>
+                
+                            <div class="col-md-4">
+                                <label>Contact No:</label>        
+                                <input type="number"  formControlName="personContactNo" class="form-control"  placeholder="Enter Contact Number" >
+                            </div>
+                
+                            <div class="col-md-4">
+                                <label>Email:</label>        
+                                <input type="text"  formControlName="personMailID" class="form-control"  placeholder="Enter Email Address" >
+                            </div>       
+                        </div>                            
+                      </div>   
           
-                      <div class="col-md-4">
-                        <label>Contact No:</label>        
-                        <input type="number"  formControlName="designer2ManagerContactNo" class="form-control"  placeholder="Enter Contact Number" >
+      
+                      <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Manager Name:</label>        
+                                <input type="text"  formControlName="managerName" class="form-control"  placeholder="Enter Manager Name" >
+                            </div>
+                
+                            <div class="col-md-4">
+                              <label>Contact No:</label>        
+                              <input type="number"  formControlName="managerContactNo" class="form-control"  placeholder="Enter Contact Number" >
+                            </div>
+              
+                            <div class="col-md-4">
+                                <label>Email:</label>        
+                                <input type="text"  formControlName="managerMailID" class="form-control"  placeholder="Enter Email Address" >
+                            </div>
+                        </div>
                       </div>
-        
-                      <div class="col-md-4">
-                          <label>Email:</label>        
-                          <input type="text"  formControlName="designer2ManagerEmail" class="form-control"  placeholder="Enter Email Address" >
+                
+                
+                      <div class="form-group">
+                          <div class="row">
+                              <div class="col-md-4">
+                                  <label>Company Name:</label>        
+                                  <input type="text"  formControlName="companyName" class="form-control"  placeholder="Enter Company Name" >
+                              </div>
+                  
+                              <div class="col-md-4">
+                                  <label>AddressLine1:</label>        
+                                  <input type="text"  formControlName="addressLine1" class="form-control"  placeholder="Enter Address Line1" >
+                              </div>
+                  
+                              <div class="col-md-4">
+                                  <label>AddressLine2:</label>        
+                                  <input type="text"  formControlName="addressLine2" class="form-control"  placeholder="Enter Address Line2" >
+                              </div>
+                          </div>
                       </div>
-                  </div>
-                </div>
-            
-            
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label>Company Name:</label>        
-                            <input type="text"  formControlName="designer2CompanyName" class="form-control"  placeholder="Enter Company Name" >
+                
+                      <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Site Landmark:</label>        
+                                <input type="text"  formControlName="landMark" class="form-control"  placeholder="Enter Landmark" >
+                            </div>
+                
+                            <div class="col-md-4">
+                                <label>Country:</label>
+                                <select  formControlName="country" class="form-control" (change)="designer1changeCountry($event)"  >
+                                    <option value="0" selected>Select Country Name</option>
+                                    <option *ngFor="let country of countryList">{{country.name}}</option>
+                                </select>
+                            </div>
+                
+                            <div class="col-md-4">
+                                <label>State:</label>
+                                <select  formControlName="state" class="form-control" >
+                                    <option value="0" selected>Select State Name</option>
+                                    <option *ngFor="let state of stateList">{{state.name}}</option>
+                                </select>
+                            </div>
                         </div>
-            
-                        <div class="col-md-4">
-                            <label>AddressLine1:</label>        
-                            <input type="text"  formControlName="designer2AddressLine1" class="form-control"  placeholder="Enter Address Line1" >
-                        </div>
-            
-                        <div class="col-md-4">
-                            <label>AddressLine2:</label>        
-                            <input type="text"  formControlName="designer2AddressLine2" class="form-control"  placeholder="Enter Address Line2" >
-                        </div>
+                      </div>
+                
+                      <div class="form-group">    
+                          <div class="row">
+                              <div class="col-md-4">
+                                  <label>Pincode:</label>        
+                                  <input type="number"  formControlName="pinCode" class="form-control"  placeholder="Enter Pincode" >
+                              </div>
+                              <div class="col-md-4" *ngIf="false">
+                                <input type="text"  formControlName="signatorRole" class="form-control" >
+                              </div>
+                          </div>   
+                      </div>
                     </div>
-                </div>
+                  </div>           
+                </form>
+    
+                <form  [formGroup]="addDesigner2Form">
+                    <div formArrayName="designer2Arr" *ngFor="let a of getDesigner2Controls(); let i = index">
+                      <div class="form-group" [formGroupName]="i">
+                        <h2>Designer 2</h2>
+                
+                        <div class="form-group" >
+                          <div class="row">
+                              <div class="col-md-4">
+                                  <label>Person Name:</label>        
+                                  <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name" >
+                              </div>
+                  
+                              <div class="col-md-4">
+                                  <label>Contact No:</label>        
+                                  <input type="number"  formControlName="personContactNo" class="form-control"  placeholder="Enter Contact Number" >
+                              </div>
+                  
+                              <div class="col-md-4">
+                                  <label>Email:</label>        
+                                  <input type="text"  formControlName="personMailID" class="form-control"  placeholder="Enter Email Address" >
+                              </div>       
+                          </div>                            
+                        </div>   
             
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label>Site Landmark:</label>        
-                            <input type="text"  formControlName="designer2Landmark" class="form-control"  placeholder="Enter Landmark" >
+          
+                        <div class="form-group">
+                          <div class="row">
+                              <div class="col-md-4">
+                                  <label>Manager Name:</label>        
+                                  <input type="text"  formControlName="managerName" class="form-control"  placeholder="Enter Manager Name" >
+                              </div>
+                  
+                              <div class="col-md-4">
+                                <label>Contact No:</label>        
+                                <input type="number"  formControlName="managerContactNo" class="form-control"  placeholder="Enter Contact Number" >
+                              </div>
+                
+                              <div class="col-md-4">
+                                  <label>Email:</label>        
+                                  <input type="text"  formControlName="managerMailID" class="form-control"  placeholder="Enter Email Address" >
+                              </div>
+                          </div>
                         </div>
-            
-                        <div class="col-md-4">
-                            <label>Country:</label>
-                            <select  formControlName="designer2Country" class="form-control" (change)="designer1changeCountry($event)"  >
-                                <option value="0" selected>Select Country Name</option>
-                                <option *ngFor="let country of countryList">{{country.name}}</option>
-                            </select>
+                  
+                  
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Company Name:</label>        
+                                    <input type="text"  formControlName="companyName" class="form-control"  placeholder="Enter Company Name" >
+                                </div>
+                    
+                                <div class="col-md-4">
+                                    <label>AddressLine1:</label>        
+                                    <input type="text"  formControlName="addressLine1" class="form-control"  placeholder="Enter Address Line1" >
+                                </div>
+                    
+                                <div class="col-md-4">
+                                    <label>AddressLine2:</label>        
+                                    <input type="text"  formControlName="addressLine2" class="form-control"  placeholder="Enter Address Line2" >
+                                </div>
+                            </div>
                         </div>
-            
-                        <div class="col-md-4">
-                            <label>State:</label>
-                            <select  formControlName="designer2State" class="form-control" >
-                                <option value="0" selected>Select State Name</option>
-                                <option *ngFor="let state of stateList">{{state.name}}</option>
-                            </select>
+                  
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Site Landmark:</label>        
+                                    <input type="text"  formControlName="landMark" class="form-control"  placeholder="Enter Landmark" >
+                                </div>
+                    
+                                <div class="col-md-4">
+                                    <label>Country:</label>
+                                    <select  formControlName="country" class="form-control" (change)="designer1changeCountry($event)"  >
+                                        <option value="0" selected>Select Country Name</option>
+                                        <option *ngFor="let country of countryList">{{country.name}}</option>
+                                    </select>
+                                </div>
+                    
+                                <div class="col-md-4">
+                                    <label>State:</label>
+                                    <select  formControlName="state" class="form-control" >
+                                        <option value="0" selected>Select State Name</option>
+                                        <option *ngFor="let state of stateList">{{state.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            
-                <div class="form-group">    
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label>Pincode:</label>        
-                            <input type="number"  formControlName="designer2Pincode" class="form-control"  placeholder="Enter Pincode" >
+                  
+                        <div class="form-group">    
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Pincode:</label>        
+                                    <input type="number"  formControlName="pinCode" class="form-control"  placeholder="Enter Pincode" >
+                                </div>
+                                <div class="col-md-4" *ngIf="false">
+                                  <input type="text"  formControlName="signatorRole" class="form-control" value="designer">
+                                </div>
+                            </div>   
                         </div>
-                        <div class="col-md-4" *ngIf="false">
-                          <input type="text"  formControlName="designer2Role" class="form-control" value="designer">
-                        </div>
-                    </div>   
-                </div>              
-            </form>
+                      </div>
+                    </div>              
+                </form>
               </mat-expansion-panel>
     
               <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -851,104 +869,107 @@
                 </mat-expansion-panel-header>
                 <h2>Contractor Details</h2>
           
-                <form  [formGroup]="addContractorForm">
-                            
-    
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-md-4">
-                          <label>Person Name:</label>        
-                          <input type="text"  formControlName="contractorPersonName" class="form-control"  placeholder="Enter Person Name" >
-                      </div>
-          
-                      <div class="col-md-4">
-                          <label>Contact No:</label>        
-                          <input type="number"  formControlName="contractorContactNo" class="form-control"  placeholder="Enter Contact Number" >
-                      </div>
-          
-                      <div class="col-md-4">
-                          <label>Email:</label>        
-                          <input type="text"  formControlName="contractorEmail" class="form-control"  placeholder="Enter Email Address" >
-                      </div>       
-                    </div>
-                  </div>
-                                                      
-    
-                  <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label>Manager Name:</label>        
-                            <input type="text"  formControlName="contractorManagerName" class="form-control"  placeholder="Enter Manager Name" >
-                        </div>
+                <form  [formGroup]="addContractorForm">   
+                  <div formArrayName="contractorArr" *ngFor="let a of getContractorControls(); let i = index">
+                      <div class="form-group" [formGroupName]="i">
+                
+                        <div class="form-group" >
+                          <div class="row">
+                              <div class="col-md-4">
+                                  <label>Person Name:</label>        
+                                  <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name" >
+                              </div>
+                  
+                              <div class="col-md-4">
+                                  <label>Contact No:</label>        
+                                  <input type="number"  formControlName="personContactNo" class="form-control"  placeholder="Enter Contact Number" >
+                              </div>
+                  
+                              <div class="col-md-4">
+                                  <label>Email:</label>        
+                                  <input type="text"  formControlName="personMailID" class="form-control"  placeholder="Enter Email Address" >
+                              </div>       
+                          </div>                            
+                        </div>   
             
-                        <div class="col-md-4">
-                          <label>Contact No:</label>        
-                          <input type="number"  formControlName="contractorManagerContactNo" class="form-control"  placeholder="Enter Contact Number" >
-                        </div>
           
-                        <div class="col-md-4">
-                            <label>Email:</label>        
-                            <input type="text"  formControlName="contractorManagerEmail" class="form-control"  placeholder="Enter Email Address" >
+                        <div class="form-group">
+                          <div class="row">
+                              <div class="col-md-4">
+                                  <label>Manager Name:</label>        
+                                  <input type="text"  formControlName="managerName" class="form-control"  placeholder="Enter Manager Name" >
+                              </div>
+                  
+                              <div class="col-md-4">
+                                <label>Contact No:</label>        
+                                <input type="number"  formControlName="managerContactNo" class="form-control"  placeholder="Enter Contact Number" >
+                              </div>
+                
+                              <div class="col-md-4">
+                                  <label>Email:</label>        
+                                  <input type="text"  formControlName="managerMailID" class="form-control"  placeholder="Enter Email Address" >
+                              </div>
+                          </div>
                         </div>
+                  
+                  
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Company Name:</label>        
+                                    <input type="text"  formControlName="companyName" class="form-control"  placeholder="Enter Company Name" >
+                                </div>
+                    
+                                <div class="col-md-4">
+                                    <label>AddressLine1:</label>        
+                                    <input type="text"  formControlName="addressLine1" class="form-control"  placeholder="Enter Address Line1" >
+                                </div>
+                    
+                                <div class="col-md-4">
+                                    <label>AddressLine2:</label>        
+                                    <input type="text"  formControlName="addressLine2" class="form-control"  placeholder="Enter Address Line2" >
+                                </div>
+                            </div>
+                        </div>
+                  
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Site Landmark:</label>        
+                                    <input type="text"  formControlName="landMark" class="form-control"  placeholder="Enter Landmark" >
+                                </div>
+                    
+                                <div class="col-md-4">
+                                    <label>Country:</label>
+                                    <select  formControlName="country" class="form-control" (change)="designer1changeCountry($event)"  >
+                                        <option value="0" selected>Select Country Name</option>
+                                        <option *ngFor="let country of countryList">{{country.name}}</option>
+                                    </select>
+                                </div>
+                    
+                                <div class="col-md-4">
+                                    <label>State:</label>
+                                    <select  formControlName="state" class="form-control" >
+                                        <option value="0" selected>Select State Name</option>
+                                        <option *ngFor="let state of stateList">{{state.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                  
+                        <div class="form-group">    
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Pincode:</label>        
+                                    <input type="number"  formControlName="pinCode" class="form-control"  placeholder="Enter Pincode" >
+                                </div>
+                                <div class="col-md-4" *ngIf="false">
+                                  <input type="text"  formControlName="signatorRole" class="form-control" value="designer">
+                                </div>
+                            </div>   
+                        </div>
+                      </div>
                     </div>
-                  </div>
-              
-              
-                  <div class="form-group">
-                      <div class="row">
-                          <div class="col-md-4">
-                              <label>Company Name:</label>        
-                              <input type="text"  formControlName="contractorCompanyName" class="form-control"  placeholder="Enter Company Name" >
-                          </div>
-              
-                          <div class="col-md-4">
-                              <label>AddressLine1:</label>        
-                              <input type="text"  formControlName="contractorAddressLine1" class="form-control"  placeholder="Enter Address Line1" >
-                          </div>
-              
-                          <div class="col-md-4">
-                              <label>AddressLine2:</label>        
-                              <input type="text"  formControlName="contractorAddressLine2" class="form-control"  placeholder="Enter Address Line2" >
-                          </div>
-                      </div>
-                  </div>
-              
-                  <div class="form-group">
-                      <div class="row">
-                          <div class="col-md-4">
-                              <label>Site Landmark:</label>        
-                              <input type="text"  formControlName="contractorLandmark" class="form-control"  placeholder="Enter Landmark" >
-                          </div>
-              
-                          <div class="col-md-4">
-                              <label>Country:</label>
-                              <select  formControlName="contractorCountry" class="form-control" (change)="contractorchangeCountry($event)"  >
-                                  <option value="0" selected>Select Country Name</option>
-                                  <option *ngFor="let country of countryList">{{country.name}}</option>
-                              </select>
-                          </div>
-              
-                          <div class="col-md-4">
-                              <label>State:</label>
-                              <select  formControlName="contractorState" class="form-control" >
-                                  <option value="0" selected>Select State Name</option>
-                                  <option *ngFor="let state of stateList">{{state.name}}</option>
-                              </select>
-                          </div>
-                      </div>
-                  </div>
-              
-                  <div class="form-group">    
-                      <div class="row">
-                          <div class="col-md-4">
-                              <label>Pincode:</label>        
-                              <input type="number"  formControlName="contractorPincode" class="form-control"  placeholder="Enter Pincode" >
-                          </div>
-                          <div class="col-md-4" *ngIf="false">
-                            <input type="text"  formControlName="contractorRole" class="form-control" value="contractor">
-                          </div>
-                      </div>   
-                  </div>
                   
               </form>
               </mat-expansion-panel>
@@ -963,102 +984,106 @@
           
                 <form  [formGroup]="addInspectorForm">
                             
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-md-4">
-                          <label>Person Name:</label>        
-                          <input type="text"  formControlName="inspectorPersonName" class="form-control"  placeholder="Enter Person Name" >
-                      </div>
-          
-                      <div class="col-md-4">
-                          <label>Contact No:</label>        
-                          <input type="number"  formControlName="inspectorContactNo" class="form-control"  placeholder="Enter Contact Number" >
-                      </div>
-          
-                      <div class="col-md-4">
-                          <label>Email:</label>        
-                          <input type="text"  formControlName="inspectorEmail" class="form-control"  placeholder="Enter Email Address" >
-                      </div>       
-                    </div>
-                  </div>
-    
-                  <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label>Manager Name:</label>        
-                            <input type="text"  formControlName="inspectorManagerName" class="form-control"  placeholder="Enter Manager Name" >
-                        </div>
-            
-                        <div class="col-md-4">
-                          <label>Contact No:</label>        
-                          <input type="number"  formControlName="inspectorContactNo" class="form-control"  placeholder="Enter Contact Number" >
-                        </div>
-          
-                        <div class="col-md-4">
-                            <label>Email:</label>        
-                            <input type="text"  formControlName="inspectorEmail" class="form-control"  placeholder="Enter Email Address" >
-                        </div>
-                    </div>
-                  </div>
+                  <div formArrayName="inspectorArr" *ngFor="let a of getInspectorControls(); let i = index">
+                    <div class="form-group" [formGroupName]="i">
               
-              
-                  <div class="form-group">
-                      <div class="row">
-                          <div class="col-md-4">
-                              <label>Company Name:</label>        
-                              <input type="text"  formControlName="inspectorCompanyName" class="form-control"  placeholder="Enter Company Name" >
-                          </div>
-              
-                          <div class="col-md-4">
-                              <label>AddressLine1:</label>        
-                              <input type="text"  formControlName="inspectorAddressLine1" class="form-control"  placeholder="Enter Address Line1" >
-                          </div>
-              
-                          <div class="col-md-4">
-                              <label>AddressLine2:</label>        
-                              <input type="text"  formControlName="inspectorAddressLine2" class="form-control"  placeholder="Enter Address Line2" >
-                          </div>
-                      </div>
-                  </div>
-              
-                  <div class="form-group">
-                      <div class="row">
-                          <div class="col-md-4">
-                              <label>Site Landmark:</label>        
-                              <input type="text"  formControlName="inspectorLandmark" class="form-control"  placeholder="Enter Landmark" >
-                          </div>
-              
-                          <div class="col-md-4">
-                              <label>Country:</label>
-                              <select  formControlName="inspectorCountry" class="form-control" (change)="inspectorchangeCountry($event)"  >
-                                  <option value="0" selected>Select Country Name</option>
-                                  <option *ngFor="let country of countryList">{{country.name}}</option>
-                              </select>
-                          </div>
-              
-                          <div class="col-md-4">
-                              <label>State:</label>
-                              <select  formControlName="inspectorState" class="form-control" >
-                                  <option value="0" selected>Select State Name</option>
-                                  <option *ngFor="let state of stateList">{{state.name}}</option>
-                              </select>
-                          </div>
-                      </div>
-                  </div>
-              
-                  <div class="form-group">    
-                      <div class="row">
-                          <div class="col-md-4">
-                              <label>Pincode:</label>        
-                              <input type="number"  formControlName="inspectorPincode" class="form-control"  placeholder="Enter Pincode" >
-                          </div>
-    
-                          <div class="col-md-4" *ngIf="false">
-                            <input type="text"  formControlName="inspectorRole" class="form-control" value="inspector">
-                          </div>
+                      <div class="form-group" >
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Person Name:</label>        
+                                <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name" >
+                            </div>
+                
+                            <div class="col-md-4">
+                                <label>Contact No:</label>        
+                                <input type="number"  formControlName="personContactNo" class="form-control"  placeholder="Enter Contact Number" >
+                            </div>
+                
+                            <div class="col-md-4">
+                                <label>Email:</label>        
+                                <input type="text"  formControlName="personMailID" class="form-control"  placeholder="Enter Email Address" >
+                            </div>       
+                        </div>                            
                       </div>   
-                  </div>
+          
+        
+                      <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Manager Name:</label>        
+                                <input type="text"  formControlName="managerName" class="form-control"  placeholder="Enter Manager Name" >
+                            </div>
+                
+                            <div class="col-md-4">
+                              <label>Contact No:</label>        
+                              <input type="number"  formControlName="managerContactNo" class="form-control"  placeholder="Enter Contact Number" >
+                            </div>
+              
+                            <div class="col-md-4">
+                                <label>Email:</label>        
+                                <input type="text"  formControlName="managerMailID" class="form-control"  placeholder="Enter Email Address" >
+                            </div>
+                        </div>
+                      </div>
+                
+                
+                      <div class="form-group">
+                          <div class="row">
+                              <div class="col-md-4">
+                                  <label>Company Name:</label>        
+                                  <input type="text"  formControlName="companyName" class="form-control"  placeholder="Enter Company Name" >
+                              </div>
                   
+                              <div class="col-md-4">
+                                  <label>AddressLine1:</label>        
+                                  <input type="text"  formControlName="addressLine1" class="form-control"  placeholder="Enter Address Line1" >
+                              </div>
+                  
+                              <div class="col-md-4">
+                                  <label>AddressLine2:</label>        
+                                  <input type="text"  formControlName="addressLine2" class="form-control"  placeholder="Enter Address Line2" >
+                              </div>
+                          </div>
+                      </div>
+                
+                      <div class="form-group">
+                          <div class="row">
+                              <div class="col-md-4">
+                                  <label>Site Landmark:</label>        
+                                  <input type="text"  formControlName="landMark" class="form-control"  placeholder="Enter Landmark" >
+                              </div>
+                  
+                              <div class="col-md-4">
+                                  <label>Country:</label>
+                                  <select  formControlName="country" class="form-control" (change)="designer1changeCountry($event)"  >
+                                      <option value="0" selected>Select Country Name</option>
+                                      <option *ngFor="let country of countryList">{{country.name}}</option>
+                                  </select>
+                              </div>
+                  
+                              <div class="col-md-4">
+                                  <label>State:</label>
+                                  <select  formControlName="state" class="form-control" >
+                                      <option value="0" selected>Select State Name</option>
+                                      <option *ngFor="let state of stateList">{{state.name}}</option>
+                                  </select>
+                              </div>
+                          </div>
+                      </div>
+                
+                      <div class="form-group">    
+                          <div class="row">
+                              <div class="col-md-4">
+                                  <label>Pincode:</label>        
+                                  <input type="number"  formControlName="pinCode" class="form-control"  placeholder="Enter Pincode" >
+                              </div>
+                              <div class="col-md-4" *ngIf="false">
+                                <input type="text"  formControlName="signatorRole" class="form-control" value="designer">
+                              </div>
+                          </div>   
+                      </div>
+                    </div>
+                  </div>                  
               </form>
               </mat-expansion-panel>
             </mat-accordion>

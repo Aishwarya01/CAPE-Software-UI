@@ -51,75 +51,97 @@ export class VerificationlvComponent implements OnInit {
   @ViewChild('siteSort', {static: true}) siteSort!: MatSort;
 
   addDesigner1Form = new FormGroup ({
-    designer1PersonName: new FormControl(''),
-    designer1ContactNo: new FormControl(''),
-    designer1Email: new FormControl(''),
-    designer1ManagerName: new FormControl(''),
-    designer1ManagerContactNo: new FormControl(''),
-    designer1ManagerEmail: new FormControl(''),
-    designer1CompanyName: new FormControl(''),
-    designer1AddressLine1: new FormControl(''),
-    designer1AddressLine2: new FormControl(''),
-    designer1Landmark: new FormControl(''),
-    designer1Country: new FormControl(''),
-    designer1State: new FormControl(''),
-    designer1Pincode: new FormControl(''),
-    designer1Role: new FormControl('')
+    personName: new FormControl(''),
+    personContactNo: new FormControl(''),
+    personMailID: new FormControl(''),
+    managerName: new FormControl(''),
+    managerContactNo: new FormControl(''),
+    managerMailID: new FormControl(''),
+    companyName: new FormControl(''),
+    addressLine1: new FormControl(''),
+    addressLine2: new FormControl(''),
+    landMark: new FormControl(''),
+    country: new FormControl(''),
+    state: new FormControl(''),
+    pinCode: new FormControl(''),
+    signatorRole: new FormControl('')
 
   })
 
   addDesigner2Form = new FormGroup ({
-    designer2PersonName: new FormControl(''),
-    designer2ContactNo: new FormControl(''),
-    designer2Email: new FormControl(''),
-    designer2ManagerName: new FormControl(''),
-    designer2ManagerContactNo: new FormControl(''),
-    designer2ManagerEmail: new FormControl(''),
-    designer2CompanyName: new FormControl(''),
-    designer2AddressLine1: new FormControl(''),
-    designer2AddressLine2: new FormControl(''),
-    designer2Landmark: new FormControl(''),
-    designer2Country: new FormControl(''),
-    designer2State: new FormControl(''),
-    designer2Pincode: new FormControl(''),
-    designer2Role: new FormControl('')
+    personName: new FormControl(''),
+    personContactNo: new FormControl(''),
+    personMailID: new FormControl(''),
+    managerName: new FormControl(''),
+    managerContactNo: new FormControl(''),
+    managerMailID: new FormControl(''),
+    companyName: new FormControl(''),
+    addressLine1: new FormControl(''),
+    addressLine2: new FormControl(''),
+    landMark: new FormControl(''),
+    country: new FormControl(''),
+    state: new FormControl(''),
+    pinCode: new FormControl(''),
+    signatorRole: new FormControl('')
   })
 
   addContractorForm = new FormGroup ({
-    contractorPersonName: new FormControl(''),
-    contractorContactNo: new FormControl(''),
-    contractorEmail: new FormControl(''),
-    contractorManagerName: new FormControl(''),
-    contractorManagerContactNo: new FormControl(''),
-    contractorManagerEmail: new FormControl(''),
-    contractorCompanyName: new FormControl(''),
-    contractorAddressLine1: new FormControl(''),
-    contractorAddressLine2: new FormControl(''),
-    contractorLandmark: new FormControl(''),
-    contractorCountry: new FormControl(''),
-    contractorState: new FormControl(''),
-    contractorPincode: new FormControl(''),
-    contractorRole: new FormControl('')
+    personName: new FormControl(''),
+    personContactNo: new FormControl(''),
+    personMailID: new FormControl(''),
+    managerName: new FormControl(''),
+    managerContactNo: new FormControl(''),
+    managerMailID: new FormControl(''),
+    companyName: new FormControl(''),
+    addressLine1: new FormControl(''),
+    addressLine2: new FormControl(''),
+    landMark: new FormControl(''),
+    country: new FormControl(''),
+    state: new FormControl(''),
+    pinCode: new FormControl(''),
+    signatorRole: new FormControl('')
   })
 
   addInspectorForm = new FormGroup ({
-    inspectorPersonName: new FormControl(''),
-    inspectorContactNo: new FormControl(''),
-    inspectorEmail: new FormControl(''),
-    inspectorManagerName: new FormControl(''),
-    inspectorManagerContactNo: new FormControl(''),
-    inspectorManagerEmail: new FormControl(''),
-    inspectorCompanyName: new FormControl(''),
-    inspectorAddressLine1: new FormControl(''),
-    inspectorAddressLine2: new FormControl(''),
-    inspectorLandmark: new FormControl(''),
-    inspectorCountry: new FormControl(''),
-    inspectorState: new FormControl(''),
-    inspectorPincode: new FormControl(''),
-    inspectorRole: new FormControl('')
+    personName: new FormControl(''),
+    personContactNo: new FormControl(''),
+    personMailID: new FormControl(''),
+    managerName: new FormControl(''),
+    managerContactNo: new FormControl(''),
+    managerMailID: new FormControl(''),
+    companyName: new FormControl(''),
+    addressLine1: new FormControl(''),
+    addressLine2: new FormControl(''),
+    landMark: new FormControl(''),
+    country: new FormControl(''),
+    state: new FormControl(''),
+    pinCode: new FormControl(''),
+    signatorRole: new FormControl('')
   })
 
+  designer1Acknowledge = new FormGroup ({
+    designer1Signature: new FormControl(''),
+    designer1Date: new FormControl(''),
+    designer1Name: new FormControl('')
+  })
 
+  designer2Acknowledge = new FormGroup ({
+    designer2Signature: new FormControl(''),
+    designer2Date: new FormControl(''),
+    designer2Name: new FormControl('')
+  })
+
+  contractorAcknowledge = new FormGroup ({
+    contractorSignature: new FormControl(''),
+    contractorDate: new FormControl(''),
+    contractorName: new FormControl('')
+  })
+
+  inspectorAcknowledge = new FormGroup ({
+    inspectorSignature: new FormControl(''),
+    inspectorDate: new FormControl(''),
+    inspectorName: new FormControl('')
+  })
   
   clientList: any = [];
   inActiveData: any =[];
@@ -142,6 +164,12 @@ export class VerificationlvComponent implements OnInit {
   companyCd: String = '';
   departmentCd: String = '';
   isChecked: boolean = false;
+  designer1Arr!: FormArray;
+  designerRole: String ='designer';
+  contractorRole: String ='contractor';
+  inspectorRole: String ='inspector';
+
+
 
 
   reportDetails =new Reportdetails;
@@ -186,6 +214,20 @@ export class VerificationlvComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required],
       clientname: ['', Validators.required],
+    });
+
+  
+    this.addDesigner1Form = this._formBuilder.group({
+      designer1Arr: this._formBuilder.array([this.createDesigner1Form()]),
+    });
+    this.addDesigner2Form = this._formBuilder.group({
+      designer2Arr: this._formBuilder.array([this.createDesigner2Form()]),
+    });
+    this.addContractorForm = this._formBuilder.group({
+      contractorArr: this._formBuilder.array([this.createContractorForm()]),
+    });
+    this.addInspectorForm = this._formBuilder.group({
+      inspectorArr: this._formBuilder.array([this.createInspectorForm()]),
     });
 
     this.siteService.retrieveCountry().subscribe(
@@ -388,7 +430,51 @@ deleteDepartment(departmentId: number) {
   }
   
   // Deisgner details forms
+  private createDesigner1Form(): FormGroup {
+    return new FormGroup({
+      personName: new FormControl(''),
+      personContactNo: new FormControl(''),
+      personMailID: new FormControl(''),
+      managerName: new FormControl(''),
+      managerContactNo: new FormControl(''),
+      managerMailID: new FormControl(''),
+      companyName: new FormControl(''),
+      addressLine1: new FormControl(''),
+      addressLine2: new FormControl(''),
+      landMark: new FormControl(''),
+      country: new FormControl(''),
+      state: new FormControl(''),
+      pinCode: new FormControl(''),
+      signatorRole: new FormControl('')
+    })
+  }
 
+  private createDesigner2Form(): FormGroup {
+    return new FormGroup({
+      personName: new FormControl(''),
+      personContactNo: new FormControl(''),
+      personMailID: new FormControl(''),
+      managerName: new FormControl(''),
+      managerContactNo: new FormControl(''),
+      managerMailID: new FormControl(''),
+      companyName: new FormControl(''),
+      addressLine1: new FormControl(''),
+      addressLine2: new FormControl(''),
+      landMark: new FormControl(''),
+      country: new FormControl(''),
+      state: new FormControl(''),
+      pinCode: new FormControl(''),
+      signatorRole: new FormControl('')
+    })
+  }
+
+  getDesigner1Controls(): AbstractControl[] { 
+      return (<FormArray> this.addDesigner1Form.get('designer1Arr')).controls
+  }
+
+  getDesigner2Controls(): AbstractControl[] { 
+    return (<FormArray> this.addDesigner2Form.get('designer2Arr')).controls
+}
   
 
   designer1changeCountry(e: any) {
@@ -419,6 +505,29 @@ deleteDepartment(departmentId: number) {
 
   // Contractor details forms
 
+  private createContractorForm(): FormGroup {
+    return new FormGroup({
+      personName: new FormControl(''),
+      personContactNo: new FormControl(''),
+      personMailID: new FormControl(''),
+      managerName: new FormControl(''),
+      managerContactNo: new FormControl(''),
+      managerMailID: new FormControl(''),
+      companyName: new FormControl(''),
+      addressLine1: new FormControl(''),
+      addressLine2: new FormControl(''),
+      landMark: new FormControl(''),
+      country: new FormControl(''),
+      state: new FormControl(''),
+      pinCode: new FormControl(''),
+      signatorRole: new FormControl('')
+    })
+  }
+
+  getContractorControls(): AbstractControl[] { 
+    return (<FormArray> this.addContractorForm.get('contractorArr')).controls
+  }
+
   contractorchangeCountry(e: any) {
     let changedValue = e.target.value;
     this.stateList = [];
@@ -434,6 +543,29 @@ deleteDepartment(departmentId: number) {
 
   // Inspector details forms
 
+  private createInspectorForm(): FormGroup {
+    return new FormGroup({
+      personName: new FormControl(''),
+      personContactNo: new FormControl(''),
+      personMailID: new FormControl(''),
+      managerName: new FormControl(''),
+      managerContactNo: new FormControl(''),
+      managerMailID: new FormControl(''),
+      companyName: new FormControl(''),
+      addressLine1: new FormControl(''),
+      addressLine2: new FormControl(''),
+      landMark: new FormControl(''),
+      country: new FormControl(''),
+      state: new FormControl(''),
+      pinCode: new FormControl(''),
+      signatorRole: new FormControl('')
+    })
+  }
+
+  getInspectorControls(): AbstractControl[] { 
+    return (<FormArray> this.addInspectorForm.get('inspectorArr')).controls
+  }
+
   inspectorchangeCountry(e: any) {
     let changedValue = e.target.value;
     this.stateList = [];
@@ -448,16 +580,23 @@ deleteDepartment(departmentId: number) {
   }
 
   nextTab() {
+    
+    this.addDesigner1Form.value.designer1Arr[0].signatorRole= this.designerRole;
+    this.addDesigner2Form.value.designer2Arr[0].signatorRole= this.designerRole;
+    this.addContractorForm.value.contractorArr[0].signatorRole= this.contractorRole;
+    this.addInspectorForm.value.inspectorArr[0].signatorRole= this.inspectorRole;
 
-    console.log(this.addDesigner1Form.value);
-    console.log(this.addDesigner2Form.value);
-    console.log(this.addContractorForm.value);
-    console.log(this.addInspectorForm.value);
+    console.log(this.addDesigner1Form.value.designer1Arr);
+    console.log(this.addDesigner2Form.value.designer2Arr);
+    console.log(this.addContractorForm.value.contractorArr);
+    console.log(this.addInspectorForm.value.inspectorArr);
 
-    this.reportDetails.SignatorDetails.push(this.addDesigner1Form.value);
-    this.reportDetails.SignatorDetails.push(this.addDesigner2Form.value);
-    this.reportDetails.SignatorDetails.push(this.addContractorForm.value);
-    this.reportDetails.SignatorDetails.push(this.addContractorForm.value);
+  
+debugger
+    this.reportDetails.SignatorDetails = this.addDesigner1Form.value.designer1Arr;
+    this.reportDetails.SignatorDetails.push(this.addDesigner2Form.value.designer2Arr);
+
+    
 
     console.log(this.reportDetails);
     this.site.userName = this.email;
