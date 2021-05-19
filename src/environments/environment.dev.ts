@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   environmentName: 'dev',
-  apiUrl: 'https://sg2nwvpweb069.shr.prod.sin2.secureserver.net:8443/api/v1'
+  apiUrl: 'https://rushserviceapp.azurewebsites.net/api/v1'
 };
 
 /*
