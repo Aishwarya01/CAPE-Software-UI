@@ -468,7 +468,6 @@ deleteDepartment(departmentId: number) {
     let changedValue = e.target.value;
     for(let arr of this.siteListInspec) {
       if(arr.site == changedValue) {
-        debugger
         this.reportDetails.siteId = arr.siteId;
       }
     }
