@@ -1,0 +1,11 @@
+body { margin: 10px; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.auth-form-btn {
+    margin-top: 15px;
+    width: 15%;
+    right: inherit;
+    margin: 0.15%;
+}
+ol.d {
+    list-style-type: lower-alpha;
+}

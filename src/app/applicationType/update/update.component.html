@@ -1,0 +1,37 @@
+<html>
+    <head>
+        Update Application Types
+    </head>
+    <body>
+        <h2>Update Application Type</h2>
+        <form [formGroup]="updateApplicationTypeForm" (ngSubmit)="onSubmit()">
+            <div *ngIf="showErrorMessage" class="alert alert-danger">Please enter a valid Id and Application Type</div>
+            <div class="form-group">
+                <label for="id">Id</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="bi bi-envelope-fill"></i>
+                        </span>
+                    </div>
+                   <input type="id" formControlName="id" readonly maxlength="50" value="{{applicationType.id}}"/> 
+                </div>                
+            </div>
+            <div class="form-group">
+                <label for="type">Application Type</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="bi bi-envelope-fill"></i>
+                        </span>
+                    </div>
+                    <input type="text" formControlName="type" class="form-control" value="{{applicationType.type}}" [(ngModel)]="applicationType.type"/>
+                </div>                
+            </div>
+            <div style="display: inline;">
+                <button [disabled]="loading" style="float: left;" type="submit" class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"><i class="bi icon"></i> Update</button>
+                <button [disabled]="loading" (click)="cancel()" style="float:right;" class="btn btn-outline-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
+            </div> 
+            </form>
+    </body>
+</html>

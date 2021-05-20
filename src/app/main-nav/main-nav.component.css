@@ -1,0 +1,43 @@
+.brand-logo {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.brand-logo img{
+  width: 150px;
+}
+
+.sidenav-container {
+  height: 100%;
+
+}
+
+.sidenav {
+  width: 500px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+  margin-bottom: 20px;
+}
+
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.spacer-row {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.text-spacer{
+  margin-right: auto;
+
+}

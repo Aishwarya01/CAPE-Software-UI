@@ -1,0 +1,9 @@
+.auth-form-btn {
+    margin-top: 15px;
+    width: 15%;
+    right: inherit;
+    margin: 0.15%;
+}
+ol.d {
+    list-style-type: lower-alpha;
+}

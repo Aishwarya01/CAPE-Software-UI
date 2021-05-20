@@ -1,0 +1,54 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>
+      <div class="brand-logo">
+        <a href="#"><img src="assets/img/Cape-logo.png"></a>
+      </div>
+    </mat-toolbar>
+    <mat-nav-list>
+      <mat-list-item *ngFor="let type of applicationTypes">
+        <a [routerLink]="['/home']" class="text-spacer">{{ type.type }}</a>
+        <button mat-icon-button (click)="showLinkDescription(type.id)">
+          <mat-icon>info</mat-icon>
+        </button>
+        <button mat-icon-button (click)="editApplicationType(type.id, type.type)" [hidden]="displayIconsBasedOnEmail()">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="deleteApplicationType(type.id)"  [hidden]="displayIconsBasedOnEmail()">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <!-- <mat-divider class="spacer-row"></mat-divider> -->
+      </mat-list-item>
+    </mat-nav-list>
+    <button mat-icon-button (click)="openModal()" style="float: right;" [hidden]="displayIconsBasedOnEmail()">
+      <mat-icon>add_box</mat-icon>
+    </button>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>Cape Electric Applications</span>
+      <span class="spacer"></span>
+      <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon>person</mat-icon>{{email}}
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="profileUpdate(email)">
+          <mat-icon>manage_accounts</mat-icon>Profile
+        </button>
+        <button mat-menu-item (click)="changePassword(email)">
+          <mat-icon>build</mat-icon>Change Password
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>Logout
+        </button>
+      </mat-menu>
+
+    </mat-toolbar>
+    <ng-template #ref></ng-template>
+  </mat-sidenav-content>
+</mat-sidenav-container>
