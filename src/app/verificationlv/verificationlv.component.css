@@ -1,6 +1,6 @@
 table {
     width: 811px;
-    overflow-x: scroll
+    text-align: justify;
   }
 
   .mat-row.hovered {
@@ -35,4 +35,29 @@ mat-header-cell.mat-header-cell {
 }
 .mousechange:hover {
   cursor: pointer;
+}
+
+.client-description {
+  width: 800px;
+  height: 150px;
+}
+
+.client-box-description {
+  height: 100px;
+}
+
+.auth-form-btn {
+  margin-top: 40px;
+  width: 300px;
+}
+
+.auth-form-btn .icon {
+  float: left;
+  margin-left: 30px;
+}
+
+.cancel {
+  margin-top: 40px;
+  width: 30%; 
+  height: 47px;
 }

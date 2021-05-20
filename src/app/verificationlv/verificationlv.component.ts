@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild, ChangeDetectorRef, VERSION } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray,  FormControl } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -20,7 +21,8 @@ import { DepartmentupdateComponent } from '../department/departmentupdate/depart
 import { SiteService } from '../services/site.service';
 import { Site } from '../model/site';
 import { SiteupdateComponent } from '../site/siteupdate/siteupdate.component';
-
+import { Reportdetails } from '../model/reportdetails';
+import { ReportDetailsService } from '../services/report-details.service';
 
 @Component({
   selector: 'app-verificationlv',
@@ -44,17 +46,110 @@ export class VerificationlvComponent implements OnInit {
   @ViewChild('departmentSort', {static: true}) departmentSort!: MatSort;
 
 
-  siteColumns: string[] = ['action','siteCd', 'siteName','country','state','city','createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
+  siteColumns: string[] = ['action','siteCd', 'siteName','country','city','createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
   site_dataSource!: MatTableDataSource<Company[]>;
   @ViewChild('sitePaginator', { static: true }) sitePaginator!: MatPaginator;
   @ViewChild('siteSort', {static: true}) siteSort!: MatSort;
 
+  addDesigner1Form = new FormGroup ({
+    personName: new FormControl(''),
+    personContactNo: new FormControl(''),
+    personMailID: new FormControl(''),
+    managerName: new FormControl(''),
+    managerContactNo: new FormControl(''),
+    managerMailID: new FormControl(''),
+    companyName: new FormControl(''),
+    addressLine1: new FormControl(''),
+    addressLine2: new FormControl(''),
+    landMark: new FormControl(''),
+    country: new FormControl(''),
+    state: new FormControl(''),
+    pinCode: new FormControl(''),
+    signatorRole: new FormControl('')
 
+  })
 
+  addDesigner2Form = new FormGroup ({
+    personName: new FormControl(''),
+    personContactNo: new FormControl(''),
+    personMailID: new FormControl(''),
+    managerName: new FormControl(''),
+    managerContactNo: new FormControl(''),
+    managerMailID: new FormControl(''),
+    companyName: new FormControl(''),
+    addressLine1: new FormControl(''),
+    addressLine2: new FormControl(''),
+    landMark: new FormControl(''),
+    country: new FormControl(''),
+    state: new FormControl(''),
+    pinCode: new FormControl(''),
+    signatorRole: new FormControl('')
+  })
+
+  addContractorForm = new FormGroup ({
+    personName: new FormControl(''),
+    personContactNo: new FormControl(''),
+    personMailID: new FormControl(''),
+    managerName: new FormControl(''),
+    managerContactNo: new FormControl(''),
+    managerMailID: new FormControl(''),
+    companyName: new FormControl(''),
+    addressLine1: new FormControl(''),
+    addressLine2: new FormControl(''),
+    landMark: new FormControl(''),
+    country: new FormControl(''),
+    state: new FormControl(''),
+    pinCode: new FormControl(''),
+    signatorRole: new FormControl('')
+  })
+
+  addInspectorForm = new FormGroup ({
+    personName: new FormControl(''),
+    personContactNo: new FormControl(''),
+    personMailID: new FormControl(''),
+    managerName: new FormControl(''),
+    managerContactNo: new FormControl(''),
+    managerMailID: new FormControl(''),
+    companyName: new FormControl(''),
+    addressLine1: new FormControl(''),
+    addressLine2: new FormControl(''),
+    landMark: new FormControl(''),
+    country: new FormControl(''),
+    state: new FormControl(''),
+    pinCode: new FormControl(''),
+    signatorRole: new FormControl('')
+  })
+
+  designer1Acknowledge = new FormGroup ({
+    signature: new FormControl(''),
+    declarationDate: new FormControl(''),
+    declarationName: new FormControl('')
+  })
+
+  designer2Acknowledge = new FormGroup ({
+    signature: new FormControl(''),
+    declarationDate: new FormControl(''),
+    declarationName: new FormControl('')
+  })
+
+  contractorAcknowledge = new FormGroup ({
+    signature: new FormControl(''),
+    declarationDate: new FormControl(''),
+    declarationName: new FormControl('')
+  })
+
+  inspectorAcknowledge = new FormGroup ({
+    signature: new FormControl(''),
+    declarationDate: new FormControl(''),
+    declarationName: new FormControl('')
+  })
+  
   clientList: any = [];
   inActiveData: any =[];
   departmentList: any = [];
   clientArray : any = [];
+  countryList: any = [];
+  stateList: any = [];
   company =new Company;
   department = new Department;
   site = new Site;
@@ -70,8 +165,25 @@ export class VerificationlvComponent implements OnInit {
   companyCd: String = '';
   departmentCd: String = '';
   isChecked: boolean = false;
+  designer1Arr!: FormArray;
+  designerRole: String ='designer';
+  contractorRole: String ='contractor';
+  inspectorRole: String ='inspector';
 
+
+
+
+
+
+  reportDetails =new Reportdetails;
+  
+
+  // Second Tab dependencies
   panelOpenState = false;
+  installationList: String[]= ['New installation','First verification of an existing','Addition of an existing installation','Alteration in an existing installation','Periodic verification'];
+  premiseList: String[]= ['Domestic(Individual)','Domestic(Apartment)','Commercial','IT/Office','Data center','Industrial(Non Ex environment)','Industrial(Ex environment)'];
+  evidenceList: String[]= ['YES', 'NO', 'Not Apparent'];
+  previousRecordList: String[]= ['YES', 'NO'];
 
 
 
@@ -80,22 +192,23 @@ export class VerificationlvComponent implements OnInit {
   // ThirdFormGroup: FormGroup;
   // fourthFormGroup: FormGroup;
 
-  // @ViewChild(MatSort) sort!: MatSort;
 
-  // @ViewChild('TableOnePaginator', {static: true}) tableOnePaginator: MatPaginator;
-  // @ViewChild('TableOneSort', {static: true}) tableOneSort: MatSort;
-
-  @Output() passEntry: EventEmitter<any> = new EventEmitter();
-  constructor(private _formBuilder: FormBuilder,
+  @Output() passEntry: EventEmitter<any> = new EventEmitter();  
+  formBuilder: any;
+  arrDesigner!: FormArray; 
+   constructor(private _formBuilder: FormBuilder,
     private modalService: NgbModal,
     private dialog: MatDialog,
     private router: ActivatedRoute,
     private clientService: ClientService,
     private departmentService: DepartmentService,
+    private reportDetailsService: ReportDetailsService,
     private siteService: SiteService,
     private ChangeDetectorRef: ChangeDetectorRef) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
+
+  
 
   ngOnInit(): void {
     this.firstFormGroup = this._formBuilder.group({
@@ -106,8 +219,29 @@ export class VerificationlvComponent implements OnInit {
       secondCtrl: ['', Validators.required],
       clientname: ['', Validators.required],
     });
+
+  
+    this.addDesigner1Form = this._formBuilder.group({
+      designer1Arr: this._formBuilder.array([this.createDesigner1Form()]),
+    });
+    this.addDesigner2Form = this._formBuilder.group({
+      designer2Arr: this._formBuilder.array([this.createDesigner2Form()]),
+    });
+    this.addContractorForm = this._formBuilder.group({
+      contractorArr: this._formBuilder.array([this.createContractorForm()]),
+    });
+    this.addInspectorForm = this._formBuilder.group({
+      inspectorArr: this._formBuilder.array([this.createInspectorForm()]),
+    });
+
+    this.siteService.retrieveCountry().subscribe(
+      data => {
+        this.countryList = JSON.parse(data);
+      }
+    )
     this.refresh();
     this.retrieveClientDetails();
+    
   }
 
   retrieveIsActiveData() {
@@ -245,9 +379,10 @@ deleteDepartment(departmentId: number) {
       });
   }
   
-  updateSite(userName: String, clientName: String,departmentName: String,  site : String, siteId : number, siteCd : String, country : String, state : String, city : String, landMark : String, personIncharge : String, personInchargeEmail : String, addressLine_1: String, addressLine_2: String, phoneNumber: number, zipCode: number, createdDate: Date,createdBy: String) {    
+  updateSite(userName: String, clientName: String,departmentName: String,  site : String, siteId : number, siteCd : String, country : String, state : String, city : String, landMark : String, sitePersons : any[], addressLine_1: String, addressLine_2: String, zipCode: number, createdDate: Date,createdBy: String) {    
     const dialogRef = this.dialog.open(SiteupdateComponent, {
       width: '1000px',
+      maxHeight: '90vh',
     });
     dialogRef.componentInstance.userName = userName;
     dialogRef.componentInstance.clientName = clientName;
@@ -261,12 +396,11 @@ deleteDepartment(departmentId: number) {
     dialogRef.componentInstance.landMark = landMark;
     dialogRef.componentInstance.addressLine_1 = addressLine_1;
     dialogRef.componentInstance.addressLine_2 = addressLine_2;
-    dialogRef.componentInstance.personIncharge = personIncharge;
-    dialogRef.componentInstance.personInchargeEmail = personInchargeEmail;
-    dialogRef.componentInstance.phoneNumber = phoneNumber;
+    dialogRef.componentInstance.sitePersons = sitePersons;
     dialogRef.componentInstance.zipCode = zipCode;
     dialogRef.componentInstance.createdBy = createdBy;
     dialogRef.componentInstance.createdDate = createdDate;
+
     dialogRef.afterClosed().subscribe(result => {
       this.refresh();
       this.retrieveSiteDetails();
@@ -298,5 +432,188 @@ deleteDepartment(departmentId: number) {
   refresh() {
     this.ChangeDetectorRef.detectChanges();
   }
+  
+  // Deisgner details forms
+  private createDesigner1Form(): FormGroup {
+    return new FormGroup({
+      personName: new FormControl(''),
+      personContactNo: new FormControl(''),
+      personMailID: new FormControl(''),
+      managerName: new FormControl(''),
+      managerContactNo: new FormControl(''),
+      managerMailID: new FormControl(''),
+      companyName: new FormControl(''),
+      addressLine1: new FormControl(''),
+      addressLine2: new FormControl(''),
+      landMark: new FormControl(''),
+      country: new FormControl(''),
+      state: new FormControl(''),
+      pinCode: new FormControl(''),
+      signatorRole: new FormControl('')
+    })
+  }
+
+  private createDesigner2Form(): FormGroup {
+    return new FormGroup({
+      personName: new FormControl(''),
+      personContactNo: new FormControl(''),
+      personMailID: new FormControl(''),
+      managerName: new FormControl(''),
+      managerContactNo: new FormControl(''),
+      managerMailID: new FormControl(''),
+      companyName: new FormControl(''),
+      addressLine1: new FormControl(''),
+      addressLine2: new FormControl(''),
+      landMark: new FormControl(''),
+      country: new FormControl(''),
+      state: new FormControl(''),
+      pinCode: new FormControl(''),
+      signatorRole: new FormControl('')
+    })
+  }
+
+  getDesigner1Controls(): AbstractControl[] { 
+      return (<FormArray> this.addDesigner1Form.get('designer1Arr')).controls
+  }
+
+  getDesigner2Controls(): AbstractControl[] { 
+    return (<FormArray> this.addDesigner2Form.get('designer2Arr')).controls
+}
+  
+
+  designer1changeCountry(e: any) {
+    let changedValue = e.target.value;
+    this.stateList = [];
+      for(let arr of this.countryList) {
+        if( arr.name == changedValue) {
+          this.siteService.retrieveState(arr.code).subscribe(
+            data => {
+              this.stateList = JSON.parse(data)
+            }
+          )};
+      }
+  }
+
+  designer2changeCountry(e: any) {
+    let changedValue = e.target.value;
+    this.stateList = [];
+      for(let arr of this.countryList) {
+        if( arr.name == changedValue) {
+          this.siteService.retrieveState(arr.code).subscribe(
+            data => {
+              this.stateList = JSON.parse(data)
+            }
+          )};
+      }
+  }
+
+  // Contractor details forms
+
+  private createContractorForm(): FormGroup {
+    return new FormGroup({
+      personName: new FormControl(''),
+      personContactNo: new FormControl(''),
+      personMailID: new FormControl(''),
+      managerName: new FormControl(''),
+      managerContactNo: new FormControl(''),
+      managerMailID: new FormControl(''),
+      companyName: new FormControl(''),
+      addressLine1: new FormControl(''),
+      addressLine2: new FormControl(''),
+      landMark: new FormControl(''),
+      country: new FormControl(''),
+      state: new FormControl(''),
+      pinCode: new FormControl(''),
+      signatorRole: new FormControl('')
+    })
+  }
+
+  getContractorControls(): AbstractControl[] { 
+    return (<FormArray> this.addContractorForm.get('contractorArr')).controls
+  }
+
+  contractorchangeCountry(e: any) {
+    let changedValue = e.target.value;
+    this.stateList = [];
+      for(let arr of this.countryList) {
+        if( arr.name == changedValue) {
+          this.siteService.retrieveState(arr.code).subscribe(
+            data => {
+              this.stateList = JSON.parse(data)
+            }
+          )};
+      }
+  }
+
+  // Inspector details forms
+
+  private createInspectorForm(): FormGroup {
+    return new FormGroup({
+      personName: new FormControl(''),
+      personContactNo: new FormControl(''),
+      personMailID: new FormControl(''),
+      managerName: new FormControl(''),
+      managerContactNo: new FormControl(''),
+      managerMailID: new FormControl(''),
+      companyName: new FormControl(''),
+      addressLine1: new FormControl(''),
+      addressLine2: new FormControl(''),
+      landMark: new FormControl(''),
+      country: new FormControl(''),
+      state: new FormControl(''),
+      pinCode: new FormControl(''),
+      signatorRole: new FormControl('')
+    })
+  }
+
+  getInspectorControls(): AbstractControl[] { 
+    return (<FormArray> this.addInspectorForm.get('inspectorArr')).controls
+  }
+
+  inspectorchangeCountry(e: any) {
+    let changedValue = e.target.value;
+    this.stateList = [];
+      for(let arr of this.countryList) {
+        if( arr.name == changedValue) {
+          this.siteService.retrieveState(arr.code).subscribe(
+            data => {
+              this.stateList = JSON.parse(data)
+            }
+          )};
+      }
+  }
+
+  nextTab() {
+    
+    this.addDesigner1Form.value.designer1Arr[0].signatorRole= this.designerRole;
+
+    this.addDesigner2Form.value.designer2Arr[0].signatorRole= this.designerRole;
+
+    this.addContractorForm.value.contractorArr[0].signatorRole= this.contractorRole;
+
+    this.addInspectorForm.value.inspectorArr[0].signatorRole= this.inspectorRole;
+
+    console.log(this.designer1Acknowledge.value);
+    
+
+    this.reportDetails.SignatorDetails = this.addDesigner1Form.value.designer1Arr;
+    if(this.addDesigner2Form.value.designer2Arr[0].personName != "") {
+      this.reportDetails.SignatorDetails=this.reportDetails.SignatorDetails.concat(this.addDesigner2Form.value.designer2Arr);
+    }
+      this.reportDetails.SignatorDetails=this.reportDetails.SignatorDetails.concat(this.addContractorForm.value.contractorArr,this.addInspectorForm.value.inspectorArr);
+        
+
+    console.log(this.reportDetails);
+    this.reportDetailsService.addReportDetails(this.reportDetails).subscribe(
+      data=> {
+        console.log("worked");
+      },
+      error => {
+      }
+      )
+  }
 
 }
+
+  
+  

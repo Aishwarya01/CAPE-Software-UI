@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   environmentName: 'dev',
-  apiUrl: 'https://lv-inspection-system-backend.herokuapp.com/api/v1'
+  apiUrl: 'https://rushserviceapp.azurewebsites.net/api/v1'
 };
 
 /*

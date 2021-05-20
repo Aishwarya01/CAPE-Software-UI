@@ -27,4 +27,6 @@ export class SitePersons {
     designation: String;
     contactNo: number;
     personInchargeEmail: String;
+    inActive: Boolean = true;
+    personId: number;
 }

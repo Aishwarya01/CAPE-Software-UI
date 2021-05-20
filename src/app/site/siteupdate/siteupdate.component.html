@@ -1,5 +1,5 @@
 <h1>Update Site Information</h1>
-<form  [formGroup]="addSiteForm">
+<form  [formGroup]="updateSiteForm">
     
     <div class="form-group">
         <div class="row">
@@ -20,24 +20,45 @@
         </div>        
     </div>
 
-    <!-- <div class="form-group">
-        <div class="row">
-            <div class="col-md-4">
-                <label>Person Incharge:</label>        
-                <input type="text"  formControlName="personIncharge" class="form-control"  value="{{personIncharge}}" placeholder="Enter Person Incharge" [(ngModel)]="site.personIncharge">
-            </div>
+    <mat-icon class="mousechange" (click)="addItem()" style="float:right; padding-right: 37px; padding-top: 30px;">add_box</mat-icon>
 
-            <div class="col-md-4">
-                <label>Contact No:</label>        
-                <input type="number"  formControlName="contactNo" class="form-control"   value="{{phoneNumber}}" placeholder="Enter Contact Number" [(ngModel)]="site.phoneNumber">
-            </div>
+    <div formArrayName="arr" >
+        <div class="form-group" *ngFor="let a of getControls(); let i = index" [formGroupName]="i">
+            <div class="row"><h2>Person Incharge Details:</h2> </div>
+        
+            <div class="row">
+                
+                <div class="col-md-3">
+                    <label>Person Incharge:</label>        
+                    <input type="text"  formControlName="personIncharge" class="form-control"  value="{{a.value.personIncharge}}"  placeholder="Enter Person Incharge" >
+                </div>
 
-            <div class="col-md-4">
-                <label>Email:</label>        
-                <input type="text"  formControlName="email" class="form-control" value="{{personInchargeEmail}}"  placeholder="Enter Email Address" [(ngModel)]="site.personInchargeEmail">
-            </div>
-        </div>
-    </div> -->
+                <div class="col-md-3">
+                    <label>Designation:</label>        
+                    <input type="text"  formControlName="designation" class="form-control"  value="{{a.value.designation}}"  placeholder="Enter Designation" >
+                </div>
+    
+                <div class="col-md-3">
+                    <label>Contact No:</label>        
+                    <input type="number"  formControlName="contactNo" class="form-control"  value="{{a.value.contactNo}}"  placeholder="Enter Contact Number" >
+                </div>
+    
+                <div class="col-md-3">
+                    <label>Email:</label>        
+                    <input type="text"  formControlName="personInchargeEmail" class="form-control"  value="{{a.value.personInchargeEmail}}" placeholder="Enter Email Address" >
+                </div>
+
+                <div class="col-md-3" *ngIf="false">       
+                    <input type="text"  formControlName="personId" class="form-control"  value="{{a.value.personId}}" >
+                </div>
+                <div class="col-md-3" *ngIf="false">       
+                    <input type="checkbox"  formControlName="inActive" class="form-control"  value="{{a.value.inActive}}" >
+                </div>       
+                <mat-icon class="mousechange" *ngIf="getControls().length > 1" (click)="removeItem(i,a.value.personIncharge,a.value.designation,a.value.contactNo,a.value.personInchargeEmail,a.value.personId,a.value.inActive)" style="float:right; padding-left: 913px;">delete</mat-icon>
+            </div>                            
+        </div>   
+    </div>
+
 
     <div class="form-group">
         <div class="row">
@@ -87,7 +108,7 @@
     </div>
        
     <div style="display: inline;">
-        <button (click)="onSubmit()" style="float: left;" type="submit" class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"> Save</button>
+        <button (click)="onSubmit()" style="float: left;" type="submit" class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"> Update</button>
         <button (click)="cancel()" style="float:right;"  class="btn btn-outline-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
     </div> 
     

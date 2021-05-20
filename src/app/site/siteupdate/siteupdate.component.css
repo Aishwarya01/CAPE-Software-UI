@@ -19,4 +19,7 @@
     margin-left: 20px;
 }
 
+.mousechange:hover {
+    cursor: pointer;
+}
 

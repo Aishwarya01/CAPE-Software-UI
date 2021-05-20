@@ -152,7 +152,10 @@ export class SiteaddComponent implements OnInit {
     console.log(this.addSiteForm.value.arr);
 
     this.site.sitePersons=this.addSiteForm.value.arr;
-    
+    for(let i of this.site.sitePersons) {
+      i.inActive=true;
+    }
+    console.log(this.site)
     this.site.userName = this.email;
     this.siteService.addSIte(this.site).subscribe(
       data=> {
