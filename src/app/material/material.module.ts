@@ -19,6 +19,9 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatCardModule } from '@angular/material/card';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatExpansionModule} from '@angular/material/expansion';
+
 
 @NgModule({
   imports: [
@@ -41,7 +44,9 @@ import { MatCardModule } from '@angular/material/card';
     MatDialogModule,
     MatTabsModule,
     MatStepperModule,
-    MatCardModule
+    MatCardModule,
+    MatTooltipModule,
+    MatExpansionModule
   ],
   exports: [
     MatToolbarModule,
@@ -62,7 +67,9 @@ import { MatCardModule } from '@angular/material/card';
     MatDialogModule,
     MatTabsModule,
     MatStepperModule,
-    MatCardModule
+    MatCardModule,
+    MatTooltipModule,
+    MatExpansionModule
   ],
   declarations: []
 })

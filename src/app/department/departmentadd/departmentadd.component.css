@@ -1,13 +1,17 @@
-
+.department-name {
+    width: 1px;
+    white-space: nowrap;
+    display: table-cell;
+}
 
 .auth-form-btn {
     margin-top: 40px;
-    width: 40%;
+    width: 50%;
 }
 
 .auth-form-btn .icon {
     float: left;
-    margin-left: 20px;
+    margin-left: 30px;
 }
 
 .cancel {

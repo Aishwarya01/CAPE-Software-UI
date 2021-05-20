@@ -1,0 +1,27 @@
+<h1>Add New Department</h1>
+<form  [formGroup]="addDepartmentForm">            
+    <div *ngIf="showErrorMessage" class="alert alert-danger">Please enter valid department name</div>
+
+    <div class="form-group">
+        <label style="display: table-cell;
+      width: 1px;
+      white-space: nowrap;">Client Name:</label><span style="display: table-cell; width: 500px;
+      padding: 0 4px 0 20px;"><select  formControlName="clientname" class="form-control" [(ngModel)]="department.clientName">
+        <option value="" selected>Select Client Name</option>
+        <option *ngFor="let client of clientList">{{client.clientName}}</option>
+     </select></span>
+      </div>     
+
+    <div class="form-group">       
+        <label class="department-name">Department Name:</label>
+        <span style="display: table-cell; width: 500px;
+        padding: 0 4px 0 20px;">
+        <input type="text"  formControlName="departmentname" class="form-control" placeholder="Enter department name" minlength="3" [(ngModel)]="department.departmentName"></span>
+    </div>
+            
+    <div style="display: inline;">
+        <button (click)="onSubmit()" [disabled]="loading" style="float: left;" type="submit" class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"> Save</button>
+        <button (click)="cancel()" style="float:right;"  class="btn btn-outline-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
+    </div> 
+    
+</form>
