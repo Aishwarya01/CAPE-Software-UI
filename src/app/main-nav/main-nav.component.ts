@@ -144,4 +144,8 @@ export class MainNavComponent {
       );
     }
   }
+
+  displayIconsBasedOnEmail(): boolean{
+    return !this.email.includes("@capeindia.net")
+  }
 }

@@ -69,4 +69,13 @@ export class RegisterComponent implements OnInit {
       error => console.log("Failed")
     )
   }
+
+  loadUserTypeBasedOnEmail(email: String){
+    if(!email.includes("@capeindia.net")){
+      this.usertypelist = ['User', 'Viewer']
+    } else{
+      this.usertypelist = ['User', 'Manager', 'Admin']
+    }
+    
+  }
 }
