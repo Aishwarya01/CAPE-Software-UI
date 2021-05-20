@@ -330,28 +330,29 @@
         <div class="card">
           <div class="card-body">
             <div class="search-bar">
-              <div class="row">
-                <div class="col-md-10">
-                  <div class="form-group">
-                    <label style="display: table-cell;
-                          width: 1px;
-                          white-space: nowrap;">Company Name:</label><span style="display: table-cell; width: 1000px;
-                          padding: 0 4px 0 20px;"><select class="form-control" (change)="changeClient($event)"
-                        [(ngModel)]="site.clientName">
-                        <option value="0" selected>Select Company Name</option>
-                        <option *ngFor="let client of clientList">{{client.clientName}}</option>
-                      </select></span>
-    
-                    <label style="display: table-cell;
-                          width: 1px;
-                          white-space: nowrap;">Department Name:</label><span style="display: table-cell; width: 1000px;
-                          padding: 0 4px 0 20px;"><select class="form-control" [(ngModel)]="site.departmentName"
-                        (change)="retrieveSiteDetails()">
-                        <option value="0" selected>Select Department Name</option>
-                        <option *ngFor="let department of departmentList">{{department.departmentName}}</option>
-                      </select></span>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-md-4">
+                          <label>Company Name:</label>
+                          <select class="form-control" (change)="changeClientName($event)">
+                            <option *ngFor="let client of clientList">{{client.clientName}}</option>
+                          </select>
+                    </div>
+                    <div class="col-md-4">
+                          <label>Department Name:</label>
+                          <select class="form-control"  (change)="retrieveSiteInfo($event)">
+                            <option value="0" selected>Select Department Name</option>
+                            <option *ngFor="let department of departmentListInspec">{{department.departmentName}}</option>
+                          </select>
+                    </div>
+                    <div class="col-md-4">
+                          <label>Site Name:</label>
+                          <select class="form-control" (change)="retrieveSiteId($event)">
+                            <option value="0" selected>Select Site Name</option>
+                            <option *ngFor="let site of siteListInspec">{{site.site}}</option>
+                          </select>
+                    </div>             
                   </div>
-                </div>
               </div>
             </div>
     
@@ -750,6 +751,12 @@
                               <div class="col-md-4" *ngIf="false">
                                 <input type="text"  formControlName="signatorRole" class="form-control" >
                               </div>
+                              <div class="col-md-4" *ngIf="false">
+                                <input type="text"  formControlName="declarationName" class="form-control" >
+                              </div>
+                              <div class="col-md-4" *ngIf="false">
+                                <input type="text"  formControlName="declarationDate" class="form-control" >
+                              </div>
                           </div>   
                       </div>
                     </div>
@@ -853,6 +860,12 @@
                                 </div>
                                 <div class="col-md-4" *ngIf="false">
                                   <input type="text"  formControlName="signatorRole" class="form-control" value="designer">
+                                </div>
+                                <div class="col-md-4" *ngIf="false">
+                                  <input type="text"  formControlName="declarationName" class="form-control" >
+                                </div>
+                                <div class="col-md-4" *ngIf="false">
+                                  <input type="text"  formControlName="declarationDate" class="form-control" >
                                 </div>
                             </div>   
                         </div>
@@ -965,6 +978,12 @@
                                 </div>
                                 <div class="col-md-4" *ngIf="false">
                                   <input type="text"  formControlName="signatorRole" class="form-control" value="designer">
+                                </div>
+                                <div class="col-md-4" *ngIf="false">
+                                  <input type="text"  formControlName="declarationName" class="form-control" >
+                                </div>
+                                <div class="col-md-4" *ngIf="false">
+                                  <input type="text"  formControlName="declarationDate" class="form-control" >
                                 </div>
                             </div>   
                         </div>
@@ -1079,6 +1098,12 @@
                               </div>
                               <div class="col-md-4" *ngIf="false">
                                 <input type="text"  formControlName="signatorRole" class="form-control" value="designer">
+                              </div>
+                              <div class="col-md-4" *ngIf="false">
+                                <input type="text"  formControlName="declarationName" class="form-control" >
+                              </div>
+                              <div class="col-md-4" *ngIf="false">
+                                <input type="text"  formControlName="declarationDate" class="form-control" >
                               </div>
                           </div>   
                       </div>

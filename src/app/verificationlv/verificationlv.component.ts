@@ -147,6 +147,8 @@ export class VerificationlvComponent implements OnInit {
   clientList: any = [];
   inActiveData: any =[];
   departmentList: any = [];
+  departmentListInspec: any = [];
+  siteListInspec: any = [];
   clientArray : any = [];
   countryList: any = [];
   stateList: any = [];
@@ -290,6 +292,8 @@ export class VerificationlvComponent implements OnInit {
         this.site_dataSource = new MatTableDataSource(JSON.parse(data));
         this.site_dataSource.paginator = this.sitePaginator;
         this.site_dataSource.sort = this.siteSort;
+
+        this.reportDetails.siteId = JSON.parse(data);
       });
   }
 
@@ -433,6 +437,42 @@ deleteDepartment(departmentId: number) {
     this.ChangeDetectorRef.detectChanges();
   }
   
+  // Inspection form basic info
+  changeClientName (e: any) {
+    let changedValue = e.target.value;
+    this.departmentListInspec = [];
+      for(let arr of this.clientList) {
+        if( arr.clientName == changedValue) {
+          this.departmentService.retrieveDepartment(this.email,arr.clientName).subscribe(
+            data => {
+              this.departmentListInspec = JSON.parse(data)
+            }
+          )};
+      }
+  }
+
+  retrieveSiteInfo (e: any) {
+    let changedValue = e.target.value;
+    this.siteListInspec = [];
+    for(let arr of this.departmentListInspec) {
+      if(arr.departmentName == changedValue) {
+        this.siteService.retrieveSiteInfo(arr.clientName, arr.departmentName).subscribe(
+          data => {
+            this.siteListInspec = JSON.parse(data)
+          });
+      }
+    }
+  }
+
+  retrieveSiteId(e: any) {
+    let changedValue = e.target.value;
+    for(let arr of this.siteListInspec) {
+      if(arr.site == changedValue) {
+        this.reportDetails.siteId = arr.siteId;
+      }
+    }
+  }
+
   // Deisgner details forms
   private createDesigner1Form(): FormGroup {
     return new FormGroup({
@@ -449,7 +489,9 @@ deleteDepartment(departmentId: number) {
       country: new FormControl(''),
       state: new FormControl(''),
       pinCode: new FormControl(''),
-      signatorRole: new FormControl('')
+      signatorRole: new FormControl(''),
+      declarationDate: new FormControl(''),
+      declarationName: new FormControl('')
     })
   }
 
@@ -468,7 +510,9 @@ deleteDepartment(departmentId: number) {
       country: new FormControl(''),
       state: new FormControl(''),
       pinCode: new FormControl(''),
-      signatorRole: new FormControl('')
+      signatorRole: new FormControl(''),
+      declarationDate: new FormControl(''),
+      declarationName: new FormControl('')
     })
   }
 
@@ -524,7 +568,9 @@ deleteDepartment(departmentId: number) {
       country: new FormControl(''),
       state: new FormControl(''),
       pinCode: new FormControl(''),
-      signatorRole: new FormControl('')
+      signatorRole: new FormControl(''),
+      declarationDate: new FormControl(''),
+      declarationName: new FormControl('')
     })
   }
 
@@ -562,7 +608,9 @@ deleteDepartment(departmentId: number) {
       country: new FormControl(''),
       state: new FormControl(''),
       pinCode: new FormControl(''),
-      signatorRole: new FormControl('')
+      signatorRole: new FormControl(''),
+      declarationDate: new FormControl(''),
+      declarationName: new FormControl('')
     })
   }
 
@@ -586,24 +634,29 @@ deleteDepartment(departmentId: number) {
   nextTab() {
     
     this.addDesigner1Form.value.designer1Arr[0].signatorRole= this.designerRole;
+    this.addDesigner1Form.value.designer1Arr[0].declarationName= this.designer1Acknowledge.value.declarationName;
+    this.addDesigner1Form.value.designer1Arr[0].declarationDate= this.designer1Acknowledge.value.declarationDate;
 
     this.addDesigner2Form.value.designer2Arr[0].signatorRole= this.designerRole;
+    this.addDesigner2Form.value.designer2Arr[0].declarationName= this.designer2Acknowledge.value.declarationName;
+    this.addDesigner2Form.value.designer2Arr[0].declarationDate= this.designer2Acknowledge.value.declarationDate;
 
     this.addContractorForm.value.contractorArr[0].signatorRole= this.contractorRole;
+    this.addContractorForm.value.contractorArr[0].declarationName= this.contractorAcknowledge.value.declarationName;
+    this.addContractorForm.value.contractorArr[0].declarationDate= this.contractorAcknowledge.value.declarationDate;
 
     this.addInspectorForm.value.inspectorArr[0].signatorRole= this.inspectorRole;
+    this.addInspectorForm.value.inspectorArr[0].declarationName= this.inspectorAcknowledge.value.declarationName;
+    this.addInspectorForm.value.inspectorArr[0].declarationDate= this.inspectorAcknowledge.value.declarationDate;
 
-    console.log(this.designer1Acknowledge.value);
+    this.reportDetails.userName = this.email;
     
-
     this.reportDetails.SignatorDetails = this.addDesigner1Form.value.designer1Arr;
     if(this.addDesigner2Form.value.designer2Arr[0].personName != "") {
       this.reportDetails.SignatorDetails=this.reportDetails.SignatorDetails.concat(this.addDesigner2Form.value.designer2Arr);
     }
       this.reportDetails.SignatorDetails=this.reportDetails.SignatorDetails.concat(this.addContractorForm.value.contractorArr,this.addInspectorForm.value.inspectorArr);
         
-
-    console.log(this.reportDetails);
     this.reportDetailsService.addReportDetails(this.reportDetails).subscribe(
       data=> {
         console.log("worked");
