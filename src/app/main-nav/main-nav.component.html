@@ -12,16 +12,16 @@
         <button mat-icon-button (click)="showLinkDescription(type.id)">
           <mat-icon>info</mat-icon>
         </button>
-        <button mat-icon-button (click)="editApplicationType(type.id, type.type)" [hidden]="displayIconsBasedOnEmail()">
+        <button mat-icon-button (click)="editApplicationType(type.id, type.type)">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button (click)="deleteApplicationType(type.id)"  [hidden]="displayIconsBasedOnEmail()">
+        <button mat-icon-button (click)="deleteApplicationType(type.id)">
           <mat-icon>delete</mat-icon>
         </button>
         <!-- <mat-divider class="spacer-row"></mat-divider> -->
       </mat-list-item>
     </mat-nav-list>
-    <button mat-icon-button (click)="openModal()" style="float: right;" [hidden]="displayIconsBasedOnEmail()">
+    <button mat-icon-button (click)="openModal()" style="float: right;" >
       <mat-icon>add_box</mat-icon>
     </button>
 
@@ -34,7 +34,7 @@
       <span>Cape Electric Applications</span>
       <span class="spacer"></span>
       <button mat-button [matMenuTriggerFor]="menu">
-        <mat-icon>person</mat-icon>{{email}}
+        <mat-icon>person</mat-icon>{{fullName}}
       </button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="profileUpdate(email)">

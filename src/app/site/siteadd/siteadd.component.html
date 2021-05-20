@@ -1,0 +1,120 @@
+<h1>Add New Site</h1>
+<form  [formGroup]="addSiteForm">
+    
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-4">
+                <label>Client Name:</label>
+                <select  formControlName="clientName" class="form-control" (change)="changeClient($event)" [(ngModel)]="site.clientName">
+                    <option value="0" selected>Select Client Name</option>
+                    <option *ngFor="let client of clientList">{{client.clientName}}</option>
+                </select>
+            </div>  
+
+            <div class="col-md-4">
+                <label>Department:</label>
+                <select  formControlName="departmentName" class="form-control" [(ngModel)]="site.departmentName" >
+                    <option value="0" selected>Select Department Name</option>
+                    <option *ngFor="let department of departmentList">{{department.departmentName}}</option>
+                </select>
+            </div>    
+
+            <div class="col-md-4">
+                <label>Site:</label>        
+                <input type="text"  formControlName="siteName" class="form-control"  placeholder="Enter Site Name" [(ngModel)]="site.site">
+            </div>
+        </div>        
+    </div>
+    
+    <mat-icon class="mousechange" (click)="addItem()" style="float:right; padding-right: 37px; padding-top: 30px;">add_box</mat-icon>
+
+    <div formArrayName="arr" *ngFor="let a of getControls(); let i = index">
+        <div class="form-group container" [formGroupName]="i">
+            <div class="row"><h2>Person Incharge Details:</h2> </div>
+        
+            <div class="row">
+                <div class="col-md-3">
+                    <label>Person Incharge:</label>        
+                    <input type="text"  formControlName="personIncharge" class="form-control"  placeholder="Enter Person Incharge" >
+                </div>
+
+                <div class="col-md-3">
+                    <label>Designation:</label>        
+                    <input type="text"  formControlName="designation" class="form-control"  placeholder="Enter Designation" >
+                </div>
+    
+                <div class="col-md-3">
+                    <label>Contact No:</label>        
+                    <input type="number"  formControlName="contactNo" class="form-control"  placeholder="Enter Contact Number" >
+                </div>
+    
+                <div class="col-md-3">
+                    <label>Email:</label>        
+                    <input type="text"  formControlName="personInchargeEmail" class="form-control"  placeholder="Enter Email Address" >
+                </div>       
+                <mat-icon class="mousechange" *ngIf="getControls().length > 1" (click)="removeItem(i)" style="float:right; padding-left: 916px;">delete</mat-icon>
+            </div>                            
+        </div>   
+    </div>
+
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-4">
+                <label>City:</label>        
+                <input type="text"  formControlName="siteLocation" class="form-control"  placeholder="Enter City" [(ngModel)]="site.city">
+            </div>
+
+            <div class="col-md-4">
+                <label>AddressLine1:</label>        
+                <input type="text"  formControlName="AddressLine1" class="form-control"  placeholder="Enter Address Line1" [(ngModel)]="site.addressLine_1">
+            </div>
+
+            <div class="col-md-4">
+                <label>AddressLine2:</label>        
+                <input type="text"  formControlName="AddressLine2" class="form-control"  placeholder="Enter Address Line2" [(ngModel)]="site.addressLine_2">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-4">
+                <label>Site Landmark:</label>        
+                <input type="text"  formControlName="siteLandmark" class="form-control"  placeholder="Enter Landmark" [(ngModel)]="site.landMark">
+            </div>
+
+            <div class="col-md-4">
+                <label>Country:</label>
+                <select  formControlName="country" class="form-control" (change)="changeCountry($event)" [(ngModel)]="site.country" >
+                    <option value="0" selected>Select Country Name</option>
+                    <option *ngFor="let country of countryList">{{country.name}}</option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label>State:</label>
+                <select  formControlName="state" class="form-control" [(ngModel)]="site.state">
+                    <option value="0" selected>Select State Name</option>
+                    <option *ngFor="let state of stateList">{{state.name}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">    
+        <div class="row">
+            <div class="col-md-4">
+                <label>Pincode:</label>        
+                <input type="number"  formControlName="pincode" class="form-control"  placeholder="Enter Pincode" [(ngModel)]="site.zipCode">
+            </div>
+        </div>   
+    </div>
+       
+    <div style="display: inline;">
+        <button (click)="onSubmit()" style="float: left;" type="submit" class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"> Save</button>
+        <button (click)="cancel()" style="float:right;"  class="btn btn-outline-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
+    </div> 
+    
+</form>
+

@@ -27,9 +27,17 @@ import { LvInspectionDetailsComponent } from './lv-inspection-details/lv-inspect
 import { MaterialModule } from './material/material.module';
 import { RiskAssessmentInspectionMaintenanceComponent } from './risk-assessment-inspection-maintenance/risk-assessment-inspection-maintenance.component';
 import { EmcAssessmentInstallationComponent } from './emc-assessment-installation/emc-assessment-installation.component';
+import { AddApplicationTypesComponent } from './add-application-types/add-application-types.component';
+import { UpdateApplicationTypesComponent } from './update-application-types/update-application-types.component';
 import { NgxPrintModule } from 'ngx-print';
-import { AddComponent } from './applicationType/add/add.component';
-import { UpdateComponent } from './applicationType/update/update.component';
+import { VerificationlvComponent } from './verificationlv/verificationlv.component';
+import { DepartmentaddComponent } from './department/departmentadd/departmentadd.component';
+import { SiteaddComponent } from './site/siteadd/siteadd.component';
+import { ClientaddComponent } from './Company/client/clientadd/clientadd.component';
+import { ClientupdateComponent } from './Company/client/clientupdate/clientupdate/clientupdate.component';
+import { MatTableModule, MatTableDataSource } from '@angular/material/table';
+import { DepartmentupdateComponent } from './department/departmentupdate/departmentupdate/departmentupdate.component';
+import { SiteupdateComponent } from './site/siteupdate/siteupdate.component';
 
 @NgModule({
   declarations: [
@@ -46,8 +54,15 @@ import { UpdateComponent } from './applicationType/update/update.component';
     LvInspectionDetailsComponent,
     RiskAssessmentInspectionMaintenanceComponent,
     EmcAssessmentInstallationComponent,
-    AddComponent,
-    UpdateComponent
+    AddApplicationTypesComponent,
+    UpdateApplicationTypesComponent,
+    VerificationlvComponent,
+    DepartmentaddComponent,
+    SiteaddComponent,
+    ClientaddComponent,
+    ClientupdateComponent,
+    DepartmentupdateComponent,
+    SiteupdateComponent
     
   ],
   imports: [
@@ -68,6 +83,7 @@ import { UpdateComponent } from './applicationType/update/update.component';
     NgxPrintModule
   ],
   providers: [ { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ AddApplicationTypesComponent, UpdateApplicationTypesComponent, VerificationlvComponent ]
 })
 export class AppModule { }

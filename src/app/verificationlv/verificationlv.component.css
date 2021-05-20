@@ -1,0 +1,38 @@
+table {
+    width: 811px;
+    overflow-x: scroll
+  }
+
+  .mat-row.hovered {
+    background: #eee;
+  }
+  
+  .mat-row.highlighted {
+    background: #999;
+  }
+
+mat-cell.mat-cell,
+mat-header-cell.mat-header-cell {
+  overflow-x: scroll;
+  min-width: 200px;
+}
+
+.delete {   
+    height: 35px;
+}
+
+.search-bar {
+    border: 2px solid #b1b1b1;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.select.form-control {
+  padding: .4375rem .75rem;
+    border: 0;
+    outline: 1px solid #f3f3f3;
+    color: #c9c8c8;
+}
+.mousechange:hover {
+  cursor: pointer;
+}

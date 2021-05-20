@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -11,10 +11,11 @@ import { EmcAssessmentInstallationComponent } from '../emc-assessment-installati
 import { MainNavService } from '../services/main-nav.service';
 import { ApplicationType } from '../model/applicationtype';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AddApplicationTypesComponent } from '../add-application-types/add-application-types.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UpdateApplicationTypesComponent } from '../update-application-types/update-application-types.component';
 import { ApplicationTypeService } from '../services/application.service';
-import { UpdateComponent } from '../applicationType/update/update.component';
-import { AddComponent } from '../applicationType/add/add.component';
+import { User } from '../model/user';
 
 @Component({
   selector: 'app-main-nav',
@@ -32,10 +33,12 @@ export class MainNavComponent {
     );
 
   applicationTypes: ApplicationType[] = [];
-
+  @Output() passEntry: EventEmitter<any> = new EventEmitter();
+  fullName: String = '';
   email: String = '';
   id: number = 0;
   type: String = '';
+  user = new User();
   constructor(private breakpointObserver: BreakpointObserver,
     private loginservice: LoginserviceService,
     private router: ActivatedRoute,
@@ -45,6 +48,7 @@ export class MainNavComponent {
     private modalService: NgbModal) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
     this.retrieveApplicationTypes();
+    this.displayUserFullName(this.email);
   }
 
   retrieveApplicationTypes() {
@@ -60,6 +64,16 @@ export class MainNavComponent {
     this.route.navigate(['login']);
   }
 
+  displayUserFullName(email: String){
+    this.loginservice.retrieveUserInformation(email).subscribe(
+      data => {
+       this.user = JSON.parse(data);
+        this.fullName = this.user.firstname + " "+ this.user.lastname;
+        
+      }
+    )
+  }
+
   changePassword(email: String) {
     this.route.navigate(['changePassword', { email: email }])
   }
@@ -69,7 +83,7 @@ export class MainNavComponent {
   }
 
   openModal() {
-    const modalRef = this.modalService.open(AddComponent);
+    const modalRef = this.modalService.open(AddApplicationTypesComponent);
     modalRef.componentInstance.email = this.email;
     modalRef.result.then((result) => {
       if (result) {
@@ -110,7 +124,7 @@ export class MainNavComponent {
   }
 
   editApplicationType(id: any, type: String) {
-    const modalRef = this.modalService.open(UpdateComponent);
+    const modalRef = this.modalService.open(UpdateApplicationTypesComponent);
     modalRef.componentInstance.email = this.email;
     modalRef.componentInstance.id = id;
     modalRef.componentInstance.type = type;
@@ -129,9 +143,5 @@ export class MainNavComponent {
         }
       );
     }
-  }
-
-  displayIconsBasedOnEmail(): boolean{
-    return !this.email.includes("@capeindia.net")
   }
 }

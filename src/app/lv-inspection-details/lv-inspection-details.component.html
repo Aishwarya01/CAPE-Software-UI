@@ -1,5 +1,10 @@
 <html>
+    <ng-template #reference></ng-template>
 <body>
+    <div *ngIf="destroy">
+        <app-verificationlv></app-verificationlv>
+    </div>
+    <div *ngIf="!destroy">
     <button style="float: right;" type="submit"
         class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"
         (click)="onNavigateToQuestionaire()">Skip</button>
@@ -97,6 +102,6 @@
     <button style="float: right;" type="submit"
         class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"
         (click)="onNavigateToQuestionaire()">Continue</button>
+    </div>
 </body>
-
 </html>

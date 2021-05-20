@@ -45,4 +45,8 @@ export class LoginserviceService {
     if (user === null) return ''
     return user
   }
+
+  retrieveUserInformation(email: String): Observable<any>{
+    return this.http.get<User>(this.apiUrl + '/retrieveUserInformation'+'/' + email, { responseType: 'text' as 'json' } )
+  }
 }

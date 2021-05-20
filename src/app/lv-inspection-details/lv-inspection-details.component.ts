@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Component, ComponentFactoryResolver, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
+import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
 
 
 @Component({
@@ -6,18 +10,19 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './lv-inspection-details.component.html',
   styleUrls: ['./lv-inspection-details.component.css']
 })
-export class LvInspectionDetailsComponent implements OnInit {
+export class LvInspectionDetailsComponent {
 
-  constructor( ) { }
+  @ViewChild('reference', { read: ViewContainerRef })
+  viewContainerRef!: ViewContainerRef;
+  destroy: boolean = false;
 
-  ngOnInit(): void {
+  constructor(private breakpointObserver: BreakpointObserver,
+    private componentFactoryResolver: ComponentFactoryResolver) { }
+
+  onNavigateToQuestionaire() {
+    this.viewContainerRef.clear();
+    this.destroy = true;
+    
   }
-
-  onClose(){
-    alert("Are you sure want to proceed further");
-  }
-
-  onNavigateToQuestionaire(){
-    console.log("Navigate To Questionaire");
-  }
+  
 }
