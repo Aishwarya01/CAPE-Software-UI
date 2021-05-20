@@ -15,6 +15,7 @@ import { AddApplicationTypesComponent } from '../add-application-types/add-appli
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UpdateApplicationTypesComponent } from '../update-application-types/update-application-types.component';
 import { ApplicationTypeService } from '../services/application.service';
+import { User } from '../model/user';
 
 @Component({
   selector: 'app-main-nav',
@@ -33,10 +34,11 @@ export class MainNavComponent {
 
   applicationTypes: ApplicationType[] = [];
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
-  
+  fullName: String = '';
   email: String = '';
   id: number = 0;
   type: String = '';
+  user = new User();
   constructor(private breakpointObserver: BreakpointObserver,
     private loginservice: LoginserviceService,
     private router: ActivatedRoute,
@@ -46,6 +48,7 @@ export class MainNavComponent {
     private modalService: NgbModal) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
     this.retrieveApplicationTypes();
+    this.displayUserFullName(this.email);
   }
 
   retrieveApplicationTypes() {
@@ -59,6 +62,16 @@ export class MainNavComponent {
   logout() {
     this.loginservice.logout();
     this.route.navigate(['login']);
+  }
+
+  displayUserFullName(email: String){
+    this.loginservice.retrieveUserInformation(email).subscribe(
+      data => {
+       this.user = JSON.parse(data);
+        this.fullName = this.user.firstname + " "+ this.user.lastname;
+        
+      }
+    )
   }
 
   changePassword(email: String) {

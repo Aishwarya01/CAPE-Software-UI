@@ -34,7 +34,7 @@
       <span>Cape Electric Applications</span>
       <span class="spacer"></span>
       <button mat-button [matMenuTriggerFor]="menu">
-        <mat-icon>person</mat-icon>{{email}}
+        <mat-icon>person</mat-icon>{{fullName}}
       </button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="profileUpdate(email)">

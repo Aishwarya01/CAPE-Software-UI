@@ -1,22 +1,19 @@
 <mat-tab-group>
-    <mat-tab label="Client Details">
+    <mat-tab label="Company Details">
         <mat-horizontal-stepper #stepper>
-            <mat-step [stepControl]="firstFormGroup" errorMessage="Company details are required.">
+            <mat-step >
               <form [formGroup]="firstFormGroup">
                 <ng-template matStepLabel>Company</ng-template>
-                <div class="card" style="width: 855px;">
+                <div class="card" style="width: 855px; overflow: auto;">
                   <div class="card-header">
                     <button style="width: 50px; border: 0px;" (click)="addClient()">
                       <mat-icon>add_box</mat-icon>
-                    </button>
-                    <button style="width: 50px; margin-left: 10px; border: 0px;">
-                      <mat-icon>edit</mat-icon>
-                    </button>                    
-                    <input type="checkbox" style="width: 50px; height: 20px;"><label style="margin-left: -10px;">Show InActive</label> 
+                    </button>                   
+                    <input type="checkbox" style="width: 50px; height: 20px;" formControlName="retrieveIsActive" (change)="retrieveIsActiveData()"  [(ngModel)]="isChecked"><label style="margin-left: -10px;">Show InActive</label> 
                     
                   </div>
                   <div class="card-body">
-                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+                    <table mat-table [dataSource]="company_dataSource" class="mat-elevation-z8" matSort #companySort="matSort">
 
                       <!--- Note that these columns can be defined in any order.
                             The actual rendered columns are set as a property on the row definition" -->
@@ -25,26 +22,33 @@
                       <ng-container matColumnDef="action">
                         <th mat-header-cell *matHeaderCellDef > Action </th>
                         <td mat-cell *matCellDef="let element"> 
-                        <button class="btn btn-outline-danger delete" (click)="delete()">
-                          <mat-icon>delete</mat-icon><label>Delete</label>
+                        <button class="btn btn-outline-danger delete" (click)="deleteClient(element.clientName)">
+                          <mat-icon>delete</mat-icon>
                         </button> 
                       </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="companyCd">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Company Code </th>
+                        <td mat-cell *matCellDef="let element" > {{element.companyCd}} </td>
                       </ng-container>
                     
                       <!-- Name Column -->
                       <ng-container matColumnDef="clientName">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Client Name </th>
-                        <td mat-cell *matCellDef="let element"> {{element.clientName}} </td>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Company Name </th>
+                        <td mat-cell *matCellDef="let element" (click)="updateClient(element.companyId,element.companyCd, element.clientName,element.inActive,element.createdDate,element.createdBy)" class="mousechange"> {{element.clientName}} </td>
                       </ng-container>
+                      
                        <!-- Name Column -->
                       <ng-container matColumnDef="inActive">
                         <th mat-header-cell *matHeaderCellDef> InActive </th>
-                        <td mat-cell *matCellDef="let element"><input type="checkbox" disabled="disabled"> </td>
+                        <td mat-cell *matCellDef="let element"><mat-checkbox [checked]="element.inActive" class="fixed" [disabled]="true"></mat-checkbox> </td>
                       </ng-container>
+
                        <!-- Name Column -->
                       <ng-container matColumnDef="createdDate">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </th>
-                        <td mat-cell *matCellDef="let element"> {{element.createdDate}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.createdDate | date : 'shortDate'}} </td>
                       </ng-container>
                     
                       <!-- Weight Column -->
@@ -56,7 +60,7 @@
                       <!-- Symbol Column -->
                       <ng-container matColumnDef="updatedDate">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Updated Date </th>
-                        <td mat-cell *matCellDef="let element"> {{element.updatedDate}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.updatedDate | date : 'shortDate'}} </td>
                       </ng-container>
 
                       <!-- Symbol Column -->
@@ -65,12 +69,12 @@
                         <td mat-cell *matCellDef="let element"> {{element.updatedBy}} </td>
                       </ng-container>
                     
-                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                      <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (dblclick)="updateClient()" (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></tr>
+                      <tr mat-header-row *matHeaderRowDef="companyColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: companyColumns;" [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}"  (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></tr>
 
                     </table>
 
-                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                    <mat-paginator #companyPaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
                   </div>
                   
                 </div>
@@ -82,7 +86,7 @@
                 </div>
               </form>
             </mat-step>
-            <mat-step [stepControl]="secondFormGroup" errorMessage="Departments details are required.">
+            <mat-step>
               <form [formGroup]="secondFormGroup">
                 <ng-template matStepLabel>Departments</ng-template>
                 
@@ -95,23 +99,21 @@
                             <label style="display: table-cell;
                           width: 1px;
                           white-space: nowrap;">Client Name:</label><span style="display: table-cell; width: 500px;
-                          padding: 0 4px 0 20px;"><select class="form-control">
-                            <option value="" selected>Select Client Name</option>
-                            <option *ngFor="let client of clientList">{{client | uppercase}}</option>
+                          padding: 0 4px 0 20px;"><select formControlName="clientname" class="form-control" [(ngModel)]="company.clientName"
+                          (change)="retrieveDepartmentDetails()">
+                            <option value="0" selected>Select Client Name</option>
+                            <option *ngFor="let client of clientList">{{client.clientName}}</option>
                          </select></span>
                           </div>                                
-                        </div>
-                        <div class="col-md-6" >
-                          <button  class="btn btn-info" style="float: right; margin-right: 200px;">Submit</button>
                         </div>
                       </div>
                     </div> 
                     
                     <div class="col-md-6" style="margin-top:30px;">
                       <div style="margin-bottom: 10px;">
-                        <button class="btn btn-info" (click)="addDepartment()"><mat-icon>add_box</mat-icon> Add</button>
+                        <button class="btn btn-info" (click)="addDepartment()"><mat-icon>add_box</mat-icon> </button>
                       </div>
-                      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+                      <table mat-table [dataSource]="department_dataSource" class="mat-elevation-z8" matSort #departmentSort="matSort">
 
                         <!--- Note that these columns can be defined in any order.
                               The actual rendered columns are set as a property on the row definition" -->
@@ -120,26 +122,26 @@
                         <ng-container matColumnDef="action">
                           <th mat-header-cell *matHeaderCellDef > Action </th>
                           <td mat-cell *matCellDef="let element"> 
-                          <button class="btn btn-outline-danger delete" (click)="delete()">
-                            <mat-icon>delete</mat-icon><label>Delete</label>
+                          <button class="btn btn-outline-danger delete" (click)="deleteDepartment(element.departmentId)">
+                            <mat-icon>delete</mat-icon>
                           </button> 
                         </td>
                         </ng-container>
                       
                         <!-- Name Column -->
-                        <ng-container matColumnDef="clientName">
-                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Client Name </th>
-                          <td mat-cell *matCellDef="let element"> {{element.clientName}} </td>
+                        <ng-container matColumnDef="departmentCd">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Department Code </th>
+                          <td mat-cell *matCellDef="let element"> {{element.departmentCd}} </td>
                         </ng-container>
                          <!-- Name Column -->
-                        <ng-container matColumnDef="inActive">
-                          <th mat-header-cell *matHeaderCellDef> Department Name </th>
-                          <td mat-cell *matCellDef="let element"><input type="checkbox" disabled="disabled"> </td>
+                        <ng-container matColumnDef="departmentName">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Department Name </th>
+                          <td mat-cell *matCellDef="let element" (click)="updateDepartment(element.departmentId, element.departmentName, element.departmentCd, element.clientName,element.createdDate,element.createdBy)" class="mousechange"> {{element.departmentName}} </td>                        
                         </ng-container>
                          <!-- Name Column -->
                         <ng-container matColumnDef="createdDate">
                           <th mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </th>
-                          <td mat-cell *matCellDef="let element"> {{element.createdDate}} </td>
+                          <td mat-cell *matCellDef="let element"> {{element.createdDate | date : 'shortDate'}} </td>
                         </ng-container>
                       
                         <!-- Weight Column -->
@@ -151,7 +153,7 @@
                         <!-- Symbol Column -->
                         <ng-container matColumnDef="updatedDate">
                           <th mat-header-cell *matHeaderCellDef mat-sort-header> Updated Date </th>
-                          <td mat-cell *matCellDef="let element"> {{element.updatedDate}} </td>
+                          <td mat-cell *matCellDef="let element"> {{element.updatedDate | date : 'shortDate'}} </td>
                         </ng-container>
   
                         <!-- Symbol Column -->
@@ -160,13 +162,13 @@
                           <td mat-cell *matCellDef="let element"> {{element.updatedBy}} </td>
                         </ng-container>
                       
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        <tr mat-header-row *matHeaderRowDef="departmentColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: departmentColumns;" [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}"  (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></tr>
   
                       </table>
                       
                     </div>
-                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                    <mat-paginator #departmentPaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
                   </div>
                   
                 </div>
@@ -183,91 +185,99 @@
                 <div class="card-body"> 
                   <div class="search-bar"> 
                     <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-md-10">
                         <div class="form-group">
                           <label style="display: table-cell;
                           width: 1px;
-                          white-space: nowrap;">Client Name:</label><span style="display: table-cell; width: 1000px;
-                          padding: 0 4px 0 20px;"><select class="form-control">
-                            <option value="" selected>Select Client Name</option>
-                            <option *ngFor="let client of clientList">{{client | uppercase}}</option>
+                          white-space: nowrap;">Company Name:</label><span style="display: table-cell; width: 1000px;
+                          padding: 0 4px 0 20px;"><select class="form-control" (change)="changeClient($event)" [(ngModel)]="site.clientName">
+                            <option value="0" selected>Select Company Name</option>
+                            <option *ngFor="let client of clientList">{{client.clientName}}</option>
                          </select></span>
                            
                          <label style="display: table-cell;
                           width: 1px;
                           white-space: nowrap;">Department Name:</label><span style="display: table-cell; width: 1000px;
-                          padding: 0 4px 0 20px;"><select class="form-control">
-                            <option value="" selected>Select Department Name</option>
-                            <option *ngFor="let client of clientList">{{client | uppercase}}</option>
+                          padding: 0 4px 0 20px;"><select class="form-control" [(ngModel)]="site.departmentName"
+                          (change)="retrieveSiteDetails()">
+                            <option value="0" selected>Select Department Name</option>
+                            <option *ngFor="let department of departmentList">{{department.departmentName}}</option>
                          </select></span>
                         </div>                                
-                      </div>
-                      <div class="col-md-6" >
-                        <button  class="btn btn-info" style="float: right; margin-right: 50px;">Submit</button>
                       </div>
                     </div>
                   </div> 
                   
                   <div class="col-md-6" style="margin-top:30px;">
                     <div style="margin-bottom: 10px;">
-                      <button class="btn btn-info" (click)="addSite()"><mat-icon>add_box</mat-icon> Add</button>
+                      <button class="btn btn-info" (click)="addSite()"><mat-icon>add_box</mat-icon></button>
                     </div>
-                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+                    <table mat-table [dataSource]="site_dataSource" class="mat-elevation-z8" matSort #siteSort="matSort">
 
                       <!--- Note that these columns can be defined in any order.
                             The actual rendered columns are set as a property on the row definition" -->
                     
                       <!-- Position Column -->
                       <ng-container matColumnDef="action">
-                        <th mat-header-cell *matHeaderCellDef > Action </th>
-                        <td mat-cell *matCellDef="let element"> 
-                        <button class="btn btn-outline-danger delete" (click)="delete()">
-                          <mat-icon>delete</mat-icon><label>Delete</label>
+                        <th  mat-header-cell *matHeaderCellDef > Action </th>
+                        <td  mat-cell *matCellDef="let element"> 
+                        <button class="btn btn-outline-danger delete" (click)="deleteSite(element.siteId)">
+                          <mat-icon>delete</mat-icon><label></label>
                         </button> 
                       </td>
                       </ng-container>
-                    
-                      <!-- Name Column -->
-                      <ng-container matColumnDef="clientName">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Client Name </th>
-                        <td mat-cell *matCellDef="let element"> {{element.clientName}} </td>
+                      <ng-container matColumnDef="siteCd">
+                        <th  mat-header-cell *matHeaderCellDef mat-sort-header> Site Code </th>
+                        <td  mat-cell *matCellDef="let element"> {{element.siteCd}} </td>
                       </ng-container>
-                       <!-- Name Column -->
-                      <ng-container matColumnDef="inActive">
-                        <th mat-header-cell *matHeaderCellDef> Department Name </th>
-                        <td mat-cell *matCellDef="let element"><input type="checkbox" disabled="disabled"> </td>
+                      <ng-container matColumnDef="siteName">
+                        <th  mat-header-cell *matHeaderCellDef mat-sort-header> Site Name </th>
+                        <td  mat-cell *matCellDef="let element" (click)="updateSite( element.userName, element.clientName, element.departmentName,  element.site, element.siteId, element.siteCd, element.country, element.state, element.city, element.landMark, element.personIncharge, element.personInchargeEmail, element.addressLine_1, element.addressLine_2, element.phoneNumber, element.zipCode, element.createdDate,element.createdBy)" class="mousechange"> {{element.site}} </td>
+                      </ng-container>
+                      <!-- Name Column -->
+                      <ng-container matColumnDef="country">
+                        <th  mat-header-cell *matHeaderCellDef mat-sort-header> Country </th>
+                        <td  mat-cell *matCellDef="let element"> {{element.country}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="state">
+                        <th  mat-header-cell *matHeaderCellDef mat-sort-header> State </th>
+                        <td  mat-cell *matCellDef="let element"> {{element.state}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="city">
+                        <th  mat-header-cell *matHeaderCellDef mat-sort-header> City </th>
+                        <td  mat-cell *matCellDef="let element"> {{element.city}} </td>
                       </ng-container>
                        <!-- Name Column -->
                       <ng-container matColumnDef="createdDate">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </th>
-                        <td mat-cell *matCellDef="let element"> {{element.createdDate}} </td>
+                        <th  mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </th>
+                        <td  mat-cell *matCellDef="let element"> {{element.createdDate | date : 'shortDate'}} </td>
                       </ng-container>
                     
                       <!-- Weight Column -->
                       <ng-container matColumnDef="createdBy">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Created By </th>
-                        <td mat-cell *matCellDef="let element"> {{element.createdBy}} </td>
+                        <th  mat-header-cell *matHeaderCellDef mat-sort-header> Created By </th>
+                        <td  mat-cell *matCellDef="let element"> {{element.createdBy}} </td>
                       </ng-container>
                     
                       <!-- Symbol Column -->
                       <ng-container matColumnDef="updatedDate">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Updated Date </th>
-                        <td mat-cell *matCellDef="let element"> {{element.updatedDate}} </td>
+                        <th  mat-header-cell *matHeaderCellDef mat-sort-header> Updated Date </th>
+                        <td  mat-cell *matCellDef="let element"> {{element.updatedDate | date : 'shortDate'}} </td>
                       </ng-container>
 
                       <!-- Symbol Column -->
                       <ng-container matColumnDef="updatedBy">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Updated By </th>
-                        <td mat-cell *matCellDef="let element"> {{element.updatedBy}} </td>
+                        <th  mat-header-cell *matHeaderCellDef mat-sort-header> Updated By </th>
+                        <td  mat-cell *matCellDef="let element"> {{element.updatedBy}} </td>
                       </ng-container>
                     
-                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                      <tr mat-header-row *matHeaderRowDef="siteColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: siteColumns; " [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}"  (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></tr>
 
                     </table>
                     
                   </div>
-                  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                  <mat-paginator #sitePaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
                 </div>
               </div>
               <div>
@@ -277,7 +287,44 @@
             </mat-step>
           </mat-horizontal-stepper>
     </mat-tab>
-    <mat-tab label="Inspection Verification & Testing of Installation"> </mat-tab>
+    <mat-tab label="Inspection Verification & Testing of Installation"> 
+      <mat-accordion>
+        
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Details of Report
+            </mat-panel-title>
+            
+          </mat-expansion-panel-header>
+          <p>I'm visible because I am open</p>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Installation Details
+            </mat-panel-title>
+            
+          </mat-expansion-panel-header>
+          <p>I'm visible because I am open</p>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Self aware panel
+            </mat-panel-title>
+            
+          </mat-expansion-panel-header>
+          <p>I'm visible because I am open</p>
+        </mat-expansion-panel>
+
+      </mat-accordion>
+    </mat-tab>
     <mat-tab label="Incomplete Saved Reports"></mat-tab>
     <mat-tab label="Final Reports"></mat-tab>
 </mat-tab-group>

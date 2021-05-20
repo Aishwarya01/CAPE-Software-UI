@@ -1,10 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ClientService } from '../../../services/client.service';
 import { Company } from '../../../model/company';
 import { ActivatedRoute } from '@angular/router';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+// import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+
+
 
 
 @Component({
@@ -19,26 +21,55 @@ export class ClientaddComponent implements OnInit {
     isActive: new FormControl('')
   }); 
   company = new Company();
+  loading = false;
+  submitted = false;
+  showErrorMessage=false;
+
 
   @Input()
   email: String = '';
   constructor(public dialog: MatDialog,
               public clientService: ClientService,
-              public activeModal: NgbActiveModal ) { 
+              private formBuilder: FormBuilder,
+               ) { 
               }
 
   ngOnInit(): void {
+    this.addClientForm = this.formBuilder.group({
+      clientName: ['', Validators.required],
+      isActive: ['', Validators.required]
+      });
   }
+  
 
   cancel() {
     this.dialog.closeAll();
-    this.activeModal.close();
   }
- 
+
+  get f() {
+    return this.addClientForm.controls;
+  }
+
   onSubmit() {
+    this.submitted = true;
+
+    //Breaks if form is invalid
+    if(this.addClientForm.invalid) {
+      return;
+    }
+    this.loading = true;
+
     this.company.userName=this.email
-    console.log(this.company)
-    this.clientService.addClient(this.company).subscribe(data=> console.log("HI"))
+    this.clientService.addClient(this.company).subscribe(
+      data => {
+        this.dialog.closeAll();
+      },
+      error => {
+        this.showErrorMessage=true;
+        this.addClientForm.reset();
+        this.loading=false;
+      }
+      )
   }
 
 }

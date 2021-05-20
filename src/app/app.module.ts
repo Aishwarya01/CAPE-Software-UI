@@ -31,11 +31,13 @@ import { AddApplicationTypesComponent } from './add-application-types/add-applic
 import { UpdateApplicationTypesComponent } from './update-application-types/update-application-types.component';
 import { NgxPrintModule } from 'ngx-print';
 import { VerificationlvComponent } from './verificationlv/verificationlv.component';
-import { DepartmentaddComponent } from './Company/departmentadd/departmentadd.component';
-import { SiteaddComponent } from './Company/siteadd/siteadd.component';
+import { DepartmentaddComponent } from './department/departmentadd/departmentadd.component';
+import { SiteaddComponent } from './site/siteadd/siteadd.component';
 import { ClientaddComponent } from './Company/client/clientadd/clientadd.component';
 import { ClientupdateComponent } from './Company/client/clientupdate/clientupdate/clientupdate.component';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
+import { DepartmentupdateComponent } from './department/departmentupdate/departmentupdate/departmentupdate.component';
+import { SiteupdateComponent } from './site/siteupdate/siteupdate.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { MatTableModule, MatTableDataSource } from '@angular/material/table';
     DepartmentaddComponent,
     SiteaddComponent,
     ClientaddComponent,
-    ClientupdateComponent
+    ClientupdateComponent,
+    DepartmentupdateComponent,
+    SiteupdateComponent
     
   ],
   imports: [
@@ -76,9 +80,7 @@ import { MatTableModule, MatTableDataSource } from '@angular/material/table';
     MatListModule,
     MatMenuModule,
     MaterialModule,
-    NgxPrintModule,
-    MatTableModule,
-    MatTableDataSource
+    NgxPrintModule
   ],
   providers: [ { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }],
   bootstrap: [AppComponent],
