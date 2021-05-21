@@ -143,7 +143,7 @@ export class VerificationlvComponent implements OnInit {
     declarationDate: new FormControl(''),
     declarationName: new FormControl('')
   })
-  
+  selectedValue:string="";
   clientList: any = [];
   inActiveData: any =[];
   departmentList: any = [];
