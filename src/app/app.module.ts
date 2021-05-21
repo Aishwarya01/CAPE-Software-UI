@@ -35,9 +35,9 @@ import { DepartmentaddComponent } from './department/departmentadd/departmentadd
 import { SiteaddComponent } from './site/siteadd/siteadd.component';
 import { ClientaddComponent } from './Company/client/clientadd/clientadd.component';
 import { ClientupdateComponent } from './Company/client/clientupdate/clientupdate/clientupdate.component';
-import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { DepartmentupdateComponent } from './department/departmentupdate/departmentupdate/departmentupdate.component';
 import { SiteupdateComponent } from './site/siteupdate/siteupdate.component';
+import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 
 @NgModule({
   declarations: [
@@ -80,7 +80,8 @@ import { SiteupdateComponent } from './site/siteupdate/siteupdate.component';
     MatListModule,
     MatMenuModule,
     MaterialModule,
-    NgxPrintModule
+    NgxPrintModule,
+    NgxBootstrapIconsModule.pick(allIcons)
   ],
   providers: [ { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }],
   bootstrap: [AppComponent],
