@@ -17,9 +17,9 @@
             <input type="checkbox"  formControlName="isActive" style="width:30px ;margin-bottom: -10px; margin-left: 24px;"  [(ngModel)]="company.inActive"></span>
         </div>
                 
-        <div style="display: inline;">
-            <button (click)="onSubmit()" [disabled]="loading" style="float: left;" type="submit" class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"> Save</button>
-            <button (click)="cancel()" style="float:right;"  class="btn btn-outline-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
+        <div style="display: flex;justify-content: space-evenly;">
+            <button (click)="onSubmit()" [disabled]="loading" type="submit" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"> Save</button>
+            <button (click)="cancel()" style="display: flex;"  class="btn btn-outline-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
         </div> 
         
     </form>

@@ -1,7 +1,7 @@
-table {
+/* table {
     width: 811px;
     text-align: justify;
-  }
+  } */
 
   .mat-row.hovered {
     background: #eee;
@@ -23,7 +23,7 @@ mat-header-cell.mat-header-cell {
 
 .search-bar {
     border: 2px solid #b1b1b1;
-    padding: 10px;
+    padding: 15px;
     border-radius: 4px;
 }
 
@@ -82,3 +82,16 @@ mat-header-cell.mat-header-cell {
   color: white;
   margin-left: 30px;
 }
+
+
+
+.example-section {
+  margin: 12px 0;
+  display: contents;
+}
+
+.example-margin {
+  margin: 0 12px;
+  float: right;
+}
+
