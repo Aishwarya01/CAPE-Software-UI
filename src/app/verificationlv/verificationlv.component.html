@@ -1218,7 +1218,7 @@
                 <tbody>
                   <tr style="width:4px;">
                     <td nowrap="nowrap">Nominal voltage U/U0 (V)</td>
-                    <td><input type="text"  maxlength="4" style="width:70px"></td>
+                    <td><input type="text"  maxlength="4"  style="width:70px"></td>
                     <td><input type="text"  maxlength="4" style="width:70px"></td>
                     <td><input type="text"   maxlength="4"style="width:70px"></td>
                     <td><input type="text"  maxlength="4" style="width:70px"></td>
@@ -1242,27 +1242,27 @@
                   </tr>
                   <tr>
                     <td nowrap="nowrap">Prospective fault current Ipfc (kA) </td>
-                    <td><input type="text" style="width:70px"></td>
-                    <td><input type="text" style="width:70px"></td>
-                    <td><input type="text" style="width:70px"></td>
-                    <td><input type="text" style="width:70px"></td>
-                    <td><input type="text" style="width:70px"></td>
-                    <td><input type="text" style="width:70px"></td>
-                    <td><input type="text" style="width:70px"></td>
-                    <td><input type="text" style="width:70px"></td>
-                    <td><input type="text" style="width:70px"></td>
+                    <td><input type="text" maxlength="7"  style="width:70px"></td>
+                    <td><input type="text" maxlength="7" style="width:70px"></td>
+                    <td><input type="text"maxlength="7" style="width:70px"></td>
+                    <td><input type="text" maxlength="7" style="width:70px"></td>
+                    <td><input type="text" maxlength="7" style="width:70px"></td>
+                    <td><input type="text"  maxlength="7"style="width:70px"></td>
+                    <td><input type="text"  maxlength="7"style="width:70px"></td>
+                    <td><input type="text" maxlength="7" style="width:70px"></td>
+                    <td><input type="text" maxlength="7" style="width:70px"></td>
                   </tr>
                   <tr>
                     <td nowrap="nowrap">External Loop Impedance Ze (Ω)</td>
-                    <td><input type="text" style="width:70px"></td>
-                    <td><input type="text" style="width:70px"></td>
-                    <td><input type="text" style="width:70px"></td>
-                    <td><input type="text" style="width:70px"></td>
-                    <td><input type="text" style="width:70px"></td>
-                    <td><input type="text" style="width:70px"></td>
-                    <td><input type="text" style="width:70px"></td>
-                    <td><input type="text" style="width:70px"></td>
-                    <td><input type="text" style="width:70px"></td>
+                    <td><input type="text" maxlength="6" style="width:70px"></td>
+                    <td><input type="text" maxlength="6" style="width:70px"></td>
+                    <td><input type="text"maxlength="6"  style="width:70px"></td>
+                    <td><input type="text"  maxlength="6" style="width:70px"></td>
+                    <td><input type="text"  maxlength="6" style="width:70px"></td>
+                    <td><input type="text"  maxlength="6" style="width:70px"></td>
+                    <td><input type="text" maxlength="6" style="width:70px"></td>
+                    <td><input type="text" maxlength="6" style="width:70px"></td>
+                    <td><input type="text" maxlength="6" style="width:70px"></td>
                   </tr>
                 </tbody>
               </table>
@@ -1275,15 +1275,20 @@
                 </tr>
                 <tr>
                   <td nowrap="nowrap">Type of Over Current Protective Device</td>
-                  <td><input type="number"  maxlength="15" style="width:200px"></td>
+                  <td> <select  style="width:200px">
+                    <option selected="selected" value="Fuse"> Fuse </option>
+                    <option value="MCB"> MCB</option>
+                    <option value="MCCB">MCCB</option>
+                    <option value="ACB">ACB</option>
+                  </select></td>
                </tr>
                 <tr>
                   <td nowrap="nowrap">Rated current (A)</td>
-                  <td><input type="number"  maxlength="15"  maxlength="3" style="width:200px"></td>
+                  <td><input type="number" maxlength="4"style="width:200px"></td>
               </tr>
                 <tr>
                   <td nowrap="nowrap">Current for disconnection with in 0.2 seconds</td>
-                  <td><input type="number"  maxlength="15" style="width:200px"></td>
+                  <td><input type="number"   maxlength="5" style="width:200px" max="5"></td>
                  </tr>
               </table>
             </div>
@@ -1406,55 +1411,55 @@
                   </thead>
                   <tbody>
                       <tr  style="width:4px;" >
-                      <td nowrap="nowrap">Nominal voltage U/U0 (V):</td> 
-                      <td ><input type="text"  style="width:70px"></td>
-                      <td ><input type="text" style="width:70px"></td>
-                      <td ><input type="text" style="width:70px"></td>
-                      <td ><input type="text" style="width:70px"></td>
-                      <td ><input type="text" style="width:70px"></td>
-                      <td ><input type="text" style="width:70px"></td>
-                      <td ><input type="text" style="width:70px"></td>
-                      <td ><input type="text" style="width:70px"></td>
-                      <td ><input type="text" style="width:70px"></td>
-                    </tr>
-                    <tr>
-                      <td nowrap="nowrap">Nominal Frequency f (HZ):</td>
-                      <td><input type="text" style="width:70px"></td>
-                      <td><input type="text" style="width:70px"></td>
-                      <td><input type="text" style="width:70px"></td>
-                      <td><input type="text" style="width:70px"></td>
-                      <td><input type="text" style="width:70px"></td>
-                      <td><input type="text" style="width:70px"></td>
-                      <td><input type="text" style="width:70px"></td>
-                      <td><input type="text" style="width:70px"></td>
-                      <td><input type="text" style="width:70px"></td>
-                    </tr>
-                    <tr>
-                      <td nowrap="nowrap">Prospective fault current Ipfc (kA):</td>
-                      <td><input type="text" style="width:70px"></td>
-                      <td><input type="text" style="width:70px"></td>
-                      <td><input type="text" style="width:70px"></td>
-                      <td><input type="text" style="width:70px"></td>
-                      <td><input type="text" style="width:70px"></td>
-                      <td><input type="text" style="width:70px"></td>
-                      <td><input type="text" style="width:70px"></td>
-                      <td><input type="text" style="width:70px"></td>
-                      <td><input type="text" style="width:70px"></td>
-                    </tr>
-                    <tr>
-                      <td nowrap="nowrap">External Loop Impedance Ze (Ω)</td>
-                      <td ><input type="text"  style="width:70px"></td>
-                      <td ><input type="text" style="width:70px"></td>
-                      <td ><input type="text" style="width:70px"></td>
-                      <td ><input type="text" style="width:70px"></td>
-                      <td ><input type="text" style="width:70px"></td>
-                      <td ><input type="text" style="width:70px"></td>
-                      <td ><input type="text" style="width:70px"></td>
-                      <td ><input type="text" style="width:70px"></td>
-                      <td ><input type="text" style="width:70px"></td>
-                    </tr>
+                    <td nowrap="nowrap">Nominal voltage U/U0 (V)</td>
+                    <td><input type="number"  maxlength="4"  style="width:70px"></td>
+                    <td><input type="number"  maxlength="4" style="width:70px"></td>
+                    <td><input type="number"   maxlength="4"style="width:70px"></td>
+                    <td><input type="text"  maxlength="4" style="width:70px"></td>
+                    <td><input type="text"  maxlength="4" style="width:70px"></td>
+                    <td><input type="text"  maxlength="4" style="width:70px"></td>
+                    <td><input type="text"  maxlength="4" style="width:70px"></td>
+                    <td><input type="text"  maxlength="4" style="width:70px"></td>
+                    <td><input type="text"  maxlength="4" style="width:70px"></td>
+                  </tr>
+                  <tr>
+                    <td nowrap="nowrap">Nominal Frequency f (HZ)</td>
+                    <td><input type="text"   maxlength="3" style="width:70px"></td>
+                    <td><input type="text"   maxlength="3"style="width:70px"></td>
+                    <td><input type="text"   maxlength="3" style="width:70px"></td>
+                    <td><input type="text"  maxlength="3" style="width:70px"></td>
+                    <td><input type="text"  maxlength="3" style="width:70px"></td>
+                    <td><input type="text"   maxlength="3"style="width:70px"></td>
+                    <td><input type="text"   maxlength="3"style="width:70px"></td>
+                    <td><input type="text"  maxlength="3" style="width:70px"></td>
+                    <td><input type="text"  maxlength="3" style="width:70px"></td>
+                  </tr>
+                  <tr>
+                    <td nowrap="nowrap">Prospective fault current Ipfc (kA) </td>
+                    <td><input type="text" maxlength="7"  style="width:70px"></td>
+                    <td><input type="text" maxlength="7" style="width:70px"></td>
+                    <td><input type="text"maxlength="7" style="width:70px"></td>
+                    <td><input type="text" maxlength="7" style="width:70px"></td>
+                    <td><input type="text" maxlength="7" style="width:70px"></td>
+                    <td><input type="text"  maxlength="7"style="width:70px"></td>
+                    <td><input type="text"  maxlength="7"style="width:70px"></td>
+                    <td><input type="text" maxlength="7" style="width:70px"></td>
+                    <td><input type="text" maxlength="7" style="width:70px"></td>
+                  </tr>
+                  <tr>
+                    <td nowrap="nowrap">External Loop Impedance Ze (Ω)</td>
+                    <td><input type="text" maxlength="6" style="width:70px"></td>
+                    <td><input type="text" maxlength="6" style="width:70px"></td>
+                    <td><input type="text"maxlength="6"  style="width:70px"></td>
+                    <td><input type="text"  maxlength="6" style="width:70px"></td>
+                    <td><input type="text"  maxlength="6" style="width:70px"></td>
+                    <td><input type="text"  maxlength="6" style="width:70px"></td>
+                    <td><input type="text" maxlength="6" style="width:70px"></td>
+                    <td><input type="text" maxlength="6" style="width:70px"></td>
+                    <td><input type="text" maxlength="6" style="width:70px"></td>
+                  </tr>
                     <tr><td >Installed capacity (kVA)</td>
-                      <td colspan="9"><input type="text"  style="width: 650px"></td>
+                      <td colspan="9"><input type="text"  maxlength="4"  style="width: 650px"></td>
                     </tr>
                     <tr>
                       <td >Actual load current (R,Y,B, N)</td>
@@ -1474,15 +1479,15 @@
                   </tr>
                     <tr>
                       <td nowrap="nowrap">Type of Over Current Protective Device</td>
-                      <td><input type="number" style="width:400px"></td>
+                      <td><input type="text" style="width:400px"></td>
                     </tr>
                       <tr>
                         <td nowrap="nowrap">Rated current (A)</td>
-                        <td><input type="number" style="width:400px"></td>
+                        <td><input type="text" style="width:400px"></td>
                      </tr>
                       <tr>
                         <td nowrap="nowrap">Current for disconnection with in 0.2 seconds</td>
-                        <td><input type="number" style="width:400px"></td>
+                        <td><input type="text" style="width:400px"></td>
                       </tr>
                   </table>
                 </div>
@@ -1693,7 +1698,7 @@
                       </p>
                     </div>
                     <div>
-                      <p>No of Joints<textarea matInput maxlength="4" placeholder=" enter number only"></textarea></p>
+                      <p>No of Joints<textarea matInput maxlength="4" placeholder=" enter number only"  [(ngModel)]="selectedValue"></textarea></p>
                     </div>
                   </div>
                   <div>
@@ -1751,12 +1756,12 @@
                       </tr>
                       <tr>
                         <th nowrap="nowrap">Type</th>
-                        <select class="form-control" style="width:160px" style="height:30px">
+                        <select class="form-control" style="width:160px" style="height:30px"  [(ngModel)]="selectedValue">
                          <option value="0" selected>Select option</option>
                          <option value="MCB">MCB</option>
-                          <option value=" RCBO"> RCBO</option>
+                          <option value=" ACB"> ACB</option>
                           <option value="MCCB">MCCB</option>
-                          <option value="ACB">ACB</option>
+                          <option value="RCBO">RCBO</option>
                         </select>
                       </tr>
                       <tr>
@@ -1775,7 +1780,7 @@
                         <th nowrap="nowrap">Fuse Rating or Settings</th>
                         <td><input type="text" style="width:120px"> Amp</td>
                       </tr>
-                      <tr>
+                      <tr *ngIf="selectedValue == 'RCBO'">
                         <th nowrap="nowrap">Rated residual operating Current I∆n</th>
                         <td><input type="text" style="width:120px">
                           <select style="width:20px" style="height:25px">
@@ -1783,13 +1788,13 @@
                           <option value="A">A</option>
                         </select></td>
                       </tr>
-                      <tr>
+                      <tr *ngIf="selectedValue == 'RCBO'">
                         <th nowrap="nowrap">Rated residual operating time @I∆n T∆n</th>
                         <td><input type="text" style="width:120px"> mS</td>
                       </tr>
-                  
-                    </table>
-                  </div>
+                   </table>
+              </div>
+                 
                 </mat-expansion-panel>
                </mat-accordion>
         <div>
