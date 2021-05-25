@@ -12,13 +12,11 @@ import { ReportDetailsService } from '../services/report-details.service';
 import { SiteService } from '../services/site.service';
 
 @Component({
-  selector: 'app-inspection-verification-basic-information',
-  templateUrl: './inspection-verification-basic-information.component.html',
-  styleUrls: ['./inspection-verification-basic-information.component.css']
+  selector: 'app-inspection-verification-incoming-equipment',
+  templateUrl: './inspection-verification-incoming-equipment.component.html',
+  styleUrls: ['./inspection-verification-incoming-equipment.component.css']
 })
-export class InspectionVerificationBasicInformationComponent implements OnInit {
-
-  
+export class InspectionVerificationIncomingEquipmentComponent implements OnInit {
   addDesigner1Form = new FormGroup ({
   });
 
@@ -393,6 +391,5 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       }
       )
   }
-
 
 }

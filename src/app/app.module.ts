@@ -39,6 +39,8 @@ import { DepartmentupdateComponent } from './department/departmentupdate/departm
 import { SiteupdateComponent } from './site/siteupdate/siteupdate.component';
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 import { InspectionVerificationBasicInformationComponent } from './inspection-verification-basic-information/inspection-verification-basic-information.component';
+import { InspectionVerificationIncomingEquipmentComponent } from './inspection-verification-incoming-equipment/inspection-verification-incoming-equipment.component';
+//import { InspectionVerificationComponent } from './inspection-verification/inspection-verification.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,9 @@ import { InspectionVerificationBasicInformationComponent } from './inspection-ve
     ClientupdateComponent,
     DepartmentupdateComponent,
     SiteupdateComponent,
-    InspectionVerificationBasicInformationComponent
+    InspectionVerificationBasicInformationComponent,
+    InspectionVerificationIncomingEquipmentComponent,
+    //InspectionVerificationComponent
     
   ],
   imports: [

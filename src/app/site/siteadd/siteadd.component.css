@@ -1,6 +1,6 @@
 .auth-form-btn {
     margin-top: 40px;
-    width: 40%;
+    width: 10%;
 }
 
 .auth-form-btn .icon {
@@ -10,17 +10,15 @@
 
 .cancel {
     margin-top: 40px;
-    width: 30%; 
-    height: 47px;
+    width: 10%; 
+    /* height: 47px; */
 }
 
-.cancel .icon {
+/* .cancel .icon {
     float: left;
     margin-left: 20px;
-}
+} */
 
 .mousechange:hover {
     cursor: pointer;
 }
-
-

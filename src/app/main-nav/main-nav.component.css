@@ -25,7 +25,8 @@
 .mat-toolbar.mat-primary {
   position: sticky;
   top: 0;
-  z-index: 1;
+  /* z-index: 1; */
+  z-index: 999;
 }
 
 .spacer {
@@ -40,4 +41,24 @@
 .text-spacer{
   margin-right: auto;
 
+}
+
+
+/* aish changes*/
+
+.example-container {
+  width: 500px;
+  height: 300px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.example-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.example-sidenav {
+  padding: 20px;
 }

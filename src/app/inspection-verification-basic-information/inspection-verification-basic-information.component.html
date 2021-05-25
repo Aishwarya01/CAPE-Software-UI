@@ -1,3 +1,4 @@
+<!-- step 1 -->
 <div class="card">
     <div class="card-body">
       <div class="search-bar">
@@ -795,10 +796,15 @@
         </form>
         </mat-expansion-panel>
       </mat-accordion>
-
-      <div style="display: inline;">
+      <div style="text-align: center;margin-top: 40px;">
+        <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
+        <button class="next" mat-button matStepperNext>Next &raquo;</button>
+      </div>
+      <!-- <div style="display: inline;">
           <button  style="float: left;" type="submit" (click)="nextTab()" class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"><i class="bi bi-person-plus-fill icon"></i> Next</button>
           <button  [routerLink]="['/login']" style="float:right;"  class="btn btn-outline-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
-      </div>
+      </div> -->
     </div>
   </div>
+
+  
