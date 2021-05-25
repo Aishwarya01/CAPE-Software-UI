@@ -5,7 +5,7 @@
           <div class="form-group">
             <div class="row">
               <div class="col-md-4">
-                    <label>Company Name:</label>
+                    <label>Company Name*</label>
                     <select class="form-control" formControlName="clientName" (change)="changeClientName($event)" [ngClass]="{ 'is-invalid': submitted && f.clientName.errors }">
                       <option value="0" selected>Select Client Name</option>
                       <option *ngFor="let client of clientList">{{client.clientName}}</option>
@@ -15,7 +15,7 @@
                   </div> 
               </div>
               <div class="col-md-4">
-                    <label>Department Name:</label>
+                    <label>Department Name*</label>
                     <select class="form-control"  formControlName="departmentName" (change)="retrieveSiteInfo($event)" [ngClass]="{ 'is-invalid': submitted && f.departmentName.errors }">
                       <option value="0" selected>Select Department Name</option>
                       <option *ngFor="let department of departmentListInspec">{{department.departmentName}}</option>
@@ -25,7 +25,7 @@
                   </div> 
               </div>
               <div class="col-md-4">
-                    <label>Site Name:</label>
+                    <label>Site Name*</label>
                     <select class="form-control" formControlName="siteName" (change)="retrieveSiteId($event)" [ngClass]="{ 'is-invalid': submitted && f.siteName.errors }">
                       <option value="0" selected>Select Site Name</option>
                       <option *ngFor="let site of siteListInspec">{{site.site}}</option>
@@ -76,7 +76,7 @@
             <div class="row">
               <div class="col-md-4">
                 <div class="form-group">
-                  <label>Type of Installation:</label>
+                  <label>Type of Installation* :</label>
                   <select class="form-control" formControlName="installationType" (change)="showWiringAge($event)" [(ngModel)]="reportDetails.installationType" [ngClass]="{ 'is-invalid': submitted && f.installationType.errors }">
                     <option value="0" selected>Select option</option>
                     <option *ngFor="let value of installationList">{{value}}</option>
@@ -89,7 +89,7 @@
   
               <div class="col-md-4">
                 <div class="form-group">
-                  <label>Description of the premise:</label>
+                  <label>Description of the premise* :</label>
                   <select class="form-control" formControlName="descPremise" [(ngModel)]="reportDetails.descriptionPremise" [ngClass]="{ 'is-invalid': submitted && f.descPremise.errors }">
                     <option value="0" selected>Select option</option>
                     <option *ngFor="let value of premiseList">{{value}}</option>
@@ -113,7 +113,7 @@
               </div>
   
               <div class="col-md-4">
-                <label>Evidence of addition/alterations:</label>
+                <label>Evidence of addition/alterations* :</label>
                 <select class="form-control" formControlName="evidenceAlterations" (change)="showEstimatedAge($event)" [(ngModel)]="reportDetails.evidanceAddition" [ngClass]="{ 'is-invalid': submitted && f.evidenceAlterations.errors }">
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of evidenceList">{{value}}</option>
@@ -136,7 +136,7 @@
               </div>
   
               <div class="col-md-4">
-                <label>Previous records available:</label>
+                <label>Previous records available* :</label>
                 <select class="form-control" formControlName="previousRecord" [(ngModel)]="reportDetails.previousRecords" [ngClass]="{ 'is-invalid': submitted && f.previousRecord.errors }">
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of previousRecordList">{{value}}</option>
@@ -147,7 +147,7 @@
               </div>
   
               <div class="col-md-4">
-                <p>Last date of inspection</p>
+                <p>Last date of inspection* </p>
                 <input type="date" class="form-control" formControlName="inspectionLast" placeholder="Enter Date" [(ngModel)]="reportDetails.lastInspection" [ngClass]="{ 'is-invalid': submitted && f.inspectionLast.errors }">   
                 <div *ngIf="submitted && f.inspectionLast.errors" class="invalid-feedback">
                   <div *ngIf="f.inspectionLast.errors.required">Inspection last date is required</div>
@@ -158,7 +158,7 @@
             <div class="row">
               <div class="col-md-4">
                 <mat-form-field class="client-description ">
-                  <mat-label><h3>Extent of installation covered by this report *</h3> </mat-label>
+                  <mat-label><h3>Extent of installation covered by this report*</h3> </mat-label>
                   <textarea matInput class="client-box-description" formControlName="extentInstallation" maxlength="500" placeholder="Ex. Report reason..." [(ngModel)]="reportDetails.extentInstallation" [ngClass]="{ 'is-invalid': submitted && f.extentInstallation.errors }"></textarea>
                   <div *ngIf="submitted && f.extentInstallation.errors" class="invalid-feedback">
                     <div *ngIf="f.extentInstallation.errors.required">Please enter valid details</div>
@@ -179,7 +179,7 @@
             <div class="row">
               <div class="col-md-4">
                 <mat-form-field class="client-description ">
-                  <mat-label><h3>Details of client / person ordering this report  (maximum length is 50 )</h3></mat-label>
+                  <mat-label><h3>Details of client / person ordering this report * (maximum length is 50 )</h3></mat-label>
                   <textarea matInput class="client-box-description" formControlName="detailsOfClient" maxlength="50" [ngClass]="{ 'is-invalid': submitted && f.detailsOfClient.errors }" placeholder=" Ex. Name, address ,purpose ,relation with end user.." [(ngModel)]="reportDetails.clientDetails"></textarea>
                   <div *ngIf="submitted && f.detailsOfClient.errors" class="invalid-feedback">
                     <div *ngIf="f.detailsOfClient.errors.required">Details of client is required</div>
@@ -191,7 +191,7 @@
             <div class="row">
               <div class="col-md-4">
                 <mat-form-field class="client-description ">
-                  <mat-label><h3>Details of installation referred in this report  (maximum length is 75 )</h3></mat-label>
+                  <mat-label><h3>Details of installation referred in this report * (maximum length is 75 )</h3></mat-label>
                   <textarea matInput class="client-box-description" formControlName="detailsOfInstallation" maxlength="75" [ngClass]="{ 'is-invalid': submitted && f.detailsOfInstallation.errors }" placeholder=" Ex. Occupier ,address details etc.." [(ngModel)]="reportDetails.installationDetails"></textarea>
                   <div *ngIf="submitted && f.detailsOfInstallation.errors" class="invalid-feedback">
                     <div *ngIf="f.detailsOfInstallation.errors.required">Details of installation is required</div>
@@ -203,7 +203,7 @@
             <div class="form-group">
               <div class="row">
                 <div class="col-md-4">
-                  <h3>Date of starting the verification </h3>
+                  <h3>Date of starting the verification *</h3>
                   <input type="date" class="form-control" formControlName="startingDateVerification"  [ngClass]="{ 'is-invalid': submitted && f.startingDateVerification.errors }" placeholder="Enter Date" [(ngModel)]="reportDetails.verficationDate">      
                   <div *ngIf="submitted && f.startingDateVerification.errors" class="invalid-feedback">
                     <div *ngIf="f.startingDateVerification.errors.required">Please enter valid details</div>
@@ -211,7 +211,7 @@
                 </div>
   
                 <div class="col-md-4">
-                  <label>Name of Engineer who carries out verification:</label>
+                  <label>Name of Engineer who carries out verification * :</label>
                   <input type="text" class="form-control" formControlName="engineerName" placeholder="Enter Engineer Name" [(ngModel)]="reportDetails.verifedEngineer" [ngClass]="{ 'is-invalid': submitted && f.engineerName.errors }">
                   <div *ngIf="submitted && f.engineerName.errors" class="invalid-feedback">
                     <div *ngIf="f.engineerName.errors.required">Engineer name is required</div>
@@ -219,7 +219,7 @@
                 </div>
   
                 <div class="col-md-4">
-                  <label>Designation:</label>
+                  <label>Designation* :</label>
                   <input type="text" class="form-control" formControlName="designation" style="margin-top: 20px;" placeholder="Enter Designation" [(ngModel)]="reportDetails.designation" [ngClass]="{ 'is-invalid': submitted && f.designation.errors }">
                   <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
                     <div *ngIf="f.designation.errors.required">Designation is required</div>
@@ -231,7 +231,7 @@
             <div class="form-group">
               <div class="row">
                 <div class="col-md-4">
-                  <label>Company:</label>
+                  <label>Company* :</label>
                   <input type="text" class="form-control" formControlName="companyName" style="margin-top: 20px;" placeholder="Enter Company Name" [(ngModel)]="reportDetails.company" [ngClass]="{ 'is-invalid': submitted && f.companyName.errors }">
                   <div *ngIf="submitted && f.companyName.errors" class="invalid-feedback">
                     <div *ngIf="f.companyName.errors.required">Company name is required</div>
@@ -239,7 +239,7 @@
                 </div>
   
                 <div class="col-md-4">
-                  <label>Read and confirmed the extent and limitations:</label>
+                  <label>Read and confirmed the extent and limitations* :</label>
                   <select class="form-control" formControlName="extentInstallation" [(ngModel)]="reportDetails.extentInstallation" [ngClass]="{ 'is-invalid': submitted && f.extentInstallation.errors }">
                     <option value="0" selected>Select option</option>
                     <option *ngFor="let value of previousRecordList">{{value}}</option>
@@ -272,7 +272,7 @@
                 <div formArrayName="designer1AcknowledgeArr" *ngFor="let a of getDesigner1AcknowledgeControls(); let i = index">
                   <div class="form-group" [formGroupName]="i">
   
-                    <h2>Designer 1:</h2>
+                    <h2>Designer 1* :</h2>
                     <div class="row">
                       <div class="col-md-4">
                         <label>Signature:</label>
@@ -295,7 +295,7 @@
   
               <div formArrayName="designer2AcknowledgeArr" *ngFor="let a of getDesigner2AcknowledgeControls(); let i = index">
                 <div class="form-group" [formGroupName]="i">               
-                   <h2>Designer 2:</h2>
+                   <h2>Designer 2: (Optional)</h2>
                     <div class="row">
                       <div class="col-md-4">
                         <label>Signature:</label>
@@ -328,7 +328,7 @@
     
                   <div formArrayName="contractorAcknowledgeArr" *ngFor="let a of getContractorAcknowledgeControls(); let i = index">
                     <div class="form-group" [formGroupName]="i">
-                      <h2>Contractor:</h2>
+                      <h2>Contractor* :</h2>
                       <div class="row">
                         <div class="col-md-4">
                           <label>Signature:</label>
@@ -361,7 +361,7 @@
                   <div formArrayName="inspectorAcknowledgeArr" *ngFor="let a of getInspectorAcknowledgeControls(); let i = index">
                     <div class="form-group" [formGroupName]="i">
     
-                      <h2>Inspector:</h2>
+                      <h2>Inspector* :</h2>
                       <div class="row">
                         <div class="col-md-4">
                           <label>Signature:</label>
@@ -413,7 +413,7 @@
   
               <div formArrayName="designer1Arr" *ngFor="let a of getDesigner1Controls(); let i = index">
                 <div class="form-group" [formGroupName]="i">
-                  <h2>Designer 1</h2>
+                  <h2>Designer 1*</h2>
               
                   <div class="form-group" >
                     <div class="row">
@@ -521,7 +521,7 @@
   
                 <div formArrayName="designer2Arr" *ngFor="let a of getDesigner2Controls(); let i = index">
                   <div class="form-group" [formGroupName]="i">
-                    <h2>Designer 2</h2>
+                    <h2>Designer 2 (optional)</h2>
             
                     <div class="form-group" >
                       <div class="row">
@@ -634,7 +634,7 @@
                 <h3>Details of Contractor</h3>
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <h2>Contractor Details</h2>
+            <h2>Contractor Details*</h2>
       
               <div formArrayName="contractorArr" *ngFor="let a of getContractorControls(); let i = index">
                   <div class="form-group" [formGroupName]="i">
@@ -751,7 +751,7 @@
                 <h3>Details of Inspector</h3>
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <h2>Inspector Details</h2>
+            <h2>Inspector Details*</h2>
       
                         
               <div formArrayName="inspectorArr" *ngFor="let a of getInspectorControls(); let i = index">
