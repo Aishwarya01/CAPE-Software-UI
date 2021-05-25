@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Company } from '../model/company';
@@ -18,42 +18,30 @@ import { SiteService } from '../services/site.service';
 })
 export class InspectionVerificationBasicInformationComponent implements OnInit {
 
+  step1Form = new FormGroup ({
+    clientName: new FormControl(''),
+    departmentName: new FormControl(''),
+    siteName: new FormControl(''),
+    descriptionOfReport: new FormControl(''),
+    reasonOfReport: new FormControl(''),
+    installationType: new FormControl(''),
+    descPremise: new FormControl(''),
+    showField1: new FormControl(''),
+    evidenceAlterations: new FormControl(''),
+    showField2: new FormControl(''),
+    previousRecord: new FormControl(''),
+    inspectionLast: new FormControl(''),
+    extentInstallation: new FormControl(''),
+    detailsOfClient: new FormControl(''),
+    detailsOfInstallation: new FormControl(''),
+    startingDateVerification: new FormControl(''),
+    engineerName: new FormControl(''),
+    designation: new FormControl(''),
+    companyName: new FormControl(''),
+    comfirmExtent: new FormControl(''),
+    nextInspection: new FormControl(''),
+  });
   
-  addDesigner1Form = new FormGroup ({
-  });
-
-  addDesigner2Form = new FormGroup ({
-  });
-
-  addContractorForm = new FormGroup ({
-  });
-
-  addInspectorForm = new FormGroup ({
-  });
-
-  designer1Acknowledge = new FormGroup ({
-    signature: new FormControl(''),
-    declarationDate: new FormControl(''),
-    declarationName: new FormControl('')
-  })
-
-  designer2Acknowledge = new FormGroup ({
-    signature: new FormControl(''),
-    declarationDate: new FormControl(''),
-    declarationName: new FormControl('')
-  })
-
-  contractorAcknowledge = new FormGroup ({
-    signature: new FormControl(''),
-    declarationDate: new FormControl(''),
-    declarationName: new FormControl('')
-  })
-
-  inspectorAcknowledge = new FormGroup ({
-    signature: new FormControl(''),
-    declarationDate: new FormControl(''),
-    declarationName: new FormControl('')
-  })
   
   clientList: any = [];
   inActiveData: any =[];
@@ -75,7 +63,8 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   reportDetails =new Reportdetails;
   showField1: boolean= true;
   showField2: boolean= false;
-
+  loading = false;
+  submitted = false;
 
   designerRole: String ='designer';
   contractorRole: String ='contractor';
@@ -107,18 +96,38 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 
   ngOnInit(): void {
   
-    this.addDesigner1Form = this._formBuilder.group({
+    this.step1Form = this._formBuilder.group({
+      clientName: ['', Validators.required],
+      departmentName: ['', Validators.required],
+      siteName: ['', Validators.required],
+      descriptionOfReport: ['', Validators.required],
+      reasonOfReport: ['', Validators.required],
+      installationType: ['', Validators.required],
+      descPremise: ['', Validators.required],
+      showField1: ['', Validators.required],
+      evidenceAlterations: ['', Validators.required],
+      showField2: ['', Validators.required],
+      previousRecord: ['', Validators.required],
+      inspectionLast: ['', Validators.required],
+      extentInstallation: ['', Validators.required],
+      detailsOfClient: ['', Validators.required],
+      detailsOfInstallation: ['', Validators.required],
+      startingDateVerification: ['', Validators.required],
+      engineerName: ['', Validators.required],
+      designation: ['', Validators.required],
+      companyName: ['', Validators.required],
+      comfirmExtent: ['', Validators.required],
+      nextInspection: ['', Validators.required],
+      designer1AcknowledgeArr: this._formBuilder.array([this.createDesigner1AcknowledgeForm()]),
+      designer2AcknowledgeArr: this._formBuilder.array([this.createDesigner2AcknowledgeForm()]),
+      contractorAcknowledgeArr: this._formBuilder.array([this.createContractorAcknowledgeForm()]),
+      inspectorAcknowledgeArr: this._formBuilder.array([this.createInspectorAcknowledgeForm()]),
       designer1Arr: this._formBuilder.array([this.createDesigner1Form()]),
-    });
-    this.addDesigner2Form = this._formBuilder.group({
       designer2Arr: this._formBuilder.array([this.createDesigner2Form()]),
-    });
-    this.addContractorForm = this._formBuilder.group({
       contractorArr: this._formBuilder.array([this.createContractorForm()]),
-    });
-    this.addInspectorForm = this._formBuilder.group({
       inspectorArr: this._formBuilder.array([this.createInspectorForm()]),
     });
+   
 
     this.siteService.retrieveCountry().subscribe(
       data => {
@@ -201,6 +210,53 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     }
   }
 
+  // Signature part
+
+  private createDesigner1AcknowledgeForm(): FormGroup {
+    return new FormGroup({
+      signature: new FormControl(''),
+      declarationDate: new FormControl(''),
+      declarationName: new FormControl('')
+    })
+  }
+
+  private createDesigner2AcknowledgeForm(): FormGroup {
+    return new FormGroup({
+      signature: new FormControl(''),
+      declarationDate: new FormControl(''),
+      declarationName: new FormControl('')
+    })
+  }
+
+  private createContractorAcknowledgeForm(): FormGroup {
+    return new FormGroup({
+      signature: new FormControl(''),
+      declarationDate: new FormControl(''),
+      declarationName: new FormControl('')
+    })
+  }
+
+  private createInspectorAcknowledgeForm(): FormGroup {
+    return new FormGroup({
+      signature: new FormControl(''),
+      declarationDate: new FormControl(''),
+      declarationName: new FormControl('')
+    })
+  }
+
+  getDesigner1AcknowledgeControls(): AbstractControl[] { 
+    return (<FormArray> this.step1Form.get('designer1AcknowledgeArr')).controls
+  } 
+  getDesigner2AcknowledgeControls(): AbstractControl[] { 
+    return (<FormArray> this.step1Form.get('designer2AcknowledgeArr')).controls
+  }
+  getContractorAcknowledgeControls(): AbstractControl[] { 
+    return (<FormArray> this.step1Form.get('contractorAcknowledgeArr')).controls
+  }
+  getInspectorAcknowledgeControls(): AbstractControl[] { 
+    return (<FormArray> this.step1Form.get('inspectorAcknowledgeArr')).controls
+  }
+
   // Deisgner details forms
   private createDesigner1Form(): FormGroup {
     return new FormGroup({
@@ -245,12 +301,12 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   }
 
   getDesigner1Controls(): AbstractControl[] { 
-      return (<FormArray> this.addDesigner1Form.get('designer1Arr')).controls
+      return (<FormArray> this.step1Form.get('designer1Arr')).controls
   }
 
   getDesigner2Controls(): AbstractControl[] { 
-    return (<FormArray> this.addDesigner2Form.get('designer2Arr')).controls
-}
+    return (<FormArray> this.step1Form.get('designer2Arr')).controls
+  }
   
 
   designer1changeCountry(e: any) {
@@ -303,7 +359,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   }
 
   getContractorControls(): AbstractControl[] { 
-    return (<FormArray> this.addContractorForm.get('contractorArr')).controls
+    return (<FormArray> this.step1Form.get('contractorArr')).controls
   }
 
   contractorchangeCountry(e: any) {
@@ -343,7 +399,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   }
 
   getInspectorControls(): AbstractControl[] { 
-    return (<FormArray> this.addInspectorForm.get('inspectorArr')).controls
+    return (<FormArray> this.step1Form.get('inspectorArr')).controls
   }
 
   inspectorchangeCountry(e: any) {
@@ -359,32 +415,46 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       }
   }
 
+  get f() {
+    return this.step1Form.controls;
+  }
+
   nextTab() {
+
+    this.submitted = true;
+
+    //Breaks if form is invalid
+    if(this.step1Form.invalid) {
+      return;
+    }
+
+    this.loading = true;
     
-    this.addDesigner1Form.value.designer1Arr[0].signatorRole= this.designerRole;
-    this.addDesigner1Form.value.designer1Arr[0].declarationName= this.designer1Acknowledge.value.declarationName;
-    this.addDesigner1Form.value.designer1Arr[0].declarationDate= this.designer1Acknowledge.value.declarationDate;
+    this.step1Form.value.designer1Arr[0].signatorRole= this.designerRole;
+    this.step1Form.value.designer1Arr[0].declarationName= this.step1Form.value.designer1AcknowledgeArr[0].declarationName;
+    this.step1Form.value.designer1Arr[0].declarationDate= this.step1Form.value.designer1AcknowledgeArr[0].declarationDate;
 
-    this.addDesigner2Form.value.designer2Arr[0].signatorRole= this.designerRole;
-    this.addDesigner2Form.value.designer2Arr[0].declarationName= this.designer2Acknowledge.value.declarationName;
-    this.addDesigner2Form.value.designer2Arr[0].declarationDate= this.designer2Acknowledge.value.declarationDate;
+    this.step1Form.value.designer2Arr[0].signatorRole= this.designerRole;
+    this.step1Form.value.designer2Arr[0].declarationName= this.step1Form.value.designer2AcknowledgeArr[0].declarationName;
+    this.step1Form.value.designer2Arr[0].declarationDate= this.step1Form.value.designer2AcknowledgeArr[0].declarationName;
 
-    this.addContractorForm.value.contractorArr[0].signatorRole= this.contractorRole;
-    this.addContractorForm.value.contractorArr[0].declarationName= this.contractorAcknowledge.value.declarationName;
-    this.addContractorForm.value.contractorArr[0].declarationDate= this.contractorAcknowledge.value.declarationDate;
+    this.step1Form.value.contractorArr[0].signatorRole= this.contractorRole;
+    this.step1Form.value.contractorArr[0].declarationName= this.step1Form.value.contractorAcknowledgeArr[0].declarationName;
+    this.step1Form.value.contractorArr[0].declarationDate= this.step1Form.value.contractorAcknowledgeArr[0].declarationName;
 
-    this.addInspectorForm.value.inspectorArr[0].signatorRole= this.inspectorRole;
-    this.addInspectorForm.value.inspectorArr[0].declarationName= this.inspectorAcknowledge.value.declarationName;
-    this.addInspectorForm.value.inspectorArr[0].declarationDate= this.inspectorAcknowledge.value.declarationDate;
+    this.step1Form.value.inspectorArr[0].signatorRole= this.inspectorRole;
+    this.step1Form.value.inspectorArr[0].declarationName= this.step1Form.value.inspectorAcknowledgeArr[0].declarationName;
+    this.step1Form.value.inspectorArr[0].declarationDate= this.step1Form.value.inspectorAcknowledgeArr[0].declarationName;
 
     this.reportDetails.userName = this.email;
     
-    this.reportDetails.SignatorDetails = this.addDesigner1Form.value.designer1Arr;
-    if(this.addDesigner2Form.value.designer2Arr[0].personName != "") {
-      this.reportDetails.SignatorDetails=this.reportDetails.SignatorDetails.concat(this.addDesigner2Form.value.designer2Arr);
+    this.reportDetails.SignatorDetails = this.step1Form.value.designer1Arr;
+    if(this.step1Form.value.designer2Arr[0].personName != "") {
+      this.reportDetails.SignatorDetails=this.reportDetails.SignatorDetails.concat(this.step1Form.value.designer2Arr);
     }
-      this.reportDetails.SignatorDetails=this.reportDetails.SignatorDetails.concat(this.addContractorForm.value.contractorArr,this.addInspectorForm.value.inspectorArr);
-        
+      this.reportDetails.SignatorDetails=this.reportDetails.SignatorDetails.concat(this.step1Form.value.contractorArr,this.step1Form.value.inspectorArr);
+    debugger
+    console.log(this.reportDetails)
     this.reportDetailsService.addReportDetails(this.reportDetails).subscribe(
       data=> {
         console.log("worked");
