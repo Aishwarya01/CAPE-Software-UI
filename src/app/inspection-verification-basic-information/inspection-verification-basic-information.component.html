@@ -240,12 +240,12 @@
   
                 <div class="col-md-4">
                   <label>Read and confirmed the extent and limitations* :</label>
-                  <select class="form-control" formControlName="extentInstallation" [(ngModel)]="reportDetails.extentInstallation" [ngClass]="{ 'is-invalid': submitted && f.extentInstallation.errors }">
+                  <select class="form-control" formControlName="confirmExtent" [(ngModel)]="reportDetails.confirmExtent" [ngClass]="{ 'is-invalid': submitted && f.confirmExtent.errors }">
                     <option value="0" selected>Select option</option>
                     <option *ngFor="let value of previousRecordList">{{value}}</option>
                   </select> 
-                  <div *ngIf="submitted && f.extentInstallation.errors" class="invalid-feedback">
-                    <div *ngIf="f.extentInstallation.errors.required">Please enter valid details</div>
+                  <div *ngIf="submitted && f.confirmExtent.errors" class="invalid-feedback">
+                    <div *ngIf="f.confirmExtent.errors.required">Please enter valid details</div>
                 </div>              
                 </div>
               </div>
@@ -410,7 +410,8 @@
             </mat-expansion-panel-header>
             <h2>Designer Details</h2>
             
-  
+            <mat-icon *ngIf="showAddButton" class="mousechange" (click)="addDesigner()" style="float:right; padding-right: 37px; padding-top: 10px;">add_box</mat-icon>
+
               <div formArrayName="designer1Arr" *ngFor="let a of getDesigner1Controls(); let i = index">
                 <div class="form-group" [formGroupName]="i">
                   <h2>Designer 1*</h2>
@@ -517,8 +518,12 @@
                       </div>   
                   </div>
                 </div>
-              </div>           
-  
+              </div>
+                         
+              <div *ngIf="showDesigner2">
+
+                <mat-icon class="mousechange"  (click)="removeDesigner()" style="float:right; padding-right: 37px; padding-top: 10px;">delete</mat-icon>
+
                 <div formArrayName="designer2Arr" *ngFor="let a of getDesigner2Controls(); let i = index">
                   <div class="form-group" [formGroupName]="i">
                     <h2>Designer 2 (optional)</h2>
@@ -625,7 +630,8 @@
                         </div>   
                     </div>
                   </div>
-                </div>              
+                </div> 
+              </div>             
           </mat-expansion-panel>
   
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">

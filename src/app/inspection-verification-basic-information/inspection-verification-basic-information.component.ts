@@ -63,6 +63,8 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   reportDetails =new Reportdetails;
   showField1: boolean= true;
   showField2: boolean= false;
+  showDesigner2: boolean= false;
+  showAddButton: boolean= true;
   loading = false;
   submitted = false;
 
@@ -116,7 +118,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       engineerName: ['', Validators.required],
       designation: ['', Validators.required],
       companyName: ['', Validators.required],
-      comfirmExtent: ['', Validators.required],
+      confirmExtent: ['', Validators.required],
       nextInspection: ['', Validators.required],
       designer1AcknowledgeArr: this._formBuilder.array([this.createDesigner1AcknowledgeForm()]),
       designer2AcknowledgeArr: this._formBuilder.array([this.createDesigner2AcknowledgeForm()]),
@@ -413,6 +415,17 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
             }
           )};
       }
+  }
+
+  addDesigner() {
+    this.showDesigner2= true;
+    this.showAddButton= false;
+  }
+
+  removeDesigner() {
+    this.showDesigner2= false;
+    this.showAddButton= true;
+    return (<FormArray> this.step1Form.get('designer2Arr')).reset();
   }
 
   get f() {
