@@ -1134,15 +1134,15 @@
                 <h3>Mains incoming</h3>
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <div class="col-md-5">
+            <div class="col-md-4">
               <label>System earthing:</label>
-              <select class="form-control">
-                <option selected="selected" value="TN-C">TN-C</option>
-                <option value="TN-C-S">TN-C-S</option>
-                <option value="TN-S">TN-S</option>
-                <option value="TT" selected>TT</option>
-                <option value="IT" selected>IT</option>
-              </select>
+              <select class="form-control" [(ngModel)]="supplycharesteristic.mainSystemEarthing">
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of systemEarthingList">
+                  {{value}}
+                 </option>
+                 </select>
+                              
             </div>
             <mat-form-field class="client-description ">
               <mat-label>
@@ -1168,14 +1168,12 @@
             <div class="col-md-4">
               <div class="form-group" *ngIf="selectedValue == 'AC'">
                 <label>AC:</label>
-                <select class="form-control">
+                <select class="form-control" [(ngModel)]="supplycharesteristic.liveConductorAC">
                   <option value="0" selected>Select option</option>
-                  <option value="1-phase, 3-wire (LLM)">1-phase, 2-wire (LN)</option>
-                  <option value="1-phase, 3-wire (LLM)">1-phase, 3-wire (LLM)</option>
-                  <option value="2-phase, 3-wire (LLN)">2-phase, 3-wire (LLN)</option>
-                  <option value="3-phase, 3-wire (LLL)" selected>3-phase, 3-wire (LLL)</option>
-                  <option value="3-phase, 4-wire (LLLN)" selected>3-phase, 4-wire (LLLN)</option>
-                </select>
+                   <option *ngFor="let value of liveConductorACList">
+                    {{value}}
+                   </option>
+                   </select>
               </div>
             </div>
           </div>
@@ -1183,28 +1181,26 @@
             <div class="col-md-4">
               <div class="form-group" *ngIf="selectedValue == 'DC'">
                 <label>DC:</label>
-                <select class="form-control">
-                  <option selected="selected" value="2-pole">2-pole </option>
-                  <option value=" 3-pole"> 3-pole</option>
-                  <option value="Others">Others</option>
+                <select class="form-control" [(ngModel)]="supplycharesteristic.liveConductorDC">
+                  <option value="0" selected>Select option</option>
+                  <option *ngFor="let value of liveConductorDCList">{{value}}</option>
                 </select>
               </div>
             </div>
           </div>
-            <form action="" method="">
+            <form>
               <mat-label>
                 <h3>Brief note (in case of confusion)</h3>
               </mat-label>
               <textarea rows="3" cols="110" maxlength="500"></textarea>
             </form>
             <br>
-            <div>
-              <table border="1">
-          
-                <thead>
+            <div  *ngIf="selectedValue == 'AC'">
+              <table  border="1">
+                 <thead>
                   <tr align="center "  style="width: max-content;">
                     <th>Nature of supply parameters</th>
-                    <th>R-Y</th>
+                    <th >R-Y</th>
                     <th>R-B</th>
                     <th>Y-B</th>
                     <th>R-N</th>
@@ -1218,7 +1214,7 @@
                 <tbody>
                   <tr style="width:4px;">
                     <td nowrap="nowrap">Nominal voltage U/U0 (V)</td>
-                    <td><input type="text"  maxlength="4"  style="width:70px"></td>
+                    <td><input type="text" maxlength="4"  style="width:70px"></td>
                     <td><input type="text"  maxlength="4" style="width:70px"></td>
                     <td><input type="text"   maxlength="4"style="width:70px"></td>
                     <td><input type="text"  maxlength="4" style="width:70px"></td>
@@ -1230,7 +1226,7 @@
                   </tr>
                   <tr>
                     <td nowrap="nowrap">Nominal Frequency f (HZ)</td>
-                    <td><input type="text"   maxlength="3" style="width:70px"></td>
+                    <td><input type="text"  maxlength="3"  style="width:70px"></td>
                     <td><input type="text"   maxlength="3"style="width:70px"></td>
                     <td><input type="text"   maxlength="3" style="width:70px"></td>
                     <td><input type="text"  maxlength="3" style="width:70px"></td>
@@ -1242,7 +1238,7 @@
                   </tr>
                   <tr>
                     <td nowrap="nowrap">Prospective fault current Ipfc (kA) </td>
-                    <td><input type="text" maxlength="7"  style="width:70px"></td>
+                    <td><input type="text"   maxlength="7"  style="width:70px"></td>
                     <td><input type="text" maxlength="7" style="width:70px"></td>
                     <td><input type="text"maxlength="7" style="width:70px"></td>
                     <td><input type="text" maxlength="7" style="width:70px"></td>
@@ -1252,6 +1248,7 @@
                     <td><input type="text" maxlength="7" style="width:70px"></td>
                     <td><input type="text" maxlength="7" style="width:70px"></td>
                   </tr>
+                
                   <tr>
                     <td nowrap="nowrap">External Loop Impedance Ze (Ω)</td>
                     <td><input type="text" maxlength="6" style="width:70px"></td>
@@ -1275,16 +1272,19 @@
                 </tr>
                 <tr>
                   <td nowrap="nowrap">Type of Over Current Protective Device</td>
-                  <td> <select  style="width:200px">
+                  <td> <select  class="form-control" style="width:200px">
+                    
                     <option selected="selected" value="Fuse"> Fuse </option>
                     <option value="MCB"> MCB</option>
                     <option value="MCCB">MCCB</option>
                     <option value="ACB">ACB</option>
+                    <option value="0" selected>Select option</option>
+                   
                   </select></td>
                </tr>
                 <tr>
                   <td nowrap="nowrap">Rated current (A)</td>
-                  <td><input type="number" maxlength="4"style="width:200px"></td>
+                  <td><input type="number"  maxlength="4"style="width:200px"></td>
               </tr>
                 <tr>
                   <td nowrap="nowrap">Current for disconnection with in 0.2 seconds</td>
@@ -1302,10 +1302,10 @@
             <div class="row">
             <div class="col-md-4">
               <div class="form-group">
-                <label> Availability of alternate supply:</label>
-                <select class="form-control">
-                  <option selected="selected" value="yes">yes </option>
-                  <option value="No"> No</option>
+                <label> Availability of alternative supply:</label>
+                <select class="form-control" [(ngModel)]="supplycharesteristic.alternativeSupply">
+                  <option value="0" selected>Select option</option>
+                 <option *ngFor="let value  of AlternatesupplyList">{{value}}</option>
                 </select>
               </div>
             </div>
@@ -1330,13 +1330,10 @@
         <div class="row">
           <div class="col-md-4">
             <label>System earthing:</label>
-            <select class="form-control">
-              <option selected="selected" value="TN-C">TN-C</option>
-              <option value="TN-C-S">TN-C-S</option>
-              <option value="TN-S">TN-S</option>
-              <option value="TT" selected>TT</option>
-              <option value="IT" selected>IT</option>
-            </select>
+            <select class="form-control" [(ngModel)]="supplycharesteristic.mainSystemEarthing">
+              <option value="0" selected>Select option</option>
+              <option *ngFor="let value of systemEarthingList"> {{value}}</option>
+               </select>
           </div>
           </div>
          <mat-form-field class="client-description ">
@@ -1393,7 +1390,7 @@
                 </form>
                 <br>
                 <div>
-                  <table border="1">
+                  <table  border="1">
                   
                   <thead> 
                       <tr align="center "  style="width: max-content;">
@@ -1505,30 +1502,23 @@
                 <div class="row">
                   <div class="col-md-4">
                     <label>Means of earthing :</label>
-                    <select class="form-control">
-                      <option selected="selected" value="Suppliers facility">Suppliers facility</option>
-                      <option value="Installation earth electrode"> Installation earth electrode</option>
+                    <select class="form-control" [(ngModel)]="supplycharesteristic.meansEarthing">
+                      <option value="0" selected>Select option</option>
+                      <option *ngFor="let value of MeansofEarthingList"> {{value}}</option>
                     </select>
-              
                   </div>
                   <div class="col-md-4">
-              
                     <label>Type of earth electrode :</label>
-                    <select class="form-control">
-                      <option selected="selected" value="Vertical">Vertical</option>
-                      <option value="Horizontal"> Horizontal</option>
-                      <option value="Combined vertical + horizontal">Combined vertical + horizontal</option>
+                    <select class="form-control" [(ngModel)]="supplycharesteristic.electrodeType ">
+                      <option value="0" selected>Select option</option>
+                      <option *ngFor="let value of  electrodeTypeList"> {{value}}</option>
                     </select>
-              
                   </div>
                   <div class="col-md-4">
                     <label>Material of earth electrode:</label>
-                    <select class="form-control">
-                      <option selected="selected" value="Copper">Copper</option>
-                      <option value="Copper bonded steel">Copper bonded steel</option>
-                      <option value="Galvanised steel">Galvanised steel</option>
-                      <option value="Combination">Combination</option>
-                      <option value="Others">Others</option>
+                    <select class="form-control" [(ngModel)]="supplycharesteristic.electrodeMaterial ">
+                      <option value="0" selected>Select option</option>
+                      <option *ngFor="let value of  electrodeMaterialList"> {{value}}</option>
                     </select>
                   </div>
                 </div>
@@ -1605,9 +1595,10 @@
                       </div>
                       <div class="col-md-4">
                         <label>earthing conductor continuity and connection verified:</label>
-                        <select class="form-control">
-                          <option selected="selected" value="yes">yes </option>
-                          <option value="No"> No</option>
+                        
+                        <select class="form-control" [(ngModel)]="supplycharesteristic.earthingConductorVerify">
+                          <option value="0" selected>Select option</option>
+                          <option *ngFor="let value of  earthingConductorVerifyList"> {{value}}</option>
                         </select>
                       </div>
                     </div>
@@ -1623,9 +1614,9 @@
                     </div>
                     <div class="col-md-4">
                       <label>Main protective bonding conductor continuity and connection verified:</label>
-                      <select class="form-control">
-                        <option selected="selected" value="yes">yes </option>
-                        <option value="No"> No</option>
+                      <select class="form-control" [(ngModel)]="supplycharesteristic.bondingConductorVerify">
+                        <option value="0" selected>Select option</option>
+                        <option *ngFor="let value of bondingConductorVerifyList"> {{value}}</option>
                       </select>
                     </div>
                   </div>
@@ -1686,9 +1677,9 @@
                     </div>
                     <div class="col-md-4">
                       <label>Main Protective Conductor continuity and connection verified:</label>
-                      <select class="form-control">
-                        <option selected="selected" value="yes">yes </option>
-                        <option value="No"> No</option>
+                      <select class="form-control" [(ngModel)]="supplycharesteristic. conductorVerify  ">
+                        <option value="0" selected>Select option</option>
+                        <option *ngFor="let value of conductorVerifyList"> {{value}}</option>
                       </select>
                     </div>
                   </div>

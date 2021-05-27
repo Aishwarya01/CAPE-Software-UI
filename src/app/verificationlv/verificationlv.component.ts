@@ -23,6 +23,10 @@ import { Site } from '../model/site';
 import { SiteupdateComponent } from '../site/siteupdate/siteupdate.component';
 import { Reportdetails } from '../model/reportdetails';
 import { ReportDetailsService } from '../services/report-details.service';
+import { SupplyCharesteristicService } from '../services/supply-charesteristic.service';
+import { SupplyCharesteristic } from '../model/supplycharesteristic';
+ //import {SupplyCharesteristic} from '../model/supplycharesteristic';
+
 
 @Component({
   selector: 'app-verificationlv',
@@ -153,6 +157,7 @@ export class VerificationlvComponent implements OnInit {
   countryList: any = [];
   stateList: any = [];
   company =new Company;
+
   department = new Department;
   site = new Site;
   email: String = '';
@@ -178,17 +183,25 @@ export class VerificationlvComponent implements OnInit {
 
 
   reportDetails =new Reportdetails;
+  supplycharesteristic=new SupplyCharesteristic;
   
-
   // Second Tab dependencies
   panelOpenState = false;
   installationList: String[]= ['New installation','First verification of an existing','Addition of an existing installation','Alteration in an existing installation','Periodic verification'];
   premiseList: String[]= ['Domestic(Individual)','Domestic(Apartment)','Commercial','IT/Office','Data center','Industrial(Non Ex environment)','Industrial(Ex environment)'];
   evidenceList: String[]= ['YES', 'NO', 'Not Apparent'];
   previousRecordList: String[]= ['YES', 'NO'];
-
-
-
+  systemEarthingList: String[]= ['TN-C','TN-C-S','TN-S','IT','TT'];
+  liveConductorACList:String[]=['1-phase, 2-wire (LN)','1-phase, 3-wire (LLM)','2-phase, 3-wire (LLN)','3-phase, 3-wire (LLL)','3-phase, 4-wire (LLLN)'];
+  liveConductorDCList:String[]=['2-pole','3-pole','Others'];
+  ProtectiveDevicelist:string[]=['Fuse','MCB','MCCB','ACB'];
+  AlternatesupplyList:string[]=['yes','No'];
+  MeansofEarthingList:string[]=['Suppliers facility',' Installation earth electrode'];
+  electrodeTypeList:string[]=['Vertical','Horizontal','Combined vertical + horizontal'];
+  electrodeMaterialList:string[]=['Copper','Coppebondedr  steel','Galvanised steel','Combination','Others'];
+  conductorVerifyList:string[]=['yes','No'];
+  bondingConductorVerifyList:string[]=['yes','No'];
+  earthingConductorVerifyList:string[]=['yes','No'];
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
   // ThirdFormGroup: FormGroup;
@@ -198,6 +211,7 @@ export class VerificationlvComponent implements OnInit {
   @Output() passEntry: EventEmitter<any> = new EventEmitter();  
   formBuilder: any;
   arrDesigner!: FormArray; 
+
    constructor(private _formBuilder: FormBuilder,
     private modalService: NgbModal,
     private dialog: MatDialog,
@@ -205,6 +219,7 @@ export class VerificationlvComponent implements OnInit {
     private clientService: ClientService,
     private departmentService: DepartmentService,
     private reportDetailsService: ReportDetailsService,
+   //private supplycharesteristicService:SupplyCharesteristicService,
     private siteService: SiteService,
     private ChangeDetectorRef: ChangeDetectorRef) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
