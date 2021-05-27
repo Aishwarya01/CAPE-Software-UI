@@ -38,6 +38,7 @@ import { ClientupdateComponent } from './Company/client/clientupdate/clientupdat
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { DepartmentupdateComponent } from './department/departmentupdate/departmentupdate/departmentupdate.component';
 import { SiteupdateComponent } from './site/siteupdate/siteupdate.component';
+import { InspectionVerificationSupplyCharacteristicsComponent } from './inspection-verification-supply-characteristics/inspection-verification-supply-characteristics.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { SiteupdateComponent } from './site/siteupdate/siteupdate.component';
     ClientaddComponent,
     ClientupdateComponent,
     DepartmentupdateComponent,
-    SiteupdateComponent
+    SiteupdateComponent,
+    InspectionVerificationSupplyCharacteristicsComponent,
     
   ],
   imports: [
