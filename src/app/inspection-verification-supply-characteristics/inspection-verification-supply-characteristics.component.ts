@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Supplycharacteristics } from '../model/supplycharacteristics';
 import { SupplyCharacteristicsService } from '../services/supply-characteristics.service';
 
@@ -26,6 +27,14 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   conductorVerifyList:string[]=['yes','No'];
   bondingConductorVerifyList:string[]=['yes','No'];
   earthingConductorVerifyList:string[]=['yes','No'];
+
+  supplycharesteristicForm = new FormGroup({
+    systemEarthing: new FormControl(''),
+    liveConductor: new FormControl(''),
+    AcConductor: new FormControl(''),
+    DcConductor: new FormControl(''),
+    briefNote: new FormControl(''),
+  })
 
   constructor(private supplyCharacteristicsService: SupplyCharacteristicsService,
 
