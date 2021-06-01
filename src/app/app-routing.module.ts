@@ -11,9 +11,14 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { ProfileComponent } from './profile/profile.component';
 import { AddApplicationTypesComponent } from './add-application-types/add-application-types.component';
 import { VerificationlvComponent } from './verificationlv/verificationlv.component';
+import { LvInspectionDetailsComponent } from './lv-inspection-details/lv-inspection-details.component';
 
 const routes: Routes = [
   {path: '', redirectTo: "/login", pathMatch: 'full' },
+  // {
+  //   path: 'home',
+  //   component: LvInspectionDetailsComponent
+  // },
   {path: 'login',component:LoginComponent},
   {path: 'forgotpassword' ,component: ForgotpasswordComponent},
   {path: 'updatepassword' ,component: UpdatepasswordComponent},
