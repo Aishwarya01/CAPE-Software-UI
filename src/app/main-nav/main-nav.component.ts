@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild, ViewContainerRef,OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -16,13 +16,54 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UpdateApplicationTypesComponent } from '../update-application-types/update-application-types.component';
 import { ApplicationTypeService } from '../services/application.service';
 import { User } from '../model/user';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { relative } from '@angular/compiler-cli/src/ngtsc/file_system';
+
+import {MediaMatcher} from '@angular/cdk/layout';
+import {ChangeDetectorRef, OnDestroy} from '@angular/core';
 
 @Component({
   selector: 'app-main-nav',
+  // animations: [
+  //   trigger('openClose', [
+  //     // ...
+  //     state('open', style({
+  //       height: '100%',
+  //       opacity: 1,
+  //     })),
+  //     state('closed', style({
+  //       height: '100%',
+  //       opacity: 0.5,
+  //     })),
+  //   ]),
+  // ],
   templateUrl: './main-nav.component.html',
   styleUrls: ['./main-nav.component.css']
 })
-export class MainNavComponent {
+export class MainNavComponent implements OnInit,OnDestroy{
+  sidenavWidth:any;
+  //ngStyle: string;
+ // show:boolean = true;
+   //hide: boolean= false;
+   isExpanded: boolean = true;
+   showSubmenu: boolean = false;
+   isShowing = false;
+   showSubSubMenu: boolean = false;
+   showingh= false;
+   autosize: boolean=true;
+   screenWidth: number | undefined;
+
+   imageSrc = 'assets/img/lowVoltage.jpg';  
+
+  //  imageSrc=['assets/img/lowVoltage.jpg',
+  //  'assets/img/highVoltage.jpg',
+  //  'assets/img/riskAssessment.jpg',
+  //  'assets/img/EMC.png',
+  //  'assets/img/lowVoltage.jpg',
+  //  'assets/img/lowVoltage.jpg',
+  //  'assets/img/lowVoltage.jpg'
+  //  ];
+
 
   @ViewChild('ref', { read: ViewContainerRef })
   viewContainerRef!: ViewContainerRef;
@@ -39,18 +80,70 @@ export class MainNavComponent {
   id: number = 0;
   type: String = '';
   user = new User();
-  constructor(private breakpointObserver: BreakpointObserver,
+  style: any;
+
+  // stackblitz
+  mobileQuery: MediaQueryList;
+  private _mobileQueryListener: () => void;
+  sidenav: any;
+  width: any ;
+  snav: any;
+  mobileDisplay: boolean=false ;
+  desktopDisplay: boolean =false;
+  //isExpanded: any;
+  //isExpanded: any;
+
+
+
+  constructor(private breakpointObserver: BreakpointObserver,changeDetectorRef: ChangeDetectorRef, 
+    media: MediaMatcher,
     private loginservice: LoginserviceService,
     private router: ActivatedRoute,
     private route: Router,
     private componentFactoryResolver: ComponentFactoryResolver,
     private applicationService: ApplicationTypeService,
-    private modalService: NgbModal) {
+    private modalService: NgbModal)
+     {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
     this.retrieveApplicationTypes();
     this.displayUserFullName(this.email);
+     // set screenWidth on page load
+   this.screenWidth = window.innerWidth;
+   window.onresize = () => {
+     // set screenWidth on screen size change
+     this.screenWidth = window.innerWidth;
+   };
+   this.mobileQuery = media.matchMedia('(max-width: 600px)');
+   this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+   this.mobileQuery.addListener(this._mobileQueryListener);
   }
-
+  
+  ngOnInit() {
+    this.mobileDisplay=false;
+    this.desktopDisplay=true
+    //this.mobileQuery.removeListener(this._mobileQueryListener);
+  }
+  ngOnDestroy(): void {
+    this.mobileQuery.removeListener(this._mobileQueryListener);
+    // this.isShowing = true;
+    // this.autosize = false;
+  }
+  mouseenter() {
+    if (!this.isExpanded) {
+      this.isShowing = true;
+      //this.sidenavWidth = 4;
+      this.autosize = false;
+ // setTimeout(() => this.autosize = false, 1);
+    }
+  }
+  mouseleave() {
+    if (!this.isExpanded) {
+      this.isShowing = false;
+     //this.sidenavWidth = 4;
+     this.autosize = true;
+     //setTimeout(() => this.autosize = false, 1);
+    }
+  }
   retrieveApplicationTypes() {
     this.applicationService.retrieveApplicationTypes().subscribe(
       data => {
@@ -144,4 +237,39 @@ export class MainNavComponent {
       );
     }
   }
+  increase() {
+    this.sidenavWidth = 20;
+    console.log('increase sidenav width');
+  }
+  decrease() {
+    this.sidenavWidth = 4;
+    console.log('decrease sidenav width');
+  }
+
+
+// isLargeScreen() {
+//   const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+//   if (width > 720) {
+//       return true;
+//   } else {
+//       return false;
+//   }
+// }
+
+// toggleCollapse() {
+//   this.isExpanded = !this.isExpanded;
+//   this.width = this.isExpanded() ? '330px' : (!this.isExpanded && this.isShowing ? '330px' : '60px');
+// }
+
+toggleNav() {
+  this.mobileDisplay=true;
+     this.desktopDisplay=false
+      this.sidenav.toggle.openClose();
+      this.isShowing = false;
+     this.isExpanded = false;
+     
+ 
+}
+
+
 }

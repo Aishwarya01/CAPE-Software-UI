@@ -53,3 +53,179 @@ padding: 20px;
 .table thead th {
     vertical-align: middle !important;
 }
+.table tbody td {
+    vertical-align: middle !important;
+}
+.showInactive label{
+    margin-bottom: -17px !important;
+}
+.showInactive .mat-checkbox-label{
+font-size: 14px !important;
+}
+.showInactive .mat-checkbox-inner-container{
+    width: 14px !important;
+    height: 14px !important;
+}
+
+[class^="bi-"]::before, [class*=" bi-"]::before{
+    vertical-align: middle !important;
+}
+.fixed label{
+    margin-bottom: unset !important;
+  }
+  .delete:hover{
+    color: black !important;
+    background-color:unset !important;
+    border: none !important;;
+  }
+  .delete{
+    color: #dc3545;
+    border: none !important;
+}
+
+.mat-expansion-panel-body {
+    padding: 16px 24px 16px 24px !important;
+}
+.iconButton.mat-menu-panel{
+    min-height: unset !important;
+  }
+  
+  .iconButton.mat-menu-content:not(:empty) {
+    padding-top: unset !important;
+    padding-bottom: unset !important;
+    display: flex !important;
+  }
+  .content-wrap {
+    display: flex;
+    height: 100%;
+}
+.mat-toolbar {
+    background: #3f51b5 !important;
+    color: white !important;
+  }
+  .MenuIcons button.mat-menu-item {
+    width: unset !important;
+    padding: 0 !important;
+}
+
+
+  /* .flex-spacer {
+      flex: 1 1 auto;
+  } */
+  .mt-30{
+    margin-top: 30px;
+  }
+  .mat-list-base {
+    padding-top: 50px !important;
+}
+.mat-drawer-inner-container {
+    overflow: hidden !important;
+}
+
+.mat-drawer-content {
+  overflow: hidden !important;
+}
+/* .mat-drawer-inner-container {
+  width: 90% !important;
+}  */
+
+.mat-list-base {
+  padding-top: 65px !important;
+}
+.MenuIcons .mat-menu-item .mat-icon {
+  margin-right: 2px !important;
+  vertical-align: initial !important;
+}
+
+.mat-menu-item:hover:not([disabled]), .mat-menu-item.cdk-program-focused:not([disabled]), 
+.mat-menu-item.cdk-keyboard-focused:not([disabled]), .mat-menu-item-highlighted:not([disabled]) {
+  background: unset !important;
+}
+
+
+.mat-list-option:hover, .mat-list-option:focus, .mat-nav-list .mat-list-item:hover, 
+.mat-nav-list .mat-list-item:focus, .mat-action-list .mat-list-item:hover, .mat-action-list .mat-list-item:focus
+{
+  background: unset !important;
+
+}
+
+.mat-focus-indicator .mat-menu-item{
+  background: unset !important;
+
+}
+
+.mat-list-base .mat-list-item .mat-list-icon, .mat-list-base .mat-list-option .mat-list-icon{
+  padding: 0 !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.example-is-mobile .example-toolbar {
+  position: fixed;
+  /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+  z-index: 2;
+}
+
+h1.example-app-name {
+  margin-left: 8px;
+}
+
+.example-sidenav-container {
+  /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+     causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+  flex: 1;
+}
+
+.example-is-mobile .example-sidenav-container {
+  /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
+     `<body>` to be our scrolling element for mobile layouts. */
+  flex: 1 0 auto;
+}
+.desktopDisplay{
+  visibility: visible;
+}
+.mobileDisplay{
+visibility: hidden;
+}
+
+@media (max-width: 768px){
+
+  .desktopDisplay{
+    visibility: hidden;
+  }
+  .mobileDisplay{
+visibility: visible;
+  }
+}
