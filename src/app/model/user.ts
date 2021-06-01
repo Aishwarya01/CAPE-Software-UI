@@ -9,6 +9,7 @@ export class User {
     password: String = '';  
     active: boolean = false;
     role: String = '';
+    authorisedUser: String = '';
  
     constructor () {
     }
