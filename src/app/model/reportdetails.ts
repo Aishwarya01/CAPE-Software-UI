@@ -19,6 +19,7 @@ export class Reportdetails {
     verifedEngineer: String;
     designation: String;
     company: String;
+    confirmExtent: String;
     createdBy: String;
     createdDate: Date;
     updatedBy: String;

@@ -38,6 +38,9 @@ import { ClientupdateComponent } from './Company/client/clientupdate/clientupdat
 import { DepartmentupdateComponent } from './department/departmentupdate/departmentupdate/departmentupdate.component';
 import { SiteupdateComponent } from './site/siteupdate/siteupdate.component';
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
+import { InspectionVerificationBasicInformationComponent } from './inspection-verification-basic-information/inspection-verification-basic-information.component';
+import { InspectionVerificationIncomingEquipmentComponent } from './inspection-verification-incoming-equipment/inspection-verification-incoming-equipment.component';
+//import { InspectionVerificationComponent } from './inspection-verification/inspection-verification.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +65,10 @@ import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
     ClientaddComponent,
     ClientupdateComponent,
     DepartmentupdateComponent,
-    SiteupdateComponent
+    SiteupdateComponent,
+    InspectionVerificationBasicInformationComponent,
+    InspectionVerificationIncomingEquipmentComponent,
+    //InspectionVerificationComponent
     
   ],
   imports: [
