@@ -69,18 +69,21 @@ class="example-container"
     </div>
     <mat-nav-list>
       <mat-list-item *ngFor="let type of applicationTypes" class="row">
-        <div class="col-md-1" style="position: relative;
-        right: 4%;">
-          <img [src]="imageSrc" style="width: 45px;height: 60px;"/>  
-        <!-- <button class="btn btn-info" style="padding: 7px 10px 0px 10px;width: 24px;
-        height: 24px;">
-        </button> -->
+        <div class="col-md-1" style="position: sticky;">
+          <!-- <img [src]="imageSrc" style="width: 45px;height: 60px;"/>   -->
+       
+        <button class="btn btn-info" 
+        style="float: left;padding: 3px 7px 3px 7px;
+        margin: 5px 4px 5px -4px;">
+        <span>LV</span>        
+        </button>
         </div>
-        <div class="logomain col-md-9" [routerLink]="['/home']">
-          <span *ngIf="isExpanded || isShowing" routerLinkActive="active" (click)="showLinkDescription(type.id)" title="Info">{{ type.type }}</span>
-        </div>
+        <a class="logomain col-md-9" [routerLink]="['/home']">
+          <span *ngIf="isExpanded || isShowing" style="margin-left: 8px;"
+          (click)="showLinkDescription(type.id)" title="Info">{{ type.type }}</span>
+        </a>
 
-      <div class="MenuIcons col-md-3" style="display: flex;margin-top: 15px;">
+      <div class="MenuIcons col-md-3" style="display: flex;">
         <button mat-menu-item (click)="editApplicationType(type.id, type.type)" style="height: 30px;"
         class="full-width" *ngIf="isExpanded || isShowing" title="Edit">
           <mat-icon>edit</mat-icon>

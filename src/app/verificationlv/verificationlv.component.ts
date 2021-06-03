@@ -24,6 +24,10 @@ import { SiteupdateComponent } from '../site/siteupdate/siteupdate.component';
 import { Reportdetails } from '../model/reportdetails';
 import { ReportDetailsService } from '../services/report-details.service';
 
+import { InspectiondetailsService } from '../services/inspectiondetails.service';
+import { InspectionDetails } from '../model/inspection-details';
+
+
 @Component({
   selector: 'app-verificationlv',
   templateUrl: './verificationlv.component.html',
@@ -173,7 +177,7 @@ export class VerificationlvComponent implements OnInit {
 
 
 
-
+  inspectionDetails =new InspectionDetails;
 
   reportDetails =new Reportdetails;
   
@@ -184,6 +188,9 @@ export class VerificationlvComponent implements OnInit {
   premiseList: String[]= ['Domestic(Individual)','Domestic(Apartment)','Commercial','IT/Office','Data center','Industrial(Non Ex environment)','Industrial(Ex environment)'];
   evidenceList: String[]= ['YES', 'NO', 'Not Apparent'];
   previousRecordList: String[]= ['YES', 'NO'];
+
+//step 3
+  InspectionList: String[]= ['Yes', 'No', 'Not Applicable'];
 
 
 
@@ -196,6 +203,7 @@ export class VerificationlvComponent implements OnInit {
   @Output() passEntry: EventEmitter<any> = new EventEmitter();  
   formBuilder: any;
   arrDesigner!: FormArray; 
+  inspectionDetailsService: any;
    constructor(private _formBuilder: FormBuilder,
     private modalService: NgbModal,
     private dialog: MatDialog,
@@ -612,6 +620,19 @@ deleteDepartment(departmentId: number) {
       }
       )
   }
+
+  nextTab3()
+  {
+  console.log(this.inspectionDetails);
+  this.inspectionDetailsService.addInspectionDetails(this.inspectionDetails).subscribe(
+    (    data: any)=> {
+      console.log("worked");
+    },
+    (    error: any) => {
+    }
+    )
+  }
+ 
 
 }
 

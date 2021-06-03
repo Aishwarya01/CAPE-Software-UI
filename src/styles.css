@@ -229,3 +229,13 @@ visibility: hidden;
 visibility: visible;
   }
 }
+.equipment .form-control{
+  margin: -7px 10px -7px 10px;
+  width: 85% !important;
+}
+.equipment{
+  display: flex;
+}
+/* .active-list-item {
+  color: #3F51B5 !important;
+} */

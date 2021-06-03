@@ -92,6 +92,7 @@
 .example-container {
   /* height: 240vh; */
   min-height: 100%;
+  display: block !important;
 }
 .example-sidenav-content {
   /* display: flex; */

@@ -18,7 +18,7 @@ import { ApplicationTypeService } from '../services/application.service';
 import { User } from '../model/user';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { relative } from '@angular/compiler-cli/src/ngtsc/file_system';
-
+import {MatTabChangeEvent} from '@angular/material/tabs';
 import {MediaMatcher} from '@angular/cdk/layout';
 import {ChangeDetectorRef, OnDestroy} from '@angular/core';
 
@@ -52,18 +52,9 @@ export class MainNavComponent implements OnInit,OnDestroy{
    showingh= false;
    autosize: boolean=true;
    screenWidth: number | undefined;
+   activeTab = 0;
 
-   imageSrc = 'assets/img/lowVoltage.jpg';  
-
-  //  imageSrc=['assets/img/lowVoltage.jpg',
-  //  'assets/img/highVoltage.jpg',
-  //  'assets/img/riskAssessment.jpg',
-  //  'assets/img/EMC.png',
-  //  'assets/img/lowVoltage.jpg',
-  //  'assets/img/lowVoltage.jpg',
-  //  'assets/img/lowVoltage.jpg'
-  //  ];
-
+  // imageSrc = 'assets/img/lowVoltage.jpg';  
 
   @ViewChild('ref', { read: ViewContainerRef })
   viewContainerRef!: ViewContainerRef;
@@ -270,6 +261,8 @@ toggleNav() {
      
  
 }
-
+// onClick(type: ApplicationType[]) {
+//   this.applicationTypes = type;
+// }
 
 }
