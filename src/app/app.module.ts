@@ -42,6 +42,7 @@ import { InspectionVerificationBasicInformationComponent } from './inspection-ve
 import { InspectionVerificationIncomingEquipmentComponent } from './inspection-verification-incoming-equipment/inspection-verification-incoming-equipment.component';
 //import { InspectionVerificationComponent } from './inspection-verification/inspection-verification.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

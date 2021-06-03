@@ -1,80 +1,95 @@
 <h1>Update Site Information</h1>
-<form  [formGroup]="updateSiteForm">
-    
+<form [formGroup]="updateSiteForm">
+
     <div class="form-group">
         <div class="row">
             <div class="col-md-4">
                 <label>Client Name:</label>
-                <input type="text"  formControlName="clientName"  class="form-control" readonly   value="{{clientName}}" [(ngModel)]="site.clientName">
-            </div>  
+                <input type="text" formControlName="clientName" class="form-control" readonly value="{{clientName}}"
+                    [(ngModel)]="site.clientName">
+            </div>
 
             <div class="col-md-4">
                 <label>Department:</label>
-                <input type="text"  formControlName="departmentName"  class="form-control" readonly  value="{{departmentName}}" [(ngModel)]="site.departmentName">
-            </div>    
+                <input type="text" formControlName="departmentName" class="form-control" readonly
+                    value="{{departmentName}}" [(ngModel)]="site.departmentName">
+            </div>
 
             <div class="col-md-4">
-                <label>Site:</label>        
-                <input type="text"  formControlName="siteName"  class="form-control" readonly  value="{{siteName}}" [(ngModel)]="site.site" matTooltip="Info about the action">
+                <label>Site:</label>
+                <input type="text" formControlName="siteName" class="form-control" readonly value="{{siteName}}"
+                    [(ngModel)]="site.site" matTooltip="Info about the action">
             </div>
-        </div>        
+        </div>
     </div>
 
-    <mat-icon class="mousechange" (click)="addItem()" style="float:right; padding-right: 37px; padding-top: 30px;">add_box</mat-icon>
+    <mat-icon class="mousechange" (click)="addItem()" style="float:right; padding-right: 37px; padding-top: 30px;">
+        add_box</mat-icon>
 
-    <div formArrayName="arr" >
+    <div formArrayName="arr">
         <div class="form-group" *ngFor="let a of getControls(); let i = index" [formGroupName]="i">
-            <div class="row"><h2>Person Incharge Details:</h2> </div>
-        
             <div class="row">
-                
+                <h2>Person Incharge Details:</h2>
+            </div>
+
+            <div class="row">
+
                 <div class="col-md-3">
-                    <label>Person Incharge:</label>        
-                    <input type="text"  formControlName="personIncharge" class="form-control"  value="{{a.value.personIncharge}}"  placeholder="Enter Person Incharge" >
+                    <label>Person Incharge:</label>
+                    <input type="text" formControlName="personIncharge" class="form-control"
+                        value="{{a.value.personIncharge}}" placeholder="Enter Person Incharge">
                 </div>
 
                 <div class="col-md-3">
-                    <label>Designation:</label>        
-                    <input type="text"  formControlName="designation" class="form-control"  value="{{a.value.designation}}"  placeholder="Enter Designation" >
-                </div>
-    
-                <div class="col-md-3">
-                    <label>Contact No:</label>        
-                    <input type="number"  formControlName="contactNo" class="form-control"  value="{{a.value.contactNo}}"  placeholder="Enter Contact Number" >
-                </div>
-    
-                <div class="col-md-3">
-                    <label>Email:</label>        
-                    <input type="text"  formControlName="personInchargeEmail" class="form-control"  value="{{a.value.personInchargeEmail}}" placeholder="Enter Email Address" >
+                    <label>Designation:</label>
+                    <input type="text" formControlName="designation" class="form-control"
+                        value="{{a.value.designation}}" placeholder="Enter Designation">
                 </div>
 
-                <div class="col-md-3" *ngIf="false">       
-                    <input type="text"  formControlName="personId" class="form-control"  value="{{a.value.personId}}" >
+                <div class="col-md-3">
+                    <label>Contact No:</label>
+                    <input type="number" formControlName="contactNo" class="form-control" value="{{a.value.contactNo}}"
+                        placeholder="Enter Contact Number">
                 </div>
-                <div class="col-md-3" *ngIf="false">       
-                    <input type="checkbox"  formControlName="inActive" class="form-control"  value="{{a.value.inActive}}" >
-                </div>       
-                <mat-icon class="mousechange" *ngIf="getControls().length > 1" (click)="removeItem(i,a.value.personIncharge,a.value.designation,a.value.contactNo,a.value.personInchargeEmail,a.value.personId,a.value.inActive)" style="float:right; padding-left: 913px;">delete</mat-icon>
-            </div>                            
-        </div>   
+
+                <div class="col-md-3">
+                    <label>Email:</label>
+                    <input type="text" formControlName="personInchargeEmail" class="form-control"
+                        value="{{a.value.personInchargeEmail}}" placeholder="Enter Email Address">
+                </div>
+
+                <div class="col-md-3" *ngIf="false">
+                    <input type="text" formControlName="personId" class="form-control" value="{{a.value.personId}}">
+                </div>
+                <div class="col-md-3" *ngIf="false">
+                    <input type="checkbox" formControlName="inActive" class="form-control" value="{{a.value.inActive}}">
+                </div>
+                <mat-icon class="mousechange" *ngIf="getControls().length > 1"
+                    (click)="removeItem(i,a.value.personIncharge,a.value.designation,a.value.contactNo,a.value.personInchargeEmail,a.value.personId,a.value.inActive)"
+                    style="float:right; padding-left: 913px;">delete</mat-icon>
+            </div>
+        </div>
     </div>
 
 
     <div class="form-group">
         <div class="row">
             <div class="col-md-4">
-                <label>City:</label>        
-                <input type="text"  formControlName="siteLocation" class="form-control" value="{{city}}" placeholder="Enter City Name" [(ngModel)]="site.city">
+                <label>City:</label>
+                <input type="text" formControlName="siteLocation" class="form-control" value="{{city}}"
+                    placeholder="Enter City Name" [(ngModel)]="site.city">
             </div>
 
             <div class="col-md-4">
-                <label>AddressLine1:</label>        
-                <input type="text"  formControlName="AddressLine1" class="form-control" value="{{addressLine_1}}" placeholder="Enter Address Line1" [(ngModel)]="site.addressLine_1">
+                <label>AddressLine1:</label>
+                <input type="text" formControlName="AddressLine1" class="form-control" value="{{addressLine_1}}"
+                    placeholder="Enter Address Line1" [(ngModel)]="site.addressLine_1">
             </div>
 
             <div class="col-md-4">
-                <label>AddressLine2:</label>        
-                <input type="text"  formControlName="AddressLine2" class="form-control" value="{{addressLine_2}}" placeholder="Enter Address Line2" [(ngModel)]="site.addressLine_2">
+                <label>AddressLine2:</label>
+                <input type="text" formControlName="AddressLine2" class="form-control" value="{{addressLine_2}}"
+                    placeholder="Enter Address Line2" [(ngModel)]="site.addressLine_2">
             </div>
         </div>
     </div>
@@ -82,33 +97,39 @@
     <div class="form-group">
         <div class="row">
             <div class="col-md-4">
-                <label>Site Landmark:</label>        
-                <input type="text"  formControlName="siteLandmark" class="form-control" value="{{landMark}}" placeholder="Enter Landmark" [(ngModel)]="site.landMark">
+                <label>Site Landmark:</label>
+                <input type="text" formControlName="siteLandmark" class="form-control" value="{{landMark}}"
+                    placeholder="Enter Landmark" [(ngModel)]="site.landMark">
             </div>
 
             <div class="col-md-4">
-                <label>Country:</label>        
-                <input type="text"  formControlName="country" readonly class="form-control" value="{{country}}" [(ngModel)]="site.country">
+                <label>Country:</label>
+                <input type="text" formControlName="country" readonly class="form-control" value="{{country}}"
+                    [(ngModel)]="site.country">
             </div>
 
             <div class="col-md-4">
-                <label>State:</label>        
-                <input type="text"  formControlName="state" readonly class="form-control" value="{{state}}" [(ngModel)]="site.state">
+                <label>State:</label>
+                <input type="text" formControlName="state" readonly class="form-control" value="{{state}}"
+                    [(ngModel)]="site.state">
             </div>
         </div>
     </div>
 
-    <div class="form-group">    
+    <div class="form-group">
         <div class="row">
             <div class="col-md-4">
-                <label>Pincode:</label>        
-                <input type="number"  formControlName="pincode" class="form-control"  value="{{zipCode}}" [(ngModel)]="site.zipCode">
+                <label>Pincode:</label>
+                <input type="number" formControlName="pincode" class="form-control" value="{{zipCode}}"
+                    [(ngModel)]="site.zipCode">
             </div>
-        </div>   
+        </div>
     </div>
-       
+
     <div style="display: flex;justify-content: space-evenly;">
-        <button (click)="onSubmit()" type="submit" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"> Update</button>
-        <button (click)="cancel()" style="display: flex;" class="btn btn-outline-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
-    </div> 
+        <button (click)="onSubmit()" type="submit"
+            class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"> Update</button>
+        <button (click)="cancel()" style="display: flex;" class="btn btn-outline-danger cancel"><i
+                class="bi bi-x icon"></i> Cancel</button>
+    </div>
 </form>
