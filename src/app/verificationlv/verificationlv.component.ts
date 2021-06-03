@@ -22,6 +22,8 @@ import { SiteService } from '../services/site.service';
 import { Site } from '../model/site';
 import { SiteupdateComponent } from '../site/siteupdate/siteupdate.component';
 import { ReportDetailsService } from '../services/report-details.service';
+import { SupplyCharacteristicsService } from '../services/supply-characteristics.service';
+
 
 import { InspectiondetailsService } from '../services/inspectiondetails.service';
 import { InspectionDetails } from '../model/inspection-details';
@@ -63,6 +65,7 @@ export class VerificationlvComponent implements OnInit {
   countryList: any = [];
   stateList: any = [];
   company =new Company;
+
   department = new Department;
   site = new Site;
   email: String = '';
@@ -89,19 +92,13 @@ export class VerificationlvComponent implements OnInit {
 
   reportDetails =new Reportdetails;
   
-
   // Second Tab dependencies
   panelOpenState = false;
   installationList: String[]= ['New installation','First verification of an existing','Addition of an existing installation','Alteration in an existing installation','Periodic verification'];
   premiseList: String[]= ['Domestic(Individual)','Domestic(Apartment)','Commercial','IT/Office','Data center','Industrial(Non Ex environment)','Industrial(Ex environment)'];
   evidenceList: String[]= ['YES', 'NO', 'Not Apparent'];
   previousRecordList: String[]= ['YES', 'NO'];
-
-//step 3
-  InspectionList: String[]= ['Yes', 'No', 'Not Applicable'];
-
-
-
+  
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
   // ThirdFormGroup: FormGroup;
@@ -111,7 +108,6 @@ export class VerificationlvComponent implements OnInit {
   @Output() passEntry: EventEmitter<any> = new EventEmitter();  
   formBuilder: any;
   arrDesigner!: FormArray; 
-  inspectionDetailsService: any;
    constructor(private _formBuilder: FormBuilder,
     private modalService: NgbModal,
     private dialog: MatDialog,

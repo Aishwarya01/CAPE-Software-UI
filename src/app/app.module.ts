@@ -40,7 +40,7 @@ import { SiteupdateComponent } from './site/siteupdate/siteupdate.component';
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 import { InspectionVerificationBasicInformationComponent } from './inspection-verification-basic-information/inspection-verification-basic-information.component';
 import { InspectionVerificationIncomingEquipmentComponent } from './inspection-verification-incoming-equipment/inspection-verification-incoming-equipment.component';
-//import { InspectionVerificationComponent } from './inspection-verification/inspection-verification.component';
+import { InspectionVerificationSupplyCharacteristicsComponent } from './inspection-verification-supply-characteristics/inspection-verification-supply-characteristics.component';
 
 
 @NgModule({
@@ -69,7 +69,7 @@ import { InspectionVerificationIncomingEquipmentComponent } from './inspection-v
     SiteupdateComponent,
     InspectionVerificationBasicInformationComponent,
     InspectionVerificationIncomingEquipmentComponent,
-    //InspectionVerificationComponent
+    InspectionVerificationSupplyCharacteristicsComponent
     
   ],
   imports: [
