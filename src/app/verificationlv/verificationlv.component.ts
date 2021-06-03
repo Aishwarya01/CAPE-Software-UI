@@ -25,6 +25,7 @@ import { ReportDetailsService } from '../services/report-details.service';
 
 import { InspectiondetailsService } from '../services/inspectiondetails.service';
 import { InspectionDetails } from '../model/inspection-details';
+import { Reportdetails } from '../model/reportdetails';
 
 
 @Component({
