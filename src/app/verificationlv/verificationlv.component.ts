@@ -116,7 +116,8 @@ export class VerificationlvComponent implements OnInit {
     private departmentService: DepartmentService,
     private reportDetailsService: ReportDetailsService,
     private siteService: SiteService,
-    private ChangeDetectorRef: ChangeDetectorRef) {
+    private ChangeDetectorRef: ChangeDetectorRef,
+    private inspectionDetailsService: InspectiondetailsService) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
 

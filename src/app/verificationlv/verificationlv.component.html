@@ -6,13 +6,14 @@
           <ng-template matStepLabel>Company</ng-template>
           <div class="card">
             <div class="card-header">
-              <button class="btn btn-info" title="Add new client" (click)="addClient()" style="padding: 7px 10px 0px 10px;">
+              <button class="btn btn-info" title="Add new client" (click)="addClient()"
+                style="padding: 7px 10px 0px 10px;">
                 <!-- <mat-icon>add_box</mat-icon> -->
                 <mat-icon aria-hidden="false" aria-label="Example home icon">add_box</mat-icon>
               </button>
               <section class="example-section">
                 <mat-checkbox class="example-margin showInactive" formControlName="retrieveIsActive"
-                (change)="retrieveIsActiveData()" [(ngModel)]="isChecked">Show InActive</mat-checkbox>
+                  (change)="retrieveIsActiveData()" [(ngModel)]="isChecked">Show InActive</mat-checkbox>
               </section>
               <!-- <input type="checkbox" style="width: 50px; height: 20px;" formControlName="retrieveIsActive"
                 (change)="retrieveIsActiveData()" [(ngModel)]="isChecked"><label style="margin-left: -10px;">Show
@@ -30,8 +31,8 @@
                 <ng-container matColumnDef="action">
                   <th mat-header-cell *matHeaderCellDef> Action </th>
                   <td mat-cell *matCellDef="let element">
-                    <button class="btn btn-outline-danger delete" (click)="deleteClient(element.clientName)" 
-                    style="padding: 7px 10px 0px 10px;">
+                    <button class="btn btn-outline-danger delete" (click)="deleteClient(element.clientName)"
+                      style="padding: 7px 10px 0px 10px;">
                       <mat-icon aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
                     </button>
 
@@ -110,23 +111,24 @@
           <div class="card">
             <div class="card-header">
               <!-- <div class="search-bar"> -->
-                <div class="row">
-                  <div class="col-md-10">
-                      <label style="display: table-cell;
+              <div class="row">
+                <div class="col-md-10">
+                  <label style="display: table-cell;
                           width: 1px;
                           white-space: nowrap;">Client Name:</label><span style="display: table-cell; width: 80%;
                           padding: 0 4px 0 20px;"><select formControlName="clientname" class="form-control"
-                          [(ngModel)]="company.clientName" (change)="retrieveDepartmentDetails()">
-                          <option value="0" selected>Select Client Name</option>
-                          <option *ngFor="let client of clientList">{{client.clientName}}</option>
-                        </select></span>
-                  </div>
-                  <div class="col-md-2">
-                    <button class="btn btn-info" title="Add new department" (click)="addDepartment()" style="padding: 7px 10px 0px 10px;float: right;">
-                      <mat-icon aria-hidden="false" aria-label="Example home icon">add_box</mat-icon>
-                    </button>
-                  </div>
+                      [(ngModel)]="company.clientName" (change)="retrieveDepartmentDetails()">
+                      <option value="0" selected>Select Client Name</option>
+                      <option *ngFor="let client of clientList">{{client.clientName}}</option>
+                    </select></span>
                 </div>
+                <div class="col-md-2">
+                  <button class="btn btn-info" title="Add new department" (click)="addDepartment()"
+                    style="padding: 7px 10px 0px 10px;float: right;">
+                    <mat-icon aria-hidden="false" aria-label="Example home icon">add_box</mat-icon>
+                  </button>
+                </div>
+              </div>
               <!-- </div> -->
             </div>
             <div class="card-body">
@@ -206,41 +208,42 @@
         <div class="card">
           <div class="card-header">
             <!-- <div class="search-bar"> -->
-              <div class="row">
-                <div class="col-md-10">
-                  <label style="display: table-cell;
+            <div class="row">
+              <div class="col-md-10">
+                <label style="display: table-cell;
                   width: 1px;
                   white-space: nowrap;">Company Name:</label>
-                  <span class="col-md-5" style="display: table-cell; width: 1000px;
+                <span class="col-md-5" style="display: table-cell; width: 1000px;
                   padding: 0 4px 0 4px;"><select class="form-control" (change)="changeClient($event)"
-                [(ngModel)]="site.clientName">
-                <option value="0" selected>Select Company Name</option>
-                <option *ngFor="let client of clientList">{{client.clientName}}</option>
-              </select></span>
-              <!-- </div>
+                    [(ngModel)]="site.clientName">
+                    <option value="0" selected>Select Company Name</option>
+                    <option *ngFor="let client of clientList">{{client.clientName}}</option>
+                  </select></span>
+                <!-- </div>
               <div class="col-md-5"> -->
-            <label style="display: table-cell;
+                <label style="display: table-cell;
                   width: 1px;
                   white-space: nowrap;">Department Name:</label>
-                  <span class="col-md-5" style="display: table-cell; width: 1000px;
+                <span class="col-md-5" style="display: table-cell; width: 1000px;
                   padding: 0 4px 0 4px;"><select class="form-control" [(ngModel)]="site.departmentName"
-                (change)="retrieveSiteDetails()">
-                <option value="0" selected>Select Department Name</option>
-                <option *ngFor="let department of departmentList">{{department.departmentName}}</option>
-              </select></span>
-                </div>
-                <div class="col-md-2">
-                  <button class="btn btn-info" (click)="addDepartment()" style="padding: 7px 10px 0px 10px;float: right;">
-                    <mat-icon aria-hidden="false" aria-label="Example home icon">add_box</mat-icon>
-                  </button>
-                </div>
+                    (change)="retrieveSiteDetails()">
+                    <option value="0" selected>Select Department Name</option>
+                    <option *ngFor="let department of departmentList">{{department.departmentName}}</option>
+                  </select></span>
               </div>
+              <div class="col-md-2">
+                <button class="btn btn-info" (click)="addDepartment()" style="padding: 7px 10px 0px 10px;float: right;">
+                  <mat-icon aria-hidden="false" aria-label="Example home icon">add_box</mat-icon>
+                </button>
+              </div>
+            </div>
             <!-- </div> -->
           </div>
           <div class="card-body">
             <div class="col-md-12" style="margin-top:30px;">
-              
-              <table mat-table [dataSource]="site_dataSource" class="mat-elevation-z8 table" matSort #siteSort="matSort">
+
+              <table mat-table [dataSource]="site_dataSource" class="mat-elevation-z8 table" matSort
+                #siteSort="matSort">
 
                 <!--- Note that these columns can be defined in any order.
                             The actual rendered columns are set as a property on the row definition" -->
@@ -328,7 +331,7 @@
         <div style="text-align: center;margin-top: 40px;">
           <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
           <button class="next" mat-button (click)="stepper.reset()"><span class="material-icons">
-            restart_alt
+              restart_alt
             </span>
             Reset </button>
         </div>
@@ -343,9 +346,9 @@
     <mat-horizontal-stepper #stepper>
       <mat-step>
         <ng-template matStepLabel>Basic Information</ng-template>
-        
+
         <app-inspection-verification-basic-information></app-inspection-verification-basic-information>
-        
+
       </mat-step>
 
       <mat-step>
@@ -368,7 +371,7 @@
                   <mat-panel-title>
                     <h3>Incoming equipment</h3>
                   </mat-panel-title>
-    
+
                 </mat-expansion-panel-header>
                 <div class="row">
                   <div class="col-sm-12">
@@ -380,7 +383,7 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Service cut out / fuse:</label>
@@ -390,7 +393,7 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Meter tails – Distributor:</label>
@@ -400,7 +403,7 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Meter tails – Consumer:</label>
@@ -410,7 +413,7 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Metering Equipment:</label>
@@ -420,7 +423,7 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Isolator (Means to isolate the public supply system):</label>
@@ -433,13 +436,13 @@
                 </div>
 
               </mat-expansion-panel>
-    
+
               <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     <h3>Presence of adequate arrangements for parallel or switched alternative sources of supply </h3>
                   </mat-panel-title>
-          
+
                 </mat-expansion-panel-header>
                 <div class="row">
                   <div class="col-sm-12">
@@ -451,27 +454,29 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>Presence of adequate arrangements where generator to operate in parallel with the public supply system:</label>
+                      <label>Presence of adequate arrangements where generator to operate in parallel with the public
+                        supply system:</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.adequateArrangement">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>Correct connections of generator in parallel. (note: Special attention to circulating currents):</label>
+                      <label>Correct connections of generator in parallel. (note: Special attention to circulating
+                        currents):</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.connectionGenerator">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Compatibility of characteristics of means of generation:</label>
@@ -481,10 +486,10 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>Means to provide automatic disconnection of generator in the event of 
+                      <label>Means to provide automatic disconnection of generator in the event of
                         loss of public supply system or voltage or frequency deviation beyond declared values:</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.automaticDisconnectGenerator">
                         <option value="0" selected>Select option</option>
@@ -492,10 +497,10 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>Means to prevent connection of generator in the event of loss of 
+                      <label>Means to prevent connection of generator in the event of loss of
                         public supply system or voltage or frequency deviation beyond declared values:</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.preventConnectGenerator">
                         <option value="0" selected>Select option</option>
@@ -503,7 +508,7 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Means to isolate generator from the public supply system :</label>
@@ -516,7 +521,7 @@
                 </div>
 
               </mat-expansion-panel>
-    
+
               <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
@@ -533,17 +538,18 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>Presence and adequacy of energy suppliers earthing arrangement or installation earth electrode arrangement:</label>
+                      <label>Presence and adequacy of energy suppliers earthing arrangement or installation earth
+                        electrode arrangement:</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.earthElectordeArrangement">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Presence and adequacy of earthing conductor and connections:</label>
@@ -553,7 +559,7 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Accessibility of earthing conductor connections:</label>
@@ -563,17 +569,18 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>Presence and adequacy of main protective bonding conductors and connections (colour, sizes, termination, and provision of independent earthing) :</label>
+                      <label>Presence and adequacy of main protective bonding conductors and connections (colour, sizes,
+                        termination, and provision of independent earthing) :</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.aainProtectBonding">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Accessibility of all protective bonding connections:</label>
@@ -583,10 +590,11 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>Presence and adequacy of electrical earthing/bonding labels at all appropriate locations:</label>
+                      <label>Presence and adequacy of electrical earthing/bonding labels at all appropriate
+                        locations:</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.allAppropriateLocation">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
@@ -606,11 +614,12 @@
                 </div>
 
               </mat-expansion-panel>
-    
+
               <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
-                    <h3>Other methods of protection applicable to locations where automatic disconnection of supply is not employed</h3>
+                    <h3>Other methods of protection applicable to locations where automatic disconnection of supply is
+                      not employed</h3>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <h3><b>Basic and fault protection</b></h3>
@@ -643,7 +652,7 @@
                     </div>
                   </div>
                 </div>
-    
+
                 <div class="row">
                   <div class="col-sm-12">
                     <div class="form-group equipment">
@@ -669,7 +678,8 @@
                 <div class="row">
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>Insulation of live parts (conductors completely covered with durable insulating material):</label>
+                      <label>Insulation of live parts (conductors completely covered with durable insulating
+                        material):</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.insulationLiveParts">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
@@ -704,8 +714,8 @@
                       </select>
                     </div>
                   </div>
-                </div>              
-              
+                </div>
+
                 <h3><b>Fault protection</b></h3>
                 <div class="row">
                   <div class="col-sm-12">
@@ -727,8 +737,8 @@
                       </select>
                     </div>
                   </div>
-                </div> 
-                
+                </div>
+
                 <h3><b>Additional protection</b></h3>
                 <div class="row">
                   <div class="col-sm-12">
@@ -750,9 +760,9 @@
                       </select>
                     </div>
                   </div>
-                </div> 
+                </div>
               </mat-expansion-panel>
-    
+
               <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
@@ -762,14 +772,15 @@
                 <div class="row">
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>Adequacy of access and working space for items of electrical equipment including switchgear:</label>
+                      <label>Adequacy of access and working space for items of electrical equipment including
+                        switchgear:</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.accessWorking">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Security of fixing:</label>
@@ -779,7 +790,7 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Insulation of live parts not damaged during erection:</label>
@@ -798,7 +809,7 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Suitability of enclosure(s) for IP and fire ratings:</label>
@@ -808,7 +819,7 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Enclosure not damaged during installation:</label>
@@ -818,7 +829,7 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Presence and effectiveness of obstacles:</label>
@@ -847,7 +858,7 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Operation of main switches (functional checks):</label>
@@ -857,7 +868,7 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Manual operation of circuit breakers and RCD’s to prove functionally:</label>
@@ -869,7 +880,8 @@
                   </div>
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>Confirmation that integral test button / switch causes RCD’s to trip when operated (functional check):</label>
+                      <label>Confirmation that integral test button / switch causes RCD’s to trip when operated
+                        (functional check):</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.switchCausesRcd">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
@@ -886,7 +898,7 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>RCD’s provided for additional protection, where specified:</label>
@@ -896,7 +908,7 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Confirmation of over voltage protection (SPD’s) provided where specified:</label>
@@ -925,20 +937,22 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>Presence of diagrams charts or schedules at or near each distribution board where required:</label>
+                      <label>Presence of diagrams charts or schedules at or near each distribution board where
+                        required:</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.diagramsCharts">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>presence of nonstandard (mixed) cable colour warning notice near appropriate distribution board, as required:</label>
+                      <label>presence of nonstandard (mixed) cable colour warning notice near appropriate distribution
+                        board, as required:</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.nonstandardCableColour">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
@@ -957,27 +971,30 @@
 
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>Presence of alternative supply - warning notice at or near the meter position, if remote from origin:</label>
+                      <label>Presence of alternative supply - warning notice at or near the meter position, if remote
+                        from origin:</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.alSupplyOfMeter">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>Presence of alternative supply - warning notice at or near the distribution board to which alternative sources are connected:</label>
+                      <label>Presence of alternative supply - warning notice at or near the distribution board to which
+                        alternative sources are connected:</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.alSupplyDistribution">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>Presence of alternative supply - warning notice at or near all points of isolation of ALL sources of supply:</label>
+                      <label>Presence of alternative supply - warning notice at or near all points of isolation of ALL
+                        sources of supply:</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.allPointsIsolation">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
@@ -1003,17 +1020,18 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>Selection of protective devices and bases correct type and rating (no signs of unacceptable thermal damage, arcing or overheating):</label>
+                      <label>Selection of protective devices and bases correct type and rating (no signs of unacceptable
+                        thermal damage, arcing or overheating):</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.basesCorrectType">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Single pole protective devices in line conductor only:</label>
@@ -1035,17 +1053,19 @@
 
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>Protection against electromagnetic/heating effects where cables enter ferromagnetic enclosures:</label>
+                      <label>Protection against electromagnetic/heating effects where cables enter ferromagnetic
+                        enclosures:</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.electromagnetic">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>Confirmation that all conductor connections including connections to busbars are correctly located in terminals and are tight and secure:</label>
+                      <label>Confirmation that all conductor connections including connections to busbars are correctly
+                        located in terminals and are tight and secure:</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.allConductorCon">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
@@ -1054,7 +1074,7 @@
                   </div>
                 </div>
               </mat-expansion-panel>
-    
+
               <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
@@ -1071,17 +1091,18 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>Cable installation methods (including support) suitable for the location(s) and external influences (Cables correctly supported throughout):</label>
+                      <label>Cable installation methods (including support) suitable for the location(s) and external
+                        influences (Cables correctly supported throughout):</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.cableInstallation">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Examination of cables for signs of mechanical damage during installation:</label>
@@ -1100,7 +1121,7 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Non-Sheathed cables protected by enclosure in conduit, ducting or trucking:</label>
@@ -1110,7 +1131,7 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Suitability of containment systems including flexible conduit:</label>
@@ -1120,7 +1141,7 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Correct temperature rating of cable insulation:</label>
@@ -1139,17 +1160,18 @@
                       </select>
                     </div>
                   </div>
-              
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>Adequacy of conductors for current-carrying capacity with respect to type and nature of the installation:</label>
+                      <label>Adequacy of conductors for current-carrying capacity with respect to type and nature of the
+                        installation:</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.currentCarryCapacity">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Operation of main switches (functional checks):</label>
@@ -1159,7 +1181,7 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Manual operation of circuit breakers and RCD’s to prove functionally:</label>
@@ -1171,7 +1193,8 @@
                   </div>
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>Confirmation that integral test button / switch causes RCD’s to trip when operated (functional check):</label>
+                      <label>Confirmation that integral test button / switch causes RCD’s to trip when operated
+                        (functional check):</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.switchCausesRcd">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
@@ -1188,7 +1211,7 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>RCD’s provided for additional protection, where specified:</label>
@@ -1198,7 +1221,7 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Presence, adequacy, and correct termination of protective conductors:</label>
@@ -1220,27 +1243,31 @@
 
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>Wiring systems and cable installation methods/ practices with regard to the type and nature of installation and external influences:</label>
+                      <label>Wiring systems and cable installation methods/ practices with regard to the type and nature
+                        of installation and external influences:</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.wiringSystems">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>Cables concealed under floors above ceilings, in wall adequately protected against damage by contact with fixings:</label>
+                      <label>Cables concealed under floors above ceilings, in wall adequately protected against damage
+                        by contact with fixings:</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.cablesConcealUnderFloors">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>Additional protection by RCD’s having residual operating current (I∆n) not exceeding 30mA for circuits used to supply mobile equipment not exceeding 32A rating for use outdoors in all cases:</label>
+                      <label>Additional protection by RCD’s having residual operating current (I∆n) not exceeding 30mA
+                        for circuits used to supply mobile equipment not exceeding 32A rating for use outdoors in all
+                        cases:</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.operatingCurrentCircuits">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
@@ -1249,7 +1276,9 @@
                   </div>
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>Additional protection by RCD’s having residual operating current (I∆n) not exceeding 30mA for all socket outlets of rating 20A or less provided for use by ordinary persons unless exempt:</label>
+                      <label>Additional protection by RCD’s having residual operating current (I∆n) not exceeding 30mA
+                        for all socket outlets of rating 20A or less provided for use by ordinary persons unless
+                        exempt:</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.operatingCurrentSocket">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
@@ -1259,27 +1288,30 @@
 
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>Additional protection by RCD’s having residual operating current (I∆n) not exceeding 30mA for cables concealed in walls at a depth of less than 50mm:</label>
+                      <label>Additional protection by RCD’s having residual operating current (I∆n) not exceeding 30mA
+                        for cables concealed in walls at a depth of less than 50mm:</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.cablesConcDepth">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>Additional protection by RCD’s having residual operating current (I∆n) not exceeding 30mA for Cables concealed in walls / sections containing metal sections regardless of depth:</label>
+                      <label>Additional protection by RCD’s having residual operating current (I∆n) not exceeding 30mA
+                        for Cables concealed in walls / sections containing metal sections regardless of depth:</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.sectionsRegardlessDepth">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>Provision of fire barriers, sealing arrangements so as to minimize the spread of fire:</label>
+                      <label>Provision of fire barriers, sealing arrangements so as to minimize the spread of
+                        fire:</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.provisionFireBarriers">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
@@ -1305,7 +1337,7 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Condition of circuit accessories:</label>
@@ -1315,10 +1347,11 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>Cables and conductors correctly terminated, enclosed and with no undue mechanical strain:</label>
+                      <label>Cables and conductors correctly terminated, enclosed and with no undue mechanical
+                        strain:</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.conductorCorrectTerminated">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
@@ -1344,7 +1377,7 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Adequately connected at the point of entry to enclosure (glands, bushes etc.):</label>
@@ -1363,10 +1396,12 @@
                       </select>
                     </div>
                   </div>
-    
+
                   <div class="col-sm-12">
                     <div class="form-group equipment">
-                      <label>Condition of accessories including socket-outlets, switches and joint boxes (Circuit accessories not damaged, securely fixed, correctly connected, suitable for external influences):</label>
+                      <label>Condition of accessories including socket-outlets, switches and joint boxes (Circuit
+                        accessories not damaged, securely fixed, correctly connected, suitable for external
+                        influences):</label>
                       <select class="form-control" [(ngModel)]="inspectionDetails.conditionAccessories">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
@@ -1374,40 +1409,44 @@
                     </div>
                   </div>
 
-      <mat-step>
-        <ng-template matStepLabel>Step 2</ng-template>
-            <app-inspection-verification-supply-characteristics></app-inspection-verification-supply-characteristics>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </div>
+                  <mat-step>
+                    <ng-template matStepLabel>Supply Characteristics</ng-template>
+                    <app-inspection-verification-supply-characteristics>
+                    </app-inspection-verification-supply-characteristics>
+                    <div>
+                      <button mat-button matStepperPrevious>Back</button>
+                      <button mat-button matStepperNext>Next</button>
+                    </div>
 
-      </mat-step>
+                  </mat-step>
 
-          <!-- <section>
+                  <!-- <section>
             <div class="example-button-row">
               <button mat-button color="primary" type="submit" (click)="nextTab()">Next</button>
               <button mat-button color="warn" [routerLink]="['/login']">Cancel</button>
             </div>
           </section> -->
-          <div style="text-align: center;margin-top: 40px;">
-            <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
-            <button class="next" type="submit" mat-button (click)="nextTab3()">Next &raquo;</button>
-          </div>
-            <!-- <div style="display: inline;">
+                  <div style="text-align: center;margin-top: 40px;">
+                    <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
+                    <button class="next" type="submit" mat-button (click)="nextTab3()">Next &raquo;</button>
+                  </div>
+                  <!-- <div style="display: inline;">
                 <button  style="float: left;" type="submit" (click)="nextTab()" class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"><i class="bi bi-journal-arrow-up icon"></i> Submit</button>
                 <button  [routerLink]="['/login']" style="float:right;"  class="btn btn-outline-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
             </div> -->
+                </div>
           </div>
-        </div>
-        <!-- <div>
+          <!-- <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
         </div> -->
-        <div style="display: inline;">
-          <button  style="float: left;" type="submit" class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"><i class="bi bi-journal-arrow-up icon"></i> Submit</button>
-          <button  [routerLink]="['/login']" style="float:right;"  class="btn btn-outline-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
-      </div>
+          <div style="display: inline;">
+            <button style="float: left;" type="submit"
+              class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"><i
+                class="bi bi-journal-arrow-up icon"></i> Submit</button>
+            <button [routerLink]="['/login']" style="float:right;" class="btn btn-outline-danger cancel"><i
+                class="bi bi-x icon"></i> Cancel</button>
+          </div>
       </mat-step>
 
       <mat-step>
@@ -1429,8 +1468,8 @@
       </mat-step>
     </mat-horizontal-stepper>
 
-    
-    
+
+
   </mat-tab>
   <mat-tab label="Incomplete Saved Reports"></mat-tab>
   <mat-tab label="Final Reports"></mat-tab>
