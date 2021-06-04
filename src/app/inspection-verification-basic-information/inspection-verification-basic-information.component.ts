@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -18,29 +18,7 @@ import { SiteService } from '../services/site.service';
 })
 export class InspectionVerificationBasicInformationComponent implements OnInit {
 
-  step1Form = new FormGroup ({
-    clientName: new FormControl(''),
-    departmentName: new FormControl(''),
-    siteName: new FormControl(''),
-    descriptionOfReport: new FormControl(''),
-    reasonOfReport: new FormControl(''),
-    installationType: new FormControl(''),
-    descPremise: new FormControl(''),
-    showField1: new FormControl(''),
-    evidenceAlterations: new FormControl(''),
-    showField2: new FormControl(''),
-    previousRecord: new FormControl(''),
-    inspectionLast: new FormControl(''),
-    extentInstallation: new FormControl(''),
-    detailsOfClient: new FormControl(''),
-    detailsOfInstallation: new FormControl(''),
-    startingDateVerification: new FormControl(''),
-    engineerName: new FormControl(''),
-    designation: new FormControl(''),
-    companyName: new FormControl(''),
-    comfirmExtent: new FormControl(''),
-    nextInspection: new FormControl(''),
-  });
+  step1Form!: FormGroup;
   
   
   clientList: any = [];
@@ -67,6 +45,9 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   showAddButton: boolean= true;
   loading = false;
   submitted = false;
+
+  @Output() proceedNext = new EventEmitter<any>();  
+
 
   designerRole: String ='designer';
   contractorRole: String ='contractor';
@@ -442,6 +423,9 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     }
 
     this.loading = true;
+
+    this.proceedNext.emit(true);
+
     
     this.step1Form.value.designer1Arr[0].signatorRole= this.designerRole;
     this.step1Form.value.designer1Arr[0].declarationName= this.step1Form.value.designer1AcknowledgeArr[0].declarationName;

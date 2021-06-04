@@ -22,6 +22,7 @@ import { SiteService } from '../services/site.service';
 import { Site } from '../model/site';
 import { SiteupdateComponent } from '../site/siteupdate/siteupdate.component';
 import { ReportDetailsService } from '../services/report-details.service';
+import { InspectionVerificationBasicInformationComponent } from '../inspection-verification-basic-information/inspection-verification-basic-information.component';
 
 @Component({
   selector: 'app-verificationlv',
@@ -50,6 +51,9 @@ export class VerificationlvComponent implements OnInit {
   @ViewChild('sitePaginator', { static: true }) sitePaginator!: MatPaginator;
   @ViewChild('siteSort', {static: true}) siteSort!: MatSort;
 
+  @ViewChild('InspectionVerificationBasicInformationComponent') inspectionVerificationBasicInformationComponent: InspectionVerificationBasicInformationComponent;
+
+
   
   clientList: any = [];
   inActiveData: any =[];
@@ -72,8 +76,9 @@ export class VerificationlvComponent implements OnInit {
   companyCd: String = '';
   departmentCd: String = '';
   isChecked: boolean = false;
-  
 
+
+  isCompleted: boolean = false;
 
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
@@ -305,6 +310,11 @@ deleteDepartment(departmentId: number) {
 
   refresh() {
     this.ChangeDetectorRef.detectChanges();
+  }
+
+  public doSomething(next: any):void {
+    debugger
+    this.isCompleted = next;
   }
 
 }
