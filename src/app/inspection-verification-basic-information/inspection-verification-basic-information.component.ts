@@ -413,6 +413,14 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     return this.step1Form.controls;
   }
 
+  setTrue() {
+    if(this.step1Form.invalid) {
+      return;
+    }
+    
+    this.proceedNext.emit(true);
+  }
+
   nextTab() {
 
     this.submitted = true;
@@ -424,7 +432,6 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 
     this.loading = true;
 
-    this.proceedNext.emit(true);
 
     
     this.step1Form.value.designer1Arr[0].signatorRole= this.designerRole;

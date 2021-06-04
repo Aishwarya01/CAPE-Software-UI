@@ -51,7 +51,6 @@ export class VerificationlvComponent implements OnInit {
   @ViewChild('sitePaginator', { static: true }) sitePaginator!: MatPaginator;
   @ViewChild('siteSort', {static: true}) siteSort!: MatSort;
 
-  @ViewChild('InspectionVerificationBasicInformationComponent') inspectionVerificationBasicInformationComponent: InspectionVerificationBasicInformationComponent;
 
 
   
@@ -313,7 +312,6 @@ deleteDepartment(departmentId: number) {
   }
 
   public doSomething(next: any):void {
-    debugger
     this.isCompleted = next;
   }
 
