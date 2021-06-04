@@ -62,7 +62,7 @@
 
           <div class="row">
             <div class="col-md-4">
-              <mat-form-field class="client-description ">
+              <mat-form-field class="client-description " >
                 <mat-label>
                   <h3>Brief note (in case of confusion)</h3>
                 </mat-label>
@@ -149,9 +149,9 @@
           
 
           <div class="row" style="margin-top: 50px;">
+            <div class="col-sm-12">
             <h2>Incoming (supply) protective device characteristics:</h2>
             <table  class="table">
-             
               <tr>
                 <td nowrap="nowrap">Type of Over Current Protective Device</td>
                 <td> 
@@ -173,6 +173,7 @@
                </tr>
             </table>
           </div>
+          </div>
 
         </mat-expansion-panel>
       <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -184,7 +185,7 @@
           <div class="row">
             <div class="col-md-4">
               <div class="form-group">
-                <label> Availability of alternative supply:</label>
+                <label> Availability of alternate supply:</label>
                 <select class="form-control" >
                   <option value="0" selected>Select option</option>
                   <option value="YES" selected>YES</option>
@@ -193,182 +194,184 @@
               </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4 joints">
               <label>Number of alternate sources of supply:</label>        
-              <input type="number"  class="form-control"  >
+              <input type="number"  class="form-control"  (keyup)="onKeyAlernate($event)">
             </div>
 
           </div>
-
-          <h2>Alternate Form :</h2>
-          <div class="row">
-
-            <div class="col-md-4">
-              <label>Alternate supply no:</label>        
-              <input type="number"   class="form-control"  >
-            </div>
-
-            <div class="col-md-4">
-              <label>Short name of alternate supply:</label>        
-              <input type="text"  maxlength="50" class="form-control"  >
-            </div>
-
-            <div class="col-md-4">
-              <label>System earthing:</label>
-              <select class="form-control" >
-                <option value="0" selected>Select option</option>
-                <option *ngFor="let value of systemEarthingList"> {{value}}</option>
-                 </select>
-            </div>
-
-            <div class="col-md-4">
-                <label>Number and type of live conductors: </label>
-                <select class="form-control" (change)= changeCurrent2($event)>
-                  <option value="0" selected>Select option</option>
-                  <option value="AC">AC</option>
-                  <option value="DC">DC</option>
-                </select>
-            </div>
-
-            <div class="col-md-4" *ngIf="enable2AC">
-                <label>AC:</label>
-                <select class="form-control">
-                  <option value="0" selected>Select option</option>
-                  <option value="1-phase, 3-wire (LLM)">1-phase, 2-wire (LN)</option>
-                  <option value="1-phase, 3-wire (LLM)">1-phase, 3-wire (LLM)</option>
-                  <option value="2-phase, 3-wire (LLN)">2-phase, 3-wire (LLN)</option>
-                  <option value="3-phase, 3-wire (LLL)" selected>3-phase, 3-wire (LLL)</option>
-                  <option value="3-phase, 4-wire (LLLN)" selected>3-phase, 4-wire (LLLN)</option>
-                </select>
-            </div>
-
-            <div class="col-md-4" *ngIf="enable2DC">
-                <label>DC:</label>
-                <select class="form-control">
-                  <option selected="selected" value="2-pole">2-pole </option>
-                  <option value=" 3-pole"> 3-pole</option>
-                  <option value="Others">Others</option>
-                </select>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-4">
-              <mat-form-field class="client-description ">
-                <mat-label>
-                  <h3>Brief note (in case of confusion)</h3>
-                </mat-label>
-                <textarea matInput class="client-box-description"  maxlength="500" placeholder="Ex. Brief Note ..." ></textarea>
-              </mat-form-field>
-            </div>
-          </div>
-
-            <div class="row" *ngIf="table2AC">
-              <div class="col">
-                <h2>Applicable for AC:</h2>
-                <div class="table-responsive">
-                  <table  class="table"> 
-                    <thead> 
-                        <tr align="center">
-                          <th>Nature of supply parameters</th>
-                          <th>R-Y</th>
-                          <th>R-B</th>
-                          <th>Y-B</th>
-                          <th>R-N</th>
-                          <th>Y-N</th>
-                          <th>B-N</th>
-                          <th>R-PE</th>
-                          <th>Y-PE</th>
-                          <th>B-PE</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                      <td nowrap="nowrap">Nominal voltage U/U0 (V)</td>
-                      <td><input type="number"  maxlength="4"  style="width:70px"></td>
-                      <td><input type="number"  maxlength="4" style="width:70px"></td>
-                      <td><input type="number"   maxlength="4"style="width:70px"></td>
-                      <td><input type="text"  maxlength="4" style="width:70px"></td>
-                      <td><input type="text"  maxlength="4" style="width:70px"></td>
-                      <td><input type="text"  maxlength="4" style="width:70px"></td>
-                      <td><input type="text"  maxlength="4" style="width:70px"></td>
-                      <td><input type="text"  maxlength="4" style="width:70px"></td>
-                      <td><input type="text"  maxlength="4" style="width:70px"></td>
-                    </tr>
-                    <tr>
-                      <td nowrap="nowrap">Nominal Frequency f (HZ)</td>
-                      <td><input type="text"   maxlength="3" style="width:70px"></td>
-                      <td><input type="text"   maxlength="3"style="width:70px"></td>
-                      <td><input type="text"   maxlength="3" style="width:70px"></td>
-                      <td><input type="text"  maxlength="3" style="width:70px"></td>
-                      <td><input type="text"  maxlength="3" style="width:70px"></td>
-                      <td><input type="text"   maxlength="3"style="width:70px"></td>
-                      <td><input type="text"   maxlength="3"style="width:70px"></td>
-                      <td><input type="text"  maxlength="3" style="width:70px"></td>
-                      <td><input type="text"  maxlength="3" style="width:70px"></td>
-                    </tr>
-                    <tr>
-                      <td nowrap="nowrap">Prospective fault current Ipfc (kA) </td>
-                      <td><input type="text" maxlength="7"  style="width:70px"></td>
-                      <td><input type="text" maxlength="7" style="width:70px"></td>
-                      <td><input type="text"maxlength="7" style="width:70px"></td>
-                      <td><input type="text" maxlength="7" style="width:70px"></td>
-                      <td><input type="text" maxlength="7" style="width:70px"></td>
-                      <td><input type="text"  maxlength="7"style="width:70px"></td>
-                      <td><input type="text"  maxlength="7"style="width:70px"></td>
-                      <td><input type="text" maxlength="7" style="width:70px"></td>
-                      <td><input type="text" maxlength="7" style="width:70px"></td>
-                    </tr>
-                    <tr>
-                      <td nowrap="nowrap">External Loop Impedance Ze (Ω)</td>
-                      <td><input type="text" maxlength="6" style="width:70px"></td>
-                      <td><input type="text" maxlength="6" style="width:70px"></td>
-                      <td><input type="text"maxlength="6"  style="width:70px"></td>
-                      <td><input type="text"  maxlength="6" style="width:70px"></td>
-                      <td><input type="text"  maxlength="6" style="width:70px"></td>
-                      <td><input type="text"  maxlength="6" style="width:70px"></td>
-                      <td><input type="text" maxlength="6" style="width:70px"></td>
-                      <td><input type="text" maxlength="6" style="width:70px"></td>
-                      <td><input type="text" maxlength="6" style="width:70px"></td>
-                    </tr>
-                      <tr><td >Installed capacity (kVA)</td>
-                        <td colspan="9"><input type="text"  maxlength="4"  style="width: 950px"></td>
-                      </tr>
-                      <tr>
-                        <td >Actual load current (R,Y,B, N)</td>
-                        <td colspan="2"><input type="text"  style="width:206px"></td>
-                        <td colspan="2"><input type="text"  style="width:206px"></td>
-                        <td colspan="2"><input type="text"  style="width:206px"></td>
-                        <td colspan="3"><input type="text"  style="width:206px"></td>
-                      </tr>
-                    </tbody>
-                    </table>
-                </div>
-              </div>
-            </div>
-
-            <div class="row" style="margin-top: 50px;">
-              <div class="col">
-                <h2>Incoming (supply) protective device characteristics:</h2>
-                <table  class="table">
-                    
-                    <tr>
-                      <td nowrap="nowrap">Type of Over Current Protective Device</td>
-                      <td><input type="text" style="width:400px"></td>
-                    </tr>
-                    <tr>
-                        <td nowrap="nowrap">Rated current (A)</td>
-                        <td><input type="text" style="width:400px"></td>
-                    </tr>
-                    <tr>
-                      <td nowrap="nowrap">Current for disconnection with in 0.2 seconds</td>
-                      <td><input type="text" style="width:400px"></td>
-                    </tr>
-                </table>
-              </div>
-            </div>
-          
-            
+          <div *ngIf="sources">
+            <div formArrayName="alternateArr" *ngFor="let a of getLocation4Controls(); let i = index">
+             <h2>Alternate Form :</h2>
+            <div class="form-group" [formGroupName]="i">
+             <div class="row">
+             
+               <div class="col-md-4">
+                 <label>Alternate supply no:</label>        
+                 <input type="number"   class="form-control"  formControlName="supply">
+               </div>
+   
+               <div class="col-md-4">
+                 <label>Short name of alternate supply:</label>        
+                 <input type="text"  maxlength="50" class="form-control"  formControlName="short">
+               </div>
+   
+               <div class="col-md-4">
+                 <label>System earthing:</label>
+                 <select class="form-control" formControlName="earthing">
+                   <option value="0" selected>Select option</option>
+                   <option *ngFor="let value of systemEarthingList"> {{value}}</option>
+                    </select>
+               </div>
+   
+               <div class="col-md-4">
+                   <label>Number and type of live conductors: </label>
+                   <select class="form-control" (change)= changeCurrent2($event) formControlName="live">
+                     <option value="0" selected>Select option</option>
+                     <option value="AC">AC</option>
+                     <option value="DC">DC</option>
+                   </select>
+               </div>
+   
+               <div class="col-md-4" *ngIf="enable2AC">
+                   <label>AC:</label>
+                   <select class="form-control" formControlName="AC">
+                     <option value="0" selected>Select option</option>
+                     <option value="1-phase, 3-wire (LLM)">1-phase, 2-wire (LN)</option>
+                     <option value="1-phase, 3-wire (LLM)">1-phase, 3-wire (LLM)</option>
+                     <option value="2-phase, 3-wire (LLN)">2-phase, 3-wire (LLN)</option>
+                     <option value="3-phase, 3-wire (LLL)" selected>3-phase, 3-wire (LLL)</option>
+                     <option value="3-phase, 4-wire (LLLN)" selected>3-phase, 4-wire (LLLN)</option>
+                   </select>
+               </div>
+   
+               <div class="col-md-4" *ngIf="enable2DC">
+                   <label>DC:</label>
+                   <select class="form-control" formControlName="DC">
+                     <option selected="selected" value="2-pole">2-pole </option>
+                     <option value=" 3-pole"> 3-pole</option>
+                     <option value="Others">Others</option>
+                   </select>
+               </div>
+             </div>
+   </div>
+             <div class="row">
+               <div class="col-md-4">
+                 <mat-form-field class="client-description">
+                   <mat-label>
+                     <h3>Brief note (in case of confusion)</h3>
+                   </mat-label>
+                   <textarea matInput class="client-box-description" maxlength="500" placeholder="Ex. Brief Note ..." ></textarea>
+                 </mat-form-field>
+               </div>
+             </div>
+   
+               <div class="row" *ngIf="table2AC">
+                 <div class="col">
+                   <h2>Applicable for AC:</h2>
+                   <div class="table-responsive">
+                     <table  class="table"> 
+                       <thead> 
+                           <tr align="center">
+                             <th>Nature of supply parameters</th>
+                             <th>R-Y</th>
+                             <th>R-B</th>
+                             <th>Y-B</th>
+                             <th>R-N</th>
+                             <th>Y-N</th>
+                             <th>B-N</th>
+                             <th>R-PE</th>
+                             <th>Y-PE</th>
+                             <th>B-PE</th>
+                           </tr>
+                       </thead>
+                       <tbody>
+                           <tr>
+                         <td nowrap="nowrap">Nominal voltage U/U0 (V)</td>
+                         <td><input type="number"  maxlength="4"  style="width:70px"></td>
+                         <td><input type="number"  maxlength="4" style="width:70px"></td>
+                         <td><input type="number"   maxlength="4"style="width:70px"></td>
+                         <td><input type="text"  maxlength="4" style="width:70px"></td>
+                         <td><input type="text"  maxlength="4" style="width:70px"></td>
+                         <td><input type="text"  maxlength="4" style="width:70px"></td>
+                         <td><input type="text"  maxlength="4" style="width:70px"></td>
+                         <td><input type="text"  maxlength="4" style="width:70px"></td>
+                         <td><input type="text"  maxlength="4" style="width:70px"></td>
+                       </tr>
+                       <tr>
+                         <td nowrap="nowrap">Nominal Frequency f (HZ)</td>
+                         <td><input type="text"   maxlength="3" style="width:70px"></td>
+                         <td><input type="text"   maxlength="3"style="width:70px"></td>
+                         <td><input type="text"   maxlength="3" style="width:70px"></td>
+                         <td><input type="text"  maxlength="3" style="width:70px"></td>
+                         <td><input type="text"  maxlength="3" style="width:70px"></td>
+                         <td><input type="text"   maxlength="3"style="width:70px"></td>
+                         <td><input type="text"   maxlength="3"style="width:70px"></td>
+                         <td><input type="text"  maxlength="3" style="width:70px"></td>
+                         <td><input type="text"  maxlength="3" style="width:70px"></td>
+                       </tr>
+                       <tr>
+                         <td nowrap="nowrap">Prospective fault current Ipfc (kA) </td>
+                         <td><input type="text" maxlength="7"  style="width:70px"></td>
+                         <td><input type="text" maxlength="7" style="width:70px"></td>
+                         <td><input type="text"maxlength="7" style="width:70px"></td>
+                         <td><input type="text" maxlength="7" style="width:70px"></td>
+                         <td><input type="text" maxlength="7" style="width:70px"></td>
+                         <td><input type="text"  maxlength="7"style="width:70px"></td>
+                         <td><input type="text"  maxlength="7"style="width:70px"></td>
+                         <td><input type="text" maxlength="7" style="width:70px"></td>
+                         <td><input type="text" maxlength="7" style="width:70px"></td>
+                       </tr>
+                       <tr>
+                         <td nowrap="nowrap">External Loop Impedance Ze (Ω)</td>
+                         <td><input type="text" maxlength="6" style="width:70px"></td>
+                         <td><input type="text" maxlength="6" style="width:70px"></td>
+                         <td><input type="text"maxlength="6"  style="width:70px"></td>
+                         <td><input type="text"  maxlength="6" style="width:70px"></td>
+                         <td><input type="text"  maxlength="6" style="width:70px"></td>
+                         <td><input type="text"  maxlength="6" style="width:70px"></td>
+                         <td><input type="text" maxlength="6" style="width:70px"></td>
+                         <td><input type="text" maxlength="6" style="width:70px"></td>
+                         <td><input type="text" maxlength="6" style="width:70px"></td>
+                       </tr>
+                         <tr><td >Installed capacity (kVA)</td>
+                           <td colspan="9"><input type="text"  maxlength="4"  style="width: 950px"></td>
+                         </tr>
+                         <tr>
+                           <td >Actual load current (R,Y,B, N)</td>
+                           <td colspan="2"><input type="text"  style="width:206px"></td>
+                           <td colspan="2"><input type="text"  style="width:206px"></td>
+                           <td colspan="2"><input type="text"  style="width:206px"></td>
+                           <td colspan="3"><input type="text"  style="width:206px"></td>
+                         </tr>
+                       </tbody>
+                       </table>
+                   </div>
+                 </div>
+               </div>
+   
+               <div class="row" style="margin-top: 50px;">
+                 <div class="col">
+                   <h2>Incoming (supply) protective device characteristics:</h2>
+                   <table  class="table">
+                       
+                       <tr>
+                         <td nowrap="nowrap">Type of Over Current Protective Device</td>
+                         <td><input type="text" style="width:400px"></td>
+                       </tr>
+                       <tr>
+                           <td nowrap="nowrap">Rated current (A)</td>
+                           <td><input type="text" style="width:400px"></td>
+                       </tr>
+                       <tr>
+                         <td nowrap="nowrap">Current for disconnection with in 0.2 seconds</td>
+                         <td><input type="text" style="width:400px"></td>
+                       </tr>
+                   </table>
+                 </div>
+               </div>
+             </div>
+           </div>
             </mat-expansion-panel>
             <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
               <mat-expansion-panel-header>
@@ -421,17 +424,19 @@
                 </div>
 
                 <div class="col-md-4" style="margin-top: 30px">
-                  <p>Number of Locations <input type="number"  style="
+                  <p class="joints">Number of Locations <input type="number"  style="
                     width: 50px;
                     background: transparent;
                     border: none;
-                    border-bottom: 1px solid #000000;"></p>
+                    border-bottom: 1px solid #000000;" (keyup)="onKey1($event)"></p>
                 </div>
-
               </div>
+            <br>
               <div class="row">
-                <h2>Number of Locations</h2>
-                <mat-icon class="mousechange" (click)="addLocation1()" style=" padding-top: 5px;">add_box</mat-icon>
+                <div class="col-sm-12">
+                  <h2>Number of Locations</h2>
+                </div>
+                <!-- <mat-icon class="mousechange" (click)="addLocation1()" style=" padding-top: 5px;">add_box</mat-icon> -->
               </div>
               
 
@@ -492,7 +497,7 @@
 
                     <div class="col-md-4">
                       <label>Material of earthing conductor:</label>
-                      <input type="text"  class="form-control" style="margin-top: 21px">
+                      <input type="text"  class="form-control">
                     </div>
 
                     <div class="col-md-4">
@@ -541,21 +546,24 @@
                         border-bottom: 1px solid #000000;">
                       </p>
                     </div>
-
                     <div class="col-md-4" style="margin-top: 30px">
-                      <p>No of joints <input type="number"  style="
+                      <p  class="joints">No of joints 
+                        <input type="number"  style="
                         width: 50px;
                         background: transparent;
                         border: none;
-                        border-bottom: 1px solid #000000;"></p>
+                        border-bottom: 1px solid #000000;" (keyup)="onKey($event)"
+                        ></p>
                     </div>
+                    <!-- (blur)="update(box.value)" (keyup)="onKey($event)"-->
                   </div>
                 </div>
                     
                 <div class="row">
+                  <div class="col-sm-12">
                   <h2>Location Table</h2>
-                  <mat-icon class="mousechange" (click)="addLocation2()" style=" padding-top: 5px;">add_box</mat-icon>
-  
+                  <!-- <mat-icon class="mousechange" (click)="addLocation2()" style=" padding-top: 5px;">add_box</mat-icon> -->
+                </div>
                 </div>
                 
                 <div class="row">
@@ -625,18 +633,20 @@
                     </div>
   
                     <div class="col-md-4" style="margin-top: 30px">
-                      <p>No of Joints <input type="number"  style="
+                      <p class="joints">No of Joints <input type="number" style="
                         width: 50px;
                         background: transparent;
                         border: none;
-                        border-bottom: 1px solid #000000;"></p>
+                        border-bottom: 1px solid #000000;" (keyup)="onKey3($event)"></p>
                     </div>
                   </div>
                 </div>
                 
                 <div class="row">
+                  <div class="col-sm-12">
                   <h2>Location Table</h2>
-                  <mat-icon class="mousechange" (click)="addLocation3()" style=" padding-top: 5px;">add_box</mat-icon>
+                  </div>
+                  <!-- <mat-icon class="mousechange" (click)="addLocation3()" style=" padding-top: 5px;">add_box</mat-icon> -->
                 </div>
                 
                 <div class="row">
@@ -670,17 +680,17 @@
                 </div>
                 
               </mat-expansion-panel>
-                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngIf="breaker">
                   <mat-expansion-panel-header>
                     <mat-panel-title>
                       <h3>Details of main switch or circuit breaker</h3>
                     </mat-panel-title>
                   </mat-expansion-panel-header>
-              
+              <div formArrayName="alternateArr" *ngFor="let a of getLocation4Controls(); let i = index">
+                <div class="form-group" [formGroupName]="i">
                 <div class="row">
-                 
+                 <div class="col-sm-12">
                   <table cellpadding="0" cellspacing="0" border="1" style="width:10%" >
-                    
                     <tr>
                       <th nowrap="nowrap">Location:</th>
                       <td><input type="text"></td>
@@ -724,7 +734,10 @@
                       <td><input type="text" style="width:120px"> mS</td>
                     </tr>
                  </table>
+                </div>
             </div>
+            </div>
+          </div>
                
               </mat-expansion-panel>
              </mat-accordion>

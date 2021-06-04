@@ -21,7 +21,12 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   location1Arr!: FormArray;
   location2Arr!: FormArray;
   location3Arr!: FormArray;
-
+  alternateArr!: FormArray;
+  i:any;
+  delarr:any;
+  values:any;
+  value:any;
+  loclength: any;
 
 
 
@@ -46,6 +51,8 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
     // briefNote: new FormControl(''),
 
   })
+  sources: boolean=false;
+  breaker: boolean=false;
 
   constructor(private supplyCharacteristicsService: SupplyCharacteristicsService,
               private formBuilder: FormBuilder) { }
@@ -55,7 +62,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
       location1Arr: this.formBuilder.array([this.createLocation1Form()]),
       location2Arr: this.formBuilder.array([this.createLocation2Form()]),
       location3Arr: this.formBuilder.array([this.createLocation3Form()]),
-
+      alternateArr: this.formBuilder.array([this.createLocation4Form()])
     });
     }
 
@@ -85,20 +92,205 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
       })
     }
 
-    addLocation1() {
+    private createLocation4Form(): FormGroup {
+      return new FormGroup({
+        supply:new FormControl(''),
+        short:new FormControl(''),
+        earthing:new FormControl(''),
+        live:new FormControl(''),
+        AC:new FormControl(''),
+        DC:new FormControl(''),
+       // brief:new FormControl(''),
+       // Incoming:new FormControl('')
+      })
+    }
+
+    
+
+    //value = ''; addLocation2
+    onKey1(event: KeyboardEvent)    {
+      this.values = (<HTMLInputElement>event.target).value ;
+     this.value = this.values;
       this.location1Arr = this.supplycharesteristicForm.get('location1Arr') as FormArray;
-      this.location1Arr.push(this.createLocation1Form());
+        if(this.location1Arr.length==0)
+      {
+        if(this.value != "")
+            {
+       //this.value = value;
+  
+        for (this.i=1; this.i<this.value; this.i++ )
+        {
+          this.location1Arr = this.supplycharesteristicForm.get('location1Arr') as FormArray;
+          this.location1Arr.push(this.createLocation1Form());
+        }
+      }
+      }
+      else if (this.value=="")
+      {
+       this.loclength=this.location1Arr.length;
+        for (this.i=1; this.i<this.loclength; this.i++ )
+           {
+             //this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
+             this.location1Arr.removeAt(this.location1Arr.length-1);
+           }
+          // this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
+          // this.location2Arr.push(this.createLocation2Form());
+        
+     }
+         else if (this.location1Arr.length < this.value)
+         {
+          if(this.value != "")
+          {
+         this.delarr =  this.value-this.location1Arr.length;
+         for (this.i=0; this.i<this.delarr; this.i++ )
+         {
+           this.location1Arr = this.supplycharesteristicForm.get('location1Arr') as FormArray;
+           this.location1Arr.push(this.createLocation1Form());
+         }
+        }
+        }
+         else (this.location1Arr.length > this.value )
+         {
+         if(this.value != "")
+            {
+         this.delarr =  this.location1Arr.length-this.value;
+         for (this.i=0; this.i<this.delarr; this.i++ )
+         {
+           this.location1Arr = this.supplycharesteristicForm.get('location1Arr') as FormArray;
+           this.location1Arr.removeAt(this.location1Arr.length-1);
+      }
     }
+  }
+     }
 
-    addLocation2() {
+    // addLocation1() {
+    //   this.location1Arr = this.supplycharesteristicForm.get('location1Arr') as FormArray;
+    //   this.location1Arr.push(this.createLocation1Form());
+    // }
+
+    
+
+    //value = ''; addLocation2
+    onKey(event: KeyboardEvent)    {
+      this.values = (<HTMLInputElement>event.target).value ;
+     this.value = this.values;
       this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
-      this.location2Arr.push(this.createLocation2Form());
+        if(this.location2Arr.length==0)
+      {
+        if(this.value != "")
+            {
+       //this.value = value;
+  
+        for (this.i=1; this.i<this.value; this.i++ )
+        {
+          this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
+          this.location2Arr.push(this.createLocation2Form());
+        }
+      }
+      }
+      else if (this.value=="")
+      {
+       this.loclength=this.location2Arr.length;
+        for (this.i=1; this.i<this.loclength; this.i++ )
+           {
+             //this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
+             this.location2Arr.removeAt(this.location2Arr.length-1);
+           }
+          // this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
+          // this.location2Arr.push(this.createLocation2Form());
+        
+     }
+         else if (this.location2Arr.length < this.value)
+         {
+          if(this.value != "")
+          {
+         this.delarr =  this.value-this.location2Arr.length;
+         for (this.i=0; this.i<this.delarr; this.i++ )
+         {
+           this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
+           this.location2Arr.push(this.createLocation2Form());
+         }
+        }
+        }
+         else (this.location2Arr.length > this.value )
+         {
+         if(this.value != "")
+            {
+         this.delarr =  this.location2Arr.length-this.value;
+         for (this.i=0; this.i<this.delarr; this.i++ )
+         {
+           this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
+           this.location2Arr.removeAt(this.location2Arr.length-1);
+      }
     }
+  }
+    }
+  
+    // addLocation2() {
+    //   this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
+    //   this.location2Arr.push(this.createLocation2Form());
+    // }
 
-    addLocation3() {
+
+    //value = ''; addLocation3
+    onKey3(event: KeyboardEvent)    {
+      this.values = (<HTMLInputElement>event.target).value ;
+     this.value = this.values;
       this.location3Arr = this.supplycharesteristicForm.get('location3Arr') as FormArray;
-      this.location3Arr.push(this.createLocation3Form());
+        if(this.location3Arr.length==0)
+      {
+        if(this.value != "")
+            {
+       //this.value = value;
+  
+        for (this.i=1; this.i<this.value; this.i++ )
+        {
+          this.location3Arr = this.supplycharesteristicForm.get('location3Arr') as FormArray;
+          this.location3Arr.push(this.createLocation3Form());
+        }
+      }
+      }
+      else if (this.value=="")
+      {
+       this.loclength=this.location3Arr.length;
+        for (this.i=1; this.i<this.loclength; this.i++ )
+           {
+             //this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
+             this.location3Arr.removeAt(this.location3Arr.length-1);
+           }
+          // this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
+          // this.location2Arr.push(this.createLocation2Form());
+        
+     }
+         else if (this.location3Arr.length < this.value)
+         {
+          if(this.value != "")
+          {
+         this.delarr =  this.value-this.location3Arr.length;
+         for (this.i=0; this.i<this.delarr; this.i++ )
+         {
+          this.location3Arr = this.supplycharesteristicForm.get('location3Arr') as FormArray;
+          this.location3Arr.push(this.createLocation3Form());
+         }
+        }
+        }
+         else (this.location3Arr.length > this.value )
+         {
+         if(this.value != "")
+            {
+         this.delarr =  this.location3Arr.length-this.value;
+         for (this.i=0; this.i<this.delarr; this.i++ )
+         {
+           this.location3Arr = this.supplycharesteristicForm.get('location3Arr') as FormArray;
+           this.location3Arr.removeAt(this.location3Arr.length-1);
+      }
     }
+  }
+    }
+    // addLocation3() {
+    //   this.location3Arr = this.supplycharesteristicForm.get('location3Arr') as FormArray;
+    //   this.location3Arr.push(this.createLocation3Form());
+    // }
 
   getLocation1Controls(): AbstractControl[] {
     return (<FormArray> this.supplycharesteristicForm.get('location1Arr')).controls
@@ -111,7 +303,9 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   getLocation3Controls(): AbstractControl[] {
     return (<FormArray> this.supplycharesteristicForm.get('location3Arr')).controls
   }
-
+  getLocation4Controls(): AbstractControl[] {
+    return (<FormArray> this.supplycharesteristicForm.get('alternateArr')).controls
+  }
   changeCurrent(e: any) {
     let changedValue = e.target.value;
     debugger
@@ -142,5 +336,115 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
 
     }
   }
+
+  onKeyAlernate(event: KeyboardEvent)    {
+    this.values = (<HTMLInputElement>event.target).value ;
+   this.value = this.values;
+   // this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
+     
+      if(this.value != "")
+      {
+        this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
+        if(this.alternateArr.length==1){
+     //this.value = value;
+      for (this.i=1; this.i<this.value; this.i++ )
+      {
+        this.alternateArr.push(this.createLocation4Form());
+      }
+      this.sources= true;
+      this.breaker=true;
+    }
+    else{
+      for (this.i=0; this.i<this.value; this.i++ )
+      {
+        this.alternateArr.push(this.createLocation4Form());
+      }
+      this.sources= true;
+      this.breaker=true;
+    }
+    }
+    
+    else if (this.value=="")
+    {
+     this.loclength=this.alternateArr.length;
+      for (this.i=0; this.i<this.loclength; this.i++ )
+         {
+           //this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
+           this.alternateArr.removeAt(this.alternateArr.length-1);
+         }
+        // this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
+        // this.location2Arr.push(this.createLocation2Form());
+        //this.sources= false;
+        this.breaker=false;
+   }
+   //this.breaker=false;
+
+      //  else if (this.alternateArr.length < this.value)
+      //  {
+      //   if(this.value != "")
+      //   {
+      //  this.delarr =  this.value-this.alternateArr.length;
+      //  for (this.i=0; this.i<this.delarr; this.i++ )
+      //  {
+      //   this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
+      //   this.alternateArr.push(this.createLocation4Form());
+      //  }
+      //    }
+      // }
+      //  else if (this.alternateArr.length > this.value)
+      //  {
+      //  if(this.value != "")
+      //     {
+      //  this.delarr =  this.alternateArr.length-this.value;
+      //  for (this.i=0; this.i<this.delarr; this.i++ )
+      //  {
+      //    this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
+      //    this.alternateArr.removeAt(this.alternateArr.length-1);
+      //   }
+      //      }
+      //   }
+  }
+  // onKeyAlernate(event: KeyboardEvent)    
+  // {
+  //   this.values = (<HTMLInputElement>event.target).value ;
+  //   this.value = this.values;
+  //     if(this.value != "")
+  //         {
+  //           this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
+  //           this.sources= true;
+  //           for (this.i=1; this.i<this.value; this.i++ )
+  //           {
+  //             this.alternateArr.push(this.createLocation4Form());
+  //           }     
+  //      }
+  //   else
+  //   {
+  //     //this.sources= false;
+  //     this.loclength=this.alternateArr.length;
+  //     for (this.i=0; this.i<this.loclength; this.i++ )
+  //        {
+  //          this.alternateArr.removeAt(this.alternateArr.length-1);
+  //        }
+  //  }
+  // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
