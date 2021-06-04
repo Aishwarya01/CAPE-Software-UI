@@ -15,7 +15,8 @@ export class UpdateApplicationTypesComponent implements OnInit {
 
   updateApplicationTypeForm = new FormGroup({
     id: new FormControl(''),
-    type: new FormControl('')
+    type: new FormControl(''),
+    code: new FormControl('')
   });
   @Input()
   email: String = '';
@@ -25,6 +26,8 @@ export class UpdateApplicationTypesComponent implements OnInit {
   type: String = '';
   @Input()
   applicationType = new ApplicationType();
+  @Input()
+  code: String = '';
 
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
   constructor(private formBuilder: FormBuilder,
@@ -38,9 +41,11 @@ export class UpdateApplicationTypesComponent implements OnInit {
   ngOnInit(): void {
     this.applicationType.id = this.id
     this.applicationType.type = this.type;
+    this.applicationType.code = this.code;
     this.updateApplicationTypeForm = this.formBuilder.group({
       id: [this.applicationType.id, Validators.required],
-      type: [this.applicationType.type, Validators.required]
+      type: [this.applicationType.type, Validators.required],
+      code: [this.applicationType.code, Validators.required]
     });
   }
 
@@ -56,6 +61,7 @@ export class UpdateApplicationTypesComponent implements OnInit {
       return;
     }
     this.applicationType.type = this.updateApplicationTypeForm.value.type;
+    this.applicationType.code = this.updateApplicationTypeForm.value.code;
     this.loading = true;
     this.applicationService.updateApplicationType(this.applicationType).subscribe(
       data => {

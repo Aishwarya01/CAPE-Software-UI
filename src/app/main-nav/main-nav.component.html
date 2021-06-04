@@ -1,7 +1,4 @@
-<div
-class="example-container"
-[class.example-is-mobile]="mobileQuery.matches"
->
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
   <mat-toolbar role="toolbar" class="main-header mat-elevation-z1 sticky-header example-toolbar">
     <mat-toolbar-row>
       <button mat-button (click)="isExpanded = !isExpanded" *ngIf="desktopDisplay">
@@ -15,98 +12,70 @@ class="example-container"
         <a href="#"><img src="assets/img/Cape-logo.png"></a>
       </div>
       <div class="appName">
-      <span>Rush Safety Applications</span>
-    </div>
+        <span>Rush Safety Applications</span>
+      </div>
       <span class="spacer"></span>
       <button mat-button [matMenuTriggerFor]="menu">
         <mat-icon>person</mat-icon>{{fullName}}
-      </button>          
+      </button>
       <!-- <span class="flex-spacer"></span> -->
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="profileUpdate(email)"><mat-icon >manage_accounts</mat-icon>Profile</button>
-        <button mat-menu-item (click)="changePassword(email)"><mat-icon >build</mat-icon>Change Password</button>
-        <button  mat-menu-item (click)="logout()"><mat-icon >logout</mat-icon>Logout</button>
+        <button mat-menu-item (click)="profileUpdate(email)">
+          <mat-icon>manage_accounts</mat-icon>Profile
+        </button>
+        <button mat-menu-item (click)="changePassword(email)">
+          <mat-icon>build</mat-icon>Change Password
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>Logout
+        </button>
       </mat-menu>
     </mat-toolbar-row>
   </mat-toolbar>
-  <!-- ng-style="IfCondition1 ? checkAnotherCondition && {'color':'red'} : {'color': 'green','font-weight':'bolder'}" -->
-  <!-- ng-style="{ width: !isExpanded && isShowing ? '60px' : '250px', 'width.em': !isExpanded && isShowing ? sidenavWidth}" -->
-  <!-- [ngStyle]="!isExpanded ? isShowing && { 'width':'60px' } : { 'width':'250px' }"  -->
-  <!-- [ngStyle]="{'background-color': style1 ? 'red' : (style2 ? 'blue' : null) }" -->
-  <!-- [ngStyle]="{'width': isExpanded ? '250px' : (!isExpanded && isShowing ? '250px' : '60px') }"
-    'z-index': isExpanded ? '-1' : (!isExpanded && isShowing ? '9' : '-1') 
- -->
- <!-- [mode]="(isBarkMobile$ | async) ? 'over': 'side'"
- [opened]="sideNavOpen"
- [disableClose]="true"
- [fixedInViewport]="(isBarkMobile$ | async)"
- [fixedTopGap]="0"
- [fixedBottomGap]="0" -->
-
-	<!-- <mat-sidenav-container class="example-container" [autosize]="autosize" fxFlexFill>
-    <mat-sidenav #sidenav class="example-sidenav" [opened]="(screenWidth > 1024) ? 'true' : 'false'"
-      [mode]="(screenWidth > 1024) ? 'side' : 'over'"
-    [ngStyle]="{'width': isExpanded ? '330px' : (!isExpanded && isShowing ? '330px' : '60px')}"
-    (mouseenter)="mouseenter()" (mouseleave)="mouseleave()"> -->
-    <mat-sidenav-container class="example-container" [autosize]="autosize" fxFlexFill>
-    <mat-sidenav #sidenav 
-      [mode]="mobileQuery.matches ? 'over' : 'side'" opened="mobileQuery.matches ? 'false' : 'true'"
+  <mat-sidenav-container class="example-container" [autosize]="autosize" fxFlexFill>
+    <mat-sidenav #sidenav [mode]="mobileQuery.matches ? 'over' : 'side'" opened="mobileQuery.matches ? 'false' : 'true'"
       [ngStyle]="{'width': isExpanded ? '330px' : (!isExpanded && isShowing ? '330px' : '60px')}"
       (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
-
-    <!-- <mat-sidenav #sidenav class="example-sidenav" [opened]="(screenWidth > 1024) ? 'true' : 'false'"
-        [mode]="(screenWidth > 1024) ? 'side' : 'over'"
-      [ngStyle]="{'width': isExpanded ? '330px' : (!isExpanded && isShowing ? '330px' : '60px')}"
-      (mouseenter)="mouseenter()" (mouseleave)="mouseleave()"> -->
-
-   <div class="logomain" style="margin-top: 35px;">
-      <button class="btn btn-info" (click)="openModal()" 
-      style="float: left;padding: 7px 10px 0px 10px;margin: 5px 10px 5px 7px;">
-       <mat-icon aria-hidden="false" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>
-      </button>
-      <span *ngIf="isExpanded || isShowing" style="margin-top: 15px;
+      <div class="logomain" style="margin-top: 35px;" [hidden]="displayIconsBasedOnEmail()">
+        <button class="btn btn-info" (click)="openModal()"
+          style="float: left;padding: 7px 10px 0px 10px;margin: 5px 10px 5px 7px;">
+          <mat-icon aria-hidden="false" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>
+        </button>
+        <span *ngIf="isExpanded || isShowing" style="margin-top: 15px;
       position: absolute;">Add New Application Type</span>
-    </div>
-    <mat-nav-list>
-      <mat-list-item *ngFor="let type of applicationTypes" class="row">
-        <div class="col-md-1" style="position: sticky;">
-          <!-- <img [src]="imageSrc" style="width: 45px;height: 60px;"/>   -->
-       
-        <button class="btn btn-info" 
-        style="float: left;padding: 3px 7px 3px 7px;
+      </div>
+      <mat-nav-list>
+        <mat-list-item *ngFor="let type of applicationTypes" class="row">
+          <div class="col-md-1" style="position: sticky;">
+            <button class="btn btn-info" style="float: left;padding: 3px 7px 3px 7px;
         margin: 5px 4px 5px -4px;">
-        <span>LV</span>        
-        </button>
-        </div>
-        <a class="logomain col-md-9" [routerLink]="['/home']">
-          <span *ngIf="isExpanded || isShowing" style="margin-left: 8px;"
-          (click)="showLinkDescription(type.id)" title="Info">{{ type.type }}</span>
-        </a>
+              <span>LV</span>
+            </button>
+          </div>
+          <a class="logomain col-md-3" [routerLink]="['/home']">
+            <span *ngIf="isExpanded || isShowing" style="margin-left: 8px;" (click)="showLinkDescription(type.id)"
+              title="Info">{{ type.code }}</span>
+          </a>
 
-      <div class="MenuIcons col-md-3" style="display: flex;">
-        <button mat-menu-item (click)="editApplicationType(type.id, type.type)" style="height: 30px;"
-        class="full-width" *ngIf="isExpanded || isShowing" title="Edit">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-menu-item (click)="deleteApplicationType(type.id)" style="height: 30px;"
-        class="full-width" *ngIf="isExpanded || isShowing" title="Delete">
-          <mat-icon>delete</mat-icon>
-        </button>   
-      </div>     
-      </mat-list-item>
-    </mat-nav-list>
-  </mat-sidenav>
+          <div class="MenuIcons col-md-3" style="display: flex;">
+            <button mat-menu-item (click)="editApplicationType(type.id, type.type, type.code)" style="height: 30px;"
+              class="full-width" *ngIf="isExpanded || isShowing" title="Edit" [hidden]="displayIconsBasedOnEmail()">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-menu-item (click)="deleteApplicationType(type.id)" style="height: 30px;" class="full-width"
+              *ngIf="isExpanded || isShowing" title="Delete"  [hidden]="displayIconsBasedOnEmail()">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-sidenav>
 
-  <mat-sidenav-content fullscreen fxFlexFill>
-    <ng-template #ref></ng-template>
- </mat-sidenav-content>
-  <!-- <div class="example-sidenav-content">
-    <ng-template #ref></ng-template>
-  </div> -->
-</mat-sidenav-container>
+    <mat-sidenav-content fullscreen fxFlexFill>
+      <ng-template #ref></ng-template>
+    </mat-sidenav-content>
+    
+  </mat-sidenav-container>
 
 
 </div>
-
-
- 
