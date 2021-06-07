@@ -29,7 +29,7 @@ import { ChangeDetectorRef, OnDestroy } from '@angular/core';
 })
 export class MainNavComponent implements OnInit, OnDestroy {
   sidenavWidth: any;
-  isExpanded: boolean = true;
+  isExpanded: boolean = false;
   showSubmenu: boolean = false;
   isShowing = false;
   showSubSubMenu: boolean = false;
@@ -65,6 +65,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   snav: any;
   mobileDisplay: boolean = false;
   desktopDisplay: boolean = false;
+  welcome: boolean = true;
   //isExpanded: any;
   //isExpanded: any;
 
@@ -159,6 +160,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
     });
   }
   showLinkDescription(id: any) {
+    this.welcome= false;
     switch (id) {
       case 1:
         this.viewContainerRef.clear();
