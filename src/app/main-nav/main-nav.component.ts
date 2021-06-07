@@ -54,6 +54,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   email: String = '';
   id: number = 0;
   type: String = '';
+  code: String = '';
   user = new User();
   style: any;
 
@@ -190,11 +191,12 @@ export class MainNavComponent implements OnInit, OnDestroy {
     }
   }
 
-  editApplicationType(id: any, type: String) {
+  editApplicationType(id: any, type: String, code: String) {
     const modalRef = this.modalService.open(UpdateApplicationTypesComponent);
     modalRef.componentInstance.email = this.email;
     modalRef.componentInstance.id = id;
     modalRef.componentInstance.type = type;
+    modalRef.componentInstance.code = code;
     modalRef.result.then((result) => {
       if (result) {
         this.retrieveApplicationTypes();
@@ -225,5 +227,9 @@ export class MainNavComponent implements OnInit, OnDestroy {
     this.sidenav.toggle.openClose();
     this.isShowing = false;
     this.isExpanded = false;
+  }
+
+  displayIconsBasedOnEmail(): boolean{
+    return !this.email.includes("@capeindia.net")
   }
 }
