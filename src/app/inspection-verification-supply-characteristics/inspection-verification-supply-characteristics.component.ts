@@ -18,15 +18,18 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   enable2AC: boolean = false;
   enable2DC: boolean = false;
   table2AC: boolean = false;
+  showAlternate: boolean = false;
   location1Arr!: FormArray;
   location2Arr!: FormArray;
   location3Arr!: FormArray;
   alternateArr!: FormArray;
+  circuitArr!: FormArray;
   i:any;
   delarr:any;
   values:any;
   value:any;
   loclength: any;
+  loc1length: any;
 
 
 
@@ -62,7 +65,8 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
       location1Arr: this.formBuilder.array([this.createLocation1Form()]),
       location2Arr: this.formBuilder.array([this.createLocation2Form()]),
       location3Arr: this.formBuilder.array([this.createLocation3Form()]),
-      alternateArr: this.formBuilder.array([this.createLocation4Form()])
+      alternateArr: this.formBuilder.array([this.createLocation4Form()]),
+      circuitArr: this.formBuilder.array([this.createCircuitForm()]),
     });
     }
 
@@ -102,6 +106,20 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
         DC:new FormControl(''),
        // brief:new FormControl(''),
        // Incoming:new FormControl('')
+      })
+    }
+
+    private createCircuitForm(): FormGroup {
+      return new FormGroup({
+        location:new FormControl(''),
+        type:new FormControl(''),
+        currentCurveType:new FormControl(''),
+        noPoles:new FormControl(''),
+        current:new FormControl(''),
+        voltage:new FormControl(''),
+        fuse:new FormControl(''),
+        residualCurrent:new FormControl(''),
+        residualTime:new FormControl('')
       })
     }
 
@@ -303,9 +321,15 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   getLocation3Controls(): AbstractControl[] {
     return (<FormArray> this.supplycharesteristicForm.get('location3Arr')).controls
   }
+
   getLocation4Controls(): AbstractControl[] {
     return (<FormArray> this.supplycharesteristicForm.get('alternateArr')).controls
   }
+
+  getCircuitControls(): AbstractControl[] {
+    return (<FormArray> this.supplycharesteristicForm.get('circuitArr')).controls
+  }
+  
   changeCurrent(e: any) {
     let changedValue = e.target.value;
     debugger
@@ -337,6 +361,13 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
     }
   }
 
+  showAlternateField(e: any) {
+    let changedValue = e.target.value;
+    if(changedValue == "YES") {
+      this.showAlternate = true;
+    }
+  }
+
   onKeyAlernate(event: KeyboardEvent)    {
     this.values = (<HTMLInputElement>event.target).value ;
    this.value = this.values;
@@ -345,11 +376,13 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
       if(this.value != "")
       {
         this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
+        this.circuitArr = this.supplycharesteristicForm.get('circuitArr') as FormArray;
         if(this.alternateArr.length==1){
      //this.value = value;
       for (this.i=1; this.i<this.value; this.i++ )
       {
         this.alternateArr.push(this.createLocation4Form());
+        this.circuitArr.push(this.createCircuitForm());
       }
       this.sources= true;
       this.breaker=true;
@@ -358,6 +391,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
       for (this.i=0; this.i<this.value; this.i++ )
       {
         this.alternateArr.push(this.createLocation4Form());
+        this.circuitArr.push(this.createCircuitForm());
       }
       this.sources= true;
       this.breaker=true;
@@ -367,11 +401,18 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
     else if (this.value=="")
     {
      this.loclength=this.alternateArr.length;
+     this.loc1length=this.circuitArr.length;
+
       for (this.i=0; this.i<this.loclength; this.i++ )
          {
            //this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
            this.alternateArr.removeAt(this.alternateArr.length-1);
          }
+      for (this.i=0; this.i<this.loc1length; this.i++ )
+        {
+          //this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
+          this.circuitArr.removeAt(this.circuitArr.length-1);
+        }
         // this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
         // this.location2Arr.push(this.createLocation2Form());
         //this.sources= false;

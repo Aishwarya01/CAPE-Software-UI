@@ -36,14 +36,16 @@ export class Supplycharacteristics {
     earthingConductorVerify:boolean;
     earthingJointsType:string;
     earthingNoOfJoints:number;
-    createdDat:Date;
+    
 
-    Supplyparameters: Supplyparameters[];
-    Circuitbreaker:Circuitbreaker[];
-    Locationreport:Locationreport[];
+    supplyParameters: SupplyParameters[];
+    circuitBreaker: CircuitBreaker[];
+    instalLocationReport: InstallLocationReport[];
+    boundingLocationReport: BoundingLocationReport[];
+    earthingLocationReport: EarthingLocationReport[];
+
 }
-export class Supplyparameters {
-  supplyparametersId:number;
+export class SupplyParameters {
   aLSystemEarthing:string;
   aLSupplyNo:string;
   aLSupplyShortName:string;
@@ -60,12 +62,9 @@ export class Supplyparameters {
   actualLoad:string;
   ratedCurrent:string;
   currentDissconnection:string;
- 
-  
-
 }
-export class Circuitbreaker{
-  circuitBreakerId:number;
+
+export class CircuitBreaker{
   location:string;
   type:string;
   currentCurveType:string;
@@ -75,17 +74,22 @@ export class Circuitbreaker{
   fuse:string;
   residualCurrent:string;
   residualTime:string;
- 
 }
-export class Locationreport{
-
-  locationReportId:string;
-  particularInstalOrProtectiveConductor:string;
-  boundingOrEarthing:string;
+export class InstallLocationReport{
   locationNo:string;
   locationName:string;
   electrodeResistanceEarth:string;
   electrodeResistanceGird:string;
+}
+
+export class BoundingLocationReport{
+  location:string;
+  jointNo:string;
+  jointResistance:string;
+}
+
+export class EarthingLocationReport{
+  location:string;
   jointNo:string;
   jointResistance:string;
 }
