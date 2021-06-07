@@ -25,7 +25,8 @@ export class AddApplicationTypesComponent implements OnInit {
   applicationType = new ApplicationType();
   addApplicationTypeForm = new FormGroup({
     id: new FormControl(''),
-    type: new FormControl('')
+    type: new FormControl(''),
+    code: new FormControl('')
   });
   loading = false;
   submitted = false;
@@ -35,6 +36,8 @@ export class AddApplicationTypesComponent implements OnInit {
       id: ['', [
         Validators.required]],
       type: ['', [
+        Validators.required]],
+      code: ['', [
         Validators.required]]
 
     });
@@ -53,6 +56,7 @@ export class AddApplicationTypesComponent implements OnInit {
     }
     this.applicationType.type = this.addApplicationTypeForm.value.type;
     this.applicationType.id = this.addApplicationTypeForm.value.id;
+    this.applicationType.code = this.addApplicationTypeForm.value.code;
     this.loading = true;
     this.applicationService.addApplicationType(this.applicationType).subscribe(
       data => {

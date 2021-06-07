@@ -22,6 +22,7 @@ import { SiteService } from '../services/site.service';
 import { Site } from '../model/site';
 import { SiteupdateComponent } from '../site/siteupdate/siteupdate.component';
 import { ReportDetailsService } from '../services/report-details.service';
+import { InspectionVerificationBasicInformationComponent } from '../inspection-verification-basic-information/inspection-verification-basic-information.component';
 import { SupplyCharacteristicsService } from '../services/supply-characteristics.service';
 
 
@@ -57,6 +58,8 @@ export class VerificationlvComponent implements OnInit {
   @ViewChild('sitePaginator', { static: true }) sitePaginator!: MatPaginator;
   @ViewChild('siteSort', {static: true}) siteSort!: MatSort;
 
+
+
   
   clientList: any = [];
   inActiveData: any =[];
@@ -80,6 +83,10 @@ export class VerificationlvComponent implements OnInit {
   companyCd: String = '';
   departmentCd: String = '';
   isChecked: boolean = false;
+
+
+  isCompleted: boolean = false;
+
   designer1Arr!: FormArray;
   designerRole: String ='designer';
   contractorRole: String ='contractor';
@@ -332,6 +339,9 @@ deleteDepartment(departmentId: number) {
     this.ChangeDetectorRef.detectChanges();
   }
 
+  public doSomething(next: any):void {
+    this.isCompleted = next;
+  }
   nextTab3()
   {
   console.log(this.inspectionDetails);
