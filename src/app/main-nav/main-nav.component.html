@@ -77,11 +77,11 @@
         </div>
         <a class="logomain col-md-9" [routerLink]="['/home']">
           <span *ngIf="isExpanded || isShowing" style="margin-left: 8px;"
-          (click)="showLinkDescription(type.id)" title="Info">{{ type.type }}</span>
+          (click)="showLinkDescription(type.id)" title="Info">{{ type.code }}</span>
         </a>
 
       <div class="MenuIcons col-md-3" style="display: flex;">
-        <button mat-menu-item (click)="editApplicationType(type.id, type.type)" style="height: 30px;"
+        <button mat-menu-item (click)="editApplicationType(type.id, type.type, type.code)" style="height: 30px;"
         class="full-width" *ngIf="isExpanded || isShowing" title="Edit">
           <mat-icon>edit</mat-icon>
         </button>
