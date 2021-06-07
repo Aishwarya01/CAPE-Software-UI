@@ -690,14 +690,17 @@
                 <div class="form-group" [formGroupName]="i">
                 <div class="row">
                  <div class="col-sm-12">
-                  <table cellpadding="0" cellspacing="0" border="1" style="width:10%" >
+                  
+                    <div class="table-responsive">
+                  
+                      <table  class="table"   >
                     <tr>
                       <th nowrap="nowrap">Location:</th>
-                      <td><input type="text"></td>
+                      <td><input type="text"  style="width:120px" ></td>
                     </tr>
                     <tr>
                       <th nowrap="nowrap">Type</th>
-                      <select class="form-control" style="width:160px" style="height:30px" >
+                      <select class="form-control" style="width:120px" (change)="changeCurrent3($event)" >
                        <option value="0" selected>Select option</option>
                        <option value="MCB">MCB</option>
                         <option value=" ACB"> ACB</option>
@@ -707,7 +710,7 @@
                     </tr>
                     <tr>
                       <th nowrap="nowrap">No of poles</th>
-                      <td><input type="text"></td>
+                      <td><input type="text" style="width:120px"></td>
                     </tr>
                     <tr>
                       <th nowrap="nowrap">Current Rating</th>
@@ -721,7 +724,7 @@
                       <th nowrap="nowrap">Fuse Rating or Settings</th>
                       <td><input type="text" style="width:120px"> Amp</td>
                     </tr>
-                    <tr *ngIf="true">
+                    <tr  *ngIf="enableRCBO">
                       <th nowrap="nowrap">Rated residual operating Current I∆n</th>
                       <td><input type="text" style="width:120px">
                         <select style="width:20px" style="height:25px">
@@ -729,11 +732,12 @@
                         <option value="A">A</option>
                       </select></td>
                     </tr>
-                    <tr *ngIf="true">
+                    <tr  *ngIf="enableRCBO">
                       <th nowrap="nowrap">Rated residual operating time @I∆n T∆n</th>
                       <td><input type="text" style="width:120px"> mS</td>
                     </tr>
                  </table>
+                 </div>
                 </div>
             </div>
             </div>
