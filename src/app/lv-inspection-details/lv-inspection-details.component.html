@@ -4,11 +4,11 @@
     <div *ngIf="destroy">
         <app-verificationlv></app-verificationlv>
     </div>
-    <div *ngIf="!destroy" style="padding: 20px;">
+    <div *ngIf="!destroy" style="padding: 20px; background: white;">
     <button style="float: right;" type="submit"
-        class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"
+        class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
         (click)="onNavigateToQuestionaire()">Skip</button>
-    <button style="float: right;" class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn" 
+    <button style="float: right;" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" 
          printSectionId="printdiv" ngxPrint>Print</button>
     <h2>Verification of LV Systems (IEC 60364-6)</h2>
     <div id="printdiv">
@@ -97,11 +97,15 @@
                 efficient, intelligent and user-friendly application, by which the users can find out probable hazards
                 that could arise in future and do preventive measures to avoid accidents from electricity.
             </p>
+            
         </div>
+        <button style="float: right;" type="submit"
+        class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+        (click)="onNavigateToQuestionaire()">Continue
+    </button>
     </div>
-    <button style="float: right;" type="submit"
-        class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"
-        (click)="onNavigateToQuestionaire()">Continue</button>
+   
     </div>
+    
 </body>
 </html>

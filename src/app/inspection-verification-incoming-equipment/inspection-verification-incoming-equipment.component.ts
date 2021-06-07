@@ -11,6 +11,9 @@ import { DepartmentService } from '../services/department.service';
 import { ReportDetailsService } from '../services/report-details.service';
 import { SiteService } from '../services/site.service';
 
+import { InspectiondetailsService } from '../services/inspectiondetails.service';
+import { InspectionDetails } from '../model/inspection-details';
+
 @Component({
   selector: 'app-inspection-verification-incoming-equipment',
   templateUrl: './inspection-verification-incoming-equipment.component.html',
@@ -79,6 +82,8 @@ export class InspectionVerificationIncomingEquipmentComponent implements OnInit 
   contractorRole: String ='contractor';
   inspectorRole: String ='inspector';
 
+  inspectionDetails =new InspectionDetails;
+
 
   // Second Tab dependencies
   panelOpenState = false;
@@ -86,11 +91,12 @@ export class InspectionVerificationIncomingEquipmentComponent implements OnInit 
   premiseList: String[]= ['Domestic(Individual)','Domestic(Apartment)','Commercial','IT/Office','Data center','Industrial(Non Ex environment)','Industrial(Ex environment)'];
   evidenceList: String[]= ['YES', 'NO', 'Not Apparent'];
   previousRecordList: String[]= ['YES', 'NO'];
-
+  InspectionList: String[]=['YES', 'NO', 'Not Applicable'];
 
 
 
   formBuilder: any;
+  inspectionDetailsService: any;
    constructor(private _formBuilder: FormBuilder,
     private router: ActivatedRoute,
     private clientService: ClientService,
@@ -391,5 +397,15 @@ export class InspectionVerificationIncomingEquipmentComponent implements OnInit 
       }
       )
   }
-
+  nextTab3()
+  {
+  console.log(this.inspectionDetails);
+  this.inspectionDetailsService.addInspectionDetails(this.inspectionDetails).subscribe(
+    (    data: any)=> {
+      console.log("worked");
+    },
+    (    error: any) => {
+    }
+    )
+  }
 }

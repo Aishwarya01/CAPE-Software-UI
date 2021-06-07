@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild, ViewContainerRef, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -16,13 +16,29 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UpdateApplicationTypesComponent } from '../update-application-types/update-application-types.component';
 import { ApplicationTypeService } from '../services/application.service';
 import { User } from '../model/user';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { relative } from '@angular/compiler-cli/src/ngtsc/file_system';
+import { MatTabChangeEvent } from '@angular/material/tabs';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { ChangeDetectorRef, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-main-nav',
   templateUrl: './main-nav.component.html',
   styleUrls: ['./main-nav.component.css']
 })
-export class MainNavComponent {
+export class MainNavComponent implements OnInit, OnDestroy {
+  sidenavWidth: any;
+  isExpanded: boolean = true;
+  showSubmenu: boolean = false;
+  isShowing = false;
+  showSubSubMenu: boolean = false;
+  showingh = false;
+  autosize: boolean = true;
+  screenWidth: number | undefined;
+  activeTab = 0;
+
+  // imageSrc = 'assets/img/lowVoltage.jpg';  
 
   @ViewChild('ref', { read: ViewContainerRef })
   viewContainerRef!: ViewContainerRef;
@@ -39,7 +55,23 @@ export class MainNavComponent {
   id: number = 0;
   type: String = '';
   user = new User();
-  constructor(private breakpointObserver: BreakpointObserver,
+  style: any;
+
+  // stackblitz
+  mobileQuery: MediaQueryList;
+  private _mobileQueryListener: () => void;
+  sidenav: any;
+  width: any;
+  snav: any;
+  mobileDisplay: boolean = false;
+  desktopDisplay: boolean = false;
+  //isExpanded: any;
+  //isExpanded: any;
+
+
+
+  constructor(private breakpointObserver: BreakpointObserver, changeDetectorRef: ChangeDetectorRef,
+    media: MediaMatcher,
     private loginservice: LoginserviceService,
     private router: ActivatedRoute,
     private route: Router,
@@ -49,8 +81,43 @@ export class MainNavComponent {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
     this.retrieveApplicationTypes();
     this.displayUserFullName(this.email);
+    // set screenWidth on page load
+    this.screenWidth = window.innerWidth;
+    window.onresize = () => {
+      // set screenWidth on screen size change
+      this.screenWidth = window.innerWidth;
+    };
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
   }
 
+  ngOnInit() {
+    this.mobileDisplay = false;
+    this.desktopDisplay = true
+    //this.mobileQuery.removeListener(this._mobileQueryListener);
+  }
+  ngOnDestroy(): void {
+    this.mobileQuery.removeListener(this._mobileQueryListener);
+    // this.isShowing = true;
+    // this.autosize = false;
+  }
+  mouseenter() {
+    if (!this.isExpanded) {
+      this.isShowing = true;
+      //this.sidenavWidth = 4;
+      this.autosize = false;
+      // setTimeout(() => this.autosize = false, 1);
+    }
+  }
+  mouseleave() {
+    if (!this.isExpanded) {
+      this.isShowing = false;
+      //this.sidenavWidth = 4;
+      this.autosize = true;
+      //setTimeout(() => this.autosize = false, 1);
+    }
+  }
   retrieveApplicationTypes() {
     this.applicationService.retrieveApplicationTypes().subscribe(
       data => {
@@ -64,12 +131,12 @@ export class MainNavComponent {
     this.route.navigate(['login']);
   }
 
-  displayUserFullName(email: String){
+  displayUserFullName(email: String) {
     this.loginservice.retrieveUserInformation(email).subscribe(
       data => {
-       this.user = JSON.parse(data);
-        this.fullName = this.user.firstname + " "+ this.user.lastname;
-        
+        this.user = JSON.parse(data);
+        this.fullName = this.user.firstname + " " + this.user.lastname;
+
       }
     )
   }
@@ -131,21 +198,32 @@ export class MainNavComponent {
     modalRef.result.then((result) => {
       if (result) {
         this.retrieveApplicationTypes();
-       }
+      }
     });
   }
 
   deleteApplicationType(id: any) {
-    if(window.confirm('Are sure you want to delete this item ?')){
-      this.applicationService.deleteApplicationType(id).subscribe (
+    if (window.confirm('Are sure you want to delete this item ?')) {
+      this.applicationService.deleteApplicationType(id).subscribe(
         response => {
           this.retrieveApplicationTypes();
         }
       );
     }
   }
-
-  displayIconsBasedOnEmail(): boolean{
-    return !this.email.includes("@capeindia.net")
+  increase() {
+    this.sidenavWidth = 20;
+    console.log('increase sidenav width');
+  }
+  decrease() {
+    this.sidenavWidth = 4;
+    console.log('decrease sidenav width');
+  }
+  toggleNav() {
+    this.mobileDisplay = true;
+    this.desktopDisplay = false
+    this.sidenav.toggle.openClose();
+    this.isShowing = false;
+    this.isExpanded = false;
   }
 }

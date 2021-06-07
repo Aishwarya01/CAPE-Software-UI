@@ -1,0 +1,27 @@
+.client-description {
+    width: 800px;
+    height: 150px;
+  }
+  
+  .client-box-description {
+    height: 100px;
+  }
+  .previous {
+    background-color: #f1f1f1;
+    color: black;
+  }
+  .previous:hover {
+    background-color: #04AA6D;
+    color: white;
+  }
+  .next{
+    background-color: #f1f1f1;
+    color: black;
+    margin-left: 30px;
+  }
+  .next:hover{
+    background-color: #04AA6D;
+    color: white;
+    margin-left: 30px;
+  }
+  
