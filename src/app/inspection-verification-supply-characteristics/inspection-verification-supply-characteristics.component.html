@@ -186,15 +186,15 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label> Availability of alternate supply:</label>
-                <select class="form-control" (change)="showAlternateField($event)">
+                <select class="form-control" >
                   <option value="0" selected>Select option</option>
-                  <option value="YES" selected>Yes</option>
-                  <option value="NO" selected>No</option>
+                  <option value="YES" selected>YES</option>
+                  <option value="NO" selected>NO</option>
                 </select>
               </div>
             </div>
 
-            <div class="col-md-4 joints" *ngIf="showAlternate">
+            <div class="col-md-4 joints">
               <label>Number of alternate sources of supply:</label>        
               <input type="number"  class="form-control"  (keyup)="onKeyAlernate($event)">
             </div>
@@ -254,7 +254,7 @@
                    </select>
                </div>
              </div>
-          </div>
+   </div>
              <div class="row">
                <div class="col-md-4">
                  <mat-form-field class="client-description">
@@ -686,88 +686,59 @@
                       <h3>Details of main switch or circuit breaker</h3>
                     </mat-panel-title>
                   </mat-expansion-panel-header>
-              <div formArrayName="circuitArr" *ngFor="let a of getCircuitControls(); let i = index">
+              <div formArrayName="alternateArr" *ngFor="let a of getLocation4Controls(); let i = index">
                 <div class="form-group" [formGroupName]="i">
-                  <h2>Details of Circuit Breaker</h2>
-                  <div class="row">
-                    <div class="col-md-4">
-                      <label>Location:</label>
-                      <input type="text"  fromControlName="location" class="form-control"  placeholder="" >
-                    </div>
-        
-                    <div class="col-md-4">
-                      <label>Type:</label>
-                      <select class="form-control" fromControlName="type">
-                        <option value="0" selected>Select option</option>
-                        <option value="MCB">MCB</option>
+                <div class="row">
+                 <div class="col-sm-12">
+                  <table cellpadding="0" cellspacing="0" border="1" style="width:10%" >
+                    <tr>
+                      <th nowrap="nowrap">Location:</th>
+                      <td><input type="text"></td>
+                    </tr>
+                    <tr>
+                      <th nowrap="nowrap">Type</th>
+                      <select class="form-control" style="width:160px" style="height:30px" >
+                       <option value="0" selected>Select option</option>
+                       <option value="MCB">MCB</option>
                         <option value=" ACB"> ACB</option>
                         <option value="MCCB">MCCB</option>
                         <option value="RCBO">RCBO</option>
                       </select>
-                    </div>
-        
-                    <div class="col-md-4">
-                      <label>No of poles:</label>
-                      <input type="text"   class="form-control" fromControlName="noPoles"  placeholder="" >
-                    </div>
-                  </div>
-
-                  <div class="row" style="margin-top: 30px">
-                    <div class="col-md-4">
-                      <label>Current Rating:</label>
-                      <div class="input-group">
-                        <input type="text"   class="form-control" fromControlName="current" placeholder="" >
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">A</span>
-                        </div>  
-                      </div>                      
-                    </div>
-        
-                    <div class="col-md-4">
-                      <label>Voltage Rating:</label>
-                      <div class="input-group">
-                        <input type="text"   class="form-control" fromControlName="voltage"  placeholder="" >
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">V</span>
-                        </div>  
-                      </div>
-                    </div>
-        
-                    <div class="col-md-4">
-                      <label>Fuse Rating or Settings:</label>
-                      <div class="input-group">
-                        <input type="text"   class="form-control" fromControlName="fuse" placeholder="" >
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">A</span>
-                        </div>  
-                      </div>
-                    </div>
-                  </div>
-                    
-                  <div class="row" style="margin-top: 30px">
-                    <div class="col-md-4" *ngIf="true">
-                      <label>Rated residual operating Current I∆n:</label>
-                      <div class="input-group">
-                        <input type="text"   class="form-control" fromControlName="residualCurrent"  placeholder="" >
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">mA</span>
-                        </div>  
-                      </div>
-                    </div>
-        
-                    <div class="col-md-4" *ngIf="true">
-                      <label>Rated residual operating time @I∆n T∆n	:</label>
-                      <div class="input-group">
-                        <input type="text"   class="form-control" fromControlName="residualTime" placeholder="" >
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">mS</span>
-                        </div>  
-                      </div>
-                    </div>
-                  </div>
+                    </tr>
+                    <tr>
+                      <th nowrap="nowrap">No of poles</th>
+                      <td><input type="text"></td>
+                    </tr>
+                    <tr>
+                      <th nowrap="nowrap">Current Rating</th>
+                      <td><input type="text" style="width:120px">Amp</td>
+                    </tr>
+                    <tr>
+                      <th nowrap="nowrap">Voltage Rating</th>
+                      <td><input type="text" style="width:120px"> V</td>
+                    </tr>
+                    <tr>
+                      <th nowrap="nowrap">Fuse Rating or Settings</th>
+                      <td><input type="text" style="width:120px"> Amp</td>
+                    </tr>
+                    <tr *ngIf="true">
+                      <th nowrap="nowrap">Rated residual operating Current I∆n</th>
+                      <td><input type="text" style="width:120px">
+                        <select style="width:20px" style="height:25px">
+                        <option value="mA" selected>mA</option>
+                        <option value="A">A</option>
+                      </select></td>
+                    </tr>
+                    <tr *ngIf="true">
+                      <th nowrap="nowrap">Rated residual operating time @I∆n T∆n</th>
+                      <td><input type="text" style="width:120px"> mS</td>
+                    </tr>
+                 </table>
                 </div>
-              </div>
-
+            </div>
+            </div>
+          </div>
+               
               </mat-expansion-panel>
              </mat-accordion>
     </form>
