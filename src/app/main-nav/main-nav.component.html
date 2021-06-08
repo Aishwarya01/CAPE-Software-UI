@@ -75,7 +75,7 @@
         <span>LV</span>        
         </button>
         </div>
-        <a class="logomain col-md-9" [routerLink]="['/home']">
+        <a class="logomain col-md-9" >
           <span *ngIf="isExpanded || isShowing" style="margin-left: 8px;"
           (click)="showLinkDescription(type.id)" title="Info">{{ type.code }}</span>
         </a>
