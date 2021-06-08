@@ -75,9 +75,9 @@
         <span>LV</span>        
         </button>
         </div>
-        <a class="logomain col-md-9" >
+        <a class="logomain col-md-9">
           <span *ngIf="isExpanded || isShowing" style="margin-left: 8px;"
-          (click)="showLinkDescription(type.id)" title="Info">{{ type.code }}</span>
+          (click)="showLinkDescription(type.id)" title="{{type.type}}">{{ type.code }}</span>
         </a>
 
       <div class="MenuIcons col-md-3" style="display: flex;">

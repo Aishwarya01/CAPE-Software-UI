@@ -46,7 +46,7 @@
                             <i class="bi bi-envelope-fill"></i>
                         </span>
                     </div>
-                   <input type="type" formControlName="code" required class="form-control" placeholder="Enter your Application Code" maxlength="4" 
+                   <input type="type" formControlName="code" required class="form-control" placeholder="Enter your Application Code" maxlength="20" 
                     [ngClass]="{ 'is-invalid': submitted && f.type.errors }" [(ngModel)]="applicationType.code"/> 
                     <div *ngIf="submitted && f.type.errors" class="invalid-feedback">
                         <div *ngIf="f.type.errors.required">Code is required</div>
