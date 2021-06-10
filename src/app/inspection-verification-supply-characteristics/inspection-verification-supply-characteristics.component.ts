@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Supplycharacteristics } from '../model/supplycharacteristics';
 import { SupplyCharacteristicsService } from '../services/supply-characteristics.service';
 
@@ -18,15 +18,18 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   enable2AC: boolean = false;
   enable2DC: boolean = false;
   table2AC: boolean = false;
+  showAlternate: boolean = false;
   location1Arr!: FormArray;
   location2Arr!: FormArray;
   location3Arr!: FormArray;
   alternateArr!: FormArray;
+  circuitArr!: FormArray;
   i:any;
   delarr:any;
   values:any;
   value:any;
   loclength: any;
+  loc1length: any;
 
 
 
@@ -59,20 +62,50 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
 
   ngOnInit(): void {
     this.supplycharesteristicForm = this.formBuilder.group({
+      systemEarthing: ['', Validators.required],
+      liveConductor: ['', Validators.required],
+      AcConductor: ['', Validators.required],
+      DcConductor: ['', Validators.required],
+      briefNote: ['', Validators.required],
+      liveConductorBNote: ['',Validators.required],
+
+      alternativeSupply: ['',Validators.required],
+      supplyNumber: ['',Validators.required],
+      maximumDemand: ['', Validators.required],
+      maximumLoad: ['', Validators.required],
+      meansEarthing: ['', Validators.required],
+      electrodeType: ['', Validators.required],
+      electrodeMaterial: ['', Validators.required],
+      noOfLocation: ['',Validators.required],
+      conductorSize: ['',Validators.required],
+      conductormaterial: ['', Validators.required],
+      conductorVerify: ['', Validators.required],
+      bondingConductorSize: ['', Validators.required],
+      bondingConductorMaterial: ['', Validators.required],
+      bondingConductorVerify: ['', Validators.required],
+      bondingJointsType: ['',Validators.required],
+      bondingNoOfJoints: ['', Validators.required],
+      earthingConductorSize: ['', Validators.required],
+      earthingConductorMaterial: ['', Validators.required],
+      earthingConductorVerify: ['', Validators.required],
+      earthingJointsType: ['', Validators.required],
+      earthingNoOfJoints: ['', Validators.required],
+
       location1Arr: this.formBuilder.array([this.createLocation1Form()]),
       location2Arr: this.formBuilder.array([this.createLocation2Form()]),
       location3Arr: this.formBuilder.array([this.createLocation3Form()]),
-      alternateArr: this.formBuilder.array([this.createLocation4Form()])
+      alternateArr: this.formBuilder.array([this.createLocation4Form()]),
+      circuitArr: this.formBuilder.array([this.createCircuitForm()]),
     });
     }
 
 
     private createLocation1Form(): FormGroup {
       return new FormGroup({
-        locationNumber: new FormControl(''),
+        locationNo: new FormControl(''),
         locationName: new FormControl(''),
-        electrodeResistanceToEarth: new FormControl(''),
-        electrodeResistanceToGrid: new FormControl(''),
+        electrodeResistanceEarth: new FormControl(''),
+        electrodeResistanceGird: new FormControl(''),
       })
     }
 
@@ -100,8 +133,27 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
         live:new FormControl(''),
         AC:new FormControl(''),
         DC:new FormControl(''),
+        nominalVoltage: new FormControl(''),
+        nominalFrequency: new FormControl(''),
+        faultCurrent: new FormControl(''),
+        loopImpedance: new FormControl(''),
+        installedCapacity: new FormControl(''),
+        actualLoad: new FormControl(''),
        // brief:new FormControl(''),
        // Incoming:new FormControl('')
+      })
+    }
+
+    private createCircuitForm(): FormGroup {
+      return new FormGroup({
+        location:new FormControl(''),
+        type:new FormControl(''),
+        noPoles:new FormControl(''),
+        current:new FormControl(''),
+        voltage:new FormControl(''),
+        fuse:new FormControl(''),
+        residualCurrent:new FormControl(''),
+        residualTime:new FormControl('')
       })
     }
 
@@ -306,6 +358,11 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   getLocation4Controls(): AbstractControl[] {
     return (<FormArray> this.supplycharesteristicForm.get('alternateArr')).controls
   }
+
+  getCircuitControls(): AbstractControl[] {
+    return (<FormArray> this.supplycharesteristicForm.get('circuitArr')).controls
+  }
+
   changeCurrent(e: any) {
     let changedValue = e.target.value;
     debugger
@@ -337,6 +394,13 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
     }
   }
 
+  showAlternateField(e: any) {
+    let changedValue = e.target.value;
+    if(changedValue == "YES") {
+      this.showAlternate = true;
+    }
+  }
+
   onKeyAlernate(event: KeyboardEvent)    {
     this.values = (<HTMLInputElement>event.target).value ;
    this.value = this.values;
@@ -345,11 +409,13 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
       if(this.value != "")
       {
         this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
+        this.circuitArr = this.supplycharesteristicForm.get('circuitArr') as FormArray;
         if(this.alternateArr.length==1){
      //this.value = value;
       for (this.i=1; this.i<this.value; this.i++ )
       {
         this.alternateArr.push(this.createLocation4Form());
+        this.circuitArr.push(this.createCircuitForm());
       }
       this.sources= true;
       this.breaker=true;
@@ -358,6 +424,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
       for (this.i=0; this.i<this.value; this.i++ )
       {
         this.alternateArr.push(this.createLocation4Form());
+        this.circuitArr.push(this.createCircuitForm());
       }
       this.sources= true;
       this.breaker=true;
@@ -367,11 +434,18 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
     else if (this.value=="")
     {
      this.loclength=this.alternateArr.length;
+     this.loc1length=this.circuitArr.length;
+
       for (this.i=0; this.i<this.loclength; this.i++ )
          {
            //this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
            this.alternateArr.removeAt(this.alternateArr.length-1);
          }
+      for (this.i=0; this.i<this.loc1length; this.i++ )
+        {
+          //this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
+          this.circuitArr.removeAt(this.circuitArr.length-1);
+        }
         // this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
         // this.location2Arr.push(this.createLocation2Form());
         //this.sources= false;
@@ -404,6 +478,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
       //      }
       //   }
   }
+
   // onKeyAlernate(event: KeyboardEvent)    
   // {
   //   this.values = (<HTMLInputElement>event.target).value ;
@@ -429,7 +504,15 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   // }
 
 
-
+nextTab2() {
+  debugger
+    console.log(this.supplycharesteristicForm.value);
+    console.log(this.supplycharesteristicForm.value.circuitArr);
+    console.log(this.supplycharesteristicForm.value.location1Arr);
+    console.log(this.supplycharesteristicForm.value.location2Arr);
+    console.log(this.supplycharesteristicForm.value.location3Arr);
+    console.log(this.supplycharesteristicForm.value.alternateArr);
+}
 
 
 
