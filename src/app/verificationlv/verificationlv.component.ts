@@ -42,7 +42,6 @@ import { SummarydetailsService } from '../services/summarydetails.service';
 })
 export class VerificationlvComponent implements OnInit {
   selectedValue:any
-  newDivs: string[] = [];
   overallAssessmentInstallation: string="";
   installations: string[] = ['Satisfactory', 'Unsatisfactory'];
   
@@ -170,7 +169,7 @@ export class VerificationlvComponent implements OnInit {
   })
 
   
-
+  ObservationsArr!: FormArray;
   dataSource : any= [];  
  // newDivs: addDivisions[] = [];
   clientList: any = [];
@@ -248,7 +247,6 @@ export class VerificationlvComponent implements OnInit {
     private siteService: SiteService,
     private ChangeDetectorRef: ChangeDetectorRef) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
-    this.newDivs = [];
 
   }
 
@@ -724,13 +722,15 @@ getObservationsControls(): AbstractControl[] {
 
   SubmitTab5()
   {
-    
-    this.summary.siteId=10;
+    this.summary.siteId=3;
     this.summary.userName=this.email;
     this.summary.summaryObervation = this.addsummary.value.ObservationsArr;
     this.summary.summaryDeclaration = this.addsummary.value.Declaration1Arr;
     this.summary.summaryDeclaration=this.summary.summaryDeclaration.concat(this.addsummary.value.Declaration2Arr);
-  console.log(this.summary);
+    this.summary.summaryDeclaration[0].declarationRole="inspector";
+    this.summary.summaryDeclaration[1].declarationRole="authorizer";
+
+      console.log(this.summary);
   this.summarydetailsService.addSummary(this.summary).subscribe(
     data=>{
       console.log("worked");
@@ -744,10 +744,12 @@ getObservationsControls(): AbstractControl[] {
   }
   
   addObservations(){
- this.newDivs.push(this.newDivs[0]);
+    this.ObservationsArr = this.addsummary.get('ObservationsArr') as FormArray;
+    this.ObservationsArr.push(this.ObservationsForm());
     }
-    removeObservations(){
-    this.newDivs.pop();
+    
+    removeObservations(index:any){
+      (this.addsummary.get('ObservationsArr') as FormArray).removeAt(index);
     }
    
    

@@ -230,7 +230,7 @@
               </select></span>
                 </div>
                 <div class="col-md-2">
-                  <button class="btn btn-info" (click)="addDepartment()" style="padding: 7px 10px 0px 10px;float: right;">
+                  <button class="btn btn-info" (click)="addSite()" style="padding: 7px 10px 0px 10px;float: right;">
                     <mat-icon aria-hidden="false" aria-label="Example home icon">add_box</mat-icon>
                   </button>
                 </div>
@@ -2617,10 +2617,7 @@
                     <h3>Observations </h3>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
-                  <div formArrayName="ObservationsArr" *ngFor="let a of getObservationsControls(); let i = index">
-                    <div class="form-group" [formGroupName]="i">
-                <div class="form-group">
-                <div class="row">
+                  <div class="row">
                   <div class="col-sm-12">
                     <div class="form-group">
                       <label>Referring to attached inspection report and test results and subject to the 
@@ -2633,7 +2630,11 @@
                     </div>
                   </div>
              </div>
-            <div class="row" *ngIf="selectedType == 'show'" >
+             <div *ngIf="selectedType == 'show'">
+                  <div formArrayName="ObservationsArr" *ngFor="let a of getObservationsControls(); let i = index">
+                  <div class="form-group" [formGroupName]="i">
+                <div class="form-group">
+            <div class="row">
                   <div class="col-sm-12">
                     <div class="form-group">
                       <label>Observations:</label>
@@ -2669,48 +2670,13 @@
                       ></textarea>
                     </div>
                   </div>
-
-                  <div class="row" *ngFor="let item of newDivs">
-                    <div class="col-sm-12">
-                      <div class="form-group">
-                        <label>Observations:</label>
-                        <mat-icon class="mousechange" (click)="removeObservations()" style="margin-top: 2px;
-                        float: right;">remove_circle</mat-icon>
-                        <textarea matInput class="client-box-description" maxlength="500" formControlName="observations"
-                        placeholder="Ex. Report description..."></textarea>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label>Further actions:</label>
-                        <select class="form-control" formControlName="furtherActions">
-                          <option value="0" selected>Select option</option>
-                          <option>C1 – Danger present. Risk of injury. Immediate remedial action required</option>
-                          <option>C2 – Potentially dangerous – urgent remedial action required</option>
-                          <option>C3 – Improvement recommended</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label>Referance number in report:</label>
-                        <input type="number" formControlName="referanceNumberReport" class="form-control"  
-                        placeholder="Enter Contact Number">
-                      </div>
-                    </div>
-                    <div class="col-sm-12">
-                      <div class="form-group">
-                        <label>Comment:</label>
-                        <textarea matInput class="client-box-description" maxlength="500" formControlName="comment"
-                        placeholder="Ex. comment description..."></textarea>
-                      </div>
-                    </div>
-                  </div>
-
+                  <mat-icon class="mousechange" *ngIf="getObservationsControls().length > 1" 
+                    (click)="removeObservations(i)" style="margin-top: 2px;float: right;">remove_circle</mat-icon>
                 </div>
               </div>
                     </div>
                   </div>
+                </div>
               </mat-expansion-panel>
     
               <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
