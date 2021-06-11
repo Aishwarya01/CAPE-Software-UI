@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild, ChangeDetectorRef, VERSION } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AbstractControl, FormArray,  FormControl } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -23,9 +22,14 @@ import { Site } from '../model/site';
 import { SiteupdateComponent } from '../site/siteupdate/siteupdate.component';
 import { Reportdetails } from '../model/reportdetails';
 import { ReportDetailsService } from '../services/report-details.service';
+import { MatRadioChange } from '@angular/material/radio';
 
 import { InspectiondetailsService } from '../services/inspectiondetails.service';
 import { InspectionDetails } from '../model/inspection-details';
+import { Summary } from '../model/summary';
+import { SummarydetailsService } from '../services/summarydetails.service';
+
+
 
 
 @Component({
@@ -37,7 +41,11 @@ import { InspectionDetails } from '../model/inspection-details';
   }]
 })
 export class VerificationlvComponent implements OnInit {
-
+  selectedValue:any
+  newDivs: string[] = [];
+  overallAssessmentInstallation: string="";
+  installations: string[] = ['Satisfactory', 'Unsatisfactory'];
+  
   companyColumns: string[] = ['action', 'companyCd', 'clientName', 'inActive', 'createdDate', 'createdBy', 'updatedDate', 'updatedBy'];
   company_dataSource!: MatTableDataSource<Company[]>;
   @ViewChild('companyPaginator', { static: true }) companyPaginator!: MatPaginator;
@@ -55,6 +63,20 @@ export class VerificationlvComponent implements OnInit {
   @ViewChild('sitePaginator', { static: true }) sitePaginator!: MatPaginator;
   @ViewChild('siteSort', {static: true}) siteSort!: MatSort;
 
+  addsummary = new FormGroup({
+    limitationsInspection:  new FormControl(''),
+    userName:  new FormControl(''),
+    siteId:  new FormControl(''),
+    extentInstallation:  new FormControl(''),
+    agreedLimitations: new FormControl(''),
+    agreedWith:  new FormControl(''),
+    operationalLimitations:  new FormControl(''),
+    recommendationsDate: new FormControl(''),
+    inspectionTestingDetailed:  new FormControl(''),
+    generalConditionInstallation:  new FormControl(''),
+    overallAssessmentInstallation:  new FormControl(''),
+  })
+
   addDesigner1Form = new FormGroup ({
     personName: new FormControl(''),
     personContactNo: new FormControl(''),
@@ -70,7 +92,6 @@ export class VerificationlvComponent implements OnInit {
     state: new FormControl(''),
     pinCode: new FormControl(''),
     signatorRole: new FormControl('')
-
   })
 
   addDesigner2Form = new FormGroup ({
@@ -147,7 +168,11 @@ export class VerificationlvComponent implements OnInit {
     declarationDate: new FormControl(''),
     declarationName: new FormControl('')
   })
+
   
+
+  dataSource : any= [];  
+ // newDivs: addDivisions[] = [];
   clientList: any = [];
   inActiveData: any =[];
   departmentList: any = [];
@@ -174,10 +199,12 @@ export class VerificationlvComponent implements OnInit {
   contractorRole: String ='contractor';
   inspectorRole: String ='inspector';
 
-
-
+  show:boolean=false;
+  isVisible = -1;
+  selectedField!: string;
 
   inspectionDetails =new InspectionDetails;
+  summary=new Summary();
 
   reportDetails =new Reportdetails;
   
@@ -191,7 +218,7 @@ export class VerificationlvComponent implements OnInit {
 
 //step 3
   InspectionList: String[]= ['Yes', 'No', 'Not Applicable'];
-
+  
 
 
   firstFormGroup!: FormGroup;
@@ -204,6 +231,12 @@ export class VerificationlvComponent implements OnInit {
   formBuilder: any;
   arrDesigner!: FormArray; 
   inspectionDetailsService: any;
+  //summarydetailsService:any;
+  selectedType: any;
+  addDivisions: any;
+  filter: any;
+  canViewDiv: any;
+  radioButtonChange: any;
    constructor(private _formBuilder: FormBuilder,
     private modalService: NgbModal,
     private dialog: MatDialog,
@@ -211,12 +244,13 @@ export class VerificationlvComponent implements OnInit {
     private clientService: ClientService,
     private departmentService: DepartmentService,
     private reportDetailsService: ReportDetailsService,
+    private summarydetailsService: SummarydetailsService,
     private siteService: SiteService,
     private ChangeDetectorRef: ChangeDetectorRef) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
-  }
+    this.newDivs = [];
 
-  
+  }
 
   ngOnInit(): void {
     this.firstFormGroup = this._formBuilder.group({
@@ -227,7 +261,23 @@ export class VerificationlvComponent implements OnInit {
       secondCtrl: ['', Validators.required],
       clientname: ['', Validators.required],
     });
-
+    
+    this.addsummary = this._formBuilder.group({
+      limitationsInspection: ['', Validators.required],
+      userName: ['', Validators.required],
+      siteId: ['', Validators.required],
+      extentInstallation: ['', Validators.required],
+      agreedLimitations: ['', Validators.required],
+      agreedWith: ['', Validators.required],
+      operationalLimitations: ['', Validators.required],
+      recommendationsDate: ['', Validators.required],
+      inspectionTestingDetailed: ['', Validators.required],
+      generalConditionInstallation: ['', Validators.required],
+      overallAssessmentInstallation: ['', Validators.required],
+      Declaration1Arr: this._formBuilder.array([this.Declaration1Form()]),
+      Declaration2Arr: this._formBuilder.array([this.Declaration2Form()]),
+      ObservationsArr: this._formBuilder.array([this.ObservationsForm()])
+      });
   
     this.addDesigner1Form = this._formBuilder.group({
       designer1Arr: this._formBuilder.array([this.createDesigner1Form()]),
@@ -241,7 +291,6 @@ export class VerificationlvComponent implements OnInit {
     this.addInspectorForm = this._formBuilder.group({
       inspectorArr: this._formBuilder.array([this.createInspectorForm()]),
     });
-
     this.siteService.retrieveCountry().subscribe(
       data => {
         this.countryList = JSON.parse(data);
@@ -249,9 +298,9 @@ export class VerificationlvComponent implements OnInit {
     )
     this.refresh();
     this.retrieveClientDetails();
-    
-  }
 
+  }
+  
   retrieveIsActiveData() {
     this.retrieveClientDetails();
   }
@@ -479,7 +528,38 @@ deleteDepartment(departmentId: number) {
       signatorRole: new FormControl('')
     })
   }
-
+  private Declaration1Form(): FormGroup {
+    return new FormGroup({
+    name: new FormControl(''),
+    signature: new FormControl(''),
+    company: new FormControl(''),
+    position: new FormControl(''),
+    address: new FormControl(''),
+    date: new FormControl(''),
+    declarationRole: new FormControl('')
+    })
+  }
+ 
+  private Declaration2Form(): FormGroup {
+    return new FormGroup({
+      name: new FormControl(''),
+      signature: new FormControl(''),
+      company: new FormControl(''),
+      position: new FormControl(''),
+      address: new FormControl(''),
+      date: new FormControl(''),
+      declarationRole: new FormControl('')
+    })
+  }
+  private ObservationsForm(): FormGroup {
+    return new FormGroup({
+      observations: new FormControl(''),
+      furtherActions: new FormControl(''),
+      referanceNumberReport: new FormControl(''),
+      comment: new FormControl('')
+    })
+  }
+  
   getDesigner1Controls(): AbstractControl[] { 
       return (<FormArray> this.addDesigner1Form.get('designer1Arr')).controls
   }
@@ -487,7 +567,16 @@ deleteDepartment(departmentId: number) {
   getDesigner2Controls(): AbstractControl[] { 
     return (<FormArray> this.addDesigner2Form.get('designer2Arr')).controls
 }
-  
+getDeclaration1Controls(): AbstractControl[] { 
+  return (<FormArray> this.addsummary.get('Declaration1Arr')).controls
+}
+getDeclaration2Controls(): AbstractControl[] { 
+  return (<FormArray> this.addsummary.get('Declaration2Arr')).controls
+}
+getObservationsControls(): AbstractControl[] { 
+  return (<FormArray> this.addsummary.get('ObservationsArr')).controls
+}
+
 
   designer1changeCountry(e: any) {
     let changedValue = e.target.value;
@@ -632,8 +721,41 @@ deleteDepartment(departmentId: number) {
     }
     )
   }
- 
 
+  SubmitTab5()
+  {
+    
+    this.summary.siteId=10;
+    this.summary.userName=this.email;
+    this.summary.summaryObervation = this.Observations.value.ObservationsArr;
+    this.summary.summaryDeclaration = this.Declaration1.value.Declaration1Arr;
+    this.summary.summaryDeclaration=this.summary.summaryDeclaration.concat(this.Declaration2.value.Declaration2Arr);
+  console.log(this.summary);
+  this.summarydetailsService.addSummary(this.summary).subscribe(
+    data=>{
+      console.log("worked");
+    }
+  )
+  }
+
+
+   onChange(event:any) {
+    this.selectedType = event.target.value;
+  }
+  
+  addObservations(){
+ this.newDivs.push(this.newDivs[0]);
+    }
+    removeObservations(){
+    this.newDivs.pop();
+    }
+   
+   
+   changeComboo(event:any) {
+    console.log('changed', event && event.value);
+  }
+ 
+   
 }
 
   
