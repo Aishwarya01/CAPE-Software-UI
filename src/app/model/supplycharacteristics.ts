@@ -8,10 +8,10 @@ export class Supplycharacteristics {
     liveConductorAC:string;
     liveConductorDC:string;
     liveConductorBNote:string;
-    mainNominalVoltage:number;
-    mainNominalFrequency:number;
-    mainNominalCurrent:number;
-    mainLoopImpedance:string;
+    mainNominalVoltage:String;
+    mainNominalFrequency:String;
+    mainNominalCurrent:String;
+    mainLoopImpedance:String;
     mainNominalProtectiveDevice:string;
     mainRatedCurrent:string;
     mainCurrentDisconnection:string;

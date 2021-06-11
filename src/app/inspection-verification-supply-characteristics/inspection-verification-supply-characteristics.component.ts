@@ -31,7 +31,59 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   loclength: any;
   loc1length: any;
 
+  NV1: any;
+  NV2: any;
+  NV3: any;
+  NV4: any;
+  NV5: any;
+  NV6: any;
+  NV7: any;
+  NV8: any;
+  NV9: any;
 
+  NF1: any;
+  NF2: any;
+  NF3: any;
+  NF4: any;
+  NF5: any;
+  NF6: any;
+  NF7: any;
+  NF8: any;
+  NF9: any;
+
+
+  PF1: any;
+  PF2: any;
+  PF3: any;
+  PF4: any;
+  PF5: any;
+  PF6: any;
+  PF7: any;
+  PF8: any;
+  PF9: any;
+
+
+  EL1: any;
+  EL2: any;
+  EL3: any;
+  EL4: any;
+  EL5: any;
+  EL6: any;
+  EL7: any;
+  EL8: any;
+  EL9: any;
+
+  nominalVoltageArr: any = [];
+  nominalVoltage: String ="";
+
+  nominalFrequencyArr: any = [];
+  nominalFrequency: String ="";
+
+  nominalCurrentArr: any = [];
+  nominalCurrent: String ="";
+  
+  loopImpedenceArr: any = [];
+  loopImpedence: String ="";
 
   panelOpenState = false;
   systemEarthingList: String[]= ['TN-C','TN-C-S','TN-S','IT','TT'];
@@ -90,6 +142,45 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
       earthingConductorVerify: ['', Validators.required],
       earthingJointsType: ['', Validators.required],
       earthingNoOfJoints: ['', Validators.required],
+      NV1: (''),
+      NV2: (''),
+      NV3: (''),
+      NV4: (''),
+      NV5: (''),
+      NV6: (''),
+      NV7: (''),
+      NV8: (''),
+      NV9: (''),
+      
+      NF1: (''),
+      NF2: (''),
+      NF3: (''),
+      NF4: (''),
+      NF5: (''),
+      NF6: (''),
+      NF7: (''),
+      NF8: (''),
+      NF9: (''),
+
+      PF1: (''),
+      PF2: (''),
+      PF3: (''),
+      PF4: (''),
+      PF5: (''),
+      PF6: (''),
+      PF7: (''),
+      PF8: (''),
+      PF9: (''),
+
+      EL1: (''),
+      EL2: (''),
+      EL3: (''),
+      EL4: (''),
+      EL5: (''),
+      EL6: (''),
+      EL7: (''),
+      EL8: (''),
+      EL9: (''),
 
       location1Arr: this.formBuilder.array([this.createLocation1Form()]),
       location2Arr: this.formBuilder.array([this.createLocation2Form()]),
@@ -393,13 +484,16 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
 
     }
   }
-
-  showAlternateField(e: any) {
-    let changedValue = e.target.value;
-    if(changedValue == "YES") {
-      this.showAlternate = true;
-    }
+  showAlternateField(event:any) {
+    console.log('changed', event && event.value);
   }
+
+  // showAlternateField(e: any) {
+  //   let changedValue = e.target.value;
+  //   if(changedValue == "YES") {
+  //     this.showAlternate = true;
+  //   }
+  // }
 
   onKeyAlernate(event: KeyboardEvent)    {
     this.values = (<HTMLInputElement>event.target).value ;
@@ -506,7 +600,42 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
 
 nextTab2() {
   debugger
-    console.log(this.supplycharesteristicForm.value);
+    this.nominalVoltageArr.push(this.NV1,this.NV2,this.NV3,this.NV4,this.NV5,this.NV6,this.NV7,this.NV8,this.NV9);
+    this.nominalFrequencyArr.push(this.NF1,this.NF2,this.NF3,this.NF4,this.NF5,this.NF6,this.NF7,this.NF8,this.NF9);
+    this.nominalCurrentArr.push(this.PF1,this.PF2,this.PF3,this.PF4,this.PF5,this.PF6,this.PF7,this.PF8,this.PF9);
+    this.loopImpedenceArr.push(this.EL1,this.EL2,this.EL3,this.EL4,this.EL5,this.EL6,this.EL7,this.EL8,this.EL9);
+
+
+    for(let i of this.nominalVoltageArr) {
+      if(i != undefined) {
+        this.nominalVoltage += i+",";
+      }
+    }
+
+    for(let j of this.nominalFrequencyArr) {
+      if(j != undefined) {
+        this.nominalFrequency += j+",";
+      }
+    }
+
+    for(let k of this.nominalCurrentArr) {
+      if(k != undefined) {
+        this.nominalCurrent += k+",";
+      }
+    }
+
+    for(let l of this.loopImpedenceArr) {
+      if(l != undefined) {
+        this.loopImpedence += l+",";
+      }
+    }
+    this.supplycharesteristic.mainNominalVoltage = this.nominalVoltage
+    this.supplycharesteristic.mainNominalFrequency = this.nominalFrequency
+    this.supplycharesteristic.mainNominalCurrent = this.nominalCurrent
+    this.supplycharesteristic.mainLoopImpedance = this.loopImpedence
+
+
+    console.log(this.supplycharesteristic);
     console.log(this.supplycharesteristicForm.value.circuitArr);
     console.log(this.supplycharesteristicForm.value.location1Arr);
     console.log(this.supplycharesteristicForm.value.location2Arr);
