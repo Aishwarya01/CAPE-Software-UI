@@ -727,9 +727,9 @@ getObservationsControls(): AbstractControl[] {
     
     this.summary.siteId=10;
     this.summary.userName=this.email;
-    this.summary.summaryObervation = this.Observations.value.ObservationsArr;
-    this.summary.summaryDeclaration = this.Declaration1.value.Declaration1Arr;
-    this.summary.summaryDeclaration=this.summary.summaryDeclaration.concat(this.Declaration2.value.Declaration2Arr);
+    this.summary.summaryObervation = this.addsummary.value.ObservationsArr;
+    this.summary.summaryDeclaration = this.addsummary.value.Declaration1Arr;
+    this.summary.summaryDeclaration=this.summary.summaryDeclaration.concat(this.addsummary.value.Declaration2Arr);
   console.log(this.summary);
   this.summarydetailsService.addSummary(this.summary).subscribe(
     data=>{
