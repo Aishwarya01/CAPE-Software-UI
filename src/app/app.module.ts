@@ -39,6 +39,7 @@ import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { DepartmentupdateComponent } from './department/departmentupdate/departmentupdate/departmentupdate.component';
 import { SiteupdateComponent } from './site/siteupdate/siteupdate.component';
 import { InspectionVerificationSupplyCharacteristicsComponent } from './inspection-verification-supply-characteristics/inspection-verification-supply-characteristics.component';
+import { InspectionVerificationTestingComponent } from './inspection-verification-testing/inspection-verification-testing.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { InspectionVerificationSupplyCharacteristicsComponent } from './inspecti
     DepartmentupdateComponent,
     SiteupdateComponent,
     InspectionVerificationSupplyCharacteristicsComponent,
+    InspectionVerificationTestingComponent,
     
   ],
   imports: [
