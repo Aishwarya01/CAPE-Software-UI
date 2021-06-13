@@ -41,6 +41,7 @@ import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 import { InspectionVerificationBasicInformationComponent } from './inspection-verification-basic-information/inspection-verification-basic-information.component';
 import { InspectionVerificationIncomingEquipmentComponent } from './inspection-verification-incoming-equipment/inspection-verification-incoming-equipment.component';
 import { InspectionVerificationSupplyCharacteristicsComponent } from './inspection-verification-supply-characteristics/inspection-verification-supply-characteristics.component';
+import { InspectionVerificationTestingComponent } from './inspection-verification-testing/inspection-verification-testing.component';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { InspectionVerificationSupplyCharacteristicsComponent } from './inspecti
     SiteupdateComponent,
     InspectionVerificationBasicInformationComponent,
     InspectionVerificationIncomingEquipmentComponent,
-    InspectionVerificationSupplyCharacteristicsComponent
+    InspectionVerificationSupplyCharacteristicsComponent,
+    InspectionVerificationTestingComponent
     
   ],
   imports: [
