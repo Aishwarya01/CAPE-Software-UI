@@ -168,7 +168,7 @@ export class SiteupdateComponent implements OnInit {
     }
 
     this.loading = true;
-    for(let i of this.updateSiteForm.value.arr) {
+    for(let i of this.updateSiteForm.getRawValue().arr) {
       if(i.inActive == "") {
         i.inActive = true;
       }

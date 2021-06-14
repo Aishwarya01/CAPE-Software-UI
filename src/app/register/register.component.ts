@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Route, Router } from '@angular/router';
 import { RegisterserviceService } from '../services/registerservice.service';
 import { User } from '../model/user';
-import { Role } from '../model/roles';
 
 @Component({
   selector: 'app-register',
@@ -60,6 +59,14 @@ export class RegisterComponent implements OnInit {
 
     this.loading = true;
     this.user.username = this.registerForm.value.email;
+
+    if(this.registerForm.value.email.includes("@capeindia.net")) {
+      this.user.authorisedUser = "YES";
+    }
+    else{
+      this.user.authorisedUser = "NO";
+    }
+
     this.user.role = this.registerForm.value.usertype;
     this.registerservice.register(this.user).subscribe(
       data => {
@@ -68,5 +75,14 @@ export class RegisterComponent implements OnInit {
       },
       error => console.log("Failed")
     )
+  }
+
+  loadUserTypeBasedOnEmail(email: String){
+    if(!email.includes("@capeindia.net")){
+      this.usertypelist = ['User', 'Viewer']
+    } else{
+      this.usertypelist = ['User', 'Manager', 'Admin']
+    }
+    
   }
 }

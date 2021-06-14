@@ -38,15 +38,26 @@
                     </div>
                 </div>                
             </div>
+            <div class="form-group">
+                <label for="type">Application Code</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="bi bi-envelope-fill"></i>
+                        </span>
+                    </div>
+                   <input type="type" formControlName="code" required class="form-control" placeholder="Enter your Application Code" maxlength="20" 
+                    [ngClass]="{ 'is-invalid': submitted && f.type.errors }" [(ngModel)]="applicationType.code"/> 
+                    <div *ngIf="submitted && f.type.errors" class="invalid-feedback">
+                        <div *ngIf="f.type.errors.required">Code is required</div>
+                        <div *ngIf="f.type.errors.pattern">Enter valid Code</div>
+                    </div>
+                </div>                
+            </div>
             <div style="display: flex;justify-content: space-evenly;">
                 <button [disabled]="loading" type="submit" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"><i class="bi icon"></i> Add</button>
                 <button [disabled]="loading" (click)="cancel()" style="display: flex;" class="btn btn-outline-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
             </div> 
-
-            <!-- <div style="display: flex;justify-content: space-evenly;">
-                <button (click)="onSubmit()" [disabled]="loading" type="submit" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"> Save</button>
-                <button (click)="cancel()" style="display: flex;"  class="btn btn-outline-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
-            </div>  -->
-            </form>
+        </form>
     </body>
 </html>

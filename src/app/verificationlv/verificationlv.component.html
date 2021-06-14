@@ -6,13 +6,14 @@
           <ng-template matStepLabel>Company</ng-template>
           <div class="card">
             <div class="card-header">
-              <button class="btn btn-info" title="Add new client" (click)="addClient()" style="padding: 7px 10px 0px 10px;">
+              <button class="btn btn-info" title="Add new client" (click)="addClient()"
+                style="padding: 7px 10px 0px 10px;float: right;">
                 <!-- <mat-icon>add_box</mat-icon> -->
                 <mat-icon aria-hidden="false" aria-label="Example home icon">add_box</mat-icon>
               </button>
               <section class="example-section">
                 <mat-checkbox class="example-margin showInactive" formControlName="retrieveIsActive"
-                (change)="retrieveIsActiveData()" [(ngModel)]="isChecked">Show InActive</mat-checkbox>
+                  (change)="retrieveIsActiveData()" [(ngModel)]="isChecked">Show InActive</mat-checkbox>
               </section>
               <!-- <input type="checkbox" style="width: 50px; height: 20px;" formControlName="retrieveIsActive"
                 (change)="retrieveIsActiveData()" [(ngModel)]="isChecked"><label style="margin-left: -10px;">Show
@@ -30,8 +31,8 @@
                 <ng-container matColumnDef="action">
                   <th mat-header-cell *matHeaderCellDef> Action </th>
                   <td mat-cell *matCellDef="let element">
-                    <button class="btn btn-outline-danger delete" (click)="deleteClient(element.clientName)" 
-                    style="padding: 7px 10px 0px 10px;">
+                    <button class="btn btn-outline-danger delete" (click)="deleteClient(element.clientName)"
+                      style="padding: 7px 10px 0px 10px;">
                       <mat-icon aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
                     </button>
 
@@ -110,23 +111,24 @@
           <div class="card">
             <div class="card-header">
               <!-- <div class="search-bar"> -->
-                <div class="row">
-                  <div class="col-md-10">
-                      <label style="display: table-cell;
+              <div class="row">
+                <div class="col-md-10">
+                  <label style="display: table-cell;
                           width: 1px;
                           white-space: nowrap;">Client Name:</label><span style="display: table-cell; width: 80%;
                           padding: 0 4px 0 20px;"><select formControlName="clientname" class="form-control"
-                          [(ngModel)]="company.clientName" (change)="retrieveDepartmentDetails()">
-                          <option value="0" selected>Select Client Name</option>
-                          <option *ngFor="let client of clientList">{{client.clientName}}</option>
-                        </select></span>
-                  </div>
-                  <div class="col-md-2">
-                    <button class="btn btn-info" title="Add new department" (click)="addDepartment()" style="padding: 7px 10px 0px 10px;float: right;">
-                      <mat-icon aria-hidden="false" aria-label="Example home icon">add_box</mat-icon>
-                    </button>
-                  </div>
+                      [(ngModel)]="company.clientName" (change)="retrieveDepartmentDetails()">
+                      <option value="0" selected>Select Client Name</option>
+                      <option *ngFor="let client of clientList">{{client.clientName}}</option>
+                    </select></span>
                 </div>
+                <div class="col-md-2">
+                  <button class="btn btn-info" title="Add new department" (click)="addDepartment()"
+                    style="padding: 7px 10px 0px 10px;float: right;">
+                    <mat-icon aria-hidden="false" aria-label="Example home icon">add_box</mat-icon>
+                  </button>
+                </div>
+              </div>
               <!-- </div> -->
             </div>
             <div class="card-body">
@@ -206,24 +208,25 @@
         <div class="card">
           <div class="card-header">
             <!-- <div class="search-bar"> -->
-              <div class="row">
-                <div class="col-md-10">
-                  <label style="display: table-cell;
+            <div class="row">
+              <div class="col-md-10">
+                <label style="display: table-cell;
                   width: 1px;
                   white-space: nowrap;">Company Name:</label>
-                  <span class="col-md-5" style="display: table-cell; width: 1000px;
+                <span class="col-md-5" style="display: table-cell; width: 1000px;
                   padding: 0 4px 0 4px;"><select class="form-control" (change)="changeClient($event)"
-                [(ngModel)]="site.clientName">
-                <option value="0" selected>Select Company Name</option>
-                <option *ngFor="let client of clientList">{{client.clientName}}</option>
-              </select></span>
-              <!-- </div>
+                    [(ngModel)]="site.clientName">
+                    <option value="0" selected>Select Company Name</option>
+                    <option *ngFor="let client of clientList">{{client.clientName}}</option>
+                  </select></span>
+                <!-- </div>
               <div class="col-md-5"> -->
-            <label style="display: table-cell;
+                <label style="display: table-cell;
                   width: 1px;
                   white-space: nowrap;">Department Name:</label>
-                  <span class="col-md-5" style="display: table-cell; width: 1000px;
+                <span class="col-md-5" style="display: table-cell; width: 1000px;
                   padding: 0 4px 0 4px;"><select class="form-control" [(ngModel)]="site.departmentName"
+<<<<<<< HEAD
                 (change)="retrieveSiteDetails()">
                 <option value="0" selected>Select Department Name</option>
                 <option *ngFor="let department of departmentList">{{department.departmentName}}</option>
@@ -234,13 +237,26 @@
                     <mat-icon aria-hidden="false" aria-label="Example home icon">add_box</mat-icon>
                   </button>
                 </div>
+=======
+                    (change)="retrieveSiteDetails()">
+                    <option value="0" selected>Select Department Name</option>
+                    <option *ngFor="let department of departmentList">{{department.departmentName}}</option>
+                  </select></span>
               </div>
+              <div class="col-md-2">
+                <button class="btn btn-info" (click)="addSite()" style="padding: 7px 10px 0px 10px;float: right;">
+                  <mat-icon aria-hidden="false" aria-label="Example home icon">add_box</mat-icon>
+                </button>
+>>>>>>> PreDevCode
+              </div>
+            </div>
             <!-- </div> -->
           </div>
           <div class="card-body">
             <div class="col-md-12" style="margin-top:30px;">
-              
-              <table mat-table [dataSource]="site_dataSource" class="mat-elevation-z8 table" matSort #siteSort="matSort">
+
+              <table mat-table [dataSource]="site_dataSource" class="mat-elevation-z8 table" matSort
+                #siteSort="matSort">
 
                 <!--- Note that these columns can be defined in any order.
                             The actual rendered columns are set as a property on the row definition" -->
@@ -328,7 +344,7 @@
         <div style="text-align: center;margin-top: 40px;">
           <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
           <button class="next" mat-button (click)="stepper.reset()"><span class="material-icons">
-            restart_alt
+              restart_alt
             </span>
             Reset </button>
         </div>
@@ -341,7 +357,9 @@
   </mat-tab>
   <mat-tab label="Inspection Verification & Testing of Installation">
     <mat-horizontal-stepper #stepper>
+      <!-- step 1 -->
       <mat-step>
+<<<<<<< HEAD
         <ng-template matStepLabel>Step 1</ng-template>
         <div class="card">
           <div class="card-body">
@@ -565,567 +583,25 @@
                       </div>
                     </div>
                   </form>
+=======
+        <ng-template matStepLabel>Basic Information</ng-template>
+>>>>>>> PreDevCode
 
-                  <form [formGroup] = "designer2Acknowledge">
-                    <h2>Designer 2:</h2>
-                    <div class="row">
-                      <div class="col-md-4">
-                        <label>Signature:</label>
-                        <input type="text" formControlName="signature" class="form-control">
-                      </div>
-      
-                      <div class="col-md-4">
-                        <label>Date:</label>
-                        <input type="date" formControlName="declarationDate" class="form-control" placeholder="Enter Date">              
-                      </div>
-      
-                      <div class="col-md-4">
-                        <label>Name (In block letters) :</label>
-                        <input type="text" formControlName="declarationName" class="form-control" placeholder="Enter Designer Name">
-                      </div>
-                    </div>
-                  </form>
-                </div>
-                
-                <div class="form-group">
-                  <form [formGroup] = "contractorAcknowledge">
-                    <h3><b>Declaration of contractor of installation:</b></h3>
-                      <p>
-                        I/we being the person responsible for the construction of the electrical installation (as indicated by my/our signatures below), particulars of which are described above, having exercised reasonable skill and care when carrying out the design hereby declare that the design work for which I/We have been responsible is to the best of my/our knowledge and belief in accordance with IEC 60364					
-                      </p>
-                      <p>
-                        The extent of liability of the signatory is limited to the work described above as the subject of this report.					
-                      </p>
-        
-                      <h2>Contractor:</h2>
-                      <div class="row">
-                        <div class="col-md-4">
-                          <label>Signature:</label>
-                          <input type="text" formControlName="signature" class="form-control">
-                        </div>
-        
-                        <div class="col-md-4">
-                          <label>Date:</label>
-                          <input type="date" formControlName="declarationDate" class="form-control" placeholder="Enter Date">              
-                        </div>
-        
-                        <div class="col-md-4">
-                          <label>Name (In block letters) :</label>
-                          <input type="text" formControlName="declarationName" class="form-control" placeholder="Enter Contractor Name">
-                        </div>
-                      </div>
-                  </form>
-                </div>
-                
-                <div class="form-group">
-                  <form [formGroup] = "inspectorAcknowledge">
-                    <h3><b>Declaration of Safety Engineer (Inspector):</b></h3>
-                      <p>
-                        I/we being the person responsible for the inspection & testing  of the electrical installation (as indicated by my/our signatures below), particulars of which are described above, having exercised reasonable skill and care when carrying out the design hereby declare that the design work for which I/We have been responsible is to the best of my/our knowledge and belief in accordance with IEC 60364					
-                      </p>
-                      <p>
-                        The extent of liability of the signatory is limited to the work described above as the subject of this report.					
-                      </p>
-        
-                      <h2>Inspector:</h2>
-                      <div class="row">
-                        <div class="col-md-4">
-                          <label>Signature:</label>
-                          <input type="text" formControlName="signature" class="form-control">
-                        </div>
-        
-                        <div class="col-md-4">
-                          <label>Date:</label>
-                          <input type="date" formControlName="declarationDate" class="form-control" placeholder="Enter Date">              
-                        </div>
-        
-                        <div class="col-md-4">
-                          <label>Name (In block letters) :</label>
-                          <input type="text" formControlName="declarationName" class="form-control" placeholder="Enter Inspector Name">
-                        </div>
-                      </div>
-                  </form>
-                </div>
-        
-              </mat-expansion-panel>
-    
-              <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    <h3>Next Inspection</h3>
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                <p>I/We recommend that installation is further inspected and tested after an interval of not more than <textarea matInput maxlength="9" placeholder=" enter year only"></textarea></p>
-              </mat-expansion-panel>
-    
-              <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    <h3>Details of signatories to the verification report</h3>
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                <h2>Designer Details</h2>
-                
+        <app-inspection-verification-basic-information></app-inspection-verification-basic-information>
 
-                <form  [formGroup]="addDesigner1Form" >
-                  <div formArrayName="designer1Arr" *ngFor="let a of getDesigner1Controls(); let i = index">
-                    <div class="form-group" [formGroupName]="i">
-                      <h2>Designer 1</h2>
-                  
-                      <div class="form-group" >
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label>Person Name:</label>        
-                                <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name" >
-                            </div>
-                
-                            <div class="col-md-4">
-                                <label>Contact No:</label>        
-                                <input type="number"  formControlName="personContactNo" class="form-control"  placeholder="Enter Contact Number" >
-                            </div>
-                
-                            <div class="col-md-4">
-                                <label>Email:</label>        
-                                <input type="text"  formControlName="personMailID" class="form-control"  placeholder="Enter Email Address" >
-                            </div>       
-                        </div>                            
-                      </div>   
-          
-      
-                      <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label>Manager Name:</label>        
-                                <input type="text"  formControlName="managerName" class="form-control"  placeholder="Enter Manager Name" >
-                            </div>
-                
-                            <div class="col-md-4">
-                              <label>Contact No:</label>        
-                              <input type="number"  formControlName="managerContactNo" class="form-control"  placeholder="Enter Contact Number" >
-                            </div>
-              
-                            <div class="col-md-4">
-                                <label>Email:</label>        
-                                <input type="text"  formControlName="managerMailID" class="form-control"  placeholder="Enter Email Address" >
-                            </div>
-                        </div>
-                      </div>
-                
-                
-                      <div class="form-group">
-                          <div class="row">
-                              <div class="col-md-4">
-                                  <label>Company Name:</label>        
-                                  <input type="text"  formControlName="companyName" class="form-control"  placeholder="Enter Company Name" >
-                              </div>
-                  
-                              <div class="col-md-4">
-                                  <label>AddressLine1:</label>        
-                                  <input type="text"  formControlName="addressLine1" class="form-control"  placeholder="Enter Address Line1" >
-                              </div>
-                  
-                              <div class="col-md-4">
-                                  <label>AddressLine2:</label>        
-                                  <input type="text"  formControlName="addressLine2" class="form-control"  placeholder="Enter Address Line2" >
-                              </div>
-                          </div>
-                      </div>
-                
-                      <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label>Site Landmark:</label>        
-                                <input type="text"  formControlName="landMark" class="form-control"  placeholder="Enter Landmark" >
-                            </div>
-                
-                            <div class="col-md-4">
-                                <label>Country:</label>
-                                <select  formControlName="country" class="form-control" (change)="designer1changeCountry($event)"  >
-                                    <option value="0" selected>Select Country Name</option>
-                                    <option *ngFor="let country of countryList">{{country.name}}</option>
-                                </select>
-                            </div>
-                
-                            <div class="col-md-4">
-                                <label>State:</label>
-                                <select  formControlName="state" class="form-control" >
-                                    <option value="0" selected>Select State Name</option>
-                                    <option *ngFor="let state of stateList">{{state.name}}</option>
-                                </select>
-                            </div>
-                        </div>
-                      </div>
-                
-                      <div class="form-group">    
-                          <div class="row">
-                              <div class="col-md-4">
-                                  <label>Pincode:</label>        
-                                  <input type="number"  formControlName="pinCode" class="form-control"  placeholder="Enter Pincode" >
-                              </div>
-                              <div class="col-md-4" *ngIf="false">
-                                <input type="text"  formControlName="signatorRole" class="form-control" >
-                              </div>
-                          </div>   
-                      </div>
-                    </div>
-                  </div>           
-                </form>
-    
-                <form  [formGroup]="addDesigner2Form">
-                    <div formArrayName="designer2Arr" *ngFor="let a of getDesigner2Controls(); let i = index">
-                      <div class="form-group" [formGroupName]="i">
-                        <h2>Designer 2</h2>
-                
-                        <div class="form-group" >
-                          <div class="row">
-                              <div class="col-md-4">
-                                  <label>Person Name:</label>        
-                                  <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name" >
-                              </div>
-                  
-                              <div class="col-md-4">
-                                  <label>Contact No:</label>        
-                                  <input type="number"  formControlName="personContactNo" class="form-control"  placeholder="Enter Contact Number" >
-                              </div>
-                  
-                              <div class="col-md-4">
-                                  <label>Email:</label>        
-                                  <input type="text"  formControlName="personMailID" class="form-control"  placeholder="Enter Email Address" >
-                              </div>       
-                          </div>                            
-                        </div>   
-            
-          
-                        <div class="form-group">
-                          <div class="row">
-                              <div class="col-md-4">
-                                  <label>Manager Name:</label>        
-                                  <input type="text"  formControlName="managerName" class="form-control"  placeholder="Enter Manager Name" >
-                              </div>
-                  
-                              <div class="col-md-4">
-                                <label>Contact No:</label>        
-                                <input type="number"  formControlName="managerContactNo" class="form-control"  placeholder="Enter Contact Number" >
-                              </div>
-                
-                              <div class="col-md-4">
-                                  <label>Email:</label>        
-                                  <input type="text"  formControlName="managerMailID" class="form-control"  placeholder="Enter Email Address" >
-                              </div>
-                          </div>
-                        </div>
-                  
-                  
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label>Company Name:</label>        
-                                    <input type="text"  formControlName="companyName" class="form-control"  placeholder="Enter Company Name" >
-                                </div>
-                    
-                                <div class="col-md-4">
-                                    <label>AddressLine1:</label>        
-                                    <input type="text"  formControlName="addressLine1" class="form-control"  placeholder="Enter Address Line1" >
-                                </div>
-                    
-                                <div class="col-md-4">
-                                    <label>AddressLine2:</label>        
-                                    <input type="text"  formControlName="addressLine2" class="form-control"  placeholder="Enter Address Line2" >
-                                </div>
-                            </div>
-                        </div>
-                  
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label>Site Landmark:</label>        
-                                    <input type="text"  formControlName="landMark" class="form-control"  placeholder="Enter Landmark" >
-                                </div>
-                    
-                                <div class="col-md-4">
-                                    <label>Country:</label>
-                                    <select  formControlName="country" class="form-control" (change)="designer1changeCountry($event)"  >
-                                        <option value="0" selected>Select Country Name</option>
-                                        <option *ngFor="let country of countryList">{{country.name}}</option>
-                                    </select>
-                                </div>
-                    
-                                <div class="col-md-4">
-                                    <label>State:</label>
-                                    <select  formControlName="state" class="form-control" >
-                                        <option value="0" selected>Select State Name</option>
-                                        <option *ngFor="let state of stateList">{{state.name}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                  
-                        <div class="form-group">    
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label>Pincode:</label>        
-                                    <input type="number"  formControlName="pinCode" class="form-control"  placeholder="Enter Pincode" >
-                                </div>
-                                <div class="col-md-4" *ngIf="false">
-                                  <input type="text"  formControlName="signatorRole" class="form-control" value="designer">
-                                </div>
-                            </div>   
-                        </div>
-                      </div>
-                    </div>              
-                </form>
-              </mat-expansion-panel>
-    
-              <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    <h3>Details of Contractor</h3>
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                <h2>Contractor Details</h2>
-          
-                <form  [formGroup]="addContractorForm">   
-                  <div formArrayName="contractorArr" *ngFor="let a of getContractorControls(); let i = index">
-                      <div class="form-group" [formGroupName]="i">
-                
-                        <div class="form-group" >
-                          <div class="row">
-                              <div class="col-md-4">
-                                  <label>Person Name:</label>        
-                                  <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name" >
-                              </div>
-                  
-                              <div class="col-md-4">
-                                  <label>Contact No:</label>        
-                                  <input type="number"  formControlName="personContactNo" class="form-control"  placeholder="Enter Contact Number" >
-                              </div>
-                  
-                              <div class="col-md-4">
-                                  <label>Email:</label>        
-                                  <input type="text"  formControlName="personMailID" class="form-control"  placeholder="Enter Email Address" >
-                              </div>       
-                          </div>                            
-                        </div>   
-            
-          
-                        <div class="form-group">
-                          <div class="row">
-                              <div class="col-md-4">
-                                  <label>Manager Name:</label>        
-                                  <input type="text"  formControlName="managerName" class="form-control"  placeholder="Enter Manager Name" >
-                              </div>
-                  
-                              <div class="col-md-4">
-                                <label>Contact No:</label>        
-                                <input type="number"  formControlName="managerContactNo" class="form-control"  placeholder="Enter Contact Number" >
-                              </div>
-                
-                              <div class="col-md-4">
-                                  <label>Email:</label>        
-                                  <input type="text"  formControlName="managerMailID" class="form-control"  placeholder="Enter Email Address" >
-                              </div>
-                          </div>
-                        </div>
-                  
-                  
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label>Company Name:</label>        
-                                    <input type="text"  formControlName="companyName" class="form-control"  placeholder="Enter Company Name" >
-                                </div>
-                    
-                                <div class="col-md-4">
-                                    <label>AddressLine1:</label>        
-                                    <input type="text"  formControlName="addressLine1" class="form-control"  placeholder="Enter Address Line1" >
-                                </div>
-                    
-                                <div class="col-md-4">
-                                    <label>AddressLine2:</label>        
-                                    <input type="text"  formControlName="addressLine2" class="form-control"  placeholder="Enter Address Line2" >
-                                </div>
-                            </div>
-                        </div>
-                  
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label>Site Landmark:</label>        
-                                    <input type="text"  formControlName="landMark" class="form-control"  placeholder="Enter Landmark" >
-                                </div>
-                    
-                                <div class="col-md-4">
-                                    <label>Country:</label>
-                                    <select  formControlName="country" class="form-control" (change)="designer1changeCountry($event)"  >
-                                        <option value="0" selected>Select Country Name</option>
-                                        <option *ngFor="let country of countryList">{{country.name}}</option>
-                                    </select>
-                                </div>
-                    
-                                <div class="col-md-4">
-                                    <label>State:</label>
-                                    <select  formControlName="state" class="form-control" >
-                                        <option value="0" selected>Select State Name</option>
-                                        <option *ngFor="let state of stateList">{{state.name}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                  
-                        <div class="form-group">    
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label>Pincode:</label>        
-                                    <input type="number"  formControlName="pinCode" class="form-control"  placeholder="Enter Pincode" >
-                                </div>
-                                <div class="col-md-4" *ngIf="false">
-                                  <input type="text"  formControlName="signatorRole" class="form-control" value="designer">
-                                </div>
-                            </div>   
-                        </div>
-                      </div>
-                    </div>
-                  
-              </form>
-              </mat-expansion-panel>
-    
-              <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    <h3>Details of Inspector</h3>
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                <h2>Inspector Details</h2>
-          
-                <form  [formGroup]="addInspectorForm">
-                            
-                  <div formArrayName="inspectorArr" *ngFor="let a of getInspectorControls(); let i = index">
-                    <div class="form-group" [formGroupName]="i">
-              
-                      <div class="form-group" >
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label>Person Name:</label>        
-                                <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name" >
-                            </div>
-                
-                            <div class="col-md-4">
-                                <label>Contact No:</label>        
-                                <input type="number"  formControlName="personContactNo" class="form-control"  placeholder="Enter Contact Number" >
-                            </div>
-                
-                            <div class="col-md-4">
-                                <label>Email:</label>        
-                                <input type="text"  formControlName="personMailID" class="form-control"  placeholder="Enter Email Address" >
-                            </div>       
-                        </div>                            
-                      </div>   
-          
-        
-                      <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label>Manager Name:</label>        
-                                <input type="text"  formControlName="managerName" class="form-control"  placeholder="Enter Manager Name" >
-                            </div>
-                
-                            <div class="col-md-4">
-                              <label>Contact No:</label>        
-                              <input type="number"  formControlName="managerContactNo" class="form-control"  placeholder="Enter Contact Number" >
-                            </div>
-              
-                            <div class="col-md-4">
-                                <label>Email:</label>        
-                                <input type="text"  formControlName="managerMailID" class="form-control"  placeholder="Enter Email Address" >
-                            </div>
-                        </div>
-                      </div>
-                
-                
-                      <div class="form-group">
-                          <div class="row">
-                              <div class="col-md-4">
-                                  <label>Company Name:</label>        
-                                  <input type="text"  formControlName="companyName" class="form-control"  placeholder="Enter Company Name" >
-                              </div>
-                  
-                              <div class="col-md-4">
-                                  <label>AddressLine1:</label>        
-                                  <input type="text"  formControlName="addressLine1" class="form-control"  placeholder="Enter Address Line1" >
-                              </div>
-                  
-                              <div class="col-md-4">
-                                  <label>AddressLine2:</label>        
-                                  <input type="text"  formControlName="addressLine2" class="form-control"  placeholder="Enter Address Line2" >
-                              </div>
-                          </div>
-                      </div>
-                
-                      <div class="form-group">
-                          <div class="row">
-                              <div class="col-md-4">
-                                  <label>Site Landmark:</label>        
-                                  <input type="text"  formControlName="landMark" class="form-control"  placeholder="Enter Landmark" >
-                              </div>
-                  
-                              <div class="col-md-4">
-                                  <label>Country:</label>
-                                  <select  formControlName="country" class="form-control" (change)="designer1changeCountry($event)"  >
-                                      <option value="0" selected>Select Country Name</option>
-                                      <option *ngFor="let country of countryList">{{country.name}}</option>
-                                  </select>
-                              </div>
-                  
-                              <div class="col-md-4">
-                                  <label>State:</label>
-                                  <select  formControlName="state" class="form-control" >
-                                      <option value="0" selected>Select State Name</option>
-                                      <option *ngFor="let state of stateList">{{state.name}}</option>
-                                  </select>
-                              </div>
-                          </div>
-                      </div>
-                
-                      <div class="form-group">    
-                          <div class="row">
-                              <div class="col-md-4">
-                                  <label>Pincode:</label>        
-                                  <input type="number"  formControlName="pinCode" class="form-control"  placeholder="Enter Pincode" >
-                              </div>
-                              <div class="col-md-4" *ngIf="false">
-                                <input type="text"  formControlName="signatorRole" class="form-control" value="designer">
-                              </div>
-                          </div>   
-                      </div>
-                    </div>
-                  </div>                  
-              </form>
-              </mat-expansion-panel>
-            </mat-accordion>
-    
-            <div style="display: inline;">
-                <button  style="float: left;" type="submit" (click)="nextTab()" class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"><i class="bi bi-person-plus-fill icon"></i> Next</button>
-                <button  [routerLink]="['/login']" style="float:right;"  class="btn btn-outline-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <button mat-button matStepperNext>Next</button>
-        </div>
       </mat-step>
-
+      
+<!-- step 2 -->
       <mat-step>
-        <ng-template matStepLabel>Step 2</ng-template>
+        <ng-template matStepLabel>Supply Characteristics</ng-template>
 
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </div>
+        <app-inspection-verification-supply-characteristics></app-inspection-verification-supply-characteristics>
 
       </mat-step>
 
+<!-- step 3 -->
       <mat-step>
+<<<<<<< HEAD
         <form [formGroup]="step3Form">
 
         <ng-template matStepLabel>Step 3</ng-template>
@@ -2547,6 +2023,15 @@
 
       <mat-step>
         <ng-template matStepLabel>Step 4</ng-template>
+=======
+        <ng-template matStepLabel>Inspection</ng-template>
+        <app-inspection-verification-incoming-equipment></app-inspection-verification-incoming-equipment>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>Testing</ng-template>
+
+>>>>>>> PreDevCode
         <div>
           <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
           <button class="next" mat-button matStepperNext>Next &raquo;</button>
@@ -2555,13 +2040,21 @@
       </mat-step>
 
       <mat-step>
+<<<<<<< HEAD
         <ng-template matStepLabel role="tab" aria-selected="true">Step 5</ng-template>
         <app-summary></app-summary>
+=======
+        <ng-template matStepLabel>Summary</ng-template>
+
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+        </div>
+>>>>>>> PreDevCode
       </mat-step>
     </mat-horizontal-stepper>
 
-    
-    
+
+
   </mat-tab>
   <mat-tab label="Incomplete Saved Reports"></mat-tab>
   <mat-tab label="Final Reports"></mat-tab>

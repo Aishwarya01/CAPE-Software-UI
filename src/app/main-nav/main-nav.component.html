@@ -1,7 +1,4 @@
-<div
-class="example-container"
-[class.example-is-mobile]="mobileQuery.matches"
->
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
   <mat-toolbar role="toolbar" class="main-header mat-elevation-z1 sticky-header example-toolbar">
     <mat-toolbar-row>
       <button mat-button (click)="isExpanded = !isExpanded" *ngIf="desktopDisplay">
@@ -51,7 +48,7 @@ class="example-container"
     <mat-sidenav-container class="example-container" [autosize]="autosize" fxFlexFill>
     <mat-sidenav #sidenav 
       [mode]="mobileQuery.matches ? 'over' : 'side'" opened="mobileQuery.matches ? 'false' : 'true'"
-      [ngStyle]="{'width': isExpanded ? '330px' : (!isExpanded && isShowing ? '330px' : '60px')}"
+      [ngStyle]="{'width': isExpanded ? '295px' : (!isExpanded && isShowing ? '295px' : '60px')}"
       (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
 
     <!-- <mat-sidenav #sidenav class="example-sidenav" [opened]="(screenWidth > 1024) ? 'true' : 'false'"
@@ -71,20 +68,19 @@ class="example-container"
       <mat-list-item *ngFor="let type of applicationTypes" class="row">
         <div class="col-md-1" style="position: sticky;">
           <!-- <img [src]="imageSrc" style="width: 45px;height: 60px;"/>   -->
-       
         <button class="btn btn-info" 
         style="float: left;padding: 3px 7px 3px 7px;
         margin: 5px 4px 5px -4px;">
         <span>LV</span>        
         </button>
         </div>
-        <a class="logomain col-md-9" [routerLink]="['/home']">
+        <a class="logomain col-md-8">
           <span *ngIf="isExpanded || isShowing" style="margin-left: 8px;"
-          (click)="showLinkDescription(type.id)" title="Info">{{ type.type }}</span>
+          (click)="showLinkDescription(type.id)" title="{{type.type}}">{{ type.code }}</span>
         </a>
 
-      <div class="MenuIcons col-md-3" style="display: flex;">
-        <button mat-menu-item (click)="editApplicationType(type.id, type.type)" style="height: 30px;"
+      <div class="MenuIcons col-md-4" style="display: flex;">
+        <button mat-menu-item (click)="editApplicationType(type.id, type.type, type.code)" style="height: 30px;"
         class="full-width" *ngIf="isExpanded || isShowing" title="Edit">
           <mat-icon>edit</mat-icon>
         </button>
@@ -98,6 +94,10 @@ class="example-container"
   </mat-sidenav>
 
   <mat-sidenav-content fullscreen fxFlexFill>
+    <div style="margin: 185px; text-align: center;" *ngIf="welcome">
+    <h1 style="font-size: 35px;">Welcome to Rush Safety Applications</h1>
+    <p>Note: Kindly go through the sub-menus on the left side panel.</p>
+  </div>
     <ng-template #ref></ng-template>
  </mat-sidenav-content>
   <!-- <div class="example-sidenav-content">

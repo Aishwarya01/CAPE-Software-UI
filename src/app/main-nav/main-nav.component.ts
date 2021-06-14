@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild, ViewContainerRef,OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild, ViewContainerRef, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -18,41 +18,25 @@ import { ApplicationTypeService } from '../services/application.service';
 import { User } from '../model/user';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { relative } from '@angular/compiler-cli/src/ngtsc/file_system';
-import {MatTabChangeEvent} from '@angular/material/tabs';
-import {MediaMatcher} from '@angular/cdk/layout';
-import {ChangeDetectorRef, OnDestroy} from '@angular/core';
+import { MatTabChangeEvent } from '@angular/material/tabs';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { ChangeDetectorRef, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-main-nav',
-  // animations: [
-  //   trigger('openClose', [
-  //     // ...
-  //     state('open', style({
-  //       height: '100%',
-  //       opacity: 1,
-  //     })),
-  //     state('closed', style({
-  //       height: '100%',
-  //       opacity: 0.5,
-  //     })),
-  //   ]),
-  // ],
   templateUrl: './main-nav.component.html',
   styleUrls: ['./main-nav.component.css']
 })
-export class MainNavComponent implements OnInit,OnDestroy{
-  sidenavWidth:any;
-  //ngStyle: string;
- // show:boolean = true;
-   //hide: boolean= false;
-   isExpanded: boolean = true;
-   showSubmenu: boolean = false;
-   isShowing = false;
-   showSubSubMenu: boolean = false;
-   showingh= false;
-   autosize: boolean=true;
-   screenWidth: number | undefined;
-   activeTab = 0;
+export class MainNavComponent implements OnInit, OnDestroy {
+  sidenavWidth: any;
+  isExpanded: boolean = false;
+  showSubmenu: boolean = false;
+  isShowing = false;
+  showSubSubMenu: boolean = false;
+  showingh = false;
+  autosize: boolean = true;
+  screenWidth: number | undefined;
+  activeTab = 0;
 
   // imageSrc = 'assets/img/lowVoltage.jpg';  
 
@@ -70,6 +54,7 @@ export class MainNavComponent implements OnInit,OnDestroy{
   email: String = '';
   id: number = 0;
   type: String = '';
+  code: String = '';
   user = new User();
   style: any;
 
@@ -77,41 +62,41 @@ export class MainNavComponent implements OnInit,OnDestroy{
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
   sidenav: any;
-  width: any ;
+  width: any;
   snav: any;
-  mobileDisplay: boolean=false ;
-  desktopDisplay: boolean =false;
+  mobileDisplay: boolean = false;
+  desktopDisplay: boolean = false;
+  welcome: boolean = true;
   //isExpanded: any;
   //isExpanded: any;
 
 
 
-  constructor(private breakpointObserver: BreakpointObserver,changeDetectorRef: ChangeDetectorRef, 
+  constructor(private breakpointObserver: BreakpointObserver, changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     private loginservice: LoginserviceService,
     private router: ActivatedRoute,
     private route: Router,
     private componentFactoryResolver: ComponentFactoryResolver,
     private applicationService: ApplicationTypeService,
-    private modalService: NgbModal)
-     {
+    private modalService: NgbModal) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
     this.retrieveApplicationTypes();
     this.displayUserFullName(this.email);
-     // set screenWidth on page load
-   this.screenWidth = window.innerWidth;
-   window.onresize = () => {
-     // set screenWidth on screen size change
-     this.screenWidth = window.innerWidth;
-   };
-   this.mobileQuery = media.matchMedia('(max-width: 600px)');
-   this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-   this.mobileQuery.addListener(this._mobileQueryListener);
+    // set screenWidth on page load
+    this.screenWidth = window.innerWidth;
+    window.onresize = () => {
+      // set screenWidth on screen size change
+      this.screenWidth = window.innerWidth;
+    };
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
   }
-  
+
   ngOnInit() {
-    this.mobileDisplay=false;
-    this.desktopDisplay=true
+    this.mobileDisplay = false;
+    this.desktopDisplay = true
     //this.mobileQuery.removeListener(this._mobileQueryListener);
   }
   ngOnDestroy(): void {
@@ -124,15 +109,15 @@ export class MainNavComponent implements OnInit,OnDestroy{
       this.isShowing = true;
       //this.sidenavWidth = 4;
       this.autosize = false;
- // setTimeout(() => this.autosize = false, 1);
+      // setTimeout(() => this.autosize = false, 1);
     }
   }
   mouseleave() {
     if (!this.isExpanded) {
       this.isShowing = false;
-     //this.sidenavWidth = 4;
-     this.autosize = true;
-     //setTimeout(() => this.autosize = false, 1);
+      //this.sidenavWidth = 4;
+      this.autosize = true;
+      //setTimeout(() => this.autosize = false, 1);
     }
   }
   retrieveApplicationTypes() {
@@ -148,12 +133,12 @@ export class MainNavComponent implements OnInit,OnDestroy{
     this.route.navigate(['login']);
   }
 
-  displayUserFullName(email: String){
+  displayUserFullName(email: String) {
     this.loginservice.retrieveUserInformation(email).subscribe(
       data => {
-       this.user = JSON.parse(data);
-        this.fullName = this.user.firstname + " "+ this.user.lastname;
-        
+        this.user = JSON.parse(data);
+        this.fullName = this.user.firstname + " " + this.user.lastname;
+
       }
     )
   }
@@ -176,6 +161,7 @@ export class MainNavComponent implements OnInit,OnDestroy{
     });
   }
   showLinkDescription(id: any) {
+    this.welcome= false;
     switch (id) {
       case 1:
         this.viewContainerRef.clear();
@@ -207,21 +193,22 @@ export class MainNavComponent implements OnInit,OnDestroy{
     }
   }
 
-  editApplicationType(id: any, type: String) {
+  editApplicationType(id: any, type: String, code: String) {
     const modalRef = this.modalService.open(UpdateApplicationTypesComponent);
     modalRef.componentInstance.email = this.email;
     modalRef.componentInstance.id = id;
     modalRef.componentInstance.type = type;
+    modalRef.componentInstance.code = code;
     modalRef.result.then((result) => {
       if (result) {
         this.retrieveApplicationTypes();
-       }
+      }
     });
   }
 
   deleteApplicationType(id: any) {
-    if(window.confirm('Are sure you want to delete this item ?')){
-      this.applicationService.deleteApplicationType(id).subscribe (
+    if (window.confirm('Are sure you want to delete this item ?')) {
+      this.applicationService.deleteApplicationType(id).subscribe(
         response => {
           this.retrieveApplicationTypes();
         }
@@ -236,33 +223,15 @@ export class MainNavComponent implements OnInit,OnDestroy{
     this.sidenavWidth = 4;
     console.log('decrease sidenav width');
   }
+  toggleNav() {
+    this.mobileDisplay = true;
+    this.desktopDisplay = false
+    this.sidenav.toggle.openClose();
+    this.isShowing = false;
+    this.isExpanded = false;
+  }
 
-
-// isLargeScreen() {
-//   const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-//   if (width > 720) {
-//       return true;
-//   } else {
-//       return false;
-//   }
-// }
-
-// toggleCollapse() {
-//   this.isExpanded = !this.isExpanded;
-//   this.width = this.isExpanded() ? '330px' : (!this.isExpanded && this.isShowing ? '330px' : '60px');
-// }
-
-toggleNav() {
-  this.mobileDisplay=true;
-     this.desktopDisplay=false
-      this.sidenav.toggle.openClose();
-      this.isShowing = false;
-     this.isExpanded = false;
-     
- 
-}
-// onClick(type: ApplicationType[]) {
-//   this.applicationTypes = type;
-// }
-
+  displayIconsBasedOnEmail(): boolean{
+    return !this.email.includes("@capeindia.net")
+  }
 }

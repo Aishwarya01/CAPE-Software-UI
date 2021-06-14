@@ -28,6 +28,10 @@ export class SiteService {
     return this.http.get<Site>(this.apiUrl + '/retriveSite' + '/' + site.clientName+ '/' +site.departmentName, { responseType: 'text' as 'json' })
   }
 
+  public retrieveSiteInfo(clientName: String, departmentName: String): Observable<any> {
+    return this.http.get<Site>(this.apiUrl + '/retriveSite' + '/' + clientName+ '/' +departmentName, { responseType: 'text' as 'json' })
+  }
+
   public retrieveCountry(): Observable<any> {
     return this.http.get<any>(this.apiUrl + '/fetchCountries', { responseType: 'text' as 'json' })
   }

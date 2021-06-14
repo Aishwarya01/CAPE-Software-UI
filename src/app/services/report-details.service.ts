@@ -13,7 +13,7 @@ export class ReportDetailsService {
   constructor(private http: HttpClient) { }
 
   public addReportDetails(reportDetails: Reportdetails): Observable<any> {
-    return this.http.post<any>(this.apiUrl + '/reportDetailsService', reportDetails, { responseType: 'text' as 'json' })
+    return this.http.post<any>(this.apiUrl + '/addInstalReport', reportDetails, { responseType: 'text' as 'json' })
   }
 
 }
