@@ -357,7 +357,6 @@
                         <option value="0" selected>Select Company Name</option>
                         <option *ngFor="let client of clientList">{{client.clientName}}</option>
                       </select></span>
-    
                     <label style="display: table-cell;
                           width: 1px;
                           white-space: nowrap;">Department Name:</label><span style="display: table-cell; width: 1000px;
@@ -1127,6 +1126,8 @@
       </mat-step>
 
       <mat-step>
+        <form [formGroup]="step3Form">
+
         <ng-template matStepLabel>Step 3</ng-template>
         <div class="card">
           <div class="card-body">
@@ -1142,7 +1143,8 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Service cable:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.serviceCable">
+                      <select class="form-control" formControlName="serviceCable"
+                      [(ngModel)]="inspectionDetails.serviceCable">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1152,7 +1154,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Service cut out / fuse:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.serviceFuse">
+                      <select class="form-control" formControlName="serviceFuse" [(ngModel)]="inspectionDetails.serviceFuse">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1162,7 +1164,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Meter tails – Distributor:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.meterDistributor">
+                      <select class="form-control" formControlName="meterDistributor" [(ngModel)]="inspectionDetails.meterDistributor">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1172,7 +1174,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Meter tails – Consumer:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.meterConsumer">
+                      <select class="form-control" formControlName="meterConsumer" [(ngModel)]="inspectionDetails.meterConsumer">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1182,7 +1184,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Metering Equipment:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.meterEqu">
+                      <select class="form-control" formControlName="meterEqu" [(ngModel)]="inspectionDetails.meterEqu">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1192,7 +1194,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Isolator (Means to isolate the public supply system):</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.isolator">
+                      <select class="form-control" formControlName="isolator" [(ngModel)]="inspectionDetails.isolator">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1213,7 +1215,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Dedicated earthing arrangement independent to that of public supply:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.earthingArrangement">
+                      <select class="form-control" formControlName="earthingArrangement" [(ngModel)]="inspectionDetails.earthingArrangement">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1223,7 +1225,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Presence of adequate arrangements where generator to operate in parallel with the public supply system:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.adequateArrangement">
+                      <select class="form-control" formControlName="adequateArrangement" [(ngModel)]="inspectionDetails.adequateArrangement">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1233,7 +1235,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Correct connections of generator in parallel. (note: Special attention to circulating currents):</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.connectionGenerator">
+                      <select class="form-control" formControlName="connectionGenerator" [(ngModel)]="inspectionDetails.connectionGenerator">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1243,7 +1245,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Compatibility of characteristics of means of generation:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.compatibilityCharacteristics">
+                      <select class="form-control" formControlName="compatibilityCharacteristics" [(ngModel)]="inspectionDetails.compatibilityCharacteristics">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1254,7 +1256,7 @@
                     <div class="form-group equipment">
                       <label>Means to provide automatic disconnection of generator in the event of 
                         loss of public supply system or voltage or frequency deviation beyond declared values:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.automaticDisconnectGenerator">
+                      <select class="form-control" formControlName="automaticDisconnectGenerator" [(ngModel)]="inspectionDetails.automaticDisconnectGenerator">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1265,7 +1267,7 @@
                     <div class="form-group equipment">
                       <label>Means to prevent connection of generator in the event of loss of 
                         public supply system or voltage or frequency deviation beyond declared values:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.preventConnectGenerator">
+                      <select class="form-control" formControlName="preventConnectGenerator" [(ngModel)]="inspectionDetails.preventConnectGenerator">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1275,7 +1277,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Means to isolate generator from the public supply system :</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.isolateGenerator">
+                      <select class="form-control" formControlName="isolateGenerator" [(ngModel)]="inspectionDetails.isolateGenerator">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1295,7 +1297,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Main earthing / bonding arrangements:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.mainEarting">
+                      <select class="form-control" formControlName="mainEarting" [(ngModel)]="inspectionDetails.mainEarting">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1305,7 +1307,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Presence and adequacy of energy suppliers earthing arrangement or installation earth electrode arrangement:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.earthElectordeArrangement">
+                      <select class="form-control" formControlName="earthElectordeArrangement" [(ngModel)]="inspectionDetails.earthElectordeArrangement">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1315,7 +1317,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Presence and adequacy of earthing conductor and connections:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.earthConductorConnection">
+                      <select class="form-control" formControlName="earthConductorConnection" [(ngModel)]="inspectionDetails.earthConductorConnection">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1325,7 +1327,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Accessibility of earthing conductor connections:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.accessibility">
+                      <select class="form-control" formControlName="accessibility" [(ngModel)]="inspectionDetails.accessibility">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1335,7 +1337,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Presence and adequacy of main protective bonding conductors and connections (colour, sizes, termination, and provision of independent earthing) :</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.aainProtectBonding">
+                      <select class="form-control" formControlName="aainProtectBonding"[(ngModel)]="inspectionDetails.aainProtectBonding">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1345,7 +1347,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Accessibility of all protective bonding connections:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.allProtectBonding">
+                      <select class="form-control" formControlName="allProtectBonding" [(ngModel)]="inspectionDetails.allProtectBonding">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1355,7 +1357,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Presence and adequacy of electrical earthing/bonding labels at all appropriate locations:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.allAppropriateLocation">
+                      <select class="form-control" formControlName="allAppropriateLocation" [(ngModel)]="inspectionDetails.allAppropriateLocation">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1365,7 +1367,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Accessibility of FELV requirements satisfied:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.felvRequirement">
+                      <select class="form-control" formControlName="felvRequirement" [(ngModel)]="inspectionDetails.felvRequirement">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1386,7 +1388,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>SELV system, including the source and associated circuits:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.selvSystem">
+                      <select class="form-control" formControlName="selvSystem" [(ngModel)]="inspectionDetails.selvSystem">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1395,7 +1397,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>PELV system, including the source and associated circuits:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.pelvSystem">
+                      <select class="form-control" formControlName="pelvSystem" [(ngModel)]="inspectionDetails.pelvSystem">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1404,7 +1406,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Double insulation (Class II or equivalent equipment and associated circuits):</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.doubleInsulation">
+                      <select class="form-control" formControlName="doubleInsulation" [(ngModel)]="inspectionDetails.doubleInsulation">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1416,7 +1418,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Reinforced insulation:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.reinforcedInsulation">
+                      <select class="form-control" formControlName="reinforcedInsulation" [(ngModel)]="inspectionDetails.reinforcedInsulation">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1425,7 +1427,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Electrical separation for one item of equipment (shaver supply unit) :</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.basicElectricalSepartion">
+                      <select class="form-control" formControlName="basicElectricalSepartion" [(ngModel)]="inspectionDetails.basicElectricalSepartion">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1438,7 +1440,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Insulation of live parts (conductors completely covered with durable insulating material):</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.insulationLiveParts">
+                      <select class="form-control" formControlName="insulationLiveParts" [(ngModel)]="inspectionDetails.insulationLiveParts">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1448,7 +1450,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Barriers or enclosures (correct IP rating):</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.barriersEnclosers">
+                      <select class="form-control" formControlName="barriersEnclosers" [(ngModel)]="inspectionDetails.barriersEnclosers">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1457,7 +1459,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Obstacles:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.obstacles">
+                      <select class="form-control" formControlName="obstacles" [(ngModel)]="inspectionDetails.obstacles">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1466,7 +1468,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Placing out of reach:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.placingOutReach">
+                      <select class="form-control" formControlName="placingOutReach" [(ngModel)]="inspectionDetails.placingOutReach">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1479,7 +1481,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Non-Conducting location – earth free local equipotential bonding:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.nonConductLocation">
+                      <select class="form-control" formControlName="nonConductLocation" [(ngModel)]="inspectionDetails.nonConductLocation">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1489,7 +1491,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Electrical separation:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.faultElectricalSepartion">
+                      <select class="form-control" formControlName="faultElectricalSepartion" [(ngModel)]="inspectionDetails.faultElectricalSepartion">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1502,7 +1504,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>RCD(s) not exceeding 30 mA operating current:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.faultNonConductLocation">
+                      <select class="form-control" formControlName="faultNonConductLocation" [(ngModel)]="inspectionDetails.faultNonConductLocation">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1512,7 +1514,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Supplementary bonding:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.operatingCurrent">
+                      <select class="form-control" formControlName="operatingCurrent" [(ngModel)]="inspectionDetails.operatingCurrent">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1531,7 +1533,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Adequacy of access and working space for items of electrical equipment including switchgear:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.accessWorking">
+                      <select class="form-control" formControlName="accessWorking" [(ngModel)]="inspectionDetails.accessWorking">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1541,7 +1543,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Security of fixing:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.securityFixing">
+                      <select class="form-control" formControlName="securityFixing" [(ngModel)]="inspectionDetails.securityFixing">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1551,7 +1553,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Insulation of live parts not damaged during erection:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.livePartsDamage">
+                      <select class="form-control" formControlName="livePartsDamage" [(ngModel)]="inspectionDetails.livePartsDamage">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1560,7 +1562,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Adequacy / security of barriers:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.securityBarriers">
+                      <select class="form-control" formControlName="securityBarriers" [(ngModel)]="inspectionDetails.securityBarriers">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1570,7 +1572,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Suitability of enclosure(s) for IP and fire ratings:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.suitabilityEnclosure">
+                      <select class="form-control" formControlName="suitabilityEnclosure" [(ngModel)]="inspectionDetails.suitabilityEnclosure">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1580,7 +1582,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Enclosure not damaged during installation:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.enclosureDamaged">
+                      <select class="form-control" formControlName="enclosureDamaged" [(ngModel)]="inspectionDetails.enclosureDamaged">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1590,7 +1592,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Presence and effectiveness of obstacles:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.presenceObstacles">
+                      <select class="form-control" formControlName="presenceObstacles" [(ngModel)]="inspectionDetails.presenceObstacles">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1599,7 +1601,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Placing out of reach:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.placingOutReach">
+                      <select class="form-control" formControlName="placingOutReach" [(ngModel)]="inspectionDetails.placingOutReach">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1609,7 +1611,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Presence of main switches linked where required:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.presenceMainSwitches">
+                      <select class="form-control" formControlName="presenceMainSwitches" [(ngModel)]="inspectionDetails.presenceMainSwitches">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1619,7 +1621,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Operation of main switches (functional checks):</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.operationMainSwitches">
+                      <select class="form-control" formControlName="operationMainSwitches" [(ngModel)]="inspectionDetails.operationMainSwitches">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1629,7 +1631,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Manual operation of circuit breakers and RCD’s to prove functionally:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.manualCircuitBreakers">
+                      <select class="form-control" formControlName="manualCircuitBreakers" [(ngModel)]="inspectionDetails.manualCircuitBreakers">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1638,7 +1640,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Confirmation that integral test button / switch causes RCD’s to trip when operated (functional check):</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.switchCausesRcd">
+                      <select class="form-control" formControlName="switchCausesRcd" [(ngModel)]="inspectionDetails.switchCausesRcd">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1648,7 +1650,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>RCD’s provided for fault protection, where specified:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.rcdFaultProtection">
+                      <select class="form-control" formControlName="rcdFaultProtection" [(ngModel)]="inspectionDetails.rcdFaultProtection">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1658,7 +1660,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>RCD’s provided for additional protection, where specified:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.rcdAdditionalProtection">
+                      <select class="form-control" formControlName="rcdAdditionalProtection" [(ngModel)]="inspectionDetails.rcdAdditionalProtection">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1668,7 +1670,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Confirmation of over voltage protection (SPD’s) provided where specified:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.overVoltageProtection">
+                      <select class="form-control" formControlName="overVoltageProtection" [(ngModel)]="inspectionDetails.overVoltageProtection">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1677,7 +1679,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Confirmation of indication that SPD is functional:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.indicationOfSpd">
+                      <select class="form-control" formControlName="indicationOfSpd" [(ngModel)]="inspectionDetails.indicationOfSpd">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1687,7 +1689,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Presence of RCD quarterly test notice at or near origin:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.rcdQuarterlyTest">
+                      <select class="form-control" formControlName="rcdQuarterlyTest" [(ngModel)]="inspectionDetails.rcdQuarterlyTest">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1697,7 +1699,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Presence of diagrams charts or schedules at or near each distribution board where required:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.diagramsCharts">
+                      <select class="form-control" formControlName="diagramsCharts" [(ngModel)]="inspectionDetails.diagramsCharts">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1707,7 +1709,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>presence of nonstandard (mixed) cable colour warning notice near appropriate distribution board, as required:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.nonstandardCableColour">
+                      <select class="form-control" formControlName="nonstandardCableColour" [(ngModel)]="inspectionDetails.nonstandardCableColour">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1716,7 +1718,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Presence of alternative supply - warning notice at or near the origin:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.alSupplyOfOrign">
+                      <select class="form-control" formControlName="alSupplyOfOrign" [(ngModel)]="inspectionDetails.alSupplyOfOrign">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1726,7 +1728,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Presence of alternative supply - warning notice at or near the meter position, if remote from origin:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.alSupplyOfMeter">
+                      <select class="form-control" formControlName="alSupplyOfMeter" [(ngModel)]="inspectionDetails.alSupplyOfMeter">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1736,7 +1738,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Presence of alternative supply - warning notice at or near the distribution board to which alternative sources are connected:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.alSupplyDistribution">
+                      <select class="form-control" formControlName="alSupplyDistribution" [(ngModel)]="inspectionDetails.alSupplyDistribution">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1746,7 +1748,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Presence of alternative supply - warning notice at or near all points of isolation of ALL sources of supply:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.allPointsIsolation">
+                      <select class="form-control" formControlName="allPointsIsolation" [(ngModel)]="inspectionDetails.allPointsIsolation">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1755,7 +1757,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Presence of next inspection recommendation label:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.nextInspection">
+                      <select class="form-control" formControlName="nextInspection" [(ngModel)]="inspectionDetails.nextInspection">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1765,7 +1767,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Presence of other required labelling:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.otherRequiredLabelling">
+                      <select class="form-control" formControlName="otherRequiredLabelling" [(ngModel)]="inspectionDetails.otherRequiredLabelling">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1775,7 +1777,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Selection of protective devices and bases correct type and rating (no signs of unacceptable thermal damage, arcing or overheating):</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.basesCorrectType">
+                      <select class="form-control" formControlName="basesCorrectType" [(ngModel)]="inspectionDetails.basesCorrectType">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1785,7 +1787,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Single pole protective devices in line conductor only:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.singlePole">
+                      <select class="form-control" formControlName="singlePole" [(ngModel)]="inspectionDetails.singlePole">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1794,7 +1796,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Protection against mechanical damage where cables enter equipment:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.mechanicalDamage">
+                      <select class="form-control" formControlName="mechanicalDamage" [(ngModel)]="inspectionDetails.mechanicalDamage">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1804,7 +1806,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Protection against electromagnetic/heating effects where cables enter ferromagnetic enclosures:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.electromagnetic">
+                      <select class="form-control" formControlName="electromagnetic" [(ngModel)]="inspectionDetails.electromagnetic">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1814,7 +1816,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Confirmation that all conductor connections including connections to busbars are correctly located in terminals and are tight and secure:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.allConductorCon">
+                      <select class="form-control" formControlName="allConductorCon" [(ngModel)]="inspectionDetails.allConductorCon">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1833,7 +1835,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Identification of conductors including main earthing / bonding arrangements:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.identificationConductors">
+                      <select class="form-control" formControlName="identificationConductors" [(ngModel)]="inspectionDetails.identificationConductors">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1843,7 +1845,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Cable installation methods (including support) suitable for the location(s) and external influences (Cables correctly supported throughout):</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.cableInstallation">
+                      <select class="form-control" formControlName="cableInstallation" [(ngModel)]="inspectionDetails.cableInstallation">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1853,7 +1855,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Examination of cables for signs of mechanical damage during installation:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.examinationCables">
+                      <select class="form-control" formControlName="examinationCables" [(ngModel)]="inspectionDetails.examinationCables">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1862,7 +1864,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Examination of insulation of live parts not damaged during erection:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.examinationInsulation">
+                      <select class="form-control" formControlName="examinationInsulation" [(ngModel)]="inspectionDetails.examinationInsulation">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1872,7 +1874,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Non-Sheathed cables protected by enclosure in conduit, ducting or trucking:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.nonSheathedCables">
+                      <select class="form-control" formControlName="nonSheathedCables" [(ngModel)]="inspectionDetails.nonSheathedCables">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1882,7 +1884,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Suitability of containment systems including flexible conduit:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.containmentSystems">
+                      <select class="form-control" formControlName="containmentSystems" [(ngModel)]="inspectionDetails.containmentSystems">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1892,7 +1894,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Correct temperature rating of cable insulation:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.temperatureRating">
+                      <select class="form-control" formControlName="temperatureRating" [(ngModel)]="inspectionDetails.temperatureRating">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1901,7 +1903,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Cables correctly terminated in enclosures:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.cablesTerminated">
+                      <select class="form-control" formControlName="cablesTerminated" [(ngModel)]="inspectionDetails.cablesTerminated">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1911,7 +1913,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Adequacy of conductors for current-carrying capacity with respect to type and nature of the installation:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.currentCarryCapacity">
+                      <select class="form-control" formControlName="currentCarryCapacity" [(ngModel)]="inspectionDetails.currentCarryCapacity">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1921,7 +1923,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Operation of main switches (functional checks):</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.operationMainSwitches">
+                      <select class="form-control" formControlName="retrieveIsActive" [(ngModel)]="inspectionDetails.operationMainSwitches">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1931,7 +1933,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Manual operation of circuit breakers and RCD’s to prove functionally:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.manualCircuitBreakers">
+                      <select class="form-control" formControlName="retrieveIsActive" [(ngModel)]="inspectionDetails.manualCircuitBreakers">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1940,7 +1942,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Confirmation that integral test button / switch causes RCD’s to trip when operated (functional check):</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.switchCausesRcd">
+                      <select class="form-control" formControlName="retrieveIsActive" [(ngModel)]="inspectionDetails.switchCausesRcd">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1950,7 +1952,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Adequacy of protective devices, type and fault current rating for fault protection:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.adequacyProtectDevices">
+                      <select class="form-control" formControlName="adequacyProtectDevices" [(ngModel)]="inspectionDetails.adequacyProtectDevices">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1960,7 +1962,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>RCD’s provided for additional protection, where specified:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.rcdAdditionalProtection">
+                      <select class="form-control" formControlName="rcdAdditionalProtection" [(ngModel)]="inspectionDetails.rcdAdditionalProtection">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1970,7 +1972,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Presence, adequacy, and correct termination of protective conductors:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.presenceProtectConductors">
+                      <select class="form-control" formControlName="retrieveIsActive" [(ngModel)]="inspectionDetails.presenceProtectConductors">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1979,7 +1981,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Co-ordination between conductors and overload protective devices:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.coOrdination">
+                      <select class="form-control" formControlName="coOrdination" [(ngModel)]="inspectionDetails.coOrdination">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1989,7 +1991,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Wiring systems and cable installation methods/ practices with regard to the type and nature of installation and external influences:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.wiringSystems">
+                      <select class="form-control" formControlName="wiringSystems" [(ngModel)]="inspectionDetails.wiringSystems">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -1999,7 +2001,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Cables concealed under floors above ceilings, in wall adequately protected against damage by contact with fixings:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.cablesConcealUnderFloors">
+                      <select class="form-control" formControlName="cablesConcealUnderFloors" [(ngModel)]="inspectionDetails.cablesConcealUnderFloors">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2009,7 +2011,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Additional protection by RCD’s having residual operating current (I∆n) not exceeding 30mA for circuits used to supply mobile equipment not exceeding 32A rating for use outdoors in all cases:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.operatingCurrentCircuits">
+                      <select class="form-control" formControlName="rcdAdditionalProtection" [(ngModel)]="inspectionDetails.operatingCurrentCircuits">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2018,7 +2020,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Additional protection by RCD’s having residual operating current (I∆n) not exceeding 30mA for all socket outlets of rating 20A or less provided for use by ordinary persons unless exempt:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.operatingCurrentSocket">
+                      <select class="form-control" formControlName="rcdAdditionalProtection" [(ngModel)]="inspectionDetails.operatingCurrentSocket">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2028,7 +2030,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Additional protection by RCD’s having residual operating current (I∆n) not exceeding 30mA for cables concealed in walls at a depth of less than 50mm:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.cablesConcDepth">
+                      <select class="form-control" formControlName="rcdAdditionalProtection" [(ngModel)]="inspectionDetails.cablesConcDepth">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2038,7 +2040,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Additional protection by RCD’s having residual operating current (I∆n) not exceeding 30mA for Cables concealed in walls / sections containing metal sections regardless of depth:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.sectionsRegardlessDepth">
+                      <select class="form-control" formControlName="rcdAdditionalProtection" [(ngModel)]="inspectionDetails.sectionsRegardlessDepth">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2048,7 +2050,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Provision of fire barriers, sealing arrangements so as to minimize the spread of fire:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.provisionFireBarriers">
+                      <select class="form-control" formControlName="provisionFireBarriers" [(ngModel)]="inspectionDetails.provisionFireBarriers">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2057,7 +2059,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Segregation/separation of Band I (ELV) and Band II (LV) circuits:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.separationBand">
+                      <select class="form-control" formControlName="sectionsRegardlessDepth" [(ngModel)]="inspectionDetails.separationBand">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2067,7 +2069,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Segregation/separation of electrical and non-electrical services:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.separationElectrical">
+                      <select class="form-control" formControlName="separationElectrical" [(ngModel)]="inspectionDetails.separationElectrical">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2077,7 +2079,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Condition of circuit accessories:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.conditionCircuitAccessories">
+                      <select class="form-control" formControlName="conditionCircuitAccessories" [(ngModel)]="inspectionDetails.conditionCircuitAccessories">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2087,7 +2089,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Cables and conductors correctly terminated, enclosed and with no undue mechanical strain:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.conductorCorrectTerminated">
+                      <select class="form-control" formControlName="conductorCorrectTerminated" [(ngModel)]="inspectionDetails.conductorCorrectTerminated">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2096,7 +2098,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>No basic insulation of a conductor visible outside enclosure:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.conductorVisibleOutside">
+                      <select class="form-control" formControlName="conductorVisibleOutside" [(ngModel)]="inspectionDetails.conductorVisibleOutside">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2106,7 +2108,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Connections of live conductors adequately enclosed:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.connLiveConductors">
+                      <select class="form-control" formControlName="connLiveConductors" [(ngModel)]="inspectionDetails.connLiveConductors">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2116,7 +2118,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Adequately connected at the point of entry to enclosure (glands, bushes etc.):</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.adequatelyConnectedEnclosure">
+                      <select class="form-control" formControlName="adequatelyConnectedEnclosure" [(ngModel)]="inspectionDetails.adequatelyConnectedEnclosure">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2125,7 +2127,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Suitability of circuit accessories for external influences:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.suitabilityCircuitAccessories">
+                      <select class="form-control" formControlName="suitabilityCircuitAccessories" [(ngModel)]="inspectionDetails.suitabilityCircuitAccessories">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2135,7 +2137,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Condition of accessories including socket-outlets, switches and joint boxes (Circuit accessories not damaged, securely fixed, correctly connected, suitable for external influences):</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.conditionAccessories">
+                      <select class="form-control" formControlName="conditionAccessories" [(ngModel)]="inspectionDetails.conditionAccessories">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2145,7 +2147,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Single-pole devices for switching or protection in line conductors only:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.singlePoleDevices">
+                      <select class="form-control" formControlName="singlePoleDevices" [(ngModel)]="inspectionDetails.singlePoleDevices">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2155,7 +2157,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Adequacy of connections, including protective conductors, within accessories and fixed and stationary equipment:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.adequacyConnections">
+                      <select class="form-control" formControlName="adequacyConnections" [(ngModel)]="inspectionDetails.adequacyConnections">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2164,7 +2166,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Presence, operation, and correct location of appropriate devices for isolation and switching:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.isolationSwitching">
+                      <select class="form-control" formControlName="presenceDevices" [(ngModel)]="inspectionDetails.isolationSwitching">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2183,7 +2185,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Isolators - Presence of appropriate devices :</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.presenceDevices">
+                      <select class="form-control" formControlName="presenceDevices" [(ngModel)]="inspectionDetails.presenceDevices">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2193,7 +2195,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Isolators – Condition of appropriate devices :</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.conditionDevices">
+                      <select class="form-control" formControlName="conditionDevices" [(ngModel)]="inspectionDetails.conditionDevices">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2203,7 +2205,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Isolators - Location of appropriate devices (state if local or remote from equipment in question):</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.locationDevices">
+                      <select class="form-control" formControlName="locationDevices" [(ngModel)]="inspectionDetails.locationDevices">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2212,7 +2214,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Isolators - Capable of being secured in OFF position:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.capableSecured">
+                      <select class="form-control" formControlName="capableSecured" [(ngModel)]="inspectionDetails.capableSecured">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2222,7 +2224,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Isolators - Correct operation verified (functional checks):</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.operationVerify">
+                      <select class="form-control" formControlName="operationVerify" [(ngModel)]="inspectionDetails.operationVerify">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2232,7 +2234,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Isolators - The installation, circuit or Section thereof that will be isolated is clearly identified by location and/or durable marking:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.installCircuit">
+                      <select class="form-control" formControlName="installCircuit" [(ngModel)]="inspectionDetails.installCircuit">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2242,7 +2244,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Isolators - Warning label posted in the situation where live Sections cannot be isolated by the operation of single device:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.warningLabel">
+                      <select class="form-control" formControlName="warningLabel" [(ngModel)]="inspectionDetails.warningLabel">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2251,7 +2253,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Switching off for mechanical maintenance - Presence of appropriate devices:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.swPresenceDevices">
+                      <select class="form-control" formControlName="swPresenceDevices" [(ngModel)]="inspectionDetails.swPresenceDevices">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2261,7 +2263,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Switching off for mechanical maintenance - Condition of appropriate devices:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.swConditionDevices">
+                      <select class="form-control" formControlName="swConditionDevices" [(ngModel)]="inspectionDetails.swConditionDevices">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2271,7 +2273,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Switching off for mechanical maintenance - Acceptable location (state if local or remote from equipment in question):</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.swAcceptableLocation">
+                      <select class="form-control" formControlName="swAcceptableLocation" [(ngModel)]="inspectionDetails.swAcceptableLocation">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2281,7 +2283,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Switching off for mechanical maintenance - Capable of being secured in OFF position:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.swCapableOffPosition">
+                      <select class="form-control" formControlName="swCapableOffPosition" [(ngModel)]="inspectionDetails.swCapableOffPosition">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2290,7 +2292,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Switching off for mechanical maintenance - Correct operation verified (functional check):</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.swCorrectOperation">
+                      <select class="form-control" formControlName="swCorrectOperation" [(ngModel)]="inspectionDetails.swCorrectOperation">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2300,7 +2302,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Switching off for mechanical maintenance - The circuit or section there of that will be disconnected clearly identified by location and / or durable marking:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.swCircuit">
+                      <select class="form-control" formControlName="swCircuit" [(ngModel)]="inspectionDetails.swCircuit">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2310,7 +2312,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Switching off for mechanical maintenance - Warning label posted in situations where live parts cannot be isolated by the operation of a single device:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.swWarningLabel">
+                      <select class="form-control" formControlName="swWarningLabel" [(ngModel)]="inspectionDetails.swWarningLabel">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2320,7 +2322,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Emergency switching / stopping - Presence of appropriate devices:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.emSwitPresenceDevices">
+                      <select class="form-control" formControlName="emSwitPresenceDevices" [(ngModel)]="inspectionDetails.emSwitPresenceDevices">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2329,7 +2331,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Emergency switching / stopping – Condition of appropriate devices:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.emSwitConditionDevices">
+                      <select class="form-control" formControlName="emSwitConditionDevices" [(ngModel)]="inspectionDetails.emSwitConditionDevices">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2339,7 +2341,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Emergency switching / stopping - Location of appropriate devices (readily accessible for operation where danger might occur):</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.emSwitLocationDevices">
+                      <select class="form-control" formControlName="emSwitLocationDevices" [(ngModel)]="inspectionDetails.emSwitLocationDevices">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2349,7 +2351,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Emergency switching / stopping - Correct operation verified (functional check):</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.emSwitOperationVerify">
+                      <select class="form-control" formControlName="emSwitOperationVerify" [(ngModel)]="inspectionDetails.emSwitOperationVerify">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2359,7 +2361,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Emergency switching / stopping - The installation circuit or Section there of that will be disconnected clearly identified by location and / or durable marking:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.emSwitInstallCircuit">
+                      <select class="form-control" formControlName="emSwitInstallCircuit" [(ngModel)]="inspectionDetails.emSwitInstallCircuit">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2368,7 +2370,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Functional switching - Presence of appropriate devices:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.fuSwitPresenceDevices">
+                      <select class="form-control" formControlName="fuSwitPresenceDevices" [(ngModel)]="inspectionDetails.fuSwitPresenceDevices">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2378,7 +2380,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Functional switching - Location of appropriate devices:</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.fuSwitLocationDevices">
+                      <select class="form-control" formControlName="fuSwitLocationDevices" [(ngModel)]="inspectionDetails.fuSwitLocationDevices">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2388,7 +2390,7 @@
                   <div class="col-sm-12">
                     <div class="form-group equipment">
                       <label>Functional switching - Correct operation verified (functional check):</label>
-                      <select class="form-control" [(ngModel)]="inspectionDetails.fuSwitOperationVerify">
+                      <select class="form-control" formControlName="fuSwitOperationVerify" [(ngModel)]="inspectionDetails.fuSwitOperationVerify">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of InspectionList">{{value}}</option>
                       </select>
@@ -2407,7 +2409,7 @@
                 <div class="col-sm-12">
                   <div class="form-group equipment">
                     <label>Suitability of the equipment in terms of IP and fire ratings:</label>
-                    <select class="form-control" [(ngModel)]="inspectionDetails.suitabilityEquipment">
+                    <select class="form-control" formControlName="suitabilityEquipment" [(ngModel)]="inspectionDetails.suitabilityEquipment">
                       <option value="0" selected>Select option</option>
                       <option *ngFor="let value of InspectionList">{{value}}</option>
                     </select>
@@ -2417,7 +2419,7 @@
                 <div class="col-sm-12">
                   <div class="form-group equipment">
                     <label>Enclosure not damaged / deteriorated during installation so as to impair safety:</label>
-                    <select class="form-control" [(ngModel)]="inspectionDetails.enclosureNotDamaged">
+                    <select class="form-control" formControlName="enclosureNotDamaged" [(ngModel)]="inspectionDetails.enclosureNotDamaged">
                       <option value="0" selected>Select option</option>
                       <option *ngFor="let value of InspectionList">{{value}}</option>
                     </select>
@@ -2427,7 +2429,7 @@
                 <div class="col-sm-12">
                   <div class="form-group equipment">
                     <label>Suitability for the environment and external influences:</label>
-                    <select class="form-control" [(ngModel)]="inspectionDetails.suitabilityEnvironment">
+                    <select class="form-control" formControlName="suitabilityEnvironment" [(ngModel)]="inspectionDetails.suitabilityEnvironment">
                       <option value="0" selected>Select option</option>
                       <option *ngFor="let value of InspectionList">{{value}}</option>
                     </select>
@@ -2436,7 +2438,7 @@
                 <div class="col-sm-12">
                   <div class="form-group equipment">
                     <label>Security of fixing:</label>
-                    <select class="form-control" [(ngModel)]="inspectionDetails.securityFixing">
+                    <select class="form-control" formControlName="securityFixing" [(ngModel)]="inspectionDetails.securityFixing">
                       <option value="0" selected>Select option</option>
                       <option *ngFor="let value of InspectionList">{{value}}</option>
                     </select>
@@ -2446,7 +2448,7 @@
                 <div class="col-sm-12">
                   <div class="form-group equipment">
                     <label>Cable entry holes in ceilings above luminaries, seized or sealed so as to restrict the spread of fire:</label>
-                    <select class="form-control" [(ngModel)]="inspectionDetails.cableEntryHoles">
+                    <select class="form-control" formControlName="cableEntryHoles" [(ngModel)]="inspectionDetails.cableEntryHoles">
                       <option value="0" selected>Select option</option>
                       <option *ngFor="let value of InspectionList">{{value}}</option>
                     </select>
@@ -2456,7 +2458,7 @@
                 <div class="col-sm-12">
                   <div class="form-group equipment">
                     <label>Provision (condition) of under voltage protection, where specified.:</label>
-                    <select class="form-control" [(ngModel)]="inspectionDetails.provisionVoltage">
+                    <select class="form-control" formControlName="provisionVoltage" [(ngModel)]="inspectionDetails.provisionVoltage">
                       <option value="0" selected>Select option</option>
                       <option *ngFor="let value of InspectionList">{{value}}</option>
                     </select>
@@ -2466,7 +2468,7 @@
                 <div class="col-sm-12">
                   <div class="form-group equipment">
                     <label>Provision (condition) of overload protection, where specified:</label>
-                    <select class="form-control" [(ngModel)]="inspectionDetails.provisionOverload">
+                    <select class="form-control" formControlName="provisionOverload" [(ngModel)]="inspectionDetails.provisionOverload">
                       <option value="0" selected>Select option</option>
                       <option *ngFor="let value of InspectionList">{{value}}</option>
                     </select>
@@ -2475,7 +2477,7 @@
                 <div class="col-sm-12">
                   <div class="form-group equipment">
                     <label>Recessed luminaires (downlighters) - Correct type of lamps fitted:</label>
-                    <select class="form-control" [(ngModel)]="inspectionDetails.correctTypeLamps">
+                    <select class="form-control" formControlName="correctTypeLamps" [(ngModel)]="inspectionDetails.correctTypeLamps">
                       <option value="0" selected>Select option</option>
                       <option *ngFor="let value of InspectionList">{{value}}</option>
                     </select>
@@ -2485,7 +2487,7 @@
                 <div class="col-sm-12">
                   <div class="form-group equipment">
                     <label>Recessed luminaires (downlighters) - Installed to minimise build-up of heat by use of “fire rated” fittings, insulation displacement box or similar :</label>
-                    <select class="form-control" [(ngModel)]="inspectionDetails.insulaDisplacementBox">
+                    <select class="form-control" formControlName="insulaDisplacementBox" [(ngModel)]="inspectionDetails.insulaDisplacementBox">
                       <option value="0" selected>Select option</option>
                       <option *ngFor="let value of InspectionList">{{value}}</option>
                     </select>
@@ -2495,7 +2497,7 @@
                 <div class="col-sm-12">
                   <div class="form-group equipment">
                     <label>No signs of overheating to surrounding building fabric (applicable for periodic inspection):</label>
-                    <select class="form-control" [(ngModel)]="inspectionDetails.overheatSurrounding">
+                    <select class="form-control" formControlName="overheatSurrounding" [(ngModel)]="inspectionDetails.overheatSurrounding">
                       <option value="0" selected>Select option</option>
                       <option *ngFor="let value of InspectionList">{{value}}</option>
                     </select>
@@ -2505,7 +2507,7 @@
                 <div class="col-sm-12">
                   <div class="form-group equipment">
                     <label>No signs of overheating to conductors / terminations (applicable for periodic inspection):</label>
-                    <select class="form-control" [(ngModel)]="inspectionDetails.overheatConductors">
+                    <select class="form-control" formControlName="overheatConductors" [(ngModel)]="inspectionDetails.overheatConductors">
                       <option value="0" selected>Select option</option>
                       <option *ngFor="let value of InspectionList">{{value}}</option>
                     </select>
@@ -2539,11 +2541,12 @@
           <button  style="float: left;" type="submit" class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"><i class="bi bi-journal-arrow-up icon"></i> Submit</button>
           <button  [routerLink]="['/login']" style="float:right;"  class="btn btn-outline-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
       </div>
+    </form>
+
       </mat-step>
 
       <mat-step>
         <ng-template matStepLabel>Step 4</ng-template>
-
         <div>
           <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
           <button class="next" mat-button matStepperNext>Next &raquo;</button>
@@ -2553,336 +2556,7 @@
 
       <mat-step>
         <ng-template matStepLabel role="tab" aria-selected="true">Step 5</ng-template>
-       <form [formGroup]="addsummary">
-        <div class="card">
-          <div class="card-body">
-            <mat-accordion>
-              <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    <h3>Extent and limitations of inspection and testing</h3>
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                <div class="form-group">                    
-                  <div class="row">
-                      <div class="col-sm-12">
-                        <div class="form-group">
-                          <label>Extent of installation covered by this report:</label>
-                          <input type="text" class="form-control" formControlName="extentInstallation"
-                          [(ngModel)]="summary.extentInstallation">
-                        </div>
-                      </div>
-        
-                      <div class="col-sm-12">
-                        <div class="form-group">
-                          <label>Agreed limitations including the reasons:</label>
-                          <input type="text" class="form-control" formControlName="agreedLimitations"
-                          [(ngModel)]="summary.agreedLimitations">
-                        </div>
-                      </div>
-        
-                      <div class="col-sm-12">
-                        <div class="form-group">
-                          <label>Agreed with:</label>
-                          <input type="text" class="form-control" formControlName="agreedWith"
-                          [(ngModel)]="summary.agreedWith">
-                        </div>
-                      </div>
-        
-                      <div class="col-sm-12">
-                        <div class="form-group">
-                          <label>Operational limitations including the reasons:</label>
-                          <input type="text" class="form-control" formControlName="operationalLimitations"
-                          [(ngModel)]="summary.operationalLimitations">
-                        </div>
-                      </div>
-        
-                      <div class="col-sm-12">
-                        <div class="form-group">
-                          <label>The inspection and testing detailed in this report have been carried out in accordance 
-                            with IEC60364. It should be note that cables concealed within trunk/trench and conduits, 
-                            under floors and generally within the fabric of the building or underground, have not been 
-                            inspected unless specifically agreed between the client and inspector prior to inspection:</label>
-                            <input type="text" class="form-control" formControlName="inspectionTestingDetailed"
-                            [(ngModel)]="summary.inspectionTestingDetailed">
-                        </div>
-                      </div>
-                    </div>
-                </div>
-              </mat-expansion-panel>
-    
-              <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    <h3>Observations </h3>
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                  <div class="row">
-                  <div class="col-sm-12">
-                    <div class="form-group">
-                      <label>Referring to attached inspection report and test results and subject to the 
-                        limitations specified at the extent and limitations of inspection and testing :</label>
-                      <select class="form-control" (change)="onChange($event)">
-                        <option value="0" selected>Select option</option>
-                        <option value="hide">No remedial action required</option>
-                        <option value="show">The following observations are made</option>
-                      </select>
-                    </div>
-                  </div>
-             </div>
-             <div *ngIf="selectedType == 'show'">
-                  <div formArrayName="ObservationsArr" *ngFor="let a of getObservationsControls(); let i = index">
-                  <div class="form-group" [formGroupName]="i">
-                <div class="form-group">
-            <div class="row">
-                  <div class="col-sm-12">
-                    <div class="form-group">
-                      <label>Observations:</label>
-                      <mat-icon class="mousechange" (click)="addObservations()" style="margin-top: 2px;
-                      float: right;">add_box</mat-icon>
-                      <textarea matInput class="client-box-description" maxlength="500" formControlName="observations"
-                       placeholder="Ex. Report description..." ></textarea>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>Further actions:</label>
-                      <select class="form-control" formControlName="furtherActions">
-                        <option value="0" selected>Select option</option>
-                        <option>C1 – Danger present. Risk of injury. Immediate remedial action required</option>
-                        <option>C2 – Potentially dangerous – urgent remedial action required</option>
-                        <option>C3 – Improvement recommended</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>Referance number in report:</label>
-                      <input type="number" formControlName="referanceNumberReport" class="form-control"  
-                      placeholder="Enter Contact Number">
-                    </div>
-                  </div>
-                  <div class="col-sm-12">
-                    <div class="form-group">
-                      <label>Comment:</label>
-                      <textarea matInput class="client-box-description" maxlength="500" 
-                      placeholder="Ex. Report description..." formControlName="comment"
-                      ></textarea>
-                    </div>
-                  </div>
-                  <mat-icon class="mousechange" *ngIf="getObservationsControls().length > 1" 
-                    (click)="removeObservations(i)" style="margin-top: 2px;float: right;">remove_circle</mat-icon>
-                </div>
-              </div>
-                    </div>
-                  </div>
-                </div>
-              </mat-expansion-panel>
-    
-              <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    <h3>Recommendations</h3>
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <div class="form-group">
-                          <label>Where the overall assessment of the suitability of the installation for 
-                            continuous use above is stated as unsatisfactory, I/We recommend that any observations 
-                            classified as “danger present” (Code C1) or “potentially dangerous” (Code C2) are acted 
-                            upon the matter of urgency. Investigation without delay is recommended for observations 
-                            identified as “Required further investigation”. Observations classified as “Improvement 
-                            recommended” (Code C3) should be given due consideration. Subject to necessary remedial 
-                            action being taken, I/We recommended that the installation is further inspected and tested
-                             by …………Date.:</label>
-                             <input type="date" class="form-control" placeholder="Enter Date"
-                              [(ngModel)]="summary.recommendationsDate" formControlName="recommendationsDate">               
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-              </mat-expansion-panel>
-    
-              <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    <h3>Summary and conditions of the installation </h3>
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                    <div class="form-group">
-                      <div class="row">
-                        <div class="col-sm-12">
-                          <div class="form-group">
-                            <label>General condition of the installation in terms of electrical safety:</label>
-                            <input type="text" class="form-control" formControlName="generalConditionInstallation" 
-                            [(ngModel)]="summary.generalConditionInstallation">
-                          </div>
-                        </div>
-                        <div class="col-sm-12">
-                          <div class="form-group">
-                            <label>Overall assessment of the installation in terms of suitability of continuous use:</label>
-                            &nbsp;&nbsp;
-                            <mat-radio-group class="example-radio-group" (change)="changeComboo($event)"
-                             [(ngModel)]="overallAssessmentInstallation" formControlName="overallAssessmentInstallation">
-                              <mat-radio-button class="example-radio-button" *ngFor="let installation of installations" 
-                              [value]="installation">
-                                {{installation}}
-                              </mat-radio-button>
-                            </mat-radio-group>
-                       </div>
-                       <div *ngIf="overallAssessmentInstallation=='Unsatisfactory'"><b>Note:</b>Unsatisfactory assessment indicates that dangerous and/or 
-                         potentially dangerous conditions have been identified</div>
-                        </div>
-                      </div>
-                    </div>
-                  </mat-expansion-panel>
-    
-              <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    <h3>Declaration</h3>
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                  <div formArrayName="Declaration1Arr" *ngFor="let a of getDeclaration1Controls(); let i = index">
-                    <div class="form-group" [formGroupName]="i">
-                      <label>I/we being the person responsible for the inspection & testing  of the electrical 
-                        installation (as indicated by my/our signatures below), particulars of which are described 
-                        in this report, having exercised reasonable skill and care when carrying out the inspection 
-                        and testing, hereby declare that information in this report including the observations 
-                        provides an accurate assessment of condition of electrical installation taking into account 
-                        the stated extent and limitations in part 5 of this report:</label>
-        
-                      <h2>Inspected and tested by:</h2>
-                      <div class="form-group">
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label>Name:</label>
-                            <input type="text" class="form-control" formControlName="name">
-                          </div>
-                        </div>
-          
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label>Signature:</label>
-                            <input type="text" class="form-control" formControlName="signature">
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label>Company:</label>
-                            <input type="text" class="form-control" formControlName="company">
-                          </div>
-                        </div>
-          
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label>Position:</label>
-                            <input type="text" class="form-control" formControlName="position">
-                          </div>
-                        </div>
-          
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label>Address:</label>
-                            <input type="text" class="form-control" formControlName="address">
-                          </div>
-                        </div>
-          
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label>Date:</label>
-                            <input type="date" class="form-control" formControlName="date">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    </div>
-                  </div>
-
-                    <div formArrayName="Declaration2Arr" *ngFor="let a of getDeclaration2Controls(); let i = index">
-                      <div class="form-group" [formGroupName]="i">
-                        <h2>Authorised by:</h2>
-                        <div class="form-group">
-                        <div class="row">
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Name:</label>
-                              <input type="text" class="form-control" formControlName="name">
-                            </div>
-                          </div>
-            
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Signature:</label>
-                              <input type="text" class="form-control" formControlName="signature">
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Company:</label>
-                              <input type="text" class="form-control" formControlName="company">
-                            </div>
-                          </div>
-            
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Position:</label>
-                              <input type="text" class="form-control" formControlName="position">
-                            </div>
-                          </div>
-            
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Address:</label>
-                              <input type="text" class="form-control" formControlName="address">
-                            </div>
-                          </div>
-            
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label>Date:</label>
-                              <input type="date" class="form-control" formControlName="date">
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      </div>
-                    </div>
-                
-              </mat-expansion-panel>
-          </mat-accordion>
-          <!-- <section>
-            <div class="example-button-row">
-              <button mat-button color="primary" type="submit" (click)="nextTab()">Next</button>
-              <button mat-button color="warn" [routerLink]="['/login']">Cancel</button>
-            </div>
-          </section> -->
-          <div style="text-align: center;margin-top: 40px;">
-            <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
-          </div>
-            <!-- <div style="display: inline;">
-                <button  style="float: left;" type="submit" (click)="nextTab()" class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"><i class="bi bi-journal-arrow-up icon"></i> Submit</button>
-                <button  [routerLink]="['/login']" style="float:right;"  class="btn btn-outline-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
-            </div> -->
-          </div>
-        </div>
-      </form>
-
-        <!-- <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </div> -->
-        <br>    
-        <br>
-
-        <div style="display: inline;">
-          <button  style="margin: 0 auto;width: 110px;" type="submit" (click)="SubmitTab5()"
-          class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn">
-            <i class="bi bi-journal-arrow-up icon"></i> Submit</button>
-      </div>
+        <app-summary></app-summary>
       </mat-step>
     </mat-horizontal-stepper>
 

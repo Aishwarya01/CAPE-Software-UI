@@ -1,0 +1,316 @@
+<form [formGroup]="addsummary">
+    <div class="card">
+      <div class="card-body">
+        <mat-accordion>
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h3>Extent and limitations of inspection and testing</h3>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="form-group">                    
+              <div class="row">
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <label>Extent of installation covered by this report:</label>
+                      <input type="text" class="form-control" formControlName="extentInstallation"
+                      [(ngModel)]="summary.extentInstallation">
+                    </div>
+                  </div>
+    
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <label>Agreed limitations including the reasons:</label>
+                      <input type="text" class="form-control" formControlName="agreedLimitations"
+                      [(ngModel)]="summary.agreedLimitations">
+                    </div>
+                  </div>
+    
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <label>Agreed with:</label>
+                      <input type="text" class="form-control" formControlName="agreedWith"
+                      [(ngModel)]="summary.agreedWith">
+                    </div>
+                  </div>
+    
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <label>Operational limitations including the reasons:</label>
+                      <input type="text" class="form-control" formControlName="operationalLimitations"
+                      [(ngModel)]="summary.operationalLimitations">
+                    </div>
+                  </div>
+    
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <label>The inspection and testing detailed in this report have been carried out in accordance 
+                        with IEC60364. It should be note that cables concealed within trunk/trench and conduits, 
+                        under floors and generally within the fabric of the building or underground, have not been 
+                        inspected unless specifically agreed between the client and inspector prior to inspection:</label>
+                        <input type="text" class="form-control" formControlName="inspectionTestingDetailed"
+                        [(ngModel)]="summary.inspectionTestingDetailed">
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h3>Observations </h3>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+              <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label>Referring to attached inspection report and test results and subject to the 
+                    limitations specified at the extent and limitations of inspection and testing :</label>
+                  <select class="form-control" (change)="onChange($event)">
+                    <option value="0" selected>Select option</option>
+                    <option value="hide">No remedial action required</option>
+                    <option value="show">The following observations are made</option>
+                  </select>
+                </div>
+              </div>
+         </div>
+         <div *ngIf="selectedType == 'show'">
+              <div formArrayName="ObservationsArr" *ngFor="let a of getObservationsControls(); let i = index">
+              <div class="form-group" [formGroupName]="i">
+            <div class="form-group">
+        <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label>Observations:</label>
+                  <mat-icon class="mousechange" (click)="addObservations()" style="margin-top: 2px;
+                  float: right;">add_box</mat-icon>
+                  <textarea matInput class="client-box-description" maxlength="500" formControlName="observations"
+                   placeholder="Ex. Report description..." ></textarea>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Further actions:</label>
+                  <select class="form-control" formControlName="furtherActions">
+                    <option value="0" selected>Select option</option>
+                    <option>C1 – Danger present. Risk of injury. Immediate remedial action required</option>
+                    <option>C2 – Potentially dangerous – urgent remedial action required</option>
+                    <option>C3 – Improvement recommended</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Referance number in report:</label>
+                  <input type="number" formControlName="referanceNumberReport" class="form-control"  
+                  placeholder="Enter Contact Number">
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label>Comment:</label>
+                  <textarea matInput class="client-box-description" maxlength="500" 
+                  placeholder="Ex. Report description..." formControlName="comment"
+                  ></textarea>
+                </div>
+              </div>
+              <mat-icon class="mousechange" *ngIf="getObservationsControls().length > 1" 
+                (click)="removeObservations(i)" style="margin-top: 2px;float: right;">remove_circle</mat-icon>
+            </div>
+          </div>
+                </div>
+              </div>
+            </div>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h3>Recommendations</h3>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <label>Where the overall assessment of the suitability of the installation for 
+                        continuous use above is stated as unsatisfactory, I/We recommend that any observations 
+                        classified as “danger present” (Code C1) or “potentially dangerous” (Code C2) are acted 
+                        upon the matter of urgency. Investigation without delay is recommended for observations 
+                        identified as “Required further investigation”. Observations classified as “Improvement 
+                        recommended” (Code C3) should be given due consideration. Subject to necessary remedial 
+                        action being taken, I/We recommended that the installation is further inspected and tested
+                         by …………Date.:</label>
+                         <input type="date" class="form-control" placeholder="Enter Date"
+                          [(ngModel)]="summary.recommendationsDate" formControlName="recommendationsDate">               
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h3>Summary and conditions of the installation </h3>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="form-group">
+                        <label>General condition of the installation in terms of electrical safety:</label>
+                        <input type="text" class="form-control" formControlName="generalConditionInstallation" 
+                        [(ngModel)]="summary.generalConditionInstallation">
+                      </div>
+                    </div>
+                    <div class="col-sm-12">
+                      <div class="form-group">
+                        <label>Overall assessment of the installation in terms of suitability of continuous use:</label>
+                        &nbsp;&nbsp;
+                        <mat-radio-group class="example-radio-group" (change)="changeComboo($event)"
+                         [(ngModel)]="overallAssessmentInstallation" formControlName="overallAssessmentInstallation">
+                          <mat-radio-button class="example-radio-button" *ngFor="let installation of installations" 
+                          [value]="installation">
+                            {{installation}}
+                          </mat-radio-button>
+                        </mat-radio-group>
+                   </div>
+                   <div *ngIf="overallAssessmentInstallation=='Unsatisfactory'"><b>Note:</b>Unsatisfactory assessment indicates that dangerous and/or 
+                     potentially dangerous conditions have been identified</div>
+                    </div>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h3>Declaration</h3>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+              <div formArrayName="Declaration1Arr" *ngFor="let a of getDeclaration1Controls(); let i = index">
+                <div class="form-group" [formGroupName]="i">
+                  <label>I/we being the person responsible for the inspection & testing  of the electrical 
+                    installation (as indicated by my/our signatures below), particulars of which are described 
+                    in this report, having exercised reasonable skill and care when carrying out the inspection 
+                    and testing, hereby declare that information in this report including the observations 
+                    provides an accurate assessment of condition of electrical installation taking into account 
+                    the stated extent and limitations in part 5 of this report:</label>
+    
+                  <h2>Inspected and tested by:</h2>
+                  <div class="form-group">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Name:</label>
+                        <input type="text" class="form-control" formControlName="name">
+                      </div>
+                    </div>
+      
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Signature:</label>
+                        <input type="text" class="form-control" formControlName="signature">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Company:</label>
+                        <input type="text" class="form-control" formControlName="company">
+                      </div>
+                    </div>
+      
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Position:</label>
+                        <input type="text" class="form-control" formControlName="position">
+                      </div>
+                    </div>
+      
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Address:</label>
+                        <input type="text" class="form-control" formControlName="address">
+                      </div>
+                    </div>
+      
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Date:</label>
+                        <input type="date" class="form-control" formControlName="date">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+
+                <div formArrayName="Declaration2Arr" *ngFor="let a of getDeclaration2Controls(); let i = index">
+                  <div class="form-group" [formGroupName]="i">
+                    <h2>Authorised by:</h2>
+                    <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Name:</label>
+                          <input type="text" class="form-control" formControlName="name">
+                        </div>
+                      </div>
+        
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Signature:</label>
+                          <input type="text" class="form-control" formControlName="signature">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Company:</label>
+                          <input type="text" class="form-control" formControlName="company">
+                        </div>
+                      </div>
+        
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Position:</label>
+                          <input type="text" class="form-control" formControlName="position">
+                        </div>
+                      </div>
+        
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Address:</label>
+                          <input type="text" class="form-control" formControlName="address">
+                        </div>
+                      </div>
+        
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Date:</label>
+                          <input type="date" class="form-control" formControlName="date">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+            
+          </mat-expansion-panel>
+      </mat-accordion>
+      <div style="text-align: center;margin-top: 40px;">
+        <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
+      </div>
+      </div>
+    </div>
+  </form>
+
+    <br>    
+    <br>
+
+    <div style="display: inline;">
+      <button  style="margin: 0 auto;width: 110px;" type="submit" (click)="SubmitTab5()"
+      class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn">
+        <i class="bi bi-journal-arrow-up icon"></i> Submit</button>
+  </div>
