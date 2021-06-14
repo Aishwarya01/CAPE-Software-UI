@@ -12,7 +12,7 @@ export class TestingService {
   apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }
 
-  public addSIte(testing: Testing): Observable<any> {
-    return this.http.post<any>(this.apiUrl + '/addTestInfo', testing, { responseType: 'text' as 'json' })
-  }
+ // public addTest(testing: Testing): Observable<any> {
+   // return this.http.post<any>(this.apiUrl + '/addTestInfo', testing, { responseType: 'text' as 'json' })
+  //}
 }

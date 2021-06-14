@@ -1,5 +1,6 @@
 export class Testing {
-    
+      siteId!: number;
+    userName!: String;
     testEngineerName!: String;
     date!: Date;
     detailsTestInstrument!: String;
@@ -17,6 +18,8 @@ export class Testing {
     testContinuity!:testContinuity[];
     testConductor!:testConductor[];
     testCircuit!:testCircuit[];
+  
+  
 }
 
 

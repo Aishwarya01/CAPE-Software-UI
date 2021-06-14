@@ -209,8 +209,8 @@ gettestCircuitFormControls(): AbstractControl[] {
   nextTab7() {
          this.testing.siteId;
          this.testing.userName=this.email;
-         this.testing.distributionIncomingValue = this.testingForm.value.distributionIncomingValueControlsArr;
-         this.testing.testDistribution = this.testingForm.value.testDistributionfFormControlsArr;
+        // this.testing.distributionIncomingValue = this.testingForm.value.distributionIncomingValueControlsArr;
+        // this.testing.testDistribution = this.testingForm.value.testDistributionfFormControlsArr;
          this.testing.testCircuit = this.testingForm.value.testCircuitFormArr;
          this.testing.testConductor = this.testingForm.value.testConductorArr;
          this.testing.testContinuity = this.testingForm.value.testContinuityArr;
@@ -220,11 +220,11 @@ gettestCircuitFormControls(): AbstractControl[] {
          this.testing.testDisconnectionTime = this.testingForm.value.testDisconnectionTimeArr;
          this.testing.testRcd = this.testingForm.value.testrcdValueArr;
          console.log(this.testing);
-         this.testingService.addTest(this.testing).subscribe(
-           data=>{
-             console.log("worked");
-           }
-         )
+        //  this.testingService.addTest(this.testing).subscribe(
+        //    data=>{
+        //      console.log("worked");
+        //    }
+        //  )
      }
      
  
