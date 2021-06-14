@@ -297,11 +297,11 @@
                               </tr>
                           </thead>
                           <tbody>
-                              <tr>
+                              <tr formArrayName="nominalVoltageArr1" *ngFor="let a of getnominalVoltageArr1Controls();">
                             <td nowrap="nowrap">Nominal voltage U/U0 (V)</td>
-                            <td><input type="number"  maxlength="4"  style="width:70px"></td>
-                            <td><input type="number"  maxlength="4" style="width:70px"></td>
-                            <td><input type="number"   maxlength="4"style="width:70px"></td>
+                            <td><input type="number"  min="1" max="4" formControlName="nominalVoltage" style="width:70px"></td>
+                            <td><input type="number"  maxlength="4" formControlName="nominalVoltage1" style="width:70px"></td>
+                            <td><input type="number"  maxlength="4" formControlName="nominalVoltage2" style="width:70px"></td>
                             <td><input type="text"  maxlength="4" style="width:70px"></td>
                             <td><input type="text"  maxlength="4" style="width:70px"></td>
                             <td><input type="text"  maxlength="4" style="width:70px"></td>

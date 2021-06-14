@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Supplycharacteristics } from '../model/supplycharacteristics';
+import { Supplycharacteristics, Supplyparameters } from '../model/supplycharacteristics';
 import { SupplyCharacteristicsService } from '../services/supply-characteristics.service';
-
 
 @Component({
   selector: 'app-inspection-verification-supply-characteristics',
@@ -10,7 +9,8 @@ import { SupplyCharacteristicsService } from '../services/supply-characteristics
   styleUrls: ['./inspection-verification-supply-characteristics.component.css']
 })
 export class InspectionVerificationSupplyCharacteristicsComponent implements OnInit {
-
+  a:any;
+  supplyparameters= new Supplyparameters;
   supplycharesteristic = new Supplycharacteristics;
   enableAC: boolean = false;
   enableDC: boolean = false;
@@ -74,7 +74,12 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   EL9: any;
 
   nominalVoltageArr: any = [];
-  nominalVoltage: String ="";
+  nominalVoltageArr1: any = [];
+
+  nominalVoltage: any;
+  nominalVoltage1: any;
+  nominalVoltage2: any;
+
 
   nominalFrequencyArr: any = [];
   nominalFrequency: String ="";
@@ -99,21 +104,21 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   earthingConductorVerifyList:string[]=['yes','No'];
 
   supplycharesteristicForm = new FormGroup({
-    // systemEarthing: new FormControl(''),
-    // liveConductor: new FormControl(''),
-    // AcConductor: new FormControl(''),
-    // DcConductor: new FormControl(''),
-    // briefNote: new FormControl(''),
+    live: new FormControl('')
 
   })
+
+  myValue: any;
   sources: boolean=false;
   breaker: boolean=false;
 
+  
   constructor(private supplyCharacteristicsService: SupplyCharacteristicsService,
               private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.supplycharesteristicForm = this.formBuilder.group({
+      live : [null, Validators.compose([Validators.required])],
       systemEarthing: ['', Validators.required],
       liveConductor: ['', Validators.required],
       AcConductor: ['', Validators.required],
@@ -182,14 +187,18 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
       EL8: (''),
       EL9: (''),
 
+
       location1Arr: this.formBuilder.array([this.createLocation1Form()]),
       location2Arr: this.formBuilder.array([this.createLocation2Form()]),
       location3Arr: this.formBuilder.array([this.createLocation3Form()]),
-      alternateArr: this.formBuilder.array([this.createLocation4Form()]),
+      alternateArr: this.formBuilder.array([this.SupplyparametersForm()]),
       circuitArr: this.formBuilder.array([this.createCircuitForm()]),
+     // SupplyparametersArr: this.formBuilder.array([this.
+
     });
     }
-
+   
+        
 
     private createLocation1Form(): FormGroup {
       return new FormGroup({
@@ -216,7 +225,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
       })
     }
 
-    private createLocation4Form(): FormGroup {
+    private SupplyparametersForm(): FormGroup {
       return new FormGroup({
         supply:new FormControl(''),
         short:new FormControl(''),
@@ -229,9 +238,19 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
         faultCurrent: new FormControl(''),
         loopImpedance: new FormControl(''),
         installedCapacity: new FormControl(''),
-        actualLoad: new FormControl(''),
-       // brief:new FormControl(''),
-       // Incoming:new FormControl('')
+        actualLoad: new FormControl(''),       
+        nominalVoltageArr1: this.formBuilder.array([
+          this.nominalVoltageForm()
+        ])
+      })
+    }
+
+    nominalVoltageForm() : FormGroup {
+      return new FormGroup({
+        nominalVoltage:new FormControl(''),
+        nominalVoltage1:new FormControl(''),
+        nominalVoltage2:new FormControl('')
+
       })
     }
 
@@ -247,6 +266,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
         residualTime:new FormControl('')
       })
     }
+    
 
     
 
@@ -453,6 +473,9 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   getCircuitControls(): AbstractControl[] {
     return (<FormArray> this.supplycharesteristicForm.get('circuitArr')).controls
   }
+  getnominalVoltageArr1Controls(): AbstractControl[] {
+    return (<FormArray> this.supplycharesteristicForm.get('nominalVoltageArr1')).controls
+  }
 
   changeCurrent(e: any) {
     let changedValue = e.target.value;
@@ -508,7 +531,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
      //this.value = value;
       for (this.i=1; this.i<this.value; this.i++ )
       {
-        this.alternateArr.push(this.createLocation4Form());
+        this.alternateArr.push(this.SupplyparametersForm());
         this.circuitArr.push(this.createCircuitForm());
       }
       this.sources= true;
@@ -517,7 +540,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
     else{
       for (this.i=0; this.i<this.value; this.i++ )
       {
-        this.alternateArr.push(this.createLocation4Form());
+        this.alternateArr.push(this.SupplyparametersForm());
         this.circuitArr.push(this.createCircuitForm());
       }
       this.sources= true;
@@ -555,7 +578,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
       //  for (this.i=0; this.i<this.delarr; this.i++ )
       //  {
       //   this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
-      //   this.alternateArr.push(this.createLocation4Form());
+      //   this.alternateArr.push(this.SupplyparametersForm());
       //  }
       //    }
       // }
@@ -583,7 +606,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   //           this.sources= true;
   //           for (this.i=1; this.i<this.value; this.i++ )
   //           {
-  //             this.alternateArr.push(this.createLocation4Form());
+  //             this.alternateArr.push(this.SupplyparametersForm());
   //           }     
   //      }
   //   else
@@ -596,8 +619,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   //        }
   //  }
   // }
-
-
+  
 nextTab2() {
   debugger
     this.nominalVoltageArr.push(this.NV1,this.NV2,this.NV3,this.NV4,this.NV5,this.NV6,this.NV7,this.NV8,this.NV9);
@@ -605,6 +627,11 @@ nextTab2() {
     this.nominalCurrentArr.push(this.PF1,this.PF2,this.PF3,this.PF4,this.PF5,this.PF6,this.PF7,this.PF8,this.PF9);
     this.loopImpedenceArr.push(this.EL1,this.EL2,this.EL3,this.EL4,this.EL5,this.EL6,this.EL7,this.EL8,this.EL9);
 
+    // alternate
+    this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
+    this.supplycharesteristic.Supplyparameters = this.supplycharesteristicForm.value.alternateArr
+
+    this.alternateArr.push(this.nominalVoltageArr1);
 
     for(let i of this.nominalVoltageArr) {
       if(i != undefined) {
@@ -612,6 +639,28 @@ nextTab2() {
       }
     }
 
+    for( let i of this.supplycharesteristic.Supplyparameters) {
+        if(this.i != undefined) {
+         this.nominalVoltage += i+",";
+        }
+      }
+
+
+
+
+
+    // for(let b of this.supplycharesteristic.Supplyparameters) {
+    //   if(b != undefined) {
+
+    //     this.supplycharesteristicForm.value.alternateArr.nominalVoltage += b+",";
+    //   }
+    // }
+        // alternate
+    // for(this.i=0; this.i<this.alternateArr.length; this.i++) {
+    //   if(this.i != undefined) {
+    //     this. +=  this.i+",";
+    //   }
+    // }
     for(let j of this.nominalFrequencyArr) {
       if(j != undefined) {
         this.nominalFrequency += j+",";
@@ -634,6 +683,12 @@ nextTab2() {
     this.supplycharesteristic.mainNominalCurrent = this.nominalCurrent
     this.supplycharesteristic.mainLoopImpedance = this.loopImpedence
 
+   
+     
+    //console.log (this.supplycharesteristicForm.get('live')?.value); 
+      
+
+   this.myValue = this.supplycharesteristicForm.get('alternateArr.live')?.value;
 
     console.log(this.supplycharesteristic);
     console.log(this.supplycharesteristicForm.value.circuitArr);
@@ -660,3 +715,7 @@ nextTab2() {
 
 
 }
+
+
+
+
