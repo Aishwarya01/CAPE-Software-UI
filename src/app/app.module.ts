@@ -37,15 +37,11 @@ import { ClientaddComponent } from './Company/client/clientadd/clientadd.compone
 import { ClientupdateComponent } from './Company/client/clientupdate/clientupdate/clientupdate.component';
 import { DepartmentupdateComponent } from './department/departmentupdate/departmentupdate/departmentupdate.component';
 import { SiteupdateComponent } from './site/siteupdate/siteupdate.component';
-<<<<<<< HEAD
 import { SummaryComponent } from './summary/summary.component';
-=======
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 import { InspectionVerificationBasicInformationComponent } from './inspection-verification-basic-information/inspection-verification-basic-information.component';
 import { InspectionVerificationIncomingEquipmentComponent } from './inspection-verification-incoming-equipment/inspection-verification-incoming-equipment.component';
 import { InspectionVerificationSupplyCharacteristicsComponent } from './inspection-verification-supply-characteristics/inspection-verification-supply-characteristics.component';
->>>>>>> PreDevCode
-
 
 @NgModule({
   declarations: [
@@ -71,13 +67,10 @@ import { InspectionVerificationSupplyCharacteristicsComponent } from './inspecti
     ClientupdateComponent,
     DepartmentupdateComponent,
     SiteupdateComponent,
-<<<<<<< HEAD
     SummaryComponent
-=======
     InspectionVerificationBasicInformationComponent,
     InspectionVerificationIncomingEquipmentComponent,
     InspectionVerificationSupplyCharacteristicsComponent
->>>>>>> PreDevCode
     
   ],
   imports: [
