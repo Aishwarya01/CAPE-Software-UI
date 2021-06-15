@@ -52,7 +52,7 @@ export class Supplyparameters {
   aLLiveConductorAC:string;
   aLLiveConductorDC:string;
   aLLiveConductorBNote:string;
-  nominalVoltage:number;
+  nominalVoltage:String;
   nominalFrequency:string;
   faultCurrent:string;
   loopImpedance:string;
@@ -61,8 +61,6 @@ export class Supplyparameters {
   ratedCurrent:string;
   currentDissconnection:string;
  
-  
-
 }
 export class Circuitbreaker{
   circuitBreakerId:number;

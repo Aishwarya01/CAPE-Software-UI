@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { from } from 'rxjs';
 import { Supplycharacteristics, Supplyparameters } from '../model/supplycharacteristics';
 import { SupplyCharacteristicsService } from '../services/supply-characteristics.service';
 
@@ -249,7 +250,53 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
       return new FormGroup({
         nominalVoltage:new FormControl(''),
         nominalVoltage1:new FormControl(''),
-        nominalVoltage2:new FormControl('')
+        nominalVoltage2:new FormControl(''),
+        nominalVoltage3:new FormControl(''),
+        nominalVoltage4:new FormControl(''),
+        nominalVoltage5:new FormControl(''),
+        nominalVoltage6:new FormControl(''),
+        nominalVoltage7:new FormControl(''),
+        nominalVoltage8:new FormControl(''),
+
+        nominalFrequency: new FormControl(''),
+        nominalFrequency1: new FormControl(''),
+        nominalFrequency2: new FormControl(''),
+        nominalFrequency3: new FormControl(''),
+        nominalFrequency4: new FormControl(''),
+        nominalFrequency5: new FormControl(''),
+        nominalFrequency6: new FormControl(''),
+        nominalFrequency7: new FormControl(''),
+        nominalFrequency8: new FormControl(''),
+
+
+        current: new FormControl(''),
+        current1: new FormControl(''),
+        current2: new FormControl(''),
+        current3: new FormControl(''),
+        current4: new FormControl(''),
+        current5: new FormControl(''),
+        current6: new FormControl(''),
+        current7: new FormControl(''),
+        current8: new FormControl(''),
+
+
+        impedence: new FormControl(''),
+        impedence1: new FormControl(''),
+        impedence2: new FormControl(''),
+        impedence3: new FormControl(''),
+        impedence4: new FormControl(''),
+        impedence5: new FormControl(''),
+        impedence6: new FormControl(''),
+        impedence7: new FormControl(''),
+        impedence8: new FormControl(''),
+
+
+        capacity: new FormControl(''),
+
+        loadCurrent: new FormControl(''),
+        loadCurrent1: new FormControl(''),
+        loadCurrent2: new FormControl(''),
+        loadCurrent3: new FormControl(''),
 
       })
     }
@@ -473,8 +520,8 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   getCircuitControls(): AbstractControl[] {
     return (<FormArray> this.supplycharesteristicForm.get('circuitArr')).controls
   }
-  getnominalVoltageArr1Controls(): AbstractControl[] {
-    return (<FormArray> this.supplycharesteristicForm.get('nominalVoltageArr1')).controls
+  getTableArray(form: any) {
+    return form.controls.nominalVoltageArr1.controls
   }
 
   changeCurrent(e: any) {
@@ -629,38 +676,15 @@ nextTab2() {
 
     // alternate
     this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
-    this.supplycharesteristic.Supplyparameters = this.supplycharesteristicForm.value.alternateArr
 
-    this.alternateArr.push(this.nominalVoltageArr1);
-
+    // first table
     for(let i of this.nominalVoltageArr) {
       if(i != undefined) {
         this.nominalVoltage += i+",";
       }
     }
 
-    for( let i of this.supplycharesteristic.Supplyparameters) {
-        if(this.i != undefined) {
-         this.nominalVoltage += i+",";
-        }
-      }
 
-
-
-
-
-    // for(let b of this.supplycharesteristic.Supplyparameters) {
-    //   if(b != undefined) {
-
-    //     this.supplycharesteristicForm.value.alternateArr.nominalVoltage += b+",";
-    //   }
-    // }
-        // alternate
-    // for(this.i=0; this.i<this.alternateArr.length; this.i++) {
-    //   if(this.i != undefined) {
-    //     this. +=  this.i+",";
-    //   }
-    // }
     for(let j of this.nominalFrequencyArr) {
       if(j != undefined) {
         this.nominalFrequency += j+",";
@@ -678,24 +702,100 @@ nextTab2() {
         this.loopImpedence += l+",";
       }
     }
+
+
+    for(let i of this.alternateArr.value) {
+      let arr: any=[];
+        let arr1: any=[];
+        let arr2: any=[];
+        let arr3: any=[];
+        let arr4: any=[];
+        let arr5: any=[];
+      for(let j of i.nominalVoltageArr1) {  
+        arr.push(j.nominalVoltage,j.nominalVoltage1,j.nominalVoltage2,j.nominalVoltage3,j.nominalVoltage4,j.nominalVoltage5,j.nominalVoltage6,j.nominalVoltage7,j.nominalVoltage8)
+        arr1.push(j.mainNominalFrequency,j.mainNominalFrequency1,j.mainNominalFrequency2,j.mainNominalFrequency3,j.mainNominalFrequency4,j.mainNominalFrequency5,j.mainNominalFrequency6,j.mainNominalFrequency7,j.mainNominalFrequency8)
+        arr2.push(j.current,j.current1,j.current2,j.current3,j.current4,j.current5,j.current6,j.current7,j.current8)
+        arr3.push(j.impedence,j.impedence1,j.impedence2,j.impedence3,j.impedence4,j.impedence5,j.impedence6,j.impedence7,j.impedence8)
+        arr4.push(j.capacity)
+        arr5.push(j.loadCurrent,j.loadCurrent1,j.loadCurrent2,j.loadCurrent3)
+      }
+  
+      let nominalVoltage: String='';
+      let nominalFrequency: String='';
+      let faultCurrent: String='';
+      let impedance: String='';
+      let capacity: String='';
+      let loadCurrent: String='';
+
+
+
+      for(let a of arr) {
+        if(a != undefined) {
+          nominalVoltage += a+",";
+        }
+      } 
+
+      i.nominalVoltage = nominalVoltage;
+
+      for(let b of arr1) {
+        if(b != undefined) {
+          nominalFrequency += b+",";
+        }
+      }
+
+      i.nominalFrequency = nominalFrequency;
+
+
+      for(let c of arr2) {
+        if(c != undefined) {
+          faultCurrent += c+",";
+        }
+      }
+
+      i.faultCurrent = faultCurrent;
+
+
+      for(let d of arr) {
+        if(d != undefined) {
+          impedance += d+",";
+        }
+      }
+
+      i.loopImpedance = impedance;
+
+      for(let e of arr) {
+        if(e != undefined) {
+          capacity = e;
+        }
+      }
+
+      i.installedCapacity = capacity;
+
+      for(let f of arr) {
+        if(f != undefined) {
+          loadCurrent += f+",";
+        }
+      }
+
+      i.actualLoad = loadCurrent;
+
+    }
+
+    // for(let i of this.alternateArr.controls) {
+    //   i.controls.removeControl('nominalVoltageArr1');
+    // }
+
+
+    this.supplycharesteristic.Supplyparameters = this.supplycharesteristicForm.value.alternateArr
+
+
     this.supplycharesteristic.mainNominalVoltage = this.nominalVoltage
     this.supplycharesteristic.mainNominalFrequency = this.nominalFrequency
     this.supplycharesteristic.mainNominalCurrent = this.nominalCurrent
     this.supplycharesteristic.mainLoopImpedance = this.loopImpedence
 
-   
-     
-    //console.log (this.supplycharesteristicForm.get('live')?.value); 
-      
-
-   this.myValue = this.supplycharesteristicForm.get('alternateArr.live')?.value;
-
-    console.log(this.supplycharesteristic);
-    console.log(this.supplycharesteristicForm.value.circuitArr);
-    console.log(this.supplycharesteristicForm.value.location1Arr);
-    console.log(this.supplycharesteristicForm.value.location2Arr);
-    console.log(this.supplycharesteristicForm.value.location3Arr);
-    console.log(this.supplycharesteristicForm.value.alternateArr);
+    console.log(this.supplycharesteristic)
+    
 }
 
 
