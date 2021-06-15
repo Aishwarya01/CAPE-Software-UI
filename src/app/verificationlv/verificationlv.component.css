@@ -53,6 +53,10 @@ mat-header-cell.mat-header-cell {
   border-radius: 1.25rem !important;
 }
 
+.auth-form-btn .icon {
+  /* float: left; */
+  /* margin-left: 30px; */
+}
 
 .cancel {
   margin-top: 40px;
@@ -88,6 +92,6 @@ mat-header-cell.mat-header-cell {
 
 .example-margin {
   margin: 0 12px;
-  float: left;
+  float: right;
 }
 
