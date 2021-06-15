@@ -13,7 +13,7 @@ export class InspectiondetailsService {
   constructor(private http: HttpClient) { }
 
   public addInspectionDetails(inspectionDetails: InspectionDetails): Observable<any> {
-    return this.http.post<any>(this.apiUrl + '/inspectionDetailsService', inspectionDetails, { responseType: 'text' as 'json' })
+    return this.http.post<any>(this.apiUrl + '/addInspectionDetails', inspectionDetails, { responseType: 'text' as 'json' })
   }
 }
 
