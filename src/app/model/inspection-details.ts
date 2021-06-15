@@ -138,6 +138,9 @@ export class InspectionDetails {
     insulaDisplacementBox!: String;
     overheatSurrounding!: String;
     overheatConductors!: String;
+  userName!: String;
+  siteId!: number;
+  ipaoInspectionId!: number;
 
 
 }
