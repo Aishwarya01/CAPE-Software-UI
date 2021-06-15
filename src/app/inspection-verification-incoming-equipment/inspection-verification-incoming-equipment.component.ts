@@ -89,9 +89,9 @@ export class InspectionVerificationIncomingEquipmentComponent implements OnInit 
   panelOpenState = false;
   installationList: String[]= ['New installation','First verification of an existing','Addition of an existing installation','Alteration in an existing installation','Periodic verification'];
   premiseList: String[]= ['Domestic(Individual)','Domestic(Apartment)','Commercial','IT/Office','Data center','Industrial(Non Ex environment)','Industrial(Ex environment)'];
-  evidenceList: String[]= ['YES', 'NO', 'Not Apparent'];
-  previousRecordList: String[]= ['YES', 'NO'];
-  InspectionList: String[]=['YES', 'NO', 'Not Applicable'];
+  evidenceList: String[]= ['Yes', 'No', 'Not Apparent'];
+  previousRecordList: String[]= ['Yes', 'No'];
+  InspectionList: String[]=['Yes', 'No', 'Not Applicable'];
 
 
 
@@ -156,7 +156,7 @@ export class InspectionVerificationIncomingEquipmentComponent implements OnInit 
 
   showEstimatedAge(e: any) {
     let changedValue = e.target.value;
-    if(changedValue == "YES") {
+    if(changedValue == "Yes") {
       this.showField2 = true;
     }
     else {
