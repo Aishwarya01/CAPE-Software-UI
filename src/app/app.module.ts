@@ -67,7 +67,7 @@ import { InspectionVerificationSupplyCharacteristicsComponent } from './inspecti
     ClientupdateComponent,
     DepartmentupdateComponent,
     SiteupdateComponent,
-    SummaryComponent
+    SummaryComponent,
     InspectionVerificationBasicInformationComponent,
     InspectionVerificationIncomingEquipmentComponent,
     InspectionVerificationSupplyCharacteristicsComponent
