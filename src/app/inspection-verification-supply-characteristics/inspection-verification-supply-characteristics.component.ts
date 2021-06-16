@@ -4,6 +4,7 @@ import { from } from 'rxjs';
 import { Supplycharacteristics, Supplyparameters } from '../model/supplycharacteristics';
 import { SupplyCharacteristicsService } from '../services/supply-characteristics.service';
 import { GlobalsService } from '../globals.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-inspection-verification-supply-characteristics',
@@ -32,6 +33,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   value:any;
   loclength: any;
   loc1length: any;
+  email: String = '';
 
   NV1: any;
   NV2: any;
@@ -114,7 +116,10 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
 
   
   constructor(private supplyCharacteristicsService: SupplyCharacteristicsService,public service: GlobalsService,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private router: ActivatedRoute
+              ) {
+                this.email = this.router.snapshot.paramMap.get('email') || '{}'
                }
 
   ngOnInit(): void {
@@ -672,7 +677,8 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   // }
   
 nextTab2() {
-  console.log(this.service.siteCount);
+    this.supplycharesteristic.siteId = this.service.siteCount;
+    this.supplycharesteristic.userName = this.email;
     this.nominalVoltageArr.push(this.NV1,this.NV2,this.NV3,this.NV4,this.NV5,this.NV6,this.NV7,this.NV8,this.NV9);
     this.nominalFrequencyArr.push(this.NF1,this.NF2,this.NF3,this.NF4,this.NF5,this.NF6,this.NF7,this.NF8,this.NF9);
     this.nominalCurrentArr.push(this.PF1,this.PF2,this.PF3,this.PF4,this.PF5,this.PF6,this.PF7,this.PF8,this.PF9);
@@ -785,9 +791,9 @@ nextTab2() {
 
     }
 
-    // for(let i of this.alternateArr.controls) {
-    //   i.controls.removeControl('nominalVoltageArr1');
-    // }
+    for(let i of this.alternateArr.controls) {
+      delete i.value.nominalVoltageArr1;
+    }
 
 
     this.supplycharesteristic.Supplyparameters = this.supplycharesteristicForm.value.alternateArr
