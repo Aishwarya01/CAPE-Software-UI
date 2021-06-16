@@ -74,14 +74,9 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   EL8: any;
   EL9: any;
 
-  nominalVoltageArr: any = [];
-  nominalVoltageArr1: any = [];
-
-  nominalVoltage: any;
-  nominalVoltage1: any;
-  nominalVoltage2: any;
-
-
+  nominalVoltageArr: any = []; 
+  nominalVoltage: String ="";
+  
   nominalFrequencyArr: any = [];
   nominalFrequency: String ="";
 
@@ -90,6 +85,9 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   
   loopImpedenceArr: any = [];
   loopImpedence: String ="";
+
+  // Alternate table array
+  nominalVoltageArr1: any = [];
 
   panelOpenState = false;
   systemEarthingList: String[]= ['TN-C','TN-C-S','TN-S','IT','TT'];
@@ -228,12 +226,13 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
 
     private SupplyparametersForm(): FormGroup {
       return new FormGroup({
-        supply:new FormControl(''),
-        short:new FormControl(''),
-        earthing:new FormControl(''),
-        live:new FormControl(''),
-        AC:new FormControl(''),
-        DC:new FormControl(''),
+        aLSupplyNo:new FormControl(''),
+        aLSupplyShortName:new FormControl(''),
+        aLSystemEarthing:new FormControl(''),
+        aLLiveConductorType:new FormControl(''),
+        aLLiveConductorAC:new FormControl(''),
+        aLLiveConductorDC:new FormControl(''),
+        aLLiveConductorBNote: new FormControl(''),
         nominalVoltage: new FormControl(''),
         nominalFrequency: new FormControl(''),
         faultCurrent: new FormControl(''),
@@ -242,13 +241,14 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
         actualLoad: new FormControl(''),       
         nominalVoltageArr1: this.formBuilder.array([
           this.nominalVoltageForm()
-        ])
+        ]),
+        ratedCurrent : new FormControl(''),    
+        currentDissconnection : new FormControl(''),    
       })
     }
 
     nominalVoltageForm() : FormGroup {
       return new FormGroup({
-        nominalVoltage:new FormControl(''),
         nominalVoltage1:new FormControl(''),
         nominalVoltage2:new FormControl(''),
         nominalVoltage3:new FormControl(''),
@@ -257,8 +257,9 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
         nominalVoltage6:new FormControl(''),
         nominalVoltage7:new FormControl(''),
         nominalVoltage8:new FormControl(''),
+        nominalVoltage9:new FormControl(''),
 
-        nominalFrequency: new FormControl(''),
+
         nominalFrequency1: new FormControl(''),
         nominalFrequency2: new FormControl(''),
         nominalFrequency3: new FormControl(''),
@@ -267,9 +268,9 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
         nominalFrequency6: new FormControl(''),
         nominalFrequency7: new FormControl(''),
         nominalFrequency8: new FormControl(''),
+        nominalFrequency9: new FormControl(''),
 
 
-        current: new FormControl(''),
         current1: new FormControl(''),
         current2: new FormControl(''),
         current3: new FormControl(''),
@@ -278,9 +279,9 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
         current6: new FormControl(''),
         current7: new FormControl(''),
         current8: new FormControl(''),
+        current9: new FormControl(''),
 
 
-        impedence: new FormControl(''),
         impedence1: new FormControl(''),
         impedence2: new FormControl(''),
         impedence3: new FormControl(''),
@@ -289,14 +290,15 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
         impedence6: new FormControl(''),
         impedence7: new FormControl(''),
         impedence8: new FormControl(''),
+        impedence9: new FormControl(''),
 
 
         capacity: new FormControl(''),
 
-        loadCurrent: new FormControl(''),
         loadCurrent1: new FormControl(''),
         loadCurrent2: new FormControl(''),
         loadCurrent3: new FormControl(''),
+        loadCurrent4: new FormControl(''),
 
       })
     }
@@ -526,7 +528,6 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
 
   changeCurrent(e: any) {
     let changedValue = e.target.value;
-    debugger
     if(changedValue == "AC") {
       this.enableAC = true;
       this.enableDC = false;
@@ -668,7 +669,6 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   // }
   
 nextTab2() {
-  debugger
     this.nominalVoltageArr.push(this.NV1,this.NV2,this.NV3,this.NV4,this.NV5,this.NV6,this.NV7,this.NV8,this.NV9);
     this.nominalFrequencyArr.push(this.NF1,this.NF2,this.NF3,this.NF4,this.NF5,this.NF6,this.NF7,this.NF8,this.NF9);
     this.nominalCurrentArr.push(this.PF1,this.PF2,this.PF3,this.PF4,this.PF5,this.PF6,this.PF7,this.PF8,this.PF9);
@@ -712,25 +712,25 @@ nextTab2() {
         let arr4: any=[];
         let arr5: any=[];
       for(let j of i.nominalVoltageArr1) {  
-        arr.push(j.nominalVoltage,j.nominalVoltage1,j.nominalVoltage2,j.nominalVoltage3,j.nominalVoltage4,j.nominalVoltage5,j.nominalVoltage6,j.nominalVoltage7,j.nominalVoltage8)
-        arr1.push(j.mainNominalFrequency,j.mainNominalFrequency1,j.mainNominalFrequency2,j.mainNominalFrequency3,j.mainNominalFrequency4,j.mainNominalFrequency5,j.mainNominalFrequency6,j.mainNominalFrequency7,j.mainNominalFrequency8)
-        arr2.push(j.current,j.current1,j.current2,j.current3,j.current4,j.current5,j.current6,j.current7,j.current8)
-        arr3.push(j.impedence,j.impedence1,j.impedence2,j.impedence3,j.impedence4,j.impedence5,j.impedence6,j.impedence7,j.impedence8)
+        arr.push(j.nominalVoltage1,j.nominalVoltage2,j.nominalVoltage3,j.nominalVoltage4,j.nominalVoltage5,j.nominalVoltage6,j.nominalVoltage7,j.nominalVoltage8,j.nominalVoltage9)
+        arr1.push(j.nominalFrequency1,j.nominalFrequency2,j.nominalFrequency3,j.nominalFrequency4,j.nominalFrequency5,j.nominalFrequency6,j.nominalFrequency7,j.nominalFrequency8,j.nominalFrequency9)
+        arr2.push(j.current1,j.current2,j.current3,j.current4,j.current5,j.current6,j.current7,j.current8,j.current9)
+        arr3.push(j.impedence1,j.impedence2,j.impedence3,j.impedence4,j.impedence5,j.impedence6,j.impedence7,j.impedence8,j.impedence9)
         arr4.push(j.capacity)
-        arr5.push(j.loadCurrent,j.loadCurrent1,j.loadCurrent2,j.loadCurrent3)
+        arr5.push(j.loadCurrent1,j.loadCurrent2,j.loadCurrent3,j.loadCurrent4)
       }
   
-      let nominalVoltage: String='';
-      let nominalFrequency: String='';
-      let faultCurrent: String='';
-      let impedance: String='';
-      let capacity: String='';
-      let loadCurrent: String='';
+      let nominalVoltage: String="";
+      let nominalFrequency: String="";
+      let faultCurrent: String="";
+      let impedance: String="";
+      let capacity: String="";
+      let loadCurrent: String="";
 
 
 
       for(let a of arr) {
-        if(a != undefined) {
+        if(a != "") {
           nominalVoltage += a+",";
         }
       } 
@@ -738,7 +738,7 @@ nextTab2() {
       i.nominalVoltage = nominalVoltage;
 
       for(let b of arr1) {
-        if(b != undefined) {
+        if(b != "") {
           nominalFrequency += b+",";
         }
       }
@@ -747,7 +747,7 @@ nextTab2() {
 
 
       for(let c of arr2) {
-        if(c != undefined) {
+        if(c != "") {
           faultCurrent += c+",";
         }
       }
@@ -755,24 +755,24 @@ nextTab2() {
       i.faultCurrent = faultCurrent;
 
 
-      for(let d of arr) {
-        if(d != undefined) {
+      for(let d of arr3) {
+        if(d != "") {
           impedance += d+",";
         }
       }
 
       i.loopImpedance = impedance;
 
-      for(let e of arr) {
-        if(e != undefined) {
+      for(let e of arr4) {
+        if(e != "") {
           capacity = e;
         }
       }
 
       i.installedCapacity = capacity;
 
-      for(let f of arr) {
-        if(f != undefined) {
+      for(let f of arr5) {
+        if(f != "") {
           loadCurrent += f+",";
         }
       }
@@ -795,6 +795,14 @@ nextTab2() {
     this.supplycharesteristic.mainLoopImpedance = this.loopImpedence
 
     console.log(this.supplycharesteristic)
+    this.supplyCharacteristicsService.addSupplyCharacteristics(this.supplycharesteristic).subscribe(
+      data=> {
+        console.log("worked");
+      },
+      error => {
+        console.log("error");
+      }
+      )
     
 }
 

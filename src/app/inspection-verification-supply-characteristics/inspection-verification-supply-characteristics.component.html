@@ -219,17 +219,17 @@
                   
                     <div class="col-md-4">
                       <label>Alternate supply no:</label>        
-                      <input type="number"   class="form-control"  formControlName="supply">
+                      <input type="number"   class="form-control"  formControlName="aLSupplyNo">
                     </div>
         
                     <div class="col-md-4">
                       <label>Short name of alternate supply:</label>        
-                      <input type="text"  maxlength="50" class="form-control"  formControlName="short">
+                      <input type="text"  maxlength="50" class="form-control"  formControlName="aLSupplyShortName">
                     </div>
         
                     <div class="col-md-4">
                       <label>System earthing:</label>
-                      <select class="form-control" formControlName="earthing">
+                      <select class="form-control" formControlName="aLSystemEarthing">
                         <option value="0" selected>Select option</option>
                         <option *ngFor="let value of systemEarthingList"> {{value}}</option>
                       </select>
@@ -237,16 +237,16 @@
         
                     <div class="col-md-4">
                         <label>Number and type of live conductors: </label>
-                        <select class="form-control"  formControlName="live">
+                        <select class="form-control"  formControlName="aLLiveConductorType">
                           <option value="0" selected>Select option</option>
                           <option value="AC">AC</option>
                           <option value="DC">DC</option>
                         </select>
                     </div>
         
-                    <div class="col-md-4" *ngIf="a.get('live')?.value=='AC'">
+                    <div class="col-md-4" *ngIf="a.get('aLLiveConductorType')?.value=='AC'">
                         <label>AC:</label>
-                        <select class="form-control" formControlName="AC">
+                        <select class="form-control" formControlName="aLLiveConductorAC">
                           <option value="0" selected>Select option</option>
                           <option value="1-phase, 3-wire (LLM)">1-phase, 2-wire (LN)</option>
                           <option value="1-phase, 3-wire (LLM)">1-phase, 3-wire (LLM)</option>
@@ -256,9 +256,9 @@
                         </select>
                     </div>
         
-                    <div class="col-md-4" *ngIf="a.get('live')?.value=='DC'">
+                    <div class="col-md-4" *ngIf="a.get('aLLiveConductorType')?.value=='DC'">
                         <label>DC:</label>
-                        <select class="form-control" formControlName="DC">
+                        <select class="form-control" formControlName="aLLiveConductorDC">
                           <option selected="selected" value="2-pole">2-pole </option>
                           <option value=" 3-pole"> 3-pole</option>
                           <option value="Others">Others</option>
@@ -272,12 +272,12 @@
                         <mat-label>
                           <h3>Brief note (in case of confusion)</h3>
                         </mat-label>
-                        <textarea matInput class="client-box-description" maxlength="500" placeholder="Ex. Brief Note ..." ></textarea>
+                        <textarea matInput class="client-box-description" formControlName="aLLiveConductorBNote" maxlength="500" placeholder="Ex. Brief Note ..." ></textarea>
                       </mat-form-field>
                     </div>
                   </div>
         
-                  <div class="row" *ngIf="a.get('live')?.value=='AC'">
+                  <div class="row" *ngIf="a.get('aLLiveConductorType')?.value=='AC'">
                     <div class="col">
                       <h2>Applicable for AC:</h2>
                       <div class="table-responsive">
@@ -299,61 +299,65 @@
                           <tbody [formGroupName]="j">
                               <tr>
                                 <td nowrap="nowrap">Nominal voltage U/U0 (V)</td>
-                                <td><input type="number"  min="1" formControlName="nominalVoltage" style="width:70px"></td>
-                                <td><input type="number"  maxlength="4" formControlName="nominalVoltage1" style="width:70px"></td>
-                                <td><input type="number"  maxlength="4" formControlName="nominalVoltage2" style="width:70px"></td>
+                                <td><input type="text"  maxlength="4" formControlName="nominalVoltage1" style="width:70px"></td>
+                                <td><input type="text"  maxlength="4" formControlName="nominalVoltage2" style="width:70px"></td>
                                 <td><input type="text"  maxlength="4" formControlName="nominalVoltage3" style="width:70px"></td>
                                 <td><input type="text"  maxlength="4" formControlName="nominalVoltage4" style="width:70px"></td>
                                 <td><input type="text"  maxlength="4" formControlName="nominalVoltage5" style="width:70px"></td>
                                 <td><input type="text"  maxlength="4" formControlName="nominalVoltage6" style="width:70px"></td>
                                 <td><input type="text"  maxlength="4" formControlName="nominalVoltage7" style="width:70px"></td>
                                 <td><input type="text"  maxlength="4" formControlName="nominalVoltage8" style="width:70px"></td>
+                                <td><input type="text"  min="1" formControlName="nominalVoltage9" style="width:70px"></td>
+
                               </tr>
                               <tr>
                                 <td nowrap="nowrap">Nominal Frequency f (HZ)</td>
-                                <td><input type="number"  min="1" formControlName="nominalFrequency" style="width:70px"></td>
-                                <td><input type="number"  maxlength="4" formControlName="nominalFrequency1" style="width:70px"></td>
-                                <td><input type="number"  maxlength="4" formControlName="nominalFrequency2" style="width:70px"></td>
+                                <td><input type="text"  maxlength="4" formControlName="nominalFrequency1" style="width:70px"></td>
+                                <td><input type="text"  maxlength="4" formControlName="nominalFrequency2" style="width:70px"></td>
                                 <td><input type="text"  maxlength="4" formControlName="nominalFrequency3" style="width:70px"></td>
                                 <td><input type="text"  maxlength="4" formControlName="nominalFrequency4" style="width:70px"></td>
                                 <td><input type="text"  maxlength="4" formControlName="nominalFrequency5" style="width:70px"></td>
                                 <td><input type="text"  maxlength="4" formControlName="nominalFrequency6" style="width:70px"></td>
                                 <td><input type="text"  maxlength="4" formControlName="nominalFrequency7" style="width:70px"></td>
                                 <td><input type="text"  maxlength="4" formControlName="nominalFrequency8" style="width:70px"></td>
+                                <td><input type="text"  min="1" formControlName="nominalFrequency9" style="width:70px"></td>
                               </tr>
                               <tr>
                                 <td nowrap="nowrap">Prospective fault current Ipfc (kA) </td>
-                                <td><input type="number"  min="1" formControlName="current" style="width:70px"></td>
-                                <td><input type="number"  maxlength="4" formControlName="current1" style="width:70px"></td>
-                                <td><input type="number"  maxlength="4" formControlName="current2" style="width:70px"></td>
+                                <td><input type="text"  maxlength="4" formControlName="current1" style="width:70px"></td>
+                                <td><input type="text"  maxlength="4" formControlName="current2" style="width:70px"></td>
                                 <td><input type="text"  maxlength="4" formControlName="current3" style="width:70px"></td>
                                 <td><input type="text"  maxlength="4" formControlName="current4" style="width:70px"></td>
                                 <td><input type="text"  maxlength="4" formControlName="current5" style="width:70px"></td>
                                 <td><input type="text"  maxlength="4" formControlName="current6" style="width:70px"></td>
                                 <td><input type="text"  maxlength="4" formControlName="current7" style="width:70px"></td>
                                 <td><input type="text"  maxlength="4" formControlName="current8" style="width:70px"></td>
+                                <td><input type="text"  min="1" formControlName="current9" style="width:70px"></td>
+
                               </tr>
                               <tr>
                                 <td nowrap="nowrap">External Loop Impedance Ze (Ω)</td>
-                                <td><input type="number"  min="1" formControlName="impedence" style="width:70px"></td>
-                                <td><input type="number"  maxlength="4" formControlName="impedence1" style="width:70px"></td>
-                                <td><input type="number"  maxlength="4" formControlName="impedence2" style="width:70px"></td>
+                                <td><input type="text"  maxlength="4" formControlName="impedence1" style="width:70px"></td>
+                                <td><input type="text"  maxlength="4" formControlName="impedence2" style="width:70px"></td>
                                 <td><input type="text"  maxlength="4" formControlName="impedence3" style="width:70px"></td>
                                 <td><input type="text"  maxlength="4" formControlName="impedence4" style="width:70px"></td>
                                 <td><input type="text"  maxlength="4" formControlName="impedence5" style="width:70px"></td>
                                 <td><input type="text"  maxlength="4" formControlName="impedence6" style="width:70px"></td>
                                 <td><input type="text"  maxlength="4" formControlName="impedence7" style="width:70px"></td>
                                 <td><input type="text"  maxlength="4" formControlName="impedence8" style="width:70px"></td>
+                                <td><input type="text"  min="1" formControlName="impedence9" style="width:70px"></td>
+
                               </tr>
                                 <tr><td >Installed capacity (kVA)</td>
                                   <td colspan="9"><input type="text"  maxlength="4" formControlName="capacity" style="width: 950px"></td>
                                 </tr>
                                 <tr>
                                   <td >Actual load current (R,Y,B, N)</td>
-                                  <td colspan="2"><input type="text" formControlName="loadCurrent"  style="width:206px"></td>
                                   <td colspan="2"><input type="text" formControlName="loadCurrent1" style="width:206px"></td>
                                   <td colspan="2"><input type="text" formControlName="loadCurrent2" style="width:206px"></td>
                                   <td colspan="3"><input type="text" formControlName="loadCurrent3" style="width:206px"></td>
+                                  <td colspan="2"><input type="text" formControlName="loadCurrent4"  style="width:206px"></td>
+
                                 </tr>
                               
                           </tbody>
@@ -373,11 +377,11 @@
                           </tr>
                           <tr>
                               <td nowrap="nowrap">Rated current (A)</td>
-                              <td><input type="text" style="width:400px"></td>
+                              <td><input type="text" formControlName="ratedCurrent" style="width:400px"></td>
                           </tr>
                           <tr>
                             <td nowrap="nowrap">Current for disconnection with in 0.2 seconds</td>
-                            <td><input type="text" style="width:400px"></td>
+                            <td><input type="text" formControlName="currentDissconnection" style="width:400px"></td>
                           </tr>
                       </table>
                     </div>
