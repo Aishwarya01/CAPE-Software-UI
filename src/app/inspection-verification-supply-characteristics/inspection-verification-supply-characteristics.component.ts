@@ -115,16 +115,10 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   
   constructor(private supplyCharacteristicsService: SupplyCharacteristicsService,public service: GlobalsService,
               private formBuilder: FormBuilder) {
-                debugger;  
-                this.service.getData(); 
                }
 
   ngOnInit(): void {
-    //  this.data = this.service.getData();  
-  //   if(this.data){
-  //     console.log(this.data);
-  //   }
-    //this.data = this.service.getData();    
+    console.log(this.service.siteCount);
     this.supplycharesteristicForm = this.formBuilder.group({
       live : [null, Validators.compose([Validators.required])],
       systemEarthing: ['', Validators.required],
@@ -678,6 +672,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   // }
   
 nextTab2() {
+  console.log(this.service.siteCount);
     this.nominalVoltageArr.push(this.NV1,this.NV2,this.NV3,this.NV4,this.NV5,this.NV6,this.NV7,this.NV8,this.NV9);
     this.nominalFrequencyArr.push(this.NF1,this.NF2,this.NF3,this.NF4,this.NF5,this.NF6,this.NF7,this.NF8,this.NF9);
     this.nominalCurrentArr.push(this.PF1,this.PF2,this.PF3,this.PF4,this.PF5,this.PF6,this.PF7,this.PF8,this.PF9);

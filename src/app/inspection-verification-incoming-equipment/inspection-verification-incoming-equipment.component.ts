@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InspectiondetailsService } from '../services/inspectiondetails.service';
 import { InspectionDetails } from '../model/inspection-details';
+import { GlobalsService } from '../globals.service';
+
 @Component({
   selector: 'app-inspection-verification-incoming-equipment',
   templateUrl: './inspection-verification-incoming-equipment.component.html',
@@ -169,7 +171,7 @@ export class InspectionVerificationIncomingEquipmentComponent implements OnInit 
   formBuilder: any;
    constructor(private _formBuilder: FormBuilder,
     private router: ActivatedRoute,
-    private inspectionDetailsService: InspectiondetailsService,
+    private inspectionDetailsService: InspectiondetailsService,public service: GlobalsService,
     private ChangeDetectorRef: ChangeDetectorRef) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
@@ -338,8 +340,7 @@ export class InspectionVerificationIncomingEquipmentComponent implements OnInit 
   
   nextTab3()
   {
-    this.inspectionDetails.siteId=4;
-    this.inspectionDetails.ipaoInspectionId=1;
+    this.inspectionDetails.siteId=this.service.siteCount;
     this.inspectionDetails.userName=this.email;
   console.log(this.inspectionDetails);
   this.inspectionDetailsService.addInspectionDetails(this.inspectionDetails).subscribe(

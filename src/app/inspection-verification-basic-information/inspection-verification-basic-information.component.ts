@@ -23,6 +23,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 
   step1Form!: FormGroup;
 
+
   public data: string = "";
 
   clientList: any = [];
@@ -79,7 +80,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     public service: GlobalsService,
     private ChangeDetectorRef: ChangeDetectorRef) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
-    service.setData(this.data);  
+    //service.setData(this.data);  
 
   }
 
@@ -199,12 +200,9 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
         this.reportDetails.siteId = arr.siteId;
       }
     }
-    this.SetGlobalData(changedValue);
+    
   }
-
-  SetGlobalData(data: string) {
-    this.service.setData(data);
-   }
+  
   // Signature part
 
   private createDesigner1AcknowledgeForm(): FormGroup {
@@ -432,20 +430,13 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     
     this.proceedNext.emit(true);
   }
+  // setData(data: number) {
+  //   this.service.setData(data);
+  //  // this.router.navigateByUrl('/reciever');
+  //  }
 
   nextTab() {
-   //this.service.getData();
-    this.submitted = true;
-
-    //Breaks if form is invalid
-    if(this.step1Form.invalid) {
-      return;
-    }
-
     this.loading = true;
-
-
-    
     this.step1Form.value.designer1Arr[0].signatorRole= this.designerRole;
     this.step1Form.value.designer1Arr[0].declarationName= this.step1Form.value.designer1AcknowledgeArr[0].declarationName;
     this.step1Form.value.designer1Arr[0].declarationDate= this.step1Form.value.designer1AcknowledgeArr[0].declarationDate;
@@ -478,6 +469,8 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       error => {
       }
       )
+      this.service.siteCount=this.reportDetails.siteId;
+
   }
 
 
