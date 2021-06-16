@@ -1,40 +1,40 @@
 export class Supplycharacteristics {
     supplyCharacteristicsId:number;
-    userName:String;
+    userName:string;
     siteId:number;
-    mainSystemEarthing:String;
-    systemEarthingBNote:String;
-    liveConductorType:String;
-    liveConductorAC:String;
-    liveConductorDC:String;
-    liveConductorBNote:String;
-    mainNominalVoltage:String;
-    mainNominalFrequency:String;
-    mainNominalCurrent:String;
-    mainLoopImpedance:String;
-    mainNominalProtectiveDevice:String;
-    mainRatedCurrent:String;
-    mainCurrentDisconnection:String;
-    alternativeSupply:String;
+    mainSystemEarthing:string;
+    systemEarthingBNote:string;
+    liveConductorType:string;
+    liveConductorAC:string;
+    liveConductorDC:string;
+    liveConductorBNote:string;
+    mainNominalVoltage:number;
+    mainNominalFrequency:number;
+    mainNominalCurrent:number;
+    mainLoopImpedance:string;
+    mainNominalProtectiveDevice:string;
+    mainRatedCurrent:string;
+    mainCurrentDisconnection:string;
+    alternativeSupply:string;
     supplyNumber:number;
-    maximumDemand:String;
-    maximumLoad:String;
-    meansEarthing:String;
-    electrodeType:String;
-    electrodeMaterial:String;
-    noOfLocation:String;
+    maximumDemand:string;
+    maximumLoad:string;
+    meansEarthing:string;
+    electrodeType:string;
+    electrodeMaterial:string;
+    noOfLocation:number;
     conductorSize:number;
-    conductormaterial:String;
+    conductormaterial:string;
     conductorVerify:boolean;
     bondingConductorSize:number;
-    bondingConductorMaterial:String;
+    bondingConductorMaterial:string;
     bondingConductorVerify:boolean;
-    bondingJointsType:String;
+    bondingJointsType:string;
     bondingNoOfJoints:number;
     earthingConductorSize:number;
-    earthingConductorMaterial:String;
+    earthingConductorMaterial:string;
     earthingConductorVerify:boolean;
-    earthingJointsType:String;
+    earthingJointsType:string;
     earthingNoOfJoints:number;
     createdDat:Date;
 
@@ -44,38 +44,37 @@ export class Supplycharacteristics {
 }
 export class Supplyparameters {
   supplyparametersId:number;
-  aLSystemEarthing:String;
-  aLSupplyNo:String;
-  aLSupplyShortName:String;
-
-  aLSystemEarthingBNote:String;
+  aLSystemEarthing:string;
+  aLSupplyNo:string;
+  aLSupplyShortName:string;
+  aLSystemEarthingBNote:string;
+  aLLiveConductorType:string;
+  aLLiveConductorAC:string;
+  aLLiveConductorDC:string;
+  aLLiveConductorBNote:string;
+  nominalVoltage:number;
+  nominalFrequency:string;
+  faultCurrent:string;
+  loopImpedance:string;
+  installedCapacity:string;
+  actualLoad:string;
+  ratedCurrent:string;
+  currentDissconnection:string;
+ 
   
-  aLLiveConductorType:String;
-  aLLiveConductorAC:String;
-  aLLiveConductorDC:String;
-  aLLiveConductorBNote:String;
 
-  nominalVoltage:String;
-  nominalFrequency:String;
-  faultCurrent:String;
-  loopImpedance:String;
-  installedCapacity:String;
-  actualLoad:String;
-
-  ratedCurrent:String;
-  currentDissconnection:String;
 }
 export class Circuitbreaker{
   circuitBreakerId:number;
-  location:String;
-  type:String;
-  currentCurveType:String;
-  noPoles:String;
-  current:String;
-  voltage:String;
-  fuse:String;
-  residualCurrent:String;
-  residualTime:String;
+  location:string;
+  type:string;
+  currentCurveType:string;
+  noPoles:string;
+  current:string;
+  voltage:string;
+  fuse:string;
+  residualCurrent:string;
+  residualTime:string;
  
 }
 export class Locationreport{
