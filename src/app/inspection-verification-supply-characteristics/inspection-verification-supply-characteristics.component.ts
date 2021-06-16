@@ -94,13 +94,13 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   liveConductorACList:String[]=['1-phase, 2-wire (LN)','1-phase, 3-wire (LLM)','2-phase, 3-wire (LLN)','3-phase, 3-wire (LLL)','3-phase, 4-wire (LLLN)'];
   liveConductorDCList:String[]=['2-pole','3-pole','Others'];
   ProtectiveDevicelist:string[]=['Fuse','MCB','MCCB','ACB'];
-  AlternatesupplyList:string[]=['yes','No'];
+  AlternatesupplyList:string[]=['Yes','No'];
   MeansofEarthingList:string[]=['Suppliers facility',' Installation earth electrode'];
   electrodeTypeList:string[]=['Vertical','Horizontal','Combined vertical + horizontal'];
   electrodeMaterialList:string[]=['Copper','Coppebondedr  steel','Galvanised steel','Combination','Others'];
-  conductorVerifyList:string[]=['yes','No'];
-  bondingConductorVerifyList:string[]=['yes','No'];
-  earthingConductorVerifyList:string[]=['yes','No'];
+  conductorVerifyList:string[]=['Yes','No'];
+  bondingConductorVerifyList:string[]=['Yes','No'];
+  earthingConductorVerifyList:string[]=['Yes','No'];
 
   supplycharesteristicForm = new FormGroup({
     live: new FormControl('')
