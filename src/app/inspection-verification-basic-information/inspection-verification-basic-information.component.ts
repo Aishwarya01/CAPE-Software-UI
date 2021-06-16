@@ -11,6 +11,9 @@ import { DepartmentService } from '../services/department.service';
 import { ReportDetailsService } from '../services/report-details.service';
 import { SiteService } from '../services/site.service';
 
+import { GlobalsService } from '../globals.service';
+
+
 @Component({
   selector: 'app-inspection-verification-basic-information',
   templateUrl: './inspection-verification-basic-information.component.html',
@@ -19,8 +22,9 @@ import { SiteService } from '../services/site.service';
 export class InspectionVerificationBasicInformationComponent implements OnInit {
 
   step1Form!: FormGroup;
-  
-  
+
+  public data: string = "";
+
   clientList: any = [];
   inActiveData: any =[];
   departmentList: any = [];
@@ -47,6 +51,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   submitted = false;
 
   @Output() proceedNext = new EventEmitter<any>();  
+  
 
 
   designerRole: String ='designer';
@@ -71,8 +76,11 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     private departmentService: DepartmentService,
     private reportDetailsService: ReportDetailsService,
     private siteService: SiteService,
+    public service: GlobalsService,
     private ChangeDetectorRef: ChangeDetectorRef) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
+    service.setData(this.data);  
+
   }
 
   
@@ -191,8 +199,12 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
         this.reportDetails.siteId = arr.siteId;
       }
     }
+    this.SetGlobalData(changedValue);
   }
 
+  SetGlobalData(data: string) {
+    this.service.setData(data);
+   }
   // Signature part
 
   private createDesigner1AcknowledgeForm(): FormGroup {
@@ -422,7 +434,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   }
 
   nextTab() {
-
+   //this.service.getData();
     this.submitted = true;
 
     //Breaks if form is invalid

@@ -3,6 +3,7 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { from } from 'rxjs';
 import { Supplycharacteristics, Supplyparameters } from '../model/supplycharacteristics';
 import { SupplyCharacteristicsService } from '../services/supply-characteristics.service';
+import { GlobalsService } from '../globals.service';
 
 @Component({
   selector: 'app-inspection-verification-supply-characteristics',
@@ -112,10 +113,18 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   breaker: boolean=false;
 
   
-  constructor(private supplyCharacteristicsService: SupplyCharacteristicsService,
-              private formBuilder: FormBuilder) { }
+  constructor(private supplyCharacteristicsService: SupplyCharacteristicsService,public service: GlobalsService,
+              private formBuilder: FormBuilder) {
+                debugger;  
+                this.service.getData(); 
+               }
 
   ngOnInit(): void {
+    //  this.data = this.service.getData();  
+  //   if(this.data){
+  //     console.log(this.data);
+  //   }
+    //this.data = this.service.getData();    
     this.supplycharesteristicForm = this.formBuilder.group({
       live : [null, Validators.compose([Validators.required])],
       systemEarthing: ['', Validators.required],
