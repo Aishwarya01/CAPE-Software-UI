@@ -71,7 +71,7 @@
 
           <div class="row" *ngIf="tableAC">
             <div class="col" >
-              <h2>Applicable for AC:</h2>
+              <h2>Applicable for AC: (Note: Please mention NA if any column is not applicable)</h2>
                 <div class="table-responsive">
                   <table class="table">
                     <thead>
@@ -279,7 +279,7 @@
         
                   <div class="row" *ngIf="a.get('aLLiveConductorType')?.value=='AC'">
                     <div class="col">
-                      <h2>Applicable for AC:</h2>
+                      <h2>Applicable for AC: (Note: Please mention NA if any column is not applicable)</h2>
                       <div class="table-responsive">
                         <table  class="table" formArrayName="nominalVoltageArr1" *ngFor="let row of getTableArray(a); let j = index"> 
                           <thead> 
