@@ -125,14 +125,16 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   ngOnInit(): void {
     console.log(this.service.siteCount);
     this.supplycharesteristicForm = this.formBuilder.group({
-      live : [null, Validators.compose([Validators.required])],
+      // live : ['',Validators.required],
       systemEarthing: ['', Validators.required],
       liveConductor: ['', Validators.required],
       AcConductor: ['', Validators.required],
       DcConductor: ['', Validators.required],
       briefNote: ['', Validators.required],
       liveConductorBNote: ['',Validators.required],
-
+      mainNominalProtectiveDevice: ['',Validators.required],
+      mainRatedCurrent: ['',Validators.required],
+      mainCurrentDisconnection: ['',Validators.required],
       alternativeSupply: ['',Validators.required],
       supplyNumber: ['',Validators.required],
       maximumDemand: ['', Validators.required],
@@ -240,6 +242,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
         aLLiveConductorType:new FormControl(''),
         aLLiveConductorAC:new FormControl(''),
         aLLiveConductorDC:new FormControl(''),
+        aLSystemEarthingBNote: new FormControl(''),
         aLLiveConductorBNote: new FormControl(''),
         nominalVoltage: new FormControl(''),
         nominalFrequency: new FormControl(''),
@@ -250,6 +253,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
         nominalVoltageArr1: this.formBuilder.array([
           this.nominalVoltageForm()
         ]),
+        protectiveDevice: new FormControl(''),
         ratedCurrent : new FormControl(''),    
         currentDissconnection : new FormControl(''),    
       })
@@ -688,32 +692,44 @@ nextTab2() {
     this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
 
     // first table
+
+    // Main table Nominal Voltage
     for(let i of this.nominalVoltageArr) {
       if(i != undefined) {
         this.nominalVoltage += i+",";
       }
     }
+    this.nominalVoltage = this.nominalVoltage.replace(/,\s*$/, "");
 
 
+    // Main table Nominal Frequency
     for(let j of this.nominalFrequencyArr) {
       if(j != undefined) {
         this.nominalFrequency += j+",";
       }
     }
+    this.nominalFrequency = this.nominalFrequency.replace(/,\s*$/, "");
 
+    
+    // Main table Nominal Current
     for(let k of this.nominalCurrentArr) {
       if(k != undefined) {
         this.nominalCurrent += k+",";
       }
     }
+    this.nominalCurrent = this.nominalCurrent.replace(/,\s*$/, "");
 
+    
+    // Main table Loop Impedence
     for(let l of this.loopImpedenceArr) {
       if(l != undefined) {
         this.loopImpedence += l+",";
       }
     }
+    this.loopImpedence = this.loopImpedence.replace(/,\s*$/, "");
 
 
+    // Supply Parameters Table
     for(let i of this.alternateArr.value) {
       let arr: any=[];
         let arr1: any=[];
@@ -744,7 +760,7 @@ nextTab2() {
           nominalVoltage += a+",";
         }
       } 
-
+      nominalVoltage = nominalVoltage.replace(/,\s*$/, "");
       i.nominalVoltage = nominalVoltage;
 
       for(let b of arr1) {
@@ -753,6 +769,7 @@ nextTab2() {
         }
       }
 
+      nominalFrequency = nominalFrequency.replace(/,\s*$/, "");
       i.nominalFrequency = nominalFrequency;
 
 
@@ -761,7 +778,7 @@ nextTab2() {
           faultCurrent += c+",";
         }
       }
-
+      faultCurrent = faultCurrent.replace(/,\s*$/, "");
       i.faultCurrent = faultCurrent;
 
 
@@ -770,7 +787,7 @@ nextTab2() {
           impedance += d+",";
         }
       }
-
+      impedance = impedance.replace(/,\s*$/, "");
       i.loopImpedance = impedance;
 
       for(let e of arr4) {
@@ -778,7 +795,7 @@ nextTab2() {
           capacity = e;
         }
       }
-
+      capacity = capacity.replace(/,\s*$/, "");
       i.installedCapacity = capacity;
 
       for(let f of arr5) {
@@ -786,7 +803,7 @@ nextTab2() {
           loadCurrent += f+",";
         }
       }
-
+      loadCurrent = loadCurrent.replace(/,\s*$/, "");
       i.actualLoad = loadCurrent;
 
     }
@@ -796,8 +813,11 @@ nextTab2() {
     }
 
 
-    this.supplycharesteristic.Supplyparameters = this.supplycharesteristicForm.value.alternateArr
-
+    this.supplycharesteristic.supplyParameters = this.supplycharesteristicForm.value.alternateArr
+    this.supplycharesteristic.instalLocationReport = this.supplycharesteristicForm.value.location1Arr
+    this.supplycharesteristic.boundingLocationReport = this.supplycharesteristicForm.value.location2Arr
+    this.supplycharesteristic.earthingLocationReport = this.supplycharesteristicForm.value.location3Arr
+    this.supplycharesteristic.circuitBreaker = this.supplycharesteristicForm.value.circuitArr
 
     this.supplycharesteristic.mainNominalVoltage = this.nominalVoltage
     this.supplycharesteristic.mainNominalFrequency = this.nominalFrequency
