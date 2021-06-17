@@ -363,12 +363,13 @@
 <!-- step 3 -->
       <mat-step>
         <ng-template matStepLabel>Inspection</ng-template>
-        <app-inspection-verification-incoming-equipment></app-inspection-verification-incoming-equipment>
+     <app-inspection-verification-incoming-equipment></app-inspection-verification-incoming-equipment>
       </mat-step>
 
       <mat-step>
         <ng-template matStepLabel>Testing</ng-template>
-        <app-inspection-verification-testing></app-inspection-verification-testing>
+       <!-------<app-inspection-verification-testing2></app-inspection-verification-testing2>--->
+   <app-inspection-verification-testing></app-inspection-verification-testing>
         <div>
           <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
           <button class="next" mat-button matStepperNext>Next &raquo;</button>
@@ -378,7 +379,8 @@
 
       <mat-step>
         <ng-template matStepLabel>Summary</ng-template>
-
+ 
+     
         <div>
           <button mat-button matStepperPrevious>Back</button>
         </div>

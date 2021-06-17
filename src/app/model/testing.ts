@@ -1,48 +1,51 @@
-export class Testing {
-      siteId!: number;
-    userName!: String;
-    testEngineerName!: String;
-    date!: Date;
-    detailsTestInstrument!: String;
-    continuity!: String;
-    insulationResisance!: String;
-    rcd!: String;
-    earthElectrodeResistance!: String;
-    designation!: String;
-    companyName!: String;
-    testRcd!: testRcd[];
-    testDisconnectionTime!:testDisconnectionTime[];
-    testFaultCurrent!:testFaultCurrent[];
-    testLoopImpedance!:testLoopImpedance[];
-    testVoltage!:testVoltage[];
-    testContinuity!:testContinuity[];
-    testConductor!:testConductor[];
-    testCircuit!:testCircuit[];
-  
-  
+export class Testingdetails {
+  siteId!: number;
+userName!: String;
+testEngineerName!: String;
+date!: Date;
+detailsTestInstrument!: String;
+continuity!: String;
+insulationResisance!: String;
+rcd!: String;
+earthElectrodeResistance!: String;
+designation!: String;
+companyName!: String;
+Impedance!:String;
+
+
+distributionIncomingValue!: DistributionIncomingValue[];
+testDistribution!: TestDistribution[];
+testCircuit!:TestCircuit[];
+testConductor!:TestConductor[];
+testContinuity!:TestContinuity[];
+testVoltage!:TestVoltage[];
+testLoopImpedance!:TestLoopImpedance[];
+testFaultCurrent!:TestFaultCurrent[];
+testDisconnectionTime!:TestDisconnectionTime[];
+testRcd!: TestRcd[];
 }
 
 
 
-     export class testDistribution{
+ export class TestDistribution{
 
- distributionBoardDetails!: String;
- referance!: String;
- location!: String;
- correctSupplyPolarity!: String;
- numOutputCircuitsUse!: String;
- ratingsAmps!: String;
- numOutputCircuitsSpare!: String;
- installedEquipmentVulnarable!: String;
-     }
+distributionBoardDetails!: String;
+referance!: String;
+location!: String;
+correctSupplyPolarity!: String;
+numOutputCircuitsUse!: String;
+ratingsAmps!: String;
+numOutputCircuitsSpare!: String;
+installedEquipmentVulnarable!: String;
+ }
 
-//  distributionIncomingValue:[{
+export class DistributionIncomingValue{
 
-//  incomingVoltage!: String,
-//  incomingZs!: String;
-//  incomingIpf!: String;
+incomingVoltage!: String;
+incomingZs!: String;
+incomingIpf!: String;
 
-//  }
+}
 //  {
 //  incomingVoltage!: String;
 //  incomingZs!: String;
@@ -51,85 +54,85 @@ export class Testing {
 //  ]
 //  },
 
-  export class testCircuit {
- circuitNo!: String;
- description!: String;
- standardNo!: String;
- type!: String;
- rating!: String;
- breakingCapacity!: String;
- }
+export class TestCircuit {
+circuitNo!: String;
+description!: String;
+standardNo!: String;
+type!: String;
+rating!: String;
+breakingCapacity!: String;
+}
 
- export class  testConductor {
- installationReferanceMethod!: String;
- live!: String;
- Integer!: String;
+export class  TestConductor {
+installationReferanceMethod!: String;
+live!: String;
+Integer!: String;
 
- }
+}
 
-  export class testContinuity {
- approximateLength!: String;
- rRContinuity!: String;
- rContinuity!: String;
- lLContinuity!: String;
- lEContinuity!: String;
- polarity!: String;
- }
+export class TestContinuity {
+approximateLength!: String;
+rRContinuity!: String;
+rContinuity!: String;
+lLContinuity!: String;
+lEContinuity!: String;
+polarity!: String;
+}
 
-   export class testVoltage {
- ryVoltage!: String;
- rbVoltage!: String;
- ybVoltage!: String;
- rnVoltage!: String;
- ynVoltage!: String;
- bnVoltage!: String;
- rpeVoltage!: String;
- ypeVoltage!: String;
- bpeVoltage!: String;
- }
+export class TestVoltage {
+ryVoltage!: String;
+rbVoltage!: String;
+ybVoltage!: String;
+rnVoltage!: String;
+ynVoltage!: String;
+bnVoltage!: String;
+rpeVoltage!: String;
+ypeVoltage!: String;
+bpeVoltage!: String;
+}
 
-  export class testLoopImpedance {
-    ryLoopImpedance!: String;
- rbLoopImpedance!: String;
- ybLoopImpedance!: String;
- rnLoopImpedance!: String;
- ynLoopImpedance!: String;
- bnLoopImpedance!: String;
- rpeLoopImpedance!: String;
- ypeLoopImpedance!: String;
- bpeLoopImpedance!: String;
-
-
- }
-
-  export class testFaultCurrent {
-    ryFaultCurrent!: String;
-  rbFaultCurrent!: String;
- ybFaultCurrent!: String;
- rnFaultCurrent!: String;
- ynFaultCurrent!: String;
- bnFaultCurrent!: String;
- rpeFaultCurrent!: String;
- ypeFaultCurrent!: String;
- bpeFaultCurrent!: String;
+export class TestLoopImpedance {
+ryLoopImpedance!: String;
+rbLoopImpedance!: String;
+ybLoopImpedance!: String;
+rnLoopImpedance!: String;
+ynLoopImpedance!: String;
+bnLoopImpedance!: String;
+rpeLoopImpedance!: String;
+ypeLoopImpedance!: String;
+bpeLoopImpedance!: String;
 
 
- }
+}
 
-  export class testDisconnectionTime {
+export class TestFaultCurrent {
+ryFaultCurrent!: String;
+rbFaultCurrent!: String;
+ybFaultCurrent!: String;
+rnFaultCurrent!: String;
+ynFaultCurrent!: String;
+bnFaultCurrent!: String;
+rpeFaultCurrent!: String;
+ypeFaultCurrent!: String;
+bpeFaultCurrent!: String;
 
- rbDisconnect!: String;
- ybDisconnect!: String;
- rnDisconnect!: String;
- ynDisconnect!: String;
- bnDisconnect!: String;
- rpeDisconnect!: String;
- ypeDisconnect!: String;
- bpeDisconnect!: String;
 
- }
+}
 
-export class  testRcd {
+export class TestDisconnectionTime {
+
+rbDisconnect!: String;
+ybDisconnect!: String;
+rnDisconnect!: String;
+ynDisconnect!: String;
+bnDisconnect!: String;
+rpeDisconnect!: String;
+ypeDisconnect!: String;
+bpeDisconnect!: String;
+
+}
+
+export class  TestRcd {
 
 rcdCurrent!: String;
 operatingCurrent!: String;

@@ -12,16 +12,15 @@
                         <div class="col-md-4">
                             <label>Test Engineer Name </label>
                             <input type="text" formControlName="testEngineerName" class="form-control"
-                                placeholder="Test Engineer Name" [(ngModel)]="testing.testEngineerName">
+                                 >
                         </div>
                         <div class="col-md-4">
                             <label>Date</label>
-                            <input type="date" formControlName="date" class="form-control" placeholder="Date "  [(ngModel)]="testing.date">
+                            <input type='date' formControlName="date" class="form-control"  >
                         </div>
                         <div class="col-md-4">
                             <label>designation</label>
-                            <input type="text" formControlName="designation" class="form-control"
-                                placeholder="designation "  [(ngModel)]="testing.designation">
+                            <input type="text" formControlName="designation" class="form-control">
                         </div>
                     </div>
     
@@ -29,68 +28,99 @@
                         <div class="col-md-4">
                             <label> company name</label>
                             <input type="text" formControlName=" companyName" class="form-control"
-                                placeholder=" company name "  [(ngModel)]="testing.companyName">
+                         >
                         </div>
                         <div class="col-md-4">
                             <label>Details of test instrument </label>
-                            <input type="text" formControlName="detailsTestInstrument " class="form-control"
-                                placeholder="Details of test instrument"  [(ngModel)]="testing.detailsTestInstrument">
+                            <input type="text" formControlName="detailsTestInstrument " class="form-control"  >
                         </div>
                         <div class="col-md-4">
                             <label>Continuity </label>
-                            <input type="text" formControlName="continuity " class="form-control"
-                                placeholder="Test Engineer Name"  [(ngModel)]="testing.continuity">
+                            <input type="text" formControlName="continuity " class="form-control"  >
                         </div>
                     </div>
     
                     <div class="row">
                         <div class="col-md-4">
                             <label>Insulation resisance</label>
-                            <input type="text" formControlName="insulationResisance" class="form-control"
-                                placeholder="Insulation resisance "  [(ngModel)]="testing.insulationResisance">
+                            <input type="text" formControlName="insulationResisance" class="form-control"  >
                         </div>
                         <div class="col-md-4">
                             <label>Impedance </label>
-                            <input type="text" formControlName="Impedance " class="form-control"  [(ngModel)]="testing.testEngineerName">
+                            <input type="text" formControlName="Impedance " class="form-control">
                         </div>
     
                         <div class="col-md-4">
                             <label>RCD </label>
-                            <input type="text" formControlName="rcd " class="form-control"  [(ngModel)]="testing.rcd">
+                            <input type="text" formControlName="rcd " class="form-control"  >
                         </div>
                     </div>
     
                     <div class="col-md-4">
                         <label>Earth electrode resistance</label>
-                        <input type="text" formControlName="earthElectrodeResistance" class="form-control"  [(ngModel)]="testing.earthElectrodeResistance">
+                        <input type="text" formControlName="earthElectrodeResistance" class="form-control"  >
                     </div>
     
                 </mat-expansion-panel>
+
+
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <h3>section-2</h3>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                  <!--------  <div formArrayName="testDistributionfFormArr" *ngFor="let a of gettestDistributionfFormControls(); let i = index">
-                            <div class="form-group" [formGroupName]="i">--->
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label>Distribution board details </label>
-                            <input type="text" formControlName="distributionBoardDetails" class="form-control"
-                                placeholder="Distribution board detailsTest Engineer Name">
+        
+              <div formArrayName="testDistributionArr" *ngFor="let a of gettestDistributionfFormControls(); let i = index">
+                           <div class="form-group" [formGroupName]="i">
+                        <div class="row">
+                                <div class="col-md-4">
+                                        <label>Distribution board details </label>
+                                        <input type="text" formControlName="distributionBoardDetails" class="form-control">
+                                </div>
+                                <div class="col-md-4">
+                                        <label>referance (name)</label>
+                                        <input type="text" formControlName="referance " class="form-control">
+                                </div>
+                                <div class="col-md-4">
+                                        <label>Location</label>
+                                        <input type="text" formControlName="location" class="form-control">
+                                </div>
                         </div>
-                        <div class="col-md-4">
-                            <label>referance (name)</label>
-                            <input type="text" formControlName="referance " class="form-control" placeholder="referance">
+                        <div class="row">
+                                <div class="col-md-4">
+                                        <label>Correct supply polarity </label>
+                                        <select class="form-control" formControlName="correctSupplyPolarity">
+                                                <option value="0" selected>Select option</option>
+                                                <option value="Yes" selected>Yes</option>
+                                                <option value="No" selected>No</option>
+                                        </select>
+                                </div>
+                                <div class="col-md-4">
+                                        <label>Number of output circuits in use</label>
+                                        <input type="number" formControlName="numOutputCircuitsUse " class="form-control"
+                                        >
+                                </div>
+                                <div class="col-md-4">
+                                        <label>ratings in Amps </label>
+                                        <input type="number" formControlName="ratingsAmps" class="form-control"
+                                                >
+                                </div>
                         </div>
-                        <div class="col-md-4">
-                                <label>Location</label>
-                                <input type="text" formControlName="location" class="form-control" placeholder="Enter Location">
-                            </div>
-                    </div>
-                 <!--------  <div formArrayName="distributionIncomingValueArr" *ngFor="let a of getdistributionIncomingValueControls(); let i = index">
-                            <div class="form-group" [formGroupName]="i">--->
+        
+                        <div class="row">
+                                <div class="col-md-4">
+                                        <label>Number of output circuits in use</label>
+                                        <input type="text" formControlName="numOutputCircuitsSpare" class="form-control"
+                                                placeholder="Number of output circuits - Spare ">
+                                </div>
+                                <div class="col-md-4">
+                                        <label> Installed equipment vulnarable to testing </label>
+                                        <input type="text" formControlName="installedEquipmentVulnarable" class="form-control">
+                                </div>
+                        </div>
+                </div>
+        </div>
                     <div class="row">
                         <div class="col">
                             <div class="table-responsive">
@@ -110,109 +140,85 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        
+                                       
+         <div formArrayName="distributionIncomingValueArr" *ngFor="let a of getdistributionIncomingValueControls(); let i = index">
+                <div class="form-group" [formGroupName]="i">  
+                        <tr>
                                             <td>Incoming Voltage</td>
-                                            <td><input type="number" formControlName="incomingVoltage" class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="number" formControlName="incomingVoltage" class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
                                             <td><input type="number" formControlName="incomingVoltage " class="form-control" maxlength="4"
                                                     style="width:70px"></td>
-                                            <td><input type="text" formControlName=" incomingVoltage" class="form-control" maxlength="4"
+                                            <td><input type="number"  class="form-control" maxlength="4"
                                                     style="width:70px"></td>
-                                            <td><input type="text" formControlName="incomingVoltage" class="form-control" maxlength="4"
+                                            <td><input type="number"  class="form-control" maxlength="4"
                                                     style="width:70px"></td>
-                                            <td><input type="text" formControlName="incomingVoltage" class="form-control" maxlength="4"
+                                            <td><input type="text"  class="form-control" maxlength="4"
                                                     style="width:70px"></td>
-                                            <td><input type="text" formControlName="incomingVoltage " class="form-control" maxlength="4"
+                                            <td><input type="text"  class="form-control" maxlength="4"
                                                     style="width:70px"></td>
-                                            <td><input type="text" formControlName="incomingVoltage " class="form-control" maxlength="4"
+                                            <td><input type="text"  class="form-control" maxlength="4"
                                                     style="width:70px"></td>
-                                            <td><input type="text" formControlName="incomingVoltage " class="form-control" maxlength="4"
+                                            <td><input type="text"  class="form-control" maxlength="4"
+                                                    style="width:70px"></td>
+                                            <td><input type="text" class="form-control" maxlength="4"
+                                                    style="width:70px"></td>
+                                            <td><input type="text"  class="form-control" maxlength="4"
                                                     style="width:70px"></td>
     
                                         </tr>
                                         <tr>
                                             <td>Incoming Zs (Ω)</td>
-                                            <td><input type="text" formControlName=" " class="form-control" maxlength="3"
+                                            <td><input type="text"    formControlName="incomingZs " class="form-control" maxlength="3"
                                                     style="width:70px"></td>
-                                            <td><input type="text" formControlName=" " class="form-control" maxlength="3"
+                                            <td><input type="text" class="form-control" maxlength="3"
                                                     style="width:70px"></td>
-                                            <td><input type="text" formControlName=" " class="form-control" maxlength="3"
+                                            <td><input type="text" class="form-control" maxlength="3"
                                                     style="width:70px"></td>
-                                            <td><input type="text" formControlName=" " class="form-control" maxlength="3"
+                                            <td><input type="text" class="form-control" maxlength="3"
                                                     style="width:70px"></td>
-                                            <td><input type="text" formControlName=" " class="form-control" maxlength="3"
+                                            <td><input type="text" class="form-control" maxlength="3"
                                                     style="width:70px"></td>
-                                            <td><input type="text" formControlName=" " class="form-control" maxlength="3"
+                                            <td><input type="text" class="form-control" maxlength="3"
                                                     style="width:70px"></td>
-                                            <td><input type="text" formControlName=" " class="form-control" maxlength="3"
+                                            <td><input type="text" class="form-control" maxlength="3"
                                                     style="width:70px"></td>
-                                            <td><input type="text" formControlName=" " class="form-control" maxlength="3"
+                                            <td><input type="text" class="form-control" maxlength="3"
                                                     style="width:70px"></td>
-                                            <td><input type="text" formControlName=" " class="form-control" maxlength="3"
+                                            <td><input type="text" class="form-control" maxlength="3"
                                                     style="width:70px"></td>
                                         </tr>
                                         <tr>
                                             <td>Incoming Ipf (Amps)</td>
-                                            <td><input type="text" formControlName=" " class="form-control" maxlength="7"
+                                            <td><input type="text"    formControlName="incomingIpf " class="form-control" maxlength="7"
                                                     style="width:70px"></td>
-                                            <td><input type="text" formControlName=" " class="form-control" maxlength="7"
+                                            <td><input type="text" class="form-control" maxlength="7"
                                                     style="width:70px"></td>
-                                            <td><input type="text" formControlName=" " class="form-control" maxlength="7"
+                                            <td><input type="text" class="form-control" maxlength="7"
                                                     style="width:70px"></td>
-                                            <td><input type="text" formControlName=" " class="form-control" maxlength="7"
+                                            <td><input type="text" class="form-control" maxlength="7"
                                                     style="width:70px"></td>
-                                            <td><input type="text" formControlName=" " class="form-control" maxlength="7"
+                                            <td><input type="text" class="form-control" maxlength="7"
                                                     style="width:70px"></td>
-                                            <td><input type="text" formControlName=" " class="form-control" maxlength="7"
+                                            <td><input type="text" class="form-control" maxlength="7"
                                                     style="width:70px"></td>
-                                            <td><input type="text" formControlName=" " class="form-control" maxlength="7"
+                                            <td><input type="text" class="form-control" maxlength="7"
                                                     style="width:70px"></td>
-                                            <td><input type="text" formControlName=" " class="form-control" maxlength="7"
+                                            <td><input type="text" class="form-control" maxlength="7"
                                                     style="width:70px"></td>
-                                            <td><input type="text" formControlName=" " class="form-control" maxlength="7"
+                                            <td><input type="text" class="form-control" maxlength="7"
                                                     style="width:70px"></td>
                                         </tr>
+                                        </div>
+                                        </div>
                                     </tbody>
+                                
+                                    
                                 </table>
                             </div>
                         </div>
                     </div>
             
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label>Correct supply polarity </label>
-                            <select class="form-control" formControlName="correctSupplyPolarity">
-                                <option value="0" selected>Select option</option>
-                                <option value="Yes" selected>Yes</option>
-                                <option value="No" selected>No</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label>Number of output circuits in use</label>
-                            <input type="number" formControlName="numOutputCircuitsUse " class="form-control"
-                                placeholder="Number of output circuits in use">
-                        </div>
-                        <div class="col-md-4">
-                            <label>ratings in Amps </label>
-                            <input type="number" formControlName="ratingsAmps" class="form-control"
-                                placeholder="ratings in Amps">
-                        </div>
-                    </div>
-    
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label>Number of output circuits in use</label>
-                            <input type="text" formControlName="numOutputCircuitsSpare" class="form-control"
-                                placeholder="Number of output circuits - Spare ">
-                        </div>
-                        <div class="col-md-4">
-                            <label> Installed equipment vulnarable to testing </label>
-                            <input type="text" formControlName="installedEquipmentVulnarable"
-                                class="form-control" >
-                        </div>
-                    </div>
+                    
                 </mat-expansion-panel>
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                     <mat-expansion-panel-header>
@@ -312,87 +318,107 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-     <!--------  <div formArrayName="testCircuitFormArr" *ngFor="let a of gettestCircuitFormControls(); let i = index">
-                            <div class="form-group" [formGroupName]="i">--->
-                                            <td><input type="number" formControlName="circuitNo " class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="number" formControlName="description " class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="number" formControlName="standardNo " class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="text" formControlName=" type" class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="text" formControlName="rating " class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="text" formControlName=" breakingCapacity" class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
+<div formArrayName="testCircuitFormArr" *ngFor="let a of gettestCircuitFormControls(); let i = index">
+        <div class="form-group" [formGroupName]="i">
+                <td><input type="number" formControlName="circuitNo " class="form-control" maxlength="4"
+                                style="width:70px"></td>
+                <td><input type="number" formControlName="description " class="form-control" maxlength="4"
+                                style="width:70px"></td>
+                <td><input type="number" formControlName="standardNo " class="form-control" maxlength="4"
+                                style="width:70px"></td>
+                <td><input type="text" formControlName=" type" class="form-control" maxlength="4" style="width:70px">
+                </td>
+                <td><input type="text" formControlName="rating " class="form-control" maxlength="4" style="width:70px">
+                </td>
+                <td><input type="text" formControlName=" breakingCapacity" class="form-control" maxlength="4"
+                                style="width:70px"></td>
+        </div>
+</div>
                                           
-                                                     <!--------  <div formArrayName="testConductorArr" *ngFor="let a of gettestConductorControls(); let i = index">
-                            <div class="form-group" [formGroupName]="i">------>
-                                            <td><input type="text" formControlName="installationReferanceMethod " class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="text" formControlName=" live" class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="text" formControlName="Integer " class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                         
+      <div formArrayName="testConductorArr" *ngFor="let a of gettestConductorControls(); let i = index">
+                <div class="form-group" [formGroupName]="i">
+                        <td><input type="text" formControlName="installationReferanceMethod " class="form-control" maxlength="4"
+                                        style="width:70px"></td>
+                        <td><input type="text" formControlName=" live" class="form-control" maxlength="4" style="width:70px">
+                        </td>
+                        <td><input type="text" formControlName="Integer " class="form-control" maxlength="4" style="width:70px">
+                        </td>
+                </div>
+        </div>
                                           
-                                                       <!--------  <div formArrayName="testContinuityArr" *ngFor="let a of gettestContinuityControls(); let i = index">
-                            <div class="form-group" [formGroupName]="i">------>
-                                            <td><input type="text" formControlName=" approximateLength" class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="text" formControlName=" rRContinuity" class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="text" formControlName="rContinuity " class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="number" formControlName=" lLContinuity" class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="number" formControlName=" lEContinuity" class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="number" formControlName="polarity " class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                                      <!--------  <div formArrayName="testVoltageArr" *ngFor="let a of gettestVoltageControls(); let i = index">
-                            <div class="form-group" [formGroupName]="i">------>
-                                            <td><input type="text" formControlName="ryVoltage " class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="text" formControlName="rbVoltage " class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="text" formControlName="ybVoltage " class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="text" formControlName=" rnVoltage" class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="text" formControlName="ynVoltage " class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="text" formControlName="bnVoltage " class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="number" formControlName="rpeVoltage " class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="number" formControlName="ypeVoltage " class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="number" formControlName=" bpeVoltage" class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                                       <!--------  <div formArrayName="testLoopImpedanceArr" *ngFor="let a of gettestLoopImpedanceControls(); let i = index">
-                            <div class="form-group" [formGroupName]="i">------>
-                                           <td><input type="text" formControlName="ryLoopImpedance " class="form-control" maxlength="4"
-                                                              style="width:70px"></td>
-                                            <td><input type="text" formControlName=" rbLoopImpedance" class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="text" formControlName=" ybLoopImpedance" class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="text" formControlName="rnLoopImpedance " class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="text" formControlName=" ynLoopImpedance" class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="text" formControlName=" bnLoopImpedance" class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="text" formControlName="rpeLoopImpedance " class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="number" formControlName=" ypeLoopImpedance" class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="number" formControlName="bpeLoopImpedance " class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                                      <!--------  <div formArrayName="testFaultCurrentArr" *ngFor="let a of gettestFaultCurrentControls(); let i = index">
-                            <div class="form-group" [formGroupName]="i">------>
+                                                      
+        
+<div formArrayName="testContinuityArr" *ngFor="let a of gettestContinuityControls(); let i = index">
+        <div class="form-group" [formGroupName]="i">
+                <td><input type="text" formControlName=" approximateLength" class="form-control" maxlength="4"
+                                style="width:70px"></td>
+                <td><input type="text" formControlName=" rRContinuity" class="form-control" maxlength="4"
+                                style="width:70px"></td>
+                <td><input type="text" formControlName="rContinuity " class="form-control" maxlength="4"
+                                style="width:70px"></td>
+                <td><input type="number" formControlName=" lLContinuity" class="form-control" maxlength="4"
+                                style="width:70px"></td>
+                <td><input type="number" formControlName=" lEContinuity" class="form-control" maxlength="4"
+                                style="width:70px"></td>
+                <td><input type="number" formControlName="polarity " class="form-control" maxlength="4"
+                                style="width:70px"></td>
+        </div>
+</div>
+
+
+                <div formArrayName="testVoltageArr" *ngFor="let a of gettestVoltageControls(); let i = index">
+                        <div class="form-group" [formGroupName]="i">
+                                <td><input type="text" formControlName="ryVoltage " class="form-control" maxlength="4"
+                                                style="width:70px"></td>
+                                <td><input type="text" formControlName="rbVoltage " class="form-control" maxlength="4"
+                                                style="width:70px"></td>
+                                <td><input type="text" formControlName="ybVoltage " class="form-control" maxlength="4"
+                                                style="width:70px"></td>
+                                <td><input type="text" formControlName=" rnVoltage" class="form-control" maxlength="4"
+                                                style="width:70px"></td>
+                                <td><input type="text" formControlName="ynVoltage " class="form-control" maxlength="4"
+                                                style="width:70px"></td>
+                                <td><input type="text" formControlName="bnVoltage " class="form-control" maxlength="4"
+                                                style="width:70px"></td>
+                                <td><input type="number" formControlName="rpeVoltage " class="form-control" maxlength="4"
+                                                style="width:70px"></td>
+                                <td><input type="number" formControlName="ypeVoltage " class="form-control" maxlength="4"
+                                                style="width:70px"></td>
+                                <td><input type="number" formControlName=" bpeVoltage" class="form-control" maxlength="4"
+                                                style="width:70px"></td>
+                        </div>
+                </div>
+
+
+        <div formArrayName="testLoopImpedanceArr" *ngFor="let a of gettestLoopImpedanceControls(); let i = index">
+                <div class="form-group" [formGroupName]="i">
+                        <td><input type="text" formControlName="ryLoopImpedance " class="form-control" maxlength="4"
+                                        style="width:70px"></td>
+                        <td><input type="text" formControlName=" rbLoopImpedance" class="form-control" maxlength="4"
+                                        style="width:70px"></td>
+                        <td><input type="text" formControlName=" ybLoopImpedance" class="form-control" maxlength="4"
+                                        style="width:70px"></td>
+                        <td><input type="text" formControlName="rnLoopImpedance " class="form-control" maxlength="4"
+                                        style="width:70px"></td>
+                        <td><input type="text" formControlName=" ynLoopImpedance" class="form-control" maxlength="4"
+                                        style="width:70px"></td>
+                        <td><input type="text" formControlName=" bnLoopImpedance" class="form-control" maxlength="4"
+                                        style="width:70px"></td>
+                        <td><input type="text" formControlName="rpeLoopImpedance " class="form-control" maxlength="4"
+                                        style="width:70px"></td>
+                        <td><input type="number" formControlName=" ypeLoopImpedance" class="form-control" maxlength="4"
+                                        style="width:70px"></td>
+                        <td><input type="number" formControlName="bpeLoopImpedance " class="form-control" maxlength="4"
+                                        style="width:70px"></td>
+                </div>
+        </div>
+
+
+
+
+
+       <div formArrayName="testFaultCurrentArr" *ngFor="let a of gettestFaultCurrentControls(); let i = index">
+                            <div class="form-group" [formGroupName]="i">
                                 <td><input type="text" formControlName=" ryFaultCurrent" class="form-control" maxlength="4"
                                         style="width:70px"></td>
                                             <td><input type="number" formControlName=" rbFaultCurrent" class="form-control" maxlength="4"
@@ -411,50 +437,63 @@
                                                     style="width:70px"></td>
                                             <td><input type="number" formControlName=" bpeFaultCurrent" class="form-control" maxlength="4"
                                                     style="width:70px"></td>
-                                                          <!--------  <div formArrayName="testDisconnectionTimeArr" *ngFor="let a of gettestDisconnectionTimeControls(); let i = index">
-                            <div class="form-group" [formGroupName]="i">------>
-                                <td><input type="text" formControlName="ryDisconnect " class="form-control" maxlength="4"
-                                        style="width:70px"></td>
-                                            <td><input type="number" formControlName="rbDisconnect " class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="number" formControlName="ybDisconnect " class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="text" formControlName="rnDisconnect " class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="text" formControlName="ynDisconnect " class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="text" formControlName=" bnDisconnect" class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="text" formControlName="rpeDisconnect " class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="text" formControlName="ypeDisconnect " class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="text" formControlName=" bpeDisconnect" class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                 <!--------  <div formArrayName="testrcdValueArr" *ngFor="let a of gettestrcdValueControls(); let i = index">
-                            <div class="form-group" [formGroupName]="i">------>
-                                            <td><input type="number" formControlName="rcdCurrent " class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="number" formControlName=" operatingCurrent" class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="number" formControlName="operatingFiveCurrent " class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="text" formControlName=" testButtonOperation" class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                            <td><input type="text" formControlName="remarks " class="form-control" maxlength="4"
-                                                    style="width:70px"></td>
-                                                
-                                            
-                                        </tr>
-                                    </tbody>
-                                </table>
+                           </div>
+                   </div>
+
+
+                        <div formArrayName="testDisconnectionTimeArr" *ngFor="let a of gettestDisconnectionTimeControls(); let i = index">
+                                <div class="form-group" [formGroupName]="i">
+                                        <td><input type="text" formControlName="ryDisconnect " class="form-control" maxlength="4"
+                                                        style="width:70px"></td>
+                                        <td><input type="number" formControlName="rbDisconnect " class="form-control" maxlength="4"
+                                                        style="width:70px"></td>
+                                        <td><input type="number" formControlName="ybDisconnect " class="form-control" maxlength="4"
+                                                        style="width:70px"></td>
+                                        <td><input type="text" formControlName="rnDisconnect " class="form-control" maxlength="4"
+                                                        style="width:70px"></td>
+                                        <td><input type="text" formControlName="ynDisconnect " class="form-control" maxlength="4"
+                                                        style="width:70px"></td>
+                                        <td><input type="text" formControlName=" bnDisconnect" class="form-control" maxlength="4"
+                                                        style="width:70px"></td>
+                                        <td><input type="text" formControlName="rpeDisconnect " class="form-control" maxlength="4"
+                                                        style="width:70px"></td>
+                                        <td><input type="text" formControlName="ypeDisconnect " class="form-control" maxlength="4"
+                                                        style="width:70px"></td>
+                                        <td><input type="text" formControlName=" bpeDisconnect" class="form-control" maxlength="4"
+                                                        style="width:70px"></td>
                                 </div>
                         </div>
-                         </div>
-                </mat-expansion-panel>
-            </mat-accordion>
-          </form>
-            <div style="display: inline;">
+
+
+
+                <div formArrayName="testrcdValueArr" *ngFor="let a of gettestrcdValueControls(); let i = index">
+                        <div class="form-group" [formGroupName]="i">
+                                <td><input type="number" formControlName="rcdCurrent " class="form-control" maxlength="4"
+                                                style="width:70px"></td>
+                                <td><input type="number" formControlName=" operatingCurrent" class="form-control" maxlength="4"
+                                                style="width:70px"></td>
+                                <td><input type="number" formControlName="operatingFiveCurrent " class="form-control" maxlength="4"
+                                                style="width:70px"></td>
+                                <td><input type="text" formControlName=" testButtonOperation" class="form-control" maxlength="4"
+                                                style="width:70px"></td>
+                                <td><input type="text" formControlName="remarks " class="form-control" maxlength="4" style="width:70px">
+                                </td>
+                           </div>
+                    
+                    
+                        </div>
+             
+             
+                              </tr>
+                          </tbody>
+                        </table>
+                     </div>
+                  </div>
+              </div>
+           </mat-expansion-panel>
+          </mat-accordion>
+         </form>
+         <div style="display: inline;">
                     <button  style="float: left;" type="submit" (click)="nextTab7()" class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"><i class="bi bi-person-plus-fill icon"></i> Submit</button>
             </div>
         </div>

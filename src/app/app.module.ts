@@ -71,7 +71,8 @@ import { InspectionVerificationTestingComponent } from './inspection-verificatio
     InspectionVerificationBasicInformationComponent,
     InspectionVerificationIncomingEquipmentComponent,
     InspectionVerificationSupplyCharacteristicsComponent,
-    InspectionVerificationTestingComponent
+    InspectionVerificationTestingComponent,
+    
     
   ],
   imports: [
