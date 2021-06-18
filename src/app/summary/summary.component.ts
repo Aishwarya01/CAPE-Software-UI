@@ -11,6 +11,7 @@ import { User } from '../model/user';
 import { MatRadioChange } from '@angular/material/radio';
 import { Summary } from '../model/summary';
 import { SummarydetailsService } from '../services/summarydetails.service';
+import { GlobalsService } from '../globals.service';
 
 @Component({
   selector: 'app-summary',
@@ -73,7 +74,7 @@ export class SummaryComponent implements OnInit {
     private modalService: NgbModal,
     private dialog: MatDialog,
     private router: ActivatedRoute,
-    private summarydetailsService: SummarydetailsService,
+    private summarydetailsService: SummarydetailsService,public service: GlobalsService,
     private ChangeDetectorRef: ChangeDetectorRef) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
 
@@ -162,7 +163,7 @@ getObservationsControls(): AbstractControl[] {
 
   SubmitTab5()
   {
-    this.summary.siteId=4;
+    this.summary.siteId=this.service.siteCount;
     this.summary.userName=this.email;
     this.summary.summaryObervation = this.addsummary.value.ObservationsArr;
     this.summary.summaryDeclaration = this.addsummary.value.Declaration1Arr;

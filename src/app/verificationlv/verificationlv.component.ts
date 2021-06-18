@@ -22,10 +22,6 @@ import { SiteService } from '../services/site.service';
 import { Site } from '../model/site';
 import { SiteupdateComponent } from '../site/siteupdate/siteupdate.component';
 import { ReportDetailsService } from '../services/report-details.service';
-import { SupplyCharacteristicsService } from '../services/supply-characteristics.service';
-
-
-
 import { Reportdetails } from '../model/reportdetails';
 
 
@@ -91,6 +87,9 @@ export class VerificationlvComponent implements OnInit {
   premiseList: String[]= ['Domestic(Individual)','Domestic(Apartment)','Commercial','IT/Office','Data center','Industrial(Non Ex environment)','Industrial(Ex environment)'];
   evidenceList: String[]= ['Yes', 'No', 'Not Apparent'];
   previousRecordList: String[]= ['Yes', 'No'];
+
+  isCompleted: boolean = false;
+
   
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
@@ -325,9 +324,9 @@ deleteDepartment(departmentId: number) {
     this.ChangeDetectorRef.detectChanges();
   }
 
- 
- 
-
+  public doSomething(next: any):void {
+    this.isCompleted = next;
+  }
 }
 
   

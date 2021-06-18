@@ -11,6 +11,9 @@ import { DepartmentService } from '../services/department.service';
 import { ReportDetailsService } from '../services/report-details.service';
 import { SiteService } from '../services/site.service';
 
+import { GlobalsService } from '../globals.service';
+
+
 @Component({
   selector: 'app-inspection-verification-basic-information',
   templateUrl: './inspection-verification-basic-information.component.html',
@@ -19,8 +22,10 @@ import { SiteService } from '../services/site.service';
 export class InspectionVerificationBasicInformationComponent implements OnInit {
 
   step1Form!: FormGroup;
-  
-  
+
+
+  public data: string = "";
+
   clientList: any = [];
   inActiveData: any =[];
   departmentList: any = [];
@@ -47,6 +52,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   submitted = false;
 
   @Output() proceedNext = new EventEmitter<any>();  
+  
 
 
   designerRole: String ='designer';
@@ -71,8 +77,11 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     private departmentService: DepartmentService,
     private reportDetailsService: ReportDetailsService,
     private siteService: SiteService,
+    public service: GlobalsService,
     private ChangeDetectorRef: ChangeDetectorRef) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
+    //service.setData(this.data);  
+
   }
 
   
@@ -191,8 +200,9 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
         this.reportDetails.siteId = arr.siteId;
       }
     }
+    
   }
-
+  
   // Signature part
 
   private createDesigner1AcknowledgeForm(): FormGroup {
@@ -420,20 +430,13 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     
     this.proceedNext.emit(true);
   }
+  // setData(data: number) {
+  //   this.service.setData(data);
+  //  // this.router.navigateByUrl('/reciever');
+  //  }
 
   nextTab() {
-
-    this.submitted = true;
-
-    //Breaks if form is invalid
-    if(this.step1Form.invalid) {
-      return;
-    }
-
     this.loading = true;
-
-
-    
     this.step1Form.value.designer1Arr[0].signatorRole= this.designerRole;
     this.step1Form.value.designer1Arr[0].declarationName= this.step1Form.value.designer1AcknowledgeArr[0].declarationName;
     this.step1Form.value.designer1Arr[0].declarationDate= this.step1Form.value.designer1AcknowledgeArr[0].declarationDate;
@@ -466,6 +469,8 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       error => {
       }
       )
+      this.service.siteCount=this.reportDetails.siteId;
+
   }
 
 

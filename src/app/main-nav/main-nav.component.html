@@ -9,7 +9,7 @@
         <mat-icon>menu</mat-icon>
       </button>
       <div class="brand-logo">
-        <a href="#"><img src="assets/img/Cape-logo.png"></a>
+        <a href="#"><img src="assets/img/Rush_Final_logo.png"></a>
       </div>
       <div class="appName">
       <span>Rush Safety Applications</span>
@@ -66,12 +66,12 @@
     </div>
     <mat-nav-list>
       <mat-list-item *ngFor="let type of applicationTypes" class="row">
-        <div class="col-md-1" style="position: sticky;">
+        <div class="col-md-2" style="position: sticky;">
           <!-- <img [src]="imageSrc" style="width: 45px;height: 60px;"/>   -->
         <button class="btn btn-info" 
-        style="float: left;padding: 3px 7px 3px 7px;
-        margin: 5px 4px 5px -4px;">
-        <span>LV</span>        
+        style="float: left;padding: 3px 5px 3px 5px;
+        margin: 5px 4px 5px -8px;">
+        <span>{{ type.applicationName }}</span>        
         </button>
         </div>
         <a class="logomain col-md-8">
