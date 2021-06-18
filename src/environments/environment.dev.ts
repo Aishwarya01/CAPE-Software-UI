@@ -5,8 +5,7 @@
 export const environment = {
   production: false,
   environmentName: 'development',
-  // apiUrl: 'http://rushappservice.ap-south-1.elasticbeanstalk.com/api/v1'
-  apiUrl: 'http://rushappservicedev.ap-south-1.elasticbeanstalk.com/api/v1'
+  apiUrl: 'https://nvwe6i6xw5.execute-api.ap-south-1.amazonaws.com/development/backendservice'
 };
 
 /*
