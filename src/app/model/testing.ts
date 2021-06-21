@@ -23,6 +23,8 @@ testLoopImpedance!:TestLoopImpedance[];
 testFaultCurrent!:TestFaultCurrent[];
 testDisconnectionTime!:TestDisconnectionTime[];
 testRcd!: TestRcd[];
+constructor () {
+}
 }
 
 
@@ -120,7 +122,7 @@ bpeFaultCurrent!: String;
 }
 
 export class TestDisconnectionTime {
-
+ryDisconnect!: String;
 rbDisconnect!: String;
 ybDisconnect!: String;
 rnDisconnect!: String;

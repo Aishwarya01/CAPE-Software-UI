@@ -71,8 +71,9 @@
                         </mat-panel-title>
                     </mat-expansion-panel-header>
         
-              <div formArrayName="testDistributionArr" *ngFor="let a of gettestDistributionfFormControls(); let i = index">
+              <div formArrayName="testDistributionArr" *ngFor="let a of gettestDistributionFormControls(); let i = index">
                            <div class="form-group" [formGroupName]="i">
+                                    
                         <div class="row">
                                 <div class="col-md-4">
                                         <label>Distribution board details </label>
@@ -125,6 +126,8 @@
                         <div class="col">
                             <div class="table-responsive">
                                 <table class="table">
+                                        <div formArrayName="distributionIncomingValueArr" *ngFor="let a of getdistributionIncomingValueControls(); let i = index">
+                                                <div class="form-group" [formGroupName]="i">  
                                     <thead>
                                         <tr align="center">
                                             <th></th>
@@ -142,8 +145,8 @@
                                     <tbody>
                                         
                                        
-         <div formArrayName="distributionIncomingValueArr" *ngFor="let a of getdistributionIncomingValueControls(); let i = index">
-                <div class="form-group" [formGroupName]="i">  
+       
+              
                         <tr>
                                             <td>Incoming Voltage</td>
                                             <td><input type="number" formControlName="incomingVoltage " class="form-control" maxlength="4"
@@ -208,11 +211,11 @@
                                             <td><input type="text" class="form-control" maxlength="7"
                                                     style="width:70px"></td>
                                         </tr>
-                                        </div>
-                                        </div>
+                                      
                                     </tbody>
                                 
-                                    
+                                </div>
+                        </div>
                                 </table>
                             </div>
                         </div>
@@ -316,10 +319,16 @@
                                             <th>Remarks</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
+
+                                    
+                                    <tbody > 
+    
+                          
+   <tr>
+<div class ="row">
 <div formArrayName="testCircuitFormArr" *ngFor="let a of gettestCircuitFormControls(); let i = index">
-        <div class="form-group" [formGroupName]="i">
+        <div class="form-group" [formGroupName]="i">         
+              
                 <td><input type="number" formControlName="circuitNo " class="form-control" maxlength="4"
                                 style="width:70px"></td>
                 <td><input type="number" formControlName="description " class="form-control" maxlength="4"
@@ -332,24 +341,26 @@
                 </td>
                 <td><input type="text" formControlName=" breakingCapacity" class="form-control" maxlength="4"
                                 style="width:70px"></td>
+                     
         </div>
+    
 </div>
-                                          
-      <div formArrayName="testConductorArr" *ngFor="let a of gettestConductorControls(); let i = index">
-                <div class="form-group" [formGroupName]="i">
+      <div colspan="6" formArrayName="testConductorArr" *ngFor="let a of gettestConductorControls(); let i = index">
+                <div class="form-group" [formGroupName]="i">   
+                        
                         <td><input type="text" formControlName="installationReferanceMethod " class="form-control" maxlength="4"
                                         style="width:70px"></td>
                         <td><input type="text" formControlName=" live" class="form-control" maxlength="4" style="width:70px">
                         </td>
                         <td><input type="text" formControlName="Integer " class="form-control" maxlength="4" style="width:70px">
                         </td>
-                </div>
-        </div>
-                                          
-                                                      
-        
-<div formArrayName="testContinuityArr" *ngFor="let a of gettestContinuityControls(); let i = index">
-        <div class="form-group" [formGroupName]="i">
+             
+                
+</div>
+      </div>                                   
+
+<div  colspan="9"  formArrayName="testContinuityArr" *ngFor="let a of gettestContinuityControls(); let i = index">
+        <div  class="form-group" [formGroupName]="i">  
                 <td><input type="text" formControlName=" approximateLength" class="form-control" maxlength="4"
                                 style="width:70px"></td>
                 <td><input type="text" formControlName=" rRContinuity" class="form-control" maxlength="4"
@@ -362,12 +373,12 @@
                                 style="width:70px"></td>
                 <td><input type="number" formControlName="polarity " class="form-control" maxlength="4"
                                 style="width:70px"></td>
-        </div>
+      </div>                  
 </div>
+  
 
-
-                <div formArrayName="testVoltageArr" *ngFor="let a of gettestVoltageControls(); let i = index">
-                        <div class="form-group" [formGroupName]="i">
+                <div   colspan="15" formArrayName="testVoltageArr" *ngFor="let a of gettestVoltageControls(); let i = index">
+                        <div class="form-group" [formGroupName]="i"> 
                                 <td><input type="text" formControlName="ryVoltage " class="form-control" maxlength="4"
                                                 style="width:70px"></td>
                                 <td><input type="text" formControlName="rbVoltage " class="form-control" maxlength="4"
@@ -391,7 +402,7 @@
 
 
         <div formArrayName="testLoopImpedanceArr" *ngFor="let a of gettestLoopImpedanceControls(); let i = index">
-                <div class="form-group" [formGroupName]="i">
+                <div class="form-group" [formGroupName]="i"> 
                         <td><input type="text" formControlName="ryLoopImpedance " class="form-control" maxlength="4"
                                         style="width:70px"></td>
                         <td><input type="text" formControlName=" rbLoopImpedance" class="form-control" maxlength="4"
@@ -410,15 +421,15 @@
                                         style="width:70px"></td>
                         <td><input type="number" formControlName="bpeLoopImpedance " class="form-control" maxlength="4"
                                         style="width:70px"></td>
-                </div>
+                                </div>   
         </div>
 
 
+   
 
 
-
-       <div formArrayName="testFaultCurrentArr" *ngFor="let a of gettestFaultCurrentControls(); let i = index">
-                            <div class="form-group" [formGroupName]="i">
+       <div colspan="24" formArrayName="testFaultCurrentArr" *ngFor="let a of gettestFaultCurrentControls(); let i = index">
+                            <div class="form-group" [formGroupName]="i">  
                                 <td><input type="text" formControlName=" ryFaultCurrent" class="form-control" maxlength="4"
                                         style="width:70px"></td>
                                             <td><input type="number" formControlName=" rbFaultCurrent" class="form-control" maxlength="4"
@@ -437,11 +448,11 @@
                                                     style="width:70px"></td>
                                             <td><input type="number" formControlName=" bpeFaultCurrent" class="form-control" maxlength="4"
                                                     style="width:70px"></td>
-                           </div>
-                   </div>
+                                                </div>                  
+       </div>
 
 
-                        <div formArrayName="testDisconnectionTimeArr" *ngFor="let a of gettestDisconnectionTimeControls(); let i = index">
+                        <div   colspan="34" formArrayName="testDisconnectionTimeArr" *ngFor="let a of gettestDisconnectionTimeControls(); let i = index">
                                 <div class="form-group" [formGroupName]="i">
                                         <td><input type="text" formControlName="ryDisconnect " class="form-control" maxlength="4"
                                                         style="width:70px"></td>
@@ -461,11 +472,11 @@
                                                         style="width:70px"></td>
                                         <td><input type="text" formControlName=" bpeDisconnect" class="form-control" maxlength="4"
                                                         style="width:70px"></td>
-                                </div>
+                                                </div>     
                         </div>
 
 
-
+               
                 <div formArrayName="testrcdValueArr" *ngFor="let a of gettestrcdValueControls(); let i = index">
                         <div class="form-group" [formGroupName]="i">
                                 <td><input type="number" formControlName="rcdCurrent " class="form-control" maxlength="4"
@@ -478,14 +489,15 @@
                                                 style="width:70px"></td>
                                 <td><input type="text" formControlName="remarks " class="form-control" maxlength="4" style="width:70px">
                                 </td>
-                           </div>
-                    
-                    
                         </div>
-             
-             
-                              </tr>
-                          </tbody>
+                </div>
+                
+           </div>              
+           </tr>   
+    
+        
+        </tbody>
+   
                         </table>
                      </div>
                   </div>

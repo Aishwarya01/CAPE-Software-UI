@@ -29,6 +29,8 @@ import { SupplyCharacteristicsService } from '../services/supply-characteristics
 import { InspectiondetailsService } from '../services/inspectiondetails.service';
 import { InspectionDetails } from '../model/inspection-details';
 import { Reportdetails } from '../model/reportdetails';
+import { Testingdetails } from '../model/testing';
+import { TestingService } from '../services/testing.service';
 
 
 @Component({
@@ -68,7 +70,7 @@ export class VerificationlvComponent implements OnInit {
   countryList: any = [];
   stateList: any = [];
   company =new Company;
-
+  // testing=new Testing;
   department = new Department;
   site = new Site;
   email: String = '';
@@ -91,9 +93,12 @@ export class VerificationlvComponent implements OnInit {
   designerRole: String ='designer';
   contractorRole: String ='contractor';
   inspectorRole: String ='inspector';
+    
 
 
 
+
+  
 
   inspectionDetails =new InspectionDetails;
 
@@ -115,7 +120,11 @@ export class VerificationlvComponent implements OnInit {
   @Output() passEntry: EventEmitter<any> = new EventEmitter();  
   formBuilder: any;
   arrDesigner!: FormArray; 
+  testing: any;
+
+  
    constructor(private _formBuilder: FormBuilder,
+    private testingService:TestingService,
     private modalService: NgbModal,
     private dialog: MatDialog,
     private router: ActivatedRoute,
@@ -128,7 +137,7 @@ export class VerificationlvComponent implements OnInit {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
 
-  
+ 
 
   ngOnInit(): void {
     this.firstFormGroup = this._formBuilder.group({
@@ -139,6 +148,8 @@ export class VerificationlvComponent implements OnInit {
       secondCtrl: ['', Validators.required],
       clientname: ['', Validators.required],
     });
+   
+
     
     this.siteService.retrieveCountry().subscribe(
       data => {
@@ -354,7 +365,7 @@ deleteDepartment(departmentId: number) {
     )
   }
  
-
+ 
 }
 
   
