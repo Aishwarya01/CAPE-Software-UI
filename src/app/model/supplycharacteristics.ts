@@ -1,7 +1,7 @@
 export class Supplycharacteristics {
-  supplyCharacteristicsId:number;
   userName:String;
   siteId:number;
+  supplyCharacteristicsId:number;
   mainSystemEarthing:String;
   systemEarthingBNote:String;
   liveConductorType:String;
@@ -16,78 +16,85 @@ export class Supplycharacteristics {
   mainRatedCurrent:String;
   mainCurrentDisconnection:String;
   alternativeSupply:String;
-  supplyNumber:number;
+  supplyNumber:String;
   maximumDemand:String;
   maximumLoad:String;
   meansEarthing:String;
   electrodeType:String;
   electrodeMaterial:String;
-  noOfLocation:String;
-  conductorSize:number;
+  noOfLocation:number;
+  conductorSize:String;
   conductormaterial:String;
-  conductorVerify:boolean;
-  bondingConductorSize:number;
+  conductorVerify:String;
+  bondingConductorSize:String;
   bondingConductorMaterial:String;
-  bondingConductorVerify:boolean;
+  bondingConductorVerify:String;
   bondingJointsType:String;
   bondingNoOfJoints:number;
-  earthingConductorSize:number;
+  earthingConductorSize:String;
   earthingConductorMaterial:String;
-  earthingConductorVerify:boolean;
+  earthingConductorVerify:String;
   earthingJointsType:String;
   earthingNoOfJoints:number;
-  createdDat:Date;
+  createdDate:Date;
 
-  Supplyparameters: Supplyparameters[];
-  Circuitbreaker:Circuitbreaker[];
-  Locationreport:Locationreport[];
+  supplyParameters: Supplyparameters[];
+  instalLocationReport: InstallLocationReport[];
+  boundingLocationReport: BoundingLocationReport[];
+  earthingLocationReport: EarthingLocationReport[];
+  circuitBreaker:CircuitBreaker[];
 }
-export class Supplyparameters {
-supplyparametersId:number;
-aLSystemEarthing:String;
-aLSupplyNo:String;
-aLSupplyShortName:String;
+  export class Supplyparameters {
+    supplyparametersId:number;
+    aLSupplyNo:String;
+    aLSupplyShortName:String;
+    aLSystemEarthing:String;
+    aLSystemEarthingBNote:String;
+    aLLiveConductorType:String;
+    aLLiveConductorAC:String;
+    aLLiveConductorDC:String;
+    aLLiveConductorBNote:String;
+    nominalVoltage: String;
+    nominalFrequency:String;
+    faultCurrent:String;
+    loopImpedance:String;
+    installedCapacity:String;
+    actualLoad:String;
+    protectiveDevice: String;
+    ratedCurrent:String;
+    currentDissconnection:String;
+  }
 
-aLSystemEarthingBNote:String;
+  export class CircuitBreaker{
+    circuitBreakerId: number;
+    location:String;
+    type:String;
+    noPoles:String;
+    current:String;
+    voltage:String;
+    fuse:String;
+    residualCurrent:String;
+    residualTime:String;
+  }
 
-aLLiveConductorType:String;
-aLLiveConductorAC:String;
-aLLiveConductorDC:String;
-aLLiveConductorBNote:String;
+  export class InstallLocationReport{
+    locationReportId: number;
+    locationNo:String;
+    locationName:String;
+    electrodeResistanceEarth:String;
+    electrodeResistanceGird:String;
+  }
 
-nominalVoltage:String;
-nominalFrequency:String;
-faultCurrent:String;
-loopImpedance:String;
-installedCapacity:String;
-actualLoad:String;
+  export class BoundingLocationReport{
+    locationReportId: number;
+    location:String;
+    jointNo:String;
+    jointResistance:String;
+  }
 
-ratedCurrent:String;
-currentDissconnection:String;
-}
-export class Circuitbreaker{
-circuitBreakerId:number;
-location:String;
-type:String;
-currentCurveType:String;
-noPoles:String;
-current:String;
-voltage:String;
-fuse:String;
-residualCurrent:String;
-residualTime:String;
-
-}
-export class Locationreport{
-
-locationReportId:string;
-particularInstalOrProtectiveConductor:string;
-boundingOrEarthing:string;
-locationNo:string;
-locationName:string;
-electrodeResistanceEarth:string;
-electrodeResistanceGird:string;
-jointNo:string;
-jointResistance:string;
-}
-
+  export class EarthingLocationReport{  
+    locationReportId: number;
+    location:String;
+    jointNo:String;
+    jointResistance:String;
+  }

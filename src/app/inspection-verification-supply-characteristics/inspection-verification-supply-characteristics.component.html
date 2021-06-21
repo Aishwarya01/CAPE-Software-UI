@@ -144,8 +144,7 @@
             </div>
           </div>
 
-          
-
+                 
           <div class="row" style="margin-top: 50px;">
             <div class="col-sm-12">
               <h2>Incoming (supply) protective device characteristics:</h2>
@@ -153,7 +152,7 @@
                 <tr>
                   <td nowrap="nowrap">Type of Over Current Protective Device</td>
                   <td> 
-                    <select  class="form-control"  style="width:200px">
+                    <select  class="form-control"  style="width:200px" formControlName="mainNominalProtectiveDevice" [(ngModel)]="supplycharesteristic.mainNominalProtectiveDevice">
                       <option value="0" selected>Select option</option>
                       <option  value="Fuse"> Fuse </option>
                       <option value="MCB"> MCB</option>
@@ -163,11 +162,11 @@
               </tr>
                 <tr>
                   <td nowrap="nowrap">Rated current (A)</td>
-                  <td><input type="number"  maxlength="4"style="width:200px"></td>
+                  <td><input type="number"  maxlength="4"style="width:200px" formControlName="mainRatedCurrent" [(ngModel)]="supplycharesteristic.mainRatedCurrent"></td>
               </tr>
                 <tr>
                   <td nowrap="nowrap">Current for disconnection with in 0.2 seconds</td>
-                  <td><input type="number"   maxlength="5" style="width:200px" max="5"></td>
+                  <td><input type="number"   maxlength="5" style="width:200px" max="5" formControlName="mainCurrentDisconnection" [(ngModel)]="supplycharesteristic.mainCurrentDisconnection"></td>
                 </tr>
               </table>
             </div>
@@ -183,6 +182,8 @@
               </mat-form-field>
             </div>
           </div>
+
+          
 
         </mat-expansion-panel>
 
@@ -272,11 +273,12 @@
                         <mat-label>
                           <h3>Brief note (in case of confusion)</h3>
                         </mat-label>
-                        <textarea matInput class="client-box-description" formControlName="aLLiveConductorBNote" maxlength="500" placeholder="Ex. Brief Note ..." ></textarea>
+                        <textarea matInput class="client-box-description" formControlName="aLSystemEarthingBNote" maxlength="500" placeholder="Ex. Brief Note ..." ></textarea>
                       </mat-form-field>
                     </div>
                   </div>
-        
+
+                  
                   <div class="row" *ngIf="a.get('aLLiveConductorType')?.value=='AC'">
                     <div class="col">
                       <h2>Applicable for AC: (Note: Please mention NA if any column is not applicable)</h2>
@@ -365,6 +367,7 @@
                       </div>
                     </div>
                   </div>
+
     
                   <div class="row" style="margin-top: 50px;">
                     <div class="col">
@@ -373,7 +376,7 @@
                           
                           <tr>
                             <td nowrap="nowrap">Type of Over Current Protective Device</td>
-                            <td><input type="text" style="width:400px"></td>
+                            <td><input type="text" fromControlName="protectiveDevice" style="width:400px" ></td>
                           </tr>
                           <tr>
                               <td nowrap="nowrap">Rated current (A)</td>
@@ -386,6 +389,18 @@
                       </table>
                     </div>
                   </div>
+
+                  <div class="row">
+                    <div class="col-md-4">
+                      <mat-form-field class="client-description">
+                        <mat-label>
+                          <h3>Brief note (in case of confusion)</h3>
+                        </mat-label>
+                        <textarea matInput class="client-box-description" formControlName="aLLiveConductorBNote" maxlength="500" placeholder="Ex. Brief Note ..." ></textarea>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  
                 </div>
               </div>
             </div>
