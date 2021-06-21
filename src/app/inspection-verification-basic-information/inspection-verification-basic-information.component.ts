@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup,Validators,ValidatorFn } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Company } from '../model/company';
@@ -13,12 +13,12 @@ import { SiteService } from '../services/site.service';
 
 import { GlobalsService } from '../globals.service';
 
-
 @Component({
   selector: 'app-inspection-verification-basic-information',
   templateUrl: './inspection-verification-basic-information.component.html',
   styleUrls: ['./inspection-verification-basic-information.component.css']
 })
+
 export class InspectionVerificationBasicInformationComponent implements OnInit {
 
   step1Form!: FormGroup;
@@ -50,6 +50,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   showAddButton: boolean= true;
   loading = false;
   submitted = false;
+  inspectorArr!: FormArray;
 
   @Output() proceedNext = new EventEmitter<any>();  
   
@@ -80,14 +81,12 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     public service: GlobalsService,
     private ChangeDetectorRef: ChangeDetectorRef) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
-    //service.setData(this.data);  
-
   }
 
   
 
   ngOnInit(): void {
-  
+    
     this.step1Form = this._formBuilder.group({
       clientName: ['', Validators.required],
       departmentName: ['', Validators.required],
@@ -117,10 +116,8 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       designer1Arr: this._formBuilder.array([this.createDesigner1Form()]),
       designer2Arr: this._formBuilder.array([this.createDesigner2Form()]),
       contractorArr: this._formBuilder.array([this.createContractorForm()]),
-      inspectorArr: this._formBuilder.array([this.createInspectorForm()]),
+      inspectorArr: this._formBuilder.array([this.createInspectorForm()])
     });
-   
-
     this.siteService.retrieveCountry().subscribe(
       data => {
         this.countryList = JSON.parse(data);
@@ -128,11 +125,10 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     )
     this.refresh();
     this.retrieveClientDetails();
-    
+    this.inspectorArr = this.step1Form.get('inspectorArr') as FormArray;
+
   }
-
- 
-
+  
   private retrieveClientDetails() {
     this.clientService.retrieveClient(this.email).subscribe(
       data => {
@@ -140,6 +136,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
         this.clientList=JSON.parse(data);
       });
   }
+  
 
   showWiringAge(e: any) {
     let changedValue = e.target.value;
@@ -253,43 +250,43 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   // Deisgner details forms
   private createDesigner1Form(): FormGroup {
     return new FormGroup({
-      personName: new FormControl(''),
-      personContactNo: new FormControl(''),
-      personMailID: new FormControl(''),
-      managerName: new FormControl(''),
-      managerContactNo: new FormControl(''),
-      managerMailID: new FormControl(''),
-      companyName: new FormControl(''),
-      addressLine1: new FormControl(''),
-      addressLine2: new FormControl(''),
-      landMark: new FormControl(''),
-      country: new FormControl(''),
-      state: new FormControl(''),
-      pinCode: new FormControl(''),
-      signatorRole: new FormControl(''),
-      declarationDate: new FormControl(''),
-      declarationName: new FormControl('')
+      personName: new FormControl('',[Validators.required]),
+      personContactNo: new FormControl('',[Validators.required]),
+      personMailID: new FormControl('',[Validators.required]),
+      managerName: new FormControl('',[Validators.required]),
+      managerContactNo: new FormControl('',[Validators.required]),
+      managerMailID: new FormControl('',[Validators.required]),
+      companyName: new FormControl('',[Validators.required]),
+      addressLine1: new FormControl('',[Validators.required]),
+      addressLine2: new FormControl('',[Validators.required]),
+      landMark: new FormControl('',[Validators.required]),
+      country: new FormControl('',[Validators.required]),
+      state: new FormControl('',[Validators.required]),
+      pinCode: new FormControl('',[Validators.required]),
+      signatorRole: new FormControl('',[Validators.required]),
+      declarationDate: new FormControl('',[Validators.required]),
+      declarationName: new FormControl('',[Validators.required])
     })
   }
 
   private createDesigner2Form(): FormGroup {
     return new FormGroup({
-      personName: new FormControl(''),
-      personContactNo: new FormControl(''),
-      personMailID: new FormControl(''),
-      managerName: new FormControl(''),
-      managerContactNo: new FormControl(''),
-      managerMailID: new FormControl(''),
-      companyName: new FormControl(''),
-      addressLine1: new FormControl(''),
-      addressLine2: new FormControl(''),
-      landMark: new FormControl(''),
-      country: new FormControl(''),
-      state: new FormControl(''),
-      pinCode: new FormControl(''),
-      signatorRole: new FormControl(''),
-      declarationDate: new FormControl(''),
-      declarationName: new FormControl('')
+      personName: new FormControl('',[Validators.required]),
+      personContactNo: new FormControl('',[Validators.required]),
+      personMailID: new FormControl('',[Validators.required]),
+      managerName: new FormControl('',[Validators.required]),
+      managerContactNo: new FormControl('',[Validators.required]),
+      managerMailID: new FormControl('',[Validators.required]),
+      companyName: new FormControl('',[Validators.required]),
+      addressLine1: new FormControl('',[Validators.required]),
+      addressLine2: new FormControl('',[Validators.required]),
+      landMark: new FormControl('',[Validators.required]),
+      country: new FormControl('',[Validators.required]),
+      state: new FormControl('',[Validators.required]),
+      pinCode: new FormControl('',[Validators.required]),
+      signatorRole: new FormControl('',[Validators.required]),
+      declarationDate: new FormControl('',[Validators.required]),
+      declarationName: new FormControl('',[Validators.required])
     })
   }
 
@@ -332,22 +329,22 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 
   private createContractorForm(): FormGroup {
     return new FormGroup({
-      personName: new FormControl(''),
-      personContactNo: new FormControl(''),
-      personMailID: new FormControl(''),
-      managerName: new FormControl(''),
-      managerContactNo: new FormControl(''),
-      managerMailID: new FormControl(''),
-      companyName: new FormControl(''),
-      addressLine1: new FormControl(''),
-      addressLine2: new FormControl(''),
-      landMark: new FormControl(''),
-      country: new FormControl(''),
-      state: new FormControl(''),
-      pinCode: new FormControl(''),
-      signatorRole: new FormControl(''),
-      declarationDate: new FormControl(''),
-      declarationName: new FormControl('')
+      personName: new FormControl('',[Validators.required]),
+      personContactNo: new FormControl('',[Validators.required]),
+      personMailID: new FormControl('',[Validators.required]),
+      managerName: new FormControl('',[Validators.required]),
+      managerContactNo: new FormControl('',[Validators.required]),
+      managerMailID: new FormControl('',[Validators.required]),
+      companyName: new FormControl('',[Validators.required]),
+      addressLine1: new FormControl('',[Validators.required]),
+      addressLine2: new FormControl('',[Validators.required]),
+      landMark: new FormControl('',[Validators.required]),
+      country: new FormControl('',[Validators.required]),
+      state: new FormControl('',[Validators.required]),
+      pinCode: new FormControl('',[Validators.required]),
+      signatorRole: new FormControl('',[Validators.required]),
+      declarationDate: new FormControl('',[Validators.required]),
+      declarationName: new FormControl('',[Validators.required])
     })
   }
 
@@ -367,27 +364,26 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
           )};
       }
   }
-
+ 
   // Inspector details forms
-
   private createInspectorForm(): FormGroup {
     return new FormGroup({
-      personName: new FormControl(''),
-      personContactNo: new FormControl(''),
-      personMailID: new FormControl(''),
-      managerName: new FormControl(''),
-      managerContactNo: new FormControl(''),
-      managerMailID: new FormControl(''),
-      companyName: new FormControl(''),
-      addressLine1: new FormControl(''),
-      addressLine2: new FormControl(''),
-      landMark: new FormControl(''),
-      country: new FormControl(''),
-      state: new FormControl(''),
-      pinCode: new FormControl(''),
-      signatorRole: new FormControl(''),
-      declarationDate: new FormControl(''),
-      declarationName: new FormControl('')
+     personName: new FormControl('',[Validators.required]),
+      personContactNo: new FormControl('',[Validators.required]),
+      personMailID: new FormControl('',[Validators.required]),
+      managerName: new FormControl('',[Validators.required]),
+      managerContactNo: new FormControl('',[Validators.required]),
+      managerMailID: new FormControl('',[Validators.required]),
+      companyName: new FormControl('',[Validators.required]),
+      addressLine1: new FormControl('',[Validators.required]),
+      addressLine2: new FormControl('',[Validators.required]),
+      landMark: new FormControl('',[Validators.required]),
+      country: new FormControl('',[Validators.required]),
+      state: new FormControl('',[Validators.required]),
+      pinCode: new FormControl('',[Validators.required]),
+      signatorRole: new FormControl('',[Validators.required]),
+      declarationDate: new FormControl('',[Validators.required]),
+      declarationName: new FormControl('',[Validators.required])
     })
   }
 
@@ -407,6 +403,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
           )};
       }
   }
+ 
 
   addDesigner() {
     this.showDesigner2= true;
@@ -423,19 +420,19 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     return this.step1Form.controls;
   }
 
+
   setTrue() {
+   this.submitted = true;
     if(this.step1Form.invalid) {
       return;
     }
-    
     this.proceedNext.emit(true);
   }
-  // setData(data: number) {
-  //   this.service.setData(data);
-  //  // this.router.navigateByUrl('/reciever');
-  //  }
+  
+  //InspectorPersonName:FormControl=new FormControl('',[Validators.required]);
 
   nextTab() {
+   this.f;
     this.loading = true;
     this.step1Form.value.designer1Arr[0].signatorRole= this.designerRole;
     this.step1Form.value.designer1Arr[0].declarationName= this.step1Form.value.designer1AcknowledgeArr[0].declarationName;
@@ -459,6 +456,8 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     if(this.step1Form.value.designer2Arr[0].personName != "") {
       this.reportDetails.SignatorDetails=this.reportDetails.SignatorDetails.concat(this.step1Form.value.designer2Arr);
     }
+    
+    
       this.reportDetails.SignatorDetails=this.reportDetails.SignatorDetails.concat(this.step1Form.value.contractorArr,this.step1Form.value.inspectorArr);
     debugger
     console.log(this.reportDetails)
@@ -475,3 +474,5 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 
 
 }
+
+

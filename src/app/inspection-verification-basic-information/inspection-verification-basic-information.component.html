@@ -6,7 +6,8 @@
             <div class="row">
               <div class="col-md-4">
                     <label>Company Name*</label>
-                    <select class="form-control" formControlName="clientName" (change)="changeClientName($event)" [ngClass]="{ 'is-invalid': submitted && f.clientName.errors }">
+                    <select class="form-control" formControlName="clientName" (change)="changeClientName($event)" 
+                    [ngClass]="{ 'is-invalid': submitted && f.clientName.errors }">
                       <option value="0" selected>Select Client Name</option>
                       <option *ngFor="let client of clientList">{{client.clientName}}</option>
                     </select>
@@ -159,7 +160,10 @@
               <div class="col-md-4">
                 <mat-form-field class="client-description ">
                   <mat-label><h3>Extent of installation covered by this report*</h3> </mat-label>
-                  <textarea matInput class="client-box-description" formControlName="extentInstallation" maxlength="500" placeholder="Ex. Report reason..." [(ngModel)]="reportDetails.extentInstallation" [ngClass]="{ 'is-invalid': submitted && f.extentInstallation.errors }"></textarea>
+                  <textarea matInput class="client-box-description" formControlName="extentInstallation" 
+                  maxlength="500" placeholder="Ex. Report reason..." 
+                  [(ngModel)]="reportDetails.extentInstallation" 
+                  [ngClass]="{ 'is-invalid': submitted && f.extentInstallation.errors }"></textarea>
                   <div *ngIf="submitted && f.extentInstallation.errors" class="invalid-feedback">
                     <div *ngIf="f.extentInstallation.errors.required">Please enter valid details</div>
                   </div> 
@@ -276,17 +280,29 @@
                     <div class="row">
                       <div class="col-md-4">
                         <label>Signature:</label>
-                        <input type="text" formControlName="signature" class="form-control">
+                        <input type="text" formControlName="signature" class="form-control" 
+                        [ngClass]="{ 'is-invalid': submitted && f.inspectorArr.controls[i].get('signature')?.errors }">
+                          <div *ngIf="submitted && f.inspectorArr.controls[i].get('signature')?.errors" class="invalid-feedback">
+                            <div *ngIf="f.inspectorArr.controls[i].get('signature')?.errors.required">Person name is required</div>
+                        </div>
                       </div>
       
                       <div class="col-md-4">
                         <label>Date:</label>
-                        <input type="date" formControlName="declarationDate" class="form-control" placeholder="Enter Date">              
+                        <input type="date" formControlName="declarationDate" class="form-control" placeholder="Enter Date"
+                        [ngClass]="{ 'is-invalid': submitted && f.inspectorArr.controls[i].get('declarationDate').errors }">
+                          <div *ngIf="submitted && f.inspectorArr.controls[i].get('declarationDate').errors" class="invalid-feedback">
+                            <div *ngIf="f.inspectorArr.controls[i].get('declarationDate').errors.required">Person name is required</div>
+                        </div>              
                       </div>
       
                       <div class="col-md-4">
                         <label>Name (In block letters) :</label>
-                        <input type="text" formControlName="declarationName" class="form-control" placeholder="Enter Designer Name">
+                        <input type="text" formControlName="declarationName" class="form-control" placeholder="Enter Designer Name"
+                        [ngClass]="{ 'is-invalid': submitted && f.inspectorArr.controls[i].get('declarationName').errors }">
+                          <div *ngIf="submitted && f.inspectorArr.controls[i].get('declarationName').errors" class="invalid-feedback">
+                            <div *ngIf="f.inspectorArr.controls[i].get('declarationName').errors.required">Person name is required</div>
+                        </div>
                       </div>
                     </div>
 
@@ -299,17 +315,28 @@
                     <div class="row">
                       <div class="col-md-4">
                         <label>Signature:</label>
-                        <input type="text" formControlName="signature" class="form-control">
+                        <input type="text" formControlName="signature" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f.designer2AcknowledgeArr.controls[i].get('signature').errors }">
+                          <div *ngIf="submitted && f.designer2AcknowledgeArr.controls[i].get('signature').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer2AcknowledgeArr.controls[i].get('signature').errors.required">Person name is required</div>
+                        </div>
                       </div>
-      
                       <div class="col-md-4">
                         <label>Date:</label>
-                        <input type="date" formControlName="declarationDate" class="form-control" placeholder="Enter Date">              
+                        <input type="date" formControlName="declarationDate" class="form-control" placeholder="Enter Date"
+                        [ngClass]="{ 'is-invalid': submitted && f.designer2AcknowledgeArr.controls[i].get('declarationDate').errors }">
+                          <div *ngIf="submitted && f.designer2AcknowledgeArr.controls[i].get('declarationDate').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer2AcknowledgeArr.controls[i].get('declarationDate').errors.required">Person name is required</div>
+                        </div>             
                       </div>
       
                       <div class="col-md-4">
                         <label>Name (In block letters) :</label>
-                        <input type="text" formControlName="declarationName" class="form-control" placeholder="Enter Designer Name">
+                        <input type="text" formControlName="declarationName" class="form-control" placeholder="Enter Designer Name"
+                        [ngClass]="{ 'is-invalid': submitted && f.designer2AcknowledgeArr.controls[i].get('declarationName').errors }">
+                          <div *ngIf="submitted && f.designer2AcknowledgeArr.controls[i].get('declarationName').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer2AcknowledgeArr.controls[i].get('declarationName').errors.required">Person name is required</div>
+                        </div>
                       </div>
                     </div>
 
@@ -332,17 +359,29 @@
                       <div class="row">
                         <div class="col-md-4">
                           <label>Signature:</label>
-                          <input type="text" formControlName="signature" class="form-control">
+                          <input type="text" formControlName="signature" class="form-control"
+                          [ngClass]="{ 'is-invalid': submitted && f.contractorAcknowledgeArr.controls[i].get('signature').errors }">
+                          <div *ngIf="submitted && f.contractorAcknowledgeArr.controls[i].get('signature').errors" class="invalid-feedback">
+                            <div *ngIf="f.contractorAcknowledgeArr.controls[i].get('signature').errors.required">Person name is required</div>
+                        </div>
                         </div>
         
                         <div class="col-md-4">
                           <label>Date:</label>
-                          <input type="date" formControlName="declarationDate" class="form-control" placeholder="Enter Date">              
+                          <input type="date" formControlName="declarationDate" class="form-control" placeholder="Enter Date"
+                          [ngClass]="{ 'is-invalid': submitted && f.contractorAcknowledgeArr.controls[i].get('declarationDate').errors }">
+                          <div *ngIf="submitted && f.contractorAcknowledgeArr.controls[i].get('declarationDate').errors" class="invalid-feedback">
+                            <div *ngIf="f.contractorAcknowledgeArr.controls[i].get('declarationDate').errors.required">Person name is required</div>
+                        </div>              
                         </div>
         
                         <div class="col-md-4">
                           <label>Name (In block letters) :</label>
-                          <input type="text" formControlName="declarationName" class="form-control" placeholder="Enter Contractor Name">
+                          <input type="text" formControlName="declarationName" class="form-control" placeholder="Enter Contractor Name"
+                          [ngClass]="{ 'is-invalid': submitted && f.contractorAcknowledgeArr.controls[i].get('declarationName').errors }">
+                          <div *ngIf="submitted && f.contractorAcknowledgeArr.controls[i].get('declarationName').errors" class="invalid-feedback">
+                            <div *ngIf="f.contractorAcknowledgeArr.controls[i].get('declarationName').errors.required">Person name is required</div>
+                        </div>
                         </div>
                       </div>
 
@@ -365,17 +404,29 @@
                       <div class="row">
                         <div class="col-md-4">
                           <label>Signature:</label>
-                          <input type="text" formControlName="signature" class="form-control">
+                          <input type="text" formControlName="signature" class="form-control"
+                          [ngClass]="{ 'is-invalid': submitted && f.inspectorAcknowledgeArr.controls[i].get('signature').errors }">
+                          <div *ngIf="submitted && f.inspectorAcknowledgeArr.controls[i].get('signature').errors" class="invalid-feedback">
+                            <div *ngIf="f.inspectorAcknowledgeArr.controls[i].get('signature').errors.required">Person name is required</div>
+                        </div>
                         </div>
         
                         <div class="col-md-4">
                           <label>Date:</label>
-                          <input type="date" formControlName="declarationDate" class="form-control" placeholder="Enter Date">              
+                          <input type="date" formControlName="declarationDate" class="form-control" placeholder="Enter Date"
+                          [ngClass]="{ 'is-invalid': submitted && f.inspectorAcknowledgeArr.controls[i].get('declarationDate').errors }">
+                          <div *ngIf="submitted && f.inspectorAcknowledgeArr.controls[i].get('declarationDate').errors" class="invalid-feedback">
+                            <div *ngIf="f.inspectorAcknowledgeArr.controls[i].get('declarationDate').errors.required">Person name is required</div>
+                        </div>             
                         </div>
         
                         <div class="col-md-4">
                           <label>Name (In block letters) :</label>
-                          <input type="text" formControlName="declarationName" class="form-control" placeholder="Enter Inspector Name">
+                          <input type="text" formControlName="declarationName" class="form-control" placeholder="Enter Inspector Name"
+                          [ngClass]="{ 'is-invalid': submitted && f.inspectorAcknowledgeArr.controls[i].get('declarationName').errors }">
+                          <div *ngIf="submitted && f.inspectorAcknowledgeArr.controls[i].get('declarationName').errors" class="invalid-feedback">
+                            <div *ngIf="f.inspectorAcknowledgeArr.controls[i].get('declarationName').errors.required">Person name is required</div>
+                        </div>
                         </div>
                       </div>
 
@@ -420,17 +471,29 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label>Person Name:</label>        
-                            <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name" >
+                            <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name"
+                            [ngClass]="{ 'is-invalid': submitted && f.designer1Arr.controls[i].get('personName').errors }">
+                          <div *ngIf="submitted && f.designer1Arr.controls[i].get('personName').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer1Arr.controls[i].get('personName').errors.required">Person name is required</div>
+                        </div>
                         </div>
             
                         <div class="col-md-4">
                             <label>Contact No:</label>        
-                            <input type="number"  formControlName="personContactNo" class="form-control"  placeholder="Enter Contact Number" >
+                            <input type="number"  formControlName="personContactNo" class="form-control"  placeholder="Enter Contact Number"
+                            [ngClass]="{ 'is-invalid': submitted && f.designer1Arr.controls[i].get('personContactNo').errors }">
+                          <div *ngIf="submitted && f.designer1Arr.controls[i].get('personContactNo').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer1Arr.controls[i].get('personContactNo').errors.required">Person name is required</div>
+                        </div>
                         </div>
             
                         <div class="col-md-4">
                             <label>Email:</label>        
-                            <input type="text"  formControlName="personMailID" class="form-control"  placeholder="Enter Email Address" >
+                            <input type="text"  formControlName="personMailID" class="form-control"  placeholder="Enter Email Address"
+                            [ngClass]="{ 'is-invalid': submitted && f.designer1Arr.controls[i].get('personMailID').errors }">
+                          <div *ngIf="submitted && f.designer1Arr.controls[i].get('personMailID').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer1Arr.controls[i].get('personMailID').errors.required">Person name is required</div>
+                        </div>
                         </div>       
                     </div>                            
                   </div>   
@@ -440,17 +503,29 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label>Manager Name:</label>        
-                            <input type="text"  formControlName="managerName" class="form-control"  placeholder="Enter Manager Name" >
+                            <input type="text"  formControlName="managerName" class="form-control"  placeholder="Enter Manager Name"
+                            [ngClass]="{ 'is-invalid': submitted && f.designer1Arr.controls[i].get('managerName').errors }">
+                          <div *ngIf="submitted && f.designer1Arr.controls[i].get('managerName').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer1Arr.controls[i].get('managerName').errors.required">Person name is required</div>
+                        </div>
                         </div>
             
                         <div class="col-md-4">
                           <label>Contact No:</label>        
-                          <input type="number"  formControlName="managerContactNo" class="form-control"  placeholder="Enter Contact Number" >
+                          <input type="number"  formControlName="managerContactNo" class="form-control"  placeholder="Enter Contact Number"
+                          [ngClass]="{ 'is-invalid': submitted && f.designer1Arr.controls[i].get('managerContactNo').errors }">
+                          <div *ngIf="submitted && f.designer1Arr.controls[i].get('managerContactNo').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer1Arr.controls[i].get('managerContactNo').errors.required">Person name is required</div>
+                        </div>
                         </div>
           
                         <div class="col-md-4">
                             <label>Email:</label>        
-                            <input type="text"  formControlName="managerMailID" class="form-control"  placeholder="Enter Email Address" >
+                            <input type="text"  formControlName="managerMailID" class="form-control"  placeholder="Enter Email Address"
+                            [ngClass]="{ 'is-invalid': submitted && f.designer1Arr.controls[i].get('managerMailID').errors }">
+                          <div *ngIf="submitted && f.designer1Arr.controls[i].get('managerMailID').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer1Arr.controls[i].get('managerMailID').errors.required">Person name is required</div>
+                        </div>
                         </div>
                     </div>
                   </div>
@@ -460,17 +535,29 @@
                       <div class="row">
                           <div class="col-md-4">
                               <label>Company Name:</label>        
-                              <input type="text"  formControlName="companyName" class="form-control"  placeholder="Enter Company Name" >
+                              <input type="text"  formControlName="companyName" class="form-control"  placeholder="Enter Company Name"
+                              [ngClass]="{ 'is-invalid': submitted && f.designer1Arr.controls[i].get('companyName').errors }">
+                          <div *ngIf="submitted && f.designer1Arr.controls[i].get('companyName').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer1Arr.controls[i].get('companyName').errors.required">Person name is required</div>
+                        </div>
                           </div>
               
                           <div class="col-md-4">
                               <label>AddressLine1:</label>        
-                              <input type="text"  formControlName="addressLine1" class="form-control"  placeholder="Enter Address Line1" >
+                              <input type="text"  formControlName="addressLine1" class="form-control"  placeholder="Enter Address Line1"
+                              [ngClass]="{ 'is-invalid': submitted && f.designer1Arr.controls[i].get('addressLine1').errors }">
+                          <div *ngIf="submitted && f.designer1Arr.controls[i].get('addressLine1').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer1Arr.controls[i].get('addressLine1').errors.required">Person name is required</div>
+                        </div>
                           </div>
               
                           <div class="col-md-4">
                               <label>AddressLine2:</label>        
-                              <input type="text"  formControlName="addressLine2" class="form-control"  placeholder="Enter Address Line2" >
+                              <input type="text"  formControlName="addressLine2" class="form-control"  placeholder="Enter Address Line2"
+                              [ngClass]="{ 'is-invalid': submitted && f.designer1Arr.controls[i].get('addressLine2').errors }">
+                          <div *ngIf="submitted && f.designer1Arr.controls[i].get('addressLine2').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer1Arr.controls[i].get('addressLine2').errors.required">Person name is required</div>
+                        </div>
                           </div>
                       </div>
                   </div>
@@ -479,23 +566,36 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label>Site Landmark:</label>        
-                            <input type="text"  formControlName="landMark" class="form-control"  placeholder="Enter Landmark" >
+                            <input type="text"  formControlName="landMark" class="form-control"  placeholder="Enter Landmark"
+                            [ngClass]="{ 'is-invalid': submitted && f.designer1Arr.controls[i].get('landMark').errors }">
+                          <div *ngIf="submitted && f.designer1Arr.controls[i].get('landMark').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer1Arr.controls[i].get('landMark').errors.required">Person name is required</div>
+                        </div>
                         </div>
             
                         <div class="col-md-4">
                             <label>Country:</label>
-                            <select  formControlName="country" class="form-control" (change)="designer1changeCountry($event)"  >
+                            <select  formControlName="country" class="form-control" (change)="designer1changeCountry($event)" 
+                            [ngClass]="{ 'is-invalid': submitted && f.designer1Arr.controls[i].get('country').errors }">
+                             
                                 <option value="0" selected>Select Country Name</option>
                                 <option *ngFor="let country of countryList">{{country.name}}</option>
                             </select>
+                            <div *ngIf="submitted && f.designer1Arr.controls[i].get('country').errors" class="invalid-feedback">
+                              <div *ngIf="f.designer1Arr.controls[i].get('country').errors.required">Person name is required</div>
+                          </div>
                         </div>
             
                         <div class="col-md-4">
                             <label>State:</label>
-                            <select  formControlName="state" class="form-control" >
+                            <select  formControlName="state" class="form-control" 
+                            [ngClass]="{ 'is-invalid': submitted && f.designer1Arr.controls[i].get('state').errors }">
                                 <option value="0" selected>Select State Name</option>
                                 <option *ngFor="let state of stateList1">{{state.name}}</option>
                             </select>
+                            <div *ngIf="submitted && f.designer1Arr.controls[i].get('state').errors" class="invalid-feedback">
+                              <div *ngIf="f.designer1Arr.controls[i].get('state').errors.required">Person name is required</div>
+                          </div>
                         </div>
                     </div>
                   </div>
@@ -504,16 +604,32 @@
                       <div class="row">
                           <div class="col-md-4">
                               <label>Pincode:</label>        
-                              <input type="number"  formControlName="pinCode" class="form-control"  placeholder="Enter Pincode" >
+                              <input type="number"  formControlName="pinCode" class="form-control"  placeholder="Enter Pincode"
+                              [ngClass]="{ 'is-invalid': submitted && f.designer1Arr.controls[i].get('pinCode').errors }">
+                          <div *ngIf="submitted && f.designer1Arr.controls[i].get('pinCode').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer1Arr.controls[i].get('pinCode').errors.required">Person name is required</div>
+                        </div>
                           </div>
                           <div class="col-md-4" *ngIf="false">
-                            <input type="text"  formControlName="signatorRole" class="form-control" >
+                            <input type="text"  formControlName="signatorRole" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.designer1Arr.controls[i].get('signatorRole').errors }">
+                          <div *ngIf="submitted && f.designer1Arr.controls[i].get('signatorRole').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer1Arr.controls[i].get('signatorRole').errors.required">Person name is required</div>
+                        </div>
                           </div>
                           <div class="col-md-4" *ngIf="false">
-                            <input type="text"  formControlName="declarationName" class="form-control" >
+                            <input type="text"  formControlName="declarationName" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.designer1Arr.controls[i].get('declarationName').errors }">
+                          <div *ngIf="submitted && f.designer1Arr.controls[i].get('declarationName').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer1Arr.controls[i].get('declarationName').errors.required">Person name is required</div>
+                        </div>
                           </div>
                           <div class="col-md-4" *ngIf="false">
-                            <input type="text"  formControlName="declarationDate" class="form-control" >
+                            <input type="text"  formControlName="declarationDate" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.designer1Arr.controls[i].get('declarationDate').errors }">
+                          <div *ngIf="submitted && f.designer1Arr.controls[i].get('declarationDate').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer1Arr.controls[i].get('declarationDate').errors.required">Person name is required</div>
+                        </div>
                           </div>
                       </div>   
                   </div>
@@ -532,17 +648,29 @@
                       <div class="row">
                           <div class="col-md-4">
                               <label>Person Name:</label>        
-                              <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name" >
+                              <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name"
+                              [ngClass]="{ 'is-invalid': submitted && f.designer2Arr.controls[i].get('personContactNo').errors }">
+                          <div *ngIf="submitted && f.designer2Arr.controls[i].get('personContactNo').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer2Arr.controls[i].get('personContactNo').errors.required">Person name is required</div>
+                        </div>
                           </div>
               
                           <div class="col-md-4">
                               <label>Contact No:</label>        
-                              <input type="number"  formControlName="personContactNo" class="form-control"  placeholder="Enter Contact Number" >
+                              <input type="number"  formControlName="personContactNo" class="form-control"  placeholder="Enter Contact Number"
+                              [ngClass]="{ 'is-invalid': submitted && f.designer2Arr.controls[i].get('personContactNo').errors }">
+                          <div *ngIf="submitted && f.designer2Arr.controls[i].get('personContactNo').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer2Arr.controls[i].get('personContactNo').errors.required">Person name is required</div>
+                        </div>
                           </div>
               
                           <div class="col-md-4">
                               <label>Email:</label>        
-                              <input type="text"  formControlName="personMailID" class="form-control"  placeholder="Enter Email Address" >
+                              <input type="text"  formControlName="personMailID" class="form-control"  placeholder="Enter Email Address"
+                              [ngClass]="{ 'is-invalid': submitted && f.designer2Arr.controls[i].get('personMailID').errors }">
+                          <div *ngIf="submitted && f.designer2Arr.controls[i].get('personMailID').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer2Arr.controls[i].get('personMailID').errors.required">Person name is required</div>
+                        </div>
                           </div>       
                       </div>                            
                     </div>   
@@ -552,17 +680,29 @@
                       <div class="row">
                           <div class="col-md-4">
                               <label>Manager Name:</label>        
-                              <input type="text"  formControlName="managerName" class="form-control"  placeholder="Enter Manager Name" >
+                              <input type="text"  formControlName="managerName" class="form-control"  placeholder="Enter Manager Name"
+                              [ngClass]="{ 'is-invalid': submitted && f.designer2Arr.controls[i].get('managerName').errors }">
+                          <div *ngIf="submitted && f.designer2Arr.controls[i].get('managerName').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer2Arr.controls[i].get('managerName').errors.required">Person name is required</div>
+                        </div>
                           </div>
               
                           <div class="col-md-4">
                             <label>Contact No:</label>        
-                            <input type="number"  formControlName="managerContactNo" class="form-control"  placeholder="Enter Contact Number" >
+                            <input type="number"  formControlName="managerContactNo" class="form-control"  placeholder="Enter Contact Number"
+                            [ngClass]="{ 'is-invalid': submitted && f.designer2Arr.controls[i].get('managerContactNo').errors }">
+                          <div *ngIf="submitted && f.designer2Arr.controls[i].get('managerContactNo').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer2Arr.controls[i].get('managerContactNo').errors.required">Person name is required</div>
+                        </div>
                           </div>
             
                           <div class="col-md-4">
                               <label>Email:</label>        
-                              <input type="text"  formControlName="managerMailID" class="form-control"  placeholder="Enter Email Address" >
+                              <input type="text"  formControlName="managerMailID" class="form-control"  placeholder="Enter Email Address"
+                              [ngClass]="{ 'is-invalid': submitted && f.designer2Arr.controls[i].get('managerMailID').errors }">
+                          <div *ngIf="submitted && f.designer2Arr.controls[i].get('managerMailID').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer2Arr.controls[i].get('managerMailID').errors.required">Person name is required</div>
+                        </div>
                           </div>
                       </div>
                     </div>
@@ -572,17 +712,29 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <label>Company Name:</label>        
-                                <input type="text"  formControlName="companyName" class="form-control"  placeholder="Enter Company Name" >
+                                <input type="text"  formControlName="companyName" class="form-control"  placeholder="Enter Company Name"
+                                [ngClass]="{ 'is-invalid': submitted && f.designer2Arr.controls[i].get('companyName').errors }">
+                          <div *ngIf="submitted && f.designer2Arr.controls[i].get('companyName').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer2Arr.controls[i].get('companyName').errors.required">Person name is required</div>
+                        </div>
                             </div>
                 
                             <div class="col-md-4">
                                 <label>AddressLine1:</label>        
-                                <input type="text"  formControlName="addressLine1" class="form-control"  placeholder="Enter Address Line1" >
+                                <input type="text"  formControlName="addressLine1" class="form-control"  placeholder="Enter Address Line1"
+                                [ngClass]="{ 'is-invalid': submitted && f.designer2Arr.controls[i].get('addressLine1').errors }">
+                          <div *ngIf="submitted && f.designer2Arr.controls[i].get('addressLine1').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer2Arr.controls[i].get('addressLine1').errors.required">Person name is required</div>
+                        </div>
                             </div>
                 
                             <div class="col-md-4">
                                 <label>AddressLine2:</label>        
-                                <input type="text"  formControlName="addressLine2" class="form-control"  placeholder="Enter Address Line2" >
+                                <input type="text"  formControlName="addressLine2" class="form-control"  placeholder="Enter Address Line2"
+                                [ngClass]="{ 'is-invalid': submitted && f.designer2Arr.controls[i].get('addressLine2').errors }">
+                          <div *ngIf="submitted && f.designer2Arr.controls[i].get('addressLine2').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer2Arr.controls[i].get('addressLine2').errors.required">Person name is required</div>
+                        </div>
                             </div>
                         </div>
                     </div>
@@ -591,23 +743,37 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <label>Site Landmark:</label>        
-                                <input type="text"  formControlName="landMark" class="form-control"  placeholder="Enter Landmark" >
+                                <input type="text"  formControlName="landMark" class="form-control"  placeholder="Enter Landmark"
+                                [ngClass]="{ 'is-invalid': submitted && f.designer2Arr.controls[i].get('landMark').errors }">
+                          <div *ngIf="submitted && f.designer2Arr.controls[i].get('landMark').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer2Arr.controls[i].get('landMark').errors.required">Person name is required</div>
+                        </div>
                             </div>
                 
                             <div class="col-md-4">
                                 <label>Country:</label>
-                                <select  formControlName="country" class="form-control" (change)="designer2changeCountry($event)"  >
-                                    <option value="0" selected>Select Country Name</option>
-                                    <option *ngFor="let country of countryList">{{country.name}}</option>
-                                </select>
+                                <select  formControlName="country" class="form-control" (change)="designer2changeCountry($event)"
+                                [ngClass]="{ 'is-invalid': submitted && f.designer2Arr.controls[i].get('country').errors }">
+                                <option value="0" selected>Select Country Name</option>
+                                <option *ngFor="let country of countryList">{{country.name}}</option>
+                            </select>
+                                <div *ngIf="submitted && f.designer2Arr.controls[i].get('country').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer2Arr.controls[i].get('country').errors.required">Person name is required</div>
+                        </div>
+                                   
                             </div>
                 
                             <div class="col-md-4">
                                 <label>State:</label>
-                                <select  formControlName="state" class="form-control" >
-                                    <option value="0" selected>Select State Name</option>
-                                    <option *ngFor="let state of stateList2">{{state.name}}</option>
-                                </select>
+                                <select  formControlName="state" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.designer2Arr.controls[i].get('state').errors }">
+                                <option value="0" selected>Select State Name</option>
+                                <option *ngFor="let state of stateList2">{{state.name}}</option>
+                            </select>
+                                <div *ngIf="submitted && f.designer2Arr.controls[i].get('state').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer2Arr.controls[i].get('state').errors.required">Person name is required</div>
+                        </div>
+                                   
                             </div>
                         </div>
                     </div>
@@ -616,16 +782,32 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <label>Pincode:</label>        
-                                <input type="number"  formControlName="pinCode" class="form-control"  placeholder="Enter Pincode" >
+                                <input type="number"  formControlName="pinCode" class="form-control"  placeholder="Enter Pincode"
+                                [ngClass]="{ 'is-invalid': submitted && f.designer2Arr.controls[i].get('pinCode').errors }">
+                          <div *ngIf="submitted && f.designer2Arr.controls[i].get('pinCode').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer2Arr.controls[i].get('pinCode').errors.required">Person name is required</div>
+                        </div>
                             </div>
                             <div class="col-md-4" *ngIf="false">
-                              <input type="text"  formControlName="signatorRole" class="form-control" value="designer">
+                              <input type="text"  formControlName="signatorRole" class="form-control" value="designer"
+                              [ngClass]="{ 'is-invalid': submitted && f.designer2Arr.controls[i].get('signatorRole').errors }">
+                          <div *ngIf="submitted && f.designer2Arr.controls[i].get('signatorRole').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer2Arr.controls[i].get('signatorRole').errors.required">Person name is required</div>
+                        </div>
                             </div>
                             <div class="col-md-4" *ngIf="false">
-                              <input type="text"  formControlName="declarationName" class="form-control" >
+                              <input type="text"  formControlName="declarationName" class="form-control"
+                              [ngClass]="{ 'is-invalid': submitted && f.designer2Arr.controls[i].get('declarationName').errors }">
+                          <div *ngIf="submitted && f.designer2Arr.controls[i].get('declarationName').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer2Arr.controls[i].get('declarationName').errors.required">Person name is required</div>
+                        </div>
                             </div>
                             <div class="col-md-4" *ngIf="false">
-                              <input type="text"  formControlName="declarationDate" class="form-control" >
+                              <input type="text"  formControlName="declarationDate" class="form-control"
+                              [ngClass]="{ 'is-invalid': submitted && f.designer2Arr.controls[i].get('declarationDate').errors }">
+                          <div *ngIf="submitted && f.designer2Arr.controls[i].get('declarationDate').errors" class="invalid-feedback">
+                            <div *ngIf="f.designer2Arr.controls[i].get('declarationDate').errors.required">Person name is required</div>
+                        </div>
                             </div>
                         </div>   
                     </div>
@@ -649,17 +831,29 @@
                       <div class="row">
                           <div class="col-md-4">
                               <label>Person Name:</label>        
-                              <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name" >
+                              <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name"
+                              [ngClass]="{ 'is-invalid': submitted && f.contractorArr.controls[i].get('personContactNo').errors }">
+                          <div *ngIf="submitted && f.contractorArr.controls[i].get('personContactNo').errors" class="invalid-feedback">
+                            <div *ngIf="f.contractorArr.controls[i].get('personContactNo').errors.required">Person name is required</div>
+                        </div>
                           </div>
               
                           <div class="col-md-4">
                               <label>Contact No:</label>        
-                              <input type="number"  formControlName="personContactNo" class="form-control"  placeholder="Enter Contact Number" >
+                              <input type="number"  formControlName="personContactNo" class="form-control"  placeholder="Enter Contact Number"
+                              [ngClass]="{ 'is-invalid': submitted && f.contractorArr.controls[i].get('personContactNo').errors }">
+                          <div *ngIf="submitted && f.contractorArr.controls[i].get('personContactNo').errors" class="invalid-feedback">
+                            <div *ngIf="f.contractorArr.controls[i].get('personContactNo').errors.required">Person name is required</div>
+                        </div>
                           </div>
               
                           <div class="col-md-4">
                               <label>Email:</label>        
-                              <input type="text"  formControlName="personMailID" class="form-control"  placeholder="Enter Email Address" >
+                              <input type="text"  formControlName="personMailID" class="form-control"  placeholder="Enter Email Address"
+                              [ngClass]="{ 'is-invalid': submitted && f.contractorArr.controls[i].get('personMailID').errors }">
+                          <div *ngIf="submitted && f.contractorArr.controls[i].get('personMailID').errors" class="invalid-feedback">
+                            <div *ngIf="f.contractorArr.controls[i].get('personMailID').errors.required">Person name is required</div>
+                        </div>
                           </div>       
                       </div>                            
                     </div>   
@@ -669,17 +863,29 @@
                       <div class="row">
                           <div class="col-md-4">
                               <label>Manager Name:</label>        
-                              <input type="text"  formControlName="managerName" class="form-control"  placeholder="Enter Manager Name" >
+                              <input type="text"  formControlName="managerName" class="form-control"  placeholder="Enter Manager Name"
+                              [ngClass]="{ 'is-invalid': submitted && f.contractorArr.controls[i].get('managerName').errors }">
+                          <div *ngIf="submitted && f.contractorArr.controls[i].get('managerName').errors" class="invalid-feedback">
+                            <div *ngIf="f.contractorArr.controls[i].get('managerName').errors.required">Person name is required</div>
+                        </div>
                           </div>
               
                           <div class="col-md-4">
                             <label>Contact No:</label>        
-                            <input type="number"  formControlName="managerContactNo" class="form-control"  placeholder="Enter Contact Number" >
+                            <input type="number"  formControlName="managerContactNo" class="form-control"  placeholder="Enter Contact Number"
+                            [ngClass]="{ 'is-invalid': submitted && f.contractorArr.controls[i].get('managerContactNo').errors }">
+                          <div *ngIf="submitted && f.contractorArr.controls[i].get('managerContactNo').errors" class="invalid-feedback">
+                            <div *ngIf="f.contractorArr.controls[i].get('managerContactNo').errors.required">Person name is required</div>
+                        </div>
                           </div>
             
                           <div class="col-md-4">
                               <label>Email:</label>        
-                              <input type="text"  formControlName="managerMailID" class="form-control"  placeholder="Enter Email Address" >
+                              <input type="text"  formControlName="managerMailID" class="form-control"  placeholder="Enter Email Address"
+                              [ngClass]="{ 'is-invalid': submitted && f.contractorArr.controls[i].get('managerMailID').errors }">
+                          <div *ngIf="submitted && f.contractorArr.controls[i].get('managerMailID').errors" class="invalid-feedback">
+                            <div *ngIf="f.contractorArr.controls[i].get('managerMailID').errors.required">Person name is required</div>
+                        </div>
                           </div>
                       </div>
                     </div>
@@ -689,17 +895,29 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <label>Company Name:</label>        
-                                <input type="text"  formControlName="companyName" class="form-control"  placeholder="Enter Company Name" >
+                                <input type="text"  formControlName="companyName" class="form-control"  placeholder="Enter Company Name"
+                                [ngClass]="{ 'is-invalid': submitted && f.contractorArr.controls[i].get('companyName').errors }">
+                          <div *ngIf="submitted && f.contractorArr.controls[i].get('companyName').errors" class="invalid-feedback">
+                            <div *ngIf="f.contractorArr.controls[i].get('companyName').errors.required">Person name is required</div>
+                        </div>
                             </div>
                 
                             <div class="col-md-4">
                                 <label>AddressLine1:</label>        
-                                <input type="text"  formControlName="addressLine1" class="form-control"  placeholder="Enter Address Line1" >
+                                <input type="text"  formControlName="addressLine1" class="form-control"  placeholder="Enter Address Line1"
+                                [ngClass]="{ 'is-invalid': submitted && f.contractorArr.controls[i].get('addressLine1').errors }">
+                          <div *ngIf="submitted && f.contractorArr.controls[i].get('addressLine1').errors" class="invalid-feedback">
+                            <div *ngIf="f.contractorArr.controls[i].get('addressLine1').errors.required">Person name is required</div>
+                        </div>
                             </div>
                 
                             <div class="col-md-4">
                                 <label>AddressLine2:</label>        
-                                <input type="text"  formControlName="addressLine2" class="form-control"  placeholder="Enter Address Line2" >
+                                <input type="text"  formControlName="addressLine2" class="form-control"  placeholder="Enter Address Line2"
+                                [ngClass]="{ 'is-invalid': submitted && f.contractorArr.controls[i].get('addressLine2').errors }">
+                          <div *ngIf="submitted && f.contractorArr.controls[i].get('addressLine2').errors" class="invalid-feedback">
+                            <div *ngIf="f.contractorArr.controls[i].get('addressLine2').errors.required">Person name is required</div>
+                        </div>
                             </div>
                         </div>
                     </div>
@@ -708,23 +926,36 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <label>Site Landmark:</label>        
-                                <input type="text"  formControlName="landMark" class="form-control"  placeholder="Enter Landmark" >
+                                <input type="text"  formControlName="landMark" class="form-control"  placeholder="Enter Landmark"
+                                [ngClass]="{ 'is-invalid': submitted && f.contractorArr.controls[i].get('landMark').errors }">
+                          <div *ngIf="submitted && f.contractorArr.controls[i].get('landMark').errors" class="invalid-feedback">
+                            <div *ngIf="f.contractorArr.controls[i].get('landMark').errors.required">Person name is required</div>
+                        </div>
                             </div>
                 
                             <div class="col-md-4">
                                 <label>Country:</label>
-                                <select  formControlName="country" class="form-control" (change)="contractorchangeCountry($event)"  >
-                                    <option value="0" selected>Select Country Name</option>
-                                    <option *ngFor="let country of countryList">{{country.name}}</option>
-                                </select>
+                                <select  formControlName="country" class="form-control" (change)="contractorchangeCountry($event)" 
+                                [ngClass]="{ 'is-invalid': submitted && f.contractorArr.controls[i].get('country').errors }">
+                                <option value="0" selected>Select Country Name</option>
+                                <option *ngFor="let country of countryList">{{country.name}}</option>
+                            </select>
+                                <div *ngIf="submitted && f.contractorArr.controls[i].get('country').errors" class="invalid-feedback">
+                            <div *ngIf="f.contractorArr.controls[i].get('country').errors.required">Person name is required</div>
+                        </div>
+                                    
                             </div>
                 
                             <div class="col-md-4">
                                 <label>State:</label>
-                                <select  formControlName="state" class="form-control" >
+                                <select  formControlName="state" class="form-control" 
+                                [ngClass]="{ 'is-invalid': submitted && f.contractorArr.controls[i].get('state').errors }">
                                     <option value="0" selected>Select State Name</option>
                                     <option *ngFor="let state of stateList3">{{state.name}}</option>
                                 </select>
+                                <div *ngIf="submitted && f.contractorArr.controls[i].get('state').errors" class="invalid-feedback">
+                                  <div *ngIf="f.contractorArr.controls[i].get('state').errors.required">Person name is required</div>
+                              </div>
                             </div>
                         </div>
                     </div>
@@ -733,16 +964,32 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <label>Pincode:</label>        
-                                <input type="number"  formControlName="pinCode" class="form-control"  placeholder="Enter Pincode" >
+                                <input type="number"  formControlName="pinCode" class="form-control"  placeholder="Enter Pincode"
+                                [ngClass]="{ 'is-invalid': submitted && f.contractorArr.controls[i].get('pinCode').errors }">
+                          <div *ngIf="submitted && f.contractorArr.controls[i].get('pinCode').errors" class="invalid-feedback">
+                            <div *ngIf="f.contractorArr.controls[i].get('pinCode').errors.required">Person name is required</div>
+                        </div>
                             </div>
                             <div class="col-md-4" *ngIf="false">
-                              <input type="text"  formControlName="signatorRole" class="form-control" value="designer">
+                              <input type="text"  formControlName="signatorRole" class="form-control" value="designer"
+                              [ngClass]="{ 'is-invalid': submitted && f.contractorArr.controls[i].get('signatorRole').errors }">
+                          <div *ngIf="submitted && f.contractorArr.controls[i].get('signatorRole').errors" class="invalid-feedback">
+                            <div *ngIf="f.contractorArr.controls[i].get('signatorRole').errors.required">Person name is required</div>
+                        </div>
                             </div>
                             <div class="col-md-4" *ngIf="false">
-                              <input type="text"  formControlName="declarationName" class="form-control" >
+                              <input type="text"  formControlName="declarationName" class="form-control"
+                              [ngClass]="{ 'is-invalid': submitted && f.contractorArr.controls[i].get('declarationName').errors }">
+                          <div *ngIf="submitted && f.contractorArr.controls[i].get('declarationName').errors" class="invalid-feedback">
+                            <div *ngIf="f.contractorArr.controls[i].get('declarationName').errors.required">Person name is required</div>
+                        </div>
                             </div>
                             <div class="col-md-4" *ngIf="false">
-                              <input type="text"  formControlName="declarationDate" class="form-control" >
+                              <input type="text"  formControlName="declarationDate" class="form-control"
+                              [ngClass]="{ 'is-invalid': submitted && f.contractorArr.controls[i].get('declarationDate').errors }">
+                          <div *ngIf="submitted && f.contractorArr.controls[i].get('declarationDate').errors" class="invalid-feedback">
+                            <div *ngIf="f.contractorArr.controls[i].get('declarationDate').errors.required">Person name is required</div>
+                        </div>
                             </div>
                         </div>   
                     </div>
@@ -759,45 +1006,65 @@
             </mat-expansion-panel-header>
             <h2>Inspector Details*</h2>
       
-                        
               <div formArrayName="inspectorArr" *ngFor="let a of getInspectorControls(); let i = index">
                 <div class="form-group" [formGroupName]="i">
-          
-                  <div class="form-group" >
+                  <div class="form-group">
                     <div class="row">
                         <div class="col-md-4">
                             <label>Person Name:</label>        
-                            <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name" >
+                            <input type="text" formControlName="personName" class="form-control" placeholder="Enter Person Name"
+                            [ngClass]="{ 'is-invalid': submitted && f.inspectorArr.controls[i].get('personName').errors }">
+                          <div *ngIf="submitted && f.inspectorArr.controls[i].get('personName').errors" class="invalid-feedback">
+                            <div *ngIf="f.inspectorArr.controls[i].get('personName').errors.required">Person name is required</div>
                         </div>
-            
+                         </div>
                         <div class="col-md-4">
                             <label>Contact No:</label>        
-                            <input type="number"  formControlName="personContactNo" class="form-control"  placeholder="Enter Contact Number" >
+                            <input type="number"  formControlName="personContactNo" class="form-control"  placeholder="Enter Contact Number" 
+                            [ngClass]="{ 'is-invalid': submitted && f.inspectorArr.controls[i].get('personContactNo').errors }">
+                          <div *ngIf="submitted && f.inspectorArr.controls[i].get('personContactNo').errors" class="invalid-feedback">
+                            <div *ngIf="f.inspectorArr.controls[i].get('personContactNo').errors.required">Person name is required</div>
+                        </div>
                         </div>
             
                         <div class="col-md-4">
                             <label>Email:</label>        
-                            <input type="text"  formControlName="personMailID" class="form-control"  placeholder="Enter Email Address" >
+                            <input type="text"  formControlName="personMailID" class="form-control"  placeholder="Enter Email Address"
+                            [ngClass]="{ 'is-invalid': submitted && f.inspectorArr.controls[i].get('personMailID').errors }">
+                          <div *ngIf="submitted && f.inspectorArr.controls[i].get('personMailID').errors" class="invalid-feedback">
+                            <div *ngIf="f.inspectorArr.controls[i].get('personMailID').errors.required">Person name is required</div>
+                        </div>
                         </div>       
                     </div>                            
                   </div>   
       
-    
                   <div class="form-group">
                     <div class="row">
                         <div class="col-md-4">
                             <label>Manager Name:</label>        
-                            <input type="text"  formControlName="managerName" class="form-control"  placeholder="Enter Manager Name" >
+                            <input type="text"  formControlName="managerName" class="form-control"  placeholder="Enter Manager Name"
+                            [ngClass]="{ 'is-invalid': submitted && f.inspectorArr.controls[i].get('managerName').errors }">
+                          <div *ngIf="submitted && f.inspectorArr.controls[i].get('managerName').errors" class="invalid-feedback">
+                            <div *ngIf="f.inspectorArr.controls[i].get('managerName').errors.required">Person name is required</div>
+                        </div>
                         </div>
             
                         <div class="col-md-4">
                           <label>Contact No:</label>        
-                          <input type="number"  formControlName="managerContactNo" class="form-control"  placeholder="Enter Contact Number" >
+                          <input type="number"  formControlName="managerContactNo" class="form-control"  placeholder="Enter Contact Number"
+                          [ngClass]="{ 'is-invalid': submitted && f.inspectorArr.controls[i].get('managerContactNo').errors }">
+                          <div *ngIf="submitted && f.inspectorArr.controls[i].get('managerContactNo').errors" class="invalid-feedback">
+                            <div *ngIf="f.inspectorArr.controls[i].get('managerContactNo').errors.required">Person name is required</div>
+                        </div>
                         </div>
           
                         <div class="col-md-4">
                             <label>Email:</label>        
-                            <input type="text"  formControlName="managerMailID" class="form-control"  placeholder="Enter Email Address" >
+                            <input type="text"  formControlName="managerMailID" class="form-control"  placeholder="Enter Email Address"
+                            [ngClass]="{ 'is-invalid': submitted && f.inspectorArr.controls[i].get('managerMailID').errors }">
+                          <div *ngIf="submitted && f.inspectorArr.controls[i].get('managerMailID').errors" class="invalid-feedback">
+                            <div *ngIf="f.inspectorArr.controls[i].get('managerMailID').errors.required">Person name is required</div>
+                        </div>
                         </div>
                     </div>
                   </div>
@@ -807,17 +1074,29 @@
                       <div class="row">
                           <div class="col-md-4">
                               <label>Company Name:</label>        
-                              <input type="text"  formControlName="companyName" class="form-control"  placeholder="Enter Company Name" >
+                              <input type="text"  formControlName="companyName" class="form-control"  placeholder="Enter Company Name"
+                              [ngClass]="{ 'is-invalid': submitted && f.inspectorArr.controls[i].get('companyName').errors }">
+                          <div *ngIf="submitted && f.inspectorArr.controls[i].get('companyName').errors" class="invalid-feedback">
+                            <div *ngIf="f.inspectorArr.controls[i].get('companyName').errors.required">Person name is required</div>
+                        </div>
                           </div>
               
                           <div class="col-md-4">
                               <label>AddressLine1:</label>        
-                              <input type="text"  formControlName="addressLine1" class="form-control"  placeholder="Enter Address Line1" >
+                              <input type="text"  formControlName="addressLine1" class="form-control"  placeholder="Enter Address Line1"
+                              [ngClass]="{ 'is-invalid': submitted && f.inspectorArr.controls[i].get('addressLine1').errors }">
+                          <div *ngIf="submitted && f.inspectorArr.controls[i].get('addressLine1').errors" class="invalid-feedback">
+                            <div *ngIf="f.inspectorArr.controls[i].get('addressLine1').errors.required">Person name is required</div>
+                        </div>
                           </div>
               
                           <div class="col-md-4">
                               <label>AddressLine2:</label>        
-                              <input type="text"  formControlName="addressLine2" class="form-control"  placeholder="Enter Address Line2" >
+                              <input type="text"  formControlName="addressLine2" class="form-control"  placeholder="Enter Address Line2"
+                              [ngClass]="{ 'is-invalid': submitted && f.inspectorArr.controls[i].get('addressLine2').errors }">
+                          <div *ngIf="submitted && f.inspectorArr.controls[i].get('addressLine2').errors" class="invalid-feedback">
+                            <div *ngIf="f.inspectorArr.controls[i].get('addressLine2').errors.required">Person name is required</div>
+                        </div>
                           </div>
                       </div>
                   </div>
@@ -826,23 +1105,36 @@
                       <div class="row">
                           <div class="col-md-4">
                               <label>Site Landmark:</label>        
-                              <input type="text"  formControlName="landMark" class="form-control"  placeholder="Enter Landmark" >
+                              <input type="text"  formControlName="landMark" class="form-control"  placeholder="Enter Landmark"
+                              [ngClass]="{ 'is-invalid': submitted && f.inspectorArr.controls[i].get('landMark').errors }">
+                          <div *ngIf="submitted && f.inspectorArr.controls[i].get('landMark').errors" class="invalid-feedback">
+                            <div *ngIf="f.inspectorArr.controls[i].get('landMark').errors.required">Person name is required</div>
+                        </div>
                           </div>
               
                           <div class="col-md-4">
                               <label>Country:</label>
-                              <select  formControlName="country" class="form-control" (change)="inspectorchangeCountry($event)"  >
-                                  <option value="0" selected>Select Country Name</option>
-                                  <option *ngFor="let country of countryList">{{country.name}}</option>
-                              </select>
+                              <select  formControlName="country" class="form-control" (change)="inspectorchangeCountry($event)" 
+                              [ngClass]="{ 'is-invalid': submitted && f.inspectorArr.controls[i].get('country').errors }">
+                              <option value="0" selected>Select Country Name</option>
+                              <option *ngFor="let country of countryList">{{country.name}}</option>
+                          </select>
+                              <div *ngIf="submitted && f.inspectorArr.controls[i].get('country').errors" class="invalid-feedback">
+                            <div *ngIf="f.inspectorArr.controls[i].get('country').errors.required">Person name is required</div>
+                        </div>
+                                 
                           </div>
               
                           <div class="col-md-4">
                               <label>State:</label>
-                              <select  formControlName="state" class="form-control" >
+                              <select  formControlName="state" class="form-control" 
+                              [ngClass]="{ 'is-invalid': submitted && f.inspectorArr.controls[i].get('state').errors }">
                                   <option value="0" selected>Select State Name</option>
                                   <option *ngFor="let state of stateList4">{{state.name}}</option>
                               </select>
+                              <div *ngIf="submitted && f.inspectorArr.controls[i].get('state').errors" class="invalid-feedback">
+                                <div *ngIf="f.inspectorArr.controls[i].get('state').errors.required">Person name is required</div>
+                            </div>
                           </div>
                       </div>
                   </div>
@@ -851,16 +1143,32 @@
                       <div class="row">
                           <div class="col-md-4">
                               <label>Pincode:</label>        
-                              <input type="number"  formControlName="pinCode" class="form-control"  placeholder="Enter Pincode" >
+                              <input type="number"  formControlName="pinCode" class="form-control"  placeholder="Enter Pincode"
+                              [ngClass]="{ 'is-invalid': submitted && f.inspectorArr.controls[i].get('pinCode').errors }">
+                          <div *ngIf="submitted && f.inspectorArr.controls[i].get('pinCode').errors" class="invalid-feedback">
+                            <div *ngIf="f.inspectorArr.controls[i].get('pinCode').errors.required">Person name is required</div>
+                        </div>
                           </div>
                           <div class="col-md-4" *ngIf="false">
-                            <input type="text"  formControlName="signatorRole" class="form-control" value="designer">
+                            <input type="text"  formControlName="signatorRole" class="form-control" value="designer"
+                            [ngClass]="{ 'is-invalid': submitted && f.inspectorArr.controls[i].get('signatorRole').errors }">
+                          <div *ngIf="submitted && f.inspectorArr.controls[i].get('signatorRole').errors" class="invalid-feedback">
+                            <div *ngIf="f.inspectorArr.controls[i].get('signatorRole').errors.required">Person name is required</div>
+                        </div>
                           </div>
                           <div class="col-md-4" *ngIf="false">
-                            <input type="text"  formControlName="declarationName" class="form-control" >
+                            <input type="text"  formControlName="declarationName" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.inspectorArr.controls[i].get('declarationName').errors }">
+                          <div *ngIf="submitted && f.inspectorArr.controls[i].get('declarationName').errors" class="invalid-feedback">
+                            <div *ngIf="f.inspectorArr.controls[i].get('declarationName').errors.required">Person name is required</div>
+                        </div>
                           </div>
                           <div class="col-md-4" *ngIf="false">
-                            <input type="text"  formControlName="declarationDate" class="form-control" >
+                            <input type="text"  formControlName="declarationDate" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f.inspectorArr.controls[i].get('declarationDate').errors }">
+                          <div *ngIf="submitted && f.inspectorArr.controls[i].get('declarationDate').errors" class="invalid-feedback">
+                            <div *ngIf="f.inspectorArr.controls[i].get('declarationDate').errors.required">Person name is required</div>
+                        </div>
                           </div>
                       </div>   
                   </div>
