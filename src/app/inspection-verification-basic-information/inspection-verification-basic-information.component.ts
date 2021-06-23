@@ -204,33 +204,33 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 
   private createDesigner1AcknowledgeForm(): FormGroup {
     return new FormGroup({
-      signature: new FormControl(''),
-      declarationDate: new FormControl(''),
-      declarationName: new FormControl('')
+      signature: new FormControl('',[Validators.required]),
+      declarationDate: new FormControl('',[Validators.required]),
+      declarationName: new FormControl('',[Validators.required])
     })
   }
 
   private createDesigner2AcknowledgeForm(): FormGroup {
     return new FormGroup({
-      signature: new FormControl(''),
-      declarationDate: new FormControl(''),
-      declarationName: new FormControl('')
+      signature: new FormControl('',[Validators.required]),
+      declarationDate: new FormControl('',[Validators.required]),
+      declarationName: new FormControl('',[Validators.required])
     })
   }
 
   private createContractorAcknowledgeForm(): FormGroup {
     return new FormGroup({
-      signature: new FormControl(''),
-      declarationDate: new FormControl(''),
-      declarationName: new FormControl('')
+      signature: new FormControl('',[Validators.required]),
+      declarationDate: new FormControl('',[Validators.required]),
+      declarationName: new FormControl('',[Validators.required])
     })
   }
 
   private createInspectorAcknowledgeForm(): FormGroup {
     return new FormGroup({
-      signature: new FormControl(''),
-      declarationDate: new FormControl(''),
-      declarationName: new FormControl('')
+      signature: new FormControl('',[Validators.required]),
+      declarationDate: new FormControl('',[Validators.required]),
+      declarationName: new FormControl('',[Validators.required])
     })
   }
 
@@ -263,9 +263,9 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       country: new FormControl('',[Validators.required]),
       state: new FormControl('',[Validators.required]),
       pinCode: new FormControl('',[Validators.required]),
-      signatorRole: new FormControl('',[Validators.required]),
-      declarationDate: new FormControl('',[Validators.required]),
-      declarationName: new FormControl('',[Validators.required])
+      signatorRole: new FormControl(''),
+      declarationDate: new FormControl(''),
+      declarationName: new FormControl('')
     })
   }
 
@@ -284,9 +284,9 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       country: new FormControl('',[Validators.required]),
       state: new FormControl('',[Validators.required]),
       pinCode: new FormControl('',[Validators.required]),
-      signatorRole: new FormControl('',[Validators.required]),
-      declarationDate: new FormControl('',[Validators.required]),
-      declarationName: new FormControl('',[Validators.required])
+      signatorRole: new FormControl(''),
+      declarationDate: new FormControl(''),
+      declarationName: new FormControl('')
     })
   }
 
@@ -342,9 +342,9 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       country: new FormControl('',[Validators.required]),
       state: new FormControl('',[Validators.required]),
       pinCode: new FormControl('',[Validators.required]),
-      signatorRole: new FormControl('',[Validators.required]),
-      declarationDate: new FormControl('',[Validators.required]),
-      declarationName: new FormControl('',[Validators.required])
+      signatorRole: new FormControl(''),
+      declarationDate: new FormControl(''),
+      declarationName: new FormControl('')
     })
   }
 
@@ -381,9 +381,9 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       country: new FormControl('',[Validators.required]),
       state: new FormControl('',[Validators.required]),
       pinCode: new FormControl('',[Validators.required]),
-      signatorRole: new FormControl('',[Validators.required]),
-      declarationDate: new FormControl('',[Validators.required]),
-      declarationName: new FormControl('',[Validators.required])
+      signatorRole: new FormControl(''),
+      declarationDate: new FormControl(''),
+      declarationName: new FormControl('')
     })
   }
 
@@ -416,7 +416,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     return (<FormArray> this.step1Form.get('designer2Arr')).reset();
   }
 
-  get f() {
+  get f():any {
     return this.step1Form.controls;
   }
 
@@ -429,10 +429,9 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     this.proceedNext.emit(true);
   }
   
-  //InspectorPersonName:FormControl=new FormControl('',[Validators.required]);
 
   nextTab() {
-   this.f;
+   //this.f;
     this.loading = true;
     this.step1Form.value.designer1Arr[0].signatorRole= this.designerRole;
     this.step1Form.value.designer1Arr[0].declarationName= this.step1Form.value.designer1AcknowledgeArr[0].declarationName;
