@@ -13,6 +13,6 @@ export class TestingService {
   constructor(private http: HttpClient) { }
 
   public addTest(testing: Testingdetails): Observable<any> {
-  return this.http.post<any>(this.apiUrl + '/addTestInfo', testing, { responseType: 'text' as 'json' })
+   return this.http.post<any>(this.apiUrl + '/addTestInfo', testing, { responseType: 'text' as 'json' })
   }
 }

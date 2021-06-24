@@ -50,7 +50,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
 
     this.testingForm = this.formBuilder.group({
 
-       testEngineerName: ['', Validators.required],
+      testEngineerName: ['', Validators.required],
        date: ['', Validators.required],
        companyName: ['', Validators.required],
        designation: ['', Validators.required],
@@ -63,14 +63,14 @@ export class InspectionVerificationTestingComponent implements OnInit {
 
 
 
-      distributionIncomingValueArr: this.formBuilder.array([this.createdistributionIncomingValueForm()]),
-      testDistributionArr: this.formBuilder.array([this.createtestDistributionForm()]),
+       distributionIncomingValueArr: this.formBuilder.array([this.createdistributionIncomingValueForm()]),
+       testDistributionArr: this.formBuilder.array([this.createtestDistributionForm()]),
 
 
-      testCircuitFormArr: this.formBuilder.array([this.createtestCircuteForm()]),
-      testConductorArr: this.formBuilder.array([this.createtestConductorForm()]),
-      testContinuityArr: this.formBuilder.array([this.createtestContinuityForm()]),
-      testVoltageArr: this.formBuilder.array([this.createtestVoltageForm()]),
+       testCircuitFormArr: this.formBuilder.array([this.createtestCircuteForm()]),
+       testConductorArr: this.formBuilder.array([this.createtestConductorForm()]),
+       testContinuityArr: this.formBuilder.array([this.createtestContinuityForm()]),
+       testVoltageArr: this.formBuilder.array([this.createtestVoltageForm()]),
       testLoopImpedanceArr: this.formBuilder.array([this.createtestLoopImpedanceForm()]),
       testFaultCurrentArr: this.formBuilder.array([this.createtestFaultCurrentForm()]),
       testDisconnectionTimeArr: this.formBuilder.array([this.createtestDisconnectionTimeForm()]),
@@ -184,6 +184,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   }
   private createtestDisconnectionTimeForm(): FormGroup {
     return new FormGroup({
+      ryDisconnect: new FormControl(''),
       rbDisconnect: new FormControl(''),
       ybDisconnect: new FormControl(''),
       rnDisconnect: new FormControl(''),
@@ -195,40 +196,40 @@ export class InspectionVerificationTestingComponent implements OnInit {
     })
   }
 
-  getdistributionIncomingValueControls(){
+  getdistributionIncomingValueControls(): AbstractControl[] {
 
    return (<FormArray>this.testingForm.get('distributionIncomingValueArr')).controls
   }
 
-  gettestDistributionFormControls(){
+  gettestDistributionFormControls(): AbstractControl[] {
    return (<FormArray>this.testingForm.get('testDistributionArr')).controls
   }
-  gettestCircuitFormControls(){
+  gettestCircuitFormControls(): AbstractControl[] {
     return (<FormArray>this.testingForm.get('testCircuitFormArr')).controls
   }
-  gettestConductorControls(){
+  gettestConductorControls(): AbstractControl[] {
    return (<FormArray>this.testingForm.get('testConductorArr')).controls
   }
 
-  gettestContinuityControls(){
+  gettestContinuityControls(): AbstractControl[] {
     return (<FormArray>this.testingForm.get('testContinuityArr')).controls
   }
 
-  gettestVoltageControls(){
+  gettestVoltageControls(): AbstractControl[] {
     return (<FormArray>this.testingForm.get('testVoltageArr')).controls
   }
 
-  gettestLoopImpedanceControls(){
+  gettestLoopImpedanceControls(): AbstractControl[] {
    return (<FormArray>this.testingForm.get('testLoopImpedanceArr')).controls
 
   }
-  gettestFaultCurrentControls(){
+  gettestFaultCurrentControls(): AbstractControl[] {
    return (<FormArray>this.testingForm.get('testFaultCurrentArr')).controls
   }
-  gettestDisconnectionTimeControls(){
+  gettestDisconnectionTimeControls(): AbstractControl[] {
     return (<FormArray>this.testingForm.get('testDisconnectionTimeArr')).controls
   }
-  gettestrcdValueControls(){
+  gettestrcdValueControls(): AbstractControl[] {
     return (<FormArray>this.testingForm.get('testrcdValueArr')).controls
   }
 
