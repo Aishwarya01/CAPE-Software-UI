@@ -271,6 +271,16 @@ visibility: visible;
 .mobileDisplay{
   display: none !important;
 }
+
+.highlight{
+  background: rgb(4 4 4 / 15%);
+}
+.mat-list-item .mat-list-item-content:hover{
+  background: rgb(4 4 4 / 15%);
+}
+.mat-list-base .mat-list-item .mat-list-item-content, .mat-list-base .mat-list-option .mat-list-item-content {
+  padding: unset !important;
+}
 @media (max-width: 600px) {
   .mobileDisplay{
     display: block !important;
@@ -293,5 +303,8 @@ visibility: visible;
 .register{
   padding-top: unset !important;
   padding-left: unset !important;
+}
+.mat-list-base .mat-list-item .mat-list-item-content, .mat-list-base .mat-list-option .mat-list-item-content {
+  padding: 0 16px !important;
 }
 }

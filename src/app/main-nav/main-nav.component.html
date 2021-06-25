@@ -36,7 +36,9 @@
       position: absolute;">Add New Application Type</span>
     </div>
     <mat-nav-list>
-      <mat-list-item *ngFor="let type of applicationTypes" class="row">
+      <mat-list-item *ngFor="let type of applicationTypes"
+      [ngClass]="{'highlight': selectedRowIndex == type.id}"
+      (click)="highlight(type)">
         <div class="col-md-2" style="position: sticky;">
         <button class="btn btn-info" 
         style="float: left;padding: 3px 5px 3px 5px;
@@ -49,7 +51,7 @@
           (click)="showLinkDescription(type.id)" title="{{type.type}}">{{ type.code }}</span>
         </a>
 
-      <div class="MenuIcons col-md-4" style="display: flex;">
+      <div class="MenuIcons col-md-4" style="display: flex;margin-left: -27px;">
         <button mat-menu-item (click)="editApplicationType(type.id, type.type, type.code)" style="height: 30px;"
         class="full-width" *ngIf="isExpanded || isShowing" title="Edit">
           <mat-icon>edit</mat-icon>
@@ -118,7 +120,7 @@
         </button>
         </div>
         <a class="logomain col-md-10">
-          <span style="margin-left: -50px;"
+          <span style="margin-left: -60px;"
           (click)="showLinkDescription(type.id)" title="{{type.type}}">{{ type.code }}</span>
         </a>
       

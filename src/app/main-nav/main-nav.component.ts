@@ -76,6 +76,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
   welcome: boolean = true;
   //isExpanded: any;
   //isExpanded: any;
+  selectedRowIndex = -1;
+
 
 
 
@@ -148,7 +150,9 @@ export class MainNavComponent implements OnInit, OnDestroy {
       }
     )
   }
-
+  highlight(type:any){
+    this.selectedRowIndex = type.id;
+}
   changePassword(email: String) {
     this.route.navigate(['changePassword', { email: email }])
   }
