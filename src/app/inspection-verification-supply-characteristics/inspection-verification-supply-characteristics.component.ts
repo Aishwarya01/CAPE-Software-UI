@@ -34,6 +34,8 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   loclength: any;
   loc1length: any;
   email: String = '';
+  loading = false;
+  submitted = false;
 
   NV1: any;
   NV2: any;
@@ -211,39 +213,39 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
 
     private createLocation1Form(): FormGroup {
       return new FormGroup({
-        locationNo: new FormControl(''),
-        locationName: new FormControl(''),
-        electrodeResistanceEarth: new FormControl(''),
-        electrodeResistanceGird: new FormControl(''),
+        locationNo: new FormControl('',[Validators.required]),
+        locationName: new FormControl('',[Validators.required]),
+        electrodeResistanceEarth: new FormControl('',[Validators.required]),
+        electrodeResistanceGird: new FormControl('',[Validators.required])
       })
     }
 
     private createLocation2Form(): FormGroup {
       return new FormGroup({
-        location: new FormControl(''),
-        jointNo: new FormControl(''),
-        jointResistance: new FormControl('')
+        location: new FormControl('',[Validators.required]),
+        jointNo: new FormControl('',[Validators.required]),
+        jointResistance: new FormControl('',[Validators.required])
       })
     }
 
     private createLocation3Form(): FormGroup {
       return new FormGroup({
-        location: new FormControl(''),
-        jointNo: new FormControl(''),
-        jointResistance: new FormControl('')
+        location: new FormControl('',[Validators.required]),
+        jointNo: new FormControl('',[Validators.required]),
+        jointResistance: new FormControl('',[Validators.required])
       })
     }
 
     private SupplyparametersForm(): FormGroup {
       return new FormGroup({
-        aLSupplyNo:new FormControl(''),
-        aLSupplyShortName:new FormControl(''),
-        aLSystemEarthing:new FormControl(''),
-        aLLiveConductorType:new FormControl(''),
+        aLSupplyNo:new FormControl('',[Validators.required]),
+        aLSupplyShortName:new FormControl('',[Validators.required]),
+        aLSystemEarthing:new FormControl('',[Validators.required]),
+        aLLiveConductorType:new FormControl('',[Validators.required]),
         aLLiveConductorAC:new FormControl(''),
         aLLiveConductorDC:new FormControl(''),
-        aLSystemEarthingBNote: new FormControl(''),
-        aLLiveConductorBNote: new FormControl(''),
+        aLSystemEarthingBNote: new FormControl('',[Validators.required]),
+        aLLiveConductorBNote: new FormControl('',[Validators.required]),
         nominalVoltage: new FormControl(''),
         nominalFrequency: new FormControl(''),
         faultCurrent: new FormControl(''),
@@ -253,9 +255,9 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
         nominalVoltageArr1: this.formBuilder.array([
           this.nominalVoltageForm()
         ]),
-        protectiveDevice: new FormControl(''),
-        ratedCurrent : new FormControl(''),    
-        currentDissconnection : new FormControl(''),    
+        protectiveDevice: new FormControl('',[Validators.required]),
+        ratedCurrent : new FormControl('',[Validators.required]),    
+        currentDissconnection : new FormControl('',[Validators.required]),    
       })
     }
 
@@ -317,14 +319,14 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
 
     private createCircuitForm(): FormGroup {
       return new FormGroup({
-        location:new FormControl(''),
-        type:new FormControl(''),
-        noPoles:new FormControl(''),
-        current:new FormControl(''),
-        voltage:new FormControl(''),
-        fuse:new FormControl(''),
-        residualCurrent:new FormControl(''),
-        residualTime:new FormControl('')
+        location:new FormControl('',[Validators.required]),
+        type:new FormControl('',[Validators.required]),
+        noPoles:new FormControl('',[Validators.required]),
+        current:new FormControl('',[Validators.required]),
+        voltage:new FormControl('',[Validators.required]),
+        fuse:new FormControl('',[Validators.required]),
+        residualCurrent:new FormControl('',[Validators.required]),
+        residualTime:new FormControl('',[Validators.required]),
       })
     }
     
@@ -544,12 +546,19 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
       this.enableAC = true;
       this.enableDC = false;
       this.tableAC = true;
+      this.supplycharesteristicForm.controls["DcConductor"].clearValidators();
+      this.supplycharesteristicForm.controls["DcConductor"].updateValueAndValidity();
+      this.supplycharesteristicForm.controls["AcConductor"].setValidators([Validators.required]);
+      this.supplycharesteristicForm.controls["AcConductor"].updateValueAndValidity();
     }
     else {
       this.enableDC = true;
       this.enableAC = false;
       this.tableAC = false;
-
+      this.supplycharesteristicForm.controls["AcConductor"].clearValidators();
+      this.supplycharesteristicForm.controls["AcConductor"].updateValueAndValidity();
+      this.supplycharesteristicForm.controls["DcConductor"].setValidators([Validators.required]);
+      this.supplycharesteristicForm.controls["DcConductor"].updateValueAndValidity();
     }
   }
 
@@ -679,10 +688,20 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   //        }
   //  }
   // }
+
+  get f():any {
+    return this.supplycharesteristicForm.controls;
+  }
   
 nextTab2() {
-    this.supplycharesteristic.siteId = this.service.siteCount;
+    // this.supplycharesteristic.siteId = this.service.siteCount;
+    this.supplycharesteristic.siteId = 2;
+
     this.supplycharesteristic.userName = this.email;
+    this.submitted = true;
+    if(this.supplycharesteristicForm.invalid) {
+      return;
+    }
     this.nominalVoltageArr.push(this.NV1,this.NV2,this.NV3,this.NV4,this.NV5,this.NV6,this.NV7,this.NV8,this.NV9);
     this.nominalFrequencyArr.push(this.NF1,this.NF2,this.NF3,this.NF4,this.NF5,this.NF6,this.NF7,this.NF8,this.NF9);
     this.nominalCurrentArr.push(this.PF1,this.PF2,this.PF3,this.PF4,this.PF5,this.PF6,this.PF7,this.PF8,this.PF9);
