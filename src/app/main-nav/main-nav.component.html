@@ -17,7 +17,7 @@
       <span class="spacer"></span>
       <button mat-button [matMenuTriggerFor]="menu">
         <mat-icon>person</mat-icon>{{fullName}}
-      </button>          
+      </button>
       <!-- <span class="flex-spacer"></span> -->
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="profileUpdate(email)"><mat-icon >manage_accounts</mat-icon>Profile</button>
@@ -31,7 +31,7 @@
   <!-- [ngStyle]="!isExpanded ? isShowing && { 'width':'60px' } : { 'width':'250px' }"  -->
   <!-- [ngStyle]="{'background-color': style1 ? 'red' : (style2 ? 'blue' : null) }" -->
   <!-- [ngStyle]="{'width': isExpanded ? '250px' : (!isExpanded && isShowing ? '250px' : '60px') }"
-    'z-index': isExpanded ? '-1' : (!isExpanded && isShowing ? '9' : '-1') 
+    'z-index': isExpanded ? '-1' : (!isExpanded && isShowing ? '9' : '-1')
  -->
  <!-- [mode]="(isBarkMobile$ | async) ? 'over': 'side'"
  [opened]="sideNavOpen"
@@ -46,7 +46,7 @@
     [ngStyle]="{'width': isExpanded ? '330px' : (!isExpanded && isShowing ? '330px' : '60px')}"
     (mouseenter)="mouseenter()" (mouseleave)="mouseleave()"> -->
     <mat-sidenav-container class="example-container" [autosize]="autosize" fxFlexFill>
-    <mat-sidenav #sidenav 
+    <mat-sidenav #sidenav
       [mode]="mobileQuery.matches ? 'over' : 'side'" opened="mobileQuery.matches ? 'false' : 'true'"
       [ngStyle]="{'width': isExpanded ? '295px' : (!isExpanded && isShowing ? '295px' : '60px')}"
       (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
@@ -57,7 +57,7 @@
       (mouseenter)="mouseenter()" (mouseleave)="mouseleave()"> -->
 
    <div class="logomain" style="margin-top: 35px;">
-      <button class="btn btn-info" (click)="openModal()" 
+      <button class="btn btn-info" (click)="openModal()"
       style="float: left;padding: 7px 10px 0px 10px;margin: 5px 10px 5px 7px;">
        <mat-icon aria-hidden="false" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>
       </button>
@@ -65,13 +65,16 @@
       position: absolute;">Add New Application Type</span>
     </div>
     <mat-nav-list>
-      <mat-list-item *ngFor="let type of applicationTypes" class="row">
+      <mat-list-item *ngFor="let type of applicationTypes"
+      [ngClass]="{'highlight': selectedRowIndex == type.id}"
+      (click)="highlight(type)" class="row" >
+
         <div class="col-md-1" style="position: sticky;">
           <!-- <img [src]="imageSrc" style="width: 45px;height: 60px;"/>   -->
-        <button class="btn btn-info" 
+        <button class="btn btn-info"
         style="float: left;padding: 3px 7px 3px 7px;
         margin: 5px 4px 5px -4px;">
-        <span>LV</span>        
+        <span>{{ type.applicationName }}</span>
         </button>
         </div>
         <a class="logomain col-md-8">
@@ -87,8 +90,8 @@
         <button mat-menu-item (click)="deleteApplicationType(type.id)" style="height: 30px;"
         class="full-width" *ngIf="isExpanded || isShowing" title="Delete">
           <mat-icon>delete</mat-icon>
-        </button>   
-      </div>     
+        </button>
+      </div>
       </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
@@ -109,4 +112,4 @@
 </div>
 
 
- 
+

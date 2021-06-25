@@ -38,7 +38,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   screenWidth: number | undefined;
   activeTab = 0;
 
-  // imageSrc = 'assets/img/lowVoltage.jpg';  
+  // imageSrc = 'assets/img/lowVoltage.jpg';
 
   @ViewChild('ref', { read: ViewContainerRef })
   viewContainerRef!: ViewContainerRef;
@@ -69,7 +69,10 @@ export class MainNavComponent implements OnInit, OnDestroy {
   welcome: boolean = true;
   //isExpanded: any;
   //isExpanded: any;
-
+  HighlightRow! : Number;
+  ClickedRow:any;
+  index:any;
+  selectedRowIndex = -1;
 
 
   constructor(private breakpointObserver: BreakpointObserver, changeDetectorRef: ChangeDetectorRef,
@@ -89,6 +92,9 @@ export class MainNavComponent implements OnInit, OnDestroy {
       // set screenWidth on screen size change
       this.screenWidth = window.innerWidth;
     };
+  //   this.ClickedRow = function(index: Number){
+  //     this.HighlightRow = index;
+  // }
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -234,4 +240,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   displayIconsBasedOnEmail(): boolean{
     return !this.email.includes("@capeindia.net")
   }
+  highlight(type:any){
+    this.selectedRowIndex = type.id;
+}
 }
