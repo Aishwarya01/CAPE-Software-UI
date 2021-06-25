@@ -1,9 +1,12 @@
-<div class="example-container" class="desktopDisplay">
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
   <mat-toolbar role="toolbar" class="main-header mat-elevation-z1 sticky-header example-toolbar">
     <mat-toolbar-row>
-      <button mat-button (click)="isExpanded = !isExpanded">
+      <button mat-button (click)="isExpanded = !isExpanded" *ngIf="desktopDisplay">
         <mat-icon>menu</mat-icon>
       </button>
+      <!-- <button mat-button (click)="sidenav.toggle()" *ngIf="mobileDisplay">
+        <mat-icon>menu</mat-icon>
+      </button> -->
       <div class="brand-logo">
         <a href="#"><img src="assets/img/Rush_Final_logo.png"></a>
       </div>
@@ -21,13 +24,13 @@
       </mat-menu>
     </mat-toolbar-row>
   </mat-toolbar>
-  
+ 
     <mat-sidenav-container class="example-container" [autosize]="autosize" fxFlexFill>
-    <mat-sidenav [mode]="mobileQuery.matches ? 'over' : 'side'" opened="mobileQuery.matches ? 'false' : 'true'"
-      [ngStyle]="{'width': isExpanded ? '295px' : (!isExpanded && isShowing ? '295px' : '60px')}"
-      (mouseenter)="mouseenter()" (mouseleave)="mouseleave()" class="desktopDisplay">
+    <mat-sidenav mode="side" opened="true" class="desktopDisplay"
+    [ngStyle]="{'width': isExpanded ? '295px' : (!isExpanded && isShowing ? '295px' : '60px')}"
+    (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
 
-   <div class="logomain" style="margin-top: 35px;">
+    <div class="logomain" style="margin-top: 35px;">
       <button class="btn btn-info" (click)="openModal()" 
       style="float: left;padding: 7px 10px 0px 10px;margin: 5px 10px 5px 7px;">
        <mat-icon aria-hidden="false" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>
@@ -64,6 +67,7 @@
       </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
+
   <mat-sidenav-content fullscreen fxFlexFill>
     <div style="margin: 185px; text-align: center;" *ngIf="welcome">
     <h1 style="font-size: 35px;">Welcome to Rush Safety Applications</h1>
@@ -71,79 +75,11 @@
   </div>
     <ng-template #ref></ng-template>
  </mat-sidenav-content>
+ 
 </mat-sidenav-container>
+
 
 </div>
 
 
-<div class="mobileDisplay example-container">
-  <mat-toolbar role="toolbar" class="main-header mat-elevation-z1 sticky-header example-toolbar">
-    <mat-toolbar-row>
-      <button type="button" mat-button (click)="drawer.toggle()">
-      <mat-icon>menu</mat-icon>
-      </button>
-      <div class="brand-logo">
-        <a href="#"><img src="assets/img/Rush_Final_logo.png"></a>
-      </div>
-      <span class="spacer"></span>
-      <button mat-button [matMenuTriggerFor]="menu">
-        <mat-icon>person</mat-icon>{{fullName}}
-      </button>          
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="profileUpdate(email)"><mat-icon >manage_accounts</mat-icon>Profile</button>
-        <button mat-menu-item (click)="changePassword(email)"><mat-icon >build</mat-icon>Change Password</button>
-        <button  mat-menu-item (click)="logout()"><mat-icon >logout</mat-icon>Logout</button>
-      </mat-menu>
-    </mat-toolbar-row>
-  </mat-toolbar>
-    <mat-sidenav-container fxFlexFill class="example-container">
-      <mat-sidenav #drawer mode="over" style="width: 295px;">
-        <div class="appName">
-          <span>Rush Safety Applications</span>
-        </div>
-      <div class="logomain" style="margin-top: 20px;">
-      <button class="btn btn-info" (click)="openModal()" 
-      style="float: left;padding: 7px 10px 0px 10px;margin: 5px 10px 5px 7px;">
-       <mat-icon aria-hidden="false" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>
-      </button>
-      <span style="margin-top: 15px;
-      position: absolute;">Add New Application Type</span>
-      </div>
-      <mat-nav-list>
-      <mat-list-item *ngFor="let type of applicationTypes" class="row">
-        
-        <div class="col-md-1" style="position: sticky;">
-        <button class="btn btn-info" 
-        style="float: left;padding: 3px 5px 3px 5px;
-        margin: 5px 4px 5px -8px;">
-        <span>{{ type.applicationName }}</span>        
-        </button>
-        </div>
-        <a class="logomain col-md-10">
-          <span style="margin-left: -60px;"
-          (click)="showLinkDescription(type.id)" title="{{type.type}}">{{ type.code }}</span>
-        </a>
-      
-      <div class="MenuIcons col-md-2" style="display: flex;margin-right: -60px;">
-        <button mat-menu-item (click)="editApplicationType(type.id, type.type, type.code)" style="height: 30px;"
-        class="full-width" title="Edit">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-menu-item (click)="deleteApplicationType(type.id)" style="height: 30px;"
-        class="full-width" title="Delete">
-          <mat-icon>delete</mat-icon>
-        </button>   
-      </div>     
-      </mat-list-item>
-      </mat-nav-list>
-      </mat-sidenav>
-  <mat-sidenav-content fullscreen fxFlexFill>
-    <div style="margin: 60px; text-align: center;" *ngIf="welcome">
-    <h1 style="font-size: 35px;">Welcome to Rush Safety Applications</h1>
-    <p>Note: Kindly go through the sub-menus on the left side panel.</p>
-  </div>
-    <ng-template #ref1></ng-template>
- </mat-sidenav-content>
-</mat-sidenav-container>
-
-</div>
+ 
