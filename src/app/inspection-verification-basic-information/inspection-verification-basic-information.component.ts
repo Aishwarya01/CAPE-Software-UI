@@ -51,7 +51,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   loading = false;
   submitted = false;
   inspectorArr!: FormArray;
-
+  designer2Arr!: FormArray;
   @Output() proceedNext = new EventEmitter<any>();  
   
 
@@ -142,9 +142,13 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     let changedValue = e.target.value;
     if(changedValue == "New installation") {
       this.showField1 = false;
+      this.step1Form.controls["showField1"].clearValidators();
+      this.step1Form.controls["showField1"].updateValueAndValidity();
     }
     else {
       this.showField1 = true;
+      this.step1Form.controls["showField1"].setValidators([Validators.required]);
+      this.step1Form.controls["showField1"].updateValueAndValidity();
     }
   }
 
@@ -152,9 +156,13 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     let changedValue = e.target.value;
     if(changedValue == "Yes") {
       this.showField2 = true;
+      this.step1Form.controls["showField2"].setValidators([Validators.required]);
+      this.step1Form.controls["showField2"].updateValueAndValidity();
     }
     else {
       this.showField2 = false;
+      this.step1Form.controls["showField2"].clearValidators();
+      this.step1Form.controls["showField2"].updateValueAndValidity();
     }
   }
 
@@ -271,19 +279,19 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 
   private createDesigner2Form(): FormGroup {
     return new FormGroup({
-      personName: new FormControl('',[Validators.required]),
-      personContactNo: new FormControl('',[Validators.required]),
-      personMailID: new FormControl('',[Validators.required]),
-      managerName: new FormControl('',[Validators.required]),
-      managerContactNo: new FormControl('',[Validators.required]),
-      managerMailID: new FormControl('',[Validators.required]),
-      companyName: new FormControl('',[Validators.required]),
-      addressLine1: new FormControl('',[Validators.required]),
-      addressLine2: new FormControl('',[Validators.required]),
-      landMark: new FormControl('',[Validators.required]),
-      country: new FormControl('',[Validators.required]),
-      state: new FormControl('',[Validators.required]),
-      pinCode: new FormControl('',[Validators.required]),
+      personName: new FormControl(''),
+      personContactNo: new FormControl(''),
+      personMailID: new FormControl(''),
+      managerName: new FormControl(''),
+      managerContactNo: new FormControl(''),
+      managerMailID: new FormControl(''),
+      companyName: new FormControl(''),
+      addressLine1: new FormControl(''),
+      addressLine2: new FormControl(''),
+      landMark: new FormControl(''),
+      country: new FormControl(''),
+      state: new FormControl(''),
+      pinCode: new FormControl(''),
       signatorRole: new FormControl(''),
       declarationDate: new FormControl(''),
       declarationName: new FormControl('')
@@ -408,11 +416,17 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   addDesigner() {
     this.showDesigner2= true;
     this.showAddButton= false;
+    this.step1Form.controls.designer2Arr.
+
+    this.step1Form.controls.designer2Arr.setValidators([Validators.required]);
+    this.step1Form.controls.designer2Arr.updateValueAndValidity;
   }
 
   removeDesigner() {
     this.showDesigner2= false;
     this.showAddButton= true;
+    this.step1Form.controls.designer2Arr.clearValidators;
+    this.step1Form.controls.designer2Arr.updateValueAndValidity;
     return (<FormArray> this.step1Form.get('designer2Arr')).reset();
   }
 
@@ -433,6 +447,11 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   nextTab() {
    //this.f;
     this.loading = true;
+
+    if(this.step1Form.invalid) {
+      return;
+    }
+    
     this.step1Form.value.designer1Arr[0].signatorRole= this.designerRole;
     this.step1Form.value.designer1Arr[0].declarationName= this.step1Form.value.designer1AcknowledgeArr[0].declarationName;
     this.step1Form.value.designer1Arr[0].declarationDate= this.step1Form.value.designer1AcknowledgeArr[0].declarationDate;
@@ -452,7 +471,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     this.reportDetails.userName = this.email;
     
     this.reportDetails.SignatorDetails = this.step1Form.value.designer1Arr;
-    if(this.step1Form.value.designer2Arr[0].personName != "") {
+    if(this.step1Form.value.designer2Arr[0].personName != "" && this.step1Form.value.designer2Arr[0].personName != null) {
       this.reportDetails.SignatorDetails=this.reportDetails.SignatorDetails.concat(this.step1Form.value.designer2Arr);
     }
     
