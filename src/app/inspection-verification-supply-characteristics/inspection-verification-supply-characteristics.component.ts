@@ -547,7 +547,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
       this.enableDC = false;
       this.tableAC = true;
       this.supplycharesteristicForm.controls["DcConductor"].clearValidators();
-      this.supplycharesteristicForm.controls["DcConductor"].updateValueAndValidity()
+      this.supplycharesteristicForm.controls["DcConductor"].updateValueAndValidity();
       this.supplycharesteristicForm.controls["AcConductor"].setValidators([Validators.required]);
       this.supplycharesteristicForm.controls["AcConductor"].updateValueAndValidity();
     }
@@ -695,7 +695,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   
 nextTab2() {
     // this.supplycharesteristic.siteId = this.service.siteCount;
-    this.supplycharesteristic.siteId = 10;
+    this.supplycharesteristic.siteId = 2;
 
     this.supplycharesteristic.userName = this.email;
     this.submitted = true;

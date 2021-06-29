@@ -167,7 +167,13 @@
                 <tr>
                   <td nowrap="nowrap">Type of Over Current Protective Device</td>
                   <td> 
-                  <input type="text"  style="width:200px" formControlName="mainNominalProtectiveDevice" [(ngModel)]="supplycharesteristic.mainNominalProtectiveDevice" [ngClass]="{ 'is-invalid': submitted && f.mainNominalProtectiveDevice.errors }">
+                    <select  class="form-control"  style="width:200px" formControlName="mainNominalProtectiveDevice" [ngClass]="{ 'is-invalid': submitted && f.mainNominalProtectiveDevice.errors }" [(ngModel)]="supplycharesteristic.mainNominalProtectiveDevice">
+                      <option value="0" selected>Select option</option>
+                      <option  value="Fuse"> Fuse </option>
+                      <option value="MCB"> MCB</option>
+                      <option value="MCCB">MCCB</option>
+                      <option value="ACB">ACB</option>     
+                  </select>
                   <div *ngIf="submitted && f.mainNominalProtectiveDevice.errors" class="invalid-feedback">
                     <div *ngIf="f.mainNominalProtectiveDevice?.errors?.required">Client name is required</div>
                   </div>
@@ -296,8 +302,8 @@
                           <option value="1-phase, 3-wire (LLM)">1-phase, 2-wire (LN)</option>
                           <option value="1-phase, 3-wire (LLM)">1-phase, 3-wire (LLM)</option>
                           <option value="2-phase, 3-wire (LLN)">2-phase, 3-wire (LLN)</option>
-                          <option value="3-phase, 3-wire (LLL)">3-phase, 3-wire (LLL)</option>
-                          <option value="3-phase, 4-wire (LLLN)">3-phase, 4-wire (LLLN)</option>
+                          <option value="3-phase, 3-wire (LLL)" selected>3-phase, 3-wire (LLL)</option>
+                          <option value="3-phase, 4-wire (LLLN)" selected>3-phase, 4-wire (LLLN)</option>
                         </select>
                     </div>
         
@@ -424,7 +430,7 @@
                           <tr>
                             <td nowrap="nowrap">Type of Over Current Protective Device</td>
                             <td>
-                              <input type="text"  style="width:400px" formControlName="protectiveDevice" [ngClass]="{ 'is-invalid': submitted && a.get('protectiveDevice')?.errors }">
+                              <input type="text" fromControlName="protectiveDevice" [ngClass]="{ 'is-invalid': submitted && a.get('protectiveDevice')?.errors }" style="width:400px" >
                               <div *ngIf="submitted && a.get('protectiveDevice')?.errors" class="invalid-feedback">
                                 <div *ngIf="a.get('protectiveDevice')?.errors?.required">Signature is required</div>
                               </div>
