@@ -694,9 +694,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   }
   
 nextTab2() {
-    // this.supplycharesteristic.siteId = this.service.siteCount;
-    this.supplycharesteristic.siteId = 10;
-
+    this.supplycharesteristic.siteId = this.service.siteCount;
     this.supplycharesteristic.userName = this.email;
     this.submitted = true;
     if(this.supplycharesteristicForm.invalid) {

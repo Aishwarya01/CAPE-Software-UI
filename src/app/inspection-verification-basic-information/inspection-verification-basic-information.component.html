@@ -498,6 +498,7 @@
                             [ngClass]="{ 'is-invalid': submitted && a.get('personMailID')?.errors }">
                           <div *ngIf="submitted && a.get('personMailID')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('personMailID')?.errors?.required">Email is required</div>
+                            <div *ngIf="a.get('personMailID')?.errors?.pattern">Enter valid email</div>
                         </div>
                         </div>       
                     </div>                            
@@ -530,6 +531,7 @@
                             [ngClass]="{ 'is-invalid': submitted && a.get('managerMailID')?.errors }">
                           <div *ngIf="submitted && a.get('managerMailID')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('managerMailID')?.errors?.required">Email is required</div>
+                            <div *ngIf="a.get('managerMailID')?.errors?.pattern">Enter valid email</div>
                         </div>
                         </div>
                     </div>
@@ -654,6 +656,7 @@
                               [ngClass]="{ 'is-invalid': submitted && a.get('personMailID')?.errors }">
                           <div *ngIf="submitted && a.get('personMailID')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('personMailID')?.errors?.required">Email is required</div>
+                            <div *ngIf="a.get('personMailID')?.errors?.pattern">Enter valid email</div>
                         </div>
                           </div>       
                       </div>                            
@@ -686,6 +689,7 @@
                               [ngClass]="{ 'is-invalid': submitted && a.get('managerMailID')?.errors }">
                           <div *ngIf="submitted && a.get('managerMailID')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('managerMailID')?.errors?.required">Email is required</div>
+                            <div *ngIf="a.get('managerMailID')?.errors?.pattern">Enter valid email</div>
                         </div>
                           </div>
                       </div>
@@ -816,7 +820,8 @@
                               [ngClass]="{ 'is-invalid': submitted && a.get('personMailID')?.errors }">
                           <div *ngIf="submitted && a.get('personMailID')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('personMailID')?.errors?.required">Email is required</div>
-                        </div>
+                            <div *ngIf="a.get('personMailID')?.errors?.pattern">Enter valid email</div>
+                          </div>
                           </div>       
                       </div>                            
                     </div>   
@@ -848,7 +853,8 @@
                               [ngClass]="{ 'is-invalid': submitted && a.get('managerMailID')?.errors }">
                           <div *ngIf="submitted && a.get('managerMailID')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('managerMailID')?.errors?.required">Email is required</div>
-                        </div>
+                            <div *ngIf="a.get('managerMailID')?.errors?.pattern">Enter valid email</div>
+                          </div>
                           </div>
                       </div>
                     </div>
@@ -975,6 +981,7 @@
                             [ngClass]="{ 'is-invalid': submitted && a.get('personMailID')?.errors }">
                           <div *ngIf="submitted && a.get('personMailID')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('personMailID')?.errors?.required">Email is required</div>
+                            <div *ngIf="a.get('personMailID')?.errors?.pattern">Enter valid email</div>
                         </div>
                         </div>       
                     </div>                            
@@ -1006,6 +1013,7 @@
                             [ngClass]="{ 'is-invalid': submitted && a.get('managerMailID')?.errors }">
                           <div *ngIf="submitted && a.get('managerMailID')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('managerMailID')?.errors?.required">Email is required</div>
+                            <div *ngIf="a.get('managerMailID')?.errors?.pattern">Enter valid email</div>
                         </div>
                         </div>
                     </div>

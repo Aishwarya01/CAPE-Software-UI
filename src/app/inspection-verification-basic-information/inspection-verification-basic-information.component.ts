@@ -260,10 +260,10 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     return new FormGroup({
       personName: new FormControl('',[Validators.required]),
       personContactNo: new FormControl('',[Validators.required]),
-      personMailID: new FormControl('',[Validators.required]),
+      personMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       managerName: new FormControl('',[Validators.required]),
       managerContactNo: new FormControl('',[Validators.required]),
-      managerMailID: new FormControl('',[Validators.required]),
+      managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       companyName: new FormControl('',[Validators.required]),
       addressLine1: new FormControl('',[Validators.required]),
       addressLine2: new FormControl('',[Validators.required]),
@@ -339,10 +339,10 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     return new FormGroup({
       personName: new FormControl('',[Validators.required]),
       personContactNo: new FormControl('',[Validators.required]),
-      personMailID: new FormControl('',[Validators.required]),
+      personMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       managerName: new FormControl('',[Validators.required]),
       managerContactNo: new FormControl('',[Validators.required]),
-      managerMailID: new FormControl('',[Validators.required]),
+      managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       companyName: new FormControl('',[Validators.required]),
       addressLine1: new FormControl('',[Validators.required]),
       addressLine2: new FormControl('',[Validators.required]),
@@ -378,10 +378,10 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     return new FormGroup({
      personName: new FormControl('',[Validators.required]),
       personContactNo: new FormControl('',[Validators.required]),
-      personMailID: new FormControl('',[Validators.required]),
+      personMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       managerName: new FormControl('',[Validators.required]),
       managerContactNo: new FormControl('',[Validators.required]),
-      managerMailID: new FormControl('',[Validators.required]),
+      managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       companyName: new FormControl('',[Validators.required]),
       addressLine1: new FormControl('',[Validators.required]),
       addressLine2: new FormControl('',[Validators.required]),
@@ -416,17 +416,92 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   addDesigner() {
     this.showDesigner2= true;
     this.showAddButton= false;
-    this.step1Form.controls.designer2Arr.
 
-    this.step1Form.controls.designer2Arr.setValidators([Validators.required]);
-    this.step1Form.controls.designer2Arr.updateValueAndValidity;
+    this.f.designer2Arr.controls[0].controls['personName'].setValidators(Validators.required);
+    this.f.designer2Arr.controls[0].controls['personName'].updateValueAndValidity();
+    
+    this.f.designer2Arr.controls[0].controls['personContactNo'].setValidators(Validators.required);
+    this.f.designer2Arr.controls[0].controls['personContactNo'].updateValueAndValidity();
+
+    this.f.designer2Arr.controls[0].controls['personMailID'].setValidators([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]);
+    this.f.designer2Arr.controls[0].controls['personMailID'].updateValueAndValidity();
+
+    this.f.designer2Arr.controls[0].controls['managerName'].setValidators(Validators.required);
+    this.f.designer2Arr.controls[0].controls['managerName'].updateValueAndValidity();
+
+    this.f.designer2Arr.controls[0].controls['managerContactNo'].setValidators(Validators.required);
+    this.f.designer2Arr.controls[0].controls['managerContactNo'].updateValueAndValidity();
+
+    this.f.designer2Arr.controls[0].controls['managerMailID'].setValidators([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]);
+    this.f.designer2Arr.controls[0].controls['managerMailID'].updateValueAndValidity();
+
+    this.f.designer2Arr.controls[0].controls['companyName'].setValidators(Validators.required);
+    this.f.designer2Arr.controls[0].controls['companyName'].updateValueAndValidity();
+
+    this.f.designer2Arr.controls[0].controls['addressLine1'].setValidators(Validators.required);
+    this.f.designer2Arr.controls[0].controls['addressLine1'].updateValueAndValidity();
+
+    this.f.designer2Arr.controls[0].controls['addressLine2'].setValidators(Validators.required);
+    this.f.designer2Arr.controls[0].controls['addressLine2'].updateValueAndValidity();
+
+    this.f.designer2Arr.controls[0].controls['landMark'].setValidators(Validators.required);
+    this.f.designer2Arr.controls[0].controls['landMark'].updateValueAndValidity();
+
+    this.f.designer2Arr.controls[0].controls['country'].setValidators(Validators.required);
+    this.f.designer2Arr.controls[0].controls['country'].updateValueAndValidity();
+
+    this.f.designer2Arr.controls[0].controls['state'].setValidators(Validators.required);
+    this.f.designer2Arr.controls[0].controls['state'].updateValueAndValidity();
+
+    this.f.designer2Arr.controls[0].controls['pinCode'].setValidators(Validators.required);
+    this.f.designer2Arr.controls[0].controls['pinCode'].updateValueAndValidity();
+
   }
 
   removeDesigner() {
     this.showDesigner2= false;
     this.showAddButton= true;
-    this.step1Form.controls.designer2Arr.clearValidators;
-    this.step1Form.controls.designer2Arr.updateValueAndValidity;
+    this.f.designer2Arr.controls[0].controls['personName'].clearValidators();
+    this.f.designer2Arr.controls[0].controls['personName'].updateValueAndValidity();
+
+    this.f.designer2Arr.controls[0].controls['personContactNo'].clearValidators();
+    this.f.designer2Arr.controls[0].controls['personContactNo'].updateValueAndValidity();
+    
+    this.f.designer2Arr.controls[0].controls['personMailID'].clearValidators();
+    this.f.designer2Arr.controls[0].controls['personMailID'].updateValueAndValidity();
+
+    this.f.designer2Arr.controls[0].controls['managerName'].clearValidators();
+    this.f.designer2Arr.controls[0].controls['managerName'].updateValueAndValidity();
+
+    this.f.designer2Arr.controls[0].controls['managerContactNo'].clearValidators();
+    this.f.designer2Arr.controls[0].controls['managerContactNo'].updateValueAndValidity();
+
+    this.f.designer2Arr.controls[0].controls['managerMailID'].clearValidators();
+    this.f.designer2Arr.controls[0].controls['managerMailID'].updateValueAndValidity();
+
+    this.f.designer2Arr.controls[0].controls['companyName'].clearValidators();
+    this.f.designer2Arr.controls[0].controls['companyName'].updateValueAndValidity();
+
+    this.f.designer2Arr.controls[0].controls['addressLine1'].clearValidators();
+    this.f.designer2Arr.controls[0].controls['addressLine1'].updateValueAndValidity();
+
+    this.f.designer2Arr.controls[0].controls['addressLine2'].clearValidators();
+    this.f.designer2Arr.controls[0].controls['addressLine2'].updateValueAndValidity();
+
+    this.f.designer2Arr.controls[0].controls['landMark'].clearValidators();
+    this.f.designer2Arr.controls[0].controls['landMark'].updateValueAndValidity();
+
+    this.f.designer2Arr.controls[0].controls['country'].clearValidators();
+    this.f.designer2Arr.controls[0].controls['country'].updateValueAndValidity();
+
+    this.f.designer2Arr.controls[0].controls['state'].clearValidators();
+    this.f.designer2Arr.controls[0].controls['state'].updateValueAndValidity();
+
+    this.f.designer2Arr.controls[0].controls['pinCode'].clearValidators();
+    this.f.designer2Arr.controls[0].controls['pinCode'].updateValueAndValidity();
+
+
+    
     return (<FormArray> this.step1Form.get('designer2Arr')).reset();
   }
 
@@ -445,7 +520,6 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   
 
   nextTab() {
-   //this.f;
     this.loading = true;
 
     if(this.step1Form.invalid) {
@@ -477,7 +551,6 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     
     
       this.reportDetails.SignatorDetails=this.reportDetails.SignatorDetails.concat(this.step1Form.value.contractorArr,this.step1Form.value.inspectorArr);
-    debugger
     console.log(this.reportDetails)
     this.reportDetailsService.addReportDetails(this.reportDetails).subscribe(
       data=> {
