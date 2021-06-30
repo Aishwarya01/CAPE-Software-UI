@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12 bg-image">
             <div class="col-md-12">
-                <div class="card">
+                <div class="card col-md-5">
                     <div class="card-header">
                         <div class="brand-logo">
                             <a href="#"><img src="assets/img/Rush_Final_logo.png"></a>
@@ -114,11 +114,12 @@
                             </div> 
             
                             <div style="display: inline;">
-                                <button [disabled]="loading" style="float: left;" type="submit" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"><i class="bi bi-person-plus-fill icon"></i> Register</button>
-                                <button [disabled]="loading" [routerLink]="['/login']" style="float:right;"  class="btn btn-outline-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
+                                <button [disabled]="loading" style="float: left;" type="submit" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" id="login-btn"><i class="bi bi-person-plus-fill icon"></i> Register</button>
+                                <button [disabled]="loading" [routerLink]="['/login']" style="float:right;"  class="btn btn-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
                             </div>                            
                         </form>
                     </div>
+
                 </div>
                 <div class="col-md-7" style="text-align: center;
                 float: right;
@@ -127,6 +128,7 @@
                     <h1 style="font-weight: 500;">INTERACTIVE, INTELLIGENT & THE MOST MODERN</h1>
 
                 </div>                               
+
             </div>
         </div>       
     </div>    

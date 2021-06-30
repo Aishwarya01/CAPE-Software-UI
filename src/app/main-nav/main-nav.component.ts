@@ -37,7 +37,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   autosize: boolean = true;
   screenWidth: number | undefined;
   activeTab = 0;
-
+  public isCollapsed = false;
   // imageSrc = 'assets/img/lowVoltage.jpg';  
 
   @ViewChild('ref', { read: ViewContainerRef })
@@ -47,7 +47,14 @@ export class MainNavComponent implements OnInit, OnDestroy {
       map(result => result.matches),
       shareReplay()
     );
-
+    // @ViewChild('ref1', { read: ViewContainerRef })
+    // viewContainerRef1!: ViewContainerRef;
+    // isHandset1$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    //   .pipe(
+    //     map(result => result.matches),
+    //     shareReplay()
+    //   );
+  
   applicationTypes: ApplicationType[] = [];
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
   fullName: String = '';
@@ -69,6 +76,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
   welcome: boolean = true;
   //isExpanded: any;
   //isExpanded: any;
+  selectedRowIndex = 0;
+
 
 
 
@@ -97,7 +106,6 @@ export class MainNavComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.mobileDisplay = false;
     this.desktopDisplay = true
-    //this.mobileQuery.removeListener(this._mobileQueryListener);
   }
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
@@ -142,7 +150,9 @@ export class MainNavComponent implements OnInit, OnDestroy {
       }
     )
   }
-
+  highlight(type:any){
+    this.selectedRowIndex = type.id;
+}
   changePassword(email: String) {
     this.route.navigate(['changePassword', { email: email }])
   }
@@ -165,30 +175,38 @@ export class MainNavComponent implements OnInit, OnDestroy {
     switch (id) {
       case 1:
         this.viewContainerRef.clear();
+        //this.viewContainerRef1.clear();
         const lvInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LvInspectionDetailsComponent);
         const lvInspectionRef = this.viewContainerRef.createComponent(lvInspectionFactory);
+        //const lvInspectionRef1 = this.viewContainerRef1.createComponent(lvInspectionFactory);
         lvInspectionRef.changeDetectorRef.detectChanges();
+        //lvInspectionRef1.changeDetectorRef.detectChanges();
         break;
       case 2:
         this.viewContainerRef.clear();
+        //this.viewContainerRef1.clear();
         break;
       case 3:
         this.viewContainerRef.clear();
+        //this.viewContainerRef1.clear();
         const riskAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(RiskAssessmentInspectionMaintenanceComponent);
         const riskAssessmentInspectionRef = this.viewContainerRef.createComponent(riskAssessmentInspectionFactory);
         riskAssessmentInspectionRef.changeDetectorRef.detectChanges();
         break;
       case 4:
         this.viewContainerRef.clear();
+        //this.viewContainerRef1.clear();
         const emcAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(EmcAssessmentInstallationComponent);
         const emcAssessmentInspectionRef = this.viewContainerRef.createComponent(emcAssessmentInspectionFactory);
         emcAssessmentInspectionRef.changeDetectorRef.detectChanges();
         break;
       case 5:
         this.viewContainerRef.clear();
+        //this.viewContainerRef1.clear();
         break;
       case 6:
         this.viewContainerRef.clear();
+        //this.viewContainerRef1.clear();
         break;
     }
   }

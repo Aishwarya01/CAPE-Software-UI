@@ -213,14 +213,14 @@ h1.example-app-name {
      `<body>` to be our scrolling element for mobile layouts. */
   flex: 1 0 auto;
 }
-.desktopDisplay{
+/* .desktopDisplay{
   visibility: visible;
 }
 .mobileDisplay{
 visibility: hidden;
-}
+} */
 
-@media (max-width: 768px){
+/* @media (max-width: 768px){
 
   .desktopDisplay{
     visibility: hidden;
@@ -228,7 +228,7 @@ visibility: hidden;
   .mobileDisplay{
 visibility: visible;
   }
-}
+} */
 .equipment .form-control{
   margin: -7px 10px -7px 10px;
   width: 85% !important;
@@ -239,3 +239,72 @@ visibility: visible;
 /* .active-list-item {
   color: #3F51B5 !important;
 } */
+
+#login-btn{
+  background-color: #232a44;
+    border-color: #232a44;
+}
+
+#login-btn:hover{
+ background-color: #232a44e3;
+ border-color: #232a44e3;
+}
+
+#login-btn:focus, #login-btn.focus {
+  box-shadow: 0 0 0 0.2rem #d4dae061 !important;
+}
+
+.card-header {
+  background-color: unset !important;
+}
+.error{
+  color: red;
+} 
+.was-validated .form-control:invalid, .form-control.is-invalid {
+  background-image: unset !important;
+  padding-right: unset !important;
+}
+
+.desktopDisplay{
+  display: block;
+}
+.mobileDisplay{
+  display: none !important;
+}
+
+.highlight{
+  background: rgb(4 4 4 / 15%);
+}
+.mat-list-item .mat-list-item-content:hover{
+  background: rgb(4 4 4 / 15%);
+}
+.mat-list-base .mat-list-item .mat-list-item-content, .mat-list-base .mat-list-option .mat-list-item-content {
+  padding: unset !important;
+}
+@media (max-width: 600px) {
+  .mobileDisplay{
+    display: block !important;
+  }
+  .desktopDisplay{
+    display: none !important;
+  }
+  .mat-drawer-inner-container {
+    margin-top: 20px; 
+}
+.appName {
+  margin-left: 10px !important;
+}
+/* .mat-drawer-container {
+  position: unset !important;
+} */
+.auth-form-btn {
+  width: 40% !important;
+}
+.register{
+  padding-top: unset !important;
+  padding-left: unset !important;
+}
+.mat-list-base .mat-list-item .mat-list-item-content, .mat-list-base .mat-list-option .mat-list-item-content {
+  padding: 0 16px !important;
+}
+}

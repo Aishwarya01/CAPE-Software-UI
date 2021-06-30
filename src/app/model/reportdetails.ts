@@ -15,8 +15,8 @@ export class Reportdetails {
     extentInstallation: String;
     clientDetails: String;
     installationDetails: String;
-    verficationDate: String;
-    verifedEngineer: String;
+    verificationDate: String;
+    verifiedEngineer: String;
     designation: String;
     company: String;
     confirmExtent: String;

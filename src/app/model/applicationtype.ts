@@ -4,7 +4,6 @@ export class ApplicationType {
     type: String = ''
     code: String = '';
     applicationName: String = '';
-
     constructor () {
     }
 }

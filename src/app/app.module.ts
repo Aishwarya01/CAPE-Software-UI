@@ -44,6 +44,10 @@ import { InspectionVerificationBasicInformationComponent } from './inspection-ve
 import { InspectionVerificationIncomingEquipmentComponent } from './inspection-verification-incoming-equipment/inspection-verification-incoming-equipment.component';
 import { InspectionVerificationSupplyCharacteristicsComponent } from './inspection-verification-supply-characteristics/inspection-verification-supply-characteristics.component';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,6 +79,7 @@ import { InspectionVerificationSupplyCharacteristicsComponent } from './inspecti
     
   ],
   imports: [
+    NgbModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
