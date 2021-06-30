@@ -4,8 +4,9 @@
 
 export const environment = {
   production: false,
-  environmentName: 'dev',
-  apiUrl: 'https://rushappservice.azurewebsites.net/api/v1'
+  environmentName: 'development',
+  // apiUrl: 'http://rushappservice.ap-south-1.elasticbeanstalk.com/api/v1'
+  apiUrl: 'https://api.backend.rushforsafety.com/api/v1'
 };
 
 /*
