@@ -56,14 +56,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
 
    return (<FormArray>this.testingForm.get('testValueArr')).controls
      }
-
-
-     
-   
-    
-
-
-     private createtestDistributionForm(): FormGroup {
+    private createtestDistributionForm(): FormGroup {
       return new FormGroup({
   
         distributionBoardDetails: new FormControl(''),
@@ -71,7 +64,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
         location: new FormControl(''),
         correctSupplyPolarity: new FormControl(''),
         numOutputCircuitsUse: new FormControl(''),
-        ratingsAmps: new FormControl('' +''+''),
+        ratingsAmps: new FormControl(''),
         numOutputCircuitsSpare: new FormControl(''),
         installedEquipmentVulnarable: new FormControl(''),
       })
@@ -87,22 +80,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
     }
      private createtestValueForm(): FormGroup {
       return new FormGroup({
-        incomingVoltage: new FormControl(''),
-        incomingZs: new FormControl(''),
-        incomingIpf: new FormControl(''),
-        distributionBoardDetails: new FormControl(''),
-        referance: new FormControl(''),
-        location: new FormControl(''),
-        correctSupplyPolarity: new FormControl(''),
-        numOutputCircuitsUse: new FormControl(''),
-        ratingsAmps: new FormControl(''),
-        numOutputCircuitsSpare: new FormControl(''),
-        installedEquipmentVulnarable: new FormControl(''),
-        rcdCurrent: new FormControl(''),
-        operatingCurrent: new FormControl(''),
-        operatingFiveCurrent: new FormControl(''),
-        testButtonOperation: new FormControl(''),
-        remarks: new FormControl(''),
         circuitNo: new FormControl(''),
         description: new FormControl(''),
         standardNo: new FormControl(''),
@@ -154,6 +131,11 @@ export class InspectionVerificationTestingComponent implements OnInit {
         rpeDisconnect: new FormControl(''),
         ypeDisconnect: new FormControl(''),
         bpeDisconnect: new FormControl(''),
+        rcdCurrent: new FormControl(''),
+        operatingCurrent: new FormControl(''),
+        operatingFiveCurrent: new FormControl(''),
+        testButtonOperation: new FormControl(''),
+        remarks: new FormControl(''),
        // ratingsAmps: new FormControl(''),
       })
      }
@@ -161,14 +143,12 @@ export class InspectionVerificationTestingComponent implements OnInit {
   onKey(event: KeyboardEvent)    {
     this.values = (<HTMLInputElement>event.target).value ;
    this.value = this.values;
- 
-      this.testValueArr = this.testingForm.get('testValueArr') as FormArray;
+    this.testValueArr = this.testingForm.get('testValueArr') as FormArray;
       if(this.testValueArr.length==0)   
     {
       if(this.value != "")
           {
-    
-     for (this.i=1; this.i<this.value; this.i++ )
+    for (this.i=1; this.i<this.value; this.i++ )
       {
         this.testValueArr = this.testingForm.get('testValueArr') as FormArray;
         this.testValueArr.push(this.createtestValueForm());
@@ -195,8 +175,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
        {
          this.testValueArr = this.testingForm.get('testValueArr') as FormArray;
          this.testValueArr.push(this.createtestValueForm());
-    
-       }
+     }
       }
       }
        else (this.testValueArr.length > this.value )
@@ -221,7 +200,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
 
      nextTab(){
       console.log(this.testingForm.value);
-     }
+       
+    
+    }
      }
      
 
