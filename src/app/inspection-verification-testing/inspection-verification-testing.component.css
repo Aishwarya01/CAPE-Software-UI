@@ -1,0 +1,9 @@
+.auth-form-btn {
+    margin-top: 40px;
+    width: 20%;
+}
+
+.auth-form-btn .icon {
+    float: left;
+    margin-right: 30px;
+}
