@@ -12,58 +12,59 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label>Test Engineer Name </label>
-                            <input type="text" formControlName="testEngineerName" class="form-control">
+                            <input type="text" formControlName="testEngineerName" class="form-control" [(ngModel)]="testing.testEngineerName" >
                         </div>
 
                         <div class="col-md-4">
                             <label>Date</label>
-                            <input type='date' formControlName="date" class="form-control">
+                            <input type='date' formControlName="date" class="form-control" [(ngModel)]="testing.date">
                         </div>
 
                         <div class="col-md-4">
                             <label>Designation</label>
-                            <input type="text" formControlName="designation" class="form-control">
+                            <input type="text" formControlName="designation" class="form-control" [(ngModel)]="testing.designation">
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-4">
                             <label> Company Name</label>
-                            <input type="text" formControlName="companyName" class="form-control">
+                            <input type="text" formControlName="companyName" class="form-control"  [(ngModel)]="testing.companyName" >
                         </div>
 
                         <div class="col-md-4">
                             <label>Details of test instrument </label>
-                            <input type="text" formControlName="detailsTestInstrument" class="form-control">
+                            <input type="text" formControlName="detailsTestInstrument" class="form-control" [(ngModel)]="testing.detailsTestInstrument">
                         </div>
 
                         <div class="col-md-4">
                             <label>Continuity </label>
-                            <input type="text" formControlName="continuity" class="form-control">
+                            <input type="text" formControlName="continuity" class="form-control" [(ngModel)]="testing.continuity">
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-4">
                             <label>Insulation resistance</label>
-                            <input type="text" formControlName="insulationResisance" class="form-control">
+                            <input type="text" formControlName="insulationResisance" class="form-control" [(ngModel)]="testing.insulationResisance">
                         </div>
 
                         <div class="col-md-4">
                             <label>Impedance </label>
-                            <input type="text" formControlName="Impedance" class="form-control">
+                            <input type="text" formControlName="Impedance" class="form-control" [(ngModel)]="testing.Impedance">
                         </div>
 
                         <div class="col-md-4">
                             <label>RCD </label>
-                            <input type="text" formControlName="rcd" class="form-control">
+                            <input type="text" formControlName="rcd" class="form-control" [(ngModel)]="testing.rcd">
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <label>Earth electrode resistance</label>
-                        <input type="text" formControlName="earthElectrodeResistance" class="form-control">
+                        <input type="text" formControlName="earthElectrodeResistance" class="form-control" [(ngModel)]="testing.earthElectrodeResistance">
                     </div>
+
                     </mat-expansion-panel>
                     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                         <mat-expansion-panel-header>
@@ -119,15 +120,14 @@
                                     <label>Number of output circuits in use</label>
                                     <input type="number" formControlName="numOutputCircuitsUse"  maxlength="2" class="form-control"  (keyup)="onKey($event)" >
                                 </div>
-
-                                <div class="col-md-4"    *ngFor="let a of gettestValueControls(); let i = index">
+                                <div  class="col-md-4" *ngFor="let a of gettestValueControls(); let i = index">
                                     <label>Ratings in Amps </label>
                                     <input type="number" formControlName="ratingsAmps" class="form-control">
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                
 
 
                     <div class="col">
@@ -241,9 +241,9 @@
                                             <th colspan="3"> Continuity (Ω) </th>
                                             <th colspan="2" rowspan="2">Insulation resistance</th>
                                             <th rowspan="2"></th>
-                                            <th colspan="9" rowspan="2"> Voltage (V)</th>
-                                            <th colspan="9" rowspan="2"> Fault loop impedance (Ω) </th>
-                                            <th colspan="9" rowspan="2"> Actual Short circuit / fault current (Amps) </th>
+                                            <th colspan="9" rowspan="2"> Voltage (V)(note)</th>
+                                            <th colspan="9" rowspan="2"> Fault loop impedance (Ω)(note) </th>
+                                            <th colspan="9" rowspan="2"> Actual Short circuit / fault current (Amps) (note)</th>
                                             <th colspan="9" rowspan="2"> Disconnection time (for a short circuit/fault of
                                                 negligible impedance) (seconds) </th>
                                             <th colspan="4">RCD </th>
