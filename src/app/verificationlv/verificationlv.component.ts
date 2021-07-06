@@ -89,6 +89,9 @@ export class VerificationlvComponent implements OnInit {
   previousRecordList: String[]= ['Yes', 'No'];
 
   isCompleted: boolean = false;
+  isCompleted5: boolean = false;
+  isCompleted3: boolean = false;
+
 
   
   firstFormGroup!: FormGroup;
@@ -327,6 +330,12 @@ deleteDepartment(departmentId: number) {
   public doSomething(next: any):void {
     this.isCompleted = next;
   }
+  public NextStep5(next: any):void {
+    this.isCompleted5 = next;
+  }
+  // public NextStep3(next: any):void {
+  //   this.isCompleted3 = next;
+  // }
 }
 
   
