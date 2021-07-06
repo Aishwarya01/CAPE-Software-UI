@@ -376,9 +376,9 @@
 
       </mat-step>
 
-      <mat-step>
+      <mat-step [completed]="isCompleted5">
         <ng-template matStepLabel>Summary</ng-template>
-       <app-summary></app-summary>
+       <app-summary (proceedNext)="NextStep5($event)"></app-summary>
       </mat-step>
     </mat-horizontal-stepper>
 

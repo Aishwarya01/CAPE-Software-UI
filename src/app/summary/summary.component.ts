@@ -29,6 +29,7 @@ export class SummaryComponent implements OnInit {
     userName:  new FormControl(''),
     siteId:  new FormControl(''),
     extentInstallation:  new FormControl(''),
+    attachedInspection:  new FormControl(''),
     agreedLimitations: new FormControl(''),
     agreedWith:  new FormControl(''),
     operationalLimitations:  new FormControl(''),
@@ -49,7 +50,9 @@ export class SummaryComponent implements OnInit {
   show:boolean=false;
   isVisible = -1;
   selectedField!: string;
-
+  loclength: any;
+  i:any;
+  j:any;
   summary=new Summary();
   
 
@@ -70,6 +73,14 @@ export class SummaryComponent implements OnInit {
   filter: any;
   canViewDiv: any;
   radioButtonChange: any;
+  submitted = false;
+
+  @Output() proceedNext = new EventEmitter<any>();  
+  fcname:string[]=['comment',
+  'furtherActions',
+  'observations',
+  'referanceNumberReport'];
+
    constructor(private _formBuilder: FormBuilder,
     private modalService: NgbModal,
     private dialog: MatDialog,
@@ -96,6 +107,7 @@ export class SummaryComponent implements OnInit {
       userName: ['', Validators.required],
       siteId: ['', Validators.required],
       extentInstallation: ['', Validators.required],
+      attachedInspection: ['', Validators.required],
       agreedLimitations: ['', Validators.required],
       agreedWith: ['', Validators.required],
       operationalLimitations: ['', Validators.required],
@@ -107,11 +119,11 @@ export class SummaryComponent implements OnInit {
       Declaration2Arr: this._formBuilder.array([this.Declaration2Form()]),
       ObservationsArr: this._formBuilder.array([this.ObservationsForm()])
       });
-  
     this.refresh();
+   // this.Declaration2Arr = this.addsummary.get('Declaration2Arr') as FormArray;
   }
   
-  
+
 
   refresh() {
     this.ChangeDetectorRef.detectChanges();
@@ -120,33 +132,33 @@ export class SummaryComponent implements OnInit {
  
   private Declaration1Form(): FormGroup {
     return new FormGroup({
-    name: new FormControl(''),
-    signature: new FormControl(''),
-    company: new FormControl(''),
-    position: new FormControl(''),
-    address: new FormControl(''),
-    date: new FormControl(''),
-    declarationRole: new FormControl('')
+    name: new FormControl('', Validators.required),
+    signature: new FormControl('', Validators.required),
+    company: new FormControl('', Validators.required),
+    position: new FormControl('', Validators.required),
+    address: new FormControl('', Validators.required),
+    date: new FormControl('', Validators.required),
+    declarationRole: new FormControl('', Validators.required)
     })
   }
  
   private Declaration2Form(): FormGroup {
     return new FormGroup({
-      name: new FormControl(''),
-      signature: new FormControl(''),
-      company: new FormControl(''),
-      position: new FormControl(''),
-      address: new FormControl(''),
-      date: new FormControl(''),
-      declarationRole: new FormControl('')
+      name: new FormControl('', Validators.required),
+      signature: new FormControl('', Validators.required),
+      company: new FormControl('', Validators.required),
+      position: new FormControl('', Validators.required),
+      address: new FormControl('', Validators.required),
+      date: new FormControl('', Validators.required),
+      declarationRole: new FormControl('', Validators.required)
     })
   }
   private ObservationsForm(): FormGroup {
     return new FormGroup({
-      observations: new FormControl(''),
-      furtherActions: new FormControl(''),
-      referanceNumberReport: new FormControl(''),
-      comment: new FormControl('')
+      observations: new FormControl('', Validators.required),
+      furtherActions: new FormControl('', Validators.required),
+      referanceNumberReport: new FormControl('', Validators.required),
+      comment: new FormControl('', Validators.required)
     })
   }
   
@@ -159,6 +171,17 @@ getDeclaration2Controls(): AbstractControl[] {
 }
 getObservationsControls(): AbstractControl[] { 
   return (<FormArray> this.addsummary.get('ObservationsArr')).controls
+}
+get f():any {
+  return this.addsummary.controls;
+}
+
+setTrue() {
+ this.submitted = true;
+  if(this.addsummary.invalid) {
+    return;
+  }
+  this.proceedNext.emit(true);
 }
 
   SubmitTab5()
@@ -179,9 +202,26 @@ getObservationsControls(): AbstractControl[] {
   )
   }
 
-
    onChange(event:any) {
     this.selectedType = event.target.value;
+    if(event.target.value == 'hide') {
+      this.selectedType= false;
+      this.disableValidators();
+    }
+  }
+  disableValidators() {
+    this.ObservationsArr = this.addsummary.get('ObservationsArr') as FormArray;
+   this.loclength=this.ObservationsArr.length;
+    console.log(this.fcname);
+     for( this.i=0; this.i<this.loclength; this.i++)
+     {
+       for( this.j=0 ; this.j<this.fcname.length ; this.j++)
+       {
+        this.f.ObservationsArr.controls[this.i].controls[this.fcname[this.j]].clearValidators();
+        this.f.ObservationsArr.controls[this.i].controls[this.fcname[this.j]].updateValueAndValidity();      
+      }
+    
+     }
   }
   
   addObservations(){
@@ -193,9 +233,12 @@ getObservationsControls(): AbstractControl[] {
       (this.addsummary.get('ObservationsArr') as FormArray).removeAt(index);
     }
    
-   
    changeComboo(event:any) {
     console.log('changed', event && event.value);
+    // if(event.target.value == 'Unsatisfactory') {
+    //   this.overallAssessmentInstallation= false;
+    //   this.disableValidatorsRadio();
+    // }
   }
  
  
