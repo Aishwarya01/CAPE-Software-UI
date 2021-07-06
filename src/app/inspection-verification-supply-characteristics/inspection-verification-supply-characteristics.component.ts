@@ -29,6 +29,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   circuitArr!: FormArray;
   i:any;
   j:any;
+  k:any;
   delarr:any;
   values:any;
   value:any;
@@ -128,6 +129,15 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   'protectiveDevice',
   'ratedCurrent'];
 
+  circuitName:string[] = ['location',
+  'type',
+  'noPoles',
+  'current',
+  'voltage',
+  'fuse',
+  'residualCurrent',
+  'residualTime'];
+
   supplycharesteristicForm = new FormGroup({
     live: new FormControl('')
 
@@ -136,7 +146,6 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   myValue: any;
   sources: boolean=false;
   breaker: boolean=false;
-  saved: boolean=false;
 
   
   constructor(private supplyCharacteristicsService: SupplyCharacteristicsService,public service: GlobalsService,
@@ -225,7 +234,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
       location2Arr: this.formBuilder.array([this.createLocation2Form()]),
       location3Arr: this.formBuilder.array([this.createLocation3Form()]),
       alternateArr: this.formBuilder.array([]),
-      circuitArr: this.formBuilder.array([this.createCircuitForm()]),
+      circuitArr: this.formBuilder.array([]),
      // SupplyparametersArr: this.formBuilder.array([this.
 
     });
@@ -605,6 +614,10 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
       this.sources= false;
       this.disableValidators();
     }
+    else{
+      this.supplycharesteristicForm.controls["supplyNumber"].setValidators(Validators.required);
+      this.supplycharesteristicForm.controls["supplyNumber"].updateValueAndValidity();
+    }
 
   }
 
@@ -616,7 +629,6 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   // }
 
   onKeyAlernate(event: KeyboardEvent)    {
-    debugger
     this.values = (<HTMLInputElement>event.target).value ;
    this.value = this.values;
    // this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
@@ -721,14 +733,24 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   disableValidators() {
     // (<FormArray>this.supplycharesteristicForm.get('alternateArr')).clearValidators;
     this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
-   this.loclength=this.alternateArr.length;
+    this.loclength=this.alternateArr.length;
+
     console.log(this.fcname);
+    this.supplycharesteristicForm.controls["supplyNumber"].clearValidators();
+    this.supplycharesteristicForm.controls["supplyNumber"].updateValueAndValidity();
+
      for( this.i=0; this.i<this.loclength; this.i++)
      {
        for( this.j=0 ; this.j<this.fcname.length ; this.j++)
        {
         this.f.alternateArr.controls[this.i].controls[this.fcname[this.j]].clearValidators();
-         this.f.alternateArr.controls[this.i].controls[this.fcname[this.j]].updateValueAndValidity();      
+        this.f.alternateArr.controls[this.i].controls[this.fcname[this.j]].updateValueAndValidity();      
+       }
+
+       for( this.k ; this.k<this.circuitName.length; this.k++) 
+       {
+        this.f.circuitArr.controls[this.i].controls[this.circuitName[this.k]].clearValidators();
+        this.f.circuitArr.controls[this.i].controls[this.circuitName[this.k]].updateValueAndValidity(); 
        }
     
      }
@@ -756,9 +778,14 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   }
   
 nextTab2() {
-    this.f;
-    this.supplycharesteristic.siteId = this.service.siteCount;
+    // this.supplycharesteristic.siteId = this.service.siteCount;
+    this.supplycharesteristic.siteId = 17;
+
     this.supplycharesteristic.userName = this.email;
+    this.submitted = true;
+    if(this.supplycharesteristicForm.invalid) {
+      return;
+    }
     this.nominalVoltageArr.push(this.NV1,this.NV2,this.NV3,this.NV4,this.NV5,this.NV6,this.NV7,this.NV8,this.NV9);
     this.nominalFrequencyArr.push(this.NF1,this.NF2,this.NF3,this.NF4,this.NF5,this.NF6,this.NF7,this.NF8,this.NF9);
     this.nominalCurrentArr.push(this.PF1,this.PF2,this.PF3,this.PF4,this.PF5,this.PF6,this.PF7,this.PF8,this.PF9);
@@ -766,6 +793,8 @@ nextTab2() {
 
     // alternate
     this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
+    // Circuit
+    this.circuitArr = this.supplycharesteristicForm.get('circuitArr') as FormArray;
 
     // first table
 
@@ -888,12 +917,16 @@ nextTab2() {
       delete i.value.nominalVoltageArr1;
     }
 
+    if(this.alternateArr.length != 0 ) {
+      this.supplycharesteristic.supplyParameters = this.supplycharesteristicForm.value.alternateArr
+    }
 
-    this.supplycharesteristic.supplyParameters = this.supplycharesteristicForm.value.alternateArr
+    if(this.circuitArr.length != 0) {
+      this.supplycharesteristic.circuitBreaker = this.supplycharesteristicForm.value.circuitArr
+    }
     this.supplycharesteristic.instalLocationReport = this.supplycharesteristicForm.value.location1Arr
     this.supplycharesteristic.boundingLocationReport = this.supplycharesteristicForm.value.location2Arr
     this.supplycharesteristic.earthingLocationReport = this.supplycharesteristicForm.value.location3Arr
-    this.supplycharesteristic.circuitBreaker = this.supplycharesteristicForm.value.circuitArr
 
     this.supplycharesteristic.mainNominalVoltage = this.nominalVoltage
     this.supplycharesteristic.mainNominalFrequency = this.nominalFrequency
@@ -909,9 +942,7 @@ nextTab2() {
         console.log("error");
       }
       )
-      setTimeout(()=>{                      
-        this.saved = true;
-   }, 3000);
+    
 }
 
 }
