@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -12,6 +12,10 @@ import { GlobalsService } from '../globals.service';
   styleUrls: ['./inspection-verification-incoming-equipment.component.css']
 })
 export class InspectionVerificationIncomingEquipmentComponent implements OnInit {
+
+  submitted = false;
+  @Output() proceedNext = new EventEmitter<any>();  
+
   addstep3 = new FormGroup({
     serviceCable:  new FormControl(''),
     serviceFuse:  new FormControl(''),
@@ -323,23 +327,28 @@ export class InspectionVerificationIncomingEquipmentComponent implements OnInit 
       });
    
     this.refresh();
-    
   }
 
  
+  get f() {
+    return this.addstep3.controls;
+  }
 
+  setTrue() {
+   this.submitted = true;
+    if(this.addstep3.invalid) {
+      return;
+    }
+    this.proceedNext.emit(true);
+  }
   
   refresh() {
     this.ChangeDetectorRef.detectChanges();
   }
   
-  
-  
-
- 
-  
   nextTab3()
   {
+    this.f;
     this.inspectionDetails.siteId=this.service.siteCount;
     this.inspectionDetails.userName=this.email;
   console.log(this.inspectionDetails);

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { from } from 'rxjs';
 import { Supplycharacteristics, Supplyparameters } from '../model/supplycharacteristics';
@@ -28,6 +28,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   alternateArr!: FormArray;
   circuitArr!: FormArray;
   i:any;
+  j:any;
   delarr:any;
   values:any;
   value:any;
@@ -36,6 +37,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   email: String = '';
   loading = false;
   submitted = false;
+  @Output() proceedNext = new EventEmitter<any>();  
 
   NV1: any;
   NV2: any;
@@ -81,6 +83,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
 
   nominalVoltageArr: any = []; 
   nominalVoltage: String ="";
+
   
   nominalFrequencyArr: any = [];
   nominalFrequency: String ="";
@@ -106,6 +109,24 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   conductorVerifyList:string[]=['Yes','No'];
   bondingConductorVerifyList:string[]=['Yes','No'];
   earthingConductorVerifyList:string[]=['Yes','No'];
+  fcname:string[]=['aLLiveConductorAC',
+  'aLLiveConductorBNote',
+  'aLLiveConductorDC',
+  'aLLiveConductorType',
+  'aLSupplyNo',
+  'aLSupplyShortName',
+  'aLSystemEarthing',
+  'aLSystemEarthingBNote',
+  'actualLoad',
+  'currentDissconnection',
+  'faultCurrent',
+  'installedCapacity',
+  'loopImpedance',
+  'nominalFrequency',
+  'nominalVoltage',
+  'nominalVoltageArr1',
+  'protectiveDevice',
+  'ratedCurrent'];
 
   supplycharesteristicForm = new FormGroup({
     live: new FormControl('')
@@ -115,6 +136,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   myValue: any;
   sources: boolean=false;
   breaker: boolean=false;
+  saved: boolean=false;
 
   
   constructor(private supplyCharacteristicsService: SupplyCharacteristicsService,public service: GlobalsService,
@@ -202,7 +224,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
       location1Arr: this.formBuilder.array([this.createLocation1Form()]),
       location2Arr: this.formBuilder.array([this.createLocation2Form()]),
       location3Arr: this.formBuilder.array([this.createLocation3Form()]),
-      alternateArr: this.formBuilder.array([this.SupplyparametersForm()]),
+      alternateArr: this.formBuilder.array([]),
       circuitArr: this.formBuilder.array([this.createCircuitForm()]),
      // SupplyparametersArr: this.formBuilder.array([this.
 
@@ -260,6 +282,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
         currentDissconnection : new FormControl('',[Validators.required]),    
       })
     }
+    
 
     nominalVoltageForm() : FormGroup {
       return new FormGroup({
@@ -578,6 +601,11 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   }
   showAlternateField(event:any) {
     console.log('changed', event && event.value);
+    if(event.target.value == 'No') {
+      this.sources= false;
+      this.disableValidators();
+    }
+
   }
 
   // showAlternateField(e: any) {
@@ -588,10 +616,11 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   // }
 
   onKeyAlernate(event: KeyboardEvent)    {
+    debugger
     this.values = (<HTMLInputElement>event.target).value ;
    this.value = this.values;
    // this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
-     
+    
       if(this.value != "")
       {
         this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
@@ -689,17 +718,47 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   //  }
   // }
 
+  disableValidators() {
+    // (<FormArray>this.supplycharesteristicForm.get('alternateArr')).clearValidators;
+    this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
+   this.loclength=this.alternateArr.length;
+    console.log(this.fcname);
+     for( this.i=0; this.i<this.loclength; this.i++)
+     {
+       for( this.j=0 ; this.j<this.fcname.length ; this.j++)
+       {
+        this.f.alternateArr.controls[this.i].controls[this.fcname[this.j]].clearValidators();
+         this.f.alternateArr.controls[this.i].controls[this.fcname[this.j]].updateValueAndValidity();      
+       }
+    
+     }
+    // this.f.alternateArr.controls[0].controls['aLSupplyNo'].clearValidators();
+    // this.f.alternateArr.controls[0].controls['aLSupplyNo'].updateValueAndValidity();
+
+    // (<FormArray>this.supplycharesteristicForm.get('alternateArr')).controls
+    //   .forEach(control => {
+    //     console.log(control);
+    //     control.clearValidators();
+    //     control.updateValueAndValidity();
+    //   })
+  }
+
   get f():any {
     return this.supplycharesteristicForm.controls;
   }
-  
-nextTab2() {
-    this.supplycharesteristic.siteId = this.service.siteCount;
-    this.supplycharesteristic.userName = this.email;
-    this.submitted = true;
+
+  setTrue() {
+   this.submitted = true;
     if(this.supplycharesteristicForm.invalid) {
       return;
     }
+    this.proceedNext.emit(true);
+  }
+  
+nextTab2() {
+    this.f;
+    this.supplycharesteristic.siteId = this.service.siteCount;
+    this.supplycharesteristic.userName = this.email;
     this.nominalVoltageArr.push(this.NV1,this.NV2,this.NV3,this.NV4,this.NV5,this.NV6,this.NV7,this.NV8,this.NV9);
     this.nominalFrequencyArr.push(this.NF1,this.NF2,this.NF3,this.NF4,this.NF5,this.NF6,this.NF7,this.NF8,this.NF9);
     this.nominalCurrentArr.push(this.PF1,this.PF2,this.PF3,this.PF4,this.PF5,this.PF6,this.PF7,this.PF8,this.PF9);
@@ -850,7 +909,9 @@ nextTab2() {
         console.log("error");
       }
       )
-    
+      setTimeout(()=>{                      
+        this.saved = true;
+   }, 3000);
 }
 
 }
