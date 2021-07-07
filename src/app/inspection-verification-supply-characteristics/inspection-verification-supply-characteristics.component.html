@@ -279,7 +279,7 @@
         
                     <div class="col-md-4">
                         <label>Number and type of live conductors: </label>
-                        <select class="form-control"  formControlName="aLLiveConductorType" [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorType')?.errors }">
+                        <select class="form-control"  formControlName="aLLiveConductorType" (change)=showValue($event,i) [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorType')?.errors }">
                           <option value="0" selected>Select option</option>
                           <option value="AC">AC</option>
                           <option value="DC">DC</option>
@@ -291,7 +291,7 @@
         
                     <div class="col-md-4" *ngIf="a.get('aLLiveConductorType')?.value=='AC'">
                         <label>AC:</label>
-                        <select class="form-control" formControlName="aLLiveConductorAC">
+                        <select class="form-control" formControlName="aLLiveConductorAC" [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorAC')?.errors }">
                           <option value="0" selected>Select option</option>
                           <option value="1-phase, 3-wire (LLM)">1-phase, 2-wire (LN)</option>
                           <option value="1-phase, 3-wire (LLM)">1-phase, 3-wire (LLM)</option>
@@ -299,15 +299,21 @@
                           <option value="3-phase, 3-wire (LLL)">3-phase, 3-wire (LLL)</option>
                           <option value="3-phase, 4-wire (LLLN)">3-phase, 4-wire (LLLN)</option>
                         </select>
+                        <div *ngIf="submitted && a.get('aLLiveConductorAC')?.errors" class="invalid-feedback">
+                          <div *ngIf="a.get('aLLiveConductorAC')?.errors?.required">Please enter valid details</div>
+                        </div>
                     </div>
         
                     <div class="col-md-4" *ngIf="a.get('aLLiveConductorType')?.value=='DC'">
                         <label>DC:</label>
-                        <select class="form-control" formControlName="aLLiveConductorDC">
+                        <select class="form-control" formControlName="aLLiveConductorDC" [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorDC')?.errors }">
                           <option selected="selected" value="2-pole">2-pole </option>
                           <option value=" 3-pole"> 3-pole</option>
                           <option value="Others">Others</option>
                         </select>
+                        <div *ngIf="submitted && a.get('aLLiveConductorDC')?.errors" class="invalid-feedback">
+                          <div *ngIf="a.get('aLLiveConductorDC')?.errors?.required">Please enter valid details</div>
+                        </div>
                     </div>
                   </div>
 
