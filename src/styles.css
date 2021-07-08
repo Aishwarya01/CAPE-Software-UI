@@ -285,3 +285,15 @@ visibility: visible;
   padding: 0 16px !important;
 }
 }
+
+/* login and register page */
+
+.errorshow {
+  padding: 5px 8px;
+  text-align: center;
+  font-size: 14px;
+  color: #721c24;
+  background-color: #fcc0c5;
+  border-color: #f5c6cb;
+  border-radius: 0.25rem;
+}

@@ -28,7 +28,6 @@ export class RegisterComponent implements OnInit {
   user = new User();
   msg: any;
   alert: any;
-  //setTrue: boolean= false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -81,13 +80,10 @@ export class RegisterComponent implements OnInit {
         console.log(this.msg);
       },
       error => {
-        //debugger
         this.msg="Given email-Id is already existing...!";
-        //this.setTrue=true;
-        this.alert="Change the existing email-id, Enter new email-id";
+        this.alert="Email-id is already present, Enter new email-id";
         console.log(this.msg);
         console.log(this.alert);
-
       }
     )
   }
@@ -98,17 +94,5 @@ export class RegisterComponent implements OnInit {
     } else{
       this.usertypelist = ['User', 'Manager', 'Admin']
     }
-
   }
-
-  // checkEmail(e: any) {
-  //   this.profileService.getUser(e.target.value).subscribe(
-  //     (data) => {
-  //       this.setTrue=false;
-  //     },
-  //     (error) => {
-  //       this.setTrue=true;
-  //     }
-  //   )
-  // }
 }

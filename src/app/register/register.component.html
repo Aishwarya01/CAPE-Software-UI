@@ -13,7 +13,7 @@
                     </div>
                     <div class="card-body">
                         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" #i="ngForm">
-                          <p class="alert alert-danger" style="text-align: center" *ngIf="msg">{{msg}}</p>
+                          <p class="errorshow" *ngIf="msg">{{msg}}</p>
                             <span class="invalid-feedback"></span>
                             <div class="form-group">
                                 <label for="firstname">* Firstname</label>
@@ -54,18 +54,11 @@
                                     <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                                         <div *ngIf="f.email.errors.required">Email is required</div>
                                         <div *ngIf="f.email.errors.pattern">Enter valid email</div>
-                                        <!-- <div *ngIf="submitted && setTrue" class="alert alert-danger">
-                                          Email is already present
-                                        </div> -->
                                     </div>
-
                                 </div>
-                                <!-- <div *ngIf="submitted && setTrue" class="alert alert-danger">
-                                  Email is already present
-                                </div> -->
                             </div>
 
-                           <div class="alert alert-danger" *ngIf="alert">{{alert}}</div>
+                            <div class="errorshow" *ngIf="alert">{{alert}}</div>
 
                             <div class="form-group">
                                 <label for="username">* User Type</label>
