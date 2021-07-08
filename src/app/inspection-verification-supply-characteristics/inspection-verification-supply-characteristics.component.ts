@@ -748,9 +748,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   }
   
 nextTab2() {
-    // this.supplycharesteristic.siteId = this.service.siteCount;
-    this.supplycharesteristic.siteId = 23;
-
+    this.supplycharesteristic.siteId = this.service.siteCount;
     this.supplycharesteristic.userName = this.email;
     this.submitted = true;
     if(this.supplycharesteristicForm.invalid) {
@@ -758,7 +756,7 @@ nextTab2() {
       this.errorMsg="Something went wrong, kindly check all the fields";	
       setTimeout(()=>{                      	
         this.Error = false;	
-   }, 6000);
+    }, 6000);
       return;
     }
     this.nominalVoltageArr.push(this.NV1,this.NV2,this.NV3,this.NV4,this.NV5,this.NV6,this.NV7,this.NV8,this.NV9);
@@ -778,6 +776,9 @@ nextTab2() {
       if(i != undefined) {
         this.nominalVoltage += i+",";
       }
+      else {
+        this.nominalVoltage += "NA,";
+      }
     }
     this.nominalVoltage = this.nominalVoltage.replace(/,\s*$/, "");
 
@@ -786,6 +787,9 @@ nextTab2() {
     for(let j of this.nominalFrequencyArr) {
       if(j != undefined) {
         this.nominalFrequency += j+",";
+      }
+      else {
+        this.nominalFrequency += "NA,";
       }
     }
     this.nominalFrequency = this.nominalFrequency.replace(/,\s*$/, "");
@@ -796,6 +800,9 @@ nextTab2() {
       if(k != undefined) {
         this.nominalCurrent += k+",";
       }
+      else {
+        this.nominalCurrent += "NA,";
+      }
     }
     this.nominalCurrent = this.nominalCurrent.replace(/,\s*$/, "");
 
@@ -804,6 +811,9 @@ nextTab2() {
     for(let l of this.loopImpedenceArr) {
       if(l != undefined) {
         this.loopImpedence += l+",";
+      }
+      else {
+        this.loopImpedence += "NA,";
       }
     }
     this.loopImpedence = this.loopImpedence.replace(/,\s*$/, "");
@@ -839,6 +849,9 @@ nextTab2() {
           if(a != "") {
             nominalVoltage += a+",";
           }
+          else{
+            nominalVoltage += "NA,";
+          }
         } 
         nominalVoltage = nominalVoltage.replace(/,\s*$/, "");
         i.nominalVoltage = nominalVoltage;
@@ -846,6 +859,9 @@ nextTab2() {
         for(let b of arr1) {
           if(b != "") {
             nominalFrequency += b+",";
+          }
+          else{
+            nominalFrequency += "NA,";
           }
         }
   
@@ -857,6 +873,9 @@ nextTab2() {
           if(c != "") {
             faultCurrent += c+",";
           }
+          else{
+            faultCurrent += "NA,";
+          }
         }
         faultCurrent = faultCurrent.replace(/,\s*$/, "");
         i.faultCurrent = faultCurrent;
@@ -865,6 +884,9 @@ nextTab2() {
         for(let d of arr3) {
           if(d != "") {
             impedance += d+",";
+          }
+          else{
+            impedance += "NA,";
           }
         }
         impedance = impedance.replace(/,\s*$/, "");
@@ -881,6 +903,9 @@ nextTab2() {
         for(let f of arr5) {
           if(f != "") {
             loadCurrent += f+",";
+          }
+          else{
+            loadCurrent += "NA,";
           }
         }
         loadCurrent = loadCurrent.replace(/,\s*$/, "");
