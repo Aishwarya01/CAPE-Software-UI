@@ -52,8 +52,8 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   submitted = false;
   inspectorArr!: FormArray;
   designer2Arr!: FormArray;
-  @Output() proceedNext = new EventEmitter<any>();  
-  
+  @Output() proceedNext = new EventEmitter<any>();
+
 
 
   designerRole: String ='designer';
@@ -83,10 +83,10 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
 
-  
+
 
   ngOnInit(): void {
-    
+
     this.step1Form = this._formBuilder.group({
       clientName: ['', Validators.required],
       departmentName: ['', Validators.required],
@@ -128,7 +128,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     this.inspectorArr = this.step1Form.get('inspectorArr') as FormArray;
 
   }
-  
+
   private retrieveClientDetails() {
     this.clientService.retrieveClient(this.email).subscribe(
       data => {
@@ -136,7 +136,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
         this.clientList=JSON.parse(data);
       });
   }
-  
+
 
   showWiringAge(e: any) {
     let changedValue = e.target.value;
@@ -170,7 +170,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   refresh() {
     this.ChangeDetectorRef.detectChanges();
   }
-  
+
   // Inspection form basic info
   changeClientName (e: any) {
     let changedValue = e.target.value;
@@ -205,9 +205,9 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
         this.reportDetails.siteId = arr.siteId;
       }
     }
-    
+
   }
-  
+
   // Signature part
 
   private createDesigner1AcknowledgeForm(): FormGroup {
@@ -242,16 +242,16 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     })
   }
 
-  getDesigner1AcknowledgeControls(): AbstractControl[] { 
+  getDesigner1AcknowledgeControls(): AbstractControl[] {
     return (<FormArray> this.step1Form.get('designer1AcknowledgeArr')).controls
-  } 
-  getDesigner2AcknowledgeControls(): AbstractControl[] { 
+  }
+  getDesigner2AcknowledgeControls(): AbstractControl[] {
     return (<FormArray> this.step1Form.get('designer2AcknowledgeArr')).controls
   }
-  getContractorAcknowledgeControls(): AbstractControl[] { 
+  getContractorAcknowledgeControls(): AbstractControl[] {
     return (<FormArray> this.step1Form.get('contractorAcknowledgeArr')).controls
   }
-  getInspectorAcknowledgeControls(): AbstractControl[] { 
+  getInspectorAcknowledgeControls(): AbstractControl[] {
     return (<FormArray> this.step1Form.get('inspectorAcknowledgeArr')).controls
   }
 
@@ -298,14 +298,14 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     })
   }
 
-  getDesigner1Controls(): AbstractControl[] { 
+  getDesigner1Controls(): AbstractControl[] {
       return (<FormArray> this.step1Form.get('designer1Arr')).controls
   }
 
-  getDesigner2Controls(): AbstractControl[] { 
+  getDesigner2Controls(): AbstractControl[] {
     return (<FormArray> this.step1Form.get('designer2Arr')).controls
   }
-  
+
 
   designer1changeCountry(e: any) {
     let changedValue = e.target.value;
@@ -356,7 +356,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     })
   }
 
-  getContractorControls(): AbstractControl[] { 
+  getContractorControls(): AbstractControl[] {
     return (<FormArray> this.step1Form.get('contractorArr')).controls
   }
 
@@ -372,7 +372,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
           )};
       }
   }
- 
+
   // Inspector details forms
   private createInspectorForm(): FormGroup {
     return new FormGroup({
@@ -395,7 +395,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     })
   }
 
-  getInspectorControls(): AbstractControl[] { 
+  getInspectorControls(): AbstractControl[] {
     return (<FormArray> this.step1Form.get('inspectorArr')).controls
   }
 
@@ -411,7 +411,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
           )};
       }
   }
- 
+
 
   addDesigner() {
     this.showDesigner2= true;
@@ -419,7 +419,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 
     this.f.designer2Arr.controls[0].controls['personName'].setValidators(Validators.required);
     this.f.designer2Arr.controls[0].controls['personName'].updateValueAndValidity();
-    
+
     this.f.designer2Arr.controls[0].controls['personContactNo'].setValidators(Validators.required);
     this.f.designer2Arr.controls[0].controls['personContactNo'].updateValueAndValidity();
 
@@ -466,7 +466,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 
     this.f.designer2Arr.controls[0].controls['personContactNo'].clearValidators();
     this.f.designer2Arr.controls[0].controls['personContactNo'].updateValueAndValidity();
-    
+
     this.f.designer2Arr.controls[0].controls['personMailID'].clearValidators();
     this.f.designer2Arr.controls[0].controls['personMailID'].updateValueAndValidity();
 
@@ -501,7 +501,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     this.f.designer2Arr.controls[0].controls['pinCode'].updateValueAndValidity();
 
 
-    
+
     return (<FormArray> this.step1Form.get('designer2Arr')).reset();
   }
 
@@ -517,7 +517,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     }
     this.proceedNext.emit(true);
   }
-  
+
 
   nextTab() {
     this.loading = true;
@@ -525,7 +525,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     if(this.step1Form.invalid) {
       return;
     }
-    
+
     this.step1Form.value.designer1Arr[0].signatorRole= this.designerRole;
     this.step1Form.value.designer1Arr[0].declarationName= this.step1Form.value.designer1AcknowledgeArr[0].declarationName;
     this.step1Form.value.designer1Arr[0].declarationDate= this.step1Form.value.designer1AcknowledgeArr[0].declarationDate;
@@ -543,13 +543,13 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     this.step1Form.value.inspectorArr[0].declarationDate= this.step1Form.value.inspectorAcknowledgeArr[0].declarationName;
 
     this.reportDetails.userName = this.email;
-    
+
     this.reportDetails.SignatorDetails = this.step1Form.value.designer1Arr;
     if(this.step1Form.value.designer2Arr[0].personName != "" && this.step1Form.value.designer2Arr[0].personName != null) {
       this.reportDetails.SignatorDetails=this.reportDetails.SignatorDetails.concat(this.step1Form.value.designer2Arr);
     }
-    
-    
+
+
       this.reportDetails.SignatorDetails=this.reportDetails.SignatorDetails.concat(this.step1Form.value.contractorArr,this.step1Form.value.inspectorArr);
     console.log(this.reportDetails)
     this.reportDetailsService.addReportDetails(this.reportDetails).subscribe(
