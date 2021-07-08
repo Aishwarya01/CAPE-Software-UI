@@ -633,12 +633,16 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   }
   showAlternateField(event:any) {
     console.log('changed', event && event.value);
-    
+    this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
+ 
     if(event.target.value == 'No') {
       this.sources= false;
       this.breaker=false;
-      this.alternateArr.reset();
-      this.circuitArr.reset();
+      if(this.alternateArr.length != 0) {
+        this.alternateArr.reset();
+        this.circuitArr.reset();
+      }
+      
       this.disableValidators();
     }
     else{
@@ -744,7 +748,9 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   }
   
 nextTab2() {
-    this.supplycharesteristic.siteId = this.service.siteCount;
+    // this.supplycharesteristic.siteId = this.service.siteCount;
+    this.supplycharesteristic.siteId = 23;
+
     this.supplycharesteristic.userName = this.email;
     this.submitted = true;
     if(this.supplycharesteristicForm.invalid) {
