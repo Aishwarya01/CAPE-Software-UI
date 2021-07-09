@@ -345,12 +345,29 @@ export class InspectionVerificationIncomingEquipmentComponent implements OnInit 
   refresh() {
     this.ChangeDetectorRef.detectChanges();
   }
-  
+  gotoNext(){    
+    //this.service.onFirstComponentButtonClick(); 
+    if(this.addstep3.invalid) {
+      alert("Something went wrong, kindly check all the fields");
+      return;
+    }
+    else{
+    alert("Step2 successfully saved");
+    }
+  }   
   nextTab3()
   {
-    this.f;
+    //this.f;
     this.inspectionDetails.siteId=this.service.siteCount;
     this.inspectionDetails.userName=this.email;
+    if(this.addstep3.invalid) {
+      //   this.Error = true;	
+      //   this.errorMsg="Something went wrong, kindly check all the fields";	
+      //   setTimeout(()=>{                      	
+      //     this.Error = false;	
+      // }, 6000);
+        return;
+      }
   console.log(this.inspectionDetails);
   this.inspectionDetailsService.addInspectionDetails(this.inspectionDetails).subscribe(
     (    data: any)=> {

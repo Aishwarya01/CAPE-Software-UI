@@ -1109,7 +1109,7 @@
 
       <div style="text-align: center;margin-top: 40px;">
         <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
-        <button  class="next" (mouseover)="setTrue()" mat-button matStepperNext>Next &raquo;</button>
+        <button  class="next" (mouseover)="setTrue()" (click)="gotoNext()" mat-button matStepperNext>Next &raquo;</button>
       </div>
 
       <!-- <div style="display: inline;">

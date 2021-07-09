@@ -135,7 +135,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Referance number in report:</label>
-                  <input type="number" formControlName="referanceNumberReport" class="form-control"  
+                  <input type="number" min="0" formControlName="referanceNumberReport" class="form-control"  
                   placeholder="Enter Contact Number" [ngClass]="{ 'is-invalid': submitted && f.referanceNumberReport?.errors }">
                   <div *ngIf="submitted && f.referanceNumberReport?.errors" class="invalid-feedback">
                     <div *ngIf="f.referanceNumberReport?.errors?.required">Field is required</div>
@@ -407,9 +407,12 @@
 
     <br>    
     <br>
-
+    <!-- <div style="text-align: center;margin-top: 40px;">
+      <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
+      <button  class="next" (mouseover)="setTrue()" (click)="gotoNext()" mat-button matStepperNext>Next &raquo;</button>
+    </div> -->
     <div style="display: inline;">
       <button  style="margin: 0 auto;width: 110px;" type="submit" (click)="SubmitTab5()" (mouseover)="setTrue()"
-      class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn">
+      class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" matStepperNext>
         <i class="bi bi-journal-arrow-up icon"></i> Submit</button>
   </div>

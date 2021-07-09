@@ -517,7 +517,16 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     }
     this.proceedNext.emit(true);
   }
-  
+  gotoNext(){    
+    //this.service.onFirstComponentButtonClick(); 
+    if(this.step1Form.invalid) {
+      alert("Something went wrong, kindly check all the fields");
+      return;
+    }
+    else{
+    alert("Step2 successfully saved");
+    }
+  }   
 
   nextTab() {
     this.loading = true;

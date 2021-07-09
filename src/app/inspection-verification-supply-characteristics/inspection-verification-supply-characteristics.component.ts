@@ -5,6 +5,7 @@ import { Supplycharacteristics, Supplyparameters } from '../model/supplycharacte
 import { SupplyCharacteristicsService } from '../services/supply-characteristics.service';
 import { GlobalsService } from '../globals.service';
 import { ActivatedRoute } from '@angular/router';
+import { MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-inspection-verification-supply-characteristics',
@@ -39,6 +40,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   loading = false;
   submitted = false;
   @Output() proceedNext = new EventEmitter<any>();  
+
 
   NV1: any;
   NV2: any;
@@ -243,8 +245,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
 
     });
     }
-   
-        
+       
 
     private createLocation1Form(): FormGroup {
       return new FormGroup({
@@ -739,24 +740,42 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
     if(this.supplycharesteristicForm.invalid) {
       return;
     }
-    this.success = true;	
-        this.successMsg="Step2 successfully saved";	
-        setTimeout(()=>{                      	
-          this.success = false;	
-     }, 6000);
-    // this.proceedNext.emit(true);
+    this.proceedNext.emit(true); 
   }
+  gotoNext(){    
+    //this.service.onFirstComponentButtonClick(); 
+    if(this.supplycharesteristicForm.invalid) {
+      alert("Something went wrong, kindly check all the fields");
+      return;
+    }
+    else{
+    alert("Step2 successfully saved");
+    }
+  }   
+  // goNext(stepper: MatStepper) {
+  //   debugger
+  // this.success = true;	
+  //     this.successMsg="Step2 successfully saved";	
+  //     setTimeout(()=>{                      	
+  //       this.success = false;	
+  //  }, 3000);
+  //   stepper.next();
+  // }
+
+ 
   
 nextTab2() {
-    this.supplycharesteristic.siteId = this.service.siteCount;
+    // this.supplycharesteristic.siteId = this.service.siteCount;
+    this.supplycharesteristic.siteId = 14;
+
     this.supplycharesteristic.userName = this.email;
     this.submitted = true;
     if(this.supplycharesteristicForm.invalid) {
-      this.Error = true;	
-      this.errorMsg="Something went wrong, kindly check all the fields";	
-      setTimeout(()=>{                      	
-        this.Error = false;	
-    }, 6000);
+    //   this.Error = true;	
+    //   this.errorMsg="Something went wrong, kindly check all the fields";	
+    //   setTimeout(()=>{                      	
+    //     this.Error = false;	
+    // }, 6000);
       return;
     }
     this.nominalVoltageArr.push(this.NV1,this.NV2,this.NV3,this.NV4,this.NV5,this.NV6,this.NV7,this.NV8,this.NV9);
@@ -931,31 +950,37 @@ nextTab2() {
   
     }
     
-    this.supplycharesteristic.mainNominalVoltage = this.nominalVoltage
-    this.supplycharesteristic.mainNominalFrequency = this.nominalFrequency
-    this.supplycharesteristic.mainNominalCurrent = this.nominalCurrent
-    this.supplycharesteristic.mainLoopImpedance = this.loopImpedence
-
+    if(this.supplycharesteristic.liveConductorType != "DC") {
+      this.supplycharesteristic.mainNominalVoltage = this.nominalVoltage
+      this.supplycharesteristic.mainNominalFrequency = this.nominalFrequency
+      this.supplycharesteristic.mainNominalCurrent = this.nominalCurrent
+      this.supplycharesteristic.mainLoopImpedance = this.loopImpedence
+    }
+   
     console.log(this.supplycharesteristic)
     this.supplyCharacteristicsService.addSupplyCharacteristics(this.supplycharesteristic).subscribe(
       data=> {
         console.log("worked");
-        this.proceedNext.emit(true);	
-        this.success = true;	
-        this.successMsg="Step2 successfully saved";	
-        setTimeout(()=>{                      	
-          this.success = false;	
-     }, 3000);  
+    //     this.success = true;	
+    //     this.successMsg="Step2 successfully saved";	
+    //     setTimeout(()=>{                      	
+    //       this.success = false;	
+    //       // this.gotoNext();
+    //  }, 3000); 
       },
       error => {
         console.log("error");
-        this.Error = true;	
-        this.errorMsg="Something went wrong, kindly check all the fields";	
-        setTimeout(()=>{                      	
-          this.Error = false;	
-     }, 6000);   
+    //     this.proceedNext.emit(false);	
+
+    //     this.Error = true;	
+    //     this.errorMsg="Something went wrong, kindly check all the fields";	
+    //     setTimeout(()=>{                      	
+    //       this.Error = false;	
+    //  }, 6000);   
       }
       )
+      // this.gotoNext();
+
     
 }
 

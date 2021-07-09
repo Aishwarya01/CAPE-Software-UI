@@ -176,7 +176,7 @@
                 <tr>
                   <td nowrap="nowrap">Rated current (A)</td>
                   <td>
-                    <input type="number"  maxlength="4"style="width:200px" formControlName="mainRatedCurrent" [(ngModel)]="supplycharesteristic.mainRatedCurrent" [ngClass]="{ 'is-invalid': submitted && f.mainRatedCurrent.errors }">
+                    <input type="number" min="0" maxlength="4"style="width:200px" formControlName="mainRatedCurrent" [(ngModel)]="supplycharesteristic.mainRatedCurrent" [ngClass]="{ 'is-invalid': submitted && f.mainRatedCurrent.errors }">
                     <div *ngIf="submitted && f.mainRatedCurrent.errors" class="invalid-feedback">
                       <div *ngIf="f.mainRatedCurrent?.errors?.required">Please enter valid details</div>
                     </div>
@@ -185,7 +185,7 @@
                 <tr>
                   <td nowrap="nowrap">Current for disconnection with in 0.2 seconds</td>
                   <td>
-                    <input type="number"   maxlength="5" style="width:200px" max="5" formControlName="mainCurrentDisconnection" [(ngModel)]="supplycharesteristic.mainCurrentDisconnection" [ngClass]="{ 'is-invalid': submitted && f.mainCurrentDisconnection.errors }">
+                    <input type="number"   min="0" maxlength="5" style="width:200px" max="5" formControlName="mainCurrentDisconnection" [(ngModel)]="supplycharesteristic.mainCurrentDisconnection" [ngClass]="{ 'is-invalid': submitted && f.mainCurrentDisconnection.errors }">
                     <div *ngIf="submitted && f.mainCurrentDisconnection.errors" class="invalid-feedback">
                       <div *ngIf="f.mainCurrentDisconnection?.errors?.required">Please enter valid details</div>
                     </div>
@@ -236,8 +236,11 @@
               </div>
 
               <div class="col-md-4 joints" *ngIf="supplycharesteristic.alternativeSupply=='Yes'">
-                <label>Number of alternate sources of supply:</label>        
-                <input type="number"  class="form-control" formControlName="supplyNumber" [ngClass]="{ 'is-invalid': submitted && f.supplyNumber.errors }" [(ngModel)]="supplycharesteristic.supplyNumber" (keyup)="onKeyAlernate($event)">
+                <!-- <label>Number of alternate sources of supply:</label>         -->
+                <p class="joints">Number of alternate sources of supply:
+                <input type="tel" min="0"  class="form-control" formControlName="supplyNumber" 
+                [ngClass]="{ 'is-invalid': submitted && f.supplyNumber.errors }" [(ngModel)]="supplycharesteristic.supplyNumber" 
+                (keyup)="onKeyAlernate($event)"></p>
                 <div *ngIf="submitted && f.supplyNumber.errors" class="invalid-feedback">
                   <div *ngIf="f.supplyNumber?.errors?.required">Supply number is required</div>
                 </div>
@@ -252,7 +255,7 @@
                   
                     <div class="col-md-4">
                       <label>Alternate supply no:</label>        
-                      <input type="number"   class="form-control"  formControlName="aLSupplyNo" [ngClass]="{ 'is-invalid': submitted && a.get('aLSupplyNo')?.errors }">
+                      <input type="number"   min="0" class="form-control"  formControlName="aLSupplyNo" [ngClass]="{ 'is-invalid': submitted && a.get('aLSupplyNo')?.errors }">
                       <div *ngIf="submitted && a.get('aLSupplyNo')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('aLSupplyNo')?.errors?.required">Please enter valid details</div>
                       </div>
@@ -439,7 +442,7 @@
                           <tr>
                               <td nowrap="nowrap">Rated current (A)</td>
                               <td>
-                                <input type="text" formControlName="ratedCurrent" [ngClass]="{ 'is-invalid': submitted && a.get('ratedCurrent')?.errors }" style="width:400px">
+                                <input type="text" formControlName="ratedCurrent" min="0" [ngClass]="{ 'is-invalid': submitted && a.get('ratedCurrent')?.errors }" style="width:400px">
                                 <div *ngIf="submitted && a.get('ratedCurrent')?.errors" class="invalid-feedback">
                                   <div *ngIf="a.get('ratedCurrent')?.errors?.required">Please enter valid details</div>
                                 </div>
@@ -485,7 +488,7 @@
               </mat-expansion-panel-header>
               <div class="row">
                 <div class="col-md-4" style="margin-top: 30px">
-                  <p>Maximum demand <input type="number" formControlName="maximumDemand"   [ngClass]="{ 'is-invalid': submitted && f.maximumDemand.errors }"[(ngModel)]="supplycharesteristic.maximumDemand" style="
+                  <p>Maximum demand <input type="number" min="0" formControlName="maximumDemand"   [ngClass]="{ 'is-invalid': submitted && f.maximumDemand.errors }"[(ngModel)]="supplycharesteristic.maximumDemand" style="
                     width: 50px;
                     background: transparent;
                     border: none;
@@ -496,7 +499,7 @@
                 </div>
 
                 <div class="col-md-4" style="margin-top: 30px">
-                  <p>Maximum load<input type="number" formControlName="maximumLoad" [ngClass]="{ 'is-invalid': submitted && f.maximumLoad.errors }" [(ngModel)]="supplycharesteristic.maximumLoad" style="
+                  <p>Maximum load<input type="number" min="0" formControlName="maximumLoad" [ngClass]="{ 'is-invalid': submitted && f.maximumLoad.errors }" [(ngModel)]="supplycharesteristic.maximumLoad" style="
                     width: 50px;
                     background: transparent;
                     border: none;
@@ -543,7 +546,8 @@
                 </div>
 
                 <div class="col-md-4" style="margin-top: 30px">
-                  <p class="joints">Number of Locations <input type="number" formControlName="noOfLocation" [ngClass]="{ 'is-invalid': submitted && f.noOfLocation.errors }" [(ngModel)]="supplycharesteristic.noOfLocation" style="
+                  <p class="joints">Number of Locations 
+                    <input type="tel" min="0" formControlName="noOfLocation" [ngClass]="{ 'is-invalid': submitted && f.noOfLocation.errors }" [(ngModel)]="supplycharesteristic.noOfLocation" style="
                     width: 50px;
                     background: transparent;
                     border: none;
@@ -623,7 +627,7 @@
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 57px">
-                    <p>Size of earthing conductor <input type="number" formControlName="conductorSize" [ngClass]="{ 'is-invalid': submitted && f.conductorSize.errors }" [(ngModel)]="supplycharesteristic.conductorSize" style="
+                    <p>Size of earthing conductor <input type="number" min="0" formControlName="conductorSize" [ngClass]="{ 'is-invalid': submitted && f.conductorSize.errors }" [(ngModel)]="supplycharesteristic.conductorSize" style="
                       width: 50px;
                       background: transparent;
                       border: none;
@@ -658,7 +662,7 @@
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 30px">
-                    <p>Size of main protective bonding conductor <input type="number" formControlName="bondingConductorSize" [ngClass]="{ 'is-invalid': submitted && f.bondingConductorSize.errors }" [(ngModel)]="supplycharesteristic.bondingConductorSize" style="
+                    <p>Size of main protective bonding conductor <input type="number" min="0" formControlName="bondingConductorSize" [ngClass]="{ 'is-invalid': submitted && f.bondingConductorSize.errors }" [(ngModel)]="supplycharesteristic.bondingConductorSize" style="
                       width: 50px;
                       background: transparent;
                       border: none;
@@ -692,7 +696,7 @@
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 30px">
-                    <p>Type of joints (impairing safety) <input type="number" formControlName="bondingJointsType" [ngClass]="{ 'is-invalid': submitted && f.bondingJointsType.errors }" [(ngModel)]="supplycharesteristic.bondingJointsType" style="
+                    <p>Type of joints (impairing safety) <input type="number" min="0" formControlName="bondingJointsType" [ngClass]="{ 'is-invalid': submitted && f.bondingJointsType.errors }" [(ngModel)]="supplycharesteristic.bondingJointsType" style="
                       width: 50px;
                       background: transparent;
                       border: none;
@@ -704,7 +708,7 @@
                   </div>
                   <div class="col-md-4" style="margin-top: 30px">
                     <p  class="joints">No of joints 
-                      <input type="number" formControlName="bondingNoOfJoints" [(ngModel)]="supplycharesteristic.bondingNoOfJoints" [ngClass]="{ 'is-invalid': submitted && f.bondingNoOfJoints.errors }" style="
+                      <input type="tel" min="0" formControlName="bondingNoOfJoints" [(ngModel)]="supplycharesteristic.bondingNoOfJoints" [ngClass]="{ 'is-invalid': submitted && f.bondingNoOfJoints.errors }" style="
                       width: 50px;
                       background: transparent;
                       border: none;
@@ -767,7 +771,7 @@
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 30px">
-                    <p>Size of main protective earthing conductor<input type="number" formControlName="earthingConductorSize" [ngClass]="{ 'is-invalid': submitted && f.earthingConductorSize.errors }" [(ngModel)]="supplycharesteristic.earthingConductorSize" style="
+                    <p>Size of main protective earthing conductor<input type="number" min="0" formControlName="earthingConductorSize" [ngClass]="{ 'is-invalid': submitted && f.earthingConductorSize.errors }" [(ngModel)]="supplycharesteristic.earthingConductorSize" style="
                       width: 50px;
                       background: transparent;
                       border: none;
@@ -801,7 +805,7 @@
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 30px">
-                    <p>Type of Joints<input type="number" formControlName="earthingJointsType" [ngClass]="{ 'is-invalid': submitted && f.earthingJointsType.errors }" [(ngModel)]="supplycharesteristic.earthingJointsType" style="
+                    <p>Type of Joints<input type="number" min="0" formControlName="earthingJointsType" [ngClass]="{ 'is-invalid': submitted && f.earthingJointsType.errors }" [(ngModel)]="supplycharesteristic.earthingJointsType" style="
                       width: 50px;
                       background: transparent;
                       border: none;
@@ -813,7 +817,7 @@
                   </div>
 
                   <div class="col-md-4" style="margin-top: 30px">
-                    <p class="joints">No of Joints <input type="number" formControlName="earthingNoOfJoints" [ngClass]="{ 'is-invalid': submitted && f.earthingNoOfJoints.errors }" [(ngModel)]="supplycharesteristic.earthingNoOfJoints" style="
+                    <p class="joints">No of Joints <input type="tel" min="0" formControlName="earthingNoOfJoints" [ngClass]="{ 'is-invalid': submitted && f.earthingNoOfJoints.errors }" [(ngModel)]="supplycharesteristic.earthingNoOfJoints" style="
                       width: 50px;
                       background: transparent;
                       border: none;
@@ -987,7 +991,7 @@
              </mat-accordion>
              <div style="text-align: center;margin-top: 40px;">
               <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
-              <button  class="next" (mouseover)="setTrue()" mat-button matStepperNext>Next &raquo;</button>
+              <button  class="next" (mouseover)="setTrue()" (click)="gotoNext()" mat-button matStepperNext>Next &raquo;</button>
             </div>
             <div *ngIf="success" style="text-align: center; margin-top: 40px;">
              <span class="alert alert-success">{{successMsg}}</span>

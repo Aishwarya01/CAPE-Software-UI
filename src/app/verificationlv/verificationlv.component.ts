@@ -330,6 +330,9 @@ deleteDepartment(departmentId: number) {
   public doSomething(next: any):void {
     this.isCompleted = next;
   }
+  // public gotoNext(a:any):void {
+  // console.log(a);
+  // }
   public NextStep5(next: any):void {
     this.isCompleted5 = next;
   }
