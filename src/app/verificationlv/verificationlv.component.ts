@@ -23,6 +23,7 @@ import { Site } from '../model/site';
 import { SiteupdateComponent } from '../site/siteupdate/siteupdate.component';
 import { ReportDetailsService } from '../services/report-details.service';
 import { Reportdetails } from '../model/reportdetails';
+import { InspectionVerificationSupplyCharacteristicsComponent } from '../inspection-verification-supply-characteristics/inspection-verification-supply-characteristics.component';
 
 
 @Component({
@@ -51,7 +52,6 @@ export class VerificationlvComponent implements OnInit {
   site_dataSource!: MatTableDataSource<Company[]>;
   @ViewChild('sitePaginator', { static: true }) sitePaginator!: MatPaginator;
   @ViewChild('siteSort', {static: true}) siteSort!: MatSort;
-
   
   clientList: any = [];
   inActiveData: any =[];
@@ -339,6 +339,12 @@ deleteDepartment(departmentId: number) {
   // public NextStep3(next: any):void {
   //   this.isCompleted3 = next;
   // }
+
+//   gotoNext(e: any) {
+//     debugger
+// this.supplyCharachteristicComponent?.nextTab2();
+//   }
+
 }
 
   

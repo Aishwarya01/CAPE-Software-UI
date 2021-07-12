@@ -735,47 +735,34 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
     return this.supplycharesteristicForm.controls;
   }
 
-  setTrue() {
-   this.submitted = true;
-    if(this.supplycharesteristicForm.invalid) {
-      return;
-    }
-    this.proceedNext.emit(true); 
-  }
-  gotoNext(){    
-    //this.service.onFirstComponentButtonClick(); 
-    if(this.supplycharesteristicForm.invalid) {
-      alert("Something went wrong, kindly check all the fields");
-      return;
-    }
-    else{
-    alert("Step2 successfully saved");
-    }
-  }   
-  // goNext(stepper: MatStepper) {
-  //   debugger
-  // this.success = true;	
-  //     this.successMsg="Step2 successfully saved";	
-  //     setTimeout(()=>{                      	
-  //       this.success = false;	
-  //  }, 3000);
-  //   stepper.next();
+  // setTrue() {
+  //  this.submitted = true;
+  //   if(this.supplycharesteristicForm.invalid) {
+  //     return;
+  //   }
+  //   this.proceedNext.emit(true); 
   // }
 
- 
+  // Commented by Aishwarya
+  // gotoNext(){    
+  //   //this.service.onFirstComponentButtonClick(); 
+  //   if(this.supplycharesteristicForm.invalid) {
+  //     alert("Something went wrong, kindly check all the fields");
+  //     return;
+  //   }
+  //   else{
+  //   alert("Step2 successfully saved");
+  //   }
+  // }   
   
 nextTab2() {
     // this.supplycharesteristic.siteId = this.service.siteCount;
-    this.supplycharesteristic.siteId = 14;
+    this.supplycharesteristic.siteId = 6;
 
     this.supplycharesteristic.userName = this.email;
     this.submitted = true;
     if(this.supplycharesteristicForm.invalid) {
-    //   this.Error = true;	
-    //   this.errorMsg="Something went wrong, kindly check all the fields";	
-    //   setTimeout(()=>{                      	
-    //     this.Error = false;	
-    // }, 6000);
+      alert("Something went wrong, kindly check all the fields");
       return;
     }
     this.nominalVoltageArr.push(this.NV1,this.NV2,this.NV3,this.NV4,this.NV5,this.NV6,this.NV7,this.NV8,this.NV9);
@@ -961,26 +948,15 @@ nextTab2() {
     this.supplyCharacteristicsService.addSupplyCharacteristics(this.supplycharesteristic).subscribe(
       data=> {
         console.log("worked");
-    //     this.success = true;	
-    //     this.successMsg="Step2 successfully saved";	
-    //     setTimeout(()=>{                      	
-    //       this.success = false;	
-    //       // this.gotoNext();
-    //  }, 3000); 
+        this.proceedNext.emit(true); 
+        alert("Step2 successfully saved");
       },
       error => {
         console.log("error");
-    //     this.proceedNext.emit(false);	
-
-    //     this.Error = true;	
-    //     this.errorMsg="Something went wrong, kindly check all the fields";	
-    //     setTimeout(()=>{                      	
-    //       this.Error = false;	
-    //  }, 6000);   
+        alert("Something went wrong, kindly check all the fields");  
+        this.proceedNext.emit(false); 
       }
       )
-      // this.gotoNext();
-
     
 }
 
