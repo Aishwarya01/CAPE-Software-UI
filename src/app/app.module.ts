@@ -46,7 +46,7 @@ import { InspectionVerificationSupplyCharacteristicsComponent } from './inspecti
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-
+import {Ng2TelInputModule} from 'ng2-tel-input';
 
 @NgModule({
   declarations: [
@@ -76,7 +76,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     InspectionVerificationBasicInformationComponent,
     InspectionVerificationIncomingEquipmentComponent,
     InspectionVerificationSupplyCharacteristicsComponent
-    
+
   ],
   imports: [
     NgbModule,
@@ -95,6 +95,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatMenuModule,
     MaterialModule,
     NgxPrintModule,
+    Ng2TelInputModule,
     NgxBootstrapIconsModule.pick(allIcons)
   ],
   providers: [GlobalsService, { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }],

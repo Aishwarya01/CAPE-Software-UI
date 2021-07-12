@@ -13,6 +13,8 @@ import { SiteService } from '../services/site.service';
 
 import { GlobalsService } from '../globals.service';
 
+// import {Ng2TelInputModule} from 'ng2-tel-input';
+
 @Component({
   selector: 'app-inspection-verification-basic-information',
   templateUrl: './inspection-verification-basic-information.component.html',
