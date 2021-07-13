@@ -42,6 +42,10 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   site = new Site;
   email: String = '';
   clientName: String = '';
+  successMsg: string="";	
+  errorMsg: string="";
+  success: boolean=false;	
+  Error: boolean=false;
   departmentName: String = '';
   reportDetails =new Reportdetails;
   showField1: boolean= true;
@@ -79,6 +83,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     private reportDetailsService: ReportDetailsService,
     private siteService: SiteService,
     public service: GlobalsService,
+    private modalService: NgbModal,
     private ChangeDetectorRef: ChangeDetectorRef) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
@@ -509,25 +514,10 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     return this.step1Form.controls;
   }
 
-
-  setTrue() {
-   this.submitted = true;
-    if(this.step1Form.invalid) {
-      return;
-    }
-    this.proceedNext.emit(true);
+ 
+  gotoNextModal(content1: any) {
+    this.modalService.open(content1, { centered: true})
   }
-  gotoNext(){    
-    //this.service.onFirstComponentButtonClick(); 
-    if(this.step1Form.invalid) {
-      alert("Something went wrong, kindly check all the fields");
-      return;
-    }
-    else{
-    alert("Step2 successfully saved");
-    }
-  }   
-
   nextTab() {
     this.loading = true;
 
@@ -564,8 +554,17 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     this.reportDetailsService.addReportDetails(this.reportDetails).subscribe(
       data=> {
         console.log("worked");
+        this.proceedNext.emit(true); 
+        this.success=true
+        this.successMsg="Step2 successfully saved";
+        // alert("Step2 successfully saved");
       },
       error => {
+        console.log("error");
+        this.Error=true;
+        // alert("Something went wrong, kindly check all the fields");  
+        this.proceedNext.emit(false); 
+        this.errorMsg="Something went wrong, kindly check all the fields";
       }
       )
       this.service.siteCount=this.reportDetails.siteId;

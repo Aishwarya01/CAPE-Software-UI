@@ -14,6 +14,10 @@ import { GlobalsService } from '../globals.service';
 export class InspectionVerificationIncomingEquipmentComponent implements OnInit {
 
   submitted = false;
+  successMsg: string="";	
+  errorMsg: string="";
+  success: boolean=false;	
+  Error: boolean=false;
   @Output() proceedNext = new EventEmitter<any>();  
 
   addstep3 = new FormGroup({
@@ -174,7 +178,7 @@ export class InspectionVerificationIncomingEquipmentComponent implements OnInit 
 
   formBuilder: any;
    constructor(private _formBuilder: FormBuilder,
-    private router: ActivatedRoute,
+    private router: ActivatedRoute, private modalService: NgbModal,
     private inspectionDetailsService: InspectiondetailsService,public service: GlobalsService,
     private ChangeDetectorRef: ChangeDetectorRef) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
@@ -334,27 +338,15 @@ export class InspectionVerificationIncomingEquipmentComponent implements OnInit 
     return this.addstep3.controls;
   }
 
-  setTrue() {
-   this.submitted = true;
-    if(this.addstep3.invalid) {
-      return;
-    }
-    this.proceedNext.emit(true);
-  }
-  
+ 
   refresh() {
     this.ChangeDetectorRef.detectChanges();
   }
-  gotoNext(){    
-    //this.service.onFirstComponentButtonClick(); 
-    if(this.addstep3.invalid) {
-      alert("Something went wrong, kindly check all the fields");
-      return;
-    }
-    else{
-    alert("Step2 successfully saved");
-    }
-  }   
+  
+  gotoNextModal(content1: any) {
+    this.modalService.open(content1, { centered: true})
+  }
+ 
   nextTab3()
   {
     //this.f;
@@ -372,9 +364,17 @@ export class InspectionVerificationIncomingEquipmentComponent implements OnInit 
   this.inspectionDetailsService.addInspectionDetails(this.inspectionDetails).subscribe(
     (    data: any)=> {
       console.log("worked");
+      this.proceedNext.emit(true); 
+        this.success=true
+        this.successMsg="Step2 successfully saved";
+        // alert("Step2 successfully saved");
     },
     (    error: any) => {
       console.log("test");
+      this.Error=true;
+        // alert("Something went wrong, kindly check all the fields");  
+        this.proceedNext.emit(false); 
+        this.errorMsg="Something went wrong, kindly check all the fields";
     }
     )
   }

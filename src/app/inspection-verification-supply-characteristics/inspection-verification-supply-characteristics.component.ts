@@ -6,6 +6,8 @@ import { SupplyCharacteristicsService } from '../services/supply-characteristics
 import { GlobalsService } from '../globals.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatStepper } from '@angular/material/stepper';
+import {​​​ NgbModal }​​​ from'@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-inspection-verification-supply-characteristics',
@@ -41,6 +43,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   submitted = false;
   @Output() proceedNext = new EventEmitter<any>();  
 
+  isSupplyCompleted: boolean = false;
 
   NV1: any;
   NV2: any;
@@ -149,14 +152,15 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   sources: boolean=false;
   breaker: boolean=false;
   successMsg: string="";	
-  errorMsg: string="";	
+  errorMsg: string="";
   success: boolean=false;	
   Error: boolean=false;
 
   
   constructor(private supplyCharacteristicsService: SupplyCharacteristicsService,public service: GlobalsService,
               private formBuilder: FormBuilder,
-              private router: ActivatedRoute
+              private router: ActivatedRoute,
+              private modalService: NgbModal
               ) {
                 this.email = this.router.snapshot.paramMap.get('email') || '{}'
                }
@@ -753,18 +757,20 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   //   else{
   //   alert("Step2 successfully saved");
   //   }
-  // }   
+  // }  
+  gotoNextModal(content1: any) {
+    this.modalService.open(content1, { centered: true})
+  }
   
 nextTab2() {
-    // this.supplycharesteristic.siteId = this.service.siteCount;
-    this.supplycharesteristic.siteId = 6;
-
+    this.supplycharesteristic.siteId = this.service.siteCount;
+    
     this.supplycharesteristic.userName = this.email;
     this.submitted = true;
-    if(this.supplycharesteristicForm.invalid) {
-      alert("Something went wrong, kindly check all the fields");
-      return;
-    }
+    // if(this.supplycharesteristicForm.invalid) {
+    //   alert("Something went wrong, kindly check all the fields");
+    //   return;
+    // }
     this.nominalVoltageArr.push(this.NV1,this.NV2,this.NV3,this.NV4,this.NV5,this.NV6,this.NV7,this.NV8,this.NV9);
     this.nominalFrequencyArr.push(this.NF1,this.NF2,this.NF3,this.NF4,this.NF5,this.NF6,this.NF7,this.NF8,this.NF9);
     this.nominalCurrentArr.push(this.PF1,this.PF2,this.PF3,this.PF4,this.PF5,this.PF6,this.PF7,this.PF8,this.PF9);
@@ -949,12 +955,17 @@ nextTab2() {
       data=> {
         console.log("worked");
         this.proceedNext.emit(true); 
-        alert("Step2 successfully saved");
+        this.success=true
+        this.successMsg="Step2 successfully saved";
+        // alert("Step2 successfully saved");
       },
       error => {
         console.log("error");
-        alert("Something went wrong, kindly check all the fields");  
+        this.Error=true;
+        // alert("Something went wrong, kindly check all the fields");  
         this.proceedNext.emit(false); 
+        this.errorMsg="Something went wrong, kindly check all the fields";
+
       }
       )
     
