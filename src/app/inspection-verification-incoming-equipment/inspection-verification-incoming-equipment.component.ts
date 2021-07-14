@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {​​​ NgbModal }​​​ from'@ng-bootstrap/ng-bootstrap';
 import { InspectiondetailsService } from '../services/inspectiondetails.service';
 import { InspectionDetails } from '../model/inspection-details';
 import { GlobalsService } from '../globals.service';
@@ -14,10 +14,7 @@ import { GlobalsService } from '../globals.service';
 export class InspectionVerificationIncomingEquipmentComponent implements OnInit {
 
   submitted = false;
-  successMsg: string="";	
-  errorMsg: string="";
-  success: boolean=false;	
-  Error: boolean=false;
+  
   @Output() proceedNext = new EventEmitter<any>();  
 
   addstep3 = new FormGroup({
@@ -174,7 +171,10 @@ export class InspectionVerificationIncomingEquipmentComponent implements OnInit 
   panelOpenState = false;
   InspectionList: String[]=['Yes', 'No', 'Not Applicable'];
 
-
+  successMsg: string="";	
+  errorMsg: string="";
+  success: boolean=false;	
+  Error: boolean=false;
 
   formBuilder: any;
    constructor(private _formBuilder: FormBuilder,
@@ -343,8 +343,8 @@ export class InspectionVerificationIncomingEquipmentComponent implements OnInit 
     this.ChangeDetectorRef.detectChanges();
   }
   
-  gotoNextModal(content1: any) {
-    this.modalService.open(content1, { centered: true})
+  gotoNextModal(content3: any) {
+    this.modalService.open(content3, { centered: true})
   }
  
   nextTab3()
@@ -352,14 +352,10 @@ export class InspectionVerificationIncomingEquipmentComponent implements OnInit 
     //this.f;
     this.inspectionDetails.siteId=this.service.siteCount;
     this.inspectionDetails.userName=this.email;
-    if(this.addstep3.invalid) {
-      //   this.Error = true;	
-      //   this.errorMsg="Something went wrong, kindly check all the fields";	
-      //   setTimeout(()=>{                      	
-      //     this.Error = false;	
-      // }, 6000);
-        return;
-      }
+    this.submitted = true;
+    // if(this.addstep3.invalid) {
+    //     return;
+    //   }
   console.log(this.inspectionDetails);
   this.inspectionDetailsService.addInspectionDetails(this.inspectionDetails).subscribe(
     (    data: any)=> {
@@ -370,10 +366,10 @@ export class InspectionVerificationIncomingEquipmentComponent implements OnInit 
         // alert("Step2 successfully saved");
     },
     (    error: any) => {
-      console.log("test");
+      console.log("error");
+      this.proceedNext.emit(false); 
       this.Error=true;
         // alert("Something went wrong, kindly check all the fields");  
-        this.proceedNext.emit(false); 
         this.errorMsg="Something went wrong, kindly check all the fields";
     }
     )
