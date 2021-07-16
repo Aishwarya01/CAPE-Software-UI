@@ -484,27 +484,28 @@
                         </div>
 
                         <div class="col-md-4">
-                            <label>Contact No:</label> <br>
-                            <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in'}"  formControlName="personContactNo" class="form-control" maxlength="10" placeholder="Enter Contact Number"
+                            <label>* Mobile Number:</label>
+                            <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" (keypress)="keyPressAlphaNumericWithCharacters($event)"
+                             formControlName="personContactNo" class="form-control" minlength="10" maxlength="14" placeholder="Enter Mobile Number"
                             [ngClass]="{ 'is-invalid': submitted && a.get('personContactNo')?.errors }">
-                          <div *ngIf="submitted && a.get('personContactNo')?.errors" class="invalid-feedback">
-                            <div *ngIf="a.get('personContactNo')?.errors?.required">Contact No is required</div>
-                            <div *ngIf="a.get('personContactNo')?.errors?.pattern">Invalid phone number.</div>
-                        </div>
+                            <div *ngIf="submitted && a.get('personContactNo')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('personContactNo')?.errors?.required">Mobile Number is Required</div>
+                              <div *ngIf="a.get('personContactNo')?.errors?.minlength">Please Enter 10 Digit Number</div>
+                              <div *ngIf="a.get('personContactNo')?.errors?.maxlength">Please Enter 10 Digit Number</div>
+                          </div>
                         </div>
 
                         <div class="col-md-4">
                             <label>Email:</label>
-                            <input type="text"  formControlName="personMailID" class="form-control"  placeholder="Enter Email Address"
+                            <input type="email"  formControlName="personMailID" class="form-control"  placeholder="Enter Email Address"
                             [ngClass]="{ 'is-invalid': submitted && a.get('personMailID')?.errors }">
-                          <div *ngIf="submitted && a.get('personMailID')?.errors" class="invalid-feedback">
+                            <div *ngIf="submitted && a.get('personMailID')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('personMailID')?.errors?.required">Email is required</div>
                             <div *ngIf="a.get('personMailID')?.errors?.pattern">Enter valid email</div>
                         </div>
                         </div>
                     </div>
                   </div>
-
 
                   <div class="form-group">
                     <div class="row">
@@ -518,18 +519,19 @@
                         </div>
 
                         <div class="col-md-4">
-                          <label>Contact No:</label> <br>
-                          <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in'}" formControlName="managerContactNo" class="form-control" maxlength="10" placeholder="Enter Contact Number"
+                          <label>* Mobile Number:</label>
+                          <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" (keypress)="keyPressAlphaNumericWithCharacters($event)"  formControlName="managerContactNo" class="form-control" minlength="10" maxLength="14" placeholder="Enter Mobile Number"
                           [ngClass]="{ 'is-invalid': submitted && a.get('managerContactNo')?.errors }">
                           <div *ngIf="submitted && a.get('managerContactNo')?.errors" class="invalid-feedback">
-                            <div *ngIf="a.get('managerContactNo')?.errors?.required">Contact No is required</div>
-                            <div *ngIf="a.get('personContactNo')?.errors?.pattern">Invalid phone number.</div>
+                            <div *ngIf="a.get('managerContactNo')?.errors?.required">Mobile Number is Required</div>
+                            <div *ngIf="a.get('managerContactNo')?.errors?.minlength">Please Enter 10 Digit Number</div>
+                            <div *ngIf="a.get('managerContactNo')?.errors?.maxlength">Please Enter 10 Digit Number</div>
                         </div>
                         </div>
 
                         <div class="col-md-4">
                             <label>Email:</label>
-                            <input type="text"  formControlName="managerMailID" class="form-control"  placeholder="Enter Email Address"
+                            <input type="email"  formControlName="managerMailID" class="form-control"  placeholder="Enter Email Address"
                             [ngClass]="{ 'is-invalid': submitted && a.get('managerMailID')?.errors }">
                           <div *ngIf="submitted && a.get('managerMailID')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('managerMailID')?.errors?.required">Email is required</div>
@@ -613,10 +615,12 @@
                       <div class="row">
                           <div class="col-md-4">
                               <label>Pincode:</label>
-                              <input type="text"  formControlName="pinCode" class="form-control"  placeholder="Enter Pincode"
+                              <input type="text"  formControlName="pinCode" class="form-control" (keypress)="keyPressNumbers($event)" minlength="6" maxlength="6" placeholder="Enter Pincode"
                               [ngClass]="{ 'is-invalid': submitted && a.get('pinCode')?.errors }">
                           <div *ngIf="submitted && a.get('pinCode')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('pinCode')?.errors?.required">Pincode is required</div>
+                            <div *ngIf="a.get('pinCode')?.errors?.maxlength">Enter Six Digit Numbers</div>
+                            <div *ngIf="a.get('pinCode')?.errors?.minlength">Enter Six Digit Numbers</div>
                         </div>
                           </div>
                       </div>
@@ -644,18 +648,20 @@
                           </div>
 
                           <div class="col-md-4">
-                              <label>Contact No:</label> <br>
-                              <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in'}" formControlName="personContactNo" class="form-control" maxlength="10" placeholder="Enter Contact Number"
-                              [ngClass]="{ 'is-invalid': submitted && a.get('personContactNo')?.errors }">
-                          <div *ngIf="submitted && a.get('personContactNo')?.errors" class="invalid-feedback">
-                            <div *ngIf="a.get('personContactNo')?.errors?.required">Contact No is required</div>
-                            <div *ngIf="a.get('personContactNo')?.errors?.pattern">Invalid phone number.</div>
-                        </div>
+                            <label>* Mobile Number:</label>
+                            <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" (keypress)="keyPressAlphaNumericWithCharacters($event)"
+                             formControlName="personContactNo" class="form-control" minlength="10" maxlength="14" placeholder="Enter Mobile Number"
+                            [ngClass]="{ 'is-invalid': submitted && a.get('personContactNo')?.errors }">
+                            <div *ngIf="submitted && a.get('personContactNo')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('personContactNo')?.errors?.required">Mobile Number is Required</div>
+                              <div *ngIf="a.get('personContactNo')?.errors?.minlength">Please Enter 10 Digit Number</div>
+                              <div *ngIf="a.get('personContactNo')?.errors?.maxlength">Please Enter 10 Digit Number</div>
+                          </div>
                           </div>
 
                           <div class="col-md-4">
                               <label>Email:</label>
-                              <input type="text"  formControlName="personMailID" class="form-control"  placeholder="Enter Email Address"
+                              <input type="email"  formControlName="personMailID" class="form-control"  placeholder="Enter Email Address"
                               [ngClass]="{ 'is-invalid': submitted && a.get('personMailID')?.errors }">
                           <div *ngIf="submitted && a.get('personMailID')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('personMailID')?.errors?.required">Email is required</div>
@@ -677,18 +683,19 @@
                           </div>
 
                           <div class="col-md-4">
-                            <label>Contact No:</label> <br>
-                            <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in'}" formControlName="managerContactNo" class="form-control" maxlength="10" placeholder="Enter Contact Number"
+                            <label>* Mobile Number:</label>
+                            <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" (keypress)="keyPressAlphaNumericWithCharacters($event)" formControlName="managerContactNo" class="form-control" minlength="10" maxlength="14" placeholder="Enter Mobile Number"
                             [ngClass]="{ 'is-invalid': submitted && a.get('managerContactNo')?.errors}">
                           <div *ngIf="submitted && a.get('managerContactNo')?.errors" class="invalid-feedback">
-                            <div *ngIf="a.get('managerContactNo')?.errors?.required">Contact No is required</div>
-                            <div *ngIf="a.get('personContactNo')?.errors?.pattern">Invalid phone number.</div>
+                            <div *ngIf="a.get('managerContactNo')?.errors?.required">Mobile Number is Required</div>
+                            <div *ngIf="a.get('managerContactNo')?.errors?.minlength">Please Enter 10 Digit Number</div>
+                            <div *ngIf="a.get('managerContactNo')?.errors?.maxlength">Please Enter 10 Digit Number</div>
                         </div>
                           </div>
 
                           <div class="col-md-4">
                               <label>Email:</label>
-                              <input type="text"  formControlName="managerMailID" class="form-control"  placeholder="Enter Email Address"
+                              <input type="email"  formControlName="managerMailID" class="form-control"  placeholder="Enter Email Address"
                               [ngClass]="{ 'is-invalid': submitted && a.get('managerMailID')?.errors }">
                           <div *ngIf="submitted && a.get('managerMailID')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('managerMailID')?.errors?.required">Email is required</div>
@@ -772,10 +779,12 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <label>Pincode:</label>
-                                <input type="text"  formControlName="pinCode" class="form-control"  placeholder="Enter Pincode"
+                                <input type="text"  formControlName="pinCode" class="form-control" (keypress)="keyPressNumbers($event)" minlength="6" maxlength="6" placeholder="Enter Pincode"
                                 [ngClass]="{ 'is-invalid': submitted && a.get('pinCode')?.errors}">
                           <div *ngIf="submitted && a.get('pinCode')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('pinCode')?.errors?.required">Pincode is required</div>
+                            <div *ngIf="a.get('pinCode')?.errors?.maxlength">Enter Six Digit Numbers</div>
+                            <div *ngIf="a.get('pinCode')?.errors?.minlength">Enter Six Digit Numbers</div>
                         </div>
                             </div>
                         </div>
@@ -808,18 +817,19 @@
                           </div>
 
                           <div class="col-md-4">
-                              <label>Contact No:</label> <br>
-                              <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in'}" formControlName="personContactNo" class="form-control" maxlength="10" placeholder="Enter Contact Number"
+                              <label>* Mobile Number:</label>
+                              <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" (keypress)="keyPressAlphaNumericWithCharacters($event)" formControlName="personContactNo" class="form-control" minlength="10" maxlength="14" placeholder="Enter Mobile Number"
                               [ngClass]="{ 'is-invalid': submitted && a.get('personContactNo')?.errors }">
-                          <div *ngIf="submitted && a.get('personContactNo')?.errors" class="invalid-feedback">
-                            <div *ngIf="a.get('personContactNo')?.errors?.required">Contact No is required</div>
-                            <div *ngIf="a.get('personContactNo')?.errors?.pattern">Invalid phone number.</div>
+                              <div *ngIf="submitted && a.get('personContactNo')?.errors" class="invalid-feedback">
+                                <div *ngIf="a.get('personContactNo')?.errors?.required">Mobile Number is Required</div>
+                                <div *ngIf="a.get('personContactNo')?.errors?.minlength">Please Enter 10 Digit Number</div>
+                                <div *ngIf="a.get('personContactNo')?.errors?.maxlength">Please Enter 10 Digit Number</div>
                         </div>
                           </div>
 
                           <div class="col-md-4">
                               <label>Email:</label>
-                              <input type="text"  formControlName="personMailID" class="form-control"  placeholder="Enter Email Address"
+                              <input type="email"  formControlName="personMailID" class="form-control"  placeholder="Enter Email Address"
                               [ngClass]="{ 'is-invalid': submitted && a.get('personMailID')?.errors }">
                           <div *ngIf="submitted && a.get('personMailID')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('personMailID')?.errors?.required">Email is required</div>
@@ -842,18 +852,19 @@
                           </div>
 
                           <div class="col-md-4">
-                            <label>Contact No:</label> <br>
-                            <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in'}" formControlName="managerContactNo" class="form-control" maxlength="10" placeholder="Enter Contact Number"
+                            <label>* Mobile Number:</label>
+                            <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" (keypress)="keyPressAlphaNumericWithCharacters($event)" formControlName="managerContactNo" class="form-control" minlength="10" maxlength="14" placeholder="Enter Mobile Number"
                             [ngClass]="{ 'is-invalid': submitted && a.get('managerContactNo')?.errors }">
                           <div *ngIf="submitted && a.get('managerContactNo')?.errors" class="invalid-feedback">
-                            <div *ngIf="a.get('managerContactNo')?.errors?.required">Contact No is required</div>
-                            <div *ngIf="a.get('personContactNo')?.errors?.pattern">Invalid phone number.</div>
+                              <div *ngIf="a.get('managerContactNo')?.errors?.required">Mobile Number is Required</div>
+                              <div *ngIf="a.get('managerContactNo')?.errors?.minlength">Please Enter 10 Digit Number</div>
+                              <div *ngIf="a.get('managerContactNo')?.errors?.maxlength">Please Enter 10 Digit Number</div>
                         </div>
                           </div>
 
                           <div class="col-md-4">
                               <label>Email:</label>
-                              <input type="text"  formControlName="managerMailID" class="form-control"  placeholder="Enter Email Address"
+                              <input type="email"  formControlName="managerMailID" class="form-control"  placeholder="Enter Email Address"
                               [ngClass]="{ 'is-invalid': submitted && a.get('managerMailID')?.errors }">
                           <div *ngIf="submitted && a.get('managerMailID')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('managerMailID')?.errors?.required">Email is required</div>
@@ -937,10 +948,12 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <label>Pincode:</label>
-                                <input type="text"  formControlName="pinCode" class="form-control"  placeholder="Enter Pincode"
+                                <input type="text"  formControlName="pinCode" class="form-control" (keypress)="keyPressNumbers($event)" minlength="6" maxLength="6" placeholder="Enter Pincode"
                                 [ngClass]="{ 'is-invalid': submitted && a.get('pinCode')?.errors }">
                           <div *ngIf="submitted && a.get('pinCode')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('pinCode')?.errors?.required">Pincode is required</div>
+                            <div *ngIf="a.get('pinCode')?.errors?.maxlength">Enter Six Digit Numbers</div>
+                            <div *ngIf="a.get('pinCode')?.errors?.minlength">Enter Six Digit Numbers</div>
                         </div>
                             </div>
                         </div>
@@ -971,18 +984,19 @@
                         </div>
                          </div>
                         <div class="col-md-4">
-                            <label>Contact No:</label> <br>
-                            <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in'}" formControlName="personContactNo" class="form-control" maxlength="10" placeholder="Enter Contact Number"
+                            <label>* Mobile Number:</label>
+                            <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" (keypress)="keyPressAlphaNumericWithCharacters($event)" formControlName="personContactNo" class="form-control" minlength="10" maxlength="14" placeholder="Enter Mobile Number"
                             [ngClass]="{ 'is-invalid': submitted && a.get('personContactNo')?.errors }">
-                          <div *ngIf="submitted && a.get('personContactNo')?.errors" class="invalid-feedback">
-                            <div *ngIf="a.get('personContactNo')?.errors?.required">Contact No is required</div>
-                            <div *ngIf="a.get('personContactNo')?.errors?.pattern">Invalid phone number.</div>
+                           <div *ngIf="submitted && a.get('personContactNo')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('personContactNo')?.errors?.required">Mobile Number is Required</div>
+                              <div *ngIf="a.get('personContactNo')?.errors?.minlength">Please Enter 10 Digit Number</div>
+                              <div *ngIf="a.get('personContactNo')?.errors?.maxlength">Please Enter 10 Digit Number</div>
                         </div>
                         </div>
 
                         <div class="col-md-4">
                             <label>Email:</label>
-                            <input type="text"  formControlName="personMailID" class="form-control"  placeholder="Enter Email Address"
+                            <input type="email"  formControlName="personMailID" class="form-control"  placeholder="Enter Email Address"
                             [ngClass]="{ 'is-invalid': submitted && a.get('personMailID')?.errors }">
                           <div *ngIf="submitted && a.get('personMailID')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('personMailID')?.errors?.required">Email is required</div>
@@ -1004,18 +1018,19 @@
                         </div>
 
                         <div class="col-md-4">
-                          <label>Contact No:</label> <br>
-                          <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in'}" formControlName="managerContactNo" class="form-control" maxlength="10" placeholder="Enter Contact Number"
+                          <label>* Mobile Number:</label>
+                          <input type="tel"  ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" (keypress)="keyPressAlphaNumericWithCharacters($event)" formControlName="managerContactNo" class="form-control" minlength="10" maxlength="14" placeholder="Enter Mobile Number"
                           [ngClass]="{ 'is-invalid': submitted && a.get('managerContactNo')?.errors}">
                           <div *ngIf="submitted && a.get('managerContactNo')?.errors" class="invalid-feedback">
-                            <div *ngIf="a.get('managerContactNo')?.errors?.required">Contact No is required</div>
-                            <div *ngIf="a.get('personContactNo')?.errors?.pattern">Invalid phone number.</div>
+                            <div *ngIf="a.get('managerContactNo')?.errors?.required">Mobile Number is Required</div>
+                            <div *ngIf="a.get('managerContactNo')?.errors?.minlength">Please Enter 10 Digit Number</div>
+                            <div *ngIf="a.get('managerContactNo')?.errors?.maxlength">Please Enter 10 Digit Number</div>
                         </div>
                         </div>
 
                         <div class="col-md-4">
                             <label>Email:</label>
-                            <input type="text"  formControlName="managerMailID" class="form-control"  placeholder="Enter Email Address"
+                            <input type="email"  formControlName="managerMailID" class="form-control"  placeholder="Enter Email Address"
                             [ngClass]="{ 'is-invalid': submitted && a.get('managerMailID')?.errors }">
                           <div *ngIf="submitted && a.get('managerMailID')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('managerMailID')?.errors?.required">Email is required</div>
@@ -1100,10 +1115,12 @@
                       <div class="row">
                           <div class="col-md-4">
                               <label>Pincode:</label>
-                              <input type="text"  formControlName="pinCode" class="form-control"  placeholder="Enter Pincode"
+                              <input type="text"  formControlName="pinCode" class="form-control" (keypress)="keyPressNumbers($event)" minlength="6" maxLength="6" placeholder="Enter Pincode"
                               [ngClass]="{ 'is-invalid': submitted && a.get('pinCode')?.errors }">
                           <div *ngIf="submitted && a.get('pinCode')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('pinCode')?.errors?.required">Pincode is required</div>
+                            <div *ngIf="a.get('pinCode')?.errors?.maxlength">Enter Six Digit Numbers</div>
+                            <div *ngIf="a.get('pinCode')?.errors?.minlength">Enter Six Digit Numbers</div>
                         </div>
                           </div>
                       </div>

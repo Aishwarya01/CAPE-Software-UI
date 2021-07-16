@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup,Validators,ValidatorFn } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Company } from '../model/company';
 import { Department } from '../model/department';
 import { Reportdetails } from '../model/reportdetails';
@@ -10,10 +9,7 @@ import { ClientService } from '../services/client.service';
 import { DepartmentService } from '../services/department.service';
 import { ReportDetailsService } from '../services/report-details.service';
 import { SiteService } from '../services/site.service';
-
 import { GlobalsService } from '../globals.service';
-
-// import {Ng2TelInputModule} from 'ng2-tel-input';
 
 @Component({
   selector: 'app-inspection-verification-basic-information',
@@ -24,9 +20,8 @@ import { GlobalsService } from '../globals.service';
 export class InspectionVerificationBasicInformationComponent implements OnInit {
 
   step1Form!: FormGroup;
-
-
   public data: string = "";
+  model: any = {};
 
   clientList: any = [];
   inActiveData: any =[];
@@ -56,8 +51,6 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   designer2Arr!: FormArray;
   @Output() proceedNext = new EventEmitter<any>();
 
-
-
   designerRole: String ='designer';
   contractorRole: String ='contractor';
   inspectorRole: String ='inspector';
@@ -69,9 +62,6 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   premiseList: String[]= ['Domestic(Individual)','Domestic(Apartment)','Commercial','IT/Office','Data center','Industrial(Non Ex environment)','Industrial(Ex environment)'];
   evidenceList: String[]= ['Yes', 'No', 'Not Apparent'];
   previousRecordList: String[]= ['Yes', 'No'];
-
-
-
 
   formBuilder: any;
    constructor(private _formBuilder: FormBuilder,
@@ -85,11 +75,10 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
 
-
-
   ngOnInit(): void {
 
     this.step1Form = this._formBuilder.group({
+
       clientName: ['', Validators.required],
       departmentName: ['', Validators.required],
       siteName: ['', Validators.required],
@@ -137,6 +126,32 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
         this.clientList = [];
         this.clientList=JSON.parse(data);
       });
+  }
+
+  // Only Integer Numbers
+  keyPressNumbers(event:any) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  //**Important */
+  // Only AlphaNumeric with Some Characters [-_ ]
+  keyPressAlphaNumericWithCharacters(event:any) {
+
+    var inp = String.fromCharCode(event.keyCode);
+    // Allow numbers, space, underscore
+    if (/[0-9-+ ]/.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
   }
 
 
@@ -262,7 +277,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     return new FormGroup({
       personName: new FormControl('',[Validators.required]),
       personContactNo: new FormControl('',[Validators.required]),
-      personMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+      personMailID: new FormControl('',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       managerName: new FormControl('',[Validators.required]),
       managerContactNo: new FormControl('',[Validators.required]),
       managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
@@ -340,7 +355,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   private createContractorForm(): FormGroup {
     return new FormGroup({
       personName: new FormControl('',[Validators.required]),
-      personContactNo: new FormControl('',[Validators.required]),
+      personContactNo: new FormControl('',Validators.required),
       personMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       managerName: new FormControl('',[Validators.required]),
       managerContactNo: new FormControl('',[Validators.required]),
@@ -379,7 +394,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   private createInspectorForm(): FormGroup {
     return new FormGroup({
      personName: new FormControl('',[Validators.required]),
-      personContactNo: new FormControl('',[Validators.required]),
+      personContactNo: new FormControl('',[Validators.required,Validators.minLength(10)]),
       personMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       managerName: new FormControl('',[Validators.required]),
       managerContactNo: new FormControl('',[Validators.required]),
@@ -564,8 +579,4 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       this.service.siteCount=this.reportDetails.siteId;
 
   }
-
-
 }
-
-

@@ -27,7 +27,7 @@ export class SiteaddComponent implements OnInit {
     country: new FormControl(''),
     state: new FormControl(''),
     pincode: new FormControl(''),
-  }); 
+  });
 
   clientList: any = [];
   clientArray: any = [];
@@ -48,7 +48,7 @@ export class SiteaddComponent implements OnInit {
               public departmentService: DepartmentService,
               public siteService: SiteService,
               public formBuilder: FormBuilder
-              ) { 
+              ) {
               }
 
   ngOnInit(): void {
@@ -80,6 +80,20 @@ export class SiteaddComponent implements OnInit {
         this.countryList = JSON.parse(data);
       }
     )
+  }
+
+    //**Important */
+  // Only AlphaNumeric with Some Characters [-_ ]
+  keyPressAlphaNumericWithCharacters(event:any) {
+
+    var inp = String.fromCharCode(event.keyCode);
+    // Allow numbers, space, underscore
+    if (/[0-9-+ ]/.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
   }
 
   changeClient(e: any) {

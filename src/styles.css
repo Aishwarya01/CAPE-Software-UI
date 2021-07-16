@@ -297,3 +297,17 @@ visibility: visible;
   border-color: #f5c6cb;
   border-radius: 0.25rem;
 }
+
+/* .iti input, .iti input[type=text], .iti input[type=tel] {
+  margin-right: 160px !important;
+} */
+.iti{
+  display: block !important;
+}
+.iti__flag-container{
+  background-color: #e9ecef;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+.invalid-feedback{display:block;}
