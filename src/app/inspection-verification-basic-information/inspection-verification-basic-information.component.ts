@@ -63,6 +63,9 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   designerRole: String ='designer';
   contractorRole: String ='contractor';
   inspectorRole: String ='inspector';
+  validationError: boolean =false;
+  validationErrorMsg: String ="";
+  disable: boolean = false;
 
 
   // Second Tab dependencies
@@ -516,10 +519,20 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 
  
   gotoNextModal(content1: any) {
+    if(this.step1Form.invalid) {
+      this.validationError=true;
+      this.validationErrorMsg="Something went wrong, kindly check all the fields";
+      setTimeout(()=>{   
+        this.validationError=false;                   
+   }, 3000);  
+      return;
+    }
     this.modalService.open(content1, { centered: true})
   }
+  
   nextTab() {
     this.loading = true;
+    this.submitted = true
 
     if(this.step1Form.invalid) {
       return;
@@ -557,6 +570,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
         this.proceedNext.emit(true); 
         this.success=true
         this.successMsg="Step2 successfully saved";
+        this.disable= true;
         // alert("Step2 successfully saved");
       },
       error => {

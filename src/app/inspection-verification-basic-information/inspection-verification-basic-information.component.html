@@ -1,3 +1,7 @@
+<div *ngIf="validationError" style="text-align: center;">
+  <span class="alert alert-danger">{{validationErrorMsg}}</span>
+ </div>
+
 <div class="card">
     <div class="card-body">
       <form [formGroup]="step1Form" (ngSubmit)="nextTab()">
@@ -1109,7 +1113,7 @@
 
       <div style="text-align: center;margin-top: 40px;">
         <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
-        <button  class="next" (click)="gotoNextModal(content1)" mat-button>Next &raquo;</button>
+        <button  class="next" [disabled]="disable" (click)="gotoNextModal(content1)" mat-button>Next &raquo;</button>
       </div>
 
       <!-- <div style="display: inline;">

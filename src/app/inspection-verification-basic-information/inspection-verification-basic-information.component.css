@@ -50,17 +50,9 @@ mat-header-cell.mat-header-cell {
   height: 100px;
 }
 
-.auth-form-btn {
-  margin-top: 40px;
-  /* width: 300px; */
-  width: 10%; 
-  border-radius: 1.25rem !important;
-}
 
-.auth-form-btn .icon {
-  /* float: left; */
-  /* margin-left: 30px; */
-}
+
+
 
 .cancel {
   margin-top: 40px;
@@ -98,3 +90,9 @@ mat-header-cell.mat-header-cell {
   margin: 0 12px;
   float: right;
 }
+.next:disabled {
+  background-color: lightgrey;
+    color: black;
+    margin-left: 30px;
+    cursor: not-allowed;
+  }   

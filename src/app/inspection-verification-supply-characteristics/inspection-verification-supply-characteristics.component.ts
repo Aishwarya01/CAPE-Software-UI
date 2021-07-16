@@ -34,6 +34,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   j:any;
   k:any;
   delarr:any;
+  delarr1: any;
   values:any;
   value:any;
   loclength: any;
@@ -44,6 +45,9 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   @Output() proceedNext = new EventEmitter<any>();  
 
   isSupplyCompleted: boolean = false;
+  validationError: boolean =false;
+  validationErrorMsg: String ="";
+  disable: boolean = false;
 
   NV1: any;
   NV2: any;
@@ -658,57 +662,98 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   }
 
 
-  onKeyAlernate(event: KeyboardEvent)    {
-    this.values = (<HTMLInputElement>event.target).value ;
-   this.value = this.values;
-   // this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
-    
-      if(this.value != "")
-      {
-        this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
-        this.circuitArr = this.supplycharesteristicForm.get('circuitArr') as FormArray;
-        if(this.alternateArr.length==1){
-     //this.value = value;
-      for (this.i=1; this.i<this.value; this.i++ )
-      {
-        this.alternateArr.push(this.SupplyparametersForm());
-        this.circuitArr.push(this.createCircuitForm());
-      }
-      this.sources= true;
-      this.breaker=true;
-    }
-    else{
-      for (this.i=0; this.i<this.value; this.i++ )
-      {
-        this.alternateArr.push(this.SupplyparametersForm());
-        this.circuitArr.push(this.createCircuitForm());
-      }
-      this.sources= true;
-      this.breaker=true;
-    }
-    }
-    
-    else if (this.value=="")
-    {
-     this.loclength=this.alternateArr.length;
-     this.loc1length=this.circuitArr.length;
+    onKeyAlernate(event: KeyboardEvent)    {
+      this.values = (<HTMLInputElement>event.target).value ;
+      this.value = this.values;
+      this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
+      this.circuitArr = this.supplycharesteristicForm.get('circuitArr') as FormArray;
 
-      for (this.i=0; this.i<this.loclength; this.i++ )
-         {
-           //this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
-           this.alternateArr.removeAt(this.alternateArr.length-1);
-         }
-      for (this.i=0; this.i<this.loc1length; this.i++ )
+        if(this.value != "")
         {
-          //this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
-          this.circuitArr.removeAt(this.circuitArr.length-1);
+          this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
+          this.circuitArr = this.supplycharesteristicForm.get('circuitArr') as FormArray;
+          if(this.alternateArr.length==1){
+            //this.value = value;
+            for (this.i=1; this.i<this.value; this.i++ )
+            {
+              this.alternateArr.push(this.SupplyparametersForm());
+              this.circuitArr.push(this.createCircuitForm());
+            }
+            this.sources= true;
+            this.breaker=true;
+          }
+          else
+          {
+            for (this.i=0; this.i<this.value; this.i++ )
+            {
+              this.alternateArr.push(this.SupplyparametersForm());
+              this.circuitArr.push(this.createCircuitForm());
+            }
+            this.sources= true;
+            this.breaker=true;
+          }
+    
         }
-        // this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
-        // this.location2Arr.push(this.createLocation2Form());
-        //this.sources= false;
-        this.breaker=false;
-   }
-  }
+      
+        else if (this.value=="")
+        {
+        this.loclength=this.alternateArr.length;
+        this.loc1length=this.circuitArr.length;
+    
+          for (this.i=0; this.i<this.loclength; this.i++ )
+            {
+              //this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
+              this.alternateArr.removeAt(this.alternateArr.length-1);
+            }
+          for (this.i=0; this.i<this.loc1length; this.i++ )
+            {
+              //this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
+              this.circuitArr.removeAt(this.circuitArr.length-1);
+            }
+            // this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
+            // this.location2Arr.push(this.createLocation2Form());
+            //this.sources= false;
+            this.breaker=false;
+        }
+        else if (this.alternateArr.length < this.value)
+        {
+          if(this.value != "")
+          {
+            this.delarr =  this.value-this.alternateArr.length;
+            this.delarr1 = this.value-this.circuitArr.length;
+            for (this.i=0; this.i<this.delarr; this.i++ )
+            {
+              this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
+              this.alternateArr.push(this.SupplyparametersForm());
+            }
+
+            for (this.i=0; this.i<this.delarr1; this.i++ )
+            {
+              this.circuitArr = this.supplycharesteristicForm.get('circuitArr') as FormArray;
+              this.circuitArr.push(this.createCircuitForm());
+            }
+          }
+        }
+        else (this.alternateArr.length > this.value )
+        {
+          if(this.value != "")
+          {
+            this.delarr =  this.alternateArr.length-this.value;
+            this.delarr1 =  this.circuitArr.length-this.value;
+
+            for (this.i=0; this.i<this.delarr; this.i++ )
+            {
+              this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
+              this.alternateArr.removeAt(this.alternateArr.length-1);
+            }
+            for (this.i=0; this.i<this.delarr1; this.i++ )
+            {
+              this.circuitArr = this.supplycharesteristicForm.get('circuitArr') as FormArray;
+              this.circuitArr.removeAt(this.circuitArr.length-1);
+            }       
+          }
+        }
+    }
 
   disableValidators() {
     this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
@@ -759,18 +804,25 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   //   }
   // }  
   gotoNextModal(content1: any) {
+    if(this.supplycharesteristicForm.invalid) {
+      this.validationError=true;
+      this.validationErrorMsg="Something went wrong, kindly check all the fields";
+      setTimeout(()=>{   
+        this.validationError=false;                   
+   }, 3000);  
+      return;
+    }  
     this.modalService.open(content1, { centered: true})
   }
   
 nextTab2() {
     this.supplycharesteristic.siteId = this.service.siteCount;
-    
+
     this.supplycharesteristic.userName = this.email;
     this.submitted = true;
-    // if(this.supplycharesteristicForm.invalid) {
-    //   alert("Something went wrong, kindly check all the fields");
-    //   return;
-    // }
+    if(this.supplycharesteristicForm.invalid) {
+      return;
+    }
     this.nominalVoltageArr.push(this.NV1,this.NV2,this.NV3,this.NV4,this.NV5,this.NV6,this.NV7,this.NV8,this.NV9);
     this.nominalFrequencyArr.push(this.NF1,this.NF2,this.NF3,this.NF4,this.NF5,this.NF6,this.NF7,this.NF8,this.NF9);
     this.nominalCurrentArr.push(this.PF1,this.PF2,this.PF3,this.PF4,this.PF5,this.PF6,this.PF7,this.PF8,this.PF9);
@@ -855,74 +907,76 @@ nextTab2() {
         let capacity: String="";
         let loadCurrent: String="";
   
+        if(i.aLLiveConductorType == "AC") {
+          for(let a of arr) {
+            if(a != "") {
+              nominalVoltage += a+",";
+            }
+            else{
+              nominalVoltage += "NA,";
+            }
+          } 
+          nominalVoltage = nominalVoltage.replace(/,\s*$/, "");
+          i.nominalVoltage = nominalVoltage;
+    
+          for(let b of arr1) {
+            if(b != "") {
+              nominalFrequency += b+",";
+            }
+            else{
+              nominalFrequency += "NA,";
+            }
+          }
+    
+          nominalFrequency = nominalFrequency.replace(/,\s*$/, "");
+          i.nominalFrequency = nominalFrequency;
+    
+    
+          for(let c of arr2) {
+            if(c != "") {
+              faultCurrent += c+",";
+            }
+            else{
+              faultCurrent += "NA,";
+            }
+          }
+          faultCurrent = faultCurrent.replace(/,\s*$/, "");
+          i.faultCurrent = faultCurrent;
+    
+    
+          for(let d of arr3) {
+            if(d != "") {
+              impedance += d+",";
+            }
+            else{
+              impedance += "NA,";
+            }
+          }
+          impedance = impedance.replace(/,\s*$/, "");
+          i.loopImpedance = impedance;
+    
+          for(let e of arr4) {
+            if(e != "") {
+              capacity = e;
+            }
+          }
+          // capacity = capacity.replace(/,\s*$/, "");
+          i.installedCapacity = capacity;
+    
+          for(let f of arr5) {
+            if(f != "") {
+              loadCurrent += f+",";
+            }
+            else{
+              loadCurrent += "NA,";
+            }
+          }
+          loadCurrent = loadCurrent.replace(/,\s*$/, "");
+          i.actualLoad = loadCurrent;
   
-  
-        for(let a of arr) {
-          if(a != "") {
-            nominalVoltage += a+",";
-          }
-          else{
-            nominalVoltage += "NA,";
-          }
-        } 
-        nominalVoltage = nominalVoltage.replace(/,\s*$/, "");
-        i.nominalVoltage = nominalVoltage;
-  
-        for(let b of arr1) {
-          if(b != "") {
-            nominalFrequency += b+",";
-          }
-          else{
-            nominalFrequency += "NA,";
-          }
         }
   
-        nominalFrequency = nominalFrequency.replace(/,\s*$/, "");
-        i.nominalFrequency = nominalFrequency;
-  
-  
-        for(let c of arr2) {
-          if(c != "") {
-            faultCurrent += c+",";
-          }
-          else{
-            faultCurrent += "NA,";
-          }
-        }
-        faultCurrent = faultCurrent.replace(/,\s*$/, "");
-        i.faultCurrent = faultCurrent;
-  
-  
-        for(let d of arr3) {
-          if(d != "") {
-            impedance += d+",";
-          }
-          else{
-            impedance += "NA,";
-          }
-        }
-        impedance = impedance.replace(/,\s*$/, "");
-        i.loopImpedance = impedance;
-  
-        for(let e of arr4) {
-          if(e != "") {
-            capacity = e;
-          }
-        }
-        // capacity = capacity.replace(/,\s*$/, "");
-        i.installedCapacity = capacity;
-  
-        for(let f of arr5) {
-          if(f != "") {
-            loadCurrent += f+",";
-          }
-          else{
-            loadCurrent += "NA,";
-          }
-        }
-        loadCurrent = loadCurrent.replace(/,\s*$/, "");
-        i.actualLoad = loadCurrent;
-  
+          
       }
   
       for(let i of this.alternateArr.controls) {
@@ -957,6 +1011,7 @@ nextTab2() {
         this.proceedNext.emit(true); 
         this.success=true
         this.successMsg="Step2 successfully saved";
+        this.disable= true;
         // alert("Step2 successfully saved");
       },
       error => {

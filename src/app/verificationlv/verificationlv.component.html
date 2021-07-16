@@ -346,6 +346,7 @@
     <mat-horizontal-stepper linear #stepper>
       <!-- step 1 -->
       <mat-step [completed]="isCompleted">
+
         <ng-template matStepLabel>Basic Information</ng-template>
 
         <app-inspection-verification-basic-information (proceedNext)="doSomething1($event)"></app-inspection-verification-basic-information>
@@ -354,14 +355,10 @@
       
 <!-- step 2 -->
       <mat-step [completed]="isCompleted2">
+
         <ng-template matStepLabel>Supply Characteristics</ng-template>
 
         <app-inspection-verification-supply-characteristics  (proceedNext)="doSomething2($event)"></app-inspection-verification-supply-characteristics>
-
-        <!-- <div style="text-align: center;margin-top: 40px;">
-          <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
-          <button  class="next" (click)="clickstep2(stepper)" mat-button>Next &raquo;</button>
-        </div> -->
 
       </mat-step>
  
