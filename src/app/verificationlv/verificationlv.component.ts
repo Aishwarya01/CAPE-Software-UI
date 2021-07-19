@@ -23,6 +23,8 @@ import { Site } from '../model/site';
 import { SiteupdateComponent } from '../site/siteupdate/siteupdate.component';
 import { ReportDetailsService } from '../services/report-details.service';
 import { Reportdetails } from '../model/reportdetails';
+import { InspectionVerificationSupplyCharacteristicsComponent } from '../inspection-verification-supply-characteristics/inspection-verification-supply-characteristics.component';
+import { MatStepper } from '@angular/material/stepper';
 
 
 @Component({
@@ -51,7 +53,6 @@ export class VerificationlvComponent implements OnInit {
   site_dataSource!: MatTableDataSource<Company[]>;
   @ViewChild('sitePaginator', { static: true }) sitePaginator!: MatPaginator;
   @ViewChild('siteSort', {static: true}) siteSort!: MatSort;
-
   
   clientList: any = [];
   inActiveData: any =[];
@@ -80,6 +81,7 @@ export class VerificationlvComponent implements OnInit {
   contractorRole: String ='contractor';
   inspectorRole: String ='inspector';
   reportDetails =new Reportdetails;
+  @ViewChild (InspectionVerificationSupplyCharacteristicsComponent, {static: false}) supply = InspectionVerificationSupplyCharacteristicsComponent;
   
   // Second Tab dependencies
   panelOpenState = false;
@@ -89,6 +91,8 @@ export class VerificationlvComponent implements OnInit {
   previousRecordList: String[]= ['Yes', 'No'];
 
   isCompleted: boolean = false;
+  isCompleted2: boolean = false;
+  isCompleted4: boolean = false;
   isCompleted5: boolean = false;
   isCompleted3: boolean = false;
 
@@ -111,7 +115,8 @@ export class VerificationlvComponent implements OnInit {
     private departmentService: DepartmentService,
     private reportDetailsService: ReportDetailsService,
     private siteService: SiteService,
-    private ChangeDetectorRef: ChangeDetectorRef)
+    private ChangeDetectorRef: ChangeDetectorRef,
+    )
      {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
@@ -327,15 +332,44 @@ deleteDepartment(departmentId: number) {
     this.ChangeDetectorRef.detectChanges();
   }
 
-  public doSomething(next: any):void {
+  public doSomething1(next: any):void {
     this.isCompleted = next;
   }
+
+  public doSomething2(next: any):void {
+    this.isCompleted2 = next;
+  }
+
+  public doSomething3(next: any):void {
+    this.isCompleted3 = next;
+  }
+
+  public doSomething4(next: any):void {
+    this.isCompleted4 = next;
+  }
+  // public gotoNext(a:any):void {
+  // console.log(a);
+  // }
   public NextStep5(next: any):void {
     this.isCompleted5 = next;
   }
   // public NextStep3(next: any):void {
   //   this.isCompleted3 = next;
   // }
+
+//   gotoNext(e: any) {
+//     debugger
+// this.supplyCharachteristicComponent?.nextTab2();
+//   }
+
+
+// clickstep2(stepper: MatStepper) {
+//   debugger
+//   console.log(this.supply.nextTab2());
+//   if(this.supply.isSupplyCompleted == true) {
+//     stepper.next();
+//   }
+// }
 }
 
   

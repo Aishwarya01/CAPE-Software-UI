@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {​​​ NgbModal }​​​ from'@ng-bootstrap/ng-bootstrap';
 import { InspectiondetailsService } from '../services/inspectiondetails.service';
 import { InspectionDetails } from '../model/inspection-details';
 import { GlobalsService } from '../globals.service';
@@ -14,6 +14,7 @@ import { GlobalsService } from '../globals.service';
 export class InspectionVerificationIncomingEquipmentComponent implements OnInit {
 
   submitted = false;
+  
   @Output() proceedNext = new EventEmitter<any>();  
 
   addstep3 = new FormGroup({
@@ -170,11 +171,14 @@ export class InspectionVerificationIncomingEquipmentComponent implements OnInit 
   panelOpenState = false;
   InspectionList: String[]=['Yes', 'No', 'Not Applicable'];
 
-
+  successMsg: string="";	
+  errorMsg: string="";
+  success: boolean=false;	
+  Error: boolean=false;
 
   formBuilder: any;
    constructor(private _formBuilder: FormBuilder,
-    private router: ActivatedRoute,
+    private router: ActivatedRoute, private modalService: NgbModal,
     private inspectionDetailsService: InspectiondetailsService,public service: GlobalsService,
     private ChangeDetectorRef: ChangeDetectorRef) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
@@ -334,30 +338,39 @@ export class InspectionVerificationIncomingEquipmentComponent implements OnInit 
     return this.addstep3.controls;
   }
 
-  setTrue() {
-   this.submitted = true;
-    if(this.addstep3.invalid) {
-      return;
-    }
-    this.proceedNext.emit(true);
-  }
-  
+ 
   refresh() {
     this.ChangeDetectorRef.detectChanges();
   }
   
+  gotoNextModal(content3: any) {
+    this.modalService.open(content3, { centered: true})
+  }
+ 
   nextTab3()
   {
-    this.f;
+    //this.f;
     this.inspectionDetails.siteId=this.service.siteCount;
     this.inspectionDetails.userName=this.email;
+    this.submitted = true;
+    // if(this.addstep3.invalid) {
+    //     return;
+    //   }
   console.log(this.inspectionDetails);
   this.inspectionDetailsService.addInspectionDetails(this.inspectionDetails).subscribe(
     (    data: any)=> {
       console.log("worked");
+      this.proceedNext.emit(true); 
+        this.success=true
+        this.successMsg="Step2 successfully saved";
+        // alert("Step2 successfully saved");
     },
     (    error: any) => {
-      console.log("test");
+      console.log("error");
+      this.proceedNext.emit(false); 
+      this.Error=true;
+        // alert("Something went wrong, kindly check all the fields");  
+        this.errorMsg="Something went wrong, kindly check all the fields";
     }
     )
   }

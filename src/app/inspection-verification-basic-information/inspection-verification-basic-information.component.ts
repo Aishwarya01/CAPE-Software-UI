@@ -39,6 +39,10 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   site = new Site;
   email: String = '';
   clientName: String = '';
+  successMsg: string="";	
+  errorMsg: string="";
+  success: boolean=false;	
+  Error: boolean=false;
   departmentName: String = '';
   reportDetails =new Reportdetails;
   showField1: boolean= true;
@@ -54,6 +58,9 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   designerRole: String ='designer';
   contractorRole: String ='contractor';
   inspectorRole: String ='inspector';
+  validationError: boolean =false;
+  validationErrorMsg: String ="";
+  disable: boolean = false;
 
 
   // Second Tab dependencies
@@ -73,6 +80,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     private reportDetailsService: ReportDetailsService,
     private siteService: SiteService,
     public service: GlobalsService,
+    private modalService: NgbModal,
     private ChangeDetectorRef: ChangeDetectorRef) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
@@ -527,6 +535,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   get f():any {
     return this.step1Form.controls;
   }
+
     //country code
   countryChange(country: any) {
     this.countryCode = country.dialCode;
@@ -540,8 +549,24 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   }
 
 
-  nextTab() {
+=======
+
+ 
+  gotoNextModal(content1: any) {
+    if(this.step1Form.invalid) {
+      this.validationError=true;
+      this.validationErrorMsg="Please check all the fields";
+      setTimeout(()=>{   
+        this.validationError=false;                   
+   }, 3000);  
+      return;
+    }
+    this.modalService.open(content1, { centered: true})
+  }
+  
+nextTab() {
     this.loading = true;
+    this.submitted = true
 
     // if(this.step1Form.invalid) {
     //   return;
@@ -580,8 +605,18 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     this.reportDetailsService.addReportDetails(this.reportDetails).subscribe(
       data=> {
         console.log("worked");
+        this.proceedNext.emit(true); 
+        this.success=true
+        this.successMsg="Basic Information successfully saved";
+        this.disable= true;
+        // alert("Step2 successfully saved");
       },
       error => {
+        console.log("error");
+        this.Error=true;
+        // alert("Something went wrong, kindly check all the fields");  
+        this.proceedNext.emit(false); 
+        this.errorMsg="Something went wrong, kindly check all the fields";
       }
       )
       this.service.siteCount=this.reportDetails.siteId;

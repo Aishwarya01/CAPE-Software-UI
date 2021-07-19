@@ -186,8 +186,23 @@ setTrue() {
 
   SubmitTab5()
   {
+    if(this.addsummary.invalid) {
+      alert("Something went wrong, kindly check all the fields");
+      return;
+    }
+    else{
+    alert("Step2 successfully saved");
+    }
     this.summary.siteId=this.service.siteCount;
     this.summary.userName=this.email;
+    if(this.addsummary.invalid) {
+      //   this.Error = true;	
+      //   this.errorMsg="Something went wrong, kindly check all the fields";	
+      //   setTimeout(()=>{                      	
+      //     this.Error = false;	
+      // }, 6000);
+        return;
+      }
     this.summary.summaryObervation = this.addsummary.value.ObservationsArr;
     this.summary.summaryDeclaration = this.addsummary.value.Declaration1Arr;
     this.summary.summaryDeclaration=this.summary.summaryDeclaration.concat(this.addsummary.value.Declaration2Arr);

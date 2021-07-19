@@ -1130,9 +1130,13 @@
           </mat-expansion-panel>
       </mat-accordion>
 
+      <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+        <span class="alert alert-danger">{{validationErrorMsg}}</span>
+      </div>
+
       <div style="text-align: center;margin-top: 40px;">
         <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
-        <button  class="next" (mouseover)="setTrue()" mat-button matStepperNext>Next &raquo;</button>
+        <button  class="next" [disabled]="disable" (click)="gotoNextModal(content1)" mat-button>Next &raquo;</button>
       </div>
 
       <!-- <div style="display: inline;">
@@ -1140,5 +1144,31 @@
           <button  [routerLink]="['/login']" style="float:right;"  class="btn btn-outline-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
       </div> -->
     </form>
+    
     </div>
   </div>
+  <ng-template #content1 let-modal>
+ 
+    <div class="modal-body">
+  
+   <div class="centre-text m-btm30">
+    <div *ngIf="success" style="text-align: center;">
+      <span class="alert alert-success">{{successMsg}}</span>
+     </div>
+     <div *ngIf="Error" style="text-align: center;">
+       <span class="alert alert-danger">{{errorMsg}}</span>
+      </div>
+         </div>
+  
+     </div>
+  <br>
+     <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+     aria-label="Close" (click)="modal.dismiss('Cross click')" matStepperNext>
+  
+      <span aria-hidden="true">Ok</span>
+  
+  </button>
+  
+  
+  
+  </ng-template>

@@ -1,7 +1,7 @@
  <!-- step 3 -->
- <form [formGroup]="addstep3" (ngSubmit)="nextTab3()">
  <div class="card">
     <div class="card-body">
+      <form [formGroup]="addstep3" (ngSubmit)="nextTab3()">
       <mat-accordion>
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
@@ -1440,12 +1440,37 @@
       </mat-accordion>
       <div style="text-align: center;margin-top: 40px;">
         <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
-        <button  class="next" (mouseover)="setTrue()" mat-button matStepperNext>Next &raquo;</button>
+        <button  class="next"  (click)="gotoNextModal(content3)" mat-button >Next &raquo;</button>
       </div>
       <!-- <div style="text-align: center;margin-top: 40px;">
         <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
         <button class="next" type="submit" mat-button (click)="nextTab3()">Next &raquo;</button>
       </div> -->
+    </form>
     </div>
   </div>
-  </form>
+  <ng-template #content3 let-modal>
+ 
+    <div class="modal-body">
+  
+   <div class="centre-text m-btm30">
+    <div *ngIf="success" style="text-align: center;">
+      <span class="alert alert-success">{{successMsg}}</span>
+     </div>
+     <div *ngIf="Error" style="text-align: center;">
+       <span class="alert alert-danger">{{errorMsg}}</span>
+      </div>
+         </div>
+  
+     </div>
+  <br>
+     <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+     aria-label="Close" (click)="modal.dismiss('Cross click')" matStepperNext>
+  
+      <span aria-hidden="true">Ok</span>
+  
+  </button>
+  
+  
+  
+  </ng-template>
