@@ -2,7 +2,7 @@
  <div *ngIf="validationError" style="text-align: center;">
   <span class="alert alert-danger">{{validationErrorMsg}}</span>
  </div>
- <form [formGroup]="addstep3" (ngSubmit)="nextTab3()">
+ 
  <div class="card">
   <!-- <mat-icon class="mousechange" (click)="addItem()" style="position: relative;left: 96%; top: 10px;">
     add_box</mat-icon>
@@ -14,6 +14,7 @@
       width: 4%;position: relative;">
        <mat-icon aria-hidden="false" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>
       </button>
+      <form [formGroup]="addstep3" (ngSubmit)="nextTab3()">
     <div class="card-body" formArrayName="incomingArr" *ngFor="let a of getIncomingControls(); let i = index" >
       <div [formGroupName]="i" >
       <div class="search-bar">
@@ -2007,9 +2008,8 @@
       <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
       <button  class="next"  [disabled]="disable" (click)="gotoNextModal(content3)" mat-button >Next &raquo;</button>
     </div>
-    
+  </form>
   </div>
-</form>
 
   <ng-template #content3 let-modal>
  
