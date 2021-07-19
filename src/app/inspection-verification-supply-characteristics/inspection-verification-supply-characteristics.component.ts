@@ -806,7 +806,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   gotoNextModal(content1: any) {
     if(this.supplycharesteristicForm.invalid) {
       this.validationError=true;
-      this.validationErrorMsg="Something went wrong, kindly check all the fields";
+      this.validationErrorMsg="Please check all the fields";
       setTimeout(()=>{   
         this.validationError=false;                   
    }, 3000);  
@@ -1010,7 +1010,7 @@ nextTab2() {
         console.log("worked");
         this.proceedNext.emit(true); 
         this.success=true
-        this.successMsg="Step2 successfully saved";
+        this.successMsg="Supply characteristics successfully saved";
         this.disable= true;
         // alert("Step2 successfully saved");
       },

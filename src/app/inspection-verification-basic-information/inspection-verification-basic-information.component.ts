@@ -521,7 +521,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   gotoNextModal(content1: any) {
     if(this.step1Form.invalid) {
       this.validationError=true;
-      this.validationErrorMsg="Something went wrong, kindly check all the fields";
+      this.validationErrorMsg="Please check all the fields";
       setTimeout(()=>{   
         this.validationError=false;                   
    }, 3000);  
@@ -569,7 +569,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
         console.log("worked");
         this.proceedNext.emit(true); 
         this.success=true
-        this.successMsg="Step2 successfully saved";
+        this.successMsg="Basic Information successfully saved";
         this.disable= true;
         // alert("Step2 successfully saved");
       },
