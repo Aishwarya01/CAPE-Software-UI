@@ -29,8 +29,7 @@ import { SupplyCharacteristicsService } from '../services/supply-characteristics
 import { InspectiondetailsService } from '../services/inspectiondetails.service';
 import { InspectionDetails } from '../model/inspection-details';
 import { Reportdetails } from '../model/reportdetails';
-import { Testingdetails } from '../model/testing';
-import { TestingService } from '../services/testing.service';
+
 
 
 @Component({
@@ -124,7 +123,6 @@ export class VerificationlvComponent implements OnInit {
 
   
    constructor(private _formBuilder: FormBuilder,
-    private testingService:TestingService,
     private modalService: NgbModal,
     private dialog: MatDialog,
     private router: ActivatedRoute,
