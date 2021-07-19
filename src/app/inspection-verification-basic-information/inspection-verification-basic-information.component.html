@@ -486,7 +486,7 @@
                         <div class="col-md-4">
                             <label>* Mobile Number:</label>
                             <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" (keypress)="keyPressAlphaNumericWithCharacters($event)"
-                             formControlName="personContactNo" class="form-control" minlength="10" maxlength="14" placeholder="Enter Mobile Number"
+                             formControlName="personContactNo" class="form-control" (countryChange)="countryChange($event)"
                             [ngClass]="{ 'is-invalid': submitted && a.get('personContactNo')?.errors }">
                             <div *ngIf="submitted && a.get('personContactNo')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('personContactNo')?.errors?.required">Mobile Number is Required</div>

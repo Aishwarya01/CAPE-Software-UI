@@ -64,6 +64,8 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   previousRecordList: String[]= ['Yes', 'No'];
 
   formBuilder: any;
+  countryCode: any;
+  number: any;
    constructor(private _formBuilder: FormBuilder,
     private router: ActivatedRoute,
     private clientService: ClientService,
@@ -76,7 +78,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.countryCode= '+91';
     this.step1Form = this._formBuilder.group({
 
       clientName: ['', Validators.required],
@@ -525,13 +527,15 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   get f():any {
     return this.step1Form.controls;
   }
-
-
+    //country code
+  countryChange(country: any) {
+    this.countryCode = country.dialCode;
+  }
   setTrue() {
    this.submitted = true;
-    if(this.step1Form.invalid) {
-      return;
-    }
+    // if(this.step1Form.invalid) {
+    //   return;
+    // }
     this.proceedNext.emit(true);
   }
 
@@ -539,11 +543,12 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   nextTab() {
     this.loading = true;
 
-    if(this.step1Form.invalid) {
-      return;
-    }
+    // if(this.step1Form.invalid) {
+    //   return;
+    // }
 
     this.step1Form.value.designer1Arr[0].signatorRole= this.designerRole;
+
     this.step1Form.value.designer1Arr[0].declarationName= this.step1Form.value.designer1AcknowledgeArr[0].declarationName;
     this.step1Form.value.designer1Arr[0].declarationDate= this.step1Form.value.designer1AcknowledgeArr[0].declarationDate;
 
@@ -560,8 +565,11 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     this.step1Form.value.inspectorArr[0].declarationDate= this.step1Form.value.inspectorAcknowledgeArr[0].declarationName;
 
     this.reportDetails.userName = this.email;
-
+    
     this.reportDetails.SignatorDetails = this.step1Form.value.designer1Arr;
+    //country code
+    this.reportDetails.SignatorDetails[0].personContactNo =this.countryCode + this.reportDetails.SignatorDetails[0].personContactNo;
+       
     if(this.step1Form.value.designer2Arr[0].personName != "" && this.step1Form.value.designer2Arr[0].personName != null) {
       this.reportDetails.SignatorDetails=this.reportDetails.SignatorDetails.concat(this.step1Form.value.designer2Arr);
     }
