@@ -45,8 +45,10 @@ import { InspectionVerificationIncomingEquipmentComponent } from './inspection-v
 import { InspectionVerificationSupplyCharacteristicsComponent } from './inspection-verification-supply-characteristics/inspection-verification-supply-characteristics.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SavedreportsComponent } from './savedreports/savedreports.component';
+import { FinalreportsComponent } from './finalreports/finalreports.component';
 
-
+import {Ng2TelInputModule} from 'ng2-tel-input';
 
 @NgModule({
   declarations: [
@@ -75,8 +77,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SummaryComponent,
     InspectionVerificationBasicInformationComponent,
     InspectionVerificationIncomingEquipmentComponent,
-    InspectionVerificationSupplyCharacteristicsComponent
-    
+    InspectionVerificationSupplyCharacteristicsComponent,
+    SavedreportsComponent,
+    FinalreportsComponent
   ],
   imports: [
     NgbModule,
@@ -95,6 +98,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatMenuModule,
     MaterialModule,
     NgxPrintModule,
+    Ng2TelInputModule,
     NgxBootstrapIconsModule.pick(allIcons)
   ],
   providers: [GlobalsService, { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }],

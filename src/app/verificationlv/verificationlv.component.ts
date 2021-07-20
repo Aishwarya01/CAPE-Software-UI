@@ -347,9 +347,7 @@ deleteDepartment(departmentId: number) {
   public doSomething4(next: any):void {
     this.isCompleted4 = next;
   }
-  // public gotoNext(a:any):void {
-  // console.log(a);
-  // }
+  
   public NextStep5(next: any):void {
     this.isCompleted5 = next;
   }

@@ -16,7 +16,7 @@
       <span class="spacer"></span>
       <button mat-button [matMenuTriggerFor]="menu">
         <mat-icon>person</mat-icon>{{fullName}}
-      </button>          
+      </button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="profileUpdate(email)"><mat-icon >manage_accounts</mat-icon>Profile</button>
         <button mat-menu-item (click)="changePassword(email)"><mat-icon >build</mat-icon>Change Password</button>
@@ -24,14 +24,14 @@
       </mat-menu>
     </mat-toolbar-row>
   </mat-toolbar>
- 
+
     <mat-sidenav-container class="example-container" [autosize]="autosize" fxFlexFill>
     <mat-sidenav mode="side" opened="true" class="desktopDisplay"
     [ngStyle]="{'width': isExpanded ? '295px' : (!isExpanded && isShowing ? '295px' : '60px')}"
     (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
 
     <div class="logomain" style="margin-top: 35px;">
-      <button class="btn btn-info" (click)="openModal()" 
+      <button class="btn btn-info" (click)="openModal()"
       style="float: left;padding: 7px 10px 0px 10px;margin: 5px 10px 5px 7px;">
        <mat-icon aria-hidden="false" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>
       </button>
@@ -43,10 +43,10 @@
       [ngClass]="{'highlight': selectedRowIndex == type.id}"
       (click)="highlight(type)">
         <div class="col-md-2" style="position: sticky;">
-        <button class="btn btn-info" 
+        <button class="btn btn-info"
         style="float: left;padding: 3px 5px 3px 5px;
         margin: 5px 4px 5px -8px;">
-        <span>{{ type.applicationName }}</span>        
+        <span>{{ type.applicationName }}</span>
         </button>
         </div>
         <a class="logomain col-md-8">
@@ -62,8 +62,8 @@
         <button mat-menu-item (click)="deleteApplicationType(type.id)" style="height: 30px;"
         class="full-width" *ngIf="isExpanded || isShowing" title="Delete">
           <mat-icon>delete</mat-icon>
-        </button>   
-      </div>     
+        </button>
+      </div>
       </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
@@ -75,11 +75,11 @@
   </div>
     <ng-template #ref></ng-template>
  </mat-sidenav-content>
- 
+
 </mat-sidenav-container>
 
 
 </div>
 
 
- 
+

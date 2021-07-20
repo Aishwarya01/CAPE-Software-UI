@@ -38,7 +38,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   screenWidth: number | undefined;
   activeTab = 0;
   public isCollapsed = false;
-  // imageSrc = 'assets/img/lowVoltage.jpg';  
+  // imageSrc = 'assets/img/lowVoltage.jpg';
 
   @ViewChild('ref', { read: ViewContainerRef })
   viewContainerRef!: ViewContainerRef;
@@ -54,7 +54,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
     //     map(result => result.matches),
     //     shareReplay()
     //   );
-  
+
   applicationTypes: ApplicationType[] = [];
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
   fullName: String = '';

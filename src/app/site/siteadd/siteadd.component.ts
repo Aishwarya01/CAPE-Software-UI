@@ -6,6 +6,7 @@ import { ClientService } from 'src/app/services/client.service';
 import { DepartmentService } from 'src/app/services/department.service';
 import { SiteService } from 'src/app/services/site.service';
 
+
 @Component({
   selector: 'app-siteadd',
   templateUrl: './siteadd.component.html',
@@ -27,8 +28,8 @@ export class SiteaddComponent implements OnInit {
     country: new FormControl(''),
     state: new FormControl(''),
     pincode: new FormControl(''),
-  }); 
-
+  });
+  countryCode: any;
   clientList: any = [];
   clientArray: any = [];
   departmentList: any = [];
@@ -48,7 +49,7 @@ export class SiteaddComponent implements OnInit {
               public departmentService: DepartmentService,
               public siteService: SiteService,
               public formBuilder: FormBuilder
-              ) { 
+              ) {
               }
 
   ngOnInit(): void {
@@ -80,6 +81,32 @@ export class SiteaddComponent implements OnInit {
         this.countryList = JSON.parse(data);
       }
     )
+  }
+
+  // Only Integer Numbers
+  keyPressNumbers(event:any) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+
+  // Only AlphaNumeric with Some Characters [-_ ]
+  keyPressAlphaNumericWithCharacters(event:any) {
+
+    var inp = String.fromCharCode(event.keyCode);
+    // Allow numbers, space, underscore
+    if (/[0-9-+ ]/.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
   }
 
   changeClient(e: any) {
@@ -140,9 +167,14 @@ export class SiteaddComponent implements OnInit {
     return (<FormArray> this.addSiteForm.get('arr')).controls
   }
 
+  //country code
+  countryChange(country: any) {
+    this.countryCode = country.dialCode;
+  }
 
   onSubmit() {
     this.submitted = true;
+
 
     //Breaks if form is invalid
     if(this.addSiteForm.invalid) {
@@ -155,6 +187,10 @@ export class SiteaddComponent implements OnInit {
     for(let i of this.site.sitePersons) {
       i.inActive=true;
     }
+
+    //country code
+    this.site.sitePersons[0].contactNo="+" +this.countryCode + "-" + this.site.sitePersons[0].contactNo;
+
     console.log(this.site)
     this.site.userName = this.email;
     this.siteService.addSIte(this.site).subscribe(
