@@ -594,9 +594,9 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 
   setTrue() {
    this.submitted = true;
-    // if(this.step1Form.invalid) {
-    //   return;
-    // }
+    if(this.step1Form.invalid) {
+      return;
+    }
     this.proceedNext.emit(true);
   }
   gotoNextModal(content1: any) {
@@ -614,10 +614,9 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 nextTab() {
     this.loading = true;
     this.submitted = true
-
-    // if(this.step1Form.invalid) {
-    //   return;
-    // }
+    if(this.step1Form.invalid) {
+      return;
+    }
 
     this.step1Form.value.designer1Arr[0].signatorRole= this.designerRole;
     this.step1Form.value.designer1Arr[0].declarationSignature= this.step1Form.value.designer1AcknowledgeArr[0].signature;
@@ -655,13 +654,6 @@ nextTab() {
 
     this.step1Form.value.inspectorArr[0].personContactNo = "+" + this.countryCode6 + "-" + this.step1Form.value.inspectorArr[0].personContactNo;
     this.step1Form.value.inspectorArr[0].managerContactNo = "+" + this.countryCode7 + "-" + this.step1Form.value.inspectorArr[0].managerContactNo;
-
-
-
-
-
-
-
 
     if(this.step1Form.value.designer2Arr[0].personName != "" && this.step1Form.value.designer2Arr[0].personName != null) {
       this.reportDetails.SignatorDetails=this.reportDetails.SignatorDetails.concat(this.step1Form.value.designer2Arr);
