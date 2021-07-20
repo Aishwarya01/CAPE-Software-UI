@@ -571,12 +571,10 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
         this.success=true
         this.successMsg="Basic Information successfully saved";
         this.disable= true;
-        // alert("Step2 successfully saved");
       },
       error => {
         console.log("error");
         this.Error=true;
-        // alert("Something went wrong, kindly check all the fields");  
         this.proceedNext.emit(false); 
         this.errorMsg="Something went wrong, kindly check all the fields";
       }
