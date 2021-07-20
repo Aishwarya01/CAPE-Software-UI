@@ -74,6 +74,13 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   formBuilder: any;
   countryCode: any;
   number: any;
+  countryCode1: any;
+  countryCode7: any;
+  countryCode6: any;
+  countryCode5: any;
+  countryCode4: any;
+  countryCode3: any;
+  countryCode2: any;
    constructor(private _formBuilder: FormBuilder,
     private router: ActivatedRoute,
     private clientService: ClientService,
@@ -88,7 +95,16 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.countryCode= '+91';
+    this.countryCode= '91';
+    this.countryCode1= '91';
+    this.countryCode2= '91';
+    this.countryCode3= '91';
+    this.countryCode4= '91';
+    this.countryCode5= '91';
+    this.countryCode6= '91';
+    this.countryCode7= '91';
+
+
     this.step1Form = this._formBuilder.group({
 
       clientName: ['', Validators.required],
@@ -543,6 +559,34 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     this.countryCode = country.dialCode;
 
   }
+  countryChange1(country: any) {
+    this.countryCode1 = country.dialCode;
+
+  }
+  countryChange2(country: any) {
+    this.countryCode2 = country.dialCode;
+
+  }
+  countryChange3(country: any) {
+    this.countryCode3 = country.dialCode;
+
+  }
+  countryChange4(country: any) {
+    this.countryCode4 = country.dialCode;
+
+  }
+  countryChange5(country: any) {
+    this.countryCode5 = country.dialCode;
+
+  }
+  countryChange6(country: any) {
+    this.countryCode6 = country.dialCode;
+
+  }
+  countryChange7(country: any) {
+    this.countryCode7 = country.dialCode;
+
+  }
 
   setTrue() {
    this.submitted = true;
@@ -593,10 +637,24 @@ nextTab() {
     this.reportDetails.SignatorDetails = this.step1Form.value.designer1Arr;
 
     //country code
-    //this.reportDetails.SignatorDetails[0].personContactNo =this.countryCode + this.reportDetails.SignatorDetails[0].personContactNo;
     this.reportDetails.SignatorDetails[0].personContactNo = "+" + this.countryCode + "-" + this.reportDetails.SignatorDetails[0].personContactNo;
+    this.reportDetails.SignatorDetails[0].managerContactNo = "+" + this.countryCode1 + "-" + this.reportDetails.SignatorDetails[0].managerContactNo;
 
-    // this.reportDetails.SignatorDetails[0].managerContactNo = "+" + this.countryCode + "-" + this.reportDetails.SignatorDetails[0].managerContactNo;
+    this.step1Form.value.designer2Arr[0].personContactNo= "+" + this.countryCode2 + "-" + this.step1Form.value.designer2Arr[0].personContactNo;
+    this.step1Form.value.designer2Arr[0].managerContactNo= "+" + this.countryCode3 + "-" + this.step1Form.value.designer2Arr[0].managerContactNo;
+
+    this.step1Form.value.contractorArr[0].personContactNo = "+" + this.countryCode4 + "-" + this.step1Form.value.contractorArr[0].personContactNo;
+    this.step1Form.value.contractorArr[0].managerContactNo = "+" + this.countryCode5 + "-" + this.step1Form.value.contractorArr[0].managerContactNo;
+
+    this.step1Form.value.inspectorArr[0].personContactNo = "+" + this.countryCode6 + "-" + this.step1Form.value.inspectorArr[0].personContactNo;
+    this.step1Form.value.inspectorArr[0].managerContactNo = "+" + this.countryCode7 + "-" + this.step1Form.value.inspectorArr[0].managerContactNo;
+
+
+
+
+
+
+
 
     if(this.step1Form.value.designer2Arr[0].personName != "" && this.step1Form.value.designer2Arr[0].personName != null) {
       this.reportDetails.SignatorDetails=this.reportDetails.SignatorDetails.concat(this.step1Form.value.designer2Arr);
