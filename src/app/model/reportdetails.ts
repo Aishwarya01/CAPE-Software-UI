@@ -31,10 +31,10 @@ export class Reportdetails {
 export class SignatorDetails {
     signatorRole: String;
     personName: String;
-    personContactNo: number;
+    personContactNo: String;
     personMailID: String;
     managerName: String;
-    managerContactNo: number;
+    managerContactNo: String;
     managerMailID: String;
     companyName: String;
     addressLine1: String;

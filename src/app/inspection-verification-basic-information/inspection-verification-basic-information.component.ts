@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup,Validators,ValidatorFn } from '@angular/forms';
+import {​​​ NgbModal }​​​ from'@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { Company } from '../model/company';
 import { Department } from '../model/department';
@@ -39,9 +40,9 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   site = new Site;
   email: String = '';
   clientName: String = '';
-  successMsg: string="";	
+  successMsg: string="";
   errorMsg: string="";
-  success: boolean=false;	
+  success: boolean=false;
   Error: boolean=false;
   departmentName: String = '';
   reportDetails =new Reportdetails;
@@ -84,6 +85,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     private ChangeDetectorRef: ChangeDetectorRef) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
+
 
   ngOnInit(): void {
     this.countryCode= '+91';
@@ -536,10 +538,12 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     return this.step1Form.controls;
   }
 
-    //country code
+  //country code
   countryChange(country: any) {
     this.countryCode = country.dialCode;
+
   }
+
   setTrue() {
    this.submitted = true;
     // if(this.step1Form.invalid) {
@@ -547,23 +551,18 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     // }
     this.proceedNext.emit(true);
   }
-
-
-=======
-
- 
   gotoNextModal(content1: any) {
     if(this.step1Form.invalid) {
       this.validationError=true;
       this.validationErrorMsg="Please check all the fields";
-      setTimeout(()=>{   
-        this.validationError=false;                   
-   }, 3000);  
+      setTimeout(()=>{
+        this.validationError=false;
+   }, 3000);
       return;
     }
     this.modalService.open(content1, { centered: true})
   }
-  
+
 nextTab() {
     this.loading = true;
     this.submitted = true
@@ -590,11 +589,15 @@ nextTab() {
     this.step1Form.value.inspectorArr[0].declarationDate= this.step1Form.value.inspectorAcknowledgeArr[0].declarationName;
 
     this.reportDetails.userName = this.email;
-    
+
     this.reportDetails.SignatorDetails = this.step1Form.value.designer1Arr;
+
     //country code
-    this.reportDetails.SignatorDetails[0].personContactNo =this.countryCode + this.reportDetails.SignatorDetails[0].personContactNo;
-       
+    //this.reportDetails.SignatorDetails[0].personContactNo =this.countryCode + this.reportDetails.SignatorDetails[0].personContactNo;
+    this.reportDetails.SignatorDetails[0].personContactNo = "+" + this.countryCode + "-" + this.reportDetails.SignatorDetails[0].personContactNo;
+
+    // this.reportDetails.SignatorDetails[0].managerContactNo = "+" + this.countryCode + "-" + this.reportDetails.SignatorDetails[0].managerContactNo;
+
     if(this.step1Form.value.designer2Arr[0].personName != "" && this.step1Form.value.designer2Arr[0].personName != null) {
       this.reportDetails.SignatorDetails=this.reportDetails.SignatorDetails.concat(this.step1Form.value.designer2Arr);
     }
@@ -605,7 +608,7 @@ nextTab() {
     this.reportDetailsService.addReportDetails(this.reportDetails).subscribe(
       data=> {
         console.log("worked");
-        this.proceedNext.emit(true); 
+        this.proceedNext.emit(true);
         this.success=true
         this.successMsg="Basic Information successfully saved";
         this.disable= true;
@@ -614,8 +617,8 @@ nextTab() {
       error => {
         console.log("error");
         this.Error=true;
-        // alert("Something went wrong, kindly check all the fields");  
-        this.proceedNext.emit(false); 
+        // alert("Something went wrong, kindly check all the fields");
+        this.proceedNext.emit(false);
         this.errorMsg="Something went wrong, kindly check all the fields";
       }
       )
