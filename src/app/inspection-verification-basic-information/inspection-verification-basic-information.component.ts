@@ -280,6 +280,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       state: new FormControl('',[Validators.required]),
       pinCode: new FormControl('',[Validators.required]),
       signatorRole: new FormControl(''),
+      declarationSignature: new FormControl(''),
       declarationDate: new FormControl(''),
       declarationName: new FormControl('')
     })
@@ -301,6 +302,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       state: new FormControl(''),
       pinCode: new FormControl(''),
       signatorRole: new FormControl(''),
+      declarationSignature: new FormControl(''),
       declarationDate: new FormControl(''),
       declarationName: new FormControl('')
     })
@@ -359,6 +361,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       state: new FormControl('',[Validators.required]),
       pinCode: new FormControl('',[Validators.required]),
       signatorRole: new FormControl(''),
+      declarationSignature: new FormControl(''),
       declarationDate: new FormControl(''),
       declarationName: new FormControl('')
     })
@@ -398,6 +401,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       state: new FormControl('',[Validators.required]),
       pinCode: new FormControl('',[Validators.required]),
       signatorRole: new FormControl(''),
+      declarationSignature: new FormControl(''),
       declarationDate: new FormControl(''),
       declarationName: new FormControl('')
     })
@@ -539,20 +543,24 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     }
     
     this.step1Form.value.designer1Arr[0].signatorRole= this.designerRole;
+    this.step1Form.value.designer1Arr[0].declarationSignature= this.step1Form.value.designer1AcknowledgeArr[0].signature;
     this.step1Form.value.designer1Arr[0].declarationName= this.step1Form.value.designer1AcknowledgeArr[0].declarationName;
     this.step1Form.value.designer1Arr[0].declarationDate= this.step1Form.value.designer1AcknowledgeArr[0].declarationDate;
 
     this.step1Form.value.designer2Arr[0].signatorRole= this.designerRole;
+    this.step1Form.value.designer2Arr[0].declarationSignature= this.step1Form.value.designer2AcknowledgeArr[0].signature;
     this.step1Form.value.designer2Arr[0].declarationName= this.step1Form.value.designer2AcknowledgeArr[0].declarationName;
-    this.step1Form.value.designer2Arr[0].declarationDate= this.step1Form.value.designer2AcknowledgeArr[0].declarationName;
+    this.step1Form.value.designer2Arr[0].declarationDate= this.step1Form.value.designer2AcknowledgeArr[0].declarationDate;
 
     this.step1Form.value.contractorArr[0].signatorRole= this.contractorRole;
+    this.step1Form.value.contractorArr[0].declarationSignature= this.step1Form.value.contractorAcknowledgeArr[0].signature;
     this.step1Form.value.contractorArr[0].declarationName= this.step1Form.value.contractorAcknowledgeArr[0].declarationName;
-    this.step1Form.value.contractorArr[0].declarationDate= this.step1Form.value.contractorAcknowledgeArr[0].declarationName;
+    this.step1Form.value.contractorArr[0].declarationDate= this.step1Form.value.contractorAcknowledgeArr[0].declarationDate;
 
     this.step1Form.value.inspectorArr[0].signatorRole= this.inspectorRole;
+    this.step1Form.value.inspectorArr[0].declarationSignature= this.step1Form.value.inspectorAcknowledgeArr[0].signature;
     this.step1Form.value.inspectorArr[0].declarationName= this.step1Form.value.inspectorAcknowledgeArr[0].declarationName;
-    this.step1Form.value.inspectorArr[0].declarationDate= this.step1Form.value.inspectorAcknowledgeArr[0].declarationName;
+    this.step1Form.value.inspectorArr[0].declarationDate= this.step1Form.value.inspectorAcknowledgeArr[0].declarationDate;
 
     this.reportDetails.userName = this.email;
     

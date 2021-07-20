@@ -43,6 +43,7 @@ export class SignatorDetails {
     state: String;
     pinCode: number;
     country: String;
+    declarationSignature: String;
     declarationName: String;
     declarationDate: Date;
 }
