@@ -4,8 +4,7 @@ export class InspectionDetails {
   siteId!: number;
   //ipaoInspectionId!: number;
 
-  ipaoInspection!: IpaInsection[];
- 
+  IpaoInspection!: IpaInsection[];
 }
 
 export class IpaInsection { 
