@@ -25,8 +25,8 @@ export class SiteupdateComponent implements OnInit {
     country: new FormControl(''),
     state: new FormControl(''),
     pincode: new FormControl(''),
-  }); 
-
+  });
+  countryCode: any;
   clientList: any = [];
   clientArray: any = [];
   departmentList: any = [];
@@ -84,7 +84,7 @@ export class SiteupdateComponent implements OnInit {
               public departmentService: DepartmentService,
               public siteService: SiteService,
               public formBuilder: FormBuilder,
-              ) { 
+              ) {
               }
 
   ngOnInit(): void {
@@ -108,6 +108,34 @@ export class SiteupdateComponent implements OnInit {
 
   cancel() {
     this.dialog.closeAll();
+  }
+
+   //country code
+   countryChange(country: any) {
+    this.countryCode = country.dialCode;
+  }
+  // Only Integer Numbers
+  keyPressNumbers(event:any) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
+  // Only AlphaNumeric with Some Characters [-_ ]
+  keyPressAlphaNumericWithCharacters(event:any) {
+
+    var inp = String.fromCharCode(event.keyCode);
+    // Allow numbers, space, underscore
+    if (/[0-9-+ ]/.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
   }
 
   createItem() {
@@ -173,9 +201,13 @@ export class SiteupdateComponent implements OnInit {
         i.inActive = true;
       }
     }
-    
+
+
+    //country code
+    this.site.sitePersons[0].contactNo="+" +this.countryCode + "-" + this.site.sitePersons[0].contactNo;
+
     this.site.sitePersons=this.updateSiteForm.getRawValue().arr;
-      
+
     for( let j of this.deletedArray) {
       this.site.sitePersons.push(j);
     }

@@ -51,9 +51,8 @@
                 </div>
 
                 <div class="col-md-3">
-                    <label>Contact No:</label>
-                    <input type="number" formControlName="contactNo" class="form-control"
-                        placeholder="Enter Contact Number">
+                    <label>* Mobile Number:</label>
+                    <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" (keypress)="keyPressAlphaNumericWithCharacters($event)" (countryChange)="countryChange($event)"  formControlName="contactNo" class="form-control" maxlength="10" minlength="10" placeholder="Enter Mobile No">
                 </div>
 
                 <div class="col-md-3">
@@ -121,7 +120,7 @@
         <div class="row">
             <div class="col-md-4">
                 <label>Pincode:</label>
-                <input type="number" formControlName="pincode" class="form-control" placeholder="Enter Pincode"
+                <input type="text" (keypress)="keyPressNumbers($event)" formControlName="pincode" class="form-control" placeholder="Enter Pincode" minlength="5" maxlength="6"
                     [(ngModel)]="site.zipCode">
             </div>
         </div>

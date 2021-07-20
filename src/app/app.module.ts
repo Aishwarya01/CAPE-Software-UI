@@ -48,7 +48,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SavedreportsComponent } from './savedreports/savedreports.component';
 import { FinalreportsComponent } from './finalreports/finalreports.component';
 
-
+import {Ng2TelInputModule} from 'ng2-tel-input';
 
 @NgModule({
   declarations: [
@@ -77,10 +77,9 @@ import { FinalreportsComponent } from './finalreports/finalreports.component';
     SummaryComponent,
     InspectionVerificationBasicInformationComponent,
     InspectionVerificationIncomingEquipmentComponent,
-    InspectionVerificationSupplyCharacteristicsComponent,
+    InspectionVerificationSupplyCharacteristicsComponent
     SavedreportsComponent,
     FinalreportsComponent
-    
   ],
   imports: [
     NgbModule,
@@ -99,6 +98,7 @@ import { FinalreportsComponent } from './finalreports/finalreports.component';
     MatMenuModule,
     MaterialModule,
     NgxPrintModule,
+    Ng2TelInputModule,
     NgxBootstrapIconsModule.pick(allIcons)
   ],
   providers: [GlobalsService, { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }],
