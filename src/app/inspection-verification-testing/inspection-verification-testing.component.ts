@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { TestingDetails, } from '../model/testing-details';
+import { Testing, TestingDetails, } from '../model/testing-details';
 import { TestingService } from '../services/testing.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -31,7 +31,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   @Output() proceedNext = new EventEmitter<any>();
 
   testing1 = new TestingDetails;
-
+   testing=new Testing;
   incomingVoltage: String = "";
   incomingZs: String = "";
   incomingIpf: String = "";
@@ -41,6 +41,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
 
   ratingAmps1: any;
   testDistributionArr!: FormArray;
+  testingDistribution!: FormArray;
   constructor(private testingService: TestingService, private formBuilder: FormBuilder,
     private modalService: NgbModal, private router: ActivatedRoute,) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
@@ -298,20 +299,76 @@ export class InspectionVerificationTestingComponent implements OnInit {
 
 
 
-      // distributionIncomingValueArr: this.formBuilder.array([this.createdistributionIncomingValueForm()]),
+     
       testDistributionArr: this.formBuilder.array([this.createtestDistributionForm()]),
       testValueArr: this.formBuilder.array([this.createtestValueForm()]),
-      // testingRecords: this.formBuilder.array([this.createTestingRecords()]),
-
+      testingRecords: this.formBuilder.array([this.createtestingRecords()]),
+      //testDistribution: this.formBuilder.array([this.createtestDistribution()]),
 
 
     })
   }
 
-  /// createTestingRecords()
+   createtestingRecords(): FormGroup {
+    return new FormGroup({
+  circuitNo: new FormControl(''),
+  circuitDesc: new FormControl(''),
+  circuitStandardNo: new FormControl(''),
+  circuitType: new FormControl(''),
+  circuitRating: new FormControl(''),
+  circuitBreakingCapacity: new FormControl(''),
+  conductorInstallation: new FormControl(''),
+  conductorLive: new FormControl(''),
+  conductorPecpc: new FormControl(''),
+  continutiyApproximateLength: new FormControl(''),
+  continutiyRR: new FormControl(''),
+  continutiyR: new FormControl(''),
+  continutiyLL: new FormControl(''),
+  continutiyLE: new FormControl(''),
+  continutiyPolarity: new FormControl(''),
 
 
+  testVoltage: new FormControl(''),
+  testLoopImpedance: new FormControl(''),
+  testFaultCurrent: new FormControl(''),
+  disconnectionTime: new FormControl(''),
+
+  rcdCurrent: new FormControl(''),
+  rcdOperatingCurrent: new FormControl(''),
+  rcdOperatingFiveCurrent: new FormControl(''),
+  testButtonOperation: new FormControl(''),
+  rcdRemarks: new FormControl(''),
+
+
+    })
+  }
+  createtestDistribution(): FormGroup {
+    return new FormGroup({   
+      distributionBoardDetails: new FormControl(''),
+      referance: new FormControl(''),
+      location: new FormControl(''),
+      correctSupplyPolarity: new FormControl(''),
+      numOutputCircuitsUse: new FormControl(''),
+      ratingsAmps: new FormControl(''),
+      numOutputCircuitsSpare: new FormControl(''),
+      installedEquipmentVulnarable: new FormControl(''),
+      incomingVoltage: new FormControl(''),
+      incomingZs: new FormControl(''),
+      incomingIpf: new FormControl(''),
+    })
+  }
+
+
+
+  
   nextTab() {
+
+    this.testing1.siteId = 21;
+    this.testing1.userName = this.email;
+    this.submitted = true;
+    // if(this.testingForm.invalid) {
+    //   return;
+    // }
     this.testaccordianArr = this.testingForm.get('testaccordianArr') as FormArray;
 
 
@@ -426,13 +483,23 @@ export class InspectionVerificationTestingComponent implements OnInit {
       i.disconnectionTime = disconnectionTime;
 
     }
-
-
-
-
-    this.testing1.siteId = 15;
-    this.testing1.userName = this.email;
+    // for (let i of this.testaccordianArr.value) {
+    //   this.testDistributionArr = this.testingForm.value.testDistributionArr;
+    //   this.testValueArr = this.testingForm.value.testValueArr;
+    // }
+    
+    // for (let i of this.testaccordianArr.controls) {
+    //   this.testValueArr = i.get('testValueArr') as FormArray;
+    
+    //   for (let k of i.testingRecords.value) {
+    //     console.log(k)
+    //     k.testingRecords=this.testValueArr.value
+    //   }
+    // }
+   // this.testingDistribution=this.testingForm.value.testingDistributionArr;
     this.testing1.testing = this.testingForm.value.testaccordianArr;
+    this.testing.testDistribution = this.testingForm.value.testDistributionArr;
+    this.testing.testingRecords = this.testingForm.value.testValueArr;
     console.log(this.testing1);
     //  this.testingService.savePeriodicTesting(this.testing1).subscribe(
     //    (    data: any)=> {

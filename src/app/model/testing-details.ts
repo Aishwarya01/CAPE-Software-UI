@@ -21,14 +21,14 @@ export class Testing{
   designation!: String;
   companyName!: String;
   Impedance!: String;
-  testingDistribution!: TestDistribution[];
+  testDistribution!:TestDistribution[];
   testingRecords!: TestingRecords[];
 
   
  
 }
 
-
+ 
 
 export class TestDistribution {
 
@@ -40,6 +40,9 @@ export class TestDistribution {
   ratingsAmps!: String;
   numOutputCircuitsSpare!: String;
   installedEquipmentVulnarable!: String;
+
+
+
   incomingVoltage!: String;
   incomingZs!: String;
   incomingIpf!: String;
