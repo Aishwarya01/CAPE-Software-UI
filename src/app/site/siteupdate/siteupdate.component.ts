@@ -26,7 +26,7 @@ export class SiteupdateComponent implements OnInit {
     state: new FormControl(''),
     pincode: new FormControl(''),
   });
-
+  countryCode: any;
   clientList: any = [];
   clientArray: any = [];
   departmentList: any = [];
@@ -110,6 +110,21 @@ export class SiteupdateComponent implements OnInit {
     this.dialog.closeAll();
   }
 
+   //country code
+   countryChange(country: any) {
+    this.countryCode = country.dialCode;
+  }
+  // Only Integer Numbers
+  keyPressNumbers(event:any) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
   // Only AlphaNumeric with Some Characters [-_ ]
   keyPressAlphaNumericWithCharacters(event:any) {
 
@@ -186,6 +201,10 @@ export class SiteupdateComponent implements OnInit {
         i.inActive = true;
       }
     }
+
+
+    //country code
+    this.site.sitePersons[0].contactNo="+" +this.countryCode + "-" + this.site.sitePersons[0].contactNo;
 
     this.site.sitePersons=this.updateSiteForm.getRawValue().arr;
 
