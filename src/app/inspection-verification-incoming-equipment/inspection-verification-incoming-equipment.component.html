@@ -1,26 +1,74 @@
  <!-- step 3 -->
+ <div *ngIf="validationError" style="text-align: center;">
+  <span class="alert alert-danger">{{validationErrorMsg}}</span>
+ </div>
+ 
  <div class="card">
-    <div class="card-body">
+  <!-- <mat-icon class="mousechange" (click)="addItem()" style="position: relative;left: 96%; top: 10px;">
+    add_box</mat-icon>
+    -->
+    <button class="btn btn-info mousechange" (click)="addItem()" title="Add another location"
+      style="padding: 7px 10px 0px 10px;
+     left: 93%;
+    top: 10px;
+      width: 4%;position: relative;">
+       <mat-icon aria-hidden="false" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>
+      </button>
       <form [formGroup]="addstep3" (ngSubmit)="nextTab3()">
+    <div class="card-body" formArrayName="incomingArr" *ngFor="let a of getIncomingControls(); let i = index" >
+      <div [formGroupName]="i" >
+      <div class="search-bar">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-4">
+                  <label>Location Number*</label>
+                  <input type="text" class="form-control" formControlName="locationNumber"
+                   placeholder="Enter Location Number" 
+                   [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors }">
+                  <div *ngIf="submitted && a.get('locationNumber')?.errors" class="invalid-feedback">
+                    <div *ngIf="a.get('locationNumber')?.errors?.required">Location Number is required</div>
+                </div> 
+            </div>
+            <div class="col-md-4">
+                  <label>Location Name*</label>
+                  <!-- <select class="form-control"  formControlName="locationName" 
+                  (change)="retrieveSiteInfo($event)" 
+                  [ngClass]="{ 'is-invalid': submitted && a.get('departmentName')?.errors }">
+                    <option value="0" selected>Select Department Name</option>
+                    <option *ngFor="let location of locationList">{{department.departmentName}}</option>
+                  </select> -->
+                  <input type="text" class="form-control" formControlName="locationName"
+                  placeholder="Enter Location Name" 
+                  [ngClass]="{ 'is-invalid': submitted && a.get('locationName')?.errors }">
+                  <div *ngIf="submitted && a.get('locationName')?.errors" class="invalid-feedback">
+                    <div *ngIf="a.get('locationName')?.errors?.required">Location name is required</div>
+                </div> 
+            </div>
+          </div>
+      </div>
+    </div>
       <mat-accordion>
+        <!-- IpaInsection starts-->
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
             <mat-panel-title>
               <h3>Incoming equipment</h3>
             </mat-panel-title>
           </mat-expansion-panel-header>
+          <!-- <div formArrayName="equipmentArr" *ngFor="let a of getEquipmentControls(); let i = index">
+            <div class="form-group" [formGroupName]="i"> -->
           <div class="row">
             <div class="col-sm-12">
               <div class="form-group equipment">
                 <label>Service cable:</label>
                 <select class="form-control" formControlName="serviceCable"
-                [(ngModel)]="inspectionDetails.serviceCable" 
-                [ngClass]="{ 'is-invalid': submitted && f.serviceCable.errors }">
+                
+                [ngClass]="{ 'is-invalid': submitted && a.get('serviceCable')?.errors }">
                 <option value="0" selected>Select option</option>
                 <option *ngFor="let value of InspectionList">{{value}}</option>
               </select>
-                <div *ngIf="submitted && f.serviceCable.errors" class="invalid-feedback">
-                  <div *ngIf="f.serviceCable.errors.required">Service Cable is required</div>
+                <div *ngIf="submitted && a.get('serviceCable')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('serviceCable')?.errors?.required">Service Cable is required</div>
               </div>
                 
               </div>
@@ -30,13 +78,13 @@
               <div class="form-group equipment">
                 <label>Service cut out / fuse:</label>
                 <select class="form-control" formControlName="serviceFuse" 
-                [(ngModel)]="inspectionDetails.serviceFuse" 
-                [ngClass]="{ 'is-invalid': submitted && f.serviceFuse.errors }">
+                
+                [ngClass]="{ 'is-invalid': submitted && a.get('serviceFuse')?.errors }">
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.serviceFuse.errors" class="invalid-feedback">
-                  <div *ngIf="f.serviceFuse.errors.required">Service Fuse is required</div>
+                <div *ngIf="submitted && a.get('serviceFuse')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('serviceFuse')?.errors?.required">Service Fuse is required</div>
               </div>
               </div>
             </div>
@@ -45,13 +93,13 @@
               <div class="form-group equipment">
                 <label>Meter tails – Distributor:</label>
                 <select class="form-control" formControlName="meterDistributor" 
-                [(ngModel)]="inspectionDetails.meterDistributor"
-                [ngClass]="{ 'is-invalid': submitted && f.meterDistributor.errors }">
+                
+                [ngClass]="{ 'is-invalid': submitted && a.get('meterDistributor')?.errors }">
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.meterDistributor.errors" class="invalid-feedback">
-                  <div *ngIf="f.meterDistributor.errors.required">Meter Distributor is required</div>
+                <div *ngIf="submitted && a.get('meterDistributor')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('meterDistributor')?.errors?.required">Meter Distributor is required</div>
               </div>
               </div>
             </div>
@@ -60,13 +108,13 @@
               <div class="form-group equipment">
                 <label>Meter tails – Consumer:</label>
                 <select class="form-control" formControlName="meterConsumer" 
-                [(ngModel)]="inspectionDetails.meterConsumer"
-                [ngClass]="{ 'is-invalid': submitted && f.meterConsumer.errors }">
+                
+                [ngClass]="{ 'is-invalid': submitted && a.get('meterConsumer')?.errors }">
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.meterConsumer.errors" class="invalid-feedback">
-                  <div *ngIf="f.meterConsumer.errors.required">Meter Consumer is required</div>
+                <div *ngIf="submitted && a.get('meterConsumer')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('meterConsumer')?.errors?.required">Meter Consumer is required</div>
               </div>
               </div>
             </div>
@@ -75,12 +123,12 @@
               <div class="form-group equipment">
                 <label>Metering Equipment:</label>
                 <select class="form-control" formControlName="meterEqu" 
-                [ngClass]="{ 'is-invalid': submitted && f.meterEqu.errors }" [(ngModel)]="inspectionDetails.meterEqu">
+                [ngClass]="{ 'is-invalid': submitted && a.get('meterEqu')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.meterEqu.errors" class="invalid-feedback">
-                  <div *ngIf="f.meterEqu.errors.required">Metering Equipment is required</div>
+                <div *ngIf="submitted && a.get('meterEqu')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('meterEqu')?.errors?.required">Metering Equipment is required</div>
               </div>
               </div>
             </div>
@@ -89,17 +137,18 @@
               <div class="form-group equipment">
                 <label>Isolator (Means to isolate the public supply system):</label>
                 <select class="form-control" formControlName="isolator" 
-                [ngClass]="{ 'is-invalid': submitted && f.isolator.errors }" [(ngModel)]="inspectionDetails.isolator">
+                [ngClass]="{ 'is-invalid': submitted && a.get('isolator')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.isolator.errors" class="invalid-feedback">
-                  <div *ngIf="f.isolator.errors.required">Isolator is required</div>
+                <div *ngIf="submitted && a.get('isolator')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('isolator')?.errors?.required">Isolator is required</div>
               </div>
               </div>
             </div>
           </div>
-
+            <!-- </div>
+          </div> -->
         </mat-expansion-panel>
 
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -109,17 +158,18 @@
             </mat-panel-title>
 
           </mat-expansion-panel-header>
+         
           <div class="row">
             <div class="col-sm-12">
               <div class="form-group equipment">
                 <label>Dedicated earthing arrangement independent to that of public supply:</label>
                 <select class="form-control" formControlName="earthingArrangement" 
-                [ngClass]="{ 'is-invalid': submitted && f.earthingArrangement.errors }" [(ngModel)]="inspectionDetails.earthingArrangement">
+                [ngClass]="{ 'is-invalid': submitted && a.get('earthingArrangement')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.earthingArrangement.errors" class="invalid-feedback">
-                  <div *ngIf="f.earthingArrangement.errors.required">Field is required</div>
+                <div *ngIf="submitted && a.get('earthingArrangement')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('earthingArrangement')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -129,12 +179,12 @@
                 <label>Presence of adequate arrangements where generator to operate in parallel with the public
                   supply system:</label>
                 <select class="form-control" formControlName="adequateArrangement" 
-                [ngClass]="{ 'is-invalid': submitted && f.adequateArrangement.errors }" [(ngModel)]="inspectionDetails.adequateArrangement">
+                [ngClass]="{ 'is-invalid': submitted && a.get('adequateArrangement')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.adequateArrangement.errors" class="invalid-feedback">
-                  <div *ngIf="f.adequateArrangement.errors.required">Field is required</div>
+                <div *ngIf="submitted && a.get('adequateArrangement')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('adequateArrangement')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -144,12 +194,12 @@
                 <label>Correct connections of generator in parallel. (note: Special attention to circulating
                   currents):</label>
                 <select class="form-control" formControlName="connectionGenerator" 
-                [ngClass]="{ 'is-invalid': submitted && f.connectionGenerator.errors }" [(ngModel)]="inspectionDetails.connectionGenerator">
+                [ngClass]="{ 'is-invalid': submitted && a.get('connectionGenerator')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.connectionGenerator.errors" class="invalid-feedback">
-                  <div *ngIf="f.connectionGenerator.errors.required">Field is required</div>
+                <div *ngIf="submitted && a.get('connectionGenerator')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('connectionGenerator')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -158,12 +208,12 @@
               <div class="form-group equipment">
                 <label>Compatibility of characteristics of means of generation:</label>
                 <select class="form-control" formControlName="compatibilityCharacteristics" 
-                [ngClass]="{ 'is-invalid': submitted && f.compatibilityCharacteristics.errors }" [(ngModel)]="inspectionDetails.compatibilityCharacteristics">
+                [ngClass]="{ 'is-invalid': submitted && a.get('compatibilityCharacteristics')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.compatibilityCharacteristics.errors" class="invalid-feedback">
-                  <div *ngIf="f.compatibilityCharacteristics.errors.required">Field is required</div>
+                <div *ngIf="submitted && a.get('compatibilityCharacteristics')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('compatibilityCharacteristics')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -173,12 +223,12 @@
                 <label>Means to provide automatic disconnection of generator in the event of
                   loss of public supply system or voltage or frequency deviation beyond declared values:</label>
                 <select class="form-control" formControlName="automaticDisconnectGenerator" 
-                [ngClass]="{ 'is-invalid': submitted && f.automaticDisconnectGenerator.errors }" [(ngModel)]="inspectionDetails.automaticDisconnectGenerator">
+                [ngClass]="{ 'is-invalid': submitted && a.get('automaticDisconnectGenerator')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.automaticDisconnectGenerator.errors" class="invalid-feedback">
-                  <div *ngIf="f.automaticDisconnectGenerator.errors.required">Field is required</div>
+                <div *ngIf="submitted && a.get('automaticDisconnectGenerator')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('automaticDisconnectGenerator')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -188,12 +238,12 @@
                 <label>Means to prevent connection of generator in the event of loss of
                   public supply system or voltage or frequency deviation beyond declared values:</label>
                 <select class="form-control" formControlName="preventConnectGenerator" 
-                [ngClass]="{ 'is-invalid': submitted && f.preventConnectGenerator.errors }" [(ngModel)]="inspectionDetails.preventConnectGenerator">
+                [ngClass]="{ 'is-invalid': submitted && a.get('preventConnectGenerator')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.preventConnectGenerator.errors" class="invalid-feedback">
-                  <div *ngIf="f.preventConnectGenerator.errors.required">Field is required</div>
+                <div *ngIf="submitted && a.get('preventConnectGenerator')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('preventConnectGenerator')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -202,17 +252,17 @@
               <div class="form-group equipment">
                 <label>Means to isolate generator from the public supply system :</label>
                 <select class="form-control" formControlName="isolateGenerator" 
-                [ngClass]="{ 'is-invalid': submitted && f.isolateGenerator.errors }" [(ngModel)]="inspectionDetails.isolateGenerator">
+                [ngClass]="{ 'is-invalid': submitted && a.get('isolateGenerator')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.isolateGenerator.errors" class="invalid-feedback">
-                  <div *ngIf="f.isolateGenerator.errors.required">Field is required</div>
+                <div *ngIf="submitted && a.get('isolateGenerator')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('isolateGenerator')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
           </div>
-
+            
         </mat-expansion-panel>
 
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -226,12 +276,12 @@
               <div class="form-group equipment">
                 <label>Main earthing / bonding arrangements:</label>
                 <select class="form-control" formControlName="mainEarting" 
-                [ngClass]="{ 'is-invalid': submitted && f.mainEarting.errors }" [(ngModel)]="inspectionDetails.mainEarting">
+                [ngClass]="{ 'is-invalid': submitted && a.get('mainEarting')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.mainEarting.errors" class="invalid-feedback">
-                  <div *ngIf="f.mainEarting.errors.required">Field is required</div>
+                <div *ngIf="submitted && a.get('mainEarting')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('mainEarting')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -241,12 +291,12 @@
                 <label>Presence and adequacy of energy suppliers earthing arrangement or installation earth
                   electrode arrangement:</label>
                 <select class="form-control" formControlName="earthElectordeArrangement" 
-                [ngClass]="{ 'is-invalid': submitted && f.earthElectordeArrangement.errors }" [(ngModel)]="inspectionDetails.earthElectordeArrangement">
+                [ngClass]="{ 'is-invalid': submitted && a.get('earthElectordeArrangement')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.earthElectordeArrangement.errors" class="invalid-feedback">
-                  <div *ngIf="f.earthElectordeArrangement.errors.required">Field is required</div>
+                <div *ngIf="submitted && a.get('earthElectordeArrangement')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('earthElectordeArrangement')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -255,12 +305,12 @@
               <div class="form-group equipment">
                 <label>Presence and adequacy of earthing conductor and connections:</label>
                 <select class="form-control" formControlName="earthConductorConnection" 
-                [ngClass]="{ 'is-invalid': submitted && f.earthConductorConnection.errors }" [(ngModel)]="inspectionDetails.earthConductorConnection">
+                [ngClass]="{ 'is-invalid': submitted && a.get('earthConductorConnection')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.earthConductorConnection.errors" class="invalid-feedback">
-                  <div *ngIf="f.earthConductorConnection.errors.required">Field is required</div>
+                <div *ngIf="submitted && a.get('earthConductorConnection')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('earthConductorConnection')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -269,12 +319,12 @@
               <div class="form-group equipment">
                 <label>Accessibility of earthing conductor connections:</label>
                 <select class="form-control" formControlName="accessibility" 
-                [ngClass]="{ 'is-invalid': submitted && f.accessibility.errors }" [(ngModel)]="inspectionDetails.accessibility">
+                [ngClass]="{ 'is-invalid': submitted && a.get('accessibility')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.accessibility.errors" class="invalid-feedback">
-                  <div *ngIf="f.accessibility.errors.required">Field is required</div>
+                <div *ngIf="submitted && a.get('accessibility')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('accessibility')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -284,12 +334,12 @@
                 <label>Presence and adequacy of main protective bonding conductors and connections (colour, sizes,
                   termination, and provision of independent earthing) :</label>
                 <select class="form-control" formControlName="aainProtectBonding" 
-                [ngClass]="{ 'is-invalid': submitted && f.aainProtectBonding.errors }" [(ngModel)]="inspectionDetails.aainProtectBonding">
+                [ngClass]="{ 'is-invalid': submitted && a.get('aainProtectBonding')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.aainProtectBonding.errors" class="invalid-feedback">
-                  <div *ngIf="f.aainProtectBonding.errors.required">Field is required</div>
+                <div *ngIf="submitted && a.get('aainProtectBonding')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('aainProtectBonding')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -298,13 +348,13 @@
               <div class="form-group equipment">
                 <label>Accessibility of all protective bonding connections:</label>
                 <select class="form-control" formControlName="allProtectBonding" 
-                [ngClass]="{ 'is-invalid': submitted && f.allProtectBonding.errors }" 
-                [(ngModel)]="inspectionDetails.allProtectBonding">
+                [ngClass]="{ 'is-invalid': submitted && a.get('allProtectBonding')?.errors }" 
+                >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.allProtectBonding.errors" class="invalid-feedback">
-                  <div *ngIf="f.allProtectBonding.errors.required">Field is required</div>
+                <div *ngIf="submitted && a.get('allProtectBonding')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('allProtectBonding')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -314,12 +364,12 @@
                 <label>Presence and adequacy of electrical earthing/bonding labels at all appropriate
                   locations:</label>
                 <select class="form-control" formControlName="allAppropriateLocation" 
-                [ngClass]="{ 'is-invalid': submitted && f.allAppropriateLocation.errors }" [(ngModel)]="inspectionDetails.allAppropriateLocation">
+                [ngClass]="{ 'is-invalid': submitted && a.get('allAppropriateLocation')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.allAppropriateLocation.errors" class="invalid-feedback">
-                  <div *ngIf="f.allAppropriateLocation.errors.required">Field is required</div>
+                <div *ngIf="submitted && a.get('allAppropriateLocation')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('allAppropriateLocation')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -328,12 +378,12 @@
               <div class="form-group equipment">
                 <label>Accessibility of FELV requirements satisfied:</label>
                 <select class="form-control" formControlName="felvRequirement" 
-                [ngClass]="{ 'is-invalid': submitted && f.felvRequirement.errors }" [(ngModel)]="inspectionDetails.felvRequirement">
+                [ngClass]="{ 'is-invalid': submitted && a.get('felvRequirement')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.felvRequirement.errors" class="invalid-feedback">
-                  <div *ngIf="f.felvRequirement.errors.required">Field is required</div>
+                <div *ngIf="submitted && a.get('felvRequirement')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('felvRequirement')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -354,12 +404,12 @@
               <div class="form-group equipment">
                 <label>SELV system, including the source and associated circuits:</label>
                 <select class="form-control" formControlName="selvSystem" 
-                [ngClass]="{ 'is-invalid': submitted && f.selvSystem.errors }" [(ngModel)]="inspectionDetails.selvSystem">
+                [ngClass]="{ 'is-invalid': submitted && a.get('selvSystem')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.selvSystem.errors" class="invalid-feedback">
-                  <div *ngIf="f.selvSystem.errors.required">Field is required</div>
+                <div *ngIf="submitted && a.get('selvSystem')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('selvSystem')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -367,12 +417,12 @@
               <div class="form-group equipment">
                 <label>PELV system, including the source and associated circuits:</label>
                 <select class="form-control" formControlName="pelvSystem" 
-                [ngClass]="{ 'is-invalid': submitted && f.pelvSystem.errors }" [(ngModel)]="inspectionDetails.pelvSystem">
+                [ngClass]="{ 'is-invalid': submitted && a.get('pelvSystem')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.pelvSystem.errors" class="invalid-feedback">
-                  <div *ngIf="f.pelvSystem.errors.required">Field is required</div>
+                <div *ngIf="submitted && a.get('pelvSystem')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('pelvSystem')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -380,12 +430,12 @@
               <div class="form-group equipment">
                 <label>Double insulation (Class II or equivalent equipment and associated circuits):</label>
                 <select class="form-control" formControlName="doubleInsulation" 
-                [ngClass]="{ 'is-invalid': submitted && f.doubleInsulation.errors }" [(ngModel)]="inspectionDetails.doubleInsulation">
+                [ngClass]="{ 'is-invalid': submitted && a.get('doubleInsulation')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.doubleInsulation.errors" class="invalid-feedback">
-                  <div *ngIf="f.doubleInsulation.errors.required">Field is required</div>
+                <div *ngIf="submitted && a.get('doubleInsulation')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('doubleInsulation')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -396,12 +446,12 @@
               <div class="form-group equipment">
                 <label>Reinforced insulation:</label>
                 <select class="form-control" formControlName="reinforcedInsulation" 
-                [ngClass]="{ 'is-invalid': submitted && f.reinforcedInsulation.errors }" [(ngModel)]="inspectionDetails.reinforcedInsulation">
+                [ngClass]="{ 'is-invalid': submitted && a.get('reinforcedInsulation')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.reinforcedInsulation.errors" class="invalid-feedback">
-                  <div *ngIf="f.reinforcedInsulation.errors.required">Field is required</div>
+                <div *ngIf="submitted && a.get('reinforcedInsulation')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('reinforcedInsulation')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -409,12 +459,12 @@
               <div class="form-group equipment">
                 <label>Electrical separation for one item of equipment (shaver supply unit) :</label>
                 <select class="form-control" formControlName="basicElectricalSepartion" 
-                [ngClass]="{ 'is-invalid': submitted && f.basicElectricalSepartion.errors }" [(ngModel)]="inspectionDetails.basicElectricalSepartion">
+                [ngClass]="{ 'is-invalid': submitted && a.get('basicElectricalSepartion')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.basicElectricalSepartion.errors" class="invalid-feedback">
-                  <div *ngIf="f.basicElectricalSepartion.errors.required">Field is required</div>
+                <div *ngIf="submitted && a.get('basicElectricalSepartion')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('basicElectricalSepartion')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -427,12 +477,12 @@
                 <label>Insulation of live parts (conductors completely covered with durable insulating
                   material):</label>
                 <select class="form-control" formControlName="insulationLiveParts" 
-                [ngClass]="{ 'is-invalid': submitted && f.insulationLiveParts.errors }" [(ngModel)]="inspectionDetails.insulationLiveParts">
+                [ngClass]="{ 'is-invalid': submitted && a.get('insulationLiveParts')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.insulationLiveParts.errors" class="invalid-feedback">
-                  <div *ngIf="f.insulationLiveParts.errors.required">Field is required</div>
+                <div *ngIf="submitted && a.get('insulationLiveParts')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('insulationLiveParts')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -441,25 +491,25 @@
               <div class="form-group equipment">
                 <label>Barriers or enclosures (correct IP rating):</label>
                 <select class="form-control" formControlName="barriersEnclosers" 
-                [ngClass]="{ 'is-invalid': submitted && f.barriersEnclosers.errors }" [(ngModel)]="inspectionDetails.barriersEnclosers">
+                [ngClass]="{ 'is-invalid': submitted && a.get('barriersEnclosers')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.barriersEnclosers.errors" class="invalid-feedback">
-                  <div *ngIf="f.barriersEnclosers.errors.required">Field is required</div>
+                <div *ngIf="submitted && a.get('barriersEnclosers')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('barriersEnclosers')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
             <div class="col-sm-12">
               <div class="form-group equipment">
                 <label>Obstacles:</label>
-                <select class="form-control" formControlName="obstacles" 
-                [ngClass]="{ 'is-invalid': submitted && f.obstacles.errors }" [(ngModel)]="inspectionDetails.obstacles">
+                <select class="form-control" formControlName="supplementaryBonding" 
+                [ngClass]="{ 'is-invalid': submitted && a.get('supplementaryBonding')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.obstacles.errors" class="invalid-feedback">
-                  <div *ngIf="f.obstacles.errors.required">Field is required</div>
+                <div *ngIf="submitted && a.get('supplementaryBonding')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('supplementaryBonding')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -467,12 +517,12 @@
               <div class="form-group equipment">
                 <label>Placing out of reach:</label>
                 <select class="form-control" formControlName="placingOutReach" 
-                [ngClass]="{ 'is-invalid': submitted && f.placingOutReach.errors }" [(ngModel)]="inspectionDetails.placingOutReach">
+                [ngClass]="{ 'is-invalid': submitted && a.get('placingOutReach')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.placingOutReach.errors" class="invalid-feedback">
-                  <div *ngIf="f.placingOutReach.errors.required">Field is required</div>
+                <div *ngIf="submitted && a.get('placingOutReach')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('placingOutReach')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -484,12 +534,12 @@
               <div class="form-group equipment">
                 <label>Non-Conducting location – earth free local equipotential bonding:</label>
                 <select class="form-control" formControlName="nonConductLocation" 
-                [ngClass]="{ 'is-invalid': submitted && f.nonConductLocation.errors }" [(ngModel)]="inspectionDetails.nonConductLocation">
+                [ngClass]="{ 'is-invalid': submitted && a.get('nonConductLocation')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.nonConductLocation.errors" class="invalid-feedback">
-                  <div *ngIf="f.nonConductLocation.errors.required">Field is required</div>
+                <div *ngIf="submitted && a.get('nonConductLocation')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('nonConductLocation')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -498,12 +548,12 @@
               <div class="form-group equipment">
                 <label>Electrical separation:</label>
                 <select class="form-control" formControlName="faultElectricalSepartion" 
-                [ngClass]="{ 'is-invalid': submitted && f.faultElectricalSepartion.errors }" [(ngModel)]="inspectionDetails.faultElectricalSepartion">
+                [ngClass]="{ 'is-invalid': submitted && a.get('faultElectricalSepartion')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.faultElectricalSepartion.errors" class="invalid-feedback">
-                  <div *ngIf="f.faultElectricalSepartion.errors.required">Field is required</div>
+                <div *ngIf="submitted && a.get('faultElectricalSepartion')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('faultElectricalSepartion')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -515,12 +565,12 @@
               <div class="form-group equipment">
                 <label>RCD(s) not exceeding 30 mA operating current:</label>
                 <select class="form-control" formControlName="faultNonConductLocation" 
-                [ngClass]="{ 'is-invalid': submitted && f.faultNonConductLocation.errors }" [(ngModel)]="inspectionDetails.faultNonConductLocation">
+                [ngClass]="{ 'is-invalid': submitted && a.get('faultNonConductLocation')?.errors }">
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.faultNonConductLocation.errors" class="invalid-feedback">
-                  <div *ngIf="f.faultNonConductLocation.errors.required">Field is required</div>
+                <div *ngIf="submitted && a.get('faultNonConductLocation')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('faultNonConductLocation')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -529,36 +579,40 @@
               <div class="form-group equipment">
                 <label>Supplementary bonding:</label>
                 <select class="form-control" formControlName="operatingCurrent" 
-                [ngClass]="{ 'is-invalid': submitted && f.operatingCurrent.errors }" [(ngModel)]="inspectionDetails.operatingCurrent">
+                [ngClass]="{ 'is-invalid': submitted && a.get('operatingCurrent')?.errors }">
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.operatingCurrent.errors" class="invalid-feedback">
-                  <div *ngIf="f.operatingCurrent.errors.required">Field is required</div>
+                <div *ngIf="submitted && a.get('operatingCurrent')?.errors" class="invalid-feedback">
+                  <div *ngIf="a.get('operatingCurrent')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
           </div>
         </mat-expansion-panel>
+        <!-- IpaInsection ends-->
 
+        <!-- consumerUnit starts-->
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
             <mat-panel-title>
               <h3>Consumer unit(s) / distribution board(s) / distribution equipment</h3>
             </mat-panel-title>
           </mat-expansion-panel-header>
+          <div formArrayName="earthingArr" *ngFor="let b of getearthingControls(a); let i = index">
+            <div class="form-group" [formGroupName]="i">
           <div class="row">
             <div class="col-sm-12">
               <div class="form-group equipment">
                 <label>Adequacy of access and working space for items of electrical equipment including
                   switchgear:</label>
                 <select class="form-control" formControlName="accessWorking" 
-                [ngClass]="{ 'is-invalid': submitted && f.accessWorking.errors }" [(ngModel)]="inspectionDetails.accessWorking">
+                [ngClass]="{ 'is-invalid': submitted && b.get('accessWorking')?.errors }">
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.accessWorking.errors" class="invalid-feedback">
-                  <div *ngIf="f.accessWorking.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('accessWorking')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('accessWorking')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -567,12 +621,12 @@
               <div class="form-group equipment">
                 <label>Security of fixing:</label>
                 <select class="form-control" formControlName="securityFixing" 
-                [ngClass]="{ 'is-invalid': submitted && f.securityFixing.errors }" [(ngModel)]="inspectionDetails.securityFixing">
+                [ngClass]="{ 'is-invalid': submitted && b.get('securityFixing')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.securityFixing.errors" class="invalid-feedback">
-                  <div *ngIf="f.securityFixing.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('securityFixing')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('securityFixing')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -581,12 +635,12 @@
               <div class="form-group equipment">
                 <label>Insulation of live parts not damaged during erection:</label>
                 <select class="form-control" formControlName="livePartsDamage" 
-                [ngClass]="{ 'is-invalid': submitted && f.livePartsDamage.errors }" [(ngModel)]="inspectionDetails.livePartsDamage">
+                [ngClass]="{ 'is-invalid': submitted && b.get('livePartsDamage')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.livePartsDamage.errors" class="invalid-feedback">
-                  <div *ngIf="f.livePartsDamage.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('livePartsDamage')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('livePartsDamage')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -594,12 +648,12 @@
               <div class="form-group equipment">
                 <label>Adequacy / security of barriers:</label>
                 <select class="form-control" formControlName="securityBarriers" 
-                [ngClass]="{ 'is-invalid': submitted && f.securityBarriers.errors }" [(ngModel)]="inspectionDetails.securityBarriers">
+                [ngClass]="{ 'is-invalid': submitted && b.get('securityBarriers')?.errors }">
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.securityBarriers.errors" class="invalid-feedback">
-                  <div *ngIf="f.securityBarriers.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('securityBarriers')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('securityBarriers')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -608,12 +662,12 @@
               <div class="form-group equipment">
                 <label>Suitability of enclosure(s) for IP and fire ratings:</label>
                 <select class="form-control" formControlName="suitabilityEnclosure" 
-                [ngClass]="{ 'is-invalid': submitted && f.suitabilityEnclosure.errors }" [(ngModel)]="inspectionDetails.suitabilityEnclosure">
+                [ngClass]="{ 'is-invalid': submitted && b.get('suitabilityEnclosure')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.suitabilityEnclosure.errors" class="invalid-feedback">
-                  <div *ngIf="f.suitabilityEnclosure.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('suitabilityEnclosure')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('suitabilityEnclosure')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -622,12 +676,12 @@
               <div class="form-group equipment">
                 <label>Enclosure not damaged during installation:</label>
                 <select class="form-control" formControlName="enclosureDamaged" 
-                [ngClass]="{ 'is-invalid': submitted && f.enclosureDamaged.errors }" [(ngModel)]="inspectionDetails.enclosureDamaged">
+                [ngClass]="{ 'is-invalid': submitted && b.get('enclosureDamaged')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.enclosureDamaged.errors" class="invalid-feedback">
-                  <div *ngIf="f.enclosureDamaged.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('enclosureDamaged')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('enclosureDamaged')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -636,12 +690,12 @@
               <div class="form-group equipment">
                 <label>Presence and effectiveness of obstacles:</label>
                 <select class="form-control" formControlName="presenceObstacles" 
-                [ngClass]="{ 'is-invalid': submitted && f.presenceObstacles.errors }" [(ngModel)]="inspectionDetails.presenceObstacles">
+                [ngClass]="{ 'is-invalid': submitted && b.get('presenceObstacles')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.presenceObstacles.errors" class="invalid-feedback">
-                  <div *ngIf="f.presenceObstacles.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('presenceObstacles')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('presenceObstacles')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -649,12 +703,12 @@
               <div class="form-group equipment">
                 <label>Placing out of reach:</label>
                 <select class="form-control" formControlName="placingOutReach" 
-                [ngClass]="{ 'is-invalid': submitted && f.placingOutReach.errors }" [(ngModel)]="inspectionDetails.placingOutReach">
+                [ngClass]="{ 'is-invalid': submitted && b.get('placingOutReach')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.placingOutReach.errors" class="invalid-feedback">
-                  <div *ngIf="f.placingOutReach.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('placingOutReach')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('placingOutReach')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -663,12 +717,12 @@
               <div class="form-group equipment">
                 <label>Presence of main switches linked where required:</label>
                 <select class="form-control" formControlName="presenceMainSwitches" 
-                [ngClass]="{ 'is-invalid': submitted && f.presenceMainSwitches.errors }" [(ngModel)]="inspectionDetails.presenceMainSwitches">
+                [ngClass]="{ 'is-invalid': submitted && b.get('presenceMainSwitches')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.presenceMainSwitches.errors" class="invalid-feedback">
-                  <div *ngIf="f.presenceMainSwitches.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('presenceMainSwitches')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('presenceMainSwitches')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -677,12 +731,12 @@
               <div class="form-group equipment">
                 <label>Operation of main switches (functional checks):</label>
                 <select class="form-control" formControlName="operationMainSwitches" 
-                [ngClass]="{ 'is-invalid': submitted && f.operationMainSwitches.errors }" [(ngModel)]="inspectionDetails.operationMainSwitches">
+                [ngClass]="{ 'is-invalid': submitted && b.get('operationMainSwitches')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.operationMainSwitches.errors" class="invalid-feedback">
-                  <div *ngIf="f.operationMainSwitches.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('operationMainSwitches')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('operationMainSwitches')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -691,12 +745,12 @@
               <div class="form-group equipment">
                 <label>Manual operation of circuit breakers and RCD’s to prove functionally:</label>
                 <select class="form-control" formControlName="manualCircuitBreakers" 
-                [ngClass]="{ 'is-invalid': submitted && f.manualCircuitBreakers.errors }" [(ngModel)]="inspectionDetails.manualCircuitBreakers">
+                [ngClass]="{ 'is-invalid': submitted && b.get('manualCircuitBreakers')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.manualCircuitBreakers.errors" class="invalid-feedback">
-                  <div *ngIf="f.manualCircuitBreakers.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('manualCircuitBreakers')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('manualCircuitBreakers')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -705,12 +759,12 @@
                 <label>Confirmation that integral test button / switch causes RCD’s to trip when operated
                   (functional check):</label>
                 <select class="form-control" formControlName="switchCausesRcd" 
-                [ngClass]="{ 'is-invalid': submitted && f.switchCausesRcd.errors }" [(ngModel)]="inspectionDetails.switchCausesRcd">
+                [ngClass]="{ 'is-invalid': submitted && b.get('switchCausesRcd')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.switchCausesRcd.errors" class="invalid-feedback">
-                  <div *ngIf="f.switchCausesRcd.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('switchCausesRcd')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('switchCausesRcd')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -719,12 +773,12 @@
               <div class="form-group equipment">
                 <label>RCD’s provided for fault protection, where specified:</label>
                 <select class="form-control" formControlName="rcdFaultProtection" 
-                [ngClass]="{ 'is-invalid': submitted && f.rcdFaultProtection.errors }" [(ngModel)]="inspectionDetails.rcdFaultProtection">
+                [ngClass]="{ 'is-invalid': submitted && b.get('rcdFaultProtection')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.rcdFaultProtection.errors" class="invalid-feedback">
-                  <div *ngIf="f.rcdFaultProtection.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('rcdFaultProtection')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('rcdFaultProtection')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -733,12 +787,12 @@
               <div class="form-group equipment">
                 <label>RCD’s provided for additional protection, where specified:</label>
                 <select class="form-control" formControlName="rcdAdditionalProtection" 
-                [ngClass]="{ 'is-invalid': submitted && f.rcdAdditionalProtection.errors }" [(ngModel)]="inspectionDetails.rcdAdditionalProtection">
+                [ngClass]="{ 'is-invalid': submitted && b.get('rcdAdditionalProtection')?.errors }">
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.rcdAdditionalProtection.errors" class="invalid-feedback">
-                  <div *ngIf="f.rcdAdditionalProtection.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('rcdAdditionalProtection')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('rcdAdditionalProtection')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -747,12 +801,12 @@
               <div class="form-group equipment">
                 <label>Confirmation of over voltage protection (SPD’s) provided where specified:</label>
                 <select class="form-control" formControlName="overVoltageProtection" 
-                [ngClass]="{ 'is-invalid': submitted && f.overVoltageProtection.errors }" [(ngModel)]="inspectionDetails.overVoltageProtection">
+                [ngClass]="{ 'is-invalid': submitted && b.get('overVoltageProtection')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.overVoltageProtection.errors" class="invalid-feedback">
-                  <div *ngIf="f.overVoltageProtection.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('overVoltageProtection')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('overVoltageProtection')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -760,12 +814,12 @@
               <div class="form-group equipment">
                 <label>Confirmation of indication that SPD is functional:</label>
                 <select class="form-control" formControlName="indicationOfSpd" 
-                [ngClass]="{ 'is-invalid': submitted && f.indicationOfSpd.errors }" [(ngModel)]="inspectionDetails.indicationOfSpd">
+                [ngClass]="{ 'is-invalid': submitted && b.get('indicationOfSpd')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.indicationOfSpd.errors" class="invalid-feedback">
-                  <div *ngIf="f.indicationOfSpd.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('indicationOfSpd')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('indicationOfSpd')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -774,12 +828,12 @@
               <div class="form-group equipment">
                 <label>Presence of RCD quarterly test notice at or near origin:</label>
                 <select class="form-control" formControlName="rcdQuarterlyTest" 
-                [ngClass]="{ 'is-invalid': submitted && f.rcdQuarterlyTest.errors }" [(ngModel)]="inspectionDetails.rcdQuarterlyTest">
+                [ngClass]="{ 'is-invalid': submitted && b.get('rcdQuarterlyTest')?.errors }">
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.rcdQuarterlyTest.errors" class="invalid-feedback">
-                  <div *ngIf="f.rcdQuarterlyTest.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('rcdQuarterlyTest')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('rcdQuarterlyTest')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -789,12 +843,12 @@
                 <label>Presence of diagrams charts or schedules at or near each distribution board where
                   required:</label>
                 <select class="form-control" formControlName="diagramsCharts" 
-                [ngClass]="{ 'is-invalid': submitted && f.diagramsCharts.errors }" [(ngModel)]="inspectionDetails.diagramsCharts">
+                [ngClass]="{ 'is-invalid': submitted && b.get('diagramsCharts')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.diagramsCharts.errors" class="invalid-feedback">
-                  <div *ngIf="f.diagramsCharts.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('diagramsCharts')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('diagramsCharts')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -804,12 +858,12 @@
                 <label>presence of nonstandard (mixed) cable colour warning notice near appropriate distribution
                   board, as required:</label>
                 <select class="form-control" formControlName="nonstandardCableColour" 
-                [ngClass]="{ 'is-invalid': submitted && f.nonstandardCableColour.errors }" [(ngModel)]="inspectionDetails.nonstandardCableColour">
+                [ngClass]="{ 'is-invalid': submitted && b.get('nonstandardCableColour')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.nonstandardCableColour.errors" class="invalid-feedback">
-                  <div *ngIf="f.nonstandardCableColour.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('nonstandardCableColour')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('nonstandardCableColour')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -817,12 +871,12 @@
               <div class="form-group equipment">
                 <label>Presence of alternative supply - warning notice at or near the origin:</label>
                 <select class="form-control" formControlName="alSupplyOfOrign" 
-                [ngClass]="{ 'is-invalid': submitted && f.alSupplyOfOrign.errors }" [(ngModel)]="inspectionDetails.alSupplyOfOrign">
+                [ngClass]="{ 'is-invalid': submitted && b.get('alSupplyOfOrign')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.alSupplyOfOrign.errors" class="invalid-feedback">
-                  <div *ngIf="f.alSupplyOfOrign.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('alSupplyOfOrign')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('alSupplyOfOrign')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -832,12 +886,12 @@
                 <label>Presence of alternative supply - warning notice at or near the meter position, if remote
                   from origin:</label>
                 <select class="form-control" formControlName="alSupplyOfMeter" 
-                [ngClass]="{ 'is-invalid': submitted && f.alSupplyOfMeter.errors }" [(ngModel)]="inspectionDetails.alSupplyOfMeter">
+                [ngClass]="{ 'is-invalid': submitted && b.get('alSupplyOfMeter')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.alSupplyOfMeter.errors" class="invalid-feedback">
-                  <div *ngIf="f.alSupplyOfMeter.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('alSupplyOfMeter')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('alSupplyOfMeter')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -847,12 +901,12 @@
                 <label>Presence of alternative supply - warning notice at or near the distribution board to which
                   alternative sources are connected:</label>
                 <select class="form-control" formControlName="alSupplyDistribution" 
-                [ngClass]="{ 'is-invalid': submitted && f.alSupplyDistribution.errors }" [(ngModel)]="inspectionDetails.alSupplyDistribution">
+                [ngClass]="{ 'is-invalid': submitted && b.get('alSupplyDistribution')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.alSupplyDistribution.errors" class="invalid-feedback">
-                  <div *ngIf="f.alSupplyDistribution.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('alSupplyDistribution')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('alSupplyDistribution')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -862,12 +916,12 @@
                 <label>Presence of alternative supply - warning notice at or near all points of isolation of ALL
                   sources of supply:</label>
                 <select class="form-control" formControlName="allPointsIsolation" 
-                [ngClass]="{ 'is-invalid': submitted && f.allPointsIsolation.errors }" [(ngModel)]="inspectionDetails.allPointsIsolation">
+                [ngClass]="{ 'is-invalid': submitted && b.get('allPointsIsolation')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.allPointsIsolation.errors" class="invalid-feedback">
-                  <div *ngIf="f.allPointsIsolation.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('allPointsIsolation')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('allPointsIsolation')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -875,12 +929,12 @@
               <div class="form-group equipment">
                 <label>Presence of next inspection recommendation label:</label>
                 <select class="form-control" formControlName="nextInspection" 
-                [ngClass]="{ 'is-invalid': submitted && f.nextInspection.errors }" [(ngModel)]="inspectionDetails.nextInspection">
+                [ngClass]="{ 'is-invalid': submitted && b.get('nextInspection')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.nextInspection.errors" class="invalid-feedback">
-                  <div *ngIf="f.nextInspection.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('nextInspection')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('nextInspection')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -889,12 +943,12 @@
               <div class="form-group equipment">
                 <label>Presence of other required labelling:</label>
                 <select class="form-control" formControlName="otherRequiredLabelling" 
-                [ngClass]="{ 'is-invalid': submitted && f.otherRequiredLabelling.errors }" [(ngModel)]="inspectionDetails.otherRequiredLabelling">
+                [ngClass]="{ 'is-invalid': submitted && b.get('otherRequiredLabelling')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.otherRequiredLabelling.errors" class="invalid-feedback">
-                  <div *ngIf="f.otherRequiredLabelling.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('otherRequiredLabelling')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('otherRequiredLabelling')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -904,12 +958,12 @@
                 <label>Selection of protective devices and bases correct type and rating (no signs of unacceptable
                   thermal damage, arcing or overheating):</label>
                 <select class="form-control" formControlName="basesCorrectType" 
-                [ngClass]="{ 'is-invalid': submitted && f.basesCorrectType.errors }" [(ngModel)]="inspectionDetails.basesCorrectType">
+                [ngClass]="{ 'is-invalid': submitted && b.get('basesCorrectType')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.basesCorrectType.errors" class="invalid-feedback">
-                  <div *ngIf="f.basesCorrectType.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('basesCorrectType')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('basesCorrectType')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -918,12 +972,12 @@
               <div class="form-group equipment">
                 <label>Single pole protective devices in line conductor only:</label>
                 <select class="form-control" formControlName="singlePole" 
-                [ngClass]="{ 'is-invalid': submitted && f.singlePole.errors }" [(ngModel)]="inspectionDetails.singlePole">
+                [ngClass]="{ 'is-invalid': submitted && b.get('singlePole')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.singlePole.errors" class="invalid-feedback">
-                  <div *ngIf="f.singlePole.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('singlePole')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('singlePole')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -931,12 +985,12 @@
               <div class="form-group equipment">
                 <label>Protection against mechanical damage where cables enter equipment:</label>
                 <select class="form-control" formControlName="mechanicalDamage" 
-                [ngClass]="{ 'is-invalid': submitted && f.mechanicalDamage.errors }" [(ngModel)]="inspectionDetails.mechanicalDamage">
+                [ngClass]="{ 'is-invalid': submitted && b.get('mechanicalDamage')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.mechanicalDamage.errors" class="invalid-feedback">
-                  <div *ngIf="f.mechanicalDamage.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('mechanicalDamage')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('mechanicalDamage')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -946,12 +1000,12 @@
                 <label>Protection against electromagnetic/heating effects where cables enter ferromagnetic
                   enclosures:</label>
                 <select class="form-control" formControlName="electromagnetic" 
-                [ngClass]="{ 'is-invalid': submitted && f.electromagnetic.errors }" [(ngModel)]="inspectionDetails.electromagnetic">
+                [ngClass]="{ 'is-invalid': submitted && b.get('electromagnetic')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.electromagnetic.errors" class="invalid-feedback">
-                  <div *ngIf="f.electromagnetic.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('electromagnetic')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('electromagnetic')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -961,35 +1015,41 @@
                 <label>Confirmation that all conductor connections including connections to busbars are correctly
                   located in terminals and are tight and secure:</label>
                 <select class="form-control" formControlName="allConductorCon" 
-                [ngClass]="{ 'is-invalid': submitted && f.allConductorCon.errors }" [(ngModel)]="inspectionDetails.allConductorCon">
+                [ngClass]="{ 'is-invalid': submitted && b.get('allConductorCon')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.allConductorCon.errors" class="invalid-feedback">
-                  <div *ngIf="f.allConductorCon.errors.required">Field is required</div>
+                <div *ngIf="submitted && b.get('allConductorCon')?.errors" class="invalid-feedback">
+                  <div *ngIf="b.get('allConductorCon')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
           </div>
+            </div>
+            </div>
         </mat-expansion-panel>
+        <!-- consumerUnit ends-->
 
+        <!-- circuit starts-->
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
             <mat-panel-title>
               <h3>Circuits</h3>
             </mat-panel-title>
           </mat-expansion-panel-header>
+          <div formArrayName="circuitArr" *ngFor="let c of getcircuitControls(a); let i = index">
+            <div class="form-group" [formGroupName]="i">
           <div class="row">
             <div class="col-sm-12">
               <div class="form-group equipment">
                 <label>Identification of conductors including main earthing / bonding arrangements:</label>
                 <select class="form-control" formControlName="identificationConductors" 
-                [ngClass]="{ 'is-invalid': submitted && f.identificationConductors.errors }" [(ngModel)]="inspectionDetails.identificationConductors">
+                [ngClass]="{ 'is-invalid': submitted && c.get('identificationConductors')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.identificationConductors.errors" class="invalid-feedback">
-                  <div *ngIf="f.identificationConductors.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('identificationConductors')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('identificationConductors')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -999,12 +1059,12 @@
                 <label>Cable installation methods (including support) suitable for the location(s) and external
                   influences (Cables correctly supported throughout):</label>
                 <select class="form-control" formControlName="cableInstallation" 
-                [ngClass]="{ 'is-invalid': submitted && f.cableInstallation.errors }" [(ngModel)]="inspectionDetails.cableInstallation">
+                [ngClass]="{ 'is-invalid': submitted && c.get('cableInstallation')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.cableInstallation.errors" class="invalid-feedback">
-                  <div *ngIf="f.cableInstallation.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('cableInstallation')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('cableInstallation')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1013,12 +1073,12 @@
               <div class="form-group equipment">
                 <label>Examination of cables for signs of mechanical damage during installation:</label>
                 <select class="form-control" formControlName="examinationCables" 
-                [ngClass]="{ 'is-invalid': submitted && f.examinationCables.errors }" [(ngModel)]="inspectionDetails.examinationCables">
+                [ngClass]="{ 'is-invalid': submitted && c.get('examinationCables')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.examinationCables.errors" class="invalid-feedback">
-                  <div *ngIf="f.examinationCables.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('examinationCables')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('examinationCables')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1026,12 +1086,12 @@
               <div class="form-group equipment">
                 <label>Examination of insulation of live parts not damaged during erection:</label>
                 <select class="form-control" formControlName="examinationInsulation" 
-                [ngClass]="{ 'is-invalid': submitted && f.examinationInsulation.errors }" [(ngModel)]="inspectionDetails.examinationInsulation">
+                [ngClass]="{ 'is-invalid': submitted && c.get('examinationInsulation')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.examinationInsulation.errors" class="invalid-feedback">
-                  <div *ngIf="f.examinationInsulation.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('examinationInsulation')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('examinationInsulation')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1040,12 +1100,12 @@
               <div class="form-group equipment">
                 <label>Non-Sheathed cables protected by enclosure in conduit, ducting or trucking:</label>
                 <select class="form-control" formControlName="nonSheathedCables" 
-                [ngClass]="{ 'is-invalid': submitted && f.nonSheathedCables.errors }" [(ngModel)]="inspectionDetails.nonSheathedCables">
+                [ngClass]="{ 'is-invalid': submitted && c.get('nonSheathedCables')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.nonSheathedCables.errors" class="invalid-feedback">
-                  <div *ngIf="f.nonSheathedCables.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('nonSheathedCables')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('nonSheathedCables')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1054,12 +1114,12 @@
               <div class="form-group equipment">
                 <label>Suitability of containment systems including flexible conduit:</label>
                 <select class="form-control" formControlName="containmentSystems" 
-                [ngClass]="{ 'is-invalid': submitted && f.containmentSystems.errors }" [(ngModel)]="inspectionDetails.containmentSystems">
+                [ngClass]="{ 'is-invalid': submitted && c.get('containmentSystems')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.containmentSystems.errors" class="invalid-feedback">
-                  <div *ngIf="f.containmentSystems.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('containmentSystems')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('containmentSystems')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1068,13 +1128,13 @@
               <div class="form-group equipment">
                 <label>Correct temperature rating of cable insulation:</label>
                 <select class="form-control" formControlName="temperatureRating" 
-                [ngClass]="{ 'is-invalid': submitted && f.temperatureRating.errors }" 
-                [(ngModel)]="inspectionDetails.temperatureRating">
+                [ngClass]="{ 'is-invalid': submitted && c.get('temperatureRating')?.errors }" 
+               >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.temperatureRating.errors" class="invalid-feedback">
-                  <div *ngIf="f.temperatureRating.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('temperatureRating')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('temperatureRating')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1082,12 +1142,12 @@
               <div class="form-group equipment">
                 <label>Cables correctly terminated in enclosures:</label>
                 <select class="form-control" formControlName="cablesTerminated" 
-                [ngClass]="{ 'is-invalid': submitted && f.cablesTerminated.errors }" [(ngModel)]="inspectionDetails.cablesTerminated">
+                [ngClass]="{ 'is-invalid': submitted && c.get('cablesTerminated')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.cablesTerminated.errors" class="invalid-feedback">
-                  <div *ngIf="f.cablesTerminated.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('cablesTerminated')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('cablesTerminated')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1097,12 +1157,12 @@
                 <label>Adequacy of conductors for current-carrying capacity with respect to type and nature of the
                   installation:</label>
                 <select class="form-control" formControlName="currentCarryCapacity" 
-                [ngClass]="{ 'is-invalid': submitted && f.currentCarryCapacity.errors }" [(ngModel)]="inspectionDetails.currentCarryCapacity">
+                [ngClass]="{ 'is-invalid': submitted && c.get('currentCarryCapacity')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.currentCarryCapacity.errors" class="invalid-feedback">
-                  <div *ngIf="f.currentCarryCapacity.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('currentCarryCapacity')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('currentCarryCapacity')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1111,12 +1171,12 @@
               <div class="form-group equipment">
                 <label>Operation of main switches (functional checks):</label>
                 <select class="form-control" formControlName="operationMainSwitches" 
-                [ngClass]="{ 'is-invalid': submitted && f.operationMainSwitches.errors }" [(ngModel)]="inspectionDetails.operationMainSwitches">
+                [ngClass]="{ 'is-invalid': submitted && c.get('operationMainSwitches')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.operationMainSwitches.errors" class="invalid-feedback">
-                  <div *ngIf="f.operationMainSwitches.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('operationMainSwitches')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('operationMainSwitches')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1125,12 +1185,12 @@
               <div class="form-group equipment">
                 <label>Manual operation of circuit breakers and RCD’s to prove functionally:</label>
                 <select class="form-control" formControlName="manualCircuitBreakers" 
-                [ngClass]="{ 'is-invalid': submitted && f.manualCircuitBreakers.errors }" [(ngModel)]="inspectionDetails.manualCircuitBreakers">
+                [ngClass]="{ 'is-invalid': submitted && c.get('manualCircuitBreakers')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.manualCircuitBreakers.errors" class="invalid-feedback">
-                  <div *ngIf="f.manualCircuitBreakers.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('manualCircuitBreakers')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('manualCircuitBreakers')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1139,12 +1199,12 @@
                 <label>Confirmation that integral test button / switch causes RCD’s to trip when operated
                   (functional check):</label>
                 <select class="form-control" formControlName="switchCausesRcd" 
-                [ngClass]="{ 'is-invalid': submitted && f.switchCausesRcd.errors }" [(ngModel)]="inspectionDetails.switchCausesRcd">
+                [ngClass]="{ 'is-invalid': submitted && c.get('switchCausesRcd')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.switchCausesRcd.errors" class="invalid-feedback">
-                  <div *ngIf="f.switchCausesRcd.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('switchCausesRcd')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('switchCausesRcd')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1153,12 +1213,12 @@
               <div class="form-group equipment">
                 <label>Adequacy of protective devices, type and fault current rating for fault protection:</label>
                 <select class="form-control" formControlName="adequacyProtectDevices" 
-                [ngClass]="{ 'is-invalid': submitted && f.adequacyProtectDevices.errors }" [(ngModel)]="inspectionDetails.adequacyProtectDevices">
+                [ngClass]="{ 'is-invalid': submitted && c.get('adequacyProtectDevices')?.errors }">
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.adequacyProtectDevices.errors" class="invalid-feedback">
-                  <div *ngIf="f.adequacyProtectDevices.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('adequacyProtectDevices')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('adequacyProtectDevices')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1167,12 +1227,12 @@
               <div class="form-group equipment">
                 <label>RCD’s provided for additional protection, where specified:</label>
                 <select class="form-control" formControlName="rcdAdditionalProtection" 
-                [ngClass]="{ 'is-invalid': submitted && f.rcdAdditionalProtection.errors }" [(ngModel)]="inspectionDetails.rcdAdditionalProtection">
+                [ngClass]="{ 'is-invalid': submitted && c.get('rcdAdditionalProtection')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.rcdAdditionalProtection.errors" class="invalid-feedback">
-                  <div *ngIf="f.rcdAdditionalProtection.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('rcdAdditionalProtection')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('rcdAdditionalProtection')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1181,12 +1241,12 @@
               <div class="form-group equipment">
                 <label>Presence, adequacy, and correct termination of protective conductors:</label>
                 <select class="form-control" formControlName="presenceProtectConductors" 
-                [ngClass]="{ 'is-invalid': submitted && f.presenceProtectConductors.errors }" [(ngModel)]="inspectionDetails.presenceProtectConductors">
+                [ngClass]="{ 'is-invalid': submitted && c.get('presenceProtectConductors')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.presenceProtectConductors.errors" class="invalid-feedback">
-                  <div *ngIf="f.presenceProtectConductors.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('presenceProtectConductors')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('presenceProtectConductors')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1194,12 +1254,12 @@
               <div class="form-group equipment">
                 <label>Co-ordination between conductors and overload protective devices:</label>
                 <select class="form-control" formControlName="coOrdination" 
-                [ngClass]="{ 'is-invalid': submitted && f.coOrdination.errors }" [(ngModel)]="inspectionDetails.coOrdination">
+                [ngClass]="{ 'is-invalid': submitted && c.get('coOrdination')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.coOrdination.errors" class="invalid-feedback">
-                  <div *ngIf="f.coOrdination.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('coOrdination')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('coOrdination')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1209,12 +1269,12 @@
                 <label>Wiring systems and cable installation methods/ practices with regard to the type and nature
                   of installation and external influences:</label>
                 <select class="form-control" formControlName="wiringSystems" 
-                [ngClass]="{ 'is-invalid': submitted && f.wiringSystems.errors }" [(ngModel)]="inspectionDetails.wiringSystems">
+                [ngClass]="{ 'is-invalid': submitted && c.get('wiringSystems')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.wiringSystems.errors" class="invalid-feedback">
-                  <div *ngIf="f.wiringSystems.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('wiringSystems')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('wiringSystems')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1224,12 +1284,12 @@
                 <label>Cables concealed under floors above ceilings, in wall adequately protected against damage
                   by contact with fixings:</label>
                 <select class="form-control" formControlName="cablesConcealUnderFloors" 
-                [ngClass]="{ 'is-invalid': submitted && f.cablesConcealUnderFloors.errors }" [(ngModel)]="inspectionDetails.cablesConcealUnderFloors">
+                [ngClass]="{ 'is-invalid': submitted && c.get('cablesConcealUnderFloors')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.cablesConcealUnderFloors.errors" class="invalid-feedback">
-                  <div *ngIf="f.cablesConcealUnderFloors.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('cablesConcealUnderFloors')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('cablesConcealUnderFloors')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1240,12 +1300,12 @@
                   for circuits used to supply mobile equipment not exceeding 32A rating for use outdoors in all
                   cases:</label>
                 <select class="form-control" formControlName="operatingCurrentCircuits" 
-                [ngClass]="{ 'is-invalid': submitted && f.operatingCurrentCircuits.errors }" [(ngModel)]="inspectionDetails.operatingCurrentCircuits">
+                [ngClass]="{ 'is-invalid': submitted && c.get('operatingCurrentCircuits')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.operatingCurrentCircuits.errors" class="invalid-feedback">
-                  <div *ngIf="f.operatingCurrentCircuits.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('operatingCurrentCircuits')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('operatingCurrentCircuits')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1255,12 +1315,12 @@
                   for all socket outlets of rating 20A or less provided for use by ordinary persons unless
                   exempt:</label>
                 <select class="form-control" formControlName="operatingCurrentSocket" 
-                [ngClass]="{ 'is-invalid': submitted && f.operatingCurrentSocket.errors }" [(ngModel)]="inspectionDetails.operatingCurrentSocket">
+                [ngClass]="{ 'is-invalid': submitted && c.get('operatingCurrentSocket')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.operatingCurrentSocket.errors" class="invalid-feedback">
-                  <div *ngIf="f.operatingCurrentSocket.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('operatingCurrentSocket')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('operatingCurrentSocket')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1270,12 +1330,12 @@
                 <label>Additional protection by RCD’s having residual operating current (I∆n) not exceeding 30mA
                   for cables concealed in walls at a depth of less than 50mm:</label>
                 <select class="form-control" formControlName="cablesConcDepth" 
-                [ngClass]="{ 'is-invalid': submitted && f.cablesConcDepth.errors }" [(ngModel)]="inspectionDetails.cablesConcDepth">
+                [ngClass]="{ 'is-invalid': submitted && c.get('cablesConcDepth')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.cablesConcDepth.errors" class="invalid-feedback">
-                  <div *ngIf="f.cablesConcDepth.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('cablesConcDepth')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('cablesConcDepth')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1285,12 +1345,12 @@
                 <label>Additional protection by RCD’s having residual operating current (I∆n) not exceeding 30mA
                   for Cables concealed in walls / sections containing metal sections regardless of depth:</label>
                 <select class="form-control" formControlName="sectionsRegardlessDepth" 
-                [ngClass]="{ 'is-invalid': submitted && f.sectionsRegardlessDepth.errors }" [(ngModel)]="inspectionDetails.sectionsRegardlessDepth">
+                [ngClass]="{ 'is-invalid': submitted && c.get('sectionsRegardlessDepth')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.sectionsRegardlessDepth.errors" class="invalid-feedback">
-                  <div *ngIf="f.sectionsRegardlessDepth.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('sectionsRegardlessDepth')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('sectionsRegardlessDepth')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1300,12 +1360,12 @@
                 <label>Provision of fire barriers, sealing arrangements so as to minimize the spread of
                   fire:</label>
                 <select class="form-control" formControlName="provisionFireBarriers" 
-                [ngClass]="{ 'is-invalid': submitted && f.provisionFireBarriers.errors }" [(ngModel)]="inspectionDetails.provisionFireBarriers">
+                [ngClass]="{ 'is-invalid': submitted && c.get('provisionFireBarriers')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.provisionFireBarriers.errors" class="invalid-feedback">
-                  <div *ngIf="f.provisionFireBarriers.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('provisionFireBarriers')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('provisionFireBarriers')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1313,12 +1373,12 @@
               <div class="form-group equipment">
                 <label>Segregation/separation of Band I (ELV) and Band II (LV) circuits:</label>
                 <select class="form-control" formControlName="separationBand" 
-                [ngClass]="{ 'is-invalid': submitted && f.separationBand.errors }" [(ngModel)]="inspectionDetails.separationBand">
+                [ngClass]="{ 'is-invalid': submitted && c.get('separationBand')?.errors }">
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.separationBand.errors" class="invalid-feedback">
-                  <div *ngIf="f.separationBand.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('separationBand')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('separationBand')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1327,12 +1387,12 @@
               <div class="form-group equipment">
                 <label>Segregation/separation of electrical and non-electrical services:</label>
                 <select class="form-control" formControlName="separationElectrical" 
-                [ngClass]="{ 'is-invalid': submitted && f.separationElectrical.errors }" [(ngModel)]="inspectionDetails.separationElectrical">
+                [ngClass]="{ 'is-invalid': submitted && c.get('separationElectrical')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.separationElectrical.errors" class="invalid-feedback">
-                  <div *ngIf="f.separationElectrical.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('separationElectrical')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('separationElectrical')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1341,12 +1401,12 @@
               <div class="form-group equipment">
                 <label>Condition of circuit accessories:</label>
                 <select class="form-control" formControlName="conditionCircuitAccessories" 
-                [ngClass]="{ 'is-invalid': submitted && f.conditionCircuitAccessories.errors }" [(ngModel)]="inspectionDetails.conditionCircuitAccessories">
+                [ngClass]="{ 'is-invalid': submitted && c.get('conditionCircuitAccessories')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.conditionCircuitAccessories.errors" class="invalid-feedback">
-                  <div *ngIf="f.conditionCircuitAccessories.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('conditionCircuitAccessories')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('conditionCircuitAccessories')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1356,12 +1416,12 @@
                 <label>Cables and conductors correctly terminated, enclosed and with no undue mechanical
                   strain:</label>
                 <select class="form-control" formControlName="conductorCorrectTerminated" 
-                [ngClass]="{ 'is-invalid': submitted && f.conductorCorrectTerminated.errors }" [(ngModel)]="inspectionDetails.conductorCorrectTerminated">
+                [ngClass]="{ 'is-invalid': submitted && c.get('conductorCorrectTerminated')?.errors }">
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.conductorCorrectTerminated.errors" class="invalid-feedback">
-                  <div *ngIf="f.conductorCorrectTerminated.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('conductorCorrectTerminated')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('conductorCorrectTerminated')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1369,12 +1429,12 @@
               <div class="form-group equipment">
                 <label>No basic insulation of a conductor visible outside enclosure:</label>
                 <select class="form-control" formControlName="conductorVisibleOutside" 
-                [ngClass]="{ 'is-invalid': submitted && f.conductorVisibleOutside.errors }" [(ngModel)]="inspectionDetails.conductorVisibleOutside">
+                [ngClass]="{ 'is-invalid': submitted && c.get('conductorVisibleOutside')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.conductorVisibleOutside.errors" class="invalid-feedback">
-                  <div *ngIf="f.conductorVisibleOutside.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('conductorVisibleOutside')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('conductorVisibleOutside')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1383,12 +1443,12 @@
               <div class="form-group equipment">
                 <label>Connections of live conductors adequately enclosed:</label>
                 <select class="form-control" formControlName="connLiveConductors" 
-                [ngClass]="{ 'is-invalid': submitted && f.connLiveConductors.errors }" [(ngModel)]="inspectionDetails.connLiveConductors">
+                [ngClass]="{ 'is-invalid': submitted && c.get('connLiveConductors')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.connLiveConductors.errors" class="invalid-feedback">
-                  <div *ngIf="f.connLiveConductors.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('connLiveConductors')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('connLiveConductors')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1397,12 +1457,12 @@
               <div class="form-group equipment">
                 <label>Adequately connected at the point of entry to enclosure (glands, bushes etc.):</label>
                 <select class="form-control" formControlName="adequatelyConnectedEnclosure" 
-                [ngClass]="{ 'is-invalid': submitted && f.adequatelyConnectedEnclosure.errors }" [(ngModel)]="inspectionDetails.adequatelyConnectedEnclosure">
+                [ngClass]="{ 'is-invalid': submitted && c.get('adequatelyConnectedEnclosure')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.adequatelyConnectedEnclosure.errors" class="invalid-feedback">
-                  <div *ngIf="f.adequatelyConnectedEnclosure.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('adequatelyConnectedEnclosure')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('adequatelyConnectedEnclosure')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1410,12 +1470,12 @@
               <div class="form-group equipment">
                 <label>Suitability of circuit accessories for external influences:</label>
                 <select class="form-control" formControlName="suitabilityCircuitAccessories" 
-                [ngClass]="{ 'is-invalid': submitted && f.suitabilityCircuitAccessories.errors }" [(ngModel)]="inspectionDetails.suitabilityCircuitAccessories">
+                [ngClass]="{ 'is-invalid': submitted && c.get('suitabilityCircuitAccessories')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.suitabilityCircuitAccessories.errors" class="invalid-feedback">
-                  <div *ngIf="f.suitabilityCircuitAccessories.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('suitabilityCircuitAccessories')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('suitabilityCircuitAccessories')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
@@ -1426,29 +1486,531 @@
                   accessories not damaged, securely fixed, correctly connected, suitable for external
                   influences):</label>
                 <select class="form-control" formControlName="conditionAccessories" 
-                [ngClass]="{ 'is-invalid': submitted && f.conditionAccessories.errors }" [(ngModel)]="inspectionDetails.conditionAccessories">
+                [ngClass]="{ 'is-invalid': submitted && c.get('conditionAccessories')?.errors }" >
                   <option value="0" selected>Select option</option>
                   <option *ngFor="let value of InspectionList">{{value}}</option>
                 </select>
-                <div *ngIf="submitted && f.conditionAccessories.errors" class="invalid-feedback">
-                  <div *ngIf="f.conditionAccessories.errors.required">Field is required</div>
+                <div *ngIf="submitted && c.get('conditionAccessories')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('conditionAccessories')?.errors?.required">Field is required</div>
               </div>
               </div>
             </div>
           </div>
+            </div>
+          </div>
         </mat-expansion-panel>
-      </mat-accordion>
-      <div style="text-align: center;margin-top: 40px;">
-        <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
-        <button  class="next"  (click)="gotoNextModal(content3)" mat-button >Next &raquo;</button>
-      </div>
+      <!-- circuit ends-->
+
+       <!-- isolationCurrent starts-->
+       <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h3>Circuits</h3>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div formArrayName="isolationCurrentArr" *ngFor="let d of getisolationCurrentControls(a); let i = index">
+          <div class="form-group" [formGroupName]="i">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Identification of conductors including main earthing / bonding arrangements:</label>
+              <select class="form-control" formControlName="presenceDevices" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('presenceDevices')?.errors }" >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('presenceDevices')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('presenceDevices')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Cable installation methods (including support) suitable for the location(s) and external
+                influences (Cables correctly supported throughout):</label>
+              <select class="form-control" formControlName="conditionDevices" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('conditionDevices')?.errors }" >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('conditionDevices')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('conditionDevices')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Examination of cables for signs of mechanical damage during installation:</label>
+              <select class="form-control" formControlName="locationDevices" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('locationDevices')?.errors }" >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('locationDevices')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('locationDevices')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Examination of insulation of live parts not damaged during erection:</label>
+              <select class="form-control" formControlName="capableSecured" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('capableSecured')?.errors }" >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('capableSecured')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('capableSecured')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Non-Sheathed cables protected by enclosure in conduit, ducting or trucking:</label>
+              <select class="form-control" formControlName="operationVerify" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('operationVerify')?.errors }" >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('operationVerify')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('operationVerify')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Suitability of containment systems including flexible conduit:</label>
+              <select class="form-control" formControlName="installCircuit" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('installCircuit')?.errors }" >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('installCircuit')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('installCircuit')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Correct temperature rating of cable insulation:</label>
+              <select class="form-control" formControlName="warningLabel" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('warningLabel')?.errors }" 
+             >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('warningLabel')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('warningLabel')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Cables correctly terminated in enclosures:</label>
+              <select class="form-control" formControlName="swPresenceDevices" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('swPresenceDevices')?.errors }" >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('swPresenceDevices')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('swPresenceDevices')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Adequacy of conductors for current-carrying capacity with respect to type and nature of the
+                installation:</label>
+              <select class="form-control" formControlName="swConditionDevices" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('swConditionDevices')?.errors }" >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('swConditionDevices')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('swConditionDevices')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Operation of main switches (functional checks):</label>
+              <select class="form-control" formControlName="swAcceptableLocation" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('swAcceptableLocation')?.errors }" >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('swAcceptableLocation')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('swAcceptableLocation')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Manual operation of circuit breakers and RCD’s to prove functionally:</label>
+              <select class="form-control" formControlName="swCapableOffPosition" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('swCapableOffPosition')?.errors }" >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('swCapableOffPosition')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('swCapableOffPosition')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Confirmation that integral test button / switch causes RCD’s to trip when operated
+                (functional check):</label>
+              <select class="form-control" formControlName="swCorrectOperation" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('swCorrectOperation')?.errors }" >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('swCorrectOperation')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('swCorrectOperation')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Adequacy of protective devices, type and fault current rating for fault protection:</label>
+              <select class="form-control" formControlName="swCircuit" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('swCircuit')?.errors }">
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('swCircuit')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('swCircuit')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>RCD’s provided for additional protection, where specified:</label>
+              <select class="form-control" formControlName="swWarningLabel" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('swWarningLabel')?.errors }" >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('swWarningLabel')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('swWarningLabel')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Presence, adequacy, and correct termination of protective conductors:</label>
+              <select class="form-control" formControlName="emSwitPresenceDevices" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('emSwitPresenceDevices')?.errors }" >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('emSwitPresenceDevices')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('emSwitPresenceDevices')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Co-ordination between conductors and overload protective devices:</label>
+              <select class="form-control" formControlName="emSwitConditionDevices" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('emSwitConditionDevices')?.errors }" >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('emSwitConditionDevices')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('emSwitConditionDevices')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Wiring systems and cable installation methods/ practices with regard to the type and nature
+                of installation and external influences:</label>
+              <select class="form-control" formControlName="emSwitLocationDevices" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('emSwitLocationDevices')?.errors }" >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('emSwitLocationDevices')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('emSwitLocationDevices')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Cables concealed under floors above ceilings, in wall adequately protected against damage
+                by contact with fixings:</label>
+              <select class="form-control" formControlName="emSwitOperationVerify" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('emSwitOperationVerify')?.errors }" >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('emSwitOperationVerify')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('emSwitOperationVerify')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Additional protection by RCD’s having residual operating current (I∆n) not exceeding 30mA
+                for circuits used to supply mobile equipment not exceeding 32A rating for use outdoors in all
+                cases:</label>
+              <select class="form-control" formControlName="emSwitInstallCircuit" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('emSwitInstallCircuit')?.errors }" >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('emSwitInstallCircuit')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('emSwitInstallCircuit')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Additional protection by RCD’s having residual operating current (I∆n) not exceeding 30mA
+                for all socket outlets of rating 20A or less provided for use by ordinary persons unless
+                exempt:</label>
+              <select class="form-control" formControlName="fuSwitPresenceDevices" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('fuSwitPresenceDevices')?.errors }" >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('fuSwitPresenceDevices')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('fuSwitPresenceDevices')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Additional protection by RCD’s having residual operating current (I∆n) not exceeding 30mA
+                for cables concealed in walls at a depth of less than 50mm:</label>
+              <select class="form-control" formControlName="fuSwitLocationDevices" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('fuSwitLocationDevices')?.errors }" >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('fuSwitLocationDevices')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('fuSwitLocationDevices')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Additional protection by RCD’s having residual operating current (I∆n) not exceeding 30mA
+                for Cables concealed in walls / sections containing metal sections regardless of depth:</label>
+              <select class="form-control" formControlName="fuSwitOperationVerify" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('fuSwitOperationVerify')?.errors }" >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('fuSwitOperationVerify')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('fuSwitOperationVerify')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Provision of fire barriers, sealing arrangements so as to minimize the spread of
+                fire:</label>
+              <select class="form-control" formControlName="suitabilityEquipment" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('suitabilityEquipment')?.errors }" >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('suitabilityEquipment')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('suitabilityEquipment')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Segregation/separation of Band I (ELV) and Band II (LV) circuits:</label>
+              <select class="form-control" formControlName="enclosureNotDamaged" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('enclosureNotDamaged')?.errors }">
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('enclosureNotDamaged')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('enclosureNotDamaged')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Segregation/separation of electrical and non-electrical services:</label>
+              <select class="form-control" formControlName="suitabilityEnvironment" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('suitabilityEnvironment')?.errors }" >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('suitabilityEnvironment')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('suitabilityEnvironment')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Condition of circuit accessories:</label>
+              <select class="form-control" formControlName="securityFixing" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('securityFixing')?.errors }" >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('securityFixing')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('securityFixing')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Cables and conductors correctly terminated, enclosed and with no undue mechanical
+                strain:</label>
+              <select class="form-control" formControlName="cableEntryHoles" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('cableEntryHoles')?.errors }">
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('cableEntryHoles')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('cableEntryHoles')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>No basic insulation of a conductor visible outside enclosure:</label>
+              <select class="form-control" formControlName="provisionVoltage" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('provisionVoltage')?.errors }" >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('provisionVoltage')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('provisionVoltage')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Connections of live conductors adequately enclosed:</label>
+              <select class="form-control" formControlName="provisionOverload" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('provisionOverload')?.errors }" >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('provisionOverload')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('provisionOverload')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Adequately connected at the point of entry to enclosure (glands, bushes etc.):</label>
+              <select class="form-control" formControlName="correctTypeLamps" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('correctTypeLamps')?.errors }" >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('correctTypeLamps')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('correctTypeLamps')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Suitability of circuit accessories for external influences:</label>
+              <select class="form-control" formControlName="insulaDisplacementBox" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('insulaDisplacementBox')?.errors }" >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('insulaDisplacementBox')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('insulaDisplacementBox')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Condition of accessories including socket-outlets, switches and joint boxes (Circuit
+                accessories not damaged, securely fixed, correctly connected, suitable for external
+                influences):</label>
+              <select class="form-control" formControlName="overheatSurrounding" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('overheatSurrounding')?.errors }" >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('overheatSurrounding')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('overheatSurrounding')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="form-group equipment">
+              <label>Condition of accessories including socket-outlets, switches and joint boxes (Circuit
+                accessories not damaged, securely fixed, correctly connected, suitable for external
+                influences):</label>
+              <select class="form-control" formControlName="overheatConductors" 
+              [ngClass]="{ 'is-invalid': submitted && d.get('overheatConductors')?.errors }" >
+                <option value="0" selected>Select option</option>
+                <option *ngFor="let value of InspectionList">{{value}}</option>
+              </select>
+              <div *ngIf="submitted && d.get('overheatConductors')?.errors" class="invalid-feedback">
+                <div *ngIf="d.get('overheatConductors')?.errors?.required">Field is required</div>
+            </div>
+            </div>
+          </div>
+        </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <!-- isolationCurrent ends-->
+
+    </div>
+      <mat-icon class="mousechange" *ngIf="getIncomingControls().length > 1" (click)="removeItem(i)"
+      style="float:right;">delete</mat-icon>
+
+      <!-- <button class="btn btn-danger mousechange" *ngIf="getIncomingControls().length > 1" (click)="removeItem(i)"
+      style="padding: 7px 10px 0px 10px;
+     left: 93%;
+    top: 10px;
+      width: 4%;position: relative;">
+       <mat-icon aria-hidden="false" aria-label="Example home icon" mat-list-icon>delete</mat-icon>
+      </button> -->
       <!-- <div style="text-align: center;margin-top: 40px;">
         <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
         <button class="next" type="submit" mat-button (click)="nextTab3()">Next &raquo;</button>
       </div> -->
-    </form>
     </div>
+    <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
+      <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
+      <button  class="next"  [disabled]="disable" (click)="gotoNextModal(content3)" mat-button >Next &raquo;</button>
+    </div>
+  </form>
   </div>
+
   <ng-template #content3 let-modal>
  
     <div class="modal-body">

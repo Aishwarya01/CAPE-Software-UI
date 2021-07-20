@@ -172,7 +172,6 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   ngOnInit(): void {
     console.log(this.service.siteCount);
     this.supplycharesteristicForm = this.formBuilder.group({
-      // live : ['',Validators.required],
       systemEarthing: ['', Validators.required],
       liveConductor: ['', Validators.required],
       AcConductor: ['', Validators.required],
@@ -249,8 +248,6 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
       location3Arr: this.formBuilder.array([this.createLocation3Form()]),
       alternateArr: this.formBuilder.array([]),
       circuitArr: this.formBuilder.array([]),
-     // SupplyparametersArr: this.formBuilder.array([this.
-
     });
     }
        
@@ -377,8 +374,6 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
     
 
     
-
-    //value = ''; addLocation2
     onKey1(event: KeyboardEvent)    {
       this.values = (<HTMLInputElement>event.target).value ;
      this.value = this.values;
@@ -387,7 +382,6 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
       {
         if(this.value != "")
             {
-       //this.value = value;
   
         for (this.i=1; this.i<this.value; this.i++ )
         {
@@ -401,12 +395,8 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
        this.loclength=this.location1Arr.length;
         for (this.i=1; this.i<this.loclength; this.i++ )
            {
-             //this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
              this.location1Arr.removeAt(this.location1Arr.length-1);
            }
-          // this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
-          // this.location2Arr.push(this.createLocation2Form());
-        
      }
          else if (this.location1Arr.length < this.value)
          {
@@ -433,15 +423,8 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
     }
   }
      }
+   
 
-    // addLocation1() {
-    //   this.location1Arr = this.supplycharesteristicForm.get('location1Arr') as FormArray;
-    //   this.location1Arr.push(this.createLocation1Form());
-    // }
-
-    
-
-    //value = ''; addLocation2
     onKey(event: KeyboardEvent)    {
       this.values = (<HTMLInputElement>event.target).value ;
      this.value = this.values;
@@ -450,7 +433,6 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
       {
         if(this.value != "")
             {
-       //this.value = value;
   
         for (this.i=1; this.i<this.value; this.i++ )
         {
@@ -464,12 +446,8 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
        this.loclength=this.location2Arr.length;
         for (this.i=1; this.i<this.loclength; this.i++ )
            {
-             //this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
              this.location2Arr.removeAt(this.location2Arr.length-1);
            }
-          // this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
-          // this.location2Arr.push(this.createLocation2Form());
-        
      }
          else if (this.location2Arr.length < this.value)
          {
@@ -497,13 +475,6 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   }
     }
   
-    // addLocation2() {
-    //   this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
-    //   this.location2Arr.push(this.createLocation2Form());
-    // }
-
-
-    //value = ''; addLocation3
     onKey3(event: KeyboardEvent)    {
       this.values = (<HTMLInputElement>event.target).value ;
      this.value = this.values;
@@ -512,7 +483,6 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
       {
         if(this.value != "")
             {
-       //this.value = value;
   
         for (this.i=1; this.i<this.value; this.i++ )
         {
@@ -526,12 +496,8 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
        this.loclength=this.location3Arr.length;
         for (this.i=1; this.i<this.loclength; this.i++ )
            {
-             //this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
              this.location3Arr.removeAt(this.location3Arr.length-1);
-           }
-          // this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
-          // this.location2Arr.push(this.createLocation2Form());
-        
+           } 
      }
          else if (this.location3Arr.length < this.value)
          {
@@ -558,10 +524,6 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
     }
   }
     }
-    // addLocation3() {
-    //   this.location3Arr = this.supplycharesteristicForm.get('location3Arr') as FormArray;
-    //   this.location3Arr.push(this.createLocation3Form());
-    // }
 
   getLocation1Controls(): AbstractControl[] {
     return (<FormArray> this.supplycharesteristicForm.get('location1Arr')).controls
@@ -673,7 +635,6 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
           this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
           this.circuitArr = this.supplycharesteristicForm.get('circuitArr') as FormArray;
           if(this.alternateArr.length==1){
-            //this.value = value;
             for (this.i=1; this.i<this.value; this.i++ )
             {
               this.alternateArr.push(this.SupplyparametersForm());
@@ -702,17 +663,12 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
     
           for (this.i=0; this.i<this.loclength; this.i++ )
             {
-              //this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
               this.alternateArr.removeAt(this.alternateArr.length-1);
             }
           for (this.i=0; this.i<this.loc1length; this.i++ )
             {
-              //this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
               this.circuitArr.removeAt(this.circuitArr.length-1);
             }
-            // this.location2Arr = this.supplycharesteristicForm.get('location2Arr') as FormArray;
-            // this.location2Arr.push(this.createLocation2Form());
-            //this.sources= false;
             this.breaker=false;
         }
         else if (this.alternateArr.length < this.value)
@@ -1010,14 +966,12 @@ nextTab2() {
         console.log("worked");
         this.proceedNext.emit(true); 
         this.success=true
-        this.successMsg="Supply characteristics successfully saved";
+        this.successMsg="Supply charachteristics successfully saved";
         this.disable= true;
-        // alert("Step2 successfully saved");
       },
       error => {
         console.log("error");
         this.Error=true;
-        // alert("Something went wrong, kindly check all the fields");  
         this.proceedNext.emit(false); 
         this.errorMsg="Something went wrong, kindly check all the fields";
 
