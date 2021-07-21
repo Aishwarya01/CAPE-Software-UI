@@ -265,9 +265,9 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 
   private createDesigner2AcknowledgeForm(): FormGroup {
     return new FormGroup({
-      signature: new FormControl('',[Validators.required]),
-      declarationDate: new FormControl('',[Validators.required]),
-      declarationName: new FormControl('',[Validators.required])
+      signature: new FormControl(''),
+      declarationDate: new FormControl(''),
+      declarationName: new FormControl('')
     })
   }
 
@@ -616,12 +616,15 @@ nextTab() {
     this.step1Form.value.designer1Arr[0].declarationSignature= this.step1Form.value.designer1AcknowledgeArr[0].signature;
     this.step1Form.value.designer1Arr[0].declarationName= this.step1Form.value.designer1AcknowledgeArr[0].declarationName;
     this.step1Form.value.designer1Arr[0].declarationDate= this.step1Form.value.designer1AcknowledgeArr[0].declarationDate;
-
+  
     this.step1Form.value.designer2Arr[0].signatorRole= this.designerRole;
+    if((this.step1Form.value.designer2AcknowledgeArr[0].signature != "") && (this.step1Form.value.designer2AcknowledgeArr[0].declarationName != "") && (this.step1Form.value.designer2AcknowledgeArr[0].declarationDate != "")) 
+    {
     this.step1Form.value.designer2Arr[0].declarationSignature= this.step1Form.value.designer2AcknowledgeArr[0].signature;
     this.step1Form.value.designer2Arr[0].declarationName= this.step1Form.value.designer2AcknowledgeArr[0].declarationName;
     this.step1Form.value.designer2Arr[0].declarationDate= this.step1Form.value.designer2AcknowledgeArr[0].declarationDate;
-
+    } 
+  
     this.step1Form.value.contractorArr[0].signatorRole= this.contractorRole;
     this.step1Form.value.contractorArr[0].declarationSignature= this.step1Form.value.contractorAcknowledgeArr[0].signature;
     this.step1Form.value.contractorArr[0].declarationName= this.step1Form.value.contractorAcknowledgeArr[0].declarationName;
