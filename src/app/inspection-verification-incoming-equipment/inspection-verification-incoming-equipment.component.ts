@@ -262,7 +262,7 @@ createItem()
   nextTab3()
   {
     debugger
-    this.inspectionDetails.siteId= 522;
+    this.inspectionDetails.siteId= this.service.siteCount;
     this.inspectionDetails.userName=this.email;
     this.submitted = true;
     if(this.addstep3.invalid) {
