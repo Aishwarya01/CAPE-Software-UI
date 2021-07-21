@@ -277,7 +277,7 @@ createItem()
       console.log("worked");
       this.proceedNext.emit(true); 
         this.success=true
-        this.successMsg="Step2 successfully saved";
+        this.successMsg="Incoming Equipment successfully saved";
         this.disable= true;
     },
     (    error: any) => {
