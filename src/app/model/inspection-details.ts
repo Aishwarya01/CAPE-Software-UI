@@ -4,7 +4,7 @@ export class InspectionDetails {
   siteId!: number;
   //ipaoInspectionId!: number;
 
-  IpaoInspection!: IpaInsection[];
+  ipaoInspection!: IpaInsection[];
 }
 
 export class IpaInsection { 
@@ -45,9 +45,9 @@ export class IpaInsection {
   faultNonConductLocation!: String;
   operatingCurrent!: String;
 
-  ConsumerUnit!: consumerUnit[];
-  Circuit!: circuit[];
-  IsolationCurrent!:isolationCurrent[];
+  consumerUnit!: consumerUnit[];
+  circuit!: circuit[];
+  isolationCurrent!:isolationCurrent[];
 }
 export class consumerUnit { 
   accessWorking!: String;

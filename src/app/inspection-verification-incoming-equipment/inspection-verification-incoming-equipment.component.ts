@@ -64,7 +64,7 @@ export class InspectionVerificationIncomingEquipmentComponent implements OnInit 
 
   
   getearthingControls(form:any) { 
-    return form.controls.ConsumerUnit.controls
+    return form.controls.consumerUnit.controls
   } 
   private createEarthingForm(): FormGroup {
     return new FormGroup({
@@ -140,7 +140,7 @@ export class InspectionVerificationIncomingEquipmentComponent implements OnInit 
   }
 
   getisolationCurrentControls(form:any){ 
-    return form.controls.IsolationCurrent.controls
+    return form.controls.isolationCurrent.controls
   } 
   private createisolationCurrentForm(): FormGroup {
     return new FormGroup({
@@ -235,9 +235,9 @@ createItem()
     operatingCurrent:  new FormControl('',[Validators.required]),
     supplementaryBonding:  new FormControl('',[Validators.required]),
 
-    ConsumerUnit: this._formBuilder.array([this.createEarthingForm()]),
+    consumerUnit: this._formBuilder.array([this.createEarthingForm()]),
     circuit: this._formBuilder.array([this.createcircuitForm()]),
-    IsolationCurrent: this._formBuilder.array([this.createisolationCurrentForm()])
+    isolationCurrent: this._formBuilder.array([this.createisolationCurrentForm()])
   })
 }
   
@@ -262,13 +262,13 @@ createItem()
   nextTab3()
   {
     debugger
-    this.inspectionDetails.siteId= 512;
+    this.inspectionDetails.siteId= 522;
     this.inspectionDetails.userName=this.email;
     this.submitted = true;
     if(this.addstep3.invalid) {
       return;
     }
-    this.inspectionDetails.IpaoInspection = this.addstep3.value.incomingArr;
+    this.inspectionDetails.ipaoInspection = this.addstep3.value.incomingArr;
   console.log(this.inspectionDetails);
   console.log(this.addstep3.value.incomingArr);
 
