@@ -19,7 +19,7 @@
                   </option>
                 </select>
                 <div *ngIf="submitted && f.systemEarthing.errors" class="invalid-feedback">
-                  <div *ngIf="f.systemEarthing?.errors?.required">Please enter valid details</div>
+                  <div *ngIf="f.systemEarthing?.errors?.required">Field is required</div>
                 </div>                             
               </div>
 
@@ -31,7 +31,7 @@
                     <option value="DC">DC</option>
                   </select>
                   <div *ngIf="submitted && f.liveConductor.errors" class="invalid-feedback">
-                    <div *ngIf="f.liveConductor?.errors?.required">Please enter valid details</div>
+                    <div *ngIf="f.liveConductor?.errors?.required">Field is required</div>
                   </div>
               </div>
 
@@ -79,7 +79,7 @@
                 <textarea matInput class="client-box-description" formControlName="briefNote" [ngClass]="{ 'is-invalid': submitted && f.briefNote.errors }" [(ngModel)]="supplycharesteristic.systemEarthingBNote" maxlength="500" placeholder="Ex. Brief Note ..." ></textarea>
               </mat-form-field>
               <div *ngIf="submitted && f.briefNote.errors" class="invalid-feedback">
-                <div *ngIf="f.briefNote?.errors?.required">Please enter valid details</div>
+                <div *ngIf="f.briefNote?.errors?.required">Field is required</div>
               </div>
             </div>
           </div>
@@ -169,7 +169,7 @@
                   <td> 
                   <input type="text"  style="width:200px" formControlName="mainNominalProtectiveDevice" [(ngModel)]="supplycharesteristic.mainNominalProtectiveDevice" [ngClass]="{ 'is-invalid': submitted && f.mainNominalProtectiveDevice.errors }">
                   <div *ngIf="submitted && f.mainNominalProtectiveDevice.errors" class="invalid-feedback">
-                    <div *ngIf="f.mainNominalProtectiveDevice?.errors?.required">Please enter valid detailsd</div>
+                    <div *ngIf="f.mainNominalProtectiveDevice?.errors?.required">Field is required</div>
                   </div>
                 </td>
               </tr>
@@ -178,7 +178,7 @@
                   <td>
                     <input type="number" min="0" maxlength="4"style="width:200px" formControlName="mainRatedCurrent" [(ngModel)]="supplycharesteristic.mainRatedCurrent" [ngClass]="{ 'is-invalid': submitted && f.mainRatedCurrent.errors }">
                     <div *ngIf="submitted && f.mainRatedCurrent.errors" class="invalid-feedback">
-                      <div *ngIf="f.mainRatedCurrent?.errors?.required">Please enter valid details</div>
+                      <div *ngIf="f.mainRatedCurrent?.errors?.required">Field is required</div>
                     </div>
                   </td>
               </tr>
@@ -187,7 +187,7 @@
                   <td>
                     <input type="number"   min="0" maxlength="5" style="width:200px" max="5" formControlName="mainCurrentDisconnection" [(ngModel)]="supplycharesteristic.mainCurrentDisconnection" [ngClass]="{ 'is-invalid': submitted && f.mainCurrentDisconnection.errors }">
                     <div *ngIf="submitted && f.mainCurrentDisconnection.errors" class="invalid-feedback">
-                      <div *ngIf="f.mainCurrentDisconnection?.errors?.required">Please enter valid details</div>
+                      <div *ngIf="f.mainCurrentDisconnection?.errors?.required">Field is required</div>
                     </div>
                   </td>
                 </tr>
@@ -204,7 +204,7 @@
                 <textarea matInput class="client-box-description" formControlName="liveConductorBNote" [ngClass]="{ 'is-invalid': submitted && f.liveConductorBNote.errors }" [(ngModel)]="supplycharesteristic.liveConductorBNote" maxlength="500" placeholder="Ex. Brief Note ..." ></textarea>
               </mat-form-field>
               <div *ngIf="submitted && f.liveConductorBNote.errors" class="invalid-feedback">
-                <div *ngIf="f.liveConductorBNote?.errors?.required">Please enter valid details</div>
+                <div *ngIf="f.liveConductorBNote?.errors?.required">Field is required</div>
               </div>
             </div>
           </div>
@@ -230,7 +230,7 @@
                   <option value="No">No</option>
                   </select>
                   <div *ngIf="submitted && f.alternativeSupply.errors" class="invalid-feedback">
-                    <div *ngIf="f.alternativeSupply?.errors?.required">Please enter valid details</div>
+                    <div *ngIf="f.alternativeSupply?.errors?.required">Field is required</div>
                   </div>
                 </div>
               </div>
@@ -257,7 +257,7 @@
                       <label>Alternate supply no:</label>        
                       <input type="number"   min="0" class="form-control"  formControlName="aLSupplyNo" [ngClass]="{ 'is-invalid': submitted && a.get('aLSupplyNo')?.errors }">
                       <div *ngIf="submitted && a.get('aLSupplyNo')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('aLSupplyNo')?.errors?.required">Please enter valid details</div>
+                        <div *ngIf="a.get('aLSupplyNo')?.errors?.required">Field is required</div>
                       </div>
                     </div>
         
@@ -265,7 +265,7 @@
                       <label>Short Name of Alternate Supply:</label>        
                       <input type="text"  maxlength="50" class="form-control"  formControlName="aLSupplyShortName" [ngClass]="{ 'is-invalid': submitted && a.get('aLSupplyShortName')?.errors }">
                       <div *ngIf="submitted && a.get('aLSupplyShortName')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('aLSupplyShortName')?.errors?.required">Please enter valid details</div>
+                        <div *ngIf="a.get('aLSupplyShortName')?.errors?.required">Field is required</div>
                       </div>
                     </div>
         
@@ -276,7 +276,7 @@
                         <option *ngFor="let value of systemEarthingList"> {{value}}</option>
                       </select>
                       <div *ngIf="submitted && a.get('aLSystemEarthing')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('aLSystemEarthing')?.errors?.required">Please enter valid details</div>
+                        <div *ngIf="a.get('aLSystemEarthing')?.errors?.required">Field is required</div>
                       </div>
                     </div>
         
@@ -288,7 +288,7 @@
                           <option value="DC">DC</option>
                         </select>
                         <div *ngIf="submitted && a.get('aLLiveConductorType')?.errors" class="invalid-feedback">
-                          <div *ngIf="a.get('aLLiveConductorType')?.errors?.required">Please enter valid details</div>
+                          <div *ngIf="a.get('aLLiveConductorType')?.errors?.required">Field is required</div>
                         </div>
                     </div>
         
@@ -303,7 +303,7 @@
                           <option value="3-phase, 4-wire (LLLN)">3-phase, 4-wire (LLLN)</option>
                         </select>
                         <div *ngIf="submitted && a.get('aLLiveConductorAC')?.errors" class="invalid-feedback">
-                          <div *ngIf="a.get('aLLiveConductorAC')?.errors?.required">Please enter valid details</div>
+                          <div *ngIf="a.get('aLLiveConductorAC')?.errors?.required">Field is required</div>
                         </div>
                     </div>
         
@@ -315,7 +315,7 @@
                           <option value="Others">Others</option>
                         </select>
                         <div *ngIf="submitted && a.get('aLLiveConductorDC')?.errors" class="invalid-feedback">
-                          <div *ngIf="a.get('aLLiveConductorDC')?.errors?.required">Please enter valid details</div>
+                          <div *ngIf="a.get('aLLiveConductorDC')?.errors?.required">Field is required</div>
                         </div>
                     </div>
                   </div>
@@ -329,7 +329,7 @@
                         <textarea matInput class="client-box-description" formControlName="aLSystemEarthingBNote" [ngClass]="{ 'is-invalid': submitted && a.get('aLSystemEarthingBNote')?.errors }" maxlength="500" placeholder="Ex. Brief Note ..." ></textarea>
                       </mat-form-field>
                       <div *ngIf="submitted && a.get('aLSystemEarthingBNote')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('aLSystemEarthingBNote')?.errors?.required">Please enter valid details</div>
+                        <div *ngIf="a.get('aLSystemEarthingBNote')?.errors?.required">Field is required</div>
                       </div>
                     </div>
                   </div>
@@ -435,7 +435,7 @@
                             <td>
                               <input type="text"  style="width:400px" formControlName="protectiveDevice" [ngClass]="{ 'is-invalid': submitted && a.get('protectiveDevice')?.errors }">
                               <div *ngIf="submitted && a.get('protectiveDevice')?.errors" class="invalid-feedback">
-                                <div *ngIf="a.get('protectiveDevice')?.errors?.required">Please enter valid details</div>
+                                <div *ngIf="a.get('protectiveDevice')?.errors?.required">Field is required</div>
                               </div>
                             </td>
                           </tr>
@@ -444,7 +444,7 @@
                               <td>
                                 <input type="text" formControlName="ratedCurrent" min="0" [ngClass]="{ 'is-invalid': submitted && a.get('ratedCurrent')?.errors }" style="width:400px">
                                 <div *ngIf="submitted && a.get('ratedCurrent')?.errors" class="invalid-feedback">
-                                  <div *ngIf="a.get('ratedCurrent')?.errors?.required">Please enter valid details</div>
+                                  <div *ngIf="a.get('ratedCurrent')?.errors?.required">Field is required</div>
                                 </div>
                               </td>
                           </tr>
@@ -453,7 +453,7 @@
                             <td>
                               <input type="text" formControlName="currentDissconnection" [ngClass]="{ 'is-invalid': submitted && a.get('currentDissconnection')?.errors }" style="width:400px">
                               <div *ngIf="submitted && a.get('currentDissconnection')?.errors" class="invalid-feedback">
-                                <div *ngIf="a.get('currentDissconnection')?.errors?.required">Please enter valid details</div>
+                                <div *ngIf="a.get('currentDissconnection')?.errors?.required">Field is required</div>
                               </div>
                             </td>
                           </tr>
@@ -469,7 +469,7 @@
                         </mat-label>
                         <textarea matInput class="client-box-description" formControlName="aLLiveConductorBNote" [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorBNote')?.errors }" maxlength="500" placeholder="Ex. Brief Note ..." ></textarea>
                         <div *ngIf="submitted && a.get('aLLiveConductorBNote')?.errors" class="invalid-feedback">
-                          <div *ngIf="a.get('aLLiveConductorBNote')?.errors?.required">Please enter valid details</div>
+                          <div *ngIf="a.get('aLLiveConductorBNote')?.errors?.required">Field is required</div>
                         </div>
                       </mat-form-field>
                     </div>
@@ -516,7 +516,7 @@
                     <option *ngFor="let value of MeansofEarthingList"> {{value}}</option>
                   </select>
                   <div *ngIf="submitted && f.meansEarthing.errors" class="invalid-feedback">
-                    <div *ngIf="f.meansEarthing?.errors?.required">Please enter valid details</div>
+                    <div *ngIf="f.meansEarthing?.errors?.required">Field is required</div>
                   </div>
                 </div>
               </div>
@@ -530,7 +530,7 @@
                     <option *ngFor="let value of  electrodeTypeList"> {{value}}</option>
                   </select>
                   <div *ngIf="submitted && f.electrodeType.errors" class="invalid-feedback">
-                    <div *ngIf="f.electrodeType?.errors?.required">Please enter valid details</div>
+                    <div *ngIf="f.electrodeType?.errors?.required">Field is required</div>
                   </div>
                 </div>
 
@@ -541,7 +541,7 @@
                     <option *ngFor="let value of  electrodeMaterialList"> {{value}}</option>
                   </select>
                   <div *ngIf="submitted && f.electrodeMaterial.errors" class="invalid-feedback">
-                    <div *ngIf="f.electrodeMaterial?.errors?.required">Please enter valid details</div>
+                    <div *ngIf="f.electrodeMaterial?.errors?.required">Field is required</div>
                   </div>
                 </div>
 
@@ -601,14 +601,14 @@
                     <div class="col-md-3">
                       <input type="text"  formControlName="electrodeResistanceEarth" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('electrodeResistanceEarth')?.errors }" placeholder="Enter electrode resistance" >
                       <div *ngIf="submitted && a.get('electrodeResistanceEarth')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('electrodeResistanceEarth')?.errors?.required">Please enter valid details</div>
+                        <div *ngIf="a.get('electrodeResistanceEarth')?.errors?.required">Field is required</div>
                       </div>
                     </div>
 
                     <div class="col-md-3">
                       <input type="text"  formControlName="electrodeResistanceGird" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('electrodeResistanceGird')?.errors }" placeholder="Enter electrode resistance" >
                       <div *ngIf="submitted && a.get('electrodeResistanceGird')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('electrodeResistanceGird')?.errors?.required">Please enter valid details</div>
+                        <div *ngIf="a.get('electrodeResistanceGird')?.errors?.required">Field is required</div>
                       </div>
                     </div>
                   </div>
@@ -633,7 +633,7 @@
                       border: none;
                       border-bottom: 1px solid #000000;"> sq.mm</p>
                       <div *ngIf="submitted && f.conductorSize.errors" class="invalid-feedback">
-                        <div *ngIf="f.conductorSize?.errors?.required">Please enter valid details</div>
+                        <div *ngIf="f.conductorSize?.errors?.required">Field is required</div>
                       </div>
                   </div>
 
@@ -641,7 +641,7 @@
                     <label>Material of Earthing Conductor:</label>
                     <input type="text"  class="form-control" formControlName="conductormaterial" [ngClass]="{ 'is-invalid': submitted && f.conductormaterial.errors }" [(ngModel)]="supplycharesteristic.conductormaterial">
                     <div *ngIf="submitted && f.conductormaterial.errors" class="invalid-feedback">
-                      <div *ngIf="f.conductormaterial?.errors?.required">Please enter valid details</div>
+                      <div *ngIf="f.conductormaterial?.errors?.required">Field is required</div>
                     </div>
                   </div>
 
@@ -653,7 +653,7 @@
                       <option *ngFor="let value of  earthingConductorVerifyList"> {{value}}</option>
                     </select>
                     <div *ngIf="submitted && f.conductorVerify.errors" class="invalid-feedback">
-                      <div *ngIf="f.conductorVerify?.errors?.required">Please enter valid details</div>
+                      <div *ngIf="f.conductorVerify?.errors?.required">Field is required</div>
                     </div>
                   </div>
                 </div>
@@ -668,7 +668,7 @@
                       border: none;
                       border-bottom: 1px solid #000000;"> sq.mm</p>
                       <div *ngIf="submitted && f.bondingConductorSize.errors" class="invalid-feedback">
-                        <div *ngIf="f.bondingConductorSize?.errors?.required">Please enter valid details</div>
+                        <div *ngIf="f.bondingConductorSize?.errors?.required">Field is required</div>
                       </div>
                   </div>
 
@@ -676,7 +676,7 @@
                     <label>Material of Main Protective Bonding Conductor:</label>
                     <input type="text"  class="form-control" formControlName="bondingConductorMaterial" [ngClass]="{ 'is-invalid': submitted && f.bondingConductorMaterial.errors }" [(ngModel)]="supplycharesteristic.bondingConductorMaterial">
                     <div *ngIf="submitted && f.bondingConductorMaterial.errors" class="invalid-feedback">
-                      <div *ngIf="f.bondingConductorMaterial?.errors?.required">Please enter valid details</div>
+                      <div *ngIf="f.bondingConductorMaterial?.errors?.required">Field is required</div>
                     </div>
                   </div>
 
@@ -687,7 +687,7 @@
                       <option *ngFor="let value of bondingConductorVerifyList"> {{value}}</option>
                     </select>
                     <div *ngIf="submitted && f.bondingConductorVerify.errors" class="invalid-feedback">
-                      <div *ngIf="f.bondingConductorVerify?.errors?.required">Please enter valid details</div>
+                      <div *ngIf="f.bondingConductorVerify?.errors?.required">Field is required</div>
                     </div>
                   </div>
                 </div>
@@ -703,7 +703,7 @@
                       border-bottom: 1px solid #000000;">
                     </p>
                     <div *ngIf="submitted && f.bondingJointsType.errors" class="invalid-feedback">
-                      <div *ngIf="f.bondingJointsType?.errors?.required">Please enter valid details</div>
+                      <div *ngIf="f.bondingJointsType?.errors?.required">Field is required</div>
                     </div>
                   </div>
                   <div class="col-md-4" style="margin-top: 30px">
@@ -777,7 +777,7 @@
                       border: none;
                       border-bottom: 1px solid #000000;"> Sq.mm</p>
                       <div *ngIf="submitted && f.earthingConductorSize.errors" class="invalid-feedback">
-                        <div *ngIf="f.earthingConductorSize?.errors?.required">Please enter valid details</div>
+                        <div *ngIf="f.earthingConductorSize?.errors?.required">Field is required</div>
                       </div>
                   </div>
 
@@ -785,7 +785,7 @@
                     <label>Material of Main Protective Earthing Conductor:</label>
                     <input type="text"  class="form-control" formControlName="earthingConductorMaterial"  [ngClass]="{ 'is-invalid': submitted && f.earthingConductorMaterial.errors }" [(ngModel)]="supplycharesteristic.earthingConductorMaterial">
                     <div *ngIf="submitted && f.earthingConductorMaterial.errors" class="invalid-feedback">
-                      <div *ngIf="f.earthingConductorMaterial?.errors?.required">Please enter valid details</div>
+                      <div *ngIf="f.earthingConductorMaterial?.errors?.required">Field is required</div>
                     </div>
                   </div>
 
@@ -796,7 +796,7 @@
                       <option *ngFor="let value of conductorVerifyList"> {{value}}</option>
                     </select>
                     <div *ngIf="submitted && f.earthingConductorVerify.errors" class="invalid-feedback">
-                      <div *ngIf="f.earthingConductorVerify?.errors?.required">Please enter valid details</div>
+                      <div *ngIf="f.earthingConductorVerify?.errors?.required">Field is required</div>
                     </div>
                   </div>
                 </div>
@@ -812,7 +812,7 @@
                       border-bottom: 1px solid #000000;">
                     </p>
                     <div *ngIf="submitted && f.earthingJointsType.errors" class="invalid-feedback">
-                      <div *ngIf="f.earthingJointsType?.errors?.required">Please enter valid details</div>
+                      <div *ngIf="f.earthingJointsType?.errors?.required">Field is required</div>
                     </div>
                   </div>
 
@@ -823,7 +823,7 @@
                       border: none;
                       border-bottom: 1px solid #000000;" (keyup)="onKey3($event)"></p>
                       <div *ngIf="submitted && f.earthingNoOfJoints.errors" class="invalid-feedback">
-                        <div *ngIf="f.earthingNoOfJoints?.errors?.required">Please enter valid details</div>
+                        <div *ngIf="f.earthingNoOfJoints?.errors?.required">Field is required</div>
                       </div>
                   </div>
                 </div>
@@ -868,7 +868,7 @@
                     <div class="col-md-4">
                       <input type="text"  formControlName="jointResistance" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('jointResistance')?.errors }" placeholder="Enter Joint resistance" >
                       <div *ngIf="submitted && a.get('jointResistance')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('jointResistance')?.errors?.required">Please enter valid details</div>
+                        <div *ngIf="a.get('jointResistance')?.errors?.required">Field is required</div>
                       </div>
                     </div>
                   </div>
@@ -905,7 +905,7 @@
                             <option value="RCBO">RCBO</option>
                           </select>
                           <div *ngIf="submitted && a.get('type')?.errors" class="invalid-feedback">
-                            <div *ngIf="a.get('type')?.errors?.required">Please enter valid details</div>
+                            <div *ngIf="a.get('type')?.errors?.required">Field is required</div>
                           </div>
                         </div>
             
@@ -913,7 +913,7 @@
                           <label>No of Poles:</label>
                           <input type="text"   class="form-control" formControlName="noPoles" [ngClass]="{ 'is-invalid': submitted && a.get('noPoles')?.errors }"  placeholder="Enter poles" >
                           <div *ngIf="submitted && a.get('noPoles')?.errors" class="invalid-feedback">
-                            <div *ngIf="a.get('noPoles')?.errors?.required">Please enter valid details</div>
+                            <div *ngIf="a.get('noPoles')?.errors?.required">Field is required</div>
                           </div>
                         </div>
     
@@ -926,7 +926,7 @@
                             </div>  
                           </div> 
                           <div *ngIf="submitted && a.get('current')?.errors" class="invalid-feedback">
-                            <div *ngIf="a.get('current')?.errors?.required">Please enter valid details</div>
+                            <div *ngIf="a.get('current')?.errors?.required">Field is required</div>
                           </div>   
                         </div>                    
             
@@ -939,7 +939,7 @@
                             </div>  
                           </div>
                           <div *ngIf="submitted && a.get('voltage')?.errors" class="invalid-feedback">
-                            <div *ngIf="a.get('voltage')?.errors?.required">Please enter valid details</div>
+                            <div *ngIf="a.get('voltage')?.errors?.required">Field is required</div>
                           </div>
                         </div>
             
@@ -952,7 +952,7 @@
                             </div>  
                           </div>
                           <div *ngIf="submitted && a.get('fuse')?.errors" class="invalid-feedback">
-                            <div *ngIf="a.get('fuse')?.errors?.required">Please enter valid details</div>
+                            <div *ngIf="a.get('fuse')?.errors?.required">Field is required</div>
                           </div>
                         </div>
                         
@@ -965,7 +965,7 @@
                             </div>  
                           </div>
                           <div *ngIf="submitted && a.get('residualCurrent')?.errors" class="invalid-feedback">
-                            <div *ngIf="a.get('residualCurrent')?.errors?.required">Please enter valid details</div>
+                            <div *ngIf="a.get('residualCurrent')?.errors?.required">Field is required</div>
                           </div>
                         </div>
             
@@ -978,7 +978,7 @@
                             </div>  
                           </div>
                           <div *ngIf="submitted && a.get('residualTime')?.errors" class="invalid-feedback">
-                            <div *ngIf="a.get('residualTime')?.errors?.required">Please enter valid details</div>
+                            <div *ngIf="a.get('residualTime')?.errors?.required">Field is required</div>
                           </div>
                         </div>
     

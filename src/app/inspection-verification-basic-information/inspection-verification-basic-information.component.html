@@ -96,7 +96,7 @@
                     <option *ngFor="let value of premiseList">{{value}}</option>
                   </select>
                   <div *ngIf="submitted && f.descPremise.errors" class="invalid-feedback">
-                    <div *ngIf="f.descPremise?.errors?.required">Please enter valid details</div>
+                    <div *ngIf="f.descPremise?.errors?.required">Field is required</div>
                 </div>
                 </div>
               </div>
@@ -111,7 +111,7 @@
                      [(ngModel)]="reportDetails.estimatedWireAge"
                      [ngClass]="{ 'is-invalid': submitted && f.showField1.errors }">
                      <div *ngIf="submitted && f.showField1.errors" class="invalid-feedback">
-                      <div *ngIf="f.showField1?.errors?.required">Please enter valid details</div>
+                      <div *ngIf="f.showField1?.errors?.required">Field is required</div>
                      </div>
               </div>
 
@@ -135,7 +135,7 @@
                   border-bottom: 1px solid #000000;"
                 [(ngModel)]="reportDetails.estimateAgeYes">
                 <div *ngIf="submitted && f.showField2.errors" class="invalid-feedback">
-                  <div *ngIf="f.showField2?.errors?.required">Please enter valid details</div>
+                  <div *ngIf="f.showField2?.errors?.required">Field is required</div>
                 </div>
               </div>
 
@@ -168,7 +168,7 @@
                   [(ngModel)]="reportDetails.extentInstallation"
                   [ngClass]="{ 'is-invalid': submitted && f.extentInstallation.errors }"></textarea>
                   <div *ngIf="submitted && f.extentInstallation.errors" class="invalid-feedback">
-                    <div *ngIf="f.extentInstallation?.errors?.required">Please enter valid details</div>
+                    <div *ngIf="f.extentInstallation?.errors?.required">Field is required</div>
                   </div>
                 </mat-form-field>
               </div>
@@ -214,7 +214,7 @@
                   <input type="date" class="form-control" formControlName="startingDateVerification"
                   [ngClass]="{ 'is-invalid': submitted && f.startingDateVerification.errors }" placeholder="Enter Date" [(ngModel)]="reportDetails.verificationDate">
                   <div *ngIf="submitted && f.startingDateVerification.errors" class="invalid-feedback">
-                    <div *ngIf="f.startingDateVerification?.errors?.required">Please enter valid details</div>
+                    <div *ngIf="f.startingDateVerification?.errors?.required">Field is required</div>
                 </div>
                 </div>
 
@@ -253,7 +253,7 @@
                     <option *ngFor="let value of previousRecordList">{{value}}</option>
                   </select>
                   <div *ngIf="submitted && f.confirmExtent.errors" class="invalid-feedback">
-                    <div *ngIf="f.confirmExtent?.errors?.required">Please enter valid details</div>
+                    <div *ngIf="f.confirmExtent?.errors?.required">Field is required</div>
                 </div>
                 </div>
               </div>
@@ -442,7 +442,7 @@
               border-bottom: 1px solid #000000;"
             [(ngModel)]="reportDetails.nextInspection" formControlName="nextInspection" placeholder="Enter year">
             <div *ngIf="submitted && f.nextInspection.errors" class="invalid-feedback">
-              <div *ngIf="f.nextInspection?.errors?.required">Please enter valid details</div>
+              <div *ngIf="f.nextInspection?.errors?.required">Field is required</div>
           </div>
           </mat-expansion-panel>
 
