@@ -259,6 +259,16 @@ createItem()
     }  
     this.modalService.open(content3, { centered: true})
   }
+  closeModalDialog(){
+    if(this.errorMsg != ""){
+      this.Error = false;
+      this.modalService.dismissAll(this.errorMsg = "")
+    }
+    else {
+      this.success=false;
+      this.modalService.dismissAll(this.successMsg="")
+    }  
+  }
   nextTab3()
   {
     debugger

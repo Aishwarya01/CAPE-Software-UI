@@ -603,7 +603,16 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     }
     this.modalService.open(content1, { centered: true})
   }
-
+  closeModalDialog(){
+    if(this.errorMsg != ""){
+      this.Error = false;
+      this.modalService.dismissAll(this.errorMsg = "")
+    }
+    else {
+      this.success=false;
+      this.modalService.dismissAll(this.successMsg="")
+    }  
+  }
 nextTab() {
     this.loading = true;
     this.submitted = true
@@ -672,6 +681,9 @@ nextTab() {
         this.Error=true;
         this.proceedNext.emit(false);
         this.errorMsg="Something went wrong, kindly check all the fields";
+        // setTimeout(()=>{
+        //   this.errorMsg="Something went wrong, kindly check all the fields";
+        // }, 3000);
       }
       )
       this.service.siteCount=this.reportDetails.siteId;

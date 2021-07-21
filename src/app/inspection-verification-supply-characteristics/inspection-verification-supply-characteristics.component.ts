@@ -770,7 +770,16 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
     }  
     this.modalService.open(content1, { centered: true})
   }
-  
+  closeModalDialog(){
+    if(this.errorMsg != ""){
+      this.Error = false;
+      this.modalService.dismissAll(this.errorMsg = "")
+    }
+    else {
+      this.success=false;
+      this.modalService.dismissAll(this.successMsg="")
+    }  
+  }
 nextTab2() {
     this.supplycharesteristic.siteId = this.service.siteCount;
 
