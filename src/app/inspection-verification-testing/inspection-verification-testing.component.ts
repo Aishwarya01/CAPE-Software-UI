@@ -333,10 +333,10 @@ export class InspectionVerificationTestingComponent implements OnInit {
   continutiyPolarity: new FormControl(''),
 
 
-  testVoltage: new FormControl('22,22,,2,2,,,'),
-  testLoopImpedance: new FormControl('2,,2,,2,,,2'),
-  testFaultCurrent: new FormControl('22,2,2,,2,2,'),
-  disconnectionTime: new FormControl('22,,,22'),
+  testVoltage: new FormControl(''),
+  testLoopImpedance: new FormControl(''),
+  testFaultCurrent: new FormControl(''),
+  disconnectionTime: new FormControl(''),
 
   rcdCurrent: new FormControl(''),
   rcdOperatingCurrent: new FormControl(''),
