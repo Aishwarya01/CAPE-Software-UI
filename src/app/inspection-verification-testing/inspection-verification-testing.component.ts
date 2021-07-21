@@ -42,6 +42,11 @@ export class InspectionVerificationTestingComponent implements OnInit {
   ratingAmps1: any;
   testDistributionArr!: FormArray;
   testingDistribution!: FormArray;
+  successMsg: string="";
+  success: boolean=false;
+  disable: boolean=false;
+  Error: boolean=false;
+  errorMsg: string="";
   constructor(private testingService: TestingService, private formBuilder: FormBuilder,
     private modalService: NgbModal, private router: ActivatedRoute,) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
@@ -71,18 +76,18 @@ export class InspectionVerificationTestingComponent implements OnInit {
 
   private createtestDistributionForm(): FormGroup {
     return new FormGroup({
-      distributionBoardDetails: new FormControl(''),
-      referance: new FormControl(''),
-      location: new FormControl(''),
-      correctSupplyPolarity: new FormControl(''),
-      numOutputCircuitsUse: new FormControl(''),
-      ratingsAmps: new FormControl(''),
+      distributionBoardDetails: new FormControl('', [Validators.required]),
+      referance: new FormControl('', [Validators.required]),
+      location: new FormControl('', [Validators.required]),
+      correctSupplyPolarity: new FormControl('', [Validators.required]),
+      numOutputCircuitsUse: new FormControl('', [Validators.required]),
+      ratingsAmps: new FormControl('', [Validators.required]),
       rateArr: this.formBuilder.array([this.ratingAmps()]),
-      numOutputCircuitsSpare: new FormControl(''),
-      installedEquipmentVulnarable: new FormControl(''),
-      incomingVoltage: new FormControl(''),
-      incomingZs: new FormControl(''),
-      incomingIpf: new FormControl(''),
+      numOutputCircuitsSpare: new FormControl('', [Validators.required]),
+      installedEquipmentVulnarable: new FormControl('', [Validators.required]),
+      incomingVoltage: new FormControl('', [Validators.required]),
+      incomingZs: new FormControl('', [Validators.required]),
+      incomingIpf: new FormControl('', [Validators.required]),
       distributionIncomingValueArr: this.formBuilder.array([this.distributionIncomingValue()]),
 
 
@@ -129,7 +134,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   }
   ratingAmps(): FormGroup {
     return new FormGroup({
-      ratingsAmps: new FormControl(''),
+      ratingsAmps: new FormControl('', [Validators.required]),
 
 
     })
@@ -328,10 +333,10 @@ export class InspectionVerificationTestingComponent implements OnInit {
   continutiyPolarity: new FormControl(''),
 
 
-  testVoltage: new FormControl(''),
-  testLoopImpedance: new FormControl(''),
-  testFaultCurrent: new FormControl(''),
-  disconnectionTime: new FormControl(''),
+  testVoltage: new FormControl('22,22,,2,2,,,'),
+  testLoopImpedance: new FormControl('2,,2,,2,,,2'),
+  testFaultCurrent: new FormControl('22,2,2,,2,2,'),
+  disconnectionTime: new FormControl('22,,,22'),
 
   rcdCurrent: new FormControl(''),
   rcdOperatingCurrent: new FormControl(''),
@@ -359,11 +364,18 @@ export class InspectionVerificationTestingComponent implements OnInit {
   }
 
 
+  setTrue() {
+    if(this.testingForm.invalid) {
+      return;
+    }
+    
+    this.proceedNext.emit(true);
+  }
 
   
   nextTab() {
 
-    this.testing1.siteId = 21;
+    this.testing1.siteId = 24;
     this.testing1.userName = this.email;
     this.submitted = true;
     // if(this.testingForm.invalid) {
@@ -395,6 +407,10 @@ export class InspectionVerificationTestingComponent implements OnInit {
           if (a != "") {
             incomingVoltage += a + ",";
           }
+        // else{
+        //    incomingVoltage += "NA,";
+
+        //  }
         }
         incomingVoltage = incomingVoltage.replace(/,\s*$/, "");
         j.incomingVoltage = incomingVoltage;
@@ -503,12 +519,25 @@ export class InspectionVerificationTestingComponent implements OnInit {
     console.log(this.testing1);
     //  this.testingService.savePeriodicTesting(this.testing1).subscribe(
     //    (    data: any)=> {
-    //      console.log("worked");
-    //     },
-    //    (    error: any) => {
-    //    }
-    //    )
-  }
-
-}
+    //   console.log("worked");
+ 
+    this.testingService.savePeriodicTesting(this.testing1).subscribe(
+                   data=> {​​​
+                    console.log("worked");
+                this.proceedNext.emit(true); 
+                this.success=true
+                this.successMsg="Testing Information successfully saved";
+               this.disable= true;
+                   // alert("Step2 successfully saved");
+                     }​​​,
+                   error=> {​​​
+                console.log("error");
+                this.Error=true;
+             // alert("Something went wrong, kindly check all the fields");  
+              this.proceedNext.emit(false); 
+               this.errorMsg="Something went wrong, kindly check all the fields";
+             }​​​
+           )
+        }
+       }
 

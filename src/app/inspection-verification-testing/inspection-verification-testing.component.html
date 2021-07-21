@@ -1,45 +1,47 @@
 
   
-     <form [formGroup]="testingForm">
-        <div class="card">
+  
+      <div class="card">
         <button class="btn btn-info mousechange" style="padding: 7px 10px 0px 10px;
-                                   left: 93%;
-                                  top: 10px;
-                                    width: 4%;position: relative;">
+                                                   left: 93%;
+                                                   top: 10px;
+                                                   width: 4%;position: relative;">
             <mat-icon aria-hidden="false" (click)="addItem()" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>
         </button>
-                    
+           <form [formGroup]="testingForm" (ngSubmit)="nextTab()">
                  <div class="card-body" formArrayName="testaccordianArr" *ngFor="let a of getTestControls(); let i = index" >
                     <div [formGroupName]="i">
-                    <div class="search-bar">
-                      <div class="form-group">
-                        <div class="row">
-                          <div class="col-md-4">
-                                <label>Location Number*</label>
-                                <input type="text" class="form-control" formControlName="locationNumber"
-                                 placeholder="Enter Location Number"  [ngClass]="{ 'is-invalid': submitted && f.locationNumber?.errors }">
-                                 <div *ngIf="submitted && f.locationNumber?.errors" class="invalid-feedback">
-                                    <div *ngIf="f.locationNumber?.errors?.required">Location number is required</div>
-                                </div> 
-                
-                          </div>
-                          <div class="col-md-4">
-                                <label>Location Name*</label>
-                                  <input type="text" class="form-control" formControlName="locationName"
-                                    placeholder="Enter Location Name"  [ngClass]="{ 'is-invalid': submitted && f.locationName?.errors }">
-                                    <div *ngIf="submitted && f.locationName?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.locationName?.errors?.required">Location name is required</div>
-                                    </div> 
-                    
+                        <div class="card-body">
+                        <div class="search-bar">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Location Number*</label>
+                                        <input type="text" class="form-control" formControlName="locationNumber"
+                                            placeholder="Enter Location Number"
+                                            [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors }">
+                                        <div *ngIf="submitted && a.get('locationNumber')?.errors" class="invalid-feedback">
+                                            <div *ngIf="a.get('locationNumber')?.errors?.required">Location Number is required</div>
+                                        </div>
+                                    </div>
+                        
+                                    <div class="col-md-6">
+                                        <label>Location Name*</label>
+                                        <input type="text" class="form-control" formControlName="locationName" placeholder="Enter Location Name"
+                                            [ngClass]="{ 'is-invalid': submitted && a.get('locationName')?.errors }">
+                                        <div *ngIf="submitted && a.get('locationName')?.errors" class="invalid-feedback">
+                                            <div *ngIf="a.get('locationName')?.errors?.required">Location name is required</div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                     </div>
-                   </div> 
+                      </div>  
                 <mat-accordion>
                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
-                            <h3>section-1</h3>
+                            <h3>Section-1</h3>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
              
@@ -47,25 +49,25 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label>Test Engineer Name </label>
-                            <input type="text" formControlName="testEngineerName" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.testEngineerName?.errors }">
-                            <div *ngIf="submitted && f.testEngineerName?.errors" class="invalid-feedback">
-                                <div *ngIf="f.testEngineerName?.errors?.required">Test engineer name is required</div>
+                            <input type="text" formControlName="testEngineerName" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('testEngineerName')?.errors }"  >
+                            <div *ngIf="submitted && a.get('testEngineerName')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('testEngineerName')?.errors?.required">Test engineer name is required</div>
                             </div> 
                         </div>
 
                         <div class="col-md-4">
                             <label>Date</label>
-                            <input type='date' formControlName="date" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.testEngineerName?.errors }">
-                            <div *ngIf="submitted && f.testEngineerName?.errors" class="invalid-feedback">
-                                <div *ngIf="f.testEngineerName?.errors?.required">Date  is required</div>
+                            <input type='date' formControlName="date" class="form-control"[ngClass]="{ 'is-invalid': submitted && a.get('date')?.errors }"  >
+                            <div *ngIf="submitted && a.get('date')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('date')?.errors?.required">Date  is required</div>
                             </div> 
                         </div>
 
                         <div class="col-md-4">
                             <label>Designation</label>
-                            <input type="text" formControlName="designation" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.testEngineerName?.errors }">
-                            <div *ngIf="submitted && f.testEngineerName?.errors" class="invalid-feedback">
-                                <div *ngIf="f.testEngineerName?.errors?.required">Designation value is required</div>
+                            <input type="text" formControlName="designation" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('designation')?.errors }"  >
+                            <div *ngIf="submitted && a.get('designation')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('designation')?.errors?.required">Designation value is required</div>
                             </div> 
                         </div>
                     </div>
@@ -73,25 +75,25 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label> Company Name</label>
-                            <input type="text" formControlName="companyName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.companyName?.errors }">
-                            <div *ngIf="submitted && f.companyName?.errors" class="invalid-feedback">
-                                <div *ngIf="f.companyName?.errors?.required">Company name is required</div>
+                            <input type="text" formControlName="companyName" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('companyName')?.errors }"  >
+                            <div *ngIf="submitted && a.get('companyName')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('companyName')?.errors?.required">Company name is required</div>
                             </div> 
                         </div>
 
                         <div class="col-md-4">
                             <label>Details of test instrument </label>
-                            <input type="text" formControlName="detailsTestInstrument" class="form-control"[ngClass]="{ 'is-invalid': submitted && f.detailsTestInstrument?.errors }">
-                            <div *ngIf="submitted && f.detailsTestInstrument?.errors" class="invalid-feedback">
-                                <div *ngIf="f.detailsTestInstrument?.errors?.required">Details of test instrument value is required</div>
+                            <input type="text" formControlName="detailsTestInstrument" class="form-control"[ngClass]="{ 'is-invalid': submitted && a.get('detailsTestInstrument')?.errors }"  >
+                            <div *ngIf="submitted && a.get('detailsTestInstrument')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('detailsTestInstrument')?.errors?.required">Details of test instrument value is required</div>
                             </div> 
                         </div>
 
                         <div class="col-md-4">
                             <label>Continuity </label>
-                            <input type="text" formControlName="continuity" class="form-control"[ngClass]="{ 'is-invalid': submitted && f.continuity?.errors }">
-                            <div *ngIf="submitted && f.continuity?.errors" class="invalid-feedback">
-                                <div *ngIf="f.continuity?.errors?.required">Continuity  value is required</div>
+                            <input type="text" formControlName="continuity" class="form-control"[ngClass]="{ 'is-invalid': submitted && a.get('continuity')?.errors }"  >
+                            <div *ngIf="submitted && a.get('continuity')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('continuity')?.errors?.required">Continuity  value is required</div>
                             </div> 
                         </div>
                     </div>
@@ -99,34 +101,34 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label>Insulation resistance</label>
-                            <input type="text" formControlName="insulationResisance" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.insulationResisance?.errors }">
-                            <div *ngIf="submitted && f.insulationResisance?.errors" class="invalid-feedback">
-                                <div *ngIf="f.insulationResisance?.errors?.required">Insulation resistance value is required</div>
+                            <input type="text" formControlName="insulationResisance" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('insulationResisance')?.errors }"  >
+                            <div *ngIf="submitted && a.get('insulationResisance')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('insulationResisance')?.errors?.required">Insulation resistance value is required</div>
                             </div> 
                         </div>
 
                         <div class="col-md-4">
                             <label>Impedance </label>
-                            <input type="text" formControlName="Impedance" class="form-control"[ngClass]="{ 'is-invalid': submitted && f.Impedance?.errors }">
-                            <div *ngIf="submitted && f.Impedance?.errors" class="invalid-feedback">
-                                <div *ngIf="f.Impedance?.errors?.required">Impedance value is required</div>
+                            <input type="text" formControlName="Impedance" class="form-control"[ngClass]="{ 'is-invalid': submitted && a.get('Impedance')?.errors }"  >
+                            <div *ngIf="submitted && a.get('Impedance')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('Impedance')?.errors?.required">Impedance value is required</div>
                             </div> 
                         </div>
 
                         <div class="col-md-4">
                             <label>RCD </label>
-                            <input type="text" formControlName="rcd" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.rcd?.errors }">
-                            <div *ngIf="submitted && f.rcd?.errors" class="invalid-feedback">
-                                <div *ngIf="f.rcd?.errors?.required">RCD value is required</div>
+                            <input type="text" formControlName="rcd" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('rcd')?.errors }"  >
+                            <div *ngIf="submitted && a.get('rcd')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('rcd')?.errors?.required">RCD value is required</div>
                             </div> 
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <label>Earth electrode resistance</label>
-                        <input type="text" formControlName="earthElectrodeResistance" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.earthElectrodeResistance?.errors }">
-                        <div *ngIf="submitted && f.earthElectrodeResistance?.errors" class="invalid-feedback">
-                            <div *ngIf="f.earthElectrodeResistance?.errors?.required">Earth electrode resistance value is required</div>
+                        <input type="text" formControlName="earthElectrodeResistance" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('earthElectrodeResistance')?.errors }"  >
+                        <div *ngIf="submitted && a.get('earthElectrodeResistance')?.errors" class="invalid-feedback">
+                          <div *ngIf="a.get('earthElectrodeResistance')?.errors?.required">Earth electrode resistance value is required</div>
                         </div> 
                     </div>
          
@@ -134,7 +136,7 @@
                     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
-                                <h3>section-2</h3>
+                                <h3>Section-2</h3>
                             </mat-panel-title>
                         </mat-expansion-panel-header>
              
@@ -145,8 +147,8 @@
                                     <label>Distribution board details </label>
                                     <input type="text" formControlName="distributionBoardDetails" class="form-control" [ngClass]="{ 'is-invalid': submitted && c.get('distributionBoardDetails')?.errors }"  >
                                     <div *ngIf="submitted && c.get('distributionBoardDetails')?.errors" class="invalid-feedback">
-                                      <div *ngIf="c.get('distributionBoardDetails')?.errors?.required">Distribution board  details value is required</div>
-                                    </div>
+                                      <div *ngIf="c.get('distributionBoardDetails')?.errors?.required">Distribution board details  value is required</div>
+                                    </div> 
                               </div>
 
                                 <div class="col-md-4">
@@ -208,17 +210,17 @@
                                     </div>
                                 </div>
 
-                                <div  class="col-md-4" formArrayName="rateArr"  *ngFor="let d of gettestrateFormControls(c); let j = index"> 
+                                <div class="col-md-4" formArrayName="rateArr" *ngFor="let d of gettestrateFormControls(c); let j = index">
                                     <div class="form-group" [formGroupName]="j">
-                                    <label>Ratings in Amps </label>
-                                    <input type="number" formControlName="ratingsAmps"class="form-control"[ngClass]="{ 'is-invalid': submitted && d.get('ratingsAmps')?.errors }"  >
-                                    <div *ngIf="submitted && d.get('ratingsAmps')?.errors" class="invalid-feedback">
-                                      <div *ngIf="d.get('ratingsAmps')?.errors?.required">Ratings in Amps value is required</div>
-                                    </div>
+                                        <label>Ratings in Amps </label>
+                                        <input type="number" formControlName="ratingsAmps" class="form-control"
+                                            [ngClass]="{ 'is-invalid': submitted && d.get('ratingsAmps')?.errors }">
+                                        <div *ngIf="submitted && d.get('ratingsAmps')?.errors" class="invalid-feedback">
+                                            <div *ngIf="d.get('ratingsAmps')?.errors?.required">Ratings in Amps value is required</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                     
                 
 
 
@@ -453,14 +455,29 @@
                      <mat-icon class="mousechange"  style="float:right;" *ngIf="getTestControls().length > 1" (click)="removeAccordian(i)">delete</mat-icon> 
                   </div>
                </div>
-             <div style="display: inline;">
-            <button style="float: left;" type="submit" (click)="nextTab()"
-                     class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"><i
-                      class="bi bi-person-plus-fill icon"></i> Submit</button>
-             </div>
-        </div>
+               <div style="text-align: center;margin-top: 40px;">
+                <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
+                <button  class="next" (mouseover)="setTrue()" mat-button >Next &raquo;</button>
+              </div>
+        
       </form>
-
+    </div>
   
-
+    <ng-template #content3 let-modal>
+        <div class="modal-body">
+       <div class="centre-text m-btm30">
+        <div *ngIf="success" style="text-align: center;">
+          <span class="alert alert-success">{{successMsg}}</span>
+         </div>
+         <div *ngIf="Error" style="text-align: center;">
+           <span class="alert alert-danger">{{errorMsg}}</span>
+          </div>
+             </div>
+         </div>
+      <br>
+         <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+         aria-label="Close" (click)="modal.dismiss('Cross click')" matStepperNext>
+          <span aria-hidden="true">Ok</span>
+      </button>
+      </ng-template>
  
