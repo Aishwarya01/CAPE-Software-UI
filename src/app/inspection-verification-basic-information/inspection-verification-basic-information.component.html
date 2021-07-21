@@ -319,28 +319,16 @@
                     <div class="row">
                       <div class="col-md-4">
                         <label>Signature:</label>
-                        <input type="text" formControlName="signature" class="form-control"
-                        [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }">
-                          <div *ngIf="submitted && a.get('signature')?.errors" class="invalid-feedback">
-                            <div *ngIf="a.get('signature')?.errors?.required">Signature is required</div>
-                        </div>
+                        <input type="text" formControlName="signature" class="form-control">
                       </div>
                       <div class="col-md-4">
                         <label>Date:</label>
-                        <input type="date" formControlName="declarationDate" class="form-control" placeholder="Enter Date"
-                        [ngClass]="{ 'is-invalid': submitted && a.get('declarationDate')?.errors }">
-                          <div *ngIf="submitted && a.get('declarationDate')?.errors" class="invalid-feedback">
-                            <div *ngIf="a.get('declarationDate')?.errors?.required">Date is required</div>
-                        </div>
+                        <input type="date" formControlName="declarationDate" class="form-control" placeholder="Enter Date">
                       </div>
 
                       <div class="col-md-4">
                         <label>Name (In block letters) :</label>
-                        <input type="text" formControlName="declarationName" class="form-control" placeholder="Enter Designer Name"
-                        [ngClass]="{ 'is-invalid': submitted && a.get('declarationName')?.errors }">
-                          <div *ngIf="submitted && a.get('declarationName')?.errors" class="invalid-feedback">
-                            <div *ngIf="a.get('declarationName')?.errors?.required">Name (In block letters) is required</div>
-                        </div>
+                        <input type="text" formControlName="declarationName" class="form-control" placeholder="Enter Designer Name">
                       </div>
                     </div>
 
