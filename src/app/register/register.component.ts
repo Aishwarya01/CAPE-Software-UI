@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Route, Router } from '@angular/router';
 import { RegisterserviceService } from '../services/registerservice.service';
 import { User } from '../model/user';
+import { ProfileService } from '../services/profile.service';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +12,7 @@ import { User } from '../model/user';
 })
 export class RegisterComponent implements OnInit {
 
-  registerForm = new FormGroup({
+    registerForm = new FormGroup({
     firstname: new FormControl(''),
     lastname: new FormControl(''),
     email: new FormControl(''),
@@ -19,25 +20,29 @@ export class RegisterComponent implements OnInit {
     password: new FormControl(''),
     confirmpassword: new FormControl(''),
     active: new FormControl('')
+
   });
   loading = false;
   submitted = false;
   usertypelist: any = ['User', 'Viewer', 'Admin'];
   user = new User();
-  msg = "";
+  msg: any;
+  alert: any;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private registerservice: RegisterserviceService) { }
+    private registerservice: RegisterserviceService,
+    private profileService: ProfileService) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      firstname: ['', Validators.required],
+      firstname: ['', [Validators.required,]],
       lastname: ['', Validators.required],
       email: ['', [
         Validators.required,
-        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),
+        Validators.nullValidator]],
       usertype: ['', Validators.required],
       password: ['', Validators.required],
       confirmpassword: ['', Validators.required],
@@ -70,10 +75,16 @@ export class RegisterComponent implements OnInit {
     this.user.role = this.registerForm.value.usertype;
     this.registerservice.register(this.user).subscribe(
       data => {
-        this.msg = "Register Success";
+        this.msg ="Register Success";
         this.router.navigate(['/login']);
+        console.log(this.msg);
       },
-      error => console.log("Failed")
+      error => {
+        this.msg="Given email-Id is already existing...!";
+        this.alert="Email-id is already present, Enter new email-id";
+        console.log(this.msg);
+        console.log(this.alert);
+      }
     )
   }
 
@@ -83,6 +94,5 @@ export class RegisterComponent implements OnInit {
     } else{
       this.usertypelist = ['User', 'Manager', 'Admin']
     }
-    
   }
 }

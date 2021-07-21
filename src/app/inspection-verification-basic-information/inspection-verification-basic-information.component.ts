@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup,Validators,ValidatorFn } from '@angular/forms';
+import {​​​ NgbModal }​​​ from'@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Company } from '../model/company';
 import { Department } from '../model/department';
 import { Reportdetails } from '../model/reportdetails';
@@ -10,7 +10,6 @@ import { ClientService } from '../services/client.service';
 import { DepartmentService } from '../services/department.service';
 import { ReportDetailsService } from '../services/report-details.service';
 import { SiteService } from '../services/site.service';
-
 import { GlobalsService } from '../globals.service';
 
 @Component({
@@ -22,9 +21,8 @@ import { GlobalsService } from '../globals.service';
 export class InspectionVerificationBasicInformationComponent implements OnInit {
 
   step1Form!: FormGroup;
-
-
   public data: string = "";
+  model: any = {};
 
   clientList: any = [];
   inActiveData: any =[];
@@ -42,6 +40,10 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   site = new Site;
   email: String = '';
   clientName: String = '';
+  successMsg: string="";
+  errorMsg: string="";
+  success: boolean=false;
+  Error: boolean=false;
   departmentName: String = '';
   reportDetails =new Reportdetails;
   showField1: boolean= true;
@@ -52,13 +54,14 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   submitted = false;
   inspectorArr!: FormArray;
   designer2Arr!: FormArray;
-  @Output() proceedNext = new EventEmitter<any>();  
-  
-
+  @Output() proceedNext = new EventEmitter<any>();
 
   designerRole: String ='designer';
   contractorRole: String ='contractor';
   inspectorRole: String ='inspector';
+  validationError: boolean =false;
+  validationErrorMsg: String ="";
+  disable: boolean = false;
 
 
   // Second Tab dependencies
@@ -68,10 +71,16 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   evidenceList: String[]= ['Yes', 'No', 'Not Apparent'];
   previousRecordList: String[]= ['Yes', 'No'];
 
-
-
-
   formBuilder: any;
+  countryCode: any;
+  number: any;
+  countryCode1: any;
+  countryCode7: any;
+  countryCode6: any;
+  countryCode5: any;
+  countryCode4: any;
+  countryCode3: any;
+  countryCode2: any;
    constructor(private _formBuilder: FormBuilder,
     private router: ActivatedRoute,
     private clientService: ClientService,
@@ -79,15 +88,25 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     private reportDetailsService: ReportDetailsService,
     private siteService: SiteService,
     public service: GlobalsService,
+    private modalService: NgbModal,
     private ChangeDetectorRef: ChangeDetectorRef) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
 
-  
 
   ngOnInit(): void {
-    
+    this.countryCode= '91';
+    this.countryCode1= '91';
+    this.countryCode2= '91';
+    this.countryCode3= '91';
+    this.countryCode4= '91';
+    this.countryCode5= '91';
+    this.countryCode6= '91';
+    this.countryCode7= '91';
+
+
     this.step1Form = this._formBuilder.group({
+
       clientName: ['', Validators.required],
       departmentName: ['', Validators.required],
       siteName: ['', Validators.required],
@@ -128,7 +147,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     this.inspectorArr = this.step1Form.get('inspectorArr') as FormArray;
 
   }
-  
+
   private retrieveClientDetails() {
     this.clientService.retrieveClient(this.email).subscribe(
       data => {
@@ -136,7 +155,33 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
         this.clientList=JSON.parse(data);
       });
   }
-  
+
+  // Only Integer Numbers
+  keyPressNumbers(event:any) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  //**Important */
+  // Only AlphaNumeric with Some Characters [-_ ]
+  keyPressAlphaNumericWithCharacters(event:any) {
+
+    var inp = String.fromCharCode(event.keyCode);
+    // Allow numbers, space, underscore
+    if (/[0-9-+ ]/.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
+  }
+
 
   showWiringAge(e: any) {
     let changedValue = e.target.value;
@@ -170,7 +215,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   refresh() {
     this.ChangeDetectorRef.detectChanges();
   }
-  
+
   // Inspection form basic info
   changeClientName (e: any) {
     let changedValue = e.target.value;
@@ -205,9 +250,9 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
         this.reportDetails.siteId = arr.siteId;
       }
     }
-    
+
   }
-  
+
   // Signature part
 
   private createDesigner1AcknowledgeForm(): FormGroup {
@@ -220,9 +265,9 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 
   private createDesigner2AcknowledgeForm(): FormGroup {
     return new FormGroup({
-      signature: new FormControl('',[Validators.required]),
-      declarationDate: new FormControl('',[Validators.required]),
-      declarationName: new FormControl('',[Validators.required])
+      signature: new FormControl(''),
+      declarationDate: new FormControl(''),
+      declarationName: new FormControl('')
     })
   }
 
@@ -242,16 +287,16 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     })
   }
 
-  getDesigner1AcknowledgeControls(): AbstractControl[] { 
+  getDesigner1AcknowledgeControls(): AbstractControl[] {
     return (<FormArray> this.step1Form.get('designer1AcknowledgeArr')).controls
-  } 
-  getDesigner2AcknowledgeControls(): AbstractControl[] { 
+  }
+  getDesigner2AcknowledgeControls(): AbstractControl[] {
     return (<FormArray> this.step1Form.get('designer2AcknowledgeArr')).controls
   }
-  getContractorAcknowledgeControls(): AbstractControl[] { 
+  getContractorAcknowledgeControls(): AbstractControl[] {
     return (<FormArray> this.step1Form.get('contractorAcknowledgeArr')).controls
   }
-  getInspectorAcknowledgeControls(): AbstractControl[] { 
+  getInspectorAcknowledgeControls(): AbstractControl[] {
     return (<FormArray> this.step1Form.get('inspectorAcknowledgeArr')).controls
   }
 
@@ -260,7 +305,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     return new FormGroup({
       personName: new FormControl('',[Validators.required]),
       personContactNo: new FormControl('',[Validators.required]),
-      personMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+      personMailID: new FormControl('',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       managerName: new FormControl('',[Validators.required]),
       managerContactNo: new FormControl('',[Validators.required]),
       managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
@@ -272,6 +317,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       state: new FormControl('',[Validators.required]),
       pinCode: new FormControl('',[Validators.required]),
       signatorRole: new FormControl(''),
+      declarationSignature: new FormControl(''),
       declarationDate: new FormControl(''),
       declarationName: new FormControl('')
     })
@@ -293,19 +339,20 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       state: new FormControl(''),
       pinCode: new FormControl(''),
       signatorRole: new FormControl(''),
+      declarationSignature: new FormControl(''),
       declarationDate: new FormControl(''),
       declarationName: new FormControl('')
     })
   }
 
-  getDesigner1Controls(): AbstractControl[] { 
+  getDesigner1Controls(): AbstractControl[] {
       return (<FormArray> this.step1Form.get('designer1Arr')).controls
   }
 
-  getDesigner2Controls(): AbstractControl[] { 
+  getDesigner2Controls(): AbstractControl[] {
     return (<FormArray> this.step1Form.get('designer2Arr')).controls
   }
-  
+
 
   designer1changeCountry(e: any) {
     let changedValue = e.target.value;
@@ -338,7 +385,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   private createContractorForm(): FormGroup {
     return new FormGroup({
       personName: new FormControl('',[Validators.required]),
-      personContactNo: new FormControl('',[Validators.required]),
+      personContactNo: new FormControl('',Validators.required),
       personMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       managerName: new FormControl('',[Validators.required]),
       managerContactNo: new FormControl('',[Validators.required]),
@@ -351,12 +398,13 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       state: new FormControl('',[Validators.required]),
       pinCode: new FormControl('',[Validators.required]),
       signatorRole: new FormControl(''),
+      declarationSignature: new FormControl(''),
       declarationDate: new FormControl(''),
       declarationName: new FormControl('')
     })
   }
 
-  getContractorControls(): AbstractControl[] { 
+  getContractorControls(): AbstractControl[] {
     return (<FormArray> this.step1Form.get('contractorArr')).controls
   }
 
@@ -372,12 +420,12 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
           )};
       }
   }
- 
+
   // Inspector details forms
   private createInspectorForm(): FormGroup {
     return new FormGroup({
      personName: new FormControl('',[Validators.required]),
-      personContactNo: new FormControl('',[Validators.required]),
+      personContactNo: new FormControl('',[Validators.required,Validators.minLength(10)]),
       personMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       managerName: new FormControl('',[Validators.required]),
       managerContactNo: new FormControl('',[Validators.required]),
@@ -390,12 +438,13 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       state: new FormControl('',[Validators.required]),
       pinCode: new FormControl('',[Validators.required]),
       signatorRole: new FormControl(''),
+      declarationSignature: new FormControl(''),
       declarationDate: new FormControl(''),
       declarationName: new FormControl('')
     })
   }
 
-  getInspectorControls(): AbstractControl[] { 
+  getInspectorControls(): AbstractControl[] {
     return (<FormArray> this.step1Form.get('inspectorArr')).controls
   }
 
@@ -411,7 +460,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
           )};
       }
   }
- 
+
 
   addDesigner() {
     this.showDesigner2= true;
@@ -419,7 +468,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 
     this.f.designer2Arr.controls[0].controls['personName'].setValidators(Validators.required);
     this.f.designer2Arr.controls[0].controls['personName'].updateValueAndValidity();
-    
+
     this.f.designer2Arr.controls[0].controls['personContactNo'].setValidators(Validators.required);
     this.f.designer2Arr.controls[0].controls['personContactNo'].updateValueAndValidity();
 
@@ -466,7 +515,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 
     this.f.designer2Arr.controls[0].controls['personContactNo'].clearValidators();
     this.f.designer2Arr.controls[0].controls['personContactNo'].updateValueAndValidity();
-    
+
     this.f.designer2Arr.controls[0].controls['personMailID'].clearValidators();
     this.f.designer2Arr.controls[0].controls['personMailID'].updateValueAndValidity();
 
@@ -501,7 +550,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     this.f.designer2Arr.controls[0].controls['pinCode'].updateValueAndValidity();
 
 
-    
+
     return (<FormArray> this.step1Form.get('designer2Arr')).reset();
   }
 
@@ -509,61 +558,135 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     return this.step1Form.controls;
   }
 
+  //country code
+  countryChange(country: any) {
+    this.countryCode = country.dialCode;
 
-  setTrue() {
-   this.submitted = true;
-    if(this.step1Form.invalid) {
-      return;
-    }
-    this.proceedNext.emit(true);
   }
-  
+  countryChange1(country: any) {
+    this.countryCode1 = country.dialCode;
 
-  nextTab() {
+  }
+  countryChange2(country: any) {
+    this.countryCode2 = country.dialCode;
+
+  }
+  countryChange3(country: any) {
+    this.countryCode3 = country.dialCode;
+
+  }
+  countryChange4(country: any) {
+    this.countryCode4 = country.dialCode;
+
+  }
+  countryChange5(country: any) {
+    this.countryCode5 = country.dialCode;
+
+  }
+  countryChange6(country: any) {
+    this.countryCode6 = country.dialCode;
+
+  }
+  countryChange7(country: any) {
+    this.countryCode7 = country.dialCode;
+
+  }
+
+  gotoNextModal(content1: any) {
+    if(this.step1Form.invalid) {
+      this.validationError=true;
+      this.validationErrorMsg="Please check all the fields";
+      setTimeout(()=>{
+        this.validationError=false;
+   }, 3000);
+      return;
+    }
+    this.modalService.open(content1, { centered: true})
+  }
+  closeModalDialog(){
+    if(this.errorMsg != ""){
+      this.Error = false;
+      this.modalService.dismissAll(this.errorMsg = "")
+    }
+    else {
+      this.success=false;
+      this.modalService.dismissAll(this.successMsg="")
+    }  
+  }
+nextTab() {
     this.loading = true;
+    this.submitted = true
 
     if(this.step1Form.invalid) {
       return;
     }
-    
+
     this.step1Form.value.designer1Arr[0].signatorRole= this.designerRole;
+    this.step1Form.value.designer1Arr[0].declarationSignature= this.step1Form.value.designer1AcknowledgeArr[0].signature;
     this.step1Form.value.designer1Arr[0].declarationName= this.step1Form.value.designer1AcknowledgeArr[0].declarationName;
     this.step1Form.value.designer1Arr[0].declarationDate= this.step1Form.value.designer1AcknowledgeArr[0].declarationDate;
-
+  
     this.step1Form.value.designer2Arr[0].signatorRole= this.designerRole;
+    if((this.step1Form.value.designer2AcknowledgeArr[0].signature != "") && (this.step1Form.value.designer2AcknowledgeArr[0].declarationName != "") && (this.step1Form.value.designer2AcknowledgeArr[0].declarationDate != "")) 
+    {
+    this.step1Form.value.designer2Arr[0].declarationSignature= this.step1Form.value.designer2AcknowledgeArr[0].signature;
     this.step1Form.value.designer2Arr[0].declarationName= this.step1Form.value.designer2AcknowledgeArr[0].declarationName;
-    this.step1Form.value.designer2Arr[0].declarationDate= this.step1Form.value.designer2AcknowledgeArr[0].declarationName;
-
+    this.step1Form.value.designer2Arr[0].declarationDate= this.step1Form.value.designer2AcknowledgeArr[0].declarationDate;
+    } 
+  
     this.step1Form.value.contractorArr[0].signatorRole= this.contractorRole;
+    this.step1Form.value.contractorArr[0].declarationSignature= this.step1Form.value.contractorAcknowledgeArr[0].signature;
     this.step1Form.value.contractorArr[0].declarationName= this.step1Form.value.contractorAcknowledgeArr[0].declarationName;
-    this.step1Form.value.contractorArr[0].declarationDate= this.step1Form.value.contractorAcknowledgeArr[0].declarationName;
+    this.step1Form.value.contractorArr[0].declarationDate= this.step1Form.value.contractorAcknowledgeArr[0].declarationDate;
 
     this.step1Form.value.inspectorArr[0].signatorRole= this.inspectorRole;
+    this.step1Form.value.inspectorArr[0].declarationSignature= this.step1Form.value.inspectorAcknowledgeArr[0].signature;
     this.step1Form.value.inspectorArr[0].declarationName= this.step1Form.value.inspectorAcknowledgeArr[0].declarationName;
-    this.step1Form.value.inspectorArr[0].declarationDate= this.step1Form.value.inspectorAcknowledgeArr[0].declarationName;
+    this.step1Form.value.inspectorArr[0].declarationDate= this.step1Form.value.inspectorAcknowledgeArr[0].declarationDate;
 
     this.reportDetails.userName = this.email;
-    
+
+
+    //country code
+    this.step1Form.value.designer1Arr[0].personContactNo= "+" + this.countryCode + "-" + this.step1Form.value.designer1Arr[0].personContactNo;
+    this.step1Form.value.designer1Arr[0].managerContactNo= "+" + this.countryCode1 + "-" + this.step1Form.value.designer1Arr[0].managerContactNo;
+
+    this.step1Form.value.designer2Arr[0].personContactNo= "+" + this.countryCode2 + "-" + this.step1Form.value.designer2Arr[0].personContactNo;
+    this.step1Form.value.designer2Arr[0].managerContactNo= "+" + this.countryCode3 + "-" + this.step1Form.value.designer2Arr[0].managerContactNo;
+
+    this.step1Form.value.contractorArr[0].personContactNo = "+" + this.countryCode4 + "-" + this.step1Form.value.contractorArr[0].personContactNo;
+    this.step1Form.value.contractorArr[0].managerContactNo = "+" + this.countryCode5 + "-" + this.step1Form.value.contractorArr[0].managerContactNo;
+
+    this.step1Form.value.inspectorArr[0].personContactNo = "+" + this.countryCode6 + "-" + this.step1Form.value.inspectorArr[0].personContactNo;
+    this.step1Form.value.inspectorArr[0].managerContactNo = "+" + this.countryCode7 + "-" + this.step1Form.value.inspectorArr[0].managerContactNo;
+
     this.reportDetails.SignatorDetails = this.step1Form.value.designer1Arr;
+
     if(this.step1Form.value.designer2Arr[0].personName != "" && this.step1Form.value.designer2Arr[0].personName != null) {
       this.reportDetails.SignatorDetails=this.reportDetails.SignatorDetails.concat(this.step1Form.value.designer2Arr);
     }
-    
-    
-      this.reportDetails.SignatorDetails=this.reportDetails.SignatorDetails.concat(this.step1Form.value.contractorArr,this.step1Form.value.inspectorArr);
+
+    this.reportDetails.SignatorDetails=this.reportDetails.SignatorDetails.concat(this.step1Form.value.contractorArr,this.step1Form.value.inspectorArr);
     console.log(this.reportDetails)
     this.reportDetailsService.addReportDetails(this.reportDetails).subscribe(
       data=> {
         console.log("worked");
+        this.proceedNext.emit(true);
+        this.success=true;
+        this.successMsg="Basic Information successfully saved";
+        this.disable= true;
       },
       error => {
+        console.log("error");
+        this.Error=true;
+        this.proceedNext.emit(false);
+        this.errorMsg="Something went wrong, kindly check all the fields";
+        // setTimeout(()=>{
+        //   this.errorMsg="Something went wrong, kindly check all the fields";
+        // }, 3000);
       }
       )
       this.service.siteCount=this.reportDetails.siteId;
 
   }
-
-
 }
-
-

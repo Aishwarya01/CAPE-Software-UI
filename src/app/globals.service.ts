@@ -10,6 +10,7 @@ export class GlobalsService {
     //public data: string="";
     private data = {};  
     siteCount: number = 0; 
+    //step2 = new EventEmitter();   
 
     constructor() {}
 
@@ -21,6 +22,9 @@ export class GlobalsService {
     //     return this.data;  
     //   }
      
+    // onFirstComponentButtonClick() {    
+    //   this.step2.emit();    
+    // } 
    
 
 }
