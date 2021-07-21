@@ -407,19 +407,20 @@ export class InspectionVerificationTestingComponent implements OnInit {
           if (a != "") {
             incomingVoltage += a + ",";
           }
-        // else{
-        //    incomingVoltage += "NA,";
-
-        //  }
+        else{
+           incomingVoltage += "NA,";
+            }
         }
         incomingVoltage = incomingVoltage.replace(/,\s*$/, "");
         j.incomingVoltage = incomingVoltage;
-
-
+      
         for (let b of arr1) {
           if (b != "") {
             incomingZs += b + ",";
           }
+          else{
+            incomingZs += "NA,";
+            }
         }
         incomingZs = incomingZs.replace(/,\s*$/, "");
         j.incomingZs = incomingZs;
@@ -428,6 +429,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
           if (c != "") {
             incomingIpf += c + ",";
           }
+          else{
+            incomingIpf += "NA,";
+           }
         }
         incomingIpf = incomingIpf.replace(/,\s*$/, "");
         j.incomingIpf = incomingIpf;
@@ -446,9 +450,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
           }
         }
         ratingsAmps = ratingsAmps.replace(/,\s*$/, "");
-
-        i.ratingsAmps = ratingsAmps;
-
+          i.ratingsAmps = ratingsAmps;
       }
     }
 
@@ -470,6 +472,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
         if (a != "") {
           testVoltage += a + ",";
         }
+        else{
+          testVoltage += "NA,";
+         }
       }
 
       testVoltage = testVoltage.replace(/,\s*$/, "");
@@ -479,6 +484,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
         if (b != "") {
           testLoopImpedance += b + ",";
         }
+        else{
+          testLoopImpedance += "NA,";
+         }
       }
       testLoopImpedance = testLoopImpedance.replace(/,\s*$/, "");
       i.testLoopImpedance = testLoopImpedance;
@@ -486,7 +494,10 @@ export class InspectionVerificationTestingComponent implements OnInit {
       for (let c of arr2) {
         if (c != "") {
           testFaultCurrent += c + ",";
-        }
+                 }
+        else{
+          testFaultCurrent += "NA,";
+            }
       }
       testFaultCurrent = testFaultCurrent.replace(/,\s*$/, "");
       i.testFaultCurrent = testFaultCurrent;
@@ -494,6 +505,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
         if (d != "") {
           disconnectionTime += d + ",";
         }
+        else{
+          disconnectionTime += "NA,";
+       }
       }
       disconnectionTime = disconnectionTime.replace(/,\s*$/, "");
       i.disconnectionTime = disconnectionTime;
@@ -521,23 +535,23 @@ export class InspectionVerificationTestingComponent implements OnInit {
     //    (    data: any)=> {
     //   console.log("worked");
  
-    this.testingService.savePeriodicTesting(this.testing1).subscribe(
-                   data=> {​​​
-                    console.log("worked");
-                this.proceedNext.emit(true); 
-                this.success=true
-                this.successMsg="Testing Information successfully saved";
-               this.disable= true;
-                   // alert("Step2 successfully saved");
-                     }​​​,
-                   error=> {​​​
-                console.log("error");
-                this.Error=true;
-             // alert("Something went wrong, kindly check all the fields");  
-              this.proceedNext.emit(false); 
-               this.errorMsg="Something went wrong, kindly check all the fields";
-             }​​​
-           )
-        }
+    // this.testingService.savePeriodicTesting(this.testing1).subscribe(
+    //                data=> {​​​
+    //                 console.log("worked");
+    //             this.proceedNext.emit(true); 
+    //             this.success=true
+    //             this.successMsg="Testing Information successfully saved";
+    //            this.disable= true;
+    //             }​​​,
+    //                error=> {​​​
+    //             console.log("error");
+    //             this.Error=true;
+    //          // alert("Something went wrong, kindly check all the fields");  
+    //           this.proceedNext.emit(false); 
+    //            this.errorMsg="Something went wrong, kindly check all the fields";
+    //          }​​​
+    //        )
+    //   
+    }
        }
 
