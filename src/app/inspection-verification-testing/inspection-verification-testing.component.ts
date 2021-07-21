@@ -6,7 +6,6 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
-
 @Component({
   selector: 'app-inspection-verification-testing',
   templateUrl: './inspection-verification-testing.component.html',
@@ -37,41 +36,85 @@ export class InspectionVerificationTestingComponent implements OnInit {
   incomingIpf: String = "";
   rateArr: any = [];
   distributionIncomingValueArr: any = [];
-  testValueArr: any = [];
+  testingRecords: any = [];
 
   ratingAmps1: any;
-  testDistributionArr!: FormArray;
+  testDistribution!: FormArray;
   testingDistribution!: FormArray;
   successMsg: string="";
   success: boolean=false;
   disable: boolean=false;
   Error: boolean=false;
   errorMsg: string="";
+
+  validationError: boolean =false;
+  validationErrorMsg: String ="";
+
+  fcname:any[]=
+  ['ryVoltage',
+  'rbVoltage',
+  'ybVoltage', 
+  'rnVoltage' ,
+  'ynVoltage',
+  'bnVoltage' ,
+  'rpeVoltage', 
+  'ypeVoltage' ,
+  'bpeVoltage' ,
+  'ryLoopImpedance', 
+  'rbLoopImpedance' ,
+  'ybLoopImpedance' ,
+  'rnLoopImpedance' ,
+  'ynLoopImpedance' ,
+  'bnLoopImpedance' ,
+  'rpeLoopImpedance' ,
+  'ypeLoopImpedance' ,
+  'bpeLoopImpedance' ,
+  'ryFaultCurrent' ,
+  'rbFaultCurrent' ,
+  'ybFaultCurrent' ,
+  'rnFaultCurrent' ,
+  'ynFaultCurrent' ,
+  'bnFaultCurrent' ,
+  'rpeFaultCurrent' ,
+  'ypeFaultCurrent' ,
+  'bpeFaultCurrent' ,
+  'ryDisconnect' ,
+  'rbDisconnect' ,
+  'ybDisconnect' ,
+  'rnDisconnect' ,
+  'ynDisconnect' ,
+  'bnDisconnect' ,
+  'rpeDisconnect' ,
+  'ypeDisconnect' ,
+  'bpeDisconnect'
+];
+  o: any;
+
   constructor(private testingService: TestingService, private formBuilder: FormBuilder,
     private modalService: NgbModal, private router: ActivatedRoute,) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
 
   ngOnInit(): void {
-
     this.testingForm = this.formBuilder.group({
       testaccordianArr: this.formBuilder.array([this.createItem()])
     });
   }
 
-
   getdistributionIncomingValueControls(form: any) {
     return form.controls.distributionIncomingValueArr?.controls;
   }
   gettestDistributionFormControls(form: any) {
-    return form.controls.testDistributionArr?.controls;
+    return form.controls.testDistribution?.controls;
   }
   gettestValueControls(form: any) {
-    return form.controls.testValueArr?.controls;
-
+    return form.controls.testingRecords?.controls;
   }
   gettestrateFormControls(form: any) {
     return form.controls.rateArr?.controls;
+  }
+  getTestControls(): AbstractControl[] {
+    return (<FormArray>this.testingForm.get('testaccordianArr')).controls;
   }
 
   private createtestDistributionForm(): FormGroup {
@@ -90,14 +133,11 @@ export class InspectionVerificationTestingComponent implements OnInit {
       incomingIpf: new FormControl('', [Validators.required]),
       distributionIncomingValueArr: this.formBuilder.array([this.distributionIncomingValue()]),
 
-
     })
   }
 
-
   distributionIncomingValue(): FormGroup {
     return new FormGroup({
-
       incomingVoltage1: new FormControl(''),
       incomingVoltage2: new FormControl(''),
       incomingVoltage3: new FormControl(''),
@@ -127,9 +167,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
       incomingIpf7: new FormControl(''),
       incomingIpf8: new FormControl(''),
       incomingIpf9: new FormControl(''),
-
-
-
     })
   }
   ratingAmps(): FormGroup {
@@ -139,7 +176,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
 
     })
   }
-
 
   private createtestValueForm(): FormGroup {
     return new FormGroup({
@@ -158,6 +194,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
       continutiyLL: new FormControl(''),
       continutiyLE: new FormControl(''),
       continutiyPolarity: new FormControl(''),
+
       ryVoltage: new FormControl(''),
       rbVoltage: new FormControl(''),
       ybVoltage: new FormControl(''),
@@ -194,6 +231,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
       rpeDisconnect: new FormControl(''),
       ypeDisconnect: new FormControl(''),
       bpeDisconnect: new FormControl(''),
+
       rcdCurrent: new FormControl(''),
 
       testVoltage: new FormControl(''),
@@ -213,55 +251,55 @@ export class InspectionVerificationTestingComponent implements OnInit {
   onKey(event: KeyboardEvent, c: any, a: any) {
     this.values = (<HTMLInputElement>event.target).value;
     this.value = this.values;
-    this.testValueArr = a.controls.testValueArr as FormArray;
+    this.testingRecords = a.controls.testingRecords as FormArray;
     this.rateArr = c.controls.rateArr as FormArray;
 
     console.log(c);
     console.log(a);
     console.log(this.rateArr)
-    console.log(this.testValueArr)
-    if (this.testValueArr.length == 0 && this.rateArr.length == 0) {
+    console.log(this.testingRecords)
+    if (this.testingRecords.length == 0 && this.rateArr.length == 0) {
       if (this.value != "") {
         for (this.i = 1; this.i < this.value; this.i++) {
-          this.testValueArr.push(this.createtestValueForm());
+          this.testingRecords.push(this.createtestValueForm());
           this.rateArr.push(this.ratingAmps());
 
         }
       }
     }
     else if (this.value == "") {
-      this.loclength = this.testValueArr.length;
+      this.loclength = this. testingRecords.length;
       this.loclength = this.rateArr.length;
 
 
       for (this.i = 1; this.i < this.loclength; this.i++) {
-        this.testValueArr.removeAt(this.testValueArr.length - 1);
+        this. testingRecords.removeAt(this. testingRecords.length - 1);
         this.rateArr.removeAt(this.rateArr.length - 1);
 
       }
     }
-    else if (this.testValueArr.length < this.value && this.rateArr.length < this.value) {
+    else if (this. testingRecords.length < this.value && this.rateArr.length < this.value) {
       if (this.value != "") {
-        this.delarr = this.value - this.testValueArr.length;
+        this.delarr = this.value - this. testingRecords.length;
         this.delarr = this.value - this.rateArr.length;
 
 
         for (this.i = 0; this.i < this.delarr; this.i++) {
-          this.testValueArr.push(this.createtestValueForm());
+          this. testingRecords.push(this.createtestValueForm());
           this.rateArr.push(this.ratingAmps());
 
         }
       }
     }
-    else (this.testValueArr.length > this.value && this.rateArr.length > this.value)
+    else (this. testingRecords.length > this.value && this.rateArr.length > this.value)
     {
       if (this.value != "") {
-        this.delarr = this.testValueArr.length - this.value;
+        this.delarr = this. testingRecords.length - this.value;
         this.delarr = this.rateArr.length - this.value;
 
 
         for (this.i = 0; this.i < this.delarr; this.i++) {
-          this.testValueArr.removeAt(this.testValueArr.length - 1);
+          this. testingRecords.removeAt(this. testingRecords.length - 1);
           this.rateArr.removeAt(this.rateArr.length - 1);
 
 
@@ -269,23 +307,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
       }
     }
   }
-
-
-  get f(): any {
-    return this.testingForm.controls;
-  }
-  addItem() {
-    this.testaccordianArr = this.testingForm.get('testaccordianArr') as FormArray;
-    this.testaccordianArr.push(this.createItem());
-
-  }
-
-  getTestControls(): AbstractControl[] {
-    return (<FormArray>this.testingForm.get('testaccordianArr')).controls;
-  }
-  removeAccordian(index: any) {
-    (this.testingForm.get('testaccordianArr') as FormArray).removeAt(index);
-  }
+  
   createItem() {
     return this.formBuilder.group({
       locationNumber: new FormControl('', [Validators.required]),
@@ -300,53 +322,17 @@ export class InspectionVerificationTestingComponent implements OnInit {
       Impedance: ['', Validators.required],
       rcd: ['', Validators.required],
       earthElectrodeResistance: ['', Validators.required],
-
-
-
-
      
-      testDistributionArr: this.formBuilder.array([this.createtestDistributionForm()]),
-      testValueArr: this.formBuilder.array([this.createtestValueForm()]),
-      testingRecords: this.formBuilder.array([this.createtestingRecords()]),
+      testDistribution: this.formBuilder.array([this.createtestDistributionForm()]),
+      //testValueArr: this.formBuilder.array([this.createtestValueForm()]),
+      testingRecords: this.formBuilder.array([this.createtestValueForm()]),
       //testDistribution: this.formBuilder.array([this.createtestDistribution()]),
 
 
     })
   }
 
-   createtestingRecords(): FormGroup {
-    return new FormGroup({
-  circuitNo: new FormControl(''),
-  circuitDesc: new FormControl(''),
-  circuitStandardNo: new FormControl(''),
-  circuitType: new FormControl(''),
-  circuitRating: new FormControl(''),
-  circuitBreakingCapacity: new FormControl(''),
-  conductorInstallation: new FormControl(''),
-  conductorLive: new FormControl(''),
-  conductorPecpc: new FormControl(''),
-  continutiyApproximateLength: new FormControl(''),
-  continutiyRR: new FormControl(''),
-  continutiyR: new FormControl(''),
-  continutiyLL: new FormControl(''),
-  continutiyLE: new FormControl(''),
-  continutiyPolarity: new FormControl(''),
-
-
-  testVoltage: new FormControl(''),
-  testLoopImpedance: new FormControl(''),
-  testFaultCurrent: new FormControl(''),
-  disconnectionTime: new FormControl(''),
-
-  rcdCurrent: new FormControl(''),
-  rcdOperatingCurrent: new FormControl(''),
-  rcdOperatingFiveCurrent: new FormControl(''),
-  testButtonOperation: new FormControl(''),
-  rcdRemarks: new FormControl(''),
-
-
-    })
-  }
+ 
   createtestDistribution(): FormGroup {
     return new FormGroup({   
       distributionBoardDetails: new FormControl(''),
@@ -363,19 +349,34 @@ export class InspectionVerificationTestingComponent implements OnInit {
     })
   }
 
-
-  setTrue() {
-    if(this.testingForm.invalid) {
-      return;
-    }
-    
-    this.proceedNext.emit(true);
+  addItem() {
+    this.testaccordianArr = this.testingForm.get('testaccordianArr') as FormArray;
+    this.testaccordianArr.push(this.createItem());
   }
 
-  
-  nextTab() {
+  removeAccordian(index: any) {
+    (this.testingForm.get('testaccordianArr') as FormArray).removeAt(index);
+  }
 
-    this.testing1.siteId = 24;
+  get f(): any {
+    return this.testingForm.controls;
+  }
+
+  gotoNextModal(content4: any) {
+    debugger
+    if(this.testingForm.invalid) {
+      this.validationError=true;
+      this.validationErrorMsg="Please check all the fields";
+      setTimeout(()=>{   
+        this.validationError=false;                   
+   }, 3000);  
+      return;
+    }  
+    this.modalService.open(content4, { centered: true})
+  }
+
+  nextTab() {
+    this.testing1.siteId = 34;
     this.testing1.userName = this.email;
     this.submitted = true;
     // if(this.testingForm.invalid) {
@@ -383,22 +384,24 @@ export class InspectionVerificationTestingComponent implements OnInit {
     // }
     this.testaccordianArr = this.testingForm.get('testaccordianArr') as FormArray;
 
-
     for (let i of this.testaccordianArr.controls) {
-      this.testDistributionArr = i.get('testDistributionArr') as FormArray;
+      this.testDistribution = i.get('testDistribution') as FormArray;
+      this.testingRecords = i.get('testingRecords') as FormArray;
 
-      for (let j of this.testDistributionArr.value) {
+
+      for (let j of this.testDistribution.value) {
         console.log(j)
-
-
         let arr: any = [];
         let arr1: any = [];
         let arr2: any = [];
+        let arr3 :any = [];
+
         for (let k of j.distributionIncomingValueArr) {
           arr.push(k.incomingVoltage1, k.incomingVoltage2, k.incomingVoltage3, k.incomingVoltage4, k.incomingVoltage5, k.incomingVoltage6, k.incomingVoltage7, k.incomingVoltage8, k.incomingVoltage9)
           arr1.push(k.incomingZs1, k.incomingZs2, k.incomingZs3, k.incomingZs4, k.incomingZs5, k.incomingZs6, k.incomingZs7, k.incomingZs8, k.incomingZs9)
           arr2.push(k.incomingIpf1, k.incomingIpf2, k.incomingIpf3, k.incomingIpf4, k.incomingIpf5, k.incomingIpf6, k.incomingIpf7, k.incomingIpf8, k.incomingIpf9)
         }
+
         let incomingVoltage: String = "";
         let incomingZs: String = "";
         let incomingIpf: String = "";
@@ -411,6 +414,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
            incomingVoltage += "NA,";
             }
         }
+
         incomingVoltage = incomingVoltage.replace(/,\s*$/, "");
         j.incomingVoltage = incomingVoltage;
       
@@ -422,6 +426,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
             incomingZs += "NA,";
             }
         }
+
         incomingZs = incomingZs.replace(/,\s*$/, "");
         j.incomingZs = incomingZs;
 
@@ -433,88 +438,125 @@ export class InspectionVerificationTestingComponent implements OnInit {
             incomingIpf += "NA,";
            }
         }
+
         incomingIpf = incomingIpf.replace(/,\s*$/, "");
         j.incomingIpf = incomingIpf;
+
+        // rateamps
+        for (let k of j.rateArr) {
+          arr3.push(k.ratingsAmps)
+          let ratingsAmps: String = "";
+          for (let a of arr3) {
+            if (a != "") {
+              ratingsAmps += a + ",";
+            }
+          }
+          ratingsAmps = ratingsAmps.replace(/,\s*$/, "");
+            j.ratingsAmps = ratingsAmps;
+        }
+        debugger
+        delete j.rateArr;
+        delete j.distributionIncomingValueArr;
+  
       }
-
-    }
-
-    for (let i of this.testDistributionArr.value) {
-      let arr: any = [];
-      for (let j of this.rateArr.value) {
-        arr.push(j.ratingsAmps)
-        let ratingsAmps: String = "";
+      
+      for (let n of this.testingRecords.value) {
+        let arr: any = [];
+        let arr1: any = [];
+        let arr2: any = [];
+        let arr3: any = [];
+        arr.push(n.ryVoltage, n.rbVoltage, n.ybVoltage, n.rnVoltage, n.ynVoltage, n.bnVoltage, n.rpeVoltage, n.ypeVoltage, n.bpeVoltage)
+        arr1.push(n.ryLoopImpedance, n.rbLoopImpedance, n.ybLoopImpedance, n.rnLoopImpedance, n.ynLoopImpedance, n.bnLoopImpedance, n.rpeLoopImpedance, n.ypeLoopImpedance, n.bpeLoopImpedance)
+        arr2.push(n.ryFaultCurrent, n.rbFaultCurrent, n.ybFaultCurrent, n.rnFaultCurrent, n.ynFaultCurrent, n.bnFaultCurrent, n.rpeFaultCurrent, n.ypeFaultCurrent, n.bpeFaultCurrent)
+        arr3.push(n.ryDisconnect, n.rbDisconnect, n.ybDisconnect, n.rnDisconnect, n.ynDisconnect, n.bnDisconnect, n.rpeDisconnect, n.ypeDisconnect, n.bpeDisconnect)
+        let testVoltage: String = "";
+        let testLoopImpedance: String = "";
+        let testFaultCurrent: String = "";
+        let disconnectionTime: String = "";
+  
         for (let a of arr) {
           if (a != "") {
-            ratingsAmps += a + ",";
+            testVoltage += a + ",";
           }
+          else{
+            testVoltage += "NA,";
+           }
         }
-        ratingsAmps = ratingsAmps.replace(/,\s*$/, "");
-          i.ratingsAmps = ratingsAmps;
+  
+        testVoltage = testVoltage.replace(/,\s*$/, "");
+        n.testVoltage = testVoltage;
+  
+        for (let b of arr1) {
+  
+          if (b != "") {
+            testLoopImpedance += b + ",";
+          }
+          else{
+            testLoopImpedance += "NA,";
+           }
+        }
+  
+        testLoopImpedance = testLoopImpedance.replace(/,\s*$/, "");
+        n.testLoopImpedance = testLoopImpedance;
+  
+        for (let c of arr2) {
+          if (c != "") {
+            testFaultCurrent += c + ",";
+                   }
+          else{
+            testFaultCurrent += "NA,";
+              }
+        }
+  
+        testFaultCurrent = testFaultCurrent.replace(/,\s*$/, "");
+        n.testFaultCurrent = testFaultCurrent;
+  
+        for (let d of arr3) {
+          if (d != "") {
+            disconnectionTime += d + ",";
+          }
+          else{
+            disconnectionTime += "NA,";
+         }
+        }
+  
+        disconnectionTime = disconnectionTime.replace(/,\s*$/, "");
+        n.disconnectionTime = disconnectionTime;
+
+        // debugger
+        // delete n.rateArr;
+        // delete n.distributionIncomingValueArr;
+
+       
+
+        // for(let o of this.fcname) {
+        //   debugger
+        //   console.log(o);
+        //   delete n.o;
+        // }
+       
+      }
+      for(let o of this.testingRecords.controls) {
+        for(let p=0; p< this.fcname.length; p++) {
+          console.log(this.fcname);
+          console.log(this.fcname[0]);
+
+          // o.controls[this.fcname[p]];
+          // o.removeControl(this.fcname[p]);
+        }
+        
+        debugger
       }
     }
 
-    for (let i of this.testValueArr.value) {
-      let arr: any = [];
-      let arr1: any = [];
-      let arr2: any = [];
-      let arr3: any = [];
-      arr.push(i.ryVoltage, i.rbVoltage, i.ybVoltage, i.rnVoltage, i.ynVoltage, i.bnVoltage, i.rpeVoltage, i.ypeVoltage, i.bpeVoltage)
-      arr1.push(i.ryLoopImpedance, i.rbLoopImpedance, i.ybLoopImpedance, i.rnLoopImpedance, i.ynLoopImpedance, i.bnLoopImpedance, i.rpeLoopImpedance, i.ypeLoopImpedance, i.bpeLoopImpedance)
-      arr2.push(i.ryFaultCurrent, i.rbFaultCurrent, i.ybFaultCurrent, i.rnFaultCurrent, i.ynFaultCurrent, i.bnFaultCurrent, i.rpeFaultCurrent, i.ypeFaultCurrent, i.bpeFaultCurrent)
-      arr3.push(i.ryDisconnect, i.rbDisconnect, i.ybDisconnect, i.rnDisconnect, i.ynDisconnect, i.bnDisconnect, i.rpeDisconnect, i.ypeDisconnect, i.bpeDisconnect)
-      let testVoltage: String = "";
-      let testLoopImpedance: String = "";
-      let testFaultCurrent: String = "";
-      let disconnectionTime: String = "";
-      for (let a of arr) {
+    
+    console.log(this.testaccordianArr);
 
-        if (a != "") {
-          testVoltage += a + ",";
-        }
-        else{
-          testVoltage += "NA,";
-         }
-      }
+    
 
-      testVoltage = testVoltage.replace(/,\s*$/, "");
-      i.testVoltage = testVoltage;
-      for (let b of arr1) {
-
-        if (b != "") {
-          testLoopImpedance += b + ",";
-        }
-        else{
-          testLoopImpedance += "NA,";
-         }
-      }
-      testLoopImpedance = testLoopImpedance.replace(/,\s*$/, "");
-      i.testLoopImpedance = testLoopImpedance;
-
-      for (let c of arr2) {
-        if (c != "") {
-          testFaultCurrent += c + ",";
-                 }
-        else{
-          testFaultCurrent += "NA,";
-            }
-      }
-      testFaultCurrent = testFaultCurrent.replace(/,\s*$/, "");
-      i.testFaultCurrent = testFaultCurrent;
-      for (let d of arr3) {
-        if (d != "") {
-          disconnectionTime += d + ",";
-        }
-        else{
-          disconnectionTime += "NA,";
-       }
-      }
-      disconnectionTime = disconnectionTime.replace(/,\s*$/, "");
-      i.disconnectionTime = disconnectionTime;
-
-    }
+   
     // for (let i of this.testaccordianArr.value) {
-    //   this.testDistributionArr = this.testingForm.value.testDistributionArr;
+    //   this.testDistribution = this.testingForm.value.testDistribution;
     //   this.testValueArr = this.testingForm.value.testValueArr;
     // }
     
@@ -527,31 +569,32 @@ export class InspectionVerificationTestingComponent implements OnInit {
     //   }
     // }
    // this.testingDistribution=this.testingForm.value.testingDistributionArr;
-    this.testing1.testing = this.testingForm.value.testaccordianArr;
-    this.testing.testDistribution = this.testingForm.value.testDistributionArr;
-    this.testing.testingRecords = this.testingForm.value.testValueArr;
+    // this.testing1.testing = this.testingForm.value.testaccordianArr;
+    // this.testing.testDistribution = this.testingForm.value.testDistribution;
+    // this.testing.testingRecords = this.testingForm.value.testValueArr;
     console.log(this.testing1);
     //  this.testingService.savePeriodicTesting(this.testing1).subscribe(
     //    (    data: any)=> {
     //   console.log("worked");
  
-    // this.testingService.savePeriodicTesting(this.testing1).subscribe(
-    //                data=> {​​​
-    //                 console.log("worked");
-    //             this.proceedNext.emit(true); 
-    //             this.success=true
-    //             this.successMsg="Testing Information successfully saved";
-    //            this.disable= true;
-    //             }​​​,
-    //                error=> {​​​
-    //             console.log("error");
-    //             this.Error=true;
-    //          // alert("Something went wrong, kindly check all the fields");  
-    //           this.proceedNext.emit(false); 
-    //            this.errorMsg="Something went wrong, kindly check all the fields";
-    //          }​​​
-    //        )
-    //   
+    this.testingService.savePeriodicTesting(this.testing1).subscribe(
+                   data=> {​​​
+                    debugger
+                    console.log("worked");
+                this.proceedNext.emit(true); 
+                this.success=true
+                this.successMsg="Testing Information successfully saved";
+               this.disable= true;
+                }​​​,
+                   error=> {​​​
+                console.log("error");
+                this.Error=true;
+             // alert("Something went wrong, kindly check all the fields");  
+              this.proceedNext.emit(false); 
+               this.errorMsg="Something went wrong, kindly check all the fields";
+             }​​​
+           )
+      
     }
        }
 
