@@ -241,7 +241,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
 
       rcdOperatingCurrent: new FormControl(''),
       rcdOperatingFiveCurrent: new FormControl(''),
-      testButtonOperation: new FormControl(''),
+      rcdTestButtonOperation: new FormControl(''),
       rcdRemarks: new FormControl(''),
 
 
@@ -319,7 +319,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
       detailsTestInstrument: ['', Validators.required],
       continuity: ['', Validators.required],
       insulationResisance: ['', Validators.required],
-      Impedance: ['', Validators.required],
+      impedance: ['', Validators.required],
       rcd: ['', Validators.required],
       earthElectrodeResistance: ['', Validators.required],
      
@@ -376,7 +376,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   }
 
   nextTab() {
-    this.testing1.siteId = 34;
+    this.testing1.siteId = 52;
     this.testing1.userName = this.email;
     this.submitted = true;
     // if(this.testingForm.invalid) {
@@ -569,7 +569,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
     //   }
     // }
    // this.testingDistribution=this.testingForm.value.testingDistributionArr;
-    // this.testing1.testing = this.testingForm.value.testaccordianArr;
+    this.testing1.testing = this.testingForm.value.testaccordianArr;
     // this.testing.testDistribution = this.testingForm.value.testDistribution;
     // this.testing.testingRecords = this.testingForm.value.testValueArr;
     console.log(this.testing1);

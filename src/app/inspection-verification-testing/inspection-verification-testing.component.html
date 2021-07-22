@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-6">
                 <label>Location Number*</label>
-                <input type="text" class="form-control" formControlName="locationNumber" placeholder="Enter Location Number"
+                <input type="number" class="form-control" formControlName="locationNumber" placeholder="Enter Location Number"
                     [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors }">
                 <div *ngIf="submitted && a.get('locationNumber')?.errors" class="invalid-feedback">
                 <div *ngIf="a.get('locationNumber')?.errors?.required">Location Number is required</div>
@@ -101,9 +101,9 @@
 
                         <div class="col-md-4">
                             <label>Impedance </label>
-                            <input type="text" formControlName="Impedance" class="form-control"[ngClass]="{ 'is-invalid': submitted && a.get('Impedance')?.errors }"  >
-                            <div *ngIf="submitted && a.get('Impedance')?.errors" class="invalid-feedback">
-                              <div *ngIf="a.get('Impedance')?.errors?.required">Impedance value is required</div>
+                            <input type="text" formControlName="impedance" class="form-control"[ngClass]="{ 'is-invalid': submitted && a.get('impedance')?.errors }"  >
+                            <div *ngIf="submitted && a.get('impedance')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('impedance')?.errors?.required">Impedance value is required</div>
                             </div> 
                         </div>
 
@@ -434,7 +434,7 @@
                                             <td><input type="number" formControlName="rcdCurrent" class="form-control" maxlength="4" style="width:70px"></td>
                                             <td><input type="number" formControlName="rcdOperatingCurrent" class="form-control" maxlength="4" style="width:70px"></td>
                                             <td><input type="number" formControlName="rcdOperatingFiveCurrent" class="form-control" maxlength="4"  style="width:70px"></td>
-                                            <td><input type="text" formControlName="testButtonOperation" class="form-control" maxlength="4"  style="width:70px"></td>
+                                            <td><input type="text" formControlName="rcdTestButtonOperation" class="form-control" maxlength="4"  style="width:70px"></td>
                                             <td><input type="text" formControlName="rcdRemarks" class="form-control" maxlength="4"  style="width:70px"></td>
                                            </tr>
                                     </tbody>
