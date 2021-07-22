@@ -82,7 +82,7 @@ export class SavedreportsComponent implements OnInit {
   }
 
   continue(siteId: any) {
-    this.verification.changeTab(1,siteId);
+   // this.verification.changeTab(1,siteId);
   }
   
 }
