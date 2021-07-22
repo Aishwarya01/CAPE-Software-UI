@@ -151,6 +151,7 @@ export class SiteaddComponent implements OnInit {
       personInchargeEmail: ['', [
         Validators.required,
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+      countryCode: ['91']
     })
   }
 
@@ -168,8 +169,9 @@ export class SiteaddComponent implements OnInit {
   }
 
   //country code
-  countryChange(country: any) {
+  countryChange(country: any, a: any) {
     this.countryCode = country.dialCode;
+    a.controls.countryCode.value= this.countryCode;
   }
 
   onSubmit() {
@@ -183,13 +185,20 @@ export class SiteaddComponent implements OnInit {
     this.loading = true;
     console.log(this.addSiteForm.value.arr);
 
+    this.arr = this.addSiteForm.get('arr') as FormArray;
+    for(let i of this.arr.value) {
+      if(i.countryCode != "") {
+        i.contactNo = "+" +i.countryCode + "-" + i.contactNo;
+      }
+    }
+
     this.site.sitePersons=this.addSiteForm.value.arr;
     for(let i of this.site.sitePersons) {
       i.inActive=true;
     }
 
     //country code
-    this.site.sitePersons[0].contactNo="+" +this.countryCode + "-" + this.site.sitePersons[0].contactNo;
+    // this.site.sitePersons[0].contactNo="+" +this.countryCode + "-" + this.site.sitePersons[0].contactNo;
 
     console.log(this.site)
     this.site.userName = this.email;

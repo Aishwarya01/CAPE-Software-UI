@@ -52,7 +52,7 @@
 
                 <div class="col-md-3">
                     <label>* Mobile Number:</label>
-                    <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" (keypress)="keyPressAlphaNumericWithCharacters($event)" (countryChange)="countryChange($event)"  formControlName="contactNo" class="form-control" maxlength="10" minlength="10" placeholder="Enter Mobile No">
+                    <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" (keypress)="keyPressAlphaNumericWithCharacters($event)" (countryChange)="countryChange($event,a)"  formControlName="contactNo" class="form-control" maxlength="10" minlength="10" placeholder="Enter Mobile No">
                 </div>
 
                 <div class="col-md-3">
