@@ -358,12 +358,12 @@ deleteDepartment(departmentId: number) {
     this.isCompleted5 = next;
   }
 
- changeTab(index: number,sitedId: any):void
-{
-    this.selectedIndex = index;
-    debugger
-    console.log(sitedId);
-}
+//  changeTab(index: number,sitedId: any):void
+// {
+//     this.selectedIndex = index;
+//     debugger
+//     console.log(sitedId);
+// }
 
 }
 
