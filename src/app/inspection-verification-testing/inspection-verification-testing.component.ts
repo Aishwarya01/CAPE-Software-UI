@@ -29,8 +29,8 @@ export class InspectionVerificationTestingComponent implements OnInit {
 
   @Output() proceedNext = new EventEmitter<any>();
 
-  testing1 = new TestingDetails;
-   testing=new Testing;
+  testingDetails = new TestingDetails;
+  // testing=new Testing;
   incomingVoltage: String = "";
   incomingZs: String = "";
   incomingIpf: String = "";
@@ -376,8 +376,8 @@ export class InspectionVerificationTestingComponent implements OnInit {
   }
 
   nextTab() {
-    this.testing1.siteId = 52;
-    this.testing1.userName = this.email;
+    this.testingDetails.siteId = 52;
+    this.testingDetails.userName = this.email;
     this.submitted = true;
     if(this.testingForm.invalid) {
       return;
@@ -536,17 +536,17 @@ export class InspectionVerificationTestingComponent implements OnInit {
         // }
        
       }
-      for(let o of this.testingRecords.controls) {
-        for(let p=0; p< this.fcname.length; p++) {
-          console.log(this.fcname);
-          console.log(this.fcname[0]);
+      // for(let o of this.testingRecords.controls) {
+      //   for(let p=0; p< this.fcname.length; p++) {
+      //     console.log(this.fcname);
+      //     console.log(this.fcname[0]);
 
-          // o.controls[this.fcname[p]];
-          // o.removeControl(this.fcname[p]);
-        }
+      //     // o.controls[this.fcname[p]];
+      //     // o.removeControl(this.fcname[p]);
+      //   }
         
-        debugger
-      }
+      //   debugger
+      // }
     }
 
     
@@ -569,15 +569,15 @@ export class InspectionVerificationTestingComponent implements OnInit {
     //   }
     // }
    // this.testingDistribution=this.testingForm.value.testingDistributionArr;
-    this.testing1.testing = this.testingForm.value.testaccordianArr;
+    this.testingDetails.testing = this.testingForm.value.testaccordianArr;
     // this.testing.testDistribution = this.testingForm.value.testDistribution;
     // this.testing.testingRecords = this.testingForm.value.testValueArr;
-    console.log(this.testing1);
-    //  this.testingService.savePeriodicTesting(this.testing1).subscribe(
+    console.log(this.testingDetails);
+    //  this.testingService.savePeriodicTesting(this.testingDetails).subscribe(
     //    (    data: any)=> {
     //   console.log("worked");
  
-    this.testingService.savePeriodicTesting(this.testing1).subscribe(
+    this.testingService.savePeriodicTesting(this.testingDetails).subscribe(
                    data=> {​​​
                     debugger
                     console.log("worked");

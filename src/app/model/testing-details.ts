@@ -1,7 +1,7 @@
 export class TestingDetails{
   siteId!: number;
   userName!: String;
-    testing!:Testing[];
+  testing!:Testing[];
     
   
 
