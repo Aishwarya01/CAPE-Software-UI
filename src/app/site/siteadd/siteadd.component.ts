@@ -177,13 +177,11 @@ export class SiteaddComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-
     //Breaks if form is invalid
     if(this.addSiteForm.invalid) {
       return;
     }
     this.loading = true;
-    console.log(this.addSiteForm.value.arr);
 
     this.arr = this.addSiteForm.get('arr') as FormArray;
     for(let i of this.arr.value) {
@@ -197,10 +195,6 @@ export class SiteaddComponent implements OnInit {
       i.inActive=true;
     }
 
-    //country code
-    // this.site.sitePersons[0].contactNo="+" +this.countryCode + "-" + this.site.sitePersons[0].contactNo;
-
-    console.log(this.site)
     this.site.userName = this.email;
     this.siteService.addSIte(this.site).subscribe(
       data=> {
