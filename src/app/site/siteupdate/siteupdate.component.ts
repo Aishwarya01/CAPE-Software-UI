@@ -39,6 +39,7 @@ export class SiteupdateComponent implements OnInit {
   showErrorMessage=false;
   jsonArray: any = [];
   deletedArray: any =[];
+  personarr!: FormArray;
 
 
   @Input()
@@ -111,8 +112,9 @@ export class SiteupdateComponent implements OnInit {
   }
 
    //country code
-   countryChange(country: any) {
+   countryChange(country: any, a: any) {
     this.countryCode = country.dialCode;
+    a.controls.countryCode.value= this.countryCode;
   }
   // Only Integer Numbers
   keyPressNumbers(event:any) {
@@ -147,7 +149,8 @@ export class SiteupdateComponent implements OnInit {
         Validators.required,
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       personId: [''],
-      inActive: ['']
+      inActive: [''],
+      countryCode: ['91']
     })
   }
 
@@ -183,7 +186,9 @@ export class SiteupdateComponent implements OnInit {
       contactNo: new FormControl({disabled: true ,value: item.contactNo}),
       personInchargeEmail: new FormControl({disabled: true,value: item.personInchargeEmail}),
       personId: new FormControl({disabled: true ,value: item.personId}),
-      inActive: new FormControl({disabled: true, value:item.inActive})
+      inActive: new FormControl({disabled: true, value:item.inActive}),
+      // countryCode: new FormControl(''),
+
     });
   }
 
@@ -196,22 +201,30 @@ export class SiteupdateComponent implements OnInit {
     }
 
     this.loading = true;
-    for(let i of this.updateSiteForm.getRawValue().arr) {
-      if(i.inActive == "") {
-        i.inActive = true;
-      }
-    }
+    // for(let i of this.updateSiteForm.getRawValue().arr) {
+    //   if(i.inActive == "") {
+    //     i.inActive = true;
+    //   }
+    // }
 
-
+   
     //country code
-    this.site.sitePersons[0].contactNo="+" +this.countryCode + "-" + this.site.sitePersons[0].contactNo;
+    // this.site.sitePersons[0].contactNo="+" +this.countryCode + "-" + this.site.sitePersons[0].contactNo;
 
     this.site.sitePersons=this.updateSiteForm.getRawValue().arr;
 
-    for( let j of this.deletedArray) {
-      this.site.sitePersons.push(j);
+    for(let i of this.site.sitePersons) {
+      if((i.countryCode != "") && (i.countryCode != undefined)) {
+        i.contactNo = "+" +i.countryCode + "-" + i.contactNo;
+        i.inActive = true
+      }
     }
-    console.log(this.site)
+
+    for( let j of this.deletedArray) {
+      if(j.personId != "") {
+        this.site.sitePersons.push(j);
+      }
+    }
     this.siteService.updateSite(this.site).subscribe(
       data=> {
         this.dialog.closeAll();

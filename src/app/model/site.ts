@@ -29,4 +29,5 @@ export class SitePersons {
     personInchargeEmail: String;
     inActive: Boolean = true;
     personId: number;
+    countryCode: String;
 }

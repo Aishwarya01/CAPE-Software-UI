@@ -53,7 +53,12 @@ export class VerificationlvComponent implements OnInit {
   site_dataSource!: MatTableDataSource<Company[]>;
   @ViewChild('sitePaginator', { static: true }) sitePaginator!: MatPaginator;
   @ViewChild('siteSort', {static: true}) siteSort!: MatSort;
+
   
+  selectedTabIndex: any;
+  selectedIndex = 0;
+
+ // selectedIndex : any;
   clientList: any = [];
   inActiveData: any =[];
   departmentList: any = [];
@@ -102,7 +107,7 @@ export class VerificationlvComponent implements OnInit {
   secondFormGroup!: FormGroup;
   // ThirdFormGroup: FormGroup;
   // fourthFormGroup: FormGroup;
-
+ 
 
   @Output() passEntry: EventEmitter<any> = new EventEmitter();  
   formBuilder: any;
@@ -334,6 +339,7 @@ deleteDepartment(departmentId: number) {
 
   public doSomething1(next: any):void {
     this.isCompleted = next;
+    //this.selectedIndex = this.selectedIndex = 0;
   }
 
   public doSomething2(next: any):void {
@@ -351,23 +357,14 @@ deleteDepartment(departmentId: number) {
   public NextStep5(next: any):void {
     this.isCompleted5 = next;
   }
-  // public NextStep3(next: any):void {
-  //   this.isCompleted3 = next;
-  // }
 
-//   gotoNext(e: any) {
-//     debugger
-// this.supplyCharachteristicComponent?.nextTab2();
-//   }
+ changeTab(index: number,sitedId: any):void
+{
+    this.selectedIndex = index;
+    debugger
+    console.log(sitedId);
+}
 
-
-// clickstep2(stepper: MatStepper) {
-//   debugger
-//   console.log(this.supply.nextTab2());
-//   if(this.supply.isSupplyCompleted == true) {
-//     stepper.next();
-//   }
-// }
 }
 
   
