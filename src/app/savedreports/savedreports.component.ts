@@ -1,12 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild,Output,EventEmitter } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
+import { InspectionVerificationBasicInformationComponent } from '../inspection-verification-basic-information/inspection-verification-basic-information.component';
 import { Site } from '../model/site';
 import { ClientService } from '../services/client.service';
 import { DepartmentService } from '../services/department.service';
 import { SiteService } from '../services/site.service';
+import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
+import { GlobalsService } from '../globals.service';
 
 @Component({
   selector: 'app-savedreports',
@@ -20,16 +23,25 @@ export class SavedreportsComponent implements OnInit {
   @ViewChild('savedReportPaginator', { static: true }) savedReportPaginator!: MatPaginator;
   @ViewChild('savedReportSort', {static: true}) savedReportSort!: MatSort;
 
+  @Output("changeTab") changeTab: EventEmitter<any> = new EventEmitter();
+
+ 
+
   email: String ="";
   site = new Site;
   clientList:any  = [];
   departmentList: any = [];
+  
+
   constructor(private router: ActivatedRoute,
               private clientService: ClientService,
               private departmentService: DepartmentService,
               private siteService: SiteService,
+              public service: GlobalsService,
+              private verification: VerificationlvComponent
   ) { 
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
+
   }
 
   ngOnInit(): void {
@@ -70,7 +82,7 @@ export class SavedreportsComponent implements OnInit {
   }
 
   continue(siteId: any) {
-    
+    this.verification.changeTab(1,siteId);
   }
-
+  
 }

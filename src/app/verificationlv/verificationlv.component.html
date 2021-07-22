@@ -1,4 +1,4 @@
-<mat-tab-group>
+<mat-tab-group [selectedIndex]="selectedIndex">
   <mat-tab label="Company Details">
     <mat-horizontal-stepper #stepper>
       <mat-step>
@@ -342,14 +342,15 @@
       </mat-step>
     </mat-horizontal-stepper>
   </mat-tab>
-  <mat-tab label="Inspection Verification & Testing of Installation">
+  <mat-tab label="Inspection Verification & Testing of Installation" >
     <mat-horizontal-stepper linear #stepper>
-      <!-- step 1 -->
-      <mat-step [completed]="isCompleted">
+      <!-- step 1 (proceedNext)="doSomething1($event)"-->
+      <mat-step [completed]="isCompleted" >
 
-        <ng-template matStepLabel>Basic Information</ng-template>
+        <ng-template matStepLabel >Basic Information</ng-template>
 
-        <app-inspection-verification-basic-information (proceedNext)="doSomething1($event)"></app-inspection-verification-basic-information>
+        <app-inspection-verification-basic-information  (proceedNext)="doSomething1($event)"  (changeTab)="changeTab($event)"
+        ></app-inspection-verification-basic-information>
 
       </mat-step>
       
@@ -390,6 +391,7 @@
   <mat-tab label="Saved Reports">
     <app-savedreports></app-savedreports>
   </mat-tab>
+  
   <mat-tab label="Final Reports">
     <app-finalreports></app-finalreports>
   </mat-tab>
