@@ -450,9 +450,9 @@
                <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
                 <span class="alert alert-danger">{{validationErrorMsg}}</span>
               </div>
-              <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
+              <div style="text-align: center;margin-top: 40px;">
                 <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
-                <button  class="next"  [disabled]="disable" (click)="gotoNextModal(content4)" mat-button >Next &raquo;</button>
+                <button  class="next" [disabled]="disable" (click)="gotoNextModal(content4)" mat-button>Next &raquo;</button>
               </div>
       </form>
     </div>

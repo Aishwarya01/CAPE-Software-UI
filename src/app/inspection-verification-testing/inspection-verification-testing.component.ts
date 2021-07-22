@@ -124,13 +124,13 @@ export class InspectionVerificationTestingComponent implements OnInit {
       location: new FormControl('', [Validators.required]),
       correctSupplyPolarity: new FormControl('', [Validators.required]),
       numOutputCircuitsUse: new FormControl('', [Validators.required]),
-      ratingsAmps: new FormControl('', [Validators.required]),
+      ratingsAmps: new FormControl(''),
       rateArr: this.formBuilder.array([this.ratingAmps()]),
       numOutputCircuitsSpare: new FormControl('', [Validators.required]),
       installedEquipmentVulnarable: new FormControl('', [Validators.required]),
-      incomingVoltage: new FormControl('', [Validators.required]),
-      incomingZs: new FormControl('', [Validators.required]),
-      incomingIpf: new FormControl('', [Validators.required]),
+      incomingVoltage: new FormControl(''),
+      incomingZs: new FormControl(''),
+      incomingIpf: new FormControl(''),
       distributionIncomingValueArr: this.formBuilder.array([this.distributionIncomingValue()]),
 
     })
@@ -171,7 +171,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   }
   ratingAmps(): FormGroup {
     return new FormGroup({
-      ratingsAmps: new FormControl('', [Validators.required]),
+      ratingsAmps: new FormControl(''),
 
 
     })
@@ -379,9 +379,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
     this.testing1.siteId = 52;
     this.testing1.userName = this.email;
     this.submitted = true;
-    // if(this.testingForm.invalid) {
-    //   return;
-    // }
+    if(this.testingForm.invalid) {
+      return;
+    }
     this.testaccordianArr = this.testingForm.get('testaccordianArr') as FormArray;
 
     for (let i of this.testaccordianArr.controls) {
