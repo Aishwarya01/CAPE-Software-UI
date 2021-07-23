@@ -48,7 +48,7 @@
 
                 <div class="col-md-3">
                     <label>Contact No:</label>
-                    <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" (keypress)="keyPressAlphaNumericWithCharacters($event)" (countryChange)="countryChange($event,a)" formControlName="contactNo" class="form-control" value="{{a.value.contactNo}}" minlength="10" maxlength="10" placeholder="Enter Contact Number">
+                    <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" (keypress)="keyPressAlphaNumericWithCharacters($event)" (countryChange)="countryChange($event,a)" formControlName="contactNo" class="form-control" value="{{a.value.contactNo}}" minlength="10" maxlength="12" placeholder="Enter Contact Number">
                 </div>
 
                 <div class="col-md-3">
