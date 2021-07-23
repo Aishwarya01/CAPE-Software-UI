@@ -14,6 +14,7 @@ import { SiteService } from 'src/app/services/site.service';
 })
 export class SiteaddComponent implements OnInit {
 
+  isSubmitted = false;
   addSiteForm = new FormGroup({
     clientName: new FormControl(''),
     departmentName: new FormControl(''),
@@ -60,7 +61,7 @@ export class SiteaddComponent implements OnInit {
       arr: this.formBuilder.array([this.createItem()]),
       siteLocation: ['', Validators.required],
       AddressLine1: ['', Validators.required],
-      AddressLine2: ['', Validators.required],
+      AddressLine2: [''],
       siteLandmark: ['', Validators.required],
       country: ['', Validators.required],
       state: ['', Validators.required],
@@ -81,6 +82,10 @@ export class SiteaddComponent implements OnInit {
         this.countryList = JSON.parse(data);
       }
     )
+  }
+
+  get a():any {
+    return this.addSiteForm.controls;
   }
 
   // Only Integer Numbers
@@ -139,15 +144,11 @@ export class SiteaddComponent implements OnInit {
     this.dialog.closeAll();
   }
 
-  get f() {
-    return this.addSiteForm.controls;
-  }
-
   createItem() {
     return this.formBuilder.group({
       personIncharge: ['', Validators.required],
       designation: ['', Validators.required],
-      contactNo: ['', Validators.required],
+      contactNo: ['', [Validators.required]],
       personInchargeEmail: ['', [
         Validators.required,
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],

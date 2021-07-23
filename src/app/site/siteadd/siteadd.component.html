@@ -1,34 +1,44 @@
 <h1>Add New Site</h1>
-<form [formGroup]="addSiteForm">
+<form [formGroup]="addSiteForm" (ngSubmit)="onSubmit">
 
     <div class="form-group">
         <div class="row">
+
             <div class="col-md-4">
                 <label>Client Name:</label>
-                <select formControlName="clientName" class="form-control" (change)="changeClient($event)"
-                    [(ngModel)]="site.clientName">
+                <select formControlName="clientName" id="client" class="form-control" (change)="changeClient($event)"
+                    [(ngModel)]="site.clientName" [ngClass]="{ 'is-invalid': submitted && a.clientName.errors }">
                     <option value="0" selected>Select Client Name</option>
                     <option *ngFor="let client of clientList">{{client.clientName}}</option>
-                </select>
+            </select>
+            <div *ngIf="submitted && a.clientName.errors" class="invalid-feedback">
+              <div *ngIf="a.clientName?.errors?.required">Client Name Is Required</div>
+          </div>
             </div>
 
             <div class="col-md-4">
                 <label>Department:</label>
-                <select formControlName="departmentName" class="form-control" [(ngModel)]="site.departmentName">
+                <select formControlName="departmentName" class="form-control" [(ngModel)]="site.departmentName" [ngClass]="{ 'is-invalid': submitted && a.clientName.errors }">
                     <option value="0" selected>Select Department Name</option>
                     <option *ngFor="let department of departmentList">{{department.departmentName}}</option>
                 </select>
+                <div *ngIf="submitted && a.clientName.errors" class="invalid-feedback">
+                  <div *ngIf="a.clientName?.errors?.required">Department Is required</div>
+              </div>
             </div>
 
             <div class="col-md-4">
                 <label>Site:</label>
                 <input type="text" formControlName="siteName" class="form-control" placeholder="Enter Site Name"
-                    [(ngModel)]="site.site">
+                [(ngModel)]="site.site" [ngClass]="{ 'is-invalid': submitted && a.clientName.errors }">
+                <div *ngIf="submitted && a.clientName.errors" class="invalid-feedback">
+                  <div *ngIf="a.clientName?.errors?.required">Site Is required</div>
+              </div>
             </div>
         </div>
     </div>
 
-    <mat-icon class="mousechange" (click)="addItem()" style="float:right; padding-right: 37px; padding-top: 10px;">
+    <mat-icon class="mousechange" (click)="addItem()" style="float:right; padding-right: 25px; padding-top: 10px;">
         add_box</mat-icon>
 
     <div formArrayName="arr" *ngFor="let a of getControls(); let i = index">
@@ -39,29 +49,45 @@
 
             <div class="row">
                 <div class="col-md-3">
-                    <label>Person Incharge:</label>
-                    <input type="text" formControlName="personIncharge" class="form-control"
-                        placeholder="Enter Person Incharge">
+                    <label>* Person Incharge:</label>
+                    <input type="text" formControlName="personIncharge" class="form-control" placeholder="Enter Person Incharge" [ngClass]="{ 'is-invalid': submitted && a.get('personIncharge')?.errors }">
+                        <div *ngIf="submitted && a.get('personIncharge')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('personIncharge')?.errors?.required">Person Incharge Is Required</div>
+                      </div>
                 </div>
 
                 <div class="col-md-3">
-                    <label>Designation:</label>
+                    <label>* Designation:</label>
                     <input type="text" formControlName="designation" class="form-control"
-                        placeholder="Enter Designation">
+                        placeholder="Enter Designation"[ngClass]="{ 'is-invalid': submitted && a.get('designation')?.errors }">
+                        <div *ngIf="submitted && a.get('designation')?.errors" class="invalid-feedback">
+                          <div *ngIf="a.get('designation')?.errors?.required">Designation Is Required</div>
+                      </div>
                 </div>
 
                 <div class="col-md-3">
-                    <label>* Mobile Number:</label>
-                    <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" (keypress)="keyPressAlphaNumericWithCharacters($event)" (countryChange)="countryChange($event,a)"  formControlName="contactNo" class="form-control" maxlength="10" minlength="10" placeholder="Enter Mobile No">
+                  <label>* Mobile Number:</label>
+                  <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" (keypress)="keyPressNumbers($event)" (countryChange)="countryChange($event,a)" formControlName="contactNo" class="form-control"  minlength="10" maxlength="14" placeholder="Enter Number" [ngClass]="{ 'is-invalid': submitted && a.get('contactNo')?.errors }">
+                  <div *ngIf="submitted && a.get('contactNo')?.errors" class="invalid-feedback">
+                    <div *ngIf="a.get('contactNo')?.errors?.required">Mobile Number Is Required</div>
+                    <div *ngIf="a.get('contactNo')?.errors?.minlength">Enter 10 Digit Number</div>
+                    <div *ngIf="a.get('contactNo')?.errors?.maxlength">Enter 10 Digit Number</div>
                 </div>
+              </div>
 
                 <div class="col-md-3">
-                    <label>Email:</label>
+                    <label>* Email:</label>
                     <input type="text" formControlName="personInchargeEmail" class="form-control"
-                        placeholder="Enter Email Address">
+                        placeholder="Enter Email Address" [ngClass]="{ 'is-invalid': submitted && a.get('personInchargeEmail')?.errors }">
+                        <div *ngIf="submitted && a.get('personInchargeEmail')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('personInchargeEmail')?.errors?.required">Email is required</div>
+                        <div *ngIf="a.get('personInchargeEmail')?.errors?.pattern">Enter valid email</div>
+                    </div>
                 </div>
+                <div class="col-md-12 text-right">
                 <mat-icon class="mousechange" *ngIf="getControls().length > 1" (click)="removeItem(i)"
-                    style="float:right; padding-left: 916px;">delete</mat-icon>
+                    >delete</mat-icon>
+                  </div>
             </div>
         </div>
     </div>
@@ -72,17 +98,23 @@
             <div class="col-md-4">
                 <label>City:</label>
                 <input type="text" formControlName="siteLocation" class="form-control" placeholder="Enter City"
-                    [(ngModel)]="site.city">
+                    [(ngModel)]="site.city" [ngClass]="{ 'is-invalid': submitted && a.clientName.errors }">
+                    <div *ngIf="submitted && a.clientName.errors" class="invalid-feedback">
+                      <div *ngIf="a.clientName?.errors?.required">City Is Required</div>
+                  </div>
             </div>
 
             <div class="col-md-4">
                 <label>AddressLine1:</label>
-                <input type="text" formControlName="AddressLine1" class="form-control" placeholder="Enter Address Line1"
-                    [(ngModel)]="site.addressLine_1">
+                <input type="text" formControlName="AddressLine1" class="form-control" placeholder="Enter Address Line1" [(ngModel)]="site.addressLine_1" [ngClass]="{ 'is-invalid': submitted && a.clientName.errors }">
+                <div *ngIf="submitted && a.clientName.errors" class="invalid-feedback">
+                  <div *ngIf="a.clientName?.errors?.required">AddressLine1 Is Required</div>
+              </div>
             </div>
 
             <div class="col-md-4">
-                <label>AddressLine2:</label>
+                <label>AddressLine2: (Optional)
+                </label>
                 <input type="text" formControlName="AddressLine2" class="form-control" placeholder="Enter Address Line2"
                     [(ngModel)]="site.addressLine_2">
             </div>
@@ -94,36 +126,50 @@
             <div class="col-md-4">
                 <label>Site Landmark:</label>
                 <input type="text" formControlName="siteLandmark" class="form-control" placeholder="Enter Landmark"
-                    [(ngModel)]="site.landMark">
+                    [(ngModel)]="site.landMark" [ngClass]="{ 'is-invalid': submitted && a.clientName.errors }">
+                    <div *ngIf="submitted && a.clientName.errors" class="invalid-feedback">
+                      <div *ngIf="a.clientName?.errors?.required">Site Landmark Is Required</div>
+                  </div>
             </div>
 
             <div class="col-md-4">
                 <label>Country:</label>
                 <select formControlName="country" class="form-control" (change)="changeCountry($event)"
-                    [(ngModel)]="site.country">
+                    [(ngModel)]="site.country" [ngClass]="{ 'is-invalid': submitted && a.clientName.errors }">
                     <option value="0" selected>Select Country Name</option>
                     <option *ngFor="let country of countryList">{{country.name}}</option>
                 </select>
+                <div *ngIf="submitted && a.clientName.errors" class="invalid-feedback">
+                  <div *ngIf="a.clientName?.errors?.required">Country Is Required</div>
+              </div>
             </div>
 
             <div class="col-md-4">
                 <label>State:</label>
-                <select formControlName="state" class="form-control" [(ngModel)]="site.state">
+                <select formControlName="state" class="form-control" [(ngModel)]="site.state" [ngClass]="{ 'is-invalid': submitted && a.clientName.errors }">
                     <option value="0" selected>Select State Name</option>
                     <option *ngFor="let state of stateList">{{state.name}}</option>
                 </select>
+                <div *ngIf="submitted && a.clientName.errors" class="invalid-feedback">
+                  <div *ngIf="a.clientName?.errors?.required">State Is Required</div>
+              </div>
             </div>
         </div>
     </div>
 
     <div class="form-group">
         <div class="row">
+
             <div class="col-md-4">
                 <label>Pincode:</label>
                 <input type="text" (keypress)="keyPressNumbers($event)" formControlName="pincode" class="form-control" placeholder="Enter Pincode" minlength="5" maxlength="6"
-                    [(ngModel)]="site.zipCode">
-            </div>
+                    [(ngModel)]="site.zipCode" [ngClass]="{ 'is-invalid': submitted && a.clientName.errors}">
+                <div *ngIf="submitted && a.clientName.errors" class="invalid-feedback">
+                  <div *ngIf="a.clientName?.errors?.required">Pincode Is Required</div>
+                </div>
         </div>
+        </div>
+
     </div>
 
     <div style="display: flex;justify-content: space-evenly;">

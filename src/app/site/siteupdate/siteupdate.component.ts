@@ -207,7 +207,7 @@ export class SiteupdateComponent implements OnInit {
     //   }
     // }
 
-   
+
     //country code
     // this.site.sitePersons[0].contactNo="+" +this.countryCode + "-" + this.site.sitePersons[0].contactNo;
 
