@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Testing, TestingDetails, } from '../model/testing-details';
+import { TestingDetails, } from '../model/testing-details';
 import { TestingService } from '../services/testing.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -30,7 +30,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
   @Output() proceedNext = new EventEmitter<any>();
 
   testingDetails = new TestingDetails;
-  // testing=new Testing;
   incomingVoltage: String = "";
   incomingZs: String = "";
   incomingIpf: String = "";
@@ -171,7 +170,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   }
   ratingAmps(): FormGroup {
     return new FormGroup({
-      ratingsAmps: new FormControl(''),
+      ratingsAmps: new FormControl('', [Validators.required]),
 
 
     })
@@ -247,7 +246,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
 
     })
   }
-
+   // Dynamically iterate some fields 
   onKey(event: KeyboardEvent, c: any, a: any) {
     this.values = (<HTMLInputElement>event.target).value;
     this.value = this.values;
@@ -268,38 +267,38 @@ export class InspectionVerificationTestingComponent implements OnInit {
       }
     }
     else if (this.value == "") {
-      this.loclength = this. testingRecords.length;
+      this.loclength = this.testingRecords.length;
       this.loclength = this.rateArr.length;
 
 
       for (this.i = 1; this.i < this.loclength; this.i++) {
-        this. testingRecords.removeAt(this. testingRecords.length - 1);
+        this.testingRecords.removeAt(this.testingRecords.length - 1);
         this.rateArr.removeAt(this.rateArr.length - 1);
 
       }
     }
-    else if (this. testingRecords.length < this.value && this.rateArr.length < this.value) {
+    else if (this.testingRecords.length < this.value && this.rateArr.length < this.value) {
       if (this.value != "") {
-        this.delarr = this.value - this. testingRecords.length;
+        this.delarr = this.value - this.testingRecords.length;
         this.delarr = this.value - this.rateArr.length;
 
 
         for (this.i = 0; this.i < this.delarr; this.i++) {
-          this. testingRecords.push(this.createtestValueForm());
+          this.testingRecords.push(this.createtestValueForm());
           this.rateArr.push(this.ratingAmps());
 
         }
       }
     }
-    else (this. testingRecords.length > this.value && this.rateArr.length > this.value)
+    else (this.testingRecords.length > this.value && this.rateArr.length > this.value)
     {
       if (this.value != "") {
-        this.delarr = this. testingRecords.length - this.value;
+        this.delarr = this.testingRecords.length - this.value;
         this.delarr = this.rateArr.length - this.value;
 
 
         for (this.i = 0; this.i < this.delarr; this.i++) {
-          this. testingRecords.removeAt(this. testingRecords.length - 1);
+          this.testingRecords.removeAt(this.testingRecords.length - 1);
           this.rateArr.removeAt(this.rateArr.length - 1);
 
 
@@ -307,7 +306,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
       }
     }
   }
-  
+
   createItem() {
     return this.formBuilder.group({
       locationNumber: new FormControl('', [Validators.required]),
@@ -322,19 +321,16 @@ export class InspectionVerificationTestingComponent implements OnInit {
       impedance: ['', Validators.required],
       rcd: ['', Validators.required],
       earthElectrodeResistance: ['', Validators.required],
-     
-      testDistribution: this.formBuilder.array([this.createtestDistributionForm()]),
-      //testValueArr: this.formBuilder.array([this.createtestValueForm()]),
-      testingRecords: this.formBuilder.array([this.createtestValueForm()]),
-      //testDistribution: this.formBuilder.array([this.createtestDistribution()]),
 
+      testDistribution: this.formBuilder.array([this.createtestDistributionForm()]),
+      testingRecords: this.formBuilder.array([this.createtestValueForm()]),
 
     })
   }
 
- 
+
   createtestDistribution(): FormGroup {
-    return new FormGroup({   
+    return new FormGroup({
       distributionBoardDetails: new FormControl(''),
       referance: new FormControl(''),
       location: new FormControl(''),
@@ -364,22 +360,22 @@ export class InspectionVerificationTestingComponent implements OnInit {
 
   gotoNextModal(content4: any) {
     debugger
-    if(this.testingForm.invalid) {
-      this.validationError=true;
-      this.validationErrorMsg="Please check all the fields";
-      setTimeout(()=>{   
-        this.validationError=false;                   
-   }, 3000);  
+    if (this.testingForm.invalid) {
+      this.validationError = true;
+      this.validationErrorMsg = "Please check all the fields";
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
       return;
-    }  
-    this.modalService.open(content4, { centered: true})
+    }
+    this.modalService.open(content4, { centered: true })
   }
 
   nextTab() {
-    this.testingDetails.siteId = 52;
+    this.testingDetails.siteId = 91;
     this.testingDetails.userName = this.email;
     this.submitted = true;
-    if(this.testingForm.invalid) {
+    if (this.testingForm.invalid) {
       return;
     }
     this.testaccordianArr = this.testingForm.get('testaccordianArr') as FormArray;
@@ -388,13 +384,13 @@ export class InspectionVerificationTestingComponent implements OnInit {
       this.testDistribution = i.get('testDistribution') as FormArray;
       this.testingRecords = i.get('testingRecords') as FormArray;
 
-
+      // coma separated value for first table
       for (let j of this.testDistribution.value) {
         console.log(j)
         let arr: any = [];
         let arr1: any = [];
         let arr2: any = [];
-        let arr3 :any = [];
+        let arr3: any = [];
 
         for (let k of j.distributionIncomingValueArr) {
           arr.push(k.incomingVoltage1, k.incomingVoltage2, k.incomingVoltage3, k.incomingVoltage4, k.incomingVoltage5, k.incomingVoltage6, k.incomingVoltage7, k.incomingVoltage8, k.incomingVoltage9)
@@ -410,21 +406,21 @@ export class InspectionVerificationTestingComponent implements OnInit {
           if (a != "") {
             incomingVoltage += a + ",";
           }
-        else{
-           incomingVoltage += "NA,";
-            }
+          else {
+            incomingVoltage += "NA,";
+          }
         }
 
         incomingVoltage = incomingVoltage.replace(/,\s*$/, "");
         j.incomingVoltage = incomingVoltage;
-      
+
         for (let b of arr1) {
           if (b != "") {
             incomingZs += b + ",";
           }
-          else{
+          else {
             incomingZs += "NA,";
-            }
+          }
         }
 
         incomingZs = incomingZs.replace(/,\s*$/, "");
@@ -434,15 +430,15 @@ export class InspectionVerificationTestingComponent implements OnInit {
           if (c != "") {
             incomingIpf += c + ",";
           }
-          else{
+          else {
             incomingIpf += "NA,";
-           }
+          }
         }
 
         incomingIpf = incomingIpf.replace(/,\s*$/, "");
         j.incomingIpf = incomingIpf;
 
-        // rateamps
+        // rateamps coma saparated value
         for (let k of j.rateArr) {
           arr3.push(k.ratingsAmps)
           let ratingsAmps: String = "";
@@ -452,14 +448,14 @@ export class InspectionVerificationTestingComponent implements OnInit {
             }
           }
           ratingsAmps = ratingsAmps.replace(/,\s*$/, "");
-            j.ratingsAmps = ratingsAmps;
+          j.ratingsAmps = ratingsAmps;
         }
         debugger
         delete j.rateArr;
         delete j.distributionIncomingValueArr;
-  
+
       }
-      
+      // coma saparated value for second table
       for (let n of this.testingRecords.value) {
         let arr: any = [];
         let arr1: any = [];
@@ -473,128 +469,85 @@ export class InspectionVerificationTestingComponent implements OnInit {
         let testLoopImpedance: String = "";
         let testFaultCurrent: String = "";
         let disconnectionTime: String = "";
-  
+
         for (let a of arr) {
           if (a != "") {
             testVoltage += a + ",";
           }
-          else{
+          else {
             testVoltage += "NA,";
-           }
+          }
         }
-  
+
         testVoltage = testVoltage.replace(/,\s*$/, "");
         n.testVoltage = testVoltage;
-  
+
         for (let b of arr1) {
-  
+
           if (b != "") {
             testLoopImpedance += b + ",";
           }
-          else{
+          else {
             testLoopImpedance += "NA,";
-           }
+          }
         }
-  
+
         testLoopImpedance = testLoopImpedance.replace(/,\s*$/, "");
         n.testLoopImpedance = testLoopImpedance;
-  
+
         for (let c of arr2) {
           if (c != "") {
             testFaultCurrent += c + ",";
-                   }
-          else{
+          }
+          else {
             testFaultCurrent += "NA,";
-              }
+          }
         }
-  
+
         testFaultCurrent = testFaultCurrent.replace(/,\s*$/, "");
         n.testFaultCurrent = testFaultCurrent;
-  
+
         for (let d of arr3) {
           if (d != "") {
             disconnectionTime += d + ",";
           }
-          else{
+          else {
             disconnectionTime += "NA,";
-         }
+          }
         }
-  
+
         disconnectionTime = disconnectionTime.replace(/,\s*$/, "");
         n.disconnectionTime = disconnectionTime;
 
-        // debugger
-        // delete n.rateArr;
-        // delete n.distributionIncomingValueArr;
-
-       
-
-        // for(let o of this.fcname) {
-        //   debugger
-        //   console.log(o);
-        //   delete n.o;
-        // }
-       
-      }
-      // for(let o of this.testingRecords.controls) {
-      //   for(let p=0; p< this.fcname.length; p++) {
-      //     console.log(this.fcname);
-      //     console.log(this.fcname[0]);
-
-      //     // o.controls[this.fcname[p]];
-      //     // o.removeControl(this.fcname[p]);
-      //   }
-        
-      //   debugger
-      // }
-    }
-
-    
-    console.log(this.testaccordianArr);
-
-    
-
-   
-    // for (let i of this.testaccordianArr.value) {
-    //   this.testDistribution = this.testingForm.value.testDistribution;
-    //   this.testValueArr = this.testingForm.value.testValueArr;
-    // }
-    
-    // for (let i of this.testaccordianArr.controls) {
-    //   this.testValueArr = i.get('testValueArr') as FormArray;
-    
-    //   for (let k of i.testingRecords.value) {
-    //     console.log(k)
-    //     k.testingRecords=this.testValueArr.value
-    //   }
-    // }
-   // this.testingDistribution=this.testingForm.value.testingDistributionArr;
-    this.testingDetails.testing = this.testingForm.value.testaccordianArr;
-    // this.testing.testDistribution = this.testingForm.value.testDistribution;
-    // this.testing.testingRecords = this.testingForm.value.testValueArr;
-    console.log(this.testingDetails);
-    //  this.testingService.savePeriodicTesting(this.testingDetails).subscribe(
-    //    (    data: any)=> {
-    //   console.log("worked");
- 
-    this.testingService.savePeriodicTesting(this.testingDetails).subscribe(
-                   data=> {​​​
-                    debugger
-                    console.log("worked");
-                this.proceedNext.emit(true); 
-                this.success=true
-                this.successMsg="Testing Information successfully saved";
-               this.disable= true;
-                }​​​,
-                   error=> {​​​
-                console.log("error");
-                this.Error=true;
-             // alert("Something went wrong, kindly check all the fields");  
-              this.proceedNext.emit(false); 
-               this.errorMsg="Something went wrong, kindly check all the fields";
-             }​​​
-           )
       
+
+      }
+    
     }
-       }
+
+
+    console.log(this.testaccordianArr);
+    this.testingDetails.testing = this.testingForm.value.testaccordianArr;
+    console.log(this.testingDetails);
+    this.testingService.savePeriodicTesting(this.testingDetails).subscribe(
+      data => {
+        debugger
+        console.log("worked");
+        this.proceedNext.emit(true);
+        // show success message ofter click button
+        this.success = true
+        this.successMsg = "Testing Information successfully saved";
+        this.disable = true;
+      },
+      error => {
+        console.log("error");
+        this.Error = true;
+        // show error button   
+        this.proceedNext.emit(false);
+        this.errorMsg = "Something went wrong, kindly check all the fields";
+      }
+    )
+
+  }
+}
 

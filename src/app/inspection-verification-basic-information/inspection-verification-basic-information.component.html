@@ -2,7 +2,7 @@
     <div class="card-body">
       <form [formGroup]="step1Form" (ngSubmit)="nextTab()">
       <div class="search-bar">
-          <div class="form-group">
+          <!-- <div class="form-group"> -->
             <div class="row">
               <div class="col-md-4">
                     <label>Company Name*</label>
@@ -36,7 +36,7 @@
               </div>             
             </div>
         </div>
-      </div>
+      <!-- </div> -->
 
       <mat-accordion>
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
