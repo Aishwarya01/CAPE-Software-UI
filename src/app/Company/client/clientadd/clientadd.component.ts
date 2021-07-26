@@ -19,7 +19,7 @@ export class ClientaddComponent implements OnInit {
   addClientForm = new FormGroup({
     clientName: new FormControl(''),
     isActive: new FormControl('')
-  }); 
+  });
   company = new Company();
   loading = false;
   submitted = false;
@@ -31,7 +31,7 @@ export class ClientaddComponent implements OnInit {
   constructor(public dialog: MatDialog,
               public clientService: ClientService,
               private formBuilder: FormBuilder,
-               ) { 
+               ) {
               }
 
   ngOnInit(): void {
@@ -40,7 +40,7 @@ export class ClientaddComponent implements OnInit {
       isActive: ['', Validators.required]
       });
   }
-  
+
 
   cancel() {
     this.dialog.closeAll();

@@ -67,10 +67,10 @@
 
                 <div class="col-md-3">
                   <label>* Mobile Number:</label>
-                  <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" (keypress)="keyPressNumbers($event)" (countryChange)="countryChange($event,a)" formControlName="contactNo" class="form-control"  minlength="10" maxlength="14" placeholder="Enter Number" [ngClass]="{ 'is-invalid': submitted && a.get('contactNo')?.errors }">
+                  <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" (keypress)="keyPressNumbers($event)" (countryChange)="countryChange($event,a)" formControlName="contactNo" class="form-control"   placeholder="Enter Number" [ngClass]="{ 'is-invalid': submitted && a.get('contactNo')?.errors }">
                   <div *ngIf="submitted && a.get('contactNo')?.errors" class="invalid-feedback">
                     <div *ngIf="a.get('contactNo')?.errors?.required">Mobile Number Is Required</div>
-                    <div *ngIf="a.get('contactNo')?.errors?.minlength">Enter 10 Digit Number</div>
+                    <!-- <div *ngIf="a.get('contactNo')?.errors?.minlength">Enter 10 Digit Number</div> -->
                     <div *ngIf="a.get('contactNo')?.errors?.maxlength">Enter 10 Digit Number</div>
                 </div>
               </div>

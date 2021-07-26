@@ -304,10 +304,10 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   private createDesigner1Form(): FormGroup {
     return new FormGroup({
       personName: new FormControl('',[Validators.required]),
-      personContactNo: new FormControl('',[Validators.required]),
+      personContactNo: new FormControl('',[Validators.maxLength(10),Validators.required]),
       personMailID: new FormControl('',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       managerName: new FormControl('',[Validators.required]),
-      managerContactNo: new FormControl('',[Validators.required]),
+      managerContactNo: new FormControl('',[Validators.maxLength(10), Validators.required]),
       managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       companyName: new FormControl('',[Validators.required]),
       addressLine1: new FormControl('',[Validators.required]),
@@ -385,10 +385,10 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   private createContractorForm(): FormGroup {
     return new FormGroup({
       personName: new FormControl('',[Validators.required]),
-      personContactNo: new FormControl('',Validators.required),
+      personContactNo: new FormControl('',[Validators.maxLength(10),Validators.required]),
       personMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       managerName: new FormControl('',[Validators.required]),
-      managerContactNo: new FormControl('',[Validators.required]),
+      managerContactNo: new FormControl('',[Validators.maxLength(10), Validators.required]),
       managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       companyName: new FormControl('',[Validators.required]),
       addressLine1: new FormControl('',[Validators.required]),
@@ -425,10 +425,10 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   private createInspectorForm(): FormGroup {
     return new FormGroup({
      personName: new FormControl('',[Validators.required]),
-      personContactNo: new FormControl('',[Validators.required,Validators.minLength(10)]),
+      personContactNo: new FormControl('',[Validators.maxLength(10),Validators.required]),
       personMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       managerName: new FormControl('',[Validators.required]),
-      managerContactNo: new FormControl('',[Validators.required]),
+      managerContactNo: new FormControl('',[Validators.maxLength(10),Validators.required]),
       managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       companyName: new FormControl('',[Validators.required]),
       addressLine1: new FormControl('',[Validators.required]),
@@ -469,7 +469,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     this.f.designer2Arr.controls[0].controls['personName'].setValidators(Validators.required);
     this.f.designer2Arr.controls[0].controls['personName'].updateValueAndValidity();
 
-    this.f.designer2Arr.controls[0].controls['personContactNo'].setValidators(Validators.required);
+    this.f.designer2Arr.controls[0].controls['personContactNo'].setValidators([Validators.required, Validators.maxLength(10)]);
     this.f.designer2Arr.controls[0].controls['personContactNo'].updateValueAndValidity();
 
     this.f.designer2Arr.controls[0].controls['personMailID'].setValidators([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]);
@@ -478,7 +478,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     this.f.designer2Arr.controls[0].controls['managerName'].setValidators(Validators.required);
     this.f.designer2Arr.controls[0].controls['managerName'].updateValueAndValidity();
 
-    this.f.designer2Arr.controls[0].controls['managerContactNo'].setValidators(Validators.required);
+    this.f.designer2Arr.controls[0].controls['managerContactNo'].setValidators([Validators.required, Validators.maxLength(10)]);
     this.f.designer2Arr.controls[0].controls['managerContactNo'].updateValueAndValidity();
 
     this.f.designer2Arr.controls[0].controls['managerMailID'].setValidators([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]);
@@ -611,7 +611,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     else {
       this.success=false;
       this.modalService.dismissAll(this.successMsg="")
-    }  
+    }
   }
 nextTab() {
     this.loading = true;
@@ -625,15 +625,15 @@ nextTab() {
     this.step1Form.value.designer1Arr[0].declarationSignature= this.step1Form.value.designer1AcknowledgeArr[0].signature;
     this.step1Form.value.designer1Arr[0].declarationName= this.step1Form.value.designer1AcknowledgeArr[0].declarationName;
     this.step1Form.value.designer1Arr[0].declarationDate= this.step1Form.value.designer1AcknowledgeArr[0].declarationDate;
-  
+
     this.step1Form.value.designer2Arr[0].signatorRole= this.designerRole;
-    if((this.step1Form.value.designer2AcknowledgeArr[0].signature != "") && (this.step1Form.value.designer2AcknowledgeArr[0].declarationName != "") && (this.step1Form.value.designer2AcknowledgeArr[0].declarationDate != "")) 
+    if((this.step1Form.value.designer2AcknowledgeArr[0].signature != "") && (this.step1Form.value.designer2AcknowledgeArr[0].declarationName != "") && (this.step1Form.value.designer2AcknowledgeArr[0].declarationDate != ""))
     {
     this.step1Form.value.designer2Arr[0].declarationSignature= this.step1Form.value.designer2AcknowledgeArr[0].signature;
     this.step1Form.value.designer2Arr[0].declarationName= this.step1Form.value.designer2AcknowledgeArr[0].declarationName;
     this.step1Form.value.designer2Arr[0].declarationDate= this.step1Form.value.designer2AcknowledgeArr[0].declarationDate;
-    } 
-  
+    }
+
     this.step1Form.value.contractorArr[0].signatorRole= this.contractorRole;
     this.step1Form.value.contractorArr[0].declarationSignature= this.step1Form.value.contractorAcknowledgeArr[0].signature;
     this.step1Form.value.contractorArr[0].declarationName= this.step1Form.value.contractorAcknowledgeArr[0].declarationName;

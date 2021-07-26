@@ -148,7 +148,7 @@ export class SiteaddComponent implements OnInit {
     return this.formBuilder.group({
       personIncharge: ['', Validators.required],
       designation: ['', Validators.required],
-      contactNo: ['', [Validators.required]],
+      contactNo: ['', [Validators.maxLength(10),Validators.required]],
       personInchargeEmail: ['', [
         Validators.required,
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
