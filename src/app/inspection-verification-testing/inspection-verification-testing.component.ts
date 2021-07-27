@@ -21,7 +21,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
   loclength: any;
   loc1length: any;
   testingForm!: FormGroup;
-
   submitted = false;
   testaccordianArr!: FormArray;
   panelOpenState = false;
@@ -40,39 +39,39 @@ export class InspectionVerificationTestingComponent implements OnInit {
   ratingAmps1: any;
   testDistribution!: FormArray;
   testingDistribution!: FormArray;
-  successMsg: string="";
-  success: boolean=false;
-  disable: boolean=false;
-  Error: boolean=false;
-  errorMsg: string="";
+  successMsg: string = "";
+  success: boolean = false;
+  disable: boolean = false;
+  Error: boolean = false;
+  errorMsg: string = "";
 
-  validationError: boolean =false;
-  validationErrorMsg: String ="";
-  
-  fcname:any[]=
-  ['circuitNo',
-  'circuitDesc',
-  'circuitStandardNo', 
-  'circuitType' ,
-  'circuitRating',
-  'circuitBreakingCapacity' ,
-  'conductorInstallation', 
-  'conductorLive' ,
-  'conductorPecpc' ,
-  'continutiyApproximateLength', 
-  'continutiyRR' ,
-  'continutiyR' ,
-  'continutiyLL' ,
-  'continutiyLE' ,
-  'continutiyPolarity' ,
+  validationError: boolean = false;
+  validationErrorMsg: String = "";
 
-  'rcdCurrent' ,
-  'rcdOperatingCurrent' ,
-  'rcdOperatingFiveCurrent' ,
-  'rcdTestButtonOperation' ,
-  'rcdRemarks' ,
-  
-];
+  fcname: any[] =
+    ['circuitNo',
+      'circuitDesc',
+      'circuitStandardNo',
+      'circuitType',
+      'circuitRating',
+      'circuitBreakingCapacity',
+      'conductorInstallation',
+      'conductorLive',
+      'conductorPecpc',
+      'continutiyApproximateLength',
+      'continutiyRR',
+      'continutiyR',
+      'continutiyLL',
+      'continutiyLE',
+      'continutiyPolarity',
+
+      'rcdCurrent',
+      'rcdOperatingCurrent',
+      'rcdOperatingFiveCurrent',
+      'rcdTestButtonOperation',
+      'rcdRemarks',
+
+    ];
   o: any;
   service: any;
 
@@ -158,9 +157,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
   ratingAmps(): FormGroup {
     return new FormGroup({
       ratingsAmps: new FormControl('', [Validators.required]),
-     })
-    }
-     private createtestValueForm(): FormGroup {
+    })
+  }
+  private createtestValueForm(): FormGroup {
     return new FormGroup({
       circuitNo: new FormControl(''),
       circuitDesc: new FormControl(''),
@@ -222,9 +221,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
       rcdOperatingFiveCurrent: new FormControl(''),
       rcdTestButtonOperation: new FormControl(''),
       rcdRemarks: new FormControl(''),
-       })
+    })
   }
-   // Dynamically iterate some fields 
+  // Dynamically iterate some fields 
   onKey(event: KeyboardEvent, c: any, a: any) {
     this.values = (<HTMLInputElement>event.target).value;
     this.value = this.values;
@@ -278,13 +277,13 @@ export class InspectionVerificationTestingComponent implements OnInit {
         for (this.i = 0; this.i < this.delarr; this.i++) {
           this.testingRecords.removeAt(this.testingRecords.length - 1);
           this.rateArr.removeAt(this.rateArr.length - 1);
-         }
+        }
       }
     }
   }
 
   createItem() {
-     return this.formBuilder.group({
+    return this.formBuilder.group({
       locationNumber: new FormControl('', [Validators.required]),
       locationName: new FormControl('', [Validators.required]),
       testEngineerName: ['', Validators.required],
@@ -303,7 +302,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
 
     })
   }
-    createtestDistribution(): FormGroup {
+  createtestDistribution(): FormGroup {
     return new FormGroup({
       distributionBoardDetails: new FormControl(''),
       referance: new FormControl(''),
@@ -327,7 +326,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
   removeAccordian(index: any) {
     (this.testingForm.get('testaccordianArr') as FormArray).removeAt(index);
   }
-
   get f(): any {
     return this.testingForm.controls;
   }
@@ -346,7 +344,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   }
 
   nextTab() {
-    this.testingDetails.siteId = 101;
+    this.testingDetails.siteId = 103;
     this.testingDetails.userName = this.email;
     this.submitted = true;
     if (this.testingForm.invalid) {
@@ -375,7 +373,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
         let incomingVoltage: String = "";
         let incomingZs: String = "";
         let incomingIpf: String = "";
-         for (let a of arr) {
+        for (let a of arr) {
           if (a != "") {
             incomingVoltage += a + ",";
           }
@@ -394,7 +392,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
             incomingZs += "NA,";
           }
         }
-       incomingZs = incomingZs.replace(/,\s*$/, "");
+        incomingZs = incomingZs.replace(/,\s*$/, "");
         j.incomingZs = incomingZs;
 
         for (let c of arr2) {
@@ -425,76 +423,76 @@ export class InspectionVerificationTestingComponent implements OnInit {
         delete j.distributionIncomingValueArr;
 
       }
-      for(let x of this.testingRecords.value) {
+      for (let x of this.testingRecords.value) {
         console.log(x.rcdRemarks);
         console.log(x.rcdTestButtonOperation);
         console.log(x.circuitDesc);
         console.log(x.conductorInstallation);
-        if(x.circuitNo == ""){
-          x.circuitNo ='NA';
+        if (x.circuitNo == "") {
+          x.circuitNo = 'NA';
         }
-        if(x.continutiyRR == ""){
-          x.continutiyRR ='NA';
+        if (x.continutiyRR == "") {
+          x.continutiyRR = 'NA';
         }
-        if(x.continutiyLL == ""){
-          x.continutiyLL ='NA';
+        if (x.continutiyLL == "") {
+          x.continutiyLL = 'NA';
         }
-        if(x.continutiyLE == ""){
-          x.continutiyLE ='NA';
+        if (x.continutiyLE == "") {
+          x.continutiyLE = 'NA';
         }
-        if(x.continutiyPolarity == ""){
-          x.continutiyPolarity ='NA';
+        if (x.continutiyPolarity == "") {
+          x.continutiyPolarity = 'NA';
         }
-        if(x.conductorPecpc == ""){
-          x.conductorPecpc ='NA';
+        if (x.conductorPecpc == "") {
+          x.conductorPecpc = 'NA';
         }
-        if(x.continutiyApproximateLength == ""){
-          x.continutiyApproximateLength ='NA';
+        if (x.continutiyApproximateLength == "") {
+          x.continutiyApproximateLength = 'NA';
         }
-        if(x.continutiyR == ""){
-          x.continutiyR ='NA';
+        if (x.continutiyR == "") {
+          x.continutiyR = 'NA';
         }
-       if(x.circuitStandardNo == ""){
-          x.circuitStandardNo ='NA';
+        if (x.circuitStandardNo == "") {
+          x.circuitStandardNo = 'NA';
         }
-        if(x.conductorInstallation == ""){
-          x.conductorInstallation ='NA';
+        if (x.conductorInstallation == "") {
+          x.conductorInstallation = 'NA';
         }
-        if(x.circuitType == ""){
-          x.circuitType ='NA';
+        if (x.circuitType == "") {
+          x.circuitType = 'NA';
         }
-        if(x.circuitRating == ""){
-          x.circuitRating ='NA';
+        if (x.circuitRating == "") {
+          x.circuitRating = 'NA';
         }
-        if(x.circuitBreakingCapacity == ""){
-          x.circuitBreakingCapacity ='NA';
+        if (x.circuitBreakingCapacity == "") {
+          x.circuitBreakingCapacity = 'NA';
         }
-        if(x.conductorLive == ""){
-          x.conductorLive ='NA';
+        if (x.conductorLive == "") {
+          x.conductorLive = 'NA';
         }
-        if(x.circuitDesc == ""){
-          x.circuitDesc ='NA';
+        if (x.circuitDesc == "") {
+          x.circuitDesc = 'NA';
         }
-       if(x.rcdTestButtonOperation == ""){
-          x.rcdTestButtonOperation ='NA';
+        if (x.rcdTestButtonOperation == "") {
+          x.rcdTestButtonOperation = 'NA';
         }
-       if(x.rcdRemarks == ""){
-          x.rcdRemarks ='NA';
+        if (x.rcdRemarks == "") {
+          x.rcdRemarks = 'NA';
         }
-       if(x.rcdCurrent == ""){
-        x.rcdCurrent ='NA';
-      }
+        if (x.rcdCurrent == "") {
+          x.rcdCurrent = 'NA';
+        }
 
-      if(x.rcdOperatingCurrent == ""){
-        x.rcdOperatingCurrent ='NA';
+        if (x.rcdOperatingCurrent == "") {
+          x.rcdOperatingCurrent = 'NA';
+        }
+        if (x.rcdOperatingFiveCurrent == "") {
+          x.rcdOperatingFiveCurrent = 'NA';
+        }
       }
-       if(x.rcdOperatingFiveCurrent == ""){
-        x.rcdOperatingFiveCurrent ='NA';
-      }
-     }
       // coma saparated value for second table
       for (let n of this.testingRecords.value) {
-        
+
         let arr: any = [];
         let arr1: any = [];
         let arr2: any = [];
@@ -516,7 +514,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
             testVoltage += "NA,";
           }
         }
-
         testVoltage = testVoltage.replace(/,\s*$/, "");
         n.testVoltage = testVoltage;
 
@@ -529,7 +526,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
             testLoopImpedance += "NA,";
           }
         }
-
         testLoopImpedance = testLoopImpedance.replace(/,\s*$/, "");
         n.testLoopImpedance = testLoopImpedance;
 
@@ -553,7 +549,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
             disconnectionTime += "NA,";
           }
         }
-      disconnectionTime = disconnectionTime.replace(/,\s*$/, "");
+        disconnectionTime = disconnectionTime.replace(/,\s*$/, "");
         n.disconnectionTime = disconnectionTime;
       }
     }
