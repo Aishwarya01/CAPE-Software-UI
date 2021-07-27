@@ -48,46 +48,33 @@ export class InspectionVerificationTestingComponent implements OnInit {
 
   validationError: boolean =false;
   validationErrorMsg: String ="";
-
+  
   fcname:any[]=
-  ['ryVoltage',
-  'rbVoltage',
-  'ybVoltage', 
-  'rnVoltage' ,
-  'ynVoltage',
-  'bnVoltage' ,
-  'rpeVoltage', 
-  'ypeVoltage' ,
-  'bpeVoltage' ,
-  'ryLoopImpedance', 
-  'rbLoopImpedance' ,
-  'ybLoopImpedance' ,
-  'rnLoopImpedance' ,
-  'ynLoopImpedance' ,
-  'bnLoopImpedance' ,
-  'rpeLoopImpedance' ,
-  'ypeLoopImpedance' ,
-  'bpeLoopImpedance' ,
-  'ryFaultCurrent' ,
-  'rbFaultCurrent' ,
-  'ybFaultCurrent' ,
-  'rnFaultCurrent' ,
-  'ynFaultCurrent' ,
-  'bnFaultCurrent' ,
-  'rpeFaultCurrent' ,
-  'ypeFaultCurrent' ,
-  'bpeFaultCurrent' ,
-  'ryDisconnect' ,
-  'rbDisconnect' ,
-  'ybDisconnect' ,
-  'rnDisconnect' ,
-  'ynDisconnect' ,
-  'bnDisconnect' ,
-  'rpeDisconnect' ,
-  'ypeDisconnect' ,
-  'bpeDisconnect'
+  ['circuitNo',
+  'circuitDesc',
+  'circuitStandardNo', 
+  'circuitType' ,
+  'circuitRating',
+  'circuitBreakingCapacity' ,
+  'conductorInstallation', 
+  'conductorLive' ,
+  'conductorPecpc' ,
+  'continutiyApproximateLength', 
+  'continutiyRR' ,
+  'continutiyR' ,
+  'continutiyLL' ,
+  'continutiyLE' ,
+  'continutiyPolarity' ,
+
+  'rcdCurrent' ,
+  'rcdOperatingCurrent' ,
+  'rcdOperatingFiveCurrent' ,
+  'rcdTestButtonOperation' ,
+  'rcdRemarks' ,
+  
 ];
   o: any;
+  service: any;
 
   constructor(private testingService: TestingService, private formBuilder: FormBuilder,
     private modalService: NgbModal, private router: ActivatedRoute,) {
@@ -176,23 +163,24 @@ export class InspectionVerificationTestingComponent implements OnInit {
     })
   }
 
+
   private createtestValueForm(): FormGroup {
     return new FormGroup({
-      circuitNo: new FormControl('NA'),
-      circuitDesc: new FormControl('NA'),
-      circuitStandardNo: new FormControl('NA'),
-      circuitType: new FormControl('NA'),
-      circuitRating: new FormControl('NA'),
-      circuitBreakingCapacity: new FormControl('NA'),
-      conductorInstallation: new FormControl('NA'),
-      conductorLive: new FormControl('NA'),
-      conductorPecpc: new FormControl('NA'),
-      continutiyApproximateLength: new FormControl('NA'),
-      continutiyRR: new FormControl('NA'),
-      continutiyR: new FormControl('NA'),
-      continutiyLL: new FormControl('NA'),
-      continutiyLE: new FormControl('NA'),
-      continutiyPolarity: new FormControl('NA'),
+      circuitNo: new FormControl(''),
+      circuitDesc: new FormControl(''),
+      circuitStandardNo: new FormControl(''),
+      circuitType: new FormControl(''),
+      circuitRating: new FormControl(''),
+      circuitBreakingCapacity: new FormControl('A'),
+      conductorInstallation: new FormControl(''),
+      conductorLive: new FormControl(''),
+      conductorPecpc: new FormControl(''),
+      continutiyApproximateLength: new FormControl(''),
+      continutiyRR: new FormControl(''),
+      continutiyR: new FormControl(''),
+      continutiyLL: new FormControl(''),
+      continutiyLE: new FormControl(''),
+      continutiyPolarity: new FormControl(''),
 
       ryVoltage: new FormControl(''),
       rbVoltage: new FormControl(''),
@@ -239,11 +227,11 @@ export class InspectionVerificationTestingComponent implements OnInit {
       disconnectionTime: new FormControl(''),
 
 
-      rcdCurrent: new FormControl('NA'),
-      rcdOperatingCurrent: new FormControl('NA'),
-      rcdOperatingFiveCurrent: new FormControl('NA'),
-      rcdTestButtonOperation: new FormControl('NA'),
-      rcdRemarks: new FormControl('NA'),
+      rcdCurrent: new FormControl(''),
+      rcdOperatingCurrent: new FormControl(''),
+      rcdOperatingFiveCurrent: new FormControl(''),
+      rcdTestButtonOperation: new FormControl(''),
+      rcdRemarks: new FormControl(''),
 
 
     })
@@ -310,7 +298,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   }
 
   createItem() {
-    return this.formBuilder.group({
+     return this.formBuilder.group({
       locationNumber: new FormControl('', [Validators.required]),
       locationName: new FormControl('', [Validators.required]),
       testEngineerName: ['', Validators.required],
@@ -374,7 +362,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   }
 
   nextTab() {
-    this.testingDetails.siteId = 92;
+    this.testingDetails.siteId = 98;
     this.testingDetails.userName = this.email;
     this.submitted = true;
     if (this.testingForm.invalid) {
@@ -457,8 +445,19 @@ export class InspectionVerificationTestingComponent implements OnInit {
         delete j.distributionIncomingValueArr;
 
       }
+      for(let x of this.testingRecords.value) {
+        console.log(x);
+        debugger
+        for(let y of this.fcname) {
+          if(x.y == ""){
+            console.log(x.y)
+          }
+
+        }
+      }
       // coma saparated value for second table
       for (let n of this.testingRecords.value) {
+        
         let arr: any = [];
         let arr1: any = [];
         let arr2: any = [];
