@@ -38,7 +38,7 @@
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
              <mat-panel-title>
-              <h3>Section-1</h3>
+              <h3>Testing Basics Information</h3>
             </mat-panel-title>
          </mat-expansion-panel-header>
                    
@@ -80,7 +80,7 @@
                         </div>
 
                         <div class="col-md-4">
-                            <label>Details of test instrument </label>
+                            <label>Details Of Test Instrument</label>
                             <input type="text" formControlName="detailsTestInstrument"    placeholder="Enter Details of test instrument Name"class="form-control"[ngClass]="{ 'is-invalid': submitted && a.get('detailsTestInstrument')?.errors }"  >
                             <div *ngIf="submitted && a.get('detailsTestInstrument')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('detailsTestInstrument')?.errors?.required">Details of test instrument value is required</div>
@@ -98,7 +98,7 @@
 
                     <div class="row">
                         <div class="col-md-4">
-                            <label>Insulation resistance</label>
+                            <label>Insulation Resistance</label>
                             <input type="text" formControlName="insulationResisance"   placeholder=" Enter Insulation resistance"class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('insulationResisance')?.errors }"  >
                             <div *ngIf="submitted && a.get('insulationResisance')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('insulationResisance')?.errors?.required">Insulation resistance value is required</div>
@@ -123,7 +123,7 @@
                     </div>
                     <div class="row">
                     <div class="col-md-4">
-                        <label>Earth electrode resistance</label>
+                        <label>Earth Electrode Resistance</label>
                         <input type="text" formControlName="earthElectrodeResistance"  placeholder=" Enter Earth Electrode Resistance" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('earthElectrodeResistance')?.errors }"  >
                         <div *ngIf="submitted && a.get('earthElectrodeResistance')?.errors" class="invalid-feedback">
                           <div *ngIf="a.get('earthElectrodeResistance')?.errors?.required">Earth electrode resistance value is required</div>
@@ -134,7 +134,7 @@
                     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
-                                <h3>Section-2</h3>
+                                <h3>Detailed Testing</h3>
                             </mat-panel-title>
                         </mat-expansion-panel-header>
              
@@ -142,7 +142,7 @@
                         <div class="form-group" [formGroupName]="i">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <label>Distribution board details </label>
+                                    <label>Distribution Board Details </label>
                                     <input type="text" formControlName="distributionBoardDetails"  placeholder=" Enter Distribution board details"  class="form-control" [ngClass]="{ 'is-invalid': submitted && c.get('distributionBoardDetails')?.errors }"  >
                                     <div *ngIf="submitted && c.get('distributionBoardDetails')?.errors" class="invalid-feedback">
                                       <div *ngIf="c.get('distributionBoardDetails')?.errors?.required">Distribution board details  value is required</div>
@@ -168,7 +168,7 @@
 
                             <div class="row">
                                 <div class="col-md-4">
-                                    <label>Correct supply polarity </label>
+                                    <label>Correct Supply Polarity </label>
                                     <select class="form-control" formControlName="correctSupplyPolarity" [ngClass]="{ 'is-invalid': submitted && c.get('correctSupplyPolarity')?.errors }">
                                         <option value="0" selected>Select option</option>
                                         <option value="Yes" selected>Yes</option>
@@ -180,7 +180,7 @@
                                 </div>
                                
                                 <div class="col-md-4">
-                                    <label> Number of output circuits - Spare </label>
+                                    <label> Number Of Output Circuits - Spare </label>
                                     <input type="text" formControlName="numOutputCircuitsSpare"  placeholder=" Enter Number of output circuits - Spare"class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('numOutputCircuitsSpare')?.errors }"  >
                                     <div *ngIf="submitted && c.get('numOutputCircuitsSpare')?.errors" class="invalid-feedback">
                                       <div *ngIf="c.get('numOutputCircuitsSpare')?.errors?.required">Number of output circuits -spare value is required</div>
@@ -188,7 +188,7 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label> Installed equipment vulnarable to testing </label>
+                                    <label> Installed Equipment Vulnarable To Testing </label>
                                     <input type="text" formControlName="installedEquipmentVulnarable" placeholder=" Enter Installed Equipment Vulnarable To  Testing Name"
                                         class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('installedEquipmentVulnarable')?.errors }"  >
                                         <div *ngIf="submitted && c.get('installedEquipmentVulnarable')?.errors" class="invalid-feedback">
@@ -200,7 +200,7 @@
 
                              <div class="row">
                                 <div class="col-md-4">
-                                    <label>Number of output circuits in use</label>
+                                    <label>Number Of Output Circuits In Use</label>
                                     <input type="number" formControlName="numOutputCircuitsUse"  placeholder=" Enter Number of output circuits in use"
                                     maxlength="2" class="form-control"  (keyup)="onKey($event,c,a)" [ngClass]="{ 'is-invalid': submitted && c.get('numOutputCircuitsUse')?.errors }"  >
                                     <div *ngIf="submitted && c.get('numOutputCircuitsUse')?.errors" class="invalid-feedback">
@@ -210,7 +210,7 @@
 
                                 <div class="col-md-4" formArrayName="rateArr" *ngFor="let d of gettestrateFormControls(c); let j = index">
                                     <div class="form-group" [formGroupName]="j">
-                                        <label>Ratings in Amps </label>
+                                        <label>Ratings In Amps </label>
                                         <input type="number" formControlName="ratingsAmps" class="form-control" placeholder=" Enter Ratings in Amps "
                                             [ngClass]="{ 'is-invalid': submitted && d.get('ratingsAmps')?.errors }">
                                         <div *ngIf="submitted && d.get('ratingsAmps')?.errors" class="invalid-feedback">
@@ -297,41 +297,41 @@
                               <table class="table" border="1" id="table2">
                                   <thead>
                                         <tr align="center">
-                                            <th colspan="6"> Circuit details </th>
-                                            <th colspan="3"> Conductor details </th>
+                                            <th colspan="6"> Circuit Details </th>
+                                            <th colspan="3"> Conductor Details </th>
                                             <th colspan="3"> Continuity (Ω) </th>
-                                            <th colspan="2" rowspan="2">Insulation resistance</th>
+                                            <th colspan="2" rowspan="2">Insulation Resistance</th>
                                             <th rowspan="2"></th>
                                             <th colspan="9" rowspan="2"> Voltage (V)(note)</th>
-                                            <th colspan="9" rowspan="2"> Fault loop impedance (Ω)(note) </th>
-                                            <th colspan="9" rowspan="2"> Actual Short circuit / fault current (Amps) (note)</th>
-                                            <th colspan="9" rowspan="2"> Disconnection time (for a short circuit/fault of
-                                                negligible impedance) (seconds) </th>
+                                            <th colspan="9" rowspan="2"> Fault Loop Impedance (Ω)(note) </th>
+                                            <th colspan="9" rowspan="2"> Actual Short Circuit / Fault Current (Amps) (note)</th>
+                                            <th colspan="9" rowspan="2"> Disconnection Time (For a Short Circuit/Fault Of
+                                                Negligible Impedance) (seconds) </th>
                                             <th colspan="4">RCD </th>
                                             <th rowspan="2"></th>
                                         </tr>
                                         <tr  align="center">
                                             <th></th>
                                             <th></th>
-                                            <th colspan="4">Over current device</th>
+                                            <th colspan="4">Over Current Device</th>
                                             <th></th>
-                                            <th colspan="2">crosssectionalarea(mm2)</th>
-                                            <th colspan="3">Required for final circuits and protective conductor only</th>
+                                            <th colspan="2">CrosssectionalArea(mm2)</th>
+                                            <th colspan="3">Required For Final Circuits And Protective Conductor Only</th>
                                             <th></th>
-                                            <th colspan="2">Operating time</th>
+                                            <th colspan="2">Operating Time</th>
                                             <th></th>
                                         </tr>
                                         <tr align="center">
-                                            <th rowspan="2">Circute no</th>
+                                            <th rowspan="2">Circute No</th>
                                             <th>Description</th>
-                                            <th>Standard no</th>
+                                            <th>Standard No</th>
                                             <th>R-N</th>
                                             <th>Rating (A)</th>
-                                            <th>Breaking capacity (kA)</th>
-                                            <th>Installation referance method</th>
+                                            <th>Breaking Capacity (kA)</th>
+                                            <th>Installation Referance Method</th>
                                             <th>Live</th>
                                             <th>PE / CPC</th>
-                                            <th>Approximate length</th>
+                                            <th>Approximate Length</th>
                                             <th>R1+R2 (Ω)</th>
                                             <th>R2 (Ω)</th>
                                             <th>L-L</th>
@@ -376,7 +376,7 @@
                                             <th>I∆n(Current)</th>
                                             <th>I∆n </th>
                                             <th>5 I∆n</th>
-                                            <th rowspan="2">Test button operation</th>
+                                            <th rowspan="2">Test Button Operation</th>
                                             <th>Remarks</th>
                                       </tr>
                                    </thead>
