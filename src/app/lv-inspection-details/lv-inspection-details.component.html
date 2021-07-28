@@ -7,9 +7,9 @@
     <div *ngIf="!destroy" style="padding: 20px; background: white;">
     <button style="float: right;" type="submit"
         class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-        (click)="onNavigateToQuestionaire()">Skip</button>
+        (click)="onNavigateToQuestionaire()" [disabled]="displayIconsBasedOnEmail()">Skip</button>
     <button style="float: right;" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" 
-         printSectionId="printdiv" ngxPrint>Print</button>
+         printSectionId="printdiv" ngxPrint [disabled]="displayIconsBasedOnEmail()">Print</button>
     <h2>Verification of LV Systems (IEC 60364-6)</h2>
     <div id="printdiv">
         <br>
@@ -101,7 +101,7 @@
         </div>
         <button style="float: right;" type="submit"
         class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-        (click)="onNavigateToQuestionaire()">Continue
+        (click)="onNavigateToQuestionaire()"[disabled]="displayIconsBasedOnEmail()">Continue
     </button>
     </div>
    
