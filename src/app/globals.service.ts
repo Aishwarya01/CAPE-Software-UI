@@ -10,7 +10,7 @@ export class GlobalsService {
     private data = {};  
     siteCount: number = 0; 
     //proceed: boolean=false;
-   
+   lenthCount:number=1;
     constructor() {}
 
    

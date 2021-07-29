@@ -1,11 +1,12 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TestingDetails, } from '../model/testing-details';
 import { TestingService } from '../services/testing.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
-
+import { InspectiondetailsService } from '../services/inspectiondetails.service';
+import { InspectionVerificationIncomingEquipmentComponent } from '../inspection-verification-incoming-equipment/inspection-verification-incoming-equipment.component';
+import { GlobalsService } from '../globals.service';
 @Component({
   selector: 'app-inspection-verification-testing',
   templateUrl: './inspection-verification-testing.component.html',
@@ -24,15 +25,22 @@ export class InspectionVerificationTestingComponent implements OnInit {
   submitted = false;
   testaccordianArr!: FormArray;
   panelOpenState = false;
-  email: String = '';
+ // email: String = '';
 
   @Output() proceedNext = new EventEmitter<any>();
-
+  //@ViewChild (InspectionVerificationIncomingEquipmentComponent ) testing!: InspectionVerificationIncomingEquipmentComponent ; 
   testingDetails = new TestingDetails;
   incomingVoltage: String = "";
   incomingZs: String = "";
   incomingIpf: String = "";
   rateArr: any = [];
+  locationNumberList:any=[];
+  //@Input()
+  userName: String = '';
+  //@Input()
+  siteId!:number;
+
+  locationNameList: any=[];
   distributionIncomingValueArr: any = [];
   testingRecords: any = [];
 
@@ -73,10 +81,23 @@ export class InspectionVerificationTestingComponent implements OnInit {
 
     ];
   o: any;
-  service: any;
+ // service: any;
+ 
+ // siteId!:number;
+  email: string;
 
-  constructor(private testingService: TestingService, private formBuilder: FormBuilder,
-    private modalService: NgbModal, private router: ActivatedRoute,) {
+  
+ 
+  // private retrieveClientDetails() {
+  //   this.InspectiondetailsService.retrieveClient(this.email).subscribe(
+  //     data => {
+  //       this.locationNumber = [];
+  //       this.locationNumber=JSON.parse(data);
+  //     });
+  // }
+
+  constructor(private testingService: TestingService, private formBuilder: FormBuilder,public service: GlobalsService,
+    private modalService: NgbModal, private router: ActivatedRoute,private inspectionDetailsService: InspectiondetailsService) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
 
@@ -84,6 +105,15 @@ export class InspectionVerificationTestingComponent implements OnInit {
     this.testingForm = this.formBuilder.group({
       testaccordianArr: this.formBuilder.array([this.createItem()])
     });
+  
+    this.inspectionDetailsService.retrieveLocation(this.userName,this.siteId).subscribe(
+      data => {  
+      
+       this.locationNumberList= JSON.parse(data);
+       this.locationNameList= JSON.parse(data);
+      
+      }
+    )
   }
 
   getdistributionIncomingValueControls(form: any) {
@@ -223,6 +253,18 @@ export class InspectionVerificationTestingComponent implements OnInit {
       rcdRemarks: new FormControl(''),
     })
   }
+  iterateArray(a:any){
+    debugger
+    // if( a!=""){
+      // this.testaccordianArr.push(a);
+
+      this.testaccordianArr = this.testingForm.get('testaccordianArr') as FormArray;
+      for(let i =0;i<a;i++){
+        this.testaccordianArr.push(this.createItem());
+      }
+     
+    //}
+  }
   // Dynamically iterate some fields 
   onKey(event: KeyboardEvent, c: any, a: any) {
     this.values = (<HTMLInputElement>event.target).value;
@@ -344,7 +386,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   }
 
   nextTab() {
-    this.testingDetails.siteId = 103;
+    this.testingDetails.siteId = 105//this.service.siteCount;
     this.testingDetails.userName = this.email;
     this.submitted = true;
     if (this.testingForm.invalid) {

@@ -1,9 +1,9 @@
 <div class="card">
     <div class="card-body">
-    <button class="btn btn-info mousechange" 
+    <!-- <button class="btn btn-info mousechange" 
         style="padding: 7px 10px 0px 10px;left: 93%;top: 10px;width: 4%;position: relative;">
             <mat-icon aria-hidden="false" (click)="addItem()" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>
-    </button>
+    </button> -->
      <form [formGroup]="testingForm" (ngSubmit)="nextTab()">
        <div class="card-body" formArrayName="testaccordianArr" *ngFor="let a of getTestControls(); let i = index" >
             <div [formGroupName]="i">
@@ -13,9 +13,18 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label>Location Number*</label>
-                                    <input type="number" class="form-control" formControlName="locationNumber"
+                                    <select  formControlName="locationNumber" class="form-control">
+                                        <option value="" selected>Select Client Name</option>
+                                        <option *ngFor="let location of locationNumberList">{{location.locationNumber}}</option>
+                                     </select>
+                                    <!-- <select class="form-control" formControlName="locationNumber" 
+                                    [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors }">
+                                      <option value="0" selected>Select Client Name</option>
+                                      <option *ngFor="let location of locationNumber">{{location.locationNumber}}</option>
+                                    </select> -->
+                                    <!-- <input type="number" class="form-control" formControlName="locationNumber"
                                         placeholder="Enter Location Number"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors }">
+                                        [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors }"> -->
                                     <div *ngIf="submitted && a.get('locationNumber')?.errors" class="invalid-feedback">
                                         <div *ngIf="a.get('locationNumber')?.errors?.required">Location Number is required</div>
                                     </div>
@@ -23,9 +32,14 @@
             
                                 <div class="col-md-6">
                                     <label>Location Name*</label>
-                                    <input type="text" class="form-control" formControlName="locationName"
+                                    <select class="form-control" formControlName="locationName" 
+                                    [ngClass]="{ 'is-invalid': submitted && a.get('locationName')?.errors }">
+                                      <option value="0" selected>Select Client Name</option>
+                                      <option *ngFor="let location of locationNameList">{{location.locationName}}</option>
+                                    </select>
+                                    <!-- <input type="text" class="form-control" formControlName="locationName"
                                         placeholder="Enter Location Name"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('locationName')?.errors }">
+                                        [ngClass]="{ 'is-invalid': submitted && a.get('locationName')?.errors }"> -->
                                     <div *ngIf="submitted && a.get('locationName')?.errors" class="invalid-feedback">
                                         <div *ngIf="a.get('locationName')?.errors?.required">Location name is required</div>
                                     </div>
@@ -447,7 +461,7 @@
                         </mat-expansion-panel>
                      </mat-accordion>
                     </div>
-                     <mat-icon class="mousechange"  style="float:right;" *ngIf="getTestControls().length > 1" (click)="removeAccordian(i)">delete</mat-icon> 
+                     <!-- <mat-icon class="mousechange"  style="float:right;" *ngIf="getTestControls().length > 1" (click)="removeAccordian(i)">delete</mat-icon>  -->
                </div>
             <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
                 <span class="alert alert-danger">{{validationErrorMsg}}</span>
