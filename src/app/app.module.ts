@@ -49,6 +49,9 @@ import { SavedreportsComponent } from './savedreports/savedreports.component';
 import { FinalreportsComponent } from './finalreports/finalreports.component';
 
 import {Ng2TelInputModule} from 'ng2-tel-input';
+import { InspectorRegistrationComponent } from './inspector-registration/inspector-registration.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+
 
 @NgModule({
   declarations: [
@@ -79,7 +82,8 @@ import {Ng2TelInputModule} from 'ng2-tel-input';
     InspectionVerificationIncomingEquipmentComponent,
     InspectionVerificationSupplyCharacteristicsComponent,
     SavedreportsComponent,
-    FinalreportsComponent
+    FinalreportsComponent,
+    InspectorRegistrationComponent
   ],
   imports: [
     NgbModule,
@@ -99,7 +103,9 @@ import {Ng2TelInputModule} from 'ng2-tel-input';
     MaterialModule,
     NgxPrintModule,
     Ng2TelInputModule,
-    NgxBootstrapIconsModule.pick(allIcons)
+    NgxBootstrapIconsModule.pick(allIcons),
+    NgMultiSelectDropDownModule.forRoot()
+
   ],
   providers: [GlobalsService, { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }],
   bootstrap: [AppComponent],

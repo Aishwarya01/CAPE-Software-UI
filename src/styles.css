@@ -311,3 +311,16 @@ visibility: visible;
 }
 
 .invalid-feedback{display:block;}
+
+
+.multiselect-dropdown {
+  position: absolute !important;
+  width: 91% !important;
+}
+.multiselect-dropdown .dropdown-btn {
+  padding: 7.5px 12px !important;
+}
+
+.multiselect-dropdown .dropdown-btn .selected-item {
+  max-width: unset !important;
+}
