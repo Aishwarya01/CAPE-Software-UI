@@ -12,6 +12,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { AddApplicationTypesComponent } from './add-application-types/add-application-types.component';
 import { VerificationlvComponent } from './verificationlv/verificationlv.component';
 import { LvInspectionDetailsComponent } from './lv-inspection-details/lv-inspection-details.component';
+import { InspectorRegistrationComponent } from './inspector-registration/inspector-registration.component';
 
 const routes: Routes = [
   {path: '', redirectTo: "/login", pathMatch: 'full' },
@@ -27,7 +28,10 @@ const routes: Routes = [
   {path: 'profile',component:ProfileComponent},
   {path: 'addApplicationType', component: AddApplicationTypesComponent},
   {path: 'home',component:HomeComponent, canActivate:[AuthenticationGuard]},
-  {path: 'verificationlv',component:VerificationlvComponent}
+  {path: 'verificationlv',component:VerificationlvComponent},
+  {path: 'inspectorregister',component:InspectorRegistrationComponent},
+
+
 ];
 
 @NgModule({
