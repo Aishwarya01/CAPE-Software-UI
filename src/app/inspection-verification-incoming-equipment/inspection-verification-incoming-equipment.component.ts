@@ -278,17 +278,13 @@ createItem()
   {
     this.inspectionDetails.siteId= this.service.siteCount;
     this.incomingArr=this.addstep3.get('incomingArr') as FormArray
-    console.log( this.incomingArr.length)
     this.inspectionDetails.userName=this.email;
-    this.service.lenthCount=this.incomingArr.length; 
      this.submitted = true;
     if(this.addstep3.invalid) {
       return;
     }
     this.service.iterationList=this.incomingArr.value;
     this.inspectionDetails.ipaoInspection = this.addstep3.value.incomingArr;
-  console.log(this.inspectionDetails);
-  console.log(this.addstep3.value.incomingArr);
 
   this.inspectionDetailsService.addInspectionDetails(this.inspectionDetails).subscribe(
     (    data: any)=> {

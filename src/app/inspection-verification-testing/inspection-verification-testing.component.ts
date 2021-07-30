@@ -251,11 +251,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
     this.value = this.values;
     this.testingRecords = a.controls.testingRecords as FormArray;
     this.rateArr = c.controls.rateArr as FormArray;
-
-    console.log(c);
-    console.log(a);
-    console.log(this.rateArr)
-    console.log(this.testingRecords)
     if (this.testingRecords.length == 0 && this.rateArr.length == 0) {
       if (this.value != "") {
         for (this.i = 1; this.i < this.value; this.i++) {
@@ -383,7 +378,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
 
       // coma separated value for first table
       for (let j of this.testDistribution.value) {
-        console.log(j)
         let arr: any = [];
         let arr1: any = [];
         let arr2: any = [];
@@ -448,10 +442,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
 
       }
       for (let x of this.testingRecords.value) {
-        console.log(x.rcdRemarks);
-        console.log(x.rcdTestButtonOperation);
-        console.log(x.circuitDesc);
-        console.log(x.conductorInstallation);
         if (x.circuitNo == "") {
           x.circuitNo = 'NA';
         }
@@ -577,9 +567,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
         n.disconnectionTime = disconnectionTime;
       }
     }
-    console.log(this.testaccordianArr);
     this.testingDetails.testing = this.testingForm.value.testaccordianArr;
-    console.log(this.testingDetails);
     this.testingService.savePeriodicTesting(this.testingDetails).subscribe(
       data => {
         console.log("worked");
