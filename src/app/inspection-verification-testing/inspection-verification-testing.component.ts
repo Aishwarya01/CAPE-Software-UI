@@ -102,7 +102,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
         //   this.testaccordianArr.value[j].locationName = this.service.iterationList[j].locationName;
         // }
         this.location.locationArr = this.service.iterationList;
-      //console.log(this.service.iterationList);
       this.service.iterationList = [];
   }
 }
@@ -570,7 +569,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
     this.testingDetails.testing = this.testingForm.value.testaccordianArr;
     this.testingService.savePeriodicTesting(this.testingDetails).subscribe(
       data => {
-        console.log("worked");
+        
         this.proceedNext.emit(true);
         // show success message ofter click button
         this.success = true
@@ -578,7 +577,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
         this.disable = true;
       },
       error => {
-        console.log("error");
         this.Error = true;
         // show error button   
         this.proceedNext.emit(false);

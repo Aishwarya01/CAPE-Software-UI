@@ -667,17 +667,14 @@ nextTab() {
     }
 
     this.reportDetails.SignatorDetails=this.reportDetails.SignatorDetails.concat(this.step1Form.value.contractorArr,this.step1Form.value.inspectorArr);
-    console.log(this.reportDetails)
     this.reportDetailsService.addReportDetails(this.reportDetails).subscribe(
       data=> {
-        console.log("worked");
         this.proceedNext.emit(true);
         this.success=true;
         this.successMsg="Basic Information successfully saved";
         this.disable= true;
       },
       error => {
-        console.log("error");
         this.Error=true;
         this.proceedNext.emit(false);
         this.errorMsg="Something went wrong, kindly check all the fields";

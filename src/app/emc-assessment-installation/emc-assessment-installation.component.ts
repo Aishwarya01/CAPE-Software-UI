@@ -17,7 +17,7 @@ export class EmcAssessmentInstallationComponent implements OnInit {
   }
 
   onNavigateToQuestionaire(){
-    console.log("Navigate To Questionaire");
+    
   }
 
 

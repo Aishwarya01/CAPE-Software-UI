@@ -197,7 +197,6 @@ export class VerificationlvComponent implements OnInit {
         this.site_dataSource.sort = this.siteSort;
         debugger
         this.checkArray = JSON.parse(data)
-        console.log(JSON.parse(this.checkArray.length));
         if(this.checkArray.length > 0 ) {
           this.disable= false;
         }

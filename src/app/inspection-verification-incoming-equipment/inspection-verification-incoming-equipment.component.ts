@@ -288,7 +288,6 @@ createItem()
 
   this.inspectionDetailsService.addInspectionDetails(this.inspectionDetails).subscribe(
     (    data: any)=> {
-      console.log("worked");
       this.proceedNext.emit(true); 
         this.success=true
         this.successMsg="Incoming Equipment successfully saved";
@@ -297,7 +296,6 @@ createItem()
     },
     (    error: any) => {
       this.proceedNext.emit(false); 
-      console.log("error");
       this.Error=true;
         this.errorMsg="Something went wrong, kindly check all the fields";
     }
