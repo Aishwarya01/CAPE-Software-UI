@@ -2,9 +2,9 @@
 export class ChangePassword {
     email: String = '';
     oldpassword: String = '';
-    password: String = '';  
-   
- 
+    password: String = '';
+
+
     constructor () {
     }
 }

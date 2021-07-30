@@ -156,7 +156,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       });
   }
 
-  // Only Integer Numbers
+  // Only Accept Integer Numbers
   keyPressNumbers(event:any) {
     var charCode = (event.which) ? event.which : event.keyCode;
     // Only Numbers 0-9
@@ -671,7 +671,7 @@ nextTab() {
         this.disable= true;
       },
       error => {
-        console.log("error");
+        console.log(error);
         this.Error=true;
         this.proceedNext.emit(false);
         this.errorMsg="Something went wrong, kindly check all the fields";

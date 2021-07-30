@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { GlobalsService } from './globals.service';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -47,8 +46,8 @@ import { InspectionVerificationSupplyCharacteristicsComponent } from './inspecti
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SavedreportsComponent } from './savedreports/savedreports.component';
 import { FinalreportsComponent } from './finalreports/finalreports.component';
-
 import {Ng2TelInputModule} from 'ng2-tel-input';
+//import { Ng9PasswordStrengthBarModule } from 'ng9-password-strength-bar/projects/ng9-password-strength-bar/src/public-api';
 
 @NgModule({
   declarations: [
@@ -99,7 +98,8 @@ import {Ng2TelInputModule} from 'ng2-tel-input';
     MaterialModule,
     NgxPrintModule,
     Ng2TelInputModule,
-    NgxBootstrapIconsModule.pick(allIcons)
+    NgxBootstrapIconsModule.pick(allIcons),
+    //Ng9PasswordStrengthBarModule
   ],
   providers: [GlobalsService, { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }],
   bootstrap: [AppComponent],

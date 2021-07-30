@@ -970,7 +970,8 @@ nextTab2() {
         this.disable= true;
       },
       error => {
-        console.log("error");
+        debugger
+        console.log(error);
         this.Error=true;
         this.proceedNext.emit(false); 
         this.errorMsg="Something went wrong, kindly check all the fields";

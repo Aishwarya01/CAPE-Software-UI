@@ -126,6 +126,15 @@
         </div>
     </div>
 
+    <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+      <span class="alert alert-danger">{{validationErrorMsg}}</span>
+    </div>
+      <div *ngIf="success" style="text-align: center;">
+          <span class="alert alert-success">{{successMsg}}</span>
+      </div>
+      <div *ngIf="Error" style="text-align: center;">
+          <span class="alert alert-danger">{{errorMsg}}</span>
+      </div>
     <div style="display: flex;justify-content: space-evenly;">
         <button (click)="onSubmit()" type="submit"
             class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"> Save</button>
@@ -133,3 +142,5 @@
                 class="bi bi-x icon"></i> Cancel</button>
     </div>
 </form>
+
+
