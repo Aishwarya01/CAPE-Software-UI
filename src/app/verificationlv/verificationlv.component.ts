@@ -25,7 +25,7 @@ import { ReportDetailsService } from '../services/report-details.service';
 import { Reportdetails } from '../model/reportdetails';
 import { InspectionVerificationSupplyCharacteristicsComponent } from '../inspection-verification-supply-characteristics/inspection-verification-supply-characteristics.component';
 import { MatStepper } from '@angular/material/stepper';
-import { InspectionVerificationTestingComponent } from '../inspection-verification-testing/inspection-verification-testing.component';
+import { InspectionVerificationBasicInformationComponent } from '../inspection-verification-basic-information/inspection-verification-basic-information.component';
 
 
 @Component({
@@ -88,10 +88,9 @@ export class VerificationlvComponent implements OnInit {
   inspectorRole: String ='inspector';
   reportDetails =new Reportdetails;
   @ViewChild (InspectionVerificationSupplyCharacteristicsComponent, {static: false}) supply = InspectionVerificationSupplyCharacteristicsComponent;
-  @ViewChild(InspectionVerificationTestingComponent) testing!: InspectionVerificationTestingComponent;
+  @ViewChild (InspectionVerificationBasicInformationComponent) basic!: InspectionVerificationBasicInformationComponent;
 
-
-  // Second Tab dependenciesn
+  // Second Tab dependencies
   panelOpenState = false;
   installationList: String[]= ['New installation','First verification of an existing','Addition of an existing installation','Alteration in an existing installation','Periodic verification'];
   premiseList: String[]= ['Domestic(Individual)','Domestic(Apartment)','Commercial','IT/Office','Data center','Industrial(Non Ex environment)','Industrial(Ex environment)'];
@@ -104,16 +103,16 @@ export class VerificationlvComponent implements OnInit {
   isCompleted5: boolean = false;
   isCompleted3: boolean = false;
 
+  checkArray: any=[];
 
-  
+  disable: boolean = true;
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
- 
- 
 
   @Output() passEntry: EventEmitter<any> = new EventEmitter();  
   formBuilder: any;
   arrDesigner!: FormArray; 
+  testing: any;
 
    constructor(private _formBuilder: FormBuilder,
     private modalService: NgbModal,
@@ -129,8 +128,6 @@ export class VerificationlvComponent implements OnInit {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
 
   }
-
-  
 
   ngOnInit(): void {
     this.firstFormGroup = this._formBuilder.group({
@@ -198,6 +195,15 @@ export class VerificationlvComponent implements OnInit {
         this.site_dataSource = new MatTableDataSource(JSON.parse(data));
         this.site_dataSource.paginator = this.sitePaginator;
         this.site_dataSource.sort = this.siteSort;
+        debugger
+        this.checkArray = JSON.parse(data)
+        console.log(JSON.parse(this.checkArray.length));
+        if(this.checkArray.length > 0 ) {
+          this.disable= false;
+        }
+        else{
+          this.disable=true;
+        }
       });
   }
 
@@ -343,7 +349,6 @@ deleteDepartment(departmentId: number) {
 
   public doSomething1(next: any):void {
     this.isCompleted = next;
-    //this.selectedIndex = this.selectedIndex = 0;
   }
 
   public doSomething2(next: any):void {
@@ -363,6 +368,15 @@ deleteDepartment(departmentId: number) {
     this.isCompleted5 = next;
   }
 
+ changeTab(index: number,sitedId: any,userName :any):void
+{
+    this.selectedIndex = index;
+    this.basic.retrieveDetailsfromSavedReports(userName,sitedId);
+}
+
+continue() {
+  this.selectedIndex = 1;
+}
 }
 
   
