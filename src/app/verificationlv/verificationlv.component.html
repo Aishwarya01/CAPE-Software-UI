@@ -361,7 +361,7 @@
 
       <mat-step [completed]="true">
         <ng-template matStepLabel>Testing</ng-template>
-        <app-inspection-verification-testing></app-inspection-verification-testing>
+        <app-inspection-verification-testing (proceedNext)="doSomething4($event)"></app-inspection-verification-testing>
    
 
       </mat-step>

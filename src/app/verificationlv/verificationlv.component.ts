@@ -26,6 +26,7 @@ import { Reportdetails } from '../model/reportdetails';
 import { InspectionVerificationSupplyCharacteristicsComponent } from '../inspection-verification-supply-characteristics/inspection-verification-supply-characteristics.component';
 import { MatStepper } from '@angular/material/stepper';
 import { InspectionVerificationBasicInformationComponent } from '../inspection-verification-basic-information/inspection-verification-basic-information.component';
+import { InspectionVerificationTestingComponent } from '../inspection-verification-testing/inspection-verification-testing.component';
 
 
 @Component({
@@ -89,6 +90,8 @@ export class VerificationlvComponent implements OnInit {
   reportDetails =new Reportdetails;
   @ViewChild (InspectionVerificationSupplyCharacteristicsComponent, {static: false}) supply = InspectionVerificationSupplyCharacteristicsComponent;
   @ViewChild (InspectionVerificationBasicInformationComponent) basic!: InspectionVerificationBasicInformationComponent;
+  @ViewChild (InspectionVerificationTestingComponent) testing!: InspectionVerificationTestingComponent;
+
 
   // Second Tab dependencies
   panelOpenState = false;
@@ -112,7 +115,6 @@ export class VerificationlvComponent implements OnInit {
   @Output() passEntry: EventEmitter<any> = new EventEmitter();  
   formBuilder: any;
   arrDesigner!: FormArray; 
-  testing: any;
 
    constructor(private _formBuilder: FormBuilder,
     private modalService: NgbModal,

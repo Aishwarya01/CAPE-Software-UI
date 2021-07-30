@@ -97,10 +97,10 @@ export class InspectionVerificationTestingComponent implements OnInit {
       for(let i=0;i<a;i++) {
         this.addItem();
       }
-        // for(let j=0; j<this.testaccordianArr.controls.length; j++) {
-        //   this.testaccordianArr.value[j].locationNumber = this.service.iterationList[j].locationNumber;
-        //   this.testaccordianArr.value[j].locationName = this.service.iterationList[j].locationName;
-        // }
+        for(let j=0; j<this.testaccordianArr.controls.length; j++) {
+          this.testaccordianArr.value[j].locationNumber = this.service.iterationList[j].locationNumber;
+          this.testaccordianArr.value[j].locationName = this.service.iterationList[j].locationName;
+        }
         this.location.locationArr = this.service.iterationList;
       this.service.iterationList = [];
   }
