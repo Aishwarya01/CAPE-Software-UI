@@ -47,6 +47,8 @@ import { InspectionVerificationSupplyCharacteristicsComponent } from './inspecti
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SavedreportsComponent } from './savedreports/savedreports.component';
 import { FinalreportsComponent } from './finalreports/finalreports.component';
+import { AdminLoginComponent } from './admin-login/admin-login.component'
+import { AdminRegisterComponent }  from './admin-register/admin-register.component'
 
 import {Ng2TelInputModule} from 'ng2-tel-input';
 
@@ -79,7 +81,9 @@ import {Ng2TelInputModule} from 'ng2-tel-input';
     InspectionVerificationIncomingEquipmentComponent,
     InspectionVerificationSupplyCharacteristicsComponent,
     SavedreportsComponent,
-    FinalreportsComponent
+    FinalreportsComponent,
+    AdminLoginComponent,
+    AdminRegisterComponent
   ],
   imports: [
     NgbModule,
