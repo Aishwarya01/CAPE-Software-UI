@@ -371,7 +371,9 @@ deleteDepartment(departmentId: number) {
  changeTab(index: number,sitedId: any,userName :any):void
 {
     this.selectedIndex = index;
-    this.basic.retrieveDetailsfromSavedReports(userName,sitedId);
+
+    // This is for saved reports
+    // this.basic.retrieveDetailsfromSavedReports(userName,sitedId);
 }
 
 continue() {
