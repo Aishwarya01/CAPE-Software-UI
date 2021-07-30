@@ -22,7 +22,7 @@
                                 </span>
                             </div>
                             <input type="text" formControlName="name" class="form-control" placeholder="Enter your Name"
-                            [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+                            [ngClass]="{ 'is-invalid': submitted && f.name.errors }" [(ngModel)]="register.name"/>
                             <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
                                 <div *ngIf="f.name.errors?.required">Name is required</div>
                             </div>
@@ -40,7 +40,7 @@
                                 </span>
                             </div>
                             <input type="number" formControlName="contactNumber" class="form-control" placeholder="Enter your contact number" maxlength="10"
-                            [ngClass]="{ 'is-invalid': submitted && f.contactNumber.errors}" />
+                            [ngClass]="{ 'is-invalid': submitted && f.contactNumber.errors}" [(ngModel)]="register.contactNumber" />
                             <div *ngIf="submitted && f.contactNumber.errors" class="invalid-feedback">
                                 <div *ngIf="f.contactNumber.errors.required">Contact number is required</div>
                             </div>
@@ -58,7 +58,7 @@
                                 </span>
                             </div>
                             <input type="email" formControlName="email" class="form-control" placeholder="Enter your email address" maxlength="50"
-                            [ngClass]="{ 'is-invalid': submitted && f.email.errors}" [ngStyle]="{'border-color': alert ? 'red' : ''}"/>
+                            [ngClass]="{ 'is-invalid': submitted && f.email.errors}" [ngStyle]="{'border-color': alert ? 'red' : ''}" [(ngModel)]="register.userName"/>
                             <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                                 <div *ngIf="f.email.errors.required">Email is required</div>
                                 <div *ngIf="f.email.errors.pattern">Enter valid email</div>
@@ -79,7 +79,7 @@
                                 </span>
                             </div>
                             <input type="text" formControlName="address" class="form-control" placeholder="Enter your address" 
-                            [ngClass]="{ 'is-invalid': submitted && f.address.errors}" />
+                            [ngClass]="{ 'is-invalid': submitted && f.address.errors}" [(ngModel)]="register.address"/>
                             <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
                                 <div *ngIf="f.address.errors.required">Address is required</div>
                             </div>
@@ -97,7 +97,7 @@
                                 </span>
                             </div>
                             <select  formControlName="country" class="form-control"
-                            [ngClass]="{ 'is-invalid': submitted && f.country.errors }"  (change)=selectCountry($event)>
+                            [ngClass]="{ 'is-invalid': submitted && f.country.errors }" [(ngModel)]="register.country" (change)=selectCountry($event)>
                                 <option value="" selected>Select country</option>
                                 <option value="IND" selected>India</option>
 
@@ -120,7 +120,7 @@
                                 </span>
                             </div>
                             <select  formControlName="state" class="form-control"
-                            [ngClass]="{ 'is-invalid': submitted && f.state.errors }" >
+                            [ngClass]="{ 'is-invalid': submitted && f.state.errors }" [(ngModel)]="register.state" >
                                 <option value="" selected>Select state</option>
                                 <option *ngFor="let a of stateList">{{a.name}}</option>
                             </select>
@@ -133,6 +133,22 @@
             </div>
 
             <div class="row">
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="district"> District</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-person-lines-fill"></i>
+                                </span>
+                            </div>
+                            <input type="text" formControlName="district" class="form-control" placeholder="Enter your District"
+                             [(ngModel)]="register.district"/>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="pinCode">* Pincode</label>
@@ -143,7 +159,7 @@
                                 </span>
                             </div>
                             <input type="number" formControlName="pinCode" class="form-control" placeholder="Enter your pinCode" 
-                            [ngClass]="{ 'is-invalid': submitted && f.pinCode.errors}" />
+                            [ngClass]="{ 'is-invalid': submitted && f.pinCode.errors}" [(ngModel)]="register.pinCode"/>
                             <div *ngIf="submitted && f.pinCode.errors" class="invalid-feedback">
                                 <div *ngIf="f.pinCode.errors.required">Pincode is required</div>
                             </div>
@@ -161,27 +177,9 @@
                                 </span>
                             </div>
                             <input type="text" formControlName="companyName" class="form-control" placeholder="Enter your company name" 
-                            [ngClass]="{ 'is-invalid': submitted && f.companyName.errors }" />
+                            [ngClass]="{ 'is-invalid': submitted && f.companyName.errors }" [(ngModel)]="register.companyName"/>
                             <div *ngIf="submitted && f.companyName.errors" class="invalid-feedback">
                                 <div *ngIf="f.companyName.errors?.required">Company name is required</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="department">* Department Based on the Company</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                    <i class="bi bi-envelope-fill"></i>
-                                </span>
-                            </div>
-                            <input type="text" formControlName="department" class="form-control" placeholder="Enter your department" 
-                            [ngClass]="{ 'is-invalid': submitted && f.department.errors}" />
-                            <div *ngIf="submitted && f.department.errors" class="invalid-feedback">
-                                <div *ngIf="f.department.errors.required">Department is required</div>
                             </div>
                         </div>
                     </div>
@@ -192,6 +190,24 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
+                        <label for="department">* Department Based on the Company</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-envelope-fill"></i>
+                                </span>
+                            </div>
+                            <input type="text" formControlName="department" class="form-control" placeholder="Enter your department" 
+                            [ngClass]="{ 'is-invalid': submitted && f.department.errors}" [(ngModel)]="register.department"/>
+                            <div *ngIf="submitted && f.department.errors" class="invalid-feedback">
+                                <div *ngIf="f.department.errors.required">Department is required</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
                         <label for="designation">* Designation</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -200,7 +216,7 @@
                                 </span>
                             </div>
                             <input type="text" formControlName="designation" class="form-control" placeholder="Enter your designation" 
-                            [ngClass]="{ 'is-invalid': submitted && f.designation.errors}" />
+                            [ngClass]="{ 'is-invalid': submitted && f.designation.errors}" [(ngModel)]="register.designation"/>
                             <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
                                 <div *ngIf="f.designation.errors.required">Designation is required</div>
                             </div>
@@ -217,16 +233,15 @@
                                 </span>
                             </div>
                             <ng-multiselect-dropdown
-  [placeholder]="'Select Application Type'"
-  [settings]="dropdownSettings"
-  [data]="dropdownList"
-  [(ngModel)]="selected"
-  (onSelect)="onItemSelect($event)"
-  (onSelectAll)="onSelectAll($event)"
-  formControlName="applicationType"
-  dropdownPosition="auto"
->
-</ng-multiselect-dropdown>
+                                [placeholder]="'Select Application Type'"
+                                [settings]="dropdownSettings"
+                                [data]="dropdownList"
+                                [(ngModel)]="selected"
+                                (onSelect)="onItemSelect($event)"
+                                (onSelectAll)="onSelectAll($event)"
+                                formControlName="applicationType"
+                                dropdownPosition="auto">
+                            </ng-multiselect-dropdown>
                             <!-- <input type="text" formControlName="applicationType" class="form-control" placeholder="Enter your application type" 
                             [ngClass]="{ 'is-invalid': submitted && f.applicationType.errors}" />
                             <div *ngIf="submitted && f.applicationType.errors" class="invalid-feedback">
@@ -246,7 +261,7 @@
                                 </span>
                             </div>
                             <select  formControlName="interestedArea" class="form-control"
-                            [ngClass]="{ 'is-invalid': submitted && f.interestedArea.errors }">
+                            [ngClass]="{ 'is-invalid': submitted && f.interestedArea.errors }" [(ngModel)]="register.interestedAreas">
                                 <option value="" selected>Select Type</option>
                                 <option value="learning" >Learning</option>
                                 <option value="inspector" >Inspector</option>
