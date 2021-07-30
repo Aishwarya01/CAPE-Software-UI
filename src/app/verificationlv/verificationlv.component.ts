@@ -25,6 +25,7 @@ import { ReportDetailsService } from '../services/report-details.service';
 import { Reportdetails } from '../model/reportdetails';
 import { InspectionVerificationSupplyCharacteristicsComponent } from '../inspection-verification-supply-characteristics/inspection-verification-supply-characteristics.component';
 import { MatStepper } from '@angular/material/stepper';
+import { InspectionVerificationTestingComponent } from '../inspection-verification-testing/inspection-verification-testing.component';
 
 
 @Component({
@@ -87,8 +88,10 @@ export class VerificationlvComponent implements OnInit {
   inspectorRole: String ='inspector';
   reportDetails =new Reportdetails;
   @ViewChild (InspectionVerificationSupplyCharacteristicsComponent, {static: false}) supply = InspectionVerificationSupplyCharacteristicsComponent;
-  
-  // Second Tab dependencies
+  @ViewChild(InspectionVerificationTestingComponent) testing!: InspectionVerificationTestingComponent;
+
+
+  // Second Tab dependenciesn
   panelOpenState = false;
   installationList: String[]= ['New installation','First verification of an existing','Addition of an existing installation','Alteration in an existing installation','Periodic verification'];
   premiseList: String[]= ['Domestic(Individual)','Domestic(Apartment)','Commercial','IT/Office','Data center','Industrial(Non Ex environment)','Industrial(Ex environment)'];
@@ -105,13 +108,13 @@ export class VerificationlvComponent implements OnInit {
   
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
-  // ThirdFormGroup: FormGroup;
-  // fourthFormGroup: FormGroup;
+ 
  
 
   @Output() passEntry: EventEmitter<any> = new EventEmitter();  
   formBuilder: any;
   arrDesigner!: FormArray; 
+
    constructor(private _formBuilder: FormBuilder,
     private modalService: NgbModal,
     private dialog: MatDialog,
@@ -120,10 +123,11 @@ export class VerificationlvComponent implements OnInit {
     private departmentService: DepartmentService,
     private reportDetailsService: ReportDetailsService,
     private siteService: SiteService,
-    private ChangeDetectorRef: ChangeDetectorRef,
+    private ChangeDetectorRef: ChangeDetectorRef
     )
      {
-    this.email = this.router.snapshot.paramMap.get('email') || '{}'
+    this.email = this.router.snapshot.paramMap.get('email') || '{}';
+
   }
 
   
@@ -137,7 +141,8 @@ export class VerificationlvComponent implements OnInit {
       secondCtrl: ['', Validators.required],
       clientname: ['', Validators.required],
     });
-    
+
+    this.testing;
     this.siteService.retrieveCountry().subscribe(
       data => {
         this.countryList = JSON.parse(data);
@@ -145,7 +150,6 @@ export class VerificationlvComponent implements OnInit {
     )
     this.refresh();
     this.retrieveClientDetails();
-    
   }
 
   retrieveIsActiveData() {
@@ -347,6 +351,7 @@ deleteDepartment(departmentId: number) {
   }
 
   public doSomething3(next: any):void {
+    this.testing.callMethod();
     this.isCompleted3 = next;
   }
 
@@ -357,13 +362,6 @@ deleteDepartment(departmentId: number) {
   public NextStep5(next: any):void {
     this.isCompleted5 = next;
   }
-
-//  changeTab(index: number,sitedId: any):void
-// {
-//     this.selectedIndex = index;
-//     debugger
-//     console.log(sitedId);
-// }
 
 }
 

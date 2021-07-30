@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import {​​​ NgbModal }​​​ from'@ng-bootstrap/ng-bootstrap';
@@ -19,7 +19,7 @@ export class InspectionVerificationIncomingEquipmentComponent implements OnInit 
   locationList: any = [];
 
   @Output() proceedNext = new EventEmitter<any>(); 
-  //@ViewChild (InspectionVerificationTestingComponent) testing!: InspectionVerificationTestingComponent; 
+  @Output() callTesting = new EventEmitter<any>();
   
   addstep3!: FormGroup;
 
@@ -37,7 +37,6 @@ export class InspectionVerificationIncomingEquipmentComponent implements OnInit 
   validationErrorMsg: String ="";
   disable: boolean = false;
 
-
   // Second Tab dependencies
   panelOpenState = false;
   InspectionList: String[]=['Yes', 'No', 'Not Applicable'];
@@ -51,15 +50,15 @@ export class InspectionVerificationIncomingEquipmentComponent implements OnInit 
   formBuilder: any;
   validate: boolean=false;
   testingForm: any;
-  testing: any;
+
+  @Output() testing = new EventEmitter<any>();
+
    constructor(private _formBuilder: FormBuilder,
     private router: ActivatedRoute, private modalService: NgbModal,
     private inspectionDetailsService: InspectiondetailsService,public service: GlobalsService,
     private ChangeDetectorRef: ChangeDetectorRef,) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
-
-  
 
   ngOnInit(): void {
     this.addstep3 = this._formBuilder.group({
@@ -68,7 +67,6 @@ export class InspectionVerificationIncomingEquipmentComponent implements OnInit 
       
     this.refresh();
   }
-
   
   getearthingControls(form:any) { 
     return form.controls.consumerUnit.controls
@@ -256,15 +254,14 @@ createItem()
     (this.addstep3.get('incomingArr') as FormArray).removeAt(index);
   }
   gotoNextModal(content3: any) {
-    debugger
-  //   if(this.addstep3.invalid) {
-  //     this.validationError=true;
-  //     this.validationErrorMsg="Please check all the fields";
-  //     setTimeout(()=>{   
-  //       this.validationError=false;                   
-  //  }, 3000);  
-  //     return;
-  //   }  
+    if(this.addstep3.invalid) {
+      this.validationError=true;
+      this.validationErrorMsg="Please check all the fields";
+      setTimeout(()=>{   
+        this.validationError=false;                   
+   }, 3000);  
+      return;
+    }  
     this.modalService.open(content3, { centered: true})
   }
   closeModalDialog(){
@@ -279,18 +276,16 @@ createItem()
   }
   nextTab3()
   {
-
-    debugger
-    this.inspectionDetails.siteId= 100//this.service.siteCount;
+    this.inspectionDetails.siteId= this.service.siteCount;
     this.incomingArr=this.addstep3.get('incomingArr') as FormArray
     console.log( this.incomingArr.length)
     this.inspectionDetails.userName=this.email;
     this.service.lenthCount=this.incomingArr.length; 
-  
      this.submitted = true;
-    // if(this.addstep3.invalid) {
-    //   return;
-    // }
+    if(this.addstep3.invalid) {
+      return;
+    }
+    this.service.iterationList=this.incomingArr.value;
     this.inspectionDetails.ipaoInspection = this.addstep3.value.incomingArr;
   console.log(this.inspectionDetails);
   console.log(this.addstep3.value.incomingArr);
@@ -305,10 +300,9 @@ createItem()
         this.disable= true;
     },
     (    error: any) => {
+      this.proceedNext.emit(false); 
       console.log("error");
       this.Error=true;
-     this.testing.iterateArray(this.incomingArr.length);
-       // this.proceedNext.emit(false); 
         this.errorMsg="Something went wrong, kindly check all the fields";
     }
     )

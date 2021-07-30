@@ -13,41 +13,24 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label>Location Number*</label>
-                                    <select  formControlName="locationNumber" class="form-control">
-                                        <option value="" selected>Select Client Name</option>
-                                        <option *ngFor="let location of locationNumberList">{{location.locationNumber}}</option>
-                                     </select>
-                                    <!-- <select class="form-control" formControlName="locationNumber" 
-                                    [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors }">
-                                      <option value="0" selected>Select Client Name</option>
-                                      <option *ngFor="let location of locationNumber">{{location.locationNumber}}</option>
-                                    </select> -->
-                                    <!-- <input type="number" class="form-control" formControlName="locationNumber"
-                                        placeholder="Enter Location Number"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors }"> -->
-                                    <div *ngIf="submitted && a.get('locationNumber')?.errors" class="invalid-feedback">
-                                        <div *ngIf="a.get('locationNumber')?.errors?.required">Location Number is required</div>
-                                    </div>
+                                    <input type="number" class="form-control" formControlName="locationNumber"
+                                        placeholder="Enter Location Number" 
+                                        value="{{location.locationArr[i].locationNumber}}"
+                                        [(ngModel)]="location.locationArr[i].locationNumber" [readonly]="true" 
+                                        style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
                                 </div>
             
                                 <div class="col-md-6">
                                     <label>Location Name*</label>
-                                    <select class="form-control" formControlName="locationName" 
-                                    [ngClass]="{ 'is-invalid': submitted && a.get('locationName')?.errors }">
-                                      <option value="0" selected>Select Client Name</option>
-                                      <option *ngFor="let location of locationNameList">{{location.locationName}}</option>
-                                    </select>
-                                    <!-- <input type="text" class="form-control" formControlName="locationName"
-                                        placeholder="Enter Location Name"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('locationName')?.errors }"> -->
-                                    <div *ngIf="submitted && a.get('locationName')?.errors" class="invalid-feedback">
-                                        <div *ngIf="a.get('locationName')?.errors?.required">Location name is required</div>
-                                    </div>
+                                    <input type="text" class="form-control" formControlName="locationName"
+                                        placeholder="Enter Location Name" 
+                                        value="{{location.locationArr[i].locationName}}"
+                                        [(ngModel)]="location.locationArr[i].locationName" [readonly]="true" 
+                                        style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
                                 </div>
                             </div>
                         </div>
                     </div>
-            
         <mat-accordion>
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild ,OnDestroy} from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TestingDetails, } from '../model/testing-details';
 import { TestingService } from '../services/testing.service';
@@ -7,6 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InspectiondetailsService } from '../services/inspectiondetails.service';
 import { InspectionVerificationIncomingEquipmentComponent } from '../inspection-verification-incoming-equipment/inspection-verification-incoming-equipment.component';
 import { GlobalsService } from '../globals.service';
+import { Location } from '../model/location';
 @Component({
   selector: 'app-inspection-verification-testing',
   templateUrl: './inspection-verification-testing.component.html',
@@ -28,7 +29,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
  // email: String = '';
 
   @Output() proceedNext = new EventEmitter<any>();
-  //@ViewChild (InspectionVerificationIncomingEquipmentComponent ) testing!: InspectionVerificationIncomingEquipmentComponent ; 
   testingDetails = new TestingDetails;
   incomingVoltage: String = "";
   incomingZs: String = "";
@@ -49,13 +49,15 @@ export class InspectionVerificationTestingComponent implements OnInit {
   testingDistribution!: FormArray;
   successMsg: string = "";
   success: boolean = false;
-  disable: boolean = false;
   Error: boolean = false;
   errorMsg: string = "";
-
+  o: any;
+  email: string;
   validationError: boolean = false;
   validationErrorMsg: String = "";
-
+  location = new Location;
+ // demoArr: any=[];
+ disable: boolean = false;
   fcname: any[] =
     ['circuitNo',
       'circuitDesc',
@@ -80,22 +82,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
       'rcdRemarks',
 
     ];
-  o: any;
- // service: any;
  
- // siteId!:number;
-  email: string;
-
-  
- 
-  // private retrieveClientDetails() {
-  //   this.InspectiondetailsService.retrieveClient(this.email).subscribe(
-  //     data => {
-  //       this.locationNumber = [];
-  //       this.locationNumber=JSON.parse(data);
-  //     });
-  // }
-
   constructor(private testingService: TestingService, private formBuilder: FormBuilder,public service: GlobalsService,
     private modalService: NgbModal, private router: ActivatedRoute,private inspectionDetailsService: InspectiondetailsService) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
@@ -103,18 +90,22 @@ export class InspectionVerificationTestingComponent implements OnInit {
 
   ngOnInit(): void {
     this.testingForm = this.formBuilder.group({
-      testaccordianArr: this.formBuilder.array([this.createItem()])
+      testaccordianArr: this.formBuilder.array([])
     });
-  
-    this.inspectionDetailsService.retrieveLocation(this.userName,this.siteId).subscribe(
-      data => {  
-      
-       this.locationNumberList= JSON.parse(data);
-       this.locationNameList= JSON.parse(data);
-      
+    if((this.service.iterationList!="") && (this.service.iterationList!=undefined)){
+      let a= this.service.iterationList.length;
+      for(let i=0;i<a;i++) {
+        this.addItem();
       }
-    )
+        // for(let j=0; j<this.testaccordianArr.controls.length; j++) {
+        //   this.testaccordianArr.value[j].locationNumber = this.service.iterationList[j].locationNumber;
+        //   this.testaccordianArr.value[j].locationName = this.service.iterationList[j].locationName;
+        // }
+        this.location.locationArr = this.service.iterationList;
+      //console.log(this.service.iterationList);
+      this.service.iterationList = [];
   }
+}
 
   getdistributionIncomingValueControls(form: any) {
     return form.controls.distributionIncomingValueArr?.controls;
@@ -253,18 +244,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
       rcdRemarks: new FormControl(''),
     })
   }
-  iterateArray(a:any){
-    debugger
-    // if( a!=""){
-      // this.testaccordianArr.push(a);
-
-      this.testaccordianArr = this.testingForm.get('testaccordianArr') as FormArray;
-      for(let i =0;i<a;i++){
-        this.testaccordianArr.push(this.createItem());
-      }
-     
-    //}
-  }
+ 
   // Dynamically iterate some fields 
   onKey(event: KeyboardEvent, c: any, a: any) {
     this.values = (<HTMLInputElement>event.target).value;
@@ -326,8 +306,8 @@ export class InspectionVerificationTestingComponent implements OnInit {
 
   createItem() {
     return this.formBuilder.group({
-      locationNumber: new FormControl('', [Validators.required]),
-      locationName: new FormControl('', [Validators.required]),
+      locationNumber: new FormControl(),
+      locationName: new FormControl(),
       testEngineerName: ['', Validators.required],
       date: ['', Validators.required],
       companyName: ['', Validators.required],
@@ -373,7 +353,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
   }
 
   gotoNextModal(content4: any) {
-    debugger
     if (this.testingForm.invalid) {
       this.validationError = true;
       this.validationErrorMsg = "Please check all the fields";
@@ -385,8 +364,12 @@ export class InspectionVerificationTestingComponent implements OnInit {
     this.modalService.open(content4, { centered: true })
   }
 
+  callMethod(){
+   this.ngOnInit();
+  }
+
   nextTab() {
-    this.testingDetails.siteId = 105//this.service.siteCount;
+    this.testingDetails.siteId = this.service.siteCount;
     this.testingDetails.userName = this.email;
     this.submitted = true;
     if (this.testingForm.invalid) {
@@ -460,7 +443,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
           ratingsAmps = ratingsAmps.replace(/,\s*$/, "");
           j.ratingsAmps = ratingsAmps;
         }
-        debugger
         delete j.rateArr;
         delete j.distributionIncomingValueArr;
 
@@ -600,7 +582,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
     console.log(this.testingDetails);
     this.testingService.savePeriodicTesting(this.testingDetails).subscribe(
       data => {
-        debugger
         console.log("worked");
         this.proceedNext.emit(true);
         // show success message ofter click button
