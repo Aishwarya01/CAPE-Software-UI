@@ -1,10 +1,12 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import {​​​ NgbModal }​​​ from'@ng-bootstrap/ng-bootstrap';
 import { InspectiondetailsService } from '../services/inspectiondetails.service';
 import { InspectionDetails } from '../model/inspection-details';
 import { GlobalsService } from '../globals.service';
+import { of } from 'rxjs';
+import { InspectionVerificationTestingComponent } from '../inspection-verification-testing/inspection-verification-testing.component';
 
 @Component({
   selector: 'app-inspection-verification-incoming-equipment',
@@ -16,7 +18,9 @@ export class InspectionVerificationIncomingEquipmentComponent implements OnInit 
   submitted = false;
   locationList: any = [];
 
-  @Output() proceedNext = new EventEmitter<any>();  
+  @Output() proceedNext = new EventEmitter<any>(); 
+  @Output() callTesting = new EventEmitter<any>();
+  
   addstep3!: FormGroup;
 
   i:any;
@@ -33,7 +37,6 @@ export class InspectionVerificationIncomingEquipmentComponent implements OnInit 
   validationErrorMsg: String ="";
   disable: boolean = false;
 
-
   // Second Tab dependencies
   panelOpenState = false;
   InspectionList: String[]=['Yes', 'No', 'Not Applicable'];
@@ -46,22 +49,24 @@ export class InspectionVerificationIncomingEquipmentComponent implements OnInit 
 
   formBuilder: any;
   validate: boolean=false;
+  testingForm: any;
+
+  @Output() testing = new EventEmitter<any>();
+
    constructor(private _formBuilder: FormBuilder,
     private router: ActivatedRoute, private modalService: NgbModal,
     private inspectionDetailsService: InspectiondetailsService,public service: GlobalsService,
-    private ChangeDetectorRef: ChangeDetectorRef) {
+    private ChangeDetectorRef: ChangeDetectorRef,) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
-
-  
 
   ngOnInit(): void {
     this.addstep3 = this._formBuilder.group({
       incomingArr: this._formBuilder.array([this.createItem()])
       });
+      
     this.refresh();
   }
-
   
   getearthingControls(form:any) { 
     return form.controls.consumerUnit.controls
@@ -186,6 +191,7 @@ export class InspectionVerificationIncomingEquipmentComponent implements OnInit 
   addItem() {
     this.incomingArr = this.addstep3.get('incomingArr') as FormArray;
     this.incomingArr.push(this.createItem());
+   
   }
  
   getIncomingControls(): AbstractControl[] {
@@ -248,7 +254,6 @@ createItem()
     (this.addstep3.get('incomingArr') as FormArray).removeAt(index);
   }
   gotoNextModal(content3: any) {
-    debugger
     if(this.addstep3.invalid) {
       this.validationError=true;
       this.validationErrorMsg="Please check all the fields";
@@ -271,29 +276,27 @@ createItem()
   }
   nextTab3()
   {
-    debugger
     this.inspectionDetails.siteId= this.service.siteCount;
+    this.incomingArr=this.addstep3.get('incomingArr') as FormArray
     this.inspectionDetails.userName=this.email;
-    this.submitted = true;
+     this.submitted = true;
     if(this.addstep3.invalid) {
       return;
     }
+    this.service.iterationList=this.incomingArr.value;
     this.inspectionDetails.ipaoInspection = this.addstep3.value.incomingArr;
-  console.log(this.inspectionDetails);
-  console.log(this.addstep3.value.incomingArr);
 
   this.inspectionDetailsService.addInspectionDetails(this.inspectionDetails).subscribe(
     (    data: any)=> {
-      console.log("worked");
       this.proceedNext.emit(true); 
         this.success=true
         this.successMsg="Incoming Equipment successfully saved";
+       
         this.disable= true;
     },
     (    error: any) => {
-      console.log("error");
+      this.proceedNext.emit(false); 
       this.Error=true;
-        this.proceedNext.emit(false); 
         this.errorMsg="Something went wrong, kindly check all the fields";
     }
     )

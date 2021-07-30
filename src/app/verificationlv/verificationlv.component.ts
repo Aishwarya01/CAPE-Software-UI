@@ -112,6 +112,8 @@ export class VerificationlvComponent implements OnInit {
   @Output() passEntry: EventEmitter<any> = new EventEmitter();  
   formBuilder: any;
   arrDesigner!: FormArray; 
+  testing: any;
+
    constructor(private _formBuilder: FormBuilder,
     private modalService: NgbModal,
     private dialog: MatDialog,
@@ -123,7 +125,8 @@ export class VerificationlvComponent implements OnInit {
     private ChangeDetectorRef: ChangeDetectorRef
     )
      {
-    this.email = this.router.snapshot.paramMap.get('email') || '{}'
+    this.email = this.router.snapshot.paramMap.get('email') || '{}';
+
   }
 
   ngOnInit(): void {
@@ -135,7 +138,8 @@ export class VerificationlvComponent implements OnInit {
       secondCtrl: ['', Validators.required],
       clientname: ['', Validators.required],
     });
-    
+
+    this.testing;
     this.siteService.retrieveCountry().subscribe(
       data => {
         this.countryList = JSON.parse(data);
@@ -143,7 +147,6 @@ export class VerificationlvComponent implements OnInit {
     )
     this.refresh();
     this.retrieveClientDetails();
-    
   }
 
   retrieveIsActiveData() {
@@ -194,7 +197,6 @@ export class VerificationlvComponent implements OnInit {
         this.site_dataSource.sort = this.siteSort;
         debugger
         this.checkArray = JSON.parse(data)
-        console.log(JSON.parse(this.checkArray.length));
         if(this.checkArray.length > 0 ) {
           this.disable= false;
         }
@@ -353,6 +355,7 @@ deleteDepartment(departmentId: number) {
   }
 
   public doSomething3(next: any):void {
+    this.testing.callMethod();
     this.isCompleted3 = next;
   }
 
@@ -367,7 +370,9 @@ deleteDepartment(departmentId: number) {
  changeTab(index: number,sitedId: any,userName :any):void
 {
     this.selectedIndex = index;
-    this.basic.retrieveDetailsfromSavedReports(userName,sitedId);
+
+    // This is for saved reports
+    // this.basic.retrieveDetailsfromSavedReports(userName,sitedId);
 }
 
 continue() {

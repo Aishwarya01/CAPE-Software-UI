@@ -335,7 +335,7 @@
   <mat-tab label="Inspection Verification & Testing of Installation" >
     <mat-horizontal-stepper linear #stepper>
       <!-- step 1 (proceedNext)="doSomething1($event)"-->
-      <mat-step [completed]="isCompleted" >
+      <mat-step>
 
         <ng-template matStepLabel >Basic Information</ng-template>
 
@@ -345,7 +345,7 @@
       </mat-step>
       
 <!-- step 2 -->
-      <mat-step [completed]="isCompleted2">
+      <mat-step>
 
         <ng-template matStepLabel>Supply Characteristics</ng-template>
 
@@ -354,18 +354,15 @@
       </mat-step>
  
 <!-- step 3 -->
-      <mat-step [completed]="isCompleted3">
+      <mat-step >
         <ng-template matStepLabel>Inspection</ng-template>
         <app-inspection-verification-incoming-equipment (proceedNext)="doSomething3($event)"></app-inspection-verification-incoming-equipment>
       </mat-step>
 
-      <mat-step [completed]="isCompleted4">
+      <mat-step [completed]="true">
         <ng-template matStepLabel>Testing</ng-template>
-
-        <div>
-          <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
-          <button class="next" mat-button matStepperNext>Next &raquo;</button>
-        </div>
+        <app-inspection-verification-testing></app-inspection-verification-testing>
+   
 
       </mat-step>
 

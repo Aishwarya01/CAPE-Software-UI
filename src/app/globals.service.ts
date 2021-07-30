@@ -9,8 +9,8 @@ export class GlobalsService {
    
     private data = {};  
     siteCount: number = 0; 
-    //proceed: boolean=false;
-   
+   iterationList: any=[];
+
     constructor() {}
 
    

@@ -43,7 +43,7 @@ import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 import { InspectionVerificationBasicInformationComponent } from './inspection-verification-basic-information/inspection-verification-basic-information.component';
 import { InspectionVerificationIncomingEquipmentComponent } from './inspection-verification-incoming-equipment/inspection-verification-incoming-equipment.component';
 import { InspectionVerificationSupplyCharacteristicsComponent } from './inspection-verification-supply-characteristics/inspection-verification-supply-characteristics.component';
-
+import {  InspectionVerificationTestingComponent} from './inspection-verification-testing/inspection-verification-testing.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SavedreportsComponent } from './savedreports/savedreports.component';
 import { FinalreportsComponent } from './finalreports/finalreports.component';
@@ -78,6 +78,7 @@ import {Ng2TelInputModule} from 'ng2-tel-input';
     InspectionVerificationBasicInformationComponent,
     InspectionVerificationIncomingEquipmentComponent,
     InspectionVerificationSupplyCharacteristicsComponent,
+    InspectionVerificationTestingComponent,
     SavedreportsComponent,
     FinalreportsComponent
   ],

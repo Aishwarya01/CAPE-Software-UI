@@ -235,11 +235,11 @@ export class MainNavComponent implements OnInit, OnDestroy {
   }
   increase() {
     this.sidenavWidth = 20;
-    console.log('increase sidenav width');
+    
   }
   decrease() {
     this.sidenavWidth = 4;
-    console.log('decrease sidenav width');
+    
   }
   toggleNav() {
     this.mobileDisplay = true;

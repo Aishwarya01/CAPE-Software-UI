@@ -13,7 +13,7 @@ export class RiskAssessmentInspectionMaintenanceComponent implements OnInit {
   }
 
   onNavigateToQuestionaire(){
-    console.log("Navigate To Questionaire");
+    
   }
 
 }

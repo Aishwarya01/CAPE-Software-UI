@@ -209,10 +209,10 @@ setTrue() {
     this.summary.summaryDeclaration[0].declarationRole="inspector";
     this.summary.summaryDeclaration[1].declarationRole="authorizer";
 
-      console.log(this.summary);
+      
   this.summarydetailsService.addSummary(this.summary).subscribe(
     data=>{
-      console.log("worked");
+      
     }
   )
   }
@@ -227,8 +227,7 @@ setTrue() {
   disableValidators() {
     this.ObservationsArr = this.addsummary.get('ObservationsArr') as FormArray;
    this.loclength=this.ObservationsArr.length;
-    console.log(this.fcname);
-     for( this.i=0; this.i<this.loclength; this.i++)
+    for( this.i=0; this.i<this.loclength; this.i++)
      {
        for( this.j=0 ; this.j<this.fcname.length ; this.j++)
        {
@@ -249,7 +248,7 @@ setTrue() {
     }
    
    changeComboo(event:any) {
-    console.log('changed', event && event.value);
+   
     // if(event.target.value == 'Unsatisfactory') {
     //   this.overallAssessmentInstallation= false;
     //   this.disableValidatorsRadio();

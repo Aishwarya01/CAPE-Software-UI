@@ -170,7 +170,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
                }
 
   ngOnInit(): void {
-    //console.log(this.service.siteCount);
+    
     this.supplycharesteristicForm = this.formBuilder.group({
       systemEarthing: ['', Validators.required],
       liveConductor: ['', Validators.required],
@@ -603,7 +603,6 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
     }
   }
   showAlternateField(event:any) {
-    console.log('changed', event && event.value);
     this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
 
     if(event.target.value == 'No') {
@@ -715,7 +714,6 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
     this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
     this.loclength=this.alternateArr.length;
 
-    console.log(this.fcname);
     this.supplycharesteristicForm.controls["supplyNumber"].clearValidators();
     this.supplycharesteristicForm.controls["supplyNumber"].updateValueAndValidity();
 
@@ -969,17 +967,15 @@ nextTab2() {
       this.supplycharesteristic.mainLoopImpedance = this.loopImpedence
     }
 
-    console.log(this.supplycharesteristic)
+    
     this.supplyCharacteristicsService.addSupplyCharacteristics(this.supplycharesteristic).subscribe(
       data=> {
-        console.log("worked");
         this.proceedNext.emit(true);
         this.success=true
         this.successMsg="Supply charachteristics successfully saved";
         this.disable= true;
       },
       error => {
-        console.log("error");
         this.Error=true;
         this.proceedNext.emit(false);
         this.errorMsg="Something went wrong, kindly check all the fields";
