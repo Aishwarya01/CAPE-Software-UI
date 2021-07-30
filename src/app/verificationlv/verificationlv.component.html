@@ -15,10 +15,6 @@
                 <mat-checkbox class="example-margin showInactive" formControlName="retrieveIsActive"
                   (change)="retrieveIsActiveData()" [(ngModel)]="isChecked">Show InActive</mat-checkbox>
               </section>
-              <!-- <input type="checkbox" style="width: 50px; height: 20px;" formControlName="retrieveIsActive"
-                (change)="retrieveIsActiveData()" [(ngModel)]="isChecked"><label style="margin-left: -10px;">Show
-                InActive</label> -->
-
             </div>
             <div class="card-body">
               <table mat-table [dataSource]="company_dataSource" class="mat-elevation-z8 table" matSort
@@ -330,6 +326,7 @@
               restart_alt
             </span>
             Reset </button>
+            <button class="btn btn-info next" mat-button (click)="continue()" [disabled]="disable">continue</button>
         </div>
         
       </mat-step>

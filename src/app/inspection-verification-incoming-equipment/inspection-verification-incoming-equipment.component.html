@@ -1,12 +1,6 @@
  <!-- step 3 -->
  <div class="card">
-    <button class="btn btn-info mousechange" (click)="addItem()" title="Add another location"
-      style="padding: 7px 10px 0px 10px;
-     left: 93%;
-    top: 10px;
-      width: 4%;position: relative;">
-       <mat-icon aria-hidden="false" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>
-      </button>
+   
       <form [formGroup]="addstep3" (ngSubmit)="nextTab3()">
     <div class="card-body" formArrayName="incomingArr" *ngFor="let a of getIncomingControls(); let i = index" >
       <div [formGroupName]="i" >
@@ -1954,6 +1948,15 @@
     <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
       <span class="alert alert-danger">{{validationErrorMsg}}</span>
     </div>
+    <button class="btn btn-info mousechange" (click)="addItem()" title="Add another location"
+    style="padding: 5px 0px 0px 0px;
+    left: 2%;
+    top: 10px;
+    width: 3%;
+    height: 35px;
+    position: relative;">
+     <mat-icon aria-hidden="false" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>
+    </button>
     <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
       <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
       <button  class="next"  [disabled]="disable" (click)="gotoNextModal(content3)" mat-button >Next &raquo;</button>
