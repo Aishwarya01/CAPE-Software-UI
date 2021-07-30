@@ -3,9 +3,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { SiteService } from '../services/site.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { ApplicationTypeService } from '../services/application.service';
-import { Register } from '../model/register';
-import { InspectorregisterService } from '../services/inspectorregister.service';
-import { Router } from '@angular/router';
 
 
 @Component({
@@ -28,7 +25,6 @@ export class InspectorRegistrationComponent implements OnInit {
     department: new FormControl(''),
     designation: new FormControl(''),
     address: new FormControl(''),
-    district: new FormControl(''),
     country: new FormControl(''),
     state: new FormControl(''),
     pinCode: new FormControl(''),
@@ -44,14 +40,11 @@ export class InspectorRegistrationComponent implements OnInit {
   stateList: any= [];
   selected: any;
   applicationTypeData: any="";
-  register = new Register;
 
 
   constructor(private formBuilder: FormBuilder,
               private siteService: SiteService,
               private applicationService: ApplicationTypeService,
-              private inspectorRegisterService: InspectorregisterService,
-              private router: Router,
               ) { }
 
   ngOnInit(): void {
@@ -67,7 +60,6 @@ export class InspectorRegistrationComponent implements OnInit {
       department: ['', Validators.required],
       designation: ['', Validators.required],
       address: ['', Validators.required],
-      district: [''],
       country: ['', Validators.required],
       state: ['', Validators.required],
       pinCode: ['', Validators.required],
@@ -146,30 +138,23 @@ onSubmit() {
   this.submitted = true;
   console.log(this.InspectorRegisterForm.value.applicationType)
 
-  //Breaks if form is invalid
-  if(this.InspectorRegisterForm.invalid) {
-    return;
-  }
-  this.loading = true;
-
 
   for(let i of this.InspectorRegisterForm.value.applicationType) {
+    debugger
+    i.code;
+    console.log(i.code);
     if(i.code != "") {
       this.applicationTypeData += i.code+",";
     }
   }
   this.applicationTypeData = this.applicationTypeData.replace(/,\s*$/, "");
-  this.register.applicationType = this.applicationTypeData;
 
-    
-  this.inspectorRegisterService.registerInspector(this.register).subscribe(
-    data=> {
-      this.router.navigate(['/login']);
-    },
-    error => {
-      console.log("error")
+
+    //Breaks if form is invalid
+    if(this.InspectorRegisterForm.invalid) {
+      return;
     }
-  )
+    this.loading = true;
 
 }
 
