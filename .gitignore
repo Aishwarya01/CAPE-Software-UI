@@ -1,1 +1,28 @@
 node_modules
+dist/3rdpartylicenses.txt
+dist/assets/img/CAPE GIF.gif
+dist/assets/img/CAPE LOGO.bmp
+dist/assets/img/Cape-logo.png
+dist/assets/img/EMC.png
+dist/assets/img/highVoltage.jpg
+dist/assets/img/login-bg.jpg
+dist/assets/img/logo-mini.png
+dist/assets/img/logo.png
+dist/assets/img/lowVoltage.jpg
+dist/assets/img/LV.png
+dist/assets/img/riskAssessment.jpg
+dist/assets/img/Rush_Final_logo.png
+dist/assets/img/Sidebar-logo.png
+dist/bootstrap-icons.94eeade15e6b7fbed95b.woff
+dist/bootstrap-icons.dfd0ea122577eb61795f.woff2
+dist/favicon.ico
+dist/flags.007b2705c0a8f69dfdf6.png
+dist/flags@2x.9d5328fb490cddd43f66.png
+dist/index.html
+dist/login-bg.945edf37742f7ecc3470.jpg
+dist/main.bcb1d3a91bbd15d1ba7e.js
+dist/polyfills.8c151b8375e767ff858f.js
+dist/runtime.0e49e2b53282f40c8925.js
+dist/scripts.5448be4ca5189e589951.js
+dist/styles.2678eb72f7d9713e53e5.css
+dist/web.config
