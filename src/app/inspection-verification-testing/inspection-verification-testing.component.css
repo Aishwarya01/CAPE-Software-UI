@@ -29,3 +29,9 @@
   #table2 th {
     border: 1px solid  black;
   }
+  .next:disabled {
+    background-color: lightgrey;
+      color: black;
+      margin-left: 30px;
+      cursor: not-allowed;
+    }   
