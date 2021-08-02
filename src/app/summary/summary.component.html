@@ -17,7 +17,7 @@
                       [(ngModel)]="summary.extentInstallation" 
                       [ngClass]="{ 'is-invalid': submitted && f.extentInstallation?.errors }">
                       <div *ngIf="submitted && f.extentInstallation?.errors" class="invalid-feedback">
-                        <div *ngIf="f.extentInstallation?.errors?.required">Field is required</div>
+                        <div *ngIf="f.extentInstallation?.errors?.required">Field Is Required</div>
                     </div>
                     </div>
                   </div>
@@ -29,7 +29,7 @@
                       [(ngModel)]="summary.agreedLimitations"
                       [ngClass]="{ 'is-invalid': submitted && f.agreedLimitations?.errors }">
                       <div *ngIf="submitted && f.agreedLimitations?.errors" class="invalid-feedback">
-                        <div *ngIf="f.agreedLimitations?.errors?.required">Field is required</div>
+                        <div *ngIf="f.agreedLimitations?.errors?.required">Field Is Required</div>
                     </div>
                     </div>
                   </div>
@@ -41,7 +41,7 @@
                       [(ngModel)]="summary.agreedWith"
                       [ngClass]="{ 'is-invalid': submitted && f.agreedWith?.errors }">
                       <div *ngIf="submitted && f.agreedWith?.errors" class="invalid-feedback">
-                        <div *ngIf="f.agreedWith?.errors?.required">Field is required</div>
+                        <div *ngIf="f.agreedWith?.errors?.required">Field Is Required</div>
                     </div>
                     </div>
                   </div>
@@ -53,7 +53,7 @@
                       [(ngModel)]="summary.operationalLimitations"
                       [ngClass]="{ 'is-invalid': submitted && f.operationalLimitations?.errors }">
                       <div *ngIf="submitted && f.operationalLimitations?.errors" class="invalid-feedback">
-                        <div *ngIf="f.operationalLimitations?.errors?.required">Field is required</div>
+                        <div *ngIf="f.operationalLimitations?.errors?.required">Field Is Required</div>
                     </div>
                     </div>
                   </div>
@@ -68,7 +68,7 @@
                         [(ngModel)]="summary.inspectionTestingDetailed"
                         [ngClass]="{ 'is-invalid': submitted && f.inspectionTestingDetailed?.errors }">
                         <div *ngIf="submitted && f.inspectionTestingDetailed?.errors" class="invalid-feedback">
-                          <div *ngIf="f.inspectionTestingDetailed?.errors?.required">Field is required</div>
+                          <div *ngIf="f.inspectionTestingDetailed?.errors?.required">Field Is Required</div>
                       </div>
                     </div>
                   </div>
@@ -89,7 +89,7 @@
                     limitations specified at the extent and limitations of inspection and testing :</label>
                   <select class="form-control" formControlName="attachedInspection" (change)="onChange($event)"
                   [ngClass]="{ 'is-invalid': submitted && f.attachedInspection?.errors }">
-                  <option value="0" selected>Select option</option>
+                  <option value="0" selected>Select Option</option>
                   <option value="hide">No remedial action required</option>
                   <option value="show">The following observations are made</option>
                 </select>
@@ -113,7 +113,7 @@
                    placeholder="Ex. Report description..." 
                    [ngClass]="{ 'is-invalid': submitted && f.observations?.errors }"></textarea>
                    <div *ngIf="submitted && f.observations?.errors" class="invalid-feedback">
-                    <div *ngIf="f.observations?.errors?.required">Field is required</div>
+                    <div *ngIf="f.observations?.errors?.required">Field Is Required</div>
                 </div>
                 </div>
               </div>
@@ -122,13 +122,13 @@
                   <label>Further actions:</label>
                   <select class="form-control" formControlName="furtherActions" 
                   [ngClass]="{ 'is-invalid': submitted && f.furtherActions?.errors }">
-                    <option value="0" selected>Select option</option>
+                    <option value="0" selected>Select Option</option>
                     <option>C1 – Danger present. Risk of injury. Immediate remedial action required</option>
                     <option>C2 – Potentially dangerous – urgent remedial action required</option>
                     <option>C3 – Improvement recommended</option>
                   </select>
                   <div *ngIf="submitted && f.furtherActions?.errors" class="invalid-feedback">
-                    <div *ngIf="f.furtherActions?.errors?.required">Field is required</div>
+                    <div *ngIf="f.furtherActions?.errors?.required">Field Is Required</div>
                 </div>
                 </div>
               </div>
@@ -138,7 +138,7 @@
                   <input type="number" min="0" formControlName="referanceNumberReport" class="form-control"  
                   placeholder="Enter Contact Number" [ngClass]="{ 'is-invalid': submitted && f.referanceNumberReport?.errors }">
                   <div *ngIf="submitted && f.referanceNumberReport?.errors" class="invalid-feedback">
-                    <div *ngIf="f.referanceNumberReport?.errors?.required">Field is required</div>
+                    <div *ngIf="f.referanceNumberReport?.errors?.required">Field Is Required</div>
                 </div> 
                 </div>
               </div>
@@ -149,7 +149,7 @@
                   placeholder="Ex. Report description..." formControlName="comment"
                   [ngClass]="{ 'is-invalid': submitted && f.comment?.errors }"></textarea>
                   <div *ngIf="submitted && f.comment?.errors" class="invalid-feedback">
-                    <div *ngIf="f.comment?.errors?.required">Field is required</div>
+                    <div *ngIf="f.comment?.errors?.required">Field Is Required</div>
                 </div>
                 </div>
               </div>
@@ -184,7 +184,7 @@
                           [(ngModel)]="summary.recommendationsDate" formControlName="recommendationsDate"
                           [ngClass]="{ 'is-invalid': submitted && f.recommendationsDate?.errors }">  
                           <div *ngIf="submitted && f.recommendationsDate?.errors" class="invalid-feedback">
-                            <div *ngIf="f.recommendationsDate?.errors?.required">Field is required</div>
+                            <div *ngIf="f.recommendationsDate?.errors?.required">Field Is Required</div>
                         </div>            
                     </div>
                   </div>
@@ -207,7 +207,7 @@
                         [(ngModel)]="summary.generalConditionInstallation" 
                         [ngClass]="{ 'is-invalid': submitted && f.generalConditionInstallation?.errors }">
                         <div *ngIf="submitted && f.generalConditionInstallation?.errors" class="invalid-feedback">
-                          <div *ngIf="f.generalConditionInstallation?.errors?.required">Field is required</div>
+                          <div *ngIf="f.generalConditionInstallation?.errors?.required">Field Is Required</div>
                       </div> 
                       </div>
                     </div>
@@ -225,7 +225,7 @@
                           </mat-radio-button>
                         </mat-radio-group>
                         <div *ngIf="submitted && f.overallAssessmentInstallation?.errors" class="invalid-feedback">
-                          <div *ngIf="f.overallAssessmentInstallation?.errors?.required">Field is required</div>
+                          <div *ngIf="f.overallAssessmentInstallation?.errors?.required">Field Is Required</div>
                       </div> 
                    </div>
                    <div *ngIf="overallAssessmentInstallation=='Unsatisfactory'"><b>Note:</b>Unsatisfactory assessment indicates that dangerous and/or 
