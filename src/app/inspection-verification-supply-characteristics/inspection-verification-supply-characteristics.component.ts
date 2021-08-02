@@ -188,7 +188,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
       meansEarthing: ['', Validators.required],
       electrodeType: ['', Validators.required],
       electrodeMaterial: ['', Validators.required],
-      noOfLocation: ['',Validators.required],
+      noOfLocation: ['',[Validators.required,Validators.min(1)]],
       conductorSize: ['',Validators.required],
       conductormaterial: ['', Validators.required],
       conductorVerify: ['', Validators.required],
@@ -196,12 +196,12 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
       bondingConductorMaterial: ['', Validators.required],
       bondingConductorVerify: ['', Validators.required],
       bondingJointsType: ['',Validators.required],
-      bondingNoOfJoints: ['', Validators.required],
+      bondingNoOfJoints: ['',[Validators.required,Validators.min(1)]],
       earthingConductorSize: ['', Validators.required],
       earthingConductorMaterial: ['', Validators.required],
       earthingConductorVerify: ['', Validators.required],
       earthingJointsType: ['', Validators.required],
-      earthingNoOfJoints: ['', Validators.required],
+      earthingNoOfJoints: ['',[Validators.required,Validators.min(1)]],
       NV1: (''),
       NV2: (''),
       NV3: (''),
@@ -378,6 +378,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
       this.values = (<HTMLInputElement>event.target).value ;
      this.value = this.values;
       this.location1Arr = this.supplycharesteristicForm.get('location1Arr') as FormArray;
+      debugger
         if(this.location1Arr.length==0)
       {
         if(this.value != "")
@@ -410,7 +411,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
          }
         }
         }
-         else (this.location1Arr.length > this.value )
+         else if((this.location1Arr.length > this.value)  && (this.value != 0))
          {
          if(this.value != "")
             {
@@ -461,7 +462,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
          }
         }
         }
-         else (this.location2Arr.length > this.value )
+         else if((this.location2Arr.length > this.value) && (this.value != 0) )
          {
          if(this.value != "")
             {
@@ -511,7 +512,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
          }
         }
         }
-         else (this.location3Arr.length > this.value )
+         else if((this.location3Arr.length > this.value) && (this.value != 0))
          {
          if(this.value != "")
             {
@@ -628,8 +629,9 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
       this.value = this.values;
       this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
       this.circuitArr = this.supplycharesteristicForm.get('circuitArr') as FormArray;
+      debugger
 
-        if(this.value != "")
+        if((this.value != "") && (this.value != 0))
         {
           this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
           this.circuitArr = this.supplycharesteristicForm.get('circuitArr') as FormArray;
