@@ -361,7 +361,16 @@ export class InspectionVerificationTestingComponent implements OnInit {
   callMethod(){
    this.ngOnInit();
   }
-
+  closeModalDialog(){
+    if(this.errorMsg != ""){
+      this.Error = false;
+      this.modalService.dismissAll(this.errorMsg = "")
+    }
+    else {
+      this.success=false;
+      this.modalService.dismissAll(this.successMsg="")
+    }
+  }
   nextTab() {
     this.testingDetails.siteId = this.service.siteCount;
     this.testingDetails.userName = this.email;
