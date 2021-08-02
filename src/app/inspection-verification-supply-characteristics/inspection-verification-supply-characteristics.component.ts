@@ -378,7 +378,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
       this.values = (<HTMLInputElement>event.target).value ;
      this.value = this.values;
       this.location1Arr = this.supplycharesteristicForm.get('location1Arr') as FormArray;
-      debugger
+      
         if(this.location1Arr.length==0)
       {
         if(this.value != "")
@@ -629,8 +629,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
       this.value = this.values;
       this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;
       this.circuitArr = this.supplycharesteristicForm.get('circuitArr') as FormArray;
-      debugger
-
+      
         if((this.value != "") && (this.value != 0))
         {
           this.alternateArr = this.supplycharesteristicForm.get('alternateArr') as FormArray;

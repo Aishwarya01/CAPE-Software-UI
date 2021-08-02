@@ -250,7 +250,7 @@ closeModalDialog(){
 }
   SubmitTab5()
   {
-   debugger
+   
     this.summary.siteId=this.service.siteCount;
     this.summary.userName=this.email;
     this.submitted= true;

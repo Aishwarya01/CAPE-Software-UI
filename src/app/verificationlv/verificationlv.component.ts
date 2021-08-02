@@ -200,7 +200,6 @@ export class VerificationlvComponent implements OnInit {
         this.site_dataSource = new MatTableDataSource(JSON.parse(data));
         this.site_dataSource.paginator = this.sitePaginator;
         this.site_dataSource.sort = this.siteSort;
-        debugger
         this.checkArray = JSON.parse(data)
         if(this.checkArray.length > 0 ) {
           this.disable= false;
