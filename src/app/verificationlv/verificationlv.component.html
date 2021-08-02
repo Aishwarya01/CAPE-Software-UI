@@ -326,7 +326,12 @@
               restart_alt
             </span>
             Reset </button>
-            <button class="btn btn-info next" mat-button (click)="continue()" [disabled]="disable">continue</button>
+            <button class="btn btn-info next" mat-button (click)="continue()" [disabled]="disable">
+              <span class="material-icons" style="margin-left: -13px;">
+                arrow_right              
+              </span>
+              continue
+            </button>
         </div>
         
       </mat-step>
