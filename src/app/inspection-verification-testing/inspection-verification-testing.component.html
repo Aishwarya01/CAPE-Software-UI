@@ -78,9 +78,9 @@
 
                         <div class="col-md-4">
                             <label>Details Of Test Instrument</label>
-                            <input type="text" formControlName="detailsTestInstrument"    placeholder="Enter Details of test instrument Name"class="form-control"[ngClass]="{ 'is-invalid': submitted && a.get('detailsTestInstrument')?.errors }"  >
+                            <input type="text" formControlName="detailsTestInstrument"    placeholder="Enter Details Of test instrument Name"class="form-control"[ngClass]="{ 'is-invalid': submitted && a.get('detailsTestInstrument')?.errors }"  >
                             <div *ngIf="submitted && a.get('detailsTestInstrument')?.errors" class="invalid-feedback">
-                              <div *ngIf="a.get('detailsTestInstrument')?.errors?.required">Details of test instrument value is required</div>
+                              <div *ngIf="a.get('detailsTestInstrument')?.errors?.required">Details Of test instrument value is required</div>
                             </div> 
                         </div>
 
@@ -167,7 +167,7 @@
                                 <div class="col-md-4">
                                     <label>Correct Supply Polarity </label>
                                     <select class="form-control" formControlName="correctSupplyPolarity" [ngClass]="{ 'is-invalid': submitted && c.get('correctSupplyPolarity')?.errors }">
-                                        <option value="0" selected>Select option</option>
+                                        <option value="0" selected>Select Option</option>
                                         <option value="Yes" selected>Yes</option>
                                         <option value="No" selected>No</option>
                                     </select>
@@ -319,7 +319,7 @@
                                             <th></th>
                                         </tr>
                                         <tr align="center">
-                                            <th rowspan="2">Circute No</th>
+                                            <th rowspan="2">Circuit No</th>
                                             <th>Description</th>
                                             <th>Standard No</th>
                                             <th>R-N</th>

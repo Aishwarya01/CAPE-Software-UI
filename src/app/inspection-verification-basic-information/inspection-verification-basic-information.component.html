@@ -43,7 +43,7 @@
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
               <mat-panel-title>
-                <h3>Details of Report</h3>
+                <h3>Details Of Report</h3>
               </mat-panel-title>
 
             </mat-expansion-panel-header>
@@ -79,7 +79,7 @@
                 <div class="form-group">
                   <label>Type of Installation* :</label>
                   <select class="form-control" formControlName="installationType" (change)="showWiringAge($event)" [(ngModel)]="reportDetails.installationType" [ngClass]="{ 'is-invalid': submitted && f.installationType.errors }">
-                    <option value="0" selected>Select option</option>
+                    <option value="0" selected>Select Option</option>
                     <option *ngFor="let value of installationList">{{value}}</option>
                   </select>
                   <div *ngIf="submitted && f.installationType.errors" class="invalid-feedback">
@@ -92,11 +92,11 @@
                 <div class="form-group">
                   <label>Description of the Premise* :</label>
                   <select class="form-control" formControlName="descPremise" [(ngModel)]="reportDetails.descriptionPremise" [ngClass]="{ 'is-invalid': submitted && f.descPremise.errors }">
-                    <option value="0" selected>Select option</option>
+                    <option value="0" selected>Select Option</option>
                     <option *ngFor="let value of premiseList">{{value}}</option>
                   </select>
                   <div *ngIf="submitted && f.descPremise.errors" class="invalid-feedback">
-                    <div *ngIf="f.descPremise?.errors?.required">Field is required</div>
+                    <div *ngIf="f.descPremise?.errors?.required">Field Is Required</div>
                 </div>
                 </div>
               </div>
@@ -111,14 +111,14 @@
                      [(ngModel)]="reportDetails.estimatedWireAge"
                      [ngClass]="{ 'is-invalid': submitted && f.showField1.errors }">
                      <div *ngIf="submitted && f.showField1.errors" class="invalid-feedback">
-                      <div *ngIf="f.showField1?.errors?.required">Field is required</div>
+                      <div *ngIf="f.showField1?.errors?.required">Field Is Required</div>
                      </div>
               </div>
 
               <div class="col-md-4">
                 <label>Evidence of Addition/Alterations* :</label>
                 <select class="form-control" formControlName="evidenceAlterations" (change)="showEstimatedAge($event)" [(ngModel)]="reportDetails.evidanceAddition" [ngClass]="{ 'is-invalid': submitted && f.evidenceAlterations.errors }">
-                  <option value="0" selected>Select option</option>
+                  <option value="0" selected>Select Option</option>
                   <option *ngFor="let value of evidenceList">{{value}}</option>
                 </select>
                 <div *ngIf="submitted && f.evidenceAlterations.errors" class="invalid-feedback">
@@ -135,14 +135,14 @@
                   border-bottom: 1px solid #000000;"
                 [(ngModel)]="reportDetails.estimateAgeYes">
                 <div *ngIf="submitted && f.showField2.errors" class="invalid-feedback">
-                  <div *ngIf="f.showField2?.errors?.required">Field is required</div>
+                  <div *ngIf="f.showField2?.errors?.required">Field Is Required</div>
                 </div>
               </div>
 
               <div class="col-md-4">
                 <label>Previous Records Available* :</label>
                 <select class="form-control" formControlName="previousRecord" [(ngModel)]="reportDetails.previousRecords" [ngClass]="{ 'is-invalid': submitted && f.previousRecord.errors }">
-                  <option value="0" selected>Select option</option>
+                  <option value="0" selected>Select Option</option>
                   <option *ngFor="let value of previousRecordList">{{value}}</option>
                 </select>
                 <div *ngIf="submitted && f.previousRecord.errors" class="invalid-feedback">
@@ -168,7 +168,7 @@
                   [(ngModel)]="reportDetails.extentInstallation"
                   [ngClass]="{ 'is-invalid': submitted && f.extentInstallation.errors }"></textarea>
                   <div *ngIf="submitted && f.extentInstallation.errors" class="invalid-feedback">
-                    <div *ngIf="f.extentInstallation?.errors?.required">Field is required</div>
+                    <div *ngIf="f.extentInstallation?.errors?.required">Field Is Required</div>
                   </div>
                 </mat-form-field>
               </div>
@@ -179,17 +179,17 @@
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
               <mat-panel-title>
-                <h3>Details of Client / Person Ordering this Report </h3>
+                <h3>Details Of Client / Person Ordering This Report </h3>
               </mat-panel-title>
 
             </mat-expansion-panel-header>
             <div class="row">
               <div class="col-md-4">
                 <mat-form-field class="client-description ">
-                  <mat-label><h3>Details of Client / Person Ordering This Report * (maximum length is 50 )</h3></mat-label>
+                  <mat-label><h3>Details Of Client / Person Ordering This Report * (maximum length is 50 )</h3></mat-label>
                   <textarea matInput class="client-box-description" formControlName="detailsOfClient" maxlength="50" [ngClass]="{ 'is-invalid': submitted && f.detailsOfClient.errors }" placeholder=" Ex. Name, address ,purpose ,relation with end user.." [(ngModel)]="reportDetails.clientDetails"></textarea>
                   <div *ngIf="submitted && f.detailsOfClient.errors" class="invalid-feedback">
-                    <div *ngIf="f.detailsOfClient?.errors?.required">Details of client is required</div>
+                    <div *ngIf="f.detailsOfClient?.errors?.required">Details Of client is required</div>
                 </div>
                 </mat-form-field>
               </div>
@@ -198,10 +198,10 @@
             <div class="row">
               <div class="col-md-4">
                 <mat-form-field class="client-description ">
-                  <mat-label><h3>Details of Installation Referred In This Report * (maximum length is 75 )</h3></mat-label>
+                  <mat-label><h3>Details Of Installation Referred In This Report * (maximum length is 75 )</h3></mat-label>
                   <textarea matInput class="client-box-description" formControlName="detailsOfInstallation" maxlength="75" [ngClass]="{ 'is-invalid': submitted && f.detailsOfInstallation.errors }" placeholder=" Ex. Occupier ,address details etc.." [(ngModel)]="reportDetails.installationDetails"></textarea>
                   <div *ngIf="submitted && f.detailsOfInstallation.errors" class="invalid-feedback">
-                    <div *ngIf="f.detailsOfInstallation?.errors?.required">Details of installation is required</div>
+                    <div *ngIf="f.detailsOfInstallation?.errors?.required">Details Of installation is required</div>
                 </div>
                 </mat-form-field>
               </div>
@@ -214,7 +214,7 @@
                   <input type="date" class="form-control" formControlName="startingDateVerification"
                   [ngClass]="{ 'is-invalid': submitted && f.startingDateVerification.errors }" placeholder="Enter Date" [(ngModel)]="reportDetails.verificationDate">
                   <div *ngIf="submitted && f.startingDateVerification.errors" class="invalid-feedback">
-                    <div *ngIf="f.startingDateVerification?.errors?.required">Field is required</div>
+                    <div *ngIf="f.startingDateVerification?.errors?.required">Field Is Required</div>
                 </div>
                 </div>
 
@@ -249,11 +249,11 @@
                 <div class="col-md-4">
                   <label>Read and Confirmed the Extent and Limitations* :</label>
                   <select class="form-control" formControlName="confirmExtent" [(ngModel)]="reportDetails.confirmExtent" [ngClass]="{ 'is-invalid': submitted && f.confirmExtent.errors }">
-                    <option value="0" selected>Select option</option>
+                    <option value="0" selected>Select Option</option>
                     <option *ngFor="let value of previousRecordList">{{value}}</option>
                   </select>
                   <div *ngIf="submitted && f.confirmExtent.errors" class="invalid-feedback">
-                    <div *ngIf="f.confirmExtent?.errors?.required">Field is required</div>
+                    <div *ngIf="f.confirmExtent?.errors?.required">Field Is Required</div>
                 </div>
                 </div>
               </div>
@@ -442,14 +442,14 @@
               border-bottom: 1px solid #000000;"
             [(ngModel)]="reportDetails.nextInspection" formControlName="nextInspection" placeholder="Enter year">
             <div *ngIf="submitted && f.nextInspection.errors" class="invalid-feedback">
-              <div *ngIf="f.nextInspection?.errors?.required">Field is required</div>
+              <div *ngIf="f.nextInspection?.errors?.required">Field Is Required</div>
           </div>
           </mat-expansion-panel>
 
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
               <mat-panel-title>
-                <h3>Details of signatories to the verification report</h3>
+                <h3>Details Of signatories To The Verification Report</h3>
               </mat-panel-title>
             </mat-expansion-panel-header>
             <h2>Designer Details</h2>
@@ -787,7 +787,7 @@
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
               <mat-panel-title>
-                <h3>Details of Contractor</h3>
+                <h3>Details Of Contractor</h3>
               </mat-panel-title>
             </mat-expansion-panel-header>
             <h2>Contractor Details*</h2>
@@ -958,7 +958,7 @@
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
               <mat-panel-title>
-                <h3>Details of Inspector</h3>
+                <h3>Details Of Inspector</h3>
               </mat-panel-title>
             </mat-expansion-panel-header>
             <h2>Inspector Details*</h2>

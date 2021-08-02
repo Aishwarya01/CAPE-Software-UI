@@ -113,9 +113,9 @@ export class InspectionVerificationSupplyCharacteristicsComponent implements OnI
   liveConductorDCList:String[]=['2-pole','3-pole','Others'];
   ProtectiveDevicelist:string[]=['Fuse','MCB','MCCB','ACB'];
   AlternatesupplyList:string[]=['Yes','No'];
-  MeansofEarthingList:string[]=['Suppliers facility',' Installation earth electrode'];
-  electrodeTypeList:string[]=['Vertical','Horizontal','Combined vertical + horizontal'];
-  electrodeMaterialList:string[]=['Copper','Coppebondedr  steel','Galvanised steel','Combination','Others'];
+  MeansofEarthingList:string[]=['Suppliers Facility',' Installation Earth Electrode'];
+  electrodeTypeList:string[]=['Vertical','Horizontal','Combined Vertical + Horizontal'];
+  electrodeMaterialList:string[]=['Copper','Copperbonded  steel','Galvanised Steel','Combination','Others'];
   conductorVerifyList:string[]=['Yes','No'];
   bondingConductorVerifyList:string[]=['Yes','No'];
   earthingConductorVerifyList:string[]=['Yes','No'];
