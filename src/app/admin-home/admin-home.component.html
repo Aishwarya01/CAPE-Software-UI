@@ -15,10 +15,10 @@
     </mat-toolbar-row>
   </mat-toolbar>
 
-  <div class="card">
+  <div class="card" style="margin: 20px;">
       <div class="card-body">
         <table mat-table [dataSource]="admin_dataSource" class="mat-elevation-z8 table" matSort
-                #adminSort="matSort">
+                #adminSort="matSort" id="adminTable">
 
                 <!--- Note that these columns can be defined in any order.
                             The actual rendered columns are set as a property on the row definition" -->

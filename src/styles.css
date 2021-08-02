@@ -311,3 +311,7 @@ visibility: visible;
 }
 
 .invalid-feedback{display:block;}
+
+#adminTable tr.mat-row, tr.mat-footer-row {
+  height: 60px !important;
+}
