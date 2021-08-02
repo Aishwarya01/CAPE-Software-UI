@@ -1,0 +1,24 @@
+<form [formGroup]="userUpdateForm" >
+    <h2>{{name}} - {{companyName}}</h2>
+
+    <div class="row">
+        <mat-radio-group aria-label="Select an option" formControlName="permission">
+            <mat-radio-button value="Yes">Approve</mat-radio-button>
+            <mat-radio-button value="No">Reject</mat-radio-button>
+          </mat-radio-group>    
+    </div>
+
+    <div class="row">
+        <mat-form-field class="client-description">
+            <mat-label><h3>Comment</h3></mat-label>
+            <textarea matInput class="client-box-description" formControlName="cmntBox" maxlength="100" placeholder="Ex. Add comment if disapproved..." ></textarea>
+            <!-- <div *ngIf="submitted && f.descriptionOfReport.errors" class="invalid-feedback">
+              <div *ngIf="f.descriptionOfReport?.errors?.required">Description is required</div>
+          </div> -->
+        </mat-form-field>
+    </div>
+    
+    <button (click)="onSubmit()" class="btn btn-info" style="float: right;">Submit</button>
+
+
+</form>

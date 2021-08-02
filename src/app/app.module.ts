@@ -51,6 +51,8 @@ import { AdminLoginComponent } from './admin-login/admin-login.component'
 import { AdminRegisterComponent }  from './admin-register/admin-register.component'
 
 import {Ng2TelInputModule} from 'ng2-tel-input';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
+import { UserUpdateComponent } from './user-update/user-update.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +85,9 @@ import {Ng2TelInputModule} from 'ng2-tel-input';
     SavedreportsComponent,
     FinalreportsComponent,
     AdminLoginComponent,
-    AdminRegisterComponent
+    AdminRegisterComponent,
+    AdminHomeComponent,
+    UserUpdateComponent
   ],
   imports: [
     NgbModule,
