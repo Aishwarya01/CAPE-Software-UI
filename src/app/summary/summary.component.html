@@ -1,6 +1,6 @@
-<form [formGroup]="addsummary">
-    <div class="card">
-      <div class="card-body">
+<div class="card">
+  <div class="card-body">
+<form [formGroup]="addsummary" (ngSubmit)="SubmitTab5()">
         <mat-accordion>
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
@@ -21,7 +21,6 @@
                     </div>
                     </div>
                   </div>
-    
                   <div class="col-sm-12">
                     <div class="form-group">
                       <label>Agreed limitations including the reasons:</label>
@@ -398,21 +397,42 @@
             
           </mat-expansion-panel>
       </mat-accordion>
+      <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+        <span class="alert alert-danger">{{validationErrorMsg}}</span>
+    </div>
       <div style="text-align: center;margin-top: 40px;">
         <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
       </div>
-      </div>
+    
+      <div style="text-align: center;margin-top: 30px;">
+        <button  style="width: 110px;" type="submit" (click)="gotoNextModal(content5)"
+        class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn next"
+        [disabled]="disable" mat-button>
+          <i class="bi bi-journal-arrow-up icon"></i> Submit</button>
     </div>
+  
   </form>
+</div>
+</div>
+ 
+   
+  
 
-    <br>    
+  <ng-template #content5 let-modal>
+    <div class="modal-body">
+        <div class="centre-text m-btm30">
+            <div *ngIf="success" style="text-align: center;">
+                <span class="alert alert-success">{{successMsg}}</span>
+            </div>
+            <div *ngIf="Error" style="text-align: center;">
+                <span class="alert alert-danger">{{errorMsg}}</span>
+            </div>
+        </div>
+    </div>
     <br>
-    <!-- <div style="text-align: center;margin-top: 40px;">
-      <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
-      <button  class="next" (mouseover)="setTrue()" (click)="gotoNext()" mat-button matStepperNext>Next &raquo;</button>
-    </div> -->
-    <div style="display: inline;">
-      <button  style="margin: 0 auto;width: 110px;" type="submit" (click)="SubmitTab5()" (mouseover)="setTrue()"
-      class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" matStepperNext>
-        <i class="bi bi-journal-arrow-up icon"></i> Submit</button>
-  </div>
+    <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+   aria-label="Close" (click)="closeModalDialog()">
+    <span aria-hidden="true">Ok</span>
+</button>
+
+</ng-template>

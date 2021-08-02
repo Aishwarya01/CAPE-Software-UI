@@ -29,6 +29,7 @@ import { InspectionVerificationBasicInformationComponent } from '../inspection-v
 import { InspectionVerificationTestingComponent } from '../inspection-verification-testing/inspection-verification-testing.component';
 
 
+
 @Component({
   selector: 'app-verificationlv',
   templateUrl: './verificationlv.component.html',
@@ -111,6 +112,7 @@ export class VerificationlvComponent implements OnInit {
   disable: boolean = true;
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
+  
 
   @Output() passEntry: EventEmitter<any> = new EventEmitter();  
   formBuilder: any;
@@ -125,6 +127,7 @@ export class VerificationlvComponent implements OnInit {
     private reportDetailsService: ReportDetailsService,
     private siteService: SiteService,
     private ChangeDetectorRef: ChangeDetectorRef
+
     )
      {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
@@ -370,6 +373,14 @@ deleteDepartment(departmentId: number) {
   }
 
  changeTab(index: number,sitedId: any,userName :any):void
+{
+    this.selectedIndex = index;
+
+    // This is for saved reports
+    // this.basic.retrieveDetailsfromSavedReports(userName,sitedId);
+}
+
+changeTab1(index: number):void
 {
     this.selectedIndex = index;
 

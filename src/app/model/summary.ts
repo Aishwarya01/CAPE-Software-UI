@@ -1,7 +1,7 @@
 export class Summary {
     userName!: String;
     siteId!: number;
-    limitationsInspection!: String;
+    //limitationsInspection!: String;
     extentInstallation!: String;
     agreedLimitations!: number;
     agreedWith!: number;
