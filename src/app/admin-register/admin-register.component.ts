@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Admin } from '../model/admin';
+import { AdminServiceService } from '../services/admin-service.service';
 
 @Component({
   selector: 'app-admin-register',
@@ -27,7 +28,8 @@ export class AdminRegisterComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router) { }
+    private router: Router,
+    private adminService: AdminServiceService) { }
 
   ngOnInit() {
     this.adminRegisterForm = this.formBuilder.group({
@@ -57,6 +59,19 @@ export class AdminRegisterComponent implements OnInit {
 
     this.loading = true;
     this.admin.username = this.adminRegisterForm.value.email;
+    this.adminService.addAdmin(this.admin).subscribe(
+      data => {
+        this.msg ="Admin Register Success";
+        this.router.navigate(['/admin/login']);
+        console.log(this.msg);
+      },
+      error => {
+        console.log(this.msg);
+        console.log(this.alert);
+        this.loading= false;
+      }
+    )
+
 
     // if(this.registerForm.value.email.includes("@capeindia.net")) {
     //   this.admin.authorisedUser = "YES";

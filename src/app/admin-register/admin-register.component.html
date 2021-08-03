@@ -118,7 +118,8 @@
                             </div> -->
 
                             <div style="display: inline;">
-                                <button style="float: left;" type="submit" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" id="login-btn"><i class="bi bi-person-plus-fill icon"></i> Register</button>
+                                <button style="float: left;" [disabled]="loading" type="submit" [ngStyle]="{'cursor': loading ? 'not-allowed' : 'pointer'}"
+                                class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" id="login-btn"><i class="bi bi-person-plus-fill icon"></i> Register</button>
                                 <button [routerLink]="['/admin/login']" style="float:right;"  class="btn btn-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
                             </div>
                         </form>

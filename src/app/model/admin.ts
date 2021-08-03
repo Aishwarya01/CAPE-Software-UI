@@ -1,5 +1,5 @@
 export class Admin {
-    id!: number;
+    adminId!: number;
     firstname: String = '';
     lastname: String = '';
     email: String = '';
@@ -7,4 +7,7 @@ export class Admin {
     usertype: String = '';
     password: String = '';  
     role: String = '';
+    adminexist!: boolean;
+    creationdate!: Date;
+    updateddate!: Date;
 }
