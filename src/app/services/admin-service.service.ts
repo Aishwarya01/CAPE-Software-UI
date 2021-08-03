@@ -29,4 +29,8 @@ export class AdminServiceService {
   public deleteAdmin(id: number): Observable<any>{
     return this.http.delete(this.apiUrl+ '/deleteAdmin/{adminId}')
   }
+
+  public retrieveAllInspector(): Observable<any>{
+    return this.http.get<Admin>(this.apiUrl+'/retrieveAllRegistration')
+  }
 }

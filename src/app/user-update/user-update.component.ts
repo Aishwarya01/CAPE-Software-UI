@@ -15,12 +15,16 @@ export class UserUpdateComponent implements OnInit {
   @Input()
   name: String = '';
   companyName: String = '';
+  permission: String = '';
+  registerId: String = '';
+
 
 
   constructor(private formBuilder: FormBuilder,
     ) { }
 
   ngOnInit(): void {
+    console.log(this.name+ "," +this.companyName+ "," +this.permission + "," +this.registerId)
     this.userUpdateForm = this.formBuilder.group({
       cmntBox: ['', Validators.required],
       permission: ['', Validators.required],
