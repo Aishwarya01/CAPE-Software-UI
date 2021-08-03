@@ -47,11 +47,15 @@ import { InspectionVerificationSupplyCharacteristicsComponent } from './inspecti
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SavedreportsComponent } from './savedreports/savedreports.component';
 import { FinalreportsComponent } from './finalreports/finalreports.component';
+import { AdminLoginComponent } from './admin-login/admin-login.component'
+import { AdminRegisterComponent }  from './admin-register/admin-register.component'
 
 import {Ng2TelInputModule} from 'ng2-tel-input';
 import { InspectorRegistrationComponent } from './inspector-registration/inspector-registration.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
+import { AdminHomeComponent } from './admin-home/admin-home.component';
+import { UserUpdateComponent } from './user-update/user-update.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +88,10 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     SavedreportsComponent,
     FinalreportsComponent,
     InspectorRegistrationComponent
+    AdminLoginComponent,
+    AdminRegisterComponent,
+    AdminHomeComponent,
+    UserUpdateComponent
   ],
   imports: [
     NgbModule,

@@ -312,7 +312,6 @@ visibility: visible;
 
 .invalid-feedback{display:block;}
 
-
 .multiselect-dropdown {
   position: absolute !important;
   width: 91% !important;
@@ -323,4 +322,7 @@ visibility: visible;
 
 .multiselect-dropdown .dropdown-btn .selected-item {
   max-width: unset !important;
+}
+#adminTable tr.mat-row, tr.mat-footer-row {
+  height: 60px !important;
 }

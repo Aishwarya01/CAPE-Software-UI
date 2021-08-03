@@ -13,6 +13,9 @@ import { AddApplicationTypesComponent } from './add-application-types/add-applic
 import { VerificationlvComponent } from './verificationlv/verificationlv.component';
 import { LvInspectionDetailsComponent } from './lv-inspection-details/lv-inspection-details.component';
 import { InspectorRegistrationComponent } from './inspector-registration/inspector-registration.component';
+import { AdminRegisterComponent } from './admin-register/admin-register.component';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
 
 const routes: Routes = [
   {path: '', redirectTo: "/login", pathMatch: 'full' },
@@ -30,6 +33,9 @@ const routes: Routes = [
   {path: 'home',component:HomeComponent, canActivate:[AuthenticationGuard]},
   {path: 'verificationlv',component:VerificationlvComponent},
   {path: 'inspectorregister',component:InspectorRegistrationComponent},
+  {path: 'admin/register',component:AdminRegisterComponent},
+  {path: 'admin/login',component:AdminLoginComponent},
+  {path: 'admin/home',component:AdminHomeComponent}
 
 
 ];
