@@ -303,6 +303,7 @@ visibility: visible;
 } */
 .iti{
   display: block !important;
+  width: 100% !important;
 }
 .iti__flag-container{
   background-color: #e9ecef;

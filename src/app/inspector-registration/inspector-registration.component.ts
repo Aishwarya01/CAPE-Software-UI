@@ -213,6 +213,7 @@ this.inspectorRegisterService.registerInspector(this.register).subscribe(
   },
   error => {
     this.error = true;
+    this.loading= false;
       this.errorMsg = "Something went wrong, kindly check all the fields";
       setTimeout(() => {
         this.error = false;

@@ -55,13 +55,3 @@
 .form-check{
     padding-left: 0.3rem !important;
 }
-
-.iti{
-  display: block !important;
-  width: 100%;
-}
-.iti__flag-container{
-  background-color: #e9ecef;
-  border: 1px solid #ced4da;
-  border-radius: 0.25rem;
-}
