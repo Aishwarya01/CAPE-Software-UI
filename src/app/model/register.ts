@@ -2,7 +2,7 @@ export class Register {
     registerId!: number;
     name: String = '';
     companyName: String = '';
-    userName: String = '';
+    username: String = '';
     password: String = '';
     role: String = '';  
     contactNumber: String = '';

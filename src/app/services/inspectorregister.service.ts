@@ -8,7 +8,7 @@ import { Register } from '../model/register';
   providedIn: 'root'
 })
 export class InspectorregisterService {
-  apiUrl = environment.apiUrl;
+  apiUrl = environment.apiUrl_v2;
   constructor ( private http: HttpClient) { }
   
   public  registerInspector (register: Register): Observable<any> {
