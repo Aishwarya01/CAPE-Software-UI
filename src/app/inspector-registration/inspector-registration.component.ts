@@ -167,6 +167,7 @@ onSubmit() {
       this.router.navigate(['/login']);
     },
     error => {
+      this.loading= false;
       console.log("error")
     }
   )
