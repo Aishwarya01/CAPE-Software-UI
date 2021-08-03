@@ -77,13 +77,12 @@ export class RegisterComponent implements OnInit {
       data => {
         this.msg ="Register Success";
         this.router.navigate(['/login']);
-        console.log(this.msg);
+        
       },
       error => {
         this.msg="Given email-Id is already existing...!";
         this.alert="Email-id is already present, Enter new email-id";
-        console.log(this.msg);
-        console.log(this.alert);
+       
       }
     )
   }

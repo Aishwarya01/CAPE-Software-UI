@@ -91,3 +91,9 @@ mat-header-cell.mat-header-cell {
   float: left;
 }
 
+.next:disabled {
+  background-color: lightgrey;
+    color: black;
+    margin-left: 30px;
+    cursor: not-allowed;
+  }   

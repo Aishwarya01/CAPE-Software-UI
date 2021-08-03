@@ -15,6 +15,9 @@ export class InspectiondetailsService {
   public addInspectionDetails(inspectionDetails: InspectionDetails): Observable<any> {
     return this.http.post<any>(this.apiUrl + '/addInspectionDetails', inspectionDetails, { responseType: 'text' as 'json' })
   }
+  public retrieveLocation(userName: String,siteId:number): Observable<any> {
+    return this.http.get<InspectionDetails>(this.apiUrl + '/retrieveInspectionDetails' + '/' +userName + '/' +siteId,{ responseType: 'text' as 'json' })
+  }
 }
 
 

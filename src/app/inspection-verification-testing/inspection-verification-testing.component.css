@@ -1,0 +1,37 @@
+.auth-form-btn {
+    margin-top: 40px;
+    width: 20%;
+    margin: 0 auto;
+}
+
+.auth-form-btn .icon {
+    float: left;
+    margin-right: 30px;
+}
+.search-bar{
+  border: 2px solid #b1b1b1;
+  padding: 15px;
+  border-radius: 4px;
+  }
+#table1   {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #table1  th {
+    background-color: lightgrey;
+    border: 1px solid  lightgrey;
+  }
+ #table tbody tr{
+    border-bottom: 1px solid black;
+  }
+  #table2 th {
+    border: 1px solid  black;
+  }
+  .next:disabled {
+    background-color: lightgrey;
+      color: black;
+      margin-left: 30px;
+      cursor: not-allowed;
+    }   

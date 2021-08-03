@@ -10,6 +10,7 @@ export class User {
     active: boolean = false;
     role: String = '';
     authorisedUser: String = '';
+    otp!: number;
  
     constructor () {
     }

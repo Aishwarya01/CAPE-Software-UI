@@ -6,7 +6,7 @@
           <ng-template matStepLabel>Company</ng-template>
           <div class="card">
             <div class="card-header">
-              <button class="btn btn-info" title="Add new client" (click)="addClient()"
+              <button class="btn btn-info" title="Add New Client" (click)="addClient()"
                 style="padding: 7px 10px 0px 10px;float: right;">
                 <!-- <mat-icon>add_box</mat-icon> -->
                 <mat-icon aria-hidden="false" aria-label="Example home icon">add_box</mat-icon>
@@ -15,10 +15,6 @@
                 <mat-checkbox class="example-margin showInactive" formControlName="retrieveIsActive"
                   (change)="retrieveIsActiveData()" [(ngModel)]="isChecked">Show InActive</mat-checkbox>
               </section>
-              <!-- <input type="checkbox" style="width: 50px; height: 20px;" formControlName="retrieveIsActive"
-                (change)="retrieveIsActiveData()" [(ngModel)]="isChecked"><label style="margin-left: -10px;">Show
-                InActive</label> -->
-
             </div>
             <div class="card-body">
               <table mat-table [dataSource]="company_dataSource" class="mat-elevation-z8 table" matSort
@@ -35,10 +31,6 @@
                       style="padding: 7px 10px 0px 10px;">
                       <mat-icon aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
                     </button>
-
-                    <!-- <button class="btn btn-info" (click)="addClient()" style="padding: 7px 10px 0px 10px;">
-                      <mat-icon aria-hidden="false" aria-label="Example home icon">add_box</mat-icon>
-                    </button> -->
                   </td>
                 </ng-container>
 
@@ -123,7 +115,7 @@
                     </select></span>
                 </div>
                 <div class="col-md-2">
-                  <button class="btn btn-info" title="Add new department" (click)="addDepartment()"
+                  <button class="btn btn-info" title="Add New Department" (click)="addDepartment()"
                     style="padding: 7px 10px 0px 10px;float: right;">
                     <mat-icon aria-hidden="false" aria-label="Example home icon">add_box</mat-icon>
                   </button>
@@ -232,7 +224,7 @@
                   </select></span>
               </div>
               <div class="col-md-2">
-                <button class="btn btn-info" (click)="addSite()" style="padding: 7px 10px 0px 10px;float: right;">
+                <button class="btn btn-info" title="Add New Site" (click)="addSite()" style="padding: 7px 10px 0px 10px;float: right;">
                   <mat-icon aria-hidden="false" aria-label="Example home icon">add_box</mat-icon>
                 </button>
               </div>
@@ -334,18 +326,21 @@
               restart_alt
             </span>
             Reset </button>
+            <button class="btn btn-info next" mat-button (click)="continue()" [disabled]="disable">
+              <span class="material-icons" style="margin-left: -13px;">
+                arrow_right              
+              </span>
+              Continue
+            </button>
         </div>
-        <!-- <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button (click)="stepper.reset()">Reset</button>
-        </div> -->
+        
       </mat-step>
     </mat-horizontal-stepper>
   </mat-tab>
   <mat-tab label="Inspection Verification & Testing of Installation" >
     <mat-horizontal-stepper linear #stepper>
       <!-- step 1 (proceedNext)="doSomething1($event)"-->
-      <mat-step [completed]="isCompleted" >
+      <mat-step [completed]="isCompleted">
 
         <ng-template matStepLabel >Basic Information</ng-template>
 
@@ -371,11 +366,8 @@
 
       <mat-step [completed]="isCompleted4">
         <ng-template matStepLabel>Testing</ng-template>
-
-        <div>
-          <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
-          <button class="next" mat-button matStepperNext>Next &raquo;</button>
-        </div>
+        <app-inspection-verification-testing (proceedNext)="doSomething4($event)"></app-inspection-verification-testing>
+   
 
       </mat-step>
 

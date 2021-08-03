@@ -1,0 +1,478 @@
+<div class="card">
+    <div class="card-body">
+    <!-- <button class="btn btn-info mousechange" 
+        style="padding: 7px 10px 0px 10px;left: 93%;top: 10px;width: 4%;position: relative;">
+            <mat-icon aria-hidden="false" (click)="addItem()" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>
+    </button> -->
+     <form [formGroup]="testingForm" (ngSubmit)="nextTab()">
+       <div class="card-body" formArrayName="testaccordianArr" *ngFor="let a of getTestControls(); let i = index" >
+            <div [formGroupName]="i">
+         
+                    <div class="search-bar">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Location Number*</label>
+                                    <input type="number" class="form-control" formControlName="locationNumber"
+                                        placeholder="Enter Location Number" 
+                                        value="{{location.locationArr[i].locationNumber}}"
+                                        [(ngModel)]="location.locationArr[i].locationNumber" [readonly]="true" 
+                                        style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
+                                </div>
+            
+                                <div class="col-md-6">
+                                    <label>Location Name*</label>
+                                    <input type="text" class="form-control" formControlName="locationName"
+                                        placeholder="Enter Location Name" 
+                                        value="{{location.locationArr[i].locationName}}"
+                                        [(ngModel)]="location.locationArr[i].locationName" [readonly]="true" 
+                                        style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        <mat-accordion>
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+             <mat-panel-title>
+              <h3>Testing Basics Information</h3>
+            </mat-panel-title>
+         </mat-expansion-panel-header>
+                   
+    <div class="row">
+        <div class="col-md-4">
+            <label>Test Engineer Name </label>
+            <input type="text" formControlName="testEngineerName" class="form-control"    placeholder="Enter Test Engineer Name "
+                [ngClass]="{ 'is-invalid': submitted && a.get('testEngineerName')?.errors }">
+            <div *ngIf="submitted && a.get('testEngineerName')?.errors" class="invalid-feedback">
+                <div *ngIf="a.get('testEngineerName')?.errors?.required">Test engineer name is required</div>
+            </div>
+        </div>
+    
+        <div class="col-md-4">
+            <label>Date</label>
+            <input type='date' formControlName="date" class="form-control"   placeholder="Enter Date "
+                [ngClass]="{ 'is-invalid': submitted && a.get('date')?.errors }">
+            <div *ngIf="submitted && a.get('date')?.errors" class="invalid-feedback">
+                <div *ngIf="a.get('date')?.errors?.required">Date is required</div>
+            </div>
+        </div>
+
+                        <div class="col-md-4">
+                            <label>Designation</label>
+                            <input type="text" formControlName="designation"   placeholder="Enter Designation " class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('designation')?.errors }"  >
+                            <div *ngIf="submitted && a.get('designation')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('designation')?.errors?.required">Designation value is required</div>
+                            </div> 
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label> Company Name</label>
+                            <input type="text" formControlName="companyName"  placeholder="Enter Company Name " class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('companyName')?.errors }"  >
+                            <div *ngIf="submitted && a.get('companyName')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('companyName')?.errors?.required">Company name is required</div>
+                            </div> 
+                        </div>
+
+                        <div class="col-md-4">
+                            <label>Details Of Test Instrument</label>
+                            <input type="text" formControlName="detailsTestInstrument"    placeholder="Enter Details Of test instrument Name"class="form-control"[ngClass]="{ 'is-invalid': submitted && a.get('detailsTestInstrument')?.errors }"  >
+                            <div *ngIf="submitted && a.get('detailsTestInstrument')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('detailsTestInstrument')?.errors?.required">Details Of test instrument value is required</div>
+                            </div> 
+                        </div>
+
+                        <div class="col-md-4">
+                            <label>Continuity </label>
+                            <input type="text" formControlName="continuity"  placeholder="Enter Continuity"class="form-control"[ngClass]="{ 'is-invalid': submitted && a.get('continuity')?.errors }"  >
+                            <div *ngIf="submitted && a.get('continuity')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('continuity')?.errors?.required">Continuity  value is required</div>
+                            </div> 
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Insulation Resistance</label>
+                            <input type="text" formControlName="insulationResisance"   placeholder=" Enter Insulation resistance"class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('insulationResisance')?.errors }"  >
+                            <div *ngIf="submitted && a.get('insulationResisance')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('insulationResisance')?.errors?.required">Insulation resistance value is required</div>
+                            </div> 
+                        </div>
+
+                        <div class="col-md-4">
+                            <label>Impedance </label>
+                            <input type="text" formControlName="impedance" placeholder=" Enter Impedance" class="form-control"[ngClass]="{ 'is-invalid': submitted && a.get('impedance')?.errors }"  >
+                            <div *ngIf="submitted && a.get('impedance')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('impedance')?.errors?.required">Impedance value is required</div>
+                            </div> 
+                        </div>
+
+                        <div class="col-md-4">
+                            <label>RCD </label>
+                            <input type="text" formControlName="rcd"  placeholder=" Enter RCD " class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('rcd')?.errors }"  >
+                            <div *ngIf="submitted && a.get('rcd')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('rcd')?.errors?.required">RCD value is required</div>
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-md-4">
+                        <label>Earth Electrode Resistance</label>
+                        <input type="text" formControlName="earthElectrodeResistance"  placeholder=" Enter Earth Electrode Resistance" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('earthElectrodeResistance')?.errors }"  >
+                        <div *ngIf="submitted && a.get('earthElectrodeResistance')?.errors" class="invalid-feedback">
+                          <div *ngIf="a.get('earthElectrodeResistance')?.errors?.required">Earth electrode resistance value is required</div>
+                        </div> 
+                    </div>
+                    </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <h3>Detailed Testing</h3>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+             
+                   <div formArrayName="testDistribution" *ngFor="let c of gettestDistributionFormControls(a); let i = index">
+                        <div class="form-group" [formGroupName]="i">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Distribution Board Details </label>
+                                    <input type="text" formControlName="distributionBoardDetails"  placeholder=" Enter Distribution board details"  class="form-control" [ngClass]="{ 'is-invalid': submitted && c.get('distributionBoardDetails')?.errors }"  >
+                                    <div *ngIf="submitted && c.get('distributionBoardDetails')?.errors" class="invalid-feedback">
+                                      <div *ngIf="c.get('distributionBoardDetails')?.errors?.required">Distribution board details  value is required</div>
+                                    </div> 
+                              </div>
+
+                                <div class="col-md-4">
+                                    <label>Reference (name)</label>
+                                    <input type="text" formControlName="referance" placeholder=" Enter Referance Name" class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('referance')?.errors }"  >
+                                    <div *ngIf="submitted && c.get('referance')?.errors" class="invalid-feedback">
+                                      <div *ngIf="c.get('referance')?.errors?.required">Reference name  is required</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label>Location</label>
+                                    <input type="text" formControlName="location"  placeholder=" Enter Location Name" class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('location')?.errors }"  >
+                                    <div *ngIf="submitted && c.get('location')?.errors" class="invalid-feedback">
+                                      <div *ngIf="c.get('location')?.errors?.required">Location  name  is required</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Correct Supply Polarity </label>
+                                    <select class="form-control" formControlName="correctSupplyPolarity" [ngClass]="{ 'is-invalid': submitted && c.get('correctSupplyPolarity')?.errors }">
+                                        <option value="0" selected>Select Option</option>
+                                        <option value="Yes" selected>Yes</option>
+                                        <option value="No" selected>No</option>
+                                    </select>
+                                    <div *ngIf="submitted && c.get('correctSupplyPolarity')?.errors" class="invalid-feedback">
+                                        <div *ngIf="c.get('correctSupplyPolarity')?.errors?.required">Please select valid option</div>
+                                      </div>
+                                </div>
+                               
+                                <div class="col-md-4">
+                                    <label> Number Of Output Circuits - Spare </label>
+                                    <input type="text" formControlName="numOutputCircuitsSpare"  placeholder=" Enter Number of output circuits - Spare"class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('numOutputCircuitsSpare')?.errors }"  >
+                                    <div *ngIf="submitted && c.get('numOutputCircuitsSpare')?.errors" class="invalid-feedback">
+                                      <div *ngIf="c.get('numOutputCircuitsSpare')?.errors?.required">Number of output circuits -spare value is required</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label> Installed Equipment Vulnarable To Testing </label>
+                                    <input type="text" formControlName="installedEquipmentVulnarable" placeholder=" Enter Installed Equipment Vulnarable To  Testing Name"
+                                        class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('installedEquipmentVulnarable')?.errors }"  >
+                                        <div *ngIf="submitted && c.get('installedEquipmentVulnarable')?.errors" class="invalid-feedback">
+                                          <div *ngIf="c.get('installedEquipmentVulnarable')?.errors?.required">Installed equipment vulnarable to testing  value is required</div>
+                                        </div>
+                                </div>
+                            </div>
+                      
+
+                             <div class="row">
+                                <div class="col-md-4">
+                                    <label>Number Of Output Circuits In Use</label>
+                                    <input type="number" formControlName="numOutputCircuitsUse"  placeholder=" Enter Number of output circuits in use"
+                                    maxlength="2" class="form-control"  (keyup)="onKey($event,c,a)" [ngClass]="{ 'is-invalid': submitted && c.get('numOutputCircuitsUse')?.errors }"  >
+                                    <div *ngIf="submitted && c.get('numOutputCircuitsUse')?.errors" class="invalid-feedback">
+                                      <div *ngIf="c.get('numOutputCircuitsUse')?.errors?.required">Number of output circuits in use value is required</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4" formArrayName="rateArr" *ngFor="let d of gettestrateFormControls(c); let j = index">
+                                    <div class="form-group" [formGroupName]="j">
+                                        <label>Ratings In Amps </label>
+                                        <input type="number" formControlName="ratingsAmps" class="form-control" placeholder=" Enter Ratings in Amps "
+                                            [ngClass]="{ 'is-invalid': submitted && d.get('ratingsAmps')?.errors }">
+                                        <div *ngIf="submitted && d.get('ratingsAmps')?.errors" class="invalid-feedback">
+                                            <div *ngIf="d.get('ratingsAmps')?.errors?.required">Ratings in Amps value is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="table-responsive" >
+                            <table  class="table" id="table1">
+                                <div formArrayName="distributionIncomingValueArr" *ngFor="let e of getdistributionIncomingValueControls(c); let j= index">
+                                    <div class="form-group" style="border: 1px solid black;">
+                                        <thead>
+                                            <tr align="center">
+                                                <th></th>
+                                                <th>L1-L2</th>
+                                                <th>L2-L3</th>
+                                                <th>L1-L3</th>
+                                                <th>L1-N</th>
+                                                <th>L2-N</th>
+                                                <th>L3-N</th>
+                                                <th>L1-PE</th>
+                                                <th>L2-PE</th>
+                                                <th>L3-PE</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody  [formGroupName]="j" >
+                                            <tr  >
+
+                                                <td>Incoming Voltage</td>
+                                                <td><input type="text" formControlName="incomingVoltage1"class="form-control" maxlength="5" ></td>
+                                                <td><input type="text"  formControlName="incomingVoltage2" class="form-control" maxlength="5"></td>
+                                                <td><input type="text"  formControlName="incomingVoltage3"  class="form-control" maxlength="5" ></td>
+                                                <td><input type="text" formControlName="incomingVoltage4"   class="form-control" maxlength="5" ></td>
+                                                <td><input type="text"  formControlName="incomingVoltage5"  class="form-control" maxlength="5" ></td>
+                                                <td><input type="text" formControlName="incomingVoltage6"   class="form-control" maxlength="5"></td>
+                                                <td><input type="text" formControlName="incomingVoltage7"  class="form-control" maxlength="5"></td>
+                                                <td><input type="text" formControlName="incomingVoltage8"  class="form-control" maxlength="5"></td>
+                                                <td><input type="text" formControlName="incomingVoltage9"   class="form-control" maxlength="5" ></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Incoming Zs (Ω)</td>
+                                                <td><input type="text" formControlName="incomingZs1" class="form-control" maxlength="4" ></td>
+                                                <td><input type="text"formControlName="incomingZs2" class class="form-control" maxlength="4"></td>
+                                                <td><input type="text" formControlName="incomingZs3" class="form-control" maxlength="4" ></td>
+                                                <td><input type="text" formControlName="incomingZs4" class="form-control" maxlength="4" ></td>
+                                                <td><input type="text" formControlName="incomingZs5"  class="form-control" maxlength="4"></td>
+                                                <td><input type="text"  formControlName="incomingZs6" class="form-control" maxlength="4" ></td>
+                                                <td><input type="text" formControlName="incomingZs7"   class="form-control" maxlength="4"></td>
+                                                <td><input type="text" formControlName="incomingZs8"   class="form-control" maxlength="4" ></td>
+                                                <td><input type="text"formControlName="incomingZs9"    class="form-control" maxlength="4" ></td>
+                                            </tr>
+                                        
+                                            <tr>
+                                                <td>Incoming Ipf (Amps)</td>
+                                                <td><input type="text" formControlName="incomingIpf1"   class="form-control" maxlength="6" ></td>
+                                                <td><input type="text"  formControlName="incomingIpf2"   class="form-control" maxlength="6"></td>
+                                                <td><input type="text" formControlName="incomingIpf3"  class="form-control" maxlength="6" ></td>
+                                                <td><input type="text" formControlName="incomingIpf4"  class="form-control" maxlength="6" ></td>
+                                                <td><input type="text"  formControlName="incomingIpf5" class="form-control" maxlength="6" ></td>
+                                                <td><input type="text"formControlName="incomingIpf6"   class="form-control" maxlength="6" ></td>
+                                                <td><input type="text" formControlName="incomingIpf7"  class="form-control" maxlength="6"></td>
+                                                <td><input type="text" formControlName="incomingIpf8" class="form-control" maxlength="6" ></td>
+                                                <td><input type="text" formControlName="incomingIpf9"  class="form-control" maxlength="6" ></td>
+                                            </tr>
+
+                                        </tbody>
+                                    </div>
+                                </div>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+                   
+                    <div class="row">
+                        <div class="col">
+                            <div class="table-responsive">
+                              <table class="table" border="1" id="table2">
+                                  <thead>
+                                        <tr align="center">
+                                            <th colspan="6"> Circuit Details </th>
+                                            <th colspan="3"> Conductor Details </th>
+                                            <th colspan="3"> Continuity (Ω) </th>
+                                            <th colspan="2" rowspan="2">Insulation Resistance</th>
+                                            <th rowspan="2"></th>
+                                            <th colspan="9" rowspan="2"> Voltage (V)(note)</th>
+                                            <th colspan="9" rowspan="2"> Fault Loop Impedance (Ω)(note) </th>
+                                            <th colspan="9" rowspan="2"> Actual Short Circuit / Fault Current (Amps) (note)</th>
+                                            <th colspan="9" rowspan="2"> Disconnection Time (For a Short Circuit/Fault Of
+                                                Negligible Impedance) (seconds) </th>
+                                            <th colspan="4">RCD </th>
+                                            <th rowspan="2"></th>
+                                        </tr>
+                                        <tr  align="center">
+                                            <th></th>
+                                            <th></th>
+                                            <th colspan="4">Over Current Device</th>
+                                            <th></th>
+                                            <th colspan="2">CrosssectionalArea(mm2)</th>
+                                            <th colspan="3">Required For Final Circuits And Protective Conductor Only</th>
+                                            <th></th>
+                                            <th colspan="2">Operating Time</th>
+                                            <th></th>
+                                        </tr>
+                                        <tr align="center">
+                                            <th rowspan="2">Circuit No</th>
+                                            <th>Description</th>
+                                            <th>Standard No</th>
+                                            <th>R-N</th>
+                                            <th>Rating (A)</th>
+                                            <th>Breaking Capacity (kA)</th>
+                                            <th>Installation Reference Method</th>
+                                            <th>Live</th>
+                                            <th>PE / CPC</th>
+                                            <th>Approximate Length</th>
+                                            <th>R1+R2 (Ω)</th>
+                                            <th>R2 (Ω)</th>
+                                            <th>L-L</th>
+                                            <th>L-E</th>
+                                            <th>Polarity</th>
+                                            <th>L1-L2</th>
+                                            <th>L2-L3</th>
+                                            <th>L1-L3</th>
+                                            <th>L1-N</th>
+                                            <th>L2-N</th>
+                                            <th>L3-N</th>
+                                            <th>L1-PE</th>
+                                            <th>L2-PE</th>
+                                            <th>L3-PE</th>
+                                             <th>L1-L2</th>
+                                            <th>L2-L3</th>
+                                            <th>L1-L3</th>
+                                            <th>L1-N</th>
+                                            <th>L2-N</th>
+                                            <th>L3-N</th>
+                                            <th>L1-PE</th>
+                                            <th>L2-PE</th>
+                                            <th>L3-PE</th>
+                                            <th>L1-L2</th>
+                                            <th>L2-L3</th>
+                                            <th>L1-L3</th>
+                                            <th>L1-N</th>
+                                            <th>L2-N</th>
+                                            <th>L3-N</th>
+                                            <th>L1-PE</th>
+                                            <th>L2-PE</th>
+                                            <th>L3-PE</th>
+                                            <th>L1-L2</th>
+                                            <th>L2-L3</th>
+                                            <th>L1-L3</th>
+                                            <th>L1-N</th>
+                                            <th>L2-N</th>
+                                            <th>L3-N</th>
+                                            <th>L1-PE</th>
+                                            <th>L2-PE</th>
+                                            <th>L3-PE</th>
+                                            <th>I∆n(Current)</th>
+                                            <th>I∆n </th>
+                                            <th>5 I∆n</th>
+                                            <th rowspan="2">Test Button Operation</th>
+                                            <th>Remarks</th>
+                                      </tr>
+                                   </thead>
+                                  <tbody formArrayName="testingRecords" >
+                                    <tr *ngFor="let f of gettestValueControls(a); let i = index"  class="form-group"[formGroupName]="i" >
+                                            <td><input type="text" formControlName="circuitNo" class="form-control"   maxlength="4"style="width:80px"></td>
+                                            <td ><textarea  formControlName="circuitDesc"  class="form-control" maxlength="250" style="height:40px;width:170px;"  ></textarea> </td>
+                                            <td><input type="text" formControlName="circuitStandardNo" class="form-control"  maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="circuitType" class="form-control" maxlength="4"style="width:80px"></td>
+                                            <td><input type="text" formControlName="circuitRating" class="form-control" maxlength="4"  style="width:80px"></td>
+                                            <td><input type="text" formControlName="circuitBreakingCapacity" class="form-control" maxlength="4"  style="width:80px"></td>
+                                            <td><textarea  formControlName="conductorInstallation"  class="form-control" maxlength="250" style="height:40px;width:170px;"></textarea>
+                                            <td><input type="text" formControlName="conductorLive" class="form-control" maxlength="4"  style="width:80px"></td>
+                                            <td><input type="text" formControlName="conductorPecpc" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="continutiyApproximateLength" class="form-control" maxlength="4"  style="width:80px"></td>
+                                            <td><input type="text" formControlName="continutiyRR" class="form-control" maxlength="4"  style="width:80px"></td>
+                                            <td><input type="text" formControlName="continutiyR" class="form-control" maxlength="4"  style="width:80px"></td>
+                                            <td><input type="text" formControlName="continutiyLL" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="continutiyLE" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="continutiyPolarity" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="ryVoltage" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="rbVoltage" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="ybVoltage" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="rnVoltage" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="ynVoltage" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="bnVoltage" class="form-control" maxlength="4"  style="width:80px"></td>
+                                            <td><input type="text" formControlName="rpeVoltage" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="ypeVoltage" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="bpeVoltage" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="ryLoopImpedance" class="form-control" maxlength="4"  style="width:80px"></td>
+                                            <td><input type="text" formControlName="rbLoopImpedance" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="ybLoopImpedance" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="rnLoopImpedance" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="ynLoopImpedance" class="form-control" maxlength="4"  style="width:80px"></td>
+                                            <td><input type="text" formControlName="bnLoopImpedance" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="rpeLoopImpedance" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="ypeLoopImpedance" class="form-control" maxlength="4" style="width:70px"></td>
+                                            <td><input type="text" formControlName="bpeLoopImpedance" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td> <input type="text" formControlName="ryFaultCurrent" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="rbFaultCurrent" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="ybFaultCurrent" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="rnFaultCurrent" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="ynFaultCurrent" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="bnFaultCurrent" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="rpeFaultCurrent" class="form-control" maxlength="4"  style="width:80px"></td>
+                                            <td><input type="text" formControlName="ypeFaultCurrent" class="form-control" maxlength="4"  style="width:80px"></td>
+                                            <td><input type="text" formControlName="bpeFaultCurrent" class="form-control" maxlength="4"  style="width:80px"></td>
+                                            <td><input type="text" formControlName="ryDisconnect" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="rbDisconnect" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="ybDisconnect" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="rnDisconnect" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="ynDisconnect" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="bnDisconnect" class="form-control" maxlength="4"  style="width:80px"></td>
+                                            <td><input type="text" formControlName="rpeDisconnect" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="ypeDisconnect" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="bpeDisconnect" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="rcdCurrent" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="rcdOperatingCurrent" class="form-control" maxlength="4" style="width:80px"></td>
+                                            <td><input type="text" formControlName="rcdOperatingFiveCurrent" class="form-control" maxlength="4"  style="width:80px"></td>
+                                            <td><textarea  formControlName="rcdTestButtonOperation"  class="form-control" maxlength="250" style="height:40px;width:170px;"></textarea>
+                                            <td><textarea  formControlName="rcdRemarks"  class="form-control" maxlength="250" style="height:40px;width:170px;"></textarea>
+                                           </tr>
+                                    </tbody>
+                                 </table>
+                                </div>
+                              </div>
+                            </div>
+                        </mat-expansion-panel>
+                     </mat-accordion>
+                    </div>
+                     <!-- <mat-icon class="mousechange"  style="float:right;" *ngIf="getTestControls().length > 1" (click)="removeAccordian(i)">delete</mat-icon>  -->
+               </div>
+            <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+                <span class="alert alert-danger">{{validationErrorMsg}}</span>
+            </div>
+            <div style="text-align: center;margin-top: 40px;">
+                <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
+                <button class="next" [disabled]="disable" (click)="gotoNextModal(content4)" mat-button>Next &raquo;</button>
+        </div>
+      </form>
+    </div>
+  </div>
+    <ng-template #content4 let-modal>
+        <div class="modal-body">
+            <div class="centre-text m-btm30">
+                <div *ngIf="success" style="text-align: center;">
+                    <span class="alert alert-success">{{successMsg}}</span>
+                </div>
+                <div *ngIf="Error" style="text-align: center;">
+                    <span class="alert alert-danger">{{errorMsg}}</span>
+                </div>
+            </div>
+        </div>
+        <br>
+      
+        <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+        aria-label="Close" (click)="closeModalDialog()" matStepperNext>
+         <span aria-hidden="true">Ok</span>
+     </button>
+     
+    </ng-template>
+ 

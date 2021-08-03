@@ -53,7 +53,6 @@ export class ClientupdateComponent implements OnInit {
  
   onSubmit() {
     this.company.userName=this.email
-    console.log(this.company);
     this.clientService.updateClient(this.company).subscribe(data=> 
       {
         this.dialog.closeAll();
