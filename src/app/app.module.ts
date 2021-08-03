@@ -87,7 +87,7 @@ import { UserUpdateComponent } from './user-update/user-update.component';
     InspectionVerificationSupplyCharacteristicsComponent,
     SavedreportsComponent,
     FinalreportsComponent,
-    InspectorRegistrationComponent
+    InspectorRegistrationComponent,
     AdminLoginComponent,
     AdminRegisterComponent,
     AdminHomeComponent,
