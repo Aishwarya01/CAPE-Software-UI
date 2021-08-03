@@ -33,9 +33,14 @@ export class InspectorRegistrationComponent implements OnInit {
     state: new FormControl(''),
     pinCode: new FormControl(''),
     interestedArea: new FormControl(''),
-    
+
   });
 
+  successMsg: any;
+  errorMsg: any;
+  success: boolean=false;
+  error: boolean=false;
+  countryCode: any;
   loading = false;
   submitted = false;
   msg: any;
@@ -108,7 +113,7 @@ export class InspectorRegistrationComponent implements OnInit {
     };
 
   }
-  
+
   onItemSelect(item: any) {
     console.log(item);
   }
@@ -119,6 +124,36 @@ export class InspectorRegistrationComponent implements OnInit {
     return this.InspectorRegisterForm.controls;
   }
 
+  //Only Integer Numbers
+  keyPressNumbers(event:any) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    //Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  //**Important */
+  // Only AlphaNumeric with Some Characters [-_ ]
+  keyPressAlphaNumericWithCharacters(event:any) {
+
+    var inp = String.fromCharCode(event.keyCode);
+    // Allow numbers, space, underscore
+    if (/[0-9-+ ]/.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
+  }
+
+  //country code
+  countryChange(country: any) {
+    this.countryCode = country.dialCode;
+  }
 
   selectCountry(e: any) {
     debugger
@@ -139,7 +174,7 @@ export class InspectorRegistrationComponent implements OnInit {
           }
         );
       }
-       
+
   }
 
 onSubmit() {
@@ -161,18 +196,31 @@ onSubmit() {
   this.applicationTypeData = this.applicationTypeData.replace(/,\s*$/, "");
   this.register.applicationType = this.applicationTypeData;
 
-    
-  this.inspectorRegisterService.registerInspector(this.register).subscribe(
-    data=> {
-      this.router.navigate(['/login']);
-    },
-    error => {
-      this.loading= false;
-      console.log("error")
-    }
-  )
+//Country Code
 
+this.InspectorRegisterForm.value.contactNumber="+"+this.countryCode+"-"+this.InspectorRegisterForm.value.contactNumber;
+
+this.inspectorRegisterService.registerInspector(this.register).subscribe(
+  data=> {
+    this.success=true;
+    this.successMsg="Successfully Registred With RushSafety Application";
+    setTimeout(()=>{
+      this.success=false;
+    },);
+    setTimeout(()=>{
+    this.router.navigate(['/login']);
+    },5000);
+  },
+  error => {
+    this.error = true;
+      this.errorMsg = "Something went wrong, kindly check all the fields";
+      setTimeout(() => {
+        this.error = false;
+      }, 3000);
+    console.log(error)
+    this.loading= false;
+    console.log("error")
+  }
+)
 }
-
-
 }

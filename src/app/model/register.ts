@@ -2,9 +2,9 @@ export class Register {
     registerId!: number;
     name: String = '';
     companyName: String = '';
-    userName: String = '';
+    username: String = '';
     password: String = '';
-    role: String = '';  
+    role: String = '';
     contactNumber: String = '';
     applicationType: String = '';
     department: String = '';
