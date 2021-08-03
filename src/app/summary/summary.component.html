@@ -5,14 +5,14 @@
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
               <mat-panel-title>
-                <h3>Extent and limitations of inspection and testing</h3>
+                <h3>Extent And Limitations Of Inspection And Testing</h3>
               </mat-panel-title>
             </mat-expansion-panel-header>
             <div class="form-group">                    
               <div class="row">
                   <div class="col-sm-12">
                     <div class="form-group">
-                      <label>Extent of installation covered by this report:</label>
+                      <label>Extent Of Installation Covered By This Report:</label>
                       <input type="text" class="form-control" formControlName="extentInstallation"
                       [(ngModel)]="summary.extentInstallation" 
                       [ngClass]="{ 'is-invalid': submitted && f.extentInstallation?.errors }">
@@ -23,7 +23,7 @@
                   </div>
                   <div class="col-sm-12">
                     <div class="form-group">
-                      <label>Agreed limitations including the reasons:</label>
+                      <label>Agreed Limitations Including The Reasons:</label>
                       <input type="text" class="form-control" formControlName="agreedLimitations"
                       [(ngModel)]="summary.agreedLimitations"
                       [ngClass]="{ 'is-invalid': submitted && f.agreedLimitations?.errors }">
@@ -35,7 +35,7 @@
     
                   <div class="col-sm-12">
                     <div class="form-group">
-                      <label>Agreed with:</label>
+                      <label>Agreed With:</label>
                       <input type="text" class="form-control" formControlName="agreedWith"
                       [(ngModel)]="summary.agreedWith"
                       [ngClass]="{ 'is-invalid': submitted && f.agreedWith?.errors }">
@@ -47,7 +47,7 @@
     
                   <div class="col-sm-12">
                     <div class="form-group">
-                      <label>Operational limitations including the reasons:</label>
+                      <label>Operational Limitations Including The Reasons:</label>
                       <input type="text" class="form-control" formControlName="operationalLimitations"
                       [(ngModel)]="summary.operationalLimitations"
                       [ngClass]="{ 'is-invalid': submitted && f.operationalLimitations?.errors }">
@@ -133,7 +133,7 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label>Referance number in report:</label>
+                  <label>Reference number in report:</label>
                   <input type="number" min="0" formControlName="referanceNumberReport" class="form-control"  
                   placeholder="Enter Contact Number" [ngClass]="{ 'is-invalid': submitted && f.referanceNumberReport?.errors }">
                   <div *ngIf="submitted && f.referanceNumberReport?.errors" class="invalid-feedback">
@@ -194,7 +194,7 @@
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
               <mat-panel-title>
-                <h3>Summary and conditions of the installation </h3>
+                <h3>Summary And Conditions Of The Installation </h3>
               </mat-panel-title>
             </mat-expansion-panel-header>
                 <div class="form-group">

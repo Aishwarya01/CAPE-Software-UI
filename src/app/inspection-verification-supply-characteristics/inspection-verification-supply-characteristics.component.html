@@ -24,7 +24,7 @@
               </div>
 
               <div class="col-md-4">
-                  <label>Number and Type of Live Conductors: </label>
+                  <label>Number and Type Of Live Conductors: </label>
                   <select class="form-control"  formControlName="liveConductor" [(ngModel)]="supplycharesteristic.liveConductorType" (change)="changeCurrent($event)" [ngClass]="{ 'is-invalid': submitted && f.liveConductor.errors }">
                     <option value="0" selected>Select Option</option>
                     <option value="AC">AC</option>
@@ -162,10 +162,10 @@
                  
           <div class="row" style="margin-top: 50px;">
             <div class="col-sm-12">
-              <h2>Incoming (supply) Protective Device Characteristics:</h2>
+              <h2>Incoming (Supply) Protective Device Characteristics:</h2>
               <table  class="table">
                 <tr>
-                  <td nowrap="nowrap">Type of Over Current Protective Device</td>
+                  <td nowrap="nowrap">Type Of Over Current Protective Device</td>
                   <td> 
                   <input type="text"  style="width:200px" formControlName="mainNominalProtectiveDevice" [(ngModel)]="supplycharesteristic.mainNominalProtectiveDevice" [ngClass]="{ 'is-invalid': submitted && f.mainNominalProtectiveDevice.errors }">
                   <div *ngIf="submitted && f.mainNominalProtectiveDevice.errors" class="invalid-feedback">
@@ -281,7 +281,7 @@
                     </div>
         
                     <div class="col-md-4">
-                        <label>Number and Type of Live Conductors: </label>
+                        <label>Number and Type Of Live Conductors: </label>
                         <select class="form-control"  formControlName="aLLiveConductorType" (change)=showValue($event,i) [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorType')?.errors }">
                           <option value="0" selected>Select Option</option>
                           <option value="AC">AC</option>
@@ -427,11 +427,11 @@
     
                   <div class="row" style="margin-top: 50px;">
                     <div class="col">
-                      <h2>Incoming (supply) Protective Device Characteristics:</h2>
+                      <h2>Incoming (Supply) Protective Device Characteristics:</h2>
                       <table  class="table">
                           
                           <tr>
-                            <td nowrap="nowrap">Type of Over Current Protective Device</td>
+                            <td nowrap="nowrap">Type Of Over Current Protective Device</td>
                             <td>
                               <input type="text"  style="width:400px" formControlName="protectiveDevice" [ngClass]="{ 'is-invalid': submitted && a.get('protectiveDevice')?.errors }">
                               <div *ngIf="submitted && a.get('protectiveDevice')?.errors" class="invalid-feedback">
@@ -483,7 +483,7 @@
             <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  <h3>Particulars of Installation Referred in the Report</h3>
+                  <h3>Particulars Of Installation Referred in the Report</h3>
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <div class="row">
@@ -510,7 +510,7 @@
                 </div>
 
                 <div class="col-md-4" >
-                  <label>Means of Earthing :</label>
+                  <label>Means Of Earthing :</label>
                   <select class="form-control" formControlName="meansEarthing" [ngClass]="{ 'is-invalid': submitted && f.meansEarthing.errors }" [(ngModel)]="supplycharesteristic.meansEarthing" >
                     <option value="0" selected>Select Option</option>
                     <option *ngFor="let value of MeansofEarthingList"> {{value}}</option>
@@ -524,7 +524,7 @@
               <div class="row" style="margin-top: 30px">
                 
                 <div class="col-md-4">
-                  <label>Type of Earth Electrode :</label>
+                  <label>Type Of Earth Electrode :</label>
                   <select class="form-control" formControlName="electrodeType" [ngClass]="{ 'is-invalid': submitted && f.electrodeType.errors }" [(ngModel)]="supplycharesteristic.electrodeType">
                     <option value="0" selected>Select Option</option>
                     <option *ngFor="let value of  electrodeTypeList"> {{value}}</option>
@@ -535,7 +535,7 @@
                 </div>
 
                 <div class="col-md-4">
-                  <label>Material of Earth Electrode:</label>
+                  <label>Material Of Earth Electrode:</label>
                   <select class="form-control" formControlName="electrodeMaterial" [ngClass]="{ 'is-invalid': submitted && f.electrodeMaterial.errors }" [(ngModel)]="supplycharesteristic.electrodeMaterial">
                     <option value="0" selected>Select Option</option>
                     <option *ngFor="let value of  electrodeMaterialList"> {{value}}</option>
@@ -546,7 +546,7 @@
                 </div>
 
                 <div class="col-md-4" style="margin-top: 30px">
-                  <p class="joints">Number of Locations 
+                  <p class="joints">Number Of Locations 
                     <input type="tel" min="1" formControlName="noOfLocation" [ngClass]="{ 'is-invalid': submitted && f.noOfLocation.errors }" [(ngModel)]="supplycharesteristic.noOfLocation" style="
                     width: 50px;
                     background: transparent;
@@ -561,7 +561,7 @@
             <br>
               <div class="row">
                 <div class="col-sm-12">
-                  <h2>Number of Locations</h2>
+                  <h2>Number Of Locations</h2>
                 </div>
                 <!-- <mat-icon class="mousechange" (click)="addLocation1()" style=" padding-top: 5px;">add_box</mat-icon> -->
               </div>
@@ -639,7 +639,7 @@
                   </div>
 
                   <div class="col-md-4">
-                    <label>Material of Earthing Conductor:</label>
+                    <label>Material Of Earthing Conductor:</label>
                     <input type="text"  class="form-control" formControlName="conductormaterial" [ngClass]="{ 'is-invalid': submitted && f.conductormaterial.errors }" [(ngModel)]="supplycharesteristic.conductormaterial">
                     <div *ngIf="submitted && f.conductormaterial.errors" class="invalid-feedback">
                       <div *ngIf="f.conductormaterial?.errors?.required">Field Is Required</div>
@@ -674,7 +674,7 @@
                   </div>
 
                   <div class="col-md-4">
-                    <label>Material of Main Protective Bonding Conductor:</label>
+                    <label>Material Of Main Protective Bonding Conductor:</label>
                     <input type="text"  class="form-control" formControlName="bondingConductorMaterial" [ngClass]="{ 'is-invalid': submitted && f.bondingConductorMaterial.errors }" [(ngModel)]="supplycharesteristic.bondingConductorMaterial">
                     <div *ngIf="submitted && f.bondingConductorMaterial.errors" class="invalid-feedback">
                       <div *ngIf="f.bondingConductorMaterial?.errors?.required">Field Is Required</div>
@@ -682,7 +682,7 @@
                   </div>
 
                   <div class="col-md-4">
-                    <label>Main Protective Bonding Conductor Continuity and Connection Verified:</label>
+                    <label>Main Protective Bonding Conductor Continuity And Connection Verified:</label>
                     <select class="form-control" formControlName="bondingConductorVerify" [ngClass]="{ 'is-invalid': submitted && f.bondingConductorVerify.errors }" [(ngModel)]="supplycharesteristic.bondingConductorVerify">
                       <option value="0" selected>Select Option</option>
                       <option *ngFor="let value of bondingConductorVerifyList"> {{value}}</option>
@@ -697,7 +697,7 @@
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 30px">
-                    <p>Type of Joints (Impairing Safety) <input type="number" min="1" formControlName="bondingJointsType" [ngClass]="{ 'is-invalid': submitted && f.bondingJointsType.errors }" [(ngModel)]="supplycharesteristic.bondingJointsType" style="
+                    <p>Type Of Joints (Impairing Safety) <input type="number" min="1" formControlName="bondingJointsType" [ngClass]="{ 'is-invalid': submitted && f.bondingJointsType.errors }" [(ngModel)]="supplycharesteristic.bondingJointsType" style="
                       width: 50px;
                       background: transparent;
                       border: none;
@@ -708,7 +708,7 @@
                     </div>
                   </div>
                   <div class="col-md-4" style="margin-top: 30px">
-                    <p  class="joints">No of Joints 
+                    <p  class="joints">No Of Joints 
                       <input type="tel" min="1" formControlName="bondingNoOfJoints" [(ngModel)]="supplycharesteristic.bondingNoOfJoints" [ngClass]="{ 'is-invalid': submitted && f.bondingNoOfJoints.errors }" style="
                       width: 50px;
                       background: transparent;
@@ -819,7 +819,7 @@
                   </div>
 
                   <div class="col-md-4" style="margin-top: 30px">
-                    <p class="joints">No of Joints <input type="tel" min="1" formControlName="earthingNoOfJoints" [ngClass]="{ 'is-invalid': submitted && f.earthingNoOfJoints.errors }" [(ngModel)]="supplycharesteristic.earthingNoOfJoints" style="
+                    <p class="joints">No Of Joints <input type="tel" min="1" formControlName="earthingNoOfJoints" [ngClass]="{ 'is-invalid': submitted && f.earthingNoOfJoints.errors }" [(ngModel)]="supplycharesteristic.earthingNoOfJoints" style="
                       width: 50px;
                       background: transparent;
                       border: none;
@@ -913,7 +913,7 @@
                         </div>
             
                         <div class="col-md-4">
-                          <label>No of Poles:</label>
+                          <label>No Of Poles:</label>
                           <input type="text"   class="form-control" formControlName="noPoles" [ngClass]="{ 'is-invalid': submitted && a.get('noPoles')?.errors }"  placeholder="Enter poles" >
                           <div *ngIf="submitted && a.get('noPoles')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('noPoles')?.errors?.required">Field Is Required</div>
