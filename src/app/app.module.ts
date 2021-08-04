@@ -77,6 +77,7 @@ import {Ng2TelInputModule} from 'ng2-tel-input';
     InspectionVerificationBasicInformationComponent,
     InspectionVerificationIncomingEquipmentComponent,
     InspectionVerificationSupplyCharacteristicsComponent,
+    InspectionVerificationTestingComponent,
     SavedreportsComponent,
     FinalreportsComponent
   ],
