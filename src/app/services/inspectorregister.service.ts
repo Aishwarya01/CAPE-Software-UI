@@ -14,4 +14,8 @@ export class InspectorregisterService {
   public  registerInspector (register: Register): Observable<any> {
     return this.http.post<any>(this.apiUrl+'/addRegistration', register)
   }
+
+  public  updateInspector (register: Register): Observable<any> {
+    return this.http.put<any>(this.apiUrl+'/updatePermission', register)
+  }
 }

@@ -15,9 +15,11 @@ export class Register {
     country: String = '';
     state: String = '';
     permission: String = '';
+    comment!: String;
     interestedAreas: String = '';
     createdDate!: Date;
     createdBy: String = '';
     updatedDate!: Date;
     updatedBy: String = '';
+    adminUserName!: String;
 }

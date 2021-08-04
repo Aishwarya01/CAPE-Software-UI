@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Register } from '../model/register';
+import { InspectorregisterService } from '../services/inspectorregister.service';
 
 @Component({
   selector: 'app-user-update',
@@ -16,11 +18,12 @@ export class UserUpdateComponent implements OnInit {
   name: String = '';
   companyName: String = '';
   permission: String = '';
-  registerId: String = '';
+  registerId!: number;
 
-
+  register = new Register
 
   constructor(private formBuilder: FormBuilder,
+              private inspectorService: InspectorregisterService
     ) { }
 
   ngOnInit(): void {
@@ -29,9 +32,19 @@ export class UserUpdateComponent implements OnInit {
       cmntBox: ['', Validators.required],
       permission: ['', Validators.required],
       });
+      this.register.registerId= this.registerId;
   }
 
   onSubmit() {
-    console.log(this.userUpdateForm);
+    this.register.adminUserName="arunkumar.k@capeindia.net"
+    this.inspectorService.updateInspector(this.register).subscribe(
+      (data) => {
+        console.log(data);
+      },
+      (error) => {
+        console.log("error");
+      }
+    )
+
   }
 }

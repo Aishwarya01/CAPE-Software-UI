@@ -31,8 +31,6 @@ export class AdminHomeComponent implements OnInit {
   ngOnInit(): void {
     this.adminService.retrieveAllInspector().subscribe(
       (data) => {
-        debugger
-        console.log(data);
         this.admin_dataSource = new MatTableDataSource(data);
         this.admin_dataSource.paginator = this.adminPaginator;
         this.admin_dataSource.sort = this.adminSort;
@@ -57,7 +55,7 @@ export class AdminHomeComponent implements OnInit {
 
   }
 
-  proceed(name: any,companyName: any,registerId: any,permission: any) {
+  proceed(name: any,companyName: any,registerId: number,permission: any) {
     const dialogRef = this.dialog.open(UserUpdateComponent, {
       width: '500px',
     });
