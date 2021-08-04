@@ -348,18 +348,18 @@
         ></app-inspection-verification-basic-information>
 
       </mat-step>
-      
+
 <!-- step 2 -->
-      <mat-step [completed]="isCompleted2">
+      <mat-step [completed]="true">
 
         <ng-template matStepLabel>Supply Characteristics</ng-template>
 
         <app-inspection-verification-supply-characteristics  (proceedNext)="doSomething2($event)"></app-inspection-verification-supply-characteristics>
 
       </mat-step>
- 
+
 <!-- step 3 -->
-      <mat-step [completed]="isCompleted3">
+      <mat-step [completed]="true">
         <ng-template matStepLabel>Inspection</ng-template>
         <app-inspection-verification-incoming-equipment (proceedNext)="doSomething3($event)"></app-inspection-verification-incoming-equipment>
       </mat-step>

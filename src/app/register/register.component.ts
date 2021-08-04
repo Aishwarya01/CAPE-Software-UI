@@ -44,15 +44,16 @@ export class RegisterComponent implements OnInit {
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),
         Validators.nullValidator]],
       usertype: ['', Validators.required],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.pattern('(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!#^~%*?&,.<>"\'\\;:\{\\\}\\\[\\\]\\\|\\\+\\\-\\\=\\\_\\\)\\\(\\\)\\\`\\\/\\\\\\]])[A-Za-z0-9\d$@].{7,}')]],
       confirmpassword: ['', Validators.required],
       isActive: ['', Validators.required]
     });
   }
 
-  get f() {
+   get f() {
     return this.registerForm.controls;
   }
+
 
   onSubmit() {
     this.submitted = true;
@@ -75,6 +76,7 @@ export class RegisterComponent implements OnInit {
     this.user.role = this.registerForm.value.usertype;
     this.registerservice.register(this.user).subscribe(
       data => {
+
         this.msg ="Register Success";
         this.router.navigate(['/login']);
         

@@ -54,3 +54,11 @@
 .form-check{
     padding-left: 0.3rem !important;
 }
+
+.password-feedback {
+  display: none;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #a199ad;
+}

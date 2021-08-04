@@ -5,6 +5,7 @@ import { Site } from 'src/app/model/site';
 import { ClientService } from 'src/app/services/client.service';
 import { DepartmentService } from 'src/app/services/department.service';
 import { SiteService } from 'src/app/services/site.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -41,6 +42,14 @@ export class SiteaddComponent implements OnInit {
   submitted = false;
   showErrorMessage=false;
   arr!: FormArray;
+  errormsg: any;
+
+  successMsg: string = "";
+  success: boolean = false;
+  Error: boolean = false;
+  errorMsg: string = "";
+  validationError: boolean = false;
+  validationErrorMsg: String = "";
 
 
   @Input()
@@ -49,7 +58,8 @@ export class SiteaddComponent implements OnInit {
               public clientService: ClientService,
               public departmentService: DepartmentService,
               public siteService: SiteService,
-              public formBuilder: FormBuilder
+              public formBuilder: FormBuilder,
+              private modalService: NgbModal
               ) {
               }
 
@@ -180,13 +190,21 @@ export class SiteaddComponent implements OnInit {
 
     //Breaks if form is invalid
     if(this.addSiteForm.invalid) {
+      this.validationError = true;
+      this.validationErrorMsg = "Please check all the fields";
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
       return;
     }
+
     this.loading = true;
 
+    //country code
     this.arr = this.addSiteForm.get('arr') as FormArray;
     for(let i of this.arr.value) {
-      if(i.countryCode != "") {
+      if((i.countryCode != "") && (i.countryCode != undefined))
+      {
         i.contactNo = "+" +i.countryCode + "-" + i.contactNo;
       }
     }
@@ -199,10 +217,21 @@ export class SiteaddComponent implements OnInit {
     this.site.userName = this.email;
     this.siteService.addSIte(this.site).subscribe(
       data=> {
-        this.dialog.closeAll();
+        this.success = true
+        this.successMsg = "Site Saved Successfully";
+        setTimeout(() => {
+          this.success = false;
+        }, 3000);
+        setTimeout(() => {
+          this.dialog.closeAll();
+        }, 2000);
       },
       error => {
-        this.showErrorMessage=true;
+        this.Error = true;
+        this.errorMsg = "Something went wrong, kindly check all the fields";
+        setTimeout(() => {
+          this.Error = false;
+        }, 3000);
         this.addSiteForm.reset();
         this.loading=false;
       }

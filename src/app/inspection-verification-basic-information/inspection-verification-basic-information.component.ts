@@ -184,9 +184,9 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     });
   }
 
-  // Only Integer Numbers
-  keyPressNumbers(event: any) {
-    var charCode = event.which ? event.which : event.keyCode;
+  // Only Accept Integer Numbers
+  keyPressNumbers(event:any) {
+    var charCode = (event.which) ? event.which : event.keyCode;
     // Only Numbers 0-9
     if (charCode < 48 || charCode > 57) {
       event.preventDefault();
@@ -721,6 +721,13 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     this.countryCode7 = country.dialCode;
   }
 
+  setTrue() {
+   this.submitted = true;
+    if(this.step1Form.invalid) {
+      return;
+    }
+    this.proceedNext.emit(true);
+  }
   gotoNextModal(content1: any) {
     if (this.step1Form.invalid) {
       this.validationError = true;
