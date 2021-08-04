@@ -6,7 +6,7 @@ export class User {
     email: String = '';
     username: String = '';
     usertype: String = '';
-    password: String = '';  
+    password: String = '';
     active: boolean = false;
     role: String = '';
     authorisedUser: String = '';

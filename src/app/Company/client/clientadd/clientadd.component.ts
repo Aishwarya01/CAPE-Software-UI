@@ -24,6 +24,7 @@ export class ClientaddComponent implements OnInit {
   loading = false;
   submitted = false;
   showErrorMessage=false;
+  msg: any;
 
 
   @Input()
@@ -62,6 +63,7 @@ export class ClientaddComponent implements OnInit {
     this.company.userName=this.email
     this.clientService.addClient(this.company).subscribe(
       data => {
+        this.msg="Client Added";
         this.dialog.closeAll();
       },
       error => {
