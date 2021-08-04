@@ -350,7 +350,7 @@
       </mat-step>
 
 <!-- step 2 -->
-      <mat-step [completed]="true">
+      <mat-step [completed]="isCompleted2">
 
         <ng-template matStepLabel>Supply Characteristics</ng-template>
 
@@ -359,7 +359,7 @@
       </mat-step>
 
 <!-- step 3 -->
-      <mat-step [completed]="true">
+      <mat-step [completed]="isCompleted3">
         <ng-template matStepLabel>Inspection</ng-template>
         <app-inspection-verification-incoming-equipment (proceedNext)="doSomething3($event)"></app-inspection-verification-incoming-equipment>
       </mat-step>
