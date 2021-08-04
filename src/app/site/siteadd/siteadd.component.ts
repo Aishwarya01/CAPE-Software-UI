@@ -70,7 +70,7 @@ export class SiteaddComponent implements OnInit {
       arr: this.formBuilder.array([this.createItem()]),
       siteLocation: ['', Validators.required],
       AddressLine1: ['', Validators.required],
-      AddressLine2: ['', Validators.required],
+      AddressLine2: [''],
       siteLandmark: ['', Validators.required],
       country: ['', Validators.required],
       state: ['', Validators.required],
@@ -149,7 +149,7 @@ export class SiteaddComponent implements OnInit {
     this.dialog.closeAll();
   }
 
-  get f() {
+  get a():any {
     return this.addSiteForm.controls;
   }
 
@@ -178,8 +178,9 @@ export class SiteaddComponent implements OnInit {
   }
 
   //country code
-  countryChange(country: any) {
+  countryChange(country: any, a: any) {
     this.countryCode = country.dialCode;
+    a.controls.countryCode.value= this.countryCode;
   }
 
   onSubmit() {
@@ -197,24 +198,26 @@ export class SiteaddComponent implements OnInit {
     }
 
     this.loading = true;
-    console.log(this.addSiteForm.value.arr);
+
+    //country code
+    this.arr = this.addSiteForm.get('arr') as FormArray;
+    for(let i of this.arr.value) {
+      if((i.countryCode != "") && (i.countryCode != undefined))
+      {
+        i.contactNo = "+" +i.countryCode + "-" + i.contactNo;
+      }
+    }
 
     this.site.sitePersons=this.addSiteForm.value.arr;
     for(let i of this.site.sitePersons) {
       i.inActive=true;
     }
 
-    //country code
-    this.site.sitePersons[0].contactNo="+" +this.countryCode + "-" + this.site.sitePersons[0].contactNo;
-
-    console.log(this.site)
     this.site.userName = this.email;
-   // this.modalService.open(content5, { centered: true })
-
     this.siteService.addSIte(this.site).subscribe(
       data=> {
         this.success = true
-        this.successMsg = "Add Site successfully saved";
+        this.successMsg = "Site Saved Successfully";
         setTimeout(() => {
           this.success = false;
         }, 3000);

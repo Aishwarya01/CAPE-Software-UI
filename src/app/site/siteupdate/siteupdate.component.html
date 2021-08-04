@@ -1,5 +1,5 @@
 <h1>Update Site Information</h1>
-<form [formGroup]="updateSiteForm">
+<form [formGroup]="updateSiteForm" (ngSubmit)="onSubmit">
 
     <div class="form-group">
         <div class="row">
@@ -23,10 +23,10 @@
         </div>
     </div>
 
-    <mat-icon class="mousechange" (click)="addItem()" style="float:right; padding-right: 37px; padding-top: 30px;">
+    <mat-icon class="mousechange" (click)="addItem()" style="float:right; padding-right: 25px; padding-top: 30px;">
         add_box</mat-icon>
 
-    <div formArrayName="arr">
+    <div formArrayName="arr" class="posrel">
         <div class="form-group" *ngFor="let a of getControls(); let i = index" [formGroupName]="i">
             <div class="row">
                 <h2>Person Incharge Details:</h2>
@@ -35,26 +35,41 @@
             <div class="row">
 
                 <div class="col-md-3">
-                    <label>Person Incharge:</label>
+                    <label>* Person Incharge:</label>
                     <input type="text" formControlName="personIncharge" class="form-control"
-                        value="{{a.value.personIncharge}}" placeholder="Enter Person Incharge">
+                        value="{{a.value.personIncharge}}" placeholder="Enter Person Incharge"[ngClass]="{ 'is-invalid': submitted && a.get('personIncharge')?.errors }">
+                        <div *ngIf="submitted && a.get('personIncharge')?.errors" class="invalid-feedback">
+                          <div *ngIf="a.get('personIncharge')?.errors?.required">Person Incharge is Required</div>
+                      </div>
                 </div>
 
                 <div class="col-md-3">
-                    <label>Designation:</label>
+                    <label>* Designation:</label>
                     <input type="text" formControlName="designation" class="form-control"
-                        value="{{a.value.designation}}" placeholder="Enter Designation">
+                        value="{{a.value.designation}}" placeholder="Enter Designation" [ngClass]="{ 'is-invalid': submitted && a.get('designation')?.errors }">
+                        <div *ngIf="submitted && a.get('designation')?.errors" class="invalid-feedback">
+                          <div *ngIf="a.get('designation')?.errors?.required">Designation is Required</div>
+                      </div>
                 </div>
 
                 <div class="col-md-3">
-                    <label>Contact No:</label>
-                    <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" (keypress)="keyPressAlphaNumericWithCharacters($event)" (countryChange)="countryChange($event)" formControlName="contactNo" class="form-control" value="{{a.value.contactNo}}" minlength="10" maxlength="10" placeholder="Enter Contact Number">
+                    <label>* Mobile Number:</label>
+                    <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" (keypress)="keyPressNumbers($event)" (countryChange)="countryChange($event,a)" formControlName="contactNo" class="form-control" value="{{a.value.contactNo}}"  placeholder="Enter Number" [ngClass]="{ 'is-invalid': submitted && a.get('contactNo')?.errors }">
+                    <div *ngIf="submitted && a.get('contactNo')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('contactNo')?.errors?.required">Mobile Number is Required</div>
+                      <!-- <div *ngIf="a.get('contactNo')?.errors?.minlength">Enter 10 Digit Number</div> -->
+                    <div *ngIf="a.get('contactNo')?.errors?.maxlength">Enter 10 Digit Number</div>
+                  </div>
                 </div>
 
                 <div class="col-md-3">
-                    <label>Email:</label>
+                    <label>* Email:</label>
                     <input type="text" formControlName="personInchargeEmail" class="form-control"
-                        value="{{a.value.personInchargeEmail}}" placeholder="Enter Email Address">
+                        value="{{a.value.personInchargeEmail}}" placeholder="Enter Email Address" [ngClass]="{ 'is-invalid': submitted && a.get('personInchargeEmail')?.errors }">
+                        <div *ngIf="submitted && a.get('personInchargeEmail')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('personInchargeEmail')?.errors?.required">Email is required</div>
+                        <div *ngIf="a.get('personInchargeEmail')?.errors?.pattern">Enter valid email</div>
+                    </div>
                 </div>
 
                 <div class="col-md-3" *ngIf="false">
@@ -63,9 +78,11 @@
                 <div class="col-md-3" *ngIf="false">
                     <input type="checkbox" formControlName="inActive" class="form-control" value="{{a.value.inActive}}">
                 </div>
+                <div class="col-md-12 text-right">
                 <mat-icon class="mousechange" *ngIf="getControls().length > 1"
                     (click)="removeItem(i,a.value.personIncharge,a.value.designation,a.value.contactNo,a.value.personInchargeEmail,a.value.personId,a.value.inActive)"
-                    style="float:right; padding-left: 913px;">delete</mat-icon>
+                    >delete</mat-icon>
+                  </div>
             </div>
         </div>
     </div>
@@ -86,7 +103,7 @@
             </div>
 
             <div class="col-md-4">
-                <label>AddressLine2:</label>
+                <label>AddressLine2: (Optional)</label>
                 <input type="text" formControlName="AddressLine2" class="form-control" value="{{addressLine_2}}"
                     placeholder="Enter Address Line2" [(ngModel)]="site.addressLine_2">
             </div>
@@ -124,6 +141,16 @@
             </div>
         </div>
     </div>
+
+    <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+      <span class="alert alert-danger">{{validationErrorMsg}}</span>
+    </div>
+      <div *ngIf="success" style="text-align: center;">
+          <span class="alert alert-success">{{successMsg}}</span>
+      </div>
+      <div *ngIf="Error" style="text-align: center;">
+          <span class="alert alert-danger">{{errorMsg}}</span>
+      </div>
 
     <div style="display: flex;justify-content: space-evenly;">
         <button (click)="onSubmit()" type="submit"
