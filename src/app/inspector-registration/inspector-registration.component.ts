@@ -60,7 +60,7 @@ export class InspectorRegistrationComponent implements OnInit {
               ) { }
 
   ngOnInit(): void {
-
+    this.countryCode = '91';
     this.InspectorRegisterForm = this.formBuilder.group({
       name: ['', [Validators.required,]],
       companyName: ['', Validators.required],
@@ -154,7 +154,7 @@ export class InspectorRegistrationComponent implements OnInit {
   countryChange(country: any) {
     this.countryCode = country.dialCode;
   }
-
+ 
   selectCountry(e: any) {
     debugger
     let changedValue = e.target.value;
@@ -199,6 +199,7 @@ onSubmit() {
 //Country Code
 
 this.InspectorRegisterForm.value.contactNumber="+"+this.countryCode+"-"+this.InspectorRegisterForm.value.contactNumber;
+this.register.contactNumber=this.InspectorRegisterForm.value.contactNumber;
 
 this.inspectorRegisterService.registerInspector(this.register).subscribe(
   data=> {
