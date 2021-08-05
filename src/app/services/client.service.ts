@@ -21,7 +21,7 @@ export class ClientService {
   }
 
   public deleteClient(email: String, clientname: String): Observable<any> {
-    return this.http.delete<any>(this.apiUrl + '/deleteCompany' + '/' + email + '/' + clientname)
+    return this.http.delete<any>(this.apiUrl + '/deleteCompany' + '/' + email + '/' + clientname, { responseType: 'text' as 'json' })
   }
 
   public retrieveClient(email: String): Observable<any> {

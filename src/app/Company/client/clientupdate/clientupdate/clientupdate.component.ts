@@ -15,8 +15,10 @@ export class ClientupdateComponent implements OnInit {
   addClientForm = new FormGroup({
     clientName: new FormControl(''),
     isActive: new FormControl('')
-  }); 
+  });
   company = new Company();
+  SuccessMsg: any;
+  ErrorMsg: any;
 
   @Input()
   companyId: number;
@@ -35,7 +37,7 @@ export class ClientupdateComponent implements OnInit {
   companyCd: String = '';
 
   constructor(public dialog: MatDialog,
-              public clientService: ClientService ) { 
+              public clientService: ClientService ) {
               }
 
   ngOnInit(): void {
@@ -50,12 +52,24 @@ export class ClientupdateComponent implements OnInit {
   cancel() {
     this.dialog.closeAll();
   }
- 
+
   onSubmit() {
     this.company.userName=this.email
-    this.clientService.updateClient(this.company).subscribe(data=> 
+    this.clientService.updateClient(this.company).subscribe(
+      data=>
       {
-        this.dialog.closeAll();
+
+        debugger
+        console.log(data);
+        this.SuccessMsg=data;
+        setTimeout(()=>{
+          this.dialog.closeAll();
+        },3000);
+
+      },error=>{
+        debugger
+        console.log(error);
+        this.ErrorMsg=error;
       })
   }
 

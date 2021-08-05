@@ -52,11 +52,12 @@ export class LoginComponent implements OnInit {
 
     this.loginservice.login(this.user.email, this.user.password).subscribe(
       data=> {
+        //console.log(data);
         this.router.navigate(['/home', {email: data.users.email}])
       },
       error => {
-        this.showErrorMessage=true;
-        //this.loginForm.reset();
+        //console.log(error);
+        this.showErrorMessage=error.error.message;
         this.loading=false;
       }
     )

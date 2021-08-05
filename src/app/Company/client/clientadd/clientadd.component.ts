@@ -63,12 +63,19 @@ export class ClientaddComponent implements OnInit {
     this.company.userName=this.email
     this.clientService.addClient(this.company).subscribe(
       data => {
-        this.msg="Client Added";
-        this.dialog.closeAll();
+        debugger
+        this.msg=data;
+        setTimeout(()=>{
+          this.dialog.closeAll();
+        },3000)
       },
       error => {
-        this.showErrorMessage=true;
-        this.addClientForm.reset();
+        debugger
+        console.log(error);
+        this.showErrorMessage=error.error.message;
+        setTimeout(()=>{
+          this.addClientForm.reset();
+        },3000);
         this.loading=false;
       }
       )

@@ -293,8 +293,18 @@ visibility: visible;
   text-align: center;
   font-size: 14px;
   color: #721c24;
-  background-color: #fcc0c5;
-  border-color: #f5c6cb;
+  background-color: #ffdcde;
+  border-color: #ffdcde;
+  border-radius: 0.25rem;
+}
+
+.successshow {
+  padding: 5px 8px;
+  text-align: center;
+  font-size: 14px;
+  color: hsl(120deg 34% 27%);
+  background-color: hsl(101deg 45% 88%);
+  border-color: hsl(101deg 45% 100%);
   border-radius: 0.25rem;
 }
 

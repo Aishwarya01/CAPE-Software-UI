@@ -217,8 +217,10 @@ export class SiteaddComponent implements OnInit {
     this.site.userName = this.email;
     this.siteService.addSIte(this.site).subscribe(
       data=> {
+        debugger
+        console.log(data);
         this.success = true
-        this.successMsg = "Site Saved Successfully";
+        this.successMsg =data;
         setTimeout(() => {
           this.success = false;
         }, 3000);
@@ -227,6 +229,8 @@ export class SiteaddComponent implements OnInit {
         }, 2000);
       },
       error => {
+        debugger
+        console.log(error);
         this.Error = true;
         this.errorMsg = "Something went wrong, kindly check all the fields";
         setTimeout(() => {

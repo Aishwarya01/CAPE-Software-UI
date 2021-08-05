@@ -860,12 +860,16 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       );
     this.reportDetailsService.addReportDetails(this.reportDetails).subscribe(
       (data) => {
+        debugger
+        console.log(data);
         this.proceedNext.emit(true);
         this.success = true;
-        this.successMsg = 'Basic Information Successfully Saved';
+        this.successMsg =data;
         this.disable = true;
       },
       (error) => {
+        debugger
+        console.log(error);
         this.Error = true;
         this.proceedNext.emit(false);
         this.errorMsg = 'Something went wrong, kindly check all the fields';

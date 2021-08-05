@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
     private router: ActivatedRoute,
     private route: Router,
     private profileService: ProfileService
-    ) { 
+    ) {
       this.user.email=this.router.snapshot.paramMap.get('email') || '{}'
       this.profileService.getUser(this.user.email).subscribe(
         data =>{ this.user= JSON.parse(data)}
@@ -53,7 +53,7 @@ export class ProfileComponent implements OnInit {
     return this.profileForm.controls;
   }
 
-  
+
 
   onSubmit() {
     this.submitted = true;
@@ -68,10 +68,13 @@ export class ProfileComponent implements OnInit {
     this.user.role = this.profileForm.value.usertype;
     this.profileService.updateProfile(this.user).subscribe(
       data => {
+        console.log(data);
         this.msg = "Profile Updated Successfully";
         this.route.navigate(['/home', {email: data}]);
       },
-      error => console.log("Failed")
+      error =>{
+        console.log(error);
+      }
     )
   }
 

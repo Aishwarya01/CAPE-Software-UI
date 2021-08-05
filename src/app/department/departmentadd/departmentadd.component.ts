@@ -16,7 +16,7 @@ export class DepartmentaddComponent implements OnInit {
   addDepartmentForm = new FormGroup({
     clientname: new FormControl(''),
     departmentname: new FormControl('')
-  }); 
+  });
   department = new Department();
   loading = false;
   submitted = false;
@@ -29,8 +29,8 @@ export class DepartmentaddComponent implements OnInit {
               public clientService: ClientService,
               public departmentService: DepartmentService,
               private formBuilder: FormBuilder
-              ) { 
-                
+              ) {
+
               }
 
   ngOnInit(): void {
@@ -39,7 +39,7 @@ export class DepartmentaddComponent implements OnInit {
       departmentname: ['', Validators.required]
       });
     this.clientService.retrieveClient(this.email).subscribe(
-      data => {       
+      data => {
         this.clientList= JSON.parse(data);
       }
     )
@@ -65,9 +65,11 @@ export class DepartmentaddComponent implements OnInit {
     this.department.userName=this.email
     this.departmentService.addDepartment(this.department).subscribe(
       data => {
+        console.log(data);
         this.dialog.closeAll();
       },
       error => {
+        console.log(error);
         this.showErrorMessage=true;
         this.addDepartmentForm.reset();
         this.loading=false;

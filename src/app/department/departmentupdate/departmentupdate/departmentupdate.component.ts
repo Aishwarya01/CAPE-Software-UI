@@ -14,7 +14,7 @@ export class DepartmentupdateComponent implements OnInit {
   updateDepartmentForm = new FormGroup({
     clientName: new FormControl(''),
     departmentName: new FormControl(''),
-  }); 
+  });
 department = new Department;
   @Input()
   departmentId: number = 0;
@@ -33,7 +33,7 @@ department = new Department;
   departmentCd: String = '';
 
   constructor(public dialog: MatDialog,
-              public departmentService: DepartmentService ) { 
+              public departmentService: DepartmentService ) {
               }
 
   ngOnInit(): void {
@@ -49,11 +49,14 @@ department = new Department;
   cancel() {
     this.dialog.closeAll();
   }
- 
+
   onSubmit() {
-    this.departmentService.updateDepartment(this.department).subscribe(data=> 
-      {
+    this.departmentService.updateDepartment(this.department).subscribe(
+      data=>{
+        console.log(data);
         this.dialog.closeAll();
+      },error=>{
+        console.log(error);
       })
   }
 }

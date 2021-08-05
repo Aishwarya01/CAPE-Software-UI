@@ -13,7 +13,7 @@
                   </div>
                   <div class="card-body">
                       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" #i="ngForm">
-                        <p class="errorshow" *ngIf="msg">{{msg}}</p>
+                        <p class="successshow" *ngIf="successMsg">{{successMsg}}</p>
                           <span class="invalid-feedback"></span>
                           <div class="form-group">
                               <label for="firstname">* Firstname</label>
@@ -80,7 +80,7 @@
                               </div>
                           </div>
 
-                          <div class="form-group">
+                          <div class="form-group posrelative">
                               <label for="password">* Password</label>
                               <div class="input-group">
                                   <div class="input-group-prepend">
@@ -96,7 +96,24 @@
                                       <div style="color: #f2c716;" *ngIf="f.password.errors.pattern">Password Suggestion - "Qwerty@123'</div>
                                   </div>
                               </div>
+<!--
+                              <div class="pass_group">
+                              <div class="pas_notify">
+                                  <div class="pass_content">
+                                    <p>Password Must</p>
+                                      <ul>
+                                        <li>Have at least one UpperCase Letter </li>
+                                        <li>Have al  </li>
+                                        <li>UpperCase </li>
+                                        <li>UpperCase </li>ng s
+                                        <li>UpperCase </li>
+                                      </ul>
+                                  </div>
+                                  <div class="diag-left"></div>
+                              </div>
+                            </div>-->
                           </div>
+
                           <div class="form-group">
                               <label for="password">* Confirm Password</label>
                               <div class="input-group">
@@ -117,6 +134,8 @@
                               <input type="checkbox" formControlName="isActive" [(ngModel)]="user.active"/>
                               Active
                           </div>
+                          <!-- Register Succesfull Message -->
+                          <div class="successshow1" *ngIf="successMsg">{{successMsg}}</div>
 
                           <div style="display: inline;">
                               <button style="float: left;" type="submit" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" id="login-btn"><i class="bi bi-person-plus-fill icon"></i> Register</button>
@@ -129,11 +148,9 @@
               <div class="col-md-7" style="text-align: center;
               float: right;
               margin-top: 10px;">
-<h2>Digital Support For Testing Inspection And Certification Of Electrical Installation</h2>
-<h1 style="font-weight: 600;">INTERACTIVE - INTELLIGENT - MODERN</h1>
-
+              <h2>Digital Support For Testing Inspection And Certification Of Electrical Installation</h2>
+              <h1 style="font-weight: 600;">INTERACTIVE - INTELLIGENT - MODERN</h1>
               </div>
-
           </div>
       </div>
   </div>
