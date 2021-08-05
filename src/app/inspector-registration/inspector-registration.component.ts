@@ -152,6 +152,7 @@ onSubmit() {
   }
   this.loading = true;
 
+  this.applicationTypeData = "";
 
   for(let i of this.InspectorRegisterForm.value.applicationType) {
     if(i.code != "") {

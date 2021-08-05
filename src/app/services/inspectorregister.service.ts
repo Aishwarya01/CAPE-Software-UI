@@ -16,6 +16,6 @@ export class InspectorregisterService {
   }
 
   public  updateInspector (register: Register): Observable<any> {
-    return this.http.put<any>(this.apiUrl+'/updatePermission', register)
+    return this.http.put<any>(this.apiUrl+'/updatePermission', register,  { responseType: 'text' as 'json' })
   }
 }

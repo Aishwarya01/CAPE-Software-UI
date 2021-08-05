@@ -4,3 +4,6 @@
   .example-spacer {
     flex: 1 1 auto;
   }
+  tr.mat-header-row {
+    white-space: nowrap !important;
+}

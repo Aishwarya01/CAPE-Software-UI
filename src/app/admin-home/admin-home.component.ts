@@ -29,6 +29,10 @@ export class AdminHomeComponent implements OnInit {
               { }
 
   ngOnInit(): void {
+    this.retrieveInspector();
+  }
+
+  retrieveInspector() {
     this.adminService.retrieveAllInspector().subscribe(
       (data) => {
         this.admin_dataSource = new MatTableDataSource(data);
@@ -39,8 +43,6 @@ export class AdminHomeComponent implements OnInit {
         console.log("error")
       }
       )
-    // this.admin_dataSource = this.arr
-
   }
 
   profileUpdate() {
@@ -55,7 +57,7 @@ export class AdminHomeComponent implements OnInit {
 
   }
 
-  proceed(name: any,companyName: any,registerId: number,permission: any) {
+  proceed(name: any,companyName: any,registerId: number,permission: any,applicationType: any) {
     const dialogRef = this.dialog.open(UserUpdateComponent, {
       width: '500px',
     });
@@ -63,12 +65,14 @@ export class AdminHomeComponent implements OnInit {
     dialogRef.componentInstance.companyName = companyName;
     dialogRef.componentInstance.registerId = registerId;
     dialogRef.componentInstance.permission = permission;
+    dialogRef.componentInstance.applicationType = applicationType;
+
 
 
    
     dialogRef.afterClosed().subscribe(result => {
       // this.refresh();
-      // this.retrieveClientDetails();
+      this.retrieveInspector();
     });
   }
 

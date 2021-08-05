@@ -15,7 +15,7 @@
     </mat-toolbar-row>
   </mat-toolbar>
 
-  <div class="card" style="margin: 20px;">
+  <div class="card" style="margin: 10px;">
       <div class="card-body">
         <table mat-table [dataSource]="admin_dataSource" class="mat-elevation-z8 table" matSort
                 #adminSort="matSort" id="adminTable">
@@ -48,14 +48,14 @@
 
                 <!-- Name Column -->
                 <ng-container matColumnDef="applicationType">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Application Type </th>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header style="margin: 0 auto;"> Application Type </th>
                   <td mat-cell *matCellDef="let element"> {{element.applicationType}} </td>
                 </ng-container>
 
                 <!-- Weight Column -->
                 <ng-container matColumnDef="address">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
-                  <td mat-cell *matCellDef="let element"> {{element.address}},{{element.district}},{{element.state}},{{element.country}} </td>
+                  <td mat-cell *matCellDef="let element" style="white-space: break-spaces;"> {{element.address}},{{element.district}},{{element.state}},{{element.country}} </td>
                 </ng-container>
 
                 <!-- Symbol Column -->
@@ -72,9 +72,11 @@
 
                 <!-- Symbol Column -->
                 <ng-container matColumnDef="action">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header style="margin-left: 15px;"> Action </th>
                   <td mat-cell *matCellDef="let element">
-                    <button class="btn btn-info" (click)="proceed(element.name,element.companyName,element.registerId,element.permission)">Approve/Reject</button> 
+                    <button class="btn btn-info" style="position: relative;
+                    left: 10%;"
+                    (click)="proceed(element.name,element.companyName,element.registerId,element.permission,element.applicationType)">Approve/Reject</button> 
                   </td>
                 </ng-container>
 

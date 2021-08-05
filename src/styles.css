@@ -318,6 +318,7 @@ visibility: visible;
 }
 .multiselect-dropdown .dropdown-btn {
   padding: 7.5px 12px !important;
+  line-height: 1.4 !important;
 }
 
 .multiselect-dropdown .dropdown-btn .selected-item {
