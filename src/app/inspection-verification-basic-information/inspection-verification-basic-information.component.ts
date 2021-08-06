@@ -841,20 +841,20 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       '-' +
       this.step1Form.value.inspectorArr[0].managerContactNo;
 
-    this.reportDetails.SignatorDetails = this.step1Form.value.designer1Arr;
+    this.reportDetails.signatorDetails = this.step1Form.value.designer1Arr;
 
     if (
       this.step1Form.value.designer2Arr[0].personName != '' &&
       this.step1Form.value.designer2Arr[0].personName != null
     ) {
-      this.reportDetails.SignatorDetails =
-        this.reportDetails.SignatorDetails.concat(
+      this.reportDetails.signatorDetails =
+        this.reportDetails.signatorDetails.concat(
           this.step1Form.value.designer2Arr
         );
     }
 
-    this.reportDetails.SignatorDetails =
-      this.reportDetails.SignatorDetails.concat(
+    this.reportDetails.signatorDetails =
+      this.reportDetails.signatorDetails.concat(
         this.step1Form.value.contractorArr,
         this.step1Form.value.inspectorArr
       );
