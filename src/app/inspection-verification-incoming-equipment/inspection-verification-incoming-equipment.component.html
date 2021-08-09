@@ -1945,23 +1945,25 @@
       <mat-icon class="mousechange" *ngIf="getIncomingControls().length > 1" (click)="removeItem(i)"
       style="float:right;">delete</mat-icon>
     </div>
+   
+   
     <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
       <span class="alert alert-danger">{{validationErrorMsg}}</span>
     </div>
-    <button class="btn btn-info mousechange" (click)="addItem()" title="Add another location"
-    style="padding: 5px 0px 0px 0px;
-    left: 2%;
-    top: 10px;
-    width: 3%;
-    height: 35px;
-    position: relative;">
-     <mat-icon aria-hidden="false" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>
-    </button>
     <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
       <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
       <button  class="next"  [disabled]="disable" (click)="gotoNextModal(content3)" mat-button >Next &raquo;</button>
     </div>
   </form>
+  <button class="btn btn-info mousechange" (click)="addItem()" title="Add another location"
+  style="padding: 5px 0px 0px 0px;
+  left: 2%;
+  top: -100px;
+  width: 3%;
+  height: 35px;
+  position: relative;">
+   <mat-icon aria-hidden="false" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>
+  </button>
   </div>
 
   <ng-template #content3 let-modal>

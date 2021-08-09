@@ -446,20 +446,18 @@ export class VerificationlvComponent implements OnInit {
     this.isCompleted5 = next;
   }
 
-  changeTab(index: number, sitedId: any, userName: any): void {
+//for saved reports tab
+  changeTab(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any): void {
     this.selectedIndex = index;
-
-    // This is for saved reports
-    // this.basic.retrieveDetailsfromSavedReports(userName,sitedId);
+    this.basic.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
   }
-
+  
+//for final reports tab
   changeTab1(index: number): void {
     this.selectedIndex = index;
-
-    // This is for saved reports
-    // this.basic.retrieveDetailsfromSavedReports(userName,sitedId);
   }
 
+//for company details site step
   continue() {
     this.selectedIndex = 1;
   }

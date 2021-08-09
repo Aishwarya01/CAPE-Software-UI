@@ -43,4 +43,8 @@ export class SiteService {
   public retrieveState(countryName: String): Observable<any> {
     return this.http.get<any>(this.apiUrl + '/fetchStatesByCountryCode' + '/' +countryName, { responseType: 'text' as 'json' })
   }
+
+  public retrieveFinal(userName: String,siteId: any): Observable<any> {
+    return this.http.get<any>(this.apiUrl + '/retrieveFinalReport' + '/' +userName+ '/' +siteId, { responseType: 'text' as 'json' })
+  }
 }
