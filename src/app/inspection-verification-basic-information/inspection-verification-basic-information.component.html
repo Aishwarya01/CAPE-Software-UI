@@ -613,11 +613,11 @@
 
                         <div class="col-md-4">
                             <label>State:</label>
-                            <select  formControlName="state" class="form-control" [(ngModel)]="state"
+                            <select  formControlName="state" class="form-control"
                             [ngClass]="{ 'is-invalid': submitted && a.get('state')?.errors}">
                              <!-- <option value="0" selected>{{state1}}</option> -->
-                                <option value="0" selected>Select State Name</option>
-                                <option *ngFor="let state of stateList1" value="{{ state }}">{{state.name}}</option>
+                                <option value="0" >Select State Name</option>
+                                <option *ngFor="let state of stateList1" [selected]="state.name=== state1">{{state.name}}</option>
                             </select>
                             <div *ngIf="submitted && a.get('state')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('state')?.errors?.required">State is required</div>
@@ -769,7 +769,7 @@
                                 <select  formControlName="country" class="form-control" (change)="designer2changeCountry($event)"
                                 [ngClass]="{ 'is-invalid': submitted && a.get('country')?.errors }">
                                 <option value="0" selected>Select Country Name</option>
-                                <option *ngFor="let country of countryList">{{country.name}}</option>
+                                <option *ngFor="let country of countryList" >{{country.name}}</option>
                             </select>
                                 <div *ngIf="submitted && a.get('country')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('country')?.errors?.required">Country is required</div>
@@ -782,7 +782,7 @@
                                 <select  formControlName="state" class="form-control"
                                 [ngClass]="{ 'is-invalid': submitted && a.get('state')?.errors }">
                                 <option value="0" selected>Select State Name</option>
-                                <option *ngFor="let state of stateList2">{{state.name}}</option>
+                                <option *ngFor="let state of stateList2" [selected]="state.name=== state2">{{state.name}}</option>
                             </select>
                                 <div *ngIf="submitted && a.get('state')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('state')?.errors?.required">State is required</div>
@@ -953,7 +953,7 @@
                                 <select  formControlName="state" class="form-control"
                                 [ngClass]="{ 'is-invalid': submitted && a.get('state')?.errors }">
                                     <option value="0" selected>Select State Name</option>
-                                    <option *ngFor="let state of stateList3">{{state.name}}</option>
+                                    <option *ngFor="let state of stateList3" [selected]="state.name=== state3">{{state.name}}</option>
                                 </select>
                                 <div *ngIf="submitted && a.get('state')?.errors" class="invalid-feedback">
                                   <div *ngIf="a.get('state')?.errors?.required">State is required</div>
@@ -1122,7 +1122,7 @@
                               <select  formControlName="state" class="form-control"
                               [ngClass]="{ 'is-invalid': submitted && a.get('state')?.errors }">
                                   <option value="0" selected>Select State Name</option>
-                                  <option *ngFor="let state of stateList4">{{state.name}}</option>
+                                  <option *ngFor="let state of stateList4" [selected]="state.name=== state4">{{state.name}}</option>
                               </select>
                               <div *ngIf="submitted && a.get('state')?.errors" class="invalid-feedback">
                                 <div *ngIf="a.get('state')?.errors?.required">State is required</div>

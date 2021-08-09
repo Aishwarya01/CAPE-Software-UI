@@ -69,7 +69,11 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   step1List: any = [];
   siteDetails: boolean = true;
   siteDetails1: boolean = false;
-  state1: String = "select state Name";
+  state1: String = "";
+  state2: String = "";
+  state3: String = "";
+  state4: String = "";
+
 
   // Second Tab dependencies
   panelOpenState = false;
@@ -180,7 +184,13 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
           this.step1Form.patchValue({
             designer1Arr: [i],
             designer1AcknowledgeArr: [i]
-          })       
+          })    
+          // this.step1Form.controls.designer1Arr.patchValue({
+          //   state: [i.state]
+          // })   
+        this.state1 = i.state;
+        this.designer1changeCountry(i.country);
+
          }
 
         else if(i.signatorRole == "designer2"){
@@ -188,14 +198,9 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
             designer2Arr: [i],
             designer2AcknowledgeArr: [i]
           })
-          // this.step1Form.controls.designer2Arr.setValue({state: i.state})
-          debugger
-          console.log(this.step1Form.controls.designer2Arr.value[0].state)
-          this.step1List.state1=i.state;
-          // this.step1Form.controls.designer2Arr.patchValue({
-          //   state: [i.state]
-          // })
-          this.showDesigner2 = true;   
+          this.showDesigner2 = true;  
+          this.state2 = i.state;
+          this.designer2changeCountry(i.country); 
          }
 
        else if(i.signatorRole == "contractor"){
@@ -203,12 +208,16 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
           contractorArr: [i],
           contractorAcknowledgeArr: [i]
          })       
+        this.state3 = i.state;
+        this.contractorchangeCountry(i.country);
        }
        else if(i.signatorRole == "inspector"){
           this.step1Form.patchValue({
             inspectorArr: [i],
             inspectorAcknowledgeArr: [i]
-          })       
+          })   
+          this.state4 = i.state;
+          this.inspectorchangeCountry(i.country);    
         }
       }
       
@@ -447,7 +456,15 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 
 
   designer1changeCountry(e: any) {
-    let changedValue = e.target.value;
+    let changedValue;
+
+    if(e.target != undefined) {
+      changedValue = e.target.value;
+    }
+    else{
+      changedValue = e;
+    }
+
     this.stateList1 = [];
       for(let arr of this.countryList) {
         if( arr.name == changedValue) {
@@ -460,7 +477,15 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   }
 
   designer2changeCountry(e: any) {
-    let changedValue = e.target.value;
+    let changedValue;
+
+    if(e.target != undefined) {
+      changedValue = e.target.value;
+    }
+    else{
+      changedValue = e;
+    }
+
     this.stateList2 = [];
       for(let arr of this.countryList) {
         if( arr.name == changedValue) {
@@ -501,7 +526,14 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   }
 
   contractorchangeCountry(e: any) {
-    let changedValue = e.target.value;
+    let changedValue;
+
+    if(e.target != undefined) {
+      changedValue = e.target.value;
+    }
+    else{
+      changedValue = e;
+    }
     this.stateList3 = [];
       for(let arr of this.countryList) {
         if( arr.name == changedValue) {
@@ -541,7 +573,15 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   }
 
   inspectorchangeCountry(e: any) {
-    let changedValue = e.target.value;
+    let changedValue;
+
+    if(e.target != undefined) {
+      changedValue = e.target.value;
+    }
+    else{
+      changedValue = e;
+    }
+
     this.stateList4 = [];
       for(let arr of this.countryList) {
         if( arr.name == changedValue) {
