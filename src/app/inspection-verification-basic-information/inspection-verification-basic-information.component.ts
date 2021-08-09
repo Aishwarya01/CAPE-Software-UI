@@ -71,6 +71,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   siteDetails1: boolean = false;
   state1: String = "";
   state2: String = "";
+  country2: String = "";
   state3: String = "";
   state4: String = "";
 
@@ -200,6 +201,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
           })
           this.showDesigner2 = true;  
           this.state2 = i.state;
+          this.country2= i.country;
           this.designer2changeCountry(i.country); 
          }
 

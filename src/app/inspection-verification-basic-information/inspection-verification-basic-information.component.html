@@ -769,7 +769,7 @@
                                 <select  formControlName="country" class="form-control" (change)="designer2changeCountry($event)"
                                 [ngClass]="{ 'is-invalid': submitted && a.get('country')?.errors }">
                                 <option value="0" selected>Select Country Name</option>
-                                <option *ngFor="let country of countryList" >{{country.name}}</option>
+                                <option *ngFor="let country of countryList" [selected]="country.name=== country2">{{country.name}}</option>
                             </select>
                                 <div *ngIf="submitted && a.get('country')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('country')?.errors?.required">Country is required</div>
