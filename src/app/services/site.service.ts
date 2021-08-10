@@ -45,6 +45,6 @@ export class SiteService {
   }
 
   public retrieveFinal(userName: String,siteId: any): Observable<any> {
-    return this.http.get<any>(this.apiUrl + '/retrieveFinalReport' + '/' +userName+ '/' +siteId, { responseType: 'text' as 'json' })
+    return this.http.get<any>(this.apiUrl + '/retrieveReport' + '/' +userName+ '/' +siteId, { responseType: 'text' as 'json' })
   }
 }
