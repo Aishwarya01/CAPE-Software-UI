@@ -829,3 +829,4 @@ nextTab() {
     this.service.siteCount = this.reportDetails.siteId;
   }
 
+}
