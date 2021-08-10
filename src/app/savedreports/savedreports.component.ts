@@ -71,8 +71,7 @@ export class SavedreportsComponent implements OnInit {
   retrieveSiteDetails() {
       this.siteService.retrieveListOfSite(this.site).subscribe(
         data => {
-          debugger
-          this.savedReport_dataSource = new MatTableDataSource(JSON.parse(data));
+         this.savedReport_dataSource = new MatTableDataSource(JSON.parse(data));
           this.savedReport_dataSource.paginator = this.savedReportPaginator;
           this.savedReport_dataSource.sort = this.savedReportSort;
         });

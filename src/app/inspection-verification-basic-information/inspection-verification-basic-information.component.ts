@@ -167,7 +167,6 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 
 
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any){
-    debugger
     this.siteService.retrieveFinal(userName,siteId).subscribe(
       data=> {
         this.siteDetails1 = true;
