@@ -2,7 +2,7 @@
     <div class="card-body">
       <form [formGroup]="step1Form" (ngSubmit)="nextTab()">
       <div class="search-bar">
-          <div class="form-group">
+          <div class="form-group" *ngIf="siteDetails">
             <div class="row">
               <div class="col-md-4">
                     <label>Company Name*</label>
@@ -37,6 +37,23 @@
               </div>
             </div>
         </div>
+
+        <div class="form-group" *ngIf="siteDetails1">
+          <div class="row">
+            <div class="col-md-4">
+                  <label>Company Name</label>
+                  <input type="text" class="form-control" formControlName="clientName1" readonly/>
+            </div>
+            <div class="col-md-4">
+                  <label>Department Name</label>
+                  <input type="text" class="form-control"  formControlName="departmentName1" readonly/>
+            </div>
+            <div class="col-md-4">
+                  <label>Site Name</label>
+                  <input type="text" class="form-control"  formControlName="site1" readonly/>
+            </div>
+          </div>
+      </div>
       </div>
 
       <mat-accordion>
@@ -48,10 +65,11 @@
 
             </mat-expansion-panel-header>
 
-
             <mat-form-field class="client-description ">
               <mat-label><h3>Description of Report*</h3></mat-label>
-              <textarea matInput class="client-box-description" formControlName="descriptionOfReport" maxlength="500" placeholder="Ex. Report description..." [(ngModel)]="reportDetails.descriptionReport" [ngClass]="{ 'is-invalid': submitted && f.descriptionOfReport.errors }"></textarea>
+              <textarea matInput class="client-box-description" formControlName="descriptionOfReport" 
+              maxlength="500" placeholder="Ex. Report description..." [(ngModel)]="reportDetails.descriptionReport" 
+              [ngClass]="{ 'is-invalid': submitted && f.descriptionOfReport.errors }"></textarea>
               <div *ngIf="submitted && f.descriptionOfReport.errors" class="invalid-feedback">
                 <div *ngIf="f.descriptionOfReport?.errors?.required">Description is required</div>
             </div>
@@ -64,7 +82,6 @@
                 <div *ngIf="f.reasonOfReport?.errors?.required">Reason is required</div>
             </div>
             </mat-form-field>
-
           </mat-expansion-panel>
 
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -78,8 +95,9 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label>Type of Installation* :</label>
-                  <select class="form-control" formControlName="installationType" (change)="showWiringAge($event)" [(ngModel)]="reportDetails.installationType" [ngClass]="{ 'is-invalid': submitted && f.installationType.errors }">
-                    <option value="0" selected>Select Option</option>
+                  <select class="form-control" formControlName="installationType" (change)="showWiringAge($event)" 
+                  [(ngModel)]="reportDetails.installationType" [ngClass]="{ 'is-invalid': submitted && f.installationType.errors }">
+                    <option [ngValue]="null">Select Option</option>
                     <option *ngFor="let value of installationList">{{value}}</option>
                   </select>
                   <div *ngIf="submitted && f.installationType.errors" class="invalid-feedback">
@@ -91,9 +109,10 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label>Description of the Premise* :</label>
-                  <select class="form-control" formControlName="descPremise" [(ngModel)]="reportDetails.descriptionPremise" [ngClass]="{ 'is-invalid': submitted && f.descPremise.errors }">
+                  <select class="form-control" formControlName="descPremise" 
+                  [(ngModel)]="reportDetails.descriptionPremise" [ngClass]="{ 'is-invalid': submitted && f.descPremise.errors }">
                     <option value="0" selected>Select Option</option>
-                    <option *ngFor="let value of premiseList">{{value}}</option>
+                    <option *ngFor="let value of premiseList" >{{value}}</option>
                   </select>
                   <div *ngIf="submitted && f.descPremise.errors" class="invalid-feedback">
                     <div *ngIf="f.descPremise?.errors?.required">Field Is Required</div>
@@ -117,9 +136,10 @@
 
               <div class="col-md-4">
                 <label>Evidence of Addition/Alterations* :</label>
-                <select class="form-control" formControlName="evidenceAlterations" (change)="showEstimatedAge($event)" [(ngModel)]="reportDetails.evidanceAddition" [ngClass]="{ 'is-invalid': submitted && f.evidenceAlterations.errors }">
+                <select class="form-control" formControlName="evidenceAlterations" (change)="showEstimatedAge($event)"
+                 [(ngModel)]="reportDetails.evidanceAddition" [ngClass]="{ 'is-invalid': submitted && f.evidenceAlterations.errors }">
                   <option value="0" selected>Select Option</option>
-                  <option *ngFor="let value of evidenceList">{{value}}</option>
+                  <option *ngFor="let value of evidenceList" >{{value}}</option>
                 </select>
                 <div *ngIf="submitted && f.evidenceAlterations.errors" class="invalid-feedback">
                   <div *ngIf="f.evidenceAlterations?.errors?.required">Evidence is required</div>
@@ -128,7 +148,8 @@
 
               <div class="col-md-4" *ngIf="showField2" style="margin-top: 43px;">
                 <label>If Yes Estimated Age Years:</label>
-                  <input type="number" formControlName="showField2" [ngClass]="{ 'is-invalid': submitted && f.showField2.errors }" style="
+                  <input type="number" formControlName="showField2"
+                   [ngClass]="{ 'is-invalid': submitted && f.showField2.errors }" style="
                   width: 50px;
                   background: transparent;
                   border: none;
@@ -141,9 +162,10 @@
 
               <div class="col-md-4">
                 <label>Previous Records Available* :</label>
-                <select class="form-control" formControlName="previousRecord" [(ngModel)]="reportDetails.previousRecords" [ngClass]="{ 'is-invalid': submitted && f.previousRecord.errors }">
+                <select class="form-control" formControlName="previousRecord" 
+                [(ngModel)]="reportDetails.previousRecords" [ngClass]="{ 'is-invalid': submitted && f.previousRecord.errors }">
                   <option value="0" selected>Select Option</option>
-                  <option *ngFor="let value of previousRecordList">{{value}}</option>
+                  <option *ngFor="let value of previousRecordList" >{{value}}</option>
                 </select>
                 <div *ngIf="submitted && f.previousRecord.errors" class="invalid-feedback">
                   <div *ngIf="f.previousRecord?.errors?.required">Previous record is required</div>
@@ -152,7 +174,8 @@
 
               <div class="col-md-4">
                 <label>Last Date Of Inspection* :</label>
-                <input type="date" class="form-control" formControlName="inspectionLast" placeholder="Enter Date" [(ngModel)]="reportDetails.lastInspection" [ngClass]="{ 'is-invalid': submitted && f.inspectionLast.errors }">
+                <input type="date" class="form-control" formControlName="inspectionLast" placeholder="Enter Date" 
+                [(ngModel)]="reportDetails.lastInspection" [ngClass]="{ 'is-invalid': submitted && f.inspectionLast.errors }">
                 <div *ngIf="submitted && f.inspectionLast.errors" class="invalid-feedback">
                   <div *ngIf="f.inspectionLast?.errors?.required">Inspection last date is required</div>
                 </div>
@@ -187,7 +210,8 @@
               <div class="col-md-4">
                 <mat-form-field class="client-description ">
                   <mat-label><h3>Details Of Client / Person Ordering This Report * (maximum length is 50 )</h3></mat-label>
-                  <textarea matInput class="client-box-description" formControlName="detailsOfClient" maxlength="50" [ngClass]="{ 'is-invalid': submitted && f.detailsOfClient.errors }" placeholder=" Ex. Name, address ,purpose ,relation with end user.." [(ngModel)]="reportDetails.clientDetails"></textarea>
+                  <textarea matInput class="client-box-description" formControlName="detailsOfClient" maxlength="50" 
+                  [ngClass]="{ 'is-invalid': submitted && f.detailsOfClient.errors }" placeholder=" Ex. Name, address ,purpose ,relation with end user.." [(ngModel)]="reportDetails.clientDetails"></textarea>
                   <div *ngIf="submitted && f.detailsOfClient.errors" class="invalid-feedback">
                     <div *ngIf="f.detailsOfClient?.errors?.required">Details Of client is required</div>
                 </div>
@@ -250,7 +274,7 @@
                   <label>Read and Confirmed the Extent and Limitations* :</label>
                   <select class="form-control" formControlName="confirmExtent" [(ngModel)]="reportDetails.confirmExtent" [ngClass]="{ 'is-invalid': submitted && f.confirmExtent.errors }">
                     <option value="0" selected>Select Option</option>
-                    <option *ngFor="let value of previousRecordList">{{value}}</option>
+                    <option *ngFor="let value of previousRecordList" >{{value}}</option>
                   </select>
                   <div *ngIf="submitted && f.confirmExtent.errors" class="invalid-feedback">
                     <div *ngIf="f.confirmExtent?.errors?.required">Field Is Required</div>
@@ -284,10 +308,10 @@
                     <div class="row">
                       <div class="col-md-4">
                         <label>Signature:</label>
-                        <input type="text" formControlName="signature" class="form-control"
-                        [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }">
-                          <div *ngIf="submitted && a.get('signature')?.errors" class="invalid-feedback">
-                            <div *ngIf="a.get('signature')?.errors?.required">Signature is required</div>
+                        <input type="text" formControlName="declarationSignature" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && a.get('declarationSignature')?.errors }">
+                          <div *ngIf="submitted && a.get('declarationSignature')?.errors" class="invalid-feedback">
+                            <div *ngIf="a.get('declarationSignature')?.errors?.required">Signature is required</div>
                         </div>
                       </div>
 
@@ -319,7 +343,7 @@
                     <div class="row">
                       <div class="col-md-4">
                         <label>Signature:</label>
-                        <input type="text" formControlName="signature" class="form-control">
+                        <input type="text" formControlName="declarationSignature" class="form-control">
                       </div>
                       <div class="col-md-4">
                         <label>Date:</label>
@@ -351,10 +375,10 @@
                       <div class="row">
                         <div class="col-md-4">
                           <label>Signature:</label>
-                          <input type="text" formControlName="signature" class="form-control"
-                          [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }">
-                          <div *ngIf="submitted && a.get('signature')?.errors" class="invalid-feedback">
-                            <div *ngIf="a.get('signature')?.errors?.required">Signature is required</div>
+                          <input type="text" formControlName="declarationSignature" class="form-control"
+                          [ngClass]="{ 'is-invalid': submitted && a.get('declarationSignature')?.errors }">
+                          <div *ngIf="submitted && a.get('declarationSignature')?.errors" class="invalid-feedback">
+                            <div *ngIf="a.get('declarationSignature')?.errors?.required">Signature is required</div>
                         </div>
                         </div>
 
@@ -396,10 +420,10 @@
                       <div class="row">
                         <div class="col-md-4">
                           <label>Signature:</label>
-                          <input type="text" formControlName="signature" class="form-control"
-                          [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }">
-                          <div *ngIf="submitted && a.get('signature')?.errors" class="invalid-feedback">
-                            <div *ngIf="a.get('signature')?.errors?.required">Signature is required</div>
+                          <input type="text" formControlName="declarationSignature" class="form-control"
+                          [ngClass]="{ 'is-invalid': submitted && a.get('declarationSignature')?.errors }">
+                          <div *ngIf="submitted && a.get('declarationSignature')?.errors" class="invalid-feedback">
+                            <div *ngIf="a.get('declarationSignature')?.errors?.required">Signature is required</div>
                         </div>
                         </div>
 
@@ -510,7 +534,8 @@
                         <div class="col-md-4">
                           <label>* Mobile Number:</label>
                           <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
-                          (keypress)="keyPressNumbers($event)" (countryChange)="countryChange1($event)" formControlName="managerContactNo" class="form-control" placeholder="Enter Mobile Number"
+                          (keypress)="keyPressAlphaNumericWithCharacters($event)" (countryChange)="countryChange1($event)" 
+                          formControlName="managerContactNo" class="form-control" placeholder="Enter Mobile Number"
                           [ngClass]="{ 'is-invalid': submitted && a.get('managerContactNo')?.errors }">
                           <div *ngIf="submitted && a.get('managerContactNo')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('managerContactNo')?.errors?.required">Mobile Number is Required</div>
@@ -590,8 +615,9 @@
                             <label>State:</label>
                             <select  formControlName="state" class="form-control"
                             [ngClass]="{ 'is-invalid': submitted && a.get('state')?.errors}">
-                                <option value="0" selected>Select State Name</option>
-                                <option *ngFor="let state of stateList1">{{state.name}}</option>
+                             <!-- <option value="0" selected>{{state1}}</option> -->
+                                <option value="0" >Select State Name</option>
+                                <option *ngFor="let state of stateList1" [selected]="state.name=== state1">{{state.name}}</option>
                             </select>
                             <div *ngIf="submitted && a.get('state')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('state')?.errors?.required">State is required</div>
@@ -743,7 +769,7 @@
                                 <select  formControlName="country" class="form-control" (change)="designer2changeCountry($event)"
                                 [ngClass]="{ 'is-invalid': submitted && a.get('country')?.errors }">
                                 <option value="0" selected>Select Country Name</option>
-                                <option *ngFor="let country of countryList">{{country.name}}</option>
+                                <option *ngFor="let country of countryList" [selected]="country.name=== country2">{{country.name}}</option>
                             </select>
                                 <div *ngIf="submitted && a.get('country')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('country')?.errors?.required">Country is required</div>
@@ -756,7 +782,7 @@
                                 <select  formControlName="state" class="form-control"
                                 [ngClass]="{ 'is-invalid': submitted && a.get('state')?.errors }">
                                 <option value="0" selected>Select State Name</option>
-                                <option *ngFor="let state of stateList2">{{state.name}}</option>
+                                <option *ngFor="let state of stateList2" [selected]="state.name=== state2">{{state.name}}</option>
                             </select>
                                 <div *ngIf="submitted && a.get('state')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('state')?.errors?.required">State is required</div>
@@ -927,7 +953,7 @@
                                 <select  formControlName="state" class="form-control"
                                 [ngClass]="{ 'is-invalid': submitted && a.get('state')?.errors }">
                                     <option value="0" selected>Select State Name</option>
-                                    <option *ngFor="let state of stateList3">{{state.name}}</option>
+                                    <option *ngFor="let state of stateList3" [selected]="state.name=== state3">{{state.name}}</option>
                                 </select>
                                 <div *ngIf="submitted && a.get('state')?.errors" class="invalid-feedback">
                                   <div *ngIf="a.get('state')?.errors?.required">State is required</div>
@@ -1096,7 +1122,7 @@
                               <select  formControlName="state" class="form-control"
                               [ngClass]="{ 'is-invalid': submitted && a.get('state')?.errors }">
                                   <option value="0" selected>Select State Name</option>
-                                  <option *ngFor="let state of stateList4">{{state.name}}</option>
+                                  <option *ngFor="let state of stateList4" [selected]="state.name=== state4">{{state.name}}</option>
                               </select>
                               <div *ngIf="submitted && a.get('state')?.errors" class="invalid-feedback">
                                 <div *ngIf="a.get('state')?.errors?.required">State is required</div>

@@ -71,6 +71,7 @@ export class SavedreportsComponent implements OnInit {
   retrieveSiteDetails() {
       this.siteService.retrieveListOfSite(this.site).subscribe(
         data => {
+          debugger
           this.savedReport_dataSource = new MatTableDataSource(JSON.parse(data));
           this.savedReport_dataSource.paginator = this.savedReportPaginator;
           this.savedReport_dataSource.sort = this.savedReportSort;
@@ -81,8 +82,8 @@ export class SavedreportsComponent implements OnInit {
 
   }
 
-  continue(siteId: any) {
-   // this.verification.changeTab(1,siteId);
+  continue(siteId: any,userName :any,clientName: any,departmentName: any,site: any) {
+    this.verification.changeTab(1,siteId,userName,clientName,departmentName,site);
   }
   
 }

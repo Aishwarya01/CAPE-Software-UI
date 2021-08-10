@@ -25,7 +25,7 @@ export class Reportdetails {
     updatedBy: String;
     updatedDate: Date;
 
-    SignatorDetails: SignatorDetails [];
+    signatorDetails: SignatorDetails [];
 }
 
 export class SignatorDetails {

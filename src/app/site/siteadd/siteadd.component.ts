@@ -73,7 +73,7 @@ export class SiteaddComponent implements OnInit {
       siteLocation: ['', Validators.required],
       AddressLine1: ['', Validators.required],
       AddressLine2: [''],
-      siteLandmark: ['', Validators.required],
+      siteLandmark: [''],
       country: ['', Validators.required],
       state: ['', Validators.required],
       pincode: ['', Validators.required],
