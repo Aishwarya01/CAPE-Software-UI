@@ -27,7 +27,7 @@
                 <ng-container matColumnDef="action">
                   <th mat-header-cell *matHeaderCellDef> Action </th>
                   <td mat-cell *matCellDef="let element">
-                    <button class="btn btn-outline-danger delete" (click)="deleteClient(element.clientName)"
+                    <button class="btn btn-outline-danger delete" (click)="deleteClient(element.clientName,clientdelete)"
                       style="padding: 7px 10px 0px 10px;">
                       <mat-icon aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
                     </button>
@@ -88,7 +88,6 @@
 
               <mat-paginator #companyPaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
             </div>
-
           </div>
 
           <!-- <input matInput formControlName="firstCtrl"> -->
@@ -123,6 +122,7 @@
               </div>
               <!-- </div> -->
             </div>
+
             <div class="card-body">
               <div class="col-md-12" style="margin-top:30px;">
                 <table mat-table [dataSource]="department_dataSource" class="mat-elevation-z8 table" matSort
@@ -134,7 +134,7 @@
                   <ng-container matColumnDef="action">
                     <th mat-header-cell *matHeaderCellDef> Action </th>
                     <td mat-cell *matCellDef="let element">
-                      <button class="btn btn-outline-danger delete" (click)="deleteDepartment(element.departmentId)">
+                      <button class="btn btn-outline-danger delete" (click)="deleteDepartment(element.departmentId,deptdelete)">
                         <mat-icon>delete</mat-icon>
                       </button>
                     </td>
@@ -180,13 +180,11 @@
                   <tr mat-row *matRowDef="let row; columns: departmentColumns;"
                     [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
                     (mouseout)="row.hovered = false"></tr>
-
                 </table>
 
               </div>
               <mat-paginator #departmentPaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
             </div>
-
           </div>
 
           <div style="text-align: center;margin-top: 40px;">
@@ -245,7 +243,7 @@
                   <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef> Action
                   </th>
                   <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-                    <button class="btn btn-outline-danger delete" (click)="deleteSite(element.siteId)">
+                    <button class="btn btn-outline-danger delete" (click)="deleteSite(element.siteId,sitedelete)">
                       <mat-icon>delete</mat-icon><label></label>
                     </button>
                   </td>
@@ -320,6 +318,7 @@
             <mat-paginator #sitePaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
           </div>
         </div>
+
         <div style="text-align: center;margin-top: 40px;">
           <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
           <button class="next" mat-button (click)="stepper.reset()"><span class="material-icons">
@@ -328,12 +327,12 @@
             Reset </button>
             <button class="btn btn-info next" mat-button (click)="continue()" [disabled]="disable">
               <span class="material-icons" style="margin-left: -13px;">
-                arrow_right              
+                arrow_right
               </span>
               Continue
             </button>
         </div>
-        
+
       </mat-step>
     </mat-horizontal-stepper>
   </mat-tab>
@@ -344,7 +343,7 @@
 
         <ng-template matStepLabel >Basic Information</ng-template>
 
-        <app-inspection-verification-basic-information  (proceedNext)="doSomething1($event)"  
+        <app-inspection-verification-basic-information  (proceedNext)="doSomething1($event)"
         ></app-inspection-verification-basic-information>
 
       </mat-step>
@@ -367,7 +366,7 @@
       <mat-step [completed]="isCompleted4">
         <ng-template matStepLabel>Testing</ng-template>
         <app-inspection-verification-testing (proceedNext)="doSomething4($event)"></app-inspection-verification-testing>
-   
+
 
       </mat-step>
 
@@ -383,8 +382,65 @@
   <mat-tab label="Saved Reports">
     <app-savedreports></app-savedreports>
   </mat-tab>
-  
+
   <mat-tab label="Final Reports">
     <app-finalreports></app-finalreports>
   </mat-tab>
 </mat-tab-group>
+
+<!-- Exeption Messages For Client -->
+<ng-template #clientdelete let-modal>
+
+  <div class="modal-body">
+   <div class="centre-text m-btm30">
+    <div *ngIf="success" style="text-align: center;">
+      <span class="successshow">{{successMsg}}</span>
+     </div>
+     <div *ngIf="Error" style="text-align: center;">
+       <span class="errorshow">{{errorMsg}}</span>
+      </div>
+    </div>
+   </div>
+  <br>
+  <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"  (click)="closeModalDialog()">
+    <span aria-hidden="true">Ok</span>
+  </button>
+</ng-template>
+
+<!-- Exeption Messages For Department -->
+<ng-template #deptdelete let-modal>
+
+  <div class="modal-body">
+   <div class="centre-text m-btm30">
+    <div *ngIf="success" style="text-align: center;">
+      <span class="successshow">{{successMsg}}</span>
+     </div>
+     <div *ngIf="Error" style="text-align: center;">
+       <span class="errorshow">{{errorMsg}}</span>
+      </div>
+    </div>
+   </div>
+  <br>
+  <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"  (click)="closeModalDialog()">
+    <span aria-hidden="true">Ok</span>
+  </button>
+</ng-template>
+
+<!-- Exeption Messages For Site -->
+<ng-template #sitedelete let-modal>
+
+  <div class="modal-body">
+   <div class="centre-text m-btm30">
+    <div *ngIf="success" style="text-align: center;">
+      <span class="successshow">{{successMsg}}</span>
+     </div>
+     <div *ngIf="Error" style="text-align: center;">
+       <span class="errorshow">{{errorMsg}}</span>
+      </div>
+    </div>
+   </div>
+  <br>
+  <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"  (click)="closeModalDialog()">
+    <span aria-hidden="true">Ok</span>
+  </button>
+</ng-template>

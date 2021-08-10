@@ -22,6 +22,8 @@ export class RegisterComponent implements OnInit {
     active: new FormControl('')
 
   });
+  success: boolean=false;
+  successMsg: any;
   loading = false;
   submitted = false;
   usertypelist: any = ['User', 'Viewer', 'Admin'];
@@ -76,15 +78,14 @@ export class RegisterComponent implements OnInit {
     this.user.role = this.registerForm.value.usertype;
     this.registerservice.register(this.user).subscribe(
       data => {
-
-        this.msg ="Register Success";
+        this.success=true;
+        this.successMsg =data;
+        setTimeout(() => {
         this.router.navigate(['/login']);
-        
+        }, 3000);
       },
       error => {
-        this.msg="Given email-Id is already existing...!";
-        this.alert="Email-id is already present, Enter new email-id";
-       
+        this.alert=error.error.message;
       }
     )
   }

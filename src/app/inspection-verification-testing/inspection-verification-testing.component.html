@@ -1,31 +1,31 @@
 <div class="card">
     <div class="card-body">
-    <!-- <button class="btn btn-info mousechange" 
+    <!-- <button class="btn btn-info mousechange"
         style="padding: 7px 10px 0px 10px;left: 93%;top: 10px;width: 4%;position: relative;">
             <mat-icon aria-hidden="false" (click)="addItem()" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>
     </button> -->
      <form [formGroup]="testingForm" (ngSubmit)="nextTab()">
        <div class="card-body" formArrayName="testaccordianArr" *ngFor="let a of getTestControls(); let i = index" >
             <div [formGroupName]="i">
-         
+
                     <div class="search-bar">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
                                     <label>Location Number*</label>
                                     <input type="number" class="form-control" formControlName="locationNumber"
-                                        placeholder="Enter Location Number" 
+                                        placeholder="Enter Location Number"
                                         value="{{location.locationArr[i].locationNumber}}"
-                                        [(ngModel)]="location.locationArr[i].locationNumber" [readonly]="true" 
+                                        [(ngModel)]="location.locationArr[i].locationNumber" [readonly]="true"
                                         style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
                                 </div>
-            
+
                                 <div class="col-md-6">
                                     <label>Location Name*</label>
                                     <input type="text" class="form-control" formControlName="locationName"
-                                        placeholder="Enter Location Name" 
+                                        placeholder="Enter Location Name"
                                         value="{{location.locationArr[i].locationName}}"
-                                        [(ngModel)]="location.locationArr[i].locationName" [readonly]="true" 
+                                        [(ngModel)]="location.locationArr[i].locationName" [readonly]="true"
                                         style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
                                 </div>
                             </div>
@@ -38,7 +38,7 @@
               <h3>Testing Basics Information</h3>
             </mat-panel-title>
          </mat-expansion-panel-header>
-                   
+
     <div class="row">
         <div class="col-md-4">
             <label>Test Engineer Name </label>
@@ -48,7 +48,7 @@
                 <div *ngIf="a.get('testEngineerName')?.errors?.required">Test engineer name is required</div>
             </div>
         </div>
-    
+
         <div class="col-md-4">
             <label>Date</label>
             <input type='date' formControlName="date" class="form-control"   placeholder="Enter Date "
@@ -63,7 +63,7 @@
                             <input type="text" formControlName="designation"   placeholder="Enter Designation " class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('designation')?.errors }"  >
                             <div *ngIf="submitted && a.get('designation')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('designation')?.errors?.required">Designation value is required</div>
-                            </div> 
+                            </div>
                         </div>
                     </div>
 
@@ -73,7 +73,7 @@
                             <input type="text" formControlName="companyName"  placeholder="Enter Company Name " class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('companyName')?.errors }"  >
                             <div *ngIf="submitted && a.get('companyName')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('companyName')?.errors?.required">Company name is required</div>
-                            </div> 
+                            </div>
                         </div>
 
                         <div class="col-md-4">
@@ -81,7 +81,7 @@
                             <input type="text" formControlName="detailsTestInstrument"    placeholder="Enter Details Of test instrument Name"class="form-control"[ngClass]="{ 'is-invalid': submitted && a.get('detailsTestInstrument')?.errors }"  >
                             <div *ngIf="submitted && a.get('detailsTestInstrument')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('detailsTestInstrument')?.errors?.required">Details Of test instrument value is required</div>
-                            </div> 
+                            </div>
                         </div>
 
                         <div class="col-md-4">
@@ -89,7 +89,7 @@
                             <input type="text" formControlName="continuity"  placeholder="Enter Continuity"class="form-control"[ngClass]="{ 'is-invalid': submitted && a.get('continuity')?.errors }"  >
                             <div *ngIf="submitted && a.get('continuity')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('continuity')?.errors?.required">Continuity  value is required</div>
-                            </div> 
+                            </div>
                         </div>
                     </div>
 
@@ -99,7 +99,7 @@
                             <input type="text" formControlName="insulationResisance"   placeholder=" Enter Insulation resistance"class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('insulationResisance')?.errors }"  >
                             <div *ngIf="submitted && a.get('insulationResisance')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('insulationResisance')?.errors?.required">Insulation resistance value is required</div>
-                            </div> 
+                            </div>
                         </div>
 
                         <div class="col-md-4">
@@ -107,7 +107,7 @@
                             <input type="text" formControlName="impedance" placeholder=" Enter Impedance" class="form-control"[ngClass]="{ 'is-invalid': submitted && a.get('impedance')?.errors }"  >
                             <div *ngIf="submitted && a.get('impedance')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('impedance')?.errors?.required">Impedance value is required</div>
-                            </div> 
+                            </div>
                         </div>
 
                         <div class="col-md-4">
@@ -115,7 +115,7 @@
                             <input type="text" formControlName="rcd"  placeholder=" Enter RCD " class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('rcd')?.errors }"  >
                             <div *ngIf="submitted && a.get('rcd')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('rcd')?.errors?.required">RCD value is required</div>
-                            </div> 
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -124,7 +124,7 @@
                         <input type="text" formControlName="earthElectrodeResistance"  placeholder=" Enter Earth Electrode Resistance" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('earthElectrodeResistance')?.errors }"  >
                         <div *ngIf="submitted && a.get('earthElectrodeResistance')?.errors" class="invalid-feedback">
                           <div *ngIf="a.get('earthElectrodeResistance')?.errors?.required">Earth electrode resistance value is required</div>
-                        </div> 
+                        </div>
                     </div>
                     </div>
                     </mat-expansion-panel>
@@ -134,7 +134,7 @@
                                 <h3>Detailed Testing</h3>
                             </mat-panel-title>
                         </mat-expansion-panel-header>
-             
+
                    <div formArrayName="testDistribution" *ngFor="let c of gettestDistributionFormControls(a); let i = index">
                         <div class="form-group" [formGroupName]="i">
                             <div class="row">
@@ -143,7 +143,7 @@
                                     <input type="text" formControlName="distributionBoardDetails"  placeholder=" Enter Distribution board details"  class="form-control" [ngClass]="{ 'is-invalid': submitted && c.get('distributionBoardDetails')?.errors }"  >
                                     <div *ngIf="submitted && c.get('distributionBoardDetails')?.errors" class="invalid-feedback">
                                       <div *ngIf="c.get('distributionBoardDetails')?.errors?.required">Distribution board details  value is required</div>
-                                    </div> 
+                                    </div>
                               </div>
 
                                 <div class="col-md-4">
@@ -175,7 +175,7 @@
                                         <div *ngIf="c.get('correctSupplyPolarity')?.errors?.required">Please select valid option</div>
                                       </div>
                                 </div>
-                               
+
                                 <div class="col-md-4">
                                     <label> Number Of Output Circuits - Spare </label>
                                     <input type="text" formControlName="numOutputCircuitsSpare"  placeholder=" Enter Number of output circuits - Spare"class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('numOutputCircuitsSpare')?.errors }"  >
@@ -193,7 +193,7 @@
                                         </div>
                                 </div>
                             </div>
-                      
+
 
                              <div class="row">
                                 <div class="col-md-4">
@@ -264,7 +264,7 @@
                                                 <td><input type="text" formControlName="incomingZs8"   class="form-control" maxlength="4" ></td>
                                                 <td><input type="text"formControlName="incomingZs9"    class="form-control" maxlength="4" ></td>
                                             </tr>
-                                        
+
                                             <tr>
                                                 <td>Incoming Ipf (Amps)</td>
                                                 <td><input type="text" formControlName="incomingIpf1"   class="form-control" maxlength="6" ></td>
@@ -287,7 +287,7 @@
                 </div>
             </div>
           </div>
-                   
+
                     <div class="row">
                         <div class="col">
                             <div class="table-responsive">
@@ -460,19 +460,19 @@
         <div class="modal-body">
             <div class="centre-text m-btm30">
                 <div *ngIf="success" style="text-align: center;">
-                    <span class="alert alert-success">{{successMsg}}</span>
+                    <span class="successshow">{{successMsg}}</span>
                 </div>
                 <div *ngIf="Error" style="text-align: center;">
-                    <span class="alert alert-danger">{{errorMsg}}</span>
+                    <span class="errorshow">{{errorMsg}}</span>
                 </div>
             </div>
         </div>
         <br>
-      
+
         <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
         aria-label="Close" (click)="closeModalDialog()" matStepperNext>
          <span aria-hidden="true">Ok</span>
      </button>
-     
+
     </ng-template>
- 
+

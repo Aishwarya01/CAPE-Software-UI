@@ -15,13 +15,17 @@ export class ChangePasswordComponent implements OnInit {
     email: new FormControl(''),
     oldpassword: new FormControl(''),
     password: new FormControl(''),
-    confirmPassword: new FormControl('') 
+    confirmPassword: new FormControl('')
   });
 
   loading = false;
   submitted = false;
   changePassword = new ChangePassword();
-  showErrorMessage= false;
+  showErrorMessage:boolean= false;
+  SuccessMsg: any;
+  errorArr: any=[];
+  showErrorMessage1: any;
+  Error: boolean=false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,20 +39,20 @@ export class ChangePasswordComponent implements OnInit {
   ngOnInit(): void {
     this.changePasswordForm = this.formBuilder.group({
       oldpassword: ['', Validators.required],
-      password: ['', Validators.required],
+      password: ['', [Validators.required,Validators.required, Validators.pattern('(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!#^~%*?&,.<>"\'\\;:\{\\\}\\\[\\\]\\\|\\\+\\\-\\\=\\\_\\\)\\\(\\\)\\\`\\\/\\\\\\]])[A-Za-z0-9\d$@].{7,}')]],
       confirmpassword: ['', Validators.required],
       });
 
-      
+
   }
-  
+
   get f() {
     return this.changePasswordForm.controls;
   }
 
   onSubmit(){
     this.submitted=true;
-    
+
     //Breaks if form is invalid
     if(this.changePasswordForm.invalid) {
       return;
@@ -57,17 +61,24 @@ export class ChangePasswordComponent implements OnInit {
     this.loading=true;
 
     this.changepasswordservice.changePassword(this.changePassword.email, this.changePassword.oldpassword, this.changePassword.password).subscribe(
-      data=> { 
-        this.route.navigate(['/login']);
-      },
-      error => {
-        this.showErrorMessage=true;
-        this.changePasswordForm.reset();
-        this.loading=false;
+      data=> {
+        this.SuccessMsg = data;
+        setTimeout(() => {
+          this.route.navigate(['/login']);
+        }, 3000);
+        },error => {
+          this.showErrorMessage1 = true;
+          this.errorArr = [];
+          this.errorArr = JSON.parse(error.error);
+          this.showErrorMessage1 = this.errorArr.message;
+          setTimeout(() => {
+           this.showErrorMessage1 = false;
+          }, 3000);
+          this.changePasswordForm.reset();
+          this.loading=false;
       }
     )
   }
-
   cancel(){
     this.route.navigate(['/home', {email: this.changePassword.email}]);
   }

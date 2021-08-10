@@ -196,6 +196,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   errorMsg: string = '';
   success: boolean = false;
   Error: boolean = false;
+  errorArr: any=[];
 
   constructor(
     private supplyCharacteristicsService: SupplyCharacteristicsService,
@@ -1093,13 +1094,15 @@ export class InspectionVerificationSupplyCharacteristicsComponent
         (data) => {
           this.proceedNext.emit(true);
           this.success = true;
-          this.successMsg = 'Supply Characteristics Successfully Saved';
+          this.successMsg = data;
           this.disable = true;
         },
         (error) => {
           this.Error = true;
           this.proceedNext.emit(false);
-          this.errorMsg = 'Something went wrong, kindly check all the fields';
+          this.errorArr = [];
+          this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.errorArr.message;
         }
       );
   }

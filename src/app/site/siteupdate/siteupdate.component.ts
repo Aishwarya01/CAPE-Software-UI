@@ -43,7 +43,9 @@ export class SiteupdateComponent implements OnInit {
 
   success: boolean=false;
   successMsg: any;
-  Error: boolean=false;;
+  Error: boolean=false;
+  errorArr: any=[];
+;
   errorMsg:any;
   validationError: boolean = false;
   validationErrorMsg: String = "";
@@ -212,7 +214,7 @@ export class SiteupdateComponent implements OnInit {
     }
 
     this.loading = true;
-   
+
     this.site.sitePersons=this.updateSiteForm.getRawValue().arr;
 
     for(let i of this.site.sitePersons) {
@@ -230,7 +232,7 @@ export class SiteupdateComponent implements OnInit {
     this.siteService.updateSite(this.site).subscribe(
       data=> {
         this.success = true
-        this.successMsg = "Site Updated successfully";
+        this.successMsg =data;
         setTimeout(() => {
           this.success = false;
         }, 3000);
@@ -240,13 +242,13 @@ export class SiteupdateComponent implements OnInit {
       },
       error => {
         this.Error = true;
-        this.errorMsg = "Something went wrong, kindly check all the fields";
+        this.errorArr = [];
+        this.errorArr = JSON.parse(error.error);
+        this.errorMsg = this.errorArr.message;
         setTimeout(() => {
           this.Error = false;
         }, 3000);
         this.loading=false;
-      }
-      )
+      })
   }
-
 }

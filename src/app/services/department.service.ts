@@ -22,7 +22,7 @@ export class DepartmentService {
   }
 
   public deleteDepartment(email: String, departmentId: number ): Observable<any> {
-    return this.http.delete<any>(this.apiUrl + '/deleteDepartment' + '/' + email + '/' + departmentId)
+    return this.http.delete<any>(this.apiUrl + '/deleteDepartment' + '/' + email + '/' + departmentId, { responseType: 'text' as 'json' })
   }
 
   public retrieveDepartment(email: String, clientName: String): Observable<any> {

@@ -44,6 +44,7 @@ export class SiteaddComponent implements OnInit {
   arr!: FormArray;
   errormsg: any;
 
+  errorArr:any =[];
   successMsg: string = "";
   success: boolean = false;
   Error: boolean = false;
@@ -66,7 +67,7 @@ export class SiteaddComponent implements OnInit {
   ngOnInit(): void {
     this.addSiteForm = this.formBuilder.group({
       clientName: ['', Validators.required],
-      departmentName: ['', Validators.required],
+      departmentName: ['',Validators.required],
       siteName: ['', Validators.required],
       arr: this.formBuilder.array([this.createItem()]),
       siteLocation: ['', Validators.required],
@@ -218,7 +219,7 @@ export class SiteaddComponent implements OnInit {
     this.siteService.addSIte(this.site).subscribe(
       data=> {
         this.success = true
-        this.successMsg = "Site Saved Successfully";
+        this.successMsg =data;
         setTimeout(() => {
           this.success = false;
         }, 3000);
@@ -228,7 +229,9 @@ export class SiteaddComponent implements OnInit {
       },
       error => {
         this.Error = true;
-        this.errorMsg = "Something went wrong, kindly check all the fields";
+        this.errorArr = [];
+        this.errorArr = JSON.parse(error.error);
+        this.errorMsg =this.errorArr.message;
         setTimeout(() => {
           this.Error = false;
         }, 3000);

@@ -19,6 +19,9 @@ export class ForgotpasswordComponent implements OnInit {
   submitted = false;
   user = new User();
   showErrorMessage=false;
+  SuccessMsg: any;
+  errorArr: any=[];
+  ErrorMsg: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -41,7 +44,7 @@ export class ForgotpasswordComponent implements OnInit {
 
   onSubmit(){
     this.submitted=true;
-    
+
     //Breaks if form is invalid
     if(this.forgotpassform.invalid) {
       return;
@@ -49,11 +52,14 @@ export class ForgotpasswordComponent implements OnInit {
 
     this.loading=true;
     this.forgotpasswordservice.forgotPassword(this.user.email).subscribe(
-      data=> { 
+      data=> {
         this.route.navigate(['/updatepassword', {email: data}])
+        this.SuccessMsg = data;
       },
       error => {
-        this.showErrorMessage=true;
+        this.errorArr = [];
+        this.errorArr = JSON.parse(error.error);
+        this.showErrorMessage = this.errorArr.message;
         this.forgotpassform.reset();
         this.loading=false;
       }

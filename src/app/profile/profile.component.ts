@@ -24,13 +24,15 @@ export class ProfileComponent implements OnInit {
   user = new User();
   msg = "";
   email: String = '';
+  ErrorMsg: any;
+  errorArr: any=[];
 
   constructor(
     private formBuilder: FormBuilder,
     private router: ActivatedRoute,
     private route: Router,
     private profileService: ProfileService
-    ) { 
+    ) {
       this.user.email=this.router.snapshot.paramMap.get('email') || '{}'
       this.profileService.getUser(this.user.email).subscribe(
         data =>{ this.user= JSON.parse(data)}
@@ -53,7 +55,7 @@ export class ProfileComponent implements OnInit {
     return this.profileForm.controls;
   }
 
-  
+
 
   onSubmit() {
     this.submitted = true;
@@ -68,14 +70,21 @@ export class ProfileComponent implements OnInit {
     this.user.role = this.profileForm.value.usertype;
     this.profileService.updateProfile(this.user).subscribe(
       data => {
-        this.msg = "Profile Updated Successfully";
+        this.msg = data;
+        setTimeout(() => {
         this.route.navigate(['/home', {email: data}]);
+        }, 4000);
       },
-      error => console.log("Failed")
+      error =>{
+        this.errorArr = [];
+        this.errorArr = JSON.parse(error.error);
+        this.ErrorMsg = this.errorArr.message;
+      }
     )
   }
-
   cancel(){
-    this.route.navigate(['/home', {email: this.user.email}]);
+    setTimeout(() => {
+      this.route.navigate(['/home', {email: this.user.email}]);
+    }, 3000);
   }
 }

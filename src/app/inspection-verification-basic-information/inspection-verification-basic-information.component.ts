@@ -93,7 +93,9 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   countryCode4: any;
   countryCode3: any;
   countryCode2: any;
-   constructor(private _formBuilder: FormBuilder,
+  errorArr: any=[];
+  constructor(
+    private _formBuilder: FormBuilder,
     private router: ActivatedRoute,
     private clientService: ClientService,
     private departmentService: DepartmentService,
@@ -813,19 +815,18 @@ nextTab() {
       
       data=> {
         this.proceedNext.emit(true);
-        this.success=true;
-        this.successMsg="Basic Information successfully saved";
-        this.disable= true;
+        this.success = true;
+        this.successMsg = data;
+        this.disable = true;
       },
-      error => {
-        this.Error=true;
+      (error) => {
+        this.Error = true;
+        this.errorArr = [];
+        this.errorArr = JSON.parse(error.error);
+        this.errorMsg = this.errorArr.message;
         this.proceedNext.emit(false);
-        this.errorMsg="Something went wrong, kindly check all the fields";
-      }
-      
-      )
-      this.service.siteCount=this.reportDetails.siteId;
-    }
-   
+      });
+    this.service.siteCount = this.reportDetails.siteId;
   }
 
+}

@@ -20,7 +20,7 @@
                 </select>
                 <div *ngIf="submitted && f.systemEarthing.errors" class="invalid-feedback">
                   <div *ngIf="f.systemEarthing?.errors?.required">Field Is Required</div>
-                </div>                             
+                </div>
               </div>
 
               <div class="col-md-4">
@@ -48,7 +48,7 @@
                     <option value="3-phase" >3-phase</option>
                     <option value="3-wire (LLL)" >3-wire (LLL)</option>
                     <option value="3-phase" >3-phase</option>
-                    <option value="4-wire (LLLN)" >4-wire (LLLN)</option>                    
+                    <option value="4-wire (LLLN)" >4-wire (LLLN)</option>
                   </select>
                   <div *ngIf="submitted && f.AcConductor.errors" class="invalid-feedback">
                     <div *ngIf="f.AcConductor?.errors?.required">AC conductor type is required</div>
@@ -140,7 +140,7 @@
                         <td><input type="text" maxlength="7" style="width:50px" formControlName="PF8" [(ngModel)]="PF8"></td>
                         <td><input type="text" maxlength="7" style="width:50px" formControlName="PF9" [(ngModel)]="PF9"></td>
                       </tr>
-                    
+
                       <tr>
                         <td nowrap="nowrap">External Loop Impedance Ze (Ω)</td>
                         <td><input type="text" maxlength="6" style="width:50px" formControlName="EL1" [(ngModel)]="EL1"></td>
@@ -159,14 +159,14 @@
             </div>
           </div>
 
-                 
+
           <div class="row" style="margin-top: 50px;">
             <div class="col-sm-12">
               <h2>Incoming (Supply) Protective Device Characteristics:</h2>
               <table  class="table">
                 <tr>
                   <td nowrap="nowrap">Type Of Over Current Protective Device</td>
-                  <td> 
+                  <td>
                   <input type="text"  style="width:200px" formControlName="mainNominalProtectiveDevice" [(ngModel)]="supplycharesteristic.mainNominalProtectiveDevice" [ngClass]="{ 'is-invalid': submitted && f.mainNominalProtectiveDevice.errors }">
                   <div *ngIf="submitted && f.mainNominalProtectiveDevice.errors" class="invalid-feedback">
                     <div *ngIf="f.mainNominalProtectiveDevice?.errors?.required">Field Is Required</div>
@@ -209,7 +209,7 @@
             </div>
           </div>
 
-          
+
 
         </mat-expansion-panel>
 
@@ -223,7 +223,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label> Availability of Alternate Supply:</label>
-                  <select class="form-control" formControlName="alternativeSupply" 
+                  <select class="form-control" formControlName="alternativeSupply"
                   (change)="showAlternateField($event)" [ngClass]="{ 'is-invalid': submitted && f.alternativeSupply.errors }" [(ngModel)]="supplycharesteristic.alternativeSupply">
                   <option value="0" selected>Select Option</option>
                   <option value="Yes">Yes</option>
@@ -238,8 +238,8 @@
               <div class="col-md-4" *ngIf="supplycharesteristic.alternativeSupply=='Yes'">
                 <!-- <label>Number of alternate sources of supply:</label>         -->
                 <label>Number of Alternate Sources of Supply:</label>
-                <input type="tel" min="0"  class="form-control" formControlName="supplyNumber" 
-                [ngClass]="{ 'is-invalid': submitted && f.supplyNumber.errors }" [(ngModel)]="supplycharesteristic.supplyNumber" 
+                <input type="tel" min="0"  class="form-control" formControlName="supplyNumber"
+                [ngClass]="{ 'is-invalid': submitted && f.supplyNumber.errors }" [(ngModel)]="supplycharesteristic.supplyNumber"
                 (keyup)="onKeyAlernate($event)">
                 <div *ngIf="submitted && f.supplyNumber.errors" class="invalid-feedback">
                   <div *ngIf="f.supplyNumber?.errors?.required">Supply number is required</div>
@@ -252,23 +252,23 @@
                 <h2>Alternate Form :</h2>
                 <div class="form-group" [formGroupName]="i">
                   <div class="row">
-                  
+
                     <div class="col-md-4">
-                      <label>Alternate supply no:</label>        
+                      <label>Alternate supply no:</label>
                       <input type="number"   min="0" class="form-control"  formControlName="aLSupplyNo" [ngClass]="{ 'is-invalid': submitted && a.get('aLSupplyNo')?.errors }">
                       <div *ngIf="submitted && a.get('aLSupplyNo')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('aLSupplyNo')?.errors?.required">Field Is Required</div>
                       </div>
                     </div>
-        
+
                     <div class="col-md-4">
-                      <label>Short Name of Alternate Supply:</label>        
+                      <label>Short Name of Alternate Supply:</label>
                       <input type="text"  maxlength="50" class="form-control"  formControlName="aLSupplyShortName" [ngClass]="{ 'is-invalid': submitted && a.get('aLSupplyShortName')?.errors }">
                       <div *ngIf="submitted && a.get('aLSupplyShortName')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('aLSupplyShortName')?.errors?.required">Field Is Required</div>
                       </div>
                     </div>
-        
+
                     <div class="col-md-4">
                       <label>System Earthing:</label>
                       <select class="form-control" formControlName="aLSystemEarthing" [ngClass]="{ 'is-invalid': submitted && a.get('aLSystemEarthing')?.errors }">
@@ -279,7 +279,7 @@
                         <div *ngIf="a.get('aLSystemEarthing')?.errors?.required">Field Is Required</div>
                       </div>
                     </div>
-        
+
                     <div class="col-md-4">
                         <label>Number and Type Of Live Conductors: </label>
                         <select class="form-control"  formControlName="aLLiveConductorType" (change)=showValue($event,i) [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorType')?.errors }">
@@ -291,7 +291,7 @@
                           <div *ngIf="a.get('aLLiveConductorType')?.errors?.required">Field Is Required</div>
                         </div>
                     </div>
-        
+
                     <div class="col-md-4" *ngIf="a.get('aLLiveConductorType')?.value=='AC'">
                         <label>AC:</label>
                         <select class="form-control" formControlName="aLLiveConductorAC" [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorAC')?.errors }">
@@ -306,7 +306,7 @@
                           <div *ngIf="a.get('aLLiveConductorAC')?.errors?.required">Field Is Required</div>
                         </div>
                     </div>
-        
+
                     <div class="col-md-4" *ngIf="a.get('aLLiveConductorType')?.value=='DC'">
                         <label>DC:</label>
                         <select class="form-control" formControlName="aLLiveConductorDC" [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorDC')?.errors }">
@@ -334,13 +334,13 @@
                     </div>
                   </div>
 
-                  
+
                   <div class="row" *ngIf="a.get('aLLiveConductorType')?.value=='AC'">
                     <div class="col">
                       <h2>Applicable for AC: (Note: Please mention NA if any column is not applicable)</h2>
                       <div class="table-responsive">
-                        <table  class="table" formArrayName="nominalVoltageArr1" *ngFor="let row of getTableArray(a); let j = index"> 
-                          <thead> 
+                        <table  class="table" formArrayName="nominalVoltageArr1" *ngFor="let row of getTableArray(a); let j = index">
+                          <thead>
                               <tr align="center">
                                 <th>Nature of supply parameters</th>
                                 <th>L1-L2</th>
@@ -417,19 +417,19 @@
                                   <td colspan="2"><input type="text" formControlName="loadCurrent4"  style="width:206px"></td>
 
                                 </tr>
-                              
+
                           </tbody>
                           </table>
                       </div>
                     </div>
                   </div>
 
-    
+
                   <div class="row" style="margin-top: 50px;">
                     <div class="col">
                       <h2>Incoming (Supply) Protective Device Characteristics:</h2>
                       <table  class="table">
-                          
+
                           <tr>
                             <td nowrap="nowrap">Type Of Over Current Protective Device</td>
                             <td>
@@ -474,11 +474,11 @@
                       </mat-form-field>
                     </div>
                   </div>
-                  
+
                 </div>
               </div>
             </div>
-          
+
         </mat-expansion-panel>
             <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
               <mat-expansion-panel-header>
@@ -522,7 +522,7 @@
               </div>
 
               <div class="row" style="margin-top: 30px">
-                
+
                 <div class="col-md-4">
                   <label>Type Of Earth Electrode :</label>
                   <select class="form-control" formControlName="electrodeType" [ngClass]="{ 'is-invalid': submitted && f.electrodeType.errors }" [(ngModel)]="supplycharesteristic.electrodeType">
@@ -546,7 +546,7 @@
                 </div>
 
                 <div class="col-md-4" style="margin-top: 30px">
-                  <p class="joints">Number Of Locations 
+                  <p class="joints">Number Of Locations
                     <input type="tel" min="1" formControlName="noOfLocation" [ngClass]="{ 'is-invalid': submitted && f.noOfLocation.errors }" [(ngModel)]="supplycharesteristic.noOfLocation" style="
                     width: 50px;
                     background: transparent;
@@ -565,7 +565,7 @@
                 </div>
                 <!-- <mat-icon class="mousechange" (click)="addLocation1()" style=" padding-top: 5px;">add_box</mat-icon> -->
               </div>
-              
+
 
               <div class="row">
                 <div class="col-md-3">
@@ -581,7 +581,7 @@
                   <label style="text-align: center;">Electrode Resistance to Grid (Ω)</label>
                 </div>
               </div>
-  
+
               <div formArrayName="location1Arr" *ngFor="let a of getLocation1Controls(); let i = index">
                 <div class="form-group" [formGroupName]="i">
                   <div class="row">
@@ -591,14 +591,14 @@
                         <div *ngIf="a.get('locationNo')?.errors?.required">Location number is required</div>
                       </div>
                     </div>
-  
+
                     <div class="col-md-3">
                       <input type="text"  formControlName="locationName" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('locationName')?.errors }" placeholder="Enter location name" >
                       <div *ngIf="submitted && a.get('locationName')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('locationName')?.errors?.required">Location name is required</div>
                       </div>
                     </div>
-  
+
                     <div class="col-md-3">
                       <input type="text"  formControlName="electrodeResistanceEarth" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('electrodeResistanceEarth')?.errors }" placeholder="Enter electrode resistance" >
                       <div *ngIf="submitted && a.get('electrodeResistanceEarth')?.errors" class="invalid-feedback">
@@ -624,7 +624,7 @@
                   <h3>Details Of Main Protective Conductor</h3>
                 </mat-panel-title>
               </mat-expansion-panel-header>
-              
+
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 57px">
@@ -648,7 +648,7 @@
 
                   <div class="col-md-4">
                     <label>Earthing Conductor Continuity and Connection Verified:</label>
-                    
+
                     <select class="form-control" formControlName="conductorVerify" [ngClass]="{ 'is-invalid': submitted && f.conductorVerify.errors }" [(ngModel)]="supplycharesteristic.conductorVerify">
                       <option value="0" selected>Select Option</option>
                       <option *ngFor="let value of  earthingConductorVerifyList"> {{value}}</option>
@@ -693,7 +693,7 @@
                   </div>
                 </div>
               </div>
-                  
+
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 30px">
@@ -708,7 +708,7 @@
                     </div>
                   </div>
                   <div class="col-md-4" style="margin-top: 30px">
-                    <p  class="joints">No Of Joints 
+                    <p  class="joints">No Of Joints
                       <input type="tel" min="1" formControlName="bondingNoOfJoints" [(ngModel)]="supplycharesteristic.bondingNoOfJoints" [ngClass]="{ 'is-invalid': submitted && f.bondingNoOfJoints.errors }" style="
                       width: 50px;
                       background: transparent;
@@ -723,14 +723,14 @@
                   <!-- (blur)="update(box.value)" (keyup)="onKey($event)"-->
                 </div>
               </div>
-                  
+
               <div class="row">
                 <div class="col-sm-12">
                 <h2>Location Table</h2>
                 <!-- <mat-icon class="mousechange" (click)="addLocation2()" style=" padding-top: 5px;">add_box</mat-icon> -->
               </div>
               </div>
-              
+
               <div class="row">
                 <div class="col-md-4">
                   <label style="text-align: center;">Location</label>
@@ -742,7 +742,7 @@
                   <label style="text-align: center;">Joint Resistance (Ω)</label>
                 </div>
               </div>
-  
+
               <div formArrayName="location2Arr" *ngFor="let a of getLocation2Controls(); let i = index">
                 <div class="form-group" [formGroupName]="i">
                   <div class="row">
@@ -752,14 +752,14 @@
                         <div *ngIf="a.get('location')?.errors?.required">Location is required</div>
                       </div>
                     </div>
-  
+
                     <div class="col-md-4">
                       <input type="text"  formControlName="jointNo" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('jointNo')?.errors }" placeholder="Enter Joint No" >
                       <div *ngIf="submitted && a.get('jointNo')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('jointNo')?.errors?.required">Joint number is required</div>
                       </div>
                     </div>
-  
+
                     <div class="col-md-4">
                       <input type="text"  formControlName="jointResistance" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('jointResistance')?.errors }" placeholder="Enter Joint resistance" >
                       <div *ngIf="submitted && a.get('jointResistance')?.errors" class="invalid-feedback">
@@ -769,7 +769,7 @@
                   </div>
                 </div>
               </div>
-            
+
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 30px">
@@ -831,14 +831,14 @@
                   </div>
                 </div>
               </div>
-              
+
               <div class="row">
                 <div class="col-sm-12">
                 <h2>Location Table</h2>
                 </div>
                 <!-- <mat-icon class="mousechange" (click)="addLocation3()" style=" padding-top: 5px;">add_box</mat-icon> -->
               </div>
-              
+
               <div class="row">
                 <div class="col-md-4">
                   <label style="text-align: center;">Location</label>
@@ -850,7 +850,7 @@
                   <label style="text-align: center;">Joint Resistance (Ω)</label>
                 </div>
               </div>
-  
+
               <div formArrayName="location3Arr" *ngFor="let a of getLocation3Controls(); let i = index">
                 <div class="form-group" [formGroupName]="i">
                   <div class="row">
@@ -860,14 +860,14 @@
                         <div *ngIf="a.get('location')?.errors?.required">Location is required</div>
                       </div>
                     </div>
-  
+
                     <div class="col-md-4">
                       <input type="text"  formControlName="jointNo" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('jointNo')?.errors }" placeholder="Enter Joint No" >
                       <div *ngIf="submitted && a.get('jointNo')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('jointNo')?.errors?.required">Joint number is required</div>
                       </div>
                     </div>
-  
+
                     <div class="col-md-4">
                       <input type="text"  formControlName="jointResistance" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('jointResistance')?.errors }" placeholder="Enter Joint resistance" >
                       <div *ngIf="submitted && a.get('jointResistance')?.errors" class="invalid-feedback">
@@ -877,7 +877,7 @@
                   </div>
                 </div>
               </div>
-              
+
             </mat-expansion-panel>
 
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngIf="breaker">
@@ -897,7 +897,7 @@
                             <div *ngIf="a.get('location')?.errors?.required">Location is required</div>
                           </div>
                         </div>
-            
+
                         <div class="col-md-4">
                           <label>Type:</label>
                           <select class="form-control" formControlName="type" [ngClass]="{ 'is-invalid': submitted && a.get('type')?.errors }">
@@ -911,7 +911,7 @@
                             <div *ngIf="a.get('type')?.errors?.required">Field Is Required</div>
                           </div>
                         </div>
-            
+
                         <div class="col-md-4">
                           <label>No Of Poles:</label>
                           <input type="text"   class="form-control" formControlName="noPoles" [ngClass]="{ 'is-invalid': submitted && a.get('noPoles')?.errors }"  placeholder="Enter poles" >
@@ -919,77 +919,77 @@
                             <div *ngIf="a.get('noPoles')?.errors?.required">Field Is Required</div>
                           </div>
                         </div>
-    
+
                         <div class="col-md-4">
                           <label>Current Rating:</label>
                           <div class="input-group">
                             <input type="text"   class="form-control" formControlName="current" [ngClass]="{ 'is-invalid': submitted && a.get('current')?.errors }" placeholder="Enter rating" >
                             <div class="input-group-prepend">
                               <span class="input-group-text">A</span>
-                            </div>  
-                          </div> 
+                            </div>
+                          </div>
                           <div *ngIf="submitted && a.get('current')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('current')?.errors?.required">Field Is Required</div>
-                          </div>   
-                        </div>                    
-            
+                          </div>
+                        </div>
+
                         <div class="col-md-4">
                           <label>Voltage Rating:</label>
                           <div class="input-group">
                             <input type="text"   class="form-control" formControlName="voltage" [ngClass]="{ 'is-invalid': submitted && a.get('voltage')?.errors }" placeholder="Enter voltage" >
                             <div class="input-group-prepend">
                               <span class="input-group-text">V</span>
-                            </div>  
+                            </div>
                           </div>
                           <div *ngIf="submitted && a.get('voltage')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('voltage')?.errors?.required">Field Is Required</div>
                           </div>
                         </div>
-            
+
                         <div class="col-md-4">
                           <label>Fuse Rating or Settings:</label>
                           <div class="input-group">
                             <input type="text"   class="form-control" formControlName="fuse" [ngClass]="{ 'is-invalid': submitted && a.get('fuse')?.errors }" placeholder="Enter rating" >
                             <div class="input-group-prepend">
                               <span class="input-group-text">A</span>
-                            </div>  
+                            </div>
                           </div>
                           <div *ngIf="submitted && a.get('fuse')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('fuse')?.errors?.required">Field Is Required</div>
                           </div>
                         </div>
-                        
+
                         <div class="col-md-4" *ngIf="true">
                           <label>Rated Residual Operating Current I∆n:</label>
                           <div class="input-group">
                             <input type="text"   class="form-control" formControlName="residualCurrent" [ngClass]="{ 'is-invalid': submitted && a.get('residualCurrent')?.errors }" placeholder="Enter value" >
                             <div class="input-group-prepend">
                               <span class="input-group-text">mA</span>
-                            </div>  
+                            </div>
                           </div>
                           <div *ngIf="submitted && a.get('residualCurrent')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('residualCurrent')?.errors?.required">Field Is Required</div>
                           </div>
                         </div>
-            
+
                         <div class="col-md-4" *ngIf="true">
                           <label>Rated Residual Operating Time @I∆n T∆n	:</label>
                           <div class="input-group">
                             <input type="text"   class="form-control" formControlName="residualTime" [ngClass]="{ 'is-invalid': submitted && a.get('residualTime')?.errors }" placeholder="Enter value" >
                             <div class="input-group-prepend">
                               <span class="input-group-text">mS</span>
-                            </div>  
+                            </div>
                           </div>
                           <div *ngIf="submitted && a.get('residualTime')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('residualTime')?.errors?.required">Field Is Required</div>
                           </div>
                         </div>
-    
+
                       </div>
                     </div>
                   </div>
-    
-               
+
+
               </mat-expansion-panel>
              </mat-accordion>
              <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
@@ -1005,15 +1005,15 @@
 </div>
 
 <ng-template #content1 let-modal>
- 
+
   <div class="modal-body">
 
  <div class="centre-text m-btm30">
   <div *ngIf="success" style="text-align: center;">
-    <span class="alert alert-success">{{successMsg}}</span>
+    <span class="successshow">{{successMsg}}</span>
    </div>
    <div *ngIf="Error" style="text-align: center;">
-     <span class="alert alert-danger">{{errorMsg}}</span>
+     <span class="errorshow">{{errorMsg}}</span>
     </div>
        </div>
 
