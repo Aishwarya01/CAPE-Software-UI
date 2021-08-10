@@ -106,6 +106,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   countryCode4: any;
   countryCode3: any;
   countryCode2: any;
+  errorArr: any=[];
   constructor(
     private _formBuilder: FormBuilder,
     private router: ActivatedRoute,
@@ -860,24 +861,18 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       );
     this.reportDetailsService.addReportDetails(this.reportDetails).subscribe(
       (data) => {
-        debugger
-        console.log(data);
         this.proceedNext.emit(true);
         this.success = true;
-        this.successMsg =data;
+        this.successMsg = data;
         this.disable = true;
       },
       (error) => {
-        debugger
-        console.log(error);
         this.Error = true;
+        this.errorArr = [];
+        this.errorArr = JSON.parse(error.error);
+        this.errorMsg = this.errorArr.message;
         this.proceedNext.emit(false);
-        this.errorMsg = 'Something went wrong, kindly check all the fields';
-        // setTimeout(()=>{
-        //   this.errorMsg="Something went wrong, kindly check all the fields";
-        // }, 3000);
-      }
-    );
+      });
     this.service.siteCount = this.reportDetails.siteId;
   }
 }

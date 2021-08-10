@@ -24,6 +24,8 @@ export class ProfileComponent implements OnInit {
   user = new User();
   msg = "";
   email: String = '';
+  ErrorMsg: any;
+  errorArr: any=[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -68,17 +70,21 @@ export class ProfileComponent implements OnInit {
     this.user.role = this.profileForm.value.usertype;
     this.profileService.updateProfile(this.user).subscribe(
       data => {
-        console.log(data);
-        this.msg = "Profile Updated Successfully";
+        this.msg = data;
+        setTimeout(() => {
         this.route.navigate(['/home', {email: data}]);
+        }, 4000);
       },
       error =>{
-        console.log(error);
+        this.errorArr = [];
+        this.errorArr = JSON.parse(error.error);
+        this.ErrorMsg = this.errorArr.message;
       }
     )
   }
-
   cancel(){
-    this.route.navigate(['/home', {email: this.user.email}]);
+    setTimeout(() => {
+      this.route.navigate(['/home', {email: this.user.email}]);
+    }, 3000);
   }
 }

@@ -11,7 +11,7 @@ import { UpdatepasswordService } from '../services/updatepassword.service';
 })
 export class UpdatepasswordComponent implements OnInit {
 
-  
+
   updatepassform = new FormGroup({
     email: new FormControl(''),
     password: new FormControl(''),
@@ -23,6 +23,8 @@ export class UpdatepasswordComponent implements OnInit {
   submitted = false;
   user = new User();
   showErrorMessage= false;
+  successMsg: any;
+  errorArr: any=[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -40,16 +42,16 @@ export class UpdatepasswordComponent implements OnInit {
       otp: ['', Validators.required]
       });
 
-      
+
   }
-  
+
   get f() {
     return this.updatepassform.controls;
   }
 
   onSubmit(){
     this.submitted=true;
-    
+
     //Breaks if form is invalid
     if(this.updatepassform.invalid) {
       return;
@@ -58,11 +60,16 @@ export class UpdatepasswordComponent implements OnInit {
     this.loading=true;
 
     this.updatepasswordservice.updatePassword(this.user.email, this.user.password, this.user.otp).subscribe(
-      data=> { 
-        this.route.navigate(['/login']);
+      data=> {
+        this.successMsg = data;
+        setTimeout(() => {
+          this.route.navigate(['/login']);
+        }, 3000);
       },
       error => {
-        this.showErrorMessage=true;
+        this.errorArr = [];
+        this.errorArr = JSON.parse(error.error)
+        this.showErrorMessage=this.errorArr.message;
         this.updatepassform.reset();
         this.loading=false;
       }

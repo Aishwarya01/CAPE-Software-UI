@@ -78,15 +78,13 @@ export class RegisterComponent implements OnInit {
     this.user.role = this.registerForm.value.usertype;
     this.registerservice.register(this.user).subscribe(
       data => {
-        //console.log(data);
         this.success=true;
-        this.successMsg ="You Have Successfully Registred With RushSafety Application";
+        this.successMsg =data;
         setTimeout(() => {
         this.router.navigate(['/login']);
         }, 3000);
       },
       error => {
-        console.log(error);
         this.alert=error.error.message;
       }
     )

@@ -23,12 +23,16 @@ export class ClientaddComponent implements OnInit {
   company = new Company();
   loading = false;
   submitted = false;
-  showErrorMessage=false;
+  showErrorMessage:any;
   msg: any;
+
+  errorArr:any = [];
 
 
   @Input()
   email: String = '';
+  error: boolean=false;
+  success: boolean=false;
   constructor(public dialog: MatDialog,
               public clientService: ClientService,
               private formBuilder: FormBuilder,
@@ -41,7 +45,6 @@ export class ClientaddComponent implements OnInit {
       isActive: ['', Validators.required]
       });
   }
-
 
   cancel() {
     this.dialog.closeAll();
@@ -59,20 +62,21 @@ export class ClientaddComponent implements OnInit {
       return;
     }
     this.loading = true;
-
     this.company.userName=this.email
     this.clientService.addClient(this.company).subscribe(
       data => {
-        debugger
+        this.success = true;
         this.msg=data;
         setTimeout(()=>{
           this.dialog.closeAll();
         },3000)
       },
       error => {
-        debugger
-        console.log(error);
-        this.showErrorMessage=error.error.message;
+        this.error= true;
+        this.errorArr = [];
+        this.errorArr = JSON.parse(error.error);
+        this.showErrorMessage=this.errorArr.message;
+        this.error;
         setTimeout(()=>{
           this.addClientForm.reset();
         },3000);

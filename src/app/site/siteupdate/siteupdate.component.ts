@@ -43,7 +43,9 @@ export class SiteupdateComponent implements OnInit {
 
   success: boolean=false;
   successMsg: any;
-  Error: boolean=false;;
+  Error: boolean=false;
+  errorArr: any=[];
+;
   errorMsg:any;
   validationError: boolean = false;
   validationErrorMsg: String = "";
@@ -229,8 +231,6 @@ export class SiteupdateComponent implements OnInit {
     }
     this.siteService.updateSite(this.site).subscribe(
       data=> {
-        debugger
-        console.log(data);
         this.success = true
         this.successMsg =data;
         setTimeout(() => {
@@ -241,10 +241,10 @@ export class SiteupdateComponent implements OnInit {
         }, 2000);
       },
       error => {
-        debugger
-        console.log(error);
         this.Error = true;
-        this.errorMsg = "Something went wrong, kindly check all the fields";
+        this.errorArr = [];
+        this.errorArr = JSON.parse(error.error);
+        this.errorMsg = this.errorArr.message;
         setTimeout(() => {
           this.Error = false;
         }, 3000);

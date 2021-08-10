@@ -19,3 +19,13 @@
     width: 20%;
 }
 
+.successshow1 {
+  padding: 5px 8px;
+  text-align: center;
+  font-size: 14px;
+  color: hsl(120deg 34% 27%);
+  background-color: hsl(101deg 45% 88%);
+  border-color: hsl(101deg 45% 100%);
+  border-radius: 0.25rem;
+  margin: 10px;
+}

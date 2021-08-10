@@ -31,6 +31,9 @@ department = new Department;
 
   @Input()
   departmentCd: String = '';
+  SuccessMsg: any;
+  errorArr: any=[];
+  ErrorMsg: any;
 
   constructor(public dialog: MatDialog,
               public departmentService: DepartmentService ) {
@@ -53,10 +56,14 @@ department = new Department;
   onSubmit() {
     this.departmentService.updateDepartment(this.department).subscribe(
       data=>{
-        console.log(data);
-        this.dialog.closeAll();
+        this.SuccessMsg=data;
+        setTimeout(()=>{
+          this.dialog.closeAll();
+        },3000);
       },error=>{
-        console.log(error);
-      })
+        this.errorArr = [];
+        this.errorArr = JSON.parse(error.error);
+        this.ErrorMsg = this.errorArr.message;
+      });
   }
 }

@@ -68,6 +68,7 @@ export class InspectionVerificationIncomingEquipmentComponent
   testingForm: any;
 
   @Output() testing = new EventEmitter<any>();
+  errorArr: any=[];
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -307,17 +308,18 @@ export class InspectionVerificationIncomingEquipmentComponent
     this.inspectionDetailsService
       .addInspectionDetails(this.inspectionDetails)
       .subscribe(
-        (data: any) => {
+        (data) => {
           this.proceedNext.emit(true);
           this.success = true;
-          this.successMsg = 'Incoming Equipment Successfully Saved';
-
+          this.successMsg = data;
           this.disable = true;
         },
-        (error: any) => {
+        (error) => {
           this.proceedNext.emit(false);
           this.Error = true;
-          this.errorMsg = 'Something went wrong, kindly check all the fields';
+          this.errorArr = [];
+          this.errorArr = JSON.parse(error.error)
+          this.errorMsg = this.errorArr.message;
         }
       );
   }

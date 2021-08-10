@@ -25,6 +25,9 @@ export class DepartmentaddComponent implements OnInit {
   @Input()
   email: String = '';
   clientList: any = [];
+  SuccessMsg: any;
+  errorArr: any=[];
+  ErrorMsg: any;
   constructor(public dialog: MatDialog,
               public clientService: ClientService,
               public departmentService: DepartmentService,
@@ -65,13 +68,19 @@ export class DepartmentaddComponent implements OnInit {
     this.department.userName=this.email
     this.departmentService.addDepartment(this.department).subscribe(
       data => {
-        console.log(data);
-        this.dialog.closeAll();
+        this.SuccessMsg=data;
+        setTimeout(() => {
+          this.dialog.closeAll();
+        },3000);
       },
       error => {
-        console.log(error);
         this.showErrorMessage=true;
-        this.addDepartmentForm.reset();
+        this.errorArr = [];
+        this.errorArr = JSON.parse(error.error);
+        this.ErrorMsg = this.errorArr.message;
+        setTimeout(()=>{
+          this.addDepartmentForm.reset();
+        },3000);
         this.loading=false;
       }
       )

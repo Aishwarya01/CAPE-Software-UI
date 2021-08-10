@@ -95,6 +95,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
     'rcdTestButtonOperation',
     'rcdRemarks',
   ];
+  errorArr: any=[];
 
   constructor(
     private testingService: TestingService,
@@ -666,14 +667,16 @@ export class InspectionVerificationTestingComponent implements OnInit {
         this.proceedNext.emit(true);
         // show success message ofter click button
         this.success = true;
-        this.successMsg = 'Testing Information Successfully Saved';
+        this.successMsg = data;
         this.disable = true;
       },
       (error) => {
         this.Error = true;
         // show error button
         this.proceedNext.emit(false);
-        this.errorMsg = 'Something went wrong, kindly check all the fields';
+        this.errorArr = [];
+        this.errorArr = JSON.parse(error.error);
+        this.errorMsg = this.errorArr.message;
       }
     );
   }
