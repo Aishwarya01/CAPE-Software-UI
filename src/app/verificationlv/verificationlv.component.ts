@@ -259,6 +259,7 @@ export class VerificationlvComponent implements OnInit {
   }
 
   retrieveSiteDetails() {
+    debugger
     this.siteService.retrieveSite(this.site).subscribe((data) => {
       this.site_dataSource = new MatTableDataSource(JSON.parse(data));
       this.site_dataSource.paginator = this.sitePaginator;
@@ -512,9 +513,11 @@ export class VerificationlvComponent implements OnInit {
 //for saved reports tab
   changeTab(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any): void {
     this.selectedIndex = index;
+
+    debugger
     this.basic.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
   }
-  
+
 //for final reports tab
   changeTab1(index: number): void {
     this.selectedIndex = index;

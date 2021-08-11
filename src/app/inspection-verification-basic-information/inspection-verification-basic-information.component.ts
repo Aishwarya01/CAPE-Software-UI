@@ -1,3 +1,4 @@
+import { SignatorDetails } from './../model/reportdetails';
 import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup,Validators,ValidatorFn } from '@angular/forms';
 import {​​​ NgbModal }​​​ from'@ng-bootstrap/ng-bootstrap';
@@ -55,6 +56,13 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   loading = false;
   submitted = false;
   inspectorArr!: FormArray;
+  demoarr: any =[]
+
+  mobilearr: any=[];
+  mobilearr1: any=[];
+  mobilearr2: any=[];
+  mobilearr3: any=[];
+
   designer2Arr!: FormArray;
   @Output() proceedNext = new EventEmitter<any>();
 
@@ -109,14 +117,14 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.countryCode= '91';
-    this.countryCode1= '91';
-    this.countryCode2= '91';
-    this.countryCode3= '91';
-    this.countryCode4= '91';
-    this.countryCode5= '91';
-    this.countryCode6= '91';
-    this.countryCode7= '91';
+    // this.countryCode= '91';
+    // this.countryCode1= '91';
+    // this.countryCode2= '91';
+    // this.countryCode3= '91';
+    // this.countryCode4= '91';
+    // this.countryCode5= '91';
+    // this.countryCode6= '91';
+    // this.countryCode7= '91';
 
 
     this.step1Form = this._formBuilder.group({
@@ -165,6 +173,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 
   }
 
+  // Need to check this task
 
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any){
     this.siteService.retrieveFinal(userName,siteId).subscribe(
@@ -179,51 +188,52 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
        this.reportDetails.previousRecords=this.step1List.reportDetails.previousRecords;
        this.step1List.evidenceAlterations=this.step1List.reportDetails.evidenceAlterations;
        this.reportDetails.confirmExtent= this.step1List.reportDetails.confirmExtent;
-       //this.step1List.state=this.step1List.reportDetails.state;
+       this.step1List.state=this.step1List.reportDetails.state;
+
+       this.populateData();
 
       for( let i of this.step1List.reportDetails.signatorDetails) {
         if(i.signatorRole == "designer1"){
+
           this.step1Form.patchValue({
-            designer1Arr: [i],
             designer1AcknowledgeArr: [i]
-          })    
-          // this.step1Form.controls.designer1Arr.patchValue({
-          //   state: [i.state]
-          // })   
+          })
+
         this.state1 = i.state;
         this.designer1changeCountry(i.country);
+        }
+          else if(i.signatorRole == "designer2"){
 
-         }
-
-        else if(i.signatorRole == "designer2"){
           this.step1Form.patchValue({
-            designer2Arr: [i],
             designer2AcknowledgeArr: [i]
           })
-          this.showDesigner2 = true;  
+          this.showDesigner2 = true;
           this.state2 = i.state;
           this.country2= i.country;
-          this.designer2changeCountry(i.country); 
+          this.designer2changeCountry(i.country);
          }
 
        else if(i.signatorRole == "contractor"){
+
         this.step1Form.patchValue({
-          contractorArr: [i],
           contractorAcknowledgeArr: [i]
-         })       
+         })
         this.state3 = i.state;
         this.contractorchangeCountry(i.country);
        }
        else if(i.signatorRole == "inspector"){
+
+        this.mobilearr3 = i.personContactNo.split("-")
+
           this.step1Form.patchValue({
-            inspectorArr: [i],
             inspectorAcknowledgeArr: [i]
-          })   
+          })
           this.state4 = i.state;
-          this.inspectorchangeCountry(i.country);    
+          this.inspectorchangeCountry(i.country);
         }
       }
-      
+
+
        this.step1Form.patchValue({
         clientName1: [clientName],
         departmentName1: [departmentName],
@@ -250,7 +260,6 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       }
       )
      }
-
 
   private retrieveClientDetails() {
     this.clientService.retrieveClient(this.email).subscribe(
@@ -403,6 +412,60 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   getInspectorAcknowledgeControls(): AbstractControl[] {
     return (<FormArray> this.step1Form.get('inspectorAcknowledgeArr')).controls
   }
+
+
+
+  populateData() {
+    for (let item of this.step1List.reportDetails.signatorDetails) {
+      if(item.signatorRole == "designer1") {
+
+      this.mobilearr.push(this.createGroup(item));
+      this.step1Form.setControl('designer1Arr', this._formBuilder.array(this.mobilearr || []))
+      }
+      else if(item.signatorRole == "designer2") {
+
+        this.mobilearr1.push(this.createGroup(item))
+        this.step1Form.setControl('designer2Arr', this._formBuilder.array(this.mobilearr1 || []))
+      }
+      else if(item.signatorRole == "contractor") {
+
+        this.mobilearr2.push(this.createGroup(item))
+        this.step1Form.setControl('contractorArr', this._formBuilder.array(this.mobilearr2 || []))
+      }
+      else if(item.signatorRole == "inspector") {
+
+        this.mobilearr3.push(this.createGroup(item))
+        this.step1Form.setControl('inspectorArr', this._formBuilder.array(this.mobilearr3 || []))
+      }
+    }
+
+
+  }
+
+  createGroup(item: any): FormGroup {
+    return this._formBuilder.group({
+      personName: new FormControl({disabled: false ,value: item.personName}),
+      personMailID: new FormControl({disabled: false, value: item.personMailID}),
+      personContactNo: new FormControl({disabled : false, value: item.personContactNo}),
+      managerName: new FormControl({disabled: false ,value: item.managerName}),
+      managerContactNo: new FormControl({disabled: false,value: item.managerContactNo}),
+      managerMailID: new FormControl({disabled: false ,value: item.managerMailID}),
+      companyName: new FormControl({disabled: false, value:item.companyName}),
+      addressLine1: new FormControl({disabled: false ,value: item.addressLine1}),
+      addressLine2: new FormControl({disabled: false, value: item.addressLine2}),
+      landMark: new FormControl({disabled: false ,value: item.landMark}),
+      country: new FormControl({disabled: false,value: item.country}),
+      state: new FormControl({disabled: false ,value: item.state}),
+      pinCode: new FormControl({disabled: false, value:item.pinCode}),
+      signatorRole: new FormControl({disabled: false ,value: item.signatorRole}),
+      declarationSignature: new FormControl({disabled: false, value: item.declarationSignature}),
+      declarationDate: new FormControl({disabled: false ,value: item.declarationDate}),
+      declarationName: new FormControl({disabled: false,value: item.declarationName}),
+
+    });
+  }
+
+
 
   // Deisgner details forms
   private createDesigner1Form(): FormGroup {
@@ -756,7 +819,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     }
   }
 nextTab() {
-  
+
     this.loading = true;
     this.submitted = true
 
@@ -811,7 +874,7 @@ nextTab() {
 
     this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.value.contractorArr,this.step1Form.value.inspectorArr);
     this.reportDetailsService.addReportDetails(this.reportDetails).subscribe(
-      
+
       data=> {
         this.proceedNext.emit(true);
         this.success = true;

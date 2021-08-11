@@ -125,6 +125,7 @@ export class SiteupdateComponent implements OnInit {
     this.countryCode = country.dialCode;
     a.controls.countryCode.value= this.countryCode;
   }
+
   // Only Integer Numbers
   keyPressNumbers(event:any) {
     var charCode = (event.which) ? event.which : event.keyCode;
@@ -181,6 +182,7 @@ export class SiteupdateComponent implements OnInit {
   }
 
   populateData() {
+    debugger
     for (let item of this.sitePersons) {
       this.arr.push(this.createGroup(item));
     }

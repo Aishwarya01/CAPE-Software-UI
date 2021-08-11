@@ -43,8 +43,6 @@ export class SiteaddComponent implements OnInit {
   showErrorMessage=false;
   arr!: FormArray;
   errormsg: any;
-
-  errorArr:any =[];
   successMsg: string = "";
   success: boolean = false;
   Error: boolean = false;
@@ -55,6 +53,7 @@ export class SiteaddComponent implements OnInit {
 
   @Input()
   email: String = '';
+  errorArr: any=[];
   constructor(public dialog: MatDialog,
               public clientService: ClientService,
               public departmentService: DepartmentService,

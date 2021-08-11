@@ -67,8 +67,8 @@
 
             <mat-form-field class="client-description ">
               <mat-label><h3>Description of Report*</h3></mat-label>
-              <textarea matInput class="client-box-description" formControlName="descriptionOfReport" 
-              maxlength="500" placeholder="Ex. Report description..." [(ngModel)]="reportDetails.descriptionReport" 
+              <textarea matInput class="client-box-description" formControlName="descriptionOfReport"
+              maxlength="500" placeholder="Ex. Report description..." [(ngModel)]="reportDetails.descriptionReport"
               [ngClass]="{ 'is-invalid': submitted && f.descriptionOfReport.errors }"></textarea>
               <div *ngIf="submitted && f.descriptionOfReport.errors" class="invalid-feedback">
                 <div *ngIf="f.descriptionOfReport?.errors?.required">Description is required</div>
@@ -95,7 +95,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label>Type of Installation* :</label>
-                  <select class="form-control" formControlName="installationType" (change)="showWiringAge($event)" 
+                  <select class="form-control" formControlName="installationType" (change)="showWiringAge($event)"
                   [(ngModel)]="reportDetails.installationType" [ngClass]="{ 'is-invalid': submitted && f.installationType.errors }">
                     <option [ngValue]="null">Select Option</option>
                     <option *ngFor="let value of installationList">{{value}}</option>
@@ -109,7 +109,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label>Description of the Premise* :</label>
-                  <select class="form-control" formControlName="descPremise" 
+                  <select class="form-control" formControlName="descPremise"
                   [(ngModel)]="reportDetails.descriptionPremise" [ngClass]="{ 'is-invalid': submitted && f.descPremise.errors }">
                     <option value="0" selected>Select Option</option>
                     <option *ngFor="let value of premiseList" >{{value}}</option>
@@ -162,7 +162,7 @@
 
               <div class="col-md-4">
                 <label>Previous Records Available* :</label>
-                <select class="form-control" formControlName="previousRecord" 
+                <select class="form-control" formControlName="previousRecord"
                 [(ngModel)]="reportDetails.previousRecords" [ngClass]="{ 'is-invalid': submitted && f.previousRecord.errors }">
                   <option value="0" selected>Select Option</option>
                   <option *ngFor="let value of previousRecordList" >{{value}}</option>
@@ -174,7 +174,7 @@
 
               <div class="col-md-4">
                 <label>Last Date Of Inspection* :</label>
-                <input type="date" class="form-control" formControlName="inspectionLast" placeholder="Enter Date" 
+                <input type="date" class="form-control" formControlName="inspectionLast" placeholder="Enter Date"
                 [(ngModel)]="reportDetails.lastInspection" [ngClass]="{ 'is-invalid': submitted && f.inspectionLast.errors }">
                 <div *ngIf="submitted && f.inspectionLast.errors" class="invalid-feedback">
                   <div *ngIf="f.inspectionLast?.errors?.required">Inspection last date is required</div>
@@ -210,7 +210,7 @@
               <div class="col-md-4">
                 <mat-form-field class="client-description ">
                   <mat-label><h3>Details Of Client / Person Ordering This Report * (maximum length is 50 )</h3></mat-label>
-                  <textarea matInput class="client-box-description" formControlName="detailsOfClient" maxlength="50" 
+                  <textarea matInput class="client-box-description" formControlName="detailsOfClient" maxlength="50"
                   [ngClass]="{ 'is-invalid': submitted && f.detailsOfClient.errors }" placeholder=" Ex. Name, address ,purpose ,relation with end user.." [(ngModel)]="reportDetails.clientDetails"></textarea>
                   <div *ngIf="submitted && f.detailsOfClient.errors" class="invalid-feedback">
                     <div *ngIf="f.detailsOfClient?.errors?.required">Details Of client is required</div>
@@ -534,7 +534,7 @@
                         <div class="col-md-4">
                           <label>* Mobile Number:</label>
                           <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
-                          (keypress)="keyPressAlphaNumericWithCharacters($event)" (countryChange)="countryChange1($event)" 
+                          (keypress)="keyPressNumbers($event)" (countryChange)="countryChange1($event)"
                           formControlName="managerContactNo" class="form-control" placeholder="Enter Mobile Number"
                           [ngClass]="{ 'is-invalid': submitted && a.get('managerContactNo')?.errors }">
                           <div *ngIf="submitted && a.get('managerContactNo')?.errors" class="invalid-feedback">
@@ -665,7 +665,7 @@
                           <div class="col-md-4">
                             <label>* Mobile Number:</label>
                             <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
-                            (keypress)="keyPressNumbers($event)" (countryChange)="countryChange($event)" placeholder="Enter Mobile Number"
+                            (keypress)="keyPressNumbers($event)" (countryChange)="countryChange2($event)" placeholder="Enter Mobile Number"
                              formControlName="personContactNo" class="form-control"
                             [ngClass]="{ 'is-invalid': submitted && a.get('personContactNo')?.errors }">
                             <div *ngIf="submitted && a.get('personContactNo')?.errors" class="invalid-feedback">
@@ -701,7 +701,7 @@
                           <div class="col-md-4">
                             <label>* Mobile Number:</label>
                             <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
-                            (keypress)="keyPressNumbers($event)" (countryChange)="countryChange1($event)" formControlName="managerContactNo" class="form-control" placeholder="Enter Mobile Number"
+                            (keypress)="keyPressNumbers($event)" (countryChange)="countryChange3($event)" formControlName="managerContactNo" class="form-control" placeholder="Enter Mobile Number"
                             [ngClass]="{ 'is-invalid': submitted && a.get('managerContactNo')?.errors }">
                             <div *ngIf="submitted && a.get('managerContactNo')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('managerContactNo')?.errors?.required">Mobile Number is Required</div>
