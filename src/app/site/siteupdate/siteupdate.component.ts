@@ -182,7 +182,6 @@ export class SiteupdateComponent implements OnInit {
   }
 
   populateData() {
-    debugger
     for (let item of this.sitePersons) {
       this.arr.push(this.createGroup(item));
     }
