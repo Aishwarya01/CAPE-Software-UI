@@ -13,6 +13,7 @@ import { ReportDetailsService } from '../services/report-details.service';
 import { SiteService } from '../services/site.service';
 import { GlobalsService } from '../globals.service';
 import { iif } from 'rxjs';
+import { InspectionVerificationService } from '../services/inspection-verification.service';
 //import { ErrorHandlerService } from './../../shared/services/error-handler.service';
 
 @Component({
@@ -62,7 +63,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   mobilearr1: any=[];
   mobilearr2: any=[];
   mobilearr3: any=[];
-
+  flag: boolean=false;
   designer2Arr!: FormArray;
   @Output() proceedNext = new EventEmitter<any>();
 
@@ -79,7 +80,6 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   siteDetails1: boolean = false;
   state1: String = "";
   state2: String = "";
-  country2: String = "";
   state3: String = "";
   state4: String = "";
 
@@ -109,6 +109,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     private departmentService: DepartmentService,
     private reportDetailsService: ReportDetailsService,
     private siteService: SiteService,
+    private UpateBasicService: InspectionVerificationService,
     public service: GlobalsService,
     private modalService: NgbModal,
     private ChangeDetectorRef: ChangeDetectorRef) {
@@ -117,16 +118,14 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 
 
   ngOnInit(): void {
-    // this.countryCode= '91';
-    // this.countryCode1= '91';
-    // this.countryCode2= '91';
-    // this.countryCode3= '91';
-    // this.countryCode4= '91';
-    // this.countryCode5= '91';
-    // this.countryCode6= '91';
-    // this.countryCode7= '91';
-
-
+    this.countryCode= '91';
+    this.countryCode1= '91';
+    this.countryCode2= '91';
+    this.countryCode3= '91';
+    this.countryCode4= '91';
+    this.countryCode5= '91';
+    this.countryCode6= '91';
+    this.countryCode7= '91';
     this.step1Form = this._formBuilder.group({
 
       clientName: ['', Validators.required],
@@ -151,7 +150,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       engineerName: ['', Validators.required],
       designation: ['', Validators.required],
       companyName: ['', Validators.required],
-      confirmExtent: ['', Validators.required],
+      limitations: ['', Validators.required],
       nextInspection: ['', Validators.required],
       designer1AcknowledgeArr: this._formBuilder.array([this.createDesigner1AcknowledgeForm()]),
       designer2AcknowledgeArr: this._formBuilder.array([this.createDesigner2AcknowledgeForm()]),
@@ -183,24 +182,25 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
        console.log(data);
        this.step1List = JSON.parse(data);
        this.reportDetails.installationType=this.step1List.reportDetails.installationType;
+       this.showWiringAge(this.step1List.reportDetails.installationType);
        this.reportDetails.descriptionPremise=this.step1List.reportDetails.descriptionPremise;
        this.reportDetails.evidanceAddition=this.step1List.reportDetails.evidanceAddition;
+       this.showEstimatedAge(this.step1List.reportDetails.evidanceAddition);
        this.reportDetails.previousRecords=this.step1List.reportDetails.previousRecords;
        this.step1List.evidenceAlterations=this.step1List.reportDetails.evidenceAlterations;
-       this.reportDetails.confirmExtent= this.step1List.reportDetails.confirmExtent;
+       this.reportDetails.limitations= this.step1List.reportDetails.limitations;
        this.step1List.state=this.step1List.reportDetails.state;
 
        this.populateData();
 
       for( let i of this.step1List.reportDetails.signatorDetails) {
         if(i.signatorRole == "designer1"){
-
           this.step1Form.patchValue({
             designer1AcknowledgeArr: [i]
           })
+          this.designer1changeCountry(i.country);
 
         this.state1 = i.state;
-        this.designer1changeCountry(i.country);
         }
           else if(i.signatorRole == "designer2"){
 
@@ -209,7 +209,6 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
           })
           this.showDesigner2 = true;
           this.state2 = i.state;
-          this.country2= i.country;
           this.designer2changeCountry(i.country);
          }
 
@@ -233,32 +232,33 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
         }
       }
 
-
        this.step1Form.patchValue({
-        clientName1: [clientName],
-        departmentName1: [departmentName],
-        site1: [site],
-        descriptionOfReport: [this.step1List.reportDetails.descriptionReport],
-        reasonOfReport: [this.step1List.reportDetails.reasonOfReport],
-        showField1: [this.step1List.reportDetails.estimatedWireAge],
+        clientName1: clientName,
+        departmentName1: departmentName,
+        site1: site,
+        descriptionOfReport: this.step1List.reportDetails.descriptionReport,
+        reasonOfReport: this.step1List.reportDetails.reasonOfReport,
+        showField1: this.step1List.reportDetails.estimatedWireAge,
        // evidenceAlterations: [this.step1List.reportDetails.evidenceAlterations],
-        showField2: [this.step1List.reportDetails.estimateAgeYes],
-        inspectionLast: [this.step1List.reportDetails.lastInspection],
-        nextInspection: [this.step1List.reportDetails.nextInspection],
-        extentInstallation: [this.step1List.reportDetails.extentInstallation],
-        detailsOfClient: [this.step1List.reportDetails.clientDetails],
-        detailsOfInstallation: [this.step1List.reportDetails.installationDetails],
-        startingDateVerification: [this.step1List.reportDetails.verificationDate],
-        engineerName: [this.step1List.reportDetails.verifiedEngineer],
-        designation: [this.step1List.reportDetails.designation],
-        companyName: [this.step1List.reportDetails.company],
-        //confirmExtent: [this.step1List.reportDetails.confirmExtent]
+        showField2: this.step1List.reportDetails.evidanceWireAge,
+        inspectionLast: this.step1List.reportDetails.lastInspection,
+        nextInspection: this.step1List.reportDetails.nextInspection,
+        extentInstallation: this.step1List.reportDetails.extentInstallation,
+        detailsOfClient:this.step1List.reportDetails.clientDetails,
+        detailsOfInstallation: this.step1List.reportDetails.installationDetails,
+        startingDateVerification: this.step1List.reportDetails.verificationDate,
+        engineerName: this.step1List.reportDetails.verifiedEngineer,
+        designation: this.step1List.reportDetails.designation,
+        companyName: this.step1List.reportDetails.company,
+        limitations: this.step1List.reportDetails.limitations
     })
+    this.flag=true;
       },
       error => {
        console.log("error")
       }
       )
+
      }
 
   private retrieveClientDetails() {
@@ -297,8 +297,15 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 
 
   showWiringAge(e: any) {
-    let changedValue = e.target.value;
-    if(changedValue == "New installation") {
+    let changedValue;
+    if(e.target != undefined) {
+      changedValue = e.target.value;
+    }
+    else{
+      changedValue = e;
+    }
+
+    if(changedValue == "New Installation") {
       this.showField1 = false;
       this.step1Form.controls["showField1"].clearValidators();
       this.step1Form.controls["showField1"].updateValueAndValidity();
@@ -311,7 +318,13 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   }
 
   showEstimatedAge(e: any) {
-    let changedValue = e.target.value;
+    let changedValue;
+    if(e.target != undefined) {
+      changedValue = e.target.value;
+    }
+    else{
+      changedValue = e;
+    }
     if(changedValue == "Yes") {
       this.showField2 = true;
       this.step1Form.controls["showField2"].setValidators([Validators.required]);
@@ -522,6 +535,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 
 
   designer1changeCountry(e: any) {
+    debugger
     let changedValue;
 
     if(e.target != undefined) {
@@ -798,14 +812,14 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     this.proceedNext.emit(true);
   }
   gotoNextModal(content1: any) {
-    if(this.step1Form.invalid) {
-      this.validationError=true;
-      this.validationErrorMsg="Please check all the fields";
-      setTimeout(()=>{
-        this.validationError=false;
-   }, 3000);
-      return;
-    }
+  //   if(this.step1Form.invalid) {
+  //     this.validationError=true;
+  //     this.validationErrorMsg="Please check all the fields";
+  //     setTimeout(()=>{
+  //       this.validationError=false;
+  //  }, 3000);
+  //     return;
+  //   }
     this.modalService.open(content1, { centered: true})
   }
   closeModalDialog(){
@@ -818,14 +832,16 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       this.modalService.dismissAll(this.successMsg="")
     }
   }
-nextTab() {
+nextTab(flag: any) {
+  debugger
+  console.log(flag);
 
     this.loading = true;
     this.submitted = true
 
-    if(this.step1Form.invalid) {
-      return;
-    }
+    // if(this.step1Form.invalid) {
+    //   return;
+    // }
 
     this.step1Form.value.designer1Arr[0].signatorRole= this.designer1Role;
     this.step1Form.value.designer1Arr[0].declarationSignature= this.step1Form.value.designer1AcknowledgeArr[0].declarationSignature;
@@ -873,6 +889,19 @@ nextTab() {
     }
 
     this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.value.contractorArr,this.step1Form.value.inspectorArr);
+   if(flag){
+     debugger
+   this.UpateBasicService.updateBasic(this.reportDetails).subscribe(
+    data=> {
+     
+    },
+    (error) => {
+      
+    });
+   
+   }
+   else{
+     debugger
     this.reportDetailsService.addReportDetails(this.reportDetails).subscribe(
 
       data=> {
@@ -888,7 +917,8 @@ nextTab() {
         this.errorMsg = this.errorArr.message;
         this.proceedNext.emit(false);
       });
-    this.service.siteCount = this.reportDetails.siteId;
+      this.service.siteCount = this.reportDetails.siteId;
+   }
   }
 
 }

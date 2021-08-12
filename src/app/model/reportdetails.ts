@@ -8,7 +8,7 @@ export class Reportdetails {
     descriptionPremise: String;
     estimatedWireAge: String;
     evidanceAddition: String;
-    estimateAgeYes: String;
+    evidanceWireAge: String;
     previousRecords: String;
     lastInspection: String;
     nextInspection: String;
@@ -19,7 +19,7 @@ export class Reportdetails {
     verifiedEngineer: String;
     designation: String;
     company: String;
-    confirmExtent: String;
+    limitations: String;
     createdBy: String;
     createdDate: Date;
     updatedBy: String;
