@@ -87,7 +87,7 @@ export class InspectorRegistrationComponent implements OnInit {
     //   { item_id: 5, item_text: 'New Delhi' }
     // ];
 
-    this.applicationService.retrieveApplicationTypes().subscribe(
+    this.applicationService.retrieveApplicationTypesV2().subscribe(
       data => {
         this.dropdownList = data;
       }
@@ -133,7 +133,7 @@ export class InspectorRegistrationComponent implements OnInit {
       //     )};
       // }
       if(changedValue == "IND") {
-        this.siteService.retrieveState(changedValue).subscribe(
+        this.siteService.retrieveStateV2(changedValue).subscribe(
           data => {
             this.stateList = JSON.parse(data)
           }

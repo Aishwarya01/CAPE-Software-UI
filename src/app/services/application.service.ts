@@ -10,6 +10,7 @@ import { ApplicationType } from '../model/applicationtype';
 export class ApplicationTypeService {
 
   apiUrl = environment.apiUrl;
+  apiUrlV2 = environment.apiUrl_v2;
 
   constructor(private http: HttpClient) {
 
@@ -25,6 +26,10 @@ export class ApplicationTypeService {
 
   public retrieveApplicationTypes(): Observable<any>{
     return this.http.get<ApplicationType>(this.apiUrl+'/retrieveApplicationTypes')
+  }
+
+  public retrieveApplicationTypesV2(): Observable<any>{
+    return this.http.get<ApplicationType>(this.apiUrlV2+'/retrieveApplicationTypes')
   }
 
   public deleteApplicationType(id: number): Observable<any>{

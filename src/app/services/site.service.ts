@@ -10,6 +10,7 @@ import { Site } from '../model/site';
 export class SiteService {
   
   apiUrl = environment.apiUrl;
+  apiUrlV2 = environment.apiUrl_v2;
   constructor(private http: HttpClient) { }
 
   public addSIte(site: Site): Observable<any> {
@@ -42,5 +43,9 @@ export class SiteService {
 
   public retrieveState(countryName: String): Observable<any> {
     return this.http.get<any>(this.apiUrl + '/fetchStatesByCountryCode' + '/' +countryName, { responseType: 'text' as 'json' })
+  }
+
+  public retrieveStateV2(countryName: String): Observable<any> {
+    return this.http.get<any>(this.apiUrlV2 + '/fetchStatesByCountryCode' + '/' +countryName, { responseType: 'text' as 'json' })
   }
 }
