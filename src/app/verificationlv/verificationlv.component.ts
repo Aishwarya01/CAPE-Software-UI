@@ -36,6 +36,7 @@ import { InspectionVerificationSupplyCharacteristicsComponent } from '../inspect
 import { MatStepper } from '@angular/material/stepper';
 import { InspectionVerificationBasicInformationComponent } from '../inspection-verification-basic-information/inspection-verification-basic-information.component';
 import { InspectionVerificationTestingComponent } from '../inspection-verification-testing/inspection-verification-testing.component';
+import { InspectionVerificationIncomingEquipmentComponent } from '../inspection-verification-incoming-equipment/inspection-verification-incoming-equipment.component';
 
 @Component({
   selector: 'app-verificationlv',
@@ -132,6 +133,8 @@ export class VerificationlvComponent implements OnInit {
   supply = InspectionVerificationSupplyCharacteristicsComponent;
   @ViewChild(InspectionVerificationBasicInformationComponent)
   basic!: InspectionVerificationBasicInformationComponent;
+  @ViewChild(InspectionVerificationIncomingEquipmentComponent)
+  incoming!: InspectionVerificationIncomingEquipmentComponent;
   @ViewChild(InspectionVerificationTestingComponent)
   testing!: InspectionVerificationTestingComponent;
 
@@ -514,6 +517,7 @@ export class VerificationlvComponent implements OnInit {
     this.selectedIndex = index;
 
     this.basic.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
+    this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
   }
 
 //for final reports tab

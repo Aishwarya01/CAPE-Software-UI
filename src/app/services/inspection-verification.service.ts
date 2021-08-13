@@ -21,7 +21,7 @@ export class InspectionVerificationService {
     return this.http.put<any>(this.apiUrl + '/updateCharacteristics', supply, { responseType: 'text' as 'json' })
   }
   public updateIncoming(incoming: InspectionDetails): Observable<any> {
-    return this.http.put<any>(this.apiUrl + '/updateInstalReport', incoming, { responseType: 'text' as 'json' })
+    return this.http.put<any>(this.apiUrl + '/updateInspectionDetails', incoming, { responseType: 'text' as 'json' })
   }
   public updateTesting(testing: TestingDetails): Observable<any> {
     return this.http.put<any>(this.apiUrl + '/updatePeriodicTesting', testing, { responseType: 'text' as 'json' })

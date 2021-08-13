@@ -29,6 +29,7 @@ export class Reportdetails {
 }
 
 export class SignatorDetails {
+    signatorId!: number;
     signatorRole: String;
     personName: String;
     personContactNo: String;

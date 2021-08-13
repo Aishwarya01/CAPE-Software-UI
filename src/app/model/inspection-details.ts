@@ -1,7 +1,9 @@
 export class InspectionDetails {
-    
+  periodicInspectionId!: number;
   userName!: String;
   siteId!: number;
+  createdBy!: String;
+  createdDate!: Date;
   //ipaoInspectionId!: number;
 
   ipaoInspection!: IpaInsection[];
