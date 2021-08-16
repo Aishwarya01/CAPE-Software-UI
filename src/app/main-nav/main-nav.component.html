@@ -42,19 +42,22 @@
       <mat-list-item *ngFor="let type of applicationTypes"
       [ngClass]="{'highlight': selectedRowIndex == type.id}"
       (click)="highlight(type)">
-        <div class="col-md-2" style="position: sticky;">
+      <a class="logomain col-md-9" style="padding-right: 0px;
+      padding-left: 3px;">
+        <div class="col-md-2" style="position: sticky;"  (click)="showLinkDescription(type.id)">
         <button class="btn btn-info"
         style="float: left;padding: 3px 5px 3px 5px;
         margin: 5px 4px 5px -8px;">
         <span>{{ type.applicationName }}</span>
         </button>
         </div>
-        <a class="logomain col-md-8">
-          <span *ngIf="isExpanded || isShowing" style="margin-left: 8px;"
+        <!-- <a class="logomain col-md-8"> -->
+          <span *ngIf="isExpanded || isShowing" style="margin-left: 8px;position: relative;
+          top: 11px;"
           (click)="showLinkDescription(type.id)" title="{{type.type}}">{{ type.code }}</span>
-        </a>
+        </a> 
 
-      <div class="MenuIcons col-md-4" style="display: flex;margin-left: -27px;">
+      <div class="MenuIcons col-md-4" style="display: flex;">
         <button mat-menu-item (click)="editApplicationType(type.id, type.type, type.code)" style="height: 30px;"
         class="full-width" *ngIf="isExpanded || isShowing" title="Edit" [disabled]="displayIconsBasedOnEmail()">
           <mat-icon>edit</mat-icon>
