@@ -37,6 +37,7 @@ import { MatStepper } from '@angular/material/stepper';
 import { InspectionVerificationBasicInformationComponent } from '../inspection-verification-basic-information/inspection-verification-basic-information.component';
 import { InspectionVerificationTestingComponent } from '../inspection-verification-testing/inspection-verification-testing.component';
 import { InspectionVerificationIncomingEquipmentComponent } from '../inspection-verification-incoming-equipment/inspection-verification-incoming-equipment.component';
+import { SummaryComponent } from '../summary/summary.component';
 
 @Component({
   selector: 'app-verificationlv',
@@ -137,6 +138,8 @@ export class VerificationlvComponent implements OnInit {
   incoming!: InspectionVerificationIncomingEquipmentComponent;
   @ViewChild(InspectionVerificationTestingComponent)
   testing!: InspectionVerificationTestingComponent;
+  @ViewChild(SummaryComponent)
+  summary!: SummaryComponent;
 
   // Second Tab dependencies
   panelOpenState = false;
@@ -518,6 +521,7 @@ export class VerificationlvComponent implements OnInit {
 
     this.basic.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
     this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
+    this.summary.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
   }
 
 //for final reports tab

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { InspectionDetails } from '../model/inspection-details';
 import { Reportdetails } from '../model/reportdetails';
+import { Summary } from '../model/summary';
 import { Supplycharacteristics } from '../model/supplycharacteristics';
 import { TestingDetails } from '../model/testing-details';
 @Injectable({
@@ -25,6 +26,9 @@ export class InspectionVerificationService {
   }
   public updateTesting(testing: TestingDetails): Observable<any> {
     return this.http.put<any>(this.apiUrl + '/updatePeriodicTesting', testing, { responseType: 'text' as 'json' })
+  }
+  public updateSummary(summary: Summary): Observable<any> {
+    return this.http.put<any>(this.apiUrl + '/updateSummary', summary, { responseType: 'text' as 'json' })
   }
 
 }
