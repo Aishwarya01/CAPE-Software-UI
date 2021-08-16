@@ -29,6 +29,8 @@ import { Summary } from '../model/summary';
 import { SummarydetailsService } from '../services/summarydetails.service';
 import { GlobalsService } from '../globals.service';
 import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
+import { SiteService } from '../services/site.service';
+import { InspectionVerificationService } from '../services/inspection-verification.service';
 
 @Component({
   selector: 'app-summary',
@@ -37,7 +39,7 @@ import { VerificationlvComponent } from '../verificationlv/verificationlv.compon
 })
 export class SummaryComponent implements OnInit {
   selectedValue: any;
-  overallAssessmentInstallation: string = '';
+  overallAssessmentInstallation: boolean = false;
   installations: string[] = ['Satisfactory', 'Unsatisfactory'];
 
   addsummary = new FormGroup({
@@ -82,6 +84,7 @@ export class SummaryComponent implements OnInit {
   // ThirdFormGroup: FormGroup;
   // fourthFormGroup: FormGroup;
   disable: boolean = false;
+  flag: boolean = false;
   // @Output("changeTab1") changeTab1: EventEmitter<any> = new EventEmitter();
 
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
@@ -94,6 +97,9 @@ export class SummaryComponent implements OnInit {
   canViewDiv: any;
   radioButtonChange: any;
   submitted = false;
+  summaryList: any = [];
+  arr: any = [];
+  limitationsValue!: String;
   // @ViewChild (FinalreportsComponent) final!: FinalreportsComponent;
   //@ViewChild (VerificationlvComponent) final!: VerificationlvComponent;
 
@@ -112,8 +118,11 @@ export class SummaryComponent implements OnInit {
     private router: ActivatedRoute,
     private summarydetailsService: SummarydetailsService,
     public service: GlobalsService,
+    public siteService: SiteService,
     private ChangeDetectorRef: ChangeDetectorRef,
-    private final: VerificationlvComponent
+    private final: VerificationlvComponent,
+    private UpateInspectionService: InspectionVerificationService,
+
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
   }
@@ -151,8 +160,78 @@ export class SummaryComponent implements OnInit {
     this.ChangeDetectorRef.detectChanges();
   }
 
+  retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any){
+    this.siteService.retrieveFinal(userName,siteId).subscribe(
+      data=> {
+        
+       this.summaryList = JSON.parse(data);
+       this.summary.siteId = siteId;
+       this.summary.summaryId = this.summaryList.summary.summaryId;
+       this.summary.createdBy = this.summaryList.summary.createdBy;
+       this.summary.createdDate = this.summaryList.summary.createdDate;
+
+       this.summary.limitationsInspection = this.summaryList.summary.limitationsInspection;
+       this.limitationsValue = this.summaryList.summary.limitationsInspection;
+       this.onChange(this.limitationsValue);
+       for(let i of this.summaryList.summary.summaryDeclaration) {
+         if(i.declarationRole == "Inspector") {
+          this.addsummary.patchValue({
+            Declaration1Arr: [i]
+          })
+         }
+
+         else{
+          this.addsummary.patchValue({
+            Declaration2Arr: [i]
+          })
+         }
+       }
+
+       this.populateData();
+       this.flag = true;
+
+       this.addsummary.patchValue({
+        extentInstallation: this.summaryList.summary.extentInstallation,
+        agreedLimitations: this.summaryList.summary.agreedLimitations,
+        agreedWith: this.summaryList.summary.agreedWith,
+        operationalLimitations: this.summaryList.summary.operationalLimitations,
+        recommendationsDate: this.summaryList.summary.recommendationsDate,
+        inspectionTestingDetailed: this.summaryList.summary.inspectionTestingDetailed,
+        generalConditionInstallation: this.summaryList.summary.generalConditionInstallation,
+        overallAssessmentInstallation: this.summaryList.summary.overallAssessmentInstallation,
+    })
+    // this.flag=true;
+      },
+      error => {
+       console.log("error")
+      }
+      )
+
+     }
+
+     populateData() {
+      for (let item of this.summaryList.summary.summaryObervation) {
+        this.arr.push(this.createGroup(item));
+        
+      }
+      this.addsummary.setControl('ObservationsArr', this._formBuilder.array(this.arr || []))
+    }
+
+    createGroup(item: any): FormGroup {
+      return this._formBuilder.group({
+        observationsId: new FormControl({disabled: false,value: item.observationsId}),
+        observations: new FormControl({disabled: false,value: item.observations}),
+        furtherActions: new FormControl({disabled: false,value: item.furtherActions}),
+        referanceNumberReport: new FormControl({disabled: false,value: item.referanceNumberReport}),
+        comment: new FormControl({disabled: false,value: item.comment}),
+        
+      });
+    }
+  
+
   private Declaration1Form(): FormGroup {
     return new FormGroup({
+      declarationId: new FormControl(''),
       name: new FormControl('', Validators.required),
       signature: new FormControl('', Validators.required),
       company: new FormControl('', Validators.required),
@@ -165,6 +244,7 @@ export class SummaryComponent implements OnInit {
 
   private Declaration2Form(): FormGroup {
     return new FormGroup({
+      declarationId: new FormControl(''),
       name: new FormControl('', Validators.required),
       signature: new FormControl('', Validators.required),
       company: new FormControl('', Validators.required),
@@ -197,10 +277,21 @@ export class SummaryComponent implements OnInit {
   }
 
   onChange(event: any) {
-    this.selectedType = event.target.value;
-    if (event.target.value == 'hide') {
+    // this.selectedType = event.target.value;
+    let changedValue;
+
+    if(event.target != undefined) {
+      changedValue = event.target.value;
+    }
+    else{
+      changedValue = event;
+    }
+    if (changedValue == 'No remedial action required') {
       this.selectedType = false;
       this.disableValidators();
+    }
+    else{
+      this.selectedType = true;
     }
   }
   disableValidators() {
@@ -228,10 +319,14 @@ export class SummaryComponent implements OnInit {
   }
 
   changeComboo(event: any) {
-    // if(event.target.value == 'Unsatisfactory') {
-    //   this.overallAssessmentInstallation= false;
-    //   this.disableValidatorsRadio();
-    // }
+    
+    if(event.value == 'Unsatisfactory') {
+      this.overallAssessmentInstallation= true;
+      //this.disableValidatorsRadio();
+    }
+    else {
+
+    }
   }
   changeTab1(index: number, sitedId: any, userName: any): void {
     this.selectedIndex = index;
@@ -256,8 +351,12 @@ export class SummaryComponent implements OnInit {
       this.modalService.dismissAll((this.successMsg = ''));
     }
   }
-  SubmitTab5() {
-    this.summary.siteId = this.service.siteCount;
+  SubmitTab5(flag: any) {
+    debugger
+    
+    if(!flag) {
+      this.summary.siteId = this.service.siteCount;
+    }
     this.summary.userName = this.email;
     this.submitted = true;
     if (this.addsummary.invalid) {
@@ -269,21 +368,36 @@ export class SummaryComponent implements OnInit {
       this.addsummary.value.Declaration2Arr
     );
 
-    this.summarydetailsService.addSummary(this.summary).subscribe(
-      (data) => {
-        this.proceedNext.emit(true);
-        // show success message ofter click button
-        this.success = true;
-        this.successMsg = 'Summary Information Successfully Saved';
-        this.disable = true;
-        this.final.changeTab1(3);
-      },
-      (error) => {
-        this.Error = true;
-        // show error button
-        this.proceedNext.emit(false);
-        this.errorMsg = 'Something went wrong, kindly check all the fields';
-      }
-    );
+
+    if(flag) {
+      this.UpateInspectionService.updateSummary(this.summary).subscribe(
+        (data) => {
+          console.log("success");
+        },
+        (error) => {
+          console.log("error");
+
+        }
+      )
+    }
+
+    else {
+      this.summarydetailsService.addSummary(this.summary).subscribe(
+        (data) => {
+          this.proceedNext.emit(true);
+          // show success message ofter click button
+          this.success = true;
+          this.successMsg = 'Summary Information Successfully Saved';
+          this.disable = true;
+          this.final.changeTab1(3);
+        },
+        (error) => {
+          this.Error = true;
+          // show error button
+          this.proceedNext.emit(false);
+          this.errorMsg = 'Something went wrong, kindly check all the fields';
+        });
+    }
+    
   }
 }
