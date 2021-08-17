@@ -32,13 +32,12 @@ import { Site } from '../model/site';
 import { SiteupdateComponent } from '../site/siteupdate/siteupdate.component';
 import { ReportDetailsService } from '../services/report-details.service';
 import { Reportdetails } from '../model/reportdetails';
-import { InspectionVerificationSupplyCharacteristicsComponent } from '../inspection-verification-supply-characteristics/inspection-verification-supply-characteristics.component';
 import { MatStepper } from '@angular/material/stepper';
 import { InspectionVerificationBasicInformationComponent } from '../inspection-verification-basic-information/inspection-verification-basic-information.component';
 import { InspectionVerificationTestingComponent } from '../inspection-verification-testing/inspection-verification-testing.component';
 import { InspectionVerificationIncomingEquipmentComponent } from '../inspection-verification-incoming-equipment/inspection-verification-incoming-equipment.component';
 import { SummaryComponent } from '../summary/summary.component';
-
+import { InspectionVerificationSupplyCharacteristicsComponent } from '../inspection-verification-supply-characteristics/inspection-verification-supply-characteristics.component';
 @Component({
   selector: 'app-verificationlv',
   templateUrl: './verificationlv.component.html',
@@ -128,19 +127,19 @@ export class VerificationlvComponent implements OnInit {
   contractorRole: String = 'contractor';
   inspectorRole: String = 'inspector';
   reportDetails = new Reportdetails();
-  @ViewChild(InspectionVerificationSupplyCharacteristicsComponent, {
-    static: false,
-  })
-  supply = InspectionVerificationSupplyCharacteristicsComponent;
+  // @ViewChild(InspectionVerificationSupplyCharacteristicsComponent, {
+  //   static: false,
+  // })
   @ViewChild(InspectionVerificationBasicInformationComponent)
   basic!: InspectionVerificationBasicInformationComponent;
   @ViewChild(InspectionVerificationIncomingEquipmentComponent)
   incoming!: InspectionVerificationIncomingEquipmentComponent;
-  @ViewChild(InspectionVerificationTestingComponent)
-  testing!: InspectionVerificationTestingComponent;
+  // @ViewChild(InspectionVerificationTestingComponent)
+  // testing!: InspectionVerificationTestingComponent;
   @ViewChild(SummaryComponent)
   summary!: SummaryComponent;
-
+  @ViewChild(InspectionVerificationSupplyCharacteristicsComponent)
+  supply!: InspectionVerificationSupplyCharacteristicsComponent;
   // Second Tab dependencies
   panelOpenState = false;
   installationList: String[] = [
@@ -217,7 +216,7 @@ export class VerificationlvComponent implements OnInit {
       clientname: ['', Validators.required],
     });
 
-    this.testing;
+    //this.testing;
     this.siteService.retrieveCountry().subscribe((data) => {
       this.countryList = JSON.parse(data);
     });
@@ -503,7 +502,7 @@ export class VerificationlvComponent implements OnInit {
   }
 
   public doSomething3(next: any): void {
-    this.testing.callMethod();
+    //this.testing.callMethod();
     this.isCompleted3 = next;
   }
 
@@ -518,9 +517,10 @@ export class VerificationlvComponent implements OnInit {
 //for saved reports tab
   changeTab(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any): void {
     this.selectedIndex = index;
-
     this.basic.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
     this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
+    this.supply.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
+   // this.testing.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
     this.summary.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
   }
 
