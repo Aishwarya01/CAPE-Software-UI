@@ -21,6 +21,7 @@ import { relative } from '@angular/compiler-cli/src/ngtsc/file_system';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { BnNgIdleService } from 'bn-ng-idle';
 
 @Component({
   selector: 'app-main-nav',
@@ -88,7 +89,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
     private route: Router,
     private componentFactoryResolver: ComponentFactoryResolver,
     private applicationService: ApplicationTypeService,
-    private modalService: NgbModal) {
+    private modalService: NgbModal, private bnIdle: BnNgIdleService) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
     this.retrieveApplicationTypes();
     this.displayUserFullName(this.email);
@@ -105,7 +106,15 @@ export class MainNavComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.mobileDisplay = false;
-    this.desktopDisplay = true
+    this.desktopDisplay = true;
+    this.bnIdle.startWatching(60).subscribe((isTimedOut: boolean) => {
+      if (isTimedOut) {
+        alert('Your session is timed out')
+        this.logout();
+        this.bnIdle.stopTimer();
+      }
+    });
+    
   }
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);

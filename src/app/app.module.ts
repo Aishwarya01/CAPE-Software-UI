@@ -47,6 +47,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SavedreportsComponent } from './savedreports/savedreports.component';
 import { FinalreportsComponent } from './finalreports/finalreports.component';
 import {Ng2TelInputModule} from 'ng2-tel-input';
+import { BnNgIdleService } from 'bn-ng-idle';
 //import { Ng9PasswordStrengthBarModule } from 'ng9-password-strength-bar/projects/ng9-password-strength-bar/src/public-api';
 
 @NgModule({
@@ -102,7 +103,7 @@ import {Ng2TelInputModule} from 'ng2-tel-input';
     NgxBootstrapIconsModule.pick(allIcons),
     //Ng9PasswordStrengthBarModule
   ],
-  providers: [GlobalsService, { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }],
+  providers: [GlobalsService, { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }, BnNgIdleService],
   bootstrap: [AppComponent],
   entryComponents: [ AddApplicationTypesComponent, UpdateApplicationTypesComponent, VerificationlvComponent ]
 })
