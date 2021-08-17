@@ -22,6 +22,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { BnNgIdleService } from 'bn-ng-idle';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-main-nav',
@@ -107,7 +108,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.mobileDisplay = false;
     this.desktopDisplay = true;
-    this.bnIdle.startWatching(60).subscribe((isTimedOut: boolean) => {
+    this.bnIdle.startWatching(environment.sessionTimeOut).subscribe((isTimedOut: boolean) => {
       if (isTimedOut) {
         alert('Your session is timed out')
         this.logout();
