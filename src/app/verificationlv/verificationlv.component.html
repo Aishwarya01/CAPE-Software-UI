@@ -28,12 +28,12 @@
                   <th mat-header-cell *matHeaderCellDef> Action </th>
                   <td mat-cell *matCellDef="let element">
                     <button class="btn btn-outline-danger delete" (click)="deleteClient(element.clientName,clientdelete)"
-                    style="padding: 7px 10px 0px 10px;">
+                    style="padding: 7px 10px 0px 10px;" title="Delete Company">
                     <mat-icon aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
                   </button>
                     <button class="btn btn-outline-danger delete" 
                     (click)="updateClient(element.companyId,element.companyCd, element.clientName,element.inActive,element.createdDate,element.createdBy)"
-                      style="padding: 7px 10px 0px 10px;" title="Edit Client">
+                      style="padding: 7px 10px 0px 10px;" title="Edit Company">
                       <mat-icon aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
                     </button>
                   </td>
@@ -149,10 +149,10 @@
                   <ng-container matColumnDef="action">
                     <th mat-header-cell *matHeaderCellDef> Action </th>
                     <td mat-cell *matCellDef="let element">
-                      <button class="btn btn-outline-danger delete" (click)="deleteDepartment(element.departmentId,deptdelete)">
+                      <button class="btn btn-outline-danger delete" title="Delete Department" (click)="deleteDepartment(element.departmentId,deptdelete)">
                         <mat-icon>delete</mat-icon>
                       </button>
-                      <button class="btn btn-outline-danger delete" (click)="updateDepartment(element.departmentId, element.departmentName, element.departmentCd, element.clientName,element.createdDate,element.createdBy)">
+                      <button class="btn btn-outline-danger delete" title="Edit Department" (click)="updateDepartment(element.departmentId, element.departmentName, element.departmentCd, element.clientName,element.createdDate,element.createdBy)">
                         <mat-icon>edit</mat-icon>
                       </button>
                     </td>
