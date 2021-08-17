@@ -14,6 +14,7 @@ import { SiteService } from '../services/site.service';
 import { GlobalsService } from '../globals.service';
 import { iif } from 'rxjs';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
+
 //import { ErrorHandlerService } from './../../shared/services/error-handler.service';
 @Component({
   selector: 'app-inspection-verification-basic-information',
@@ -79,6 +80,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   state3: String = "";
   state4: String = "";
   retrivedSiteId!: number;
+
   // Second Tab dependencies
   panelOpenState = false;
   installationList: String[]= ['New Installation','First Verification Of An Existing','Addition Of An Existing Installation','Alteration In An Existing Installation','Periodic Verification'];
@@ -164,13 +166,29 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     this.inspectorArr = this.step1Form.get('inspectorArr') as FormArray;
   }
 
+//for company site detail continue
+  changeTab(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any): void {
+    debugger
+    console.log(sitedId+ "" + clientName +" " +departmentName+ "" + site + ""+ userName)
+    this.siteDetails1 = true;
+    this.siteDetails = false;
+    this.clearSiteValidator();
+    this.step1Form.patchValue({
+      clientName1: clientName,
+      departmentName1: departmentName,
+      site1: site,
+    });
+    this.reportDetails.siteId = sitedId;
+  }
+
  
   // Need to check this task
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any){
     this.siteService.retrieveFinal(userName,siteId).subscribe(
       data=> {
         this.siteDetails1 = true;
-        this.siteDetails = false
+        this.siteDetails = false;
+        this.clearSiteValidator();
        console.log(data);
        this.step1List = JSON.parse(data);
        this.reportDetails.siteId = siteId;
@@ -210,7 +228,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
         this.contractorchangeCountry(i.country);
        }
        else if(i.signatorRole == "inspector"){
-        this.mobilearr3 = i.personContactNo.split("-")
+          this.mobilearr3 = i.personContactNo.split("-")
           this.step1Form.patchValue({
             inspectorAcknowledgeArr: [i]
           })
@@ -245,6 +263,16 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       }
       )
      }
+
+  clearSiteValidator() {
+    this.step1Form.controls["clientName"].clearValidators();
+    this.step1Form.controls["clientName"].updateValueAndValidity();
+    this.step1Form.controls["departmentName"].clearValidators();
+    this.step1Form.controls["departmentName"].updateValueAndValidity();
+    this.step1Form.controls["siteName"].clearValidators();
+    this.step1Form.controls["siteName"].updateValueAndValidity();
+    }
+
   private retrieveClientDetails() {
     this.clientService.retrieveClient(this.email).subscribe(
       data => {
@@ -723,14 +751,14 @@ designer2changeCountry(e: any) {
     this.proceedNext.emit(true);
   }
   gotoNextModal(content1: any) {
-    //   if(this.step1Form.invalid) {
-    //     this.validationError=true;
-    //     this.validationErrorMsg="Please check all the fields";
-    //     setTimeout(()=>{
-    //       this.validationError=false;
-    //  }, 3000);
-    //     return;
-    //   }
+      if(this.step1Form.invalid) {
+        this.validationError=true;
+        this.validationErrorMsg="Please check all the fields";
+        setTimeout(()=>{
+          this.validationError=false;
+     }, 3000);
+        return;
+      }
       this.modalService.open(content1, { centered: true})
     }
     closeModalDialog(){
@@ -748,9 +776,9 @@ designer2changeCountry(e: any) {
     console.log(flag);
       this.loading = true;
       this.submitted = true
-      // if(this.step1Form.invalid) {
-      //   return;
-      // }
+      if(this.step1Form.invalid) {
+        return;
+      }
       this.step1Form.value.designer1Arr[0].signatorRole= this.designer1Role;
       this.step1Form.value.designer1Arr[0].declarationSignature= this.step1Form.value.designer1AcknowledgeArr[0].declarationSignature;
       this.step1Form.value.designer1Arr[0].declarationName= this.step1Form.value.designer1AcknowledgeArr[0].declarationName;
@@ -771,12 +799,129 @@ designer2changeCountry(e: any) {
       this.step1Form.value.inspectorArr[0].declarationName= this.step1Form.value.inspectorAcknowledgeArr[0].declarationName;
       this.step1Form.value.inspectorArr[0].declarationDate= this.step1Form.value.inspectorAcknowledgeArr[0].declarationDate;
       this.reportDetails.userName = this.email;
-      if((this.step1Form.value.designer1Arr[0].personContactNo).includes("+")) {
-        console.log("yes");
+
+      
+      if(flag) {
+        if((this.step1Form.value.designer1Arr[0].personContactNo).includes("+")) {
+          let arr = [];
+          arr = (this.step1Form.value.designer1Arr[0].personContactNo).split("-");
+          this.step1Form.value.designer1Arr[0].personContactNo = arr[1];
+            arr[0] = arr[0].replace('+', ''); // Remove the first one
+          if(this.countryCode != "91" ) {
+            this.step1Form.value.designer1Arr[0].personContactNo= "+" + this.countryCode + "-" +  this.step1Form.value.designer1Arr[0].personContactNo;
+          }
+          else{
+            this.step1Form.value.designer1Arr[0].personContactNo= "+" + arr[0] + "-" +  this.step1Form.value.designer1Arr[0].personContactNo;
+          }
+        }
+       
+
+        if((this.step1Form.value.designer1Arr[0].managerContactNo).includes("+")) {
+          let arr1 = [];
+        arr1 = (this.step1Form.value.designer1Arr[0].managerContactNo).split("-");
+        this.step1Form.value.designer1Arr[0].managerContactNo = arr1[1];
+          arr1[0] = arr1[0].replace('+', ''); // Remove the first one
+        if(this.countryCode1 != "91" ) {
+          this.step1Form.value.designer1Arr[0].managerContactNo= "+" + this.countryCode1 + "-" +  this.step1Form.value.designer1Arr[0].managerContactNo;
+        }
+        else{
+          this.step1Form.value.designer1Arr[0].managerContactNo= "+" + arr1[0]  + "-" +  this.step1Form.value.designer1Arr[0].managerContactNo;
+        }
+        }
+
+        //designer 2
+        if((this.step1Form.value.designer2Arr[0].personContactNo).includes("+")) {
+          let arr2= [];
+          arr2 = (this.step1Form.value.designer2Arr[0].personContactNo).split("-");
+          this.step1Form.value.designer2Arr[0].personContactNo = arr2[1];
+          arr2[0] = arr2[0].replace('+', ''); // Remove the first one
+          if(this.countryCode2 != "91" ) {
+            this.step1Form.value.designer2Arr[0].personContactNo= "+" + this.countryCode2 + "-" +  this.step1Form.value.designer2Arr[0].personContactNo;
+          }
+          else{
+            this.step1Form.value.designer2Arr[0].personContactNo= "+" +  arr2[0] + "-" +  this.step1Form.value.designer2Arr[0].personContactNo;
+          }
+        }
         
+        if((this.step1Form.value.designer2Arr[0].managerContactNo).includes("+")) {
+          
+        let arr3 = [];
+        arr3 = (this.step1Form.value.designer2Arr[0].managerContactNo).split("-");
+        this.step1Form.value.designer2Arr[0].managerContactNo = arr3[1];
+        arr3[0] = arr3[0].replace('+', ''); // Remove the first one
+        if(this.countryCode3 != "91" ) {
+          this.step1Form.value.designer2Arr[0].managerContactNo= "+" + this.countryCode3 + "-" +  this.step1Form.value.designer2Arr[0].managerContactNo;
+        }
+        else{
+          this.step1Form.value.designer2Arr[0].managerContactNo= "+" + arr3[0] + "-" +  this.step1Form.value.designer2Arr[0].managerContactNo;
+        }
+        }
+       
+
+        //contractor
+        if((this.step1Form.value.contractorArr[0].personContactNo).includes("+")) {
+          let arr4 = [];
+          arr4 = (this.step1Form.value.contractorArr[0].personContactNo).split("-");
+          this.step1Form.value.contractorArr[0].personContactNo = arr4[1];
+          arr4[0] = arr4[0].replace('+', ''); // Remove the first one
+          if(this.countryCode4 != "91" ) {
+            this.step1Form.value.contractorArr[0].personContactNo= "+" + this.countryCode4 + "-" +  this.step1Form.value.contractorArr[0].personContactNo;
+          }
+          else{
+            this.step1Form.value.contractorArr[0].personContactNo= "+" +  arr4[0]  + "-" +  this.step1Form.value.contractorArr[0].personContactNo;
+          }
+  
+        }
+        
+        
+        if((this.step1Form.value.contractorArr[0].managerContactNo).includes("+")) {
+          let arr5 = [];
+          arr5 = (this.step1Form.value.contractorArr[0].managerContactNo).split("-");
+          this.step1Form.value.contractorArr[0].managerContactNo = arr5[1];
+          arr5[0] = arr5[0].replace('+', ''); // Remove the first one
+          if(this.countryCode5 != "91" ) {
+            this.step1Form.value.contractorArr[0].managerContactNo= "+" + this.countryCode5  + "-" +  this.step1Form.value.contractorArr[0].managerContactNo;
+          }
+          else{
+            this.step1Form.value.contractorArr[0].managerContactNo= "+" + arr5[0] + "-" +  this.step1Form.value.contractorArr[0].managerContactNo;
+          }
+        }
+        
+
+        //inspector
+        if((this.step1Form.value.inspectorArr[0].personContactNo).includes("+")) {
+          let arr6 = [];
+          arr6 = (this.step1Form.value.inspectorArr[0].personContactNo).split("-");
+          this.step1Form.value.inspectorArr[0].personContactNo = arr6[1];
+          arr6[0] = arr6[0].replace('+', ''); // Remove the first one
+          if(this.countryCode6 != "91" ) {
+            this.step1Form.value.inspectorArr[0].personContactNo= "+" + this.countryCode6 + "-" +  this.step1Form.value.inspectorArr[0].personContactNo;
+          }
+          else{
+            this.step1Form.value.inspectorArr[0].personContactNo= "+" +  arr6[0]  + "-" +  this.step1Form.value.inspectorArr[0].personContactNo;
+  
+          }
+          }
+    
+        
+
+        if((this.step1Form.value.inspectorArr[0].managerContactNo).includes("+")) {
+          let arr7 = [];
+          arr7 = (this.step1Form.value.inspectorArr[0].managerContactNo).split("-");
+          this.step1Form.value.inspectorArr[0].managerContactNo = arr7[1];
+          arr7[0] = arr7[0].replace('+', ''); // Remove the first one
+          if(this.countryCode7 != "91" ) {
+            this.step1Form.value.inspectorArr[0].managerContactNo= "+" + this.countryCode7 + "-" +  this.step1Form.value.inspectorArr[0].managerContactNo;
+        }
+        else{
+          this.step1Form.value.inspectorArr[0].managerContactNo= "+" +  arr7[0] + "-" +  this.step1Form.value.inspectorArr[0].managerContactNo;
+        }
       }
-
-
+       
+      }
+     
+  
+    else{
     //country code
     this.step1Form.value.designer1Arr[0].personContactNo= "+" + this.countryCode + "-" + this.step1Form.value.designer1Arr[0].personContactNo;
     this.step1Form.value.designer1Arr[0].managerContactNo= "+" + this.countryCode1 + "-" + this.step1Form.value.designer1Arr[0].managerContactNo;
@@ -789,13 +934,14 @@ designer2changeCountry(e: any) {
 
     this.step1Form.value.inspectorArr[0].personContactNo = "+" + this.countryCode6 + "-" + this.step1Form.value.inspectorArr[0].personContactNo;
     this.step1Form.value.inspectorArr[0].managerContactNo = "+" + this.countryCode7 + "-" + this.step1Form.value.inspectorArr[0].managerContactNo;
-
+    }
     this.reportDetails.signatorDetails = this.step1Form.value.designer1Arr;
     if(this.step1Form.value.designer2Arr[0].personName != "" && this.step1Form.value.designer2Arr[0].personName != null) {
       this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.value.designer2Arr);
     }
     this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.value.contractorArr,this.step1Form.value.inspectorArr);
-   if(flag){
+   
+    if(flag){
     //  this.reportDetails.siteId = this.retrivedSiteId;
      debugger
    this.UpateBasicService.updateBasic(this.reportDetails).subscribe(

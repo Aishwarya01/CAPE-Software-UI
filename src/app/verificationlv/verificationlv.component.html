@@ -28,8 +28,13 @@
                   <th mat-header-cell *matHeaderCellDef> Action </th>
                   <td mat-cell *matCellDef="let element">
                     <button class="btn btn-outline-danger delete" (click)="deleteClient(element.clientName,clientdelete)"
-                      style="padding: 7px 10px 0px 10px;">
-                      <mat-icon aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
+                    style="padding: 7px 10px 0px 10px;">
+                    <mat-icon aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
+                  </button>
+                    <button class="btn btn-outline-danger delete" 
+                    (click)="updateClient(element.companyId,element.companyCd, element.clientName,element.inActive,element.createdDate,element.createdBy)"
+                      style="padding: 7px 10px 0px 10px;" title="Edit Client">
+                      <mat-icon aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
                     </button>
                   </td>
                 </ng-container>
@@ -43,7 +48,6 @@
                 <ng-container matColumnDef="clientName">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Company Name </th>
                   <td mat-cell *matCellDef="let element"
-                    (click)="updateClient(element.companyId,element.companyCd, element.clientName,element.inActive,element.createdDate,element.createdBy)"
                     class="mousechange"> {{element.clientName}} </td>
                 </ng-container>
 
@@ -78,6 +82,17 @@
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Updated By </th>
                   <td mat-cell *matCellDef="let element"> {{element.updatedBy}} </td>
                 </ng-container>
+
+                <!-- <ng-container matColumnDef="view">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Edit</th>
+                  <td mat-cell *matCellDef="let element">
+                    <button class="btn btn-outline-danger delete" 
+                    (click)="updateClient(element.companyId,element.companyCd, element.clientName,element.inActive,element.createdDate,element.createdBy)"
+                      style="padding: 7px 10px 0px 10px;">
+                      <mat-icon aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
+                    </button>
+                  </td>
+                </ng-container> -->
 
                 <tr mat-header-row *matHeaderRowDef="companyColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: companyColumns;"
@@ -137,6 +152,9 @@
                       <button class="btn btn-outline-danger delete" (click)="deleteDepartment(element.departmentId,deptdelete)">
                         <mat-icon>delete</mat-icon>
                       </button>
+                      <button class="btn btn-outline-danger delete" (click)="updateDepartment(element.departmentId, element.departmentName, element.departmentCd, element.clientName,element.createdDate,element.createdBy)">
+                        <mat-icon>edit</mat-icon>
+                      </button>
                     </td>
                   </ng-container>
 
@@ -149,7 +167,6 @@
                   <ng-container matColumnDef="departmentName">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Department Name </th>
                     <td mat-cell *matCellDef="let element"
-                      (click)="updateDepartment(element.departmentId, element.departmentName, element.departmentCd, element.clientName,element.createdDate,element.createdBy)"
                       class="mousechange"> {{element.departmentName}} </td>
                   </ng-container>
                   <!-- Name Column -->
@@ -243,8 +260,15 @@
                   <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef> Action
                   </th>
                   <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-                    <button class="btn btn-outline-danger delete" (click)="deleteSite(element.siteId,sitedelete)">
-                      <mat-icon>delete</mat-icon><label></label>
+                    <button class="btn btn-outline-danger delete" (click)="deleteSite(element.siteId,sitedelete)" title="Delete Site">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                    <button class="btn btn-outline-danger delete" title="Edit Site"
+                    (click)="updateSite( element.userName, element.clientName, element.departmentName,  element.site, element.siteId, element.siteCd, element.country, element.state, element.city, element.landMark, element.sitePersons, element.addressLine_1, element.addressLine_2, element.zipCode, element.createdDate,element.createdBy)">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                    <button class="btn btn-outline-danger delete" title="Continue Site" (click)="continue1(element.siteId,element.userName,element.clientName,element.departmentName,element.site)" [disabled]="disable">
+                      <mat-icon>arrow_right</mat-icon>
                     </button>
                   </td>
                 </ng-container>
@@ -258,7 +282,6 @@
                   <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
                     mat-sort-header> Site Name </th>
                   <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element"
-                    (click)="updateSite( element.userName, element.clientName, element.departmentName,  element.site, element.siteId, element.siteCd, element.country, element.state, element.city, element.landMark, element.sitePersons, element.addressLine_1, element.addressLine_2, element.zipCode, element.createdDate,element.createdBy)"
                     class="mousechange"> {{element.site}} </td>
                 </ng-container>
                 <!-- Name Column -->
@@ -325,12 +348,12 @@
               restart_alt
             </span>
             Reset </button>
-            <button class="btn btn-info next" mat-button (click)="continue()" [disabled]="disable">
+            <!-- <button class="btn btn-info next" mat-button (click)="continue()" [disabled]="disable">
               <span class="material-icons" style="margin-left: -13px;">
                 arrow_right
               </span>
               Continue
-            </button>
+            </button> -->
         </div>
 
       </mat-step>
@@ -339,7 +362,7 @@
   <mat-tab label="Inspection Verification & Testing of Installation" >
     <mat-horizontal-stepper linear #stepper>
       <!-- step 1 (proceedNext)="doSomething1($event)"-->
-      <mat-step [completed]="isCompleted">
+      <mat-step [completed]="true">
 
         <ng-template matStepLabel >Basic Information</ng-template>
 
@@ -349,7 +372,7 @@
       </mat-step>
 
 <!-- step 2 -->
-      <mat-step [completed]="isCompleted2">
+      <mat-step [completed]="true">
 
         <ng-template matStepLabel>Supply Characteristics</ng-template>
 
@@ -358,19 +381,19 @@
       </mat-step>
 
 <!-- step 3 -->
-      <mat-step [completed]="isCompleted3">
+      <mat-step [completed]="true">
         <ng-template matStepLabel>Inspection</ng-template>
         <app-inspection-verification-incoming-equipment (proceedNext)="doSomething3($event)"></app-inspection-verification-incoming-equipment>
       </mat-step>
 
-      <mat-step [completed]="isCompleted4">
+      <mat-step [completed]="true">
         <ng-template matStepLabel>Testing</ng-template>
         <app-inspection-verification-testing (proceedNext)="doSomething4($event)"></app-inspection-verification-testing>
 
 
       </mat-step>
 
-      <mat-step [completed]="isCompleted5">
+      <mat-step [completed]="true">
         <ng-template matStepLabel>Summary</ng-template>
        <app-summary (proceedNext)="NextStep5($event)"></app-summary>
       </mat-step>

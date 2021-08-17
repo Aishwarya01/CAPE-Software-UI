@@ -23,6 +23,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Company } from '../model/company';
 import { ClientupdateComponent } from '../Company/client/clientupdate/clientupdate/clientupdate.component';
 import { User } from '../model/user';
+import { GlobalsService } from '../globals.service';
 import { ClientService } from '../services/client.service';
 import { DepartmentService } from '../services/department.service';
 import { Department } from '../model/department';
@@ -134,8 +135,8 @@ export class VerificationlvComponent implements OnInit {
   basic!: InspectionVerificationBasicInformationComponent;
   @ViewChild(InspectionVerificationIncomingEquipmentComponent)
   incoming!: InspectionVerificationIncomingEquipmentComponent;
-  // @ViewChild(InspectionVerificationTestingComponent)
-  // testing!: InspectionVerificationTestingComponent;
+  @ViewChild(InspectionVerificationTestingComponent)
+  testing!: InspectionVerificationTestingComponent;
   @ViewChild(SummaryComponent)
   summary!: SummaryComponent;
   @ViewChild(InspectionVerificationSupplyCharacteristicsComponent)
@@ -201,7 +202,8 @@ export class VerificationlvComponent implements OnInit {
     private departmentService: DepartmentService,
     private reportDetailsService: ReportDetailsService,
     private siteService: SiteService,
-    private ChangeDetectorRef: ChangeDetectorRef
+    private ChangeDetectorRef: ChangeDetectorRef,
+    public service: GlobalsService
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
   }
@@ -216,7 +218,7 @@ export class VerificationlvComponent implements OnInit {
       clientname: ['', Validators.required],
     });
 
-    //this.testing;
+    this.testing;
     this.siteService.retrieveCountry().subscribe((data) => {
       this.countryList = JSON.parse(data);
     });
@@ -502,7 +504,7 @@ export class VerificationlvComponent implements OnInit {
   }
 
   public doSomething3(next: any): void {
-    //this.testing.callMethod();
+    this.testing.callMethod();
     this.isCompleted3 = next;
   }
 
@@ -520,7 +522,7 @@ export class VerificationlvComponent implements OnInit {
     this.basic.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
     this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
     this.supply.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
-   // this.testing.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
+    this.testing.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
     this.summary.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
   }
 
@@ -529,8 +531,9 @@ export class VerificationlvComponent implements OnInit {
     this.selectedIndex = index;
   }
 
-//for company details site step
-  continue() {
+  continue1(siteId: any,userName :any,clientName: any,departmentName: any,site: any) {
     this.selectedIndex = 1;
+    this.basic.changeTab(1,siteId,userName,clientName,departmentName,site);
   }
+
 }
