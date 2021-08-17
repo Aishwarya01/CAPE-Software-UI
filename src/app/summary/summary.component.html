@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-body">
-<form [formGroup]="addsummary" (ngSubmit)="SubmitTab5()">
+<form [formGroup]="addsummary" (ngSubmit)="SubmitTab5(flag)">
         <mat-accordion>
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
@@ -87,10 +87,11 @@
                   <label>Referring to attached inspection report and test results and subject to the 
                     limitations specified at the extent and limitations of inspection and testing :</label>
                   <select class="form-control" formControlName="attachedInspection" (change)="onChange($event)"
+                  [(ngModel)]="summary.limitationsInspection"
                   [ngClass]="{ 'is-invalid': submitted && f.attachedInspection?.errors }">
                   <option value="0" selected>Select Option</option>
-                  <option value="hide">No remedial action required</option>
-                  <option value="show">The following observations are made</option>
+                  <option value="No remedial action required" [selected]="f.attachedInspection?.value === limitationsValue">No remedial action required</option>
+                  <option value="The following observations are made" [selected]="f.attachedInspection?.value === limitationsValue">The following observations are made</option>
                 </select>
                 <div *ngIf="submitted && f.attachedInspection?.errors" class="invalid-feedback">
                   <div *ngIf="f.attachedInspection?.errors?.required">Client name is required</div>
@@ -98,7 +99,7 @@
                 </div>
               </div>
          </div>
-         <div *ngIf="selectedType == 'show'">
+         <div *ngIf="selectedType">
               <div formArrayName="ObservationsArr" *ngFor="let a of getObservationsControls(); let i = index">
               <div class="form-group" [formGroupName]="i">
             <div class="form-group">
@@ -122,7 +123,7 @@
                   <select class="form-control" formControlName="furtherActions" 
                   [ngClass]="{ 'is-invalid': submitted && f.furtherActions?.errors }">
                     <option value="0" selected>Select Option</option>
-                    <option>C1 – Danger present. Risk of injury. Immediate remedial action required</option>
+                    <option >C1 – Danger present. Risk of injury. Immediate remedial action required</option>
                     <option>C2 – Potentially dangerous – urgent remedial action required</option>
                     <option>C3 – Improvement recommended</option>
                   </select>
@@ -215,7 +216,7 @@
                         <label>Overall assessment of the installation in terms of suitability of continuous use:</label>
                         &nbsp;&nbsp;
                         <mat-radio-group class="example-radio-group" (change)="changeComboo($event)"
-                         [(ngModel)]="overallAssessmentInstallation" 
+                         [(ngModel)]="summary.overallAssessmentInstallation" 
                          [ngClass]="{ 'is-invalid': submitted && f.overallAssessmentInstallation?.errors }"
                          formControlName="overallAssessmentInstallation">
                           <mat-radio-button class="example-radio-button" *ngFor="let installation of installations" 
@@ -227,7 +228,7 @@
                           <div *ngIf="f.overallAssessmentInstallation?.errors?.required">Field Is Required</div>
                       </div> 
                    </div>
-                   <div *ngIf="overallAssessmentInstallation=='Unsatisfactory'"><b>Note:</b>Unsatisfactory assessment indicates that dangerous and/or 
+                   <div *ngIf="f.overallAssessmentInstallation?.value=='Unsatisfactory'"><b>Note:</b>Unsatisfactory assessment indicates that dangerous and/or 
                      potentially dangerous conditions have been identified</div>
                     </div>
                   </div>

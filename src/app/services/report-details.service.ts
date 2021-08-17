@@ -15,5 +15,4 @@ export class ReportDetailsService {
   public addReportDetails(reportDetails: Reportdetails): Observable<any> {
     return this.http.post<any>(this.apiUrl + '/addInstalReport', reportDetails, { responseType: 'text' as 'json' })
   }
-
 }

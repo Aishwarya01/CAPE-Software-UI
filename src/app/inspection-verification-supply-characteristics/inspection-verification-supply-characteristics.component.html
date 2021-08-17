@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-body">
-    <form [formGroup]="supplycharesteristicForm" (ngSubmit)="nextTab2()">
+    <form [formGroup]="supplycharesteristicForm" (ngSubmit)="nextTab2(flag)">
       <mat-accordion>
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
@@ -20,12 +20,13 @@
                 </select>
                 <div *ngIf="submitted && f.systemEarthing.errors" class="invalid-feedback">
                   <div *ngIf="f.systemEarthing?.errors?.required">Field Is Required</div>
-                </div>                             
+                </div>
               </div>
 
-              <div class="col-md-4">
+              <div class="col-md-4"> 
                   <label>Number and Type Of Live Conductors: </label>
-                  <select class="form-control"  formControlName="liveConductor" [(ngModel)]="supplycharesteristic.liveConductorType" (change)="changeCurrent($event)" [ngClass]="{ 'is-invalid': submitted && f.liveConductor.errors }">
+                  <select class="form-control"  formControlName="liveConductor" 
+                  [(ngModel)]="supplycharesteristic.liveConductorType" (change)="changeCurrent($event)" [ngClass]="{ 'is-invalid': submitted && f.liveConductor.errors }">
                     <option value="0" selected>Select Option</option>
                     <option value="AC">AC</option>
                     <option value="DC">DC</option>
@@ -35,20 +36,22 @@
                   </div>
               </div>
 
-              <div class="col-md-4" *ngIf="enableAC">
+              <div class="col-md-4" *ngIf="enableAC"> 
                   <label>AC:</label>
-                  <select class="form-control" formControlName="AcConductor" [(ngModel)]="supplycharesteristic.liveConductorAC" [ngClass]="{ 'is-invalid': submitted && f.AcConductor.errors }">
-                    <option value="0" selected>Select Option</option>
-                    <option value="1-phase" >1-phase</option>
-                    <option value="2-wire (LN)" >2-wire (LN)</option>
-                    <option value="1-phase" >1-phase</option>
-                    <option value="3-wire (LLM)" >3-wire (LLM)</option>
-                    <option value="2-phase" >2-phase</option>
-                    <option value="3-wire (LLN)" >3-wire (LLN)</option>
-                    <option value="3-phase" >3-phase</option>
-                    <option value="3-wire (LLL)" >3-wire (LLL)</option>
-                    <option value="3-phase" >3-phase</option>
-                    <option value="4-wire (LLLN)" >4-wire (LLLN)</option>                    
+                  <select class="form-control" formControlName="AcConductor" [(ngModel)]="supplycharesteristic.liveConductorAC" 
+                  [ngClass]="{ 'is-invalid': submitted && f.AcConductor.errors }">
+                    <option value="0" selected>Select Option</option>  
+                    <!-- <option *ngFor="let value of AcConductorList" [selected]="value=== AcValue"> {{value}}</option> -->
+                    <option value="1-phase" [selected]="f.AcConductor?.value=== AcValue" >1-phase</option>
+                    <option value="2-wire (LN)" [selected]="f.AcConductor?.value=== AcValue" >2-wire (LN)</option>
+                    <option value="1-phase" [selected]="f.AcConductor?.value=== AcValue" >1-phase</option>
+                    <option value="3-wire (LLM)" [selected]="f.AcConductor?.value=== AcValue"  >3-wire (LLM)</option>
+                    <option value="2-phase" [selected]="f.AcConductor?.value=== AcValue" >2-phase</option>
+                    <option value="3-wire (LLN)" [selected]="f.AcConductor?.value=== AcValue" >3-wire (LLN)</option>
+                    <option value="3-phase" [selected]="f.AcConductor?.value=== AcValue" >3-phase</option>
+                    <option value="3-wire (LLL)" [selected]="f.AcConductor?.value=== AcValue" >3-wire (LLL)</option>
+                    <option value="3-phase" [selected]="f.AcConductor?.value=== DcValue" >3-phase</option>
+                    <option value="4-wire (LLLN)" [selected]="f.AcConductor?.value=== AcValue" >4-wire (LLLN)</option>
                   </select>
                   <div *ngIf="submitted && f.AcConductor.errors" class="invalid-feedback">
                     <div *ngIf="f.AcConductor?.errors?.required">AC conductor type is required</div>
@@ -57,11 +60,13 @@
 
               <div class="col-md-4" *ngIf="enableDC">
                   <label>DC:</label>
-                  <select class="form-control" formControlName="DcConductor" [(ngModel)]="supplycharesteristic.liveConductorDC" [ngClass]="{ 'is-invalid': submitted && f.DcConductor.errors }">
+                  <select class="form-control" formControlName="DcConductor" [(ngModel)]="supplycharesteristic.liveConductorDC" 
+                  [ngClass]="{ 'is-invalid': submitted && f.DcConductor.errors }">
                     <option value="0" selected>Select Option</option>
-                    <option value="2-pole" >2-pole</option>
-                    <option value="3-pole" >3-pole</option>
-                    <option value="Others" >Others</option>
+                    <!-- <option *ngFor="let value of liveConductorDCList" [selected]="value=== DcValue"> {{value}}</option> -->
+                    <option value="2-pole" [selected]="f.DcConductor?.value=== DcValue" >2-pole</option>
+                    <option value="3-pole" [selected]="f.DcConductor?.value=== DcValue" >3-pole</option>
+                    <option value="Others" [selected]=" f.DcConductor?.value=== DcValue">Others</option> 
                   </select>
                   <div *ngIf="submitted && f.DcConductor.errors" class="invalid-feedback">
                     <div *ngIf="f.DcConductor?.errors?.required">DC conductor type is required</div>
@@ -106,52 +111,52 @@
                     <tbody>
                       <tr>
                         <td nowrap="nowrap">Nominal voltage U/U0 (V)</td>
-                        <td><input type="text" maxlength="4"  style="width:50px" formControlName="NV1" [(ngModel)]="NV1"></td>
-                        <td><input type="text"  maxlength="4" style="width:50px" formControlName="NV2" [(ngModel)]="NV2"></td>
-                        <td><input type="text"   maxlength="4"style="width:50px" formControlName="NV3" [(ngModel)]="NV3"></td>
-                        <td><input type="text"  maxlength="4" style="width:50px" formControlName="NV4" [(ngModel)]="NV4"></td>
-                        <td><input type="text"  maxlength="4" style="width:50px" formControlName="NV5" [(ngModel)]="NV5"></td>
-                        <td><input type="text"  maxlength="4" style="width:50px" formControlName="NV6" [(ngModel)]="NV6"></td>
-                        <td><input type="text"  maxlength="4" style="width:50px" formControlName="NV7" [(ngModel)]="NV7"></td>
-                        <td><input type="text"  maxlength="4" style="width:50px" formControlName="NV8" [(ngModel)]="NV8"></td>
-                        <td><input type="text"  maxlength="4" style="width:50px" formControlName="NV9" [(ngModel)]="NV9"></td>
+                        <td><input type="text" style="width:50px" formControlName="NV1" [(ngModel)]="NV1"></td>
+                        <td><input type="text"   style="width:50px" formControlName="NV2" [(ngModel)]="NV2"></td>
+                        <td><input type="text"  style="width:50px" formControlName="NV3" [(ngModel)]="NV3"></td>
+                        <td><input type="text" style="width:50px" formControlName="NV4" [(ngModel)]="NV4"></td>
+                        <td><input type="text" style="width:50px" formControlName="NV5" [(ngModel)]="NV5"></td>
+                        <td><input type="text"  style="width:50px" formControlName="NV6" [(ngModel)]="NV6"></td>
+                        <td><input type="text"   style="width:50px" formControlName="NV7" [(ngModel)]="NV7"></td>
+                        <td><input type="text"  style="width:50px" formControlName="NV8" [(ngModel)]="NV8"></td>
+                        <td><input type="text"  style="width:50px" formControlName="NV9" [(ngModel)]="NV9"></td>
                       </tr>
                       <tr>
                         <td nowrap="nowrap">Nominal Frequency f (HZ)</td>
-                        <td><input type="text"  maxlength="3"  style="width:50px" formControlName="NF1" [(ngModel)]="NF1"></td>
-                        <td><input type="text"   maxlength="3"style="width:50px" formControlName="NF2" [(ngModel)]="NF2"></td>
-                        <td><input type="text"   maxlength="3" style="width:50px" formControlName="NF3" [(ngModel)]="NF3"></td>
-                        <td><input type="text"  maxlength="3" style="width:50px" formControlName="NF4" [(ngModel)]="NF4"></td>
-                        <td><input type="text"  maxlength="3" style="width:50px" formControlName="NF5" [(ngModel)]="NF5"></td>
-                        <td><input type="text"   maxlength="3"style="width:50px" formControlName="NF6" [(ngModel)]="NF6"></td>
-                        <td><input type="text"   maxlength="3"style="width:50px" formControlName="NF7" [(ngModel)]="NF7"></td>
-                        <td><input type="text"  maxlength="3" style="width:50px" formControlName="NF8" [(ngModel)]="NF8"></td>
-                        <td><input type="text"  maxlength="3" style="width:50px" formControlName="NF9" [(ngModel)]="NF9"></td>
+                        <td><input type="text"  style="width:50px" formControlName="NF1" [(ngModel)]="NF1"></td>
+                        <td><input type="text" style="width:50px" formControlName="NF2" [(ngModel)]="NF2"></td>
+                        <td><input type="text"  style="width:50px" formControlName="NF3" [(ngModel)]="NF3"></td>
+                        <td><input type="text"  style="width:50px" formControlName="NF4" [(ngModel)]="NF4"></td>
+                        <td><input type="text"  style="width:50px" formControlName="NF5" [(ngModel)]="NF5"></td>
+                        <td><input type="text" style="width:50px" formControlName="NF6" [(ngModel)]="NF6"></td>
+                        <td><input type="text" style="width:50px" formControlName="NF7" [(ngModel)]="NF7"></td>
+                        <td><input type="text" style="width:50px" formControlName="NF8" [(ngModel)]="NF8"></td>
+                        <td><input type="text" style="width:50px" formControlName="NF9" [(ngModel)]="NF9"></td>
                       </tr>
                       <tr>
                         <td nowrap="nowrap">Prospective fault current Ipfc (kA) </td>
-                        <td><input type="text"   maxlength="7"  style="width:50px" formControlName="PF1" [(ngModel)]="PF1"></td>
-                        <td><input type="text" maxlength="7" style="width:50px" formControlName="PF2" [(ngModel)]="PF2"></td>
-                        <td><input type="text"maxlength="7" style="width:50px" formControlName="PF3" [(ngModel)]="PF3"></td>
-                        <td><input type="text" maxlength="7" style="width:50px" formControlName="PF4" [(ngModel)]="PF4"></td>
-                        <td><input type="text" maxlength="7" style="width:50px" formControlName="PF5" [(ngModel)]="PF5"></td>
-                        <td><input type="text"  maxlength="7"style="width:50px" formControlName="PF6" [(ngModel)]="PF6"></td>
-                        <td><input type="text"  maxlength="7"style="width:50px" formControlName="PF7" [(ngModel)]="PF7"></td>
-                        <td><input type="text" maxlength="7" style="width:50px" formControlName="PF8" [(ngModel)]="PF8"></td>
-                        <td><input type="text" maxlength="7" style="width:50px" formControlName="PF9" [(ngModel)]="PF9"></td>
+                        <td><input type="text"  style="width:50px" formControlName="PF1" [(ngModel)]="PF1"></td>
+                        <td><input type="text"style="width:50px" formControlName="PF2" [(ngModel)]="PF2"></td>
+                        <td><input type="text" style="width:50px" formControlName="PF3" [(ngModel)]="PF3"></td>
+                        <td><input type="text" style="width:50px" formControlName="PF4" [(ngModel)]="PF4"></td>
+                        <td><input type="text"  style="width:50px" formControlName="PF5" [(ngModel)]="PF5"></td>
+                        <td><input type="text" style="width:50px" formControlName="PF6" [(ngModel)]="PF6"></td>
+                        <td><input type="text" style="width:50px" formControlName="PF7" [(ngModel)]="PF7"></td>
+                        <td><input type="text" style="width:50px" formControlName="PF8" [(ngModel)]="PF8"></td>
+                        <td><input type="text"style="width:50px" formControlName="PF9" [(ngModel)]="PF9"></td>
                       </tr>
-                    
+
                       <tr>
                         <td nowrap="nowrap">External Loop Impedance Ze (Ω)</td>
-                        <td><input type="text" maxlength="6" style="width:50px" formControlName="EL1" [(ngModel)]="EL1"></td>
-                        <td><input type="text" maxlength="6" style="width:50px" formControlName="EL2" [(ngModel)]="EL2" ></td>
-                        <td><input type="text"maxlength="6"  style="width:50px" formControlName="EL3" [(ngModel)]="EL3"></td>
-                        <td><input type="text"  maxlength="6" style="width:50px" formControlName="EL4" [(ngModel)]="EL4"></td>
-                        <td><input type="text"  maxlength="6" style="width:50px" formControlName="EL5" [(ngModel)]="EL5"></td>
-                        <td><input type="text"  maxlength="6" style="width:50px" formControlName="EL6" [(ngModel)]="EL6"></td>
-                        <td><input type="text" maxlength="6" style="width:50px" formControlName="EL7" [(ngModel)]="EL7"></td>
-                        <td><input type="text" maxlength="6" style="width:50px" formControlName="EL8" [(ngModel)]="EL8"></td>
-                        <td><input type="text" maxlength="6" style="width:50px" formControlName="EL9" [(ngModel)]="EL9"></td>
+                        <td><input type="text" style="width:50px" formControlName="EL1" [(ngModel)]="EL1"></td>
+                        <td><input type="text" style="width:50px" formControlName="EL2" [(ngModel)]="EL2" ></td>
+                        <td><input type="text"  style="width:50px" formControlName="EL3" [(ngModel)]="EL3"></td>
+                        <td><input type="text"   style="width:50px" formControlName="EL4" [(ngModel)]="EL4"></td>
+                        <td><input type="text"  style="width:50px" formControlName="EL5" [(ngModel)]="EL5"></td>
+                        <td><input type="text" style="width:50px" formControlName="EL6" [(ngModel)]="EL6"></td>
+                        <td><input type="text" style="width:50px" formControlName="EL7" [(ngModel)]="EL7"></td>
+                        <td><input type="text" style="width:50px" formControlName="EL8" [(ngModel)]="EL8"></td>
+                        <td><input type="text" style="width:50px" formControlName="EL9" [(ngModel)]="EL9"></td>
                       </tr>
                     </tbody>
                   </table>
@@ -159,7 +164,7 @@
             </div>
           </div>
 
-                 
+
           <div class="row" style="margin-top: 50px;">
             <div class="col-sm-12">
               <h2>Incoming (Supply) Protective Device Characteristics:</h2>
@@ -167,7 +172,8 @@
                 <tr>
                   <td nowrap="nowrap">Type Of Over Current Protective Device</td>
                   <td> 
-                  <input type="text"  style="width:200px" formControlName="mainNominalProtectiveDevice" [(ngModel)]="supplycharesteristic.mainNominalProtectiveDevice" [ngClass]="{ 'is-invalid': submitted && f.mainNominalProtectiveDevice.errors }">
+                  <input type="text"  style="width:200px" formControlName="mainNominalProtectiveDevice" 
+                  [(ngModel)]="supplycharesteristic.mainNominalProtectiveDevice" [ngClass]="{ 'is-invalid': submitted && f.mainNominalProtectiveDevice.errors }">
                   <div *ngIf="submitted && f.mainNominalProtectiveDevice.errors" class="invalid-feedback">
                     <div *ngIf="f.mainNominalProtectiveDevice?.errors?.required">Field Is Required</div>
                   </div>
@@ -176,7 +182,9 @@
                 <tr>
                   <td nowrap="nowrap">Rated current (A)</td>
                   <td>
-                    <input type="number" min="0" maxlength="4"style="width:200px" formControlName="mainRatedCurrent" [(ngModel)]="supplycharesteristic.mainRatedCurrent" [ngClass]="{ 'is-invalid': submitted && f.mainRatedCurrent.errors }">
+                    <input type="number" min="0" maxlength="4"style="width:200px" formControlName="mainRatedCurrent" 
+                    [(ngModel)]="supplycharesteristic.mainRatedCurrent" 
+                    [ngClass]="{ 'is-invalid': submitted && f.mainRatedCurrent.errors }">
                     <div *ngIf="submitted && f.mainRatedCurrent.errors" class="invalid-feedback">
                       <div *ngIf="f.mainRatedCurrent?.errors?.required">Field Is Required</div>
                     </div>
@@ -209,7 +217,7 @@
             </div>
           </div>
 
-          
+
 
         </mat-expansion-panel>
 
@@ -224,7 +232,8 @@
                 <div class="form-group">
                   <label> Availability of Alternate Supply:</label>
                   <select class="form-control" formControlName="alternativeSupply" 
-                  (change)="showAlternateField($event)" [ngClass]="{ 'is-invalid': submitted && f.alternativeSupply.errors }" [(ngModel)]="supplycharesteristic.alternativeSupply">
+                  (change)="showAlternateField($event)" [ngClass]="{ 'is-invalid': submitted && f.alternativeSupply.errors }" 
+                  [(ngModel)]="supplycharesteristic.alternativeSupply">
                   <option value="0" selected>Select Option</option>
                   <option value="Yes">Yes</option>
                   <option value="No">No</option>
@@ -235,12 +244,21 @@
                 </div>
               </div>
 
-              <div class="col-md-4" *ngIf="supplycharesteristic.alternativeSupply=='Yes'">
-                <!-- <label>Number of alternate sources of supply:</label>         -->
+              <div class="col-md-4" *ngIf="alternativeSupplyNo">
                 <label>Number of Alternate Sources of Supply:</label>
-                <input type="tel" min="0"  class="form-control" formControlName="supplyNumber" 
-                [ngClass]="{ 'is-invalid': submitted && f.supplyNumber.errors }" [(ngModel)]="supplycharesteristic.supplyNumber" 
+                <input type="tel" min="0"  class="form-control" formControlName="supplyNumber"
+                [ngClass]="{ 'is-invalid': submitted && f.supplyNumber.errors }" 
+                [(ngModel)]="supplycharesteristic.supplyNumber"
                 (keyup)="onKeyAlernate($event)">
+
+                <!-- <p class="joints">Number of Alternate Sources of Supply: 
+                  <input type="tel" min="0" formControlName="supplyNumber" 
+                  [ngClass]="{ 'is-invalid': submitted && f.supplyNumber.errors }" 
+                  [value]="supplycharesteristic.supplyNumber" [(ngModel)]="supplycharesteristic.supplyNumber" style="
+                  width: 50px;
+                  background: transparent;
+                  border: none;
+                  border-bottom: 1px solid #000000;" (keyup)="onKeyAlernate($event)"></p> -->
                 <div *ngIf="submitted && f.supplyNumber.errors" class="invalid-feedback">
                   <div *ngIf="f.supplyNumber?.errors?.required">Supply number is required</div>
                 </div>
@@ -252,34 +270,34 @@
                 <h2>Alternate Form :</h2>
                 <div class="form-group" [formGroupName]="i">
                   <div class="row">
-                  
+
                     <div class="col-md-4">
-                      <label>Alternate supply no:</label>        
+                      <label>Alternate supply no:</label>
                       <input type="number"   min="0" class="form-control"  formControlName="aLSupplyNo" [ngClass]="{ 'is-invalid': submitted && a.get('aLSupplyNo')?.errors }">
                       <div *ngIf="submitted && a.get('aLSupplyNo')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('aLSupplyNo')?.errors?.required">Field Is Required</div>
                       </div>
                     </div>
-        
+
                     <div class="col-md-4">
-                      <label>Short Name of Alternate Supply:</label>        
+                      <label>Short Name of Alternate Supply:</label>
                       <input type="text"  maxlength="50" class="form-control"  formControlName="aLSupplyShortName" [ngClass]="{ 'is-invalid': submitted && a.get('aLSupplyShortName')?.errors }">
                       <div *ngIf="submitted && a.get('aLSupplyShortName')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('aLSupplyShortName')?.errors?.required">Field Is Required</div>
                       </div>
                     </div>
-        
+
                     <div class="col-md-4">
                       <label>System Earthing:</label>
                       <select class="form-control" formControlName="aLSystemEarthing" [ngClass]="{ 'is-invalid': submitted && a.get('aLSystemEarthing')?.errors }">
                         <option value="0" selected>Select Option</option>
-                        <option *ngFor="let value of systemEarthingList"> {{value}}</option>
+                        <option *ngFor="let value of systemEarthingList" [selected]="value=== a.get('aLSystemEarthing')?.value"> {{value}}</option>
                       </select>
                       <div *ngIf="submitted && a.get('aLSystemEarthing')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('aLSystemEarthing')?.errors?.required">Field Is Required</div>
                       </div>
                     </div>
-        
+
                     <div class="col-md-4">
                         <label>Number and Type Of Live Conductors: </label>
                         <select class="form-control"  formControlName="aLLiveConductorType" (change)=showValue($event,i) [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorType')?.errors }">
@@ -291,7 +309,7 @@
                           <div *ngIf="a.get('aLLiveConductorType')?.errors?.required">Field Is Required</div>
                         </div>
                     </div>
-        
+
                     <div class="col-md-4" *ngIf="a.get('aLLiveConductorType')?.value=='AC'">
                         <label>AC:</label>
                         <select class="form-control" formControlName="aLLiveConductorAC" [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorAC')?.errors }">
@@ -306,7 +324,7 @@
                           <div *ngIf="a.get('aLLiveConductorAC')?.errors?.required">Field Is Required</div>
                         </div>
                     </div>
-        
+
                     <div class="col-md-4" *ngIf="a.get('aLLiveConductorType')?.value=='DC'">
                         <label>DC:</label>
                         <select class="form-control" formControlName="aLLiveConductorDC" [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorDC')?.errors }">
@@ -334,13 +352,13 @@
                     </div>
                   </div>
 
-                  
+
                   <div class="row" *ngIf="a.get('aLLiveConductorType')?.value=='AC'">
                     <div class="col">
                       <h2>Applicable for AC: (Note: Please mention NA if any column is not applicable)</h2>
                       <div class="table-responsive">
-                        <table  class="table" formArrayName="nominalVoltageArr1" *ngFor="let row of getTableArray(a); let j = index"> 
-                          <thead> 
+                        <table  class="table" formArrayName="nominalVoltageArr1" *ngFor="let row of getTableArray(a); let j = index">
+                          <thead>
                               <tr align="center">
                                 <th>Nature of supply parameters</th>
                                 <th>L1-L2</th>
@@ -357,57 +375,57 @@
                           <tbody [formGroupName]="j">
                               <tr>
                                 <td nowrap="nowrap">Nominal Voltage U/U0 (V)</td>
-                                <td><input type="text"  maxlength="4" formControlName="nominalVoltage1"  style="width:70px"></td>
-                                <td><input type="text"  maxlength="4" formControlName="nominalVoltage2"  style="width:70px"></td>
-                                <td><input type="text"  maxlength="4" formControlName="nominalVoltage3" style="width:70px"></td>
-                                <td><input type="text"  maxlength="4" formControlName="nominalVoltage4" style="width:70px"></td>
-                                <td><input type="text"  maxlength="4" formControlName="nominalVoltage5" style="width:70px"></td>
-                                <td><input type="text"  maxlength="4" formControlName="nominalVoltage6" style="width:70px"></td>
-                                <td><input type="text"  maxlength="4" formControlName="nominalVoltage7" style="width:70px"></td>
-                                <td><input type="text"  maxlength="4" formControlName="nominalVoltage8" style="width:70px"></td>
-                                <td><input type="text"  min="1" formControlName="nominalVoltage9" style="width:70px"></td>
+                                <td><input type="text"formControlName="nominalVoltage1"  style="width:70px"></td>
+                                <td><input type="text" formControlName="nominalVoltage2"  style="width:70px"></td>
+                                <td><input type="text"  formControlName="nominalVoltage3" style="width:70px"></td>
+                                <td><input type="text" formControlName="nominalVoltage4" style="width:70px"></td>
+                                <td><input type="text" formControlName="nominalVoltage5" style="width:70px"></td>
+                                <td><input type="text" formControlName="nominalVoltage6" style="width:70px"></td>
+                                <td><input type="text"  formControlName="nominalVoltage7" style="width:70px"></td>
+                                <td><input type="text"formControlName="nominalVoltage8" style="width:70px"></td>
+                                <td><input type="text" formControlName="nominalVoltage9" style="width:70px"></td>
 
                               </tr>
                               <tr>
                                 <td nowrap="nowrap">Nominal Frequency f (HZ)</td>
-                                <td><input type="text"  maxlength="4" formControlName="nominalFrequency1" style="width:70px"></td>
-                                <td><input type="text"  maxlength="4" formControlName="nominalFrequency2" style="width:70px"></td>
-                                <td><input type="text"  maxlength="4" formControlName="nominalFrequency3" style="width:70px"></td>
-                                <td><input type="text"  maxlength="4" formControlName="nominalFrequency4" style="width:70px"></td>
-                                <td><input type="text"  maxlength="4" formControlName="nominalFrequency5" style="width:70px"></td>
-                                <td><input type="text"  maxlength="4" formControlName="nominalFrequency6" style="width:70px"></td>
-                                <td><input type="text"  maxlength="4" formControlName="nominalFrequency7" style="width:70px"></td>
-                                <td><input type="text"  maxlength="4" formControlName="nominalFrequency8" style="width:70px"></td>
-                                <td><input type="text"  min="1" formControlName="nominalFrequency9" style="width:70px"></td>
+                                <td><input type="text"   formControlName="nominalFrequency1" style="width:70px"></td>
+                                <td><input type="text" formControlName="nominalFrequency2" style="width:70px"></td>
+                                <td><input type="text"  formControlName="nominalFrequency3" style="width:70px"></td>
+                                <td><input type="text" formControlName="nominalFrequency4" style="width:70px"></td>
+                                <td><input type="text"  formControlName="nominalFrequency5" style="width:70px"></td>
+                                <td><input type="text" formControlName="nominalFrequency6" style="width:70px"></td>
+                                <td><input type="text" formControlName="nominalFrequency7" style="width:70px"></td>
+                                <td><input type="text"  formControlName="nominalFrequency8" style="width:70px"></td>
+                                <td><input type="text" formControlName="nominalFrequency9" style="width:70px"></td>
                               </tr>
                               <tr>
                                 <td nowrap="nowrap">Prospective Fault Current Ipfc (kA) </td>
-                                <td><input type="text"  maxlength="4" formControlName="current1" style="width:70px"></td>
-                                <td><input type="text"  maxlength="4" formControlName="current2" style="width:70px"></td>
-                                <td><input type="text"  maxlength="4" formControlName="current3" style="width:70px"></td>
-                                <td><input type="text"  maxlength="4" formControlName="current4" style="width:70px"></td>
-                                <td><input type="text"  maxlength="4" formControlName="current5" style="width:70px"></td>
-                                <td><input type="text"  maxlength="4" formControlName="current6" style="width:70px"></td>
-                                <td><input type="text"  maxlength="4" formControlName="current7" style="width:70px"></td>
-                                <td><input type="text"  maxlength="4" formControlName="current8" style="width:70px"></td>
-                                <td><input type="text"  min="1" formControlName="current9" style="width:70px"></td>
+                                <td><input type="text"  formControlName="current1" style="width:70px"></td>
+                                <td><input type="text"  formControlName="current2" style="width:70px"></td>
+                                <td><input type="text" formControlName="current3" style="width:70px"></td>
+                                <td><input type="text"  formControlName="current4" style="width:70px"></td>
+                                <td><input type="text" formControlName="current5" style="width:70px"></td>
+                                <td><input type="text"  formControlName="current6" style="width:70px"></td>
+                                <td><input type="text"  formControlName="current7" style="width:70px"></td>
+                                <td><input type="text" formControlName="current8" style="width:70px"></td>
+                                <td><input type="text" formControlName="current9" style="width:70px"></td>
 
                               </tr>
                               <tr>
                                 <td nowrap="nowrap">External Loop Impedance Ze (Ω)</td>
-                                <td><input type="text"  maxlength="4" formControlName="impedence1" style="width:70px"></td>
-                                <td><input type="text"  maxlength="4" formControlName="impedence2" style="width:70px"></td>
-                                <td><input type="text"  maxlength="4" formControlName="impedence3" style="width:70px"></td>
-                                <td><input type="text"  maxlength="4" formControlName="impedence4" style="width:70px"></td>
-                                <td><input type="text"  maxlength="4" formControlName="impedence5" style="width:70px"></td>
-                                <td><input type="text"  maxlength="4" formControlName="impedence6" style="width:70px"></td>
-                                <td><input type="text"  maxlength="4" formControlName="impedence7" style="width:70px"></td>
-                                <td><input type="text"  maxlength="4" formControlName="impedence8" style="width:70px"></td>
-                                <td><input type="text"  min="1" formControlName="impedence9" style="width:70px"></td>
+                                <td><input type="text"  formControlName="impedence1" style="width:70px"></td>
+                                <td><input type="text"  formControlName="impedence2" style="width:70px"></td>
+                                <td><input type="text" formControlName="impedence3" style="width:70px"></td>
+                                <td><input type="text"   formControlName="impedence4" style="width:70px"></td>
+                                <td><input type="text" formControlName="impedence5" style="width:70px"></td>
+                                <td><input type="text"  formControlName="impedence6" style="width:70px"></td>
+                                <td><input type="text"  formControlName="impedence7" style="width:70px"></td>
+                                <td><input type="text"  formControlName="impedence8" style="width:70px"></td>
+                                <td><input type="text" formControlName="impedence9" style="width:70px"></td>
 
                               </tr>
                                 <tr><td >Installed Capacity (kVA)</td>
-                                  <td colspan="9"><input type="text"  maxlength="4" formControlName="capacity" style="width: 950px"></td>
+                                  <td colspan="9"><input type="text" formControlName="capacity" style="width: 950px"></td>
                                 </tr>
                                 <tr>
                                   <td >Actual Load Current (R,Y,B, N)</td>
@@ -417,23 +435,24 @@
                                   <td colspan="2"><input type="text" formControlName="loadCurrent4"  style="width:206px"></td>
 
                                 </tr>
-                              
+
                           </tbody>
                           </table>
                       </div>
                     </div>
                   </div>
 
-    
+
                   <div class="row" style="margin-top: 50px;">
                     <div class="col">
                       <h2>Incoming (Supply) Protective Device Characteristics:</h2>
                       <table  class="table">
-                          
+
                           <tr>
                             <td nowrap="nowrap">Type Of Over Current Protective Device</td>
                             <td>
-                              <input type="text"  style="width:400px" formControlName="protectiveDevice" [ngClass]="{ 'is-invalid': submitted && a.get('protectiveDevice')?.errors }">
+                              <input type="text"  style="width:400px" formControlName="protectiveDevice" 
+                              [ngClass]="{ 'is-invalid': submitted && a.get('protectiveDevice')?.errors }">
                               <div *ngIf="submitted && a.get('protectiveDevice')?.errors" class="invalid-feedback">
                                 <div *ngIf="a.get('protectiveDevice')?.errors?.required">Field Is Required</div>
                               </div>
@@ -442,7 +461,8 @@
                           <tr>
                               <td nowrap="nowrap">Rated current (A)</td>
                               <td>
-                                <input type="text" formControlName="ratedCurrent" min="0" [ngClass]="{ 'is-invalid': submitted && a.get('ratedCurrent')?.errors }" style="width:400px">
+                                <input type="text" formControlName="ratedCurrent" min="0" 
+                                [ngClass]="{ 'is-invalid': submitted && a.get('ratedCurrent')?.errors }" style="width:400px">
                                 <div *ngIf="submitted && a.get('ratedCurrent')?.errors" class="invalid-feedback">
                                   <div *ngIf="a.get('ratedCurrent')?.errors?.required">Field Is Required</div>
                                 </div>
@@ -474,11 +494,11 @@
                       </mat-form-field>
                     </div>
                   </div>
-                  
+
                 </div>
               </div>
             </div>
-          
+
         </mat-expansion-panel>
             <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
               <mat-expansion-panel-header>
@@ -488,7 +508,8 @@
               </mat-expansion-panel-header>
               <div class="row">
                 <div class="col-md-4" style="margin-top: 30px">
-                  <p>Maximum Demand <input type="number" min="0" formControlName="maximumDemand"   [ngClass]="{ 'is-invalid': submitted && f.maximumDemand.errors }"[(ngModel)]="supplycharesteristic.maximumDemand" style="
+                  <p>Maximum Demand <input type="number" min="0" formControlName="maximumDemand"   
+                  [ngClass]="{ 'is-invalid': submitted && f.maximumDemand.errors }"[(ngModel)]="supplycharesteristic.maximumDemand" style="
                     width: 50px;
                     background: transparent;
                     border: none;
@@ -499,7 +520,8 @@
                 </div>
 
                 <div class="col-md-4" style="margin-top: 30px">
-                  <p>Maximum Load<input type="number" min="0" formControlName="maximumLoad" [ngClass]="{ 'is-invalid': submitted && f.maximumLoad.errors }" [(ngModel)]="supplycharesteristic.maximumLoad" style="
+                  <p>Maximum Load<input type="number" min="0" formControlName="maximumLoad" 
+                  [ngClass]="{ 'is-invalid': submitted && f.maximumLoad.errors }" [(ngModel)]="supplycharesteristic.maximumLoad" style="
                     width: 50px;
                     background: transparent;
                     border: none;
@@ -511,7 +533,8 @@
 
                 <div class="col-md-4" >
                   <label>Means Of Earthing :</label>
-                  <select class="form-control" formControlName="meansEarthing" [ngClass]="{ 'is-invalid': submitted && f.meansEarthing.errors }" [(ngModel)]="supplycharesteristic.meansEarthing" >
+                  <select class="form-control" formControlName="meansEarthing" 
+                  [ngClass]="{ 'is-invalid': submitted && f.meansEarthing.errors }" [(ngModel)]="supplycharesteristic.meansEarthing" >
                     <option value="0" selected>Select Option</option>
                     <option *ngFor="let value of MeansofEarthingList"> {{value}}</option>
                   </select>
@@ -522,10 +545,11 @@
               </div>
 
               <div class="row" style="margin-top: 30px">
-                
+
                 <div class="col-md-4">
                   <label>Type Of Earth Electrode :</label>
-                  <select class="form-control" formControlName="electrodeType" [ngClass]="{ 'is-invalid': submitted && f.electrodeType.errors }" [(ngModel)]="supplycharesteristic.electrodeType">
+                  <select class="form-control" formControlName="electrodeType" 
+                  [ngClass]="{ 'is-invalid': submitted && f.electrodeType.errors }" [(ngModel)]="supplycharesteristic.electrodeType">
                     <option value="0" selected>Select Option</option>
                     <option *ngFor="let value of  electrodeTypeList"> {{value}}</option>
                   </select>
@@ -536,7 +560,9 @@
 
                 <div class="col-md-4">
                   <label>Material Of Earth Electrode:</label>
-                  <select class="form-control" formControlName="electrodeMaterial" [ngClass]="{ 'is-invalid': submitted && f.electrodeMaterial.errors }" [(ngModel)]="supplycharesteristic.electrodeMaterial">
+                  <select class="form-control" formControlName="electrodeMaterial" 
+                  [ngClass]="{ 'is-invalid': submitted && f.electrodeMaterial.errors }" 
+                  [(ngModel)]="supplycharesteristic.electrodeMaterial">
                     <option value="0" selected>Select Option</option>
                     <option *ngFor="let value of  electrodeMaterialList"> {{value}}</option>
                   </select>
@@ -547,7 +573,9 @@
 
                 <div class="col-md-4" style="margin-top: 30px">
                   <p class="joints">Number Of Locations 
-                    <input type="tel" min="1" formControlName="noOfLocation" [ngClass]="{ 'is-invalid': submitted && f.noOfLocation.errors }" [(ngModel)]="supplycharesteristic.noOfLocation" style="
+                    <input type="tel" min="1" formControlName="noOfLocation" 
+                    [ngClass]="{ 'is-invalid': submitted && f.noOfLocation.errors }" 
+                    [(ngModel)]="supplycharesteristic.noOfLocation" style="
                     width: 50px;
                     background: transparent;
                     border: none;
@@ -565,7 +593,7 @@
                 </div>
                 <!-- <mat-icon class="mousechange" (click)="addLocation1()" style=" padding-top: 5px;">add_box</mat-icon> -->
               </div>
-              
+
 
               <div class="row">
                 <div class="col-md-3">
@@ -581,24 +609,25 @@
                   <label style="text-align: center;">Electrode Resistance to Grid (Ω)</label>
                 </div>
               </div>
-  
+
               <div formArrayName="location1Arr" *ngFor="let a of getLocation1Controls(); let i = index">
                 <div class="form-group" [formGroupName]="i">
                   <div class="row">
                     <div class="col-md-3">
-                      <input type="text"  formControlName="locationNo" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('locationNo')?.errors }" placeholder="Enter location number" >
+                      <input type="text"  formControlName="locationNo" class="form-control"  
+                      [ngClass]="{ 'is-invalid': submitted && a.get('locationNo')?.errors }" placeholder="Enter location number" >
                       <div *ngIf="submitted && a.get('locationNo')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('locationNo')?.errors?.required">Location number is required</div>
                       </div>
                     </div>
-  
+
                     <div class="col-md-3">
                       <input type="text"  formControlName="locationName" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('locationName')?.errors }" placeholder="Enter location name" >
                       <div *ngIf="submitted && a.get('locationName')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('locationName')?.errors?.required">Location name is required</div>
                       </div>
                     </div>
-  
+
                     <div class="col-md-3">
                       <input type="text"  formControlName="electrodeResistanceEarth" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('electrodeResistanceEarth')?.errors }" placeholder="Enter electrode resistance" >
                       <div *ngIf="submitted && a.get('electrodeResistanceEarth')?.errors" class="invalid-feedback">
@@ -624,11 +653,12 @@
                   <h3>Details Of Main Protective Conductor</h3>
                 </mat-panel-title>
               </mat-expansion-panel-header>
-              
+
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 57px">
-                    <p>Size of Earthing Conductor <input type="number" min="0" formControlName="conductorSize" [ngClass]="{ 'is-invalid': submitted && f.conductorSize.errors }" [(ngModel)]="supplycharesteristic.conductorSize" style="
+                    <p>Size of Earthing Conductor <input type="number" min="0" formControlName="conductorSize" 
+                    [ngClass]="{ 'is-invalid': submitted && f.conductorSize.errors }" [(ngModel)]="supplycharesteristic.conductorSize" style="
                       width: 50px;
                       background: transparent;
                       border: none;
@@ -640,7 +670,8 @@
 
                   <div class="col-md-4">
                     <label>Material Of Earthing Conductor:</label>
-                    <input type="text"  class="form-control" formControlName="conductormaterial" [ngClass]="{ 'is-invalid': submitted && f.conductormaterial.errors }" [(ngModel)]="supplycharesteristic.conductormaterial">
+                    <input type="text"  class="form-control" formControlName="conductormaterial" 
+                    [ngClass]="{ 'is-invalid': submitted && f.conductormaterial.errors }" [(ngModel)]="supplycharesteristic.conductormaterial">
                     <div *ngIf="submitted && f.conductormaterial.errors" class="invalid-feedback">
                       <div *ngIf="f.conductormaterial?.errors?.required">Field Is Required</div>
                     </div>
@@ -648,7 +679,7 @@
 
                   <div class="col-md-4">
                     <label>Earthing Conductor Continuity and Connection Verified:</label>
-                    
+
                     <select class="form-control" formControlName="conductorVerify" [ngClass]="{ 'is-invalid': submitted && f.conductorVerify.errors }" [(ngModel)]="supplycharesteristic.conductorVerify">
                       <option value="0" selected>Select Option</option>
                       <option *ngFor="let value of  earthingConductorVerifyList"> {{value}}</option>
@@ -663,7 +694,8 @@
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 30px">
-                    <p>Size of Main Protective Bonding Conductor <input type="number" min="0" formControlName="bondingConductorSize" [ngClass]="{ 'is-invalid': submitted && f.bondingConductorSize.errors }" [(ngModel)]="supplycharesteristic.bondingConductorSize" style="
+                    <p>Size of Main Protective Bonding Conductor <input type="number" min="0" formControlName="bondingConductorSize" 
+                    [ngClass]="{ 'is-invalid': submitted && f.bondingConductorSize.errors }" [(ngModel)]="supplycharesteristic.bondingConductorSize" style="
                       width: 50px;
                       background: transparent;
                       border: none;
@@ -675,7 +707,8 @@
 
                   <div class="col-md-4">
                     <label>Material Of Main Protective Bonding Conductor:</label>
-                    <input type="text"  class="form-control" formControlName="bondingConductorMaterial" [ngClass]="{ 'is-invalid': submitted && f.bondingConductorMaterial.errors }" [(ngModel)]="supplycharesteristic.bondingConductorMaterial">
+                    <input type="text"  class="form-control" formControlName="bondingConductorMaterial" 
+                    [ngClass]="{ 'is-invalid': submitted && f.bondingConductorMaterial.errors }" [(ngModel)]="supplycharesteristic.bondingConductorMaterial">
                     <div *ngIf="submitted && f.bondingConductorMaterial.errors" class="invalid-feedback">
                       <div *ngIf="f.bondingConductorMaterial?.errors?.required">Field Is Required</div>
                     </div>
@@ -683,7 +716,8 @@
 
                   <div class="col-md-4">
                     <label>Main Protective Bonding Conductor Continuity And Connection Verified:</label>
-                    <select class="form-control" formControlName="bondingConductorVerify" [ngClass]="{ 'is-invalid': submitted && f.bondingConductorVerify.errors }" [(ngModel)]="supplycharesteristic.bondingConductorVerify">
+                    <select class="form-control" formControlName="bondingConductorVerify" 
+                    [ngClass]="{ 'is-invalid': submitted && f.bondingConductorVerify.errors }" [(ngModel)]="supplycharesteristic.bondingConductorVerify">
                       <option value="0" selected>Select Option</option>
                       <option *ngFor="let value of bondingConductorVerifyList"> {{value}}</option>
                     </select>
@@ -693,11 +727,12 @@
                   </div>
                 </div>
               </div>
-                  
+
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 30px">
-                    <p>Type Of Joints (Impairing Safety) <input type="number" min="1" formControlName="bondingJointsType" [ngClass]="{ 'is-invalid': submitted && f.bondingJointsType.errors }" [(ngModel)]="supplycharesteristic.bondingJointsType" style="
+                    <p>Type Of Joints (Impairing Safety) <input type="number" min="1" formControlName="bondingJointsType" 
+                    [ngClass]="{ 'is-invalid': submitted && f.bondingJointsType.errors }" [(ngModel)]="supplycharesteristic.bondingJointsType" style="
                       width: 50px;
                       background: transparent;
                       border: none;
@@ -708,7 +743,7 @@
                     </div>
                   </div>
                   <div class="col-md-4" style="margin-top: 30px">
-                    <p  class="joints">No Of Joints 
+                    <p  class="joints">No Of Joints
                       <input type="tel" min="1" formControlName="bondingNoOfJoints" [(ngModel)]="supplycharesteristic.bondingNoOfJoints" [ngClass]="{ 'is-invalid': submitted && f.bondingNoOfJoints.errors }" style="
                       width: 50px;
                       background: transparent;
@@ -723,14 +758,14 @@
                   <!-- (blur)="update(box.value)" (keyup)="onKey($event)"-->
                 </div>
               </div>
-                  
+
               <div class="row">
                 <div class="col-sm-12">
                 <h2>Location Table</h2>
                 <!-- <mat-icon class="mousechange" (click)="addLocation2()" style=" padding-top: 5px;">add_box</mat-icon> -->
               </div>
               </div>
-              
+
               <div class="row">
                 <div class="col-md-4">
                   <label style="text-align: center;">Location</label>
@@ -742,24 +777,25 @@
                   <label style="text-align: center;">Joint Resistance (Ω)</label>
                 </div>
               </div>
-  
+
               <div formArrayName="location2Arr" *ngFor="let a of getLocation2Controls(); let i = index">
                 <div class="form-group" [formGroupName]="i">
                   <div class="row">
                     <div class="col-md-4">
-                      <input type="text"  formControlName="location" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('location')?.errors }" placeholder="Enter location" >
+                      <input type="text"  formControlName="location" class="form-control"  
+                      [ngClass]="{ 'is-invalid': submitted && a.get('location')?.errors }" placeholder="Enter location" >
                       <div *ngIf="submitted && a.get('location')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('location')?.errors?.required">Location is required</div>
                       </div>
                     </div>
-  
+
                     <div class="col-md-4">
                       <input type="text"  formControlName="jointNo" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('jointNo')?.errors }" placeholder="Enter Joint No" >
                       <div *ngIf="submitted && a.get('jointNo')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('jointNo')?.errors?.required">Joint number is required</div>
                       </div>
                     </div>
-  
+
                     <div class="col-md-4">
                       <input type="text"  formControlName="jointResistance" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('jointResistance')?.errors }" placeholder="Enter Joint resistance" >
                       <div *ngIf="submitted && a.get('jointResistance')?.errors" class="invalid-feedback">
@@ -769,11 +805,12 @@
                   </div>
                 </div>
               </div>
-            
+
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 30px">
-                    <p>Size of Main Protective Earthing Conductor<input type="number" min="0" formControlName="earthingConductorSize" [ngClass]="{ 'is-invalid': submitted && f.earthingConductorSize.errors }" [(ngModel)]="supplycharesteristic.earthingConductorSize" style="
+                    <p>Size of Main Protective Earthing Conductor<input type="number" min="0" formControlName="earthingConductorSize" 
+                    [ngClass]="{ 'is-invalid': submitted && f.earthingConductorSize.errors }" [(ngModel)]="supplycharesteristic.earthingConductorSize" style="
                       width: 50px;
                       background: transparent;
                       border: none;
@@ -785,7 +822,8 @@
 
                   <div class="col-md-4">
                     <label>Material of Main Protective Earthing Conductor:</label>
-                    <input type="text"  class="form-control" formControlName="earthingConductorMaterial"  [ngClass]="{ 'is-invalid': submitted && f.earthingConductorMaterial.errors }" [(ngModel)]="supplycharesteristic.earthingConductorMaterial">
+                    <input type="text"  class="form-control" formControlName="earthingConductorMaterial"  
+                    [ngClass]="{ 'is-invalid': submitted && f.earthingConductorMaterial.errors }" [(ngModel)]="supplycharesteristic.earthingConductorMaterial">
                     <div *ngIf="submitted && f.earthingConductorMaterial.errors" class="invalid-feedback">
                       <div *ngIf="f.earthingConductorMaterial?.errors?.required">Field Is Required</div>
                     </div>
@@ -793,7 +831,8 @@
 
                   <div class="col-md-4">
                     <label>Main Protective Conductor Continuity and Connection Verified:</label>
-                    <select class="form-control" formControlName="earthingConductorVerify" [ngClass]="{ 'is-invalid': submitted && f.earthingConductorVerify.errors }" [(ngModel)]="supplycharesteristic.earthingConductorVerify">
+                    <select class="form-control" formControlName="earthingConductorVerify" 
+                    [ngClass]="{ 'is-invalid': submitted && f.earthingConductorVerify.errors }" [(ngModel)]="supplycharesteristic.earthingConductorVerify">
                       <option value="0" selected>Select Option</option>
                       <option *ngFor="let value of conductorVerifyList"> {{value}}</option>
                     </select>
@@ -831,14 +870,14 @@
                   </div>
                 </div>
               </div>
-              
+
               <div class="row">
                 <div class="col-sm-12">
                 <h2>Location Table</h2>
                 </div>
                 <!-- <mat-icon class="mousechange" (click)="addLocation3()" style=" padding-top: 5px;">add_box</mat-icon> -->
               </div>
-              
+
               <div class="row">
                 <div class="col-md-4">
                   <label style="text-align: center;">Location</label>
@@ -850,7 +889,7 @@
                   <label style="text-align: center;">Joint Resistance (Ω)</label>
                 </div>
               </div>
-  
+
               <div formArrayName="location3Arr" *ngFor="let a of getLocation3Controls(); let i = index">
                 <div class="form-group" [formGroupName]="i">
                   <div class="row">
@@ -860,14 +899,14 @@
                         <div *ngIf="a.get('location')?.errors?.required">Location is required</div>
                       </div>
                     </div>
-  
+
                     <div class="col-md-4">
                       <input type="text"  formControlName="jointNo" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('jointNo')?.errors }" placeholder="Enter Joint No" >
                       <div *ngIf="submitted && a.get('jointNo')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('jointNo')?.errors?.required">Joint number is required</div>
                       </div>
                     </div>
-  
+
                     <div class="col-md-4">
                       <input type="text"  formControlName="jointResistance" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('jointResistance')?.errors }" placeholder="Enter Joint resistance" >
                       <div *ngIf="submitted && a.get('jointResistance')?.errors" class="invalid-feedback">
@@ -877,7 +916,7 @@
                   </div>
                 </div>
               </div>
-              
+
             </mat-expansion-panel>
 
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngIf="breaker">
@@ -897,7 +936,7 @@
                             <div *ngIf="a.get('location')?.errors?.required">Location is required</div>
                           </div>
                         </div>
-            
+
                         <div class="col-md-4">
                           <label>Type:</label>
                           <select class="form-control" formControlName="type" [ngClass]="{ 'is-invalid': submitted && a.get('type')?.errors }">
@@ -911,7 +950,7 @@
                             <div *ngIf="a.get('type')?.errors?.required">Field Is Required</div>
                           </div>
                         </div>
-            
+
                         <div class="col-md-4">
                           <label>No Of Poles:</label>
                           <input type="text"   class="form-control" formControlName="noPoles" [ngClass]="{ 'is-invalid': submitted && a.get('noPoles')?.errors }"  placeholder="Enter poles" >
@@ -919,77 +958,79 @@
                             <div *ngIf="a.get('noPoles')?.errors?.required">Field Is Required</div>
                           </div>
                         </div>
-    
+
                         <div class="col-md-4">
                           <label>Current Rating:</label>
                           <div class="input-group">
                             <input type="text"   class="form-control" formControlName="current" [ngClass]="{ 'is-invalid': submitted && a.get('current')?.errors }" placeholder="Enter rating" >
                             <div class="input-group-prepend">
                               <span class="input-group-text">A</span>
-                            </div>  
-                          </div> 
+                            </div>
+                          </div>
                           <div *ngIf="submitted && a.get('current')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('current')?.errors?.required">Field Is Required</div>
-                          </div>   
-                        </div>                    
-            
+                          </div>
+                        </div>
+
                         <div class="col-md-4">
                           <label>Voltage Rating:</label>
                           <div class="input-group">
                             <input type="text"   class="form-control" formControlName="voltage" [ngClass]="{ 'is-invalid': submitted && a.get('voltage')?.errors }" placeholder="Enter voltage" >
                             <div class="input-group-prepend">
                               <span class="input-group-text">V</span>
-                            </div>  
+                            </div>
                           </div>
                           <div *ngIf="submitted && a.get('voltage')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('voltage')?.errors?.required">Field Is Required</div>
                           </div>
                         </div>
-            
+
                         <div class="col-md-4">
                           <label>Fuse Rating or Settings:</label>
                           <div class="input-group">
                             <input type="text"   class="form-control" formControlName="fuse" [ngClass]="{ 'is-invalid': submitted && a.get('fuse')?.errors }" placeholder="Enter rating" >
                             <div class="input-group-prepend">
                               <span class="input-group-text">A</span>
-                            </div>  
+                            </div>
                           </div>
                           <div *ngIf="submitted && a.get('fuse')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('fuse')?.errors?.required">Field Is Required</div>
                           </div>
                         </div>
-                        
+
                         <div class="col-md-4" *ngIf="true">
                           <label>Rated Residual Operating Current I∆n:</label>
                           <div class="input-group">
                             <input type="text"   class="form-control" formControlName="residualCurrent" [ngClass]="{ 'is-invalid': submitted && a.get('residualCurrent')?.errors }" placeholder="Enter value" >
                             <div class="input-group-prepend">
                               <span class="input-group-text">mA</span>
-                            </div>  
+                            </div>
                           </div>
                           <div *ngIf="submitted && a.get('residualCurrent')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('residualCurrent')?.errors?.required">Field Is Required</div>
                           </div>
                         </div>
-            
+
                         <div class="col-md-4" *ngIf="true">
                           <label>Rated Residual Operating Time @I∆n T∆n	:</label>
                           <div class="input-group">
-                            <input type="text"   class="form-control" formControlName="residualTime" [ngClass]="{ 'is-invalid': submitted && a.get('residualTime')?.errors }" placeholder="Enter value" >
+                            <input type="text"   class="form-control" formControlName="residualTime" 
+                            
+                            [ngClass]="{ 'is-invalid': submitted && a.get('residualTime')?.errors }" placeholder="Enter value" >
                             <div class="input-group-prepend">
                               <span class="input-group-text">mS</span>
-                            </div>  
+                            </div>
                           </div>
                           <div *ngIf="submitted && a.get('residualTime')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('residualTime')?.errors?.required">Field Is Required</div>
                           </div>
                         </div>
-    
+
                       </div>
                     </div>
                   </div>
-    
-               
+
+
               </mat-expansion-panel>
              </mat-accordion>
              <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
@@ -1005,15 +1046,15 @@
 </div>
 
 <ng-template #content1 let-modal>
- 
+
   <div class="modal-body">
 
  <div class="centre-text m-btm30">
   <div *ngIf="success" style="text-align: center;">
-    <span class="alert alert-success">{{successMsg}}</span>
+    <span class="successshow">{{successMsg}}</span>
    </div>
    <div *ngIf="Error" style="text-align: center;">
-     <span class="alert alert-danger">{{errorMsg}}</span>
+     <span class="errorshow">{{errorMsg}}</span>
     </div>
        </div>
 

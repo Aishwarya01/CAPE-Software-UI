@@ -1,29 +1,14 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-} from '@angular/core';
-import {
-  AbstractControl,
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import {ChangeDetectorRef,Component,EventEmitter,OnInit,Output,} from '@angular/core';
+import {AbstractControl,FormArray,FormBuilder,FormControl,FormGroup,Validators,} from '@angular/forms';
 import { from } from 'rxjs';
-import {
-  Supplycharacteristics,
-  Supplyparameters,
-} from '../model/supplycharacteristics';
+import {Supplycharacteristics,Supplyparameters,} from '../model/supplycharacteristics';
 import { SupplyCharacteristicsService } from '../services/supply-characteristics.service';
 import { GlobalsService } from '../globals.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatStepper } from '@angular/material/stepper';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
+import { SiteService } from '../services/site.service';
+import { InspectionVerificationService } from '../services/inspection-verification.service';
 @Component({
   selector: 'app-inspection-verification-supply-characteristics',
   templateUrl:
@@ -45,6 +30,11 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   showAlternate: boolean = false;
   location1Arr!: FormArray;
   location2Arr!: FormArray;
+  arr1: any = [];
+  arr2: any = [];
+  arr3: any = [];
+  alArr: any = [];
+  circuitB:any=[];
   location3Arr!: FormArray;
   alternateArr!: FormArray;
   circuitArr!: FormArray;
@@ -60,12 +50,20 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   email: String = '';
   loading = false;
   submitted = false;
+  flag: boolean=false;
+
   @Output() proceedNext = new EventEmitter<any>();
+
+  mainArr1: any = [];
+  mainArr2: any = [];
+  mainArr3: any = [];
+  mainArr4: any = [];
 
   isSupplyCompleted: boolean = false;
   validationError: boolean = false;
   validationErrorMsg: String = '';
   disable: boolean = false;
+  alternativeSupplyNo: boolean =true;
 
   NV1: any;
   NV2: any;
@@ -132,6 +130,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
     '3-phase, 4-wire (LLLN)',
   ];
   liveConductorDCList: String[] = ['2-pole', '3-pole', 'Others'];
+  AcConductorList: String[] = ['1-phase', '2-wire (LN)', '3-wire (LLM)','2-phase','3-wire (LLN)','3-phase','3-wire (LLL)','3-phase','4-wire (LLLN)'];
   ProtectiveDevicelist: string[] = ['Fuse', 'MCB', 'MCCB', 'ACB'];
   AlternatesupplyList: string[] = ['Yes', 'No'];
   MeansofEarthingList: string[] = [
@@ -173,7 +172,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
     'protectiveDevice',
     'ratedCurrent',
   ];
-
+ 
   circuitName: string[] = [
     'location',
     'type',
@@ -196,13 +195,20 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   errorMsg: string = '';
   success: boolean = false;
   Error: boolean = false;
+  step2List: any = [];
+  errorArr: any=[];
+  retrieveMainNominalVoltage: any =[];
+  alArr2: any=[];
+  DcValue: string="";
+  AcValue: string="";
 
   constructor(
     private supplyCharacteristicsService: SupplyCharacteristicsService,
     public service: GlobalsService,
     private formBuilder: FormBuilder,
     private router: ActivatedRoute,
-    private modalService: NgbModal
+    private modalService: NgbModal,private siteService: SiteService,
+    private UpateInspectionService: InspectionVerificationService,
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
   }
@@ -287,20 +293,314 @@ export class InspectionVerificationSupplyCharacteristicsComponent
     });
   }
 
+  retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any){
+    
+    this.siteService.retrieveFinal(userName,siteId).subscribe(
+      data=> {
+       console.log(data);
+       this.step2List = JSON.parse(data);
+       this.supplycharesteristic.siteId = siteId;
+       this.supplycharesteristic.supplyCharacteristicsId = this.step2List.supplyCharacteristics.supplyCharacteristicsId;
+       this.supplycharesteristic.createdBy = this.step2List.supplyCharacteristics.createdBy;
+       this.supplycharesteristic.createdDate = this.step2List.supplyCharacteristics.createdDate;
+
+
+       this.supplycharesteristic.alternativeSupply=this.step2List.supplyCharacteristics.alternativeSupply;
+       this.showAlternateField(this.step2List.supplyCharacteristics.alternativeSupply);
+       this.supplycharesteristic.electrodeMaterial=this.step2List.supplyCharacteristics.electrodeMaterial;
+       this.supplycharesteristic.meansEarthing=this.step2List.supplyCharacteristics.meansEarthing;
+       this.supplycharesteristic.electrodeType=this.step2List.supplyCharacteristics.electrodeType;
+       this.supplycharesteristic.conductorVerify= this.step2List.supplyCharacteristics.conductorVerify;
+       this.step2List.type= this.step2List.supplyCharacteristics.type;
+       this.supplycharesteristic.liveConductorAC= this.step2List.supplyCharacteristics.liveConductorAC;
+       this.supplycharesteristic.liveConductorDC=this.step2List.supplyCharacteristics.liveConductorDC,
+       this.AcValue = this.step2List.supplyCharacteristics.liveConductorAC;
+       this.DcValue = this.step2List.supplyCharacteristics.liveConductorDC;
+       this.step2List.liveConductor= this.step2List.supplyCharacteristics.liveConductor;
+       this.flag = true;
+       this.populateData();
+
+       this.supplycharesteristicForm.patchValue({
+        clientName1: clientName,
+        departmentName1:departmentName,
+        site1:site,
+        systemEarthing:this.step2List.supplyCharacteristics.mainSystemEarthing,
+        liveConductor:this.step2List.supplyCharacteristics.liveConductorType,
+      
+        briefNote:this.step2List.supplyCharacteristics.systemEarthingBNote,
+        mainNominalProtectiveDevice:this.step2List.supplyCharacteristics.mainNominalProtectiveDevice,
+        mainRatedCurrent:this.step2List.supplyCharacteristics.mainRatedCurrent,
+        mainCurrentDisconnection:this.step2List.supplyCharacteristics.mainCurrentDisconnection,
+        liveConductorBNote:this.step2List.supplyCharacteristics.liveConductorBNote,
+        supplyNumber:this.step2List.supplyCharacteristics.supplyNumber,
+        maximumDemand:this.step2List.supplyCharacteristics.maximumDemand,
+        maximumLoad:this.step2List.supplyCharacteristics.maximumLoad,
+
+        noOfLocation:this.step2List.supplyCharacteristics.noOfLocation,
+        conductorSize:this.step2List.supplyCharacteristics.conductorSize,
+        conductormaterial:this.step2List.supplyCharacteristics.conductormaterial,
+        bondingConductorSize:this.step2List.supplyCharacteristics.bondingConductorSize,
+
+        bondingConductorMaterial:this.step2List.supplyCharacteristics.bondingConductorMaterial,
+        bondingConductorVerify:this.step2List.supplyCharacteristics.bondingConductorVerify,
+        bondingJointsType:this.step2List.supplyCharacteristics.bondingJointsType,
+        bondingNoOfJoints:this.step2List.supplyCharacteristics.bondingNoOfJoints,
+        earthingConductorSize:this.step2List.supplyCharacteristics.earthingConductorSize,
+
+        earthingConductorMaterial:this.step2List.supplyCharacteristics.earthingConductorMaterial,
+        earthingConductorVerify:this.step2List.supplyCharacteristics.earthingConductorVerify,
+        earthingJointsType:this.step2List.supplyCharacteristics.earthingJointsType,
+        earthingNoOfJoints:this.step2List.supplyCharacteristics.earthingNoOfJoints,
+        residualTime:this.step2List.supplyCharacteristics.residualTime,
+
+        residualCurrent:this.step2List.supplyCharacteristics.residualCurrent,
+        fuse:this.step2List.supplyCharacteristics.fuse,
+        voltage:this.step2List.supplyCharacteristics.voltage,
+        current:this.step2List.supplyCharacteristics.current,
+        noPoles:this.step2List.supplyCharacteristics.noPoles,
+        location:this.step2List.supplyCharacteristics.location,
+    })
+
+    this.changeCurrent(this.step2List.supplyCharacteristics.liveConductorType);
+
+      if(this.step2List.supplyCharacteristics.liveConductorType == "AC") {
+        this.enableAC=true;
+        this.tableAC =  true;
+
+        this.mainArr1 = [];
+        this.mainArr2 = [];
+        this.mainArr3 = [];
+        this.mainArr4 = [];
+
+        this.mainArr1 = this.step2List.supplyCharacteristics.mainNominalVoltage.split(",");
+        this.mainArr2 = this.step2List.supplyCharacteristics.mainNominalFrequency.split(",");
+        this.mainArr3 = this.step2List.supplyCharacteristics.mainNominalCurrent.split(",");
+        this.mainArr4 = this.step2List.supplyCharacteristics.mainLoopImpedance.split(",");
+
+        this.retrieveMainNominalVoltage = [];
+        this.retrieveMainNominalVoltage.push(this.mainArr1,this.mainArr2,this.mainArr3,this.mainArr4);
+        
+        console.log(this.retrieveMainNominalVoltage);
+
+          this.NV1 = this.retrieveMainNominalVoltage[0][0];
+          this.NV2 = this.retrieveMainNominalVoltage[0][1];
+          this.NV3 = this.retrieveMainNominalVoltage[0][2];
+          this.NV4 = this.retrieveMainNominalVoltage[0][3];
+          this.NV5 = this.retrieveMainNominalVoltage[0][4];
+          this.NV6 = this.retrieveMainNominalVoltage[0][5];
+          this.NV7 = this.retrieveMainNominalVoltage[0][6];
+          this.NV8 = this.retrieveMainNominalVoltage[0][7];
+          this.NV9 = this.retrieveMainNominalVoltage[0][8];
+      
+          this.NF1 = this.retrieveMainNominalVoltage[1][0];
+          this.NF2 = this.retrieveMainNominalVoltage[1][1];
+          this.NF3 = this.retrieveMainNominalVoltage[1][2];
+          this.NF4 = this.retrieveMainNominalVoltage[1][3];
+          this.NF5 = this.retrieveMainNominalVoltage[1][4];
+          this.NF6 = this.retrieveMainNominalVoltage[1][5];
+          this.NF7 = this.retrieveMainNominalVoltage[1][6];
+          this.NF8 = this.retrieveMainNominalVoltage[1][7];
+          this.NF9 = this.retrieveMainNominalVoltage[1][8];
+
+          this.PF1 = this.retrieveMainNominalVoltage[2][0];
+          this.PF2 = this.retrieveMainNominalVoltage[2][1];
+          this.PF3 = this.retrieveMainNominalVoltage[2][2];
+          this.PF4 = this.retrieveMainNominalVoltage[2][3];
+          this.PF5 = this.retrieveMainNominalVoltage[2][4];
+          this.PF6 = this.retrieveMainNominalVoltage[2][5];
+          this.PF7 = this.retrieveMainNominalVoltage[2][6];
+          this.PF8 = this.retrieveMainNominalVoltage[2][7];
+          this.PF9 = this.retrieveMainNominalVoltage[2][8];
+
+          this.EL1 = this.retrieveMainNominalVoltage[3][0];
+          this.EL2 = this.retrieveMainNominalVoltage[3][1];
+          this.EL3 = this.retrieveMainNominalVoltage[3][2];
+          this.EL4 = this.retrieveMainNominalVoltage[3][3];
+          this.EL5 = this.retrieveMainNominalVoltage[3][4];
+          this.EL6 = this.retrieveMainNominalVoltage[3][5];
+          this.EL7 = this.retrieveMainNominalVoltage[3][6];
+          this.EL8 = this.retrieveMainNominalVoltage[3][7];
+          this.EL9 = this.retrieveMainNominalVoltage[3][8];
+          
+       
+      }
+      },
+      error => {
+       console.log("error")
+      }
+      )
+     }
+
+     populateData() {
+      for (let item of this.step2List.supplyCharacteristics.boundingLocationReport) {     
+        this.arr2.push(this.createGroup(item));
+      }
+      for (let item of this.step2List.supplyCharacteristics.instalLocationReport) {     
+        this.arr1.push(this.createGroup1(item));
+      }
+      for (let item of this.step2List.supplyCharacteristics.earthingLocationReport) {     
+        this.arr3.push(this.createGroup(item));
+      }
+      for (let item of this.step2List.supplyCharacteristics.supplyParameters) { 
+        this.sources=true;    
+        this.breaker=true;
+        this.alArr.push(this.createGroupAl(item));
+      }
+      for (let item of this.step2List.supplyCharacteristics.supplyParameters) { 
+        this.tableAC=true;    
+        this.alArr2.push(this.createGroupAl2(item));
+      }
+      for (let item of this.step2List.supplyCharacteristics.circuitBreaker) {     
+        this.circuitB.push(this.createGroupCircuitB(item));
+      }
+      this.supplycharesteristicForm.setControl('location2Arr', this.formBuilder.array(this.arr2 || []))
+      this.supplycharesteristicForm.setControl('location1Arr', this.formBuilder.array(this.arr1 || []))
+      this.supplycharesteristicForm.setControl('location3Arr', this.formBuilder.array(this.arr3 || []))
+      this.supplycharesteristicForm.setControl('alternateArr', this.formBuilder.array(this.alArr || []))
+      this.supplycharesteristicForm.setControl('circuitArr', this.formBuilder.array(this.circuitB || []))
+      this.supplycharesteristicForm.setControl('circuitArr', this.formBuilder.array(this.circuitB || []))
+    }
+
+    createGroup(item: any): FormGroup {
+      return this.formBuilder.group({
+        locationReportId: new FormControl({disabled: false, value: item.locationReportId}),
+        location: new FormControl({disabled: false ,value: item.location}),
+        jointNo: new FormControl({disabled: false, value: item.jointNo}),
+        jointResistance: new FormControl({disabled: false ,value: item.jointResistance}),
+      });
+    }
+    createGroup1(item: any): FormGroup {
+      return this.formBuilder.group({
+        locationReportId: new FormControl({disabled: false, value: item.locationReportId}),
+        locationNo: new FormControl({disabled: false ,value: item.locationNo}),
+        locationName: new FormControl({disabled: false, value: item.locationName}),
+        electrodeResistanceEarth: new FormControl({disabled: false ,value: item.electrodeResistanceEarth}),
+        electrodeResistanceGird: new FormControl({disabled: false ,value: item.electrodeResistanceGird}),
+      });
+    }
+    createGroupAl(item: any): FormGroup {
+      return this.formBuilder.group({
+        supplyparametersId: new FormControl({disabled: false, value: item.supplyparametersId}),
+        aLSupplyNo: new FormControl({disabled: false ,value: item.aLSupplyNo}),
+        aLSupplyShortName: new FormControl({disabled: false, value: item.aLSupplyShortName}),
+        aLSystemEarthing: new FormControl({disabled: false ,value: item.aLSystemEarthing}),
+        aLLiveConductorType: new FormControl({disabled: false ,value: item.aLLiveConductorType}),
+        aLLiveConductorAC: new FormControl({disabled: false ,value: item.aLLiveConductorAC}),
+        aLLiveConductorDC: new FormControl({disabled: false ,value: item.aLLiveConductorDC}),
+        aLSystemEarthingBNote: new FormControl({disabled: false ,value: item.aLSystemEarthingBNote}),
+        aLLiveConductorBNote: new FormControl({disabled: false ,value: item.aLSystemEarthingBNote}),
+        currentDissconnection: new FormControl({disabled: false ,value: item.aLLiveConductorBNote}),
+        protectiveDevice: new FormControl({disabled: false ,value: item.protectiveDevice}),
+        ratedCurrent: new FormControl({disabled: false ,value: item.ratedCurrent}),
+        nominalVoltageArr1: this.formBuilder.array([this.createNominalForm(item.nominalVoltage,item.nominalFrequency,item.faultCurrent,item.loopImpedance,item.installedCapacity,item.actualLoad)]),
+      });
+    }
+    createGroupAl2(item: any): FormGroup {
+      return this.formBuilder.group({
+           NV1 : new FormControl({disabled: false ,value: item.NV1}),
+            NV2 : new FormControl({disabled: false ,value: item.NV2}),
+           NV3 : new FormControl({disabled: false ,value: item.NV3}),
+           NV4 : new FormControl({disabled: false ,value: item.NV4}),
+           NV5 : new FormControl({disabled: false ,value: item.NV5}),
+          NV6 : new FormControl({disabled: false ,value: item.NV6}),
+           NV7 : new FormControl({disabled: false ,value: item.NV7}),
+           NV8 : new FormControl({disabled: false ,value: item.NV8}),
+           NV9 : new FormControl({disabled: false ,value: item.NV9}),
+      });
+    }
+    createGroupCircuitB(item: any): FormGroup {
+      return this.formBuilder.group({
+        circuitBreakerId: new FormControl({disabled: false, value: item.circuitBreakerId}),
+      location: new FormControl({disabled: false ,value: item.location}),
+      type: new FormControl({disabled: false ,value: item.type}),
+      noPoles: new FormControl({disabled: false ,value: item.noPoles}),
+      current: new FormControl({disabled: false ,value: item.current}),
+      voltage: new FormControl({disabled: false ,value: item.voltage}),
+      fuse: new FormControl({disabled: false ,value: item.fuse}),
+      residualCurrent: new FormControl({disabled: false ,value: item.residualCurrent}),
+      residualTime: new FormControl({disabled: false ,value: item.residualTime}),
+      });
+    }
+    createNominalForm(nominalVoltage: any, nominalFrequency: any, faultCurrent: any,loopImpedance: any,installedCapacity: any,actualLoad: any): FormGroup {
+      let nominalVoltageAL= [];
+      let nominalFrequencyAL = [];
+      let faultCurrentAL= [];
+      let  loopImpedanceAL= [];
+      let  installedCapacityAL= [];
+      let  actualLoadAL= [];
+      
+      nominalVoltageAL= nominalVoltage.split(",");
+      nominalFrequencyAL=   nominalFrequency.split(",");
+      faultCurrentAL=   faultCurrent.split(",");
+      loopImpedanceAL=  loopImpedance.split(",");
+      installedCapacityAL=  installedCapacity.split(",");
+      actualLoadAL=   actualLoad.split(",");
+
+      let item = [];
+      item.push(nominalVoltageAL,nominalFrequencyAL,faultCurrentAL,loopImpedanceAL,installedCapacityAL,actualLoadAL);
+      return new FormGroup({
+        nominalVoltage1: new FormControl({disabled: false ,value: item[0][0]}),
+        nominalVoltage2: new FormControl({disabled: false ,value: item[0][1]}),
+        nominalVoltage3: new FormControl({disabled: false ,value: item[0][2]}),
+        nominalVoltage4: new FormControl({disabled: false ,value: item[0][3]}),
+        nominalVoltage5: new FormControl({disabled: false ,value: item[0][4]}),
+        nominalVoltage6: new FormControl({disabled: false ,value: item[0][5]}),
+        nominalVoltage7: new FormControl({disabled: false ,value: item[0][6]}),
+        nominalVoltage8: new FormControl({disabled: false ,value: item[0][7]}),
+        nominalVoltage9: new FormControl({disabled: false ,value: item[0][8]}),
+  
+        nominalFrequency1: new FormControl({disabled: false ,value: item[1][0]}),
+        nominalFrequency2: new FormControl({disabled: false ,value: item[1][1]}),
+        nominalFrequency3: new FormControl({disabled: false ,value: item[1][2]}),
+        nominalFrequency4: new FormControl({disabled: false ,value: item[1][3]}),
+        nominalFrequency5: new FormControl({disabled: false ,value: item[1][4]}),
+        nominalFrequency6: new FormControl({disabled: false ,value: item[1][5]}),
+        nominalFrequency7: new FormControl({disabled: false ,value: item[1][6]}),
+        nominalFrequency8: new FormControl({disabled: false ,value: item[1][7]}),
+        nominalFrequency9: new FormControl({disabled: false ,value: item[1][8]}),
+  
+        current1: new FormControl({disabled: false ,value: item[2][0]}),
+        current2: new FormControl({disabled: false ,value: item[2][1]}),
+        current3: new FormControl({disabled: false ,value: item[2][2]}),
+        current4: new FormControl({disabled: false ,value: item[2][3]}),
+        current5: new FormControl({disabled: false ,value: item[2][4]}),
+        current6: new FormControl({disabled: false ,value: item[2][5]}),
+        current7: new FormControl({disabled: false ,value: item[2][6]}),
+        current8: new FormControl({disabled: false ,value: item[2][7]}),
+        current9: new FormControl({disabled: false ,value: item[2][8]}),
+  
+        impedence1: new FormControl({disabled: false ,value: item[3][0]}),
+        impedence2: new FormControl({disabled: false ,value: item[3][1]}),
+        impedence3: new FormControl({disabled: false ,value: item[3][2]}),
+        impedence4: new FormControl({disabled: false ,value: item[3][3]}),
+        impedence5: new FormControl({disabled: false ,value: item[3][4]}),
+        impedence6: new FormControl({disabled: false ,value: item[3][5]}),
+        impedence7: new FormControl({disabled: false ,value: item[3][6]}),
+        impedence8: new FormControl({disabled: false ,value: item[3][7]}),
+        impedence9: new FormControl({disabled: false ,value: item[3][8]}),
+  
+        capacity: new FormControl({disabled: false ,value: item[4][0]}),
+  
+        loadCurrent1: new FormControl({disabled: false ,value: item[5][0]}),
+        loadCurrent2: new FormControl({disabled: false ,value: item[5][1]}),
+        loadCurrent3: new FormControl({disabled: false ,value: item[5][2]}),
+        loadCurrent4: new FormControl({disabled: false ,value: item[5][3]}),
+      });
+    }
+    private createLocation2Form(): FormGroup {
+      return new FormGroup({
+        location: new FormControl('', [Validators.required]),
+        jointNo: new FormControl('', [Validators.required]),
+        jointResistance: new FormControl('', [Validators.required]),
+      });
+    }
+
   private createLocation1Form(): FormGroup {
     return new FormGroup({
       locationNo: new FormControl('', [Validators.required]),
       locationName: new FormControl('', [Validators.required]),
       electrodeResistanceEarth: new FormControl('', [Validators.required]),
       electrodeResistanceGird: new FormControl('', [Validators.required]),
-    });
-  }
-
-  private createLocation2Form(): FormGroup {
-    return new FormGroup({
-      location: new FormControl('', [Validators.required]),
-      jointNo: new FormControl('', [Validators.required]),
-      jointResistance: new FormControl('', [Validators.required]),
     });
   }
 
@@ -590,7 +890,13 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   }
 
   changeCurrent(e: any) {
-    let changedValue = e.target.value;
+    let changedValue;
+    if(e.target != undefined) {
+      changedValue = e.target.value;
+    }
+    else{
+      changedValue = e;
+    }
     if (changedValue == 'AC') {
       this.enableAC = true;
       this.enableDC = false;
@@ -639,16 +945,27 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       'alternateArr'
     ) as FormArray;
 
-    if (event.target.value == 'No') {
+    let changedValue;
+    if(event.target != undefined) {
+      changedValue = event.target.value;
+    }
+    else{
+      changedValue = event;
+    }
+
+    if (changedValue == 'No') {
       this.sources = false;
       this.breaker = false;
+      this.alternativeSupplyNo=false;
       if (this.alternateArr.length != 0) {
         this.alternateArr.reset();
         this.circuitArr.reset();
       }
 
       this.disableValidators();
-    } else {
+    }
+     else {
+      this.alternativeSupplyNo=true;
       this.supplycharesteristicForm.controls['supplyNumber'].setValidators(
         Validators.required
       );
@@ -816,14 +1133,17 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       this.modalService.dismissAll((this.successMsg = ''));
     }
   }
-  nextTab2() {
-    this.supplycharesteristic.siteId = this.service.siteCount;
-
+  nextTab2(flag: any) {
+    if(!flag) {
+      this.supplycharesteristic.siteId = this.service.siteCount;
+    }
+   
     this.supplycharesteristic.userName = this.email;
     this.submitted = true;
     if (this.supplycharesteristicForm.invalid) {
       return;
     }
+
     this.nominalVoltageArr.push(
       this.NV1,
       this.NV2,
@@ -1008,7 +1328,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
               nominalFrequency += 'NA,';
             }
           }
-
+      
           nominalFrequency = nominalFrequency.replace(/,\s*$/, '');
           i.nominalFrequency = nominalFrequency;
 
@@ -1057,11 +1377,9 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       }
 
       if (
-        this.alternateArr.value[0].aLSupplyNo != null &&
-        this.alternateArr.length != 0
+        this.alternateArr.value[0].aLSupplyNo != null && this.alternateArr.length != 0
       ) {
-        this.supplycharesteristic.supplyParameters =
-          this.supplycharesteristicForm.value.alternateArr;
+        this.supplycharesteristic.supplyParameters =this.supplycharesteristicForm.value.alternateArr;
       }
 
       if (
@@ -1072,12 +1390,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
           this.supplycharesteristicForm.value.circuitArr;
       }
 
-      this.supplycharesteristic.instalLocationReport =
-        this.supplycharesteristicForm.value.location1Arr;
-      this.supplycharesteristic.boundingLocationReport =
-        this.supplycharesteristicForm.value.location2Arr;
-      this.supplycharesteristic.earthingLocationReport =
-        this.supplycharesteristicForm.value.location3Arr;
+    
     }
 
     if (this.supplycharesteristic.liveConductorType != 'DC') {
@@ -1087,20 +1400,35 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       this.supplycharesteristic.mainLoopImpedance = this.loopImpedence;
     }
 
-    this.supplyCharacteristicsService
-      .addSupplyCharacteristics(this.supplycharesteristic)
-      .subscribe(
+    this.supplycharesteristic.instalLocationReport =this.supplycharesteristicForm.value.location1Arr;
+    this.supplycharesteristic.boundingLocationReport =this.supplycharesteristicForm.value.location2Arr;
+    this.supplycharesteristic.earthingLocationReport =this.supplycharesteristicForm.value.location3Arr;
+
+    if(flag) {
+      this.UpateInspectionService.updateSupply(this.supplycharesteristic).subscribe(
+        (data) => {
+          console.log("success");
+        },
+        (error) => {
+          console.log("error");
+        });
+    }
+else{
+    this.supplyCharacteristicsService.addSupplyCharacteristics(this.supplycharesteristic).subscribe(
         (data) => {
           this.proceedNext.emit(true);
           this.success = true;
-          this.successMsg = 'Supply Characteristics Successfully Saved';
+          this.successMsg = data;
           this.disable = true;
         },
         (error) => {
           this.Error = true;
           this.proceedNext.emit(false);
-          this.errorMsg = 'Something went wrong, kindly check all the fields';
+          this.errorArr = [];
+          this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.errorArr.message;
         }
       );
+  }
   }
 }

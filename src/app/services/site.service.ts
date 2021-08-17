@@ -8,7 +8,7 @@ import { Site } from '../model/site';
   providedIn: 'root'
 })
 export class SiteService {
-  
+
   apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }
 
@@ -21,7 +21,7 @@ export class SiteService {
   }
 
   public deleteSite(siteId: number ): Observable<any> {
-    return this.http.delete<any>(this.apiUrl + '/deleteSite' +  '/' + siteId)
+    return this.http.delete<any>(this.apiUrl + '/deleteSite' +  '/' + siteId, { responseType: 'text' as 'json' })
   }
 
   public retrieveSite(site: Site): Observable<any> {
@@ -42,5 +42,9 @@ export class SiteService {
 
   public retrieveState(countryName: String): Observable<any> {
     return this.http.get<any>(this.apiUrl + '/fetchStatesByCountryCode' + '/' +countryName, { responseType: 'text' as 'json' })
+  }
+
+  public retrieveFinal(userName: String,siteId: any): Observable<any> {
+    return this.http.get<any>(this.apiUrl + '/retrieveReport' + '/' +userName+ '/' +siteId, { responseType: 'text' as 'json' })
   }
 }

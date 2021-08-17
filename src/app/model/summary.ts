@@ -1,7 +1,8 @@
 export class Summary {
     userName!: String;
     siteId!: number;
-    //limitationsInspection!: String;
+    summaryId!: number;
+    limitationsInspection!: String;
     extentInstallation!: String;
     agreedLimitations!: number;
     agreedWith!: number;
@@ -10,6 +11,10 @@ export class Summary {
     recommendationsDate!: number;
     generalConditionInstallation!: String;
     overallAssessmentInstallation!: String;
+    createdBy!: String;
+    createdDate!: Date;
+    updatedBy!: String;
+    updatedDate!: Date;
     
 
     summaryObervation!: summaryObervation[];

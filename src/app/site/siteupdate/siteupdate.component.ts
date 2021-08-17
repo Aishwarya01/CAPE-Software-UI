@@ -41,6 +41,15 @@ export class SiteupdateComponent implements OnInit {
   deletedArray: any =[];
   personarr!: FormArray;
 
+  success: boolean=false;
+  successMsg: any;
+  Error: boolean=false;
+  errorArr: any=[];
+;
+  errorMsg:any;
+  validationError: boolean = false;
+  validationErrorMsg: String = "";
+
 
   @Input()
   userName: String = '';
@@ -116,6 +125,7 @@ export class SiteupdateComponent implements OnInit {
     this.countryCode = country.dialCode;
     a.controls.countryCode.value= this.countryCode;
   }
+
   // Only Integer Numbers
   keyPressNumbers(event:any) {
     var charCode = (event.which) ? event.which : event.keyCode;
@@ -178,7 +188,6 @@ export class SiteupdateComponent implements OnInit {
     this.updateSiteForm.setControl('arr', this.formBuilder.array(this.arr || []))
   }
 
-
   createGroup(item: any): FormGroup {
     return this.formBuilder.group({
       personIncharge: new FormControl({disabled: true ,value: item.personIncharge}),
@@ -197,19 +206,15 @@ export class SiteupdateComponent implements OnInit {
 
     //Breaks if form is invalid
     if(this.updateSiteForm.invalid) {
+      this.validationError = true;
+      this.validationErrorMsg = "Please check all the fields";
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
       return;
     }
 
     this.loading = true;
-    // for(let i of this.updateSiteForm.getRawValue().arr) {
-    //   if(i.inActive == "") {
-    //     i.inActive = true;
-    //   }
-    // }
-
-
-    //country code
-    // this.site.sitePersons[0].contactNo="+" +this.countryCode + "-" + this.site.sitePersons[0].contactNo;
 
     this.site.sitePersons=this.updateSiteForm.getRawValue().arr;
 
@@ -227,13 +232,24 @@ export class SiteupdateComponent implements OnInit {
     }
     this.siteService.updateSite(this.site).subscribe(
       data=> {
-        this.dialog.closeAll();
+        this.success = true
+        this.successMsg =data;
+        setTimeout(() => {
+          this.success = false;
+        }, 3000);
+        setTimeout(() => {
+          this.dialog.closeAll();
+        }, 2000);
       },
       error => {
-        this.showErrorMessage=true;
+        this.Error = true;
+        this.errorArr = [];
+        this.errorArr = JSON.parse(error.error);
+        this.errorMsg = this.errorArr.message;
+        setTimeout(() => {
+          this.Error = false;
+        }, 3000);
         this.loading=false;
-      }
-      )
+      })
   }
-
-  }
+}

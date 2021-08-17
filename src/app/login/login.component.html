@@ -8,13 +8,12 @@
                             <a href="#"><img src="assets/img/Rush_Final_logo.png"></a>
                         </div>
                         <div class="login-header">
-                            <h3 class="login-title">Login To Rush Safety Applications</h3>
+                            <h3 class="login-title">Login</h3>
                         </div>
                     </div>
                     <div class="card-body">
                         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                            <div *ngIf="showErrorMessage" class="errorshow">Please enter a valid email and
-                                password</div>
+                            <div *ngIf="showErrorMessage" class="errorshow">{{showErrorMessage}}</div>
                             <div class="form-group">
                                 <label for="email">Email</label>
                                 <div class="input-group">

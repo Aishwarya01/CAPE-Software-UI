@@ -36,8 +36,10 @@ export class Supplycharacteristics {
   earthingConductorVerify:String;
   earthingJointsType:String;
   earthingNoOfJoints:number;
-  createdDate:Date;
-
+  createdDate!:Date;
+  createdBy!: String;
+  updatedBy!: String;
+  updatedDate!: Date;
   supplyParameters: Supplyparameters[];
   instalLocationReport: InstallLocationReport[];
   boundingLocationReport: BoundingLocationReport[];

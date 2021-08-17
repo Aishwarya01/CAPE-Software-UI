@@ -23,6 +23,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Company } from '../model/company';
 import { ClientupdateComponent } from '../Company/client/clientupdate/clientupdate/clientupdate.component';
 import { User } from '../model/user';
+import { GlobalsService } from '../globals.service';
 import { ClientService } from '../services/client.service';
 import { DepartmentService } from '../services/department.service';
 import { Department } from '../model/department';
@@ -32,11 +33,12 @@ import { Site } from '../model/site';
 import { SiteupdateComponent } from '../site/siteupdate/siteupdate.component';
 import { ReportDetailsService } from '../services/report-details.service';
 import { Reportdetails } from '../model/reportdetails';
-import { InspectionVerificationSupplyCharacteristicsComponent } from '../inspection-verification-supply-characteristics/inspection-verification-supply-characteristics.component';
 import { MatStepper } from '@angular/material/stepper';
 import { InspectionVerificationBasicInformationComponent } from '../inspection-verification-basic-information/inspection-verification-basic-information.component';
 import { InspectionVerificationTestingComponent } from '../inspection-verification-testing/inspection-verification-testing.component';
-
+import { InspectionVerificationIncomingEquipmentComponent } from '../inspection-verification-incoming-equipment/inspection-verification-incoming-equipment.component';
+import { SummaryComponent } from '../summary/summary.component';
+import { InspectionVerificationSupplyCharacteristicsComponent } from '../inspection-verification-supply-characteristics/inspection-verification-supply-characteristics.component';
 @Component({
   selector: 'app-verificationlv',
   templateUrl: './verificationlv.component.html',
@@ -118,21 +120,27 @@ export class VerificationlvComponent implements OnInit {
   createdDate = new Date();
   companyCd: String = '';
   departmentCd: String = '';
+  successMsg: string = '';
+
   isChecked: boolean = false;
   designer1Arr!: FormArray;
   designerRole: String = 'designer';
   contractorRole: String = 'contractor';
   inspectorRole: String = 'inspector';
   reportDetails = new Reportdetails();
-  @ViewChild(InspectionVerificationSupplyCharacteristicsComponent, {
-    static: false,
-  })
-  supply = InspectionVerificationSupplyCharacteristicsComponent;
+  // @ViewChild(InspectionVerificationSupplyCharacteristicsComponent, {
+  //   static: false,
+  // })
   @ViewChild(InspectionVerificationBasicInformationComponent)
   basic!: InspectionVerificationBasicInformationComponent;
+  @ViewChild(InspectionVerificationIncomingEquipmentComponent)
+  incoming!: InspectionVerificationIncomingEquipmentComponent;
   @ViewChild(InspectionVerificationTestingComponent)
   testing!: InspectionVerificationTestingComponent;
-
+  @ViewChild(SummaryComponent)
+  summary!: SummaryComponent;
+  @ViewChild(InspectionVerificationSupplyCharacteristicsComponent)
+  supply!: InspectionVerificationSupplyCharacteristicsComponent;
   // Second Tab dependencies
   panelOpenState = false;
   installationList: String[] = [
@@ -169,6 +177,21 @@ export class VerificationlvComponent implements OnInit {
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
   formBuilder: any;
   arrDesigner!: FormArray;
+  deleteMsg: any;
+  deleteMsg1: any;
+
+  errorArr: any=[];
+  errorArr1: any=[];
+  errorArr2: any=[];
+
+  Error: boolean=false;
+  Error2: boolean=false;
+  errorMsg: any;
+  errorMsg1: any;
+  success: boolean=false;
+  success2: boolean=false
+  deleteMsg2: any;
+  errorMsg2: any;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -179,7 +202,8 @@ export class VerificationlvComponent implements OnInit {
     private departmentService: DepartmentService,
     private reportDetailsService: ReportDetailsService,
     private siteService: SiteService,
-    private ChangeDetectorRef: ChangeDetectorRef
+    private ChangeDetectorRef: ChangeDetectorRef,
+    public service: GlobalsService
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
   }
@@ -255,11 +279,29 @@ export class VerificationlvComponent implements OnInit {
     });
   }
 
-  deleteClient(clientname: String) {
+  closeModalDialog() {
+    if (this.errorMsg != '') {
+      this.Error = false;
+      this.modalService.dismissAll((this.errorMsg = ''));
+    } else {
+      this.success = false;
+      this.modalService.dismissAll((this.successMsg = ''));
+    }
+  }
+
+  deleteClient(clientname: String,clientdelete: any) {
+    this.modalService.open(clientdelete, { centered: true });
     this.clientService
-      .deleteClient(this.email, clientname)
-      .subscribe((data) => {
+      .deleteClient(this.email, clientname).subscribe((
+        data) => {
+        this.success = true;
+        this.successMsg = data;
         this.retrieveClientDetails();
+      },error=>{
+        this.Error = true;
+        this.errorArr2 = [];
+        this.errorArr2 = JSON.parse(error.error);
+        this.errorMsg = this.errorArr2.message;
       });
     this.refresh();
   }
@@ -334,11 +376,20 @@ export class VerificationlvComponent implements OnInit {
     });
   }
 
-  deleteDepartment(departmentId: number) {
+  deleteDepartment(departmentId: number,deptdelete: any) {
+    this.modalService.open(deptdelete, { centered: true });
     this.departmentService
       .deleteDepartment(this.email, departmentId)
-      .subscribe((data) => {
+      .subscribe((
+        data) => {
+        this.success = true;
+        this.successMsg=data;
         this.retrieveDepartmentDetails();
+      },error=>{
+        this.Error = true;
+        this.errorArr1 = [];
+        this.errorArr1 = JSON.parse(error.error);
+        this.errorMsg = this.errorArr1.message;
       });
     this.refresh();
   }
@@ -400,11 +451,30 @@ export class VerificationlvComponent implements OnInit {
     });
   }
 
-  deleteSite(siteId: number) {
-    this.siteService.deleteSite(siteId).subscribe((data) => {
-      this.retrieveSiteDetails();
+
+
+  deleteSite(siteId: number,sitedelete : any) {
+    this.modalService.open(sitedelete, { centered: true });
+    this.siteService.deleteSite(siteId).subscribe((
+      data) => {
+        this.success = true;
+        this.successMsg = data;
+        setTimeout(() => {
+          this.success = false;
+        }, 3000);
+        this.retrieveSiteDetails();
+    },error=>{
+        this.Error = true;
+        this.errorArr = [];
+        this.errorArr = JSON.parse(error.error);
+        this.errorMsg =this.errorArr.message;
+        setTimeout(() => {
+          this.Error = false;
+        }, 3000);
     });
-    this.refresh();
+    setTimeout(()=>{
+      this.refresh();
+    },1000);
   }
 
   changeClient(e: any) {
@@ -446,21 +516,24 @@ export class VerificationlvComponent implements OnInit {
     this.isCompleted5 = next;
   }
 
-  changeTab(index: number, sitedId: any, userName: any): void {
+//for saved reports tab
+  changeTab(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any): void {
     this.selectedIndex = index;
-
-    // This is for saved reports
-    // this.basic.retrieveDetailsfromSavedReports(userName,sitedId);
+    this.basic.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
+    this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
+    this.supply.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
+    //this.testing.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
+    this.summary.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
   }
 
+//for final reports tab
   changeTab1(index: number): void {
     this.selectedIndex = index;
-
-    // This is for saved reports
-    // this.basic.retrieveDetailsfromSavedReports(userName,sitedId);
   }
 
-  continue() {
+  continue1(siteId: any,userName :any,clientName: any,departmentName: any,site: any) {
     this.selectedIndex = 1;
+    this.basic.changeTab(1,siteId,userName,clientName,departmentName,site);
   }
+
 }
