@@ -18,7 +18,7 @@ import { GlobalsService } from '../globals.service';
 })
 export class SavedreportsComponent implements OnInit {
 
-  savedReportsColumns: string[] = [ 'siteID', 'siteName', 'personIncharge', 'contactNumber', 'contactDetails', 'state', 'country', 'continue'];
+  savedReportsColumns: string[] = [ 'siteCD', 'siteName', 'personIncharge', 'contactNumber', 'contactDetails', 'state', 'country', 'continue'];
   savedReport_dataSource!: MatTableDataSource<Site[]>;
   @ViewChild('savedReportPaginator', { static: true }) savedReportPaginator!: MatPaginator;
   @ViewChild('savedReportSort', {static: true}) savedReportSort!: MatSort;

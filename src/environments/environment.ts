@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   environmentName: 'dev',
   apiUrl: 'http://localhost:5000/api/v1',
-  sessionTimeOut: 60
+  sessionTimeOut: 600
 };
 
 /*
