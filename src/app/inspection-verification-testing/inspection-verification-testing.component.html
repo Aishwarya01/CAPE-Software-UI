@@ -4,18 +4,18 @@
         style="padding: 7px 10px 0px 10px;left: 93%;top: 10px;width: 4%;position: relative;">
             <mat-icon aria-hidden="false" (click)="addItem()" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>
     </button> -->
-     <form [formGroup]="testingForm" (ngSubmit)="nextTab()">
+     <form [formGroup]="testingForm" (ngSubmit)="nextTab(flag)">
        <div class="card-body" formArrayName="testaccordianArr" *ngFor="let a of getTestControls(); let i = index" >
             <div [formGroupName]="i">
 
                     <div class="search-bar">
                         <div class="form-group">
-                            <div class="row">
+                            <div class="row" *ngIf="inspectionRetrieve">
                                 <div class="col-md-6">
                                     <label>Location Number*</label>
                                     <input type="number" class="form-control" formControlName="locationNumber"
                                         placeholder="Enter Location Number"
-                                        value="{{location.locationArr[i].locationNumber}}"
+                                        value="{{location.locationArr[i]?.locationNumber}}"
                                         [(ngModel)]="location.locationArr[i].locationNumber" [readonly]="true"
                                         style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
                                 </div>
@@ -24,8 +24,25 @@
                                     <label>Location Name*</label>
                                     <input type="text" class="form-control" formControlName="locationName"
                                         placeholder="Enter Location Name"
-                                        value="{{location.locationArr[i].locationName}}"
+                                        value="{{location.locationArr[i]?.locationName}}"
                                         [(ngModel)]="location.locationArr[i].locationName" [readonly]="true"
+                                        style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
+                                </div>
+                            </div>
+
+
+                            <div class="row" *ngIf="testingRetrieve">
+                                <div class="col-md-6">
+                                    <label>Location Number*</label>
+                                    <input type="number" class="form-control" formControlName="locationNumber"
+                                        placeholder="Enter Location Number" [readonly]="true"
+                                        style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label>Location Name*</label>
+                                    <input type="text" class="form-control" formControlName="locationName"
+                                        placeholder="Enter Location Name" [readonly]="true"
                                         style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
                                 </div>
                             </div>

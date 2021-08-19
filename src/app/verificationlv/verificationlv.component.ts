@@ -522,7 +522,7 @@ export class VerificationlvComponent implements OnInit {
     this.basic.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
     this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
     this.supply.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
-    //this.testing.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
+    this.testing.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
     this.summary.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
   }
 

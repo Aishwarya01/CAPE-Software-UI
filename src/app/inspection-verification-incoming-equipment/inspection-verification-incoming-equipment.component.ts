@@ -21,7 +21,6 @@ import { InspectiondetailsService } from '../services/inspectiondetails.service'
 import { InspectionDetails } from '../model/inspection-details';
 import { GlobalsService } from '../globals.service';
 import { of } from 'rxjs';
-import { InspectionVerificationTestingComponent } from '../inspection-verification-testing/inspection-verification-testing.component';
 import { SiteService } from '../services/site.service';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
 
