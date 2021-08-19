@@ -54,6 +54,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   userName: String = '';
   //@Input()
   siteId!: number;
+  rateValueArr: any=[];
 
   locationNameList: any = [];
   distributionIncomingValueArr: any = [];
@@ -160,14 +161,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
       for (let item of this.testList.testingReport.testing) {
         this.arr.push(this.createGroup(item));
       }
-      for (let item of this.testList.testingReport.testing) {
-        for(let j of item.testDistribution) {
-          for( let k of j.ratingsAmps) {
-           this.Ratearr1.push(this.populateTestDistributionForm(k));
-          // this.testList.testingReport.testing.controls[this.j].controls[this.j.testDistribution[this.j.rateamps]];
-          }
-        }
-      }
       this.testingForm.setControl('testaccordianArr', this.formBuilder.array(this.arr || []))
     }
     
@@ -186,12 +179,13 @@ export class InspectionVerificationTestingComponent implements OnInit {
         rcd: new FormControl({disabled: false,value: item.rcd}),
         earthElectrodeResistance: new FormControl({disabled: false,value: item.earthElectrodeResistance}),
         testDistribution: this.formBuilder.array([this.populateTestDistributionForm(item.testDistribution)]),
-        testingRecords: this.formBuilder.array([this.populateTestRecordsForm(item.testingRecords)]),
+        testingRecords: this.formBuilder.array([this.createtestValueForm()]),
       });
     }
 
     private populateTestDistributionForm(testDistributionItem: any): FormGroup {
      // this.onKeyRating(testDistributionItem[0].ratingsAmps);
+     debugger
       return new FormGroup({
         distributionBoardDetails: new FormControl({disabled: false,value: testDistributionItem[0].distributionBoardDetails}),
         referance: new FormControl({disabled: false,value: testDistributionItem[0].referance}),
@@ -199,7 +193,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
         correctSupplyPolarity: new FormControl({disabled: false,value: testDistributionItem[0].correctSupplyPolarity}),
         numOutputCircuitsUse: new FormControl({disabled: false,value: testDistributionItem[0].numOutputCircuitsUse}),
         ratingsAmps: new FormControl({disabled: false,value: testDistributionItem[0].ratingsAmps}),
-        //rateArr: this.formBuilder.array([this.populateratingAmps(testDistributionItem[0].ratingsAmps)]),
+        rateArr: this.formBuilder.array([this.populateRating(testDistributionItem[0].ratingsAmps)]),
         numOutputCircuitsSpare: new FormControl({disabled: false,value: testDistributionItem[0].numOutputCircuitsSpare}),
         installedEquipmentVulnarable: new FormControl({disabled: false,value: testDistributionItem[0].installedEquipmentVulnarable}),
         incomingVoltage: new FormControl({disabled: false,value: testDistributionItem[0].incomingVoltage}),
@@ -210,14 +204,21 @@ export class InspectionVerificationTestingComponent implements OnInit {
         ]),
       });
     }
-    // private populateratingAmps(ratingsAmps:any): FormGroup {
-    //   let ratingsAmpsArray= [];
-    //     debugger
-    //     ratingsAmpsArray= ratingsAmps.split(",");
-    //   return new FormGroup({
-    //     ratingsAmps: new FormControl({disabled: false,value: ratingsAmpsArray[0][0]}),
-    //   });
-    // }
+    private populateRating(ratingAmps: any) {
+      let ratingsAmpsArray= [];
+      debugger
+      ratingsAmpsArray= ratingAmps.split(",");
+      for(let i =0; i<ratingsAmpsArray.length; i++) {
+        this.rateValueArr.push(this.populateratingAmps(ratingsAmpsArray[i]));
+      }
+      return this.rateValueArr;
+      // this.testingForm.setControl('rateArr', this.formBuilder.array(this.rateValueArr || []))
+    }
+    private populateratingAmps(ratingsAmps:any): FormGroup {  
+      return new FormGroup({
+        ratingsAmps: new FormControl({disabled: false,value: ratingsAmps}),
+      });
+    }
     private populatedistributionIncomingValue(incomingVoltage:any, incomingZs:any, incomingIpf:any): FormGroup {
       let incomingVoltageArray= [];
       let incomingZsArray = [];
@@ -297,42 +298,42 @@ export class InspectionVerificationTestingComponent implements OnInit {
         continutiyLL: new FormControl({disabled: false,value: testRecordsItem.continutiyLL}),
         continutiyLE: new FormControl({disabled: false,value: testRecordsItem.continutiyLE}),
         continutiyPolarity: new FormControl({disabled: false,value: testRecordsItem.continutiyPolarity}),
-        // ryVoltage: new FormControl({disabled: false,value: testRecordsItem.ryVoltage}),
-        // rbVoltage: new FormControl({disabled: false,value: testRecordsItem.rbVoltage}),
-        // ybVoltage: new FormControl({disabled: false,value: testRecordsItem.ybVoltage}),
-        // rnVoltage: new FormControl({disabled: false,value: testRecordsItem.rnVoltage}),
-        // ynVoltage: new FormControl({disabled: false,value: testRecordsItem.ynVoltage}),
-        // bnVoltage: new FormControl({disabled: false,value: testRecordsItem.bnVoltage}),
-        // rpeVoltage: new FormControl({disabled: false,value: testRecordsItem.rpeVoltage}),
-        // ypeVoltage: new FormControl({disabled: false,value: testRecordsItem.ypeVoltage}),
-        // bpeVoltage: new FormControl({disabled: false,value: testRecordsItem.bpeVoltage}),
-        // ryLoopImpedance: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        // rbLoopImpedance: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        // ybLoopImpedance: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        // rnLoopImpedance: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        // ynLoopImpedance: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        // bnLoopImpedance: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        // rpeLoopImpedance: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        // ypeLoopImpedance: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        // bpeLoopImpedance: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        // ryFaultCurrent: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        // rbFaultCurrent: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        // ybFaultCurrent: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        // rnFaultCurrent: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        // ynFaultCurrent: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        // bnFaultCurrent: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        // rpeFaultCurrent: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        // ypeFaultCurrent: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        // bpeFaultCurrent: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        // ryDisconnect: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        // rbDisconnect: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        // ybDisconnect: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        // rnDisconnect: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        // ynDisconnect: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        // bnDisconnect: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        // rpeDisconnect: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        // ypeDisconnect: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        // bpeDisconnect: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
+        ryVoltage: new FormControl({disabled: false,value: testRecordsItem.ryVoltage}),
+        rbVoltage: new FormControl({disabled: false,value: testRecordsItem.rbVoltage}),
+        ybVoltage: new FormControl({disabled: false,value: testRecordsItem.ybVoltage}),
+        rnVoltage: new FormControl({disabled: false,value: testRecordsItem.rnVoltage}),
+        ynVoltage: new FormControl({disabled: false,value: testRecordsItem.ynVoltage}),
+        bnVoltage: new FormControl({disabled: false,value: testRecordsItem.bnVoltage}),
+        rpeVoltage: new FormControl({disabled: false,value: testRecordsItem.rpeVoltage}),
+        ypeVoltage: new FormControl({disabled: false,value: testRecordsItem.ypeVoltage}),
+        bpeVoltage: new FormControl({disabled: false,value: testRecordsItem.bpeVoltage}),
+        ryLoopImpedance: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
+        rbLoopImpedance: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
+        ybLoopImpedance: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
+        rnLoopImpedance: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
+        ynLoopImpedance: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
+        bnLoopImpedance: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
+        rpeLoopImpedance: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
+        ypeLoopImpedance: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
+        bpeLoopImpedance: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
+        ryFaultCurrent: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
+        rbFaultCurrent: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
+        ybFaultCurrent: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
+        rnFaultCurrent: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
+        ynFaultCurrent: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
+        bnFaultCurrent: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
+        rpeFaultCurrent: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
+        ypeFaultCurrent: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
+        bpeFaultCurrent: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
+        ryDisconnect: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
+        rbDisconnect: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
+        ybDisconnect: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
+        rnDisconnect: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
+        ynDisconnect: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
+        bnDisconnect: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
+        rpeDisconnect: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
+        ypeDisconnect: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
+        bpeDisconnect: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
         testVoltage: new FormControl({disabled: false,value: testRecordsItem.testVoltage}),
         testLoopImpedance: new FormControl({disabled: false,value: testRecordsItem.testLoopImpedance}),
         testFaultCurrent: new FormControl({disabled: false,value: testRecordsItem.testFaultCurrent}),
