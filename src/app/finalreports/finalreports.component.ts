@@ -14,7 +14,7 @@ import { SiteService } from '../services/site.service';
   styleUrls: ['./finalreports.component.css']
 })
 export class FinalreportsComponent implements OnInit {
-  finalReportsColumns: string[] = [ 'siteID', 'siteName', 'personIncharge', 'contactNumber', 'contactDetails', 'state', 'country', 'preview' , 'download'];
+  finalReportsColumns: string[] = [ 'siteCD', 'siteName', 'personIncharge', 'contactNumber', 'contactDetails', 'state', 'country', 'preview' , 'download'];
   finalReport_dataSource!: MatTableDataSource<Site[]>;
   @ViewChild('finalReportPaginator', { static: true }) finalReportPaginator!: MatPaginator;
   @ViewChild('finalReportSort', {static: true}) finalReportSort!: MatSort;

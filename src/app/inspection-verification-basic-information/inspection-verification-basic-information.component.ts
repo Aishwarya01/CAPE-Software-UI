@@ -201,6 +201,9 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
        this.reportDetails.previousRecords=this.step1List.reportDetails.previousRecords;
        this.step1List.evidenceAlterations=this.step1List.reportDetails.evidenceAlterations;
        this.reportDetails.limitations= this.step1List.reportDetails.limitations;
+       this.reportDetails.createdBy = this.step1List.reportDetails.createdBy;
+       this.reportDetails.createdDate = this.step1List.reportDetails.createdDate;
+       this.reportDetails.estimatedWireAge = this.step1List.reportDetails.estimatedWireAge;
        //this.showField2= this.step1List.reportDetails.evidanceWireAge,
        this.step1List.state=this.step1List.reportDetails.state;
        this.populateData();
@@ -483,8 +486,8 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       companyName: new FormControl('',[Validators.required]),
       addressLine1: new FormControl('',[Validators.required]),
-      addressLine2: new FormControl('',[Validators.required]),
-      landMark: new FormControl('',[Validators.required]),
+      addressLine2: new FormControl(''),
+      landMark: new FormControl(''),
       country: new FormControl('',[Validators.required]),
       state: new FormControl('',[Validators.required]),
       pinCode: new FormControl('',[Validators.required]),
@@ -571,8 +574,8 @@ designer2changeCountry(e: any) {
         managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
         companyName: new FormControl('',[Validators.required]),
         addressLine1: new FormControl('',[Validators.required]),
-        addressLine2: new FormControl('',[Validators.required]),
-        landMark: new FormControl('',[Validators.required]),
+        addressLine2: new FormControl(''),
+        landMark: new FormControl(''),
         country: new FormControl('',[Validators.required]),
         state: new FormControl('',[Validators.required]),
         pinCode: new FormControl('',[Validators.required]),
@@ -616,8 +619,8 @@ designer2changeCountry(e: any) {
       managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       companyName: new FormControl('',[Validators.required]),
       addressLine1: new FormControl('',[Validators.required]),
-      addressLine2: new FormControl('',[Validators.required]),
-      landMark: new FormControl('',[Validators.required]),
+      addressLine2: new FormControl(''),
+      landMark: new FormControl(''),
       country: new FormControl('',[Validators.required]),
       state: new FormControl('',[Validators.required]),
       pinCode: new FormControl('',[Validators.required]),
@@ -671,10 +674,10 @@ designer2changeCountry(e: any) {
     this.f.designer2Arr.controls[0].controls['companyName'].updateValueAndValidity();
     this.f.designer2Arr.controls[0].controls['addressLine1'].setValidators(Validators.required);
     this.f.designer2Arr.controls[0].controls['addressLine1'].updateValueAndValidity();
-    this.f.designer2Arr.controls[0].controls['addressLine2'].setValidators(Validators.required);
-    this.f.designer2Arr.controls[0].controls['addressLine2'].updateValueAndValidity();
-    this.f.designer2Arr.controls[0].controls['landMark'].setValidators(Validators.required);
-    this.f.designer2Arr.controls[0].controls['landMark'].updateValueAndValidity();
+    // this.f.designer2Arr.controls[0].controls['addressLine2'].setValidators(Validators.required);
+    // this.f.designer2Arr.controls[0].controls['addressLine2'].updateValueAndValidity();
+    // this.f.designer2Arr.controls[0].controls['landMark'].setValidators(Validators.required);
+    // this.f.designer2Arr.controls[0].controls['landMark'].updateValueAndValidity();
     this.f.designer2Arr.controls[0].controls['country'].setValidators(Validators.required);
     this.f.designer2Arr.controls[0].controls['country'].updateValueAndValidity();
     this.f.designer2Arr.controls[0].controls['state'].setValidators(Validators.required);
@@ -702,10 +705,10 @@ designer2changeCountry(e: any) {
     this.f.designer2Arr.controls[0].controls['companyName'].updateValueAndValidity();
     this.f.designer2Arr.controls[0].controls['addressLine1'].clearValidators();
     this.f.designer2Arr.controls[0].controls['addressLine1'].updateValueAndValidity();
-    this.f.designer2Arr.controls[0].controls['addressLine2'].clearValidators();
-    this.f.designer2Arr.controls[0].controls['addressLine2'].updateValueAndValidity();
-    this.f.designer2Arr.controls[0].controls['landMark'].clearValidators();
-    this.f.designer2Arr.controls[0].controls['landMark'].updateValueAndValidity();
+    // this.f.designer2Arr.controls[0].controls['addressLine2'].clearValidators();
+    // this.f.designer2Arr.controls[0].controls['addressLine2'].updateValueAndValidity();
+    // this.f.designer2Arr.controls[0].controls['landMark'].clearValidators();
+    // this.f.designer2Arr.controls[0].controls['landMark'].updateValueAndValidity();
     this.f.designer2Arr.controls[0].controls['country'].clearValidators();
     this.f.designer2Arr.controls[0].controls['country'].updateValueAndValidity();
     this.f.designer2Arr.controls[0].controls['state'].clearValidators();
