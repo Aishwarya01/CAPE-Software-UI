@@ -165,7 +165,7 @@ onSubmit() {
     
   this.inspectorRegisterService.registerInspector(this.register).subscribe(
     data=> {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/inspectorupdatepassword']);
     },
     error => {
       this.loading= false;
