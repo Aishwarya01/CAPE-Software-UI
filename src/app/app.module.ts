@@ -53,6 +53,9 @@ import { InspectorRegistrationComponent } from './inspector-registration/inspect
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 import { UserUpdateComponent } from './user-update/user-update.component';
+import { InspectorUpdatePasswordComponent } from './inspector-update-password/inspector-update-password.component';
+import { AngularWebStorageModule } from 'angular-web-storage';
+import { NgOtpInputModule } from 'ng-otp-input';
 
 @NgModule({
   declarations: [
@@ -85,7 +88,8 @@ import { UserUpdateComponent } from './user-update/user-update.component';
     SavedreportsComponent,
     FinalreportsComponent,
     InspectorRegistrationComponent,
-    UserUpdateComponent
+    UserUpdateComponent,
+    InspectorUpdatePasswordComponent
   ],
   imports: [
     NgbModule,
@@ -104,11 +108,15 @@ import { UserUpdateComponent } from './user-update/user-update.component';
     MatMenuModule,
     MaterialModule,
     NgxPrintModule,
+    AngularWebStorageModule,
+   // SessionStorageModule,
     Ng2TelInputModule,
     NgxBootstrapIconsModule.pick(allIcons),
-    NgMultiSelectDropDownModule.forRoot()
-
+    NgMultiSelectDropDownModule.forRoot(),
+    NgOtpInputModule
+    
   ],
+ // exports: [WebStorageCodec, WebStorageCodec, SessionStorage],
   providers: [GlobalsService, { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }],
   bootstrap: [AppComponent],
   entryComponents: [ AddApplicationTypesComponent, UpdateApplicationTypesComponent, VerificationlvComponent ]

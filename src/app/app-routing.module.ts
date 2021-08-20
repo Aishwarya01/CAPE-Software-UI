@@ -13,6 +13,7 @@ import { AddApplicationTypesComponent } from './add-application-types/add-applic
 import { VerificationlvComponent } from './verificationlv/verificationlv.component';
 import { LvInspectionDetailsComponent } from './lv-inspection-details/lv-inspection-details.component';
 import { InspectorRegistrationComponent } from './inspector-registration/inspector-registration.component';
+import { InspectorUpdatePasswordComponent } from './inspector-update-password/inspector-update-password.component';
 
 const routes: Routes = [
   {path: '', redirectTo: "/login", pathMatch: 'full' },
@@ -29,8 +30,8 @@ const routes: Routes = [
   {path: 'addApplicationType', component: AddApplicationTypesComponent},
   {path: 'home',component:HomeComponent, canActivate:[AuthenticationGuard]},
   {path: 'verificationlv',component:VerificationlvComponent},
-  {path: 'inspectorregister',component:InspectorRegistrationComponent}
-
+  {path: 'inspectorregister',component:InspectorRegistrationComponent},
+  {path: 'inspectorupdatepassword',component:InspectorUpdatePasswordComponent}
 
 ];
 
