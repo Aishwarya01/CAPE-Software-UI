@@ -1,12 +1,12 @@
 export class TestingDetails{
   siteId!: number;
   userName!: String;
+  testingReportId!: number;
+  createdBy!: String;
+  createdDate!: Date;
+  updatedBy!: String;
+  updatedDate!: Date;
   testing!:Testing[];
-    
-  
-
-
- 
 }
 export class Testing{
   locationNumber!: String;
@@ -23,9 +23,6 @@ export class Testing{
   Impedance!: String;
   testDistribution!:TestDistribution[];
   testingRecords!: TestingRecords[];
-
-  
- 
 }
 
  

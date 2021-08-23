@@ -24,6 +24,7 @@ import { InspectionVerificationIncomingEquipmentComponent } from '../inspection-
 import { GlobalsService } from '../globals.service';
 import { Location } from '../model/location';
 import { SiteService } from '../services/site.service';
+import { InspectionVerificationService } from '../services/inspection-verification.service';
 @Component({
   selector: 'app-inspection-verification-testing',
   templateUrl: './inspection-verification-testing.component.html',
@@ -55,6 +56,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   //@Input()
   siteId!: number;
   rateValueArr: any=[];
+  testingRecordTableArr: any = [];
 
   locationNameList: any = [];
   distributionIncomingValueArr: any = [];
@@ -111,7 +113,8 @@ export class InspectionVerificationTestingComponent implements OnInit {
     private modalService: NgbModal,
     private router: ActivatedRoute,
     private inspectionDetailsService: InspectiondetailsService,
-    private siteService: SiteService
+    private siteService: SiteService,
+    private UpateInspectionService: InspectionVerificationService,
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
   }
@@ -147,6 +150,10 @@ export class InspectionVerificationTestingComponent implements OnInit {
       this.testingRetrieve=true;
       this.inspectionRetrieve=false;
       this.testList = JSON.parse(data);
+      this.testingDetails.siteId = siteId;
+      this.testingDetails.testingReportId = this.testList.testingReport.testingReportId;
+      this.testingDetails.createdBy = this.testList.testingReport.createdBy;
+      this.testingDetails.createdDate = this.testList.testingReport.createdDate;
       this.populateData();
 
       this.flag=true;
@@ -166,6 +173,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
     
     createGroup(item: any): FormGroup {
       return this.formBuilder.group({
+        testingId: new FormControl({disabled: false,value: item.testingId}),
         locationNumber: new FormControl({disabled: false,value: item.locationNumber}),
         locationName: new FormControl({disabled: false,value:  item.locationName}),
         testEngineerName: new FormControl({disabled: false,value:  item.testEngineerName}),
@@ -179,21 +187,20 @@ export class InspectionVerificationTestingComponent implements OnInit {
         rcd: new FormControl({disabled: false,value: item.rcd}),
         earthElectrodeResistance: new FormControl({disabled: false,value: item.earthElectrodeResistance}),
         testDistribution: this.formBuilder.array([this.populateTestDistributionForm(item.testDistribution)]),
-        testingRecords: this.formBuilder.array([this.createtestValueForm()]),
+        testingRecords: this.formBuilder.array(this.populateTestRecordsForm(item.testingRecords)),
       });
     }
 
     private populateTestDistributionForm(testDistributionItem: any): FormGroup {
-     // this.onKeyRating(testDistributionItem[0].ratingsAmps);
-     debugger
       return new FormGroup({
+        distributionId: new FormControl({disabled: false,value: testDistributionItem[0].distributionId}),
         distributionBoardDetails: new FormControl({disabled: false,value: testDistributionItem[0].distributionBoardDetails}),
         referance: new FormControl({disabled: false,value: testDistributionItem[0].referance}),
         location: new FormControl({disabled: false,value: testDistributionItem[0].location}),
         correctSupplyPolarity: new FormControl({disabled: false,value: testDistributionItem[0].correctSupplyPolarity}),
         numOutputCircuitsUse: new FormControl({disabled: false,value: testDistributionItem[0].numOutputCircuitsUse}),
         ratingsAmps: new FormControl({disabled: false,value: testDistributionItem[0].ratingsAmps}),
-        rateArr: this.formBuilder.array([this.populateRating(testDistributionItem[0].ratingsAmps)]),
+        rateArr: this.formBuilder.array(this.populateRating(testDistributionItem[0].ratingsAmps)),
         numOutputCircuitsSpare: new FormControl({disabled: false,value: testDistributionItem[0].numOutputCircuitsSpare}),
         installedEquipmentVulnarable: new FormControl({disabled: false,value: testDistributionItem[0].installedEquipmentVulnarable}),
         incomingVoltage: new FormControl({disabled: false,value: testDistributionItem[0].incomingVoltage}),
@@ -206,7 +213,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
     }
     private populateRating(ratingAmps: any) {
       let ratingsAmpsArray= [];
-      debugger
+      this.rateValueArr = [];
       ratingsAmpsArray= ratingAmps.split(",");
       for(let i =0; i<ratingsAmpsArray.length; i++) {
         this.rateValueArr.push(this.populateratingAmps(ratingsAmpsArray[i]));
@@ -223,9 +230,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
       let incomingVoltageArray= [];
       let incomingZsArray = [];
       let incomingIpfArray= [];
-      
-        debugger
-        console.log(incomingIpf);
+
       incomingVoltageArray= incomingVoltage.split(",");
       incomingZsArray=  incomingZs.split(",");
       incomingIpfArray=   incomingIpf.split(",");
@@ -265,134 +270,98 @@ export class InspectionVerificationTestingComponent implements OnInit {
         incomingIpf9:new FormControl({disabled: false,value:item[2][8]}),
       });
     }
-    private populateTestRecordsForm(testRecordsItem: any): FormGroup {
-      // let nominalVoltageAL= [];
-      // let nominalFrequencyAL = [];
-      // let faultCurrentAL= [];
-      // let  loopImpedanceAL= [];
-      // let  installedCapacityAL= [];
-      // let  actualLoadAL= [];
+    private populateTestRecordsForm(testRecordsItem: any){
       
-      // nominalVoltageAL= nominalVoltage.split(",");
-      // nominalFrequencyAL=   nominalFrequency.split(",");
-      // faultCurrentAL=   faultCurrent.split(",");
-      // loopImpedanceAL=  loopImpedance.split(",");
-      // installedCapacityAL=  installedCapacity.split(",");
-      // actualLoadAL=   actualLoad.split(",");
+      let disconnectionTimeArr = [];
+      let testFaultCurrentArr  = [];
+      let testLoopImpedanceArr = [];
+      let testVoltageArr = [];
+      this.testingRecordTableArr = [];
+
+      for(let item of testRecordsItem) {
+        disconnectionTimeArr=  item.disconnectionTime.split(",");
+        testFaultCurrentArr = item.testFaultCurrent.split(",");
+        testLoopImpedanceArr = item.testLoopImpedance.split(",");
+        testVoltageArr = item.testVoltage.split(",");
+        
+        this.testingRecordTableArr.push(this.pushTestingTable(item,disconnectionTimeArr,testFaultCurrentArr,testLoopImpedanceArr,testVoltageArr))
+      }
 
       // let item = [];
       // item.push(nominalVoltageAL,nominalFrequencyAL,faultCurrentAL,loopImpedanceAL,installedCapacityAL,actualLoadAL);
+      return this.testingRecordTableArr
+    }
+
+    pushTestingTable(itemTestingValue: any,disconnectionTimeArr: any,testFaultCurrentArr: any,testLoopImpedanceArr: any,testVoltageArr: any) : FormGroup {
       return new FormGroup({
-        circuitNo: new FormControl({disabled: false,value: testRecordsItem.circuitNo}),
-        circuitDesc: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        circuitStandardNo: new FormControl({disabled: false,value: testRecordsItem.circuitStandardNo}),
-        circuitType: new FormControl({disabled: false,value: testRecordsItem.circuitType}),
-        circuitRating: new FormControl({disabled: false,value: testRecordsItem.circuitRating}),
-        circuitBreakingCapacity: new FormControl({disabled: false,value: testRecordsItem.circuitBreakingCapacity}),
-        conductorInstallation: new FormControl({disabled: false,value: testRecordsItem.conductorInstallation}),
-        conductorLive: new FormControl({disabled: false,value: testRecordsItem.conductorLive}),
-        conductorPecpc: new FormControl({disabled: false,value: testRecordsItem.conductorPecpc}),
-        continutiyApproximateLength: new FormControl({disabled: false,value: testRecordsItem.continutiyApproximateLength}),
-        continutiyRR: new FormControl({disabled: false,value: testRecordsItem.continutiyRR}),
-        continutiyR: new FormControl({disabled: false,value: testRecordsItem.continutiyR}),
-        continutiyLL: new FormControl({disabled: false,value: testRecordsItem.continutiyLL}),
-        continutiyLE: new FormControl({disabled: false,value: testRecordsItem.continutiyLE}),
-        continutiyPolarity: new FormControl({disabled: false,value: testRecordsItem.continutiyPolarity}),
-        ryVoltage: new FormControl({disabled: false,value: testRecordsItem.ryVoltage}),
-        rbVoltage: new FormControl({disabled: false,value: testRecordsItem.rbVoltage}),
-        ybVoltage: new FormControl({disabled: false,value: testRecordsItem.ybVoltage}),
-        rnVoltage: new FormControl({disabled: false,value: testRecordsItem.rnVoltage}),
-        ynVoltage: new FormControl({disabled: false,value: testRecordsItem.ynVoltage}),
-        bnVoltage: new FormControl({disabled: false,value: testRecordsItem.bnVoltage}),
-        rpeVoltage: new FormControl({disabled: false,value: testRecordsItem.rpeVoltage}),
-        ypeVoltage: new FormControl({disabled: false,value: testRecordsItem.ypeVoltage}),
-        bpeVoltage: new FormControl({disabled: false,value: testRecordsItem.bpeVoltage}),
-        ryLoopImpedance: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        rbLoopImpedance: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        ybLoopImpedance: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        rnLoopImpedance: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        ynLoopImpedance: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        bnLoopImpedance: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        rpeLoopImpedance: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        ypeLoopImpedance: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        bpeLoopImpedance: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        ryFaultCurrent: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        rbFaultCurrent: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        ybFaultCurrent: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        rnFaultCurrent: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        ynFaultCurrent: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        bnFaultCurrent: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        rpeFaultCurrent: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        ypeFaultCurrent: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        bpeFaultCurrent: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        ryDisconnect: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        rbDisconnect: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        ybDisconnect: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        rnDisconnect: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        ynDisconnect: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        bnDisconnect: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        rpeDisconnect: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        ypeDisconnect: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        bpeDisconnect: new FormControl({disabled: false,value: testRecordsItem.distributionBoardDetails}),
-        testVoltage: new FormControl({disabled: false,value: testRecordsItem.testVoltage}),
-        testLoopImpedance: new FormControl({disabled: false,value: testRecordsItem.testLoopImpedance}),
-        testFaultCurrent: new FormControl({disabled: false,value: testRecordsItem.testFaultCurrent}),
-        disconnectionTime: new FormControl({disabled: false,value: testRecordsItem.disconnectionTime}),
-        rcdCurrent: new FormControl({disabled: false,value: testRecordsItem.rcdCurrent}),
-        rcdOperatingCurrent: new FormControl({disabled: false,value: testRecordsItem.rcdOperatingCurrent}),
-        rcdOperatingFiveCurrent: new FormControl({disabled: false,value: testRecordsItem.rcdOperatingFiveCurrent}),
-        rcdTestButtonOperation: new FormControl({disabled: false,value: testRecordsItem.rcdTestButtonOperation}),
-        rcdRemarks: new FormControl({disabled: false,value: testRecordsItem.rcdRemarks}),
+        testingRecordId: new FormControl({disabled: false,value: itemTestingValue.testingRecordId}),
+        circuitNo: new FormControl({disabled: false,value: itemTestingValue.circuitNo}),
+        circuitDesc: new FormControl({disabled: false,value: itemTestingValue.circuitDesc}),
+        circuitStandardNo: new FormControl({disabled: false,value: itemTestingValue.circuitStandardNo}),
+        circuitType: new FormControl({disabled: false,value: itemTestingValue.circuitType}),
+        circuitRating: new FormControl({disabled: false,value: itemTestingValue.circuitRating}),
+        circuitBreakingCapacity: new FormControl({disabled: false,value: itemTestingValue.circuitBreakingCapacity}),
+        conductorInstallation: new FormControl({disabled: false,value: itemTestingValue.conductorInstallation}),
+        conductorLive: new FormControl({disabled: false,value: itemTestingValue.conductorLive}),
+        conductorPecpc: new FormControl({disabled: false,value: itemTestingValue.conductorPecpc}),
+        continutiyApproximateLength: new FormControl({disabled: false,value: itemTestingValue.continutiyApproximateLength}),
+        continutiyRR: new FormControl({disabled: false,value: itemTestingValue.continutiyRR}),
+        continutiyR: new FormControl({disabled: false,value: itemTestingValue.continutiyR}),
+        continutiyLL: new FormControl({disabled: false,value: itemTestingValue.continutiyLL}),
+        continutiyLE: new FormControl({disabled: false,value: itemTestingValue.continutiyLE}),
+        continutiyPolarity: new FormControl({disabled: false,value: itemTestingValue.continutiyPolarity}),
+        ryVoltage: new FormControl({disabled: false,value: testVoltageArr[0]}),
+        rbVoltage: new FormControl({disabled: false,value: testVoltageArr[1]}),
+        ybVoltage: new FormControl({disabled: false,value: testVoltageArr[2]}),
+        rnVoltage: new FormControl({disabled: false,value: testVoltageArr[3]}),
+        ynVoltage: new FormControl({disabled: false,value: testVoltageArr[4]}),
+        bnVoltage: new FormControl({disabled: false,value: testVoltageArr[5]}),
+        rpeVoltage: new FormControl({disabled: false,value: testVoltageArr[6]}),
+        ypeVoltage: new FormControl({disabled: false,value: testVoltageArr[7]}),
+        bpeVoltage: new FormControl({disabled: false,value: testVoltageArr[8]}),
+
+        ryLoopImpedance: new FormControl({disabled: false,value: testLoopImpedanceArr[0]}),
+        rbLoopImpedance: new FormControl({disabled: false,value: testLoopImpedanceArr[1]}),
+        ybLoopImpedance: new FormControl({disabled: false,value: testLoopImpedanceArr[2]}),
+        rnLoopImpedance: new FormControl({disabled: false,value: testLoopImpedanceArr[3]}),
+        ynLoopImpedance: new FormControl({disabled: false,value: testLoopImpedanceArr[4]}),
+        bnLoopImpedance: new FormControl({disabled: false,value: testLoopImpedanceArr[5]}),
+        rpeLoopImpedance: new FormControl({disabled: false,value: testLoopImpedanceArr[6]}),
+        ypeLoopImpedance: new FormControl({disabled: false,value: testLoopImpedanceArr[7]}),
+        bpeLoopImpedance: new FormControl({disabled: false,value: testLoopImpedanceArr[8]}),
+
+        ryFaultCurrent: new FormControl({disabled: false,value: testFaultCurrentArr[0]}),
+        rbFaultCurrent: new FormControl({disabled: false,value: testFaultCurrentArr[1]}),
+        ybFaultCurrent: new FormControl({disabled: false,value: testFaultCurrentArr[2]}),
+        rnFaultCurrent: new FormControl({disabled: false,value: testFaultCurrentArr[3]}),
+        ynFaultCurrent: new FormControl({disabled: false,value: testFaultCurrentArr[4]}),
+        bnFaultCurrent: new FormControl({disabled: false,value: testFaultCurrentArr[5]}),
+        rpeFaultCurrent: new FormControl({disabled: false,value: testFaultCurrentArr[6]}),
+        ypeFaultCurrent: new FormControl({disabled: false,value: testFaultCurrentArr[7]}),
+        bpeFaultCurrent: new FormControl({disabled: false,value: testFaultCurrentArr[8]}),
+
+        ryDisconnect: new FormControl({disabled: false,value: disconnectionTimeArr[0]}),
+        rbDisconnect: new FormControl({disabled: false,value: disconnectionTimeArr[1]}),
+        ybDisconnect: new FormControl({disabled: false,value: disconnectionTimeArr[2]}),
+        rnDisconnect: new FormControl({disabled: false,value: disconnectionTimeArr[3]}),
+        ynDisconnect: new FormControl({disabled: false,value: disconnectionTimeArr[4]}),
+        bnDisconnect: new FormControl({disabled: false,value: disconnectionTimeArr[5]}),
+        rpeDisconnect: new FormControl({disabled: false,value: disconnectionTimeArr[6]}),
+        ypeDisconnect: new FormControl({disabled: false,value: disconnectionTimeArr[7]}),
+        bpeDisconnect: new FormControl({disabled: false,value: disconnectionTimeArr[8]}),
+        
+        testVoltage: new FormControl({disabled: false,value: itemTestingValue.testVoltage}),
+        testLoopImpedance: new FormControl({disabled: false,value: itemTestingValue.testLoopImpedance}),
+        testFaultCurrent: new FormControl({disabled: false,value: itemTestingValue.testFaultCurrent}),
+        disconnectionTime: new FormControl({disabled: false,value: itemTestingValue.disconnectionTime}),
+        rcdCurrent: new FormControl({disabled: false,value: itemTestingValue.rcdCurrent}),
+        rcdOperatingCurrent: new FormControl({disabled: false,value: itemTestingValue.rcdOperatingCurrent}),
+        rcdOperatingFiveCurrent: new FormControl({disabled: false,value: itemTestingValue.rcdOperatingFiveCurrent}),
+        rcdTestButtonOperation: new FormControl({disabled: false,value: itemTestingValue.rcdTestButtonOperation}),
+        rcdRemarks: new FormControl({disabled: false,value: itemTestingValue.rcdRemarks}),
       });
     }
-    onKeyRating(event: any) {
-      debugger
-      this.value = event;
-      this.testingRecords = this.testingRecords as FormArray;
-      this.rateArr = this.rateArr as FormArray;
-      if (this.testingRecords.length == 0 && this.rateArr.length == 0) {
-        if (this.value != '') {
-          for (this.i = 1; this.i < this.value; this.i++) {
-            this.testingRecords.push(this.createtestValueForm());
-            this.rateArr.push(this.ratingAmps());
-          }
-        }
-      } else if (this.value == '') {
-        this.loclength = this.testingRecords.length;
-        this.loclength = this.rateArr.length;
-  
-        for (this.i = 1; this.i < this.loclength; this.i++) {
-          this.testingRecords.removeAt(this.testingRecords.length - 1);
-          this.rateArr.removeAt(this.rateArr.length - 1);
-        }
-      } else if (
-        this.testingRecords.length < this.value &&
-        this.rateArr.length < this.value
-      ) {
-        if (this.value != '') {
-          this.delarr = this.value - this.testingRecords.length;
-          this.delarr = this.value - this.rateArr.length;
-  
-          for (this.i = 0; this.i < this.delarr; this.i++) {
-            this.testingRecords.push(this.createtestValueForm());
-            this.rateArr.push(this.ratingAmps());
-          }
-        }
-      } else
-        this.testingRecords.length > this.value &&
-          this.rateArr.length > this.value;
-      {
-        if (this.value != '') {
-          this.delarr = this.testingRecords.length - this.value;
-          this.delarr = this.rateArr.length - this.value;
-  
-          for (this.i = 0; this.i < this.delarr; this.i++) {
-            this.testingRecords.removeAt(this.testingRecords.length - 1);
-            this.rateArr.removeAt(this.rateArr.length - 1);
-          }
-        }
-      }
-    }
+
   getdistributionIncomingValueControls(form: any) {
     return form.controls.distributionIncomingValueArr?.controls;
   }
@@ -658,7 +627,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
     }
   }
   nextTab(flag:any) {
-    this.testingDetails.siteId = this.service.siteCount;
+    if(!flag) {
+      this.testingDetails.siteId = this.service.siteCount;
+    }
     this.testingDetails.userName = this.email;
     this.submitted = true;
     if (this.testingForm.invalid) {
@@ -924,23 +895,33 @@ export class InspectionVerificationTestingComponent implements OnInit {
       }
     }
     this.testingDetails.testing = this.testingForm.value.testaccordianArr;
-
-    this.testingService.savePeriodicTesting(this.testingDetails).subscribe(
-      (data) => {
-        this.proceedNext.emit(true);
-        // show success message ofter click button
-        this.success = true;
-        this.successMsg = data;
-        this.disable = true;
-      },
-      (error) => {
-        this.Error = true;
-        // show error button
-        this.proceedNext.emit(false);
-        this.errorArr = [];
-        this.errorArr = JSON.parse(error.error);
-        this.errorMsg = this.errorArr.message;
-      }
-    );
+    if(flag) {
+      this.UpateInspectionService.updateTesting(this.testingDetails).subscribe(
+        (data) => {
+          console.log("success");
+        },
+        (error) => {
+          console.log("error");
+        });
+    }
+    else {
+      this.testingService.savePeriodicTesting(this.testingDetails).subscribe(
+        (data) => {
+          this.proceedNext.emit(true);
+          // show success message ofter click button
+          this.success = true;
+          this.successMsg = data;
+          this.disable = true;
+        },
+        (error) => {
+          this.Error = true;
+          // show error button
+          this.proceedNext.emit(false);
+          this.errorArr = [];
+          this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.errorArr.message;
+        }
+      );
+    }
   }
 }
