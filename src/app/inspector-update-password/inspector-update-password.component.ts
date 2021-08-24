@@ -33,18 +33,22 @@ export class InspectorUpdatePasswordComponent implements OnInit {
   @ViewChildren('formRow') rows: any;
   OTPerrorMsg: any;
   OTPerrorMsgflag: boolean=false;
+  SubmitSuccessMsg: boolean=false;
   constructor(
     private formBuilder: FormBuilder,
     private route: Router,
     private router: ActivatedRoute,
     public sessionStorage: SessionStorageService,
     public updateInspectorService: InspectorregisterService,
+
   ) {
     this.loginForm = this.toFormGroup(this.formInput);
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
     this.updateInspectorService.retrieveInspector(this.email).subscribe(
       data =>{ 
         this.inspector = JSON.parse(data);
+        this.updatePassInspector.otpSession = this.inspector.otpSessionKey;
+
       }
     ) 
    }
@@ -65,7 +69,6 @@ export class InspectorUpdatePasswordComponent implements OnInit {
       input5:[''],
       input6:['']
   });
-
   }
 
   config = {
@@ -129,6 +132,8 @@ clear() {
        setTimeout(()=>{
         this.showOTPMessage=false;
       }, 3000);
+      this.updatePassInspector.otpSession = data;
+
       },
       error => {
       
@@ -136,6 +141,8 @@ clear() {
       ) 
   }
   onSubmit() {
+    debugger
+    console.log(this.updatePassInspector);
     this.submitted=true;
     if((this.loginForm.value.input1 == "") || (this.loginForm.value.input2 == "") || (this.loginForm.value.input3 == "") ||
      (this.loginForm.value.input4 == "") || (this.loginForm.value.input5 == "") || (this.loginForm.value.input6 == "")) {
@@ -153,10 +160,14 @@ clear() {
     this.otp= this.loginForm.value.input1+this.loginForm.value.input2+this.loginForm.value.input3+this.loginForm.value.input4
     +this.loginForm.value.input5+this.loginForm.value.input6;
     this.updatePassInspector.otp= this.otp;
-    this.updatePassInspector.otpSession = this.inspector.otpSessionKey;
     this.updatePassInspector.email=this.loginForm.value.emailId;
     this.updateInspectorService.createPasswordInspector(this.updatePassInspector).subscribe(
       data=> {
+        this.SubmitSuccessMsg=true;
+        setTimeout(()=>{
+          this.SubmitSuccessMsg=false;
+          this.route.navigate(['/login'])
+        }, 3000);
       },
       error => {
         let errorJSON= JSON.parse(error.error);
@@ -171,5 +182,4 @@ clear() {
       }
       ) 
   }
-
 }

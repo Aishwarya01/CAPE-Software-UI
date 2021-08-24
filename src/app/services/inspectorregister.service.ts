@@ -25,7 +25,7 @@ export class InspectorregisterService {
   }
 
   public  resendOTPInspector (mobilenumber: any): Observable<any> {
-    return this.http.put<any>(this.apiUrl+'/resendOtp'+'/'+mobilenumber,  { responseType: 'text' as 'json' })
+    return this.http.get<any>(this.apiUrl+'/resendOtp'+'/'+mobilenumber,  { responseType: 'text' as 'json' })
   }
 
   public  retrieveInspector (userName: any): Observable<any> {
