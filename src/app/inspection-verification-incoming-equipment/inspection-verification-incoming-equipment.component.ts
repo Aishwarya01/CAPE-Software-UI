@@ -96,9 +96,7 @@ export class InspectionVerificationIncomingEquipmentComponent
     this.refresh();
   }
 
-  retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any){ 
-    this.siteService.retrieveFinal(userName,siteId).subscribe(
-      data=> {
+  retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){ 
         this.step3List = JSON.parse(data);
         this.inspectionDetails.siteId = siteId;
         this.inspectionDetails.periodicInspectionId = this.step3List.periodicInspection.periodicInspectionId;
@@ -107,9 +105,6 @@ export class InspectionVerificationIncomingEquipmentComponent
 
         this.flag = true;
         this.populateData();
-      },
-      error => {
-      });
   }
 
   populateData() {

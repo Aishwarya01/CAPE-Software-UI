@@ -23,7 +23,7 @@ export class SavedreportsComponent implements OnInit {
   @ViewChild('savedReportPaginator', { static: true }) savedReportPaginator!: MatPaginator;
   @ViewChild('savedReportSort', {static: true}) savedReportSort!: MatSort;
 
-  @Output("changeTab") changeTab: EventEmitter<any> = new EventEmitter();
+  // @Output("changeTab") changeTab: EventEmitter<any> = new EventEmitter();
 
  
 
@@ -82,6 +82,7 @@ export class SavedreportsComponent implements OnInit {
   }
 
   continue(siteId: any,userName :any,clientName: any,departmentName: any,site: any) {
+    debugger
     this.verification.changeTab(1,siteId,userName,clientName,departmentName,site);
   }
   

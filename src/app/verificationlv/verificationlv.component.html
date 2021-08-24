@@ -1,4 +1,4 @@
-<mat-tab-group [selectedIndex]="selectedIndex">
+<mat-tab-group (selectedTabChange)="onTabChanged($event)" [selectedIndex]="selectedIndex">
   <mat-tab label="Company Details">
     <mat-horizontal-stepper #stepper>
       <mat-step>

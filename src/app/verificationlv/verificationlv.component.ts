@@ -39,6 +39,7 @@ import { InspectionVerificationTestingComponent } from '../inspection-verificati
 import { InspectionVerificationIncomingEquipmentComponent } from '../inspection-verification-incoming-equipment/inspection-verification-incoming-equipment.component';
 import { SummaryComponent } from '../summary/summary.component';
 import { InspectionVerificationSupplyCharacteristicsComponent } from '../inspection-verification-supply-characteristics/inspection-verification-supply-characteristics.component';
+import { MatTabGroup } from '@angular/material/tabs';
 @Component({
   selector: 'app-verificationlv',
   templateUrl: './verificationlv.component.html',
@@ -162,6 +163,8 @@ export class VerificationlvComponent implements OnInit {
   evidenceList: String[] = ['Yes', 'No', 'Not Apparent'];
   previousRecordList: String[] = ['Yes', 'No'];
 
+  @ViewChild(MatTabGroup) tabGroup!: MatTabGroup;
+
   isCompleted: boolean = false;
   isCompleted2: boolean = false;
   isCompleted4: boolean = false;
@@ -192,6 +195,9 @@ export class VerificationlvComponent implements OnInit {
   success2: boolean=false
   deleteMsg2: any;
   errorMsg2: any;
+  dataJSON: any = [];
+  conFlag: boolean=false;
+
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -518,12 +524,40 @@ export class VerificationlvComponent implements OnInit {
 
 //for saved reports tab
   changeTab(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any): void {
-    this.selectedIndex = index;
-    this.basic.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
-    this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
-    this.supply.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
-    this.testing.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
-    this.summary.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
+    debugger
+    this.siteService.retrieveFinal(userName,sitedId).subscribe(
+
+      data=> {
+        debugger
+        this.selectedIndex = index;
+        this.dataJSON = JSON.parse(data);
+        if(this.dataJSON.reportDetails != null) {
+          this.conFlag=true;
+          this.basic.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+        }
+        if(this.dataJSON.supplyCharacteristics != null) {
+          this.supply.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+        }
+        if(this.dataJSON.periodicInspection != null) {
+          this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+        }
+        if(this.dataJSON.testingReport != null) {
+          this.testing.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+        }
+        if(this.dataJSON.summary != null) {
+          this.summary.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+        }
+        this.selectedIndex=0;
+      },
+      error=> {
+
+      }
+    )
+    // this.basic.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
+    // this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
+    // this.supply.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
+    // this.testing.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
+    // this.summary.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
   }
 
 //for final reports tab
@@ -535,5 +569,16 @@ export class VerificationlvComponent implements OnInit {
     this.selectedIndex = 1;
     this.basic.changeTab(1,siteId,userName,clientName,departmentName,site);
   }
+
+  onTabChanged(e: any) {
+    if(!this.conFlag) {
+      debugger
+      console.log(e);
+      // this.selectedIndex = e.index;
+      console.log(this.tabGroup.selectedIndex);
+    }
+    
+  }
+
 
 }

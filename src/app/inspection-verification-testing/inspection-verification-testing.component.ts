@@ -144,9 +144,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
     }
   }
 
-  retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any){
-    this.siteService.retrieveFinal(userName,siteId).subscribe(
-      data=> {
+  retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
       this.testingRetrieve=true;
       this.inspectionRetrieve=false;
       this.testList = JSON.parse(data);
@@ -157,11 +155,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
       this.populateData();
 
       this.flag=true;
-      },
-      error => {
-       console.log("error")
-      }
-      )
      }
 
      populateData() {

@@ -160,9 +160,7 @@ export class SummaryComponent implements OnInit {
     this.ChangeDetectorRef.detectChanges();
   }
 
-  retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any){
-    this.siteService.retrieveFinal(userName,siteId).subscribe(
-      data=> {
+  retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
         
        this.summaryList = JSON.parse(data);
        this.summary.siteId = siteId;
@@ -201,12 +199,6 @@ export class SummaryComponent implements OnInit {
         overallAssessmentInstallation: this.summaryList.summary.overallAssessmentInstallation,
     })
     // this.flag=true;
-      },
-      error => {
-       console.log("error")
-      }
-      )
-
      }
 
      populateData() {

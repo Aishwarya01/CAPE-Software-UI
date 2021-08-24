@@ -183,12 +183,10 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 
  
   // Need to check this task
-  retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any){
-    this.siteService.retrieveFinal(userName,siteId).subscribe(
-      data=> {
-        this.siteDetails1 = true;
-        this.siteDetails = false;
-        this.clearSiteValidator();
+  retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
+       this.siteDetails1 = true;
+       this.siteDetails = false;
+       this.clearSiteValidator();
        console.log(data);
        this.step1List = JSON.parse(data);
        this.reportDetails.siteId = siteId;
@@ -260,11 +258,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
         limitations: this.step1List.reportDetails.limitations
     })
     this.flag=true;
-      },
-      error => {
-       console.log("error")
-      }
-      )
+      
      }
 
   clearSiteValidator() {

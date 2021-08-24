@@ -293,18 +293,13 @@ export class InspectionVerificationSupplyCharacteristicsComponent
     });
   }
 
-  retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any){
-    
-    this.siteService.retrieveFinal(userName,siteId).subscribe(
-      data=> {
-       console.log(data);
+  retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
+  
        this.step2List = JSON.parse(data);
        this.supplycharesteristic.siteId = siteId;
        this.supplycharesteristic.supplyCharacteristicsId = this.step2List.supplyCharacteristics.supplyCharacteristicsId;
        this.supplycharesteristic.createdBy = this.step2List.supplyCharacteristics.createdBy;
        this.supplycharesteristic.createdDate = this.step2List.supplyCharacteristics.createdDate;
-
-
        this.supplycharesteristic.alternativeSupply=this.step2List.supplyCharacteristics.alternativeSupply;
        this.showAlternateField(this.step2List.supplyCharacteristics.alternativeSupply);
        this.supplycharesteristic.electrodeMaterial=this.step2List.supplyCharacteristics.electrodeMaterial;
@@ -424,11 +419,6 @@ export class InspectionVerificationSupplyCharacteristicsComponent
           
        
       }
-      },
-      error => {
-       console.log("error")
-      }
-      )
      }
 
      populateData() {
