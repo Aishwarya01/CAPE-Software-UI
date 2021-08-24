@@ -31,7 +31,7 @@ const routes: Routes = [
   {path: 'home',component:HomeComponent, canActivate:[AuthenticationGuard]},
   {path: 'verificationlv',component:VerificationlvComponent},
   {path: 'inspectorregister',component:InspectorRegistrationComponent},
-  {path: 'inspectorupdatepassword',component:InspectorUpdatePasswordComponent}
+  {path: 'createPassword',component:InspectorUpdatePasswordComponent}
 
 ];
 

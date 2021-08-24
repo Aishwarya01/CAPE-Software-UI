@@ -1,8 +1,12 @@
-import{Component,OnInit }from'@angular/core';
+import{Component,OnInit,ViewChildren,ElementRef  }from'@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../model/user';
 import { SessionStorageService, SessionStorage } from 'angular-web-storage';
+import { InspectorregisterService } from '../services/inspectorregister.service';
+import { UpdatePasswordInspector } from '../model/update-password-inspector';
+import { Register } from '../model/register';
+
 @Component({
   selector: 'app-inspector-update-password',
   templateUrl: './inspector-update-password.component.html',
@@ -10,30 +14,58 @@ import { SessionStorageService, SessionStorage } from 'angular-web-storage';
 })
 export class InspectorUpdatePasswordComponent implements OnInit {
   loginForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl('')
+    emailId: new FormControl(''),
+    password: new FormControl(''),
+    confirmpassword: new FormControl(''),
+    otpValue: new FormControl('')
   });
   loading = false;
   submitted = false;
   user = new User();
-  showErrorMessage=false;
+  showErrorMessage: boolean=false;
+  showOTPValidation: boolean=false;
   otp: string="";
-
+  updatePassInspector=new UpdatePasswordInspector;
+  inspector = new Register;
+  email: String = "";
+  showOTPMessage: boolean=false;
+  formInput = ['input1', 'input2', 'input3', 'input4', 'input5', 'input6'];
+  @ViewChildren('formRow') rows: any;
+  OTPerrorMsg: any;
+  OTPerrorMsgflag: boolean=false;
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router,
-    public sessionStorage: SessionStorageService
-  ) { }
+    private route: Router,
+    private router: ActivatedRoute,
+    public sessionStorage: SessionStorageService,
+    public updateInspectorService: InspectorregisterService,
+  ) {
+    this.loginForm = this.toFormGroup(this.formInput);
+    this.email = this.router.snapshot.paramMap.get('email') || '{}'
+    this.updateInspectorService.retrieveInspector(this.email).subscribe(
+      data =>{ 
+        this.inspector = JSON.parse(data);
+      }
+    ) 
+   }
     KEY = 'InspectorUpdatePassword';
     value: any = null;
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ['', [
+      emailId: [this.email, [
         Validators.required,
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      confirmpassword: ['', Validators.required],
+      input1:[''],
+      input2:[''],
+      input3:[''],
+      input4:[''],
+      input5:[''],
+      input6:['']
   });
+
   }
 
   config = {
@@ -47,13 +79,32 @@ export class InspectorUpdatePasswordComponent implements OnInit {
       'height': '40px'
     }
   };
+  toFormGroup(elements:any) {
+    const group: any = {};
 
+    elements.forEach((key:any) => {
+      group[key] = new FormControl('', Validators.required);
+    });
+    return new FormGroup(group);
+  }
+  keyUpEvent(event:any, index:any) {
+    let pos = index;
+    if (event.keyCode === 8 && event.which === 8) {
+      pos = index - 1 ;
+    } else {
+      pos = index + 1 ;
+    }
+    if (pos > -1 && pos < this.formInput.length ) {
+      this.rows._results[pos].nativeElement.focus();
+    }
+
+  }
   onOtpChange(otp:any) {
     this.otp = otp;
   }
   submit() {
-    this.value=this.user.email;
-    this.sessionStorage.set(this.KEY, { email: this.user.email,newPassword:this.user.password});
+    this.value=this.updatePassInspector.email;
+    this.sessionStorage.set(this.KEY, { email: this.updatePassInspector.email,newPassword:this.updatePassInspector.password});
 }
 
 cancel() {
@@ -71,17 +122,54 @@ clear() {
   get f() {
     return this.loginForm.controls;
   }
-
+  resendOTP(){
+    this.updateInspectorService.resendOTPInspector(this.inspector.contactNumber).subscribe(
+      data=> {
+       this.showOTPMessage=true;
+       setTimeout(()=>{
+        this.showOTPMessage=false;
+      }, 3000);
+      },
+      error => {
+      
+      }
+      ) 
+  }
   onSubmit() {
     this.submitted=true;
-
-    //Breaks if form is invalid
-    if(this.loginForm.invalid) {
+    if((this.loginForm.value.input1 == "") || (this.loginForm.value.input2 == "") || (this.loginForm.value.input3 == "") ||
+     (this.loginForm.value.input4 == "") || (this.loginForm.value.input5 == "") || (this.loginForm.value.input6 == "")) {
+      this.showOTPValidation=true;
+      setTimeout(()=>{
+        this.showOTPValidation=false;
+      }, 3000);
       return;
     }
 
-    //this.loading=true;
- 
+    //Breaks if form is invalid
+    if(this.loginForm.invalid) {  
+      return;
+    }
+    this.otp= this.loginForm.value.input1+this.loginForm.value.input2+this.loginForm.value.input3+this.loginForm.value.input4
+    +this.loginForm.value.input5+this.loginForm.value.input6;
+    this.updatePassInspector.otp= this.otp;
+    this.updatePassInspector.otpSession = this.inspector.otpSessionKey;
+    this.updatePassInspector.email=this.loginForm.value.emailId;
+    this.updateInspectorService.createPasswordInspector(this.updatePassInspector).subscribe(
+      data=> {
+      },
+      error => {
+        let errorJSON= JSON.parse(error.error);
+        this.showErrorMessage=true;
+        this.OTPerrorMsg=errorJSON.message;
+        this.OTPerrorMsgflag=true;
+        setTimeout(()=>{
+          this.showErrorMessage=false;
+          this.OTPerrorMsgflag=false;
+          this.OTPerrorMsg=" "; 
+        }, 3000);
+      }
+      ) 
   }
 
 }

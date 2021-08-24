@@ -281,6 +281,8 @@
                 <input type="checkbox" formControlName="isActive" />
                 Active
             </div> -->
+            <span *ngIf="successMsgOTP" class="alert alert-success">Details successfully saved. OTP has been sent to your resgistered mobile number.</span>
+            <span *ngIf="errorMsgflag" class="alert alert-danger">{{errorMsg}}</span>
 
             <div style="display: inline;">
                 <button [disabled]="loading" [ngStyle]="{'cursor': loading ? 'not-allowed' : 'pointer'}" 
@@ -300,29 +302,6 @@
                     <div class="card-body">
                           <p class="errorshow" *ngIf="msg">{{msg}}</p>
                             <span class="invalid-feedback"></span>
-                            
-                            
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-                            
-                            
                     </div>
 
                 </div>

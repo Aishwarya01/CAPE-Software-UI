@@ -22,4 +22,5 @@ export class Register {
     updatedDate!: Date;
     updatedBy: String = '';
     adminUserName!: String;
+    otpSessionKey!: String;
 }

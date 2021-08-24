@@ -45,6 +45,9 @@ export class InspectorRegistrationComponent implements OnInit {
   selected: any;
   applicationTypeData: any="";
   register = new Register;
+  successMsgOTP: boolean=false;
+  errorMsg: any;
+  errorMsgflag: boolean=false;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -165,11 +168,22 @@ onSubmit() {
     
   this.inspectorRegisterService.registerInspector(this.register).subscribe(
     data=> {
-      this.router.navigate(['/inspectorupdatepassword']);
+      this.successMsgOTP=true;
+      setTimeout(()=>{
+        this.successMsgOTP=false;
+      }, 3000);
+      setTimeout(()=>{
+        this.router.navigate(['/createPassword', {email: this.register.username}])
+      }, 5000);
     },
     error => {
       this.loading= false;
-      console.log("error")
+      this.errorMsgflag=true;
+      this.errorMsg=error.error.message;
+      setTimeout(()=>{
+        this.errorMsgflag=false;
+        this.errorMsg=" ";
+      }, 3000);
     }
   )
 
