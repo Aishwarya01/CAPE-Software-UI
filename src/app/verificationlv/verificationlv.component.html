@@ -1,4 +1,4 @@
-<mat-tab-group (selectedTabChange)="onTabChanged($event)" [selectedIndex]="selectedIndex">
+<mat-tab-group [selectedIndex]="selectedIndex">
   <mat-tab label="Company Details">
     <mat-horizontal-stepper #stepper>
       <mat-step>
@@ -8,7 +8,7 @@
             <div class="card-header">
               <button class="btn btn-info" title="Add New Client" (click)="addClient()"
                 style="padding: 7px 10px 0px 10px;float: right;">
-                <!-- <mat-icon>add_box</mat-icon> -->
+                <!-- <mat-icon>add_box</mat-icon> (selectedTabChange)="onTabChanged($event)"-->
                 <mat-icon aria-hidden="false" aria-label="Example home icon">add_box</mat-icon>
               </button>
               <section class="example-section">

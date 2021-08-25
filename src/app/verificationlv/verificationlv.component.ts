@@ -525,6 +525,7 @@ export class VerificationlvComponent implements OnInit {
 //for saved reports tab
   changeTab(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any): void {
     debugger
+    this.selectedIndex=0;
     this.siteService.retrieveFinal(userName,sitedId).subscribe(
 
       data=> {
@@ -532,7 +533,7 @@ export class VerificationlvComponent implements OnInit {
         this.selectedIndex = index;
         this.dataJSON = JSON.parse(data);
         if(this.dataJSON.reportDetails != null) {
-          this.conFlag=true;
+         // this.conFlag=true;
           this.basic.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
         }
         if(this.dataJSON.supplyCharacteristics != null) {
@@ -547,7 +548,7 @@ export class VerificationlvComponent implements OnInit {
         if(this.dataJSON.summary != null) {
           this.summary.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
         }
-        this.selectedIndex=0;
+       // this.selectedIndex=0;
       },
       error=> {
 
@@ -570,15 +571,15 @@ export class VerificationlvComponent implements OnInit {
     this.basic.changeTab(1,siteId,userName,clientName,departmentName,site);
   }
 
-  onTabChanged(e: any) {
-    if(!this.conFlag) {
-      debugger
-      console.log(e);
-      // this.selectedIndex = e.index;
-      console.log(this.tabGroup.selectedIndex);
-    }
+  // onTabChanged(e: any) {
+  //   if(!this.conFlag) {
+  //     debugger
+  //     console.log(e);
+  //     this.selectedIndex = e.index;
+  //     //console.log(this.tabGroup.selectedIndex);
+  //   }
     
-  }
+  // }
 
 
 }
