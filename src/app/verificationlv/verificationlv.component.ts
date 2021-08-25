@@ -535,30 +535,25 @@ export class VerificationlvComponent implements OnInit {
         if(this.dataJSON.reportDetails != null) {
          // this.conFlag=true;
           this.basic.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
-        }
-        if(this.dataJSON.supplyCharacteristics != null) {
-          this.supply.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
-        }
-        if(this.dataJSON.periodicInspection != null) {
-          this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
-        }
-        if(this.dataJSON.testingReport != null) {
-          this.testing.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
-        }
-        if(this.dataJSON.summary != null) {
-          this.summary.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
-        }
-       // this.selectedIndex=0;
+          if(this.dataJSON.supplyCharacteristics != null) {
+            this.supply.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+            if(this.dataJSON.periodicInspection != null) {
+              this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+              if(this.dataJSON.testingReport != null) {
+                this.testing.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+                if(this.dataJSON.summary != null) {
+                  this.summary.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+                }
+              }
+            }
+          }
+          // this.selectedIndex=0;
+        }       
       },
       error=> {
 
       }
     )
-    // this.basic.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
-    // this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
-    // this.supply.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
-    // this.testing.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
-    // this.summary.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
   }
 
 //for final reports tab
