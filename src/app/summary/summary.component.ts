@@ -202,6 +202,7 @@ export class SummaryComponent implements OnInit {
      }
 
      populateData() {
+       this.arr = [];
       for (let item of this.summaryList.summary.summaryObervation) {
         this.arr.push(this.createGroup(item));
         

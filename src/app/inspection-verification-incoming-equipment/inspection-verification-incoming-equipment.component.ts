@@ -108,6 +108,7 @@ export class InspectionVerificationIncomingEquipmentComponent
   }
 
   populateData() {
+    this.arr = [];
     for (let item of this.step3List.periodicInspection.ipaoInspection) {
       this.arr.push(this.createGroup(item));
       

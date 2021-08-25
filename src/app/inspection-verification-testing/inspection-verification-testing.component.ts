@@ -158,6 +158,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
      }
 
      populateData() {
+       this.arr = [];
       for (let item of this.testList.testingReport.testing) {
         this.arr.push(this.createGroup(item));
       }

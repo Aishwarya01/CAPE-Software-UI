@@ -449,6 +449,12 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       this.supplycharesteristicForm.setControl('alternateArr', this.formBuilder.array(this.alArr || []))
       this.supplycharesteristicForm.setControl('circuitArr', this.formBuilder.array(this.circuitB || []))
       this.supplycharesteristicForm.setControl('circuitArr', this.formBuilder.array(this.circuitB || []))
+
+      this.arr1 = [];
+      this.arr2 = [];
+      this.arr3 = [];
+      this.alArr = [];
+      this.circuitB = []
     }
 
     createGroup(item: any): FormGroup {
