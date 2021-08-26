@@ -6,6 +6,7 @@ import { ApplicationTypeService } from '../services/application.service';
 import { Register } from '../model/register';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -170,7 +171,8 @@ onSubmit() {
   this.inspectorRegisterService.registerInspector(this.register).subscribe(
     data=> {
       this.successMsgOTP=true;
-      this.successMsg="Your application is successfully submitted. You will get mail once when it is approved. Check your e mail. It takes up to 36 hours for approval."
+      this.successMsg="Your application is successfully submitted. You will get mail once when it is approved. Check your e mail. It takes up to "
+      +environment.hoursOfGettingApproved+ "hours for approval."
       setTimeout(()=>{
         this.successMsgOTP=false;
       }, 3000);

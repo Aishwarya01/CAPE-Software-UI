@@ -7,7 +7,7 @@ export const environment = {
   environmentName: 'dev',
   apiUrl: 'http://localhost:5000/api/v1',
   apiUrl_v2: 'http://localhost:5000/api/v2',
-
+  hoursOfGettingApproved: 2
 };
 
 /*
