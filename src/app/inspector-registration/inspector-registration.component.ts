@@ -48,6 +48,7 @@ export class InspectorRegistrationComponent implements OnInit {
   successMsgOTP: boolean=false;
   errorMsg: any;
   errorMsgflag: boolean=false;
+  successMsg: string="";
 
 
   constructor(private formBuilder: FormBuilder,
@@ -169,6 +170,7 @@ onSubmit() {
   this.inspectorRegisterService.registerInspector(this.register).subscribe(
     data=> {
       this.successMsgOTP=true;
+      this.successMsg="Your application is successfully submitted. You will get mail once when it is approved. Check your e mail. It takes up to 36 hours for approval."
       setTimeout(()=>{
         this.successMsgOTP=false;
       }, 3000);

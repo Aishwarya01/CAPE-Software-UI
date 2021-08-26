@@ -281,7 +281,7 @@
                 <input type="checkbox" formControlName="isActive" />
                 Active
             </div> -->
-            <span *ngIf="successMsgOTP" class="alert alert-success">Details successfully saved. OTP has been sent to your resgistered mobile number.</span>
+            <span *ngIf="successMsgOTP" class="alert alert-success" style="margin: 0 auto;width: 70%;">{{successMsg}}</span>
             <span *ngIf="errorMsgflag" class="alert alert-danger">{{errorMsg}}</span>
 
             <div style="display: inline;">
