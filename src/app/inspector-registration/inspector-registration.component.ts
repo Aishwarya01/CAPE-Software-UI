@@ -33,7 +33,7 @@ export class InspectorRegistrationComponent implements OnInit {
     country: new FormControl(''),
     state: new FormControl(''),
     pinCode: new FormControl(''),
-    interestedArea: new FormControl(''),
+    userType: new FormControl(''),
     
   });
 
@@ -50,6 +50,7 @@ export class InspectorRegistrationComponent implements OnInit {
   errorMsg: any;
   errorMsgflag: boolean=false;
   successMsg: string="";
+  isEnabled: boolean = false;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -76,7 +77,7 @@ export class InspectorRegistrationComponent implements OnInit {
       country: ['', Validators.required],
       state: ['', Validators.required],
       pinCode: ['', Validators.required],
-      interestedArea: ['', Validators.required],
+      userType: ['', Validators.required],
     });
 
     // this.siteService.retrieveCountry().subscribe(
@@ -147,6 +148,22 @@ export class InspectorRegistrationComponent implements OnInit {
        
   }
 
+  onSelect(e: any) {
+    let selectedValue = e.target.value;
+    if(selectedValue == "viewer") {
+      debugger
+      this.isEnabled = false;
+      this.InspectorRegisterForm.value.applicationType = [];
+      this.InspectorRegisterForm.controls['applicationType'].clearValidators();
+      this.InspectorRegisterForm.controls['applicationType'].updateValueAndValidity();
+     }
+     else{
+       this.isEnabled = true;
+       this.InspectorRegisterForm.controls['applicationType'].setValidators(Validators.required);
+       this.InspectorRegisterForm.controls['applicationType'].updateValueAndValidity();
+     }
+  }
+
 onSubmit() {
   this.submitted = true;
   console.log(this.InspectorRegisterForm.value.applicationType)
@@ -159,14 +176,15 @@ onSubmit() {
 
   this.applicationTypeData = "";
 
-  for(let i of this.InspectorRegisterForm.value.applicationType) {
-    if(i.code != "") {
-      this.applicationTypeData += i.code+",";
+  if(this.InspectorRegisterForm.value.applicationType != undefined) {
+    for(let i of this.InspectorRegisterForm.value.applicationType) {
+      if(i.code != "") {
+        this.applicationTypeData += i.code+",";
+      }
     }
+    this.applicationTypeData = this.applicationTypeData.replace(/,\s*$/, "");
+    this.register.applicationType = this.applicationTypeData;
   }
-  this.applicationTypeData = this.applicationTypeData.replace(/,\s*$/, "");
-  this.register.applicationType = this.applicationTypeData;
-
     
   this.inspectorRegisterService.registerInspector(this.register).subscribe(
     data=> {
