@@ -91,5 +91,5 @@
 
       <mat-paginator #savedReportPaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
     </div>
-
+    <span *ngIf="noDetailsRec" class="errorshow" style="margin: 0 auto;">No details found for this Record</span>
   </div>

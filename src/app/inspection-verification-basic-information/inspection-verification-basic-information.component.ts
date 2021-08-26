@@ -254,7 +254,8 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
         limitations: this.step1List.reportDetails.limitations
     })
     this.flag=true;
-      
+   // this.disable=true;
+
      }
 
   clearSiteValidator() {
@@ -283,7 +284,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     } else {
       return true;
     }
-  }
+  } 
 
   //**Important */
   // Only AlphaNumeric with Some Characters [-_ ]
@@ -448,7 +449,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       signatorId: new FormControl({disabled: false ,value: item.signatorId}),
       personName: new FormControl({disabled: false ,value: item.personName}),
       personMailID: new FormControl({disabled: false, value: item.personMailID}),
-      personContactNo: new FormControl({disabled : true, value: item.personContactNo}),
+      personContactNo: new FormControl({disabled : false, value: item.personContactNo}),
       managerName: new FormControl({disabled: false ,value: item.managerName}),
       managerContactNo: new FormControl({disabled: true,value: item.managerContactNo}),
       managerMailID: new FormControl({disabled: false ,value: item.managerMailID}),
@@ -967,9 +968,11 @@ designer2changeCountry(e: any) {
     if(flag){
     //  this.reportDetails.siteId = this.retrivedSiteId;
      debugger
+     //this.disable=false;
    this.UpateBasicService.updateBasic(this.reportDetails).subscribe(
     data=> {
      console.log("worked");
+    
     },
     (error) => {
       console.log("error");

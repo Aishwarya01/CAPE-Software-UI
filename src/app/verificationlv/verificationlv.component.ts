@@ -40,6 +40,8 @@ import { InspectionVerificationIncomingEquipmentComponent } from '../inspection-
 import { SummaryComponent } from '../summary/summary.component';
 import { InspectionVerificationSupplyCharacteristicsComponent } from '../inspection-verification-supply-characteristics/inspection-verification-supply-characteristics.component';
 import { MatTabGroup } from '@angular/material/tabs';
+import { SavedreportsComponent } from '../savedreports/savedreports.component';
+
 @Component({
   selector: 'app-verificationlv',
   templateUrl: './verificationlv.component.html',
@@ -142,6 +144,10 @@ export class VerificationlvComponent implements OnInit {
   summary!: SummaryComponent;
   @ViewChild(InspectionVerificationSupplyCharacteristicsComponent)
   supply!: InspectionVerificationSupplyCharacteristicsComponent;
+
+  @ViewChild(SavedreportsComponent)
+  saved!: SavedreportsComponent;
+
   // Second Tab dependencies
   panelOpenState = false;
   installationList: String[] = [
@@ -197,6 +203,7 @@ export class VerificationlvComponent implements OnInit {
   errorMsg2: any;
   dataJSON: any = [];
   conFlag: boolean=false;
+  noDetails: boolean=false;
 
 
   constructor(
@@ -210,6 +217,7 @@ export class VerificationlvComponent implements OnInit {
     private siteService: SiteService,
     private ChangeDetectorRef: ChangeDetectorRef,
     public service: GlobalsService
+  
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
   }
@@ -529,26 +537,30 @@ export class VerificationlvComponent implements OnInit {
     this.siteService.retrieveFinal(userName,sitedId).subscribe(
 
       data=> {
-        debugger
-        this.selectedIndex = index;
+       // this.selectedIndex = index;
         this.dataJSON = JSON.parse(data);
         if(this.dataJSON.reportDetails != null) {
-         // this.conFlag=true;
+          this.selectedIndex = index;            
           this.basic.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
-          if(this.dataJSON.supplyCharacteristics != null) {
-            this.supply.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
-            if(this.dataJSON.periodicInspection != null) {
-              this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
-              if(this.dataJSON.testingReport != null) {
-                this.testing.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
-                if(this.dataJSON.summary != null) {
-                  this.summary.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
-                }
-              }
-            }
-          }
-          // this.selectedIndex=0;
-        }       
+           if(this.dataJSON.supplyCharacteristics != null) {
+             this.supply.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+             if(this.dataJSON.periodicInspection != null) {
+               this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+               if(this.dataJSON.testingReport != null) {
+                 this.testing.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+                 if(this.dataJSON.summary != null) {
+                   this.summary.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+                 }
+               }
+             }
+           }
+           // this.selectedIndex=0;
+         }   
+        else{
+          this.selectedIndex=2;
+          this.noDetails=true;
+          this.saved.savedContinue();
+        }   
       },
       error=> {
 

@@ -31,6 +31,8 @@ export class SavedreportsComponent implements OnInit {
   site = new Site;
   clientList:any  = [];
   departmentList: any = [];
+  noDetails: boolean=false;
+  noDetailsRec: boolean=false;
   
 
   constructor(private router: ActivatedRoute,
@@ -85,5 +87,13 @@ export class SavedreportsComponent implements OnInit {
     debugger
     this.verification.changeTab(1,siteId,userName,clientName,departmentName,site);
   }
-  
+  savedContinue()
+  {
+    if(this.verification.noDetails==true){
+    this.noDetailsRec=true;
+    setTimeout(() => {
+      this.noDetailsRec = false;
+    }, 3000);
+   }
+  }
 }
