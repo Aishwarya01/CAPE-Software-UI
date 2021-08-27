@@ -14,6 +14,7 @@ import { VerificationlvComponent } from './verificationlv/verificationlv.compone
 import { LvInspectionDetailsComponent } from './lv-inspection-details/lv-inspection-details.component';
 import { InspectorRegistrationComponent } from './inspector-registration/inspector-registration.component';
 import { InspectorUpdatePasswordComponent } from './inspector-update-password/inspector-update-password.component';
+import { GenerateOtpComponent } from './generate-otp/generate-otp.component';
 
 const routes: Routes = [
   {path: '', redirectTo: "/login", pathMatch: 'full' },
@@ -31,7 +32,9 @@ const routes: Routes = [
   {path: 'home',component:HomeComponent, canActivate:[AuthenticationGuard]},
   {path: 'verificationlv',component:VerificationlvComponent},
   {path: 'inspectorregister',component:InspectorRegistrationComponent},
-  {path: 'createPassword',component:InspectorUpdatePasswordComponent}
+  {path: 'createPassword',component:InspectorUpdatePasswordComponent},
+  {path: 'generateOTP',component:GenerateOtpComponent},
+
 
 ];
 

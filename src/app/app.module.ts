@@ -56,6 +56,7 @@ import { UserUpdateComponent } from './user-update/user-update.component';
 import { InspectorUpdatePasswordComponent } from './inspector-update-password/inspector-update-password.component';
 import { AngularWebStorageModule } from 'angular-web-storage';
 import { NgOtpInputModule } from 'ng-otp-input';
+import { GenerateOtpComponent } from './generate-otp/generate-otp.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import { NgOtpInputModule } from 'ng-otp-input';
     FinalreportsComponent,
     InspectorRegistrationComponent,
     UserUpdateComponent,
-    InspectorUpdatePasswordComponent
+    InspectorUpdatePasswordComponent,
+    GenerateOtpComponent
   ],
   imports: [
     NgbModule,
