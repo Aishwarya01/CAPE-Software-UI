@@ -35,4 +35,7 @@ export class ApplicationTypeService {
   public deleteApplicationType(id: number): Observable<any>{
     return this.http.delete(this.apiUrl+ '/deleteApplicationType'+'/'+ id)
   }
+  public retrieveApplicationTypesBasedOnUser(userName: String): Observable<any>{
+    return this.http.get<any>(this.apiUrlV2 + '/retrieveRegistration'+'/'+ userName)
+  }
 }

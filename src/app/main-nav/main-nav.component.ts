@@ -59,6 +59,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
   fullName: String = '';
   email: String = '';
+  userName: String = '';
+
   id: number = 0;
   type: String = '';
   code: String = '';
@@ -77,6 +79,9 @@ export class MainNavComponent implements OnInit, OnDestroy {
   //isExpanded: any;
   //isExpanded: any;
   selectedRowIndex = 0;
+  applicationTypesbasedonuser: string="";
+  ApplicationTypesSplit: any=[];
+  //ApplicationTypesSplit: ApplicationTypeSplit[] = [];
 
 
 
@@ -90,7 +95,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
     private applicationService: ApplicationTypeService,
     private modalService: NgbModal) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
-    this.retrieveApplicationTypes();
+  //  this.retrieveApplicationTypes();
+    this.retrieveApplicationTypesBasedOnUser(this.email);
     this.displayUserFullName(this.email);
     // set screenWidth on page load
     this.screenWidth = window.innerWidth;
@@ -135,6 +141,18 @@ export class MainNavComponent implements OnInit, OnDestroy {
       }
     );
   }
+
+  retrieveApplicationTypesBasedOnUser(email: String) {
+    this.applicationService.retrieveApplicationTypesBasedOnUser(email).subscribe(
+      data => {
+         this.applicationTypesbasedonuser = data.applicationType;
+        this.ApplicationTypesSplit=this.applicationTypesbasedonuser.split(',')
+      // this.ApplicationTypesSplit=data;
+      //this.ApplicationTypesSplit=this.applicationType.split(',')
+      }
+    );
+  }
+
 
   logout() {
     this.loginservice.logout();

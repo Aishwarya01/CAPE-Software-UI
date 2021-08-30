@@ -39,14 +39,14 @@
       position: absolute;">Add New Application Type</span>
     </div>
     <mat-nav-list>
-      <mat-list-item *ngFor="let type of applicationTypes"
+      <mat-list-item *ngFor="let type of ApplicationTypesSplit"
       [ngClass]="{'highlight': selectedRowIndex == type.id}"
       (click)="highlight(type)">
         <div class="col-md-2" style="position: sticky;">
         <button class="btn btn-info"
         style="float: left;padding: 3px 5px 3px 5px;
         margin: 5px 4px 5px -8px;">
-        <span>{{ type.applicationName }}</span>
+        <span>{{ type }}</span>
         </button>
         </div>
         <a class="logomain col-md-8">
