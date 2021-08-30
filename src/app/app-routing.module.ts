@@ -18,7 +18,7 @@ import { SingInPageComponent } from './signin-page/signin-page.component';
 import { GenerateOtpComponent } from './generate-otp/generate-otp.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: "/login", pathMatch: 'full' },
+  {path: '', redirectTo: "/SignIn", pathMatch: 'full' },
   // {
   //   path: 'home',
   //   component: LvInspectionDetailsComponent
