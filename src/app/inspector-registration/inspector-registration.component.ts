@@ -34,10 +34,10 @@ export class InspectorRegistrationComponent implements OnInit {
     state: new FormControl(''),
     pinCode: new FormControl(''),
     userType: new FormControl(''),
-    
+    terms: new FormControl('')
   });
 
-  loading = false;
+  loading = true;
   submitted = false;
   msg: any;
   alert: any;
@@ -51,6 +51,9 @@ export class InspectorRegistrationComponent implements OnInit {
   errorMsgflag: boolean=false;
   successMsg: string="";
   isEnabled: boolean = false;
+  isChecked: boolean = false;
+  countryCode: String = '';
+  contactNumber: string = '';
 
 
   constructor(private formBuilder: FormBuilder,
@@ -61,6 +64,7 @@ export class InspectorRegistrationComponent implements OnInit {
               ) { }
 
   ngOnInit(): void {
+    this.countryCode = '91';
 
     this.InspectorRegisterForm = this.formBuilder.group({
       name: ['', [Validators.required,]],
@@ -68,7 +72,7 @@ export class InspectorRegistrationComponent implements OnInit {
       email: ['', [
         Validators.required,
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-      contactNumber: ['', Validators.required],
+      contactNumber: ['', [Validators.required,Validators.maxLength(10)]],
       applicationType: ['', Validators.required],
       department: ['', Validators.required],
       designation: ['', Validators.required],
@@ -78,6 +82,7 @@ export class InspectorRegistrationComponent implements OnInit {
       state: ['', Validators.required],
       pinCode: ['', Validators.required],
       userType: ['', Validators.required],
+      terms: ['', Validators.required]
     });
 
     // this.siteService.retrieveCountry().subscribe(
@@ -148,9 +153,13 @@ export class InspectorRegistrationComponent implements OnInit {
        
   }
 
+  countryChange(country: any) {
+    this.countryCode = country.dialCode;
+  }
+
   onSelect(e: any) {
     let selectedValue = e.target.value;
-    if(selectedValue == "viewer") {
+    if(selectedValue == "Viewer") {
       debugger
       this.isEnabled = false;
       this.InspectorRegisterForm.value.applicationType = [];
@@ -164,6 +173,16 @@ export class InspectorRegistrationComponent implements OnInit {
      }
   }
 
+  showSubmit() {
+    debugger
+    if(this.isChecked) {
+      this.loading = false;
+    }
+    else{
+      this.loading = true;
+    }
+  }
+
 onSubmit() {
   this.submitted = true;
   console.log(this.InspectorRegisterForm.value.applicationType)
@@ -173,6 +192,10 @@ onSubmit() {
     return;
   }
   this.loading = true;
+  this.contactNumber = "";
+  this.contactNumber = "+"+this.countryCode+"-"+this.InspectorRegisterForm.value.contactNumber
+
+  this.register.contactNumber = this.contactNumber;
 
   this.applicationTypeData = "";
 
@@ -185,7 +208,7 @@ onSubmit() {
     this.applicationTypeData = this.applicationTypeData.replace(/,\s*$/, "");
     this.register.applicationType = this.applicationTypeData;
   }
-    
+  
   this.inspectorRegisterService.registerInspector(this.register).subscribe(
     data=> {
       this.successMsgOTP=true;

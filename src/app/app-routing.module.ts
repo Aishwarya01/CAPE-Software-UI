@@ -35,7 +35,7 @@ const routes: Routes = [
   {path: 'inspectorregister',component:InspectorRegistrationComponent},
   {path: 'createPassword',component:InspectorUpdatePasswordComponent},
   {path: 'SignIn',component:SingInPageComponent},
-  {path: 'generateOTP',component:GenerateOtpComponent},
+  {path: 'generateOtp',component:GenerateOtpComponent},
 
 
 ];
