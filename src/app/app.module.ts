@@ -58,6 +58,7 @@ import { AngularWebStorageModule } from 'angular-web-storage';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { SingInPageComponent } from './signin-page/signin-page.component';
 
+import { GenerateOtpComponent } from './generate-otp/generate-otp.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { SingInPageComponent } from './signin-page/signin-page.component';
     InspectorRegistrationComponent,
     UserUpdateComponent,
     InspectorUpdatePasswordComponent,
-    SingInPageComponent
+    SingInPageComponent,
+    GenerateOtpComponent
   ],
   imports: [
     NgbModule,

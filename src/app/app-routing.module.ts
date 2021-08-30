@@ -15,6 +15,7 @@ import { LvInspectionDetailsComponent } from './lv-inspection-details/lv-inspect
 import { InspectorRegistrationComponent } from './inspector-registration/inspector-registration.component';
 import { InspectorUpdatePasswordComponent } from './inspector-update-password/inspector-update-password.component';
 import { SingInPageComponent } from './signin-page/signin-page.component';
+import { GenerateOtpComponent } from './generate-otp/generate-otp.component';
 
 const routes: Routes = [
   {path: '', redirectTo: "/login", pathMatch: 'full' },
@@ -33,7 +34,9 @@ const routes: Routes = [
   {path: 'verificationlv',component:VerificationlvComponent},
   {path: 'inspectorregister',component:InspectorRegistrationComponent},
   {path: 'createPassword',component:InspectorUpdatePasswordComponent},
-  {path: 'SignIn',component:SingInPageComponent}
+  {path: 'SignIn',component:SingInPageComponent},
+  {path: 'generateOTP',component:GenerateOtpComponent},
+
 
 ];
 
