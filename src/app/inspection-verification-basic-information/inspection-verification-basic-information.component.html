@@ -245,10 +245,10 @@
 
                 <div class="col-md-4">
                   <label>Name of Engineer Who Carries Out Verification * :</label>
-                  <input type="text" class="form-control" formControlName="engineerName" placeholder="Enter Engineer Name" [(ngModel)]="reportDetails.verifiedEngineer" [ngClass]="{ 'is-invalid': submitted && f.engineerName.errors }">
-                  <div *ngIf="submitted && f.engineerName.errors" class="invalid-feedback">
+                  <input type="text" class="form-control" formControlName="engineerName" readonly value="{{verifiedEngineer}}" [(ngModel)]="verifiedEngineer" >
+                  <!-- <div *ngIf="submitted && f.engineerName.errors" class="invalid-feedback">
                     <div *ngIf="f.engineerName?.errors?.required">Engineer name is required</div>
-                </div>
+                </div> -->
                 </div>
 
                 <div class="col-md-4">
