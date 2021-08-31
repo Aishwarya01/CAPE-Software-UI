@@ -16,7 +16,7 @@
                             <div *ngIf="showErrorMessage" class="errorshow">{{errorMsg}}</div>
                             <div *ngIf="successMsgOTP" class="alert alert-success">{{successMsg}}</div>
 
-                            <div class="form-group">
+                            <div class="col-sm-12">
                                 <label for="mobileNumber">Mobile Number: </label>
                                     <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" (countryChange)="countryChange($event)" formControlName="mobileNumber" class="form-control"   placeholder="Enter Number" [ngClass]="{ 'is-invalid': submitted && f.mobileNumber?.errors }">
                                     <div *ngIf="submitted && f.mobileNumber?.errors" class="invalid-feedback">

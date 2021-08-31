@@ -51,17 +51,17 @@
                     </div>
     
                     <div class="col-md-4">
-                        <div class="form-group">
                             <label for="contactNumber">* Contact Number</label>
                             
-                                <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" (countryChange)="countryChange($event)" formControlName="contactNumber" class="form-control"   placeholder="Enter your contact number"
+                                <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" 
+                                (countryChange)="countryChange($event)" formControlName="contactNumber" class="form-control"   
+                                placeholder="Enter your contact number"
                                 [ngClass]="{ 'is-invalid': submitted && f.contactNumber.errors}" />
                                 <div *ngIf="submitted && f.contactNumber.errors" class="invalid-feedback">
                                     <div *ngIf="f.contactNumber?.errors?.required">Mobile Number Is Required</div>
                                     <!-- <div *ngIf="f.mobileNumber?.errors?.minlength">Enter 10 Digit Number</div> -->
                                     <div *ngIf="f.contactNumber?.errors?.maxlength">Enter 10 Digit Number</div>
                                 </div>
-                        </div>
                     </div>
                     
                 </div>
@@ -86,7 +86,7 @@
                                 <div *ngIf="submitted && f.userType.errors" class="invalid-feedback">
                                     <div *ngIf="f.userType.errors.required">Please select user type</div>
                                 </div>
-                                <div *ngIf="f.userType.value == 'Viewer'" class="invalid-feedback">
+                                <div *ngIf="f.userType.value == 'Viewer'" class="invalid-feedback" style="color: #919994; font-weight: 500;">
                                     <div>*As a viewer you can view, comment, download or print the report</div>
                                 </div>
                             </div>
