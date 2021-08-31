@@ -40,18 +40,18 @@
     </div>
     <mat-nav-list>
       <mat-list-item *ngFor="let type of ApplicationTypesSplit"
-      [ngClass]="{'highlight': selectedRowIndex == type.id}"
+      [ngClass]="{'highlight': selectedRowIndex == type}"
       (click)="highlight(type)">
         <div class="col-md-2" style="position: sticky;">
-        <button class="btn btn-info"
+        <!-- <button class="btn btn-info"
         style="float: left;padding: 3px 5px 3px 5px;
         margin: 5px 4px 5px -8px;">
         <span>{{ type }}</span>
-        </button>
+        </button> -->
         </div>
         <a class="logomain col-md-8">
           <span *ngIf="isExpanded || isShowing" style="margin-left: 8px;"
-          (click)="showLinkDescription(type.id)" title="{{type.type}}">{{ type.code }}</span>
+          (click)="showLinkDescription(type)" title="{{type.type}}">{{ type }}</span>
         </a>
 
       <div class="MenuIcons col-md-4" style="display: flex;margin-left: -27px;">
