@@ -23,8 +23,10 @@ export class LoginserviceService {
     return this.http.post<any>(this.apiUrl_v2 + '/authenticate', { email, password })
       .pipe(
         map(userData => {
-          sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, JSON.stringify(userData.users));
+          sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, JSON.stringify(userData.register));
           this.token = userData.token
+          sessionStorage.setItem('token', JSON.stringify(this.token));
+
           return userData;
         }));
   }
