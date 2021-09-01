@@ -87,12 +87,11 @@ export class MainNavComponent implements OnInit, OnDestroy {
   desktopDisplay: boolean = false;
   welcome: boolean = true;
   //isExpanded: any;
-  //isExpanded: any;
   selectedRowIndex : String = '';
   selectedRowIndexSub: String = '';
+  selectedRowIndexType: String = '';
   applicationTypesbasedonuser: string="";
   ApplicationTypesSplit: any=[];
-  //ApplicationTypesSplit: ApplicationTypeSplit[] = [];
   mainApplications: any =   [{'name': 'Introduction', 'code': 'IN'},
                             {'name': 'TIC', 'code': 'TIC'},
                             {'name': 'RENT Meter', 'code': 'RM'},
@@ -171,8 +170,6 @@ export class MainNavComponent implements OnInit, OnDestroy {
       data => {
          this.applicationTypesbasedonuser = data.applicationType;
         this.ApplicationTypesSplit=this.applicationTypesbasedonuser.split(',')
-      // this.ApplicationTypesSplit=data;
-      //this.ApplicationTypesSplit=this.applicationType.split(',')
       }
     );
   }
@@ -193,11 +190,17 @@ export class MainNavComponent implements OnInit, OnDestroy {
     )
   }
   highlight(type:any){
-    debugger
     this.selectedRowIndex = type;
+    this.selectedRowIndexType="";
+    this.selectedRowIndexSub ="";
  }
  highlightSub(type:any){
   this.selectedRowIndexSub = type;
+  this.selectedRowIndexType="";
+ }
+ highlightType(type:any){
+  this.selectedRowIndexType = type;
+  this.selectedRowIndexSub ="";
  }
   changePassword(email: String) {
     this.route.navigate(['changePassword', { email: email }])

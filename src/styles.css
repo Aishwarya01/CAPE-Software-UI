@@ -255,11 +255,15 @@ visibility: visible;
 .highlightSub{
   background: rgba(0,0,0,.04);
 }
+.highlightType{
+  background: rgba(0,0,0,.04);
+}
 /* .mat-list-item .mat-list-item-content:hover{
   background: rgb(4 4 4 / 15%);
 } */
 .mat-list-base .mat-list-item .mat-list-item-content, .mat-list-base .mat-list-option .mat-list-item-content {
   padding: unset !important;
+  margin: -4px 1px -4px 1px !important;
 }
 @media (max-width: 600px) {
   .mobileDisplay{
@@ -349,7 +353,7 @@ visibility: visible;
   transition: transform 300ms ease;
   transform: scaleY(0);
   transform-origin: top;
-  padding-left: 30px;
+  padding-left: 56px;
 }
 .submenu.expanded {
   transform: scaleY(1);
