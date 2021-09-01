@@ -80,7 +80,6 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   state3: String = "";
   state4: String = "";
   retrivedSiteId!: number;
-  currentUser: any = [];
 
   // Second Tab dependencies
   panelOpenState = false;
@@ -99,7 +98,6 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   countryCode3: any;
   countryCode2: any;
   errorArr: any=[];
-  verifiedEngineer: String="";
   constructor(
     private _formBuilder: FormBuilder,
     private router: ActivatedRoute,
@@ -124,11 +122,6 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     this.countryCode5= '91';
     this.countryCode6= '91';
     this.countryCode7= '91';
-    debugger
-    this.currentUser=localStorage.getItem('currentUser');
-    let currentUser1=JSON.parse(this.currentUser);
-    console.log(currentUser1.firstname);
-    this.verifiedEngineer= currentUser1.firstname+" "+currentUser1.lastname;
     this.step1Form = this._formBuilder.group({
       clientName: ['', Validators.required],
       departmentName: ['', Validators.required],
@@ -149,7 +142,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       detailsOfClient: ['', Validators.required],
       detailsOfInstallation: ['', Validators.required],
       startingDateVerification: ['', Validators.required],
-      engineerName: [''],
+      engineerName: ['', Validators.required],
       designation: ['', Validators.required],
       companyName: ['', Validators.required],
       limitations: ['', Validators.required],
@@ -782,7 +775,6 @@ designer2changeCountry(e: any) {
       if(this.step1Form.invalid) {
         return;
       }
-      this.reportDetails.verifiedEngineer = this.step1Form.value.engineerName;
       this.step1Form.value.designer1Arr[0].signatorRole= this.designer1Role;
       this.step1Form.value.designer1Arr[0].declarationSignature= this.step1Form.value.designer1AcknowledgeArr[0].declarationSignature;
       this.step1Form.value.designer1Arr[0].declarationName= this.step1Form.value.designer1AcknowledgeArr[0].declarationName;
