@@ -49,6 +49,16 @@ import { FinalreportsComponent } from './finalreports/finalreports.component';
 import {Ng2TelInputModule} from 'ng2-tel-input';
 import { BnNgIdleService } from 'bn-ng-idle';
 //import { Ng9PasswordStrengthBarModule } from 'ng9-password-strength-bar/projects/ng9-password-strength-bar/src/public-api';
+import { InspectorRegistrationComponent } from './inspector-registration/inspector-registration.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+
+import { UserUpdateComponent } from './user-update/user-update.component';
+import { InspectorUpdatePasswordComponent } from './inspector-update-password/inspector-update-password.component';
+import { AngularWebStorageModule } from 'angular-web-storage';
+import { NgOtpInputModule } from 'ng-otp-input';
+import { SingInPageComponent } from './signin-page/signin-page.component';
+
+import { GenerateOtpComponent } from './generate-otp/generate-otp.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +90,12 @@ import { BnNgIdleService } from 'bn-ng-idle';
     InspectionVerificationSupplyCharacteristicsComponent,
     InspectionVerificationTestingComponent,
     SavedreportsComponent,
-    FinalreportsComponent
+    FinalreportsComponent,
+    InspectorRegistrationComponent,
+    UserUpdateComponent,
+    InspectorUpdatePasswordComponent,
+    SingInPageComponent,
+    GenerateOtpComponent
   ],
   imports: [
     NgbModule,
@@ -99,10 +114,15 @@ import { BnNgIdleService } from 'bn-ng-idle';
     MatMenuModule,
     MaterialModule,
     NgxPrintModule,
+    AngularWebStorageModule,
+   // SessionStorageModule,
     Ng2TelInputModule,
     NgxBootstrapIconsModule.pick(allIcons),
-    //Ng9PasswordStrengthBarModule
+    NgMultiSelectDropDownModule.forRoot(),
+    NgOtpInputModule
+    
   ],
+ // exports: [WebStorageCodec, WebStorageCodec, SessionStorage],
   providers: [GlobalsService, { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }, BnNgIdleService],
   bootstrap: [AppComponent],
   entryComponents: [ AddApplicationTypesComponent, UpdateApplicationTypesComponent, VerificationlvComponent ]

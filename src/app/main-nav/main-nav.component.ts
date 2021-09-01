@@ -35,6 +35,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   showSubmenu: boolean = false;
   isShowing = false;
   showSubSubMenu: boolean = false;
+  showSubmenuRep: boolean = false;
   showingh = false;
   autosize: boolean = true;
   screenWidth: number | undefined;
@@ -61,12 +62,21 @@ export class MainNavComponent implements OnInit, OnDestroy {
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
   fullName: String = '';
   email: String = '';
+  userName: String = '';
+
   id: number = 0;
   type: String = '';
   code: String = '';
   user = new User();
   style: any;
 
+  itemValue1: String = 'IN';
+  itemValue2: String = 'TIC';
+  itemValue3: String = 'RM';
+  itemValue4: String = 'BM';
+  itemValue5: String = 'REP';
+  SubitemValue1: String = 'Ongoing TIC';
+  SubitemValue2: String = 'Completed TIC';
   // stackblitz
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
@@ -78,8 +88,17 @@ export class MainNavComponent implements OnInit, OnDestroy {
   welcome: boolean = true;
   //isExpanded: any;
   //isExpanded: any;
-  selectedRowIndex = 0;
-
+  selectedRowIndex : String = '';
+  selectedRowIndexSub: String = '';
+  applicationTypesbasedonuser: string="";
+  ApplicationTypesSplit: any=[];
+  //ApplicationTypesSplit: ApplicationTypeSplit[] = [];
+  mainApplications: any =   [{'name': 'Introduction', 'code': 'IN'},
+                            {'name': 'TIC', 'code': 'TIC'},
+                            {'name': 'RENT Meter', 'code': 'RM'},
+                            {'name': 'Buy Meter', 'code': 'BM'},
+                            {'name': 'Reports', 'code': 'REP'},
+                            ]
 
 
 
@@ -92,7 +111,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
     private applicationService: ApplicationTypeService,
     private modalService: NgbModal, private bnIdle: BnNgIdleService) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
-    this.retrieveApplicationTypes();
+  //  this.retrieveApplicationTypes();
+    this.retrieveApplicationTypesBasedOnUser(this.email);
     this.displayUserFullName(this.email);
     // set screenWidth on page load
     this.screenWidth = window.innerWidth;
@@ -146,6 +166,18 @@ export class MainNavComponent implements OnInit, OnDestroy {
     );
   }
 
+  retrieveApplicationTypesBasedOnUser(email: String) {
+    this.applicationService.retrieveApplicationTypesBasedOnUser(email).subscribe(
+      data => {
+         this.applicationTypesbasedonuser = data.applicationType;
+        this.ApplicationTypesSplit=this.applicationTypesbasedonuser.split(',')
+      // this.ApplicationTypesSplit=data;
+      //this.ApplicationTypesSplit=this.applicationType.split(',')
+      }
+    );
+  }
+
+
   logout() {
     this.loginservice.logout();
     this.route.navigate(['login']);
@@ -161,8 +193,12 @@ export class MainNavComponent implements OnInit, OnDestroy {
     )
   }
   highlight(type:any){
-    this.selectedRowIndex = type.id;
-}
+    debugger
+    this.selectedRowIndex = type;
+ }
+ highlightSub(type:any){
+  this.selectedRowIndexSub = type;
+ }
   changePassword(email: String) {
     this.route.navigate(['changePassword', { email: email }])
   }

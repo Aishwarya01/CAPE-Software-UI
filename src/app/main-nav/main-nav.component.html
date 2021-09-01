@@ -30,17 +30,95 @@
     [ngStyle]="{'width': isExpanded ? '295px' : (!isExpanded && isShowing ? '295px' : '60px')}"
     (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
 
-    <div class="logomain" style="margin-top: 35px;">
-      <button class="btn btn-info" (click)="openModal()"
-      style="float: left;padding: 7px 10px 0px 10px;margin: 5px 10px 5px 7px;" [disabled]="displayIconsBasedOnEmail()">
-       <mat-icon aria-hidden="false" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>
-      </button>
-      <span *ngIf="isExpanded || isShowing" style="margin-top: 15px;
-      position: absolute;">Add New Application Type</span>
+    <div class="logomain" style="margin-top: 35px;margin-left: 10px;">
+      <span *ngIf="isExpanded || isShowing" style="position: absolute;">Some heading here!!</span>
     </div>
     <mat-nav-list>
-      <mat-list-item *ngFor="let type of applicationTypes"
-      [ngClass]="{'highlight': selectedRowIndex == type.id}"
+
+      <mat-list-item [ngClass]="{'highlight': selectedRowIndex == itemValue1}" (click)="highlight('IN')" style="padding: 5px;">
+        <div class="col-md-2" style="position: sticky;">
+        <button class="btn btn-info"
+        style="float: left;padding: 3px 5px 3px 5px;
+        margin: 5px 4px 5px -8px;">
+        <span>IN</span>
+        </button>
+        </div>
+        <a class="logomain col-md-8">
+          <span *ngIf="isExpanded || isShowing" style="margin-left: -14px;"
+          (click)="showLinkDescription('IN')" title="Introduction">Introduction</span>
+        </a>
+      </mat-list-item>
+
+        <mat-list-item (click)="showSubmenu = !showSubmenu" [ngClass]="{'highlight': selectedRowIndex == itemValue2}" 
+        (click)="highlight('TIC')" style="padding: 5px;">
+          <div class="col-md-2" style="position: sticky;">
+            <button class="btn btn-info"
+            style="float: left;padding: 3px 5px 3px 5px;
+            margin: 5px 4px 5px -8px;">
+            <span>TIC</span>
+            </button>
+            </div>
+          <span class="full-width" *ngIf="isExpanded || isShowing">TIC</span>
+          <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
+        </mat-list-item>
+        <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded"  
+        [ngStyle]="{'display': showSubmenu ? 'block' : 'none'}">
+        <div *ngFor="let type of ApplicationTypesSplit">
+          <a>
+            <mat-list-item (click)="showLinkDescription(type)" class="leftAlignSub">{{ type }}</mat-list-item>
+          </a>   
+        </div>     
+        </div>
+      <mat-list-item [ngClass]="{'highlight': selectedRowIndex == itemValue3}" (click)="highlight('RM')" style="padding: 5px;">
+        <div class="col-md-2" style="position: sticky;">
+        <button class="btn btn-info"
+        style="float: left;padding: 3px 5px 3px 5px;
+        margin: 5px 4px 5px -8px;">
+        <span>RM</span>
+        </button>
+        </div>
+        <a class="logomain col-md-8">
+          <span *ngIf="isExpanded || isShowing" style="margin-left: -14px;"
+          (click)="showLinkDescription('RM')" title="Rent Meter">Rent Meter</span>
+        </a>
+      </mat-list-item>
+
+      <mat-list-item [ngClass]="{'highlight': selectedRowIndex == itemValue4}" (click)="highlight('BM')" style="padding: 5px;">
+        <div class="col-md-2" style="position: sticky;">
+        <button class="btn btn-info"
+        style="float: left;padding: 3px 5px 3px 5px;
+        margin: 5px 4px 5px -8px;">
+        <span>BM</span>
+        </button>
+        </div>
+        <a class="logomain col-md-8">
+          <span *ngIf="isExpanded || isShowing" style="margin-left: -14px;"
+          (click)="showLinkDescription('BM')" title="Buy Meter">Buy Meter</span>
+        </a>
+      </mat-list-item>
+
+        <mat-list-item (click)="showSubmenuRep = !showSubmenuRep" [ngClass]="{'highlight': selectedRowIndex == itemValue5}" 
+        (click)="highlight('REP')" style="padding: 5px;">
+          <div class="col-md-2" style="position: sticky;">
+            <button class="btn btn-info"
+            style="float: left;padding: 3px 5px 3px 5px;
+            margin: 5px 4px 5px -8px;">
+            <span>REP</span>
+            </button>
+            </div>
+            <a class="logomain col-md-8">
+              <span *ngIf="isExpanded || isShowing" style="margin-left: -10px;"
+              (click)="showLinkDescription('REP')" title="Reports">Reports</span>
+            </a>
+          <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenuRep}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
+        </mat-list-item>
+        <div class="submenu" [ngClass]="{'expanded' : showSubmenuRep}" *ngIf="isShowing || isExpanded">
+          <a><mat-list-item class="leftAlignSub" [ngClass]="{'highlightSub': selectedRowIndexSub == SubitemValue1}" (click)="highlightSub('Ongoing TIC')">Ongoing TIC</mat-list-item></a>   
+          <a><mat-list-item class="leftAlignSub" [ngClass]="{'highlightSub': selectedRowIndexSub == SubitemValue2}" (click)="highlightSub('Completed TIC')">Completed TIC</mat-list-item></a> 
+        </div>
+
+      <!-- <mat-list-item *ngFor="let type of mainApplications"
+      [ngClass]="{'highlight': selectedRowIndex == type}"
       (click)="highlight(type)">
       <a class="logomain col-md-9" style="padding-right: 0px;
       padding-left: 3px;">
@@ -48,16 +126,15 @@
         <button class="btn btn-info"
         style="float: left;padding: 3px 5px 3px 5px;
         margin: 5px 4px 5px -8px;">
-        <span>{{ type.applicationName }}</span>
+        <span>{{ type.code }}</span>
         </button>
         </div>
-        <!-- <a class="logomain col-md-8"> -->
-          <span *ngIf="isExpanded || isShowing" style="margin-left: 8px;position: relative;
-          top: 11px;"
-          (click)="showLinkDescription(type.id)" title="{{type.type}}">{{ type.code }}</span>
-        </a> 
+        <a class="logomain col-md-8">
+          <span *ngIf="isExpanded || isShowing" style="margin-left: 8px;"
+          (click)="showLinkDescription(type)" title="{{type.type}}">{{ type.name }}</span>
+        </a> -->
 
-      <div class="MenuIcons col-md-4" style="display: flex;">
+      <!-- <div class="MenuIcons col-md-4" style="display: flex;margin-left: -27px;">
         <button mat-menu-item (click)="editApplicationType(type.id, type.type, type.code)" style="height: 30px;"
         class="full-width" *ngIf="isExpanded || isShowing" title="Edit" [disabled]="displayIconsBasedOnEmail()">
           <mat-icon>edit</mat-icon>
@@ -66,8 +143,9 @@
         class="full-width" *ngIf="isExpanded || isShowing" title="Delete" [disabled]="displayIconsBasedOnEmail()">
           <mat-icon>delete</mat-icon>
         </button>
-      </div>
-      </mat-list-item>
+      </div> -->
+      <!-- </mat-list-item> -->
+
     </mat-nav-list>
   </mat-sidenav>
 
