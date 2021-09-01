@@ -33,6 +33,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   showSubmenu: boolean = false;
   isShowing = false;
   showSubSubMenu: boolean = false;
+  showSubmenuRep: boolean = false;
   showingh = false;
   autosize: boolean = true;
   screenWidth: number | undefined;
@@ -67,6 +68,13 @@ export class MainNavComponent implements OnInit, OnDestroy {
   user = new User();
   style: any;
 
+  itemValue1: String = 'IN';
+  itemValue2: String = 'TIC';
+  itemValue3: String = 'RM';
+  itemValue4: String = 'BM';
+  itemValue5: String = 'REP';
+  SubitemValue1: String = 'Ongoing TIC';
+  SubitemValue2: String = 'Completed TIC';
   // stackblitz
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
@@ -78,11 +86,17 @@ export class MainNavComponent implements OnInit, OnDestroy {
   welcome: boolean = true;
   //isExpanded: any;
   //isExpanded: any;
-  selectedRowIndex = 0;
+  selectedRowIndex : String = '';
+  selectedRowIndexSub: String = '';
   applicationTypesbasedonuser: string="";
   ApplicationTypesSplit: any=[];
   //ApplicationTypesSplit: ApplicationTypeSplit[] = [];
-
+  mainApplications: any =   [{'name': 'Introduction', 'code': 'IN'},
+                            {'name': 'TIC', 'code': 'TIC'},
+                            {'name': 'RENT Meter', 'code': 'RM'},
+                            {'name': 'Buy Meter', 'code': 'BM'},
+                            {'name': 'Reports', 'code': 'REP'},
+                            ]
 
 
 
@@ -112,6 +126,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.mobileDisplay = false;
     this.desktopDisplay = true
+    debugger
+   console.log(this.mainApplications);
   }
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
@@ -169,8 +185,12 @@ export class MainNavComponent implements OnInit, OnDestroy {
     )
   }
   highlight(type:any){
-    this.selectedRowIndex = type.id;
-}
+    debugger
+    this.selectedRowIndex = type;
+ }
+ highlightSub(type:any){
+  this.selectedRowIndexSub = type;
+ }
   changePassword(email: String) {
     this.route.navigate(['changePassword', { email: email }])
   }
