@@ -222,7 +222,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   showLinkDescription(id: any) {
     this.welcome= false;
     switch (id) {
-      case 1:
+      case 'LV Systems':
         this.viewContainerRef.clear();
         //this.viewContainerRef1.clear();
         const lvInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LvInspectionDetailsComponent);
@@ -231,18 +231,18 @@ export class MainNavComponent implements OnInit, OnDestroy {
         lvInspectionRef.changeDetectorRef.detectChanges();
         //lvInspectionRef1.changeDetectorRef.detectChanges();
         break;
-      case 2:
+      case 'HV Systems':
         this.viewContainerRef.clear();
         //this.viewContainerRef1.clear();
         break;
-      case 3:
+      case 'Risk Assessment':
         this.viewContainerRef.clear();
         //this.viewContainerRef1.clear();
         const riskAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(RiskAssessmentInspectionMaintenanceComponent);
         const riskAssessmentInspectionRef = this.viewContainerRef.createComponent(riskAssessmentInspectionFactory);
         riskAssessmentInspectionRef.changeDetectorRef.detectChanges();
         break;
-      case 4:
+      case 'EMC Assessment':
         this.viewContainerRef.clear();
         //this.viewContainerRef1.clear();
         const emcAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(EmcAssessmentInstallationComponent);

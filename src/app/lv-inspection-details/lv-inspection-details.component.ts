@@ -24,12 +24,13 @@ export class LvInspectionDetailsComponent {
     }
 
   onNavigateToQuestionaire() {
+    debugger
     this.viewContainerRef.clear();
     this.destroy = true;
   }
 
-  displayIconsBasedOnEmail(): boolean{
-    return !this.email.includes("@capeindia.net")
+  displayIconsBasedOnEmail(){
+    // return !this.email.includes("@capeindia.net")
   }
   
 }

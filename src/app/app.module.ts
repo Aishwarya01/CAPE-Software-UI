@@ -59,6 +59,10 @@ import { NgOtpInputModule } from 'ng-otp-input';
 import { SingInPageComponent } from './signin-page/signin-page.component';
 
 import { GenerateOtpComponent } from './generate-otp/generate-otp.component';
+import { LicenselistComponent } from './licenselist/licenselist.component';
+import { AddlicenseComponent } from './addlicense/addlicense.component';
+import { AssignViewerComponent } from './assign-viewer/assign-viewer.component';
+import { ViewerRegisterComponent } from './viewer-register/viewer-register.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +99,11 @@ import { GenerateOtpComponent } from './generate-otp/generate-otp.component';
     UserUpdateComponent,
     InspectorUpdatePasswordComponent,
     SingInPageComponent,
-    GenerateOtpComponent
+    GenerateOtpComponent,
+    LicenselistComponent,
+    AddlicenseComponent,
+    AssignViewerComponent,
+    ViewerRegisterComponent
   ],
   imports: [
     NgbModule,
