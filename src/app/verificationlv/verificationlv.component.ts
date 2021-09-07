@@ -7,6 +7,7 @@ import {
   ViewChild,
   ChangeDetectorRef,
   VERSION,
+  Input,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AbstractControl, FormArray, FormControl } from '@angular/forms';
@@ -148,6 +149,9 @@ export class VerificationlvComponent implements OnInit {
   @ViewChild(SavedreportsComponent)
   saved!: SavedreportsComponent;
 
+  @Input()
+  siteId: any;
+  
   // Second Tab dependencies
   panelOpenState = false;
   installationList: String[] = [
@@ -204,6 +208,7 @@ export class VerificationlvComponent implements OnInit {
   dataJSON: any = [];
   conFlag: boolean=false;
   noDetails: boolean=false;
+  instance: any;
 
 
   constructor(
@@ -237,7 +242,10 @@ export class VerificationlvComponent implements OnInit {
       this.countryList = JSON.parse(data);
     });
     this.refresh();
-    this.retrieveClientDetails();
+    // this.retrieveClientDetails();
+    this.retrieveSiteDetails();
+    debugger
+    console.log(this.siteId);
   }
 
   retrieveIsActiveData() {
@@ -280,7 +288,8 @@ export class VerificationlvComponent implements OnInit {
   }
 
   retrieveSiteDetails() {
-    this.siteService.retrieveSite(this.site).subscribe((data) => {
+    debugger
+    this.siteService.retrieveSite(this.email).subscribe((data) => {
       this.site_dataSource = new MatTableDataSource(JSON.parse(data));
       this.site_dataSource.paginator = this.sitePaginator;
       this.site_dataSource.sort = this.siteSort;
@@ -529,7 +538,10 @@ export class VerificationlvComponent implements OnInit {
   public NextStep5(next: any): void {
     this.isCompleted5 = next;
   }
-
+  // public changeT(value: any): void {
+  //   debugger
+  //   console.log(value);
+  // }
 //for saved reports tab
   changeTab(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any): void {
     debugger
@@ -572,6 +584,8 @@ export class VerificationlvComponent implements OnInit {
   changeTab1(index: number): void {
     this.selectedIndex = index;
   }
+
+ 
 
   continue1(siteId: any,userName :any,clientName: any,departmentName: any,site: any) {
     this.selectedIndex = 1;

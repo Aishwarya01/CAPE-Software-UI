@@ -47,7 +47,8 @@ export class SavedreportsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.retrieveClientDetails();
+    // this.retrieveClientDetails();
+    this.retrieveSiteDetails();
   }
 
   private retrieveClientDetails() {
@@ -71,7 +72,7 @@ export class SavedreportsComponent implements OnInit {
   }
 
   retrieveSiteDetails() {
-      this.siteService.retrieveListOfSite(this.site).subscribe(
+      this.siteService.retrieveListOfSite(this.email).subscribe(
         data => {
          this.savedReport_dataSource = new MatTableDataSource(JSON.parse(data));
           this.savedReport_dataSource.paginator = this.savedReportPaginator;
@@ -83,9 +84,8 @@ export class SavedreportsComponent implements OnInit {
 
   }
 
-  continue(siteId: any,userName :any,clientName: any,departmentName: any,site: any) {
-    debugger
-    this.verification.changeTab(1,siteId,userName,clientName,departmentName,site);
+  continue(siteId: any,userName :any,site: any) {
+    this.verification.changeTab(1,siteId,userName,'clientName','departmentName',site);
   }
   savedContinue()
   {

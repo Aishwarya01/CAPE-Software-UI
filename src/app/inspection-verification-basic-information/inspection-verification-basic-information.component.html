@@ -253,7 +253,8 @@
 
                 <div class="col-md-4">
                   <label>Designation* :</label>
-                  <input type="text" class="form-control" formControlName="designation" placeholder="Enter Designation" [(ngModel)]="reportDetails.designation" [ngClass]="{ 'is-invalid': submitted && f.designation.errors }">
+                  <input type="text" class="form-control" formControlName="designation" placeholder="Enter Designation" 
+                  [(ngModel)]="reportDetails.designation" [ngClass]="{ 'is-invalid': submitted && f.designation.errors }">
                   <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
                     <div *ngIf="f.designation?.errors?.required">Designation is required</div>
                 </div>
@@ -1149,21 +1150,176 @@
                 </div>
               </div>
           </mat-expansion-panel>
-      </mat-accordion>
 
+
+      <!-- comments start-->
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h3>Comments</h3>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- <mat-icon class="mousechange" (click)="addAnotherComment()" 
+            style="float:right; padding-right: 37px; padding-top: 10px;" title="Add another comment">add_box</mat-icon> -->
+           <div >
+            <div class="form-group" >
+              <div class="row">
+                <div class="col-12">
+                  <table class="table table-bordered" id="commetTable"> 
+                    <thead>
+                      <tr>
+                        <th scope="col" style="text-align: center;">Comments</th>
+                        <!-- <th scope="col" style="text-align: center;">Send </th> -->
+                        <th scope="col" style="text-align: center;">Reply</th>
+                        <!-- <th scope="col" style="text-align: center;">Submit</th> -->
+                        <th scope="col" style="text-align: center;">Approve</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                     
+                      <tr>
+                       
+                        <td style="width: 45%;">
+                          <mat-icon class="mousechange" (click)="addAnotherviewerComment()"
+                        style="float:right;" title="Add another comment">add_box</mat-icon>
+                          <!-- <textarea cols="60" rows="3" formControlName="viewerComments" [(ngModel)]="viewerComments" 
+                          placeholder="Enter Viewer Comment">
+                          <span>{{date  | date:'dd-MM-YY'}}</span>
+                        </textarea> -->
+                        <table class="table table-bordered">
+                         
+                          <tbody formArrayName="viewerCommentArr" *ngFor="let a of getViewerCommentControls(); let i = index"
+                          style="border-top: none;">
+                            <tr [formGroupName]="i">
+                              <!-- <td style="width: 35%;">
+                        
+                        {{today | date:'dd-MM-YY hh:mm a':'+0530'}}
+                              </td> -->
+                              <td >
+                                <!-- <input type="text" formControlName="viewerComments"
+                                placeholder="Enter Viewer Comment"  > -->
+                                <textarea cols="60" rows="1" formControlName="viewerComments"
+                                placeholder="Enter Viewer Comment"></textarea>
+                                <mat-icon class="mousechange"  *ngIf="getViewerCommentControls().length > 1" 
+                                  (click)="ViewerRemoveComment(i)" style="float:right;">delete</mat-icon>
+                                  <mat-icon class="mousechange" (click)="sendViewerComment()" style="float:right;"
+                                  title="Send comment">reply</mat-icon>
+
+                                   
+                              </td>
+                            
+                              </tr>
+                              
+                          </tbody>
+                         
+                        </table>
+                        </td>
+                        <!-- <td><button class="commentbtn" (click)="sendViewerComment()" mat-button>
+                          <mat-icon>reply</mat-icon>
+                        </button></td> -->
+
+                        <!-- <td>
+                          <textarea cols="60" rows="3" formControlName="inspectorComments" 
+                          [(ngModel)]="inspectorComments" placeholder="Enter inspector reply"></textarea>
+                        </td> -->
+
+                        <td style="width: 45%;">
+                          <mat-icon class="mousechange" (click)="addAnotherInspectorComment()" 
+                          style="float:right;" title="Add another comment">add_box</mat-icon>
+                        <table class="table table-bordered" >
+                          <tbody formArrayName="inspectorCommentArr" *ngFor="let a of getInspectorCommentControls(); let i = index"
+                          style="border-top: none;">
+                            <tr [formGroupName]="i">
+                              <!-- <td style="width: 35%;">
+                        {{today | date:'dd-MM-YY hh:mm a':'+0530'}}
+                              </td> -->
+                              <td >
+                               <!-- <input type="text" formControlName="viewerComments"
+                                placeholder="Enter Viewer Comment"  > -->
+                                <textarea cols="60" rows="1" placeholder="Enter Inspector Comment"
+                                formControlName="inspectorComments"></textarea>
+                                <mat-icon class="mousechange"  *ngIf="getInspectorCommentControls().length > 1" 
+                                  (click)="InspectorRemoveComment(i)"
+                                  style="float:right;">delete</mat-icon>
+                                  <mat-icon class="mousechange" (click)="inspectorComment()" style="float:right;"
+                                  title="Reply comment">reply</mat-icon>
+                              </td>
+                              </tr>
+                             
+                          </tbody>
+                         
+                        </table>
+                        </td>
+                        <!-- <td><button class="commentbtn" (click)="inspectorComment()" mat-button>
+                          <mat-icon>reply</mat-icon>
+                        </button></td> -->
+                        <td>
+                          <!-- <div class="custom-control custom-checkbox" style="text-align: center;">
+                              <input type="checkbox" class="custom-control-input" id="customCheck1">
+                              <label class="custom-control-label" for="customCheck1"></label>
+                          </div> -->
+                          <button class="commentbtn" (click)="approveComment()" mat-button>
+                            <mat-icon>recommend</mat-icon>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              </div> 
+              
+            </div>
+          </mat-expansion-panel>
+<!-- comments end-->
+
+ <!-- completed comments start-->
+ <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngIf="completedComments">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <h3>Completed Comments</h3>
+    </mat-panel-title>
+
+  </mat-expansion-panel-header>
+    <div class="row">
+      <div class="col-12">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col" style="text-align: center;">Comments</th>
+              <th scope="col" style="text-align: center;">Reply</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <textarea cols="60" rows="3" [disabled]="disable"
+                placeholder="Viewer comment">{{viewerComments}}</textarea>
+              </td>
+              <td>
+                <textarea cols="60" rows="3" [disabled]="disable"
+                placeholder="Inspector reply">{{inspectorComments}}</textarea>
+              </td>
+            </tr>
+           
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+</mat-expansion-panel>
+<!-- completed comments end-->
+      </mat-accordion>
+   
       <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
         <span class="alert alert-danger">{{validationErrorMsg}}</span>
       </div>
-
+      <br>
       <div style="text-align: center;margin-top: 40px;">
         <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
         <button  class="next" [disabled]="disable" (click)="gotoNextModal(content1)" mat-button>Next &raquo;</button>
       </div>
 
-      <!-- <div style="display: inline;">
-          <button  [disabled]="loading" style="float: left;" type="submit"  class="btn btn-block btn-primary btn-rounded btn-lg font-weight-medium auth-form-btn"><i class="bi bi-person-plus-fill icon"></i> Next</button>
-          <button  [routerLink]="['/login']" style="float:right;"  class="btn btn-outline-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
-      </div> -->
     </form>
 
     </div>

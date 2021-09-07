@@ -24,8 +24,9 @@ export class Reportdetails {
     createdDate: Date;
     updatedBy: String;
     updatedDate: Date;
-
-    signatorDetails: SignatorDetails [];
+    viewerComments: string;
+    inspectorComments: string;
+   signatorDetails: SignatorDetails [];
 }
 
 export class SignatorDetails {

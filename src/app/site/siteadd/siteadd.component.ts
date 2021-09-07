@@ -17,8 +17,8 @@ export class SiteaddComponent implements OnInit {
 
   isSubmitted = false;
   addSiteForm = new FormGroup({
-    clientName: new FormControl(''),
-    departmentName: new FormControl(''),
+    // clientName: new FormControl(''),
+    // departmentName: new FormControl(''),
     siteName: new FormControl(''),
     personIncharge: new FormControl(''),
     contactNo: new FormControl(''),
@@ -65,8 +65,8 @@ export class SiteaddComponent implements OnInit {
 
   ngOnInit(): void {
     this.addSiteForm = this.formBuilder.group({
-      clientName: ['', Validators.required],
-      departmentName: ['',Validators.required],
+      // clientName: ['', Validators.required],
+      // departmentName: ['',Validators.required],
       siteName: ['', Validators.required],
       arr: this.formBuilder.array([this.createItem()]),
       siteLocation: ['', Validators.required],

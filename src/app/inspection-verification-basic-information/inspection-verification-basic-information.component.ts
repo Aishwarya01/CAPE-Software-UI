@@ -14,6 +14,8 @@ import { SiteService } from '../services/site.service';
 import { GlobalsService } from '../globals.service';
 import { iif } from 'rxjs';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
+import { CommentsSection } from '../model/comments-section';
+import { DatePipe } from '@angular/common';
 
 //import { ErrorHandlerService } from './../../shared/services/error-handler.service';
 @Component({
@@ -98,6 +100,22 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   countryCode3: any;
   countryCode2: any;
   errorArr: any=[];
+  viewerComments: String='';
+  inspectorComments: String='';
+  comments = new CommentsSection;
+
+  replyClicked: boolean=false;
+  inspectorCommentArr!: FormArray;
+  viewerCommentArr!: FormArray;
+
+  completedComments: boolean=false;
+  date!: Date;
+  //dateTimeComment!: string | null;
+  myVar!: string | null;
+  //today= new Date();
+
+  public today: Date = new Date();
+
   constructor(
     private _formBuilder: FormBuilder,
     private router: ActivatedRoute,
@@ -108,10 +126,12 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     private UpateBasicService: InspectionVerificationService,
     public service: GlobalsService,
     private modalService: NgbModal,
-    private ChangeDetectorRef: ChangeDetectorRef) {
+    private ChangeDetectorRef: ChangeDetectorRef,public datepipe: DatePipe) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
+    setInterval(() => {
+      this.today = new Date();
+    }, 1);
   }
-
 
   ngOnInit(): void {
     this.countryCode= '91';
@@ -154,16 +174,23 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       designer1Arr: this._formBuilder.array([this.createDesigner1Form()]),
       designer2Arr: this._formBuilder.array([this.createDesigner2Form()]),
       contractorArr: this._formBuilder.array([this.createContractorForm()]),
-      inspectorArr: this._formBuilder.array([this.createInspectorForm()])
+      inspectorArr: this._formBuilder.array([this.createInspectorForm()]),
+      viewerCommentArr: this._formBuilder.array([this.addCommentViewer()]),
+      inspectorCommentArr: this._formBuilder.array([this.addCommentInspector()])
+
     });
     this.siteService.retrieveCountry().subscribe(
       data => {
         this.countryList = JSON.parse(data);
       }
     )
+    // this.date=new Date();
+    // let latest_date =this.datepipe.transform(this.date, 'dd-MM-YY');
     this.refresh();
     this.retrieveClientDetails();
     this.inspectorArr = this.step1Form.get('inspectorArr') as FormArray;
+  
+   // this.myVar=latest_date;
   }
 
 //for company site detail continue
@@ -178,7 +205,6 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     });
     this.reportDetails.siteId = sitedId;
   }
-
  
   // Need to check this task
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
@@ -258,6 +284,66 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 
      }
 
+//comments section starts
+    sendViewerComment(){
+      debugger
+      this.comments.reportId = this.reportDetails.reportId;
+      this.comments.userName = this.email;
+      this.comments.viewerComments = this.step1Form.controls.viewerCommentArr.value[0].viewerComments;
+      this.flag=false;
+      this.reportDetailsService.sendComments(this.comments,this.reportDetails.siteId).subscribe(
+        (data) =>{
+        },
+        (error) => {
+        }
+      )  
+    }
+    inspectorComment(){
+      this.comments.reportId = this.reportDetails.reportId;
+      this.comments.userName = this.email;
+      this.comments.inspectorComments=this.step1Form.value.inspectorComments;
+    }
+    addAnotherviewerComment() {
+      this.viewerCommentArr = this.step1Form.get('viewerCommentArr') as FormArray;
+      this.viewerCommentArr.push(this.addCommentViewer());
+      this.today= new Date();
+    }
+    addAnotherInspectorComment() {
+      this.inspectorCommentArr = this.step1Form.get('inspectorCommentArr') as FormArray;
+      this.inspectorCommentArr.push(this.addCommentInspector());
+      this.today= new Date();
+    }
+    addCommentViewer() {
+      return this._formBuilder.group({
+      viewerComments: [''],
+      });
+    }
+    addCommentInspector() {
+      return this._formBuilder.group({
+      inspectorComments: [''],
+      });
+    }
+    ViewerRemoveComment(index: any) {
+      (this.step1Form.get('viewerCommentArr') as FormArray).removeAt(index);
+    }
+    InspectorRemoveComment(index: any) {
+      (this.step1Form.get('inspectorCommentArr') as FormArray).removeAt(index);
+    }
+    getViewerCommentControls(): AbstractControl[] {
+      return (<FormArray>this.step1Form.get('viewerCommentArr')).controls;
+    }
+    getInspectorCommentControls(): AbstractControl[] {
+      return (<FormArray>this.step1Form.get('inspectorCommentArr')).controls;
+    }
+    approveComment(){
+      this.disable=true;
+      this.completedComments=true;
+     // this.comments.viewerComments = this.step1Form.value.viewerComments;
+      //this.comments.inspectorComments=this.step1Form.value.inspectorComments;
+    }
+//comments section ends
+
+//clear validators
   clearSiteValidator() {
     this.step1Form.controls["clientName"].clearValidators();
     this.step1Form.controls["clientName"].updateValueAndValidity();
@@ -267,6 +353,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     this.step1Form.controls["siteName"].updateValueAndValidity();
     }
 
+//retrieve client details
   private retrieveClientDetails() {
     this.clientService.retrieveClient(this.email).subscribe(
       data => {
@@ -274,7 +361,8 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
         this.clientList=JSON.parse(data);
       });
   }
-  // Only Integer Numbers
+
+// Only Integer Numbers
   keyPressNumbers(event:any) {
     var charCode = (event.which) ? event.which : event.keyCode;
     // Only Numbers 0-9
@@ -287,7 +375,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   } 
 
   //**Important */
-  // Only AlphaNumeric with Some Characters [-_ ]
+// Only AlphaNumeric with Some Characters [-_ ]
   keyPressAlphaNumericWithCharacters(event:any) {
     var inp = String.fromCharCode(event.keyCode);
     // Allow numbers, space, underscore
@@ -336,13 +424,12 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       this.step1Form.controls["showField2"].updateValueAndValidity();
     }
   }
-
-
  	
   refresh() {
     this.ChangeDetectorRef.detectChanges();
   }
-  // Inspection form basic info
+
+// Inspection form basic info
   changeClientName (e: any) {
     let changedValue = e.target.value;
     this.departmentListInspec = [];
@@ -375,29 +462,30 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       }
     }
   }
- 	  // Signature part
-     private createDesigner1AcknowledgeForm(): FormGroup {
+
+// Signature part
+  private createDesigner1AcknowledgeForm(): FormGroup {
       return new FormGroup({
         declarationSignature: new FormControl('',[Validators.required]),
         declarationDate: new FormControl('',[Validators.required]),
         declarationName: new FormControl('',[Validators.required])
       })
     }
-    private createDesigner2AcknowledgeForm(): FormGroup {
+  private createDesigner2AcknowledgeForm(): FormGroup {
       return new FormGroup({
         declarationSignature: new FormControl(''),
         declarationDate: new FormControl(''),
         declarationName: new FormControl('')
       })
     }
-    private createContractorAcknowledgeForm(): FormGroup {
+  private createContractorAcknowledgeForm(): FormGroup {
       return new FormGroup({
         declarationSignature: new FormControl('',[Validators.required]),
         declarationDate: new FormControl('',[Validators.required]),
         declarationName: new FormControl('',[Validators.required])
       })
     }
-    private createInspectorAcknowledgeForm(): FormGroup {
+  private createInspectorAcknowledgeForm(): FormGroup {
       return new FormGroup({
         declarationSignature: new FormControl('',[Validators.required]),
         declarationDate: new FormControl('',[Validators.required]),
@@ -417,7 +505,6 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   getInspectorAcknowledgeControls(): AbstractControl[] {
     return (<FormArray> this.step1Form.get('inspectorAcknowledgeArr')).controls
   }
-
 
   populateData() {
     for (let item of this.step1List.reportDetails.signatorDetails) {
@@ -466,11 +553,8 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       declarationName: new FormControl({disabled: false,value: item.declarationName}),
     });
   }
-
-
-
  
-  // Deisgner details forms
+// Deisgner details forms
   private createDesigner1Form(): FormGroup {
     return new FormGroup({
       personName: new FormControl('',[Validators.required]),
@@ -516,12 +600,11 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 
   getDesigner1Controls(): AbstractControl[] {
     return (<FormArray> this.step1Form.get('designer1Arr')).controls
-}
-getDesigner2Controls(): AbstractControl[] {
+  }
+  getDesigner2Controls(): AbstractControl[] {
   return (<FormArray> this.step1Form.get('designer2Arr')).controls
-}
-designer1changeCountry(e: any) {
-  debugger
+  }
+  designer1changeCountry(e: any) {
   let changedValue;
   if(e.target != undefined) {
     changedValue = e.target.value;
@@ -538,8 +621,8 @@ designer1changeCountry(e: any) {
           }
         )};
     }
-}
-designer2changeCountry(e: any) {
+  }
+  designer2changeCountry(e: any) {
   let changedValue;
   if(e.target != undefined) {
     changedValue = e.target.value;
@@ -556,30 +639,30 @@ designer2changeCountry(e: any) {
           }
         )};
     }
-}
+  }
 
-    // Contractor details forms
-    private createContractorForm(): FormGroup {
-      return new FormGroup({
-        personName: new FormControl('',[Validators.required]),
-        personContactNo: new FormControl('',[Validators.maxLength(10),Validators.required]),
-        personMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
-        managerName: new FormControl('',[Validators.required]),
-        managerContactNo: new FormControl('',[Validators.maxLength(10), Validators.required]),
-        managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
-        companyName: new FormControl('',[Validators.required]),
-        addressLine1: new FormControl('',[Validators.required]),
-        addressLine2: new FormControl(''),
-        landMark: new FormControl(''),
-        country: new FormControl('',[Validators.required]),
-        state: new FormControl('',[Validators.required]),
-        pinCode: new FormControl('',[Validators.required]),
-        signatorRole: new FormControl(''),
-        declarationSignature: new FormControl(''),
-        declarationDate: new FormControl(''),
-        declarationName: new FormControl('')
-      })
-    }
+// Contractor details forms
+  private createContractorForm(): FormGroup {
+  return new FormGroup({
+    personName: new FormControl('',[Validators.required]),
+    personContactNo: new FormControl('',[Validators.maxLength(10),Validators.required]),
+    personMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+    managerName: new FormControl('',[Validators.required]),
+    managerContactNo: new FormControl('',[Validators.maxLength(10), Validators.required]),
+    managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+    companyName: new FormControl('',[Validators.required]),
+    addressLine1: new FormControl('',[Validators.required]),
+    addressLine2: new FormControl(''),
+    landMark: new FormControl(''),
+    country: new FormControl('',[Validators.required]),
+    state: new FormControl('',[Validators.required]),
+    pinCode: new FormControl('',[Validators.required]),
+    signatorRole: new FormControl(''),
+    declarationSignature: new FormControl(''),
+    declarationDate: new FormControl(''),
+    declarationName: new FormControl('')
+    })
+  }
 
   getContractorControls(): AbstractControl[] {
     return (<FormArray> this.step1Form.get('contractorArr')).controls
@@ -603,7 +686,7 @@ designer2changeCountry(e: any) {
       }
   }
 
-   // Inspector details forms
+// Inspector details forms
    private createInspectorForm(): FormGroup {
     return new FormGroup({
      personName: new FormControl('',[Validators.required]),
@@ -648,8 +731,7 @@ designer2changeCountry(e: any) {
       }
   }
 
-
-
+ //add designer
   addDesigner() {
     this.showDesigner2= true;
     this.showAddButton= false;
@@ -748,6 +830,7 @@ designer2changeCountry(e: any) {
     }
     this.proceedNext.emit(true);
   }
+//modal popup
   gotoNextModal(content1: any) {
       if(this.step1Form.invalid) {
         this.validationError=true;
@@ -769,7 +852,10 @@ designer2changeCountry(e: any) {
         this.modalService.dismissAll(this.successMsg="")
       }
     }
+
+//next button--final submit
 	nextTab(flag: any) {
+    debugger
       this.loading = true;
       this.submitted = true
       if(this.step1Form.invalid) {
@@ -934,8 +1020,6 @@ designer2changeCountry(e: any) {
     // }
 
     //country code
-
-      
   
     if(!flag) {
       this.step1Form.value.designer1Arr[0].personContactNo= "+" + this.countryCode + "-" + this.step1Form.value.designer1Arr[0].personContactNo;
@@ -957,7 +1041,7 @@ designer2changeCountry(e: any) {
       this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.value.contractorArr,this.step1Form.value.inspectorArr);
     }
     else {
-      debugger
+      
       this.reportDetails.signatorDetails = this.step1Form.getRawValue().designer1Arr;
       if(this.step1Form.value.designer2Arr[0].personName != "" && this.step1Form.value.designer2Arr[0].personName != null) {
         this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.getRawValue().designer2Arr);
@@ -967,7 +1051,7 @@ designer2changeCountry(e: any) {
     
     if(flag){
     //  this.reportDetails.siteId = this.retrivedSiteId;
-     debugger
+     
      //this.disable=false;
    this.UpateBasicService.updateBasic(this.reportDetails).subscribe(
     data=> {
@@ -980,7 +1064,7 @@ designer2changeCountry(e: any) {
    
    }
    else{
-    debugger
+    
    this.reportDetailsService.addReportDetails(this.reportDetails).subscribe(
      data=> {
        this.proceedNext.emit(true);

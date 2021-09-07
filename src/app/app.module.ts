@@ -63,6 +63,7 @@ import { LicenselistComponent } from './licenselist/licenselist.component';
 import { AddlicenseComponent } from './addlicense/addlicense.component';
 import { AssignViewerComponent } from './assign-viewer/assign-viewer.component';
 import { ViewerRegisterComponent } from './viewer-register/viewer-register.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -131,7 +132,7 @@ import { ViewerRegisterComponent } from './viewer-register/viewer-register.compo
     
   ],
  // exports: [WebStorageCodec, WebStorageCodec, SessionStorage],
-  providers: [GlobalsService, { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }, BnNgIdleService],
+  providers: [GlobalsService, { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }, BnNgIdleService,DatePipe],
   bootstrap: [AppComponent],
   entryComponents: [ AddApplicationTypesComponent, UpdateApplicationTypesComponent, VerificationlvComponent ]
 })

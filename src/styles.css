@@ -255,6 +255,9 @@ visibility: visible;
 .highlightSub{
   background: rgba(0,0,0,.04);
 }
+.highlightSub2{
+  background: rgba(0,0,0,.04);
+}
 .highlightType{
   background: rgba(0,0,0,.04);
 }
@@ -360,4 +363,10 @@ visibility: visible;
 }
 .leftAlignSub .mat-list-item-content{
   margin-left: 30px !important;
+}
+#commetTable thead th, #commetTable thead td {
+  border-bottom-width: 0px !important;
+}
+#commetTable thead th {
+  border-bottom-width: 0px !important;
 }
