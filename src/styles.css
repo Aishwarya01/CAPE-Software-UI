@@ -255,6 +255,9 @@ visibility: visible;
 .highlightSub{
   background: rgba(0,0,0,.04);
 }
+.highlightSub2{
+  background: rgba(0,0,0,.04);
+}
 .highlightType{
   background: rgba(0,0,0,.04);
 }

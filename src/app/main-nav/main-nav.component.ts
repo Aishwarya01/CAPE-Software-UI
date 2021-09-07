@@ -23,6 +23,28 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { environment } from 'src/environments/environment';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+
+export interface PeriodicElement {
+  siteCd: string;
+  site: string;
+  country: string;
+  city: string;
+  createdDate: string;
+  createdBy: string;
+  updatedDate: string;
+  updatedBy: string;
+}
+
+const ELEMENT_DATA: PeriodicElement[] = [
+  {siteCd: 'CODE', site: 'Arun', country: 'India', city: 'chennai', createdDate: '1/1/2021', createdBy: 'Arun K', updatedDate: '1/1/2021', updatedBy: 'Arun K'},
+  {siteCd: 'CODE1', site: 'Arun1', country: 'India', city: 'chennai', createdDate: '2/1/2021', createdBy: 'Arun Kumar', updatedDate: '1/1/2021', updatedBy: 'Arun Kumar'},
+  {siteCd: 'CODE2', site: 'Arun2', country: 'India', city: 'chennai', createdDate: '3/1/2021', createdBy: 'Arun K', updatedDate: '1/1/2021', updatedBy: 'Arun K'},
+  {siteCd: 'CODE3', site: 'Arun3', country: 'India', city: 'chennai', createdDate: '4/1/2021', createdBy: 'Arun', updatedDate: '1/1/2021', updatedBy: 'Arun'},
+  {siteCd: 'CODE4', site: 'Arun4', country: 'India', city: 'chennai', createdDate: '5/1/2021', createdBy: 'AK', updatedDate: '1/1/2021', updatedBy: 'AK'},
+  {siteCd: 'CODE5', site: 'Arun5', country: 'India', city: 'chennai', createdDate: '6/1/2021', createdBy: 'Arun', updatedDate: '1/1/2021', updatedBy: 'Arun'},
+];
 
 @Component({
   selector: 'app-main-nav',
@@ -30,6 +52,42 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./main-nav.component.css']
 })
 export class MainNavComponent implements OnInit, OnDestroy {
+
+  ongoingSiteColumns: string[] = [
+    'siteCd',
+    'site',
+    'country',
+    'city',
+    'createdDate',
+    'createdBy',
+    'updatedDate',
+    'updatedBy',
+    'action',
+  ];
+  // ongoingSite_dataSource!: MatTableDataSource<Site[]>;
+  ongoingSite_dataSource = ELEMENT_DATA;
+  @ViewChild('ongoingSitePaginator', { static: true }) ongoingSitePaginator!: MatPaginator;
+  @ViewChild('ongoingSiteSort', { static: true }) ongoingSiteSort!: MatSort;
+
+  completedLicenseColumns: string[] = [
+    'siteCd',
+    'site',
+    'country',
+    'city',
+    'createdDate',
+    'createdBy',
+    'updatedDate',
+    'updatedBy',
+    'action',
+  ];
+
+  
+  // completedLicense_dataSource!: MatTableDataSource<Site[]>;
+  completedLicense_dataSource = ELEMENT_DATA;
+  @ViewChild('completedLicensePaginator', { static: true }) completedLicensePaginator!: MatPaginator;
+  @ViewChild('completedLicenseSort', { static: true }) completedLicenseSort!: MatSort;
+
+
   sidenavWidth: any;
   isExpanded: boolean = false;
   showSubmenu: boolean = false;
@@ -40,6 +98,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
   autosize: boolean = true;
   screenWidth: number | undefined;
   activeTab = 0;
+  ongoingSite: boolean = false;
+  completedSite: boolean = false;
   public isCollapsed = false;
   // imageSrc = 'assets/img/lowVoltage.jpg';
 
@@ -92,12 +152,16 @@ export class MainNavComponent implements OnInit, OnDestroy {
   selectedRowIndexType: String = '';
   applicationTypesbasedonuser: string="";
   ApplicationTypesSplit: any=[];
+  showTIC: boolean = false;
+  showREP: boolean = false;
+
   mainApplications: any =   [{'name': 'Introduction', 'code': 'IN'},
                             {'name': 'TIC', 'code': 'TIC'},
                             {'name': 'RENT Meter', 'code': 'RM'},
                             {'name': 'Buy Meter', 'code': 'BM'},
                             {'name': 'Reports', 'code': 'REP'},
                             ]
+  currentUser: any=[];
 
 
 
@@ -134,6 +198,16 @@ export class MainNavComponent implements OnInit, OnDestroy {
         this.bnIdle.stopTimer();
       }
     });
+    this.currentUser=sessionStorage.getItem('authenticatedUser');
+    let currentUser1=JSON.parse(this.currentUser);
+    if(currentUser1.role == 'Inspector') {
+      this.showTIC = true;
+      this.showREP = false;
+    }
+    else {
+      this.showTIC = false;
+      this.showREP = true;
+    }
     
   }
   ngOnDestroy(): void {
@@ -195,8 +269,18 @@ export class MainNavComponent implements OnInit, OnDestroy {
     this.selectedRowIndexSub ="";
  }
  highlightSub(type:any){
+  this.welcome= false;
   this.selectedRowIndexSub = type;
   this.selectedRowIndexType="";
+  this.ongoingSite=true;
+  this.completedSite=false;
+ }
+ highlightSub2(type:any){
+  this.welcome= false;
+  this.selectedRowIndexSub = type;
+  this.selectedRowIndexType="";
+  this.ongoingSite=false;
+  this.completedSite=true;
  }
  highlightType(type:any){
   this.selectedRowIndexType = type;

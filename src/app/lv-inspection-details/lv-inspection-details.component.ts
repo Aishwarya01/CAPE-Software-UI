@@ -17,6 +17,9 @@ export class LvInspectionDetailsComponent {
   viewContainerRef!: ViewContainerRef;
   destroy: boolean = false;
   email: String = '';
+  showLicence: boolean = false;
+  showHome: boolean = false;
+
   constructor( private router: ActivatedRoute) { 
       {
         this.email = this.router.snapshot.paramMap.get('email') || '{}'
@@ -24,9 +27,16 @@ export class LvInspectionDetailsComponent {
     }
 
   onNavigateToQuestionaire() {
-    debugger
     this.viewContainerRef.clear();
     this.destroy = true;
+    if(this.email.includes("@capeindia.net")) {
+      this.showHome = true;
+      this.showLicence = false;
+    }
+    else{
+      this.showHome = false;
+      this.showLicence = true;
+    }
   }
 
   displayIconsBasedOnEmail(){
