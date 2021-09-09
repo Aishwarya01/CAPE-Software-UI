@@ -91,7 +91,6 @@ export class LicenselistComponent implements OnInit {
       noOfAvailableLicense: [this.noofLicense],
     })
     this.retrieveSiteDetails();
-
   }
 
   retrieveSiteDetails() {
@@ -137,17 +136,11 @@ export class LicenselistComponent implements OnInit {
     if(this.noofLicense >0) {
       this.noofLicense--;
     }
-    if(this.noofLicense == 0) {
-      this.disableUse = true;
-    }
-    else{
-      this.disableUse = false;
-    }
 
     const dialogRef = this.dialog.open(AssignViewerComponent, {
       width: '500px',
     });
-    // dialogRef.componentInstance.email = this.email;
+    dialogRef.componentInstance.email = this.email;
     dialogRef.afterClosed().subscribe((result) => {
       // this.refresh();
       console.log(result);
@@ -160,7 +153,7 @@ export class LicenselistComponent implements OnInit {
     const dialogRef = this.dialog.open(AddlicenseComponent, {
       width: '500px',
     });
-    // dialogRef.componentInstance.email = this.email;
+    dialogRef.componentInstance.email = this.email;
     dialogRef.afterClosed().subscribe((result) => {
       // this.refresh();
       // this.retrieveClientDetails();

@@ -16,6 +16,15 @@ export class InspectorregisterService {
     return this.http.post<any>(this.apiUrl+'/addRegistration', register)
   }
 
+  public  registerViewer (register: Register): Observable<any> {
+    return this.http.post<any>(this.apiUrl+'/addViewerRegistration', register)
+  }
+  
+  public  updateRegister (register: Register): Observable<any> {
+    return this.http.put<any>(this.apiUrl+'/updateRegistration', register)
+  }
+
+
   public  updateInspector (register: Register): Observable<any> {
     return this.http.put<any>(this.apiUrl+'/updatePermission', register,  { responseType: 'text' as 'json' })
   }

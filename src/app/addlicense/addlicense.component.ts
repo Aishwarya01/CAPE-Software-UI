@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AssignViewerComponent } from '../assign-viewer/assign-viewer.component';
 
@@ -9,6 +9,8 @@ import { AssignViewerComponent } from '../assign-viewer/assign-viewer.component'
 })
 export class AddlicenseComponent implements OnInit {
   licenseValue: number= 5;
+  @Input()
+  email: String = '';
   constructor(private dialog: MatDialog,
   ) { }
 
@@ -25,7 +27,7 @@ export class AddlicenseComponent implements OnInit {
     const dialogRef = this.dialog.open(AssignViewerComponent, {
       width: '500px',
     });
-    // dialogRef.componentInstance.email = this.email;
+    dialogRef.componentInstance.email = this.email;
     dialogRef.afterClosed().subscribe((result) => {
       // this.refresh();
       console.log(result);

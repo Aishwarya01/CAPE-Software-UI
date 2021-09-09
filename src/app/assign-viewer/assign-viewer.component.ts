@@ -7,7 +7,7 @@ import { Register } from '../model/register';
 import { ApplicationTypeService } from '../services/application.service';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { SiteService } from '../services/site.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-assign-viewer',
@@ -53,6 +53,8 @@ export class AssignViewerComponent implements OnInit {
   contactNumber: string = '';
   @Input()
   email: String = '';
+  @Input()
+  userName: String = '';
   registerData: any = [];
   assignArr: any = [];
   state: String='';
@@ -60,13 +62,20 @@ export class AssignViewerComponent implements OnInit {
   successMsg1: String = '';
   Error: boolean = false;
   errorMsg1: String = '';
+  viewerFlag: boolean = false;
+  flag: boolean = false;
+  mobileArr: any = [];
+  setReadOnly: boolean = false;
   constructor(private dialog: MatDialog,
               private formBuilder: FormBuilder, private modalService: NgbModal,
               private siteService: SiteService,
               private applicationService: ApplicationTypeService,
               private inspectorRegisterService: InspectorregisterService,
               private router: Router,
-              ) { }
+              private route: ActivatedRoute,
+
+              ) {
+               }
 
   ngOnInit(): void {
     this.assignViewerForm = this.formBuilder.group({
@@ -92,40 +101,72 @@ export class AssignViewerComponent implements OnInit {
       terms: ['', Validators.required]
     });
 
+
   }
 
   populateData() {
+    debugger
       if(this.registerData.role == "ROLE") {
-      this.createGroup(this.registerData);
+       this.createGroup(this.registerData);
       // this.viewerRegisterForm.setControl('designer1Arr', this._formBuilder.array(this.mobilearr || []))
+      }
+      else {
+        this.viewerRegisterForm.reset();
+        this.register.username = this.assignViewerForm.value.viewerEmail;
+        this.state = '';
+      }
+    this.registerData = [];
+
   }
-}
 
 // createGroup(item: any): FormGroup {
+//   debugger
+//   this.mobileArr = [];
+//   this.mobileArr= item.contactNumber.split('-');
+//   this.register.name=item.name;
+//   this.register.companyName=item.companyName;
+//   this.register.username=item.username;
+//   this.register.department=item.department;
+//   this.register.designation=item.designation;
+//   this.register.address=item.address;
+//   this.register.district=item.district;
+//   this.register.country=item.country;
+//   this.register.state=item.state;
+//   this.register.pinCode=item.pinCode;
+//   this.register.role=item.role;
+//   this.register.registerId = item.registerId
+  
+//   this.selectCountry(item.country);
+//   this.state = this.registerData.state;
 //   return this.formBuilder.group({
-//     name: new FormControl({disabled: false ,value: item.name}),
-//     companyName: new FormControl({disabled: false ,value: item.companyName}),
-//     email: new FormControl({disabled: false, value: item.email}),
-//     contactNumber: new FormControl({disabled : false, value: item.contactNumber}),
-//     department: new FormControl({disabled: false ,value: item.department}),
+//     name: new FormControl({readonly: true ,value: item.name}),
+//     companyName: new FormControl({disabled: true ,value: item.companyName}),
+//     email: new FormControl({disabled: false, value: item.username}),
+//     contactNumber: new FormControl({disabled : true, value: this.mobileArr[1]}),
+//     department: new FormControl({disabled: true ,value: item.department}),
 //     designation: new FormControl({disabled: true,value: item.designation}),
 //     address: new FormControl({disabled: false ,value: item.address}),
 //     district: new FormControl({disabled: false, value:item.district}),
 //     country: new FormControl({disabled: false,value: item.country}),
 //     state: new FormControl({disabled: false ,value: item.state}),
 //     pinCode: new FormControl({disabled: false, value:item.pinCode}),
-//     userType: new FormControl({disabled: false ,value: item.userType}),
+//     userType: new FormControl({disabled: false ,value: item.role}),
 //   });
 // }
 
 createGroup(item: any) {
+  debugger
+  this.mobileArr = [];
+  this.mobileArr= item.contactNumber.split('-');
+  console.log(this.mobileArr);
+  this.setReadOnly = true;
   this.viewerRegisterForm = this.formBuilder.group({
     name: [item.name, [Validators.required,]],
     companyName: [item.companyName, Validators.required],
     email: [item.username, [
       Validators.required,
       Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-    contactNumber: [item.contactNumber, [Validators.required,Validators.maxLength(10)]],
+    contactNumber: [this.mobileArr[1], [Validators.required,Validators.maxLength(10)]],
     department: [item.department, Validators.required],
     designation: [item.designation, Validators.required],
     address: [item.address, Validators.required],
@@ -133,39 +174,82 @@ createGroup(item: any) {
     country: [item.country, Validators.required],
     state: [item.state, Validators.required],
     pinCode: [item.pinCode, Validators.required],
-    userType: [item.userType, Validators.required],
+    userType: [item.role, Validators.required],
+    terms: ['', Validators.required]
   });
+  this.register.name=item.name;
+  this.register.companyName=item.companyName;
+  this.register.username=item.username;
+  this.register.department=item.department;
+  this.register.designation=item.designation;
+  this.register.address=item.address;
+  this.register.district=item.district;
+  this.register.country=item.country;
+  this.register.state=item.state;
+  this.register.pinCode=item.pinCode;
+  this.register.role=item.role;
+  this.register.registerId = item.registerId
+  this.register.createdBy = item.createdBy
+  this.register.createdDate = item.createdDate
+  
   this.selectCountry(item.country);
   this.state = this.registerData.state;
-
 }
+
+  openModal(contentViewer: any) {
+    this.modalService.open(contentViewer,{size: 'xl'})
+  }
  
   continue(contentViewer:any) {
     this.inspectorRegisterService.retrieveInspector(this.assignViewerForm.value.viewerEmail).subscribe(
       (data) => {
         debugger
         this.registerData = JSON.parse(data);
-
+        
         if(this.registerData.role == 'ROLE') {
           this.success = true;
           this.successMsg1 = "Already registered as Viewer. Please verify the details once!"
-          this.populateData();
-          this.modalService.open(contentViewer,{size: 'xl'})
+          this.viewerFlag = true;
+          this.flag=true;
         }
-        else if(this.registerData.role != 'ROLE') {
+        else {
           this.success = true;
           this.successMsg1 = "Given email is registered as Inspector"
+          this.viewerFlag = false;
+            // this.modalService.dismissAll();
         }
         // else{
         //   this.success = true;
         //   this.successMsg1 = "Kindly fill in the details to assign viewer!"
         //   this.modalService.open(contentViewer,{size: 'xl'})
         // }
+        setTimeout(()=>{
+          this.success = false;
+        this.successMsg1 = ""
+        }, 3000);
       },
       (error) => {
         console.log(error);
+        let errorArr = JSON.parse(error.error);
+        this.Error = true;
+        this.errorMsg1 = errorArr.message;
+        this.viewerFlag = true;
+        this.flag=false;
+        setTimeout(()=>{
+          this.Error = false;
+          this.errorMsg1 = "";
+        }, 3000);
       }
     )
+
+    setTimeout(()=>{
+      if(this.viewerFlag) {
+        this.openModal(contentViewer);
+      }           
+    }, 2000);
+    setTimeout(()=>{
+        this.populateData();
+    }, 3000);
   }
   closeModalDialog(contentViewer2:any){
    this.modalService.dismissAll(contentViewer2)
@@ -234,9 +318,10 @@ createGroup(item: any) {
   cancel(){
     this.dialog.closeAll();
   }
-onSubmit() {
+
+  onSubmit(flag: any) {
+    debugger
   this.submitted = true;
-  console.log(this.viewerRegisterForm.value.applicationType)
 
   //Breaks if form is invalid
   if(this.viewerRegisterForm.invalid) {
@@ -247,29 +332,57 @@ onSubmit() {
   this.contactNumber = "+"+this.countryCode+"-"+this.viewerRegisterForm.value.contactNumber
 
   this.register.contactNumber = this.contactNumber;
- 
-//   this.inspectorRegisterService.registerInspector(this.register).subscribe(
-//     data=> {
-//       this.successMsgOTP=true;
-//       this.successMsg="Your application is successfully submitted. You will get mail once when it is approved. Check your e mail. It takes up to "
-//       +environment.hoursOfGettingApproved+ "hours for approval."
-//       setTimeout(()=>{
-//         this.successMsgOTP=false;
-//       }, 3000);
-//       setTimeout(()=>{
-//         this.router.navigate(['/createPassword', {email: this.register.username}])
-//       }, 5000);
-//     },
-//     error => {
-//       this.loading= false;
-//       this.errorMsgflag=true;
-//       this.errorMsg=error.error.message;
-//       setTimeout(()=>{
-//         this.errorMsgflag=false;
-//         this.errorMsg=" ";
-//       }, 3000);
-//     }
-//   )  
+  this.register.permission = 'Yes';
+  this.register.assignedBy = this.email;
+
+  if(!flag) {
+    this.inspectorRegisterService.registerViewer(this.register).subscribe(
+      data=> {
+        this.successMsgOTP=true;
+        this.successMsg="Viewer has been assigned successfully."
+        setTimeout(()=>{
+          this.successMsgOTP=false;
+          this.successMsg="";
+        }, 3000);
+        // setTimeout(()=>{
+        //   this.router.navigate(['/createPassword', {email: this.register.username}])
+        // }, 5000);
+      },
+      error => {
+        this.loading= false;
+        this.errorMsgflag=true;
+        this.errorMsg=error.error.message;
+        setTimeout(()=>{
+          this.errorMsgflag=false;
+          this.errorMsg=" ";
+        }, 3000);
+      }
+    )  
+  }
+  else{
+    this.inspectorRegisterService.updateRegister(this.register).subscribe(
+      data=> {
+        this.successMsgOTP=true;
+        this.successMsg="You have successfully updated viewer profile"
+        setTimeout(()=>{
+          this.successMsgOTP=false;
+          this.successMsg="";
+        }, 3000);
+        // setTimeout(()=>{
+        //   this.router.navigate(['/createPassword', {email: this.register.username}])
+        // }, 5000);
+      },
+      error => {
+        this.loading= false;
+        this.errorMsgflag=true;
+        this.errorMsg=error.error.message;
+        setTimeout(()=>{
+          this.errorMsgflag=false;
+          this.errorMsg=" ";
+        }, 3000);
+      }
+    )
+  }  
 
 }
 }

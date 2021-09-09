@@ -538,7 +538,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       personMailID: new FormControl({disabled: false, value: item.personMailID}),
       personContactNo: new FormControl({disabled : false, value: item.personContactNo}),
       managerName: new FormControl({disabled: false ,value: item.managerName}),
-      managerContactNo: new FormControl({disabled: true,value: item.managerContactNo}),
+      managerContactNo: new FormControl({disabled: false,value: item.managerContactNo}),
       managerMailID: new FormControl({disabled: false ,value: item.managerMailID}),
       companyName: new FormControl({disabled: false, value:item.companyName}),
       addressLine1: new FormControl({disabled: false ,value: item.addressLine1}),
