@@ -33,7 +33,10 @@ export class SavedreportsComponent implements OnInit {
   departmentList: any = [];
   noDetails: boolean=false;
   noDetailsRec: boolean=false;
-  
+  showTIC: boolean = false;
+  showREP: boolean = false;
+  currentUser: any = [];
+  currentUser1: any = [];
 
   constructor(private router: ActivatedRoute,
               private clientService: ClientService,
@@ -48,6 +51,9 @@ export class SavedreportsComponent implements OnInit {
 
   ngOnInit(): void {
     // this.retrieveClientDetails();
+    this.currentUser=sessionStorage.getItem('authenticatedUser');
+    this.currentUser1 = [];
+    this.currentUser1=JSON.parse(this.currentUser);
     this.retrieveSiteDetails();
   }
 
@@ -72,12 +78,25 @@ export class SavedreportsComponent implements OnInit {
   }
 
   retrieveSiteDetails() {
+    if(this.currentUser1.role == 'Inspector') {
       this.siteService.retrieveListOfSite(this.email).subscribe(
         data => {
          this.savedReport_dataSource = new MatTableDataSource(JSON.parse(data));
           this.savedReport_dataSource.paginator = this.savedReportPaginator;
           this.savedReport_dataSource.sort = this.savedReportSort;
         });
+    }
+    else {
+      if(this.currentUser1.assignedBy!=null) {
+        this.siteService.retrieveListOfSite(this.currentUser1.assignedBy).subscribe(
+          data => {
+           this.savedReport_dataSource = new MatTableDataSource(JSON.parse(data));
+            this.savedReport_dataSource.paginator = this.savedReportPaginator;
+            this.savedReport_dataSource.sort = this.savedReportSort;
+          });
+      } 
+    }
+        
   }
 
   deleteSite(siteName: any) {

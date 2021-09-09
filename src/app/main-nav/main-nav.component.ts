@@ -157,6 +157,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
   ApplicationTypesSplit: any=[];
   showTIC: boolean = false;
   showREP: boolean = false;
+  currentUser: any = [];
+  currentUser1: any = [];
 
   mainApplications: any =   [{'name': 'Introduction', 'code': 'IN'},
                             {'name': 'TIC', 'code': 'TIC'},
@@ -164,7 +166,6 @@ export class MainNavComponent implements OnInit, OnDestroy {
                             {'name': 'Buy Meter', 'code': 'BM'},
                             {'name': 'Reports', 'code': 'REP'},
                             ]
-  currentUser: any=[];
 
 
 
@@ -203,13 +204,14 @@ export class MainNavComponent implements OnInit, OnDestroy {
       }
     });
     this.currentUser=sessionStorage.getItem('authenticatedUser');
-    let currentUser1=JSON.parse(this.currentUser);
-    if(currentUser1.role == 'Inspector') {
+    this.currentUser1 = [];
+    this.currentUser1=JSON.parse(this.currentUser);
+    if(this.currentUser1.role == 'Inspector') {
       this.showTIC = true;
       this.showREP = false;
     }
     else {
-      this.showTIC = false;
+      this.showTIC = true;
       this.showREP = true;
     }
     this.retrieveSiteDetails();
@@ -217,15 +219,29 @@ export class MainNavComponent implements OnInit, OnDestroy {
   }
 
   retrieveSiteDetails() {
-    this.siteService.retrieveSite(this.email).subscribe((data) => {
-      this.ongoingSite_dataSource = new MatTableDataSource(JSON.parse(data));
-      this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
-      this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
-
-      this.completedLicense_dataSource = new MatTableDataSource(JSON.parse(data));
-      this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
-      this.completedLicense_dataSource.sort = this.completedLicenseSort;
-    });
+    if(this.currentUser1.role == 'Inspector') {
+      this.siteService.retrieveSite(this.email).subscribe((data) => {
+        this.ongoingSite_dataSource = new MatTableDataSource(JSON.parse(data));
+        this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
+        this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
+  
+        this.completedLicense_dataSource = new MatTableDataSource(JSON.parse(data));
+        this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
+        this.completedLicense_dataSource.sort = this.completedLicenseSort;
+      });
+    }
+    else {
+      this.siteService.retrieveSite(this.currentUser1.assignedBy).subscribe((data) => {
+        this.ongoingSite_dataSource = new MatTableDataSource(JSON.parse(data));
+        this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
+        this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
+  
+        this.completedLicense_dataSource = new MatTableDataSource(JSON.parse(data));
+        this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
+        this.completedLicense_dataSource.sort = this.completedLicenseSort;
+      });
+    }
+    
   }
 
   ngOnDestroy(): void {

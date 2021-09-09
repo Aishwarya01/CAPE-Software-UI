@@ -16,6 +16,8 @@ import { iif } from 'rxjs';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
 import { CommentsSection } from '../model/comments-section';
 import { DatePipe } from '@angular/common';
+import { InspectorregisterService } from '../services/inspectorregister.service';
+import { ignoreElements } from 'rxjs/operators';
 
 //import { ErrorHandlerService } from './../../shared/services/error-handler.service';
 @Component({
@@ -46,6 +48,8 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   email: String = '';
   clientName: String = '';
   successMsg: string="";
+  commentSuccess: boolean=false;
+
   errorMsg: string="";
   success: boolean=false;
   Error: boolean=false;
@@ -64,6 +68,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   mobilearr2: any=[];
   mobilearr3: any=[];
   flag: boolean=false;
+  checkLoginNumber:String='';
   designer2Arr!: FormArray;
   @Output() proceedNext = new EventEmitter<any>();
   designer1Role: String ='designer1';
@@ -101,7 +106,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   countryCode2: any;
   errorArr: any=[];
   viewerComments: String='';
-  inspectorComments: String='';
+  //inspectorComments: String='';
   comments = new CommentsSection;
 
   replyClicked: boolean=false;
@@ -113,8 +118,26 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   //dateTimeComment!: string | null;
   myVar!: string | null;
   //today= new Date();
-
+  toggleHideShow:boolean=false;
   public today: Date = new Date();
+  isCollapsed = false;
+  registerData: any = [];
+
+  public hideRuleContent:boolean[] = [];
+  public buttonName:any = 'Expand';
+  replyCommentBox: boolean=false;
+  hideMatIcons:boolean[] = [];
+  hideAsViewerLogin: boolean=false;
+  hideAsInspLogin: boolean=true;
+  hideapprove: boolean=false;
+  hideCommentSection: boolean=false;
+  currentUser: any = [];
+  currentUser1: any = [];
+  reportViewerCommentArr:any = [];
+  reportInspectorCommentArr:any = [];
+  commentId: any;
+  hideAdd: boolean=false;
+  hideInspText: boolean=false;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -131,9 +154,13 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     setInterval(() => {
       this.today = new Date();
     }, 1);
+    
   }
 
   ngOnInit(): void {
+    this.currentUser=sessionStorage.getItem('authenticatedUser');
+    this.currentUser1 = [];
+    this.currentUser1=JSON.parse(this.currentUser);
     this.countryCode= '91';
     this.countryCode1= '91';
     this.countryCode2= '91';
@@ -176,23 +203,51 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       contractorArr: this._formBuilder.array([this.createContractorForm()]),
       inspectorArr: this._formBuilder.array([this.createInspectorForm()]),
       viewerCommentArr: this._formBuilder.array([this.addCommentViewer()]),
-      inspectorCommentArr: this._formBuilder.array([this.addCommentInspector()])
-
+      //inspectorCommentArr: this._formBuilder.array([this.addCommentInspector()])
+      //enterComments: [''],
     });
     this.siteService.retrieveCountry().subscribe(
       data => {
         this.countryList = JSON.parse(data);
       }
     )
+    //comments start
+    // this.inspectorRegisterService.retrieveInspector(this.email).subscribe(
+    //   (data) => {
+    //     this.registerData = JSON.parse(data);
+    //     this.checkLoginNumber=='0';
+    //     if(this.registerData.role == 'ROLE' ) { //viewer
+    //       this.hideCommentSection= true;
+    //        if(this.checkLoginNumber=='0'){
+    //         this.hideCommentSection= true;
+    //         this.hideapprove=true;
+    //        }
+    //      this.hideAsInspLogin=true;
+    //      this.hideAsViewerLogin=false;
+    //     }
+    //     else { //inspector
+          
+           
+    //           this.hideCommentSection=true;
+         
+          
+    //       this.hideAsViewerLogin=true;
+    //       this.hideAsInspLogin=false;
+    //       this.hideapprove=false;
+    //     }
+    //   },
+    //   (error) => {
+    //     console.log(error);
+    //   }
+    // )
+    //comments end
     // this.date=new Date();
     // let latest_date =this.datepipe.transform(this.date, 'dd-MM-YY');
     this.refresh();
     this.retrieveClientDetails();
     this.inspectorArr = this.step1Form.get('inspectorArr') as FormArray;
-  
-   // this.myVar=latest_date;
   }
-
+  
 //for company site detail continue
   changeTab(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any): void {
     this.siteDetails1 = true;
@@ -228,6 +283,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
        //this.showField2= this.step1List.reportDetails.evidanceWireAge,
        this.step1List.state=this.step1List.reportDetails.state;
        this.populateData();
+       this.populateDataComments();
       for( let i of this.step1List.reportDetails.signatorDetails) {
         if(i.signatorRole == "designer1"){
           this.step1Form.patchValue({
@@ -283,58 +339,155 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
    // this.disable=true;
 
      }
-
+     populateDataComments() {
+      for(let value of this.step1List.reportDetails.reportDetailsComment){
+        if(this.currentUser1.role == 'Inspector' ) { //Inspector
+            console.log(value.viewerDate + "   " + value.viewerComment)
+            this.reportViewerCommentArr.push(this.createCommentGroup(value));
+            this.step1Form.setControl('viewerCommentArr', this._formBuilder.array(this.reportViewerCommentArr || []))
+            this.reportViewerCommentArr = [];
+            this.hideCommentSection=true;
+            this.hideAsViewerLogin=true;
+            this.hideAsInspLogin=false;
+            this.hideapprove=false;
+           
+              }
+              else { //Viewer
+                console.log(value.inspectorDate + "   " + value.inspectorComment )
+                this.reportViewerCommentArr.push(this.createCommentGroup(value));
+                this.step1Form.setControl('viewerCommentArr', this._formBuilder.array(this.reportViewerCommentArr || []))
+                this.reportViewerCommentArr = [];
+                this.hideCommentSection= true;
+                if(this.checkLoginNumber=='0'){
+                 this.hideCommentSection= true;
+                 this.hideapprove=true;
+                 this.hideAsInspLogin=false;
+                }
+              this.hideAsInspLogin=true;
+              this.hideAsViewerLogin=false;
+              this.replyCommentBox=true;
+              this.hideAdd=true;
+              }       
+            }
+        
+    }
 //comments section starts
+
+createCommentGroup(value: any) : FormGroup {
+  return this._formBuilder.group({
+    commentId: new FormControl({disabled: false ,value: value.commentsId}),
+    viewerComments: new FormControl({disabled: false ,value: value.viewerComment}),
+    inspectorComments: new FormControl({disabled: false ,value: value.inspectorComment}),
+  });
+}
+
+
+// actionMethod1($event1: MouseEvent,$event: MouseEvent) {
+//   ($event1.target as HTMLButtonElement).hidden = false;
+//   ($event.target as HTMLButtonElement).hidden = true;
+// }
+// hideReplyonAction($event: MouseEvent){
+//   ($event.target as HTMLButtonElement).hidden = true;
+// }
+
+toggle(index:any) {
+  // toggle based on index
+  this.hideRuleContent[index] = !this.hideRuleContent[index];
+}
+replyToViewerComment(a: any){
+  debugger
+  this.commentId = a.value.commentId;
+  this.replyCommentBox=true;
+  this.hideAsViewerLogin=false;
+  this.hideInspText=true;
+}
     sendViewerComment(){
       debugger
-      this.comments.reportId = this.reportDetails.reportId;
       this.comments.userName = this.email;
       this.comments.viewerComments = this.step1Form.controls.viewerCommentArr.value[0].viewerComments;
       this.flag=false;
       this.reportDetailsService.sendComments(this.comments,this.reportDetails.siteId).subscribe(
         (data) =>{
+          this.commentSuccess=true;
+          setTimeout(()=>{
+            this.commentSuccess=false;
+       }, 3000);
         },
         (error) => {
         }
       )  
     }
     inspectorComment(){
-      this.comments.reportId = this.reportDetails.reportId;
       this.comments.userName = this.email;
-      this.comments.inspectorComments=this.step1Form.value.inspectorComments;
+      this.comments.commentsId=this.step1Form.controls.viewerCommentArr.value[0].commentId;
+      this.comments.inspectorComments=this.step1Form.controls.viewerCommentArr.value[0].inspectorComments;
+      this.reportDetailsService.replyComments(this.comments,this.reportDetails.siteId).subscribe(
+        (data) =>{
+          this.commentSuccess=true;
+          setTimeout(()=>{
+            this.commentSuccess=false;
+       }, 3000);
+        },
+        (error) => {
+        }
+      )  
     }
-    addAnotherviewerComment() {
+    addAnotherviewerComment($event: MouseEvent) {
+      ($event.target as HTMLButtonElement).hidden = true;
+      this.hideAdd=false;
+      this.hideInspText=false;
       this.viewerCommentArr = this.step1Form.get('viewerCommentArr') as FormArray;
       this.viewerCommentArr.push(this.addCommentViewer());
-      this.today= new Date();
     }
-    addAnotherInspectorComment() {
-      this.inspectorCommentArr = this.step1Form.get('inspectorCommentArr') as FormArray;
-      this.inspectorCommentArr.push(this.addCommentInspector());
-      this.today= new Date();
-    }
+    // addAnotherInspectorComment(index:any) {
+    //   if(index==0)
+    //   {
+    //     this.hideMatIcons[index]=true;
+    //   }
+    //   else{
+    //     this.hideMatIcons[index]=!this.hideMatIcons[index];
+    //   }
+    //   this.inspectorCommentArr = this.step1Form.get('inspectorCommentArr') as FormArray;
+    //   this.inspectorCommentArr.push(this.addCommentInspector());
+    //   this.today= new Date();
+    // }
     addCommentViewer() {
       return this._formBuilder.group({
       viewerComments: [''],
-      });
-    }
-    addCommentInspector() {
-      return this._formBuilder.group({
       inspectorComments: [''],
       });
     }
+    // addCommentInspector() {
+    //   return this._formBuilder.group({
+    //   inspectorComments: [''],
+    //   });
+    // }
     ViewerRemoveComment(index: any) {
+      if(index==0)
+      {
+        this.hideMatIcons[index]=true;
+      }
+      else{
+        this.hideMatIcons[index]=!this.hideMatIcons[index];
+      }
       (this.step1Form.get('viewerCommentArr') as FormArray).removeAt(index);
     }
-    InspectorRemoveComment(index: any) {
-      (this.step1Form.get('inspectorCommentArr') as FormArray).removeAt(index);
-    }
+    // InspectorRemoveComment(index: any) {
+    //   if(index==0)
+    //   {
+    //     this.hideMatIcons[index]=true;
+    //   }
+    //   else{
+    //     this.hideMatIcons[index]=!this.hideMatIcons[index];
+    //   }
+    //   (this.step1Form.get('inspectorCommentArr') as FormArray).removeAt(index);
+    // }
     getViewerCommentControls(): AbstractControl[] {
       return (<FormArray>this.step1Form.get('viewerCommentArr')).controls;
     }
-    getInspectorCommentControls(): AbstractControl[] {
-      return (<FormArray>this.step1Form.get('inspectorCommentArr')).controls;
-    }
+    // getInspectorCommentControls(): AbstractControl[] {
+    //   return (<FormArray>this.step1Form.get('inspectorCommentArr')).controls;
+    // }
     approveComment(){
       this.disable=true;
       this.completedComments=true;
@@ -505,7 +658,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   getInspectorAcknowledgeControls(): AbstractControl[] {
     return (<FormArray> this.step1Form.get('inspectorAcknowledgeArr')).controls
   }
-
+  
   populateData() {
     for (let item of this.step1List.reportDetails.signatorDetails) {
       if(item.signatorRole == "designer1") {
@@ -849,7 +1002,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       }
       else {
         this.success=false;
-        this.modalService.dismissAll(this.successMsg="")
+        this.modalService.dismissAll(this.successMsg="") 
       }
     }
 

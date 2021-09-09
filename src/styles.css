@@ -370,3 +370,74 @@ visibility: visible;
 #commetTable thead th {
   border-bottom-width: 0px !important;
 }
+.collapse:not(.show) {
+  display: block !important;
+}
+
+.even {
+  background-color: #eff7fe;
+  float: right;
+  margin-top: 10px;
+}
+
+.odd {
+  background-color: white;
+  color: white;
+  float: left;
+}
+
+
+
+.odd1 {
+  border: 1px solid black;
+  background-color: white;
+  margin: 0 122px;
+ width: 5%;
+}
+.scrollbar
+{
+max-height:300px; overflow-y:auto; overflow-x:hidden; 
+}
+
+/*
+ *  STYLE 1
+ */
+
+#style-1::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar
+{
+	width: 8px;
+	background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+}
+
+/* .odd div .only-show-on-hover {
+  visibility: hidden;
+}
+.odd:hover div .only-show-on-hover {
+  visibility: visible;
+} */
+
+
+ /* .ChildDiv2 {
+  display:none 
+ } */
+ /*
+ .Parent:hover ~ .ChildDiv2 {
+   display: block;
+ }
+ .Parent:hover > div {
+  display: block;
+} */

@@ -1,5 +1,5 @@
 export class CommentsSection {
-    reportId!: number;
+    commentsId!: number;
     viewerComments!: String;
     inspectorComments!: String;
     //permission!: string;

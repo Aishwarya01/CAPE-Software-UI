@@ -19,4 +19,7 @@ export class ReportDetailsService {
   public sendComments(comment: CommentsSection,siteId: any): Observable<any> {
     return this.http.get<any>(this.apiUrl + '/sendBasicInfoComments'+'/'+comment.userName+ '/' +siteId+ '/' +comment.viewerComments, { responseType: 'text' as 'json' })
   }
+  public replyComments(comment: CommentsSection,siteId: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl + '/replyBasicInfoComments'+'/'+comment.userName+ '/' +siteId, comment, { responseType: 'text' as 'json' })
+  }
 }
