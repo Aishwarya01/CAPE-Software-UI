@@ -20,13 +20,17 @@ export class AddlicenseComponent implements OnInit {
   demo() {
 
   }
-
+  closeModalDialog(){
+    this.dialog.closeAll();
+   }
   showViewerPage() {
     this.dialog.closeAll();
-
     const dialogRef = this.dialog.open(AssignViewerComponent, {
       width: '500px',
+      disableClose: true,
     });
+
+   
     dialogRef.componentInstance.email = this.email;
     dialogRef.afterClosed().subscribe((result) => {
       // this.refresh();

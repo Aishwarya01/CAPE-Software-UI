@@ -152,6 +152,7 @@ export class LicenselistComponent implements OnInit {
     this.noofLicense= this.noofLicense+5;
     const dialogRef = this.dialog.open(AddlicenseComponent, {
       width: '500px',
+      disableClose: true,
     });
     dialogRef.componentInstance.email = this.email;
     dialogRef.afterClosed().subscribe((result) => {

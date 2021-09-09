@@ -36,6 +36,7 @@ export class AssignViewerComponent implements OnInit {
 
   loading = true;
   submitted = false;
+  submitted1 = false;
   msg: any;
   alert: any;
   countryList: any = [];
@@ -79,7 +80,9 @@ export class AssignViewerComponent implements OnInit {
 
   ngOnInit(): void {
     this.assignViewerForm = this.formBuilder.group({
-      viewerEmail: ['', [Validators.required,]],
+      viewerEmail: ['', [
+        Validators.required,
+        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
     });
     this.countryCode = '91';
 
@@ -97,7 +100,7 @@ export class AssignViewerComponent implements OnInit {
       country: ['', Validators.required],
       state: ['', Validators.required],
       pinCode: ['', Validators.required],
-      userType: ['', Validators.required],
+      userType: ['Viewer', Validators.required],
       terms: ['', Validators.required]
     });
 
@@ -174,7 +177,7 @@ createGroup(item: any) {
     country: [item.country, Validators.required],
     state: [item.state, Validators.required],
     pinCode: [item.pinCode, Validators.required],
-    userType: [item.role, Validators.required],
+    userType: ['Viewer', Validators.required],
     terms: ['', Validators.required]
   });
   this.register.name=item.name;
@@ -187,7 +190,6 @@ createGroup(item: any) {
   this.register.country=item.country;
   this.register.state=item.state;
   this.register.pinCode=item.pinCode;
-  this.register.role=item.role;
   this.register.registerId = item.registerId
   this.register.createdBy = item.createdBy
   this.register.createdDate = item.createdDate
@@ -197,10 +199,14 @@ createGroup(item: any) {
 }
 
   openModal(contentViewer: any) {
-    this.modalService.open(contentViewer,{size: 'xl'})
+    this.modalService.open(contentViewer,{size: 'xl', backdrop: 'static' })
   }
  
   continue(contentViewer:any) {
+    this.submitted1 = true;
+    if(this.assignViewerForm.invalid) {
+      return;
+    }
     this.inspectorRegisterService.retrieveInspector(this.assignViewerForm.value.viewerEmail).subscribe(
       (data) => {
         debugger
@@ -254,7 +260,9 @@ createGroup(item: any) {
   closeModalDialog(contentViewer2:any){
    this.modalService.dismissAll(contentViewer2)
   }
-
+  closeModalDialogContinue(){
+    this.dialog.closeAll();
+   }
 //   assignViewer(id: string) {
 //     this.modalService.open(id, { centered: true});
 // }
@@ -332,6 +340,7 @@ createGroup(item: any) {
   this.contactNumber = "+"+this.countryCode+"-"+this.viewerRegisterForm.value.contactNumber
 
   this.register.contactNumber = this.contactNumber;
+  this.register.role = 'Viewer';
   this.register.permission = 'Yes';
   this.register.assignedBy = this.email;
 

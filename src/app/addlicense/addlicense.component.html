@@ -1,3 +1,11 @@
 <h1>Introductory Offer</h1>
 <h3>Congratulations: You have {{licenseValue}} complimentary licenses</h3>
-<button class="btn btn-primary" style="margin-left: 185px;" (click) ="showViewerPage()">Proceed</button>
+
+<div style="text-align: center;">
+    <button class="btn btn-primary" (click) ="showViewerPage()">Proceed</button>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button  type="button" aria-label="Close"  (click)="closeModalDialog()" 
+   class="btn btn-danger" ><i class="bi bi-x icon"></i> 
+    <span aria-hidden="true">Cancel</span>
+</button>
+</div>

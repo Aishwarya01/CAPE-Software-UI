@@ -13,15 +13,15 @@ export class InspectorregisterService {
   constructor ( private http: HttpClient) { }
   
   public  registerInspector (register: Register): Observable<any> {
-    return this.http.post<any>(this.apiUrl+'/addRegistration', register)
+    return this.http.post<any>(this.apiUrl+'/addRegistration', register, { responseType: 'text' as 'json' })
   }
 
   public  registerViewer (register: Register): Observable<any> {
-    return this.http.post<any>(this.apiUrl+'/addViewerRegistration', register)
+    return this.http.post<any>(this.apiUrl+'/addViewerRegistration', register, { responseType: 'text' as 'json' })
   }
   
   public  updateRegister (register: Register): Observable<any> {
-    return this.http.put<any>(this.apiUrl+'/updateRegistration', register)
+    return this.http.put<any>(this.apiUrl+'/updateRegistration', register, { responseType: 'text' as 'json' })
   }
 
 
