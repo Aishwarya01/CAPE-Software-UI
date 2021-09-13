@@ -302,8 +302,10 @@
                 <div *ngIf="errorMsgflag" class="alert alert-danger" style="margin: 55px auto 0px auto;width: 33%;">{{errorMsg}}</div>
         <br>
                 <div style="display: inline;">
-                    <button [disabled]="loading" [ngStyle]="{'cursor': loading ? 'not-allowed' : 'pointer'}" 
+                    <button *ngIf="showAssign" [disabled]="loading" [ngStyle]="{'cursor': loading ? 'not-allowed' : 'pointer'}" 
                     style="float: left; margin-left: 400px;" type="submit" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" id="login-btn"><i class="bi bi-person-plus-fill icon"></i> Assign</button>
+                    <button [disabled]="loading" *ngIf="showRegister" [ngStyle]="{'cursor': loading ? 'not-allowed' : 'pointer'}" 
+                    style="float: left; margin-left: 400px;" type="submit" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" id="login-btn"><i class="bi bi-person-plus-fill icon"></i> Register</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <button  type="button" aria-label="Close"  (click)="closeModalDialog('contentViewer2')" style="float:right; margin-right: 400px;"  
                     class="btn btn-danger" ><i class="bi bi-x icon"></i> 

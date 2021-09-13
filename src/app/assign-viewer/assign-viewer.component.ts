@@ -67,6 +67,8 @@ export class AssignViewerComponent implements OnInit {
   flag: boolean = false;
   mobileArr: any = [];
   setReadOnly: boolean = false;
+  showAssign: boolean = false;
+  showRegister: boolean = false;
   constructor(private dialog: MatDialog,
               private formBuilder: FormBuilder, private modalService: NgbModal,
               private siteService: SiteService,
@@ -211,6 +213,8 @@ createGroup(item: any) {
       (data) => {
         debugger
         this.registerData = JSON.parse(data);
+        this.showAssign = true;
+        this.showRegister = false;
         
         if(this.registerData.role == 'ROLE') {
           this.success = true;
@@ -239,6 +243,8 @@ createGroup(item: any) {
         let errorArr = JSON.parse(error.error);
         this.Error = true;
         this.errorMsg1 = errorArr.message;
+        this.showAssign = false;
+        this.showRegister = true;
         this.viewerFlag = true;
         this.flag=false;
         setTimeout(()=>{
