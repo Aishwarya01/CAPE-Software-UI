@@ -208,18 +208,32 @@ onSubmit() {
     this.applicationTypeData = this.applicationTypeData.replace(/,\s*$/, "");
     this.register.applicationType = this.applicationTypeData;
   }
+
+  if(this.register.role == 'Viewer') {
+    this.register.permission = 'Yes';
+  }
   
   this.inspectorRegisterService.registerInspector(this.register).subscribe(
     data=> {
       this.successMsgOTP=true;
-      this.successMsg="Your application is successfully submitted. You will get mail once when it is approved. Check your e mail. It takes up to "
+      if(this.register.role == 'Inspector') {
+        this.successMsg="Your application is successfully submitted. You will get mail once when it is approved. Check your e mail. It takes up to "
       +environment.hoursOfGettingApproved+ "hours for approval."
       setTimeout(()=>{
         this.successMsgOTP=false;
+        this.successMsg = '';
       }, 3000);
-      setTimeout(()=>{
-        this.router.navigate(['/createPassword', {email: this.register.username}])
-      }, 5000);
+      }    
+      else {
+        this.successMsg="Your application is successfully registered."
+        setTimeout(()=>{
+          this.successMsgOTP=false;
+          this.successMsg = '';
+        }, 3000);
+        setTimeout(()=>{
+          this.router.navigate(['/generateOtp', {email: this.register.username}])
+        }, 5000);
+      }
     },
     error => {
       this.loading= false;
