@@ -8,7 +8,7 @@
           <div class="card-header">
             <!-- <div class="search-bar"> -->
             <div class="row">
-              <div class="col-md-10">
+              <!-- <div class="col-md-10">
                 <label style="display: table-cell;
                   width: 1px;
                   white-space: nowrap;">Company Name:</label>
@@ -18,8 +18,7 @@
                     <option value="0" selected>Select Company Name</option>
                     <option *ngFor="let client of clientList">{{client.clientName}}</option>
                   </select></span>
-                <!-- </div>
-              <div class="col-md-5"> -->
+                
                 <label style="display: table-cell;
                   width: 1px;
                   white-space: nowrap;">Department Name:</label>
@@ -29,8 +28,8 @@
                     <option value="0" selected>Select Department Name</option>
                     <option *ngFor="let department of departmentList">{{department.departmentName}}</option>
                   </select></span>
-              </div>
-              <div class="col-md-2">
+              </div> -->
+              <div class="col-sm-12">
                 <button class="btn btn-info" title="Add New Site" (click)="addSite()" style="padding: 7px 10px 0px 10px;float: right;">
                   <mat-icon aria-hidden="false" aria-label="Example home icon">add_box</mat-icon>
                 </button>

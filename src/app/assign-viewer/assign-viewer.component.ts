@@ -1,4 +1,4 @@
-import { Component, OnInit,Input} from '@angular/core';
+import { Component, OnInit,Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, EventEmitter} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -8,6 +8,7 @@ import { ApplicationTypeService } from '../services/application.service';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { SiteService } from '../services/site.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
 
 @Component({
   selector: 'app-assign-viewer',
@@ -69,15 +70,24 @@ export class AssignViewerComponent implements OnInit {
   setReadOnly: boolean = false;
   showAssign: boolean = false;
   showRegister: boolean = false;
+  @ViewChild('reference', { read: ViewContainerRef })
+  viewContainerRef!: ViewContainerRef;
+  destroy: boolean = false;
+  urlEmail: String = '';
+  data: boolean = false;
+  onSave = new EventEmitter();
   constructor(private dialog: MatDialog,
               private formBuilder: FormBuilder, private modalService: NgbModal,
               private siteService: SiteService,
               private applicationService: ApplicationTypeService,
               private inspectorRegisterService: InspectorregisterService,
               private router: Router,
+              private componentFactoryResolver: ComponentFactoryResolver,
               private route: ActivatedRoute,
 
               ) {
+                this.urlEmail = this.route.snapshot.paramMap.get('email') || '{}';
+                console.log(this.urlEmail)
                }
 
   ngOnInit(): void {
@@ -102,7 +112,7 @@ export class AssignViewerComponent implements OnInit {
       country: ['', Validators.required],
       state: ['', Validators.required],
       pinCode: ['', Validators.required],
-      userType: ['Viewer', Validators.required],
+      userType: ['Viewer'],
       terms: ['', Validators.required]
     });
 
@@ -111,13 +121,16 @@ export class AssignViewerComponent implements OnInit {
 
   populateData() {
     debugger
-      if(this.registerData.role == "ROLE") {
+    this.viewerRegisterForm.reset();
+
+      if((this.registerData.role == 'ROLE') || (this.registerData.role == 'Viewer')) {
        this.createGroup(this.registerData);
       // this.viewerRegisterForm.setControl('designer1Arr', this._formBuilder.array(this.mobilearr || []))
       }
       else {
-        this.viewerRegisterForm.reset();
         this.register.username = this.assignViewerForm.value.viewerEmail;
+        this.register.role = 'Viewer';
+        this.setReadOnly = false;
         this.state = '';
       }
     this.registerData = [];
@@ -216,7 +229,7 @@ createGroup(item: any) {
         this.showAssign = true;
         this.showRegister = false;
         
-        if(this.registerData.role == 'ROLE') {
+        if((this.registerData.role == 'ROLE') || (this.registerData.role == 'Viewer')) {
           this.success = true;
           this.successMsg1 = "Already registered as Viewer. Please verify the details once!"
           this.viewerFlag = true;
@@ -333,6 +346,21 @@ createGroup(item: any) {
     this.dialog.closeAll();
   }
 
+  navigateToSite() {
+    this.cancel();
+    this.viewContainerRef.clear();
+    this.destroy = true;
+    const verificationFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
+    const verificationRef = this.viewContainerRef.createComponent(verificationFactory);
+    //const verification=this.verification.changeTab(1,siteId,userName,'clientName','departmentName',site);
+    verificationRef.changeDetectorRef.detectChanges();
+  }
+
+  closeAll() {
+    this.modalService.dismissAll();
+    this.dialog.closeAll();
+  }
+
   onSubmit(flag: any) {
     debugger
   this.submitted = true;
@@ -358,7 +386,11 @@ createGroup(item: any) {
         setTimeout(()=>{
           this.successMsgOTP=false;
           this.successMsg="";
+          this.closeAll();
         }, 3000);
+        this.onSave.emit(true);
+
+        
         // setTimeout(()=>{
         //   this.router.navigate(['/createPassword', {email: this.register.username}])
         // }, 5000);
@@ -382,7 +414,9 @@ createGroup(item: any) {
         setTimeout(()=>{
           this.successMsgOTP=false;
           this.successMsg="";
+          this.closeAll();
         }, 3000);
+        this.onSave.emit(true);
         // setTimeout(()=>{
         //   this.router.navigate(['/createPassword', {email: this.register.username}])
         // }, 5000);

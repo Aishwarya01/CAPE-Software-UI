@@ -447,6 +447,19 @@
           </div>
           </div>
         </div>
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>Isolator(Means to isolate the public supply system) :</label>
+            <select class="form-control" formControlName="isolatePublicSupply" 
+            [ngClass]="{ 'is-invalid': submitted && a.get('isolatePublicSupply')?.errors }" >
+              <option value="0" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== a.get('isolatePublicSupply')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && a.get('isolatePublicSupply')?.errors" class="invalid-feedback">
+              <div *ngIf="a.get('isolatePublicSupply')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
       </div>
 
       <h3><b>Basic Protection (Prevention Of Contact With Live Parts)</b></h3>

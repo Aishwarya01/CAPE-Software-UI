@@ -15,6 +15,7 @@ import { ComponentFactoryResolver } from '@angular/core';
 import { GlobalsService } from '../globals.service';
 import { FinalreportsComponent } from '../finalreports/finalreports.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { InspectorregisterService } from '../services/inspectorregister.service';
 
 @Component({
   selector: 'app-licenselist',
@@ -28,7 +29,7 @@ export class LicenselistComponent implements OnInit {
     noOfAvailableLicense: new FormControl(''),
   })
   panelOpenState = false;
-  noofLicense: number=0;
+  noofLicense!: number;
 
   ongoingSiteColumns: string[] = [
     'siteCd',
@@ -71,6 +72,11 @@ export class LicenselistComponent implements OnInit {
   destroy: boolean=false;
   @Output()change: EventEmitter<any> = new EventEmitter<any>();
 
+  @ViewChild(AssignViewerComponent)
+  assignViewer!: AssignViewerComponent;
+
+  userData: any = [];
+
   // @ViewChild(VerificationlvComponent)
   // verification!: VerificationlvComponent;
 
@@ -78,6 +84,7 @@ export class LicenselistComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
               private siteService: SiteService,
+              private inspectorService: InspectorregisterService,
               private service: GlobalsService,
               private router: ActivatedRoute,
               private componentFactoryResolver: ComponentFactoryResolver,
@@ -87,10 +94,25 @@ export class LicenselistComponent implements OnInit {
                }
 
   ngOnInit(): void {
+    this.retrieveUserDetail();
     this.licenseForm = this.formBuilder.group({
       noOfAvailableLicense: [this.noofLicense],
     })
     this.retrieveSiteDetails();
+  }
+
+  retrieveUserDetail() {
+    this.inspectorService.retrieveInspector(this.email).subscribe(
+      (data) => {
+        this.userData = JSON.parse(data);
+        if(this.userData.role == 'Inspector') {
+          this.noofLicense = this.userData.noOfLicence;
+        }
+      },
+      (error) => {
+
+      }
+    )
   }
 
   retrieveSiteDetails() {
@@ -131,33 +153,44 @@ export class LicenselistComponent implements OnInit {
     this.modalService.open(contentPDF,{size: 'xl'})
   }
 
+  navigateToSite() {
+    this.viewContainerRef.clear();
+    this.destroy = true;
+    const verificationFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
+    const verificationRef = this.viewContainerRef.createComponent(verificationFactory);
+    //const verification=this.verification.changeTab(1,siteId,userName,'clientName','departmentName',site);
+    verificationRef.changeDetectorRef.detectChanges();
+  }
+
   
   decreaseLicense() {
-    if(this.noofLicense >0) {
-      this.noofLicense--;
-    }
-
     const dialogRef = this.dialog.open(AssignViewerComponent, {
       width: '500px',
     });
     dialogRef.componentInstance.email = this.email;
+    dialogRef.componentInstance.onSave.subscribe(data=>{
+      if(data) {
+        this.navigateToSite();
+      }
+    })
     dialogRef.afterClosed().subscribe((result) => {
-      // this.refresh();
-      console.log(result);
-      // this.retrieveClientDetails();
     });
   }
 
   purchaseLicense() {
+    this.noofLicense = 0;
     this.noofLicense= this.noofLicense+5;
     const dialogRef = this.dialog.open(AddlicenseComponent, {
       width: '500px',
       disableClose: true,
     });
     dialogRef.componentInstance.email = this.email;
+    dialogRef.componentInstance.onLicense.subscribe(data=>{
+      if(data) {
+        this.navigateToSite();
+      }
+    })
     dialogRef.afterClosed().subscribe((result) => {
-      // this.refresh();
-      // this.retrieveClientDetails();
     });
   }
 

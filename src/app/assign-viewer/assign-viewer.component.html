@@ -115,19 +115,19 @@
                                         </span>
                                     </div>
                                     <input type="text" formControlName="userType" class="form-control" 
-                                    readonly value="Viewer" [ngClass]="{ 'is-invalid': submitted && f.userType.errors}" />
-                                    <div *ngIf="submitted && f.userType.errors" class="invalid-feedback">
+                                    readonly [(ngModel)]="register.role"/>
+                                    <!-- <div *ngIf="submitted && f.userType.errors" class="invalid-feedback">
                                         <div *ngIf="f.userType.errors.required">Usertype is required</div>
-                                    </div>
+                                    </div> -->
                                     <!-- <select  formControlName="userType" class="form-control"
                                     [ngClass]="{ 'is-invalid': submitted && f.userType.errors }"   [(ngModel)]="register.role">
                                         <option value="" disabled>Select Type</option>
                                         <option value="Viewer" selected>Viewer</option>
                                         <option value="Inspector" disabled>Inspector</option>
                                     </select> -->
-                                    <div *ngIf="submitted && f.userType.errors" class="invalid-feedback">
+                                    <!-- <div *ngIf="submitted && f.userType.errors" class="invalid-feedback">
                                         <div *ngIf="f.userType.errors.required">Please select user type</div>
-                                    </div>
+                                    </div> -->
                                     <div *ngIf="f.userType.value == 'Viewer'" class="invalid-feedback" style="color: #919994; font-weight: 500;">
                                         <div>*As a viewer you can view, comment, download or print the report</div>
                                     </div>

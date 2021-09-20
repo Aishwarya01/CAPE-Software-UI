@@ -223,6 +223,9 @@ onSubmit() {
         this.successMsgOTP=false;
         this.successMsg = '';
       }, 3000);
+      setTimeout(()=>{
+        this.router.navigate(['/SignIn'])
+      }, 5000);
       }    
       else {
         this.successMsg="Your application is successfully registered."

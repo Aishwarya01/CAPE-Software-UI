@@ -211,8 +211,11 @@ export class MainNavComponent implements OnInit, OnDestroy {
       this.showREP = false;
     }
     else {
-      this.showTIC = true;
-      this.showREP = true;
+      this.showTIC = false;
+      if(this.currentUser1.assignedBy != null) {
+        this.showREP = true;
+
+      }
     }
     this.retrieveSiteDetails();
     
