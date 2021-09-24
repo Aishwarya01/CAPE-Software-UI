@@ -1,7 +1,8 @@
 export class CommentsSection {
     commentsId!: number;
-    viewerComments!: String;
-    inspectorComments!: String;
+    viewerComment!: String;
+    inspectorComment!: String;
     //permission!: string;
     userName!: String;
+    approveOrReject!: String;
 }

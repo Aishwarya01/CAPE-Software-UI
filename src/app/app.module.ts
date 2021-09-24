@@ -64,6 +64,12 @@ import { AddlicenseComponent } from './addlicense/addlicense.component';
 import { AssignViewerComponent } from './assign-viewer/assign-viewer.component';
 import { ViewerRegisterComponent } from './viewer-register/viewer-register.component';
 import { DatePipe } from '@angular/common';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltipModule } from "@ng-bootstrap/ng-bootstrap";
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { DateAgoPipe } from './pipes/date-ago.pipe';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 @NgModule({
   declarations: [
@@ -104,9 +110,11 @@ import { DatePipe } from '@angular/common';
     LicenselistComponent,
     AddlicenseComponent,
     AssignViewerComponent,
-    ViewerRegisterComponent
+    ViewerRegisterComponent,
+    DateAgoPipe
   ],
   imports: [
+    NgbTooltipModule,
     NgbModule,
     BrowserModule,
     AppRoutingModule,
@@ -128,12 +136,14 @@ import { DatePipe } from '@angular/common';
     Ng2TelInputModule,
     NgxBootstrapIconsModule.pick(allIcons),
     NgMultiSelectDropDownModule.forRoot(),
-    NgOtpInputModule
-    
+    ScrollToModule.forRoot(),
+    NgOtpInputModule,
+    MatBadgeModule,
+    MatProgressSpinnerModule
   ],
  // exports: [WebStorageCodec, WebStorageCodec, SessionStorage],
   providers: [GlobalsService, { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }, BnNgIdleService,DatePipe],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent,NgbTooltip],
   entryComponents: [ AddApplicationTypesComponent, UpdateApplicationTypesComponent, VerificationlvComponent ]
 })
 export class AppModule { }

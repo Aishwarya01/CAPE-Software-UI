@@ -23,6 +23,7 @@ import { GlobalsService } from '../globals.service';
 import { of } from 'rxjs';
 import { SiteService } from '../services/site.service';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
+import { CommentsSection } from '../model/comments-section';
 
 @Component({
   selector: 'app-inspection-verification-incoming-equipment',
@@ -71,7 +72,37 @@ export class InspectionVerificationIncomingEquipmentComponent
   step3List: any = [];
   flag: boolean=false;
 
-
+  replyClicked: boolean=false;
+  inspectorCommentArr!: FormArray;
+  viewerCommentArr!: FormArray;
+  replyCommentBox: boolean=false;
+  hideMatIcons:boolean[] = [];
+  hideAsViewerLogin: boolean=false;
+  hideAsInspLogin: boolean=true;
+  hideapprove: boolean=false;
+  hideCommentSection: boolean=false;
+  currentUser: any = [];
+  currentUser1: any = [];
+  reportViewerCommentArr:any = [];
+  reportInspectorCommentArr:any = [];
+  commentId: any;
+  hideAdd: boolean=false;
+  hideInspText: boolean=false;
+  SendReply: boolean=false;
+  showSend: boolean=false;
+  sendComment: boolean=false;
+  hideapproveIcon: boolean=false;
+  showSubmenu: boolean = true;
+  showText: boolean = true;
+  isExpanded: boolean = false;
+  isShowing = false;
+  commentSuccess: boolean=false;
+  comments = new CommentsSection;
+  completedComments: boolean=false;
+  date!: Date;
+  toggleHideShow:boolean=false;
+  public today: Date = new Date();
+  isCollapsed = false;
   @Output() testing = new EventEmitter<any>();
 
   constructor(
@@ -105,8 +136,187 @@ export class InspectionVerificationIncomingEquipmentComponent
 
         this.flag = true;
         this.populateData();
+        this.populateDataComments();
   }
 
+  populateDataComments() {
+    for(let value of this.step3List.reportDetails.reportDetailsComment){
+      if(this.currentUser1.role == 'Inspector' ) { //Inspector
+          console.log(value.viewerDate + "   " + value.viewerComment)
+          this.reportViewerCommentArr.push(this.createCommentGroup(value));
+          this.addstep3.setControl('viewerCommentArr', this._formBuilder.array(this.reportViewerCommentArr || []))
+          this.reportViewerCommentArr = [];
+
+          if(value.viewerFlag=='1'){
+            this.hideCommentSection= true;
+            this.hideAsViewerLogin=true;
+            this.SendReply=true;
+           }
+            }
+            else { //Viewer
+              console.log(value.inspectorDate + "   " + value.inspectorComment )
+              this.reportViewerCommentArr.push(this.createCommentGroup(value));
+              this.addstep3.setControl('viewerCommentArr', this._formBuilder.array(this.reportViewerCommentArr || []))
+              this.reportViewerCommentArr = [];
+              this.hideCommentSection= true;
+              this.sendComment=true;
+              if(value.inspectorFlag=='1'){
+                this.hideCommentSection= true;
+                this.hideAsViewerLogin=false;
+                this.replyCommentBox=true;
+                this.hideAdd=true;
+                this.hideapprove=true;
+                //this.sendComment=true;
+                this.SendReply=false;
+               }
+             
+            
+            }       
+          }
+      
+  }
+//comments section starts
+
+createCommentGroup(value: any) : FormGroup {
+return this._formBuilder.group({
+  commentId: new FormControl({disabled: false ,value: value.commentsId}),
+  viewerComments: new FormControl({disabled: false ,value: value.viewerComment}),
+  inspectorComments: new FormControl({disabled: false ,value: value.inspectorComment}),
+});
+}
+toggle(index:any) {
+// toggle based on index
+//this.hideRuleContent[index] = false;
+this.replyCommentBox=false;
+this.isShowing = false;
+this.isExpanded = false;
+}
+replyToViewerComment(a: any){
+debugger
+this.commentId = a.value.commentId;
+this.replyCommentBox=true;
+this.hideAsViewerLogin=false;
+this.hideapproveIcon=false;
+this.SendReply=true;
+}
+sendViewerComment(){
+    debugger
+    this.comments.userName = this.email;
+    this.comments.commentsId = this.addstep3.controls.viewerCommentArr.value[0].commentId;
+    this.comments.viewerComment = this.addstep3.controls.viewerCommentArr.value[0].viewerComments;
+    this.inspectionDetailsService.sendComments(this.comments,this.inspectionDetails.siteId).subscribe(
+      (data) =>{
+        this.commentSuccess=true;
+        setTimeout(()=>{
+          this.commentSuccess=false;
+     }, 3000);
+      },
+      (error) => {
+      }
+    )  
+}
+inspectorComment(){
+    this.comments.userName = this.email;
+    this.comments.commentsId=this.addstep3.controls.viewerCommentArr.value[0].commentId;
+    this.comments.inspectorComment=this.addstep3.controls.viewerCommentArr.value[0].inspectorComments;
+    this.inspectionDetailsService.replyComments(this.comments,this.inspectionDetails.siteId).subscribe(
+      (data) =>{
+        this.commentSuccess=true;
+        setTimeout(()=>{
+          this.commentSuccess=false;
+     }, 3000);
+      },
+      (error) => {
+      }
+    )  
+}
+
+approveRejectComment(){
+    debugger
+    this.disable=true;
+    this.completedComments=true;
+    this.comments.userName = this.email;
+    if(this.comments.approveOrReject=='APPROVED'){
+      this.comments.approveOrReject = this.addstep3.controls.viewerCommentArr.value[0].approveReject;
+     }
+    this.inspectionDetailsService.approveRejectComments(this.comments,this.inspectionDetails.siteId).subscribe(
+      (data) =>{
+        this.commentSuccess=true;
+        setTimeout(()=>{
+          this.commentSuccess=false;
+     }, 3000);
+      },
+      (error) => {
+      }
+    )  
+}
+addAnotherviewerComment() {
+    this.hideAdd=false;
+    this.SendReply=false;
+    this.sendComment=true;
+    this.toggleHideShow=true;
+    this.showSend=false;
+    this.hideapprove=false;
+    this.hideInspText=false;
+    this.viewerCommentArr = this.addstep3.get('viewerCommentArr') as FormArray;
+    this.viewerCommentArr.push(this.addCommentViewer());
+}
+// addAnotherInspectorComment(index:any) {
+  //   if(index==0)
+  //   {
+  //     this.hideMatIcons[index]=true;
+  //   }
+  //   else{
+  //     this.hideMatIcons[index]=!this.hideMatIcons[index];
+  //   }
+  //   this.inspectorCommentArr = this.step1Form.get('inspectorCommentArr') as FormArray;
+  //   this.inspectorCommentArr.push(this.addCommentInspector());
+  //   this.today= new Date();
+// }
+addCommentViewer() {
+    return this._formBuilder.group({
+    viewerComments: [''],
+    inspectorComments: [''],
+    });
+}
+// addCommentInspector() {
+  //   return this._formBuilder.group({
+  //   inspectorComments: [''],
+  //   });
+// }
+ViewerRemoveComment(index: any) {
+    this.hideAdd=true;
+    this.toggleHideShow=false;
+    this.showSend=true;
+    this.hideapprove=true;
+    this.sendComment=false;
+    // if(index==0)
+    // {
+    //   this.hideMatIcons[index]=true;
+    // }
+    // else{
+    //   this.hideMatIcons[index]=true;
+    // }
+    (this.addstep3.get('viewerCommentArr') as FormArray).removeAt(index);
+}
+// InspectorRemoveComment(index: any) {
+  //   if(index==0)
+  //   {
+  //     this.hideMatIcons[index]=true;
+  //   }
+  //   else{
+  //     this.hideMatIcons[index]=!this.hideMatIcons[index];
+  //   }
+  //   (this.step1Form.get('inspectorCommentArr') as FormArray).removeAt(index);
+// }
+getViewerCommentControls(): AbstractControl[] {
+    return (<FormArray>this.addstep3.get('viewerCommentArr')).controls;
+}
+// getInspectorCommentControls(): AbstractControl[] {
+//   return (<FormArray>this.step1Form.get('inspectorCommentArr')).controls;
+// }
+ 
+//comments section ends
   populateData() {
     this.arr = [];
     for (let item of this.step3List.periodicInspection.ipaoInspection) {

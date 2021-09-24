@@ -1,5 +1,6 @@
 import { Injectable,ViewChild } from '@angular/core';
 import { VerificationlvComponent } from './verificationlv/verificationlv.component';
+import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
 
 @Injectable({
   providedIn: 'root'
@@ -8,15 +9,21 @@ import { VerificationlvComponent } from './verificationlv/verificationlv.compone
 
 export class GlobalsService {
    
-    private data = {};  
-    siteCount: number = 0; 
-   iterationList: any=[];
-  //  @ViewChild(VerificationlvComponent)
-  //  verification!: VerificationlvComponent;
- 
-    constructor() {}
+  private data = {};  
+  siteCount: number = 0; 
+  iterationList: any=[];
+  notificationCount: number= 0;
+  viewerName!: String;
+  inspectorName!: String;
+  siteName!: String;
+  viewerData: any = [];
+  
+  constructor(private _scrollToService: ScrollToService) {}
 
-      // callMethod(index: any,siteId: any,userName: any,clientName: any,departmentName: any,site: any) {
-      //   this.verification.changeTab(index,siteId,userName,clientName,departmentName,site);
-      // }
+  public triggerScrollTo() {
+    const config: ScrollToConfigOptions = {
+      target: 'destination'
+    };
+    this._scrollToService.scrollTo(config);
+  }
 }

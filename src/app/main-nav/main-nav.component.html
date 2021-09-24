@@ -11,12 +11,40 @@
         <a href="#"><img src="assets/img/Rush_Final_logo.png"></a>
       </div>
       <div class="appName">
-      <span>Rush Safety Applications</span>
+      <span>Rush: Interactive-Intelligent-Modern</span>
     </div>
       <span class="spacer"></span>
+      <button mat-button [matMenuTriggerFor]="notify">
+        <mat-icon matBadge="{{count}}">notifications</mat-icon>
+      </button>
       <button mat-button [matMenuTriggerFor]="menu">
         <mat-icon>person</mat-icon>{{fullName}}
       </button>
+      <mat-menu #notify="matMenu">
+        <div *ngIf="viewerComment" style="padding: 10px;text-align: center;text-decoration: underline;
+        cursor: pointer;" 
+        ngxScrollTo [ngxScrollToOffset]="300" (click)="triggerScrollTo()" >
+          You have 1 new comment from Viewer
+          <span style="color: #17a2b8;
+          display: flex;
+          font-size: 11px;
+          float: right;">{{viewerTime | dateAgo}}</span>
+        </div>
+        <div *ngIf="inspectorReply" style="padding: 10px;text-align: center;text-decoration: underline;
+        cursor: pointer;" 
+        ngxScrollTo [ngxScrollToOffset]="300" (click)="triggerScrollTo()">
+          You have 1 new comment from Inspector
+          <span style="color: #17a2b8;
+          display: flex;
+          font-size: 11px;
+          float: right;">{{inspectorTime | dateAgo}}</span>
+        </div>
+
+        <div *ngIf="zeroNotification" style="padding: 10px;">
+          No new notifications!
+        </div>
+      </mat-menu>
+
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="profileUpdate(email)"><mat-icon >manage_accounts</mat-icon>Profile</button>
         <button mat-menu-item (click)="changePassword(email)"><mat-icon >build</mat-icon>Change Password</button>
@@ -150,7 +178,7 @@
     </mat-nav-list>
   </mat-sidenav>
 
-  <mat-sidenav-content fullscreen fxFlexFill>
+  <mat-sidenav-content fullscreen fxFlexFill id="destination">
     <div style="margin: 185px; text-align: center;" *ngIf="welcome">
     <h1 style="font-size: 35px;">Welcome to Rush Safety Applications</h1>
     <p>Note: Kindly go through the sub-menus on the left side panel.</p>

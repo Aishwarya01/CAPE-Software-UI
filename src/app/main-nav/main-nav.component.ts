@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild, ViewContainerRef, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild, ViewContainerRef, OnInit,ElementRef } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -28,6 +28,8 @@ import { MatSort } from '@angular/material/sort';
 import { SiteService } from '../services/site.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Company } from '../model/company';
+import { GlobalsService } from '../globals.service';
+//import { debug } from 'console';
 
 export interface PeriodicElement {
   siteCd: string;
@@ -88,7 +90,6 @@ export class MainNavComponent implements OnInit, OnDestroy {
   completedLicense_dataSource!: MatTableDataSource<Company[]>;
   @ViewChild('completedLicensePaginator', { static: true }) completedLicensePaginator!: MatPaginator;
   @ViewChild('completedLicenseSort', { static: true }) completedLicenseSort!: MatSort;
-
 
   sidenavWidth: any;
   isExpanded: boolean = false;
@@ -159,20 +160,27 @@ export class MainNavComponent implements OnInit, OnDestroy {
   showREP: boolean = false;
   currentUser: any = [];
   currentUser1: any = [];
-
+ 
   mainApplications: any =   [{'name': 'Introduction', 'code': 'IN'},
                             {'name': 'TIC', 'code': 'TIC'},
                             {'name': 'RENT Meter', 'code': 'RM'},
                             {'name': 'Buy Meter', 'code': 'BM'},
                             {'name': 'Reports', 'code': 'REP'},
                             ]
-
-
-
+  count!: number;
+  viewerComment: boolean = false;
+  inspectorReply: boolean = false;
+  zeroNotification: boolean= false;
+  viewerName: String='';
+  inspectorName: String='';
+  viewerTime!:Date;
+  inspectorTime!:Date;
+  
   constructor(private breakpointObserver: BreakpointObserver, changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     private loginservice: LoginserviceService,
     private router: ActivatedRoute,
+    public service: GlobalsService,
     private route: Router,
     private componentFactoryResolver: ComponentFactoryResolver,
     private applicationService: ApplicationTypeService,
@@ -211,15 +219,60 @@ export class MainNavComponent implements OnInit, OnDestroy {
       this.showREP = false;
     }
     else {
+      //uncomment this later...
       this.showTIC = false;
       if(this.currentUser1.assignedBy != null) {
         this.showREP = true;
-
       }
+      this.showTIC = true;
+      this.showREP = true;
     }
     this.retrieveSiteDetails();
-    
   }
+  triggerScrollTo(){
+    this.service.triggerScrollTo();
+  }
+
+notification(number: any,viewerName: any,inspectorName: any,viewerDate: any,inspectorDate: any){
+  this.count = number;
+  
+  if(this.currentUser1.role == 'Inspector') {
+    debugger
+   // console.log(this.getObservable(viewerDate));
+    
+    if(number!=1){
+    this.zeroNotification=true;
+    this.viewerComment=false;
+    this.inspectorReply=false;
+    }
+    else{
+      this.viewerName = viewerName;
+      this.inspectorName = inspectorName;
+      this.viewerTime = viewerDate;
+      this.inspectorTime = inspectorDate;
+      this.zeroNotification=false;
+      this.viewerComment=true;
+      this.inspectorReply=false;
+    }
+  }
+  else {
+    if(number!=1){
+      this.zeroNotification=true;
+      this.viewerComment=false;
+      this.inspectorReply=false;
+      }
+      else{
+        this.viewerName = viewerName;
+        this.inspectorName = inspectorName;
+        this.viewerTime = viewerDate;
+        this.inspectorTime = inspectorDate;
+        this.zeroNotification=false;
+        this.viewerComment=false;
+        this.inspectorReply=true;
+      }
+  }
+//  this.count= this.service.notificationCount;
+}
 
   retrieveSiteDetails() {
     if(this.currentUser1.role == 'Inspector') {

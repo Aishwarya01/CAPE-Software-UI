@@ -354,9 +354,9 @@ visibility: visible;
 .submenu {
   overflow-y: hidden;
   transition: transform 300ms ease;
-  transform: scaleY(0);
   transform-origin: top;
-  padding-left: 56px;
+  /* transform: scaleY(0);
+  padding-left: 56px; */
 }
 .submenu.expanded {
   transform: scaleY(1);
@@ -375,18 +375,22 @@ visibility: visible;
 }
 
 .even {
-  background-color: #eff7fe;
-  float: right;
-  margin-top: 10px;
+  margin-left: 41px;
+  width: 50%;
 }
-
-.odd {
-  background-color: white;
-  color: white;
-  float: left;
+.even1{
+  display: block;
+    font-size: 11px;
+    text-align: center;
+    margin-left: -31%;
+    width: auto;
 }
-
-
+.viewer{
+  display: block;
+  font-size: 11px;
+  text-align: center;
+  margin-left: -25%;width: auto;
+}
 
 .odd1 {
   border: 1px solid black;
@@ -398,10 +402,6 @@ visibility: visible;
 {
 max-height:300px; overflow-y:auto; overflow-x:hidden; 
 }
-
-/*
- *  STYLE 1
- */
 
 #style-1::-webkit-scrollbar-track
 {
@@ -422,22 +422,8 @@ max-height:300px; overflow-y:auto; overflow-x:hidden;
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
 	background-color: #555;
 }
-
-/* .odd div .only-show-on-hover {
-  visibility: hidden;
+.mat-badge-content {
+  color: white;
+  background: red !important;
 }
-.odd:hover div .only-show-on-hover {
-  visibility: visible;
-} */
 
-
- /* .ChildDiv2 {
-  display:none 
- } */
- /*
- .Parent:hover ~ .ChildDiv2 {
-   display: block;
- }
- .Parent:hover > div {
-  display: block;
-} */
