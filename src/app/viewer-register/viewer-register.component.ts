@@ -107,7 +107,6 @@ export class ViewerRegisterComponent implements OnInit {
 
 
   selectCountry(e: any) {
-    debugger
     let changedValue = e.target.value;
     this.stateList = [];
       // for(let arr of this.countryList) {
@@ -134,7 +133,6 @@ export class ViewerRegisterComponent implements OnInit {
 
 
   showSubmit() {
-    debugger
     if(this.isChecked) {
       this.loading = false;
     }

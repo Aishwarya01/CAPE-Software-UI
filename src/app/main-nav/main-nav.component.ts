@@ -29,7 +29,7 @@ import { SiteService } from '../services/site.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Company } from '../model/company';
 import { GlobalsService } from '../globals.service';
-//import { debug } from 'console';
+import { Register } from '../model/register';
 
 export interface PeriodicElement {
   siteCd: string;
@@ -131,7 +131,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   id: number = 0;
   type: String = '';
   code: String = '';
-  user = new User();
+  register = new Register();
   style: any;
 
   itemValue1: String = 'IN';
@@ -347,8 +347,8 @@ notification(number: any,viewerName: any,inspectorName: any,viewerDate: any,insp
   displayUserFullName(email: String) {
     this.loginservice.retrieveUserInformation(email).subscribe(
       data => {
-        this.user = JSON.parse(data);
-        this.fullName = this.user.firstname + " " + this.user.lastname;
+        this.register = JSON.parse(data);
+        this.fullName = this.register.name;
 
       }
     )

@@ -128,7 +128,6 @@ export class LicenselistComponent implements OnInit {
   }
 
   editSite(siteId:any,userName:any,site:any){
-    debugger
     //this.verification.changeTab(1,siteId,userName,'clientName','departmentName',site);
     this.viewContainerRef.clear();
     console.log(this.viewContainerRef.get(1));

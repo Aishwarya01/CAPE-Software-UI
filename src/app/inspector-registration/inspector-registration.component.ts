@@ -132,7 +132,6 @@ export class InspectorRegistrationComponent implements OnInit {
 
 
   selectCountry(e: any) {
-    debugger
     let changedValue = e.target.value;
     this.stateList = [];
       // for(let arr of this.countryList) {
@@ -160,7 +159,6 @@ export class InspectorRegistrationComponent implements OnInit {
   onSelect(e: any) {
     let selectedValue = e.target.value;
     if(selectedValue == "Viewer") {
-      debugger
       this.isEnabled = false;
       this.InspectorRegisterForm.value.applicationType = [];
       this.InspectorRegisterForm.controls['applicationType'].clearValidators();
@@ -174,7 +172,6 @@ export class InspectorRegistrationComponent implements OnInit {
   }
 
   showSubmit() {
-    debugger
     if(this.isChecked) {
       this.loading = false;
     }

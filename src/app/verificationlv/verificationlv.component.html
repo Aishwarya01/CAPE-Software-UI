@@ -1,13 +1,12 @@
 <mat-tab-group [selectedIndex]="selectedIndex">
-  <mat-tab label="Site Details">
+  <!-- <mat-tab label="Site Details">
     <mat-horizontal-stepper #stepper>
-      <!-- sites -->
       <mat-step>
         <ng-template matStepLabel>Sites</ng-template>
         <div class="card">
-          <div class="card-header">
+          <div class="card-header"> -->
             <!-- <div class="search-bar"> -->
-            <div class="row">
+            <!-- <div class="row"> -->
               <!-- <div class="col-md-10">
                 <label style="display: table-cell;
                   width: 1px;
@@ -29,25 +28,25 @@
                     <option *ngFor="let department of departmentList">{{department.departmentName}}</option>
                   </select></span>
               </div> -->
-              <div class="col-sm-12">
+              <!-- <div class="col-sm-12">
                 <button class="btn btn-info" title="Add New Site" (click)="addSite()" style="padding: 7px 10px 0px 10px;float: right;">
                   <mat-icon aria-hidden="false" aria-label="Example home icon">add_box</mat-icon>
                 </button>
               </div>
-            </div>
+            </div> -->
             <!-- </div> -->
-          </div>
+          <!-- </div>
           <div class="card-body">
             <div class="col-md-12" style="margin-top:30px;">
 
               <table mat-table [dataSource]="site_dataSource" class="mat-elevation-z8 table" matSort
-                #siteSort="matSort">
+                #siteSort="matSort"> -->
 
                 <!--- Note that these columns can be defined in any order.
                             The actual rendered columns are set as a property on the row definition" -->
 
                 <!-- Position Column -->
-                <ng-container matColumnDef="action">
+                <!-- <ng-container matColumnDef="action">
                   <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef> Action
                   </th>
                   <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
@@ -74,9 +73,9 @@
                     mat-sort-header> Site Name </th>
                   <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element"
                     class="mousechange"> {{element.site}} </td>
-                </ng-container>
+                </ng-container> -->
                 <!-- Name Column -->
-                <ng-container matColumnDef="country">
+                <!-- <ng-container matColumnDef="country">
                   <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
                     mat-sort-header> Country </th>
                   <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
@@ -88,33 +87,33 @@
                     mat-sort-header> City </th>
                   <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
                     {{element.city}} </td>
-                </ng-container>
+                </ng-container> -->
                 <!-- Name Column -->
-                <ng-container matColumnDef="createdDate">
+                <!-- <ng-container matColumnDef="createdDate">
                   <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
                     mat-sort-header> Created Date </th>
                   <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
                     {{element.createdDate | date : 'shortDate'}} </td>
-                </ng-container>
+                </ng-container> -->
 
                 <!-- Weight Column -->
-                <ng-container matColumnDef="createdBy">
+                <!-- <ng-container matColumnDef="createdBy">
                   <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
                     mat-sort-header> Created By </th>
                   <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
                     {{element.createdBy}} </td>
-                </ng-container>
+                </ng-container> -->
 
                 <!-- Symbol Column -->
-                <ng-container matColumnDef="updatedDate">
+                <!-- <ng-container matColumnDef="updatedDate">
                   <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
                     mat-sort-header> Updated Date </th>
                   <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
                     {{element.updatedDate | date : 'shortDate'}} </td>
-                </ng-container>
+                </ng-container> -->
 
                 <!-- Symbol Column -->
-                <ng-container matColumnDef="updatedBy">
+                <!-- <ng-container matColumnDef="updatedBy">
                   <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
                     mat-sort-header> Updated By </th>
                   <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
@@ -138,18 +137,18 @@
           <button class="next" mat-button (click)="stepper.reset()"><span class="material-icons">
               restart_alt
             </span>
-            Reset </button>
+            Reset </button> -->
             <!-- <button class="btn btn-info next" mat-button (click)="continue()" [disabled]="disable">
               <span class="material-icons" style="margin-left: -13px;">
                 arrow_right
               </span>
               Continue
             </button> -->
-        </div>
+        <!-- </div>
 
       </mat-step>
     </mat-horizontal-stepper>
-  </mat-tab>
+  </mat-tab> -->
   <mat-tab label="Inspection Verification & Testing of Installation" >
     <mat-horizontal-stepper linear #stepper>
       <!-- step 1 (proceedNext)="doSomething1($event)"-->

@@ -48,7 +48,7 @@ export class GenerateOtpComponent implements OnInit {
 
   onSubmit() {
     this.submitted=true;
-    debugger
+    
     //Breaks if form is invalid
     if(this.generateOtpForm.invalid) {
       return;
