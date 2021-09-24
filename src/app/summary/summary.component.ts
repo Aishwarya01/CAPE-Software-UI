@@ -345,7 +345,6 @@ export class SummaryComponent implements OnInit {
     }
   }
   SubmitTab5(flag: any) {
-    debugger
     
     if(!flag) {
       this.summary.siteId = this.service.siteCount;

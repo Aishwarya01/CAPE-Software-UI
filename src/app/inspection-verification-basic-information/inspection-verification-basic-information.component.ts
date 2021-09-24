@@ -395,14 +395,13 @@ toggle(index:any) {
   this.hideRuleContent[index] = !this.hideRuleContent[index];
 }
 replyToViewerComment(a: any){
-  debugger
+  
   this.commentId = a.value.commentId;
   this.replyCommentBox=true;
   this.hideAsViewerLogin=false;
   this.hideInspText=true;
 }
     sendViewerComment(){
-      debugger
       this.comments.userName = this.email;
       this.comments.viewerComments = this.step1Form.controls.viewerCommentArr.value[0].viewerComments;
       this.flag=false;
@@ -1008,7 +1007,6 @@ replyToViewerComment(a: any){
 
 //next button--final submit
 	nextTab(flag: any) {
-    debugger
       this.loading = true;
       this.submitted = true
       if(this.step1Form.invalid) {

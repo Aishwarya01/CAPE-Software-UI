@@ -50,6 +50,6 @@ export class LoginserviceService {
   }
 
   retrieveUserInformation(email: String): Observable<any>{
-    return this.http.get<User>(this.apiUrl + '/retrieveUserInformation'+'/' + email, { responseType: 'text' as 'json' } )
+    return this.http.get<User>(this.apiUrl_v2 + '/retrieveUserInformation'+'/' + email, { responseType: 'text' as 'json' } )
   }
 }

@@ -141,8 +141,6 @@ clear() {
       ) 
   }
   onSubmit() {
-    debugger
-    console.log(this.updatePassInspector);
     this.submitted=true;
     if((this.loginForm.value.input1 == "") || (this.loginForm.value.input2 == "") || (this.loginForm.value.input3 == "") ||
      (this.loginForm.value.input4 == "") || (this.loginForm.value.input5 == "") || (this.loginForm.value.input6 == "")) {

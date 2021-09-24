@@ -28,6 +28,7 @@ import { MatSort } from '@angular/material/sort';
 import { SiteService } from '../services/site.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Company } from '../model/company';
+import { Register } from '../model/register';
 
 export interface PeriodicElement {
   siteCd: string;
@@ -130,7 +131,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   id: number = 0;
   type: String = '';
   code: String = '';
-  user = new User();
+  register = new Register();
   style: any;
 
   itemValue1: String = 'IN';
@@ -294,8 +295,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
   displayUserFullName(email: String) {
     this.loginservice.retrieveUserInformation(email).subscribe(
       data => {
-        this.user = JSON.parse(data);
-        this.fullName = this.user.firstname + " " + this.user.lastname;
+        this.register = JSON.parse(data);
+        this.fullName = this.register.name;
 
       }
     )

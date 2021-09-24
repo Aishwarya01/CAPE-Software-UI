@@ -51,7 +51,6 @@ export class UserUpdateComponent implements OnInit {
       applicationType: ['', Validators.required],
       });
       this.register.registerId= this.registerId;
-      debugger
       this.arr=this.applicationType.split(',');
 
       this.dropdownList = this.arr;
