@@ -9,6 +9,8 @@ import { InspectorregisterService } from '../services/inspectorregister.service'
 import { SiteService } from '../services/site.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
+import { InspectionVerificationBasicInformationComponent } from '../inspection-verification-basic-information/inspection-verification-basic-information.component';
+import { GlobalsService } from '../globals.service';
 
 @Component({
   selector: 'app-assign-viewer',
@@ -54,7 +56,6 @@ export class AssignViewerComponent implements OnInit {
   isChecked: boolean = false;
   countryCode: String = '';
   contactNumber: string = '';
-  siteName: String = '';
   @Input()
   email: String = '';
   @Input()
@@ -78,6 +79,9 @@ export class AssignViewerComponent implements OnInit {
   urlEmail: String = '';
   data: boolean = false;
   onSave = new EventEmitter();
+  inspectorData: any = [];
+
+
   constructor(private dialog: MatDialog,
               private formBuilder: FormBuilder, private modalService: NgbModal,
               private siteService: SiteService,
@@ -86,6 +90,7 @@ export class AssignViewerComponent implements OnInit {
               private router: Router,
               private componentFactoryResolver: ComponentFactoryResolver,
               private route: ActivatedRoute,
+              private globalService: GlobalsService
 
               ) {
                 this.urlEmail = this.route.snapshot.paramMap.get('email') || '{}';
@@ -101,7 +106,7 @@ export class AssignViewerComponent implements OnInit {
 
     this.viewerRegisterForm = this.formBuilder.group({
       siteName: ['', Validators.required],
-      name: ['', [Validators.required]],
+      name: ['', Validators.required],
       companyName: ['', Validators.required],
       email: ['', [
         Validators.required,
@@ -118,7 +123,11 @@ export class AssignViewerComponent implements OnInit {
       terms: ['', Validators.required]
     });
 
-
+      this.inspectorRegisterService.retrieveInspector(this.email).subscribe(
+        data => {
+          this.inspectorData = JSON.parse(data);
+        }
+      )
   }
 
   populateData() {
@@ -146,6 +155,7 @@ createGroup(item: any) {
   this.viewerRegisterForm = this.formBuilder.group({
     name: [item.name, [Validators.required,]],
     companyName: [item.companyName, Validators.required],
+    siteName: ['', Validators.required],
     email: [item.username, [
       Validators.required,
       Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
@@ -350,6 +360,8 @@ createGroup(item: any) {
           this.successMsg="";
           this.closeAll();
         }, 3000);
+        this.globalService.viewerData = this.register;
+        this.globalService.inspectorName = this.inspectorData.name;
         this.onSave.emit(true);
 
         
@@ -378,7 +390,10 @@ createGroup(item: any) {
           this.successMsg="";
           this.closeAll();
         }, 3000);
+        this.globalService.viewerData = this.register;
+        this.globalService.inspectorName = this.inspectorData.name;
         this.onSave.emit(true);
+        
         // setTimeout(()=>{
         //   this.router.navigate(['/createPassword', {email: this.register.username}])
         // }, 5000);
