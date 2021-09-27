@@ -48,14 +48,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   site = new Site;
   email: String = '';
   clientName: String = '';
-  successMsg: string="";
-  commentSuccess: boolean=false;
-  commentApprove: boolean=false;
-  commentReject: boolean=false;
-
-  errorMsg: string="";
-  success: boolean=false;
-  Error: boolean=false;
+  
   departmentName: String = '';
   reportDetails =new Reportdetails;
   showField1: boolean= true;
@@ -90,7 +83,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   state3: String = "";
   state4: String = "";
   retrivedSiteId!: number;
-  completedCommentArr3: any = [];
+ 
   // Second Tab dependencies
   panelOpenState = false;
   installationList: String[]= ['New Installation','First Verification Of An Existing','Addition Of An Existing Installation','Alteration In An Existing Installation','Periodic Verification'];
@@ -110,8 +103,15 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   errorArr: any=[];
 
   //comments starts
+  completedCommentArr3: any = [];
+  successMsg: string="";
+  commentSuccess: boolean=false;
+  commentApprove: boolean=false;
+  commentReject: boolean=false;
+  errorMsg: string="";
+  success: boolean=false;
+  Error: boolean=false;
   viewerComments: String='';
-  //inspectorComments: String='';
   commentDataArr: any = [];
   replyClicked: boolean=false;
   inspectorCommentArr!: FormArray;
@@ -124,7 +124,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   public today: Date = new Date();
   isCollapsed = false;
   registerData: any = [];
-  mode: String= "indeterminate";
+  mode: any= 'indeterminate';
   cardBodyComments: boolean=true;
   spinner: boolean=false;
   replyCommentBox: boolean=false;
@@ -170,11 +170,14 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   expandedIndex!: number;
   isClicked:boolean[] = []; 
   arrViewer: any = [];
-  //comments end
   @ViewChild('target') private myScrollContainer!: ElementRef;
   expandedIndexx!: number;
   inspectorName: String = '';	
-
+  //comments end
+//From assign viewer
+companyNameSite: String = '';
+departmentNameSite: String = '';
+siteValue: String = '';
   constructor(
     private _formBuilder: FormBuilder,
     private router: ActivatedRoute,
@@ -211,10 +214,13 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     this.reportDetails.designation = this.service.viewerData.designation;
     this.reportDetails.company = this.service.viewerData.companyName;
     this.reportDetails.verifiedEngineer = this.service.inspectorName;
+    this.companyNameSite = this.service.viewerData.companyName;
+    this.departmentNameSite = this.service.viewerData.department;
+    this.siteValue = this.service.viewerData.siteName;
     this.step1Form = this._formBuilder.group({
-      clientName: ['', Validators.required],
-      departmentName: ['', Validators.required],
-      siteName: ['', Validators.required],
+      clientName: [''],
+      departmentName: [''],
+      siteName: [''],
       clientName1: [''],
       departmentName1: [''],
       site1: [''],
@@ -543,6 +549,10 @@ populateDataComments() {
        this.step1Form.setControl('completedCommentArr1', this._formBuilder.array(this.completedCommentArr4 || []));
 }
 
+getViewerFirstMessage(x: any) {
+  return x.controls.completedCommentArr.controls[0].controls.viewerComments.value;
+}
+
 showHideAccordion(index: number) {  
   //console.log(x);
   this.expandedIndexx = index === this.expandedIndexx ? -1 : index;  
@@ -716,8 +726,9 @@ showHideAccordion(index: number) {
       return (<FormArray>this.step1Form.get('viewerCommentArr')).controls;
   }
   getCompletedCommentControls1(): AbstractControl[] {
-    return (<FormArray>this.step1Form.get('completedCommentArr1')).controls;
-  }
+   return (<FormArray>this.step1Form.get('completedCommentArr1')).controls;
+  // return (this.step1Form.get('completedCommentArr1') as FormArray).controls;
+    }
   getCompletedCommentControls(form: any){
     return form.controls.completedCommentArr?.controls;
   }

@@ -23,10 +23,6 @@ export class InspectiondetailsService {
   public addReportDetails(inspectionDetails: InspectionDetails): Observable<any> {
     return this.http.post<any>(this.apiUrl + '/addInstalReport', inspectionDetails, { responseType: 'text' as 'json' })
   }
-  // public sendComments(comment: CommentsSection,siteId: any): Observable<any> {
-  //   return this.http.get<any>(this.apiUrl + '/sendBasicInfoComments'+'/'+comment.userName+ '/' +siteId+ '/' +comment.viewerComment+ '/' +comment.commentsId, { responseType: 'text' as 'json' })
-  // }
-
   public sendComments(comment: CommentsSection,siteId: any): Observable<any> {
     return this.http.post<any>(this.apiUrl + '/sendBasicInfoComments'+'/'+comment.userName+ '/' +siteId, comment, { responseType: 'text' as 'json' })
   }

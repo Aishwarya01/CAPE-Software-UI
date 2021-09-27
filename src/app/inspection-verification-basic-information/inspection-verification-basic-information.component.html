@@ -2,42 +2,37 @@
     <div class="card-body">
       <form [formGroup]="step1Form" (ngSubmit)="nextTab(flag)">
       <div class="search-bar">
-          <div class="form-group" *ngIf="siteDetails">
-            <div class="row">
-              <div class="col-md-4">
-                    <label>Company Name*</label>
-                    <select class="form-control" formControlName="clientName" (change)="changeClientName($event)"
-                    [ngClass]="{ 'is-invalid': submitted && f.clientName.errors }">
-                      <option value="0" selected>Select Client Name</option>
-                      <option *ngFor="let client of clientList">{{client.clientName}}</option>
-                    </select>
-                    <div *ngIf="submitted && f.clientName.errors" class="invalid-feedback">
-                      <div *ngIf="f.clientName?.errors?.required">Client name is required</div>
-                  </div>
-              </div>
-              <div class="col-md-4">
-                    <label>Department Name*</label>
-                    <select class="form-control"  formControlName="departmentName" (change)="retrieveSiteInfo($event)" [ngClass]="{ 'is-invalid': submitted && f.departmentName.errors }">
-                      <option value="0" selected>Select Department Name</option>
-                      <option *ngFor="let department of departmentListInspec">{{department.departmentName}}</option>
-                    </select>
-                    <div *ngIf="submitted && f.departmentName.errors" class="invalid-feedback">
-                      <div *ngIf="f.departmentName?.errors?.required">Department name is required</div>
-                  </div>
-              </div>
-              <div class="col-md-4">
-                    <label>Site Name*</label>
-                    <select class="form-control" formControlName="siteName" (change)="retrieveSiteId($event)" [ngClass]="{ 'is-invalid': submitted && f.siteName.errors }">
-                      <option value="0" selected>Select Site Name</option>
-                      <option *ngFor="let site of siteListInspec">{{site.site}}</option>
-                    </select>
-                    <div *ngIf="submitted && f.siteName.errors" class="invalid-feedback">
-                      <div *ngIf="f.siteName?.errors?.required">Site name is required</div>
-                  </div>
-              </div>
-            </div>
-        </div>
+        <div class="form-group" *ngIf="siteDetails">
 
+          <div class="row">
+
+            <div class="col-md-4">
+
+                  <label>Company Name*</label>
+
+                  <input type="text" class="form-control" formControlName="clientName" [(ngModel)]="companyNameSite" readonly/>
+
+            </div>
+
+            <div class="col-md-4">
+
+                  <label>Department Name*</label>
+
+                  <input type="text" class="form-control"  formControlName="departmentName" [(ngModel)]="departmentNameSite" readonly/>
+
+            </div>
+
+            <div class="col-md-4">
+
+                  <label>Site Name*</label>
+
+                  <input type="text" class="form-control"  formControlName="siteName" [(ngModel)]="siteValue" readonly/>
+
+            </div>
+
+          </div>
+
+      </div>
         <div class="form-group" *ngIf="siteDetails1">
           <div class="row">
             <div class="col-md-4">
@@ -1173,8 +1168,8 @@
             </mat-expansion-panel-header>
            
            <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner"
-           color="primary"
-           mode="mode"
+          color="primary"
+           [mode]="mode"
            value="50"
           diameter="50">
        </mat-progress-spinner>
@@ -1282,7 +1277,8 @@
 
   <!--   ng-class="{'test': obj.value1 == 'someothervalue' || obj.value2 == 'somethingelse'}" 
         (something && (menu1 || menu2)) ? even : ''
-      [ngClass.class1]="menu1 || menu2" [ngClass.class2] = "(menu1 || menu2) && something"-->
+      [ngClass.class1]="menu1 || menu2" [ngClass.class2] = "(menu1 || menu2) && something"
+    {{x.controls.completedCommentArr.controls[0].controls.viewerComments.value}}-->
 
  <!-- completed comments start-->
  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngIf="completedComments">
@@ -1292,16 +1288,16 @@
     </mat-panel-title>
   
   </mat-expansion-panel-header>
-  <div class="card-body" style="padding: 0px;">
+  <div class="card-body" style="padding: 0px;"> 
      <div formArrayName="completedCommentArr1" *ngFor="let x of getCompletedCommentControls1(); let j = index" >
        <div [formGroupName]="j">
 
         <button class="btn dropdown" (click)="showHideAccordion(j);" style="width:100%;" 
         *ngIf="(isExpanded || isShowing) || toggleHideShow || getCompletedCommentControls1().length >= 1">
           <mat-icon class="menu-button" style="float: left;">chevron_right</mat-icon> 
-          <label style="float: left;">{{x.controls.completedCommentArr.controls[0].controls.viewerComments.value}}...</label>
+          <label style="float: left;">{{getViewerFirstMessage(x)}}...</label>
          </button> 
-
+        
   <div *ngIf="j === expandedIndexx" >
     <div  formArrayName="completedCommentArr" *ngFor="let a of getCompletedCommentControls(x); let i = index" 
     style="margin-left: 10px;" > 
@@ -1344,7 +1340,7 @@
       </div>   
   
 </mat-expansion-panel>
-<!-- completed comments end-->
+<!-- completed comments end--> 
       </mat-accordion>
    
       <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
