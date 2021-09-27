@@ -30,6 +30,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Company } from '../model/company';
 import { GlobalsService } from '../globals.service';
 import { Register } from '../model/register';
+import { InspectorregisterService } from '../services/inspectorregister.service';
 
 export interface PeriodicElement {
   siteCd: string;
@@ -179,6 +180,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   constructor(private breakpointObserver: BreakpointObserver, changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     private loginservice: LoginserviceService,
+    private inspectorService: InspectorregisterService,
     private router: ActivatedRoute,
     public service: GlobalsService,
     private route: Router,
@@ -220,10 +222,10 @@ export class MainNavComponent implements OnInit, OnDestroy {
     }
     else {
       //uncomment this later...
-      this.showTIC = false;
-      if(this.currentUser1.assignedBy != null) {
-        this.showREP = true;
-      }
+      // this.showTIC = false;
+      // if(this.currentUser1.assignedBy != null) {
+      //   this.showREP = true;
+      // }
       this.showTIC = true;
       this.showREP = true;
     }
@@ -345,7 +347,7 @@ notification(number: any,viewerName: any,inspectorName: any,viewerDate: any,insp
   }
 
   displayUserFullName(email: String) {
-    this.loginservice.retrieveUserInformation(email).subscribe(
+    this.inspectorService.retrieveInspector(email).subscribe(
       data => {
         this.register = JSON.parse(data);
         this.fullName = this.register.name;
