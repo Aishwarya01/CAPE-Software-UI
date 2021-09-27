@@ -29,14 +29,16 @@ export class LvInspectionDetailsComponent {
   onNavigateToQuestionaire() {
     this.viewContainerRef.clear();
     this.destroy = true;
-    if(this.email.includes("@capeindia.net")) {
-      this.showHome = true;
-      this.showLicence = false;
-    }
-    else{
-      this.showHome = false;
-      this.showLicence = true;
-    }
+    // if(this.email.includes("@capeindia.net")) {
+    //   this.showHome = true;
+    //   this.showLicence = false;
+    // }
+    // else{
+    //   this.showHome = false;
+    //   this.showLicence = true;
+    // }
+    this.showHome = false;
+    this.showLicence = true;
   }
 
   displayIconsBasedOnEmail(){

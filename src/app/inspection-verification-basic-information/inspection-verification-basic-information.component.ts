@@ -260,7 +260,7 @@ siteValue: String = '';
       }
     )
     this.refresh();
-    this.retrieveClientDetails();
+    this.retrieveSiteDetails(this.service.viewerData.companyName,this.service.viewerData.department,this.service.viewerData.siteName);
     this.inspectorArr = this.step1Form.get('inspectorArr') as FormArray;
     this.expandedIndex = -1 ;
   }
@@ -916,11 +916,14 @@ showHideAccordion(index: number) {
     }
 
 //retrieve client details
-  private retrieveClientDetails() {
-    this.clientService.retrieveClient(this.email).subscribe(
+  private retrieveSiteDetails(companyName: any,departmentName: any,siteName: any) {
+    
+    this.siteService.retrieveSiteForInspection(companyName,departmentName,siteName).subscribe(
       data => {
         this.clientList = [];
         this.clientList=JSON.parse(data);
+        debugger
+        this.reportDetails.siteId = this.clientList.siteId;
       });
   }
 
