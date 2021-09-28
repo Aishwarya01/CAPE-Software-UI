@@ -273,6 +273,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
    @ViewChild('target') private myScrollContainer!: ElementRef;
    expandedIndexx!: number;
    inspectorName: String = '';	
+   hideShowComment: boolean=false;
    //comments end
 
   constructor(
@@ -500,6 +501,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
 //comments section starts
 
 populateDataComments() {
+  this.hideShowComment=true;
   this.reportViewerCommentArr = [];
   this.completedCommentArr3 = [];
   this.completedCommentArr4 = [];

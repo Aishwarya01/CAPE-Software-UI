@@ -140,6 +140,7 @@ export class InspectionVerificationIncomingEquipmentComponent
   expandedIndexx!: number;
   inspectorName: String = '';	
   completedCommentArr3: any = [];
+  hideShowComment: boolean=false;
   //comments end
 
   constructor(
@@ -180,6 +181,7 @@ export class InspectionVerificationIncomingEquipmentComponent
 //comments section starts
 
 populateDataComments() {
+  this.hideShowComment=true;
   this.reportViewerCommentArr = [];
   this.completedCommentArr3 = [];
   this.completedCommentArr4 = [];

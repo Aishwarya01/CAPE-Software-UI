@@ -1160,7 +1160,7 @@
 
 
       <!-- comments start-->
-          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngIf="hideShowComment">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 <h3>Comments</h3>
@@ -1272,7 +1272,8 @@
           </div>   
            
           </mat-expansion-panel>
-<!-- comments end [ngStyle]="{'pointer-events': a.value.approveOrReject === 'REJECT' ? 'none' : 'visible'}"
+<!-- comments end 
+  [ngStyle]="{'pointer-events': a.value.approveOrReject === 'REJECT' ? 'none' : 'visible'}"
 [ngClass]="{'rotated' : showHideAccordion(j)}"-->
 
   <!--   ng-class="{'test': obj.value1 == 'someothervalue' || obj.value2 == 'somethingelse'}" 

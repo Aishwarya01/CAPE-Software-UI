@@ -31,6 +31,8 @@ import { Company } from '../model/company';
 import { GlobalsService } from '../globals.service';
 import { Register } from '../model/register';
 import { InspectorregisterService } from '../services/inspectorregister.service';
+import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
+import { InspectionVerificationService } from '../services/inspection-verification.service';
 
 export interface PeriodicElement {
   siteCd: string;
@@ -106,6 +108,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
   completedSite: boolean = false;
   public isCollapsed = false;
   // imageSrc = 'assets/img/lowVoltage.jpg';
+//   @Output() proceedNext = new EventEmitter<any>();
+//  data:String="";
 
   @ViewChild('ref', { read: ViewContainerRef })
   viewContainerRef!: ViewContainerRef;
@@ -176,11 +180,13 @@ export class MainNavComponent implements OnInit, OnDestroy {
   inspectorName: String='';
   viewerTime!:Date;
   inspectorTime!:Date;
+  value: boolean= false;
   
   constructor(private breakpointObserver: BreakpointObserver, changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     private loginservice: LoginserviceService,
     private inspectorService: InspectorregisterService,
+    private inspectionService: InspectionVerificationService,
     private router: ActivatedRoute,
     public service: GlobalsService,
     private route: Router,
@@ -369,6 +375,59 @@ notification(number: any,viewerName: any,inspectorName: any,viewerDate: any,insp
   this.ongoingSite=true;
   this.completedSite=false;
  }
+
+ editSite(siteId: any,userName: any,site: any) {
+  this.value= true;
+  this.welcome= false;  
+  this.ongoingSite=false;
+  this.completedSite=false;
+  debugger
+  // this.data = userName
+  // this.proceedNext.emit(this.data);
+  // console.log(this.verification)
+  //this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
+  // this.viewContainerRef.clear();
+  // //this.viewContainerRef1.clear();
+  // const VerificationlvFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
+  // const lvInspectionRef = this.viewContainerRef.createComponent(VerificationlvFactory);
+  // //const lvInspectionRef1 = this.viewContainerRef1.createComponent(lvInspectionFactory);
+  // lvInspectionRef.changeDetectorRef.detectChanges();
+ }
+
+ viewSite(siteId: any,userName: any,site: any){
+  this.welcome= false;
+  this.ongoingSite=false;
+  this.completedSite=false;
+  this.viewContainerRef.clear();
+  //this.viewContainerRef1.clear();
+  const VerificationlvFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
+  const lvInspectionRef = this.viewContainerRef.createComponent(VerificationlvFactory);
+  //const lvInspectionRef1 = this.viewContainerRef1.createComponent(lvInspectionFactory);
+  lvInspectionRef.changeDetectorRef.detectChanges();
+}
+
+pdfModal(contentPDF:any){
+  this.modalService.open(contentPDF,{size: 'xl'})
+}
+
+downloadPdf(siteId: any,userName: any): any {
+  this.inspectionService.downloadPDF(siteId,userName).subscribe(
+    data =>{
+      let blob = new Blob([data], {
+        type: 'application/pdf' // must match the Accept type
+        // type: 'application/octet-stream' // for excel 
+    });
+    var link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = 'samplePDFFile.pdf';
+    link.click();
+    window.URL.revokeObjectURL(link.href);
+    },
+    error =>{
+
+    }
+  )
+}
  highlightSub2(type:any){
   this.welcome= false;
   this.selectedRowIndexSub = type;
@@ -437,6 +496,8 @@ notification(number: any,viewerName: any,inspectorName: any,viewerDate: any,insp
         break;
     }
   }
+
+
 
   editApplicationType(id: any, type: String, code: String) {
     const modalRef = this.modalService.open(UpdateApplicationTypesComponent);

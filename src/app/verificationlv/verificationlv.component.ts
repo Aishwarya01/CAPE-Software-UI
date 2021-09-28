@@ -519,7 +519,10 @@ export class VerificationlvComponent implements OnInit {
   public doSomething1(next: any): void {
     this.isCompleted = next;
   }
-
+  // public onGoingEditSite(data: String): void {
+  //   debugger
+  //   console.log(data);
+  // }
   public doSomething2(next: any): void {
     this.isCompleted2 = next;
   }
@@ -542,7 +545,8 @@ export class VerificationlvComponent implements OnInit {
   // }
 //for saved reports tab
   changeTab(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any): void {
-    this.selectedIndex=0;
+    debugger
+    this.selectedIndex=1;
     this.siteService.retrieveFinal(userName,sitedId).subscribe(
 
       data=> {
@@ -566,7 +570,7 @@ export class VerificationlvComponent implements OnInit {
            // this.selectedIndex=0;
          }   
         else{
-          this.selectedIndex=2;
+          this.selectedIndex=1;
           this.noDetails=true;
           this.saved.savedContinue();
         }   
@@ -582,11 +586,14 @@ export class VerificationlvComponent implements OnInit {
     this.selectedIndex = index;
   }
 
- 
+  myTabSelectedTabChange(e: any) {
+    debugger
+    console.log(e);
+  }
 
   continue1(siteId: any,userName :any,clientName: any,departmentName: any,site: any) {
-    this.selectedIndex = 1;
-    this.basic.changeTab(1,siteId,userName,clientName,departmentName,site);
+    this.selectedIndex = 0;
+    this.basic.changeTab(0,siteId,userName,clientName,departmentName,site);
   }
 
   // onTabChanged(e: any) {

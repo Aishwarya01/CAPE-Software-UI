@@ -1,6 +1,6 @@
 <div class="card">
-    <div class="card-header">
-        <!-- <div class="search-bar"> -->
+    <!-- <div class="card-header">
+        
         <div class="row">
           <div class="col-md-10">
             <label style="display: table-cell;
@@ -12,8 +12,7 @@
                 <option value="0" selected>Select Company Name</option>
                 <option *ngFor="let client of clientList">{{client.clientName}}</option>
               </select></span>
-            <!-- </div>
-          <div class="col-md-5"> -->
+          
             <label style="display: table-cell;
               width: 1px;
               white-space: nowrap;">Department Name:</label>
@@ -25,8 +24,8 @@
               </select></span>
           </div>
         </div>
-        <!-- </div> -->
-      </div>
+        
+      </div> -->
 
     <div class="card-body">
       <table mat-table [dataSource]="finalReport_dataSource" class="mat-elevation-z8 table" matSort

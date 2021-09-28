@@ -104,7 +104,7 @@ export class SavedreportsComponent implements OnInit {
   }
 
   continue(siteId: any,userName :any,site: any) {
-    this.verification.changeTab(1,siteId,userName,'clientName','departmentName',site);
+    this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
   }
   savedContinue()
   {

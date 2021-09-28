@@ -16,6 +16,7 @@ import { GlobalsService } from '../globals.service';
 import { FinalreportsComponent } from '../finalreports/finalreports.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InspectorregisterService } from '../services/inspectorregister.service';
+import { InspectionVerificationService } from '../services/inspection-verification.service';
 
 @Component({
   selector: 'app-licenselist',
@@ -87,6 +88,7 @@ export class LicenselistComponent implements OnInit {
               private inspectorService: InspectorregisterService,
               private service: GlobalsService,
               private router: ActivatedRoute,
+               private inspectionService: InspectionVerificationService,
               private componentFactoryResolver: ComponentFactoryResolver,
               private modalService: NgbModal
               ) {
@@ -151,7 +153,24 @@ export class LicenselistComponent implements OnInit {
   pdfModal(contentPDF:any){
     this.modalService.open(contentPDF,{size: 'xl'})
   }
-
+  downloadPdf(siteId: any,userName: any): any {
+    this.inspectionService.downloadPDF(siteId,userName).subscribe(
+      data =>{
+        let blob = new Blob([data], {
+          type: 'application/pdf' // must match the Accept type
+          // type: 'application/octet-stream' // for excel 
+      });
+      var link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'samplePDFFile.pdf';
+      link.click();
+      window.URL.revokeObjectURL(link.href);
+      },
+      error =>{
+  
+      }
+    )
+  }
   navigateToSite() {
     this.viewContainerRef.clear();
     this.destroy = true;
@@ -160,7 +179,6 @@ export class LicenselistComponent implements OnInit {
     //const verification=this.verification.changeTab(1,siteId,userName,'clientName','departmentName',site);
     verificationRef.changeDetectorRef.detectChanges();
   }
-
   
   decreaseLicense() {
     const dialogRef = this.dialog.open(AssignViewerComponent, {

@@ -173,11 +173,13 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   @ViewChild('target') private myScrollContainer!: ElementRef;
   expandedIndexx!: number;
   inspectorName: String = '';	
+  hideShowComment: boolean=false;
   //comments end
 //From assign viewer
 companyNameSite: String = '';
 departmentNameSite: String = '';
 siteValue: String = '';
+ 
   constructor(
     private _formBuilder: FormBuilder,
     private router: ActivatedRoute,
@@ -362,6 +364,7 @@ siteValue: String = '';
 //comments section starts
 
 populateDataComments() {
+  this.hideShowComment=true;
   this.reportViewerCommentArr = [];
   this.completedCommentArr3 = [];
   this.completedCommentArr4 = [];

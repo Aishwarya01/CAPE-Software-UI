@@ -30,5 +30,7 @@ export class InspectionVerificationService {
   public updateSummary(summary: Summary): Observable<any> {
     return this.http.put<any>(this.apiUrl + '/updateSummary', summary, { responseType: 'text' as 'json' })
   }
-
+  public downloadPDF(siteId: any,userName: any): Observable<any> {
+    return this.http.get<any>(this.apiUrl + '/printInstalReport'+'/'+userName+ '/' +siteId, { responseType: 'text' as 'json' })
+  }
 }

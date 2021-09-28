@@ -181,6 +181,7 @@ export class SummaryComponent implements OnInit {
   expandedIndexx!: number;
   inspectorName: String = '';	
   completedCommentArr3: any = [];
+  hideShowComment: boolean=false;
   //comments end
 
   constructor(
@@ -280,6 +281,7 @@ export class SummaryComponent implements OnInit {
      //comments section starts
 
 populateDataComments() {
+  this.hideShowComment=true;
   this.reportViewerCommentArr = [];
   this.completedCommentArr3 = [];
   this.completedCommentArr4 = [];
@@ -914,7 +916,7 @@ showHideAccordion(index: number) {
           this.success = true;
           this.successMsg = 'Summary Information Successfully Saved';
           this.disable = true;
-          this.final.changeTab1(3);
+          this.final.changeTab1(2);
         },
         (error) => {
           this.Error = true;
