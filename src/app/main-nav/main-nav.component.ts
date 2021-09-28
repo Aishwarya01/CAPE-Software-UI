@@ -222,12 +222,12 @@ export class MainNavComponent implements OnInit, OnDestroy {
     }
     else {
       //uncomment this later...
-      // this.showTIC = false;
-      // if(this.currentUser1.assignedBy != null) {
-      //   this.showREP = true;
-      // }
-      this.showTIC = true;
-      this.showREP = true;
+      this.showTIC = false;
+      if(this.currentUser1.assignedBy != null) {
+        this.showREP = true;
+      }
+      // this.showTIC = true;
+      // this.showREP = true;
     }
     this.retrieveSiteDetails();
   }
@@ -335,7 +335,9 @@ notification(number: any,viewerName: any,inspectorName: any,viewerDate: any,insp
     this.applicationService.retrieveApplicationTypesBasedOnUser(email).subscribe(
       data => {
          this.applicationTypesbasedonuser = data.applicationType;
-        this.ApplicationTypesSplit=this.applicationTypesbasedonuser.split(',')
+         if(this.applicationTypesbasedonuser != null) {
+          this.ApplicationTypesSplit=this.applicationTypesbasedonuser.split(',');
+        }
       }
     );
   }

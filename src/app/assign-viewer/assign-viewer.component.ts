@@ -150,7 +150,6 @@ export class AssignViewerComponent implements OnInit {
 createGroup(item: any) {
   this.mobileArr = [];
   this.mobileArr= item.contactNumber.split('-');
-  console.log(this.mobileArr);
   this.setReadOnly = true;
   this.viewerRegisterForm = this.formBuilder.group({
     name: [item.name, [Validators.required,]],
