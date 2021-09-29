@@ -41,8 +41,8 @@ export class TestDistribution {
 
 
   incomingVoltage!: String;
-  incomingZs!: String;
-  incomingIpf!: String;
+  incomingLoopImpedance!: String;
+  incomingFaultCurrent!: String;
   
 }
 
@@ -55,8 +55,11 @@ export class TestingRecords {
   circuitType!: String;
   circuitRating!: String;
   circuitBreakingCapacity!: String;
+  shortCircuitSetting!: String;
+  eFSetting!: String;
   conductorInstallation!: String;
-  conductorLive!: String;
+  conductorPhase!: String;
+  conductorNeutral!: String;
   conductorPecpc!: String;
   continutiyApproximateLength!: String;
   continutiyRR!: String;

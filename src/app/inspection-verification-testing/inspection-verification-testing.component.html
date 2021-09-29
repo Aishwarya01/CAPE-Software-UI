@@ -305,160 +305,182 @@
             </div>
           </div>
 
-                    <div class="row">
-                        <div class="col">
-                            <div class="table-responsive">
-                              <table class="table" border="1" id="table2">
-                                  <thead>
-                                        <tr align="center">
-                                            <th colspan="6"> Circuit Details </th>
-                                            <th colspan="3"> Conductor Details </th>
-                                            <th colspan="3"> Continuity (Ω) </th>
-                                            <th colspan="2" rowspan="2">Insulation Resistance</th>
-                                            <th rowspan="2"></th>
-                                            <th colspan="9" rowspan="2"> Voltage (V)(note)</th>
-                                            <th colspan="9" rowspan="2"> Fault Loop Impedance (Ω)(note) </th>
-                                            <th colspan="9" rowspan="2"> Actual Short Circuit / Fault Current (Amps) (note)</th>
-                                            <th colspan="9" rowspan="2"> Disconnection Time (For a Short Circuit/Fault Of
-                                                Negligible Impedance) (seconds) </th>
-                                            <th colspan="4">RCD </th>
-                                            <th rowspan="2"></th>
-                                        </tr>
-                                        <tr  align="center">
-                                            <th></th>
-                                            <th></th>
-                                            <th colspan="4">Over Current Device</th>
-                                            <th></th>
-                                            <th colspan="2">CrosssectionalArea(mm2)</th>
-                                            <th colspan="3">Required For Final Circuits And Protective Conductor Only</th>
-                                            <th></th>
-                                            <th colspan="2">Operating Time</th>
-                                            <th></th>
-                                        </tr>
-                                        <tr align="center">
-                                            <th rowspan="2">Circuit No</th>
-                                            <th>Description</th>
-                                            <th>Standard No</th>
-                                            <th>R-N</th>
-                                            <th>Rating (A)</th>
-                                            <th>Breaking Capacity (kA)</th>
-                                            <th>Installation Reference Method</th>
-                                            <th>Live</th>
-                                            <th>PE / CPC</th>
-                                            <th>Approximate Length</th>
-                                            <th>R1+R2 (Ω)</th>
-                                            <th>R2 (Ω)</th>
-                                            <th>L-L</th>
-                                            <th>L-E</th>
-                                            <th>Polarity</th>
-                                            <th>L1-L2</th>
-                                            <th>L2-L3</th>
-                                            <th>L1-L3</th>
-                                            <th>L1-N</th>
-                                            <th>L2-N</th>
-                                            <th>L3-N</th>
-                                            <th>L1-PE</th>
-                                            <th>L2-PE</th>
-                                            <th>L3-PE</th>
-                                             <th>L1-L2</th>
-                                            <th>L2-L3</th>
-                                            <th>L1-L3</th>
-                                            <th>L1-N</th>
-                                            <th>L2-N</th>
-                                            <th>L3-N</th>
-                                            <th>L1-PE</th>
-                                            <th>L2-PE</th>
-                                            <th>L3-PE</th>
-                                            <th>L1-L2</th>
-                                            <th>L2-L3</th>
-                                            <th>L1-L3</th>
-                                            <th>L1-N</th>
-                                            <th>L2-N</th>
-                                            <th>L3-N</th>
-                                            <th>L1-PE</th>
-                                            <th>L2-PE</th>
-                                            <th>L3-PE</th>
-                                            <th>L1-L2</th>
-                                            <th>L2-L3</th>
-                                            <th>L1-L3</th>
-                                            <th>L1-N</th>
-                                            <th>L2-N</th>
-                                            <th>L3-N</th>
-                                            <th>L1-PE</th>
-                                            <th>L2-PE</th>
-                                            <th>L3-PE</th>
-                                            <th>I∆n(Current)</th>
-                                            <th>I∆n </th>
-                                            <th>5 I∆n</th>
-                                            <th rowspan="2">Test Button Operation</th>
-                                            <th>Remarks</th>
-                                      </tr>
-                                   </thead>
-                                  <tbody formArrayName="testingRecords" >
-                                    <tr *ngFor="let f of gettestValueControls(a); let i = index"  class="form-group"[formGroupName]="i" >
-                                            <td><input type="text" formControlName="circuitNo" class="form-control"   style="width:80px"></td>
-                                            <td ><textarea  formControlName="circuitDesc"  class="form-control" style="height:40px;width:170px;"  ></textarea> </td>
-                                            <td><input type="text" formControlName="circuitStandardNo" class="form-control"   style="width:80px"></td>
-                                            <td><input type="text" formControlName="circuitType" class="form-control" style="width:80px"></td>
-                                            <td><input type="text" formControlName="circuitRating" class="form-control"   style="width:80px"></td>
-                                            <td><input type="text" formControlName="circuitBreakingCapacity" class="form-control"   style="width:80px"></td>
-                                            <td><textarea  formControlName="conductorInstallation"  class="form-control"  style="height:40px;width:170px;"></textarea>
-                                            <td><input type="text" formControlName="conductorLive" class="form-control"   style="width:80px"></td>
-                                            <td><input type="text" formControlName="conductorPecpc" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="continutiyApproximateLength" class="form-control"   style="width:80px"></td>
-                                            <td><input type="text" formControlName="continutiyRR" class="form-control"   style="width:80px"></td>
-                                            <td><input type="text" formControlName="continutiyR" class="form-control"   style="width:80px"></td>
-                                            <td><input type="text" formControlName="continutiyLL" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="continutiyLE" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="continutiyPolarity" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="ryVoltage" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="rbVoltage" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="ybVoltage" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="rnVoltage" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="ynVoltage" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="bnVoltage" class="form-control"   style="width:80px"></td>
-                                            <td><input type="text" formControlName="rpeVoltage" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="ypeVoltage" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="bpeVoltage" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="ryLoopImpedance" class="form-control"   style="width:80px"></td>
-                                            <td><input type="text" formControlName="rbLoopImpedance" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="ybLoopImpedance" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="rnLoopImpedance" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="ynLoopImpedance" class="form-control"   style="width:80px"></td>
-                                            <td><input type="text" formControlName="bnLoopImpedance" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="rpeLoopImpedance" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="ypeLoopImpedance" class="form-control"  style="width:70px"></td>
-                                            <td><input type="text" formControlName="bpeLoopImpedance" class="form-control"  style="width:80px"></td>
-                                            <td> <input type="text" formControlName="ryFaultCurrent" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="rbFaultCurrent" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="ybFaultCurrent" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="rnFaultCurrent" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="ynFaultCurrent" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="bnFaultCurrent" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="rpeFaultCurrent" class="form-control"   style="width:80px"></td>
-                                            <td><input type="text" formControlName="ypeFaultCurrent" class="form-control"   style="width:80px"></td>
-                                            <td><input type="text" formControlName="bpeFaultCurrent" class="form-control"   style="width:80px"></td>
-                                            <td><input type="text" formControlName="ryDisconnect" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="rbDisconnect" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="ybDisconnect" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="rnDisconnect" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="ynDisconnect" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="bnDisconnect" class="form-control"   style="width:80px"></td>
-                                            <td><input type="text" formControlName="rpeDisconnect" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="ypeDisconnect" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="bpeDisconnect" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="rcdCurrent" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="rcdOperatingCurrent" class="form-control"  style="width:80px"></td>
-                                            <td><input type="text" formControlName="rcdOperatingFiveCurrent" class="form-control"   style="width:80px"></td>
-                                            <td><textarea  formControlName="rcdTestButtonOperation"  class="form-control" style="height:40px;width:170px;"></textarea>
-                                            <td><textarea  formControlName="rcdRemarks"  class="form-control" style="height:40px;width:170px;"></textarea>
-                                           </tr>
-                                    </tbody>
-                                 </table>
-                                </div>
-                              </div>
-                            </div>
-                        </mat-expansion-panel>
+          <div class="row">
+            <div class="col">
+                <div class="table-responsive">
+                  <table class="table" border="1" id="table2">
+                      <thead>
+                            <tr align="center">
+                                <th colspan="8"> Circuit Details </th>
+                                <th colspan="4"> Conductor Details </th>
+                                <th colspan="3"> Continuity (Ω) </th>
+                                <th colspan="9" rowspan="2">Insulation Resistance</th>
+                                <th rowspan="2"></th>
+                                <th colspan="9" rowspan="2"> Voltage (V)(note)</th>
+                                <th colspan="9" rowspan="2"> Fault Loop Impedance (Ω)(note) </th>
+                                <th colspan="9" rowspan="2"> Actual Short Circuit / Fault Current (Amps) (note)</th>
+                                <th colspan="9" rowspan="2"> Disconnection Time (For a Short Circuit/Fault Of
+                                    Negligible Impedance) (seconds) </th>
+                                <th colspan="4">RCD </th>
+                                <th rowspan="2"></th>
+                            </tr>
+                            <tr  align="center">
+                                <th></th>
+                                <th></th>
+                                <th colspan="6">Over Current Device</th>
+                                <th></th>
+                                <th colspan="3">CrosssectionalArea(mm2)</th>
+                                <th colspan="3">Required For Final Circuits And Protective Conductor Only</th>
+                                <th></th>
+                                <th colspan="2">Operating Time</th>
+                                <th></th>
+                            </tr>
+                            <tr align="center">
+                                <th rowspan="2">Circuit No</th>
+                                <th>Description</th>
+                                <th>Standard No</th>
+                                <th>Type</th>
+                                <th>Rating (A)</th>
+                                <th>Breaking Capacity (kA)</th>
+                                <th>Short Circuit Setting</th>
+                                <th>E and F setting</th>
+                                <th>Installation Reference Method</th>
+                                <th>Phase</th>
+                                <th>Neutral</th>
+                                <th>PE / CPC</th>
+                                <th>Approximate Length</th>
+                                <th>R1+R2 (Ω)</th>
+                                <th>R2 (Ω)</th>
+                                <th>L1-L2</th>
+                                <th>L2-L3</th>
+                                <th>L1-L3</th>
+                                <th>L1-N</th>
+                                <th>L2-N</th>
+                                <th>L3-N</th>
+                                <th>L1-PE</th>
+                                <th>L2-PE</th>
+                                <th>L3-PE</th>
+                                <th>Polarity</th>
+                                <th>L1-L2</th>
+                                <th>L2-L3</th>
+                                <th>L1-L3</th>
+                                <th>L1-N</th>
+                                <th>L2-N</th>
+                                <th>L3-N</th>
+                                <th>L1-PE</th>
+                                <th>L2-PE</th>
+                                <th>L3-PE</th>
+                                 <th>L1-L2</th>
+                                <th>L2-L3</th>
+                                <th>L1-L3</th>
+                                <th>L1-N</th>
+                                <th>L2-N</th>
+                                <th>L3-N</th>
+                                <th>L1-PE</th>
+                                <th>L2-PE</th>
+                                <th>L3-PE</th>
+                                <th>L1-L2</th>
+                                <th>L2-L3</th>
+                                <th>L1-L3</th>
+                                <th>L1-N</th>
+                                <th>L2-N</th>
+                                <th>L3-N</th>
+                                <th>L1-PE</th>
+                                <th>L2-PE</th>
+                                <th>L3-PE</th>
+                                <th>L1-L2</th>
+                                <th>L2-L3</th>
+                                <th>L1-L3</th>
+                                <th>L1-N</th>
+                                <th>L2-N</th>
+                                <th>L3-N</th>
+                                <th>L1-PE</th>
+                                <th>L2-PE</th>
+                                <th>L3-PE</th>
+                                <th>Sensitivity</th>
+                                <th>I∆n </th>
+                                <th>5 I∆n</th>
+                                <th rowspan="2">Test Button Operation</th>
+                                <th>Remarks</th>
+                          </tr>
+                       </thead>
+                      <tbody formArrayName="testingRecords" >
+                        <tr *ngFor="let f of gettestValueControls(a); let i = index"  class="form-group"[formGroupName]="i" >
+                                <td><input type="text" formControlName="circuitNo" class="form-control"   style="width:80px"></td>
+                                <td ><textarea  formControlName="circuitDesc"  class="form-control" style="height:40px;width:170px;"  ></textarea> </td>
+                                <td><input type="text" formControlName="circuitStandardNo" class="form-control"   style="width:80px"></td>
+                                <td><input type="text" formControlName="circuitType" class="form-control" style="width:80px"></td>
+                                <td><input type="text" formControlName="circuitRating" class="form-control"   style="width:80px"></td>
+                                <td><input type="text" formControlName="circuitBreakingCapacity" class="form-control"   style="width:80px"></td>
+                                <td><input type="text" formControlName="shortCircuitSetting" class="form-control"   style="width:80px"></td>
+                                <td><input type="text" formControlName="eFSetting" class="form-control"   style="width:80px"></td>
+                                <td><textarea  formControlName="conductorInstallation"  class="form-control"  style="height:40px;width:170px;"></textarea>
+                                <td><input type="text" formControlName="conductorPhase" class="form-control"   style="width:80px"></td>
+                                <td><input type="text" formControlName="conductorNeutral" class="form-control"   style="width:80px"></td>
+                                <td><input type="text" formControlName="conductorPecpc" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="continutiyApproximateLength" class="form-control"   style="width:80px"></td>
+                                <td><input type="text" formControlName="continutiyRR" class="form-control"   style="width:80px"></td>
+                                <td><input type="text" formControlName="continutiyR" class="form-control"   style="width:80px"></td>
+                                
+                                <td><input type="text" formControlName="rycontinutiy" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="rbcontinutiy" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="ybcontinutiy" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="rncontinutiy" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="yncontinutiy" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="bncontinutiy" class="form-control"   style="width:80px"></td>
+                                <td><input type="text" formControlName="rpecontinutiy" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="ypecontinutiy" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="bpecontinutiy" class="form-control"  style="width:80px"></td>
+
+                                <td><input type="text" formControlName="continutiyPolarity" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="ryVoltage" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="rbVoltage" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="ybVoltage" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="rnVoltage" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="ynVoltage" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="bnVoltage" class="form-control"   style="width:80px"></td>
+                                <td><input type="text" formControlName="rpeVoltage" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="ypeVoltage" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="bpeVoltage" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="ryLoopImpedance" class="form-control"   style="width:80px"></td>
+                                <td><input type="text" formControlName="rbLoopImpedance" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="ybLoopImpedance" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="rnLoopImpedance" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="ynLoopImpedance" class="form-control"   style="width:80px"></td>
+                                <td><input type="text" formControlName="bnLoopImpedance" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="rpeLoopImpedance" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="ypeLoopImpedance" class="form-control"  style="width:70px"></td>
+                                <td><input type="text" formControlName="bpeLoopImpedance" class="form-control"  style="width:80px"></td>
+                                <td> <input type="text" formControlName="ryFaultCurrent" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="rbFaultCurrent" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="ybFaultCurrent" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="rnFaultCurrent" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="ynFaultCurrent" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="bnFaultCurrent" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="rpeFaultCurrent" class="form-control"   style="width:80px"></td>
+                                <td><input type="text" formControlName="ypeFaultCurrent" class="form-control"   style="width:80px"></td>
+                                <td><input type="text" formControlName="bpeFaultCurrent" class="form-control"   style="width:80px"></td>
+                                <td><input type="text" formControlName="ryDisconnect" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="rbDisconnect" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="ybDisconnect" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="rnDisconnect" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="ynDisconnect" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="bnDisconnect" class="form-control"   style="width:80px"></td>
+                                <td><input type="text" formControlName="rpeDisconnect" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="ypeDisconnect" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="bpeDisconnect" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="rcdCurrent" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="rcdOperatingCurrent" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="rcdOperatingFiveCurrent" class="form-control"   style="width:80px"></td>
+                                <td><textarea  formControlName="rcdTestButtonOperation"  class="form-control" style="height:40px;width:170px;"></textarea>
+                                <td><textarea  formControlName="rcdRemarks"  class="form-control" style="height:40px;width:170px;"></textarea>
+                               </tr>
+                        </tbody>
+                     </table>
+                    </div>
+                  </div>
+                </div>
+            </mat-expansion-panel>
 
  
 

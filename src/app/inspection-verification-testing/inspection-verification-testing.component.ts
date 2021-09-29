@@ -51,8 +51,8 @@ export class InspectionVerificationTestingComponent implements OnInit {
   @Output() proceedNext = new EventEmitter<any>();
   testingDetails = new TestingDetails();
   incomingVoltage: String = '';
-  incomingZs: String = '';
-  incomingIpf: String = '';
+  incomingLoopImpedance: String = '';
+  incomingFaultCurrent: String = '';
   rateArr: any = [];
   locationNumberList: any = [];
   //@Input()
@@ -70,6 +70,10 @@ export class InspectionVerificationTestingComponent implements OnInit {
   testDistribution!: FormArray;
   testingDistribution!: FormArray;
   o: any;
+  // successMsg: string = '';
+  // success: boolean = false;
+  // Error: boolean = false;
+  // errorMsg: string = '';
   email: string;
   validationError: boolean = false;
   validationErrorMsg: String = '';
@@ -84,14 +88,15 @@ export class InspectionVerificationTestingComponent implements OnInit {
     'circuitType',
     'circuitRating',
     'circuitBreakingCapacity',
+    'shortCircuitSetting',
+    'eFSetting',
     'conductorInstallation',
-    'conductorLive',
+    'conductorPhase',
+    'conductorNeutral',
     'conductorPecpc',
     'continutiyApproximateLength',
     'continutiyRR',
     'continutiyR',
-    'continutiyLL',
-    'continutiyLE',
     'continutiyPolarity',
 
     'rcdCurrent',
@@ -735,13 +740,14 @@ showHideAccordion(index: number) {
         numOutputCircuitsSpare: new FormControl({disabled: false,value: testDistributionItem[0].numOutputCircuitsSpare}),
         installedEquipmentVulnarable: new FormControl({disabled: false,value: testDistributionItem[0].installedEquipmentVulnarable}),
         incomingVoltage: new FormControl({disabled: false,value: testDistributionItem[0].incomingVoltage}),
-        incomingZs: new FormControl({disabled: false,value: testDistributionItem[0].incomingZs}),
-        incomingIpf: new FormControl({disabled: false,value: testDistributionItem[0].incomingIpf}),
+        incomingLoopImpedance: new FormControl({disabled: false,value: testDistributionItem[0].incomingLoopImpedance}),
+        incomingFaultCurrent: new FormControl({disabled: false,value: testDistributionItem[0].incomingFaultCurrent}),
         distributionIncomingValueArr: this.formBuilder.array([
-          this.populatedistributionIncomingValue(testDistributionItem[0].incomingVoltage,testDistributionItem[0].incomingZs,testDistributionItem[0].incomingIpf),
+          this.populatedistributionIncomingValue(testDistributionItem[0].incomingVoltage,testDistributionItem[0].incomingLoopImpedance,testDistributionItem[0].incomingFaultCurrent),
         ]),
       });
     }
+
     private populateRating(ratingAmps: any) {
       let ratingsAmpsArray= [];
       this.rateValueArr = [];
@@ -757,18 +763,18 @@ showHideAccordion(index: number) {
         ratingsAmps: new FormControl({disabled: false,value: ratingsAmps}),
       });
     }
-    private populatedistributionIncomingValue(incomingVoltage:any, incomingZs:any, incomingIpf:any): FormGroup {
+    private populatedistributionIncomingValue(incomingVoltage:any, incomingLoopImpedance:any, incomingFaultCurrent:any): FormGroup {
       let incomingVoltageArray= [];
-      let incomingZsArray = [];
-      let incomingIpfArray= [];
+      let incomingLoopImpedanceArray = [];
+      let incomingFaultCurrentArray= [];
 
       incomingVoltageArray= incomingVoltage.split(",");
-      incomingZsArray=  incomingZs.split(",");
-      incomingIpfArray=   incomingIpf.split(",");
+      incomingLoopImpedanceArray=  incomingLoopImpedance.split(",");
+      incomingFaultCurrentArray=   incomingFaultCurrent.split(",");
      
 
       let item = [];
-      item.push(incomingVoltageArray,incomingZsArray,incomingIpfArray);
+      item.push(incomingVoltageArray,incomingLoopImpedanceArray,incomingFaultCurrentArray);
       return new FormGroup({
         incomingVoltage1:new FormControl({disabled: false,value: item[0][0]}),
         incomingVoltage2:new FormControl({disabled: false,value:item[0][1]}),
@@ -807,15 +813,18 @@ showHideAccordion(index: number) {
       let testFaultCurrentArr  = [];
       let testLoopImpedanceArr = [];
       let testVoltageArr = [];
+      let insulationResistanceArr = [];
       this.testingRecordTableArr = [];
+
 
       for(let item of testRecordsItem) {
         disconnectionTimeArr=  item.disconnectionTime.split(",");
         testFaultCurrentArr = item.testFaultCurrent.split(",");
         testLoopImpedanceArr = item.testLoopImpedance.split(",");
         testVoltageArr = item.testVoltage.split(",");
+        insulationResistanceArr = item.insulationResistance.split(",");
         
-        this.testingRecordTableArr.push(this.pushTestingTable(item,disconnectionTimeArr,testFaultCurrentArr,testLoopImpedanceArr,testVoltageArr))
+        this.testingRecordTableArr.push(this.pushTestingTable(item,disconnectionTimeArr,testFaultCurrentArr,testLoopImpedanceArr,testVoltageArr,insulationResistanceArr))
       }
 
       // let item = [];
@@ -823,7 +832,7 @@ showHideAccordion(index: number) {
       return this.testingRecordTableArr
     }
 
-    pushTestingTable(itemTestingValue: any,disconnectionTimeArr: any,testFaultCurrentArr: any,testLoopImpedanceArr: any,testVoltageArr: any) : FormGroup {
+    pushTestingTable(itemTestingValue: any,disconnectionTimeArr: any,testFaultCurrentArr: any,testLoopImpedanceArr: any,testVoltageArr: any,insulationResistanceArr: any) : FormGroup {
       return new FormGroup({
         testingRecordId: new FormControl({disabled: false,value: itemTestingValue.testingRecordId}),
         circuitNo: new FormControl({disabled: false,value: itemTestingValue.circuitNo}),
@@ -832,15 +841,29 @@ showHideAccordion(index: number) {
         circuitType: new FormControl({disabled: false,value: itemTestingValue.circuitType}),
         circuitRating: new FormControl({disabled: false,value: itemTestingValue.circuitRating}),
         circuitBreakingCapacity: new FormControl({disabled: false,value: itemTestingValue.circuitBreakingCapacity}),
+        shortCircuitSetting: new FormControl({disabled: false,value: itemTestingValue.shortCircuitSetting}),
+        eFSetting: new FormControl({disabled: false,value: itemTestingValue.eFSetting}),
         conductorInstallation: new FormControl({disabled: false,value: itemTestingValue.conductorInstallation}),
-        conductorLive: new FormControl({disabled: false,value: itemTestingValue.conductorLive}),
+        conductorPhase: new FormControl({disabled: false,value: itemTestingValue.conductorPhase}),
+        conductorNeutral: new FormControl({disabled: false,value: itemTestingValue.conductorNeutral}),
         conductorPecpc: new FormControl({disabled: false,value: itemTestingValue.conductorPecpc}),
         continutiyApproximateLength: new FormControl({disabled: false,value: itemTestingValue.continutiyApproximateLength}),
         continutiyRR: new FormControl({disabled: false,value: itemTestingValue.continutiyRR}),
         continutiyR: new FormControl({disabled: false,value: itemTestingValue.continutiyR}),
-        continutiyLL: new FormControl({disabled: false,value: itemTestingValue.continutiyLL}),
-        continutiyLE: new FormControl({disabled: false,value: itemTestingValue.continutiyLE}),
+        // continutiyLL: new FormControl({disabled: false,value: itemTestingValue.continutiyLL}),
+        // continutiyLE: new FormControl({disabled: false,value: itemTestingValue.continutiyLE}),
         continutiyPolarity: new FormControl({disabled: false,value: itemTestingValue.continutiyPolarity}),
+
+        rycontinutiy: new FormControl({disabled: false,value: insulationResistanceArr[0]}),
+        rbcontinutiy: new FormControl({disabled: false,value: insulationResistanceArr[1]}),
+        ybcontinutiy: new FormControl({disabled: false,value: insulationResistanceArr[2]}),
+        rncontinutiy: new FormControl({disabled: false,value: insulationResistanceArr[3]}),
+        yncontinutiy: new FormControl({disabled: false,value: insulationResistanceArr[4]}),
+        bncontinutiy: new FormControl({disabled: false,value: insulationResistanceArr[5]}),
+        rpecontinutiy: new FormControl({disabled: false,value: insulationResistanceArr[6]}),
+        ypecontinutiy: new FormControl({disabled: false,value: insulationResistanceArr[7]}),
+        bpecontinutiy: new FormControl({disabled: false,value: insulationResistanceArr[8]}),
+
         ryVoltage: new FormControl({disabled: false,value: testVoltageArr[0]}),
         rbVoltage: new FormControl({disabled: false,value: testVoltageArr[1]}),
         ybVoltage: new FormControl({disabled: false,value: testVoltageArr[2]}),
@@ -921,8 +944,8 @@ showHideAccordion(index: number) {
       numOutputCircuitsSpare: new FormControl('', [Validators.required]),
       installedEquipmentVulnarable: new FormControl('', [Validators.required]),
       incomingVoltage: new FormControl(''),
-      incomingZs: new FormControl(''),
-      incomingIpf: new FormControl(''),
+      incomingLoopImpedance: new FormControl(''),
+      incomingFaultCurrent: new FormControl(''),
       distributionIncomingValueArr: this.formBuilder.array([
         this.distributionIncomingValue(),
       ]),
@@ -975,15 +998,27 @@ showHideAccordion(index: number) {
       circuitType: new FormControl(''),
       circuitRating: new FormControl(''),
       circuitBreakingCapacity: new FormControl(''),
+      shortCircuitSetting: new FormControl(''),
+      eFSetting: new FormControl(''),
       conductorInstallation: new FormControl(''),
-      conductorLive: new FormControl(''),
+      conductorPhase: new FormControl(''),
+      conductorNeutral: new FormControl(''),
       conductorPecpc: new FormControl(''),
       continutiyApproximateLength: new FormControl(''),
       continutiyRR: new FormControl(''),
       continutiyR: new FormControl(''),
-      continutiyLL: new FormControl(''),
-      continutiyLE: new FormControl(''),
+      // continutiyLL: new FormControl(''),
+      // continutiyLE: new FormControl(''),
       continutiyPolarity: new FormControl(''),
+      rycontinutiy: new FormControl(''),
+      rbcontinutiy: new FormControl(''),
+      ybcontinutiy: new FormControl(''),
+      rncontinutiy: new FormControl(''),
+      yncontinutiy: new FormControl(''),
+      bncontinutiy: new FormControl(''),
+      rpecontinutiy: new FormControl(''),
+      ypecontinutiy: new FormControl(''),
+      bpecontinutiy: new FormControl(''),
       ryVoltage: new FormControl(''),
       rbVoltage: new FormControl(''),
       ybVoltage: new FormControl(''),
@@ -1114,8 +1149,8 @@ showHideAccordion(index: number) {
       numOutputCircuitsSpare: new FormControl(''),
       installedEquipmentVulnarable: new FormControl(''),
       incomingVoltage: new FormControl(''),
-      incomingZs: new FormControl(''),
-      incomingIpf: new FormControl(''),
+      incomingLoopImpedance: new FormControl(''),
+      incomingFaultCurrent: new FormControl(''),
     });
   }
 
@@ -1218,8 +1253,8 @@ showHideAccordion(index: number) {
         }
 
         let incomingVoltage: String = '';
-        let incomingZs: String = '';
-        let incomingIpf: String = '';
+        let incomingLoopImpedance: String = '';
+        let incomingFaultCurrent: String = '';
         for (let a of arr) {
           if (a != '') {
             incomingVoltage += a + ',';
@@ -1232,23 +1267,23 @@ showHideAccordion(index: number) {
 
         for (let b of arr1) {
           if (b != '') {
-            incomingZs += b + ',';
+            incomingLoopImpedance += b + ',';
           } else {
-            incomingZs += 'NA,';
+            incomingLoopImpedance += 'NA,';
           }
         }
-        incomingZs = incomingZs.replace(/,\s*$/, '');
-        j.incomingZs = incomingZs;
+        incomingLoopImpedance = incomingLoopImpedance.replace(/,\s*$/, '');
+        j.incomingLoopImpedance = incomingLoopImpedance;
 
         for (let c of arr2) {
           if (c != '') {
-            incomingIpf += c + ',';
+            incomingFaultCurrent += c + ',';
           } else {
-            incomingIpf += 'NA,';
+            incomingFaultCurrent += 'NA,';
           }
         }
-        incomingIpf = incomingIpf.replace(/,\s*$/, '');
-        j.incomingIpf = incomingIpf;
+        incomingFaultCurrent = incomingFaultCurrent.replace(/,\s*$/, '');
+        j.incomingFaultCurrent = incomingFaultCurrent;
 
         // rateamps coma saparated value
         for (let k of j.rateArr) {
@@ -1305,8 +1340,17 @@ showHideAccordion(index: number) {
         if (x.circuitBreakingCapacity == '') {
           x.circuitBreakingCapacity = 'NA';
         }
-        if (x.conductorLive == '') {
-          x.conductorLive = 'NA';
+        if (x.shortCircuitSetting == '') {
+          x.shortCircuitSetting = 'NA';
+        }
+        if (x.eFSetting == '') {
+          x.eFSetting = 'NA';
+        }
+        if (x.conductorPhase == '') {
+          x.conductorPhase = 'NA';
+        }
+        if (x.conductorNeutral == '') {
+          x.conductorNeutral = 'NA';
         }
         if (x.circuitDesc == '') {
           x.circuitDesc = 'NA';
@@ -1334,6 +1378,18 @@ showHideAccordion(index: number) {
         let arr1: any = [];
         let arr2: any = [];
         let arr3: any = [];
+        let arr4: any = [];
+        arr4.push(
+          n.rycontinutiy,
+          n.rbcontinutiy,
+          n.ybcontinutiy,
+          n.rncontinutiy,
+          n.yncontinutiy,
+          n.bncontinutiy,
+          n.rpecontinutiy,
+          n.ypecontinutiy,
+          n.bpecontinutiy
+        );
         arr.push(
           n.ryVoltage,
           n.rbVoltage,
@@ -1456,3 +1512,4 @@ showHideAccordion(index: number) {
     }
   }
 }
+
