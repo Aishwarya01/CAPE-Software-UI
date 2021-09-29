@@ -904,6 +904,7 @@ showHideAccordion(index: number) {
         ypeDisconnect: new FormControl({disabled: false,value: disconnectionTimeArr[7]}),
         bpeDisconnect: new FormControl({disabled: false,value: disconnectionTimeArr[8]}),
         
+        insulationResistance: new FormControl({disabled: false,value: itemTestingValue.insulationResistance}),
         testVoltage: new FormControl({disabled: false,value: itemTestingValue.testVoltage}),
         testLoopImpedance: new FormControl({disabled: false,value: itemTestingValue.testLoopImpedance}),
         testFaultCurrent: new FormControl({disabled: false,value: itemTestingValue.testFaultCurrent}),
@@ -1056,6 +1057,7 @@ showHideAccordion(index: number) {
       ypeDisconnect: new FormControl(''),
       bpeDisconnect: new FormControl(''),
       testVoltage: new FormControl(''),
+      insulationResistance: new FormControl(''),
       testLoopImpedance: new FormControl(''),
       testFaultCurrent: new FormControl(''),
       disconnectionTime: new FormControl(''),
@@ -1438,6 +1440,17 @@ showHideAccordion(index: number) {
         let testLoopImpedance: String = '';
         let testFaultCurrent: String = '';
         let disconnectionTime: String = '';
+        let insulationResistance: String = '';
+
+        for (let x of arr4) {
+          if (x != '') {
+            insulationResistance += x + ',';
+          } else {
+            insulationResistance += 'NA,';
+          }
+        }
+        insulationResistance = insulationResistance.replace(/,\s*$/, '');
+        n.insulationResistance = insulationResistance;
 
         for (let a of arr) {
           if (a != '') {

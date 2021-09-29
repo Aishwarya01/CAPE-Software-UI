@@ -68,7 +68,7 @@ export class TestingRecords {
   continutiyLE!: String;
   continutiyPolarity!: String;
 
-
+  insulationResistance!: String;
   testVoltage!: String;
   testLoopImpedance!: String;
   testFaultCurrent!: String;
