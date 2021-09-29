@@ -70,7 +70,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
     'createdBy',
     'updatedDate',
     'updatedBy',
-    'action',
+   // 'action',
   ];
   ongoingSite_dataSource!: MatTableDataSource<Company[]>;
   
@@ -381,11 +381,19 @@ notification(number: any,viewerName: any,inspectorName: any,viewerDate: any,insp
  }
 
  editSite(siteId: any,userName: any,site: any) {
-  this.value= true;
-  this.welcome= false;  
-  this.ongoingSite=false;
-  this.completedSite=false;
-  debugger
+  if (confirm("Are you sure you want to edit site details?"))
+  {
+    this.value= true;
+    this.welcome= false;  
+    this.ongoingSite=false;
+    this.completedSite=false;
+  } 
+  else {
+    this.value= false;
+    this.welcome= false;  
+    this.ongoingSite=true;
+    this.completedSite=false;
+  }
   // this.data = userName
   // this.proceedNext.emit(this.data);
   // console.log(this.verification)
@@ -412,8 +420,11 @@ notification(number: any,viewerName: any,inspectorName: any,viewerDate: any,insp
 
 pdfModal(contentPDF:any){
   this.modalService.open(contentPDF,{size: 'xl'})
+ 
 }
-
+printPage() {
+  window.print();
+}
 downloadPdf(siteId: any,userName: any): any {
   this.inspectionService.downloadPDF(siteId,userName).subscribe(
     data =>{

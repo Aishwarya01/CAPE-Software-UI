@@ -41,7 +41,7 @@ export class LicenselistComponent implements OnInit {
     'createdBy',
     'updatedDate',
     'updatedBy',
-    'action',
+    //'action',
   ];
   // ongoingSite_dataSource!: MatTableDataSource<Site[]>;
   ongoingSite_dataSource!: MatTableDataSource<Company[]>;
@@ -130,17 +130,19 @@ export class LicenselistComponent implements OnInit {
   }
 
   editSite(siteId:any,userName:any,site:any){
-    //this.verification.changeTab(1,siteId,userName,'clientName','departmentName',site);
+    if (confirm("Are you sure you want to edit site details?"))
+    {
     this.viewContainerRef.clear();
     console.log(this.viewContainerRef.get(1));
     this.destroy = true;
     const verificationFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
     const verificationRef = this.viewContainerRef.createComponent(verificationFactory);
-    //const verification=this.verification.changeTab(1,siteId,userName,'clientName','departmentName',site);
     verificationRef.changeDetectorRef.detectChanges();
     this.change.emit(siteId);
-   //this.service.callMethod(1,siteId,userName,'clientName','departmentName',site);
-    // this.proceedNext.emit(true);
+    } 
+    else {
+      this.destroy = false;
+    }
   }
 
   viewSite(){

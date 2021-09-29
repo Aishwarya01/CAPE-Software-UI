@@ -254,7 +254,7 @@
           {{element.updatedBy}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="action">
+      <!-- <ng-container matColumnDef="action">
           <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef> Action
           </th>
           <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
@@ -262,10 +262,11 @@
               <mat-icon>edit</mat-icon>
             </button>
           </td>
-        </ng-container>
+        </ng-container> -->
 
       <tr mat-header-row *matHeaderRowDef="ongoingSiteColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: ongoingSiteColumns; "
+      <tr mat-row *matRowDef="let row; columns: ongoingSiteColumns;" title="Click here to edit Site details" 
+      (click)="editSite(row.siteId,row.userName,row.site)" style="cursor: pointer;"
         [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
         (mouseout)="row.hovered = false"></tr>
 
@@ -356,9 +357,12 @@
             <button class="btn btn-outline-danger delete" title="Email">
               <mat-icon>email</mat-icon>
             </button>
-            <button class="btn btn-outline-danger delete" title="Print PDF" (click)="pdfModal(contentPDF)">
+            <!-- <button class="btn btn-outline-danger delete" title="Print PDF" (click)="pdfModal(contentPDF)">
               <mat-icon>print</mat-icon>
-            </button>
+            </button>  printSectionId="printdiv" ngxPrint-->
+
+            <button class="btn btn-outline-danger delete" title="Print PDF" (click)="pdfModal(contentPDF)"
+           ><mat-icon>print</mat-icon></button>
           </td>
         </ng-container>
 
@@ -385,9 +389,8 @@
   <div class="modal-body" modal-xl>
     pdf loads here..
 
-    <button class="btn btn-primary" style="margin: 0 auto;
-    display: block;">Print PDF</button>
+    <button class="btn btn-primary" style="margin: 0 auto;display: block;" (click)="printPage()">Print PDF</button>
    </div>
 
-  </ng-template>
+  </ng-template> 
 

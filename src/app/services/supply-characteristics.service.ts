@@ -17,12 +17,12 @@ export class SupplyCharacteristicsService {
     return this.http.post<any>(this.apiUrl + '/addCharacteristics', supplycharacteristics, { responseType: 'text' as 'json' })
   }
   public sendComments(comment: CommentsSection,siteId: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl + '/sendBasicInfoComments'+'/'+comment.userName+ '/' +siteId, comment, { responseType: 'text' as 'json' })
+    return this.http.post<any>(this.apiUrl + '/sendCharacteristicsComments'+'/'+comment.userName+ '/' +siteId, comment, { responseType: 'text' as 'json' })
   }
   public replyComments(comment: CommentsSection,siteId: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl + '/replyBasicInfoComments'+'/'+comment.userName+ '/' +siteId, comment, { responseType: 'text' as 'json' })
+    return this.http.post<any>(this.apiUrl + '/replyCharacteristicsComments'+'/'+comment.userName+ '/' +siteId, comment, { responseType: 'text' as 'json' })
   }
   public approveRejectComments(comment: CommentsSection,siteId: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl + '/approveBasicInfoComments'+'/'+comment.userName+ '/' +siteId, comment, { responseType: 'text' as 'json' })
+    return this.http.post<any>(this.apiUrl + '/approveCharacteristicsComments'+'/'+comment.userName+ '/' +siteId, comment, { responseType: 'text' as 'json' })
   }
 }
