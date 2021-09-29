@@ -243,7 +243,7 @@ export class VerificationlvComponent implements OnInit {
     });
     this.refresh();
     // this.retrieveClientDetails();
-    this.retrieveSiteDetails();
+    // this.retrieveSiteDetails();
     
   }
 

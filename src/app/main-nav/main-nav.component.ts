@@ -229,13 +229,17 @@ export class MainNavComponent implements OnInit, OnDestroy {
     else {
       //uncomment this later...
       this.showTIC = false;
+      this.showREP = false;
       if(this.currentUser1.assignedBy != null) {
         this.showREP = true;
       }
       // this.showTIC = true;
       // this.showREP = true;
     }
-    this.retrieveSiteDetails();
+
+    if(this.showREP) {
+      this.retrieveSiteDetails();
+    }
   }
   triggerScrollTo(){
     this.service.triggerScrollTo();

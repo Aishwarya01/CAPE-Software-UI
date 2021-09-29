@@ -138,6 +138,7 @@ export class AssignViewerComponent implements OnInit {
       // this.viewerRegisterForm.setControl('designer1Arr', this._formBuilder.array(this.mobilearr || []))
       }
       else {
+        this.register = new Register;
         this.register.username = this.assignViewerForm.value.viewerEmail;
         this.register.role = 'Viewer';
         this.setReadOnly = false;
@@ -182,6 +183,7 @@ createGroup(item: any) {
   this.register.registerId = item.registerId
   this.register.createdBy = item.createdBy
   this.register.createdDate = item.createdDate
+  this.register.password = item.password
   
   this.selectCountry(item.country);
   this.state = this.registerData.state;
