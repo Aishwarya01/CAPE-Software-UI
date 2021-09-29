@@ -65,34 +65,6 @@
           <div class="row">
             <div class="col-md-4">
               <div class="form-group">
-                <label for="name">* Name</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="bi bi-person-fill"></i>
-                    </span>
-                  </div>
-                  <input
-                    type="text"
-                    formControlName="name"
-                    [readonly]="setReadOnly"
-                    class="form-control"
-                    placeholder="Enter your Name"
-                    [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
-                    [(ngModel)]="register.name"
-                  />
-                  <div
-                    *ngIf="submitted && f.name.errors"
-                    class="invalid-feedback"
-                  >
-                    <div *ngIf="f.name.errors?.required">Name is required</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="form-group">
                 <label for="name">* Site Name</label>
                 <div class="input-group">
                   <div class="input-group-prepend">
@@ -119,6 +91,35 @@
                 </div>
               </div>
             </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="name">* Name</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="bi bi-person-fill"></i>
+                    </span>
+                  </div>
+                  <input
+                    type="text"
+                    formControlName="name"
+                    [readonly]="setReadOnly"
+                    class="form-control"
+                    placeholder="Enter your Name"
+                    [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+                    [(ngModel)]="register.name"
+                  />
+                  <div
+                    *ngIf="submitted && f.name.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.name.errors?.required">Name is required</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+           
 
             <div class="col-md-4">
               <div class="form-group">

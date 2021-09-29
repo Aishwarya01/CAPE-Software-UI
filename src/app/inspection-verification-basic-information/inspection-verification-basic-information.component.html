@@ -6,7 +6,7 @@
 
           <div class="row">
 
-            <div class="col-md-4">
+            <!-- <div class="col-md-4">
 
                   <label>Company Name*</label>
 
@@ -20,9 +20,9 @@
 
                   <input type="text" class="form-control"  formControlName="departmentName" [(ngModel)]="departmentNameSite" readonly/>
 
-            </div>
+            </div> -->
 
-            <div class="col-md-4">
+            <div class="col-md-6">
 
                   <label>Site Name*</label>
 
@@ -202,19 +202,7 @@
               </mat-panel-title>
 
             </mat-expansion-panel-header>
-            <!-- <div class="row">
-              <div class="col-md-4">
-                <mat-form-field class="client-description ">
-                  <mat-label><h3>Details Of Client / Person Ordering This Report * (maximum length is 50 )</h3></mat-label>
-                  <textarea matInput class="client-box-description" formControlName="detailsOfClient" maxlength="50"
-                  [ngClass]="{ 'is-invalid': submitted && f.detailsOfClient.errors }" placeholder=" Ex. Name, address ,purpose ,relation with end user.." [(ngModel)]="reportDetails.clientDetails"></textarea>
-                  <div *ngIf="submitted && f.detailsOfClient.errors" class="invalid-feedback">
-                    <div *ngIf="f.detailsOfClient?.errors?.required">Details Of client is required</div>
-                </div>
-                </mat-form-field>
-              </div>
-            </div> -->
-
+           
             <div class="row">
               <div class="col-md-4">
                 <mat-form-field class="client-description ">
@@ -227,17 +215,45 @@
               </div>
             </div>
 
-            
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field class="client-description ">
+                  <mat-label><h3>Details Of Client / Person Ordering This Report * (maximum length is 50 )</h3></mat-label>
+                  <textarea matInput class="client-box-description" formControlName="detailsOfClient" maxlength="50"
+                  [ngClass]="{ 'is-invalid': submitted && f.detailsOfClient.errors }" readonly style="background-color: #e9ecef;"
+                  placeholder=" Ex. Name, address ,purpose ,relation with end user.." 
+                  [(ngModel)]="reportDetails.clientDetails"></textarea>
+                  <div *ngIf="submitted && f.detailsOfClient.errors" class="invalid-feedback">
+                    <div *ngIf="f.detailsOfClient?.errors?.required">Details Of client is required</div>
+                </div>
+                </mat-form-field>
+              </div>
+            </div>
 
             <div class="form-group">
               <div class="row">
-                <div class="col-md-4">
+                <!-- <div class="col-md-4">
                   <label>Details Of Client / Person Ordering This Report</label>
                     <input type="text" readonly class="form-control" formControlName="detailsOfClient"
                     [ngClass]="{ 'is-invalid': submitted && f.detailsOfClient.errors }" [(ngModel)]="reportDetails.clientDetails">
                     <div *ngIf="submitted && f.detailsOfClient.errors" class="invalid-feedback">
                       <div *ngIf="f.detailsOfClient?.errors?.required">Details Of client is required</div>
                   </div>
+                </div> -->
+                <div class="col-md-4">
+                  <label>Designation* :</label>
+                  <input type="text" class="form-control" readonly formControlName="designation" placeholder="Enter Designation" 
+                  [(ngModel)]="reportDetails.designation" [ngClass]="{ 'is-invalid': submitted && f.designation.errors }">
+                  <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+                    <div *ngIf="f.designation?.errors?.required">Designation is required</div>
+                </div>
+                </div>
+                <div class="col-md-4">
+                  <label>Company* :</label>
+                  <input type="text" class="form-control" readonly formControlName="companyName" placeholder="Enter Company Name" [(ngModel)]="reportDetails.company" [ngClass]="{ 'is-invalid': submitted && f.companyName.errors }">
+                  <div *ngIf="submitted && f.companyName.errors" class="invalid-feedback">
+                    <div *ngIf="f.companyName?.errors?.required">Company name is required</div>
+                </div>
                 </div>
 
                 <div class="col-md-4">
@@ -248,37 +264,11 @@
                     <div *ngIf="f.startingDateVerification?.errors?.required">Field Is Required</div>
                 </div>
                 </div>
-
-                <div class="col-md-4">
-                  <label>Name of Engineer Who Carries Out Verification * :</label>
-                  <input type="text" class="form-control" readonly formControlName="engineerName" placeholder="Enter Engineer Name" [(ngModel)]="reportDetails.verifiedEngineer" [ngClass]="{ 'is-invalid': submitted && f.engineerName.errors }">
-                  <div *ngIf="submitted && f.engineerName.errors" class="invalid-feedback">
-                    <div *ngIf="f.engineerName?.errors?.required">Engineer name is required</div>
-                </div>
-                </div>
-
               </div>
             </div>
 
             <div class="form-group">
               <div class="row">
-                <div class="col-md-4">
-                  <label>Designation* :</label>
-                  <input type="text" class="form-control" readonly formControlName="designation" placeholder="Enter Designation" 
-                  [(ngModel)]="reportDetails.designation" [ngClass]="{ 'is-invalid': submitted && f.designation.errors }">
-                  <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
-                    <div *ngIf="f.designation?.errors?.required">Designation is required</div>
-                </div>
-                </div>
-                
-                <div class="col-md-4">
-                  <label>Company* :</label>
-                  <input type="text" class="form-control" readonly formControlName="companyName" placeholder="Enter Company Name" [(ngModel)]="reportDetails.company" [ngClass]="{ 'is-invalid': submitted && f.companyName.errors }">
-                  <div *ngIf="submitted && f.companyName.errors" class="invalid-feedback">
-                    <div *ngIf="f.companyName?.errors?.required">Company name is required</div>
-                </div>
-                </div>
-
                 <div class="col-md-4">
                   <label>Read and Confirmed the Extent and Limitations* :</label>
                   <select class="form-control" formControlName="limitations" [(ngModel)]="reportDetails.limitations" [ngClass]="{ 'is-invalid': submitted && f.limitations.errors }">
@@ -287,6 +277,13 @@
                   </select>
                   <div *ngIf="submitted && f.limitations.errors" class="invalid-feedback">
                     <div *ngIf="f.limitations?.errors?.required">Field Is Required</div>
+                </div>
+                </div>
+                <div class="col-md-4">
+                  <label>Name of Engineer Who Carries Out Verification * :</label>
+                  <input type="text" class="form-control" readonly formControlName="engineerName" placeholder="Enter Engineer Name" [(ngModel)]="reportDetails.verifiedEngineer" [ngClass]="{ 'is-invalid': submitted && f.engineerName.errors }">
+                  <div *ngIf="submitted && f.engineerName.errors" class="invalid-feedback">
+                    <div *ngIf="f.engineerName?.errors?.required">Engineer name is required</div>
                 </div>
                 </div>
               </div>
