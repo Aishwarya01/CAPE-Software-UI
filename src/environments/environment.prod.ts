@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
   environmentName: 'Production',
-  apiUrl: 'https://api.service.rushforsafety.com/api/v1',
+  apiUrl: 'https://service.api.rushforsafety.com/api/v1',
   sessionTimeOut: 300
 };
