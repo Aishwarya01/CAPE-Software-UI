@@ -298,15 +298,16 @@
                 I agree to the <a href="#">Terms and Conditions</a> for using online services of Rush Applications
             </div> -->
             <div *ngIf="successMsgOTP" class="alert alert-success" style="margin: 55px auto 0px auto;width: 65%;">{{successMsg}}</div>
-            <div *ngIf="errorMsgflag" class="alert alert-danger" style="margin: 55px auto 0px auto;width: 65%;">{{errorMsg}}</div>
+            <div *ngIf="errorMsgflag" class="alert alert-danger" style="margin: 55px auto 0px auto;width: 30%;">{{errorMsg}}</div>
 
             <div style="display: inline;">
                 <button [disabled]="loading" [ngStyle]="{'cursor': loading ? 'not-allowed' : 'pointer'}" 
-                style="float: left; margin-left: 400px;" type="submit" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" id="login-btn"><i class="bi bi-person-plus-fill icon"></i> Update</button>
-                <button  [routerLink]="['/login']" style="float:right; margin-right: 400px;"  class="btn btn-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
+                style="float: left; margin-left: 35%;" type="submit" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" id="login-btn"><i class="bi bi-person-plus-fill icon"></i> Update</button>
             </div>
 
             </form>
+            <button style="float:right; margin-right: 35%;" class="btn btn-danger cancel" (click)="profileCancel()">
+                <i class="bi bi-x icon"></i> Cancel</button>
         </div>
     </div>
     

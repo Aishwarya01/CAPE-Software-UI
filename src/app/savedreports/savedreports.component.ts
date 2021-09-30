@@ -24,9 +24,6 @@ export class SavedreportsComponent implements OnInit {
   @ViewChild('savedReportSort', {static: true}) savedReportSort!: MatSort;
 
   // @Output("changeTab") changeTab: EventEmitter<any> = new EventEmitter();
-
- 
-
   email: String ="";
   site = new Site;
   clientList:any  = [];
@@ -37,6 +34,8 @@ export class SavedreportsComponent implements OnInit {
   showREP: boolean = false;
   currentUser: any = [];
   currentUser1: any = [];
+  userData: any=[];
+  viewerFilterData:any=[];
 
   constructor(private router: ActivatedRoute,
               private clientService: ClientService,
@@ -86,11 +85,20 @@ export class SavedreportsComponent implements OnInit {
           this.savedReport_dataSource.sort = this.savedReportSort;
         });
     }
-    else {
+    else { //viewer
       if(this.currentUser1.assignedBy!=null) {
+        this.viewerFilterData=[];
         this.siteService.retrieveListOfSite(this.currentUser1.assignedBy).subscribe(
           data => {
-           this.savedReport_dataSource = new MatTableDataSource(JSON.parse(data));
+            this.userData=JSON.parse(data);
+           for(let i of this.userData){
+             debugger
+             if(i.assignedTo==this.email){
+               this.viewerFilterData.push(i);
+             }
+           }
+           console.log(this.viewerFilterData);
+           this.savedReport_dataSource = new MatTableDataSource(this.viewerFilterData);
             this.savedReport_dataSource.paginator = this.savedReportPaginator;
             this.savedReport_dataSource.sort = this.savedReportSort;
           });

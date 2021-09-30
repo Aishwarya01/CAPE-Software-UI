@@ -143,7 +143,7 @@
 
               <div class="col-md-4" *ngIf="showField2" style="margin-top: 35px;">
                 <label>If Yes Estimated Age Years:</label>
-                  <input type="tel" formControlName="showField2" style="
+                  <input type="number" min=0 formControlName="showField2" style="
                   width: 50px;
                   background: transparent;
                   border: none;
@@ -490,7 +490,7 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
             <label>I/We recommend that installation is further inspected and tested after an interval of not more than: </label>
-              <input type="number" [ngClass]="{ 'is-invalid': submitted && f.nextInspection.errors }" style="
+              <input type="number" min=0 [ngClass]="{ 'is-invalid': submitted && f.nextInspection.errors }" style="
               width: 75px;
               background: transparent;
               border: none;
@@ -1237,7 +1237,16 @@
                 
           </div>
         </div>
-      
+        <span _ngcontent-nxx-c268="" class="spacer"></span>
+        <!-- <mat-toolbar-row>
+        <button mat-button style="min-width: unset;">
+          {{a.value.viewerUserName}}
+        </button>
+        <button mat-button style="min-width: unset;">
+          {{a.value.viewerDateTime | date:'dd-MM-YY hh:mm:ss a':'+0530'}}
+        </button>
+      </mat-toolbar-row> -->
+
 
           <span [ngClass]="i!=0 ? 'viewer' : 'even1'">
             {{a.value.viewerUserName}} {{a.value.viewerDateTime | date:'dd-MM-YY hh:mm:ss a':'+0530'}}

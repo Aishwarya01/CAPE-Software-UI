@@ -8,7 +8,7 @@
       <div class="row">
         <div class="col-md-4">
               <label>Location Number*</label>
-              <input type="text" class="form-control" formControlName="locationNumber"
+              <input type="number" min=1 class="form-control" formControlName="locationNumber"
                placeholder="Enter Location Number" 
                [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors }">
               <div *ngIf="submitted && a.get('locationNumber')?.errors" class="invalid-feedback">

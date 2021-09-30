@@ -181,7 +181,11 @@ export class MainNavComponent implements OnInit, OnDestroy {
   viewerTime!:Date;
   inspectorTime!:Date;
   value: boolean= false;
-  
+  userData: any=[];
+ // viewerFilterData:any=[];
+  ongoingFilterData:any=[];
+  completedFilterData:any=[];
+
   constructor(private breakpointObserver: BreakpointObserver, changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     private loginservice: LoginserviceService,
@@ -245,6 +249,10 @@ export class MainNavComponent implements OnInit, OnDestroy {
     this.service.triggerScrollTo();
   }
 
+// newNotification(){
+
+// }
+
 notification(number: any,viewerName: any,inspectorName: any,viewerDate: any,inspectorDate: any){
   this.count = number;
   
@@ -299,15 +307,32 @@ notification(number: any,viewerName: any,inspectorName: any,viewerDate: any,insp
       });
     }
     else {
-      this.siteService.retrieveSite(this.currentUser1.assignedBy).subscribe((data) => {
-        this.ongoingSite_dataSource = new MatTableDataSource(JSON.parse(data));
+      if(this.currentUser1.assignedBy!=null) {
+        this.ongoingFilterData=[];
+        this.completedFilterData=[];
+        this.siteService.retrieveListOfSite(this.currentUser1.assignedBy).subscribe(
+          data => {
+            this.userData=JSON.parse(data);
+           for(let i of this.userData){
+             debugger
+             if(i.assignedTo==this.email){
+               if(i.allStepsCompleted=="AllStepCompleted"){
+                 this.completedFilterData.push(i);
+               }
+               else{
+                this.ongoingFilterData.push(i);
+               }
+             }
+           }
+        this.ongoingSite_dataSource = new MatTableDataSource(this.ongoingFilterData);
         this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
         this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
   
-        this.completedLicense_dataSource = new MatTableDataSource(JSON.parse(data));
+        this.completedLicense_dataSource = new MatTableDataSource(this.completedFilterData);
         this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
         this.completedLicense_dataSource.sort = this.completedLicenseSort;
       });
+    }
     }
     
   }
@@ -378,6 +403,7 @@ notification(number: any,viewerName: any,inspectorName: any,viewerDate: any,insp
   this.selectedRowIndexType="";
   this.ongoingSite=true;
   this.completedSite=false;
+  this.value= false;
  }
 
  editSite(siteId: any,userName: any,site: any) {
@@ -394,28 +420,31 @@ notification(number: any,viewerName: any,inspectorName: any,viewerDate: any,insp
     this.ongoingSite=true;
     this.completedSite=false;
   }
-  // this.data = userName
-  // this.proceedNext.emit(this.data);
-  // console.log(this.verification)
-  //this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
+ }
+
+ viewSite(siteId: any,userName: any,site: any){
+  if (confirm("Are you sure you want to view site details?"))
+  {
+    this.value= true;
+    this.welcome= false;  
+    this.ongoingSite=false;
+    this.completedSite=false;
+  } 
+  else {
+    this.value= false;
+    this.welcome= false;  
+    this.ongoingSite=true;
+    this.completedSite=false;
+  }
+  // this.welcome= false;
+  // this.ongoingSite=false;
+  // this.completedSite=false;
   // this.viewContainerRef.clear();
   // //this.viewContainerRef1.clear();
   // const VerificationlvFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
   // const lvInspectionRef = this.viewContainerRef.createComponent(VerificationlvFactory);
   // //const lvInspectionRef1 = this.viewContainerRef1.createComponent(lvInspectionFactory);
   // lvInspectionRef.changeDetectorRef.detectChanges();
- }
-
- viewSite(siteId: any,userName: any,site: any){
-  this.welcome= false;
-  this.ongoingSite=false;
-  this.completedSite=false;
-  this.viewContainerRef.clear();
-  //this.viewContainerRef1.clear();
-  const VerificationlvFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
-  const lvInspectionRef = this.viewContainerRef.createComponent(VerificationlvFactory);
-  //const lvInspectionRef1 = this.viewContainerRef1.createComponent(lvInspectionFactory);
-  lvInspectionRef.changeDetectorRef.detectChanges();
 }
 
 pdfModal(contentPDF:any){
@@ -449,6 +478,7 @@ downloadPdf(siteId: any,userName: any): any {
   this.selectedRowIndexType="";
   this.ongoingSite=false;
   this.completedSite=true;
+  this.value=false;
  }
  highlightType(type:any){
   this.selectedRowIndexType = type;

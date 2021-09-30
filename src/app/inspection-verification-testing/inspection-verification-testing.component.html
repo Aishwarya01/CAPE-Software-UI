@@ -113,7 +113,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label>Insulation Resistance</label>
-                            <input type="text" formControlName="insulationResisance"   placeholder=" Enter Insulation resistance"class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('insulationResisance')?.errors }"  >
+                            <input type="number" min=0 formControlName="insulationResisance"   placeholder=" Enter Insulation resistance"class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('insulationResisance')?.errors }"  >
                             <div *ngIf="submitted && a.get('insulationResisance')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('insulationResisance')?.errors?.required">Insulation resistance value is required</div>
                             </div>
@@ -121,7 +121,7 @@
 
                         <div class="col-md-4">
                             <label>Impedance </label>
-                            <input type="text" formControlName="impedance" placeholder=" Enter Impedance" class="form-control"[ngClass]="{ 'is-invalid': submitted && a.get('impedance')?.errors }"  >
+                            <input type="number" min=0 formControlName="impedance" placeholder=" Enter Impedance" class="form-control"[ngClass]="{ 'is-invalid': submitted && a.get('impedance')?.errors }"  >
                             <div *ngIf="submitted && a.get('impedance')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('impedance')?.errors?.required">Impedance value is required</div>
                             </div>
@@ -129,7 +129,7 @@
 
                         <div class="col-md-4">
                             <label>RCD </label>
-                            <input type="text" formControlName="rcd"  placeholder=" Enter RCD " class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('rcd')?.errors }"  >
+                            <input type="number" min=0 formControlName="rcd"  placeholder=" Enter RCD " class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('rcd')?.errors }"  >
                             <div *ngIf="submitted && a.get('rcd')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('rcd')?.errors?.required">RCD value is required</div>
                             </div>
@@ -138,7 +138,7 @@
                     <div class="row">
                     <div class="col-md-4">
                         <label>Earth Electrode Resistance</label>
-                        <input type="text" formControlName="earthElectrodeResistance"  placeholder=" Enter Earth Electrode Resistance" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('earthElectrodeResistance')?.errors }"  >
+                        <input type="number" min=0 formControlName="earthElectrodeResistance"  placeholder=" Enter Earth Electrode Resistance" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('earthElectrodeResistance')?.errors }"  >
                         <div *ngIf="submitted && a.get('earthElectrodeResistance')?.errors" class="invalid-feedback">
                           <div *ngIf="a.get('earthElectrodeResistance')?.errors?.required">Earth electrode resistance value is required</div>
                         </div>
@@ -195,7 +195,7 @@
 
                                 <div class="col-md-4">
                                     <label> Number Of Output Circuits - Spare </label>
-                                    <input type="text" formControlName="numOutputCircuitsSpare"  placeholder=" Enter Number of output circuits - Spare"class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('numOutputCircuitsSpare')?.errors }"  >
+                                    <input type="number" min=0 formControlName="numOutputCircuitsSpare"  placeholder=" Enter Number of output circuits - Spare"class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('numOutputCircuitsSpare')?.errors }"  >
                                     <div *ngIf="submitted && c.get('numOutputCircuitsSpare')?.errors" class="invalid-feedback">
                                       <div *ngIf="c.get('numOutputCircuitsSpare')?.errors?.required">Number of output circuits -spare value is required</div>
                                     </div>
@@ -203,7 +203,7 @@
 
                                 <div class="col-md-4">
                                     <label> Installed Equipment Vulnarable To Testing </label>
-                                    <input type="text" formControlName="installedEquipmentVulnarable" placeholder=" Enter Installed Equipment Vulnarable To  Testing Name"
+                                    <input type="number" min=0 formControlName="installedEquipmentVulnarable" placeholder=" Enter Installed Equipment Vulnarable To  Testing Name"
                                         class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('installedEquipmentVulnarable')?.errors }"  >
                                         <div *ngIf="submitted && c.get('installedEquipmentVulnarable')?.errors" class="invalid-feedback">
                                           <div *ngIf="c.get('installedEquipmentVulnarable')?.errors?.required">Installed equipment vulnarable to testing  value is required</div>
@@ -215,7 +215,7 @@
                              <div class="row">
                                 <div class="col-md-4">
                                     <label>Number Of Output Circuits In Use</label>
-                                    <input type="number" formControlName="numOutputCircuitsUse"  placeholder=" Enter Number of output circuits in use"
+                                    <input type="tel" min=1 formControlName="numOutputCircuitsUse"  placeholder=" Enter Number of output circuits in use"
                                     maxlength="2" class="form-control"  (keyup)="onKey($event,c,a)" [ngClass]="{ 'is-invalid': submitted && c.get('numOutputCircuitsUse')?.errors }"  >
                                     <div *ngIf="submitted && c.get('numOutputCircuitsUse')?.errors" class="invalid-feedback">
                                       <div *ngIf="c.get('numOutputCircuitsUse')?.errors?.required">Number of output circuits in use value is required</div>
@@ -225,7 +225,7 @@
                                 <div class="col-md-4" formArrayName="rateArr" *ngFor="let d of gettestrateFormControls(c); let j = index">
                                     <div class="form-group" [formGroupName]="j">
                                         <label>Ratings In Amps </label>
-                                        <input type="number" formControlName="ratingsAmps" class="form-control" placeholder=" Enter Ratings in Amps "
+                                        <input type="number" min=0 formControlName="ratingsAmps" class="form-control" placeholder=" Enter Ratings in Amps "
                                             [ngClass]="{ 'is-invalid': submitted && d.get('ratingsAmps')?.errors }">
                                         <div *ngIf="submitted && d.get('ratingsAmps')?.errors" class="invalid-feedback">
                                             <div *ngIf="d.get('ratingsAmps')?.errors?.required">Ratings in Amps value is required</div>
@@ -258,41 +258,41 @@
                                             <tr  >
 
                                                 <td>Incoming Voltage</td>
-                                                <td><input type="text" formControlName="incomingVoltage1"class="form-control"  ></td>
-                                                <td><input type="text"  formControlName="incomingVoltage2" class="form-control" ></td>
-                                                <td><input type="text"  formControlName="incomingVoltage3"  class="form-control"  ></td>
-                                                <td><input type="text" formControlName="incomingVoltage4"   class="form-control"  ></td>
-                                                <td><input type="text"  formControlName="incomingVoltage5"  class="form-control"  ></td>
-                                                <td><input type="text" formControlName="incomingVoltage6"   class="form-control" ></td>
-                                                <td><input type="text" formControlName="incomingVoltage7"  class="form-control" ></td>
-                                                <td><input type="text" formControlName="incomingVoltage8"  class="form-control" ></td>
-                                                <td><input type="text" formControlName="incomingVoltage9"   class="form-control"  ></td>
+                                                <td><input type="number" min=0 formControlName="incomingVoltage1"class="form-control"  ></td>
+                                                <td><input type="number" min=0  formControlName="incomingVoltage2" class="form-control" ></td>
+                                                <td><input type="number" min=0  formControlName="incomingVoltage3"  class="form-control"  ></td>
+                                                <td><input type="number" min=0 formControlName="incomingVoltage4"   class="form-control"  ></td>
+                                                <td><input type="number" min=0  formControlName="incomingVoltage5"  class="form-control"  ></td>
+                                                <td><input type="number" min=0 formControlName="incomingVoltage6"   class="form-control" ></td>
+                                                <td><input type="number" min=0 formControlName="incomingVoltage7"  class="form-control" ></td>
+                                                <td><input type="number" min=0 formControlName="incomingVoltage8"  class="form-control" ></td>
+                                                <td><input type="number" min=0 formControlName="incomingVoltage9"   class="form-control"  ></td>
                                             </tr>
 
                                             <tr>
                                                 <td>Incoming Zs (Ω)</td>
-                                                <td><input type="text" formControlName="incomingZs1" class="form-control"  ></td>
-                                                <td><input type="text"formControlName="incomingZs2" class class="form-control" ></td>
-                                                <td><input type="text" formControlName="incomingZs3" class="form-control"  ></td>
-                                                <td><input type="text" formControlName="incomingZs4" class="form-control"  ></td>
-                                                <td><input type="text" formControlName="incomingZs5"  class="form-control" ></td>
-                                                <td><input type="text"  formControlName="incomingZs6" class="form-control"  ></td>
-                                                <td><input type="text" formControlName="incomingZs7"   class="form-control" ></td>
-                                                <td><input type="text" formControlName="incomingZs8"   class="form-control"  ></td>
-                                                <td><input type="text"formControlName="incomingZs9"    class="form-control"  ></td>
+                                                <td><input type="number" min=0 formControlName="incomingZs1" class="form-control"  ></td>
+                                                <td><input type="number" min=0formControlName="incomingZs2" class class="form-control" ></td>
+                                                <td><input type="number" min=0 formControlName="incomingZs3" class="form-control"  ></td>
+                                                <td><input type="number" min=0 formControlName="incomingZs4" class="form-control"  ></td>
+                                                <td><input type="number" min=0 formControlName="incomingZs5"  class="form-control" ></td>
+                                                <td><input type="number" min=0  formControlName="incomingZs6" class="form-control"  ></td>
+                                                <td><input type="number" min=0 formControlName="incomingZs7"   class="form-control" ></td>
+                                                <td><input type="number" min=0 formControlName="incomingZs8"   class="form-control"  ></td>
+                                                <td><input type="number" min=0formControlName="incomingZs9"    class="form-control"  ></td>
                                             </tr>
 
                                             <tr>
                                                 <td>Incoming Ipf (Amps)</td>
-                                                <td><input type="text" formControlName="incomingIpf1"   class="form-control"  ></td>
-                                                <td><input type="text"  formControlName="incomingIpf2"   class="form-control" ></td>
-                                                <td><input type="text" formControlName="incomingIpf3"  class="form-control"  ></td>
-                                                <td><input type="text" formControlName="incomingIpf4"  class="form-control"  ></td>
-                                                <td><input type="text"  formControlName="incomingIpf5" class="form-control"  ></td>
-                                                <td><input type="text"formControlName="incomingIpf6"   class="form-control"  ></td>
-                                                <td><input type="text" formControlName="incomingIpf7"  class="form-control" ></td>
-                                                <td><input type="text" formControlName="incomingIpf8" class="form-control"  ></td>
-                                                <td><input type="text" formControlName="incomingIpf9"  class="form-control"  ></td>
+                                                <td><input type="number" min=0 formControlName="incomingIpf1"   class="form-control"  ></td>
+                                                <td><input type="number" min=0  formControlName="incomingIpf2"   class="form-control" ></td>
+                                                <td><input type="number" min=0 formControlName="incomingIpf3"  class="form-control"  ></td>
+                                                <td><input type="number" min=0 formControlName="incomingIpf4"  class="form-control"  ></td>
+                                                <td><input type="number" min=0  formControlName="incomingIpf5" class="form-control"  ></td>
+                                                <td><input type="number" min=0formControlName="incomingIpf6"   class="form-control"  ></td>
+                                                <td><input type="number" min=0 formControlName="incomingIpf7"  class="form-control" ></td>
+                                                <td><input type="number" min=0 formControlName="incomingIpf8" class="form-control"  ></td>
+                                                <td><input type="number" min=0 formControlName="incomingIpf9"  class="form-control"  ></td>
                                             </tr>
 
                                         </tbody>
@@ -406,72 +406,72 @@
                        </thead>
                       <tbody formArrayName="testingRecords" >
                         <tr *ngFor="let f of gettestValueControls(a); let i = index"  class="form-group"[formGroupName]="i" >
-                                <td><input type="text" formControlName="circuitNo" class="form-control"   style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="circuitNo" class="form-control"   style="width:80px"></td>
                                 <td ><textarea  formControlName="circuitDesc"  class="form-control" style="height:40px;width:170px;"  ></textarea> </td>
-                                <td><input type="text" formControlName="circuitStandardNo" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="circuitType" class="form-control" style="width:80px"></td>
-                                <td><input type="text" formControlName="circuitRating" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="circuitBreakingCapacity" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="shortCircuitSetting" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="eFSetting" class="form-control"   style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="circuitStandardNo" class="form-control"   style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="circuitType" class="form-control" style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="circuitRating" class="form-control"   style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="circuitBreakingCapacity" class="form-control"   style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="shortCircuitSetting" class="form-control"   style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="eFSetting" class="form-control"   style="width:80px"></td>
                                 <td><textarea  formControlName="conductorInstallation"  class="form-control"  style="height:40px;width:170px;"></textarea>
-                                <td><input type="text" formControlName="conductorPhase" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="conductorNeutral" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="conductorPecpc" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="continutiyApproximateLength" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="continutiyRR" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="continutiyR" class="form-control"   style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="conductorPhase" class="form-control"   style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="conductorNeutral" class="form-control"   style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="conductorPecpc" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="continutiyApproximateLength" class="form-control"   style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="continutiyRR" class="form-control"   style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="continutiyR" class="form-control"   style="width:80px"></td>
                                 
-                                <td><input type="text" formControlName="rycontinutiy" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="rbcontinutiy" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ybcontinutiy" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="rncontinutiy" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="yncontinutiy" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="bncontinutiy" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="rpecontinutiy" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ypecontinutiy" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="bpecontinutiy" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="rycontinutiy" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="rbcontinutiy" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="ybcontinutiy" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="rncontinutiy" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="yncontinutiy" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="bncontinutiy" class="form-control"   style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="rpecontinutiy" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="ypecontinutiy" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="bpecontinutiy" class="form-control"  style="width:80px"></td>
 
-                                <td><input type="text" formControlName="continutiyPolarity" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ryVoltage" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="rbVoltage" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ybVoltage" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="rnVoltage" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ynVoltage" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="bnVoltage" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="rpeVoltage" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ypeVoltage" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="bpeVoltage" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ryLoopImpedance" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="rbLoopImpedance" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ybLoopImpedance" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="rnLoopImpedance" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ynLoopImpedance" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="bnLoopImpedance" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="rpeLoopImpedance" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ypeLoopImpedance" class="form-control"  style="width:70px"></td>
-                                <td><input type="text" formControlName="bpeLoopImpedance" class="form-control"  style="width:80px"></td>
-                                <td> <input type="text" formControlName="ryFaultCurrent" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="rbFaultCurrent" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ybFaultCurrent" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="rnFaultCurrent" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ynFaultCurrent" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="bnFaultCurrent" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="rpeFaultCurrent" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="ypeFaultCurrent" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="bpeFaultCurrent" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="ryDisconnect" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="rbDisconnect" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ybDisconnect" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="rnDisconnect" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ynDisconnect" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="bnDisconnect" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="rpeDisconnect" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ypeDisconnect" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="bpeDisconnect" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="rcdCurrent" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="rcdOperatingCurrent" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="rcdOperatingFiveCurrent" class="form-control"   style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="continutiyPolarity" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="ryVoltage" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="rbVoltage" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="ybVoltage" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="rnVoltage" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="ynVoltage" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="bnVoltage" class="form-control"   style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="rpeVoltage" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="ypeVoltage" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="bpeVoltage" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="ryLoopImpedance" class="form-control"   style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="rbLoopImpedance" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="ybLoopImpedance" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="rnLoopImpedance" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="ynLoopImpedance" class="form-control"   style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="bnLoopImpedance" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="rpeLoopImpedance" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="ypeLoopImpedance" class="form-control"  style="width:70px"></td>
+                                <td><input type="number" min=0 formControlName="bpeLoopImpedance" class="form-control"  style="width:80px"></td>
+                                <td> <input type="number" min=0 formControlName="ryFaultCurrent" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="rbFaultCurrent" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="ybFaultCurrent" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="rnFaultCurrent" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="ynFaultCurrent" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="bnFaultCurrent" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="rpeFaultCurrent" class="form-control"   style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="ypeFaultCurrent" class="form-control"   style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="bpeFaultCurrent" class="form-control"   style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="ryDisconnect" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="rbDisconnect" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="ybDisconnect" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="rnDisconnect" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="ynDisconnect" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="bnDisconnect" class="form-control"   style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="rpeDisconnect" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="ypeDisconnect" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="bpeDisconnect" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="rcdCurrent" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="rcdOperatingCurrent" class="form-control"  style="width:80px"></td>
+                                <td><input type="number" min=0 formControlName="rcdOperatingFiveCurrent" class="form-control"   style="width:80px"></td>
                                 <td><textarea  formControlName="rcdTestButtonOperation"  class="form-control" style="height:40px;width:170px;"></textarea>
                                 <td><textarea  formControlName="rcdRemarks"  class="form-control" style="height:40px;width:170px;"></textarea>
                                </tr>

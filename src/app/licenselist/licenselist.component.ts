@@ -77,7 +77,9 @@ export class LicenselistComponent implements OnInit {
   assignViewer!: AssignViewerComponent;
 
   userData: any = [];
-
+  inspectorData: any = [];
+  ongoingFilterData:any=[];
+  completedFilterData:any=[];
   // @ViewChild(VerificationlvComponent)
   // verification!: VerificationlvComponent;
 
@@ -118,17 +120,31 @@ export class LicenselistComponent implements OnInit {
   }
 
   retrieveSiteDetails() {
-    this.siteService.retrieveSite(this.email).subscribe((data) => {
-      this.ongoingSite_dataSource = new MatTableDataSource(JSON.parse(data));
-      this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
-      this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
+    this.ongoingFilterData=[];
+    this.completedFilterData=[];
+    this.siteService.retrieveListOfSite(this.email).subscribe(
+    data => {
+      this.inspectorData=JSON.parse(data);
+     for(let i of this.inspectorData){
+       debugger
+         if(i.allStepsCompleted=="AllStepCompleted"){
+           this.completedFilterData.push(i);
+         }
+         else{
+          this.ongoingFilterData.push(i);
+         }
+     }
+  this.ongoingSite_dataSource = new MatTableDataSource(this.ongoingFilterData);
+  this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
+  this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
 
-      this.completedLicense_dataSource = new MatTableDataSource(JSON.parse(data));
-      this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
-      this.completedLicense_dataSource.sort = this.completedLicenseSort;
-    });
-  }
-
+  this.completedLicense_dataSource = new MatTableDataSource(this.completedFilterData);
+  this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
+  this.completedLicense_dataSource.sort = this.completedLicenseSort;
+});
+}
+  
+ 
   editSite(siteId:any,userName:any,site:any){
     if (confirm("Are you sure you want to edit site details?"))
     {

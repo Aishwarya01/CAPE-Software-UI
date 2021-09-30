@@ -291,7 +291,8 @@ siteValue: String = '';
  
   // Need to check this task
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
-      this.savedUserName = userName;
+      this.service.siteCount = siteId;
+       this.savedUserName = userName;
        this.siteDetails1 = true;
        this.siteDetails = false;
        this.clearSiteValidator();
@@ -778,55 +779,6 @@ showHideAccordion(index: number) {
   }
   
 //comments section ends
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //clear validators
   clearSiteValidator() {

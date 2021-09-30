@@ -194,10 +194,7 @@ export class ProfileComponent implements OnInit {
   
   }
   
-  
-  cancel(){
-    setTimeout(() => {
-      this.route.navigate(['/home', {email: this.register.username}]);
-    }, 3000);
+  profileCancel(){
+    this.route.navigate(['/home', {email: this.register.username}]);
   }
 }

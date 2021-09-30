@@ -190,22 +190,7 @@ h1.example-app-name {
      `<body>` to be our scrolling element for mobile layouts. */
   flex: 1 0 auto;
 }
-/* .desktopDisplay{
-  visibility: visible;
-}
-.mobileDisplay{
-visibility: hidden;
-} */
 
-/* @media (max-width: 768px){
-
-  .desktopDisplay{
-    visibility: hidden;
-  }
-  .mobileDisplay{
-visibility: visible;
-  }
-} */
 .equipment .form-control{
   margin: -7px 10px -7px 10px;
   width: 85% !important;
@@ -268,34 +253,6 @@ visibility: visible;
   padding: unset !important;
   margin: -4px 1px -4px 1px !important;
 }
-@media (max-width: 600px) {
-  .mobileDisplay{
-    display: block !important;
-  }
-  .desktopDisplay{
-    display: none !important;
-  }
-  .mat-drawer-inner-container {
-    margin-top: 20px;
-}
-.appName {
-  margin-left: 10px !important;
-}
-/* .mat-drawer-container {
-  position: unset !important;
-} */
-.auth-form-btn {
-  width: 40% !important;
-}
-.register{
-  padding-top: unset !important;
-  padding-left: unset !important;
-}
-.mat-list-base .mat-list-item .mat-list-item-content, .mat-list-base .mat-list-option .mat-list-item-content {
-  padding: 0 16px !important;
-}
-}
-
 /* login and register page */
 
 .errorshow {
@@ -321,9 +278,6 @@ visibility: visible;
   border-radius: 0.25rem;
 }
 
-/* .iti input, .iti input[type=text], .iti input[type=tel] {
-  margin-right: 160px !important;
-} */
 .iti{
   display: block !important;
 }
@@ -373,7 +327,6 @@ visibility: visible;
 .collapse:not(.show) {
   display: block !important;
 }
-
 .even {
   margin-left: 41px;
   width: 50%;
@@ -426,4 +379,38 @@ max-height:300px; overflow-y:auto; overflow-x:hidden;
   color: white;
   background: red !important;
 }
+/* .joints input[type=number]::-webkit-inner-spin-button, 
+.joints input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+} */
 
+@media (max-width: 600px) {
+  .loginCardBody{
+    width: 109% !important;
+    margin-left: -14px;
+  }
+  .mobileDisplay{
+    display: block !important;
+  }
+  .desktopDisplay{
+    display: none !important;
+  }
+  .mat-drawer-inner-container {
+    margin-top: 20px;
+}
+.appName {
+  margin-left: 10px !important;
+}
+
+.auth-form-btn {
+  width: 40% !important;
+}
+.register{
+  padding-top: unset !important;
+  padding-left: unset !important;
+}
+.mat-list-base .mat-list-item .mat-list-item-content, .mat-list-base .mat-list-option .mat-list-item-content {
+  padding: 0 16px !important;
+}
+}
