@@ -382,6 +382,8 @@ populateDataComments() {
   this.arrViewer = [];
   this.completedCommentArr1 = this.step1Form.get('completedCommentArr1') as FormArray;
  for(let value of this.step1List.reportDetails.reportDetailsComment){
+  this.arrViewer = [];
+
    if(this.currentUser1.role == 'Inspector' ) { //Inspector
     if(value.approveOrReject == 'APPROVED') {
       this.completedComments = true;
@@ -396,7 +398,7 @@ populateDataComments() {
       this.completedCommentArr3 = [];
     }
     for(let j of this.step1List.reportDetails.reportDetailsComment) {
-         if(j.approveOrReject == 'REJECT' || j.approveOrReject == '') {
+         if(j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) {
           this.arrViewer.push(this.createCommentGroup(j));
          }
          else if(j.approveOrReject == 'APPROVED'){
@@ -473,7 +475,7 @@ populateDataComments() {
                  this.reportViewerCommentArr.push(this.addCommentViewer());
                  this.step1Form.setControl('viewerCommentArr', this._formBuilder.array(this.reportViewerCommentArr || []));
                }
-               else {
+               else {  //reject & both flags 1
                 if(value.viewerFlag=='1' && value.inspectorFlag=='1')
                 {
                   if(value.approveOrReject == '') {
@@ -487,20 +489,14 @@ populateDataComments() {
                   this.addReject=true;
                   this.hideapprove=true;
                   this.hideReject=true;
-                 // this.hideDelete=true;
                   this.reportViewerCommentArr.push(this.createCommentGroup(value));
                   this.step1Form.setControl('viewerCommentArr', this._formBuilder.array(this.reportViewerCommentArr || []))
                }
                this.hideCommentSection= true;
                this.hideAsViewerLogin=false;
                this.replyCommentBox=true;
-               // this.hideAdd=false;
-               // this.hideapprove=false;
-               // this.hideReject=false;
                this.SendReply=false;
                this.sendComment=true;
-               //this.hideDelete=true;
-
              }   
              this.hideCommentSection= true;
              this.sendComment=true;
@@ -508,38 +504,31 @@ populateDataComments() {
              this.replyCommentBox=true;
              this.hideAdd=false;
             }
-            else {
-              //need to change
+            else { //inspector flag 0
+              debugger
               if(value.viewerFlag=='1'){
                this.enabledViewer=true;
                this.sendComment=false;
-               this.replyCommentBox=false;
+               this.replyCommentBox=true;
                this.disableSend=true;
               }
-              else{
+              else{ //viewer flag 0
                this.enabledViewer=false;
                this.sendComment=true;
                this.replyCommentBox=true;
-              
               }
              this.reportViewerCommentArr.push(this.createCommentGroup(value));
              this.step1Form.setControl('viewerCommentArr', this._formBuilder.array(this.reportViewerCommentArr || []))
              this.reportViewerCommentArr = [];
              this.hideCommentSection= true;
-            // this.sendComment=true;
              this.hideRefresh=false;
-             
-             //this.replyCommentBox=true;
              this.hideAdd=false;
              this.hideapprove=false;
              this.hideReject=false;
-             //this.showReplyBox=true;
              this.enabledViewer=true;
-
-             
             }
             for(let j of this.step1List.reportDetails.reportDetailsComment) {
-                 if(j.approveOrReject == 'REJECT' || j.approveOrReject == '') {
+                 if(j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) {
                   this.arrViewer.push(this.createCommentGroup(j));
                  }
                  else if(j.approveOrReject == 'APPROVED'){
@@ -572,10 +561,6 @@ showHideAccordion(index: number) {
   this.expandedIndexx = index === this.expandedIndexx ? -1 : index;  
   this.isClicked[index] = !this.isClicked[index];
   }
-  // showHideAccordion(index:any) {
-  //   // toggle based on index
-  //   this.hideRuleContent[index] = !this.hideRuleContent[index];
-  // }
   createCommentGroup(value: any) : FormGroup {
     console.log(value.inspectorFlag);
     return this._formBuilder.group({
@@ -585,7 +570,7 @@ showHideAccordion(index: number) {
     inspectorDateTime: new FormControl({disabled: false ,value: value.inspectorDate}),
     approveOrReject: new FormControl({ disabled: this.enabledRequest, value: value.approveOrReject}),
     commentId: new FormControl({disabled: false ,value: value.commentsId}),
-    viewerComments: new FormControl({disabled: this.enabledViewer ,value: value.viewerComment}),
+    viewerComments: new FormControl({disabled: value.viewerFlag != 0 ,value: value.viewerComment}),
     inspectorComments: new FormControl({disabled: value.inspectorFlag != 0 ,value: value.inspectorComment}),
   });
   }
@@ -760,88 +745,12 @@ showHideAccordion(index: number) {
           this.spinner=false;
          this.cardBodyComments=true;
      }, 2000);
-        
          this.showReplyBox=false;
          this.disableReply = false;
          this.disableSend = false;
       },
       (error) => {
-   
       })
-  }
-
-  //Approve refresh
-  // refreshComment(a:any){
-  //   this.hideAdd=true;
-  //   this.hideapprove=true;
-  //   this.hideReject=true;
-  //   this.comments.approveOrReject = '';
-  //   this.siteService.retrieveFinal(this.savedUserName,this.reportDetails.siteId).subscribe(
-  //  (data) => {
-  //     this.commentDataArr = JSON.parse(data);
-  //     console.log(this.commentDataArr.reportDetails.reportDetailsComment);
-  //     this.populateRefreshData();
-  //  },
-  //  (error) => {
-
-  //  })
-  // }
-  populateRefreshData() {
-    this.reportViewerCommentArr = [];
-    this.completedCommentArrValue = [];
-
-    for(let value of this.commentDataArr.reportDetails.reportDetailsComment){
-      if(this.currentUser1.role == 'Inspector' ) { //Inspector
-          console.log(value.viewerDate + "   " + value.viewerComment)
-          
-          this.reportViewerCommentArr = [];
-
-          if(value.viewerFlag=='1'){
-            this.hideCommentSection= true;
-            this.hideAsViewerLogin=true;
-            this.SendReply=false;
-            this.replyCommentBox=true;
-            this.hideAsViewerLogin=false;
-           }
-            }
-
-            else { //Viewer
-              console.log(value.inspectorDate + "   " + value.inspectorComment )
-              if(value.approveOrReject == "REJECT"){
-                this.reportViewerCommentArr.push(this.createCommentGroup(value));
-              }
-              else{
-                this.completedComments = true;
-                this.completedCommentArrValue.push(this.createCompletedCommentGroup(value));
-                this.reportViewerCommentArr.push(this.addCommentViewerApprove());
-                //this.afterApprove=true;
-
-              }              
-              this.step1Form.setControl('viewerCommentArr', this._formBuilder.array(this.reportViewerCommentArr || []))
-              this.step1Form.setControl('completedCommentArr', this._formBuilder.array(this.completedCommentArrValue || []))
-
-              this.reportViewerCommentArr = [];
-              this.completedCommentArrValue = [];
-
-              this.hideCommentSection= true;
-              this.sendComment=true;
-              this.hideapprove=false;
-              this.hideReject=false;
-
-              if(value.inspectorFlag=='1'){
-                this.hideCommentSection= true;
-                this.hideAsViewerLogin=false;
-                this.replyCommentBox=true;
-                this.hideAdd=true;
-                this.hideapprove=true;
-                this.hideReject=true;
-                //this.sendComment=true;
-                this.SendReply=false;
-               }
-             
-            
-            }       
-          }
   }
 
   addItem(item: any) : FormGroup {
@@ -931,7 +840,9 @@ showHideAccordion(index: number) {
 
 //retrieve client details
   private retrieveSiteDetails(companyName: any,departmentName: any,siteName: any) {
-    
+
+    if((companyName!= undefined) && (departmentName!= undefined) && (siteName!= undefined))  {
+      debugger
     this.siteService.retrieveSiteForInspection(companyName,departmentName,siteName).subscribe(
       data => {
         this.clientList = [];
@@ -939,6 +850,7 @@ showHideAccordion(index: number) {
         debugger
         this.reportDetails.siteId = this.clientList.siteId;
       });
+    }
   }
 
 // Only Integer Numbers

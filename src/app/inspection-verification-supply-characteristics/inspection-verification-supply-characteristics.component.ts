@@ -508,6 +508,7 @@ populateDataComments() {
   this.arrViewer = [];
   this.completedCommentArr1 = this.supplycharesteristicForm.get('completedCommentArr1') as FormArray;
  for(let value of this.step2List.reportDetails.reportDetailsComment){
+  this.arrViewer = [];
    if(this.currentUser1.role == 'Inspector' ) { //Inspector
     if(value.approveOrReject == 'APPROVED') {
       this.completedComments = true;
@@ -522,7 +523,7 @@ populateDataComments() {
       this.completedCommentArr3 = [];
     }
     for(let j of this.step2List.reportDetails.reportDetailsComment) {
-         if(j.approveOrReject == 'REJECT' || j.approveOrReject == '') {
+         if(j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) {
           this.arrViewer.push(this.createCommentGroup(j));
          }
          else if(j.approveOrReject == 'APPROVED'){
@@ -635,7 +636,7 @@ populateDataComments() {
               if(value.viewerFlag=='1'){
                this.enabledViewer=true;
                this.sendComment=false;
-               this.replyCommentBox=false;
+               this.replyCommentBox=true;
                this.disableSend=true;
               }
               else{
@@ -658,7 +659,7 @@ populateDataComments() {
              this.enabledViewer=true;
             }
             for(let j of this.step2List.reportDetails.reportDetailsComment) {
-                 if(j.approveOrReject == 'REJECT' || j.approveOrReject == '') {
+                 if(j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) {
                   this.arrViewer.push(this.createCommentGroup(j));
                  }
                  else if(j.approveOrReject == 'APPROVED'){
@@ -698,7 +699,7 @@ showHideAccordion(index: number) {
     inspectorDateTime: new FormControl({disabled: false ,value: value.inspectorDate}),
     approveOrReject: new FormControl({ disabled: this.enabledRequest, value: value.approveOrReject}),
     commentId: new FormControl({disabled: false ,value: value.commentsId}),
-    viewerComments: new FormControl({disabled: this.enabledViewer ,value: value.viewerComment}),
+    viewerComments: new FormControl({disabled: value.viewerFlag != 0 ,value: value.viewerComment}),
     inspectorComments: new FormControl({disabled: value.inspectorFlag != 0 ,value: value.inspectorComment}),
   });
   }
