@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
 import { InspectionVerificationBasicInformationComponent } from '../inspection-verification-basic-information/inspection-verification-basic-information.component';
 import { GlobalsService } from '../globals.service';
+import { SiteaddComponent } from '../site/siteadd/siteadd.component';
 
 @Component({
   selector: 'app-assign-viewer',
@@ -319,14 +320,25 @@ createGroup(item: any) {
     this.dialog.closeAll();
   }
 
-  navigateToSite() {
-    this.cancel();
-    this.viewContainerRef.clear();
-    this.destroy = true;
-    const verificationFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
-    const verificationRef = this.viewContainerRef.createComponent(verificationFactory);
-    //const verification=this.verification.changeTab(1,siteId,userName,'clientName','departmentName',site);
-    verificationRef.changeDetectorRef.detectChanges();
+
+  navigateToSite(data: any) {
+    debugger
+    const dialogRef = this.dialog.open(SiteaddComponent, {
+      width: '1000px',
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.data = data;
+    dialogRef.componentInstance.onSubmitSite.subscribe(data=>{
+      if(data) {
+        this.onSave.emit(true);
+      }
+      else{
+        this.onSave.emit(false);
+      }
+    })
+    dialogRef.afterClosed().subscribe((result) => {
+    });
   }
 
   closeAll() {
@@ -362,7 +374,9 @@ createGroup(item: any) {
           this.closeAll();
         }, 3000);
         this.globalService.viewerData = this.register;
+        debugger
         this.globalService.inspectorName = this.inspectorData.name;
+        this.globalService.inspectorData = this.inspectorData;
         this.onSave.emit(true);
 
         
@@ -389,11 +403,15 @@ createGroup(item: any) {
         setTimeout(()=>{
           this.successMsgOTP=false;
           this.successMsg="";
-          this.closeAll();
+          // this.closeAll();
+          this.modalService.dismissAll();
         }, 3000);
         this.globalService.viewerData = this.register;
         this.globalService.inspectorName = this.inspectorData.name;
-        this.onSave.emit(true);
+        this.globalService.inspectorData = this.inspectorData;
+
+        // this.onSave.emit(true);
+        this.navigateToSite(this.register);
         
         // setTimeout(()=>{
         //   this.router.navigate(['/createPassword', {email: this.register.username}])

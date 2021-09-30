@@ -202,6 +202,21 @@
               </mat-panel-title>
 
             </mat-expansion-panel-header>
+
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field class="client-description ">
+                  <mat-label><h3>Details Of Client / Person Ordering This Report</h3></mat-label>
+                  <textarea matInput class="client-box-description" formControlName="detailsOfClient"
+                  [ngClass]="{ 'is-invalid': submitted && f.detailsOfClient.errors }" readonly style="background-color: #e9ecef;"
+                  placeholder=" Ex. Name, address ,purpose ,relation with end user.." 
+                  [(ngModel)]="reportDetails.clientDetails"></textarea>
+                  <div *ngIf="submitted && f.detailsOfClient.errors" class="invalid-feedback">
+                    <div *ngIf="f.detailsOfClient?.errors?.required">Details Of client is required</div>
+                </div>
+                </mat-form-field>
+              </div>
+            </div>
            
             <div class="row">
               <div class="col-md-4">
@@ -215,20 +230,7 @@
               </div>
             </div>
 
-            <div class="row">
-              <div class="col-md-4">
-                <mat-form-field class="client-description ">
-                  <mat-label><h3>Details Of Client / Person Ordering This Report * (maximum length is 50 )</h3></mat-label>
-                  <textarea matInput class="client-box-description" formControlName="detailsOfClient" maxlength="50"
-                  [ngClass]="{ 'is-invalid': submitted && f.detailsOfClient.errors }" readonly style="background-color: #e9ecef;"
-                  placeholder=" Ex. Name, address ,purpose ,relation with end user.." 
-                  [(ngModel)]="reportDetails.clientDetails"></textarea>
-                  <div *ngIf="submitted && f.detailsOfClient.errors" class="invalid-feedback">
-                    <div *ngIf="f.detailsOfClient?.errors?.required">Details Of client is required</div>
-                </div>
-                </mat-form-field>
-              </div>
-            </div>
+            
 
             <div class="form-group">
               <div class="row">
@@ -279,11 +281,34 @@
                     <div *ngIf="f.limitations?.errors?.required">Field Is Required</div>
                 </div>
                 </div>
+              </div>
+            </div>
+
+            <h1>Inspector Details:</h1>
+            <div class="form-group">
+              <div class="row">
                 <div class="col-md-4">
                   <label>Name of Engineer Who Carries Out Verification * :</label>
                   <input type="text" class="form-control" readonly formControlName="engineerName" placeholder="Enter Engineer Name" [(ngModel)]="reportDetails.verifiedEngineer" [ngClass]="{ 'is-invalid': submitted && f.engineerName.errors }">
                   <div *ngIf="submitted && f.engineerName.errors" class="invalid-feedback">
                     <div *ngIf="f.engineerName?.errors?.required">Engineer name is required</div>
+                </div>
+                </div>
+
+                <div class="col-md-4">
+                  <label>Designation* :</label>
+                  <input type="text" class="form-control" readonly formControlName="inspectorDesignation" placeholder="Enter Designation" 
+                  [(ngModel)]="reportDetails.inspectorDesignation" [ngClass]="{ 'is-invalid': submitted && f.inspectorDesignation.errors }">
+                  <div *ngIf="submitted && f.inspectorDesignation.errors" class="invalid-feedback">
+                    <div *ngIf="f.inspectorDesignation?.errors?.required">Designation is required</div>
+                </div>
+                </div>
+
+                <div class="col-md-4">
+                  <label>Company* :</label>
+                  <input type="text" class="form-control" readonly formControlName="inspectorCompanyName" placeholder="Enter Company Name" [(ngModel)]="reportDetails.inspectorCompanyName" [ngClass]="{ 'is-invalid': submitted && f.inspectorCompanyName.errors }">
+                  <div *ngIf="submitted && f.inspectorCompanyName.errors" class="invalid-feedback">
+                    <div *ngIf="f.inspectorCompanyName?.errors?.required">Company name is required</div>
                 </div>
                 </div>
               </div>

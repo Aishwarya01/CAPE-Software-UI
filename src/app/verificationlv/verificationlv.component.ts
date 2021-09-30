@@ -420,7 +420,7 @@ export class VerificationlvComponent implements OnInit {
       width: '1000px',
       maxHeight: '90vh',
     });
-    dialogRef.componentInstance.email = this.email;
+    // dialogRef.componentInstance.email = this.email;
     dialogRef.afterClosed().subscribe((result) => {
       this.refresh();
       this.retrieveClientDetails();

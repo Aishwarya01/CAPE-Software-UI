@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Site } from 'src/app/model/site';
@@ -49,10 +49,11 @@ export class SiteaddComponent implements OnInit {
   errorMsg: string = "";
   validationError: boolean = false;
   validationErrorMsg: String = "";
+  onSubmitSite = new EventEmitter();
 
 
   @Input()
-  email: String = '';
+  data: any = [];
   errorArr: any=[];
   constructor(public dialog: MatDialog,
               public clientService: ClientService,
@@ -64,11 +65,14 @@ export class SiteaddComponent implements OnInit {
               }
 
   ngOnInit(): void {
+    this.site.site = this.data.siteName;
+    this.site.companyName = this.data.companyName;
+    this.site.departmentName = this.data.department
     this.addSiteForm = this.formBuilder.group({
-      // clientName: ['', Validators.required],
-      // departmentName: ['',Validators.required],
-      siteName: ['', Validators.required],
-      arr: this.formBuilder.array([this.createItem()]),
+      companyName: [''],
+      departmentName: [''],
+      siteName: [''],
+      arr: this.formBuilder.array([this.createItem(this.data)]),
       siteLocation: ['', Validators.required],
       AddressLine1: ['', Validators.required],
       AddressLine2: [''],
@@ -77,15 +81,8 @@ export class SiteaddComponent implements OnInit {
       state: ['', Validators.required],
       pincode: ['', Validators.required],
       });
-    this.clientService.retrieveClient(this.email).subscribe(
-      data => {
-        this.clientArray = [];
-        this.clientList = JSON.parse(data);
-        for(let arr of JSON.parse(data)) {
-          this.clientArray.push(arr);
-        }
-      }
-    )
+    
+      console.log(this.data);
 
     this.siteService.retrieveCountry().subscribe(
       data => {
@@ -124,18 +121,18 @@ export class SiteaddComponent implements OnInit {
     }
   }
 
-  changeClient(e: any) {
-    let changedValue = e.target.value;
-    this.departmentList = [];
-      for(let arr of this.clientList) {
-        if( arr.clientName == changedValue) {
-          this.departmentService.retrieveDepartment(this.email,arr.clientName).subscribe(
-            data => {
-              this.departmentList = JSON.parse(data)
-            }
-          )};
-      }
-  }
+  // changeClient(e: any) {
+  //   let changedValue = e.target.value;
+  //   this.departmentList = [];
+  //     for(let arr of this.clientList) {
+  //       if( arr.clientName == changedValue) {
+  //         this.departmentService.retrieveDepartment(this.email,arr.clientName).subscribe(
+  //           data => {
+  //             this.departmentList = JSON.parse(data)
+  //           }
+  //         )};
+  //     }
+  // }
 
   changeCountry(e: any) {
     let changedValue = e.target.value;
@@ -154,22 +151,22 @@ export class SiteaddComponent implements OnInit {
     this.dialog.closeAll();
   }
 
-  createItem() {
+  createItem(value: any) {
     return this.formBuilder.group({
-      personIncharge: ['', Validators.required],
-      designation: ['', Validators.required],
-      contactNo: ['', [Validators.maxLength(10),Validators.required]],
-      personInchargeEmail: ['', [
+      personIncharge: [value.name, Validators.required],
+      designation: [value.designation, Validators.required],
+      contactNo: [value.contactNumber, [Validators.maxLength(10),Validators.required]],
+      personInchargeEmail: [value.username, [
         Validators.required,
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       countryCode: ['91']
     })
   }
 
-  addItem() {
-    this.arr = this.addSiteForm.get('arr') as FormArray;
-    this.arr.push(this.createItem());
-  }
+  // addItem() {
+  //   this.arr = this.addSiteForm.get('arr') as FormArray;
+  //   this.arr.push(this.createItem(this.data));
+  // }
 
   removeItem(index: any) {
     (this.addSiteForm.get('arr') as FormArray).removeAt(index);
@@ -214,7 +211,8 @@ export class SiteaddComponent implements OnInit {
       i.inActive=true;
     }
 
-    this.site.userName = this.email;
+    this.site.userName = this.data.assignedBy;
+    this.site.assignedTo = this.data.username;
     this.siteService.addSIte(this.site).subscribe(
       data=> {
         this.success = true
@@ -224,6 +222,7 @@ export class SiteaddComponent implements OnInit {
         }, 3000);
         setTimeout(() => {
           this.dialog.closeAll();
+          this.onSubmitSite.emit(true);
         }, 2000);
       },
       error => {
@@ -231,6 +230,7 @@ export class SiteaddComponent implements OnInit {
         this.errorArr = [];
         this.errorArr = JSON.parse(error.error);
         this.errorMsg =this.errorArr.message;
+        this.onSubmitSite.emit(false);
         setTimeout(() => {
           this.Error = false;
         }, 3000);

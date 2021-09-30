@@ -1,5 +1,6 @@
 export class Site {
   clientName: String;
+  companyName: String;
   clientId: number;
   departmentName: String;
   departmentId: number;
@@ -19,6 +20,7 @@ export class Site {
   createdBy: String;
   updatedDate: Date;
   updatedBy: String;
+  assignedTo: String;
   sitePersons: SitePersons[];
 }
 

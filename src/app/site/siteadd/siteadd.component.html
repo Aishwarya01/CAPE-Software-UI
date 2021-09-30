@@ -4,32 +4,36 @@
     <div class="form-group">
         <div class="row">
 
-            <!-- <div class="col-md-4">
+            <div class="col-md-4">
                 <label>Client Name:</label>
-                <select formControlName="clientName" id="client" class="form-control" (change)="changeClient($event)"
+                <!-- <select formControlName="clientName" id="client" class="form-control" (change)="changeClient($event)"
                     [(ngModel)]="site.clientName" [ngClass]="{ 'is-invalid': submitted && a.clientName.errors }">
                     <option value="0" selected>Select Client Name</option>
                     <option *ngFor="let client of clientList">{{client.clientName}}</option>
-            </select>
-            <div *ngIf="submitted && a.clientName.errors" class="invalid-feedback">
-              <div *ngIf="a.clientName?.errors?.required">Client Name Is Required</div>
-          </div>
-            </div> -->
+            </select> -->
+            <input type="text" formControlName="companyName" class="form-control" readonly placeholder="Enter Company Name"
+                [(ngModel)]="site.companyName" [ngClass]="{ 'is-invalid': submitted && a.companyName?.errors }">
+            <div *ngIf="submitted && a.companyName.errors" class="invalid-feedback">
+              <div *ngIf="a.companyName?.errors?.required">Company Name Is Required</div>
+            </div>
+            </div>
 
-            <!-- <div class="col-md-4">
+            <div class="col-md-4">
                 <label>Department:</label>
-                <select formControlName="departmentName" class="form-control" [(ngModel)]="site.departmentName" [ngClass]="{'is-invalid': submitted && a.clientName.errors}">
+                <!-- <select formControlName="departmentName" class="form-control" [(ngModel)]="site.departmentName" [ngClass]="{'is-invalid': submitted && a.clientName.errors}">
                     <option value="0" selected>Select Department Name</option>
                     <option *ngFor="let department of departmentList">{{department.departmentName}}</option>
-                </select>
-                <div *ngIf="submitted && a.clientName.errors" class="invalid-feedback">
-                  <div *ngIf="a.clientName?.errors?.required">Department Is required</div>
-              </div>
-            </div> -->
+                </select> -->
+                <input type="text" formControlName="departmentName" class="form-control" readonly placeholder="Enter Department Name"
+                [(ngModel)]="site.departmentName" [ngClass]="{ 'is-invalid': submitted && a.departmentName?.errors }">
+                <div *ngIf="submitted && a.departmentName.errors" class="invalid-feedback">
+                  <div *ngIf="a.departmentName?.errors?.required">Department Is required</div>
+                </div>
+            </div>
 
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label>Site:</label>
-                <input type="text" formControlName="siteName" class="form-control" placeholder="Enter Site Name"
+                <input type="text" formControlName="siteName" class="form-control" readonly placeholder="Enter Site Name"
                 [(ngModel)]="site.site" [ngClass]="{ 'is-invalid': submitted && a.siteName?.errors }">
                 <div *ngIf="submitted && a.siteName.errors" class="invalid-feedback">
                   <div *ngIf="a.siteName?.errors?.required">Site Is required</div>
@@ -50,7 +54,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <label>* Person Incharge:</label>
-                    <input type="text" formControlName="personIncharge" class="form-control" placeholder="Enter Person Incharge" [ngClass]="{ 'is-invalid': submitted && a.get('personIncharge')?.errors }">
+                    <input type="text" formControlName="personIncharge" class="form-control" readonly placeholder="Enter Person Incharge" [ngClass]="{ 'is-invalid': submitted && a.get('personIncharge')?.errors }">
                         <div *ngIf="submitted && a.get('personIncharge')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('personIncharge')?.errors?.required">Person Incharge Is Required</div>
                       </div>
@@ -58,7 +62,7 @@
 
                 <div class="col-md-3">
                     <label>* Designation:</label>
-                    <input type="text" formControlName="designation" class="form-control"
+                    <input type="text" formControlName="designation" readonly class="form-control"
                         placeholder="Enter Designation"[ngClass]="{ 'is-invalid': submitted && a.get('designation')?.errors }">
                         <div *ngIf="submitted && a.get('designation')?.errors" class="invalid-feedback">
                           <div *ngIf="a.get('designation')?.errors?.required">Designation Is Required</div>
@@ -67,7 +71,7 @@
 
                 <div class="col-md-3">
                   <label>* Mobile Number:</label>
-                  <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" (keypress)="keyPressNumbers($event)" (countryChange)="countryChange($event,a)" formControlName="contactNo" class="form-control"   placeholder="Enter Number" [ngClass]="{ 'is-invalid': submitted && a.get('contactNo')?.errors }">
+                  <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"  (keypress)="keyPressNumbers($event)" (countryChange)="countryChange($event,a)" formControlName="contactNo" class="form-control"   placeholder="Enter Number" [ngClass]="{ 'is-invalid': submitted && a.get('contactNo')?.errors }">
                   <div *ngIf="submitted && a.get('contactNo')?.errors" class="invalid-feedback">
                     <div *ngIf="a.get('contactNo')?.errors?.required">Mobile Number Is Required</div>
                     <!-- <div *ngIf="a.get('contactNo')?.errors?.minlength">Enter 10 Digit Number</div> -->
@@ -77,7 +81,7 @@
 
                 <div class="col-md-3">
                     <label>* Email:</label>
-                    <input type="text" formControlName="personInchargeEmail" class="form-control"
+                    <input type="text" formControlName="personInchargeEmail" class="form-control" readonly
                         placeholder="Enter Email Address" [ngClass]="{ 'is-invalid': submitted && a.get('personInchargeEmail')?.errors }">
                         <div *ngIf="submitted && a.get('personInchargeEmail')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('personInchargeEmail')?.errors?.required">Email is required</div>

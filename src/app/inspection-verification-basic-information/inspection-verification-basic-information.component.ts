@@ -212,10 +212,17 @@ siteValue: String = '';
     this.countryCode5= '91';
     this.countryCode6= '91';
     this.countryCode7= '91';
-    this.reportDetails.clientDetails = this.service.viewerData.name;
+    // viewer
+    this.reportDetails.clientDetails = this.service.viewerData.name + "," +this.service.viewerData.address;
     this.reportDetails.designation = this.service.viewerData.designation;
     this.reportDetails.company = this.service.viewerData.companyName;
+
+    debugger
+    // inspector
     this.reportDetails.verifiedEngineer = this.service.inspectorName;
+    this.reportDetails.inspectorDesignation = this.service.inspectorData.designation;
+    this.reportDetails.inspectorCompanyName = this.service.inspectorData.companyName;
+
     this.companyNameSite = this.service.viewerData.companyName;
     this.departmentNameSite = this.service.viewerData.department;
     this.siteValue = this.service.viewerData.siteName;
@@ -242,6 +249,8 @@ siteValue: String = '';
       engineerName: ['', Validators.required],
       designation: ['', Validators.required],
       companyName: ['', Validators.required],
+      inspectorDesignation: ['', Validators.required],
+      inspectorCompanyName: ['', Validators.required],
       limitations: ['', Validators.required],
       nextInspection: ['', Validators.required],
       designer1AcknowledgeArr: this._formBuilder.array([this.createDesigner1AcknowledgeForm()]),
@@ -355,6 +364,8 @@ siteValue: String = '';
         engineerName: this.step1List.reportDetails.verifiedEngineer,
         designation: this.step1List.reportDetails.designation,
         companyName: this.step1List.reportDetails.company,
+        // inspectorDesignation: this.step1List.reportDetails.inspectorDesignation,
+        // inspectorCompanyName: this.step1List.reportDetails.inspectorCompanyName,
         limitations: this.step1List.reportDetails.limitations
     })
     this.flag=true;

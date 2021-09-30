@@ -17,6 +17,7 @@ export class GlobalsService {
   inspectorName!: String;
   siteName!: String;
   viewerData: any = [];
+  inspectorData: any = [];
   
   constructor(private _scrollToService: ScrollToService) {}
 
