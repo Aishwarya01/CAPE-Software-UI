@@ -377,9 +377,8 @@ createGroup(item: any) {
         debugger
         this.globalService.inspectorName = this.inspectorData.name;
         this.globalService.inspectorData = this.inspectorData;
-        this.onSave.emit(true);
-
-        
+        // this.onSave.emit(true);
+        this.navigateToSite(this.register);
         // setTimeout(()=>{
         //   this.router.navigate(['/createPassword', {email: this.register.username}])
         // }, 5000);
