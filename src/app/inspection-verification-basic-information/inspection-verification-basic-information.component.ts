@@ -213,7 +213,7 @@ siteValue: String = '';
     this.countryCode6= '91';
     this.countryCode7= '91';
     // viewer
-    this.reportDetails.clientDetails = this.service.viewerData.name + "," +this.service.viewerData.address;
+    this.reportDetails.clientDetails = this.service.viewerData.name + "-" +this.service.viewerData.address;
     this.reportDetails.designation = this.service.viewerData.designation;
     this.reportDetails.company = this.service.viewerData.companyName;
 
@@ -260,7 +260,7 @@ siteValue: String = '';
       designer1Arr: this._formBuilder.array([this.createDesigner1Form()]),
       designer2Arr: this._formBuilder.array([this.createDesigner2Form()]),
       contractorArr: this._formBuilder.array([this.createContractorForm()]),
-      inspectorArr: this._formBuilder.array([this.createInspectorForm()]),
+      inspectorArr: this._formBuilder.array([this.createInspectorForm(this.service.inspectorData)]),
       viewerCommentArr: this._formBuilder.array([this.addCommentViewer()]),
       completedCommentArr1: this._formBuilder.array([]),
       //inspectorCommentArr: this._formBuilder.array([this.addCommentInspector()])
@@ -1135,26 +1135,48 @@ showHideAccordion(index: number) {
   }
 
 // Inspector details forms
-   private createInspectorForm(): FormGroup {
+   private createInspectorForm(value: any): FormGroup {
+    // let contactNumber = [];
+    // contactNumber = value.contactNumber.split("-");
     return new FormGroup({
-     personName: new FormControl('',[Validators.required]),
-      personContactNo: new FormControl('',[Validators.maxLength(10),Validators.required]),
-      personMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+      personName: new FormControl(value.name,[Validators.required]),
+      personContactNo: new FormControl(value.contactNumber,[Validators.required]),
+      personMailID: new FormControl(value.username,[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       managerName: new FormControl('',[Validators.required]),
       managerContactNo: new FormControl('',[Validators.maxLength(10),Validators.required]),
       managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
-      companyName: new FormControl('',[Validators.required]),
-      addressLine1: new FormControl('',[Validators.required]),
+      companyName: new FormControl(value.companyName,[Validators.required]),
+      addressLine1: new FormControl(value.address,[Validators.required]),
       addressLine2: new FormControl(''),
       landMark: new FormControl(''),
-      country: new FormControl('',[Validators.required]),
-      state: new FormControl('',[Validators.required]),
-      pinCode: new FormControl('',[Validators.required]),
+      country: new FormControl(value.country,[Validators.required]),
+      state: new FormControl(value.state,[Validators.required]),
+      pinCode: new FormControl(value.pinCode,[Validators.required]),
       signatorRole: new FormControl(''),
       declarationSignature: new FormControl(''),
       declarationDate: new FormControl(''),
       declarationName: new FormControl('')
     })
+
+    // return this._formBuilder.group({
+    //   personName:[value.name,[Validators.required]],
+    //   personContactNo:[value.contactNumber,[Validators.required]],
+    //   personMailID:[value.username,[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+    //   managerName:['',[Validators.required]],
+    //   managerContactNo:['',[Validators.maxLength(10),Validators.required]],
+    //   managerMailID:['',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+    //   companyName:[value.companyName,[Validators.required]],
+    //   addressLine1:[value.address,[Validators.required]],
+    //   addressLine2:[''],
+    //   landMark:[''],
+    //   country:[value.country,[Validators.required]],
+    //   state:[value.state,[Validators.required]],
+    //   pinCode:[value.pinCode,[Validators.required]],
+    //   signatorRole:[''],
+    //   declarationSignature:[''],
+    //   declarationDate:[''],
+    //   declarationName:['']
+    // })
   }
 
   getInspectorControls(): AbstractControl[] {
@@ -1478,7 +1500,7 @@ showHideAccordion(index: number) {
       this.step1Form.value.contractorArr[0].personContactNo = "+" + this.countryCode4 + "-" + this.step1Form.value.contractorArr[0].personContactNo;
       this.step1Form.value.contractorArr[0].managerContactNo = "+" + this.countryCode5 + "-" + this.step1Form.value.contractorArr[0].managerContactNo;
   
-      this.step1Form.value.inspectorArr[0].personContactNo = "+" + this.countryCode6 + "-" + this.step1Form.value.inspectorArr[0].personContactNo;
+      // this.step1Form.value.inspectorArr[0].personContactNo = "+" + this.countryCode6 + "-" + this.step1Form.value.inspectorArr[0].personContactNo;
       this.step1Form.value.inspectorArr[0].managerContactNo = "+" + this.countryCode7 + "-" + this.step1Form.value.inspectorArr[0].managerContactNo;  
       
       this.reportDetails.signatorDetails = this.step1Form.value.designer1Arr;

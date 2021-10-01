@@ -90,8 +90,9 @@
                   [(ngModel)]="summary.limitationsInspection"
                   [ngClass]="{ 'is-invalid': submitted && f.attachedInspection?.errors }">
                   <option value="0" selected>Select Option</option>
-                  <option value="No remedial action required" [selected]="f.attachedInspection?.value === limitationsValue">No remedial action required</option>
-                  <option value="The following observations are made" [selected]="f.attachedInspection?.value === limitationsValue">The following observations are made</option>
+                  <option *ngFor="let a of observationList" [selected]="a === summary.limitationsInspection">{{a}}</option>
+                  <!-- <option value="No remedial action required" [selected]="f.attachedInspection?.value === summary.limitationsInspection">No remedial action required</option>
+                  <option value="The following observations are made" [selected]="f.attachedInspection?.value === summary.limitationsInspection">The following observations are made</option> -->
                 </select>
                 <div *ngIf="submitted && f.attachedInspection?.errors" class="invalid-feedback">
                   <div *ngIf="f.attachedInspection?.errors?.required">Client name is required</div>

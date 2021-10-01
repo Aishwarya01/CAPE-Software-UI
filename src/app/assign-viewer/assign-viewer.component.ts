@@ -362,7 +362,7 @@ createGroup(item: any) {
   this.register.role = 'Viewer';
   this.register.permission = 'Yes';
   this.register.assignedBy = this.email;
-
+  console.log(this.register);
   if(!flag) {
     this.inspectorRegisterService.registerViewer(this.register).subscribe(
       data=> {

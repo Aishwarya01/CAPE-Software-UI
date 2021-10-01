@@ -99,6 +99,7 @@ export class SummaryComponent implements OnInit {
   summaryList: any = [];
   arr: any = [];
   limitationsValue!: String;
+  observationList: String[] = ['No remedial action required', 'The following observations are made'];
   // @ViewChild (FinalreportsComponent) final!: FinalreportsComponent;
   //@ViewChild (VerificationlvComponent) final!: VerificationlvComponent;
 
@@ -815,12 +816,12 @@ showHideAccordion(index: number) {
     else{
       changedValue = event;
     }
-    if (changedValue == 'No remedial action required') {
-      this.selectedType = false;
-      this.disableValidators();
+    if (changedValue == 'The following observations are made') {
+      this.selectedType = true;
     }
     else{
-      this.selectedType = true;
+      this.selectedType = false;
+      this.disableValidators();
     }
   }
   disableValidators() {

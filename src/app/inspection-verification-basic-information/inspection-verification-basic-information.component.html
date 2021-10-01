@@ -1026,7 +1026,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label>Person Name:</label>
-                            <input type="text" formControlName="personName" class="form-control" placeholder="Enter Person Name"
+                            <input type="text" formControlName="personName" readonly class="form-control" placeholder="Enter Person Name"
                             [ngClass]="{ 'is-invalid': submitted && a.get('personName')?.errors }">
                           <div *ngIf="submitted && a.get('personName')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('personName')?.errors?.required">Person name is required</div>
@@ -1035,18 +1035,18 @@
                         <div class="col-md-4">
                             <label>* Mobile Number:</label>
                             <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
-                            (keypress)="keyPressNumbers($event)" (countryChange)="countryChange6($event)" formControlName="personContactNo" class="form-control" placeholder="Enter Mobile Number"
+                            (keypress)="keyPressNumbers($event)" (countryChange)="countryChange6($event)" readonly formControlName="personContactNo" class="form-control" placeholder="Enter Mobile Number"
                             [ngClass]="{ 'is-invalid': submitted && a.get('personContactNo')?.errors }">
                            <div *ngIf="submitted && a.get('personContactNo')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('personContactNo')?.errors?.required">Mobile Number is Required</div>
                               <!-- <div *ngIf="a.get('personContactNo')?.errors?.minlength">Please Enter 10 Digit Number</div> -->
-                              <div *ngIf="a.get('personContactNo')?.errors?.maxlength">Please Enter 10 Digit Number</div>
-                        </div>
+                              <!-- <div *ngIf="a.get('personContactNo')?.errors?.maxlength">Please Enter 10 Digit Number</div> -->
+                           </div>
                         </div>
 
                         <div class="col-md-4">
                             <label>Email:</label>
-                            <input type="email"  formControlName="personMailID" class="form-control"  placeholder="Enter Email Address"
+                            <input type="email"  formControlName="personMailID" class="form-control" readonly placeholder="Enter Email Address"
                             [ngClass]="{ 'is-invalid': submitted && a.get('personMailID')?.errors }">
                           <div *ngIf="submitted && a.get('personMailID')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('personMailID')?.errors?.required">Email is required</div>
@@ -1096,7 +1096,7 @@
                       <div class="row">
                           <div class="col-md-4">
                               <label>Company Name:</label>
-                              <input type="text"  formControlName="companyName" class="form-control"  placeholder="Enter Company Name"
+                              <input type="text"  formControlName="companyName" class="form-control" readonly  placeholder="Enter Company Name"
                               [ngClass]="{ 'is-invalid': submitted && a.get('companyName')?.errors}">
                           <div *ngIf="submitted && a.get('companyName')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('companyName')?.errors?.required">Company name is required</div>
@@ -1105,7 +1105,7 @@
 
                           <div class="col-md-4">
                               <label>Address Line1:</label>
-                              <input type="text"  formControlName="addressLine1" class="form-control"  placeholder="Enter Address Line1"
+                              <input type="text"  formControlName="addressLine1" class="form-control" readonly placeholder="Enter Address Line1"
                               [ngClass]="{ 'is-invalid': submitted && a.get('addressLine1')?.errors }">
                           <div *ngIf="submitted && a.get('addressLine1')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('addressLine1')?.errors?.required">AddressLine1 is required</div>
@@ -1136,12 +1136,14 @@
 
                           <div class="col-md-4">
                               <label>Country:</label>
-                              <select  formControlName="country" class="form-control"
+                              <input type="text"  formControlName="country" class="form-control" readonly placeholder="Enter Landmark"
+                              [ngClass]="{ 'is-invalid': submitted && a.get('country')?.errors }">
+                              <!-- <select  formControlName="country" class="form-control"
                               (change)="inspectorchangeCountry($event)"
                               [ngClass]="{ 'is-invalid': submitted && a.get('country')?.errors }">
                               <option value="0" selected>Select Country Name</option>
                               <option *ngFor="let country of countryList" [selected]="country.name=== a.get('country')?.value">{{country.name}}</option>
-                          </select>
+                          </select> -->
                               <div *ngIf="submitted && a.get('country')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('country')?.errors?.required">Country is required</div>
                         </div>
@@ -1150,11 +1152,13 @@
 
                           <div class="col-md-4">
                               <label>State:</label>
-                              <select  formControlName="state" class="form-control"
+                              <input type="text"  formControlName="state" readonly class="form-control" readonly placeholder="Enter State"
+                              [ngClass]="{ 'is-invalid': submitted && a.get('state')?.errors }">
+                              <!-- <select  formControlName="state" class="form-control"
                               [ngClass]="{ 'is-invalid': submitted && a.get('state')?.errors }">
                                   <option value="0" selected>Select State Name</option>
                                   <option *ngFor="let state of stateList4" [selected]="state.name=== state4">{{state.name}}</option>
-                              </select>
+                              </select> -->
                               <div *ngIf="submitted && a.get('state')?.errors" class="invalid-feedback">
                                 <div *ngIf="a.get('state')?.errors?.required">State is required</div>
                             </div>
@@ -1166,7 +1170,7 @@
                       <div class="row">
                           <div class="col-md-4">
                               <label>Pincode:</label>
-                              <input type="text"  formControlName="pinCode" class="form-control" (keypress)="keyPressNumbers($event)" minlength="6" maxLength="6" placeholder="Enter Pincode"
+                              <input type="text"  formControlName="pinCode" class="form-control" readonly (keypress)="keyPressNumbers($event)" minlength="6" maxLength="6" placeholder="Enter Pincode"
                               [ngClass]="{ 'is-invalid': submitted && a.get('pinCode')?.errors }">
                           <div *ngIf="submitted && a.get('pinCode')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('pinCode')?.errors?.required">Pincode is required</div>

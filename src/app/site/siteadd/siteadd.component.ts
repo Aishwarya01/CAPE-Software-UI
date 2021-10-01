@@ -152,10 +152,12 @@ export class SiteaddComponent implements OnInit {
   }
 
   createItem(value: any) {
+    debugger
+    console.log(value)
     return this.formBuilder.group({
       personIncharge: [value.name, Validators.required],
       designation: [value.designation, Validators.required],
-      contactNo: [value.contactNumber, [Validators.maxLength(10),Validators.required]],
+      contactNo: [value.contactNumber],
       personInchargeEmail: [value.username, [
         Validators.required,
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
