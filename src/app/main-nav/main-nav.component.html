@@ -14,13 +14,20 @@
       <span>Rush: Interactive-Intelligent-Modern</span>
     </div>
       <span class="spacer"></span>
-      <button mat-button [matMenuTriggerFor]="notify">
+      <!-- <button mat-button [matMenuTriggerFor]="notify" *ngIf="oldNotification">
         <mat-icon matBadge="{{count}}">notifications</mat-icon>
+      </button> -->
+
+      <!-- new notification -->
+      <button mat-button [matMenuTriggerFor]="Newnotify">
+        <mat-icon matBadge="{{newNotificationCount}}">notifications</mat-icon>
       </button>
+
       <button mat-button [matMenuTriggerFor]="menu" style="min-width: unset;">
         <mat-icon>person</mat-icon>{{fullName}}
       </button>
-      <mat-menu #notify="matMenu">
+
+      <!-- <mat-menu #notify="matMenu">
         <div *ngIf="viewerComment" style="padding: 10px;text-align: center;text-decoration: underline;
         cursor: pointer;" 
         ngxScrollTo [ngxScrollToOffset]="300" (click)="triggerScrollTo()" >
@@ -41,6 +48,32 @@
         </div>
 
         <div *ngIf="zeroNotification" style="padding: 10px;">
+          No new notifications!
+        </div>
+      </mat-menu> -->
+
+      <mat-menu #Newnotify="matMenu" style="width: auto !important;">
+        <div *ngIf="NewViewerComment">
+        <div *ngFor="let a of activeNotificationData;" style="padding: 10px;text-align: center;">
+         <b>{{a.siteName}}-</b>&nbsp; <span style="text-decoration: underline;">You have 1 new comment from Viewer</span>
+         <br>
+          <div style="color: #17a2b8;
+          display: flex;
+          font-size: 11px;
+          float: right;">{{a.viewerDate | dateAgo}}</div>
+        </div>
+      </div>
+      <div *ngIf="NewInspectorReply">
+        <div *ngFor="let a of activeNotificationData;" style="padding: 10px;text-align: center;">
+        <b>{{a.siteName}}-</b> &nbsp;<span style="text-decoration: underline;">You have 1 new comment from Inspector</span>
+        <br>
+          <div style="color: #17a2b8;
+          display: flex;
+          font-size: 11px;
+          float: right;">{{a.inspectorDate | dateAgo}}</div>
+        </div>
+      </div>
+        <div *ngIf="newZeroNotification" style="padding: 10px;">
           No new notifications!
         </div>
       </mat-menu>

@@ -173,6 +173,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
                             {'name': 'Reports', 'code': 'REP'},
                             ]
   count!: number;
+  count1!: number;
   viewerComment: boolean = false;
   inspectorReply: boolean = false;
   zeroNotification: boolean= false;
@@ -185,6 +186,14 @@ export class MainNavComponent implements OnInit, OnDestroy {
  // viewerFilterData:any=[];
   ongoingFilterData:any=[];
   completedFilterData:any=[];
+  notificationData: any =[];
+  activeNotificationData: any =[];
+  newNotificationCount!: number;
+  newNotificationFlag:boolean=true;
+  oldNotification:boolean=false;
+  NewViewerComment:boolean=false;
+  NewInspectorReply:boolean=false;
+  newZeroNotification:boolean=false;
 
   constructor(private breakpointObserver: BreakpointObserver, changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
@@ -214,6 +223,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+   this.newNotify();
     this.mobileDisplay = false;
     this.desktopDisplay = true;
     this.bnIdle.startWatching(environment.sessionTimeOut).subscribe((isTimedOut: boolean) => {
@@ -240,26 +250,124 @@ export class MainNavComponent implements OnInit, OnDestroy {
       // this.showTIC = true;
       // this.showREP = true;
     }
-
     if(this.showREP) {
       this.retrieveSiteDetails();
     }
+  }
+
+  newNotify(){
+  this.inspectionService.notificationRetrieveComments(this.email).subscribe(
+    (data)=>{
+    console.log(data);
+      this.notificationData = JSON.parse(data);
+      this.newNotification(this.notificationData);
+    }
+  )
   }
   triggerScrollTo(){
     this.service.triggerScrollTo();
   }
 
-// newNotification(){
-
-// }
+newNotification(value: any){
+  this.newNotificationFlag=true;
+  this.oldNotification=false;
+  this.activeNotificationData = [];
+  if(this.currentUser1.role == 'Inspector'){
+    if(value.reportDetailsComment != null) {
+      for(let a of value.reportDetailsComment) {
+        if(a.viewerFlag == 1 && a.inspectorFlag == 0 && (a.approveOrReject == '' || a.approveOrReject == null )) {
+        this.activeNotificationData.push(a);
+        }
+      }
+    }
+    if(value.supplyCharacteristicComment != null) {
+      for(let b of value.supplyCharacteristicComment) {
+        if(b.viewerFlag == 1 && b.inspectorFlag == 0 && (b.approveOrReject == '' || b.approveOrReject == null )) {
+        this.activeNotificationData.push(b);
+        }
+      }
+    }
+    if(value.periodicInspectionComment != null) {
+      for(let c of value.periodicInspectionComment) {
+        if(c.viewerFlag == 1 && c.inspectorFlag == 0 && (c.approveOrReject == '' || c.approveOrReject == null )) {
+          this.activeNotificationData.push(c);
+        }
+      }
+    }
+    if(value.testingReportComment != null) {
+      for(let d of value.testingReportComment) {
+        if(d.viewerFlag == 1 && d.inspectorFlag == 0 && (d.approveOrReject == '' || d.approveOrReject == null )) {
+        this.activeNotificationData.push(d);
+        }
+      }
+    }
+    if(value.summaryComment != null) {
+      for(let e of value.summaryComment) {
+        if(e.viewerFlag == 1 && e.inspectorFlag == 0 && (e.approveOrReject == '' || e.approveOrReject == null )) {
+        this.activeNotificationData.push(e);
+        }
+      }
+    }
+    if(this.activeNotificationData.length != 0) {
+      this.NewInspectorReply = false;
+      this.NewViewerComment = true;
+    }
+    else{
+      this.newZeroNotification = true
+    }
+  }
+  else{
+    if(value.reportDetailsComment != null) {
+      for(let a of value.reportDetailsComment) {
+        if(a.viewerFlag == 1 && a.inspectorFlag == 1 && (a.approveOrReject == '' || a.approveOrReject == null )) {
+        this.activeNotificationData.push(a);
+        }
+      }
+    }
+    if(value.supplyCharacteristicComment != null) {
+      for(let b of value.supplyCharacteristicComment) {
+        if(b.viewerFlag == 1 && b.inspectorFlag == 1 && (b.approveOrReject == '' || b.approveOrReject == null )) {
+        this.activeNotificationData.push(b);
+        }
+      }
+    }
+    if(value.periodicInspectionComment != null) {
+      for(let c of value.periodicInspectionComment) {
+        if(c.viewerFlag == 1 && c.inspectorFlag == 1 && (c.approveOrReject == '' || c.approveOrReject == null )) {
+          this.activeNotificationData.push(c);
+        }
+      }
+    }
+    if(value.testingReportComment != null) {
+      for(let d of value.testingReportComment) {
+        if(d.viewerFlag == 1 && d.inspectorFlag == 1 && (d.approveOrReject == '' || d.approveOrReject == null )) {
+        this.activeNotificationData.push(d);
+        }
+      }
+    }
+    if(value.summaryComment != null) {
+      for(let e of value.summaryComment) {
+        if(e.viewerFlag == 1 && e.inspectorFlag == 1 && (e.approveOrReject == '' || e.approveOrReject == null )) {
+        this.activeNotificationData.push(e);
+        }
+      }
+    }
+    if(this.activeNotificationData.length != 0) {
+      this.NewInspectorReply = true;
+      this.NewViewerComment = false;
+    }
+    else{
+      this.newZeroNotification = true
+    }
+  }
+  this.newNotificationCount=this.activeNotificationData.length;
+}
 
 notification(number: any,viewerName: any,inspectorName: any,viewerDate: any,inspectorDate: any){
   this.count = number;
-  
+  this.newNotificationFlag=false;
+  this.oldNotification=true;
   if(this.currentUser1.role == 'Inspector') {
-    debugger
-   // console.log(this.getObservable(viewerDate));
-    
     if(number!=1){
     this.zeroNotification=true;
     this.viewerComment=false;

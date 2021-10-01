@@ -384,7 +384,6 @@ populateDataComments() {
   this.completedCommentArr1 = this.step1Form.get('completedCommentArr1') as FormArray;
  for(let value of this.step1List.reportDetails.reportDetailsComment){
   this.arrViewer = [];
-
    if(this.currentUser1.role == 'Inspector' ) { //Inspector
     if(value.approveOrReject == 'APPROVED') {
       this.completedComments = true;
@@ -412,10 +411,12 @@ populateDataComments() {
        if(value.viewerFlag=='1'){
          if(value.inspectorFlag=='0')
         {
-          this.basic.notification(1,value.viewerUserName,value.inspectorUserName,value.viewerDate,value.inspectorDate);
+          this.basic.newNotify();
+          //this.basic.notification(1,value.viewerUserName,value.inspectorUserName,value.viewerDate,value.inspectorDate);
         }
         else{
-          this.basic.notification(0,value.viewerUserName,value.inspectorUserName,value.viewerDate,value.inspectorDate);
+          this.basic.newNotify();
+         // this.basic.notification(0,value.viewerUserName,value.inspectorUserName,value.viewerDate,value.inspectorDate);
         }
          this.hideCommentSection= false;
          this.SendReply=false; 
@@ -446,7 +447,8 @@ populateDataComments() {
              if(value.approveOrReject == 'APPROVED') {
               if(value.viewerFlag=='1' && value.inspectorFlag=='1')
               {
-                this.basic.notification(0,value.viewerUserName,value.inspectorUserName,value.viewerDate,value.inspectorDate);
+                this.basic.newNotify();
+                //this.basic.notification(0,value.viewerUserName,value.inspectorUserName,value.viewerDate,value.inspectorDate);
               }
             
                this.completedComments = true;
@@ -468,8 +470,8 @@ populateDataComments() {
                if(value.viewerFlag=='1' && value.inspectorFlag=='1')
                {
                  if(value.approveOrReject == '') {
-                
-                 this.basic.notification(1,value.viewerUserName,value.inspectorUserName,value.viewerDate,value.inspectorDate);
+                  this.basic.newNotify();
+                 //this.basic.notification(1,value.viewerUserName,value.inspectorUserName,value.viewerDate,value.inspectorDate);
                  }
                }
                if(this.step1List.reportDetails.reportDetailsComment.length < 1) {
@@ -480,8 +482,8 @@ populateDataComments() {
                 if(value.viewerFlag=='1' && value.inspectorFlag=='1')
                 {
                   if(value.approveOrReject == '') {
-                 
-                  this.basic.notification(1,value.viewerUserName,value.inspectorUserName,value.viewerDate,value.inspectorDate);
+                    this.basic.newNotify();
+                  //this.basic.notification(1,value.viewerUserName,value.inspectorUserName,value.viewerDate,value.inspectorDate);
                   }
                 }
                   this.enabled=true;
@@ -625,7 +627,8 @@ showHideAccordion(index: number) {
             this.commentSuccess=false;
        }, 3000);
        this.disableReply=true;
-       this.basic.notification(0,'viewerUserName','inspectorUserName','viewerDate','inspectorDate');
+       this.basic.newNotify();
+       //this.basic.notification(0,'viewerUserName','inspectorUserName','viewerDate','inspectorDate');
         },
         (error) => {
         }
@@ -650,7 +653,8 @@ showHideAccordion(index: number) {
        this.hideRejectIcon=false;
        this.hideAdd=false;
        this.hideRefresh=true;
-       this.basic.notification(0,'viewerUserName','inspectorUserName','viewerDate','inspectorDate');
+       this.basic.newNotify();
+      // this.basic.notification(0,'viewerUserName','inspectorUserName','viewerDate','inspectorDate');
         },
         (error) => {
         }
@@ -675,7 +679,8 @@ showHideAccordion(index: number) {
      }, 3000);
      this.hideapprove=false;
      this.hideapproveIcon=false;
-     this.basic.notification(0,'viewerUserName','inspectorUserName','viewerDate','inspectorDate');
+     this.basic.newNotify();
+     //this.basic.notification(0,'viewerUserName','inspectorUserName','viewerDate','inspectorDate');
       },
       (error) => {
       }

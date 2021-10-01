@@ -13,6 +13,7 @@ import { TestingDetails } from '../model/testing-details';
 export class InspectionVerificationService {
 
   apiUrl = environment.apiUrl;
+  apiUrl2= environment.apiUrl_v2;
   constructor(private http: HttpClient) { }
 
   public updateBasic(reportDetails: Reportdetails): Observable<any> {
@@ -32,5 +33,8 @@ export class InspectionVerificationService {
   }
   public downloadPDF(siteId: any,userName: any): Observable<any> {
     return this.http.get<any>(this.apiUrl + '/printInstalReport'+'/'+userName+ '/' +siteId, { responseType: 'text' as 'json' })
+  }
+  public notificationRetrieveComments(userName: any): Observable<any> {
+    return this.http.get<any>(this.apiUrl2 + '/retrieveComments'+'/'+userName, { responseType: 'text' as 'json' })
   }
 }

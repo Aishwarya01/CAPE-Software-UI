@@ -379,11 +379,10 @@ max-height:300px; overflow-y:auto; overflow-x:hidden;
   color: white;
   background: red !important;
 }
-/* .joints input[type=number]::-webkit-inner-spin-button, 
-.joints input[type=number]::-webkit-outer-spin-button { 
-    -webkit-appearance: none; 
-    margin: 0; 
-} */
+.mat-menu-below{
+  width: auto !important;
+  max-width: unset !important;
+}
 
 @media (max-width: 600px) {
   .loginCardBody{

@@ -162,11 +162,17 @@ export class LicenselistComponent implements OnInit {
   }
 
   viewSite(){
+    if (confirm("Are you sure you want to view site details?"))
+  {
     this.viewContainerRef.clear();
     this.destroy = true;
     const verificationFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
     const verificationRef = this.viewContainerRef.createComponent(verificationFactory);
     verificationRef.changeDetectorRef.detectChanges();
+  } 
+  else {
+    this.destroy = false;
+  }
   }
   pdfModal(contentPDF:any){
     this.modalService.open(contentPDF,{size: 'xl'})

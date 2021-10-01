@@ -143,7 +143,7 @@
 
               <div class="col-md-4" *ngIf="showField2" style="margin-top: 35px;">
                 <label>If Yes Estimated Age Years:</label>
-                  <input type="number" min=0 formControlName="showField2" style="
+                  <input type="number" min="0" formControlName="showField2" style="
                   width: 50px;
                   background: transparent;
                   border: none;
@@ -490,7 +490,7 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
             <label>I/We recommend that installation is further inspected and tested after an interval of not more than: </label>
-              <input type="number" min=0 [ngClass]="{ 'is-invalid': submitted && f.nextInspection.errors }" style="
+              <input type="number" min="0" [ngClass]="{ 'is-invalid': submitted && f.nextInspection.errors }" style="
               width: 75px;
               background: transparent;
               border: none;
@@ -1382,10 +1382,10 @@
         <span class="successshow">Your comment has been sent to Inspector</span>
       </div>
       <div *ngIf="commentApprove" style="text-align: center;margin-top: 30px;">
-        <span class="approveShow">Your response to comments has been approved</span>
+        <span class="alert alert-success">Your response to comments has been approved</span>
       </div>
       <div *ngIf="commentReject" style="text-align: center;margin-top: 30px;">
-        <span class="rejectShow">Your response to comments has been rejected</span>
+        <span class="alert alert-danger">Your response to comments has been rejected</span>
       </div>
       <br>
       <div style="text-align: center;margin-top: 40px;">
