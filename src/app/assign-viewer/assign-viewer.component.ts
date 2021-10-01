@@ -371,7 +371,7 @@ createGroup(item: any) {
         setTimeout(()=>{
           this.successMsgOTP=false;
           this.successMsg="";
-          this.closeAll();
+          this.modalService.dismissAll();
         }, 3000);
         this.globalService.viewerData = this.register;
         debugger

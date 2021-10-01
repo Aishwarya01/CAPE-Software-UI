@@ -365,8 +365,8 @@ siteValue: String = '';
         engineerName: this.step1List.reportDetails.verifiedEngineer,
         designation: this.step1List.reportDetails.designation,
         companyName: this.step1List.reportDetails.company,
-        // inspectorDesignation: this.step1List.reportDetails.inspectorDesignation,
-        // inspectorCompanyName: this.step1List.reportDetails.inspectorCompanyName,
+        inspectorDesignation: this.step1List.reportDetails.inspectorDesignation,
+        inspectorCompanyName: this.step1List.reportDetails.inspectorCompanyName,
         limitations: this.step1List.reportDetails.limitations
     })
     this.flag=true;
