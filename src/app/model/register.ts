@@ -1,0 +1,30 @@
+export class Register {
+    siteName!: String;
+    registerId!: number;
+    name!: String;
+    companyName!: String;
+    username!: String;
+    password!: String;
+    role!: String;  
+    contactNumber!: String;
+    applicationType!: String;
+    department!: String;
+    designation!: String;
+    address!: String;
+    district!: String;
+    pinCode!: String;
+    country!: String;
+    state!: String;
+    permission!: String;
+    comment!: String;
+    interestedAreas!: String;
+    createdDate!: Date;
+    createdBy!: String;
+    updatedDate!: Date;
+    updatedBy!: String;
+    adminUserName!: String;
+    otpSessionKey!: String;
+    assignedBy!: String;
+    noOfLicence!: number;
+    userType!: String;
+}

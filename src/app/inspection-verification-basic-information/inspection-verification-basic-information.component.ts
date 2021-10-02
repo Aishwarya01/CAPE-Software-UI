@@ -1,5 +1,5 @@
 import { SignatorDetails } from './../model/reportdetails';
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup,Validators,ValidatorFn } from '@angular/forms';
 import {​​​ NgbModal }​​​ from'@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
@@ -14,6 +14,11 @@ import { SiteService } from '../services/site.service';
 import { GlobalsService } from '../globals.service';
 import { iif } from 'rxjs';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
+import { CommentsSection } from '../model/comments-section';
+import { DatePipe } from '@angular/common';
+import { InspectorregisterService } from '../services/inspectorregister.service';
+import { ignoreElements } from 'rxjs/operators';
+import { MainNavComponent } from '../main-nav/main-nav.component';
 
 //import { ErrorHandlerService } from './../../shared/services/error-handler.service';
 @Component({
@@ -23,7 +28,7 @@ import { InspectionVerificationService } from '../services/inspection-verificati
 })
 export class InspectionVerificationBasicInformationComponent implements OnInit {
 
- 	
+  
   step1Form!: FormGroup;
   public data: string = "";
   model: any = {};
@@ -43,10 +48,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   site = new Site;
   email: String = '';
   clientName: String = '';
-  successMsg: string="";
-  errorMsg: string="";
-  success: boolean=false;
-  Error: boolean=false;
+  
   departmentName: String = '';
   reportDetails =new Reportdetails;
   showField1: boolean= true;
@@ -62,6 +64,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   mobilearr2: any=[];
   mobilearr3: any=[];
   flag: boolean=false;
+  checkLoginNumber:String='';
   designer2Arr!: FormArray;
   @Output() proceedNext = new EventEmitter<any>();
   designer1Role: String ='designer1';
@@ -80,7 +83,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   state3: String = "";
   state4: String = "";
   retrivedSiteId!: number;
-
+ 
   // Second Tab dependencies
   panelOpenState = false;
   installationList: String[]= ['New Installation','First Verification Of An Existing','Addition Of An Existing Installation','Alteration In An Existing Installation','Periodic Verification'];
@@ -98,6 +101,85 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   countryCode3: any;
   countryCode2: any;
   errorArr: any=[];
+
+  //comments starts
+  completedCommentArr3: any = [];
+  successMsg: string="";
+  commentSuccess: boolean=false;
+  commentApprove: boolean=false;
+  commentReject: boolean=false;
+  errorMsg: string="";
+  success: boolean=false;
+  Error: boolean=false;
+  viewerComments: String='';
+  commentDataArr: any = [];
+  replyClicked: boolean=false;
+  inspectorCommentArr!: FormArray;
+  viewerCommentArr!: FormArray;
+  completedCommentArr!: FormArray;
+  comments = new CommentsSection;
+  completedComments: boolean=false;
+  date!: Date;
+  toggleHideShow:boolean=false;
+  public today: Date = new Date();
+  isCollapsed = false;
+  registerData: any = [];
+  mode: any= 'indeterminate';
+  cardBodyComments: boolean=true;
+  spinner: boolean=false;
+  replyCommentBox: boolean=false;
+  hideMatIcons:boolean[] = [];
+  hideAsViewerLogin: boolean=false;
+  hideAsInspLogin: boolean=true;
+  hideCommentSection: boolean=false;
+  currentUser: any = [];
+  currentUser1: any = [];
+  reportViewerCommentArr:any = [];
+  reportInspectorCommentArr:any = [];
+  commentId: any;
+  hideAdd: boolean=false;
+  hideInspText: boolean=false;
+  SendReply: boolean=false;
+  showSend: boolean=false;
+  sendComment: boolean=false;
+  hideapproveIcon: boolean=false;
+  hideapprove: boolean=false;
+  hideRejectIcon: boolean=false;
+  hideReject: boolean=false;
+  showSubmenu: boolean = true;
+  showText: boolean = true;
+  isExpanded: boolean = false;
+  isShowing = false;
+  enabled: boolean = false;
+  enabledViewer: boolean = false;
+  savedUserName: String = '';
+  completedCommentArrValue: any = [];
+  afterApprove: boolean= false;
+  hideRefresh:  boolean= false;
+  hideDelete: boolean= false;
+  showReplyBox: boolean= false;
+  enabledRequest: boolean= false;
+  disableSend: boolean= false;
+  disableReply: boolean= false;
+  addReject: boolean= false;
+  count: number = 0;
+  color = 'red';
+  completedCommentArr4: any =[];
+  completedCommentArr5: any =[];
+  completedCommentArr1!: FormArray;
+  expandedIndex!: number;
+  isClicked:boolean[] = []; 
+  arrViewer: any = [];
+  @ViewChild('target') private myScrollContainer!: ElementRef;
+  expandedIndexx!: number;
+  inspectorName: String = '';	
+  hideShowComment: boolean=false;
+  //comments end
+//From assign viewer
+companyNameSite: String = '';
+departmentNameSite: String = '';
+siteValue: String = '';
+ 
   constructor(
     private _formBuilder: FormBuilder,
     private router: ActivatedRoute,
@@ -108,12 +190,20 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     private UpateBasicService: InspectionVerificationService,
     public service: GlobalsService,
     private modalService: NgbModal,
-    private ChangeDetectorRef: ChangeDetectorRef) {
+    private basic: MainNavComponent,
+    private registerService: InspectorregisterService,
+    private ChangeDetectorRef: ChangeDetectorRef,public datepipe: DatePipe) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
+    setInterval(() => {
+      this.today = new Date();
+    }, 1);
+    
   }
 
-
   ngOnInit(): void {
+    this.currentUser=sessionStorage.getItem('authenticatedUser');
+    this.currentUser1 = [];
+    this.currentUser1=JSON.parse(this.currentUser);
     this.countryCode= '91';
     this.countryCode1= '91';
     this.countryCode2= '91';
@@ -122,10 +212,24 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     this.countryCode5= '91';
     this.countryCode6= '91';
     this.countryCode7= '91';
+    // viewer
+    this.reportDetails.clientDetails = this.service.viewerData.name + "-" +this.service.viewerData.address;
+    this.reportDetails.designation = this.service.viewerData.designation;
+    this.reportDetails.company = this.service.viewerData.companyName;
+
+    debugger
+    // inspector
+    this.reportDetails.verifiedEngineer = this.service.inspectorName;
+    this.reportDetails.inspectorDesignation = this.service.inspectorData.designation;
+    this.reportDetails.inspectorCompanyName = this.service.inspectorData.companyName;
+
+    this.companyNameSite = this.service.viewerData.companyName;
+    this.departmentNameSite = this.service.viewerData.department;
+    this.siteValue = this.service.viewerData.siteName;
     this.step1Form = this._formBuilder.group({
-      clientName: ['', Validators.required],
-      departmentName: ['', Validators.required],
-      siteName: ['', Validators.required],
+      clientName: [''],
+      departmentName: [''],
+      siteName: [''],
       clientName1: [''],
       departmentName1: [''],
       site1: [''],
@@ -145,6 +249,8 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       engineerName: ['', Validators.required],
       designation: ['', Validators.required],
       companyName: ['', Validators.required],
+      inspectorDesignation: ['', Validators.required],
+      inspectorCompanyName: ['', Validators.required],
       limitations: ['', Validators.required],
       nextInspection: ['', Validators.required],
       designer1AcknowledgeArr: this._formBuilder.array([this.createDesigner1AcknowledgeForm()]),
@@ -154,7 +260,10 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       designer1Arr: this._formBuilder.array([this.createDesigner1Form()]),
       designer2Arr: this._formBuilder.array([this.createDesigner2Form()]),
       contractorArr: this._formBuilder.array([this.createContractorForm()]),
-      inspectorArr: this._formBuilder.array([this.createInspectorForm()])
+      inspectorArr: this._formBuilder.array([this.createInspectorForm(this.service.inspectorData)]),
+      viewerCommentArr: this._formBuilder.array([this.addCommentViewer()]),
+      completedCommentArr1: this._formBuilder.array([]),
+      //inspectorCommentArr: this._formBuilder.array([this.addCommentInspector()])
     });
     this.siteService.retrieveCountry().subscribe(
       data => {
@@ -162,14 +271,13 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       }
     )
     this.refresh();
-    this.retrieveClientDetails();
+    this.retrieveSiteDetails(this.service.viewerData.companyName,this.service.viewerData.department,this.service.viewerData.siteName);
     this.inspectorArr = this.step1Form.get('inspectorArr') as FormArray;
+    this.expandedIndex = -1 ;
   }
 
 //for company site detail continue
   changeTab(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any): void {
-    debugger
-    console.log(sitedId+ "" + clientName +" " +departmentName+ "" + site + ""+ userName)
     this.siteDetails1 = true;
     this.siteDetails = false;
     this.clearSiteValidator();
@@ -180,16 +288,14 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     });
     this.reportDetails.siteId = sitedId;
   }
-
  
   // Need to check this task
-  retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any){
-    this.siteService.retrieveFinal(userName,siteId).subscribe(
-      data=> {
-        this.siteDetails1 = true;
-        this.siteDetails = false;
-        this.clearSiteValidator();
-       console.log(data);
+  retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
+      this.service.siteCount = siteId;
+       this.savedUserName = userName;
+       this.siteDetails1 = true;
+       this.siteDetails = false;
+       this.clearSiteValidator();
        this.step1List = JSON.parse(data);
        this.reportDetails.siteId = siteId;
        this.reportDetails.reportId = this.step1List.reportDetails.reportId;
@@ -201,9 +307,15 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
        this.reportDetails.previousRecords=this.step1List.reportDetails.previousRecords;
        this.step1List.evidenceAlterations=this.step1List.reportDetails.evidenceAlterations;
        this.reportDetails.limitations= this.step1List.reportDetails.limitations;
+       this.reportDetails.createdBy = this.step1List.reportDetails.createdBy;
+       this.reportDetails.createdDate = this.step1List.reportDetails.createdDate;
+       this.reportDetails.estimatedWireAge = this.step1List.reportDetails.estimatedWireAge;
        //this.showField2= this.step1List.reportDetails.evidanceWireAge,
        this.step1List.state=this.step1List.reportDetails.state;
        this.populateData();
+       this.populateDataComments();
+       //this.notification();
+
       for( let i of this.step1List.reportDetails.signatorDetails) {
         if(i.signatorRole == "designer1"){
           this.step1Form.patchValue({
@@ -228,7 +340,6 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
         this.contractorchangeCountry(i.country);
        }
        else if(i.signatorRole == "inspector"){
-          this.mobilearr3 = i.personContactNo.split("-")
           this.step1Form.patchValue({
             inspectorAcknowledgeArr: [i]
           })
@@ -254,16 +365,427 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
         engineerName: this.step1List.reportDetails.verifiedEngineer,
         designation: this.step1List.reportDetails.designation,
         companyName: this.step1List.reportDetails.company,
+        inspectorDesignation: this.step1List.reportDetails.inspectorDesignation,
+        inspectorCompanyName: this.step1List.reportDetails.inspectorCompanyName,
         limitations: this.step1List.reportDetails.limitations
     })
     this.flag=true;
-      },
-      error => {
-       console.log("error")
-      }
-      )
+   // this.disable=true;
      }
+   
+//comments section starts
 
+populateDataComments() {
+  this.hideShowComment=true;
+  this.reportViewerCommentArr = [];
+  this.completedCommentArr3 = [];
+  this.completedCommentArr4 = [];
+  this.arrViewer = [];
+  this.completedCommentArr1 = this.step1Form.get('completedCommentArr1') as FormArray;
+ for(let value of this.step1List.reportDetails.reportDetailsComment){
+  this.arrViewer = [];
+   if(this.currentUser1.role == 'Inspector' ) { //Inspector
+    if(value.approveOrReject == 'APPROVED') {
+      this.completedComments = true;
+      this.enabledViewer=true;
+      for(let j of this.step1List.reportDetails.reportDetailsComment) {
+        if(value.noOfComment == j.noOfComment) {
+          this.completedCommentArr3.push(j);
+        }
+      }
+      console.log(this.completedCommentArr3)
+       this.completedCommentArr4.push(this.addItem(this.completedCommentArr3));               
+      this.completedCommentArr3 = [];
+    }
+    for(let j of this.step1List.reportDetails.reportDetailsComment) {
+         if(j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) {
+          this.arrViewer.push(this.createCommentGroup(j));
+         }
+         else if(j.approveOrReject == 'APPROVED'){
+          this.arrViewer = [];
+        }        
+      }
+    this.enabledRequest=false;
+    this.SendReply=false; 
+       console.log(value.viewerDate + "   " + value.viewerComment)
+       if(value.viewerFlag=='1'){
+         if(value.inspectorFlag=='0')
+        {
+          this.basic.newNotify();
+          //this.basic.notification(1,value.viewerUserName,value.inspectorUserName,value.viewerDate,value.inspectorDate);
+        }
+        else{
+          this.basic.newNotify();
+         // this.basic.notification(0,value.viewerUserName,value.inspectorUserName,value.viewerDate,value.inspectorDate);
+        }
+         this.hideCommentSection= false;
+         this.SendReply=false; 
+         this.replyCommentBox=true;
+        // this.showReplyBox=true;
+        if(value.inspectorFlag=='1'){
+         this.enabled=true;
+         this.hideAsViewerLogin=false;
+         this.enabledViewer=true;
+        }
+        else{
+         this.enabled=false;
+         this.hideAsViewerLogin=true;
+         this.enabledViewer=true;
+        }
+        }
+        
+        this.hideAdd=false;
+        this.hideapprove=false;
+        this.hideReject=false;
+        this.reportViewerCommentArr.push(this.createCommentGroup(value));
+        this.step1Form.setControl('viewerCommentArr', this._formBuilder.array(this.reportViewerCommentArr || []))
+         }
+
+         //Viewer starts
+         else { 
+           if(value.inspectorFlag=='1'){
+             if(value.approveOrReject == 'APPROVED') {
+              if(value.viewerFlag=='1' && value.inspectorFlag=='1')
+              {
+                this.basic.newNotify();
+                //this.basic.notification(0,value.viewerUserName,value.inspectorUserName,value.viewerDate,value.inspectorDate);
+              }
+            
+               this.completedComments = true;
+               this.enabledViewer=true;
+               for(let j of this.step1List.reportDetails.reportDetailsComment) {
+                 if(value.noOfComment == j.noOfComment) {
+                   this.completedCommentArr3.push(j);
+                 }
+               }
+               console.log(this.completedCommentArr3)
+            
+                this.completedCommentArr4.push(this.addItem(this.completedCommentArr3));               
+               this.completedCommentArr3 = [];
+             }
+
+             else{ //reject & null
+              debugger
+               this.enabledViewer=true;
+               if(value.viewerFlag=='1' && value.inspectorFlag=='1')
+               {
+                 if(value.approveOrReject == '') {
+                  this.basic.newNotify();
+                 //this.basic.notification(1,value.viewerUserName,value.inspectorUserName,value.viewerDate,value.inspectorDate);
+                 }
+               }
+               if(this.step1List.reportDetails.reportDetailsComment.length < 1) {
+                 this.reportViewerCommentArr.push(this.addCommentViewer());
+                 this.step1Form.setControl('viewerCommentArr', this._formBuilder.array(this.reportViewerCommentArr || []));
+               }
+               else {  //reject & both flags 1
+                if(value.viewerFlag=='1' && value.inspectorFlag=='1')
+                {
+                  if(value.approveOrReject == '') {
+                    this.basic.newNotify();
+                  //this.basic.notification(1,value.viewerUserName,value.inspectorUserName,value.viewerDate,value.inspectorDate);
+                  }
+                }
+                  this.enabled=true;
+                  this.enabledRequest=false;
+                  this.hideAdd=false;
+                  this.addReject=true;
+                  this.hideapprove=true;
+                  this.hideReject=true;
+                  this.reportViewerCommentArr.push(this.createCommentGroup(value));
+                  this.step1Form.setControl('viewerCommentArr', this._formBuilder.array(this.reportViewerCommentArr || []))
+               }
+               this.hideCommentSection= true;
+               this.hideAsViewerLogin=false;
+               this.replyCommentBox=true;
+               this.SendReply=false;
+               this.sendComment=true;
+             }   
+             this.hideCommentSection= true;
+             this.sendComment=true;
+             this.hideRefresh=false;
+             this.replyCommentBox=true;
+             this.hideAdd=false;
+            }
+            else { //inspector flag 0
+              debugger
+              if(value.viewerFlag=='1'){
+               this.enabledViewer=true;
+               this.sendComment=false;
+               this.replyCommentBox=true;
+               this.disableSend=true;
+              }
+              else{ //viewer flag 0
+               this.enabledViewer=false;
+               this.sendComment=true;
+               this.replyCommentBox=true;
+              }
+             this.reportViewerCommentArr.push(this.createCommentGroup(value));
+             this.step1Form.setControl('viewerCommentArr', this._formBuilder.array(this.reportViewerCommentArr || []))
+             this.reportViewerCommentArr = [];
+             this.hideCommentSection= true;
+             this.hideRefresh=false;
+             this.hideAdd=false;
+             this.hideapprove=false;
+             this.hideReject=false;
+             this.enabledViewer=true;
+            }
+            for(let j of this.step1List.reportDetails.reportDetailsComment) {
+                 if(j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) {
+                  this.arrViewer.push(this.createCommentGroup(j));
+                 }
+                 else if(j.approveOrReject == 'APPROVED'){
+                  this.arrViewer = [];
+                }        
+              }
+         }       
+       }
+       if(this.currentUser1.role == 'Inspector' ) {
+        if(this.arrViewer.length == 0) {
+          this.hideCommentSection=false;
+        }
+      }
+      else{
+        if(this.arrViewer.length == 0) {
+         this.arrViewer.push(this.addCommentViewer());
+        }
+      }
+       console.log(this.arrViewer);
+       this.step1Form.setControl('viewerCommentArr', this._formBuilder.array(this.arrViewer || []))
+       this.step1Form.setControl('completedCommentArr1', this._formBuilder.array(this.completedCommentArr4 || []));
+}
+
+getViewerFirstMessage(x: any) {
+  return x.controls.completedCommentArr.controls[0].controls.viewerComments.value;
+}
+
+showHideAccordion(index: number) {  
+  //console.log(x);
+  this.expandedIndexx = index === this.expandedIndexx ? -1 : index;  
+  this.isClicked[index] = !this.isClicked[index];
+  }
+  createCommentGroup(value: any) : FormGroup {
+    console.log(value.inspectorFlag);
+    return this._formBuilder.group({
+    viewerDateTime: new FormControl({disabled: false ,value: value.viewerDate}),
+    inspectorUserName: new FormControl({disabled: false ,value: value.inspectorUserName}),
+    viewerUserName: new FormControl({disabled: false ,value: value.viewerUserName}),
+    inspectorDateTime: new FormControl({disabled: false ,value: value.inspectorDate}),
+    approveOrReject: new FormControl({ disabled: this.enabledRequest, value: value.approveOrReject}),
+    commentId: new FormControl({disabled: false ,value: value.commentsId}),
+    viewerComments: new FormControl({disabled: value.viewerFlag != 0 ,value: value.viewerComment}),
+    inspectorComments: new FormControl({disabled: value.inspectorFlag != 0 ,value: value.inspectorComment}),
+  });
+  }
+
+  toggle(index:any) {
+  this.replyCommentBox=false;
+  this.isShowing = false;
+  this.isExpanded = false;
+  }
+
+  replyToViewerComment(a: any){
+  this.commentId = a.value.commentId;
+  this.replyCommentBox=true;
+  this.hideAsViewerLogin=false;
+  this.hideapproveIcon=false;
+  this.hideRejectIcon=false;
+  this.SendReply=true;
+  this.showReplyBox=true;
+  this.toggleHideShow=true;
+  }
+
+  sendViewerComment(a: any){
+      console.log(a);
+      this.comments.userName = this.email;
+      // this.comments.commentsId = this.step1Form.controls.viewerCommentArr.value[0].commentId;
+      this.comments.commentsId =a.value.commentId;
+      this.comments.viewerComment = a.value.viewerComments;
+      this.comments.approveOrReject = '';
+      this.reportDetailsService.sendComments(this.comments,this.reportDetails.siteId).subscribe(
+        (data) =>{
+          this.commentSuccess=true;
+          setTimeout(()=>{
+            this.commentSuccess=false;
+       }, 3000);
+       this.disableSend=true;
+       this.hideDelete=false;
+        },
+        (error) => {
+        }
+      )  
+  }
+
+  inspectorComment(a: any){
+      this.comments.userName = this.email;
+      this.comments.commentsId=a.value.commentId;
+      this.comments.inspectorComment=a.value.inspectorComments;
+      this.reportDetailsService.replyComments(this.comments,this.reportDetails.siteId).subscribe(
+        (data) =>{
+          this.commentSuccess=true;
+          setTimeout(()=>{
+            this.commentSuccess=false;
+       }, 3000);
+       this.disableReply=true;
+       this.basic.newNotify();
+       //this.basic.notification(0,'viewerUserName','inspectorUserName','viewerDate','inspectorDate');
+        },
+        (error) => {
+        }
+      )  
+  }
+
+  approveComment(a: any){
+      a.value.approveOrReject = 'APPROVED';
+      this.enabledRequest=true;
+      this.comments.userName = this.email;
+      this.comments.commentsId = a.value.commentId;
+      this.comments.approveOrReject = 'APPROVED';
+      this.reportDetailsService.approveRejectComments(this.comments,this.reportDetails.siteId).subscribe(
+        (data) =>{
+          this.commentApprove=true;
+          setTimeout(()=>{
+            this.commentApprove=false;
+            this.refreshCommentSection();
+            this.toggleHideShow=false;
+       }, 3000);
+       this.hideReject=false;
+       this.hideRejectIcon=false;
+       this.hideAdd=false;
+       this.hideRefresh=true;
+       this.basic.newNotify();
+      // this.basic.notification(0,'viewerUserName','inspectorUserName','viewerDate','inspectorDate');
+        },
+        (error) => {
+        }
+      )  
+    //  this.refreshComment('success');
+  }
+ 
+  rejectComment(a: any){
+    a.value.approveOrReject = 'REJECT';
+    this.addReject=true;
+    this.hideAdd=true;
+    this.enabledRequest=true;
+    // this.completedComments=false;
+    this.comments.userName = this.email;
+    this.comments.commentsId = a.value.commentId;
+    this.comments.approveOrReject = 'REJECT';
+    this.reportDetailsService.approveRejectComments(this.comments,this.reportDetails.siteId).subscribe(
+      (data) =>{
+        this.commentReject=true;
+        setTimeout(()=>{
+          this.commentReject=false;
+     }, 3000);
+     this.hideapprove=false;
+     this.hideapproveIcon=false;
+     this.basic.newNotify();
+     //this.basic.notification(0,'viewerUserName','inspectorUserName','viewerDate','inspectorDate');
+      },
+      (error) => {
+      }
+    )  
+}
+
+  addAnotherviewerComment() {
+      this.hideAdd=false;
+      this.addReject=false;
+      this.SendReply=false;
+      this.sendComment=true;
+      this.toggleHideShow=true;
+      this.showSend=false;
+      this.hideapprove=false;
+      this.hideReject=true;
+      this.hideInspText=false;
+      this.viewerCommentArr = this.step1Form.get('viewerCommentArr') as FormArray;
+      this.viewerCommentArr.push(this.addCommentViewer());
+      this.hideDelete=true;
+  }
+  
+  addCommentViewer() {
+      return this._formBuilder.group({
+      viewerComments: [''],
+      inspectorComments: [''],
+      approveFlag:[false]
+      });
+  }
+  addCommentViewerApprove() {
+    return this._formBuilder.group({
+    viewerComments: [''],
+    inspectorComments: [''],
+    approveFlag:[true]
+    });
+}
+  ViewerRemoveComment(index: any) {
+      this.hideAdd=true;
+     // this.toggleHideShow=false;
+      this.showSend=true;
+      this.hideapprove=false;
+      this.hideReject=true;
+      this.sendComment=false;
+    
+      (this.step1Form.get('viewerCommentArr') as FormArray).removeAt(index);
+  }
+  
+  getViewerCommentControls(): AbstractControl[] {
+      return (<FormArray>this.step1Form.get('viewerCommentArr')).controls;
+  }
+  getCompletedCommentControls1(): AbstractControl[] {
+   return (<FormArray>this.step1Form.get('completedCommentArr1')).controls;
+  // return (this.step1Form.get('completedCommentArr1') as FormArray).controls;
+    }
+  getCompletedCommentControls(form: any){
+    return form.controls.completedCommentArr?.controls;
+  }
+  refreshCommentSection() {
+    this.spinner=true;
+    this.cardBodyComments=false;
+    debugger
+    console.log(this.reportDetails.siteId)
+    this.siteService.retrieveFinal(this.savedUserName,this.reportDetails.siteId).subscribe(
+      (data) => {
+         this.commentDataArr = JSON.parse(data);
+         this.step1List.reportDetails.reportDetailsComment = this.commentDataArr.reportDetails.reportDetailsComment;
+         this.populateDataComments();
+         setTimeout(()=>{
+          this.spinner=false;
+         this.cardBodyComments=true;
+     }, 2000);
+         this.showReplyBox=false;
+         this.disableReply = false;
+         this.disableSend = false;
+      },
+      (error) => {
+      })
+  }
+
+  addItem(item: any) : FormGroup {
+    return this._formBuilder.group({
+      completedCommentArr: this._formBuilder.array(this.completedComm(item)),
+    });
+  } 
+  completedComm(item: any){
+    this.completedCommentArr5 = [];
+    for(let l of item) {
+      this.completedCommentArr5.push(this.createCompletedCommentGroup(l));
+    }
+    return this.completedCommentArr5;
+  }
+  createCompletedCommentGroup(value: any)  : FormGroup {
+    return this._formBuilder.group({
+      viewerDateTime: new FormControl({disabled: false ,value: value.viewerDate}),
+      inspectorDateTime: new FormControl({disabled: false ,value: value.inspectorDate}),
+      inspectorUserName: new FormControl({disabled: false ,value: value.inspectorUserName}),
+      viewerUserName: new FormControl({disabled: false ,value: value.viewerUserName}),
+      commentId: new FormControl({disabled: false ,value: value.commentsId}),
+      viewerComments: new FormControl({disabled: true ,value: value.viewerComment}),
+      inspectorComments: new FormControl({disabled: true ,value: value.inspectorComment}),
+    });
+  }
+  
+//comments section ends
+
+//clear validators
   clearSiteValidator() {
     this.step1Form.controls["clientName"].clearValidators();
     this.step1Form.controls["clientName"].updateValueAndValidity();
@@ -273,14 +795,22 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     this.step1Form.controls["siteName"].updateValueAndValidity();
     }
 
-  private retrieveClientDetails() {
-    this.clientService.retrieveClient(this.email).subscribe(
+//retrieve client details
+  private retrieveSiteDetails(companyName: any,departmentName: any,siteName: any) {
+
+    if((companyName!= undefined) && (departmentName!= undefined) && (siteName!= undefined))  {
+      debugger
+    this.siteService.retrieveSiteForInspection(companyName,departmentName,siteName).subscribe(
       data => {
         this.clientList = [];
         this.clientList=JSON.parse(data);
+        debugger
+        this.reportDetails.siteId = this.clientList.siteId;
       });
+    }
   }
-  // Only Integer Numbers
+
+// Only Integer Numbers
   keyPressNumbers(event:any) {
     var charCode = (event.which) ? event.which : event.keyCode;
     // Only Numbers 0-9
@@ -290,10 +820,10 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
     } else {
       return true;
     }
-  }
+  } 
 
   //**Important */
-  // Only AlphaNumeric with Some Characters [-_ ]
+// Only AlphaNumeric with Some Characters [-_ ]
   keyPressAlphaNumericWithCharacters(event:any) {
     var inp = String.fromCharCode(event.keyCode);
     // Allow numbers, space, underscore
@@ -342,13 +872,12 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       this.step1Form.controls["showField2"].updateValueAndValidity();
     }
   }
-
-
  	
   refresh() {
     this.ChangeDetectorRef.detectChanges();
   }
-  // Inspection form basic info
+
+// Inspection form basic info
   changeClientName (e: any) {
     let changedValue = e.target.value;
     this.departmentListInspec = [];
@@ -381,29 +910,30 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       }
     }
   }
- 	  // Signature part
-     private createDesigner1AcknowledgeForm(): FormGroup {
+
+// Signature part
+  private createDesigner1AcknowledgeForm(): FormGroup {
       return new FormGroup({
         declarationSignature: new FormControl('',[Validators.required]),
         declarationDate: new FormControl('',[Validators.required]),
         declarationName: new FormControl('',[Validators.required])
       })
     }
-    private createDesigner2AcknowledgeForm(): FormGroup {
+  private createDesigner2AcknowledgeForm(): FormGroup {
       return new FormGroup({
         declarationSignature: new FormControl(''),
         declarationDate: new FormControl(''),
         declarationName: new FormControl('')
       })
     }
-    private createContractorAcknowledgeForm(): FormGroup {
+  private createContractorAcknowledgeForm(): FormGroup {
       return new FormGroup({
         declarationSignature: new FormControl('',[Validators.required]),
         declarationDate: new FormControl('',[Validators.required]),
         declarationName: new FormControl('',[Validators.required])
       })
     }
-    private createInspectorAcknowledgeForm(): FormGroup {
+  private createInspectorAcknowledgeForm(): FormGroup {
       return new FormGroup({
         declarationSignature: new FormControl('',[Validators.required]),
         declarationDate: new FormControl('',[Validators.required]),
@@ -423,25 +953,28 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   getInspectorAcknowledgeControls(): AbstractControl[] {
     return (<FormArray> this.step1Form.get('inspectorAcknowledgeArr')).controls
   }
-
-
+  
   populateData() {
     for (let item of this.step1List.reportDetails.signatorDetails) {
       if(item.signatorRole == "designer1") {
       this.mobilearr.push(this.createGroup(item));
       this.step1Form.setControl('designer1Arr', this._formBuilder.array(this.mobilearr || []))
+      this.mobilearr = [];
       }
       else if(item.signatorRole == "designer2") {
         this.mobilearr1.push(this.createGroup(item))
         this.step1Form.setControl('designer2Arr', this._formBuilder.array(this.mobilearr1 || []))
+        this.mobilearr1 = [];
       }
       else if(item.signatorRole == "contractor") {
         this.mobilearr2.push(this.createGroup(item))
-        this.step1Form.setControl('contractorArr', this._formBuilder.array(this.mobilearr2 || []))
+        this.step1Form.setControl('contractorArr', this._formBuilder.array(this.mobilearr2 || []))  
+        this.mobilearr2 = [];
       }
       else if(item.signatorRole == "inspector") {
         this.mobilearr3.push(this.createGroup(item))
         this.step1Form.setControl('inspectorArr', this._formBuilder.array(this.mobilearr3 || []))
+        this.mobilearr3 = [];
       }
     }
   }
@@ -468,11 +1001,8 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       declarationName: new FormControl({disabled: false,value: item.declarationName}),
     });
   }
-
-
-
  
-  // Deisgner details forms
+// Deisgner details forms
   private createDesigner1Form(): FormGroup {
     return new FormGroup({
       personName: new FormControl('',[Validators.required]),
@@ -483,8 +1013,8 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
       managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       companyName: new FormControl('',[Validators.required]),
       addressLine1: new FormControl('',[Validators.required]),
-      addressLine2: new FormControl('',[Validators.required]),
-      landMark: new FormControl('',[Validators.required]),
+      addressLine2: new FormControl(''),
+      landMark: new FormControl(''),
       country: new FormControl('',[Validators.required]),
       state: new FormControl('',[Validators.required]),
       pinCode: new FormControl('',[Validators.required]),
@@ -518,12 +1048,11 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 
   getDesigner1Controls(): AbstractControl[] {
     return (<FormArray> this.step1Form.get('designer1Arr')).controls
-}
-getDesigner2Controls(): AbstractControl[] {
+  }
+  getDesigner2Controls(): AbstractControl[] {
   return (<FormArray> this.step1Form.get('designer2Arr')).controls
-}
-designer1changeCountry(e: any) {
-  debugger
+  }
+  designer1changeCountry(e: any) {
   let changedValue;
   if(e.target != undefined) {
     changedValue = e.target.value;
@@ -540,8 +1069,8 @@ designer1changeCountry(e: any) {
           }
         )};
     }
-}
-designer2changeCountry(e: any) {
+  }
+  designer2changeCountry(e: any) {
   let changedValue;
   if(e.target != undefined) {
     changedValue = e.target.value;
@@ -558,30 +1087,30 @@ designer2changeCountry(e: any) {
           }
         )};
     }
-}
+  }
 
-    // Contractor details forms
-    private createContractorForm(): FormGroup {
-      return new FormGroup({
-        personName: new FormControl('',[Validators.required]),
-        personContactNo: new FormControl('',[Validators.maxLength(10),Validators.required]),
-        personMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
-        managerName: new FormControl('',[Validators.required]),
-        managerContactNo: new FormControl('',[Validators.maxLength(10), Validators.required]),
-        managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
-        companyName: new FormControl('',[Validators.required]),
-        addressLine1: new FormControl('',[Validators.required]),
-        addressLine2: new FormControl('',[Validators.required]),
-        landMark: new FormControl('',[Validators.required]),
-        country: new FormControl('',[Validators.required]),
-        state: new FormControl('',[Validators.required]),
-        pinCode: new FormControl('',[Validators.required]),
-        signatorRole: new FormControl(''),
-        declarationSignature: new FormControl(''),
-        declarationDate: new FormControl(''),
-        declarationName: new FormControl('')
-      })
-    }
+// Contractor details forms
+  private createContractorForm(): FormGroup {
+  return new FormGroup({
+    personName: new FormControl('',[Validators.required]),
+    personContactNo: new FormControl('',[Validators.maxLength(10),Validators.required]),
+    personMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+    managerName: new FormControl('',[Validators.required]),
+    managerContactNo: new FormControl('',[Validators.maxLength(10), Validators.required]),
+    managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+    companyName: new FormControl('',[Validators.required]),
+    addressLine1: new FormControl('',[Validators.required]),
+    addressLine2: new FormControl(''),
+    landMark: new FormControl(''),
+    country: new FormControl('',[Validators.required]),
+    state: new FormControl('',[Validators.required]),
+    pinCode: new FormControl('',[Validators.required]),
+    signatorRole: new FormControl(''),
+    declarationSignature: new FormControl(''),
+    declarationDate: new FormControl(''),
+    declarationName: new FormControl('')
+    })
+  }
 
   getContractorControls(): AbstractControl[] {
     return (<FormArray> this.step1Form.get('contractorArr')).controls
@@ -605,27 +1134,49 @@ designer2changeCountry(e: any) {
       }
   }
 
-   // Inspector details forms
-   private createInspectorForm(): FormGroup {
+// Inspector details forms
+   private createInspectorForm(value: any): FormGroup {
+    // let contactNumber = [];
+    // contactNumber = value.contactNumber.split("-");
     return new FormGroup({
-     personName: new FormControl('',[Validators.required]),
-      personContactNo: new FormControl('',[Validators.maxLength(10),Validators.required]),
-      personMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+      personName: new FormControl(value.name,[Validators.required]),
+      personContactNo: new FormControl(value.contactNumber,[Validators.required]),
+      personMailID: new FormControl(value.username,[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       managerName: new FormControl('',[Validators.required]),
       managerContactNo: new FormControl('',[Validators.maxLength(10),Validators.required]),
       managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
-      companyName: new FormControl('',[Validators.required]),
-      addressLine1: new FormControl('',[Validators.required]),
-      addressLine2: new FormControl('',[Validators.required]),
-      landMark: new FormControl('',[Validators.required]),
-      country: new FormControl('',[Validators.required]),
-      state: new FormControl('',[Validators.required]),
-      pinCode: new FormControl('',[Validators.required]),
+      companyName: new FormControl(value.companyName,[Validators.required]),
+      addressLine1: new FormControl(value.address,[Validators.required]),
+      addressLine2: new FormControl(''),
+      landMark: new FormControl(''),
+      country: new FormControl(value.country,[Validators.required]),
+      state: new FormControl(value.state,[Validators.required]),
+      pinCode: new FormControl(value.pinCode,[Validators.required]),
       signatorRole: new FormControl(''),
       declarationSignature: new FormControl(''),
       declarationDate: new FormControl(''),
       declarationName: new FormControl('')
     })
+
+    // return this._formBuilder.group({
+    //   personName:[value.name,[Validators.required]],
+    //   personContactNo:[value.contactNumber,[Validators.required]],
+    //   personMailID:[value.username,[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+    //   managerName:['',[Validators.required]],
+    //   managerContactNo:['',[Validators.maxLength(10),Validators.required]],
+    //   managerMailID:['',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+    //   companyName:[value.companyName,[Validators.required]],
+    //   addressLine1:[value.address,[Validators.required]],
+    //   addressLine2:[''],
+    //   landMark:[''],
+    //   country:[value.country,[Validators.required]],
+    //   state:[value.state,[Validators.required]],
+    //   pinCode:[value.pinCode,[Validators.required]],
+    //   signatorRole:[''],
+    //   declarationSignature:[''],
+    //   declarationDate:[''],
+    //   declarationName:['']
+    // })
   }
 
   getInspectorControls(): AbstractControl[] {
@@ -650,8 +1201,7 @@ designer2changeCountry(e: any) {
       }
   }
 
-
-
+ //add designer
   addDesigner() {
     this.showDesigner2= true;
     this.showAddButton= false;
@@ -671,10 +1221,10 @@ designer2changeCountry(e: any) {
     this.f.designer2Arr.controls[0].controls['companyName'].updateValueAndValidity();
     this.f.designer2Arr.controls[0].controls['addressLine1'].setValidators(Validators.required);
     this.f.designer2Arr.controls[0].controls['addressLine1'].updateValueAndValidity();
-    this.f.designer2Arr.controls[0].controls['addressLine2'].setValidators(Validators.required);
-    this.f.designer2Arr.controls[0].controls['addressLine2'].updateValueAndValidity();
-    this.f.designer2Arr.controls[0].controls['landMark'].setValidators(Validators.required);
-    this.f.designer2Arr.controls[0].controls['landMark'].updateValueAndValidity();
+    // this.f.designer2Arr.controls[0].controls['addressLine2'].setValidators(Validators.required);
+    // this.f.designer2Arr.controls[0].controls['addressLine2'].updateValueAndValidity();
+    // this.f.designer2Arr.controls[0].controls['landMark'].setValidators(Validators.required);
+    // this.f.designer2Arr.controls[0].controls['landMark'].updateValueAndValidity();
     this.f.designer2Arr.controls[0].controls['country'].setValidators(Validators.required);
     this.f.designer2Arr.controls[0].controls['country'].updateValueAndValidity();
     this.f.designer2Arr.controls[0].controls['state'].setValidators(Validators.required);
@@ -702,10 +1252,10 @@ designer2changeCountry(e: any) {
     this.f.designer2Arr.controls[0].controls['companyName'].updateValueAndValidity();
     this.f.designer2Arr.controls[0].controls['addressLine1'].clearValidators();
     this.f.designer2Arr.controls[0].controls['addressLine1'].updateValueAndValidity();
-    this.f.designer2Arr.controls[0].controls['addressLine2'].clearValidators();
-    this.f.designer2Arr.controls[0].controls['addressLine2'].updateValueAndValidity();
-    this.f.designer2Arr.controls[0].controls['landMark'].clearValidators();
-    this.f.designer2Arr.controls[0].controls['landMark'].updateValueAndValidity();
+    // this.f.designer2Arr.controls[0].controls['addressLine2'].clearValidators();
+    // this.f.designer2Arr.controls[0].controls['addressLine2'].updateValueAndValidity();
+    // this.f.designer2Arr.controls[0].controls['landMark'].clearValidators();
+    // this.f.designer2Arr.controls[0].controls['landMark'].updateValueAndValidity();
     this.f.designer2Arr.controls[0].controls['country'].clearValidators();
     this.f.designer2Arr.controls[0].controls['country'].updateValueAndValidity();
     this.f.designer2Arr.controls[0].controls['state'].clearValidators();
@@ -750,6 +1300,7 @@ designer2changeCountry(e: any) {
     }
     this.proceedNext.emit(true);
   }
+//modal popup
   gotoNextModal(content1: any) {
       if(this.step1Form.invalid) {
         this.validationError=true;
@@ -768,12 +1319,12 @@ designer2changeCountry(e: any) {
       }
       else {
         this.success=false;
-        this.modalService.dismissAll(this.successMsg="")
+        this.modalService.dismissAll(this.successMsg="") 
       }
     }
+
+//next button--final submit
 	nextTab(flag: any) {
-    debugger
-    console.log(flag);
       this.loading = true;
       this.submitted = true
       if(this.step1Form.invalid) {
@@ -800,153 +1351,181 @@ designer2changeCountry(e: any) {
       this.step1Form.value.inspectorArr[0].declarationDate= this.step1Form.value.inspectorAcknowledgeArr[0].declarationDate;
       this.reportDetails.userName = this.email;
 
-      
-      if(flag) {
-        if((this.step1Form.value.designer1Arr[0].personContactNo).includes("+")) {
-          let arr = [];
-          arr = (this.step1Form.value.designer1Arr[0].personContactNo).split("-");
-          this.step1Form.value.designer1Arr[0].personContactNo = arr[1];
-            arr[0] = arr[0].replace('+', ''); // Remove the first one
-          if(this.countryCode != "91" ) {
-            this.step1Form.value.designer1Arr[0].personContactNo= "+" + this.countryCode + "-" +  this.step1Form.value.designer1Arr[0].personContactNo;
-          }
-          else{
-            this.step1Form.value.designer1Arr[0].personContactNo= "+" + arr[0] + "-" +  this.step1Form.value.designer1Arr[0].personContactNo;
-          }
-        }
+    // country code update
+
+    //   if(flag) {
+    //     if((this.step1Form.value.designer1Arr[0].personContactNo).includes("+")) {
+    //       let arr = [];
+    //       arr = (this.step1Form.value.designer1Arr[0].personContactNo).split("-");
+    //       this.step1Form.value.designer1Arr[0].personContactNo = arr[1];
+    //         arr[0] = arr[0].replace('+', ''); // Remove the first one
+    //       if(this.countryCode != "91" ) {
+    //         this.step1Form.value.designer1Arr[0].personContactNo= "+" + this.countryCode + "-" +  this.step1Form.value.designer1Arr[0].personContactNo;
+    //       }
+    //       else{
+    //         this.step1Form.value.designer1Arr[0].personContactNo= "+" + arr[0] + "-" +  this.step1Form.value.designer1Arr[0].personContactNo;
+    //       }
+    //     }
        
 
-        if((this.step1Form.value.designer1Arr[0].managerContactNo).includes("+")) {
-          let arr1 = [];
-        arr1 = (this.step1Form.value.designer1Arr[0].managerContactNo).split("-");
-        this.step1Form.value.designer1Arr[0].managerContactNo = arr1[1];
-          arr1[0] = arr1[0].replace('+', ''); // Remove the first one
-        if(this.countryCode1 != "91" ) {
-          this.step1Form.value.designer1Arr[0].managerContactNo= "+" + this.countryCode1 + "-" +  this.step1Form.value.designer1Arr[0].managerContactNo;
-        }
-        else{
-          this.step1Form.value.designer1Arr[0].managerContactNo= "+" + arr1[0]  + "-" +  this.step1Form.value.designer1Arr[0].managerContactNo;
-        }
-        }
+    //     if((this.step1Form.value.designer1Arr[0].managerContactNo).includes("+")) {
+    //       let arr1 = [];
+    //     arr1 = (this.step1Form.value.designer1Arr[0].managerContactNo).split("-");
+    //     this.step1Form.value.designer1Arr[0].managerContactNo = arr1[1];
+    //       arr1[0] = arr1[0].replace('+', ''); // Remove the first one
+    //     if(this.countryCode1 != "91" ) {
+    //       this.step1Form.value.designer1Arr[0].managerContactNo= "+" + this.countryCode1 + "-" +  this.step1Form.value.designer1Arr[0].managerContactNo;
+    //     }
+    //     else{
+    //       this.step1Form.value.designer1Arr[0].managerContactNo= "+" + arr1[0]  + "-" +  this.step1Form.value.designer1Arr[0].managerContactNo;
+    //     }
+    //     }
 
-        //designer 2
-        if((this.step1Form.value.designer2Arr[0].personContactNo).includes("+")) {
-          let arr2= [];
-          arr2 = (this.step1Form.value.designer2Arr[0].personContactNo).split("-");
-          this.step1Form.value.designer2Arr[0].personContactNo = arr2[1];
-          arr2[0] = arr2[0].replace('+', ''); // Remove the first one
-          if(this.countryCode2 != "91" ) {
-            this.step1Form.value.designer2Arr[0].personContactNo= "+" + this.countryCode2 + "-" +  this.step1Form.value.designer2Arr[0].personContactNo;
-          }
-          else{
-            this.step1Form.value.designer2Arr[0].personContactNo= "+" +  arr2[0] + "-" +  this.step1Form.value.designer2Arr[0].personContactNo;
-          }
-        }
+    //     //designer 2
+    //     if((this.step1Form.value.designer2Arr[0].personContactNo).includes("+")) {
+    //       let arr2= [];
+    //       arr2 = (this.step1Form.value.designer2Arr[0].personContactNo).split("-");
+    //       this.step1Form.value.designer2Arr[0].personContactNo = arr2[1];
+    //       arr2[0] = arr2[0].replace('+', ''); // Remove the first one
+    //       if(this.countryCode2 != "91" ) {
+    //         this.step1Form.value.designer2Arr[0].personContactNo= "+" + this.countryCode2 + "-" +  this.step1Form.value.designer2Arr[0].personContactNo;
+    //       }
+    //       else{
+    //         this.step1Form.value.designer2Arr[0].personContactNo= "+" +  arr2[0] + "-" +  this.step1Form.value.designer2Arr[0].personContactNo;
+    //       }
+    //     }
         
-        if((this.step1Form.value.designer2Arr[0].managerContactNo).includes("+")) {
+    //     if((this.step1Form.value.designer2Arr[0].managerContactNo).includes("+")) {
           
-        let arr3 = [];
-        arr3 = (this.step1Form.value.designer2Arr[0].managerContactNo).split("-");
-        this.step1Form.value.designer2Arr[0].managerContactNo = arr3[1];
-        arr3[0] = arr3[0].replace('+', ''); // Remove the first one
-        if(this.countryCode3 != "91" ) {
-          this.step1Form.value.designer2Arr[0].managerContactNo= "+" + this.countryCode3 + "-" +  this.step1Form.value.designer2Arr[0].managerContactNo;
-        }
-        else{
-          this.step1Form.value.designer2Arr[0].managerContactNo= "+" + arr3[0] + "-" +  this.step1Form.value.designer2Arr[0].managerContactNo;
-        }
-        }
+    //     let arr3 = [];
+    //     arr3 = (this.step1Form.value.designer2Arr[0].managerContactNo).split("-");
+    //     this.step1Form.value.designer2Arr[0].managerContactNo = arr3[1];
+    //     arr3[0] = arr3[0].replace('+', ''); // Remove the first one
+    //     if(this.countryCode3 != "91" ) {
+    //       this.step1Form.value.designer2Arr[0].managerContactNo= "+" + this.countryCode3 + "-" +  this.step1Form.value.designer2Arr[0].managerContactNo;
+    //     }
+    //     else{
+    //       this.step1Form.value.designer2Arr[0].managerContactNo= "+" + arr3[0] + "-" +  this.step1Form.value.designer2Arr[0].managerContactNo;
+    //     }
+    //     }
        
 
-        //contractor
-        if((this.step1Form.value.contractorArr[0].personContactNo).includes("+")) {
-          let arr4 = [];
-          arr4 = (this.step1Form.value.contractorArr[0].personContactNo).split("-");
-          this.step1Form.value.contractorArr[0].personContactNo = arr4[1];
-          arr4[0] = arr4[0].replace('+', ''); // Remove the first one
-          if(this.countryCode4 != "91" ) {
-            this.step1Form.value.contractorArr[0].personContactNo= "+" + this.countryCode4 + "-" +  this.step1Form.value.contractorArr[0].personContactNo;
-          }
-          else{
-            this.step1Form.value.contractorArr[0].personContactNo= "+" +  arr4[0]  + "-" +  this.step1Form.value.contractorArr[0].personContactNo;
-          }
+    //     //contractor
+    //     if((this.step1Form.value.contractorArr[0].personContactNo).includes("+")) {
+    //       let arr4 = [];
+    //       arr4 = (this.step1Form.value.contractorArr[0].personContactNo).split("-");
+    //       this.step1Form.value.contractorArr[0].personContactNo = arr4[1];
+    //       arr4[0] = arr4[0].replace('+', ''); // Remove the first one
+    //       if(this.countryCode4 != "91" ) {
+    //         this.step1Form.value.contractorArr[0].personContactNo= "+" + this.countryCode4 + "-" +  this.step1Form.value.contractorArr[0].personContactNo;
+    //       }
+    //       else{
+    //         this.step1Form.value.contractorArr[0].personContactNo= "+" +  arr4[0]  + "-" +  this.step1Form.value.contractorArr[0].personContactNo;
+    //       }
   
-        }
+    //     }
         
         
-        if((this.step1Form.value.contractorArr[0].managerContactNo).includes("+")) {
-          let arr5 = [];
-          arr5 = (this.step1Form.value.contractorArr[0].managerContactNo).split("-");
-          this.step1Form.value.contractorArr[0].managerContactNo = arr5[1];
-          arr5[0] = arr5[0].replace('+', ''); // Remove the first one
-          if(this.countryCode5 != "91" ) {
-            this.step1Form.value.contractorArr[0].managerContactNo= "+" + this.countryCode5  + "-" +  this.step1Form.value.contractorArr[0].managerContactNo;
-          }
-          else{
-            this.step1Form.value.contractorArr[0].managerContactNo= "+" + arr5[0] + "-" +  this.step1Form.value.contractorArr[0].managerContactNo;
-          }
-        }
+    //     if((this.step1Form.value.contractorArr[0].managerContactNo).includes("+")) {
+    //       let arr5 = [];
+    //       arr5 = (this.step1Form.value.contractorArr[0].managerContactNo).split("-");
+    //       this.step1Form.value.contractorArr[0].managerContactNo = arr5[1];
+    //       arr5[0] = arr5[0].replace('+', ''); // Remove the first one
+    //       if(this.countryCode5 != "91" ) {
+    //         this.step1Form.value.contractorArr[0].managerContactNo= "+" + this.countryCode5  + "-" +  this.step1Form.value.contractorArr[0].managerContactNo;
+    //       }
+    //       else{
+    //         this.step1Form.value.contractorArr[0].managerContactNo= "+" + arr5[0] + "-" +  this.step1Form.value.contractorArr[0].managerContactNo;
+    //       }
+    //     }
         
 
-        //inspector
-        if((this.step1Form.value.inspectorArr[0].personContactNo).includes("+")) {
-          let arr6 = [];
-          arr6 = (this.step1Form.value.inspectorArr[0].personContactNo).split("-");
-          this.step1Form.value.inspectorArr[0].personContactNo = arr6[1];
-          arr6[0] = arr6[0].replace('+', ''); // Remove the first one
-          if(this.countryCode6 != "91" ) {
-            this.step1Form.value.inspectorArr[0].personContactNo= "+" + this.countryCode6 + "-" +  this.step1Form.value.inspectorArr[0].personContactNo;
-          }
-          else{
-            this.step1Form.value.inspectorArr[0].personContactNo= "+" +  arr6[0]  + "-" +  this.step1Form.value.inspectorArr[0].personContactNo;
+    //     //inspector
+    //     if((this.step1Form.value.inspectorArr[0].personContactNo).includes("+")) {
+    //       let arr6 = [];
+    //       arr6 = (this.step1Form.value.inspectorArr[0].personContactNo).split("-");
+    //       this.step1Form.value.inspectorArr[0].personContactNo = arr6[1];
+    //       arr6[0] = arr6[0].replace('+', ''); // Remove the first one
+    //       if(this.countryCode6 != "91" ) {
+    //         this.step1Form.value.inspectorArr[0].personContactNo= "+" + this.countryCode6 + "-" +  this.step1Form.value.inspectorArr[0].personContactNo;
+    //       }
+    //       else{
+    //         this.step1Form.value.inspectorArr[0].personContactNo= "+" +  arr6[0]  + "-" +  this.step1Form.value.inspectorArr[0].personContactNo;
   
-          }
-          }
+    //       }
+    //       }
     
         
 
-        if((this.step1Form.value.inspectorArr[0].managerContactNo).includes("+")) {
-          let arr7 = [];
-          arr7 = (this.step1Form.value.inspectorArr[0].managerContactNo).split("-");
-          this.step1Form.value.inspectorArr[0].managerContactNo = arr7[1];
-          arr7[0] = arr7[0].replace('+', ''); // Remove the first one
-          if(this.countryCode7 != "91" ) {
-            this.step1Form.value.inspectorArr[0].managerContactNo= "+" + this.countryCode7 + "-" +  this.step1Form.value.inspectorArr[0].managerContactNo;
-        }
-        else{
-          this.step1Form.value.inspectorArr[0].managerContactNo= "+" +  arr7[0] + "-" +  this.step1Form.value.inspectorArr[0].managerContactNo;
-        }
-      }
+    //     if((this.step1Form.value.inspectorArr[0].managerContactNo).includes("+")) {
+    //       let arr7 = [];
+    //       arr7 = (this.step1Form.value.inspectorArr[0].managerContactNo).split("-");
+    //       this.step1Form.value.inspectorArr[0].managerContactNo = arr7[1];
+    //       arr7[0] = arr7[0].replace('+', ''); // Remove the first one
+    //       if(this.countryCode7 != "91" ) {
+    //         this.step1Form.value.inspectorArr[0].managerContactNo= "+" + this.countryCode7 + "-" +  this.step1Form.value.inspectorArr[0].managerContactNo;
+    //     }
+    //     else{
+    //       this.step1Form.value.inspectorArr[0].managerContactNo= "+" +  arr7[0] + "-" +  this.step1Form.value.inspectorArr[0].managerContactNo;
+    //     }
+    //   }
        
-      }
+    //   }
      
   
-    else{
+    // else{
+    // //country code
+    // this.step1Form.value.designer1Arr[0].personContactNo= "+" + this.countryCode + "-" + this.step1Form.value.designer1Arr[0].personContactNo;
+    // this.step1Form.value.designer1Arr[0].managerContactNo= "+" + this.countryCode1 + "-" + this.step1Form.value.designer1Arr[0].managerContactNo;
+
+    // this.step1Form.value.designer2Arr[0].personContactNo= "+" + this.countryCode2 + "-" + this.step1Form.value.designer2Arr[0].personContactNo;
+    // this.step1Form.value.designer2Arr[0].managerContactNo= "+" + this.countryCode3 + "-" + this.step1Form.value.designer2Arr[0].managerContactNo;
+
+    // this.step1Form.value.contractorArr[0].personContactNo = "+" + this.countryCode4 + "-" + this.step1Form.value.contractorArr[0].personContactNo;
+    // this.step1Form.value.contractorArr[0].managerContactNo = "+" + this.countryCode5 + "-" + this.step1Form.value.contractorArr[0].managerContactNo;
+
+    // this.step1Form.value.inspectorArr[0].personContactNo = "+" + this.countryCode6 + "-" + this.step1Form.value.inspectorArr[0].personContactNo;
+    // this.step1Form.value.inspectorArr[0].managerContactNo = "+" + this.countryCode7 + "-" + this.step1Form.value.inspectorArr[0].managerContactNo;
+    // }
+
     //country code
-    this.step1Form.value.designer1Arr[0].personContactNo= "+" + this.countryCode + "-" + this.step1Form.value.designer1Arr[0].personContactNo;
-    this.step1Form.value.designer1Arr[0].managerContactNo= "+" + this.countryCode1 + "-" + this.step1Form.value.designer1Arr[0].managerContactNo;
-
-    this.step1Form.value.designer2Arr[0].personContactNo= "+" + this.countryCode2 + "-" + this.step1Form.value.designer2Arr[0].personContactNo;
-    this.step1Form.value.designer2Arr[0].managerContactNo= "+" + this.countryCode3 + "-" + this.step1Form.value.designer2Arr[0].managerContactNo;
-
-    this.step1Form.value.contractorArr[0].personContactNo = "+" + this.countryCode4 + "-" + this.step1Form.value.contractorArr[0].personContactNo;
-    this.step1Form.value.contractorArr[0].managerContactNo = "+" + this.countryCode5 + "-" + this.step1Form.value.contractorArr[0].managerContactNo;
-
-    this.step1Form.value.inspectorArr[0].personContactNo = "+" + this.countryCode6 + "-" + this.step1Form.value.inspectorArr[0].personContactNo;
-    this.step1Form.value.inspectorArr[0].managerContactNo = "+" + this.countryCode7 + "-" + this.step1Form.value.inspectorArr[0].managerContactNo;
+  
+    if(!flag) {
+      this.step1Form.value.designer1Arr[0].personContactNo= "+" + this.countryCode + "-" + this.step1Form.value.designer1Arr[0].personContactNo;
+      this.step1Form.value.designer1Arr[0].managerContactNo= "+" + this.countryCode1 + "-" + this.step1Form.value.designer1Arr[0].managerContactNo;
+  
+      this.step1Form.value.designer2Arr[0].personContactNo= "+" + this.countryCode2 + "-" + this.step1Form.value.designer2Arr[0].personContactNo;
+      this.step1Form.value.designer2Arr[0].managerContactNo= "+" + this.countryCode3 + "-" + this.step1Form.value.designer2Arr[0].managerContactNo;
+  
+      this.step1Form.value.contractorArr[0].personContactNo = "+" + this.countryCode4 + "-" + this.step1Form.value.contractorArr[0].personContactNo;
+      this.step1Form.value.contractorArr[0].managerContactNo = "+" + this.countryCode5 + "-" + this.step1Form.value.contractorArr[0].managerContactNo;
+  
+      // this.step1Form.value.inspectorArr[0].personContactNo = "+" + this.countryCode6 + "-" + this.step1Form.value.inspectorArr[0].personContactNo;
+      this.step1Form.value.inspectorArr[0].managerContactNo = "+" + this.countryCode7 + "-" + this.step1Form.value.inspectorArr[0].managerContactNo;  
+      
+      this.reportDetails.signatorDetails = this.step1Form.value.designer1Arr;
+      if(this.step1Form.value.designer2Arr[0].personName != "" && this.step1Form.value.designer2Arr[0].personName != null) {
+        this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.value.designer2Arr);
+      }
+      this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.value.contractorArr,this.step1Form.value.inspectorArr);
     }
-    this.reportDetails.signatorDetails = this.step1Form.value.designer1Arr;
-    if(this.step1Form.value.designer2Arr[0].personName != "" && this.step1Form.value.designer2Arr[0].personName != null) {
-      this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.value.designer2Arr);
+    else {
+      
+      this.reportDetails.signatorDetails = this.step1Form.getRawValue().designer1Arr;
+      if(this.step1Form.value.designer2Arr[0].personName != "" && this.step1Form.value.designer2Arr[0].personName != null) {
+        this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.getRawValue().designer2Arr);
+      }
+      this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.getRawValue().contractorArr,this.step1Form.getRawValue().inspectorArr);
     }
-    this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.value.contractorArr,this.step1Form.value.inspectorArr);
-   
+    
     if(flag){
     //  this.reportDetails.siteId = this.retrivedSiteId;
-     debugger
+     
+     //this.disable=false;
    this.UpateBasicService.updateBasic(this.reportDetails).subscribe(
     data=> {
      console.log("worked");
+    
     },
     (error) => {
       console.log("error");
@@ -954,7 +1533,7 @@ designer2changeCountry(e: any) {
    
    }
    else{
-    debugger
+    
    this.reportDetailsService.addReportDetails(this.reportDetails).subscribe(
      data=> {
        this.proceedNext.emit(true);

@@ -1,6 +1,5 @@
 <!-- step 3 -->
 <div class="card">
-   
   <form [formGroup]="addstep3" (ngSubmit)="nextTab3(flag)">
 <div class="card-body" formArrayName="incomingArr" *ngFor="let a of getIncomingControls(); let i = index" >
   <div [formGroupName]="i" >
@@ -9,7 +8,7 @@
       <div class="row">
         <div class="col-md-4">
               <label>Location Number*</label>
-              <input type="text" class="form-control" formControlName="locationNumber"
+              <input type="number" min="1" class="form-control" formControlName="locationNumber"
                placeholder="Enter Location Number" 
                [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors }">
               <div *ngIf="submitted && a.get('locationNumber')?.errors" class="invalid-feedback">
@@ -444,6 +443,19 @@
             </select>
             <div *ngIf="submitted && a.get('basicElectricalSepartion')?.errors" class="invalid-feedback">
               <div *ngIf="a.get('basicElectricalSepartion')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>Isolator(Means to isolate the public supply system) :</label>
+            <select class="form-control" formControlName="isolatePublicSupply" 
+            [ngClass]="{ 'is-invalid': submitted && a.get('isolatePublicSupply')?.errors }" >
+              <option value="0" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== a.get('isolatePublicSupply')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && a.get('isolatePublicSupply')?.errors" class="invalid-feedback">
+              <div *ngIf="a.get('isolatePublicSupply')?.errors?.required">Field Is Required</div>
           </div>
           </div>
         </div>
@@ -1937,19 +1949,201 @@
   </div>
 </div>
   </mat-expansion-panel>
-<!-- isolationCurrent ends-->
-
+<!-- isolationCurrent ends--> 
 </mat-accordion>
-
 </div>
   <mat-icon class="mousechange" *ngIf="getIncomingControls().length > 1" (click)="removeItem(i)"
   style="float:right;">delete</mat-icon>
 </div>
 
+<mat-accordion>
+  <!-- comments start-->
+  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngIf="hideShowComment">
+   <mat-expansion-panel-header>
+     <mat-panel-title>
+       <h3>Comments</h3>
+     </mat-panel-title>
+   </mat-expansion-panel-header>
+  
+  <mat-progress-spinner style="margin: 0 auto;" *ngIf="spinner"
+ color="primary"
+  [mode]="mode"
+  value="50"
+ diameter="50">
+ </mat-progress-spinner>
+ 
+ <div class="card-body" style="padding: 0px;" *ngIf="cardBodyComments">
+ <button class="btn dropdown" (click)="showSubmenu = !showSubmenu" style="width:100%;" 
+ *ngIf="(isExpanded || isShowing) || (toggleHideShow || getViewerCommentControls().length > 3)">
+ <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" style="float: left;">chevron_right</mat-icon> 
+ <label style="float: left;">Check comments here!</label>
+ </button> 
+ <span *ngIf="getViewerCommentControls().length==0">No comments!</span>
+ <mat-icon class="mousechange" (click)="refreshCommentSection()" style="float: right;"
+ title="Refresh comment">refresh</mat-icon> 
+ 
+ <div  formArrayName="viewerCommentArr" *ngFor="let a of getViewerCommentControls(); let i = index" 
+ style="margin-left: 10px;">
+ <div [formGroupName]="i" style="margin-left: 30px;">
+ <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" [ngStyle]="{'display': showSubmenu ? 'block' : 'none'}">
+ 
+ <div class="input-group" [ngClass]="{even: i!=0}" style="align-items: end;">
+   <div class="input-group-prepend" title="Viewer" style="height: 26px;">
+       <span class="input-group-text" style="line-height: unset;">
+           <i class="bi bi-eye-fill"></i>
+       </span>
+   </div>
+   <textarea cols="60" rows="1" formControlName="viewerComments" placeholder="Enter Viewer Comment">
+  </textarea>
+ 
+ <div style="display: flex;margin-left: 25px;" *ngIf="replyCommentBox">
+ 
+         <mat-icon class="mousechange" (click)="sendViewerComment(a)" [ngClass]="{'disable':disableSend== true}"
+         *ngIf="((a.get('inspectorComments')?.value=='' || a.get('inspectorComments')?.value==null) && sendComment)"
+         title="Send comment">send</mat-icon> &nbsp;&nbsp;&nbsp;&nbsp;
+ 
+         <mat-icon class="mousechange" (click)="replyToViewerComment(a)" 
+         *ngIf="((a.get('viewerComments')?.value!='') && (getViewerCommentControls().length-1 == i)) && hideAsViewerLogin "
+        title="Reply comment">reply</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;
+ 
+        <mat-icon class="mousechange" (click)="ViewerRemoveComment(i)" style="float:right;position: relative;left: 630%;"
+        *ngIf="(a.get('inspectorComments')?.value=='' || a.get('viewerComments')?.value=='') && hideDelete" >delete</mat-icon>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+ 
+       
+ </div>
+ </div>
+ 
+ 
+ <span [ngClass]="i!=0 ? 'viewer' : 'even1'">
+   {{a.value.viewerUserName}} {{a.value.viewerDateTime | date:'dd-MM-YY hh:mm:ss a':'+0530'}}
+ </span>  
+ 
+ <div *ngIf="replyCommentBox">
+ 
+ <ul style="list-style-type:none;margin-bottom: 0rem;">
+ <li> 
+ 
+ <div class="input-group" style="align-items: end;"
+ *ngIf="(a.get('inspectorComments')?.value!='' && a.get('inspectorComments')?.value!=null) || showReplyBox" >
+   <div class="input-group-prepend" title="Inspector" style="height: 26px;">
+       <span class="input-group-text" style="line-height: unset;">
+           <i class="bi bi-person-fill"></i>
+       </span>
+   </div>
+   <textarea cols="60" rows="1" placeholder="Enter Inspector Comment" formControlName="inspectorComments" ></textarea>
+ <div style="display: initial;margin-left: 25px;">
+ 
+    <mat-icon class="mousechange" (click)="inspectorComment(a)" [ngClass]="{'disable':disableReply== true}"
+    *ngIf="(getViewerCommentControls().length-1 == i) && SendReply" title="Send reply">send</mat-icon>
+ 
+    <mat-icon class="mousechange" (click)="approveComment(a)" [ngClass]="{'disable':enabledRequest== true}"
+    *ngIf="((getViewerCommentControls().length-1 == i) && hideapprove) && a.value.approveOrReject != 'REJECT'"
+    title="Approve comment">thumb_up_alt</mat-icon> &nbsp;&nbsp;&nbsp;&nbsp;
+ 
+    <mat-icon class="mousechange" (click)="rejectComment(a)" 
+    [ngClass]="{'disable':a.value.approveOrReject === 'REJECT' || enabledRequest== true}"
+     *ngIf="((getViewerCommentControls().length-1 == i) && hideReject) || 
+     ((a.get('inspectorComments')?.value!='' || a.get('viewerComments')?.value!='') && a.value.approveOrReject=='REJECT')"
+    title="Reject comment">thumb_down_alt</mat-icon>
+
+    <mat-icon class="mousechange" (click)="addAnotherviewerComment()"
+    *ngIf="((getViewerCommentControls().length-1 == i) && hideAdd) 
+    || ((a.value.approveOrReject === 'REJECT' && getViewerCommentControls().length-1 == i) && addReject)"
+     style="float:right;position: relative;left: 718%;" title="Add another comment">add_box</mat-icon>
+ 
+ </div>
+ </div>
+ 
+ <span style="display: block;font-size: 11px;text-align: center;margin-left: -29%;">
+ {{a.value.inspectorUserName}} {{a.value.inspectorDateTime | date:'dd-MM-YY hh:mm:ss a':'+0530'}}</span>  
+      </li>
+    </ul>
+   </div> 
+   </div>
+   </div>
+ </div> 
+  
+ </div>   
+  
+ </mat-expansion-panel>
+ 
+ <!-- completed comments start-->
+ <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngIf="completedComments">
+ <mat-expansion-panel-header>
+ <mat-panel-title>
+ <h3>Completed Comments</h3>
+ </mat-panel-title>
+ 
+ </mat-expansion-panel-header>
+ <div class="card-body" style="padding: 0px;">
+ <div formArrayName="completedCommentArr1" *ngFor="let x of getCompletedCommentControls1(); let j = index" >
+ <div [formGroupName]="j">
+ 
+ <button class="btn dropdown" (click)="showHideAccordion(j);" style="width:100%;" 
+ *ngIf="(isExpanded || isShowing) || toggleHideShow || getCompletedCommentControls1().length >= 1">
+ <mat-icon class="menu-button" style="float: left;">chevron_right</mat-icon> 
+ <label style="float: left;">{{getViewerFirstMessage(x)}}...</label>
+ </button> 
+ 
+ <div *ngIf="j === expandedIndexx" >
+ <div  formArrayName="completedCommentArr" *ngFor="let a of getCompletedCommentControls(x); let i = index" 
+ style="margin-left: 10px;" > 
+ <div [formGroupName]="i" style="margin-left: 30px;">
+ <div class="submenu" >
+ 
+ <div class="input-group" [ngClass]="{even: i!=0}" style="align-items: end;">
+ <div class="input-group-prepend" title="Viewer" style="height: 26px;">
+   <span class="input-group-text" style="line-height: unset;">
+       <i class="bi bi-eye-fill"></i>
+   </span>
+ </div>
+ <textarea cols="60" rows="1"  formControlName="viewerComments" placeholder="Enter Viewer Comment">
+ </textarea>
+ </div>
+ <div>
+ <span [ngClass]="i!=0 ? 'viewer' : 'even1'">
+ {{a.value.viewerUserName}} 
+ {{a.value.viewerDateTime | date:'dd-MM-YY hh:mm:ss a':'+0530'}}
+ </span>  
+ </div>
+ <div class="input-group" style="margin-left: 41px;width: 50%;align-items: end;">
+ <div class="input-group-prepend" title="Inspector" style="height: 26px;">
+ <span class="input-group-text" style="line-height: unset;">
+ <i class="bi bi-person-fill"></i>
+ </span>
+ </div>
+ <textarea cols="60" rows="1"  formControlName="inspectorComments" placeholder="Enter Viewer Comment"></textarea>
+ </div>
+ 
+ <span style="display: block;font-size: 11px;text-align: center;margin-left: -25%;">
+ {{a.value.inspectorUserName}} {{a.value.inspectorDateTime | date:'dd-MM-YY hh:mm:ss a':'+0530'}}</span>  
+  
+ </div>
+ </div>
+ </div> 
+ </div>
+ </div>
+ </div>
+ </div>   
+ 
+ </mat-expansion-panel>
+ <!-- completed comments end-->
+ </mat-accordion>
 
 <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
   <span class="alert alert-danger">{{validationErrorMsg}}</span>
 </div>
+<div *ngIf="commentSuccess" style="text-align: center;margin-top: 30px;">
+  <span class="successshow">Your comment has been sent to Inspector</span>
+</div>
+<div *ngIf="commentApprove" style="text-align: center;margin-top: 30px;">
+  <span class="alert alert-success">Your response to comments has been approved</span>
+</div>
+<div *ngIf="commentReject" style="text-align: center;margin-top: 30px;">
+  <span class="alert alert-danger">Your response to comments has been rejected</span>
+</div>
+<br>
 <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
   <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
   <button  class="next"  [disabled]="disable" (click)="gotoNextModal(content3)" mat-button >Next &raquo;</button>

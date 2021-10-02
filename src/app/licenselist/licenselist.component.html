@@ -1,0 +1,250 @@
+<ng-template #ref ></ng-template>
+<div class="card" *ngIf="!destroy">
+    <div class="card-body" >
+        <form [formGroup]="licenseForm" >
+            <mat-accordion>
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <h3>Unused License</h3>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+    
+                      <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>No of available License:</label>
+                                <input type="text" class="form-control" ([ngModel])="noofLicense" formControlName="noOfAvailableLicense" readonly [value]="noofLicense" >
+                            </div>
+                        </div>
+    
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <button class="btn btn-primary" [disabled]="noofLicense<=0" (click)=decreaseLicense() style="margin-top: 28px;">Use</button>
+                            </div>
+                        </div>
+    
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <button class="btn btn-primary" [disabled]="noofLicense!=0" (click)=purchaseLicense() style="margin-top: 28px;">Get Complimentary Licenses</button>
+                            </div>
+                        </div>
+                      </div>
+                </mat-expansion-panel>    
+    
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <h3>Ongoing Site</h3>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <table mat-table [dataSource]="ongoingSite_dataSource" class="mat-elevation-z8 table" matSort
+                #ongoingSiteSort="matSort">
+
+                <!--- Note that these columns can be defined in any order.
+                            The actual rendered columns are set as a property on the row definition" -->
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="siteCd">
+                  <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
+                    mat-sort-header> Site Code </th>
+                  <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+                    {{element.siteCd}} </td>
+                </ng-container>
+                <ng-container matColumnDef="site">
+                  <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
+                    mat-sort-header> Site Name </th>
+                  <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element"
+                    class="mousechange"> {{element.site}} </td>
+                </ng-container>
+                <!-- Name Column -->
+                <ng-container matColumnDef="country">
+                  <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
+                    mat-sort-header> Country </th>
+                  <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+                    {{element.country}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="city">
+                  <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
+                    mat-sort-header> City </th>
+                  <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+                    {{element.city}} </td>
+                </ng-container>
+                <!-- Name Column -->
+                <ng-container matColumnDef="createdDate">
+                  <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
+                    mat-sort-header> Created Date </th>
+                  <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+                    {{element.createdDate | date : 'shortDate'}} </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="createdBy">
+                  <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
+                    mat-sort-header> Created By </th>
+                  <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+                    {{element.createdBy}} </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="updatedDate">
+                  <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
+                    mat-sort-header> Updated Date </th>
+                  <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+                    {{element.updatedDate | date : 'shortDate'}} </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="updatedBy">
+                  <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
+                    mat-sort-header> Updated By </th>
+                  <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+                    {{element.updatedBy}} </td>
+                </ng-container>
+
+                <!-- <ng-container matColumnDef="action">
+                    <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef> Action
+                    </th>
+                    <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+                      <button class="btn btn-outline-danger delete" title="Edit Site" (click)="editSite(element.siteId,element.userName,element.site)">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                    </td>
+                  </ng-container> -->
+
+                <tr mat-header-row *matHeaderRowDef="ongoingSiteColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: ongoingSiteColumns;" title="Click here to edit Site details" 
+                (click)="editSite(row.siteId,row.userName,row.site)" style="cursor: pointer;"
+                  [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
+                  (mouseout)="row.hovered = false"></tr>
+
+              </table>
+              <mat-paginator #ongoingSitePaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                </mat-expansion-panel>
+    
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <h3>Completed License</h3>
+                      </mat-panel-title>
+        
+                    </mat-expansion-panel-header>
+
+                    <table mat-table [dataSource]="completedLicense_dataSource" class="mat-elevation-z8 table" matSort
+                #completedLicenseSort="matSort">
+
+                <!--- Note that these columns can be defined in any order.
+                            The actual rendered columns are set as a property on the row definition" -->
+
+                <!-- Position Column -->
+                
+                <ng-container matColumnDef="siteCd">
+                  <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
+                    mat-sort-header> Site Code </th>
+                  <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+                    {{element.siteCd}} </td>
+                </ng-container>
+                <ng-container matColumnDef="site">
+                  <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
+                    mat-sort-header> Site Name </th>
+                  <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element"
+                    class="mousechange"> {{element.site}} </td>
+                </ng-container>
+                <!-- Name Column -->
+                <ng-container matColumnDef="country">
+                  <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
+                    mat-sort-header> Country </th>
+                  <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+                    {{element.country}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="city">
+                  <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
+                    mat-sort-header> City </th>
+                  <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+                    {{element.city}} </td>
+                </ng-container>
+                <!-- Name Column -->
+                <ng-container matColumnDef="createdDate">
+                  <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
+                    mat-sort-header> Created Date </th>
+                  <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+                    {{element.createdDate | date : 'shortDate'}} </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="createdBy">
+                  <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
+                    mat-sort-header> Created By </th>
+                  <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+                    {{element.createdBy}} </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="updatedDate">
+                  <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
+                    mat-sort-header> Updated Date </th>
+                  <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+                    {{element.updatedDate | date : 'shortDate'}} </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="updatedBy">
+                  <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
+                    mat-sort-header> Updated By </th>
+                  <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+                    {{element.updatedBy}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="action">
+                    <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef> Action
+                    </th>
+                    <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+                      <button class="btn btn-outline-danger delete" title="View Site" (click)="viewSite()">
+                        <mat-icon>visibility</mat-icon>
+                      </button>
+                      <button class="btn btn-outline-danger delete" title="Download PDF" (click)="downloadPdf(element.siteId,element.userName)">
+                        <mat-icon>download</mat-icon>
+                      </button>
+                      <button class="btn btn-outline-danger delete" title="Email">
+                        <mat-icon>email</mat-icon>
+                      </button>
+                      <button class="btn btn-outline-danger delete" title="Print PDF" (click)="pdfModal(contentPDF)">
+                        <mat-icon>print</mat-icon>
+                      </button>
+                    </td>
+                  </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="completedLicenseColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: completedLicenseColumns; "
+                  [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
+                  (mouseout)="row.hovered = false"></tr>
+
+              </table>
+              <mat-paginator #completedLicensePaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+                </mat-expansion-panel>
+            </mat-accordion>
+    
+        </form>
+        
+
+    </div>
+</div>
+
+<ng-template #contentPDF let-modal>
+  <!-- <div class="modal-header" style="text-align: center;
+  display: block;"><h2 class="modal-title" style="display: contents;">Assign Viewer</h2>
+  </div> -->
+  <div class="modal-body" modal-xl>
+    pdf loads here..
+
+    <button class="btn btn-primary" style="margin: 0 auto;
+    display: block;">Print PDF</button>
+   </div>
+ 
+
+
+  </ng-template>

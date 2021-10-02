@@ -38,6 +38,7 @@ export class IpaInsection {
   doubleInsulation!: String;
   reinforcedInsulation!: String;
   basicElectricalSepartion!: String;
+  isolatePublicSupply!: String;
   insulationLiveParts!: String;
   barriersEnclosers!: String;
   supplementaryBonding!: String;

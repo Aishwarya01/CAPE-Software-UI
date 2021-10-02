@@ -7,6 +7,7 @@ import {
   ViewChild,
   ChangeDetectorRef,
   VERSION,
+  Input,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AbstractControl, FormArray, FormControl } from '@angular/forms';
@@ -39,6 +40,9 @@ import { InspectionVerificationTestingComponent } from '../inspection-verificati
 import { InspectionVerificationIncomingEquipmentComponent } from '../inspection-verification-incoming-equipment/inspection-verification-incoming-equipment.component';
 import { SummaryComponent } from '../summary/summary.component';
 import { InspectionVerificationSupplyCharacteristicsComponent } from '../inspection-verification-supply-characteristics/inspection-verification-supply-characteristics.component';
+import { MatTabGroup } from '@angular/material/tabs';
+import { SavedreportsComponent } from '../savedreports/savedreports.component';
+
 @Component({
   selector: 'app-verificationlv',
   templateUrl: './verificationlv.component.html',
@@ -141,6 +145,13 @@ export class VerificationlvComponent implements OnInit {
   summary!: SummaryComponent;
   @ViewChild(InspectionVerificationSupplyCharacteristicsComponent)
   supply!: InspectionVerificationSupplyCharacteristicsComponent;
+
+  @ViewChild(SavedreportsComponent)
+  saved!: SavedreportsComponent;
+
+  @Input()
+  siteId: any;
+  
   // Second Tab dependencies
   panelOpenState = false;
   installationList: String[] = [
@@ -161,6 +172,8 @@ export class VerificationlvComponent implements OnInit {
   ];
   evidenceList: String[] = ['Yes', 'No', 'Not Apparent'];
   previousRecordList: String[] = ['Yes', 'No'];
+
+  @ViewChild(MatTabGroup) tabGroup!: MatTabGroup;
 
   isCompleted: boolean = false;
   isCompleted2: boolean = false;
@@ -192,6 +205,11 @@ export class VerificationlvComponent implements OnInit {
   success2: boolean=false
   deleteMsg2: any;
   errorMsg2: any;
+  dataJSON: any = [];
+  conFlag: boolean=false;
+  noDetails: boolean=false;
+  instance: any;
+
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -204,6 +222,7 @@ export class VerificationlvComponent implements OnInit {
     private siteService: SiteService,
     private ChangeDetectorRef: ChangeDetectorRef,
     public service: GlobalsService
+  
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
   }
@@ -223,7 +242,9 @@ export class VerificationlvComponent implements OnInit {
       this.countryList = JSON.parse(data);
     });
     this.refresh();
-    this.retrieveClientDetails();
+    // this.retrieveClientDetails();
+    // this.retrieveSiteDetails();
+    
   }
 
   retrieveIsActiveData() {
@@ -266,7 +287,7 @@ export class VerificationlvComponent implements OnInit {
   }
 
   retrieveSiteDetails() {
-    this.siteService.retrieveSite(this.site).subscribe((data) => {
+    this.siteService.retrieveSite(this.email).subscribe((data) => {
       this.site_dataSource = new MatTableDataSource(JSON.parse(data));
       this.site_dataSource.paginator = this.sitePaginator;
       this.site_dataSource.sort = this.siteSort;
@@ -399,7 +420,7 @@ export class VerificationlvComponent implements OnInit {
       width: '1000px',
       maxHeight: '90vh',
     });
-    dialogRef.componentInstance.email = this.email;
+    // dialogRef.componentInstance.email = this.email;
     dialogRef.afterClosed().subscribe((result) => {
       this.refresh();
       this.retrieveClientDetails();
@@ -498,7 +519,10 @@ export class VerificationlvComponent implements OnInit {
   public doSomething1(next: any): void {
     this.isCompleted = next;
   }
-
+  // public onGoingEditSite(data: String): void {
+  //   debugger
+  //   console.log(data);
+  // }
   public doSomething2(next: any): void {
     this.isCompleted2 = next;
   }
@@ -515,15 +539,46 @@ export class VerificationlvComponent implements OnInit {
   public NextStep5(next: any): void {
     this.isCompleted5 = next;
   }
-
+  // public changeT(value: any): void {
+  //   debugger
+  //   console.log(value);
+  // }
 //for saved reports tab
   changeTab(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any): void {
-    this.selectedIndex = index;
-    this.basic.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
-    this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
-    this.supply.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
-    //this.testing.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
-    this.summary.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site);
+    debugger
+    this.selectedIndex=1;
+    this.siteService.retrieveFinal(userName,sitedId).subscribe(
+
+      data=> {
+       // this.selectedIndex = index;
+        this.dataJSON = JSON.parse(data);
+        if(this.dataJSON.reportDetails != null) {
+          this.selectedIndex = index;            
+          this.basic.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+           if(this.dataJSON.supplyCharacteristics != null) {
+             this.supply.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+             if(this.dataJSON.periodicInspection != null) {
+               this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+               if(this.dataJSON.testingReport != null) {
+                 this.testing.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+                 if(this.dataJSON.summary != null) {
+                   this.summary.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+                 }
+               }
+             }
+           }
+           // this.selectedIndex=0;
+         }   
+        else{
+          this.selectedIndex=1;
+          this.noDetails=true;
+          this.saved.savedContinue();
+        }   
+      },
+      error=> {
+
+      }
+    )
   }
 
 //for final reports tab
@@ -531,9 +586,25 @@ export class VerificationlvComponent implements OnInit {
     this.selectedIndex = index;
   }
 
-  continue1(siteId: any,userName :any,clientName: any,departmentName: any,site: any) {
-    this.selectedIndex = 1;
-    this.basic.changeTab(1,siteId,userName,clientName,departmentName,site);
+  myTabSelectedTabChange(e: any) {
+    debugger
+    console.log(e);
   }
+
+  continue1(siteId: any,userName :any,clientName: any,departmentName: any,site: any) {
+    this.selectedIndex = 0;
+    this.basic.changeTab(0,siteId,userName,clientName,departmentName,site);
+  }
+
+  // onTabChanged(e: any) {
+  //   if(!this.conFlag) {
+  //     debugger
+  //     console.log(e);
+  //     this.selectedIndex = e.index;
+  //     //console.log(this.tabGroup.selectedIndex);
+  //   }
+    
+  // }
+
 
 }

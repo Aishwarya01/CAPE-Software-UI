@@ -130,7 +130,7 @@ font-size: 14px !important;
 }  */
 
 .mat-list-base {
-  padding-top: 65px !important;
+  padding-top: 30px !important;
 }
 .MenuIcons .mat-menu-item .mat-icon {
   margin-right: 2px !important;
@@ -190,22 +190,7 @@ h1.example-app-name {
      `<body>` to be our scrolling element for mobile layouts. */
   flex: 1 0 auto;
 }
-/* .desktopDisplay{
-  visibility: visible;
-}
-.mobileDisplay{
-visibility: hidden;
-} */
 
-/* @media (max-width: 768px){
-
-  .desktopDisplay{
-    visibility: hidden;
-  }
-  .mobileDisplay{
-visibility: visible;
-  }
-} */
 .equipment .form-control{
   margin: -7px 10px -7px 10px;
   width: 85% !important;
@@ -252,40 +237,22 @@ visibility: visible;
 .highlight{
   background: rgb(4 4 4 / 15%);
 }
-.mat-list-item .mat-list-item-content:hover{
-  background: rgb(4 4 4 / 15%);
+.highlightSub{
+  background: rgba(0,0,0,.04);
 }
+.highlightSub2{
+  background: rgba(0,0,0,.04);
+}
+.highlightType{
+  background: rgba(0,0,0,.04);
+}
+/* .mat-list-item .mat-list-item-content:hover{
+  background: rgb(4 4 4 / 15%);
+} */
 .mat-list-base .mat-list-item .mat-list-item-content, .mat-list-base .mat-list-option .mat-list-item-content {
   padding: unset !important;
+  margin: -4px 1px -4px 1px !important;
 }
-@media (max-width: 600px) {
-  .mobileDisplay{
-    display: block !important;
-  }
-  .desktopDisplay{
-    display: none !important;
-  }
-  .mat-drawer-inner-container {
-    margin-top: 20px;
-}
-.appName {
-  margin-left: 10px !important;
-}
-/* .mat-drawer-container {
-  position: unset !important;
-} */
-.auth-form-btn {
-  width: 40% !important;
-}
-.register{
-  padding-top: unset !important;
-  padding-left: unset !important;
-}
-.mat-list-base .mat-list-item .mat-list-item-content, .mat-list-base .mat-list-option .mat-list-item-content {
-  padding: 0 16px !important;
-}
-}
-
 /* login and register page */
 
 .errorshow {
@@ -311,9 +278,6 @@ visibility: visible;
   border-radius: 0.25rem;
 }
 
-/* .iti input, .iti input[type=text], .iti input[type=tel] {
-  margin-right: 160px !important;
-} */
 .iti{
   display: block !important;
 }
@@ -321,6 +285,131 @@ visibility: visible;
   background-color: #e9ecef;
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
+  pointer-events: none !important;
 }
 
 .invalid-feedback{display:block;}
+
+.multiselect-dropdown {
+  position: absolute !important;
+  width: 91% !important;
+}
+.multiselect-dropdown .dropdown-btn {
+  padding: 7.5px 12px !important;
+  line-height: 1.4 !important;
+}
+
+.multiselect-dropdown .dropdown-btn .selected-item {
+  max-width: unset !important;
+}
+#adminTable tr.mat-row, tr.mat-footer-row {
+  height: 60px !important;
+}
+.submenu {
+  overflow-y: hidden;
+  transition: transform 300ms ease;
+  transform-origin: top;
+  /* transform: scaleY(0);
+  padding-left: 56px; */
+}
+.submenu.expanded {
+  transform: scaleY(1);
+}
+.leftAlignSub .mat-list-item-content{
+  margin-left: 30px !important;
+}
+#commetTable thead th, #commetTable thead td {
+  border-bottom-width: 0px !important;
+}
+#commetTable thead th {
+  border-bottom-width: 0px !important;
+}
+.collapse:not(.show) {
+  display: block !important;
+}
+.even {
+  margin-left: 41px;
+  width: 50%;
+}
+.even1{
+  display: block;
+    font-size: 11px;
+    text-align: center;
+    margin-left: -31%;
+    width: auto;
+}
+.viewer{
+  display: block;
+  font-size: 11px;
+  text-align: center;
+  margin-left: -25%;width: auto;
+}
+
+.odd1 {
+  border: 1px solid black;
+  background-color: white;
+  margin: 0 122px;
+ width: 5%;
+}
+.scrollbar
+{
+max-height:300px; overflow-y:auto; overflow-x:hidden; 
+}
+
+#style-1::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar
+{
+	width: 8px;
+	background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+}
+.mat-badge-content {
+  color: white;
+  background: red !important;
+}
+.mat-menu-below{
+  width: auto !important;
+  max-width: unset !important;
+}
+
+@media (max-width: 600px) {
+  .loginCardBody{
+    width: 109% !important;
+    margin-left: -14px;
+  }
+  .mobileDisplay{
+    display: block !important;
+  }
+  .desktopDisplay{
+    display: none !important;
+  }
+  .mat-drawer-inner-container {
+    margin-top: 20px;
+}
+.appName {
+  margin-left: 10px !important;
+}
+
+.auth-form-btn {
+  width: 40% !important;
+}
+.register{
+  padding-top: unset !important;
+  padding-left: unset !important;
+}
+.mat-list-base .mat-list-item .mat-list-item-content, .mat-list-base .mat-list-option .mat-list-item-content {
+  padding: 0 16px !important;
+}
+}

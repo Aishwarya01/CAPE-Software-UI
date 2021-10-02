@@ -13,17 +13,20 @@ export class LoginserviceService {
   apiUrl = environment.apiUrl;
   USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser';
   public token: String = '';
+  apiUrl_v2 = environment.apiUrl_v2;
 
   constructor(private http: HttpClient) {
 
   }
 
   public login(email: String, password: String): Observable<any> {
-    return this.http.post<any>(this.apiUrl + '/authenticate', { email, password })
+    return this.http.post<any>(this.apiUrl_v2 + '/authenticate', { email, password })
       .pipe(
         map(userData => {
-          sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, JSON.stringify(userData.users));
+          sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, JSON.stringify(userData.register));
           this.token = userData.token
+          sessionStorage.setItem('token', JSON.stringify(this.token));
+
           return userData;
         }));
   }
@@ -47,6 +50,6 @@ export class LoginserviceService {
   }
 
   retrieveUserInformation(email: String): Observable<any>{
-    return this.http.get<User>(this.apiUrl + '/retrieveUserInformation'+'/' + email, { responseType: 'text' as 'json' } )
+    return this.http.get<User>(this.apiUrl_v2 + '/retrieveUserInformation'+'/' + email, { responseType: 'text' as 'json' } )
   }
 }

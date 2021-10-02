@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild, ViewContainerRef, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild, ViewContainerRef, OnInit,ElementRef } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -23,6 +23,36 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { environment } from 'src/environments/environment';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { SiteService } from '../services/site.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { Company } from '../model/company';
+import { GlobalsService } from '../globals.service';
+import { Register } from '../model/register';
+import { InspectorregisterService } from '../services/inspectorregister.service';
+import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
+import { InspectionVerificationService } from '../services/inspection-verification.service';
+
+export interface PeriodicElement {
+  siteCd: string;
+  site: string;
+  country: string;
+  city: string;
+  createdDate: string;
+  createdBy: string;
+  updatedDate: string;
+  updatedBy: string;
+}
+
+const ELEMENT_DATA: PeriodicElement[] = [
+  {siteCd: 'CODE', site: 'Arun', country: 'India', city: 'chennai', createdDate: '1/1/2021', createdBy: 'Arun K', updatedDate: '1/1/2021', updatedBy: 'Arun K'},
+  {siteCd: 'CODE1', site: 'Arun1', country: 'India', city: 'chennai', createdDate: '2/1/2021', createdBy: 'Arun Kumar', updatedDate: '1/1/2021', updatedBy: 'Arun Kumar'},
+  {siteCd: 'CODE2', site: 'Arun2', country: 'India', city: 'chennai', createdDate: '3/1/2021', createdBy: 'Arun K', updatedDate: '1/1/2021', updatedBy: 'Arun K'},
+  {siteCd: 'CODE3', site: 'Arun3', country: 'India', city: 'chennai', createdDate: '4/1/2021', createdBy: 'Arun', updatedDate: '1/1/2021', updatedBy: 'Arun'},
+  {siteCd: 'CODE4', site: 'Arun4', country: 'India', city: 'chennai', createdDate: '5/1/2021', createdBy: 'AK', updatedDate: '1/1/2021', updatedBy: 'AK'},
+  {siteCd: 'CODE5', site: 'Arun5', country: 'India', city: 'chennai', createdDate: '6/1/2021', createdBy: 'Arun', updatedDate: '1/1/2021', updatedBy: 'Arun'},
+];
 
 @Component({
   selector: 'app-main-nav',
@@ -30,20 +60,60 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./main-nav.component.css']
 })
 export class MainNavComponent implements OnInit, OnDestroy {
+
+  ongoingSiteColumns: string[] = [
+    'siteCd',
+    'site',
+    'country',
+    'city',
+    'createdDate',
+    'createdBy',
+    'updatedDate',
+    'updatedBy',
+   // 'action',
+  ];
+  ongoingSite_dataSource!: MatTableDataSource<Company[]>;
+  
+  @ViewChild('ongoingSitePaginator', { static: true }) ongoingSitePaginator!: MatPaginator;
+  @ViewChild('ongoingSiteSort', { static: true }) ongoingSiteSort!: MatSort;
+
+  completedLicenseColumns: string[] = [
+    'siteCd',
+    'site',
+    'country',
+    'city',
+    'createdDate',
+    'createdBy',
+    'updatedDate',
+    'updatedBy',
+    'action',
+  ];
+
+  
+  completedLicense_dataSource!: MatTableDataSource<Company[]>;
+  @ViewChild('completedLicensePaginator', { static: true }) completedLicensePaginator!: MatPaginator;
+  @ViewChild('completedLicenseSort', { static: true }) completedLicenseSort!: MatSort;
+
   sidenavWidth: any;
   isExpanded: boolean = false;
   showSubmenu: boolean = false;
   isShowing = false;
   showSubSubMenu: boolean = false;
+  showSubmenuRep: boolean = false;
   showingh = false;
   autosize: boolean = true;
   screenWidth: number | undefined;
   activeTab = 0;
+  ongoingSite: boolean = false;
+  completedSite: boolean = false;
   public isCollapsed = false;
   // imageSrc = 'assets/img/lowVoltage.jpg';
+//   @Output() proceedNext = new EventEmitter<any>();
+//  data:String="";
 
   @ViewChild('ref', { read: ViewContainerRef })
   viewContainerRef!: ViewContainerRef;
+  
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -61,12 +131,21 @@ export class MainNavComponent implements OnInit, OnDestroy {
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
   fullName: String = '';
   email: String = '';
+  userName: String = '';
+
   id: number = 0;
   type: String = '';
   code: String = '';
-  user = new User();
+  register = new Register();
   style: any;
 
+  itemValue1: String = 'IN';
+  itemValue2: String = 'TIC';
+  itemValue3: String = 'RM';
+  itemValue4: String = 'BM';
+  itemValue5: String = 'REP';
+  SubitemValue1: String = 'Ongoing TIC';
+  SubitemValue2: String = 'Completed TIC';
   // stackblitz
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
@@ -77,22 +156,60 @@ export class MainNavComponent implements OnInit, OnDestroy {
   desktopDisplay: boolean = false;
   welcome: boolean = true;
   //isExpanded: any;
-  //isExpanded: any;
-  selectedRowIndex = 0;
-
-
-
+  selectedRowIndex : String = '';
+  selectedRowIndexSub: String = '';
+  selectedRowIndexType: String = '';
+  applicationTypesbasedonuser: string="";
+  ApplicationTypesSplit: any=[];
+  showTIC: boolean = false;
+  showREP: boolean = false;
+  currentUser: any = [];
+  currentUser1: any = [];
+ 
+  mainApplications: any =   [{'name': 'Introduction', 'code': 'IN'},
+                            {'name': 'TIC', 'code': 'TIC'},
+                            {'name': 'RENT Meter', 'code': 'RM'},
+                            {'name': 'Buy Meter', 'code': 'BM'},
+                            {'name': 'Reports', 'code': 'REP'},
+                            ]
+  count!: number;
+  count1!: number;
+  viewerComment: boolean = false;
+  inspectorReply: boolean = false;
+  zeroNotification: boolean= false;
+  viewerName: String='';
+  inspectorName: String='';
+  viewerTime!:Date;
+  inspectorTime!:Date;
+  value: boolean= false;
+  userData: any=[];
+ // viewerFilterData:any=[];
+  ongoingFilterData:any=[];
+  completedFilterData:any=[];
+  notificationData: any =[];
+  activeNotificationData: any =[];
+  newNotificationCount!: number;
+  newNotificationFlag:boolean=true;
+  oldNotification:boolean=false;
+  NewViewerComment:boolean=false;
+  NewInspectorReply:boolean=false;
+  newZeroNotification:boolean=false;
 
   constructor(private breakpointObserver: BreakpointObserver, changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     private loginservice: LoginserviceService,
+    private inspectorService: InspectorregisterService,
+    private inspectionService: InspectionVerificationService,
     private router: ActivatedRoute,
+    public service: GlobalsService,
     private route: Router,
     private componentFactoryResolver: ComponentFactoryResolver,
     private applicationService: ApplicationTypeService,
-    private modalService: NgbModal, private bnIdle: BnNgIdleService) {
+    private modalService: NgbModal, private bnIdle: BnNgIdleService,
+    private siteService: SiteService) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
-    this.retrieveApplicationTypes();
+  //  this.retrieveApplicationTypes();
+    this.retrieveApplicationTypesBasedOnUser(this.email);
     this.displayUserFullName(this.email);
     // set screenWidth on page load
     this.screenWidth = window.innerWidth;
@@ -106,6 +223,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+   this.newNotify();
     this.mobileDisplay = false;
     this.desktopDisplay = true;
     this.bnIdle.startWatching(environment.sessionTimeOut).subscribe((isTimedOut: boolean) => {
@@ -115,8 +233,218 @@ export class MainNavComponent implements OnInit, OnDestroy {
         this.bnIdle.stopTimer();
       }
     });
+    this.currentUser=sessionStorage.getItem('authenticatedUser');
+    this.currentUser1 = [];
+    this.currentUser1=JSON.parse(this.currentUser);
+    if(this.currentUser1.role == 'Inspector') {
+      this.showTIC = true;
+      this.showREP = false;
+    }
+    else {
+      //uncomment this later...
+      this.showTIC = false;
+      this.showREP = false;
+      if(this.currentUser1.assignedBy != null) {
+        this.showREP = true;
+      }
+      // this.showTIC = true;
+      // this.showREP = true;
+    }
+    if(this.showREP) {
+      this.retrieveSiteDetails();
+    }
+  }
+
+  newNotify(){
+  this.inspectionService.notificationRetrieveComments(this.email).subscribe(
+    (data)=>{
+    console.log(data);
+      this.notificationData = JSON.parse(data);
+      this.newNotification(this.notificationData);
+    }
+  )
+  }
+  triggerScrollTo(){
+    this.service.triggerScrollTo();
+  }
+
+newNotification(value: any){
+  this.newNotificationFlag=true;
+  this.oldNotification=false;
+  this.activeNotificationData = [];
+  if(this.currentUser1.role == 'Inspector'){
+    if(value.reportDetailsComment != null) {
+      for(let a of value.reportDetailsComment) {
+        if(a.viewerFlag == 1 && a.inspectorFlag == 0 && (a.approveOrReject == '' || a.approveOrReject == null )) {
+        this.activeNotificationData.push(a);
+        }
+      }
+    }
+    if(value.supplyCharacteristicComment != null) {
+      for(let b of value.supplyCharacteristicComment) {
+        if(b.viewerFlag == 1 && b.inspectorFlag == 0 && (b.approveOrReject == '' || b.approveOrReject == null )) {
+        this.activeNotificationData.push(b);
+        }
+      }
+    }
+    if(value.periodicInspectionComment != null) {
+      for(let c of value.periodicInspectionComment) {
+        if(c.viewerFlag == 1 && c.inspectorFlag == 0 && (c.approveOrReject == '' || c.approveOrReject == null )) {
+          this.activeNotificationData.push(c);
+        }
+      }
+    }
+    if(value.testingReportComment != null) {
+      for(let d of value.testingReportComment) {
+        if(d.viewerFlag == 1 && d.inspectorFlag == 0 && (d.approveOrReject == '' || d.approveOrReject == null )) {
+        this.activeNotificationData.push(d);
+        }
+      }
+    }
+    if(value.summaryComment != null) {
+      for(let e of value.summaryComment) {
+        if(e.viewerFlag == 1 && e.inspectorFlag == 0 && (e.approveOrReject == '' || e.approveOrReject == null )) {
+        this.activeNotificationData.push(e);
+        }
+      }
+    }
+    if(this.activeNotificationData.length != 0) {
+      this.NewInspectorReply = false;
+      this.NewViewerComment = true;
+    }
+    else{
+      this.newZeroNotification = true
+    }
+  }
+  else{
+    if(value.reportDetailsComment != null) {
+      for(let a of value.reportDetailsComment) {
+        if(a.viewerFlag == 1 && a.inspectorFlag == 1 && (a.approveOrReject == '' || a.approveOrReject == null )) {
+        this.activeNotificationData.push(a);
+        }
+      }
+    }
+    if(value.supplyCharacteristicComment != null) {
+      for(let b of value.supplyCharacteristicComment) {
+        if(b.viewerFlag == 1 && b.inspectorFlag == 1 && (b.approveOrReject == '' || b.approveOrReject == null )) {
+        this.activeNotificationData.push(b);
+        }
+      }
+    }
+    if(value.periodicInspectionComment != null) {
+      for(let c of value.periodicInspectionComment) {
+        if(c.viewerFlag == 1 && c.inspectorFlag == 1 && (c.approveOrReject == '' || c.approveOrReject == null )) {
+          this.activeNotificationData.push(c);
+        }
+      }
+    }
+    if(value.testingReportComment != null) {
+      for(let d of value.testingReportComment) {
+        if(d.viewerFlag == 1 && d.inspectorFlag == 1 && (d.approveOrReject == '' || d.approveOrReject == null )) {
+        this.activeNotificationData.push(d);
+        }
+      }
+    }
+    if(value.summaryComment != null) {
+      for(let e of value.summaryComment) {
+        if(e.viewerFlag == 1 && e.inspectorFlag == 1 && (e.approveOrReject == '' || e.approveOrReject == null )) {
+        this.activeNotificationData.push(e);
+        }
+      }
+    }
+    if(this.activeNotificationData.length != 0) {
+      this.NewInspectorReply = true;
+      this.NewViewerComment = false;
+    }
+    else{
+      this.newZeroNotification = true
+    }
+  }
+  this.newNotificationCount=this.activeNotificationData.length;
+}
+
+notification(number: any,viewerName: any,inspectorName: any,viewerDate: any,inspectorDate: any){
+  this.count = number;
+  this.newNotificationFlag=false;
+  this.oldNotification=true;
+  if(this.currentUser1.role == 'Inspector') {
+    if(number!=1){
+    this.zeroNotification=true;
+    this.viewerComment=false;
+    this.inspectorReply=false;
+    }
+    else{
+      this.viewerName = viewerName;
+      this.inspectorName = inspectorName;
+      this.viewerTime = viewerDate;
+      this.inspectorTime = inspectorDate;
+      this.zeroNotification=false;
+      this.viewerComment=true;
+      this.inspectorReply=false;
+    }
+  }
+  else {
+    if(number!=1){
+      this.zeroNotification=true;
+      this.viewerComment=false;
+      this.inspectorReply=false;
+      }
+      else{
+        this.viewerName = viewerName;
+        this.inspectorName = inspectorName;
+        this.viewerTime = viewerDate;
+        this.inspectorTime = inspectorDate;
+        this.zeroNotification=false;
+        this.viewerComment=false;
+        this.inspectorReply=true;
+      }
+  }
+//  this.count= this.service.notificationCount;
+}
+
+  retrieveSiteDetails() {
+    if(this.currentUser1.role == 'Inspector') {
+      this.siteService.retrieveSite(this.email).subscribe((data) => {
+        this.ongoingSite_dataSource = new MatTableDataSource(JSON.parse(data));
+        this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
+        this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
+  
+        this.completedLicense_dataSource = new MatTableDataSource(JSON.parse(data));
+        this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
+        this.completedLicense_dataSource.sort = this.completedLicenseSort;
+      });
+    }
+    else {
+      if(this.currentUser1.assignedBy!=null) {
+        this.ongoingFilterData=[];
+        this.completedFilterData=[];
+        this.siteService.retrieveListOfSite(this.currentUser1.assignedBy).subscribe(
+          data => {
+            this.userData=JSON.parse(data);
+           for(let i of this.userData){
+             debugger
+             if(i.assignedTo==this.email){
+               if(i.allStepsCompleted=="AllStepCompleted"){
+                 this.completedFilterData.push(i);
+               }
+               else{
+                this.ongoingFilterData.push(i);
+               }
+             }
+           }
+        this.ongoingSite_dataSource = new MatTableDataSource(this.ongoingFilterData);
+        this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
+        this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
+  
+        this.completedLicense_dataSource = new MatTableDataSource(this.completedFilterData);
+        this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
+        this.completedLicense_dataSource.sort = this.completedLicenseSort;
+      });
+    }
+    }
     
   }
+
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
     // this.isShowing = true;
@@ -146,23 +474,124 @@ export class MainNavComponent implements OnInit, OnDestroy {
     );
   }
 
+  retrieveApplicationTypesBasedOnUser(email: String) {
+    this.applicationService.retrieveApplicationTypesBasedOnUser(email).subscribe(
+      data => {
+         this.applicationTypesbasedonuser = data.applicationType;
+         if(this.applicationTypesbasedonuser != null) {
+          this.ApplicationTypesSplit=this.applicationTypesbasedonuser.split(',');
+        }
+      }
+    );
+  }
+
+
   logout() {
     this.loginservice.logout();
     this.route.navigate(['login']);
   }
 
   displayUserFullName(email: String) {
-    this.loginservice.retrieveUserInformation(email).subscribe(
+    this.inspectorService.retrieveInspector(email).subscribe(
       data => {
-        this.user = JSON.parse(data);
-        this.fullName = this.user.firstname + " " + this.user.lastname;
+        this.register = JSON.parse(data);
+        this.fullName = this.register.name;
 
       }
     )
   }
   highlight(type:any){
-    this.selectedRowIndex = type.id;
+    this.selectedRowIndex = type;
+    this.selectedRowIndexType="";
+    this.selectedRowIndexSub ="";
+ }
+ highlightSub(type:any){
+  this.welcome= false;
+  this.selectedRowIndexSub = type;
+  this.selectedRowIndexType="";
+  this.ongoingSite=true;
+  this.completedSite=false;
+  this.value= false;
+ }
+
+ editSite(siteId: any,userName: any,site: any) {
+  if (confirm("Are you sure you want to edit site details?"))
+  {
+    this.value= true;
+    this.welcome= false;  
+    this.ongoingSite=false;
+    this.completedSite=false;
+  } 
+  else {
+    this.value= false;
+    this.welcome= false;  
+    this.ongoingSite=true;
+    this.completedSite=false;
+  }
+ }
+
+ viewSite(siteId: any,userName: any,site: any){
+  if (confirm("Are you sure you want to view site details?"))
+  {
+    this.value= true;
+    this.welcome= false;  
+    this.ongoingSite=false;
+    this.completedSite=false;
+  } 
+  else {
+    this.value= false;
+    this.welcome= false;  
+    this.ongoingSite=true;
+    this.completedSite=false;
+  }
+  // this.welcome= false;
+  // this.ongoingSite=false;
+  // this.completedSite=false;
+  // this.viewContainerRef.clear();
+  // //this.viewContainerRef1.clear();
+  // const VerificationlvFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
+  // const lvInspectionRef = this.viewContainerRef.createComponent(VerificationlvFactory);
+  // //const lvInspectionRef1 = this.viewContainerRef1.createComponent(lvInspectionFactory);
+  // lvInspectionRef.changeDetectorRef.detectChanges();
 }
+
+pdfModal(contentPDF:any){
+  this.modalService.open(contentPDF,{size: 'xl'})
+ 
+}
+printPage() {
+  window.print();
+}
+downloadPdf(siteId: any,userName: any): any {
+  this.inspectionService.downloadPDF(siteId,userName).subscribe(
+    data =>{
+      let blob = new Blob([data], {
+        type: 'application/pdf' // must match the Accept type
+        // type: 'application/octet-stream' // for excel 
+    });
+    var link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = 'samplePDFFile.pdf';
+    link.click();
+    window.URL.revokeObjectURL(link.href);
+    },
+    error =>{
+
+    }
+  )
+}
+ highlightSub2(type:any){
+  this.welcome= false;
+  this.selectedRowIndexSub = type;
+  this.selectedRowIndexType="";
+  this.ongoingSite=false;
+  this.completedSite=true;
+  this.value=false;
+ }
+ highlightType(type:any){
+  this.selectedRowIndexType = type;
+  this.selectedRowIndexSub ="";
+ }
   changePassword(email: String) {
     this.route.navigate(['changePassword', { email: email }])
   }
@@ -183,7 +612,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   showLinkDescription(id: any) {
     this.welcome= false;
     switch (id) {
-      case 1:
+      case 'LV Systems':
         this.viewContainerRef.clear();
         //this.viewContainerRef1.clear();
         const lvInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LvInspectionDetailsComponent);
@@ -192,18 +621,18 @@ export class MainNavComponent implements OnInit, OnDestroy {
         lvInspectionRef.changeDetectorRef.detectChanges();
         //lvInspectionRef1.changeDetectorRef.detectChanges();
         break;
-      case 2:
+      case 'HV Systems':
         this.viewContainerRef.clear();
         //this.viewContainerRef1.clear();
         break;
-      case 3:
+      case 'Risk Assessment':
         this.viewContainerRef.clear();
         //this.viewContainerRef1.clear();
         const riskAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(RiskAssessmentInspectionMaintenanceComponent);
         const riskAssessmentInspectionRef = this.viewContainerRef.createComponent(riskAssessmentInspectionFactory);
         riskAssessmentInspectionRef.changeDetectorRef.detectChanges();
         break;
-      case 4:
+      case 'EMC Assessment':
         this.viewContainerRef.clear();
         //this.viewContainerRef1.clear();
         const emcAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(EmcAssessmentInstallationComponent);
@@ -220,6 +649,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
         break;
     }
   }
+
+
 
   editApplicationType(id: any, type: String, code: String) {
     const modalRef = this.modalService.open(UpdateApplicationTypesComponent);

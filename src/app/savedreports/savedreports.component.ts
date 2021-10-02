@@ -18,20 +18,24 @@ import { GlobalsService } from '../globals.service';
 })
 export class SavedreportsComponent implements OnInit {
 
-  savedReportsColumns: string[] = [ 'siteID', 'siteName', 'personIncharge', 'contactNumber', 'contactDetails', 'state', 'country', 'continue'];
+  savedReportsColumns: string[] = [ 'siteCD', 'siteName', 'personIncharge', 'contactNumber', 'contactDetails', 'state', 'country', 'continue'];
   savedReport_dataSource!: MatTableDataSource<Site[]>;
   @ViewChild('savedReportPaginator', { static: true }) savedReportPaginator!: MatPaginator;
   @ViewChild('savedReportSort', {static: true}) savedReportSort!: MatSort;
 
-  @Output("changeTab") changeTab: EventEmitter<any> = new EventEmitter();
-
- 
-
+  // @Output("changeTab") changeTab: EventEmitter<any> = new EventEmitter();
   email: String ="";
   site = new Site;
   clientList:any  = [];
   departmentList: any = [];
-  
+  noDetails: boolean=false;
+  noDetailsRec: boolean=false;
+  showTIC: boolean = false;
+  showREP: boolean = false;
+  currentUser: any = [];
+  currentUser1: any = [];
+  userData: any=[];
+  viewerFilterData:any=[];
 
   constructor(private router: ActivatedRoute,
               private clientService: ClientService,
@@ -45,7 +49,11 @@ export class SavedreportsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.retrieveClientDetails();
+    // this.retrieveClientDetails();
+    this.currentUser=sessionStorage.getItem('authenticatedUser');
+    this.currentUser1 = [];
+    this.currentUser1=JSON.parse(this.currentUser);
+    this.retrieveSiteDetails();
   }
 
   private retrieveClientDetails() {
@@ -69,20 +77,50 @@ export class SavedreportsComponent implements OnInit {
   }
 
   retrieveSiteDetails() {
-      this.siteService.retrieveListOfSite(this.site).subscribe(
+    if(this.currentUser1.role == 'Inspector') {
+      this.siteService.retrieveListOfSite(this.email).subscribe(
         data => {
          this.savedReport_dataSource = new MatTableDataSource(JSON.parse(data));
           this.savedReport_dataSource.paginator = this.savedReportPaginator;
           this.savedReport_dataSource.sort = this.savedReportSort;
         });
+    }
+    else { //viewer
+      if(this.currentUser1.assignedBy!=null) {
+        this.viewerFilterData=[];
+        this.siteService.retrieveListOfSite(this.currentUser1.assignedBy).subscribe(
+          data => {
+            this.userData=JSON.parse(data);
+           for(let i of this.userData){
+             debugger
+             if(i.assignedTo==this.email){
+               this.viewerFilterData.push(i);
+             }
+           }
+           console.log(this.viewerFilterData);
+           this.savedReport_dataSource = new MatTableDataSource(this.viewerFilterData);
+            this.savedReport_dataSource.paginator = this.savedReportPaginator;
+            this.savedReport_dataSource.sort = this.savedReportSort;
+          });
+      } 
+    }
+        
   }
 
   deleteSite(siteName: any) {
 
   }
 
-  continue(siteId: any,userName :any,clientName: any,departmentName: any,site: any) {
-    this.verification.changeTab(1,siteId,userName,clientName,departmentName,site);
+  continue(siteId: any,userName :any,site: any) {
+    this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
   }
-  
+  savedContinue()
+  {
+    if(this.verification.noDetails==true){
+    this.noDetailsRec=true;
+    setTimeout(() => {
+      this.noDetailsRec = false;
+    }, 3000);
+   }
+  }
 }

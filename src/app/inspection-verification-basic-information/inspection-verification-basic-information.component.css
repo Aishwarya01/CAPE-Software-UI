@@ -78,8 +78,24 @@ mat-header-cell.mat-header-cell {
   color: white;
   margin-left: 30px;
 }
+.reply{
+  background-color: #f1f1f1;
+  color: black;
+  margin-left: 30px;
+  width: 7%;
+  padding-left: 11px;
+}
+.reply:hover{
+  background-color: #04a2aa;
+  color: white;
+  margin-left: 30px;
+  width: 7%;
+  padding-left: 11px;
+}
 
-
+/* textarea::-webkit-input-placeholder {
+text-align: center;
+} */
 
 .example-section {
   margin: 12px 0;
@@ -96,3 +112,56 @@ mat-header-cell.mat-header-cell {
     margin-left: 30px;
     cursor: not-allowed;
   }   
+/* comments */
+.commentbtn{
+     background-color: #f1f1f1;
+     color: black;
+     margin: 0 auto;
+     display: block;
+}
+.commentbtn:hover{
+  background-color: #04a2aa;
+  color: white;
+  margin: 0 auto;
+  display: block;
+}
+  h4 {
+    margin: 2rem 0rem 1rem;
+  }
+  .disable:hover{
+    cursor: not-allowed;
+    }
+    .disable:active{
+    pointer-events: none;
+    }
+
+    .menu-button {
+      transition: 300ms ease-in-out;
+      transform: rotate(0deg);
+    }
+    .menu-button .rotated {
+      transform: rotate(90deg);
+    }
+    /* .menu-button::after {
+      border-style: solid;
+      border-width: 0 2px 2px 0;
+      content: "";
+      display: inline-block;
+      padding: 3px;
+      transform: rotate(
+  45deg);
+      vertical-align: middle;
+  } */
+.rejectScenario{
+  /* pointer-events: none; */
+  cursor: not-allowed;
+}
+
+p span {
+  display: inline-block;
+  max-width: 100px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: middle;
+}

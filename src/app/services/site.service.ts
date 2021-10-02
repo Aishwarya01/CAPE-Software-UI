@@ -10,6 +10,7 @@ import { Site } from '../model/site';
 export class SiteService {
 
   apiUrl = environment.apiUrl;
+  apiUrlV2 = environment.apiUrl_v2;
   constructor(private http: HttpClient) { }
 
   public addSIte(site: Site): Observable<any> {
@@ -24,27 +25,34 @@ export class SiteService {
     return this.http.delete<any>(this.apiUrl + '/deleteSite' +  '/' + siteId, { responseType: 'text' as 'json' })
   }
 
-  public retrieveSite(site: Site): Observable<any> {
-    return this.http.get<Site>(this.apiUrl + '/retriveSite' + '/' + site.clientName+ '/' +site.departmentName, { responseType: 'text' as 'json' })
+  public retrieveSite(userName: any): Observable<any> {
+    return this.http.get<Site>(this.apiUrl + '/retriveSite' + '/' + userName, { responseType: 'text' as 'json' })
   }
 
-  public retrieveListOfSite(site: Site): Observable<any> {
-    return this.http.get<Site>(this.apiUrl + '/retrieveListOfSite' + '/' + site.clientName + '/' +site.departmentName, { responseType: 'text' as 'json' })
+  public retrieveListOfSite(userName: any): Observable<any> { 
+    return this.http.get<Site>(this.apiUrl + '/retrieveListOfSite' + '/' + userName , { responseType: 'text' as 'json' })
   }
 
   public retrieveSiteInfo(clientName: String, departmentName: String): Observable<any> {
     return this.http.get<Site>(this.apiUrl + '/retriveSite' + '/' + clientName+ '/' +departmentName, { responseType: 'text' as 'json' })
   }
 
+  public retrieveSiteForInspection(companyName: String, departmentName: String, siteName: String): Observable<any> {
+    return this.http.get<Site>(this.apiUrl + '/retrieveSiteByName' + '/' + companyName+ '/' +departmentName + '/' +siteName, { responseType: 'text' as 'json' })
+  }
+
   public retrieveCountry(): Observable<any> {
-    return this.http.get<any>(this.apiUrl + '/fetchCountries', { responseType: 'text' as 'json' })
+    return this.http.get<any>(this.apiUrlV2 + '/fetchCountries', { responseType: 'text' as 'json' })
   }
 
   public retrieveState(countryName: String): Observable<any> {
-    return this.http.get<any>(this.apiUrl + '/fetchStatesByCountryCode' + '/' +countryName, { responseType: 'text' as 'json' })
+    return this.http.get<any>(this.apiUrlV2 + '/fetchStatesByCountryCode' + '/' +countryName, { responseType: 'text' as 'json' })
   }
 
   public retrieveFinal(userName: String,siteId: any): Observable<any> {
     return this.http.get<any>(this.apiUrl + '/retrieveReport' + '/' +userName+ '/' +siteId, { responseType: 'text' as 'json' })
+  }
+  public retrieveStateV2(countryName: String): Observable<any> {
+    return this.http.get<any>(this.apiUrlV2 + '/fetchStatesByCountryCode' + '/' +countryName, { responseType: 'text' as 'json' })
   }
 }

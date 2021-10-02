@@ -6,6 +6,7 @@ import {
   Output,
   ViewChild,
   OnDestroy,
+  ElementRef
 } from '@angular/core';
 import {
   AbstractControl,
@@ -23,6 +24,11 @@ import { InspectiondetailsService } from '../services/inspectiondetails.service'
 import { InspectionVerificationIncomingEquipmentComponent } from '../inspection-verification-incoming-equipment/inspection-verification-incoming-equipment.component';
 import { GlobalsService } from '../globals.service';
 import { Location } from '../model/location';
+import { SiteService } from '../services/site.service';
+import { InspectionVerificationService } from '../services/inspection-verification.service';
+import { CommentsSection } from '../model/comments-section';
+import { MainNavComponent } from '../main-nav/main-nav.component';
+
 @Component({
   selector: 'app-inspection-verification-testing',
   templateUrl: './inspection-verification-testing.component.html',
@@ -45,14 +51,16 @@ export class InspectionVerificationTestingComponent implements OnInit {
   @Output() proceedNext = new EventEmitter<any>();
   testingDetails = new TestingDetails();
   incomingVoltage: String = '';
-  incomingZs: String = '';
-  incomingIpf: String = '';
+  incomingLoopImpedance: String = '';
+  incomingFaultCurrent: String = '';
   rateArr: any = [];
   locationNumberList: any = [];
   //@Input()
   userName: String = '';
   //@Input()
   siteId!: number;
+  rateValueArr: any=[];
+  testingRecordTableArr: any = [];
 
   locationNameList: any = [];
   distributionIncomingValueArr: any = [];
@@ -61,17 +69,18 @@ export class InspectionVerificationTestingComponent implements OnInit {
   ratingAmps1: any;
   testDistribution!: FormArray;
   testingDistribution!: FormArray;
-  successMsg: string = '';
-  success: boolean = false;
-  Error: boolean = false;
-  errorMsg: string = '';
   o: any;
+  // successMsg: string = '';
+  // success: boolean = false;
+  // Error: boolean = false;
+  // errorMsg: string = '';
   email: string;
   validationError: boolean = false;
   validationErrorMsg: String = '';
   location = new Location();
   // demoArr: any=[];
   disable: boolean = false;
+  flag:boolean=false;
   fcname: any[] = [
     'circuitNo',
     'circuitDesc',
@@ -79,14 +88,15 @@ export class InspectionVerificationTestingComponent implements OnInit {
     'circuitType',
     'circuitRating',
     'circuitBreakingCapacity',
+    'shortCircuitSetting',
+    'eFSetting',
     'conductorInstallation',
-    'conductorLive',
+    'conductorPhase',
+    'conductorNeutral',
     'conductorPecpc',
     'continutiyApproximateLength',
     'continutiyRR',
     'continutiyR',
-    'continutiyLL',
-    'continutiyLE',
     'continutiyPolarity',
 
     'rcdCurrent',
@@ -96,6 +106,85 @@ export class InspectionVerificationTestingComponent implements OnInit {
     'rcdRemarks',
   ];
   errorArr: any=[];
+  testList: any=[];
+  arr:any=[];
+  Ratearr1:any=[];
+  testingRetrieve: boolean=false;
+  inspectionRetrieve: boolean=false;
+
+  //comments starts
+  completedCommentArr3: any = [];
+  successMsg: string="";
+  commentSuccess: boolean=false;
+  commentApprove: boolean=false;
+  commentReject: boolean=false;
+  errorMsg: string="";
+  success: boolean=false;
+  Error: boolean=false;
+  viewerComments: String='';
+  commentDataArr: any = [];
+  replyClicked: boolean=false;
+  inspectorCommentArr!: FormArray;
+  viewerCommentArr!: FormArray;
+  completedCommentArr!: FormArray;
+  comments = new CommentsSection;
+  completedComments: boolean=false;
+  date!: Date;
+  toggleHideShow:boolean=false;
+  public today: Date = new Date();
+  isCollapsed = false;
+  registerData: any = [];
+  mode: any= 'indeterminate';
+  cardBodyComments: boolean=true;
+  spinner: boolean=false;
+  replyCommentBox: boolean=false;
+  hideMatIcons:boolean[] = [];
+  hideAsViewerLogin: boolean=false;
+  hideAsInspLogin: boolean=true;
+  hideCommentSection: boolean=false;
+  currentUser: any = [];
+  currentUser1: any = [];
+  reportViewerCommentArr:any = [];
+  reportInspectorCommentArr:any = [];
+  commentId: any;
+  hideAdd: boolean=false;
+  hideInspText: boolean=false;
+  SendReply: boolean=false;
+  showSend: boolean=false;
+  sendComment: boolean=false;
+  hideapproveIcon: boolean=false;
+  hideapprove: boolean=false;
+  hideRejectIcon: boolean=false;
+  hideReject: boolean=false;
+  showSubmenu: boolean = true;
+  showText: boolean = true;
+  isExpanded: boolean = false;
+  isShowing = false;
+  enabled: boolean = false;
+  enabledViewer: boolean = false;
+  savedUserName: String = '';
+  completedCommentArrValue: any = [];
+  afterApprove: boolean= false;
+  hideRefresh:  boolean= false;
+  hideDelete: boolean= false;
+  showReplyBox: boolean= false;
+  enabledRequest: boolean= false;
+  disableSend: boolean= false;
+  disableReply: boolean= false;
+  addReject: boolean= false;
+  count: number = 0;
+  color = 'red';
+  completedCommentArr4: any =[];
+  completedCommentArr5: any =[];
+  completedCommentArr1!: FormArray;
+  expandedIndex!: number;
+  isClicked:boolean[] = []; 
+  arrViewer: any = [];
+  @ViewChild('target') private myScrollContainer!: ElementRef;
+  expandedIndexx!: number;
+  inspectorName: String = '';	
+  hideShowComment: boolean=false;
+  //comments end
 
   constructor(
     private testingService: TestingService,
@@ -103,7 +192,10 @@ export class InspectionVerificationTestingComponent implements OnInit {
     public service: GlobalsService,
     private modalService: NgbModal,
     private router: ActivatedRoute,
-    private inspectionDetailsService: InspectiondetailsService
+    private inspectionDetailsService: InspectiondetailsService,
+    private siteService: SiteService,
+    private basic: MainNavComponent,
+    private UpateInspectionService: InspectionVerificationService,
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
   }
@@ -111,11 +203,15 @@ export class InspectionVerificationTestingComponent implements OnInit {
   ngOnInit(): void {
     this.testingForm = this.formBuilder.group({
       testaccordianArr: this.formBuilder.array([]),
+      viewerCommentArr: this.formBuilder.array([this.addCommentViewer()]),
+      completedCommentArr1: this.formBuilder.array([]),
     });
     if (
       this.service.iterationList != '' &&
       this.service.iterationList != undefined
     ) {
+      this.testingRetrieve=false;
+      this.inspectionRetrieve=true;
       let a = this.service.iterationList.length;
       for (let i = 0; i < a; i++) {
         this.addItem();
@@ -129,7 +225,698 @@ export class InspectionVerificationTestingComponent implements OnInit {
       this.location.locationArr = this.service.iterationList;
       this.service.iterationList = [];
     }
+    this.expandedIndex = -1 ;
   }
+
+  retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
+      this.testingRetrieve=true;
+      this.inspectionRetrieve=false;
+      this.testList = JSON.parse(data);
+      this.testingDetails.siteId = siteId;
+      this.testingDetails.testingReportId = this.testList.testingReport.testingReportId;
+      this.testingDetails.createdBy = this.testList.testingReport.createdBy;
+      this.testingDetails.createdDate = this.testList.testingReport.createdDate;
+      this.populateData();
+      this.populateDataComments();
+      this.flag=true;
+     }
+
+     //comments section starts
+
+populateDataComments() {
+  this.hideShowComment=true;
+  this.reportViewerCommentArr = [];
+  this.completedCommentArr3 = [];
+  this.completedCommentArr4 = [];
+  this.arrViewer = [];
+  this.completedCommentArr1 = this.testingForm.get('completedCommentArr1') as FormArray;
+ for(let value of this.testList.reportDetails.reportDetailsComment){
+   this.arrViewer=[];
+   if(this.currentUser1.role == 'Inspector' ) { //Inspector
+    if(value.approveOrReject == 'APPROVED') {
+      this.completedComments = true;
+      this.enabledViewer=true;
+      for(let j of this.testList.reportDetails.reportDetailsComment) {
+        if(value.noOfComment == j.noOfComment) {
+          this.completedCommentArr3.push(j);
+        }
+      }
+      console.log(this.completedCommentArr3)
+       this.completedCommentArr4.push(this.addItem1(this.completedCommentArr3));               
+      this.completedCommentArr3 = [];
+    }
+    for(let j of this.testList.reportDetails.reportDetailsComment) {
+         if(j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) {
+          this.arrViewer.push(this.createCommentGroup(j));
+         }
+         else if(j.approveOrReject == 'APPROVED'){
+          this.arrViewer = [];
+        }        
+      }
+    this.enabledRequest=false;
+    this.SendReply=false; 
+       console.log(value.viewerDate + "   " + value.viewerComment)
+       if(value.viewerFlag=='1'){
+         if(value.inspectorFlag=='0')
+        {
+          this.basic.notification(1,value.viewerUserName,value.inspectorUserName,value.viewerDate,value.inspectorDate);
+        }
+        else{
+          this.basic.notification(0,value.viewerUserName,value.inspectorUserName,value.viewerDate,value.inspectorDate);
+        }
+         this.hideCommentSection= false;
+         this.SendReply=false; 
+         this.replyCommentBox=true;
+        // this.showReplyBox=true;
+        if(value.inspectorFlag=='1'){
+         this.enabled=true;
+         this.hideAsViewerLogin=false;
+         this.enabledViewer=true;
+        }
+        else{
+         this.enabled=false;
+         this.hideAsViewerLogin=true;
+         this.enabledViewer=true;
+        }
+        }
+        this.hideAdd=false;
+        this.hideapprove=false;
+        this.hideReject=false;
+        this.reportViewerCommentArr.push(this.createCommentGroup(value));
+        this.testingForm.setControl('viewerCommentArr', this.formBuilder.array(this.reportViewerCommentArr || []))
+         }
+
+         //Viewer starts
+         else { 
+           if(value.inspectorFlag=='1'){
+             if(value.approveOrReject == 'APPROVED') {
+              if(value.viewerFlag=='1' && value.inspectorFlag=='1')
+              {
+                this.basic.notification(0,value.viewerUserName,value.inspectorUserName,value.viewerDate,value.inspectorDate);
+              }
+               this.completedComments = true;
+               this.enabledViewer=true;
+               for(let j of this.testList.reportDetails.reportDetailsComment) {
+                 if(value.noOfComment == j.noOfComment) {
+                   this.completedCommentArr3.push(j);
+                 }
+               }
+               console.log(this.completedCommentArr3)
+                this.completedCommentArr4.push(this.addItem1(this.completedCommentArr3));               
+               this.completedCommentArr3 = [];
+             }
+
+             else{ //reject & null
+              debugger
+               this.enabledViewer=true;
+               if(value.viewerFlag=='1' && value.inspectorFlag=='1')
+               {
+                 if(value.approveOrReject == '') {
+                
+                 this.basic.notification(1,value.viewerUserName,value.inspectorUserName,value.viewerDate,value.inspectorDate);
+                 }
+               }
+               if(this.testList.reportDetails.reportDetailsComment.length < 1) {
+                 this.reportViewerCommentArr.push(this.addCommentViewer());
+                 this.testingForm.setControl('viewerCommentArr', this.formBuilder.array(this.reportViewerCommentArr || []));
+               }
+               else {
+                if(value.viewerFlag=='1' && value.inspectorFlag=='1')
+                {
+                  if(value.approveOrReject == '') {
+                 
+                  this.basic.notification(1,value.viewerUserName,value.inspectorUserName,value.viewerDate,value.inspectorDate);
+                  }
+                }
+                  this.enabled=true;
+                  this.enabledRequest=false;
+                  this.hideAdd=false;
+                  this.addReject=true;
+                  this.hideapprove=true;
+                  this.hideReject=true;
+                 // this.hideDelete=true;
+                  this.reportViewerCommentArr.push(this.createCommentGroup(value));
+                  this.testingForm.setControl('viewerCommentArr', this.formBuilder.array(this.reportViewerCommentArr || []))
+               }
+               this.hideCommentSection= true;
+               this.hideAsViewerLogin=false;
+               this.replyCommentBox=true;
+               // this.hideAdd=false;
+               // this.hideapprove=false;
+               // this.hideReject=false;
+               this.SendReply=false;
+               this.sendComment=true;
+               //this.hideDelete=true;
+             }   
+             this.hideCommentSection= true;
+             this.sendComment=true;
+             this.hideRefresh=false;
+             this.replyCommentBox=true;
+             this.hideAdd=false;
+            }
+            else {
+              //need to change
+              if(value.viewerFlag=='1'){
+               this.enabledViewer=true;
+               this.sendComment=false;
+               this.replyCommentBox=true;
+               this.disableSend=true;
+              }
+              else{
+               this.enabledViewer=false;
+               this.sendComment=true;
+               this.replyCommentBox=true;
+              }
+             this.reportViewerCommentArr.push(this.createCommentGroup(value));
+             this.testingForm.setControl('viewerCommentArr', this.formBuilder.array(this.reportViewerCommentArr || []))
+             this.reportViewerCommentArr = [];
+             this.hideCommentSection= true;
+            // this.sendComment=true;
+             this.hideRefresh=false;
+             
+             //this.replyCommentBox=true;
+             this.hideAdd=false;
+             this.hideapprove=false;
+             this.hideReject=false;
+             //this.showReplyBox=true;
+             this.enabledViewer=true;
+            }
+            for(let j of this.testList.reportDetails.reportDetailsComment) {
+                 if(j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) {
+                  this.arrViewer.push(this.createCommentGroup(j));
+                 }
+                 else if(j.approveOrReject == 'APPROVED'){
+                  this.arrViewer = [];
+                }        
+              }
+         }       
+       }
+       if(this.currentUser1.role == 'Inspector' ) {
+        if(this.arrViewer.length == 0) {
+          this.hideCommentSection=false;
+        }
+      }
+      else{
+        if(this.arrViewer.length == 0) {
+         this.arrViewer.push(this.addCommentViewer());
+        }
+      }
+       console.log(this.arrViewer);
+       this.testingForm.setControl('viewerCommentArr', this.formBuilder.array(this.arrViewer || []))
+       this.testingForm.setControl('completedCommentArr1', this.formBuilder.array(this.completedCommentArr4 || []));
+}
+getViewerFirstMessage(x: any) {
+  return x.controls.completedCommentArr.controls[0].controls.viewerComments.value;
+}
+showHideAccordion(index: number) {  
+  //console.log(x);
+  this.expandedIndexx = index === this.expandedIndexx ? -1 : index;  
+  this.isClicked[index] = !this.isClicked[index];
+  }
+  createCommentGroup(value: any) : FormGroup {
+    console.log(value.inspectorFlag);
+    return this.formBuilder.group({
+    viewerDateTime: new FormControl({disabled: false ,value: value.viewerDate}),
+    inspectorUserName: new FormControl({disabled: false ,value: value.inspectorUserName}),
+    viewerUserName: new FormControl({disabled: false ,value: value.viewerUserName}),
+    inspectorDateTime: new FormControl({disabled: false ,value: value.inspectorDate}),
+    approveOrReject: new FormControl({ disabled: this.enabledRequest, value: value.approveOrReject}),
+    commentId: new FormControl({disabled: false ,value: value.commentsId}),
+    viewerComments: new FormControl({disabled: value.viewerFlag != 0,value: value.viewerComment}),
+    inspectorComments: new FormControl({disabled: value.inspectorFlag != 0 ,value: value.inspectorComment}),
+  });
+  }
+  toggle(index:any) {
+  this.replyCommentBox=false;
+  this.isShowing = false;
+  this.isExpanded = false;
+  }
+  replyToViewerComment(a: any){
+  this.commentId = a.value.commentId;
+  this.replyCommentBox=true;
+  this.hideAsViewerLogin=false;
+  this.hideapproveIcon=false;
+  this.hideRejectIcon=false;
+  this.SendReply=true;
+  this.showReplyBox=true;
+  this.toggleHideShow=true;
+  }
+  sendViewerComment(a: any){
+      console.log(a);
+      this.comments.userName = this.email;
+      // this.comments.commentsId = this.step1Form.controls.viewerCommentArr.value[0].commentId;
+      this.comments.commentsId =a.value.commentId;
+      this.comments.viewerComment = a.value.viewerComments;
+      this.comments.approveOrReject = '';
+      this.testingService.sendComments(this.comments,this.testingDetails.siteId).subscribe(
+        (data) =>{
+          this.commentSuccess=true;
+          setTimeout(()=>{
+            this.commentSuccess=false;
+       }, 3000);
+       this.disableSend=true;
+       this.hideDelete=false;
+        },
+        (error) => {
+        }
+      )  
+  }
+  inspectorComment(a: any){
+      this.comments.userName = this.email;
+      this.comments.commentsId=a.value.commentId;
+      this.comments.inspectorComment=a.value.inspectorComments;
+      this.testingService.replyComments(this.comments,this.testingDetails.siteId).subscribe(
+        (data) =>{
+          this.commentSuccess=true;
+          setTimeout(()=>{
+            this.commentSuccess=false;
+       }, 3000);
+       this.disableReply=true;
+       this.basic.notification(0,'viewerUserName','inspectorUserName','viewerDate','inspectorDate');
+        },
+        (error) => {
+        }
+      )  
+  }
+  approveComment(a: any){
+      a.value.approveOrReject = 'APPROVED';
+      this.enabledRequest=true;
+      this.comments.userName = this.email;
+      this.comments.commentsId = a.value.commentId;
+      this.comments.approveOrReject = 'APPROVED';
+      this.testingService.approveRejectComments(this.comments,this.testingDetails.siteId).subscribe(
+        (data) =>{
+          this.commentApprove=true;
+          setTimeout(()=>{
+            this.commentApprove=false;
+            this.refreshCommentSection();
+            this.toggleHideShow=false;
+       }, 3000);
+       this.hideReject=false;
+       this.hideRejectIcon=false;
+       this.hideAdd=false;
+       this.hideRefresh=true;
+       this.basic.notification(0,'viewerUserName','inspectorUserName','viewerDate','inspectorDate');
+        },
+        (error) => {
+        }
+      )  
+    //  this.refreshComment('success');
+  }
+  rejectComment(a: any){
+    a.value.approveOrReject = 'REJECT';
+    this.addReject=true;
+    this.hideAdd=true;
+    this.enabledRequest=true;
+    // this.completedComments=false;
+    this.comments.userName = this.email;
+    this.comments.commentsId = a.value.commentId;
+    this.comments.approveOrReject = 'REJECT';
+    this.testingService.approveRejectComments(this.comments,this.testingDetails.siteId).subscribe(
+      (data) =>{
+        this.commentReject=true;
+        setTimeout(()=>{
+          this.commentReject=false;
+     }, 3000);
+     this.hideapprove=false;
+     this.hideapproveIcon=false;
+     this.basic.notification(0,'viewerUserName','inspectorUserName','viewerDate','inspectorDate');
+      },
+      (error) => {
+      }
+    )  
+}
+  addAnotherviewerComment() {
+      this.hideAdd=false;
+      this.addReject=false;
+      this.SendReply=false;
+      this.sendComment=true;
+      this.toggleHideShow=true;
+      this.showSend=false;
+      this.hideapprove=false;
+      this.hideReject=true;
+      this.hideInspText=false;
+      this.viewerCommentArr = this.testingForm.get('viewerCommentArr') as FormArray;
+      this.viewerCommentArr.push(this.addCommentViewer());
+      this.hideDelete=true;
+  }
+  addCommentViewer() {
+      return this.formBuilder.group({
+      viewerComments: [''],
+      inspectorComments: [''],
+      approveFlag:[false]
+      });
+  }
+  addCommentViewerApprove() {
+    return this.formBuilder.group({
+    viewerComments: [''],
+    inspectorComments: [''],
+    approveFlag:[true]
+    });
+}
+  ViewerRemoveComment(index: any) {
+      this.hideAdd=true;
+     // this.toggleHideShow=false;
+      this.showSend=true;
+      this.hideapprove=false;
+      this.hideReject=true;
+      this.sendComment=false;
+    
+      (this.testingForm.get('viewerCommentArr') as FormArray).removeAt(index);
+  }
+  
+  getViewerCommentControls(): AbstractControl[] {
+      return (<FormArray>this.testingForm.get('viewerCommentArr')).controls;
+  }
+  getCompletedCommentControls1(): AbstractControl[] {
+    return (<FormArray>this.testingForm.get('completedCommentArr1')).controls;
+  }
+  getCompletedCommentControls(form: any){
+    return form.controls.completedCommentArr?.controls;
+  }
+  refreshCommentSection() {
+    this.spinner=true;
+    this.cardBodyComments=false;
+    debugger
+    console.log(this.testingDetails.siteId)
+    this.siteService.retrieveFinal(this.savedUserName,this.testingDetails.siteId).subscribe(
+      (data) => {
+         this.commentDataArr = JSON.parse(data);
+         this.testList.reportDetails.reportDetailsComment = this.commentDataArr.reportDetails.reportDetailsComment;
+         this.populateDataComments();
+         setTimeout(()=>{
+          this.spinner=false;
+         this.cardBodyComments=true;
+     }, 2000);
+        
+         this.showReplyBox=false;
+         this.disableReply = false;
+         this.disableSend = false;
+      },
+      (error) => {
+   
+      })
+    }
+  populateRefreshData() {
+    this.reportViewerCommentArr = [];
+    this.completedCommentArrValue = [];
+
+    for(let value of this.commentDataArr.reportDetails.reportDetailsComment){
+      if(this.currentUser1.role == 'Inspector' ) { //Inspector
+          console.log(value.viewerDate + "   " + value.viewerComment)
+          
+          this.reportViewerCommentArr = [];
+
+          if(value.viewerFlag=='1'){
+            this.hideCommentSection= true;
+            this.hideAsViewerLogin=true;
+            this.SendReply=false;
+            this.replyCommentBox=true;
+            this.hideAsViewerLogin=false;
+           }
+            }
+
+            else { //Viewer
+              console.log(value.inspectorDate + "   " + value.inspectorComment )
+              if(value.approveOrReject == "REJECT"){
+                this.reportViewerCommentArr.push(this.createCommentGroup(value));
+              }
+              else{
+                this.completedComments = true;
+                this.completedCommentArrValue.push(this.createCompletedCommentGroup(value));
+                this.reportViewerCommentArr.push(this.addCommentViewerApprove());
+                //this.afterApprove=true;
+
+              }              
+              this.testingForm.setControl('viewerCommentArr', this.formBuilder.array(this.reportViewerCommentArr || []))
+              this.testingForm.setControl('completedCommentArr', this.formBuilder.array(this.completedCommentArrValue || []))
+
+              this.reportViewerCommentArr = [];
+              this.completedCommentArrValue = [];
+
+              this.hideCommentSection= true;
+              this.sendComment=true;
+              this.hideapprove=false;
+              this.hideReject=false;
+
+              if(value.inspectorFlag=='1'){
+                this.hideCommentSection= true;
+                this.hideAsViewerLogin=false;
+                this.replyCommentBox=true;
+                this.hideAdd=true;
+                this.hideapprove=true;
+                this.hideReject=true;
+                //this.sendComment=true;
+                this.SendReply=false;
+               }
+             
+            
+            }       
+          }
+  }
+
+  addItem1(item: any) : FormGroup {
+    return this.formBuilder.group({
+      completedCommentArr: this.formBuilder.array(this.completedComm(item)),
+    });
+  } 
+  completedComm(item: any){
+    this.completedCommentArr5 = [];
+    for(let l of item) {
+      this.completedCommentArr5.push(this.createCompletedCommentGroup(l));
+    }
+    return this.completedCommentArr5;
+  }
+  createCompletedCommentGroup(value: any)  : FormGroup {
+    return this.formBuilder.group({
+      viewerDateTime: new FormControl({disabled: false ,value: value.viewerDate}),
+      inspectorDateTime: new FormControl({disabled: false ,value: value.inspectorDate}),
+      inspectorUserName: new FormControl({disabled: false ,value: value.inspectorUserName}),
+      viewerUserName: new FormControl({disabled: false ,value: value.viewerUserName}),
+      commentId: new FormControl({disabled: false ,value: value.commentsId}),
+      viewerComments: new FormControl({disabled: true ,value: value.viewerComment}),
+      inspectorComments: new FormControl({disabled: true ,value: value.inspectorComment}),
+    });
+  }
+//comments section ends
+
+     populateData() {
+       this.arr = [];
+      for (let item of this.testList.testingReport.testing) {
+        this.arr.push(this.createGroup(item));
+      }
+      this.testingForm.setControl('testaccordianArr', this.formBuilder.array(this.arr || []))
+    }
+    
+    createGroup(item: any): FormGroup {
+      return this.formBuilder.group({
+        testingId: new FormControl({disabled: false,value: item.testingId}),
+        locationNumber: new FormControl({disabled: false,value: item.locationNumber}),
+        locationName: new FormControl({disabled: false,value:  item.locationName}),
+        testEngineerName: new FormControl({disabled: false,value:  item.testEngineerName}),
+        date: new FormControl({disabled: false,value: item.date}),
+        companyName: new FormControl({disabled: false,value:  item.companyName}),
+        designation: new FormControl({disabled: false,value:  item.designation}),
+        detailsTestInstrument: new FormControl({disabled: false,value: item.detailsTestInstrument}),
+        continuity: new FormControl({disabled: false,value:  item.continuity}),
+        insulationResisance: new FormControl({disabled: false,value: item.insulationResisance}),
+        impedance: new FormControl({disabled: false,value:  item.impedance}),
+        rcd: new FormControl({disabled: false,value: item.rcd}),
+        earthElectrodeResistance: new FormControl({disabled: false,value: item.earthElectrodeResistance}),
+        testDistribution: this.formBuilder.array([this.populateTestDistributionForm(item.testDistribution)]),
+        testingRecords: this.formBuilder.array(this.populateTestRecordsForm(item.testingRecords)),
+      });
+    }
+
+    private populateTestDistributionForm(testDistributionItem: any): FormGroup {
+      return new FormGroup({
+        distributionId: new FormControl({disabled: false,value: testDistributionItem[0].distributionId}),
+        distributionBoardDetails: new FormControl({disabled: false,value: testDistributionItem[0].distributionBoardDetails}),
+        referance: new FormControl({disabled: false,value: testDistributionItem[0].referance}),
+        location: new FormControl({disabled: false,value: testDistributionItem[0].location}),
+        correctSupplyPolarity: new FormControl({disabled: false,value: testDistributionItem[0].correctSupplyPolarity}),
+        numOutputCircuitsUse: new FormControl({disabled: false,value: testDistributionItem[0].numOutputCircuitsUse}),
+        ratingsAmps: new FormControl({disabled: false,value: testDistributionItem[0].ratingsAmps}),
+        rateArr: this.formBuilder.array(this.populateRating(testDistributionItem[0].ratingsAmps)),
+        numOutputCircuitsSpare: new FormControl({disabled: false,value: testDistributionItem[0].numOutputCircuitsSpare}),
+        installedEquipmentVulnarable: new FormControl({disabled: false,value: testDistributionItem[0].installedEquipmentVulnarable}),
+        incomingVoltage: new FormControl({disabled: false,value: testDistributionItem[0].incomingVoltage}),
+        incomingLoopImpedance: new FormControl({disabled: false,value: testDistributionItem[0].incomingLoopImpedance}),
+        incomingFaultCurrent: new FormControl({disabled: false,value: testDistributionItem[0].incomingFaultCurrent}),
+        distributionIncomingValueArr: this.formBuilder.array([
+          this.populatedistributionIncomingValue(testDistributionItem[0].incomingVoltage,testDistributionItem[0].incomingLoopImpedance,testDistributionItem[0].incomingFaultCurrent),
+        ]),
+      });
+    }
+
+    private populateRating(ratingAmps: any) {
+      let ratingsAmpsArray= [];
+      this.rateValueArr = [];
+      ratingsAmpsArray= ratingAmps.split(",");
+      for(let i =0; i<ratingsAmpsArray.length; i++) {
+        this.rateValueArr.push(this.populateratingAmps(ratingsAmpsArray[i]));
+      }
+      return this.rateValueArr;
+      // this.testingForm.setControl('rateArr', this.formBuilder.array(this.rateValueArr || []))
+    }
+    private populateratingAmps(ratingsAmps:any): FormGroup {  
+      return new FormGroup({
+        ratingsAmps: new FormControl({disabled: false,value: ratingsAmps}),
+      });
+    }
+    private populatedistributionIncomingValue(incomingVoltage:any, incomingLoopImpedance:any, incomingFaultCurrent:any): FormGroup {
+      let incomingVoltageArray= [];
+      let incomingLoopImpedanceArray = [];
+      let incomingFaultCurrentArray= [];
+
+      incomingVoltageArray= incomingVoltage.split(",");
+      incomingLoopImpedanceArray=  incomingLoopImpedance.split(",");
+      incomingFaultCurrentArray=   incomingFaultCurrent.split(",");
+     
+
+      let item = [];
+      item.push(incomingVoltageArray,incomingLoopImpedanceArray,incomingFaultCurrentArray);
+      return new FormGroup({
+        incomingVoltage1:new FormControl({disabled: false,value: item[0][0]}),
+        incomingVoltage2:new FormControl({disabled: false,value:item[0][1]}),
+        incomingVoltage3:new FormControl({disabled: false,value:item[0][2]}),
+        incomingVoltage4:new FormControl({disabled: false,value:item[0][3]}),
+        incomingVoltage5:new FormControl({disabled: false,value:item[0][4]}),
+        incomingVoltage6:new FormControl({disabled: false,value:item[0][5]}),
+        incomingVoltage7:new FormControl({disabled: false,value:item[0][6]}),
+        incomingVoltage8:new FormControl({disabled: false,value:item[0][7]}),
+        incomingVoltage9:new FormControl({disabled: false,value:item[0][8]}),
+  
+        incomingZs1:new FormControl({disabled: false,value:item[1][0]}),
+        incomingZs2:new FormControl({disabled: false,value:item[1][1]}),
+        incomingZs3:new FormControl({disabled: false,value:item[1][2]}),
+        incomingZs4:new FormControl({disabled: false,value:item[1][3]}),
+        incomingZs5:new FormControl({disabled: false,value:item[1][4]}),
+        incomingZs6:new FormControl({disabled: false,value:item[1][5]}),
+        incomingZs7:new FormControl({disabled: false,value:item[1][6]}),
+        incomingZs8:new FormControl({disabled: false,value:item[1][7]}),
+        incomingZs9:new FormControl({disabled: false,value:item[1][8]}),
+  
+        incomingIpf1:new FormControl({disabled: false,value:item[2][0]}),
+        incomingIpf2:new FormControl({disabled: false,value:item[2][1]}),
+        incomingIpf3:new FormControl({disabled: false,value:item[2][2]}),
+        incomingIpf4:new FormControl({disabled: false,value:item[2][3]}),
+        incomingIpf5:new FormControl({disabled: false,value:item[2][4]}),
+        incomingIpf6:new FormControl({disabled: false,value:item[2][5]}),
+        incomingIpf7:new FormControl({disabled: false,value:item[2][6]}),
+        incomingIpf8:new FormControl({disabled: false,value:item[2][7]}),
+        incomingIpf9:new FormControl({disabled: false,value:item[2][8]}),
+      });
+    }
+    private populateTestRecordsForm(testRecordsItem: any){
+      
+      let disconnectionTimeArr = [];
+      let testFaultCurrentArr  = [];
+      let testLoopImpedanceArr = [];
+      let testVoltageArr = [];
+      let insulationResistanceArr = [];
+      this.testingRecordTableArr = [];
+
+
+      for(let item of testRecordsItem) {
+        disconnectionTimeArr=  item.disconnectionTime.split(",");
+        testFaultCurrentArr = item.testFaultCurrent.split(",");
+        testLoopImpedanceArr = item.testLoopImpedance.split(",");
+        testVoltageArr = item.testVoltage.split(",");
+        insulationResistanceArr = item.insulationResistance.split(",");
+        
+        this.testingRecordTableArr.push(this.pushTestingTable(item,disconnectionTimeArr,testFaultCurrentArr,testLoopImpedanceArr,testVoltageArr,insulationResistanceArr))
+      }
+
+      // let item = [];
+      // item.push(nominalVoltageAL,nominalFrequencyAL,faultCurrentAL,loopImpedanceAL,installedCapacityAL,actualLoadAL);
+      return this.testingRecordTableArr
+    }
+
+    pushTestingTable(itemTestingValue: any,disconnectionTimeArr: any,testFaultCurrentArr: any,testLoopImpedanceArr: any,testVoltageArr: any,insulationResistanceArr: any) : FormGroup {
+      return new FormGroup({
+        testingRecordId: new FormControl({disabled: false,value: itemTestingValue.testingRecordId}),
+        circuitNo: new FormControl({disabled: false,value: itemTestingValue.circuitNo}),
+        circuitDesc: new FormControl({disabled: false,value: itemTestingValue.circuitDesc}),
+        circuitStandardNo: new FormControl({disabled: false,value: itemTestingValue.circuitStandardNo}),
+        circuitType: new FormControl({disabled: false,value: itemTestingValue.circuitType}),
+        circuitRating: new FormControl({disabled: false,value: itemTestingValue.circuitRating}),
+        circuitBreakingCapacity: new FormControl({disabled: false,value: itemTestingValue.circuitBreakingCapacity}),
+        shortCircuitSetting: new FormControl({disabled: false,value: itemTestingValue.shortCircuitSetting}),
+        eFSetting: new FormControl({disabled: false,value: itemTestingValue.eFSetting}),
+        conductorInstallation: new FormControl({disabled: false,value: itemTestingValue.conductorInstallation}),
+        conductorPhase: new FormControl({disabled: false,value: itemTestingValue.conductorPhase}),
+        conductorNeutral: new FormControl({disabled: false,value: itemTestingValue.conductorNeutral}),
+        conductorPecpc: new FormControl({disabled: false,value: itemTestingValue.conductorPecpc}),
+        continutiyApproximateLength: new FormControl({disabled: false,value: itemTestingValue.continutiyApproximateLength}),
+        continutiyRR: new FormControl({disabled: false,value: itemTestingValue.continutiyRR}),
+        continutiyR: new FormControl({disabled: false,value: itemTestingValue.continutiyR}),
+        // continutiyLL: new FormControl({disabled: false,value: itemTestingValue.continutiyLL}),
+        // continutiyLE: new FormControl({disabled: false,value: itemTestingValue.continutiyLE}),
+        continutiyPolarity: new FormControl({disabled: false,value: itemTestingValue.continutiyPolarity}),
+
+        rycontinutiy: new FormControl({disabled: false,value: insulationResistanceArr[0]}),
+        rbcontinutiy: new FormControl({disabled: false,value: insulationResistanceArr[1]}),
+        ybcontinutiy: new FormControl({disabled: false,value: insulationResistanceArr[2]}),
+        rncontinutiy: new FormControl({disabled: false,value: insulationResistanceArr[3]}),
+        yncontinutiy: new FormControl({disabled: false,value: insulationResistanceArr[4]}),
+        bncontinutiy: new FormControl({disabled: false,value: insulationResistanceArr[5]}),
+        rpecontinutiy: new FormControl({disabled: false,value: insulationResistanceArr[6]}),
+        ypecontinutiy: new FormControl({disabled: false,value: insulationResistanceArr[7]}),
+        bpecontinutiy: new FormControl({disabled: false,value: insulationResistanceArr[8]}),
+
+        ryVoltage: new FormControl({disabled: false,value: testVoltageArr[0]}),
+        rbVoltage: new FormControl({disabled: false,value: testVoltageArr[1]}),
+        ybVoltage: new FormControl({disabled: false,value: testVoltageArr[2]}),
+        rnVoltage: new FormControl({disabled: false,value: testVoltageArr[3]}),
+        ynVoltage: new FormControl({disabled: false,value: testVoltageArr[4]}),
+        bnVoltage: new FormControl({disabled: false,value: testVoltageArr[5]}),
+        rpeVoltage: new FormControl({disabled: false,value: testVoltageArr[6]}),
+        ypeVoltage: new FormControl({disabled: false,value: testVoltageArr[7]}),
+        bpeVoltage: new FormControl({disabled: false,value: testVoltageArr[8]}),
+
+        ryLoopImpedance: new FormControl({disabled: false,value: testLoopImpedanceArr[0]}),
+        rbLoopImpedance: new FormControl({disabled: false,value: testLoopImpedanceArr[1]}),
+        ybLoopImpedance: new FormControl({disabled: false,value: testLoopImpedanceArr[2]}),
+        rnLoopImpedance: new FormControl({disabled: false,value: testLoopImpedanceArr[3]}),
+        ynLoopImpedance: new FormControl({disabled: false,value: testLoopImpedanceArr[4]}),
+        bnLoopImpedance: new FormControl({disabled: false,value: testLoopImpedanceArr[5]}),
+        rpeLoopImpedance: new FormControl({disabled: false,value: testLoopImpedanceArr[6]}),
+        ypeLoopImpedance: new FormControl({disabled: false,value: testLoopImpedanceArr[7]}),
+        bpeLoopImpedance: new FormControl({disabled: false,value: testLoopImpedanceArr[8]}),
+
+        ryFaultCurrent: new FormControl({disabled: false,value: testFaultCurrentArr[0]}),
+        rbFaultCurrent: new FormControl({disabled: false,value: testFaultCurrentArr[1]}),
+        ybFaultCurrent: new FormControl({disabled: false,value: testFaultCurrentArr[2]}),
+        rnFaultCurrent: new FormControl({disabled: false,value: testFaultCurrentArr[3]}),
+        ynFaultCurrent: new FormControl({disabled: false,value: testFaultCurrentArr[4]}),
+        bnFaultCurrent: new FormControl({disabled: false,value: testFaultCurrentArr[5]}),
+        rpeFaultCurrent: new FormControl({disabled: false,value: testFaultCurrentArr[6]}),
+        ypeFaultCurrent: new FormControl({disabled: false,value: testFaultCurrentArr[7]}),
+        bpeFaultCurrent: new FormControl({disabled: false,value: testFaultCurrentArr[8]}),
+
+        ryDisconnect: new FormControl({disabled: false,value: disconnectionTimeArr[0]}),
+        rbDisconnect: new FormControl({disabled: false,value: disconnectionTimeArr[1]}),
+        ybDisconnect: new FormControl({disabled: false,value: disconnectionTimeArr[2]}),
+        rnDisconnect: new FormControl({disabled: false,value: disconnectionTimeArr[3]}),
+        ynDisconnect: new FormControl({disabled: false,value: disconnectionTimeArr[4]}),
+        bnDisconnect: new FormControl({disabled: false,value: disconnectionTimeArr[5]}),
+        rpeDisconnect: new FormControl({disabled: false,value: disconnectionTimeArr[6]}),
+        ypeDisconnect: new FormControl({disabled: false,value: disconnectionTimeArr[7]}),
+        bpeDisconnect: new FormControl({disabled: false,value: disconnectionTimeArr[8]}),
+        
+        insulationResistance: new FormControl({disabled: false,value: itemTestingValue.insulationResistance}),
+        testVoltage: new FormControl({disabled: false,value: itemTestingValue.testVoltage}),
+        testLoopImpedance: new FormControl({disabled: false,value: itemTestingValue.testLoopImpedance}),
+        testFaultCurrent: new FormControl({disabled: false,value: itemTestingValue.testFaultCurrent}),
+        disconnectionTime: new FormControl({disabled: false,value: itemTestingValue.disconnectionTime}),
+        rcdCurrent: new FormControl({disabled: false,value: itemTestingValue.rcdCurrent}),
+        rcdOperatingCurrent: new FormControl({disabled: false,value: itemTestingValue.rcdOperatingCurrent}),
+        rcdOperatingFiveCurrent: new FormControl({disabled: false,value: itemTestingValue.rcdOperatingFiveCurrent}),
+        rcdTestButtonOperation: new FormControl({disabled: false,value: itemTestingValue.rcdTestButtonOperation}),
+        rcdRemarks: new FormControl({disabled: false,value: itemTestingValue.rcdRemarks}),
+      });
+    }
 
   getdistributionIncomingValueControls(form: any) {
     return form.controls.distributionIncomingValueArr?.controls;
@@ -159,8 +946,8 @@ export class InspectionVerificationTestingComponent implements OnInit {
       numOutputCircuitsSpare: new FormControl('', [Validators.required]),
       installedEquipmentVulnarable: new FormControl('', [Validators.required]),
       incomingVoltage: new FormControl(''),
-      incomingZs: new FormControl(''),
-      incomingIpf: new FormControl(''),
+      incomingLoopImpedance: new FormControl(''),
+      incomingFaultCurrent: new FormControl(''),
       distributionIncomingValueArr: this.formBuilder.array([
         this.distributionIncomingValue(),
       ]),
@@ -213,15 +1000,27 @@ export class InspectionVerificationTestingComponent implements OnInit {
       circuitType: new FormControl(''),
       circuitRating: new FormControl(''),
       circuitBreakingCapacity: new FormControl(''),
+      shortCircuitSetting: new FormControl(''),
+      eFSetting: new FormControl(''),
       conductorInstallation: new FormControl(''),
-      conductorLive: new FormControl(''),
+      conductorPhase: new FormControl(''),
+      conductorNeutral: new FormControl(''),
       conductorPecpc: new FormControl(''),
       continutiyApproximateLength: new FormControl(''),
       continutiyRR: new FormControl(''),
       continutiyR: new FormControl(''),
-      continutiyLL: new FormControl(''),
-      continutiyLE: new FormControl(''),
+      // continutiyLL: new FormControl(''),
+      // continutiyLE: new FormControl(''),
       continutiyPolarity: new FormControl(''),
+      rycontinutiy: new FormControl(''),
+      rbcontinutiy: new FormControl(''),
+      ybcontinutiy: new FormControl(''),
+      rncontinutiy: new FormControl(''),
+      yncontinutiy: new FormControl(''),
+      bncontinutiy: new FormControl(''),
+      rpecontinutiy: new FormControl(''),
+      ypecontinutiy: new FormControl(''),
+      bpecontinutiy: new FormControl(''),
       ryVoltage: new FormControl(''),
       rbVoltage: new FormControl(''),
       ybVoltage: new FormControl(''),
@@ -259,6 +1058,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
       ypeDisconnect: new FormControl(''),
       bpeDisconnect: new FormControl(''),
       testVoltage: new FormControl(''),
+      insulationResistance: new FormControl(''),
       testLoopImpedance: new FormControl(''),
       testFaultCurrent: new FormControl(''),
       disconnectionTime: new FormControl(''),
@@ -352,8 +1152,8 @@ export class InspectionVerificationTestingComponent implements OnInit {
       numOutputCircuitsSpare: new FormControl(''),
       installedEquipmentVulnarable: new FormControl(''),
       incomingVoltage: new FormControl(''),
-      incomingZs: new FormControl(''),
-      incomingIpf: new FormControl(''),
+      incomingLoopImpedance: new FormControl(''),
+      incomingFaultCurrent: new FormControl(''),
     });
   }
 
@@ -395,8 +1195,10 @@ export class InspectionVerificationTestingComponent implements OnInit {
       this.modalService.dismissAll((this.successMsg = ''));
     }
   }
-  nextTab() {
-    this.testingDetails.siteId = this.service.siteCount;
+  nextTab(flag:any) {
+    if(!flag) {
+      this.testingDetails.siteId = this.service.siteCount;
+    }
     this.testingDetails.userName = this.email;
     this.submitted = true;
     if (this.testingForm.invalid) {
@@ -454,8 +1256,8 @@ export class InspectionVerificationTestingComponent implements OnInit {
         }
 
         let incomingVoltage: String = '';
-        let incomingZs: String = '';
-        let incomingIpf: String = '';
+        let incomingLoopImpedance: String = '';
+        let incomingFaultCurrent: String = '';
         for (let a of arr) {
           if (a != '') {
             incomingVoltage += a + ',';
@@ -468,23 +1270,23 @@ export class InspectionVerificationTestingComponent implements OnInit {
 
         for (let b of arr1) {
           if (b != '') {
-            incomingZs += b + ',';
+            incomingLoopImpedance += b + ',';
           } else {
-            incomingZs += 'NA,';
+            incomingLoopImpedance += 'NA,';
           }
         }
-        incomingZs = incomingZs.replace(/,\s*$/, '');
-        j.incomingZs = incomingZs;
+        incomingLoopImpedance = incomingLoopImpedance.replace(/,\s*$/, '');
+        j.incomingLoopImpedance = incomingLoopImpedance;
 
         for (let c of arr2) {
           if (c != '') {
-            incomingIpf += c + ',';
+            incomingFaultCurrent += c + ',';
           } else {
-            incomingIpf += 'NA,';
+            incomingFaultCurrent += 'NA,';
           }
         }
-        incomingIpf = incomingIpf.replace(/,\s*$/, '');
-        j.incomingIpf = incomingIpf;
+        incomingFaultCurrent = incomingFaultCurrent.replace(/,\s*$/, '');
+        j.incomingFaultCurrent = incomingFaultCurrent;
 
         // rateamps coma saparated value
         for (let k of j.rateArr) {
@@ -541,8 +1343,17 @@ export class InspectionVerificationTestingComponent implements OnInit {
         if (x.circuitBreakingCapacity == '') {
           x.circuitBreakingCapacity = 'NA';
         }
-        if (x.conductorLive == '') {
-          x.conductorLive = 'NA';
+        if (x.shortCircuitSetting == '') {
+          x.shortCircuitSetting = 'NA';
+        }
+        if (x.eFSetting == '') {
+          x.eFSetting = 'NA';
+        }
+        if (x.conductorPhase == '') {
+          x.conductorPhase = 'NA';
+        }
+        if (x.conductorNeutral == '') {
+          x.conductorNeutral = 'NA';
         }
         if (x.circuitDesc == '') {
           x.circuitDesc = 'NA';
@@ -570,6 +1381,18 @@ export class InspectionVerificationTestingComponent implements OnInit {
         let arr1: any = [];
         let arr2: any = [];
         let arr3: any = [];
+        let arr4: any = [];
+        arr4.push(
+          n.rycontinutiy,
+          n.rbcontinutiy,
+          n.ybcontinutiy,
+          n.rncontinutiy,
+          n.yncontinutiy,
+          n.bncontinutiy,
+          n.rpecontinutiy,
+          n.ypecontinutiy,
+          n.bpecontinutiy
+        );
         arr.push(
           n.ryVoltage,
           n.rbVoltage,
@@ -618,6 +1441,17 @@ export class InspectionVerificationTestingComponent implements OnInit {
         let testLoopImpedance: String = '';
         let testFaultCurrent: String = '';
         let disconnectionTime: String = '';
+        let insulationResistance: String = '';
+
+        for (let x of arr4) {
+          if (x != '') {
+            insulationResistance += x + ',';
+          } else {
+            insulationResistance += 'NA,';
+          }
+        }
+        insulationResistance = insulationResistance.replace(/,\s*$/, '');
+        n.insulationResistance = insulationResistance;
 
         for (let a of arr) {
           if (a != '') {
@@ -662,22 +1496,34 @@ export class InspectionVerificationTestingComponent implements OnInit {
       }
     }
     this.testingDetails.testing = this.testingForm.value.testaccordianArr;
-    this.testingService.savePeriodicTesting(this.testingDetails).subscribe(
-      (data) => {
-        this.proceedNext.emit(true);
-        // show success message ofter click button
-        this.success = true;
-        this.successMsg = data;
-        this.disable = true;
-      },
-      (error) => {
-        this.Error = true;
-        // show error button
-        this.proceedNext.emit(false);
-        this.errorArr = [];
-        this.errorArr = JSON.parse(error.error);
-        this.errorMsg = this.errorArr.message;
-      }
-    );
+    if(flag) {
+      this.UpateInspectionService.updateTesting(this.testingDetails).subscribe(
+        (data) => {
+          console.log("success");
+        },
+        (error) => {
+          console.log("error");
+        });
+    }
+    else {
+      this.testingService.savePeriodicTesting(this.testingDetails).subscribe(
+        (data) => {
+          this.proceedNext.emit(true);
+          // show success message ofter click button
+          this.success = true;
+          this.successMsg = data;
+          this.disable = true;
+        },
+        (error) => {
+          this.Error = true;
+          // show error button
+          this.proceedNext.emit(false);
+          this.errorArr = [];
+          this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.errorArr.message;
+        }
+      );
+    }
   }
 }
+

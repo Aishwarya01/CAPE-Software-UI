@@ -49,6 +49,27 @@ import { FinalreportsComponent } from './finalreports/finalreports.component';
 import {Ng2TelInputModule} from 'ng2-tel-input';
 import { BnNgIdleService } from 'bn-ng-idle';
 //import { Ng9PasswordStrengthBarModule } from 'ng9-password-strength-bar/projects/ng9-password-strength-bar/src/public-api';
+import { InspectorRegistrationComponent } from './inspector-registration/inspector-registration.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+
+import { UserUpdateComponent } from './user-update/user-update.component';
+import { InspectorUpdatePasswordComponent } from './inspector-update-password/inspector-update-password.component';
+import { AngularWebStorageModule } from 'angular-web-storage';
+import { NgOtpInputModule } from 'ng-otp-input';
+import { SingInPageComponent } from './signin-page/signin-page.component';
+
+import { GenerateOtpComponent } from './generate-otp/generate-otp.component';
+import { LicenselistComponent } from './licenselist/licenselist.component';
+import { AddlicenseComponent } from './addlicense/addlicense.component';
+import { AssignViewerComponent } from './assign-viewer/assign-viewer.component';
+import { ViewerRegisterComponent } from './viewer-register/viewer-register.component';
+import { DatePipe } from '@angular/common';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltipModule } from "@ng-bootstrap/ng-bootstrap";
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { DateAgoPipe } from './pipes/date-ago.pipe';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 @NgModule({
   declarations: [
@@ -80,9 +101,20 @@ import { BnNgIdleService } from 'bn-ng-idle';
     InspectionVerificationSupplyCharacteristicsComponent,
     InspectionVerificationTestingComponent,
     SavedreportsComponent,
-    FinalreportsComponent
+    FinalreportsComponent,
+    InspectorRegistrationComponent,
+    UserUpdateComponent,
+    InspectorUpdatePasswordComponent,
+    SingInPageComponent,
+    GenerateOtpComponent,
+    LicenselistComponent,
+    AddlicenseComponent,
+    AssignViewerComponent,
+    ViewerRegisterComponent,
+    DateAgoPipe
   ],
   imports: [
+    NgbTooltipModule,
     NgbModule,
     BrowserModule,
     AppRoutingModule,
@@ -99,12 +131,19 @@ import { BnNgIdleService } from 'bn-ng-idle';
     MatMenuModule,
     MaterialModule,
     NgxPrintModule,
+    AngularWebStorageModule,
+   // SessionStorageModule,
     Ng2TelInputModule,
     NgxBootstrapIconsModule.pick(allIcons),
-    //Ng9PasswordStrengthBarModule
+    NgMultiSelectDropDownModule.forRoot(),
+    ScrollToModule.forRoot(),
+    NgOtpInputModule,
+    MatBadgeModule,
+    MatProgressSpinnerModule
   ],
-  providers: [GlobalsService, { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }, BnNgIdleService],
-  bootstrap: [AppComponent],
+ // exports: [WebStorageCodec, WebStorageCodec, SessionStorage],
+  providers: [GlobalsService, { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }, BnNgIdleService,DatePipe],
+  bootstrap: [AppComponent,NgbTooltip],
   entryComponents: [ AddApplicationTypesComponent, UpdateApplicationTypesComponent, VerificationlvComponent ]
 })
 export class AppModule { }

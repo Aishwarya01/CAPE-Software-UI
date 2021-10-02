@@ -52,8 +52,7 @@ export class LoginComponent implements OnInit {
 
     this.loginservice.login(this.user.email, this.user.password).subscribe(
       data=> {
-        //console.log(data);
-        this.router.navigate(['/home', {email: data.users.email}])
+        this.router.navigate(['/home', {email: data.register.username}])
       },
       error => {
         //console.log(error);

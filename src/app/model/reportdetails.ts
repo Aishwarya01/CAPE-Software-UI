@@ -19,13 +19,16 @@ export class Reportdetails {
     verifiedEngineer: String;
     designation: String;
     company: String;
+    inspectorDesignation: String;
+    inspectorCompanyName: String;
     limitations: String;
     createdBy: String;
     createdDate: Date;
     updatedBy: String;
     updatedDate: Date;
-
-    signatorDetails: SignatorDetails [];
+    viewerComments: string;
+    inspectorComments: string;
+   signatorDetails: SignatorDetails [];
 }
 
 export class SignatorDetails {

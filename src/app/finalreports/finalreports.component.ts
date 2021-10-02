@@ -14,7 +14,7 @@ import { SiteService } from '../services/site.service';
   styleUrls: ['./finalreports.component.css']
 })
 export class FinalreportsComponent implements OnInit {
-  finalReportsColumns: string[] = [ 'siteID', 'siteName', 'personIncharge', 'contactNumber', 'contactDetails', 'state', 'country', 'preview' , 'download'];
+  finalReportsColumns: string[] = [ 'siteCD', 'siteName', 'personIncharge', 'contactNumber', 'contactDetails', 'state', 'country', 'preview' , 'download'];
   finalReport_dataSource!: MatTableDataSource<Site[]>;
   @ViewChild('finalReportPaginator', { static: true }) finalReportPaginator!: MatPaginator;
   @ViewChild('finalReportSort', {static: true}) finalReportSort!: MatSort;
@@ -23,6 +23,8 @@ export class FinalreportsComponent implements OnInit {
   site = new Site;
   clientList:any  = [];
   departmentList: any = [];
+  currentUser: any = [];
+  currentUser1: any = [];
   constructor(private router: ActivatedRoute,
               private clientService: ClientService,
               private departmentService: DepartmentService,
@@ -32,8 +34,15 @@ export class FinalreportsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.retrieveClientDetails();
+    this.currentUser=sessionStorage.getItem('authenticatedUser');
+    this.currentUser1 = [];
+    this.currentUser1=JSON.parse(this.currentUser);
+    // this.retrieveClientDetails();
+    this.retrieveSiteDetails();
+
   }
+
+
 
   private retrieveClientDetails() {
     this.clientService.retrieveClient(this.email).subscribe(
@@ -56,12 +65,25 @@ export class FinalreportsComponent implements OnInit {
   }
 
   retrieveSiteDetails() {
-      this.siteService.retrieveListOfSite(this.site).subscribe(
+    if(this.currentUser1.role == 'Inspector') {
+      this.siteService.retrieveListOfSite(this.email).subscribe(
         data => {
           this.finalReport_dataSource = new MatTableDataSource(JSON.parse(data));
           this.finalReport_dataSource.paginator = this.finalReportPaginator;
           this.finalReport_dataSource.sort = this.finalReportSort;
         });
+    }
+    else {
+      if(this.currentUser1.assignedBy!=null) {
+        this.siteService.retrieveListOfSite(this.currentUser1.assignedBy).subscribe(
+          data => {
+            this.finalReport_dataSource = new MatTableDataSource(JSON.parse(data));
+            this.finalReport_dataSource.paginator = this.finalReportPaginator;
+            this.finalReport_dataSource.sort = this.finalReportSort;
+          });
+      } 
+    }
+        
   }
 
   deleteSite(siteName: any) {

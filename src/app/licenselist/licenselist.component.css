@@ -1,0 +1,107 @@
+/* table {
+    width: 811px;
+    text-align: justify;
+  } */
+
+  .mat-row.hovered {
+    background: #eee;
+  }
+
+  .mat-row.highlighted {
+    background: #999;
+  }
+
+mat-cell.mat-cell,
+mat-header-cell.mat-header-cell {
+  overflow-x: scroll;
+  min-width: 200px;
+}
+
+.delete {
+    height: 35px;
+}
+
+.search-bar {
+    border: 2px solid #b1b1b1;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+.select.form-control {
+  padding: .4375rem .75rem;
+    border: 0;
+    outline: 1px solid #f3f3f3;
+    color: #c9c8c8;
+}
+.mousechange:hover {
+  cursor: pointer;
+}
+
+.client-description {
+  width: 800px;
+  height: 150px;
+}
+
+.client-box-description {
+  height: 100px;
+}
+
+.auth-form-btn {
+  width: 20%;
+  margin: 0 auto;
+}
+
+
+.cancel {
+  margin-top: 40px;
+  width: 87px;
+  height: 47px;
+  border-radius: 1.25rem !important;
+}
+.previous {
+  background-color: #f1f1f1;
+  color: black;
+}
+.previous:hover {
+  background-color: #04AA6D;
+  color: white;
+}
+.next{
+  background-color: #f1f1f1;
+  color: black;
+  margin-left: 30px;
+}
+.next:hover{
+  background-color: #04AA6D;
+  color: white;
+  margin-left: 30px;
+}
+
+
+
+.example-section {
+  margin: 12px 0;
+  display: contents;
+}
+
+.example-margin {
+  margin: 0 12px;
+  float: left;
+}
+
+.next:disabled {
+  background-color: lightgrey;
+    color: black;
+    margin-left: 30px;
+    cursor: not-allowed;
+  }
+
+  .successshow_delete {
+    padding: 5px 8px;
+    text-align: center;
+    font-size: 14px;
+    color: hsl(120deg 34% 27%);
+    background-color: hsl(101deg 45% 88%);
+    border-color: hsl(101deg 45% 100%);
+    border-radius: 0.25rem;
+  }

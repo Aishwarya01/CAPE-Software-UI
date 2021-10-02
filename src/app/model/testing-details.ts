@@ -1,12 +1,12 @@
 export class TestingDetails{
   siteId!: number;
   userName!: String;
+  testingReportId!: number;
+  createdBy!: String;
+  createdDate!: Date;
+  updatedBy!: String;
+  updatedDate!: Date;
   testing!:Testing[];
-    
-  
-
-
- 
 }
 export class Testing{
   locationNumber!: String;
@@ -23,9 +23,6 @@ export class Testing{
   Impedance!: String;
   testDistribution!:TestDistribution[];
   testingRecords!: TestingRecords[];
-
-  
- 
 }
 
  
@@ -44,8 +41,8 @@ export class TestDistribution {
 
 
   incomingVoltage!: String;
-  incomingZs!: String;
-  incomingIpf!: String;
+  incomingLoopImpedance!: String;
+  incomingFaultCurrent!: String;
   
 }
 
@@ -58,8 +55,11 @@ export class TestingRecords {
   circuitType!: String;
   circuitRating!: String;
   circuitBreakingCapacity!: String;
+  shortCircuitSetting!: String;
+  eFSetting!: String;
   conductorInstallation!: String;
-  conductorLive!: String;
+  conductorPhase!: String;
+  conductorNeutral!: String;
   conductorPecpc!: String;
   continutiyApproximateLength!: String;
   continutiyRR!: String;
@@ -68,7 +68,7 @@ export class TestingRecords {
   continutiyLE!: String;
   continutiyPolarity!: String;
 
-
+  insulationResistance!: String;
   testVoltage!: String;
   testLoopImpedance!: String;
   testFaultCurrent!: String;

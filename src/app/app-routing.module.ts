@@ -12,9 +12,13 @@ import { ProfileComponent } from './profile/profile.component';
 import { AddApplicationTypesComponent } from './add-application-types/add-application-types.component';
 import { VerificationlvComponent } from './verificationlv/verificationlv.component';
 import { LvInspectionDetailsComponent } from './lv-inspection-details/lv-inspection-details.component';
+import { InspectorRegistrationComponent } from './inspector-registration/inspector-registration.component';
+import { InspectorUpdatePasswordComponent } from './inspector-update-password/inspector-update-password.component';
+import { SingInPageComponent } from './signin-page/signin-page.component';
+import { GenerateOtpComponent } from './generate-otp/generate-otp.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: "/login", pathMatch: 'full' },
+  {path: '', redirectTo: "/SignIn", pathMatch: 'full' },
   // {
   //   path: 'home',
   //   component: LvInspectionDetailsComponent
@@ -22,12 +26,18 @@ const routes: Routes = [
   {path: 'login',component:LoginComponent},
   {path: 'forgotpassword' ,component: ForgotpasswordComponent},
   {path: 'updatepassword' ,component: UpdatepasswordComponent},
-  {path: 'register',component:RegisterComponent},
+  // {path: 'register',component:RegisterComponent},
   {path: 'changePassword', component:ChangePasswordComponent},
   {path: 'profile',component:ProfileComponent},
   {path: 'addApplicationType', component: AddApplicationTypesComponent},
   {path: 'home',component:HomeComponent, canActivate:[AuthenticationGuard]},
-  {path: 'verificationlv',component:VerificationlvComponent}
+  {path: 'verificationlv',component:VerificationlvComponent},
+  {path: 'register',component:InspectorRegistrationComponent},
+  {path: 'createPassword',component:InspectorUpdatePasswordComponent},
+  {path: 'SignIn',component:SingInPageComponent},
+  {path: 'generateOtp',component:GenerateOtpComponent},
+
+
 ];
 
 @NgModule({

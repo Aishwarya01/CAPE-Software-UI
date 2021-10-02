@@ -1,222 +1,13 @@
 <mat-tab-group [selectedIndex]="selectedIndex">
-  <mat-tab label="Company Details">
+  <!-- <mat-tab label="Site Details">
     <mat-horizontal-stepper #stepper>
-      <mat-step>
-        <form [formGroup]="firstFormGroup">
-          <ng-template matStepLabel>Company</ng-template>
-          <div class="card">
-            <div class="card-header">
-              <button class="btn btn-info" title="Add New Client" (click)="addClient()"
-                style="padding: 7px 10px 0px 10px;float: right;">
-                <!-- <mat-icon>add_box</mat-icon> -->
-                <mat-icon aria-hidden="false" aria-label="Example home icon">add_box</mat-icon>
-              </button>
-              <section class="example-section">
-                <mat-checkbox class="example-margin showInactive" formControlName="retrieveIsActive"
-                  (change)="retrieveIsActiveData()" [(ngModel)]="isChecked">Show InActive</mat-checkbox>
-              </section>
-            </div>
-            <div class="card-body">
-              <table mat-table [dataSource]="company_dataSource" class="mat-elevation-z8 table" matSort
-                #companySort="matSort">
-
-                <!--- Note that these columns can be defined in any order.
-                            The actual rendered columns are set as a property on the row definition" -->
-
-                <!-- Position Column -->
-                <ng-container matColumnDef="action">
-                  <th mat-header-cell *matHeaderCellDef> Action </th>
-                  <td mat-cell *matCellDef="let element">
-                    <button class="btn btn-outline-danger delete" (click)="deleteClient(element.clientName,clientdelete)"
-                    style="padding: 7px 10px 0px 10px;" title="Delete Company">
-                    <mat-icon aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
-                  </button>
-                    <button class="btn btn-outline-danger delete" 
-                    (click)="updateClient(element.companyId,element.companyCd, element.clientName,element.inActive,element.createdDate,element.createdBy)"
-                      style="padding: 7px 10px 0px 10px;" title="Edit Company">
-                      <mat-icon aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
-                    </button>
-                  </td>
-                </ng-container>
-
-                <ng-container matColumnDef="companyCd">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Company Code </th>
-                  <td mat-cell *matCellDef="let element"> {{element.companyCd}} </td>
-                </ng-container>
-
-                <!-- Name Column -->
-                <ng-container matColumnDef="clientName">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Company Name </th>
-                  <td mat-cell *matCellDef="let element"
-                    class="mousechange"> {{element.clientName}} </td>
-                </ng-container>
-
-                <!-- Name Column -->
-                <ng-container matColumnDef="inActive">
-                  <th mat-header-cell *matHeaderCellDef> InActive </th>
-                  <td mat-cell *matCellDef="let element">
-                    <mat-checkbox [checked]="element.inActive" class="fixed" [disabled]="true"></mat-checkbox>
-                  </td>
-                </ng-container>
-
-                <!-- Name Column -->
-                <ng-container matColumnDef="createdDate">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </th>
-                  <td mat-cell *matCellDef="let element"> {{element.createdDate | date : 'shortDate'}} </td>
-                </ng-container>
-
-                <!-- Weight Column -->
-                <ng-container matColumnDef="createdBy">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Created By </th>
-                  <td mat-cell *matCellDef="let element"> {{element.createdBy}} </td>
-                </ng-container>
-
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="updatedDate">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Updated Date </th>
-                  <td mat-cell *matCellDef="let element"> {{element.updatedDate | date : 'shortDate'}} </td>
-                </ng-container>
-
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="updatedBy">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Updated By </th>
-                  <td mat-cell *matCellDef="let element"> {{element.updatedBy}} </td>
-                </ng-container>
-
-                <!-- <ng-container matColumnDef="view">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Edit</th>
-                  <td mat-cell *matCellDef="let element">
-                    <button class="btn btn-outline-danger delete" 
-                    (click)="updateClient(element.companyId,element.companyCd, element.clientName,element.inActive,element.createdDate,element.createdBy)"
-                      style="padding: 7px 10px 0px 10px;">
-                      <mat-icon aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
-                    </button>
-                  </td>
-                </ng-container> -->
-
-                <tr mat-header-row *matHeaderRowDef="companyColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: companyColumns;"
-                  [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
-                  (mouseout)="row.hovered = false"></tr>
-
-              </table>
-
-              <mat-paginator #companyPaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-            </div>
-          </div>
-
-          <!-- <input matInput formControlName="firstCtrl"> -->
-          <div style="text-align: center;margin-top: 40px;">
-            <button class="next" mat-button matStepperNext>Next &raquo;</button>
-          </div>
-        </form>
-      </mat-step>
-      <mat-step>
-        <form [formGroup]="secondFormGroup">
-          <ng-template matStepLabel>Departments</ng-template>
-          <div class="card">
-            <div class="card-header">
-              <!-- <div class="search-bar"> -->
-              <div class="row">
-                <div class="col-md-10">
-                  <label style="display: table-cell;
-                          width: 1px;
-                          white-space: nowrap;">Client Name:</label><span style="display: table-cell; width: 80%;
-                          padding: 0 4px 0 20px;"><select formControlName="clientname" class="form-control"
-                      [(ngModel)]="company.clientName" (change)="retrieveDepartmentDetails()">
-                      <option value="0" selected>Select Client Name</option>
-                      <option *ngFor="let client of clientList">{{client.clientName}}</option>
-                    </select></span>
-                </div>
-                <div class="col-md-2">
-                  <button class="btn btn-info" title="Add New Department" (click)="addDepartment()"
-                    style="padding: 7px 10px 0px 10px;float: right;">
-                    <mat-icon aria-hidden="false" aria-label="Example home icon">add_box</mat-icon>
-                  </button>
-                </div>
-              </div>
-              <!-- </div> -->
-            </div>
-
-            <div class="card-body">
-              <div class="col-md-12" style="margin-top:30px;">
-                <table mat-table [dataSource]="department_dataSource" class="mat-elevation-z8 table" matSort
-                  #departmentSort="matSort">
-                  <!--- Note that these columns can be defined in any order.
-                              The actual rendered columns are set as a property on the row definition" -->
-
-                  <!-- Position Column -->
-                  <ng-container matColumnDef="action">
-                    <th mat-header-cell *matHeaderCellDef> Action </th>
-                    <td mat-cell *matCellDef="let element">
-                      <button class="btn btn-outline-danger delete" title="Delete Department" (click)="deleteDepartment(element.departmentId,deptdelete)">
-                        <mat-icon>delete</mat-icon>
-                      </button>
-                      <button class="btn btn-outline-danger delete" title="Edit Department" (click)="updateDepartment(element.departmentId, element.departmentName, element.departmentCd, element.clientName,element.createdDate,element.createdBy)">
-                        <mat-icon>edit</mat-icon>
-                      </button>
-                    </td>
-                  </ng-container>
-
-                  <!-- Name Column -->
-                  <ng-container matColumnDef="departmentCd">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Department Code </th>
-                    <td mat-cell *matCellDef="let element"> {{element.departmentCd}} </td>
-                  </ng-container>
-                  <!-- Name Column -->
-                  <ng-container matColumnDef="departmentName">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Department Name </th>
-                    <td mat-cell *matCellDef="let element"
-                      class="mousechange"> {{element.departmentName}} </td>
-                  </ng-container>
-                  <!-- Name Column -->
-                  <ng-container matColumnDef="createdDate">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </th>
-                    <td mat-cell *matCellDef="let element"> {{element.createdDate | date : 'shortDate'}} </td>
-                  </ng-container>
-
-                  <!-- Weight Column -->
-                  <ng-container matColumnDef="createdBy">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Created By </th>
-                    <td mat-cell *matCellDef="let element"> {{element.createdBy}} </td>
-                  </ng-container>
-
-                  <!-- Symbol Column -->
-                  <ng-container matColumnDef="updatedDate">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Updated Date </th>
-                    <td mat-cell *matCellDef="let element"> {{element.updatedDate | date : 'shortDate'}} </td>
-                  </ng-container>
-
-                  <!-- Symbol Column -->
-                  <ng-container matColumnDef="updatedBy">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Updated By </th>
-                    <td mat-cell *matCellDef="let element"> {{element.updatedBy}} </td>
-                  </ng-container>
-
-                  <tr mat-header-row *matHeaderRowDef="departmentColumns"></tr>
-                  <tr mat-row *matRowDef="let row; columns: departmentColumns;"
-                    [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
-                    (mouseout)="row.hovered = false"></tr>
-                </table>
-
-              </div>
-              <mat-paginator #departmentPaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-            </div>
-          </div>
-
-          <div style="text-align: center;margin-top: 40px;">
-            <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
-            <button class="next" mat-button matStepperNext>Next &raquo;</button>
-          </div>
-        </form>
-      </mat-step>
       <mat-step>
         <ng-template matStepLabel>Sites</ng-template>
         <div class="card">
-          <div class="card-header">
+          <div class="card-header"> -->
             <!-- <div class="search-bar"> -->
-            <div class="row">
-              <div class="col-md-10">
+            <!-- <div class="row"> -->
+              <!-- <div class="col-md-10">
                 <label style="display: table-cell;
                   width: 1px;
                   white-space: nowrap;">Company Name:</label>
@@ -226,8 +17,7 @@
                     <option value="0" selected>Select Company Name</option>
                     <option *ngFor="let client of clientList">{{client.clientName}}</option>
                   </select></span>
-                <!-- </div>
-              <div class="col-md-5"> -->
+                
                 <label style="display: table-cell;
                   width: 1px;
                   white-space: nowrap;">Department Name:</label>
@@ -237,26 +27,26 @@
                     <option value="0" selected>Select Department Name</option>
                     <option *ngFor="let department of departmentList">{{department.departmentName}}</option>
                   </select></span>
-              </div>
-              <div class="col-md-2">
+              </div> -->
+              <!-- <div class="col-sm-12">
                 <button class="btn btn-info" title="Add New Site" (click)="addSite()" style="padding: 7px 10px 0px 10px;float: right;">
                   <mat-icon aria-hidden="false" aria-label="Example home icon">add_box</mat-icon>
                 </button>
               </div>
-            </div>
+            </div> -->
             <!-- </div> -->
-          </div>
+          <!-- </div>
           <div class="card-body">
             <div class="col-md-12" style="margin-top:30px;">
 
               <table mat-table [dataSource]="site_dataSource" class="mat-elevation-z8 table" matSort
-                #siteSort="matSort">
+                #siteSort="matSort"> -->
 
                 <!--- Note that these columns can be defined in any order.
                             The actual rendered columns are set as a property on the row definition" -->
 
                 <!-- Position Column -->
-                <ng-container matColumnDef="action">
+                <!-- <ng-container matColumnDef="action">
                   <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef> Action
                   </th>
                   <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
@@ -283,9 +73,9 @@
                     mat-sort-header> Site Name </th>
                   <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element"
                     class="mousechange"> {{element.site}} </td>
-                </ng-container>
+                </ng-container> -->
                 <!-- Name Column -->
-                <ng-container matColumnDef="country">
+                <!-- <ng-container matColumnDef="country">
                   <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
                     mat-sort-header> Country </th>
                   <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
@@ -297,33 +87,33 @@
                     mat-sort-header> City </th>
                   <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
                     {{element.city}} </td>
-                </ng-container>
+                </ng-container> -->
                 <!-- Name Column -->
-                <ng-container matColumnDef="createdDate">
+                <!-- <ng-container matColumnDef="createdDate">
                   <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
                     mat-sort-header> Created Date </th>
                   <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
                     {{element.createdDate | date : 'shortDate'}} </td>
-                </ng-container>
+                </ng-container> -->
 
                 <!-- Weight Column -->
-                <ng-container matColumnDef="createdBy">
+                <!-- <ng-container matColumnDef="createdBy">
                   <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
                     mat-sort-header> Created By </th>
                   <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
                     {{element.createdBy}} </td>
-                </ng-container>
+                </ng-container> -->
 
                 <!-- Symbol Column -->
-                <ng-container matColumnDef="updatedDate">
+                <!-- <ng-container matColumnDef="updatedDate">
                   <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
                     mat-sort-header> Updated Date </th>
                   <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
                     {{element.updatedDate | date : 'shortDate'}} </td>
-                </ng-container>
+                </ng-container> -->
 
                 <!-- Symbol Column -->
-                <ng-container matColumnDef="updatedBy">
+                <!-- <ng-container matColumnDef="updatedBy">
                   <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef
                     mat-sort-header> Updated By </th>
                   <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
@@ -347,18 +137,18 @@
           <button class="next" mat-button (click)="stepper.reset()"><span class="material-icons">
               restart_alt
             </span>
-            Reset </button>
+            Reset </button> -->
             <!-- <button class="btn btn-info next" mat-button (click)="continue()" [disabled]="disable">
               <span class="material-icons" style="margin-left: -13px;">
                 arrow_right
               </span>
               Continue
             </button> -->
-        </div>
+        <!-- </div>
 
       </mat-step>
     </mat-horizontal-stepper>
-  </mat-tab>
+  </mat-tab> -->
   <mat-tab label="Inspection Verification & Testing of Installation" >
     <mat-horizontal-stepper linear #stepper>
       <!-- step 1 (proceedNext)="doSomething1($event)"-->
