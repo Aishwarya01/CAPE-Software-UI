@@ -158,6 +158,9 @@ export class InspectionVerificationIncomingEquipmentComponent
   }
 
   ngOnInit(): void {
+    this.currentUser=sessionStorage.getItem('authenticatedUser');
+    this.currentUser1 = [];
+    this.currentUser1=JSON.parse(this.currentUser);
     this.addstep3 = this._formBuilder.group({
       incomingArr: this._formBuilder.array([this.createItem()]),
       viewerCommentArr: this._formBuilder.array([this.addCommentViewer()]),
@@ -187,13 +190,13 @@ populateDataComments() {
   this.completedCommentArr4 = [];
   this.arrViewer = [];
   this.completedCommentArr1 = this.addstep3.get('completedCommentArr1') as FormArray;
- for(let value of this.step3List.reportDetails.reportDetailsComment){
+ for(let value of this.step3List.periodicInspection.periodicInspectorComment){
   this.arrViewer = [];
    if(this.currentUser1.role == 'Inspector' ) { //Inspector
     if(value.approveOrReject == 'APPROVED') {
       this.completedComments = true;
       this.enabledViewer=true;
-      for(let j of this.step3List.reportDetails.reportDetailsComment) {
+      for(let j of this.step3List.periodicInspection.periodicInspectorComment) {
         if(value.noOfComment == j.noOfComment) {
           this.completedCommentArr3.push(j);
         }
@@ -202,8 +205,8 @@ populateDataComments() {
        this.completedCommentArr4.push(this.addItem1(this.completedCommentArr3));               
       this.completedCommentArr3 = [];
     }
-    for(let j of this.step3List.reportDetails.reportDetailsComment) {
-         if(j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) {
+    for(let j of this.step3List.periodicInspection.periodicInspectorComment) {
+         if((j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) && j.viewerFlag==1) {
           this.arrViewer.push(this.createCommentGroup(j));
          }
          else if(j.approveOrReject == 'APPROVED'){
@@ -238,8 +241,8 @@ populateDataComments() {
         this.hideAdd=false;
         this.hideapprove=false;
         this.hideReject=false;
-        this.reportViewerCommentArr.push(this.createCommentGroup(value));
-        this.addstep3.setControl('viewerCommentArr', this._formBuilder.array(this.reportViewerCommentArr || []))
+        // this.reportViewerCommentArr.push(this.createCommentGroup(value));
+        // this.addstep3.setControl('viewerCommentArr', this._formBuilder.array(this.reportViewerCommentArr || []))
          }
 
          //Viewer starts
@@ -252,7 +255,7 @@ populateDataComments() {
               }
                this.completedComments = true;
                this.enabledViewer=true;
-               for(let j of this.step3List.reportDetails.reportDetailsComment) {
+               for(let j of this.step3List.periodicInspection.periodicInspectorComment) {
                  if(value.noOfComment == j.noOfComment) {
                    this.completedCommentArr3.push(j);
                  }
@@ -272,7 +275,7 @@ populateDataComments() {
                  this.basic.notification(1,value.viewerUserName,value.inspectorUserName,value.viewerDate,value.inspectorDate);
                  }
                }
-               if(this.step3List.reportDetails.reportDetailsComment.length < 1) {
+               if(this.step3List.periodicInspection.periodicInspectorComment.length < 1) {
                  this.reportViewerCommentArr.push(this.addCommentViewer());
                  this.addstep3.setControl('viewerCommentArr', this._formBuilder.array(this.reportViewerCommentArr || []));
                }
@@ -337,7 +340,7 @@ populateDataComments() {
              //this.showReplyBox=true;
              this.enabledViewer=true;
             }
-            for(let j of this.step3List.reportDetails.reportDetailsComment) {
+            for(let j of this.step3List.periodicInspection.periodicInspectorComment) {
                  if(j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) {
                   this.arrViewer.push(this.createCommentGroup(j));
                  }
@@ -539,7 +542,7 @@ showHideAccordion(index: number) {
     this.siteService.retrieveFinal(this.savedUserName,this.inspectionDetails.siteId).subscribe(
       (data) => {
          this.commentDataArr = JSON.parse(data);
-         this.step3List.reportDetails.reportDetailsComment = this.commentDataArr.reportDetails.reportDetailsComment;
+         this.step3List.periodicInspection.periodicInspectorComment = this.commentDataArr.periodicInspection.periodicInspectorComment;
          this.populateDataComments();
          setTimeout(()=>{
           this.spinner=false;
@@ -558,7 +561,7 @@ showHideAccordion(index: number) {
     this.reportViewerCommentArr = [];
     this.completedCommentArrValue = [];
 
-    for(let value of this.commentDataArr.reportDetails.reportDetailsComment){
+    for(let value of this.commentDataArr.periodicInspection.periodicInspectorComment){
       if(this.currentUser1.role == 'Inspector' ) { //Inspector
           console.log(value.viewerDate + "   " + value.viewerComment)
           
