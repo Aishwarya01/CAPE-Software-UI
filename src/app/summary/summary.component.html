@@ -95,7 +95,7 @@
                   <option value="The following observations are made" [selected]="f.attachedInspection?.value === summary.limitationsInspection">The following observations are made</option> -->
                 </select>
                 <div *ngIf="submitted && f.attachedInspection?.errors" class="invalid-feedback">
-                  <div *ngIf="f.attachedInspection?.errors?.required">Client name is required</div>
+                  <div *ngIf="f.attachedInspection?.errors?.required">Field is required</div>
                 </div>
                 </div>
               </div>
@@ -137,7 +137,7 @@
                 <div class="form-group">
                   <label>Reference number in report:</label>
                   <input type="number" min="0" formControlName="referanceNumberReport" class="form-control"  
-                  placeholder="Enter Contact Number" [ngClass]="{ 'is-invalid': submitted && f.referanceNumberReport?.errors }">
+                  placeholder="Enter Reference Number" [ngClass]="{ 'is-invalid': submitted && f.referanceNumberReport?.errors }">
                   <div *ngIf="submitted && f.referanceNumberReport?.errors" class="invalid-feedback">
                     <div *ngIf="f.referanceNumberReport?.errors?.required">Field Is Required</div>
                 </div> 
@@ -271,7 +271,7 @@
                         <input type="text" class="form-control" formControlName="signature"
                         [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }">
                         <div *ngIf="submitted && a.get('signature')?.errors" class="invalid-feedback">
-                          <div *ngIf="a.get('signature')?.errors?.required">Person name is required</div>
+                          <div *ngIf="a.get('signature')?.errors?.required">Signature is required</div>
                       </div>
                       </div>
                     </div>
@@ -281,7 +281,7 @@
                         <input type="text" class="form-control" formControlName="company"
                         [ngClass]="{ 'is-invalid': submitted && a.get('company')?.errors }">
                         <div *ngIf="submitted && a.get('company')?.errors" class="invalid-feedback">
-                          <div *ngIf="a.get('company')?.errors?.required">Person name is required</div>
+                          <div *ngIf="a.get('company')?.errors?.required">Company name is required</div>
                       </div>
                       </div>
                     </div>
@@ -292,7 +292,7 @@
                         <input type="text" class="form-control" formControlName="position"
                         [ngClass]="{ 'is-invalid': submitted && a.get('position')?.errors }">
                         <div *ngIf="submitted && a.get('position')?.errors" class="invalid-feedback">
-                          <div *ngIf="a.get('position')?.errors?.required">Person name is required</div>
+                          <div *ngIf="a.get('position')?.errors?.required">Position is required</div>
                       </div>
                       </div>
                     </div>
@@ -303,7 +303,7 @@
                         <input type="text" class="form-control" formControlName="address"
                         [ngClass]="{ 'is-invalid': submitted && a.get('address')?.errors }">
                         <div *ngIf="submitted && a.get('address')?.errors" class="invalid-feedback">
-                          <div *ngIf="a.get('address')?.errors?.required">Person name is required</div>
+                          <div *ngIf="a.get('address')?.errors?.required"><Address></Address> is required</div>
                       </div>
                       </div>
                     </div>
@@ -314,7 +314,7 @@
                         <input type="date" class="form-control" formControlName="date"
                         [ngClass]="{ 'is-invalid': submitted && a.get('date')?.errors }">
                         <div *ngIf="submitted && a.get('date')?.errors" class="invalid-feedback">
-                          <div *ngIf="a.get('date')?.errors?.required">Person name is required</div>
+                          <div *ngIf="a.get('date')?.errors?.required">Date is required</div>
                       </div>
                       </div>
                     </div>
@@ -345,7 +345,7 @@
                           <input type="text" class="form-control" formControlName="signature"
                           [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }">
                         <div *ngIf="submitted && a.get('signature')?.errors" class="invalid-feedback">
-                          <div *ngIf="a.get('signature')?.errors?.required">Person name is required</div>
+                          <div *ngIf="a.get('signature')?.errors?.required">Signature is required</div>
                       </div>
                         </div>
                       </div>
@@ -355,7 +355,7 @@
                           <input type="text" class="form-control" formControlName="company"
                           [ngClass]="{ 'is-invalid': submitted && a.get('company')?.errors }">
                           <div *ngIf="submitted && a.get('company')?.errors" class="invalid-feedback">
-                            <div *ngIf="a.get('company')?.errors?.required">Person name is required</div>
+                            <div *ngIf="a.get('company')?.errors?.required">Company name is required</div>
                         </div>
                         </div>
                       </div>
@@ -366,7 +366,7 @@
                           <input type="text" class="form-control" formControlName="position"
                           [ngClass]="{ 'is-invalid': submitted && a.get('position')?.errors }">
                           <div *ngIf="submitted && a.get('position')?.errors" class="invalid-feedback">
-                            <div *ngIf="a.get('position')?.errors?.required">Person name is required</div>
+                            <div *ngIf="a.get('position')?.errors?.required">Position is required</div>
                         </div>
                         </div>
                       </div>
@@ -377,7 +377,7 @@
                           <input type="text" class="form-control" formControlName="address"
                           [ngClass]="{ 'is-invalid': submitted && a.get('address')?.errors }">
                           <div *ngIf="submitted && a.get('address')?.errors" class="invalid-feedback">
-                            <div *ngIf="a.get('address')?.errors?.required">Person name is required</div>
+                            <div *ngIf="a.get('address')?.errors?.required">Address is required</div>
                         </div>
                         </div>
                       </div>
@@ -388,7 +388,7 @@
                           <input type="date" class="form-control" formControlName="date"
                           [ngClass]="{ 'is-invalid': submitted && a.get('date')?.errors }">
                           <div *ngIf="submitted && a.get('date')?.errors" class="invalid-feedback">
-                            <div *ngIf="a.get('date')?.errors?.required">Person name is required</div>
+                            <div *ngIf="a.get('date')?.errors?.required">Date is required</div>
                         </div>
                         </div>
                       </div>

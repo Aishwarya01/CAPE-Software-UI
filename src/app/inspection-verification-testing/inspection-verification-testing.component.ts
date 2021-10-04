@@ -201,6 +201,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.currentUser=sessionStorage.getItem('authenticatedUser');
+    this.currentUser1 = [];
+    this.currentUser1=JSON.parse(this.currentUser);
     this.testingForm = this.formBuilder.group({
       testaccordianArr: this.formBuilder.array([]),
       viewerCommentArr: this.formBuilder.array([this.addCommentViewer()]),
@@ -250,13 +253,13 @@ populateDataComments() {
   this.completedCommentArr4 = [];
   this.arrViewer = [];
   this.completedCommentArr1 = this.testingForm.get('completedCommentArr1') as FormArray;
- for(let value of this.testList.reportDetails.reportDetailsComment){
+ for(let value of this.testList.testingReport.testingComment){
    this.arrViewer=[];
    if(this.currentUser1.role == 'Inspector' ) { //Inspector
     if(value.approveOrReject == 'APPROVED') {
       this.completedComments = true;
       this.enabledViewer=true;
-      for(let j of this.testList.reportDetails.reportDetailsComment) {
+      for(let j of this.testList.testingReport.testingComment) {
         if(value.noOfComment == j.noOfComment) {
           this.completedCommentArr3.push(j);
         }
@@ -265,8 +268,8 @@ populateDataComments() {
        this.completedCommentArr4.push(this.addItem1(this.completedCommentArr3));               
       this.completedCommentArr3 = [];
     }
-    for(let j of this.testList.reportDetails.reportDetailsComment) {
-         if(j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) {
+    for(let j of this.testList.testingReport.testingComment) {
+         if((j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) && j.viewerFlag==1) {
           this.arrViewer.push(this.createCommentGroup(j));
          }
          else if(j.approveOrReject == 'APPROVED'){
@@ -302,8 +305,8 @@ populateDataComments() {
         this.hideAdd=false;
         this.hideapprove=false;
         this.hideReject=false;
-        this.reportViewerCommentArr.push(this.createCommentGroup(value));
-        this.testingForm.setControl('viewerCommentArr', this.formBuilder.array(this.reportViewerCommentArr || []))
+        // this.reportViewerCommentArr.push(this.createCommentGroup(value));
+        // this.testingForm.setControl('viewerCommentArr', this.formBuilder.array(this.reportViewerCommentArr || []))
          }
 
          //Viewer starts
@@ -316,7 +319,7 @@ populateDataComments() {
               }
                this.completedComments = true;
                this.enabledViewer=true;
-               for(let j of this.testList.reportDetails.reportDetailsComment) {
+               for(let j of this.testList.testingReport.testingComment) {
                  if(value.noOfComment == j.noOfComment) {
                    this.completedCommentArr3.push(j);
                  }
@@ -336,7 +339,7 @@ populateDataComments() {
                  this.basic.notification(1,value.viewerUserName,value.inspectorUserName,value.viewerDate,value.inspectorDate);
                  }
                }
-               if(this.testList.reportDetails.reportDetailsComment.length < 1) {
+               if(this.testList.testingReport.testingComment.length < 1) {
                  this.reportViewerCommentArr.push(this.addCommentViewer());
                  this.testingForm.setControl('viewerCommentArr', this.formBuilder.array(this.reportViewerCommentArr || []));
                }
@@ -401,7 +404,7 @@ populateDataComments() {
              //this.showReplyBox=true;
              this.enabledViewer=true;
             }
-            for(let j of this.testList.reportDetails.reportDetailsComment) {
+            for(let j of this.testList.testingReport.testingComment) {
                  if(j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) {
                   this.arrViewer.push(this.createCommentGroup(j));
                  }
@@ -602,7 +605,7 @@ showHideAccordion(index: number) {
     this.siteService.retrieveFinal(this.savedUserName,this.testingDetails.siteId).subscribe(
       (data) => {
          this.commentDataArr = JSON.parse(data);
-         this.testList.reportDetails.reportDetailsComment = this.commentDataArr.reportDetails.reportDetailsComment;
+         this.testList.testingReport.testingComment = this.commentDataArr.testingReport.testingComment;
          this.populateDataComments();
          setTimeout(()=>{
           this.spinner=false;
@@ -621,7 +624,7 @@ showHideAccordion(index: number) {
     this.reportViewerCommentArr = [];
     this.completedCommentArrValue = [];
 
-    for(let value of this.commentDataArr.reportDetails.reportDetailsComment){
+    for(let value of this.commentDataArr.testingReport.testingComment){
       if(this.currentUser1.role == 'Inspector' ) { //Inspector
           console.log(value.viewerDate + "   " + value.viewerComment)
           
