@@ -18,6 +18,8 @@ export class GlobalsService {
   siteName!: String;
   viewerData: any = [];
   inspectorData: any = [];
+  changeNumberSession!: String;
+  changeNumber!: String;
   
   constructor(private _scrollToService: ScrollToService) {}
 
