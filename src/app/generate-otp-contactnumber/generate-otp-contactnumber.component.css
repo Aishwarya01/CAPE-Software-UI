@@ -1,0 +1,64 @@
+
+.bg-image {
+    background: url(../../assets/img/login-bg.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: left;
+    background-size: 100%;
+    /* height: 800px; */
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    padding: 20px;
+}
+
+.card {
+    float: left;
+    max-width: 500px;
+    width:100%;
+    /* height: 600px; */
+    /* margin-top: 40px; */
+}
+
+.brand-logo {
+    text-align: center;
+    /* margin-top: 2rem; */
+}
+
+.brand-logo img{
+    width: 150px;
+}
+
+.login-title {
+    margin-top: 2rem;
+    /* color: #9e97aa; */
+    color: black;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.auth-form-btn {
+    margin-top: 30px;
+    width: 30%;
+    margin: 30px auto 0px auto;
+}
+
+.register {
+    padding-top: 30px;
+    padding-left: 80px;
+}
+.form-check{
+    padding-left: 0.3rem !important;
+}
+
+#forgot{
+    color: #f30606 !important;
+    font-weight: 500;
+}
+
+#forgot:hover{
+    /* border-color: #dc3545; */
+    color: #f11125c4 !important;
+}
+

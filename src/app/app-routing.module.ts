@@ -16,6 +16,8 @@ import { InspectorRegistrationComponent } from './inspector-registration/inspect
 import { InspectorUpdatePasswordComponent } from './inspector-update-password/inspector-update-password.component';
 import { SingInPageComponent } from './signin-page/signin-page.component';
 import { GenerateOtpComponent } from './generate-otp/generate-otp.component';
+import { GenerateOtpContactnumberComponent } from './generate-otp-contactnumber/generate-otp-contactnumber.component';
+import { ChangeContactnumberComponent } from './change-contactnumber/change-contactnumber.component';
 
 const routes: Routes = [
   {path: '', redirectTo: "/SignIn", pathMatch: 'full' },
@@ -36,8 +38,9 @@ const routes: Routes = [
   {path: 'createPassword',component:InspectorUpdatePasswordComponent},
   {path: 'SignIn',component:SingInPageComponent},
   {path: 'generateOtp',component:GenerateOtpComponent},
-
-
+  {path: 'generateContactNumber',component:GenerateOtpContactnumberComponent},
+  {path: 'createContactNumber',component:ChangeContactnumberComponent},
+  
 ];
 
 @NgModule({

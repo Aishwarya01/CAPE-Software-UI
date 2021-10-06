@@ -5,7 +5,7 @@
             <mat-icon aria-hidden="false" (click)="addItem()" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>
     </button> -->
      <form [formGroup]="testingForm" (ngSubmit)="nextTab(flag)">
-       <div class="card-body" formArrayName="testaccordianArr" *ngFor="let a of getTestControls(); let i = index" >
+       <div formArrayName="testaccordianArr" *ngFor="let a of getTestControls(); let i = index" >
             <div [formGroupName]="i">
 
                     <div class="search-bar">
@@ -491,7 +491,8 @@
 
 <mat-accordion>
     <!-- comments start-->
-  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngIf="hideShowComment">
+  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngIf="hideShowComment"
+  style="margin: 1px 0px 0px 0px;">
     <mat-expansion-panel-header>
       <mat-panel-title>
         <h3>Comments</h3>
@@ -605,7 +606,8 @@ style="margin-left: 10px;">
   </mat-expansion-panel>
 
 <!-- completed comments start-->
-<mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngIf="completedComments">
+<mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngIf="completedComments"
+style="margin: 1px 0px 0px 0px;">
 <mat-expansion-panel-header>
 <mat-panel-title>
 <h3>Completed Comments</h3>

@@ -70,6 +70,8 @@ import {MatBadgeModule} from '@angular/material/badge';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { DateAgoPipe } from './pipes/date-ago.pipe';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+import { GenerateOtpContactnumberComponent } from './generate-otp-contactnumber/generate-otp-contactnumber.component';
+import { ChangeContactnumberComponent } from './change-contactnumber/change-contactnumber.component';
 
 @NgModule({
   declarations: [
@@ -111,7 +113,9 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
     AddlicenseComponent,
     AssignViewerComponent,
     ViewerRegisterComponent,
-    DateAgoPipe
+    DateAgoPipe,
+    GenerateOtpContactnumberComponent,
+    ChangeContactnumberComponent
   ],
   imports: [
     NgbTooltipModule,

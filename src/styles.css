@@ -216,6 +216,20 @@ h1.example-app-name {
   box-shadow: 0 0 0 0.2rem #d4dae061 !important;
 }
 
+#login-btn1{
+  background-color: #232a44;
+    border-color: #232a44;
+}
+
+#login-btn1:hover{
+ background-color: #232a44e3;
+ border-color: #232a44e3;
+}
+
+#login-btn1:focus, #login-btn.focus {
+  box-shadow: 0 0 0 0.2rem #d4dae061 !important;
+}
+
 .card-header {
   background-color: unset !important;
 }
@@ -382,6 +396,19 @@ max-height:300px; overflow-y:auto; overflow-x:hidden;
 .mat-menu-below{
   width: auto !important;
   max-width: unset !important;
+}
+#mat-menu-panel-2, #mat-menu-panel-0{ 
+  height: 40vh;
+}
+.btn-outline-danger:focus, .btn-outline-danger.focus {
+  box-shadow: unset !important;
+}
+.btn:focus, .btn.focus {
+  outline: 0;
+  box-shadow: unset !important;
+}
+th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:last-of-type {
+  padding-right: unset !important;
 }
 
 @media (max-width: 600px) {

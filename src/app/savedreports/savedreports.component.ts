@@ -92,12 +92,10 @@ export class SavedreportsComponent implements OnInit {
           data => {
             this.userData=JSON.parse(data);
            for(let i of this.userData){
-             debugger
              if(i.assignedTo==this.email){
                this.viewerFilterData.push(i);
              }
            }
-           console.log(this.viewerFilterData);
            this.savedReport_dataSource = new MatTableDataSource(this.viewerFilterData);
             this.savedReport_dataSource.paginator = this.savedReportPaginator;
             this.savedReport_dataSource.sort = this.savedReportSort;
