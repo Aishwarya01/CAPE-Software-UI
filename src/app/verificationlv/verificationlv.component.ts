@@ -545,7 +545,6 @@ export class VerificationlvComponent implements OnInit {
   // }
 //for saved reports tab
   changeTab(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any): void {
-    debugger
     this.selectedIndex=1;
     this.siteService.retrieveFinal(userName,sitedId).subscribe(
 
@@ -587,7 +586,6 @@ export class VerificationlvComponent implements OnInit {
   }
 
   myTabSelectedTabChange(e: any) {
-    debugger
     console.log(e);
   }
 

@@ -455,7 +455,6 @@ export class InspectionVerificationSupplyCharacteristicsComponent
         this.retrieveMainNominalVoltage = [];
         this.retrieveMainNominalVoltage.push(this.mainArr1,this.mainArr2,this.mainArr3,this.mainArr4);
         
-        console.log(this.retrieveMainNominalVoltage);
 
           this.NV1 = this.retrieveMainNominalVoltage[0][0];
           this.NV2 = this.retrieveMainNominalVoltage[0][1];
@@ -520,7 +519,6 @@ populateDataComments() {
           this.completedCommentArr3.push(j);
         }
       }
-      console.log(this.completedCommentArr3)
        this.completedCommentArr4.push(this.addItem1(this.completedCommentArr3));               
       this.completedCommentArr3 = [];
     }
@@ -534,7 +532,6 @@ populateDataComments() {
       }
     this.enabledRequest=false;
     this.SendReply=false; 
-       console.log(value.viewerDate + "   " + value.viewerComment)
        if(value.viewerFlag=='1'){
          if(value.inspectorFlag=='0')
         {
@@ -580,13 +577,11 @@ populateDataComments() {
                    this.completedCommentArr3.push(j);
                  }
                }
-               console.log(this.completedCommentArr3)
                 this.completedCommentArr4.push(this.addItem1(this.completedCommentArr3));               
                this.completedCommentArr3 = [];
              }
 
              else{ //reject & null
-              debugger
                this.enabledViewer=true;
                if(value.viewerFlag=='1' && value.inspectorFlag=='1')
                {
@@ -680,7 +675,6 @@ populateDataComments() {
          this.arrViewer.push(this.addCommentViewer());
         }
       }
-       console.log(this.arrViewer);
        this.supplycharesteristicForm.setControl('viewerCommentArr', this.formBuilder.array(this.arrViewer || []))
        this.supplycharesteristicForm.setControl('completedCommentArr1', this.formBuilder.array(this.completedCommentArr4 || []));
 }
@@ -720,7 +714,6 @@ showHideAccordion(index: number) {
   this.toggleHideShow=true;
   }
   sendViewerComment(a: any){
-      console.log(a);
       this.comments.userName = this.email;
       // this.comments.commentsId = this.step1Form.controls.viewerCommentArr.value[0].commentId;
       this.comments.commentsId =a.value.commentId;
@@ -855,8 +848,6 @@ showHideAccordion(index: number) {
   refreshCommentSection() {
     this.spinner=true;
     this.cardBodyComments=false;
-    debugger
-    console.log(this.supplycharesteristic.siteId)
     this.siteService.retrieveFinal(this.savedUserName,this.supplycharesteristic.siteId).subscribe(
       (data) => {
          this.commentDataArr = JSON.parse(data);
@@ -881,7 +872,6 @@ showHideAccordion(index: number) {
 
     for(let value of this.commentDataArr.supplyCharacteristics.supplyCharacteristicComment){
       if(this.currentUser1.role == 'Inspector' ) { //Inspector
-          console.log(value.viewerDate + "   " + value.viewerComment)
           
           this.reportViewerCommentArr = [];
 
@@ -895,7 +885,6 @@ showHideAccordion(index: number) {
             }
 
             else { //Viewer
-              console.log(value.inspectorDate + "   " + value.inspectorComment )
               if(value.approveOrReject == "REJECT"){
                 this.reportViewerCommentArr.push(this.createCommentGroup(value));
               }

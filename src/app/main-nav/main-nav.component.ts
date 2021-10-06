@@ -258,7 +258,6 @@ export class MainNavComponent implements OnInit, OnDestroy {
   newNotify(){
   this.inspectionService.notificationRetrieveComments(this.email).subscribe(
     (data)=>{
-    console.log(data);
       this.notificationData = JSON.parse(data);
       this.newNotification(this.notificationData);
     }
@@ -422,7 +421,6 @@ notification(number: any,viewerName: any,inspectorName: any,viewerDate: any,insp
           data => {
             this.userData=JSON.parse(data);
            for(let i of this.userData){
-             debugger
              if(i.assignedTo==this.email){
                if(i.allStepsCompleted=="AllStepCompleted"){
                  this.completedFilterData.push(i);

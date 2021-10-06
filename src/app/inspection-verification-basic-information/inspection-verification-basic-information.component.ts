@@ -217,7 +217,6 @@ siteValue: String = '';
     this.reportDetails.designation = this.service.viewerData.designation;
     this.reportDetails.company = this.service.viewerData.companyName;
 
-    debugger
     // inspector
     this.reportDetails.verifiedEngineer = this.service.inspectorName;
     this.reportDetails.inspectorDesignation = this.service.inspectorData.designation;
@@ -393,7 +392,6 @@ populateDataComments() {
           this.completedCommentArr3.push(j);
         }
       }
-      console.log(this.completedCommentArr3)
        this.completedCommentArr4.push(this.addItem(this.completedCommentArr3));               
       this.completedCommentArr3 = [];
     }
@@ -407,7 +405,6 @@ populateDataComments() {
       }
     this.enabledRequest=false;
     this.SendReply=false; 
-       console.log(value.viewerDate + "   " + value.viewerComment)
        if(value.viewerFlag=='1'){
          if(value.inspectorFlag=='0')
         {
@@ -458,14 +455,12 @@ populateDataComments() {
                    this.completedCommentArr3.push(j);
                  }
                }
-               console.log(this.completedCommentArr3)
             
                 this.completedCommentArr4.push(this.addItem(this.completedCommentArr3));               
                this.completedCommentArr3 = [];
              }
 
              else{ //reject & null
-              debugger
                this.enabledViewer=true;
                if(value.viewerFlag=='1' && value.inspectorFlag=='1')
                {
@@ -508,7 +503,6 @@ populateDataComments() {
              this.hideAdd=false;
             }
             else { //inspector flag 0
-              debugger
               if(value.viewerFlag=='1'){
                this.enabledViewer=true;
                this.sendComment=false;
@@ -550,7 +544,6 @@ populateDataComments() {
          this.arrViewer.push(this.addCommentViewer());
         }
       }
-       console.log(this.arrViewer);
        this.step1Form.setControl('viewerCommentArr', this._formBuilder.array(this.arrViewer || []))
        this.step1Form.setControl('completedCommentArr1', this._formBuilder.array(this.completedCommentArr4 || []));
 }
@@ -565,7 +558,6 @@ showHideAccordion(index: number) {
   this.isClicked[index] = !this.isClicked[index];
   }
   createCommentGroup(value: any) : FormGroup {
-    console.log(value.inspectorFlag);
     return this._formBuilder.group({
     viewerDateTime: new FormControl({disabled: false ,value: value.viewerDate}),
     inspectorUserName: new FormControl({disabled: false ,value: value.inspectorUserName}),
@@ -596,7 +588,6 @@ showHideAccordion(index: number) {
   }
 
   sendViewerComment(a: any){
-      console.log(a);
       this.comments.userName = this.email;
       // this.comments.commentsId = this.step1Form.controls.viewerCommentArr.value[0].commentId;
       this.comments.commentsId =a.value.commentId;
@@ -740,8 +731,6 @@ showHideAccordion(index: number) {
   refreshCommentSection() {
     this.spinner=true;
     this.cardBodyComments=false;
-    debugger
-    console.log(this.reportDetails.siteId)
     this.siteService.retrieveFinal(this.savedUserName,this.reportDetails.siteId).subscribe(
       (data) => {
          this.commentDataArr = JSON.parse(data);
@@ -799,12 +788,10 @@ showHideAccordion(index: number) {
   private retrieveSiteDetails(companyName: any,departmentName: any,siteName: any) {
 
     if((companyName!= undefined) && (departmentName!= undefined) && (siteName!= undefined))  {
-      debugger
     this.siteService.retrieveSiteForInspection(companyName,departmentName,siteName).subscribe(
       data => {
         this.clientList = [];
         this.clientList=JSON.parse(data);
-        debugger
         this.reportDetails.siteId = this.clientList.siteId;
       });
     }

@@ -82,7 +82,6 @@ export class SiteaddComponent implements OnInit {
       pincode: ['', Validators.required],
       });
     
-      console.log(this.data);
 
     this.siteService.retrieveCountry().subscribe(
       data => {
@@ -152,8 +151,6 @@ export class SiteaddComponent implements OnInit {
   }
 
   createItem(value: any) {
-    debugger
-    console.log(value)
     return this.formBuilder.group({
       personIncharge: [value.name, Validators.required],
       designation: [value.designation, Validators.required],
@@ -201,12 +198,12 @@ export class SiteaddComponent implements OnInit {
 
     //country code
     this.arr = this.addSiteForm.get('arr') as FormArray;
-    for(let i of this.arr.value) {
-      if((i.countryCode != "") && (i.countryCode != undefined))
-      {
-        i.contactNo = "+" +i.countryCode + "-" + i.contactNo;
-      }
-    }
+    // for(let i of this.arr.value) {
+    //   if((i.countryCode != "") && (i.countryCode != undefined))
+    //   {
+    //     i.contactNo = "+" +i.countryCode + "-" + i.contactNo;
+    //   }
+    // }
 
     this.site.sitePersons=this.addSiteForm.value.arr;
     for(let i of this.site.sitePersons) {
