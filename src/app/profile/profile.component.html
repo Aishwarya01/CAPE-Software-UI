@@ -51,8 +51,11 @@
                             
                                 <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" 
                                 (countryChange)="countryChange($event)" formControlName="contactNumber" class="form-control"   
-                                placeholder="Enter your contact number"
+                                placeholder="Enter your contact number" readonly
                                 [ngClass]="{ 'is-invalid': submitted && f.contactNumber.errors}" />
+                                <mat-icon (click) ="openModal(contentViewer)" style="float: right;" title="Change Contact Number">
+                                    published_with_changes
+                                </mat-icon>
                                 <div *ngIf="submitted && f.contactNumber.errors" class="invalid-feedback">
                                     <div *ngIf="f.contactNumber?.errors?.required">Mobile Number Is Required</div>
                                     <!-- <div *ngIf="f.mobileNumber?.errors?.minlength">Enter 10 Digit Number</div> -->
@@ -248,8 +251,8 @@
     
                     <div class="col-md-4" *ngIf= "register.role === 'Inspector'">
                         <div class="form-group">
-                            <label for="applicationType">* Application Type</label>
-                            <div class="input-group">
+                            <!-- <label for="applicationType">* Application Type</label> -->
+                            <!-- <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                         <i class="bi bi-card-list"></i>
@@ -263,13 +266,20 @@
                                     [disabled]="disableValue"                                
                                     formControlName="applicationType"
                                     dropdownPosition="auto">
-                                </ng-multiselect-dropdown>
+                                </ng-multiselect-dropdown> -->
                                 <!-- <input type="text" formControlName="applicationType" class="form-control" placeholder="Enter your application type" 
                                 [ngClass]="{ 'is-invalid': submitted && f.applicationType.errors}" />
                                 <div *ngIf="submitted && f.applicationType.errors" class="invalid-feedback">
                                     <div *ngIf="f.applicationType.errors.required">Application type is required</div>
                                 </div> -->
-                            </div>
+                            <!-- </div> -->
+
+                                <mat-label class="client-description"><h3>Application Type</h3></mat-label>
+                                <textarea matInput class="client-box-description" readonly formControlName="applicationType"
+                                maxlength="500" placeholder="Ex. Report description..." [(ngModel)]="register.applicationType" style="margin-top: -15px;
+                                width: 100%;
+                                height: 56px;
+                                background-color: #e9ecef;"></textarea>
                         </div>
                     </div>
     
@@ -309,6 +319,141 @@
             <button style="float:right; margin-right: 35%;" class="btn btn-danger cancel" (click)="profileCancel()">
                 <i class="bi bi-x icon"></i> Cancel</button>
         </div>
+
+        <ng-template #contentViewer let-modal>
+            <div class="modal-header" style="text-align: center; display: block">
+              <h2 class="modal-title" style="display: contents">Generate Otp</h2>
+            </div>
+            <div class="modal-body" modal-md>
+              <div class="card">
+                <div class="card-body">
+                    <form [formGroup]="generateContactNumberOtpForm" (ngSubmit)="onContactSubmit(contentViewer1)">
+                        <div *ngIf="mobileShowErrorMessage" class="errorshow">{{mobileErrorMsg}}</div>
+                        <div *ngIf="mobileSuccessMsgOTP" class="alert alert-success">{{mobileSuccessMsg}}</div>
+
+                        <div class="col-sm-12">
+                            <label for="mobileNumber">Mobile Number: </label>
+                                <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" (countryChange)="countryChange($event)" formControlName="mobileNumber" class="form-control"   placeholder="Enter Number" [ngClass]="{ 'is-invalid': mobileSubmitted && g.mobileNumber?.errors }">
+                                <div *ngIf="mobileSubmitted && g.mobileNumber?.errors" class="invalid-feedback">
+                                    <div *ngIf="g.mobileNumber?.errors?.required">Mobile Number Is Required</div>
+                                    <!-- <div *ngIf="f.mobileNumber?.errors?.minlength">Enter 10 Digit Number</div> -->
+                                    <div *ngIf="g.mobileNumber?.errors?.maxlength">Enter 10 Digit Number</div>
+                                </div>                                        
+                        </div>
+
+                        <!-- <button [disabled]="mobileLoading" style="width: 64%; margin-left: 67px;"
+                            class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"><i
+                                class="bi bi-box-arrow-in-right"></i> Generate
+                        </button> -->
+
+                        <div style="display: block;">
+                            <button style="float: left;width: 40%;" [disabled]="mobileLoading" type="submit" 
+                            class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" ><i class="bi bi-box-arrow-in-right"></i> Generate</button>
+                            <button style="float:right;width: 40%;"  class="btn btn-danger cancel" (click)="cancel(contentViewer)" ><i class="bi bi-x icon"></i> Cancel</button>
+                        </div>
+                    </form>
+                </div>
+              </div>
+            </div>
+        </ng-template>
+
+        <ng-template #contentViewer1 let-modal>
+            <div class="modal-header" style="text-align: center; display: block">
+              <h2 class="modal-title" style="display: contents">Create Mobile Number</h2>
+            </div>
+            <div class="modal-body" modal-md>
+              <div class="card">
+                <div class="card-body">
+                    <form [formGroup]="changeContactNumberForm" (ngSubmit)="onOtpSubmit()">
+                        <div *ngIf="showErrorMessage" class="errorshow">Please enter a valid OTP</div>
+                            <div *ngIf="showOTPMessage" class="alert alert-success">OTP has been sent to your resgistered mobile number. </div>
+                        <div class="form-group">
+                            <label for="email">User Name: (email ID)</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-envelope-fill"></i>
+                                    </span>
+                                </div>
+                                <input type="email" formControlName="emailId" readonly class="form-control"
+                                    placeholder="Enter your email address" maxlength="50"  value="{{email}}"
+                                    [ngClass]="{ 'is-invalid': otpSubmitted && h.emailId.errors }"/>
+                                <div *ngIf="otpSubmitted && h.emailId.errors" class="invalid-feedback">
+                                    <div *ngIf="h.emailId.errors.required">Email is required</div>
+                                    <div *ngIf="h.emailId.errors.pattern">Enter valid email</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="mobileNumber">Mobile Number: </label>
+                                <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"  formControlName="mobileNumber" class="form-control"  readonly placeholder="Enter Number" [ngClass]="{ 'is-invalid': otpSubmitted && h.mobileNumber?.errors }">
+                                <div *ngIf="otpSubmitted && h.mobileNumber?.errors" class="invalid-feedback">
+                                    <div *ngIf="h.mobileNumber?.errors?.required">Mobile Number Is Required</div>
+                                    <!-- <div *ngIf="f.mobileNumber?.errors?.minlength">Enter 10 Digit Number</div> -->
+                                    <div *ngIf="h.mobileNumber?.errors?.maxlength">Enter 10 Digit Number</div>
+                                </div>
+
+                            <!-- <label for="password">New Password</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-lock-fill"></i>
+                                    </span>
+                                </div>
+                                <input type="password" formControlName="password" class="form-control"
+                                    placeholder="Enter your password" minlength="8" maxlength="15"
+                                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+                                    [(ngModel)]="updatePassInspector.password" />
+                                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                    <div *ngIf="f.password.errors.required">Password is required</div>
+                                    <div *ngIf="f.password.errors.minlength">Password must be at least 8 characters
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                        <!-- <div class="form-group">
+                            <label for="Confirm password">Confirm New Password</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-lock-fill"></i>
+                                    </span>
+                                </div>
+                                <input type="password" formControlName="confirmpassword" class="form-control" placeholder="Enter your password again"
+                                 pattern="{{ updatePassInspector.password }}"
+                                    placeholder="Enter your password" minlength="8" maxlength="15"
+                                    [ngClass]="{ 'is-invalid': submitted && f.confirmpassword.errors }"/>
+                                  <div *ngIf="submitted && f.confirmpassword.errors" class="invalid-feedback">
+                                    <div *ngIf="f.confirmpassword.errors.required">Confirm Password is required</div>
+                                    <div *ngIf="f.confirmpassword.errors.pattern">Password and Confirm password must be same</div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="form-group">
+                            <p class="a-o-i">Enter verification code(OTP):</p>
+                                <a (click)="resendOTP()" style="text-decoration: underline;float: right; cursor: pointer;
+                                margin-top: -30px;color: #007bff;">Resend OTP Link</a>
+                          </div>
+                        <div class="row">
+                          <div class="form-group col-sm-2" *ngFor="let input of formInput;  index as i">
+                            <input #formRow type="password" formControlName="{{input}}" class="form-control" 
+                            maxlength="1" (keyup)="keyUpEvent($event, i)" name="password" style="-webkit-text-security: square;">
+                          </div>
+                          <div *ngIf="showOTPValidation" class="errorshow">Please enter verification code (OTP)</div>
+                          <div *ngIf="OTPerrorMsgflag" class="errorshow">{{OTPerrorMsg}}</div>
+                          <span *ngIf="SubmitSuccessMsg" class="alert alert-success">Mobile number added successfully</span>
+
+                        </div>
+                        <div style="display: block;">
+                            <button style="float: left;width: 40%;" type="submit" 
+                            class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" id="login-btn1"><i class="bi bi-person-plus-fill icon"></i> Submit</button>
+                            <button style="float:right;width: 40%;"  class="btn btn-danger cancel" (click)="cancelOTP()" ><i class="bi bi-x icon"></i> Cancel</button>
+                        </div>
+                    </form>
+                </div>
+              </div>
+            </div>
+        </ng-template>
     </div>
     
     <!-- <div class="row">

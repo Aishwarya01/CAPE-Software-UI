@@ -126,7 +126,6 @@ export class LicenselistComponent implements OnInit {
     data => {
       this.inspectorData=JSON.parse(data);
      for(let i of this.inspectorData){
-       debugger
          if(i.allStepsCompleted=="AllStepCompleted"){
            this.completedFilterData.push(i);
          }
@@ -149,7 +148,6 @@ export class LicenselistComponent implements OnInit {
     if (confirm("Are you sure you want to edit site details?"))
     {
     this.viewContainerRef.clear();
-    console.log(this.viewContainerRef.get(1));
     this.destroy = true;
     const verificationFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
     const verificationRef = this.viewContainerRef.createComponent(verificationFactory);

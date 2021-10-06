@@ -218,20 +218,6 @@
               </div>
             </div>
            
-            <div class="row">
-              <div class="col-md-4">
-                <mat-form-field class="client-description ">
-                  <mat-label><h3>Details Of Installation Referred In This Report * (maximum length is 75 )</h3></mat-label>
-                  <textarea matInput class="client-box-description" formControlName="detailsOfInstallation" maxlength="75" [ngClass]="{ 'is-invalid': submitted && f.detailsOfInstallation.errors }" placeholder=" Ex. Occupier ,address details etc.." [(ngModel)]="reportDetails.installationDetails"></textarea>
-                  <div *ngIf="submitted && f.detailsOfInstallation.errors" class="invalid-feedback">
-                    <div *ngIf="f.detailsOfInstallation?.errors?.required">Details Of installation is required</div>
-                </div>
-                </mat-form-field>
-              </div>
-            </div>
-
-            
-
             <div class="form-group">
               <div class="row">
                 <!-- <div class="col-md-4">
@@ -257,32 +243,10 @@
                     <div *ngIf="f.companyName?.errors?.required">Company name is required</div>
                 </div>
                 </div>
-
-                <div class="col-md-4">
-                  <label>Date of Starting the Verification *</label>
-                  <input type="date" class="form-control" formControlName="startingDateVerification"
-                  [ngClass]="{ 'is-invalid': submitted && f.startingDateVerification.errors }" placeholder="Enter Date" [(ngModel)]="reportDetails.verificationDate">
-                  <div *ngIf="submitted && f.startingDateVerification.errors" class="invalid-feedback">
-                    <div *ngIf="f.startingDateVerification?.errors?.required">Field Is Required</div>
-                </div>
-                </div>
               </div>
             </div>
 
-            <div class="form-group">
-              <div class="row">
-                <div class="col-md-4">
-                  <label>Read and Confirmed the Extent and Limitations* :</label>
-                  <select class="form-control" formControlName="limitations" [(ngModel)]="reportDetails.limitations" [ngClass]="{ 'is-invalid': submitted && f.limitations.errors }">
-                    <option value="0" selected>Select Option</option>
-                    <option *ngFor="let value of previousRecordList" >{{value}}</option>
-                  </select>
-                  <div *ngIf="submitted && f.limitations.errors" class="invalid-feedback">
-                    <div *ngIf="f.limitations?.errors?.required">Field Is Required</div>
-                </div>
-                </div>
-              </div>
-            </div>
+            
 
             <h1>Inspector Details:</h1>
             <div class="form-group">
@@ -313,6 +277,45 @@
                 </div>
               </div>
             </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field class="client-description ">
+                  <mat-label><h3>Details Of Installation Referred In This Report * (maximum length is 75 )</h3></mat-label>
+                  <textarea matInput class="client-box-description" formControlName="detailsOfInstallation" maxlength="75" [ngClass]="{ 'is-invalid': submitted && f.detailsOfInstallation.errors }" placeholder=" Ex. Occupier ,address details etc.." [(ngModel)]="reportDetails.installationDetails"></textarea>
+                  <div *ngIf="submitted && f.detailsOfInstallation.errors" class="invalid-feedback">
+                    <div *ngIf="f.detailsOfInstallation?.errors?.required">Details Of installation is required</div>
+                </div>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+
+                <div class="col-md-4">
+                  <label>Date of Starting the Verification *</label>
+                  <input type="date" class="form-control" formControlName="startingDateVerification"
+                  [ngClass]="{ 'is-invalid': submitted && f.startingDateVerification.errors }" placeholder="Enter Date" [(ngModel)]="reportDetails.verificationDate">
+                  <div *ngIf="submitted && f.startingDateVerification.errors" class="invalid-feedback">
+                    <div *ngIf="f.startingDateVerification?.errors?.required">Field Is Required</div>
+                </div>
+                </div>
+                
+                <div class="col-md-4">
+                  <label>Read and Confirmed the Extent and Limitations* :</label>
+                  <select class="form-control" formControlName="limitations" [(ngModel)]="reportDetails.limitations" [ngClass]="{ 'is-invalid': submitted && f.limitations.errors }">
+                    <option value="0" selected>Select Option</option>
+                    <option *ngFor="let value of previousRecordList" >{{value}}</option>
+                  </select>
+                  <div *ngIf="submitted && f.limitations.errors" class="invalid-feedback">
+                    <div *ngIf="f.limitations?.errors?.required">Field Is Required</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
 
           </mat-expansion-panel>
 

@@ -228,7 +228,6 @@ createGroup(item: any) {
         }, 3000);
       },
       (error) => {
-        console.log(error);
         let errorArr = JSON.parse(error.error);
         this.Error = true;
         this.errorMsg1 = errorArr.message;
@@ -322,7 +321,6 @@ createGroup(item: any) {
 
 
   navigateToSite(data: any) {
-    debugger
     const dialogRef = this.dialog.open(SiteaddComponent, {
       width: '1000px',
       maxHeight: '90vh',
@@ -362,7 +360,6 @@ createGroup(item: any) {
   this.register.role = 'Viewer';
   this.register.permission = 'Yes';
   this.register.assignedBy = this.email;
-  console.log(this.register);
   if(!flag) {
     this.inspectorRegisterService.registerViewer(this.register).subscribe(
       data=> {
@@ -374,7 +371,6 @@ createGroup(item: any) {
           this.modalService.dismissAll();
         }, 3000);
         this.globalService.viewerData = this.register;
-        debugger
         this.globalService.inspectorName = this.inspectorData.name;
         this.globalService.inspectorData = this.inspectorData;
         // this.onSave.emit(true);

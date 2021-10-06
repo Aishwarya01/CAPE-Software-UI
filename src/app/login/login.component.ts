@@ -52,7 +52,12 @@ export class LoginComponent implements OnInit {
 
     this.loginservice.login(this.user.email, this.user.password).subscribe(
       data=> {
-        this.router.navigate(['/home', {email: data.register.username}])
+        if(data.register.otpSessionKey != null) {
+          this.router.navigate(['/home', {email: data.register.username}])
+        }
+        else{
+          this.router.navigate(['/generateContactNumber', {email: data.register.username}])
+        }
       },
       error => {
         //console.log(error);

@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { GlobalsService } from '../globals.service';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 
 @Component({
-  selector: 'app-generate-otp',
-  templateUrl: './generate-otp.component.html',
-  styleUrls: ['./generate-otp.component.css']
+  selector: 'app-generate-otp-contactnumber',
+  templateUrl: './generate-otp-contactnumber.component.html',
+  styleUrls: ['./generate-otp-contactnumber.component.css']
 })
-export class GenerateOtpComponent implements OnInit {
-  generateOtpForm = new FormGroup({
+export class GenerateOtpContactnumberComponent implements OnInit {
+  generateContactNumberOtpForm = new FormGroup({
     mobileNumber: new FormControl(''),
   });
 
@@ -24,16 +25,18 @@ export class GenerateOtpComponent implements OnInit {
   successMsg: string = '';
 
 
+
   constructor(private formBuilder: FormBuilder,
               private router: ActivatedRoute,
               private route: Router,
+              private globalService: GlobalsService,
               private inspectorRegisterService: InspectorregisterService) {  
   this.email=this.router.snapshot.paramMap.get('email') || '{}'
   }
 
   ngOnInit(): void {
     this.countryCode = '91';
-    this.generateOtpForm = this.formBuilder.group({
+    this.generateContactNumberOtpForm = this.formBuilder.group({
       mobileNumber: ['',[Validators.maxLength(10),Validators.required]]
   });
   }
@@ -43,30 +46,36 @@ export class GenerateOtpComponent implements OnInit {
   }
 
   get f():any {
-    return this.generateOtpForm.controls;
+    return this.generateContactNumberOtpForm.controls;
   }
 
   onSubmit() {
     this.submitted=true;
     
     //Breaks if form is invalid
-    if(this.generateOtpForm.invalid) {
+    if(this.generateContactNumberOtpForm.invalid) {
       return;
     }
 
     this.loading=true;
     this.contactNumber = "";
-    this.contactNumber = "+"+this.countryCode+"-"+this.generateOtpForm.value.mobileNumber
-    this.inspectorRegisterService.sendOTPInspector(this.email,this.contactNumber).subscribe(
+    this.contactNumber = "+"+this.countryCode+"-"+this.generateContactNumberOtpForm.value.mobileNumber
+    this.inspectorRegisterService.sendOtpContactNumber(this.email,this.contactNumber).subscribe(
       data=> { 
         this.successMsgOTP=true;
-        this.successMsg="OTP has been successfully sent to your mobile number"
+        this.successMsg="OTP has been successfully sent to your mobile number";
+        this.globalService.changeNumberSession = data;
+        this.globalService.changeNumber = this.contactNumber;
+
+        // sessionStorage.setItem('changeNumberSession', data);
+        // sessionStorage.setItem('changeNumber', this.contactNumber);
+
         setTimeout(()=>{
           this.successMsgOTP=false;
           this.successMsg="";
         }, 3000);
         setTimeout(()=>{
-          this.route.navigate(['/createPassword', {email: this.email}])
+          this.route.navigate(['/createContactNumber', {email: this.email}])
         }, 5000);
       },
       error => {
