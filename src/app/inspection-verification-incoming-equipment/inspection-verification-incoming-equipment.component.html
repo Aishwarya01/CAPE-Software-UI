@@ -1952,13 +1952,13 @@
 <!-- isolationCurrent ends--> 
 </mat-accordion>
 </div>
-  <mat-icon class="mousechange" *ngIf="getIncomingControls().length > 1" (click)="removeItem(i)"
-  style="float:right;">delete</mat-icon>
+ 
 </div>
 
 <mat-accordion>
   <!-- comments start-->
-  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngIf="hideShowComment">
+  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngIf="hideShowComment"
+  style="margin: 20px;margin-top: -19px;">
    <mat-expansion-panel-header>
      <mat-panel-title>
        <h3>Comments</h3>
@@ -2069,7 +2069,8 @@
  </mat-expansion-panel>
  
  <!-- completed comments start-->
- <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngIf="completedComments">
+ <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngIf="completedComments"
+ style="margin: 20px;margin-top: -19px;">
  <mat-expansion-panel-header>
  <mat-panel-title>
  <h3>Completed Comments</h3>
@@ -2130,7 +2131,8 @@
  </mat-expansion-panel>
  <!-- completed comments end-->
  </mat-accordion>
-
+ <mat-icon class="mousechange" *ngIf="getIncomingControls().length > 1" (click)="removeItem(i)"
+  style="float:right;margin: 0px 15px 0px 15px;">delete</mat-icon>
 <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
   <span class="alert alert-danger">{{validationErrorMsg}}</span>
 </div>
@@ -2149,6 +2151,7 @@
   <button  class="next"  [disabled]="disable" (click)="gotoNextModal(content3)" mat-button >Next &raquo;</button>
 </div>
 </form>
+
 <button class="btn btn-info mousechange" (click)="addItem()" title="Add another location"
 style="padding: 5px 0px 0px 0px;
 left: 2%;

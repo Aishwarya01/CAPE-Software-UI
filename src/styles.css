@@ -383,6 +383,19 @@ max-height:300px; overflow-y:auto; overflow-x:hidden;
   width: auto !important;
   max-width: unset !important;
 }
+#mat-menu-panel-2, #mat-menu-panel-0{ 
+  height: 40vh;
+}
+.btn-outline-danger:focus, .btn-outline-danger.focus {
+  box-shadow: unset !important;
+}
+.btn:focus, .btn.focus {
+  outline: 0;
+  box-shadow: unset !important;
+}
+th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:last-of-type {
+  padding-right: unset !important;
+}
 
 @media (max-width: 600px) {
   .loginCardBody{
