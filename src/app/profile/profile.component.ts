@@ -117,7 +117,6 @@ export class ProfileComponent implements OnInit {
     }
 
   ngOnInit() {
-    debugger
     this.countryCode = '91';
     this.mobileArr = [];
     this.profileService.getUser(this.register.username).subscribe(
@@ -210,7 +209,6 @@ export class ProfileComponent implements OnInit {
     } else {
       pos = index + 1 ;
     }
-    debugger
     // if (pos > -1 && pos < this.formInput.length ) {
     //   this.rows._results[pos].nativeElement.focus();
     // }
@@ -399,7 +397,6 @@ export class ProfileComponent implements OnInit {
         }, 5000);
       },
       error => {
-        console.log(error);
         let errorArr = JSON.parse(error.error);
         this.mobileLoading=false;
         this.mobileShowErrorMessage=true;

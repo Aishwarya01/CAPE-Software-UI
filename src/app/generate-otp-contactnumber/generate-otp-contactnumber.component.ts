@@ -79,7 +79,6 @@ export class GenerateOtpContactnumberComponent implements OnInit {
         }, 5000);
       },
       error => {
-        console.log(error);
         let errorArr = JSON.parse(error.error);
         this.loading=false;
         this.showErrorMessage=true;

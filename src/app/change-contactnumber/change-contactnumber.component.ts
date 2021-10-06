@@ -101,7 +101,6 @@ export class ChangeContactnumberComponent implements OnInit {
     } else {
       pos = index + 1 ;
     }
-    debugger
     if (pos > -1 && pos < this.formInput.length ) {
       this.rows._results[pos].nativeElement.focus();
     }
