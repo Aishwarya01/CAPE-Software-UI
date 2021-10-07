@@ -33,6 +33,9 @@ import { Register } from '../model/register';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
+declare var require: any
+const FileSaver = require('file-saver');
+
 
 export interface PeriodicElement {
   siteCd: string;
@@ -563,15 +566,14 @@ printPage() {
 downloadPdf(siteId: any,userName: any): any {
   this.inspectionService.downloadPDF(siteId,userName).subscribe(
     data =>{
-      let blob = new Blob([data], {
-        type: 'application/pdf' // must match the Accept type
-        // type: 'application/octet-stream' // for excel 
-    });
-    var link = document.createElement('a');
-    link.href = window.URL.createObjectURL(blob);
-    link.download = 'samplePDFFile.pdf';
-    link.click();
-    window.URL.revokeObjectURL(link.href);
+      let blob = new Blob([data._body], {type: 'application/pdf'})     
+        FileSaver.saveAs(blob, 'report.pdf');
+    
+    // var link = document.createElement('a');
+    // link.href = window.URL.createObjectURL(blob);
+    // link.download = 'samplePDFFile.pdf';
+    // link.click();
+    // window.URL.revokeObjectURL(link.href);
     },
     error =>{
 

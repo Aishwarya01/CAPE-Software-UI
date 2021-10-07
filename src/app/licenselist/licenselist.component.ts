@@ -17,6 +17,8 @@ import { FinalreportsComponent } from '../finalreports/finalreports.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
+declare var require: any
+const FileSaver = require('file-saver');
 
 @Component({
   selector: 'app-licenselist',
@@ -175,24 +177,43 @@ export class LicenselistComponent implements OnInit {
   pdfModal(contentPDF:any){
     this.modalService.open(contentPDF,{size: 'xl'})
   }
+  // downloadPdf(siteId: any,userName: any): any {
+  //   this.inspectionService.downloadPDF(siteId,userName).subscribe(
+  //     data =>{
+  //       let blob = new Blob([data], {
+  //         type: 'application/pdf' // must match the Accept type
+  //         // type: 'application/octet-stream' // for excel 
+  //     });
+  //     var link = document.createElement('a');
+  //     link.href = window.URL.createObjectURL(blob);
+  //     link.download = 'samplePDFFile.pdf';
+  //     link.click();
+  //     window.URL.revokeObjectURL(link.href);
+  //     },
+  //     error =>{
+  
+  //     }
+  //   )
+  // }
+
   downloadPdf(siteId: any,userName: any): any {
     this.inspectionService.downloadPDF(siteId,userName).subscribe(
       data =>{
-        let blob = new Blob([data], {
-          type: 'application/pdf' // must match the Accept type
-          // type: 'application/octet-stream' // for excel 
-      });
-      var link = document.createElement('a');
-      link.href = window.URL.createObjectURL(blob);
-      link.download = 'samplePDFFile.pdf';
-      link.click();
-      window.URL.revokeObjectURL(link.href);
+        let blob = new Blob([data._body], {type: 'application/pdf'})     
+          FileSaver.saveAs(blob, 'report.pdf');
+      
+      // var link = document.createElement('a');
+      // link.href = window.URL.createObjectURL(blob);
+      // link.download = 'samplePDFFile.pdf';
+      // link.click();
+      // window.URL.revokeObjectURL(link.href);
       },
       error =>{
   
       }
     )
   }
+
   navigateToSite() {
     this.viewContainerRef.clear();
     this.destroy = true;
