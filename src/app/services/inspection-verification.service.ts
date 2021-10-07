@@ -32,7 +32,7 @@ export class InspectionVerificationService {
     return this.http.put<any>(this.apiUrl + '/updateSummary', summary, { responseType: 'text' as 'json' })
   }
   public downloadPDF(siteId: any,userName: any): Observable<any> {
-    return this.http.get<any>(this.apiUrl + '/printInstalReport'+'/'+userName+ '/' +siteId, { responseType: 'text' as 'json' })
+    return this.http.get<any>(this.apiUrl2 + '/printFinalPDF'+'/'+userName+ '/' +siteId, { responseType: 'text' as 'json' })
   }
   public notificationRetrieveComments(userName: any): Observable<any> {
     return this.http.get<any>(this.apiUrl2 + '/retrieveComments'+'/'+userName, { responseType: 'text' as 'json' })
