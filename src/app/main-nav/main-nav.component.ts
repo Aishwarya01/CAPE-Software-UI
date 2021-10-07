@@ -564,21 +564,7 @@ printPage() {
   window.print();
 }
 downloadPdf(siteId: any,userName: any): any {
-  this.inspectionService.downloadPDF(siteId,userName).subscribe(
-    data =>{
-      let blob = new Blob([data._body], {type: 'application/pdf'})     
-        FileSaver.saveAs(blob, 'report.pdf');
-    
-    // var link = document.createElement('a');
-    // link.href = window.URL.createObjectURL(blob);
-    // link.download = 'samplePDFFile.pdf';
-    // link.click();
-    // window.URL.revokeObjectURL(link.href);
-    },
-    error =>{
-
-    }
-  )
+  this.inspectionService.downloadPDF(siteId,userName)
 }
  highlightSub2(type:any){
   this.welcome= false;

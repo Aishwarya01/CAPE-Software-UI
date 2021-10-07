@@ -197,21 +197,7 @@ export class LicenselistComponent implements OnInit {
   // }
 
   downloadPdf(siteId: any,userName: any): any {
-    this.inspectionService.downloadPDF(siteId,userName).subscribe(
-      data =>{
-        let blob = new Blob([data], {type: 'application/pdf'})     
-          FileSaver.saveAs(blob, 'MergeFile.pdf');
-      
-      // var link = document.createElement('a');
-      // link.href = window.URL.createObjectURL(blob);
-      // link.download = 'samplePDFFile.pdf';
-      // link.click();
-      // window.URL.revokeObjectURL(link.href);
-      },
-      error =>{
-  
-      }
-    )
+    this.inspectionService.downloadPDF(siteId,userName)
   }
 
   navigateToSite() {
