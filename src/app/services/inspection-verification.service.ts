@@ -7,6 +7,9 @@ import { Reportdetails } from '../model/reportdetails';
 import { Summary } from '../model/summary';
 import { Supplycharacteristics } from '../model/supplycharacteristics';
 import { TestingDetails } from '../model/testing-details';
+declare var require: any
+const FileSaver = require('file-saver');
+
 @Injectable({
   providedIn: 'root'
 })
@@ -31,8 +34,16 @@ export class InspectionVerificationService {
   public updateSummary(summary: Summary): Observable<any> {
     return this.http.put<any>(this.apiUrl + '/updateSummary', summary, { responseType: 'text' as 'json' })
   }
-  public downloadPDF(siteId: any,userName: any): Observable<any> {
-    return this.http.get<any>(this.apiUrl2 + '/printFinalPDF'+'/'+userName+ '/' +siteId, { responseType: 'text' as 'json' })
+  public downloadPDF(siteId: any,userName: any) {
+  return   this.http.get(this.apiUrl2 + '/printFinalPDF'+'/'+userName+ '/' +siteId, { responseType: 'blob' }).subscribe(
+       data =>{
+         const fileName = 'finalreport.pdf';
+         FileSaver.saveAs(data, fileName);
+       },
+       err=>{
+        
+       }
+     )
   }
   public notificationRetrieveComments(userName: any): Observable<any> {
     return this.http.get<any>(this.apiUrl2 + '/retrieveComments'+'/'+userName, { responseType: 'text' as 'json' })
