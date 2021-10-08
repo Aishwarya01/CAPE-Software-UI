@@ -178,10 +178,10 @@ export class LicenselistComponent implements OnInit {
     this.destroy = false;
   } 
   }
- 
-  printPDFModal(contentPDF:any) {
-   this.modalService.open(contentPDF,{size: 'xl'});
+  pdfModal(siteId: any,userName: any){
+    this.inspectionService.printPDF(siteId,userName)
   }
+  
   downloadPdf(siteId: any,userName: any): any {
     this.inspectionService.downloadPDF(siteId,userName)
   }

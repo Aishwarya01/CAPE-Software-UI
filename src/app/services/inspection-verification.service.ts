@@ -45,6 +45,23 @@ export class InspectionVerificationService {
        }
      )
   }
+  public printPDF(siteId: any,userName: any) {
+    return   this.http.get(this.apiUrl2 + '/printFinalPDF'+'/'+userName+ '/' +siteId, { responseType: 'blob' }).subscribe(
+         data =>{
+           //const fileName = 'finalreport.pdf';
+           var fileURL: any = URL.createObjectURL(data);
+           var a = document.createElement("a");
+           a.href = fileURL;
+           a.target = '_blank';
+           // Don't set download attribute
+           // a.download = "finalreport.pdf";
+           a.click();
+         },
+         err=>{
+          
+         }
+       )
+    }
   public notificationRetrieveComments(userName: any): Observable<any> {
     return this.http.get<any>(this.apiUrl2 + '/retrieveComments'+'/'+userName, { responseType: 'text' as 'json' })
   }

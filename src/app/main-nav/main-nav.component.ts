@@ -560,12 +560,10 @@ triggerNavigateTo(siteName:any){
   // lvInspectionRef.changeDetectorRef.detectChanges();
 }
 
-pdfModal(contentPDF:any){
-  this.modalService.open(contentPDF,{size: 'xl'})
+pdfModal(siteId: any,userName: any){
+  this.inspectionService.printPDF(siteId,userName)
 }
-printPage() {
-  window.print();
-}
+
 downloadPdf(siteId: any,userName: any): any {
   this.inspectionService.downloadPDF(siteId,userName)
 }
