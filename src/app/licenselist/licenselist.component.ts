@@ -19,9 +19,6 @@ import { InspectorregisterService } from '../services/inspectorregister.service'
 import { InspectionVerificationService } from '../services/inspection-verification.service';
 declare var require: any
 const FileSaver = require('file-saver');
-import {saveAs} from 'file-saver';
-import { jsPDF } from "jspdf";
-
 
 @Component({
   selector: 'app-licenselist',
