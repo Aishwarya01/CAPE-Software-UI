@@ -111,6 +111,9 @@ export class MainNavComponent implements OnInit, OnDestroy {
  
   @ViewChild('ref', { read: ViewContainerRef })
   viewContainerRef!: ViewContainerRef;
+
+  @ViewChild('verify')
+  verification: any;  
   
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -521,6 +524,9 @@ triggerNavigateTo(siteName:any){
     this.ongoingSite=false;
     this.completedSite=false;
     this.service.mainNavToSaved=0;
+    setTimeout(()=>{
+      this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
+    }, 3000);
   } 
   else {
     this.value= false;
@@ -538,6 +544,9 @@ triggerNavigateTo(siteName:any){
     this.ongoingSite=false;
     this.completedSite=false;
     this.service.mainNavToSaved=0;
+    setTimeout(()=>{
+      this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
+    }, 3000);
   } 
   else {
     this.value= false;

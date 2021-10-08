@@ -549,10 +549,10 @@ export class VerificationlvComponent implements OnInit {
   // }
 //for saved reports tab
   changeTab(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any): void {
-    this.selectedIndex=1;
+    // this.selectedIndex = 0;
     this.siteService.retrieveFinal(userName,sitedId).subscribe(
       data=> {
-       // this.selectedIndex = index;
+      //  this.selectedIndex = index;
         this.dataJSON = JSON.parse(data);
         if(this.dataJSON.reportDetails != null) {
           this.selectedIndex = index;            
