@@ -33,8 +33,6 @@ import { Register } from '../model/register';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
-declare var require: any
-const FileSaver = require('file-saver');
 
 import { SavedreportsComponent } from '../savedreports/savedreports.component';
 
@@ -392,8 +390,6 @@ notification(number: any,viewerName: any,inspectorName: any,viewerDate: any,insp
 }
 
 triggerNavigateTo(siteName:any){
-  debugger
-  console.log(siteName);
   //this.service.triggerScrollTo();
   this.welcome= false;  
   this.ongoingSite=false;

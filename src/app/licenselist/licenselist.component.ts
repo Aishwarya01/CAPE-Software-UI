@@ -17,8 +17,6 @@ import { FinalreportsComponent } from '../finalreports/finalreports.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
-declare var require: any
-const FileSaver = require('file-saver');
 
 @Component({
   selector: 'app-licenselist',
