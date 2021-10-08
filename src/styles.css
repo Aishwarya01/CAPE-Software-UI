@@ -130,7 +130,7 @@ font-size: 14px !important;
 }  */
 
 .mat-list-base {
-  padding-top: 30px !important;
+  padding-top: 40px !important;
 }
 .MenuIcons .mat-menu-item .mat-icon {
   margin-right: 2px !important;
@@ -411,6 +411,11 @@ th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:la
   padding-right: unset !important;
 }
 .highlight-text{
+  /* -webkit-animation: glowing 1500ms infinite;
+  animation: glowing 1500ms infinite; */
+  background-color: rgba(0, 0, 0, 0.04) !important;
+}
+.highlight-text:hover{
   /* -webkit-animation: glowing 1500ms infinite;
   animation: glowing 1500ms infinite; */
   background-color: rgba(0, 0, 0, 0.04) !important;

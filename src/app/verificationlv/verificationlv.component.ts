@@ -552,7 +552,7 @@ export class VerificationlvComponent implements OnInit {
     this.selectedIndex=1;
     this.siteService.retrieveFinal(userName,sitedId).subscribe(
       data=> {
-       // this.selectedIndex = index;
+        this.selectedIndex = index;
         this.dataJSON = JSON.parse(data);
         if(this.dataJSON.reportDetails != null) {
           this.selectedIndex = index;            
@@ -569,8 +569,11 @@ export class VerificationlvComponent implements OnInit {
                }
              }
            }
-           // this.selectedIndex=0;
-         }   
+           if(this.service.commentScrollToBottom==1){
+            this.service.triggerScrollTo();
+          }
+          this.service.commentScrollToBottom=0;
+          }   
         else{
           this.selectedIndex=1;
           this.noDetails=true;

@@ -23,12 +23,12 @@ export class GlobalsService {
   commentScrollToBottom: number= 0;
   mainNavToSaved:number=0;
   filterSiteName!: String;
-  glowContinueBtn:boolean=false;
+  highlightText:boolean=false;
 
   constructor(private _scrollToService: ScrollToService) {}
 
   public triggerScrollTo() {
-    if(this.commentScrollToBottom==1){
+ 
       const config: ScrollToConfigOptions = {
         target: 'destination',
         offset: 200
@@ -38,4 +38,3 @@ export class GlobalsService {
   }
 
  
-}

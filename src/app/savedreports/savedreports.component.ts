@@ -62,18 +62,19 @@ export class SavedreportsComponent implements OnInit {
     this.retrieveSiteDetails();
    setTimeout(() => this.input.focus(), 500);
     this.siteName=this.service.filterSiteName;
-    if(this.service.filterSiteName){
-      this.applyFilter(this.siteName);
-    }
+    // if(this.service.filterSiteName){
+    //   this.applyFilter(this.siteName);
+    // }
+   
   }
 
   applyFilter(siteName:any) {
     if(siteName!=undefined && siteName!=""){
-    const filterValue = siteName;
+    const filterValue = siteName
     this.savedReport_dataSource.filter = filterValue.toLowerCase();
     }
     else{
-      this.service.glowContinueBtn=false;
+      this.service.highlightText=false;
     }
   }
   applyFilter1(event: Event) {
@@ -138,8 +139,8 @@ export class SavedreportsComponent implements OnInit {
   }
 
   continue(siteId: any,userName :any,site: any) {
+    //this.service.commentScrollToBottom=1;
     this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
-    this.service.commentScrollToBottom=1;
   }
   savedContinue()
   {

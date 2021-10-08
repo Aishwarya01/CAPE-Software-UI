@@ -396,8 +396,9 @@ triggerNavigateTo(siteName:any){
   this.completedSite=false;
   this.value= false;
   this.service.mainNavToSaved=1;
+  this.service.commentScrollToBottom=1;
   this.service.filterSiteName=siteName;
-  this.service.glowContinueBtn=true;
+  this.service.highlightText=true;
   this.viewContainerRef.clear();
   const VerificationlvFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
   const lvInspectionRef = this.viewContainerRef.createComponent(VerificationlvFactory);
