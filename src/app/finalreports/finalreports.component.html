@@ -28,6 +28,10 @@
       </div> -->
 
     <div class="card-body">
+      <mat-form-field appearance="standard" style=" font-size: 14px;width: 30%;">
+        <mat-label>Filter Sites</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+      </mat-form-field>
       <table mat-table [dataSource]="finalReport_dataSource" class="mat-elevation-z8 table" matSort
         #finalReportSort="matSort">
 
@@ -73,44 +77,48 @@
         </ng-container>
 
         <ng-container matColumnDef="preview">
-            <th mat-header-cell *matHeaderCellDef> Preview </th>        
-            <td mat-cell *matCellDef="let element"> 
-                <button class="btn btn-info" (click)="continue(element.siteId)" style="width: 70%">
-                    <!-- <span class="material-icons">
-                        content_paste
-                    </span> -->
-                    <mat-icon class="mousechange" aria-hidden="false" aria-label="Example home icon" style="position: absolute;
-                    left: 72.5%;">content_paste</mat-icon>
-                <span style="margin-left:20px">Preview</span>
-                </button>
-            </td>
-        </ng-container>
-
-        <ng-container matColumnDef="download">
-            <th mat-header-cell *matHeaderCellDef> Download </th>        
-            <td mat-cell *matCellDef="let element"> 
-                <!-- <button class="btn btn-info" (click)="continue(element.siteId)">
-                    <span class="material-icons">
-                        download
-                        </span>
-                    Download
-                </button> -->
-                <button class="btn btn-info" (click)="continue(element.siteId)" style="width: 70%">
-                  <!-- <span class="material-icons">
-                      content_paste
-                  </span> -->
+          <th mat-header-cell *matHeaderCellDef> Preview </th>        
+          <td mat-cell *matCellDef="let element"> 
+              <!-- <button class="btn btn-info" (click)="continue(element.siteId)" style="width: auto">
                   <mat-icon class="mousechange" aria-hidden="false" aria-label="Example home icon" style="position: absolute;
-                  left: 84%;">download</mat-icon>
-              <span style="margin-left:20px">Download</span>
-              </button>
-            </td>
-        </ng-container>
+                  left: 72.3%;">content_paste</mat-icon>
+              <span style="margin-left:20px">Preview</span>
+              </button> -->
+              <button class="btn btn-info" (click)="continue(element.siteId)" style="width: auto;display: inline-flex;padding: 0.35rem 0.5rem;
+              font-size: 14px;">
+                <mat-icon class="mousechange" aria-hidden="false" aria-label="Example home icon"
+                style="font-size: 20px;line-height: 1.3;">content_paste</mat-icon>
+                   <span style="padding-top: 2px;">Preview</span>
+            </button>
+          </td>
+      </ng-container>
+
+      <ng-container matColumnDef="download">
+          <th mat-header-cell *matHeaderCellDef> Download </th>        
+          <td mat-cell *matCellDef="let element" class="downloadtd"> 
+              <!-- <button class="btn btn-info" (click)="continue(element.siteId)" style="width: auto">
+                <mat-icon class="mousechange" aria-hidden="false" aria-label="Example home icon" style="position: absolute;
+                left: 83.5%;">download</mat-icon>
+            <span style="margin-left:20px">Download</span>
+            </button> -->
+            <button class="btn btn-info" (click)="continue(element.siteId)" style="width: auto;display: inline-flex;padding: 0.35rem 0.5rem;
+             font-size: 14px;">
+              <mat-icon class="mousechange" aria-hidden="false" aria-label="Example home icon" style="font-size: 20px;line-height: 1.3;">download</mat-icon>
+              <span style="padding-top: 2px;">Download</span>
+          </button>
+          </td>
+      </ng-container>
+
 
         <tr mat-header-row *matHeaderRowDef="finalReportsColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: finalReportsColumns;"
           [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
           (mouseout)="row.hovered = false"></tr>
 
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+        </tr>
       </table>
 
       <mat-paginator #finalReportPaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>

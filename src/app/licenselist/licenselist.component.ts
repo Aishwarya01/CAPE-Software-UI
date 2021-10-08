@@ -19,6 +19,9 @@ import { InspectorregisterService } from '../services/inspectorregister.service'
 import { InspectionVerificationService } from '../services/inspection-verification.service';
 declare var require: any
 const FileSaver = require('file-saver');
+import {saveAs} from 'file-saver';
+import { jsPDF } from "jspdf";
+
 
 @Component({
   selector: 'app-licenselist',
@@ -82,6 +85,7 @@ export class LicenselistComponent implements OnInit {
   inspectorData: any = [];
   ongoingFilterData:any=[];
   completedFilterData:any=[];
+  pdfSrc!: Uint8Array;
   // @ViewChild(VerificationlvComponent)
   // verification!: VerificationlvComponent;
 
@@ -172,35 +176,17 @@ export class LicenselistComponent implements OnInit {
   } 
   else {
     this.destroy = false;
+  } 
   }
+ 
+  printPDFModal(contentPDF:any) {
+   this.modalService.open(contentPDF,{size: 'xl'});
   }
-  pdfModal(contentPDF:any){
-    this.modalService.open(contentPDF,{size: 'xl'})
-  }
-  // downloadPdf(siteId: any,userName: any): any {
-  //   this.inspectionService.downloadPDF(siteId,userName).subscribe(
-  //     data =>{
-  //       let blob = new Blob([data], {
-  //         type: 'application/pdf' // must match the Accept type
-  //         // type: 'application/octet-stream' // for excel 
-  //     });
-  //     var link = document.createElement('a');
-  //     link.href = window.URL.createObjectURL(blob);
-  //     link.download = 'samplePDFFile.pdf';
-  //     link.click();
-  //     window.URL.revokeObjectURL(link.href);
-  //     },
-  //     error =>{
-  
-  //     }
-  //   )
-  // }
-
   downloadPdf(siteId: any,userName: any): any {
-    this.inspectionService.downloadPDF(siteId,userName).subscribe(
+    this.inspectionService.downloadPDF(siteId,userName).subscribe( 
       data =>{
         let blob = new Blob([data], {type: 'application/pdf'})     
-          FileSaver.saveAs(blob, 'MergeFile.pdf');
+        FileSaver.saveAs(blob, 'MergeFile.pdf');
       
       // var link = document.createElement('a');
       // link.href = window.URL.createObjectURL(blob);

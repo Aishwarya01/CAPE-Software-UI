@@ -410,6 +410,22 @@ max-height:300px; overflow-y:auto; overflow-x:hidden;
 th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:last-of-type {
   padding-right: unset !important;
 }
+.highlight-text{
+  /* -webkit-animation: glowing 1500ms infinite;
+  animation: glowing 1500ms infinite; */
+  background-color: rgba(0, 0, 0, 0.04) !important;
+}
+/* @-webkit-keyframes glowing {
+  0% { background-color: #B20000; -webkit-box-shadow: 0 0 3px #B20000; }
+  50% { background-color: #FF0000; -webkit-box-shadow: 0 0 40px #FF0000; }
+  100% { background-color: #B20000; -webkit-box-shadow: 0 0 3px #B20000; }
+}
+
+@keyframes glowing {
+  0% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
+  50% { background-color: #FF0000; box-shadow: 0 0 40px #FF0000; }
+  100% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
+} */
 
 @media (max-width: 600px) {
   .loginCardBody{

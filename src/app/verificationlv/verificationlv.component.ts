@@ -222,6 +222,7 @@ export class VerificationlvComponent implements OnInit {
     private siteService: SiteService,
     private ChangeDetectorRef: ChangeDetectorRef,
     public service: GlobalsService
+   
   
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
@@ -241,10 +242,13 @@ export class VerificationlvComponent implements OnInit {
     this.siteService.retrieveCountry().subscribe((data) => {
       this.countryList = JSON.parse(data);
     });
+   if(this.service.mainNavToSaved==1){
+   this.selectedIndex=1;
+  // this.service.mainNavToSaved=0;
+   }
     this.refresh();
     // this.retrieveClientDetails();
     // this.retrieveSiteDetails();
-    
   }
 
   retrieveIsActiveData() {
@@ -547,7 +551,6 @@ export class VerificationlvComponent implements OnInit {
   changeTab(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any): void {
     this.selectedIndex=1;
     this.siteService.retrieveFinal(userName,sitedId).subscribe(
-
       data=> {
        // this.selectedIndex = index;
         this.dataJSON = JSON.parse(data);
@@ -593,7 +596,6 @@ export class VerificationlvComponent implements OnInit {
     this.selectedIndex = 0;
     this.basic.changeTab(0,siteId,userName,clientName,departmentName,site);
   }
-
   // onTabChanged(e: any) {
   //   if(!this.conFlag) {
   //     debugger

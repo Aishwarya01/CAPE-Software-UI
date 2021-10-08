@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild,Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild,Output,EventEmitter, Input, ElementRef } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -10,6 +10,8 @@ import { DepartmentService } from '../services/department.service';
 import { SiteService } from '../services/site.service';
 import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
 import { GlobalsService } from '../globals.service';
+import { MatInput } from '@angular/material/input';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-savedreports',
@@ -26,6 +28,7 @@ export class SavedreportsComponent implements OnInit {
   // @Output("changeTab") changeTab: EventEmitter<any> = new EventEmitter();
   email: String ="";
   site = new Site;
+  siteName: String="";
   clientList:any  = [];
   departmentList: any = [];
   noDetails: boolean=false;
@@ -36,6 +39,9 @@ export class SavedreportsComponent implements OnInit {
   currentUser1: any = [];
   userData: any=[];
   viewerFilterData:any=[];
+  selectedIndex: number=0;
+ 
+ @ViewChild('input') input!: MatInput;
 
   constructor(private router: ActivatedRoute,
               private clientService: ClientService,
@@ -54,6 +60,28 @@ export class SavedreportsComponent implements OnInit {
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
     this.retrieveSiteDetails();
+   setTimeout(() => this.input.focus(), 500);
+    this.siteName=this.service.filterSiteName;
+    if(this.service.filterSiteName){
+      this.applyFilter(this.siteName);
+    }
+  }
+
+  applyFilter(siteName:any) {
+    if(siteName!=undefined && siteName!=""){
+    const filterValue = siteName;
+    this.savedReport_dataSource.filter = filterValue.toLowerCase();
+    }
+    else{
+      this.service.glowContinueBtn=false;
+    }
+  }
+  applyFilter1(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.savedReport_dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.savedReport_dataSource.paginator) {
+      this.savedReport_dataSource.paginator.firstPage();
+    }
   }
 
   private retrieveClientDetails() {
@@ -111,6 +139,7 @@ export class SavedreportsComponent implements OnInit {
 
   continue(siteId: any,userName :any,site: any) {
     this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
+    this.service.commentScrollToBottom=1;
   }
   savedContinue()
   {

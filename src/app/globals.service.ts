@@ -1,4 +1,4 @@
-import { Injectable,ViewChild } from '@angular/core';
+import { EventEmitter, Injectable,ViewChild } from '@angular/core';
 import { VerificationlvComponent } from './verificationlv/verificationlv.component';
 import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
 
@@ -20,13 +20,22 @@ export class GlobalsService {
   inspectorData: any = [];
   changeNumberSession!: String;
   changeNumber!: String;
-  
+  commentScrollToBottom: number= 0;
+  mainNavToSaved:number=0;
+  filterSiteName!: String;
+  glowContinueBtn:boolean=false;
+
   constructor(private _scrollToService: ScrollToService) {}
 
   public triggerScrollTo() {
-    const config: ScrollToConfigOptions = {
-      target: 'destination'
-    };
-    this._scrollToService.scrollTo(config);
+    if(this.commentScrollToBottom==1){
+      const config: ScrollToConfigOptions = {
+        target: 'destination',
+        offset: 200
+      };
+      this._scrollToService.scrollTo(config);
+    }
   }
+
+ 
 }
