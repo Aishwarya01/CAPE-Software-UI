@@ -68,6 +68,8 @@ export class LicenselistComponent implements OnInit {
 
   @ViewChild('ref', { read: ViewContainerRef })
   viewContainerRef!: ViewContainerRef;
+  @ViewChild('verify')
+  verification: any; 
   disableUse: boolean = false;
   email: String= '';
   destroy: boolean=false;
@@ -83,7 +85,7 @@ export class LicenselistComponent implements OnInit {
   pdfSrc!: Uint8Array;
   // @ViewChild(VerificationlvComponent)
   // verification!: VerificationlvComponent;
-
+  value: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
@@ -93,7 +95,8 @@ export class LicenselistComponent implements OnInit {
               private router: ActivatedRoute,
                private inspectionService: InspectionVerificationService,
               private componentFactoryResolver: ComponentFactoryResolver,
-              private modalService: NgbModal
+              private modalService: NgbModal,
+              
               ) {
                 this.email = this.router.snapshot.paramMap.get('email') || '{}';
                }
@@ -148,29 +151,43 @@ export class LicenselistComponent implements OnInit {
   editSite(siteId:any,userName:any,site:any){
     if (confirm("Are you sure you want to edit site details?"))
     {
+    // this.viewContainerRef.clear();
+    // this.destroy = true;
+    // const verificationFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
+    // const verificationRef = this.viewContainerRef.createComponent(verificationFactory);
+    // verificationRef.changeDetectorRef.detectChanges();
+    // this.change.emit(siteId);
     this.viewContainerRef.clear();
     this.destroy = true;
-    const verificationFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
-    const verificationRef = this.viewContainerRef.createComponent(verificationFactory);
-    verificationRef.changeDetectorRef.detectChanges();
-    this.change.emit(siteId);
+    this.value=true;
+    setTimeout(()=>{
+      this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
+    }, 1000);
     } 
     else {
       this.destroy = false;
+      this.value=false;
     }
   }
 
-  viewSite(){
+  viewSite(siteId: any,userName: any,site: any){
     if (confirm("Are you sure you want to view site details?"))
   {
+    // this.viewContainerRef.clear();
+    // this.destroy = true;
+    // const verificationFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
+    // const verificationRef = this.viewContainerRef.createComponent(verificationFactory);
+    // verificationRef.changeDetectorRef.detectChanges();
     this.viewContainerRef.clear();
     this.destroy = true;
-    const verificationFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
-    const verificationRef = this.viewContainerRef.createComponent(verificationFactory);
-    verificationRef.changeDetectorRef.detectChanges();
+    this.value=true;
+    setTimeout(()=>{
+      this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
+    }, 1000);
   } 
   else {
     this.destroy = false;
+    this.value=false;
   } 
   }
   pdfModal(siteId: any,userName: any){
@@ -182,12 +199,16 @@ export class LicenselistComponent implements OnInit {
   }
 
   navigateToSite() {
+    // this.viewContainerRef.clear();
+    // this.destroy = true;
+    // const verificationFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
+    // const verificationRef = this.viewContainerRef.createComponent(verificationFactory);
+    // //const verification=this.verification.changeTab(1,siteId,userName,'clientName','departmentName',site);
+    // verificationRef.changeDetectorRef.detectChanges();
     this.viewContainerRef.clear();
-    this.destroy = true;
-    const verificationFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
-    const verificationRef = this.viewContainerRef.createComponent(verificationFactory);
-    //const verification=this.verification.changeTab(1,siteId,userName,'clientName','departmentName',site);
-    verificationRef.changeDetectorRef.detectChanges();
+    this.destroy= true;
+    this.value = true;
+
   }
   
   decreaseLicense() {

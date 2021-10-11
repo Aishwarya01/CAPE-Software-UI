@@ -549,7 +549,7 @@ export class VerificationlvComponent implements OnInit {
   // }
 //for saved reports tab
   changeTab(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any): void {
-    this.selectedIndex=1;
+    // this.selectedIndex=1;
     this.siteService.retrieveFinal(userName,sitedId).subscribe(
       data=> {
         this.selectedIndex = index;
@@ -584,6 +584,11 @@ export class VerificationlvComponent implements OnInit {
 
       }
     )
+  }
+
+  changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any) {
+    this.selectedIndex = 1
+    this.changeTab(0,sitedId,userName,'clientName','departmentName',site);
   }
 
 //for final reports tab
