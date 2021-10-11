@@ -396,7 +396,8 @@ populateDataComments() {
       this.completedCommentArr3 = [];
     }
     for(let j of this.step1List.reportDetails.reportDetailsComment) {
-         if(j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) {
+      if((j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) && j.viewerFlag==1)
+          {
           this.arrViewer.push(this.createCommentGroup(j));
          }
          else if(j.approveOrReject == 'APPROVED'){
@@ -434,8 +435,8 @@ populateDataComments() {
         this.hideAdd=false;
         this.hideapprove=false;
         this.hideReject=false;
-        this.reportViewerCommentArr.push(this.createCommentGroup(value));
-        this.step1Form.setControl('viewerCommentArr', this._formBuilder.array(this.reportViewerCommentArr || []))
+        // this.reportViewerCommentArr.push(this.createCommentGroup(value));
+        // this.step1Form.setControl('viewerCommentArr', this._formBuilder.array(this.reportViewerCommentArr || []))
          }
 
          //Viewer starts
