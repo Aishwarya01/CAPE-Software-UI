@@ -1,6 +1,8 @@
-<h1>Add New Site</h1>
+<h1 style="text-align: center;">Add New Site</h1>
+<hr>
 <form [formGroup]="addSiteForm" (ngSubmit)="onSubmit">
-
+    <div class="card">
+        <div class="card-body">
     <div class="form-group">
         <div class="row">
 
@@ -188,11 +190,32 @@
       <div *ngIf="Error" style="text-align: center;">
           <span class="alert alert-danger">{{errorMsg}}</span>
       </div>
-    <div style="display: flex;justify-content: space-evenly;">
+    <!-- <div style="display: flex;justify-content: space-evenly;">
         <button (click)="onSubmit()" type="submit"
             class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"> Save</button>
         <button (click)="cancel()" style="display: flex;" class="btn btn-outline-danger cancel"><i
                 class="bi bi-x icon"></i> Cancel</button>
+    </div> -->
+
+    <div style="display: inline">
+        <button
+        (click)="onSubmit()" type="submit"
+          style="float: left; margin-left: 400px"
+          class="
+            btn btn-block btn-primary btn-rounded btn-md
+            font-weight-medium
+            auth-form-btn" id="login-btn">
+          <i class="bi bi-person-plus-fill icon"></i> Save
+        </button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button
+        (click)="cancel()"
+        class="btn btn-danger">
+          <i class="bi bi-x icon"></i>
+          <span aria-hidden="true">Cancel</span>
+        </button>
+      </div>
+    </div>
     </div>
 </form>
 

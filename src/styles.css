@@ -432,7 +432,7 @@ th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:la
   100% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
 } */
 
-@media (max-width: 600px) {
+@media screen and (max-width: 700px) and (min-width: 319px) {
   .loginCardBody{
     width: 109% !important;
     margin-left: -14px;
@@ -460,4 +460,17 @@ th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:la
 .mat-list-base .mat-list-item .mat-list-item-content, .mat-list-base .mat-list-option .mat-list-item-content {
   padding: 0 16px !important;
 }
+.welcome-text{
+  margin: 210px 0px 0px 0px !important; 
+}
+}
+
+
+/*for ipad*/
+@media screen and (device-width: 768px) and (device-height: 1024px){
+
+}
+/*for ipad pro*/
+@media screen and (device-width: 1024px) and (device-height: 1366px){
+
 }

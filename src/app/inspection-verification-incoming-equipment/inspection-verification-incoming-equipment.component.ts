@@ -995,12 +995,14 @@ showHideAccordion(index: number) {
 
     if(flag) {
       this.UpateInspectionService.updateIncoming(this.inspectionDetails).subscribe(
-        (data) => {
-          console.log("success");
-        },
-        (error) => {
-          console.log("error");
-        });
+        data=> {
+          this.success = true;
+          this.successMsg = 'Incoming Equipment Successfully Updated';
+         },
+         (error) => {
+          this.Error = true;
+          this.errorMsg = 'Something went wrong, kindly check all the fields';
+         });
     }
     else {
       this.inspectionDetailsService
@@ -1010,7 +1012,6 @@ showHideAccordion(index: number) {
           this.proceedNext.emit(true);
           this.success = true;
           this.successMsg = 'Incoming Equipment Successfully Saved';
-
           this.disable = true;
         },
         (error: any) => {

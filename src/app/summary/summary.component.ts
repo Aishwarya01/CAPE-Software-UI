@@ -840,14 +840,14 @@ showHideAccordion(index: number) {
 
     if(flag) {
       this.UpateInspectionService.updateSummary(this.summary).subscribe(
-        (data) => {
-          console.log("success");
-        },
-        (error) => {
-          console.log("error");
-
-        }
-      )
+        data=> {
+          this.success = true;
+          this.successMsg = 'Summary Information Successfully Updated';
+         },
+         (error) => {
+          this.Error = true;
+          this.errorMsg = 'Something went wrong, kindly check all the fields';
+         });
     }
 
     else {

@@ -1508,20 +1508,21 @@ showHideAccordion(index: number) {
     
     if(flag){
     //  this.reportDetails.siteId = this.retrivedSiteId;
-     
      //this.disable=false;
    this.UpateBasicService.updateBasic(this.reportDetails).subscribe(
     data=> {
-     console.log("worked");
-    
+     this.success = true;
+     this.successMsg = data;
     },
     (error) => {
-      console.log("error");
+      this.Error = true;
+      this.errorArr = [];
+      this.errorArr = JSON.parse(error.error);
+      this.errorMsg = this.errorArr.message;
     });
    
    }
    else{
-    
    this.reportDetailsService.addReportDetails(this.reportDetails).subscribe(
      data=> {
        this.proceedNext.emit(true);
