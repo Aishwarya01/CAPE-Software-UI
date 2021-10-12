@@ -567,11 +567,15 @@ triggerNavigateTo(siteName:any){
 }
 
 pdfModal(siteId: any,userName: any){
-  this.inspectionService.printPDF(siteId,userName)
+  this.inspectionService.printPDF(siteId,userName);
 }
 
 downloadPdf(siteId: any,userName: any): any {
-  this.inspectionService.downloadPDF(siteId,userName)
+  this.inspectionService.downloadPDF(siteId,userName);
+}
+
+emailPDF(siteId: any,userName: any){
+  this.inspectionService.mailPDF(siteId,userName);
 }
  highlightSub2(type:any){
   this.viewContainerRef.clear();

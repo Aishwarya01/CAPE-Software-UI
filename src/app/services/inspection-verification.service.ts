@@ -62,6 +62,10 @@ export class InspectionVerificationService {
          }
        )
     }
+    public mailPDF(siteId: any,userName: any): Observable<any> {
+      return this.http.get(this.apiUrl2 + '/sendPDFinMail'+'/'+userName+ '/' +siteId, { responseType: 'text' as 'json' })
+      }
+
   public notificationRetrieveComments(userName: any): Observable<any> {
     return this.http.get<any>(this.apiUrl2 + '/retrieveComments'+'/'+userName, { responseType: 'text' as 'json' })
   }

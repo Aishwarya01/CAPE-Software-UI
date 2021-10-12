@@ -407,7 +407,7 @@
             <button class="btn btn-outline-danger delete" title="Download PDF" (click)="downloadPdf(element.siteId,element.userName)">
               <mat-icon>download</mat-icon>
             </button>
-            <button class="btn btn-outline-danger delete" title="Email">
+            <button class="btn btn-outline-danger delete" title="Email" (click)="emailPDF(element.siteId,element.userName)">
               <mat-icon>email</mat-icon>
             </button>
             <!-- <button class="btn btn-outline-danger delete" title="Print PDF" (click)="pdfModal(contentPDF)">

@@ -197,7 +197,9 @@ export class LicenselistComponent implements OnInit {
   downloadPdf(siteId: any,userName: any): any {
     this.inspectionService.downloadPDF(siteId,userName)
   }
-
+  emailPDF(siteId: any,userName: any){
+    this.inspectionService.mailPDF(siteId,userName);
+  }
   navigateToSite() {
     // this.viewContainerRef.clear();
     // this.destroy = true;
