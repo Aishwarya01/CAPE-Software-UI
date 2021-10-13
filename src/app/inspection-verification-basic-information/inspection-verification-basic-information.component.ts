@@ -247,7 +247,7 @@ siteValue: String = '';
       startingDateVerification: ['', Validators.required],
       engineerName: [this.reportDetails.verifiedEngineer, Validators.required],
       designation: ['', Validators.required],
-      companyName: ['', Validators.required],
+      companyName: [this.reportDetails.company, Validators.required],
       inspectorDesignation: [this.reportDetails.inspectorDesignation, Validators.required],
       inspectorCompanyName: [this.reportDetails.inspectorCompanyName, Validators.required],
       limitations: ['', Validators.required],
