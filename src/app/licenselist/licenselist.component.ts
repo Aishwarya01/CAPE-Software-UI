@@ -86,7 +86,13 @@ export class LicenselistComponent implements OnInit {
   // @ViewChild(VerificationlvComponent)
   // verification!: VerificationlvComponent;
   value: boolean = false;
-
+  successMsg: string="";
+  success: boolean=false;
+  Error: boolean=false;
+  errorMsg: string="";
+  errorArr: any=[];
+  disable: boolean=false;
+  
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
               private siteService: SiteService,
@@ -144,6 +150,8 @@ export class LicenselistComponent implements OnInit {
   this.completedLicense_dataSource = new MatTableDataSource(this.completedFilterData);
   this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
   this.completedLicense_dataSource.sort = this.completedLicenseSort;
+
+  
 });
 }
   
@@ -191,14 +199,35 @@ export class LicenselistComponent implements OnInit {
   } 
   }
   pdfModal(siteId: any,userName: any){
+    this.disable=true;
     this.inspectionService.printPDF(siteId,userName)
   }
   
   downloadPdf(siteId: any,userName: any): any {
+    this.disable=true;
     this.inspectionService.downloadPDF(siteId,userName)
   }
   emailPDF(siteId: any,userName: any){
-    this.inspectionService.mailPDF(siteId,userName);
+    this.disable=true;
+    this.inspectionService.mailPDF(siteId,userName).subscribe(
+    data => {
+    console.log('worked');
+    this.success = true;
+    this.successMsg = data;
+    setTimeout(()=>{
+      this.success=false;
+  }, 3000);
+    },
+    error => {
+      this.Error = true;
+      this.errorArr = [];
+      this.errorArr = JSON.parse(error.error);
+      this.errorMsg = this.errorArr.message;
+      setTimeout(()=>{
+        this.Error = false;
+    }, 3000);
+    }
+      );
   }
   navigateToSite() {
     // this.viewContainerRef.clear();

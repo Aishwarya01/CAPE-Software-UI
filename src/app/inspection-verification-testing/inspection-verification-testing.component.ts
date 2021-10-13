@@ -78,6 +78,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   validationError: boolean = false;
   validationErrorMsg: String = '';
   location = new Location();
+  supply=new Location();
   // demoArr: any=[];
   disable: boolean = false;
   flag:boolean=false;
@@ -184,6 +185,8 @@ export class InspectionVerificationTestingComponent implements OnInit {
   expandedIndexx!: number;
   inspectorName: String = '';	
   hideShowComment: boolean=false;
+  sourceValue: String = '';
+  //sourceFromSupply: String= '';
   //comments end
 
   constructor(
@@ -209,10 +212,28 @@ export class InspectionVerificationTestingComponent implements OnInit {
       viewerCommentArr: this.formBuilder.array([this.addCommentViewer()]),
       completedCommentArr1: this.formBuilder.array([]),
     });
-    if (
-      this.service.iterationList != '' &&
-      this.service.iterationList != undefined
-    ) {
+
+//working on it
+    //this.sourceValue = this.service.supplyList;
+    //this.testingDetails.sourceFromSupply=this.service.supplyList.aLLiveConductorType;  
+    //this.service.supplyList.aLLiveConductorType; 
+
+    // if (this.service.supplyList != '' && this.service.supplyList != undefined) {
+    //   let b = this.service.supplyList.length;
+    //   for (let i = 0; i < b; i++) {
+    //     this.addItem();
+    //   }
+    //   //this.testaccordianArr.value.testDistribution[0].sourceFromSupply= this.service.supplyList.aLLiveConductorType;
+    //   //this.testaccordianArr.value[0].sourceFromSupply = this.service.supplyList;
+    //   // for (let j = 0; j < this.testaccordianArr.controls.length; j++) {
+    //   //   this.testaccordianArr.value[j].sourceFromSupply = this.service.supplyList[j].sourceFromSupply;
+    //   // }
+    //   //this.testaccordianArr.value.testDistribution.aLLiveConductorType = this.service.supplyList.aLLiveConductorType;
+    //   //this.location.locationArr=this.service.supplyList;
+    //   //this.service.supplyList = [];
+    // }
+    
+    if (this.service.iterationList != '' &&this.service.iterationList != undefined) {
       this.testingRetrieve=false;
       this.inspectionRetrieve=true;
       let a = this.service.iterationList.length;
@@ -220,11 +241,10 @@ export class InspectionVerificationTestingComponent implements OnInit {
         this.addItem();
       }
       for (let j = 0; j < this.testaccordianArr.controls.length; j++) {
-        this.testaccordianArr.value[j].locationNumber =
-          this.service.iterationList[j].locationNumber;
-        this.testaccordianArr.value[j].locationName =
-          this.service.iterationList[j].locationName;
+        this.testaccordianArr.value[j].locationNumber =this.service.iterationList[j].locationNumber;
+        this.testaccordianArr.value[j].locationName =this.service.iterationList[j].locationName;
       }
+     
       this.location.locationArr = this.service.iterationList;
       this.service.iterationList = [];
     }
@@ -244,7 +264,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
       this.flag=true;
      }
 
-     //comments section starts
+//comments section starts
 
 populateDataComments() {
   this.hideShowComment=true;
@@ -614,8 +634,6 @@ showHideAccordion(index: number) {
    
       })
     }
- 
-
   addItem1(item: any) : FormGroup {
     return this.formBuilder.group({
       completedCommentArr: this.formBuilder.array(this.completedComm(item)),
@@ -654,6 +672,7 @@ showHideAccordion(index: number) {
         testingId: new FormControl({disabled: false,value: item.testingId}),
         locationNumber: new FormControl({disabled: false,value: item.locationNumber}),
         locationName: new FormControl({disabled: false,value:  item.locationName}),
+        //sourceFromSupply: new FormControl({disabled: false,value:  item.sourceFromSupply}),        
         testEngineerName: new FormControl({disabled: false,value:  item.testEngineerName}),
         date: new FormControl({disabled: false,value: item.date}),
         companyName: new FormControl({disabled: false,value:  item.companyName}),
@@ -678,6 +697,7 @@ showHideAccordion(index: number) {
         correctSupplyPolarity: new FormControl({disabled: false,value: testDistributionItem[0].correctSupplyPolarity}),
         numOutputCircuitsUse: new FormControl({disabled: false,value: testDistributionItem[0].numOutputCircuitsUse}),
         ratingsAmps: new FormControl({disabled: false,value: testDistributionItem[0].ratingsAmps}),
+        //sourceFromSupply: new FormControl({disabled: true,value: testDistributionItem[0].sourceFromSupply}),
         rateArr: this.formBuilder.array(this.populateRating(testDistributionItem[0].ratingsAmps)),
         numOutputCircuitsSpare: new FormControl({disabled: false,value: testDistributionItem[0].numOutputCircuitsSpare}),
         installedEquipmentVulnarable: new FormControl({disabled: false,value: testDistributionItem[0].installedEquipmentVulnarable}),
@@ -880,6 +900,7 @@ showHideAccordion(index: number) {
       distributionBoardDetails: new FormControl('', [Validators.required]),
       referance: new FormControl('', [Validators.required]),
       location: new FormControl('', [Validators.required]),
+     // sourceFromSupply: new FormControl(''),
       correctSupplyPolarity: new FormControl('', [Validators.required]),
       numOutputCircuitsUse: new FormControl('', [Validators.required]),
       ratingsAmps: new FormControl(''),
@@ -1065,6 +1086,7 @@ showHideAccordion(index: number) {
     return this.formBuilder.group({
       locationNumber: new FormControl(),
       locationName: new FormControl(),
+      //sourceFromSupply: new FormControl(),
       testEngineerName: ['', Validators.required],
       date: ['', Validators.required],
       companyName: ['', Validators.required],
@@ -1087,6 +1109,7 @@ showHideAccordion(index: number) {
       distributionBoardDetails: new FormControl(''),
       referance: new FormControl(''),
       location: new FormControl(''),
+      //sourceFromSupply: new FormControl(''),
       correctSupplyPolarity: new FormControl(''),
       numOutputCircuitsUse: new FormControl(''),
       ratingsAmps: new FormControl(''),
@@ -1439,12 +1462,16 @@ showHideAccordion(index: number) {
     this.testingDetails.testing = this.testingForm.value.testaccordianArr;
     if(flag) {
       this.UpateInspectionService.updateTesting(this.testingDetails).subscribe(
-        (data) => {
-          console.log("success");
-        },
-        (error) => {
-          console.log("error");
-        });
+        data=> {
+          this.success = true;
+          this.successMsg = data;
+         },
+         (error) => {
+          this.Error = true;
+          this.errorArr = [];
+          this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.errorArr.message;
+         });
     }
     else {
       this.testingService.savePeriodicTesting(this.testingDetails).subscribe(

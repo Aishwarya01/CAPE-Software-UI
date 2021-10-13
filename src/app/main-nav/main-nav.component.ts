@@ -90,7 +90,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
     'updatedBy',
     'action',
   ];
-  
+
+  //completedLicense_dataSource!: MatTableDataSource<Site[]>;
   completedLicense_dataSource!: MatTableDataSource<Company[]>;
   @ViewChild('completedLicensePaginator', { static: true }) completedLicensePaginator!: MatPaginator;
   @ViewChild('completedLicenseSort', { static: true }) completedLicenseSort!: MatSort;
@@ -108,7 +109,12 @@ export class MainNavComponent implements OnInit, OnDestroy {
   ongoingSite: boolean = false;
   completedSite: boolean = false;
   public isCollapsed = false;
- 
+  successMsg: string="";
+  success: boolean=false;
+  Error: boolean=false;
+  errorMsg: string="";
+  errorArr: any=[];
+
   @ViewChild('ref', { read: ViewContainerRef })
   viewContainerRef!: ViewContainerRef;
   
@@ -188,6 +194,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   NewViewerComment:boolean=false;
   NewInspectorReply:boolean=false;
   newZeroNotification:boolean=false;
+  disable: boolean=false;
 
   constructor(private breakpointObserver: BreakpointObserver, changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
@@ -567,16 +574,38 @@ triggerNavigateTo(siteName:any){
 }
 
 pdfModal(siteId: any,userName: any){
+  this.disable=true;
   this.inspectionService.printPDF(siteId,userName);
 }
 
 downloadPdf(siteId: any,userName: any): any {
+  this.disable=true;
   this.inspectionService.downloadPDF(siteId,userName);
 }
 
 emailPDF(siteId: any,userName: any){
-  this.inspectionService.mailPDF(siteId,userName);
+  this.disable=true;
+  this.inspectionService.mailPDF(siteId,userName).subscribe(
+  data => {
+  console.log('worked');
+  this.success = true;
+  this.successMsg = data;
+  setTimeout(()=>{
+    this.success=false;
+}, 3000);
+  },
+  error => {
+    this.Error = true;
+    this.errorArr = [];
+    this.errorArr = JSON.parse(error.error);
+    this.errorMsg = this.errorArr.message;
+    setTimeout(()=>{
+      this.Error = false;
+  }, 3000);
+  }
+    );
 }
+
  highlightSub2(type:any){
   this.viewContainerRef.clear();
   this.welcome= false;

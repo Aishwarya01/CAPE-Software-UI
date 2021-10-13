@@ -1613,7 +1613,8 @@ showHideAccordion(index: number) {
     if (this.supplycharesteristicForm.invalid) {
       return;
     }
-
+    //this.service.supplyList = this.alternateArr.value;
+    //this.service.supplyList= this.supplycharesteristicForm.value.alternateArr[0].aLLiveConductorType;
     this.nominalVoltageArr.push(
       this.NV1,
       this.NV2,
@@ -1876,12 +1877,16 @@ showHideAccordion(index: number) {
 
     if(flag) {
       this.UpateInspectionService.updateSupply(this.supplycharesteristic).subscribe(
-        (data) => {
-          console.log("success");
-        },
-        (error) => {
-          console.log("error");
-        });
+        data=> {
+          this.success = true;
+          this.successMsg = data;
+         },
+         (error) => {
+          this.Error = true;
+          this.errorArr = [];
+          this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.errorArr.message;
+         });
     }
 else{
     this.supplyCharacteristicsService.addSupplyCharacteristics(this.supplycharesteristic).subscribe(
