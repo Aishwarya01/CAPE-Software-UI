@@ -33,6 +33,7 @@ export class SavedreportsComponent implements OnInit {
   departmentList: any = [];
   noDetails: boolean=false;
   noDetailsRec: boolean=false;
+  noDetailsRecMsg:String="";
   showTIC: boolean = false;
   showREP: boolean = false;
   currentUser: any = [];
@@ -144,10 +145,13 @@ export class SavedreportsComponent implements OnInit {
   }
   savedContinue()
   {
+    
     if(this.verification.noDetails==true){
     this.noDetailsRec=true;
+    this.noDetailsRecMsg="No details found for this Record";
     setTimeout(() => {
       this.noDetailsRec = false;
+      this.noDetailsRecMsg='';
     }, 3000);
    }
   }

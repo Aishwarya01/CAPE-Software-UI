@@ -117,7 +117,7 @@
 
                 <tr mat-header-row *matHeaderRowDef="ongoingSiteColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: ongoingSiteColumns;" title="Click here to edit Site details" 
-                (click)="editSite(row.siteId,row.userName,row.site)" style="cursor: pointer;"
+                (click)="editSite(row.siteId,row.userName,row.site,row.departmentName,row.companyName)" style="cursor: pointer;"
                   [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
                   (mouseout)="row.hovered = false"></tr>
 
@@ -203,7 +203,8 @@
                     <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef> Action
                     </th>
                     <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-                      <button class="btn btn-outline-danger delete" title="View Site" (click)="viewSite(element.siteId,element.userName,element.site)">
+                      <button class="btn btn-outline-danger delete" title="View Site" 
+                      (click)="viewSite(element.siteId,element.userName,element.site,element.departmentName,element.companyName)">
                         <mat-icon>visibility</mat-icon>
                       </button>
                       <button class="btn btn-outline-danger delete" title="Download PDF Future Implementation" 

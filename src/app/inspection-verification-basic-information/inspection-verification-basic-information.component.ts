@@ -218,7 +218,7 @@ siteValue: String = '';
     this.reportDetails.company = this.service.viewerData.companyName;
 
     // inspector
-    this.reportDetails.verifiedEngineer = this.service.inspectorName;
+    this.reportDetails.verifiedEngineer = this.service.inspectorData.name;
     this.reportDetails.inspectorDesignation = this.service.inspectorData.designation;
     this.reportDetails.inspectorCompanyName = this.service.inspectorData.companyName;
 
@@ -245,11 +245,11 @@ siteValue: String = '';
       detailsOfClient: ['', Validators.required],
       detailsOfInstallation: ['', Validators.required],
       startingDateVerification: ['', Validators.required],
-      engineerName: ['', Validators.required],
+      engineerName: [this.reportDetails.verifiedEngineer, Validators.required],
       designation: ['', Validators.required],
       companyName: ['', Validators.required],
-      inspectorDesignation: ['', Validators.required],
-      inspectorCompanyName: ['', Validators.required],
+      inspectorDesignation: [this.reportDetails.inspectorDesignation, Validators.required],
+      inspectorCompanyName: [this.reportDetails.inspectorCompanyName, Validators.required],
       limitations: ['', Validators.required],
       nextInspection: ['', Validators.required],
       designer1AcknowledgeArr: this._formBuilder.array([this.createDesigner1AcknowledgeForm()]),

@@ -156,9 +156,10 @@ export class LicenselistComponent implements OnInit {
 }
   
  
-  editSite(siteId:any,userName:any,site:any){
+  editSite(siteId:any,userName:any,site:any,departmentName:any,companyName:any){
     if (confirm("Are you sure you want to edit site details?"))
     {
+      
     // this.viewContainerRef.clear();
     // this.destroy = true;
     // const verificationFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
@@ -169,7 +170,7 @@ export class LicenselistComponent implements OnInit {
     this.destroy = true;
     this.value=true;
     setTimeout(()=>{
-      this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
+      this.verification.changeTab(0,siteId,userName,companyName,departmentName,site);
     }, 1000);
     } 
     else {
@@ -178,7 +179,7 @@ export class LicenselistComponent implements OnInit {
     }
   }
 
-  viewSite(siteId: any,userName: any,site: any){
+  viewSite(siteId: any,userName: any,site: any,departmentName:any,companyName:any){
     if (confirm("Are you sure you want to view site details?"))
   {
     // this.viewContainerRef.clear();
@@ -190,7 +191,7 @@ export class LicenselistComponent implements OnInit {
     this.destroy = true;
     this.value=true;
     setTimeout(()=>{
-      this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
+      this.verification.changeTab(0,siteId,userName,companyName,departmentName,site);
     }, 1000);
   } 
   else {
@@ -211,7 +212,6 @@ export class LicenselistComponent implements OnInit {
     this.disable=true;
     this.inspectionService.mailPDF(siteId,userName).subscribe(
     data => {
-    console.log('worked');
     this.success = true;
     this.successMsg = data;
     setTimeout(()=>{

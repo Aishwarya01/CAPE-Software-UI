@@ -42,6 +42,9 @@ import { SummaryComponent } from '../summary/summary.component';
 import { InspectionVerificationSupplyCharacteristicsComponent } from '../inspection-verification-supply-characteristics/inspection-verification-supply-characteristics.component';
 import { MatTabGroup } from '@angular/material/tabs';
 import { SavedreportsComponent } from '../savedreports/savedreports.component';
+import { InspectorregisterService } from '../services/inspectorregister.service';
+import { map } from 'rxjs/operators';
+import { readJsonConfigFile } from 'typescript';
 
 @Component({
   selector: 'app-verificationlv',
@@ -209,6 +212,8 @@ export class VerificationlvComponent implements OnInit {
   conFlag: boolean=false;
   noDetails: boolean=false;
   instance: any;
+  siteData: any=[];
+  inspectorData: any = [];
 
 
   constructor(
@@ -221,8 +226,8 @@ export class VerificationlvComponent implements OnInit {
     private reportDetailsService: ReportDetailsService,
     private siteService: SiteService,
     private ChangeDetectorRef: ChangeDetectorRef,
-    public service: GlobalsService
-   
+    public service: GlobalsService,
+    private inspectorRegisterService: InspectorregisterService
   
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
@@ -523,10 +528,7 @@ export class VerificationlvComponent implements OnInit {
   public doSomething1(next: any): void {
     this.isCompleted = next;
   }
-  // public onGoingEditSite(data: String): void {
-  //   debugger
-  //   console.log(data);
-  // }
+ 
   public doSomething2(next: any): void {
     this.isCompleted2 = next;
   }
@@ -543,16 +545,55 @@ export class VerificationlvComponent implements OnInit {
   public NextStep5(next: any): void {
     this.isCompleted5 = next;
   }
-  // public changeT(value: any): void {
-  //   debugger
-  //   console.log(value);
-  // }
-//for saved reports tab
-  changeTab(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any): void {
+
+//for ongoing & completed
+  changeTab(index: number, sitedId: any, userName: any, companyName: any, departmentName: any, site: any): void {
+    
     // this.selectedIndex=1;
     this.siteService.retrieveFinal(userName,sitedId).subscribe(
       data=> {
-        this.selectedIndex = index;
+        //this.selectedIndex = index;
+        this.dataJSON = JSON.parse(data);
+        if(this.dataJSON.reportDetails != null) {
+          this.selectedIndex = index;            
+          this.basic.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
+           if(this.dataJSON.supplyCharacteristics != null) {
+             this.supply.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
+             if(this.dataJSON.periodicInspection != null) {
+               this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
+               if(this.dataJSON.testingReport != null) {
+                 this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
+                 if(this.dataJSON.summary != null) {
+                   this.summary.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
+                 }
+               }
+             }
+           }
+           if(this.service.commentScrollToBottom==1){
+            this.service.triggerScrollTo();
+          }
+          this.service.commentScrollToBottom=0;
+          }   
+        else{
+          this.noDetails=true;
+          this.retrieveSite(companyName,departmentName,site);
+          setTimeout(() => {
+            this.noDetails=false;
+            this.selectedIndex=0;
+          }, 3000);
+        }   
+      },
+      error=> {
+
+      }
+    )
+  }
+//for continue button in saved reports
+  changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any) {
+    this.selectedIndex = 1;
+    this.siteService.retrieveFinal(userName,sitedId).subscribe(
+      data=> {
+        //this.selectedIndex = index;
         this.dataJSON = JSON.parse(data);
         if(this.dataJSON.reportDetails != null) {
           this.selectedIndex = index;            
@@ -575,9 +616,12 @@ export class VerificationlvComponent implements OnInit {
           this.service.commentScrollToBottom=0;
           }   
         else{
-          this.selectedIndex=1;
           this.noDetails=true;
           this.saved.savedContinue();
+          setTimeout(() => {
+            this.noDetails=false;
+            this.selectedIndex=0;
+          }, 3000);
         }   
       },
       error=> {
@@ -586,11 +630,30 @@ export class VerificationlvComponent implements OnInit {
     )
   }
 
-  changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any) {
-    this.selectedIndex = 1
-    this.changeTab(0,sitedId,userName,'clientName','departmentName',site);
+//retrieve site after adding new site in modal
+  retrieveSite(companyName:any,departmentName:any,site:any){
+    
+  this.siteService.retrieveSiteForInspection(companyName,departmentName,site).subscribe(
+    data=>{
+      this.siteData=JSON.parse(data);
+      this.inspectorRegisterService.retrieveInspector(this.siteData.assignedTo).subscribe(
+        data=>{
+          this.service.viewerData=JSON.parse(data);
+          this.inspectorRegisterService.retrieveInspector(this.service.viewerData.assignedBy).subscribe(
+            data=>{
+              this.inspectorData = JSON.parse(data);
+              this.service.inspectorData=this.inspectorData;
+              this.basic.ngOnInit();
+              // setTimeout(() => {
+              //   this.basic.ngOnInit();
+              // }, 1000);
+            }
+          )
+        }
+      )
+    }
+  )
   }
-
 //for final reports tab
   changeTab1(index: number): void {
     this.selectedIndex = index;
@@ -604,6 +667,10 @@ export class VerificationlvComponent implements OnInit {
     this.selectedIndex = 0;
     this.basic.changeTab(0,siteId,userName,clientName,departmentName,site);
   }
+  // testingNgOnINit(){
+  //   debugger
+  //   this.testing.ngOnInit();
+  // }
   // onTabChanged(e: any) {
   //   if(!this.conFlag) {
   //     debugger
