@@ -43,10 +43,9 @@ export class LicenselistComponent implements OnInit {
     'updatedBy',
     //'action',
   ];
-  // ongoingSite_dataSource!: MatTableDataSource<Site[]>;
   ongoingSite_dataSource!: MatTableDataSource<Company[]>;
-  @ViewChild('ongoingSitePaginator', { static: true }) ongoingSitePaginator!: MatPaginator;
-  @ViewChild('ongoingSiteSort', { static: true }) ongoingSiteSort!: MatSort;
+  @ViewChild('ongoingSitePaginator', { static: false }) ongoingSitePaginator!: MatPaginator;
+  @ViewChild('ongoingSiteSort', { static: false }) ongoingSiteSort!: MatSort;
 
   completedLicenseColumns: string[] = [
     'siteCd',
@@ -61,10 +60,9 @@ export class LicenselistComponent implements OnInit {
   ];
 
   
-  // completedLicense_dataSource!: MatTableDataSource<Site[]>;
   completedLicense_dataSource!: MatTableDataSource<Company[]>;
-  @ViewChild('completedLicensePaginator', { static: true }) completedLicensePaginator!: MatPaginator;
-  @ViewChild('completedLicenseSort', { static: true }) completedLicenseSort!: MatSort;
+  @ViewChild('completedLicensePaginator', { static: false }) completedLicensePaginator!: MatPaginator;
+  @ViewChild('completedLicenseSort', { static: false }) completedLicenseSort!: MatSort;
 
   @ViewChild('ref', { read: ViewContainerRef })
   viewContainerRef!: ViewContainerRef;
@@ -114,7 +112,7 @@ export class LicenselistComponent implements OnInit {
     })
     this.retrieveSiteDetails();
   }
-
+ 
   retrieveUserDetail() {
     this.inspectorService.retrieveInspector(this.email).subscribe(
       (data) => {

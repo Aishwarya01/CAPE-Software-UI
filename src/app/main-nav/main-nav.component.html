@@ -4,7 +4,7 @@
       <button mat-button (click)="isExpanded = !isExpanded" *ngIf="desktopDisplay">
         <mat-icon>menu</mat-icon>
       </button>
-      <!-- <button mat-button (click)="sidenav.toggle()" *ngIf="mobileDisplay">
+      <!-- <button mat-button (click)="onToggleSidenav()" *ngIf="mobileDisplay">
         <mat-icon>menu</mat-icon>
       </button> -->
       <div class="brand-logo">
@@ -104,7 +104,6 @@
       </mat-menu>
     </mat-toolbar-row>
   </mat-toolbar>
-
     <mat-sidenav-container class="example-container" [autosize]="autosize" fxFlexFill>
     <mat-sidenav mode="side" opened="true" class="desktopDisplay"
     [ngStyle]="{'width': isExpanded ? '295px' : (!isExpanded && isShowing ? '295px' : '60px')}"
@@ -229,9 +228,10 @@
       <!-- </mat-list-item> -->
 
     </mat-nav-list>
+   
   </mat-sidenav>
 
-  <mat-sidenav-content fullscreen fxFlexFill id="destination" [ngStyle]="{'padding': currentUser1.role == 'Viewer' ? '20px' : 'unset'}">
+  <mat-sidenav-content fullscreen fxFlexFill id="destination" class="pagePadding" [ngStyle]="{'padding': currentUser1.role == 'Viewer' ? '20px' : 'unset'}">
     <div class="col-sm-12 welcome-text" style="text-align: center;" *ngIf="welcome">
     <h1 style="font-size: 35px;">Welcome to Rush Safety Applications</h1>
     <p>Note: Kindly go through the sub-menus on the left side panel.</p>
@@ -242,7 +242,7 @@
     <!-- ongoing site -->
     <div class="card" *ngIf="ongoingSite">
       <div class="card-body">
-      <table mat-table [dataSource]="ongoingSite_dataSource" class="mat-elevation-z8 table" matSort
+      <table mat-table [dataSource]="ongoingSite_dataSource" class="mat-elevation-z8 table" id="tableResponsive" matSort
       #ongoingSiteSort="matSort">
 
       <!--- Note that these columns can be defined in any order.
@@ -321,7 +321,7 @@
       <tr mat-row *matRowDef="let row; columns: ongoingSiteColumns;" title="Click here to edit Site details" 
       (click)="editSite(row.siteId,row.userName,row.site)" style="cursor: pointer;"
         [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
-        (mouseout)="row.hovered = false"></tr>
+        (mouseout)="row.hovered = false" class="highlight-row"></tr>
 
     </table>
     <mat-paginator #ongoingSitePaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
@@ -331,7 +331,7 @@
     <!-- completed site -->
     <div class="card" *ngIf="completedSite">
       <div class="card-body">
-      <table mat-table [dataSource]="completedLicense_dataSource" class="mat-elevation-z8 table" matSort
+      <table mat-table [dataSource]="completedLicense_dataSource" class="mat-elevation-z8 table" id="tableResponsive" matSort
       #completedLicenseSort="matSort">
 
       <!--- Note that these columns can be defined in any order.
@@ -424,7 +424,7 @@
       <tr mat-header-row *matHeaderRowDef="completedLicenseColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: completedLicenseColumns; "
         [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
-        (mouseout)="row.hovered = false"></tr>
+        (mouseout)="row.hovered = false" class="highlight-row"></tr>
 
     </table>
     <mat-paginator #completedLicensePaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
