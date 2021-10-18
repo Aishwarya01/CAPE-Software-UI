@@ -424,6 +424,9 @@ th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:la
 .highlight-row:hover{
   background-color: rgba(0, 0, 0, 0.04) !important;
 }
+.testingTable th, .testingTable td{
+  border-right: 1px solid #dee2e6;
+}
 /* @-webkit-keyframes glowing {
   0% { background-color: #B20000; -webkit-box-shadow: 0 0 3px #B20000; }
   50% { background-color: #FF0000; -webkit-box-shadow: 0 0 40px #FF0000; }

@@ -29,7 +29,7 @@
                   [(ngModel)]="supplycharesteristic.liveConductorType" (change)="changeCurrent($event)" [ngClass]="{ 'is-invalid': submitted && f.liveConductor.errors }">
                     <option value="0" selected>Select Option</option>
                     <option value="AC">AC</option>
-                    <option value="DC">DC</option>
+                    <option value="DC" disabled style="cursor: not-allowed;">DC</option>
                   </select>
                   <div *ngIf="submitted && f.liveConductor.errors" class="invalid-feedback">
                     <div *ngIf="f.liveConductor?.errors?.required">Field Is Required</div>
@@ -303,7 +303,7 @@
                         <select class="form-control"  formControlName="aLLiveConductorType" (change)=showValue($event,i) [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorType')?.errors }">
                           <option value="0" selected>Select Option</option>
                           <option value="AC">AC</option>
-                          <option value="DC">DC</option>
+                          <option value="DC" disabled style="cursor: not-allowed;">DC</option>
                         </select>
                         <div *ngIf="submitted && a.get('aLLiveConductorType')?.errors" class="invalid-feedback">
                           <div *ngIf="a.get('aLLiveConductorType')?.errors?.required">Field Is Required</div>

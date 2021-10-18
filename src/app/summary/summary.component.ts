@@ -46,9 +46,8 @@ export class SummaryComponent implements OnInit {
   installations: string[] = ['Satisfactory', 'Unsatisfactory'];
 
   addsummary = new FormGroup({
-    //limitationsInspection:  new FormControl(''),
+    limitationsInspection:  new FormControl(''),
     extentInstallation: new FormControl(''),
-    attachedInspection: new FormControl(''),
     agreedLimitations: new FormControl(''),
     agreedWith: new FormControl(''),
     operationalLimitations: new FormControl(''),
@@ -215,9 +214,8 @@ export class SummaryComponent implements OnInit {
     });
 
     this.addsummary = this._formBuilder.group({
-      // limitationsInspection: ['', Validators.required],
+      limitationsInspection: ['', Validators.required],
       extentInstallation: ['', Validators.required],
-      attachedInspection: ['', Validators.required],
       agreedLimitations: ['', Validators.required],
       agreedWith: ['', Validators.required],
       operationalLimitations: ['', Validators.required],
