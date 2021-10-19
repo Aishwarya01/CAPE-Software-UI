@@ -20,8 +20,10 @@
   }
   
   #table1  th {
-    background-color: lightgrey;
-    border: 1px solid  lightgrey;
+    /* background-color: lightgrey;
+    border: 1px solid  lightgrey; */
+    background-color: rgb(0 0 0 / 8%);
+    border: 1px solid  rgb(0 0 0 / 8%);
   }
  #table tbody tr{
     border-bottom: 1px solid black;

@@ -86,16 +86,16 @@
                 <div class="form-group">
                   <label>Referring to attached inspection report and test results and subject to the 
                     limitations specified at the extent and limitations of inspection and testing :</label>
-                  <select class="form-control" formControlName="attachedInspection" (change)="onChange($event)"
+                  <select class="form-control" formControlName="limitationsInspection" (change)="onChange($event)"
                   [(ngModel)]="summary.limitationsInspection"
-                  [ngClass]="{ 'is-invalid': submitted && f.attachedInspection?.errors }">
+                  [ngClass]="{ 'is-invalid': submitted && f.limitationsInspection?.errors }">
                   <option value="0" selected>Select Option</option>
                   <option *ngFor="let a of observationList" [selected]="a === summary.limitationsInspection">{{a}}</option>
-                  <!-- <option value="No remedial action required" [selected]="f.attachedInspection?.value === summary.limitationsInspection">No remedial action required</option>
-                  <option value="The following observations are made" [selected]="f.attachedInspection?.value === summary.limitationsInspection">The following observations are made</option> -->
+                  <!-- <option value="No remedial action required" [selected]="f.limitationsInspection?.value === summary.limitationsInspection">No remedial action required</option>
+                  <option value="The following observations are made" [selected]="f.limitationsInspection?.value === summary.limitationsInspection">The following observations are made</option> -->
                 </select>
-                <div *ngIf="submitted && f.attachedInspection?.errors" class="invalid-feedback">
-                  <div *ngIf="f.attachedInspection?.errors?.required">Field is required</div>
+                <div *ngIf="submitted && f.limitationsInspection?.errors" class="invalid-feedback">
+                  <div *ngIf="f.limitationsInspection?.errors?.required">Field is required</div>
                 </div>
                 </div>
               </div>
@@ -416,7 +416,7 @@
 
 <div class="card-body" style="padding: 0px;" *ngIf="cardBodyComments">
 <button class="btn dropdown" (click)="showSubmenu = !showSubmenu" style="width:100%;" 
-*ngIf="(isExpanded || isShowing) || (toggleHideShow || getViewerCommentControls().length > 3)">
+*ngIf="(isExpanded || isShowing) || (toggleHideShow || getViewerCommentControls().length > 2)">
   <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" style="float: left;">chevron_right</mat-icon> 
   <label style="float: left;">Check comments here!</label>
  </button> 

@@ -35,15 +35,15 @@
       </div>
         <div class="form-group" *ngIf="siteDetails1">
           <div class="row">
-            <div class="col-md-4">
+            <!-- <div class="col-md-4">
                   <label>Company Name</label>
                   <input type="text" class="form-control" formControlName="clientName1" readonly/>
             </div>
             <div class="col-md-4">
                   <label>Department Name</label>
                   <input type="text" class="form-control"  formControlName="departmentName1" readonly/>
-            </div>
-            <div class="col-md-4">
+            </div> -->
+            <div class="col-md-6">
                   <label>Site Name</label>
                   <input type="text" class="form-control"  formControlName="site1" readonly/>
             </div>
@@ -1205,7 +1205,7 @@
 
     <div class="card-body" style="padding: 0px;" *ngIf="cardBodyComments">
         <button class="btn dropdown" (click)="showSubmenu = !showSubmenu" style="width:100%;" 
-        *ngIf="(isExpanded || isShowing) || (toggleHideShow || getViewerCommentControls().length > 3)">
+        *ngIf="(isExpanded || isShowing) || (toggleHideShow || getViewerCommentControls().length > 2)">
           <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" style="float: left;">chevron_right</mat-icon> 
           <label style="float: left;">Check comments here!</label>
          </button> 

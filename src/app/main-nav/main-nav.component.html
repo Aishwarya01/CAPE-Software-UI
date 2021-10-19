@@ -4,7 +4,7 @@
       <button mat-button (click)="isExpanded = !isExpanded" *ngIf="desktopDisplay">
         <mat-icon>menu</mat-icon>
       </button>
-      <!-- <button mat-button (click)="sidenav.toggle()" *ngIf="mobileDisplay">
+      <!-- <button mat-button (click)="onToggleSidenav()" *ngIf="mobileDisplay">
         <mat-icon>menu</mat-icon>
       </button> -->
       <div class="brand-logo">
@@ -54,23 +54,42 @@
 
       <mat-menu #Newnotify="matMenu" style="width: auto !important;">
         <div *ngIf="NewViewerComment">
-        <div *ngFor="let a of activeNotificationData;" style="padding: 10px;text-align: center;">
-         <b>{{a.siteName}}-</b>&nbsp; <span style="text-decoration: underline;">You have 1 new comment from Viewer</span>
+        <!-- <div style="text-decoration: underline;text-align: end;
+        padding: 0px 5px;
+        color: #17a2b8;
+        font-weight: 600;">
+          Mark as read
+        </div> -->
+        <div *ngFor="let a of activeNotificationData;" style="padding: 15px 10px 20px 10px;text-align: center;background-color: #17a2b82e;
+        border-color: #17a2b82e;
+        margin: 10px 5px 10px 5px;">
+         For site <b>{{a.siteName}}-</b>&nbsp; <span title="Click here" style="text-decoration: underline;cursor: pointer;"
+         (click)="triggerNavigateTo(a.siteName)">You have 1 new comment from Viewer</span>
          <br>
           <div style="color: #17a2b8;
           display: flex;
           font-size: 11px;
-          float: right;">{{a.viewerDate | dateAgo}}</div>
+          float: right;font-weight: 500;">{{a.viewerDate | dateAgo}}</div>
         </div>
       </div>
       <div *ngIf="NewInspectorReply">
-        <div *ngFor="let a of activeNotificationData;" style="padding: 10px;text-align: center;">
-        <b>{{a.siteName}}-</b> &nbsp;<span style="text-decoration: underline;">You have 1 new comment from Inspector</span>
+        <!-- <div style="text-decoration: underline;text-align: end;
+        padding: 0px 5px;
+        color: #17a2b8;
+        font-weight: 600;">
+          Mark as read
+        </div> -->
+        <div *ngFor="let a of activeNotificationData;" style="padding: 15px 10px 20px 10px;text-align: center;background-color: #17a2b82e;
+        border-color: #17a2b82e;
+        margin: 10px 5px 10px 5px;">
+        For site <b>{{a.siteName}}-</b> &nbsp;
+          <span (click)="triggerNavigateTo(a.siteName)" title="Click here" style="text-decoration: underline;cursor: pointer;">You have 1 new comment from Inspector
+          </span>
         <br>
-          <div style="color: #17a2b8;
+          <div style="color: #17a2b8; 
           display: flex;
           font-size: 11px;
-          float: right;">{{a.inspectorDate | dateAgo}}</div>
+          float: right;font-weight: 500;">{{a.inspectorDate | dateAgo}}</div>
         </div>
       </div>
         <div *ngIf="newZeroNotification" style="padding: 10px;">
@@ -85,14 +104,14 @@
       </mat-menu>
     </mat-toolbar-row>
   </mat-toolbar>
-
     <mat-sidenav-container class="example-container" [autosize]="autosize" fxFlexFill>
     <mat-sidenav mode="side" opened="true" class="desktopDisplay"
     [ngStyle]="{'width': isExpanded ? '295px' : (!isExpanded && isShowing ? '295px' : '60px')}"
     (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
 
     <div class="logomain" style="margin-top: 40px;margin-left: 10px;">
-      <span *ngIf="isExpanded || isShowing" style="position: absolute;margin-left: 4px;">Some heading here!!</span>
+      <span *ngIf="isExpanded || isShowing" style="position: absolute;margin-left: 4px;font-size: 18px;
+      font-weight: 500;">Electrical Inspection Services</span>
     </div>
     <mat-nav-list>
 
@@ -209,20 +228,21 @@
       <!-- </mat-list-item> -->
 
     </mat-nav-list>
+   
   </mat-sidenav>
 
-  <mat-sidenav-content fullscreen fxFlexFill id="destination">
-    <div style="margin: 185px; text-align: center;" *ngIf="welcome">
+  <mat-sidenav-content fullscreen fxFlexFill id="destination" class="pagePadding" [ngStyle]="{'padding': currentUser1.role == 'Viewer' ? '20px' : 'unset'}">
+    <div class="col-sm-12 welcome-text" style="text-align: center;" *ngIf="welcome">
     <h1 style="font-size: 35px;">Welcome to Rush Safety Applications</h1>
     <p>Note: Kindly go through the sub-menus on the left side panel.</p>
   </div>
     <ng-template #ref></ng-template>
-    <app-verificationlv *ngIf="value"></app-verificationlv>
+    <app-verificationlv *ngIf="value" #verify></app-verificationlv>
     <!-- (proceedNext)="onGoingEditSite($event)" -->
     <!-- ongoing site -->
     <div class="card" *ngIf="ongoingSite">
       <div class="card-body">
-      <table mat-table [dataSource]="ongoingSite_dataSource" class="mat-elevation-z8 table" matSort
+      <table mat-table [dataSource]="ongoingSite_dataSource" class="mat-elevation-z8 table" id="tableResponsive" matSort
       #ongoingSiteSort="matSort">
 
       <!--- Note that these columns can be defined in any order.
@@ -301,7 +321,7 @@
       <tr mat-row *matRowDef="let row; columns: ongoingSiteColumns;" title="Click here to edit Site details" 
       (click)="editSite(row.siteId,row.userName,row.site)" style="cursor: pointer;"
         [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
-        (mouseout)="row.hovered = false"></tr>
+        (mouseout)="row.hovered = false" class="highlight-row"></tr>
 
     </table>
     <mat-paginator #ongoingSitePaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
@@ -311,7 +331,7 @@
     <!-- completed site -->
     <div class="card" *ngIf="completedSite">
       <div class="card-body">
-      <table mat-table [dataSource]="completedLicense_dataSource" class="mat-elevation-z8 table" matSort
+      <table mat-table [dataSource]="completedLicense_dataSource" class="mat-elevation-z8 table" id="tableResponsive" matSort
       #completedLicenseSort="matSort">
 
       <!--- Note that these columns can be defined in any order.
@@ -384,48 +404,43 @@
             <button class="btn btn-outline-danger delete" title="View Site" (click)="viewSite(element.siteId,element.userName,element.site)">
               <mat-icon>visibility</mat-icon>
             </button>
-            <button class="btn btn-outline-danger delete" title="Download PDF" (click)="downloadPdf(element.siteId,element.userName)">
+            <button class="btn btn-outline-danger delete" title="Download PDF Future Implementation" 
+            (click)="downloadPdf(element.siteId,element.userName)" [disabled]="disable"
+            style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
               <mat-icon>download</mat-icon>
             </button>
-            <button class="btn btn-outline-danger delete" title="Email">
+            <button class="btn btn-outline-danger delete" title="Email Future Implementation" 
+            (click)="emailPDF(element.siteId,element.userName)" [disabled]="disable"
+            style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
               <mat-icon>email</mat-icon>
             </button>
-            <!-- <button class="btn btn-outline-danger delete" title="Print PDF" (click)="pdfModal(contentPDF)">
-              <mat-icon>print</mat-icon>
-            </button>  printSectionId="printdiv" ngxPrint-->
-
-            <button class="btn btn-outline-danger delete" title="Print PDF" (click)="pdfModal(contentPDF)"
-           ><mat-icon>print</mat-icon></button>
+            <button class="btn btn-outline-danger delete" title="Print PDF Future Implementation" 
+            (click)="pdfModal(element.siteId,element.userName)" [disabled]="disable"
+            style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
+            <mat-icon>print</mat-icon></button>
           </td>
         </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="completedLicenseColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: completedLicenseColumns; "
         [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
-        (mouseout)="row.hovered = false"></tr>
+        (mouseout)="row.hovered = false" class="highlight-row"></tr>
 
     </table>
     <mat-paginator #completedLicensePaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+    <div class="centre-text m-btm30">
+      <div *ngIf="success" style="text-align: center;">
+        <span class="successshow">{{successMsg}}</span>
+       </div>
+       <div *ngIf="Error" style="text-align: center;">
+         <span class="errorshow">{{errorMsg}}</span>
+        </div>
+           </div>
 </div>
     </div>
  </mat-sidenav-content>
 
 </mat-sidenav-container>
-
-
 </div>
-
-<ng-template #contentPDF let-modal>
-  <!-- <div class="modal-header" style="text-align: center;
-  display: block;"><h2 class="modal-title" style="display: contents;">Assign Viewer</h2>
-  </div> 
-  (click)="printPage()"
--->
-  <div class="modal-body" modal-xl>
-    pdf loads here..
-
-    <button class="btn btn-primary" style="margin: 0 auto;display: block;" >Print PDF</button>
-   </div>
-
-  </ng-template> 
 

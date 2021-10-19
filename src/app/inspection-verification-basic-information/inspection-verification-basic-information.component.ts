@@ -218,7 +218,7 @@ siteValue: String = '';
     this.reportDetails.company = this.service.viewerData.companyName;
 
     // inspector
-    this.reportDetails.verifiedEngineer = this.service.inspectorName;
+    this.reportDetails.verifiedEngineer = this.service.inspectorData.name;
     this.reportDetails.inspectorDesignation = this.service.inspectorData.designation;
     this.reportDetails.inspectorCompanyName = this.service.inspectorData.companyName;
 
@@ -245,11 +245,11 @@ siteValue: String = '';
       detailsOfClient: ['', Validators.required],
       detailsOfInstallation: ['', Validators.required],
       startingDateVerification: ['', Validators.required],
-      engineerName: ['', Validators.required],
+      engineerName: [this.reportDetails.verifiedEngineer, Validators.required],
       designation: ['', Validators.required],
-      companyName: ['', Validators.required],
-      inspectorDesignation: ['', Validators.required],
-      inspectorCompanyName: ['', Validators.required],
+      companyName: [this.reportDetails.company, Validators.required],
+      inspectorDesignation: [this.reportDetails.inspectorDesignation, Validators.required],
+      inspectorCompanyName: [this.reportDetails.inspectorCompanyName, Validators.required],
       limitations: ['', Validators.required],
       nextInspection: ['', Validators.required],
       designer1AcknowledgeArr: this._formBuilder.array([this.createDesigner1AcknowledgeForm()]),
@@ -396,7 +396,8 @@ populateDataComments() {
       this.completedCommentArr3 = [];
     }
     for(let j of this.step1List.reportDetails.reportDetailsComment) {
-         if(j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) {
+      if((j.approveOrReject == 'REJECT' || j.approveOrReject == '' || j.approveOrReject == null) && j.viewerFlag==1)
+          {
           this.arrViewer.push(this.createCommentGroup(j));
          }
          else if(j.approveOrReject == 'APPROVED'){
@@ -434,8 +435,8 @@ populateDataComments() {
         this.hideAdd=false;
         this.hideapprove=false;
         this.hideReject=false;
-        this.reportViewerCommentArr.push(this.createCommentGroup(value));
-        this.step1Form.setControl('viewerCommentArr', this._formBuilder.array(this.reportViewerCommentArr || []))
+        // this.reportViewerCommentArr.push(this.createCommentGroup(value));
+        // this.step1Form.setControl('viewerCommentArr', this._formBuilder.array(this.reportViewerCommentArr || []))
          }
 
          //Viewer starts
@@ -1507,20 +1508,21 @@ showHideAccordion(index: number) {
     
     if(flag){
     //  this.reportDetails.siteId = this.retrivedSiteId;
-     
      //this.disable=false;
    this.UpateBasicService.updateBasic(this.reportDetails).subscribe(
     data=> {
-     console.log("worked");
-    
+     this.success = true;
+     this.successMsg = data;
     },
     (error) => {
-      console.log("error");
+      this.Error = true;
+      this.errorArr = [];
+      this.errorArr = JSON.parse(error.error);
+      this.errorMsg = this.errorArr.message;
     });
    
    }
    else{
-    
    this.reportDetailsService.addReportDetails(this.reportDetails).subscribe(
      data=> {
        this.proceedNext.emit(true);

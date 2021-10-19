@@ -34,6 +34,8 @@ import { InspectorregisterService } from '../services/inspectorregister.service'
 import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
 
+import { SavedreportsComponent } from '../savedreports/savedreports.component';
+
 export interface PeriodicElement {
   siteCd: string;
   site: string;
@@ -89,7 +91,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
     'action',
   ];
 
-  
+  //completedLicense_dataSource!: MatTableDataSource<Site[]>;
   completedLicense_dataSource!: MatTableDataSource<Company[]>;
   @ViewChild('completedLicensePaginator', { static: true }) completedLicensePaginator!: MatPaginator;
   @ViewChild('completedLicenseSort', { static: true }) completedLicenseSort!: MatSort;
@@ -107,26 +109,24 @@ export class MainNavComponent implements OnInit, OnDestroy {
   ongoingSite: boolean = false;
   completedSite: boolean = false;
   public isCollapsed = false;
-  // imageSrc = 'assets/img/lowVoltage.jpg';
-//   @Output() proceedNext = new EventEmitter<any>();
-//  data:String="";
+  successMsg: string="";
+  success: boolean=false;
+  Error: boolean=false;
+  errorMsg: string="";
+  errorArr: any=[];
 
   @ViewChild('ref', { read: ViewContainerRef })
   viewContainerRef!: ViewContainerRef;
+  
+  @ViewChild('verify')
+  verification: any; 
   
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay()
     );
-    // @ViewChild('ref1', { read: ViewContainerRef })
-    // viewContainerRef1!: ViewContainerRef;
-    // isHandset1$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    //   .pipe(
-    //     map(result => result.matches),
-    //     shareReplay()
-    //   );
-
+  
   applicationTypes: ApplicationType[] = [];
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
   fullName: String = '';
@@ -194,6 +194,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   NewViewerComment:boolean=false;
   NewInspectorReply:boolean=false;
   newZeroNotification:boolean=false;
+  disable: boolean=false;
 
   constructor(private breakpointObserver: BreakpointObserver, changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
@@ -206,7 +207,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
     private componentFactoryResolver: ComponentFactoryResolver,
     private applicationService: ApplicationTypeService,
     private modalService: NgbModal, private bnIdle: BnNgIdleService,
-    private siteService: SiteService) {
+    private siteService: SiteService
+   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
   //  this.retrieveApplicationTypes();
     this.retrieveApplicationTypesBasedOnUser(this.email);
@@ -214,7 +216,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
     // set screenWidth on page load
     this.screenWidth = window.innerWidth;
     window.onresize = () => {
-      // set screenWidth on screen size change
+    // set screenWidth on screen size change
       this.screenWidth = window.innerWidth;
     };
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
@@ -263,10 +265,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
     }
   )
   }
-  triggerScrollTo(){
-    this.service.triggerScrollTo();
-  }
-
+  
 newNotification(value: any){
   this.newNotificationFlag=true;
   this.oldNotification=false;
@@ -398,9 +397,23 @@ notification(number: any,viewerName: any,inspectorName: any,viewerDate: any,insp
         this.inspectorReply=true;
       }
   }
-//  this.count= this.service.notificationCount;
 }
 
+triggerNavigateTo(siteName:any){
+  //this.service.triggerScrollTo();
+  this.welcome= false;  
+  this.ongoingSite=false;
+  this.completedSite=false;
+  this.value= false;
+  this.service.mainNavToSaved=1;
+  this.service.commentScrollToBottom=1;
+  this.service.filterSiteName=siteName;
+  this.service.highlightText=true;
+  this.viewContainerRef.clear();
+  const VerificationlvFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
+  const lvInspectionRef = this.viewContainerRef.createComponent(VerificationlvFactory);
+  lvInspectionRef.changeDetectorRef.detectChanges();
+}
   retrieveSiteDetails() {
     if(this.currentUser1.role == 'Inspector') {
       this.siteService.retrieveSite(this.email).subscribe((data) => {
@@ -483,7 +496,6 @@ notification(number: any,viewerName: any,inspectorName: any,viewerDate: any,insp
     );
   }
 
-
   logout() {
     this.loginservice.logout();
     this.route.navigate(['login']);
@@ -494,7 +506,6 @@ notification(number: any,viewerName: any,inspectorName: any,viewerDate: any,insp
       data => {
         this.register = JSON.parse(data);
         this.fullName = this.register.name;
-
       }
     )
   }
@@ -504,6 +515,7 @@ notification(number: any,viewerName: any,inspectorName: any,viewerDate: any,insp
     this.selectedRowIndexSub ="";
  }
  highlightSub(type:any){
+  //this.viewContainerRef.clear();
   this.welcome= false;
   this.selectedRowIndexSub = type;
   this.selectedRowIndexType="";
@@ -519,6 +531,10 @@ notification(number: any,viewerName: any,inspectorName: any,viewerDate: any,insp
     this.welcome= false;  
     this.ongoingSite=false;
     this.completedSite=false;
+    this.service.mainNavToSaved=0;
+    setTimeout(()=>{
+      this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
+    }, 1000);
   } 
   else {
     this.value= false;
@@ -535,12 +551,16 @@ notification(number: any,viewerName: any,inspectorName: any,viewerDate: any,insp
     this.welcome= false;  
     this.ongoingSite=false;
     this.completedSite=false;
+    this.service.mainNavToSaved=0;
+    setTimeout(()=>{
+      this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
+    }, 1000);
   } 
   else {
     this.value= false;
-    this.welcome= false;  
-    this.ongoingSite=true;
-    this.completedSite=false;
+    this.welcome= false;   
+    this.ongoingSite=false;
+    this.completedSite=true;
   }
   // this.welcome= false;
   // this.ongoingSite=false;
@@ -553,32 +573,41 @@ notification(number: any,viewerName: any,inspectorName: any,viewerDate: any,insp
   // lvInspectionRef.changeDetectorRef.detectChanges();
 }
 
-pdfModal(contentPDF:any){
-  this.modalService.open(contentPDF,{size: 'xl'})
- 
+pdfModal(siteId: any,userName: any){
+  this.disable=true;
+  this.inspectionService.printPDF(siteId,userName);
 }
-printPage() {
-  window.print();
-}
-downloadPdf(siteId: any,userName: any): any {
-  this.inspectionService.downloadPDF(siteId,userName).subscribe(
-    data =>{
-      let blob = new Blob([data], {
-        type: 'application/pdf' // must match the Accept type
-        // type: 'application/octet-stream' // for excel 
-    });
-    var link = document.createElement('a');
-    link.href = window.URL.createObjectURL(blob);
-    link.download = 'samplePDFFile.pdf';
-    link.click();
-    window.URL.revokeObjectURL(link.href);
-    },
-    error =>{
 
-    }
-  )
+downloadPdf(siteId: any,userName: any): any {
+  this.disable=true;
+  this.inspectionService.downloadPDF(siteId,userName);
 }
+
+emailPDF(siteId: any,userName: any){
+  this.disable=true;
+  this.inspectionService.mailPDF(siteId,userName).subscribe(
+  data => {
+  console.log('worked');
+  this.success = true;
+  this.successMsg = data;
+  setTimeout(()=>{
+    this.success=false;
+}, 3000);
+  },
+  error => {
+    this.Error = true;
+    this.errorArr = [];
+    this.errorArr = JSON.parse(error.error);
+    this.errorMsg = this.errorArr.message;
+    setTimeout(()=>{
+      this.Error = false;
+  }, 3000);
+  }
+    );
+}
+
  highlightSub2(type:any){
+  this.viewContainerRef.clear();
   this.welcome= false;
   this.selectedRowIndexSub = type;
   this.selectedRowIndexType="";
@@ -593,11 +622,9 @@ downloadPdf(siteId: any,userName: any): any {
   changePassword(email: String) {
     this.route.navigate(['changePassword', { email: email }])
   }
-
   profileUpdate(email: String) {
     this.route.navigate(['profile', { email: email }])
   }
-
   openModal() {
     const modalRef = this.modalService.open(AddApplicationTypesComponent);
     modalRef.componentInstance.email = this.email;
@@ -612,43 +639,33 @@ downloadPdf(siteId: any,userName: any): any {
     switch (id) {
       case 'LV Systems':
         this.viewContainerRef.clear();
-        //this.viewContainerRef1.clear();
         const lvInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LvInspectionDetailsComponent);
         const lvInspectionRef = this.viewContainerRef.createComponent(lvInspectionFactory);
-        //const lvInspectionRef1 = this.viewContainerRef1.createComponent(lvInspectionFactory);
         lvInspectionRef.changeDetectorRef.detectChanges();
-        //lvInspectionRef1.changeDetectorRef.detectChanges();
         break;
       case 'HV Systems':
         this.viewContainerRef.clear();
-        //this.viewContainerRef1.clear();
         break;
       case 'Risk Assessment':
         this.viewContainerRef.clear();
-        //this.viewContainerRef1.clear();
         const riskAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(RiskAssessmentInspectionMaintenanceComponent);
         const riskAssessmentInspectionRef = this.viewContainerRef.createComponent(riskAssessmentInspectionFactory);
         riskAssessmentInspectionRef.changeDetectorRef.detectChanges();
         break;
       case 'EMC Assessment':
         this.viewContainerRef.clear();
-        //this.viewContainerRef1.clear();
         const emcAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(EmcAssessmentInstallationComponent);
         const emcAssessmentInspectionRef = this.viewContainerRef.createComponent(emcAssessmentInspectionFactory);
         emcAssessmentInspectionRef.changeDetectorRef.detectChanges();
         break;
       case 5:
         this.viewContainerRef.clear();
-        //this.viewContainerRef1.clear();
         break;
       case 6:
         this.viewContainerRef.clear();
-        //this.viewContainerRef1.clear();
         break;
     }
   }
-
-
 
   editApplicationType(id: any, type: String, code: String) {
     const modalRef = this.modalService.open(UpdateApplicationTypesComponent);
@@ -674,11 +691,9 @@ downloadPdf(siteId: any,userName: any): any {
   }
   increase() {
     this.sidenavWidth = 20;
-    
   }
   decrease() {
     this.sidenavWidth = 4;
-    
   }
   toggleNav() {
     this.mobileDisplay = true;

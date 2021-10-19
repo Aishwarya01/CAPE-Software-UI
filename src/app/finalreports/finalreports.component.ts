@@ -42,7 +42,11 @@ export class FinalreportsComponent implements OnInit {
 
   }
 
-
+//filter for final reports
+applyFilter(event: Event) {
+  const filterValue = (event.target as HTMLInputElement).value;
+  this.finalReport_dataSource.filter = filterValue.trim().toLowerCase();
+}
 
   private retrieveClientDetails() {
     this.clientService.retrieveClient(this.email).subscribe(

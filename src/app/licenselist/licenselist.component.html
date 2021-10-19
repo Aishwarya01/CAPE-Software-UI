@@ -1,4 +1,5 @@
 <ng-template #ref ></ng-template>
+<app-verificationlv *ngIf="value" #verify></app-verificationlv>
 <div class="card" *ngIf="!destroy">
     <div class="card-body" >
         <form [formGroup]="licenseForm" >
@@ -116,7 +117,7 @@
 
                 <tr mat-header-row *matHeaderRowDef="ongoingSiteColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: ongoingSiteColumns;" title="Click here to edit Site details" 
-                (click)="editSite(row.siteId,row.userName,row.site)" style="cursor: pointer;"
+                (click)="editSite(row.siteId,row.userName,row.site,row.departmentName,row.companyName)" style="cursor: pointer;"
                   [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
                   (mouseout)="row.hovered = false"></tr>
 
@@ -202,16 +203,23 @@
                     <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef> Action
                     </th>
                     <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
-                      <button class="btn btn-outline-danger delete" title="View Site" (click)="viewSite()">
+                      <button class="btn btn-outline-danger delete" title="View Site" 
+                      (click)="viewSite(element.siteId,element.userName,element.site,element.departmentName,element.companyName)">
                         <mat-icon>visibility</mat-icon>
                       </button>
-                      <button class="btn btn-outline-danger delete" title="Download PDF" (click)="downloadPdf(element.siteId,element.userName)">
+                      <button class="btn btn-outline-danger delete" title="Download PDF Future Implementation" 
+                      (click)="downloadPdf(element.siteId,element.userName)" [disabled]="disable"
+                      style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
                         <mat-icon>download</mat-icon>
                       </button>
-                      <button class="btn btn-outline-danger delete" title="Email">
+                      <button class="btn btn-outline-danger delete" title="Email Future Implementation" 
+                      (click)="emailPDF(element.siteId,element.userName)" [disabled]="disable"
+                      style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
                         <mat-icon>email</mat-icon>
                       </button>
-                      <button class="btn btn-outline-danger delete" title="Print PDF" (click)="pdfModal(contentPDF)">
+                      <button class="btn btn-outline-danger delete" title="Print PDF Future Implementation" 
+                      (click)="pdfModal(element.siteId,element.userName)" [disabled]="disable"
+                      style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
                         <mat-icon>print</mat-icon>
                       </button>
                     </td>
@@ -223,28 +231,20 @@
                   (mouseout)="row.hovered = false"></tr>
 
               </table>
-              <mat-paginator #completedLicensePaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 
+              <mat-paginator #completedLicensePaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+              <div class="centre-text m-btm30">
+                <div *ngIf="success" style="text-align: center;">
+                  <span class="successshow">{{successMsg}}</span>
+                 </div>
+                 <div *ngIf="Error" style="text-align: center;">
+                   <span class="errorshow">{{errorMsg}}</span>
+                  </div>
+                     </div>
                 </mat-expansion-panel>
             </mat-accordion>
     
         </form>
-        
-
     </div>
 </div>
 
-<ng-template #contentPDF let-modal>
-  <!-- <div class="modal-header" style="text-align: center;
-  display: block;"><h2 class="modal-title" style="display: contents;">Assign Viewer</h2>
-  </div> -->
-  <div class="modal-body" modal-xl>
-    pdf loads here..
-
-    <button class="btn btn-primary" style="margin: 0 auto;
-    display: block;">Print PDF</button>
-   </div>
- 
-
-
-  </ng-template>

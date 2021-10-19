@@ -232,10 +232,20 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                              </div>
+
+        <!-- working on it -->
+                <!-- <div class="row">
+                  <div class="col-md-4"> 
+                    <label>Selected Source: </label>
+                    <input type="text" class="form-control" formControlName="sourceFromSupply"
+                    placeholder="Select Source" [readonly]="true"
+                    style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
+                </div>
+              </div> -->
 
                 <div class="row">
-                    <div class="col">
+                    <div class="col-sm-12">
                         <div class="table-responsive" >
                             <table  class="table" id="table1">
                                 <div formArrayName="distributionIncomingValueArr" *ngFor="let e of getdistributionIncomingValueControls(c); let j= index">
@@ -307,8 +317,8 @@
 
           <div class="row">
             <div class="col">
-                <div class="table-responsive">
-                  <table class="table" border="1" id="table2">
+                <div class="table-responsive" id="style-1">
+                  <table class="table" border="1" id="table2" style="margin-bottom: unset;">
                       <thead>
                             <tr align="center">
                                 <th colspan="8"> Circuit Details </th>
@@ -480,9 +490,17 @@
                     </div>
                   </div>
                 </div>
+
+               
             </mat-expansion-panel>
 
- 
+            <!-- <input _ngcontent-yjk-c225="" type="text" formcontrolname="locationName" placeholder="Enter Location Name" 
+            class="form-control ng-untouched ng-pristine ng-valid" style="cursor: not-allowed; border-color: #cdcecf; 
+            box-shadow: unset;" ng-reflect-name="locationName" readonly="">
+
+<input _ngcontent-yjk-c225="" type="text" formcontrolname="sourceFromSupply" class="form-control ng-pristine ng-valid ng-touched" 
+style="cursor: not-allowed; border-color: #cdcecf; box-shadow: unset;" ng-reflect-name="sourceFromSupply" readonly=""> -->
+
 
 </mat-accordion>
 </div>
@@ -508,7 +526,7 @@
 
 <div class="card-body" style="padding: 0px;" *ngIf="cardBodyComments">
 <button class="btn dropdown" (click)="showSubmenu = !showSubmenu" style="width:100%;" 
-*ngIf="(isExpanded || isShowing) || (toggleHideShow || getViewerCommentControls().length > 3)">
+*ngIf="(isExpanded || isShowing) || (toggleHideShow || getViewerCommentControls().length > 2)">
   <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" style="float: left;">chevron_right</mat-icon> 
   <label style="float: left;">Check comments here!</label>
  </button> 

@@ -43,10 +43,9 @@ export class LicenselistComponent implements OnInit {
     'updatedBy',
     //'action',
   ];
-  // ongoingSite_dataSource!: MatTableDataSource<Site[]>;
   ongoingSite_dataSource!: MatTableDataSource<Company[]>;
-  @ViewChild('ongoingSitePaginator', { static: true }) ongoingSitePaginator!: MatPaginator;
-  @ViewChild('ongoingSiteSort', { static: true }) ongoingSiteSort!: MatSort;
+  @ViewChild('ongoingSitePaginator', { static: false }) ongoingSitePaginator!: MatPaginator;
+  @ViewChild('ongoingSiteSort', { static: false }) ongoingSiteSort!: MatSort;
 
   completedLicenseColumns: string[] = [
     'siteCd',
@@ -61,13 +60,14 @@ export class LicenselistComponent implements OnInit {
   ];
 
   
-  // completedLicense_dataSource!: MatTableDataSource<Site[]>;
   completedLicense_dataSource!: MatTableDataSource<Company[]>;
-  @ViewChild('completedLicensePaginator', { static: true }) completedLicensePaginator!: MatPaginator;
-  @ViewChild('completedLicenseSort', { static: true }) completedLicenseSort!: MatSort;
+  @ViewChild('completedLicensePaginator', { static: false }) completedLicensePaginator!: MatPaginator;
+  @ViewChild('completedLicenseSort', { static: false }) completedLicenseSort!: MatSort;
 
   @ViewChild('ref', { read: ViewContainerRef })
   viewContainerRef!: ViewContainerRef;
+  @ViewChild('verify')
+  verification: any; 
   disableUse: boolean = false;
   email: String= '';
   destroy: boolean=false;
@@ -80,10 +80,17 @@ export class LicenselistComponent implements OnInit {
   inspectorData: any = [];
   ongoingFilterData:any=[];
   completedFilterData:any=[];
+  pdfSrc!: Uint8Array;
   // @ViewChild(VerificationlvComponent)
   // verification!: VerificationlvComponent;
-
-
+  value: boolean = false;
+  successMsg: string="";
+  success: boolean=false;
+  Error: boolean=false;
+  errorMsg: string="";
+  errorArr: any=[];
+  disable: boolean=false;
+  
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
               private siteService: SiteService,
@@ -92,7 +99,8 @@ export class LicenselistComponent implements OnInit {
               private router: ActivatedRoute,
                private inspectionService: InspectionVerificationService,
               private componentFactoryResolver: ComponentFactoryResolver,
-              private modalService: NgbModal
+              private modalService: NgbModal,
+              
               ) {
                 this.email = this.router.snapshot.paramMap.get('email') || '{}';
                }
@@ -104,7 +112,7 @@ export class LicenselistComponent implements OnInit {
     })
     this.retrieveSiteDetails();
   }
-
+ 
   retrieveUserDetail() {
     this.inspectorService.retrieveInspector(this.email).subscribe(
       (data) => {
@@ -140,66 +148,96 @@ export class LicenselistComponent implements OnInit {
   this.completedLicense_dataSource = new MatTableDataSource(this.completedFilterData);
   this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
   this.completedLicense_dataSource.sort = this.completedLicenseSort;
+
+  
 });
 }
   
  
-  editSite(siteId:any,userName:any,site:any){
+  editSite(siteId:any,userName:any,site:any,departmentName:any,companyName:any){
     if (confirm("Are you sure you want to edit site details?"))
     {
+      
+    // this.viewContainerRef.clear();
+    // this.destroy = true;
+    // const verificationFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
+    // const verificationRef = this.viewContainerRef.createComponent(verificationFactory);
+    // verificationRef.changeDetectorRef.detectChanges();
+    // this.change.emit(siteId);
     this.viewContainerRef.clear();
     this.destroy = true;
-    const verificationFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
-    const verificationRef = this.viewContainerRef.createComponent(verificationFactory);
-    verificationRef.changeDetectorRef.detectChanges();
-    this.change.emit(siteId);
+    this.value=true;
+    setTimeout(()=>{
+      this.verification.changeTab(0,siteId,userName,companyName,departmentName,site);
+    }, 1000);
     } 
     else {
       this.destroy = false;
+      this.value=false;
     }
   }
 
-  viewSite(){
+  viewSite(siteId: any,userName: any,site: any,departmentName:any,companyName:any){
     if (confirm("Are you sure you want to view site details?"))
   {
+    // this.viewContainerRef.clear();
+    // this.destroy = true;
+    // const verificationFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
+    // const verificationRef = this.viewContainerRef.createComponent(verificationFactory);
+    // verificationRef.changeDetectorRef.detectChanges();
     this.viewContainerRef.clear();
     this.destroy = true;
-    const verificationFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
-    const verificationRef = this.viewContainerRef.createComponent(verificationFactory);
-    verificationRef.changeDetectorRef.detectChanges();
+    this.value=true;
+    setTimeout(()=>{
+      this.verification.changeTab(0,siteId,userName,companyName,departmentName,site);
+    }, 1000);
   } 
   else {
     this.destroy = false;
+    this.value=false;
+  } 
   }
+  pdfModal(siteId: any,userName: any){
+    this.disable=true;
+    this.inspectionService.printPDF(siteId,userName)
   }
-  pdfModal(contentPDF:any){
-    this.modalService.open(contentPDF,{size: 'xl'})
-  }
-  downloadPdf(siteId: any,userName: any): any {
-    this.inspectionService.downloadPDF(siteId,userName).subscribe(
-      data =>{
-        let blob = new Blob([data], {
-          type: 'application/pdf' // must match the Accept type
-          // type: 'application/octet-stream' // for excel 
-      });
-      var link = document.createElement('a');
-      link.href = window.URL.createObjectURL(blob);
-      link.download = 'samplePDFFile.pdf';
-      link.click();
-      window.URL.revokeObjectURL(link.href);
-      },
-      error =>{
   
-      }
-    )
+  downloadPdf(siteId: any,userName: any): any {
+    this.disable=true;
+    this.inspectionService.downloadPDF(siteId,userName)
+  }
+  emailPDF(siteId: any,userName: any){
+    this.disable=true;
+    this.inspectionService.mailPDF(siteId,userName).subscribe(
+    data => {
+    this.success = true;
+    this.successMsg = data;
+    setTimeout(()=>{
+      this.success=false;
+  }, 3000);
+    },
+    error => {
+      this.Error = true;
+      this.errorArr = [];
+      this.errorArr = JSON.parse(error.error);
+      this.errorMsg = this.errorArr.message;
+      setTimeout(()=>{
+        this.Error = false;
+    }, 3000);
+    }
+      );
   }
   navigateToSite() {
+    // this.viewContainerRef.clear();
+    // this.destroy = true;
+    // const verificationFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
+    // const verificationRef = this.viewContainerRef.createComponent(verificationFactory);
+    // //const verification=this.verification.changeTab(1,siteId,userName,'clientName','departmentName',site);
+    // verificationRef.changeDetectorRef.detectChanges();
     this.viewContainerRef.clear();
-    this.destroy = true;
-    const verificationFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
-    const verificationRef = this.viewContainerRef.createComponent(verificationFactory);
-    //const verification=this.verification.changeTab(1,siteId,userName,'clientName','departmentName',site);
-    verificationRef.changeDetectorRef.detectChanges();
+    this.destroy= true;
+    this.value = true;
+
   }
   
   decreaseLicense() {
@@ -217,8 +255,8 @@ export class LicenselistComponent implements OnInit {
   }
 
   purchaseLicense() {
-    this.noofLicense = 0;
-    this.noofLicense= this.noofLicense+5;
+    // this.noofLicense = 0;
+    // this.noofLicense= this.noofLicense+5;
     const dialogRef = this.dialog.open(AddlicenseComponent, {
       width: '500px',
       disableClose: true,
@@ -230,6 +268,7 @@ export class LicenselistComponent implements OnInit {
       }
     })
     dialogRef.afterClosed().subscribe((result) => {
+      this.ngOnInit();
     });
   }
 

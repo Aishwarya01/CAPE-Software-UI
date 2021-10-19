@@ -28,9 +28,18 @@
       <!-- </div> -->
 
     <div class="card-body">
-      <table mat-table [dataSource]="savedReport_dataSource" class="mat-elevation-z8 table" matSort
-        #savedReportSort="matSort">
+      <mat-form-field appearance="standard" style=" font-size: 14px;width: 30%;">
+        <mat-label>Filter Sites</mat-label>
+        <input matInput (keyup)="applyFilter1($event)" (focus)="applyFilter(siteName)"
+        value="siteName" placeholder="Ex. ium" #input="matInput" [(ngModel)]="siteName">
+      </mat-form-field>
 
+      <!-- <mat-form-field appearance="standard" style=" font-size: 14px;width: 30%;">
+        <mat-label>Filter Sites</mat-label>
+        <input matInput placeholder="Ex. ium" #input [(ngModel)]="siteName">
+      </mat-form-field> -->
+      <table mat-table [dataSource]="savedReport_dataSource" class="mat-elevation-z8 table" matSort
+        #savedReportSort="matSort" >
 
         <ng-container matColumnDef="siteCD">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Site Code </th>
@@ -76,18 +85,23 @@
         <ng-container matColumnDef="continue">
             <th mat-header-cell *matHeaderCellDef> Action </th>        
             <td mat-cell *matCellDef="let element"> 
-                <button class="btn btn-info" (click)="continue(element.siteId,element.userName,element.site)">continue</button>
+                <button class="btn btn-info" (click)="continue(element.siteId,element.userName,element.site)"
+                >continue</button>
             </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="savedReportsColumns"></tr>
+        <tr mat-header-row *matHeaderRowDef="savedReportsColumns"></tr> 
         <tr mat-row *matRowDef="let row; columns: savedReportsColumns;"
           [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
-          (mouseout)="row.hovered = false"></tr>
+          (mouseout)="row.hovered = false" [ngClass]="service.highlightText == true ? 'highlight-text' : 'highlight-row' "></tr>
 
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+        </tr>
       </table>
 
       <mat-paginator #savedReportPaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
     </div>
-    <span *ngIf="noDetailsRec" class="errorshow" style="margin: 0 auto;">No details found for this Record</span>
-  </div>
+    <span *ngIf="noDetailsRec" class="errorshow" style="margin: 0 auto;">{{noDetailsRecMsg}}</span>
+  </div> 

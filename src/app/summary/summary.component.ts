@@ -46,9 +46,8 @@ export class SummaryComponent implements OnInit {
   installations: string[] = ['Satisfactory', 'Unsatisfactory'];
 
   addsummary = new FormGroup({
-    //limitationsInspection:  new FormControl(''),
+    limitationsInspection:  new FormControl(''),
     extentInstallation: new FormControl(''),
-    attachedInspection: new FormControl(''),
     agreedLimitations: new FormControl(''),
     agreedWith: new FormControl(''),
     operationalLimitations: new FormControl(''),
@@ -215,9 +214,8 @@ export class SummaryComponent implements OnInit {
     });
 
     this.addsummary = this._formBuilder.group({
-      // limitationsInspection: ['', Validators.required],
+      limitationsInspection: ['', Validators.required],
       extentInstallation: ['', Validators.required],
-      attachedInspection: ['', Validators.required],
       agreedLimitations: ['', Validators.required],
       agreedWith: ['', Validators.required],
       operationalLimitations: ['', Validators.required],
@@ -526,7 +524,8 @@ showHideAccordion(index: number) {
             this.commentSuccess=false;
        }, 3000);
        this.disableReply=true;
-       this.basic.notification(0,'viewerUserName','inspectorUserName','viewerDate','inspectorDate');
+       this.basic.newNotify();
+       //this.basic.notification(0,'viewerUserName','inspectorUserName','viewerDate','inspectorDate');
         },
         (error) => {
         }
@@ -550,7 +549,8 @@ showHideAccordion(index: number) {
        this.hideRejectIcon=false;
        this.hideAdd=false;
        this.hideRefresh=true;
-       this.basic.notification(0,'viewerUserName','inspectorUserName','viewerDate','inspectorDate');
+       this.basic.newNotify();
+       //this.basic.notification(0,'viewerUserName','inspectorUserName','viewerDate','inspectorDate');
         },
         (error) => {
         }
@@ -574,7 +574,8 @@ showHideAccordion(index: number) {
      }, 3000);
      this.hideapprove=false;
      this.hideapproveIcon=false;
-     this.basic.notification(0,'viewerUserName','inspectorUserName','viewerDate','inspectorDate');
+     this.basic.newNotify();
+     //this.basic.notification(0,'viewerUserName','inspectorUserName','viewerDate','inspectorDate');
       },
       (error) => {
       }
@@ -649,62 +650,7 @@ showHideAccordion(index: number) {
    
       })
     }
-  populateRefreshData() {
-    this.reportViewerCommentArr = [];
-    this.completedCommentArrValue = [];
-
-    for(let value of this.commentDataArr.summary.summaryComment){
-      if(this.currentUser1.role == 'Inspector' ) { //Inspector
-          
-          this.reportViewerCommentArr = [];
-
-          if(value.viewerFlag=='1'){
-            this.hideCommentSection= true;
-            this.hideAsViewerLogin=true;
-            this.SendReply=false;
-            this.replyCommentBox=true;
-            this.hideAsViewerLogin=false;
-           }
-            }
-
-            else { //Viewer
-              if(value.approveOrReject == "REJECT"){
-                this.reportViewerCommentArr.push(this.createCommentGroup(value));
-              }
-              else{
-                this.completedComments = true;
-                this.completedCommentArrValue.push(this.createCompletedCommentGroup(value));
-                this.reportViewerCommentArr.push(this.addCommentViewerApprove());
-                //this.afterApprove=true;
-
-              }              
-              this.addsummary.setControl('viewerCommentArr', this._formBuilder.array(this.reportViewerCommentArr || []))
-              this.addsummary.setControl('completedCommentArr', this._formBuilder.array(this.completedCommentArrValue || []))
-
-              this.reportViewerCommentArr = [];
-              this.completedCommentArrValue = [];
-
-              this.hideCommentSection= true;
-              this.sendComment=true;
-              this.hideapprove=false;
-              this.hideReject=false;
-
-              if(value.inspectorFlag=='1'){
-                this.hideCommentSection= true;
-                this.hideAsViewerLogin=false;
-                this.replyCommentBox=true;
-                this.hideAdd=true;
-                this.hideapprove=true;
-                this.hideReject=true;
-                //this.sendComment=true;
-                this.SendReply=false;
-               }
-             
-            
-            }       
-          }
-  }
-
+ 
   addItem1(item: any) : FormGroup {
     return this._formBuilder.group({
       completedCommentArr: this._formBuilder.array(this.completedComm(item)),
@@ -892,14 +838,14 @@ showHideAccordion(index: number) {
 
     if(flag) {
       this.UpateInspectionService.updateSummary(this.summary).subscribe(
-        (data) => {
-          console.log("success");
-        },
-        (error) => {
-          console.log("error");
-
-        }
-      )
+        data=> {
+          this.success = true;
+          this.successMsg = 'Summary Information Successfully Updated';
+         },
+         (error) => {
+          this.Error = true;
+          this.errorMsg = 'Something went wrong, kindly check all the fields';
+         });
     }
 
     else {
