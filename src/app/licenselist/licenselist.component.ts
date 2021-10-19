@@ -255,8 +255,8 @@ export class LicenselistComponent implements OnInit {
   }
 
   purchaseLicense() {
-    this.noofLicense = 0;
-    this.noofLicense= this.noofLicense+5;
+    // this.noofLicense = 0;
+    // this.noofLicense= this.noofLicense+5;
     const dialogRef = this.dialog.open(AddlicenseComponent, {
       width: '500px',
       disableClose: true,
@@ -268,6 +268,7 @@ export class LicenselistComponent implements OnInit {
       }
     })
     dialogRef.afterClosed().subscribe((result) => {
+      this.ngOnInit();
     });
   }
 
