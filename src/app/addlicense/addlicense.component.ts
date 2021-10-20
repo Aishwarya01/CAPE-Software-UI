@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AssignViewerComponent } from '../assign-viewer/assign-viewer.component';
+import { GlobalsService } from '../globals.service';
 import { Register } from '../model/register';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 
@@ -17,6 +18,7 @@ export class AddlicenseComponent implements OnInit {
   onLicense = new EventEmitter();
   constructor(private dialog: MatDialog,
               private inspectorService: InspectorregisterService,
+              public service: GlobalsService,
   ) { }
 
   ngOnInit(): void {
@@ -28,8 +30,9 @@ export class AddlicenseComponent implements OnInit {
   closeModalDialog(){
     this.dialog.closeAll();
    }
-  showViewerPage() {
+  showViewerPage() { 
     // this.dialog.closeAll();
+    this.service.noofLicense=this.service.noofLicense + 5;
     this.register.noOfLicence = 5;
     this.register.username = this.email;
     this.inspectorService.updateLicense(this.register).subscribe(
@@ -42,6 +45,7 @@ export class AddlicenseComponent implements OnInit {
     )
     const dialogRef = this.dialog.open(AssignViewerComponent, {
       width: '500px',
+      height: '235px',
       disableClose: true,
     });
 

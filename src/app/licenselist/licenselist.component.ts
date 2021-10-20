@@ -30,7 +30,7 @@ export class LicenselistComponent implements OnInit {
     noOfAvailableLicense: new FormControl(''),
   })
   panelOpenState = false;
-  noofLicense!: number;
+  //noofLicense!: number;
 
   ongoingSiteColumns: string[] = [
     'siteCd',
@@ -95,7 +95,7 @@ export class LicenselistComponent implements OnInit {
               private dialog: MatDialog,
               private siteService: SiteService,
               private inspectorService: InspectorregisterService,
-              private service: GlobalsService,
+              public service: GlobalsService,
               private router: ActivatedRoute,
                private inspectionService: InspectionVerificationService,
               private componentFactoryResolver: ComponentFactoryResolver,
@@ -108,7 +108,7 @@ export class LicenselistComponent implements OnInit {
   ngOnInit(): void {
     this.retrieveUserDetail();
     this.licenseForm = this.formBuilder.group({
-      noOfAvailableLicense: [this.noofLicense],
+      noOfAvailableLicense: [this.service.noofLicense],
     })
     this.retrieveSiteDetails();
   }
@@ -118,7 +118,7 @@ export class LicenselistComponent implements OnInit {
       (data) => {
         this.userData = JSON.parse(data);
         if(this.userData.role == 'Inspector') {
-          this.noofLicense = this.userData.noOfLicence;
+          this.service.noofLicense = this.userData.noOfLicence;
         }
       },
       (error) => {
@@ -241,6 +241,7 @@ export class LicenselistComponent implements OnInit {
   }
   
   decreaseLicense() {
+    this.service.useClicked=true;
     const dialogRef = this.dialog.open(AssignViewerComponent, {
       width: '500px',
     });
@@ -255,12 +256,12 @@ export class LicenselistComponent implements OnInit {
   }
 
   purchaseLicense() {
-    // this.noofLicense = 0;
-    // this.noofLicense= this.noofLicense+5;
+    this.service.noofLicense = 0; 
     const dialogRef = this.dialog.open(AddlicenseComponent, {
       width: '500px',
       disableClose: true,
-    });
+    }
+    );
     dialogRef.componentInstance.email = this.email;
     dialogRef.componentInstance.onLicense.subscribe(data=>{
       if(data) {
@@ -268,7 +269,6 @@ export class LicenselistComponent implements OnInit {
       }
     })
     dialogRef.afterClosed().subscribe((result) => {
-      this.ngOnInit();
     });
   }
 
