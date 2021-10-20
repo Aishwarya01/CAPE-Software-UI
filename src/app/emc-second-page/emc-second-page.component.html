@@ -1,0 +1,783 @@
+<div class="card">
+    <div>
+        <h3>POWER AND EARTHING DATA</h3>
+    </div>
+
+    <div class="card-body">
+    <form>
+    <mat-accordion displayMode="default" [multi]="true"[hideToggle]="false">
+
+        <mat-expansion-panel [hideToggle]="false" class="body">
+            <mat-expansion-panel-header>
+                Service Entrance
+            </mat-expansion-panel-header>
+
+    <!-- Electrical utility service supplier -->
+            <div class="acc_font">
+                <label for="text">1. Electrical utility service supplier:</label>
+                    <!-- Icon code -->
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="bi bi-text-paragraph"></i>
+                        </span>
+                    </div>
+                    <textarea class="textarea-size" class="form-control" placeholder="Ex. describe type, demand, system earthing, protection at incoming...!"></textarea>
+                </div>
+            </div>
+
+    <!-- Back up source -->
+            <div class="acc_font">
+                <label class="form-label">2. Back up source:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="bi bi-text-paragraph"></i>
+                        </span>
+                    </div>
+                    <textarea class="textarea-size" class="form-control" style="font-size: small;" placeholder="Ex. describe type, capacity, time delay, loads, etc...!"></textarea>
+                </div>
+            </div>
+            
+    <!-- Distance to HV/LV substation -->
+            <div class="acc_font">
+                <label class="form-label">3. Distance to HV/LV substation:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="bi bi-text-paragraph"></i>
+                        </span>
+                    </div>
+                    <textarea class="form-control" placeholder="Ex. In case transformer with in the premise (HV supply), describe this and the distance to the suppliers substation ...!"></textarea>
+                </div>
+            </div>
+
+    <!-- Type of incoming cables from HV/LV substation -->
+            <div class="acc_font">
+                <label>4. Type of incoming cables from HV/LV substation:</label> 
+                <br>
+                <select class="form-control" >
+                    <option>Choose Any Option</option>
+                    <option>Overhead</option>
+                    <option>Burried</option>
+                    <option>combination</option>
+                </select>
+            </div>
+            <br>
+
+    <!-- Discription of supply -->
+            <div>
+                <label style="font-size: smaller;">*Discription of supply:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="bi bi-text-paragraph"></i>
+                        </span>
+                    </div>
+                    <textarea class="textarea-size" class="form-control" placeholder="Ex. Please enter text here...!"></textarea>
+                </div>
+            </div>
+    
+    <!-- Transformer characteristics -->
+        <div>
+            <label style="font-size: smaller;">5. Transformer characteristics:</label>
+            <div>
+                <div>
+                    <div>
+                        <label style="font-size: smaller;">KVA: </label>
+                        <input type="text" class="form-control" placeholder="Ex. Enter text here...!">
+                    </div>
+                </div>
+               
+                <div>
+                    <label style="font-size: smaller;">Input:</label>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <label style="font-size: smaller;">Volts:</label> 
+                        <input type="text" class="form-control"  placeholder=" "> 
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label style="font-size: smaller;">No. of phases:</label>
+                        <input type="text" class="form-control" placeholder=" ">
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label style="font-size: smaller;">No. of wires:</label>
+                        <input type="text" class="form-control"  placeholder=" ">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label style="font-size: smaller;">Feed (Delta/WYE):</label>
+                        <input type="text" class="form-control"  placeholder=" ">
+                    </div>
+                </div>
+                
+                <div>
+                    <label style="font-size: smaller;">Describe Other</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-text-paragraph"></i>
+                            </span>
+                        </div>
+                        <textarea class="textarea-size" class="form-control" placeholder="Describe Others"></textarea>
+                    </div>
+                </div>
+            
+            <br>
+
+        <!-- Output to MDB -->
+            <div>
+                <label style="font-size: smaller;">Output to MDB</label>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label style="font-size: smaller;">Volts:</label> 
+                        <input type="text" class="form-control"  placeholder=" "> 
+                    </div>
+                        
+                    <div class="col-md-4">
+                        <label style="font-size: smaller;">No. of phases:</label>
+                        <input type="text" class="form-control"  placeholder=" ">
+                    </div>
+                        
+                    <div class="col-md-4">
+                        <label style="font-size: smaller;">No. of wires:</label>
+                        <input type="text" class="form-control"  placeholder=" ">
+                    </div>
+        
+                    <div class="col-md-4">
+                        <label style="font-size: smaller;">Feed (Delta/WYE):</label>
+                        <input type="text" class="form-control"  placeholder=" ">
+                    </div>
+                </div>
+            </div>
+            <br>
+
+        <!-- Incoming (Amps) -->
+        <div class="row" style="font-size: smaller;">
+
+            <div class="col-md-4">
+                <label >Incoming (Amps):</label>
+                <input type="text" class="form-control"  placeholder="Enter Amps here">
+            </div>
+
+            <div class="col-md-4">
+                <label >Neutral:</label>
+                <select class="form-control" >
+                    <option value="0">Choose values</option>
+                    <option>insulated</option>
+                    <option>uninsulated</option>
+                    <option>unknown</option>
+                </select>
+            </div>
+        </div>
+        <!-- System earthing -->
+            <div>
+                <label style="font-size: smaller;">System earthing:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="bi bi-text-paragraph"></i>
+                        </span>
+                    </div>
+                    <textarea class="textarea-size" class="form-control" style="font-size: small;" placeholder="Ex. describe how and where...??"></textarea>
+                </div>
+            </div>
+            <div>
+                <label style="font-size: smaller;">Attach SLD of power supply system</label>
+                <div class="input-group mb-3">
+                    <label for="inputGroupFile01">Upload</label>
+                    <input type="file" class="form-control" id="inputGroupFile01">
+                  </div>
+            </div>
+            </div>
+        </div>
+
+    <!-- 6.Building Service Entrance -->
+        <div>
+            <label style="font-size: smaller;">6. Building Service Entrance</label>
+            
+            <div>
+                <label style="font-size: smaller;">Dedicated transformer:</label>
+                    <select class="form-control" >
+                        <option value="0">Choose values</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                    </select>
+            </div>
+            <div>
+                <label for="" style="font-size: smaller;">If no, which are the other buildings / loads connected to the transformer:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="bi bi-text-paragraph"></i>
+                        </span>
+                    </div>
+                    <textarea class="textarea-size" class="form-control" placeholder="Ex. If no Describe"></textarea>
+                </div>
+            </div>
+
+        <!-- Type and routing of incoming cable from transformer -->
+            <div>
+                <label style="font-size: smaller;">Type and routing of incoming cable from transformer:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="bi bi-text-paragraph"></i>
+                        </span>
+                    </div>
+                    <textarea class="textarea-size" class="form-control" placeholder="Ex. metallic conduit / non metallic conduit / others...!"></textarea>
+                </div>
+            </div>
+
+        <!-- Description of service entrance earth electrode -->
+            <div>
+                <label style="font-size: smaller;">Description of service entrance earth electrode:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="bi bi-text-paragraph"></i>
+                        </span>
+                    </div>
+                    <textarea class="textarea-size" class="form-control" placeholder="Ex. foundation earth / building steel / ring earth / rod / multiple rods / grid / earth plate / burried conduit / metal water pipe etc...!"></textarea>
+                </div>
+            </div>
+
+        <!-- Describe about testing of service entrance earth electrode -->
+            <div>
+                <label style="font-size: smaller;">Describe about testing of service entrance earth electrode:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="bi bi-text-paragraph"></i>
+                        </span>
+                    </div>
+                    <textarea class="textarea-size" class="form-control" placeholder="Ex. Date of testing / Name of person who did the testing / value (impedance in ohms)...!"></textarea>
+                </div>
+            </div>
+        </div>
+
+    <!-- 7. Describe about equipotential bonding and SPD's at service entrance -->
+        <div>
+            <div>
+                <label style="font-size: smaller;">7. Describe about equipotential bonding and SPD's at service entrance:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="bi bi-text-paragraph"></i>
+                        </span>
+                    </div>
+                    <textarea class="textarea-size" class="form-control" placeholder="Ex. yes/no. If yes, type and rating of SPD's..!"></textarea>
+                </div>
+            </div>
+        </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [hideToggle]="false" class="body">
+        <mat-expansion-panel-header >Building Distribution</mat-expansion-panel-header>
+
+    <!-- SLD -->
+        <div>
+            <div>
+                <label style="font-size: smaller;">1. SLD:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="bi bi-text-paragraph"></i>
+                        </span>
+                    </div>
+                    <textarea class="textarea-size" class="form-control" placeholder="Ex. An one-line diagram of the site power distribution system from the service entrance to the electronic system power distribution panel(s). Show all transformers, load centres, power conditioning equipment, emergency load transfer switches, etc. Also indicate nominal voltage, kVA, type of feed, how run, number of conductors, and approximate length of feeders involved...!"></textarea>
+                </div>
+            </div>
+            <br>
+    <!-- Notes -->
+            <div>
+                <label for="" style="font-weight: bold;">Note any heavy cycling loads or variable load controllers fed from the same distribution feeder path that supplies the computer system.</label>
+            </div>
+            
+            <div>
+                <label for="" style="font-weight: bold;">Note how protective earthing distribution is accomplished (conduit only, flexible conduit and bond wire, other).</label>
+            </div>
+    
+    <!-- Record data -->
+            <div>
+                <label style="font-size: smaller;">2. Record data:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="bi bi-text-paragraph"></i>
+                        </span>
+                    </div>
+                    <textarea class="textarea-size" class="form-control" placeholder="Ex. Record data (including name-plate data) note any power conditioning equipment and/or last transformer before electronic system load...!"></textarea>
+                </div>
+            </div>
+
+    <!-- Earthing  -->
+            <div>
+                <label style="font-size: smaller;">3. Earthing :</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="bi bi-text-paragraph"></i>
+                        </span>
+                    </div>
+                    <textarea class="textarea-size" class="form-control" placeholder="Ex. Describe how and where earthing of power conditioning equipment carried out...!"></textarea>
+                </div>
+            </div>
+        </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [hideToggle]="false" class="body">
+        <mat-expansion-panel-header>Electronics system room power distribution</mat-expansion-panel-header>
+
+    <!--1. Using the SLD, sketch the system power and ground distribution system, including all major components in (or immediately adjacent to) the computer room. Clearly identify all major components -->
+
+    <!-- Electronic system power distribution panel -->
+        <div>
+            <div>
+                <label for="text" style="font-size: smaller;">1. Description:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="bi bi-text-paragraph"></i>
+                        </span>
+                    </div>
+                    <textarea class="textarea-size" class="form-control" placeholder="Ex. Using the SLD, sketch the system power and ground distribution system, including all major components in (or immediately adjacent to) the computer room. Clearly identify all major components...!"></textarea>
+                </div>
+            </div>
+            <br>
+            <label style="font-size: smaller;">2. Electronic system power distribution panel</label>
+
+            <div  class="container-fluid">
+                <table cellpadding="7" cellspacing="7" border="1" style="border:solid 1px #ddd;font-size:14px; line-height:24px; width:100%; border-collapse:collapse; margin:15px 0 0 0px;">
+                    <tr>
+                        <td rowspan="1" style="width: 4rem;">a.</td> 
+                        <td style="width: 27rem; font-size: smaller;">Panel ID:</td>
+                        <td>
+                            <input type="text" class="form-control" name=""id="" placeholder="Enter ID here">
+                        </td>
+                    </tr>
+                </table>
+
+                <table cellpadding="7" cellspacing="7" border="1" style="border:solid 1px #ddd;font-size:14px; line-height:24px; width:100%; border-collapse:collapse; margin:15px 0 0 0px;">
+            
+                    <tr>
+                        <td rowspan="1" style="width: 4rem;">
+                            <label for="text">b.</label>
+                        </td>
+                        <td style="width: 27rem;">
+                            <label for="" style="font-size: smaller;">Name plate data (manufacturer)</label>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="Name (manufacturer)">
+                        </td>
+                    </tr>
+                </table>
+               
+                <table cellpadding="7" cellspacing="7" border="1" style="border:solid 1px #ddd;font-size:14px; line-height:24px; width:100%; border-collapse:collapse; margin:15px 0 0 0px;">
+                    <tr>
+                        <td rowspan="3" style="width: 4rem;">
+                            <label for="text">c.</label>
+                        </td>
+                        <td style="width: 27rem;">
+                            <label for="" style="font-size: smaller;">Main circuit breaker</label>
+                        </td>
+                        <td style="width: 36rem;">
+                            <select class="form-control">
+                                <option value="o">choose yes/no</option>
+                                <option value="1">Yes</option>
+                                <option value="2">No</option>
+                            </select>
+                        </td>
+                        <td>
+                            <p style="font-size: smaller;">Rating
+                            <input type="text" style="
+                            width: 50px;
+                            background: transparent;
+                            border: none;
+                            border-bottom: 1px solid #000000;"></p>
+                        </td>  
+                    </tr>
+                    <tr>
+                        <td rowspan="1" style="font-size: smaller;">Emergency trip?</td>
+                        <td>
+                            <p style="font-size: smaller;">Remote <input type="text" style="
+                                width: 50px;
+                                background: transparent;
+                                border: none;
+                                border-bottom: 1px solid #000000;"/> local<input type="text" style="
+                                width: 50px;
+                                background: transparent;
+                                border: none;
+                                border-bottom: 1px solid #000000;"/> none</p>
+                            
+                        </td>
+                    </tr>
+                </table>
+                
+                <table cellpadding="7" cellspacing="7" border="1" style="border:solid 1px #ddd;font-size:14px; line-height:24px; width:100%; border-collapse:collapse; margin:15px 0 0 0px;">
+                    <tr>
+                        <td rowspan="2" style="width: 4rem;">
+                            <label for="text">d.</label>
+                        </td>
+
+                        <td style="width: 27rem;">
+                            <label for="" style="font-size: smaller;">Other trips:</label>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="Under voltage / over voltage">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label for="" style="font-size: smaller;">Differential protection:</label>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control">
+                        </td>
+                    </tr>   
+
+                </table>
+
+                <table cellpadding="7" cellspacing="7" border="1" style="border:solid 1px #ddd;font-size:14px; line-height:24px; width:100%; border-collapse:collapse; margin:15px 0 0 0px;">
+                    
+                    <tr>
+                        <td rowspan="1" style="width: 4rem;">
+                            <label for="text" >e.</label>
+                        </td>
+
+                        <td style="width: 27rem;">
+                            <label for="" style="font-size: smaller;">Panel bonded to building steel:</label>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="YES / NO. Describe bond location - external or internal steel member">
+                        </td>
+                    </tr>
+                </table>
+
+                <table cellpadding="7" cellspacing="7" border="1" style="border:solid 1px #ddd;font-size:14px; line-height:24px; width:100%; border-collapse:collapse; margin:15px 0 0 0px;">
+                    <tr>
+                        <td rowspan="4" style="width: 4rem;">
+                            <label for="text">f.</label>
+                        </td>
+                        <td style="width: 27rem;">
+                            <label for="" style="font-size: smaller;">Panel feed:</label>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="WYE / DELTA / SPLIT PHASE / Single phase / No of wires">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="" style="font-size: smaller;">Phase wires:</label>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="Cu / Al, Size, Number and insulation type">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="" style="font-size: smaller;">Neutral wire:</label>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="Cu / Al, Size, Number and insulation type">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="" style="font-size: smaller;">PE wire size:</label>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="Cu / Al, Size, Number and insulation type">
+                        </td>
+                    </tr>
+                </table>
+                    
+                <table cellpadding="7" cellspacing="7" border="1" style="border:solid 1px #ddd;font-size:14px; line-height:24px; width:100%; border-collapse:collapse; margin:15px 0 0 0px;">
+                    <tr>
+                        <td rowspan="4" style="width: 4rem;">g.</td>
+                        <td rowspan="4" style="width: 27rem; font-size: smaller;">Panel connectors</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" class="form-control" placeholder="Type - Cu / Al, Cu/Al">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" class="form-control" placeholder="Any discoloration / corrosion">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" class="form-control" placeholder="Termination quality (checked / not checked??)">
+                        </td>
+                    </tr>
+                </table>
+                
+                <table cellpadding="7" cellspacing="7" border="1" style="border:solid 1px #ddd;font-size:14px; line-height:24px; width:100%; border-collapse:collapse; margin:15px 0 0 0px;">
+                    <tr>
+                        <td rowspan="4" style="width: 4rem;">h.</td>
+                        <td rowspan="4" style="width: 27rem; font-size: smaller;">Neutral and earth busbars</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: smaller; width: 25rem;">Neutral bus:</td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="insulated from panel?? (check for bonding screws / straps) etc">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: smaller;">Earth bus:</td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="(available  / not available) (insulated / uninsulated) quality of bonding">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: smaller;">List of non electronic loads on earth bus:</td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="List of non electronic loads on earth bus">
+                        </td>
+                    </tr>
+                </table>
+
+                <table cellpadding="7" cellspacing="7" border="1" style="border:solid 1px #ddd;font-size:14px; line-height:24px; width:100%; border-collapse:collapse; margin:15px 0 0 0px;">
+                    <tr>
+                        <td rowspan="3" style="width: 4rem;">i.</td>
+                        <td rowspan="3" style="width: 27rem; font-size: smaller;">Uses</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: smaller; width: 25rem;">Dediated to electronic system?:</td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="ex.">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: smaller;">List all non computer loads, including any convenience receptacles:</td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="Ex..">
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </mat-expansion-panel>
+
+<!-- Distribution panel at load (final circuits) -->
+    <mat-expansion-panel [hideToggle]="false" class="body">
+        <mat-expansion-panel-header>Distribution panel at load (final circuits)</mat-expansion-panel-header>
+
+    <!-- a. Branch circuit wire size -->
+        <div>
+            <label for="" style="font-size: smaller;">a. Branch circuit wire size</label>
+            <br>
+            <label for="" style="font-size: smaller;">Wire size compatilble to circuit braker</label>
+            <select class="form-control" >
+                <option value="0">yes/no</option>
+                <option value="">Yes</option>
+                <option value="">No</option>
+            </select>
+            <div>
+                <label for="" style="font-size: smaller;">Description</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-text-paragraph"></i>
+                            </span>
+                        </div>
+                        <textarea class="textarea-size" class="form-control" placeholder="Description"></textarea>
+                    </div>
+            </div>
+            <div>
+                <label for="" style="font-size: smaller;">Matches receptable:</label>
+                <select name="" id="" class="form-control" >
+                    <option value="">yes/no</option>
+                    <option value="">Yes</option>
+                    <option value="">No</option>
+                </select>
+                <div>
+                    <label for="" style="font-size: smaller;">Description</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea class="textarea-size" class="form-control"  placeholder="Description"></textarea>
+                        </div>
+                </div>
+            </div>
+        </div>
+    
+    <!--b. Individual insulated PE wire run in each electronics load circuit -->
+        <div>
+            <div>
+                <label for="" style="font-size: smaller;">b. Individual insulated PE wire run in each electronics load circuit</label>
+                <select name="" id="" class="form-control" >
+                    <option value="">yes/no</option>
+                    <option value="">Yes</option>
+                    <option value="">No</option>
+                </select>
+                <div>
+                    <label for="" style="font-size: smaller;">Description</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-text-paragraph"></i>
+                            </span>
+                        </div>
+                        <textarea class="textarea-size" class="form-control" placeholder="Description"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!--c. Individual insulated neutral wire run in each computer load circuit (if necessary??) -->
+        <div>
+            <div>
+                <label for="" style="font-size: smaller;">c. Individual insulated neutral wire run in each computer load circuit (if necessary??</label>
+                <select name="" id="" class="form-control" >
+                    <option value="">yes/no</option>
+                    <option value="">Yes</option>
+                    <option value="">No</option>
+                </select>
+                <div>
+                    <label for="" style="font-size: smaller;">Description</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-text-paragraph"></i>
+                            </span>
+                        </div>
+                        <textarea class="textarea-size" class="form-control" placeholder="Description"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- d. All computer load circuits coorectly identified -->
+        <div>
+            <div>
+                <label for="" style="font-size: smaller;">d. All computer load circuits coorectly identified</label>
+                <select name="" id="" class="form-control" >
+                    <option value="">yes/no</option>
+                    <option value="">Yes</option>
+                    <option value="">No</option>
+                </select>
+                <div>
+                    <label for="" style="font-size: smaller;">Description</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-text-paragraph"></i>
+                            </span>
+                        </div>
+                        <textarea class="textarea-size" class="form-control" placeholder="Description"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    <!-- e. All computer load circuits (<30 A/phase) terminated in isolated earth receptacles -->
+        <div>
+            <div>
+                <label for="" style="font-size: smaller;">e. All computer load circuits (30/Aphase) terminated in isolated earth receptacles</label>
+                <select name="" id="" class="form-control" >
+                    <option value="">yes/no</option>
+                    <option value="">Yes</option>
+                    <option value="">No</option>
+                </select>
+                <div>
+                    <label for="" style="font-size: smaller;">Description</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-text-paragraph"></i>
+                            </span>
+                        </div>
+                        <textarea class="textarea-size" class="form-control" placeholder="Description"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    <!-- f. System branch circuits run in (metallic conduits / non metallic conduits) -->
+        <div>
+            <div>
+                <label for="" style="font-size: smaller;">f. System branch circuits run in (metallic conduits / non metallic conduits)</label>
+                <input type="text" placeholder="" class="form-control" >
+                <div>
+                    <label for="" style="font-size: smaller;">Description</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-text-paragraph"></i>
+                            </span>
+                        </div>
+                        <textarea class="textarea-size" class="form-control" placeholder="Description"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!--g. Frequently cyclid loads (disks/tapes etc) power circuit run seperately or in same physical closure -->
+        <div>
+            <div>
+                <label for="" style="font-size: smaller;">g. Frequently cyclid loads (disks/tapes etc) power circuit run seperately or in same physical closure</label>
+                <select name="" id="" class="form-control" >
+                    <option value="">yes/no</option>
+                    <option value="">Yes</option>
+                    <option value="">No</option>
+                </select>
+                <div>
+                    <label for="" style="font-size: smaller;">Description</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-text-paragraph"></i>
+                            </span>
+                        </div>
+                        <textarea class="textarea-size" class="form-control" placeholder="Description"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    <!-- h. Any phase conductor, neutral conductor or PE condcutors daisy chained?? -->
+        <div>
+            <div>
+                <label for="" style="font-size: smaller;">h. Any phase conductor, neutral conductor or PE condcutors daisy chained??</label>
+                <select name="" id="" class="form-control" >
+                    <option value="">yes/no</option>
+                    <option value="">Yes</option>
+                    <option value="">No</option>
+                </select>
+                <div>
+                    <label for="" style="font-size: smaller;">Description</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-text-paragraph"></i>
+                            </span>
+                        </div>
+                        <textarea class="textarea-size" class="form-control" placeholder="Description"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </mat-expansion-panel>
+
+</mat-accordion>
+    <div class="container">
+        <button type="button" style="width: 100px; margin: 16px auto;" class="btn btn-primary">Previous</button>
+        <button type="submit" style="width: 100px; margin: 16px auto;" class="btn btn-success">Next</button>
+    </div>
+    
+</form>
+</div>
+

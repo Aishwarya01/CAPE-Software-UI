@@ -72,6 +72,8 @@ import { DateAgoPipe } from './pipes/date-ago.pipe';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { GenerateOtpContactnumberComponent } from './generate-otp-contactnumber/generate-otp-contactnumber.component';
 import { ChangeContactnumberComponent } from './change-contactnumber/change-contactnumber.component';
+import { EmcSecondPageComponent } from './emc-second-page/emc-second-page.component';
+import { LpsBasicPageComponent } from './lps-basic-page/lps-basic-page.component';
 
 @NgModule({
   declarations: [
@@ -115,7 +117,9 @@ import { ChangeContactnumberComponent } from './change-contactnumber/change-cont
     ViewerRegisterComponent,
     DateAgoPipe,
     GenerateOtpContactnumberComponent,
-    ChangeContactnumberComponent
+    ChangeContactnumberComponent,
+    EmcSecondPageComponent,
+    LpsBasicPageComponent
   ],
   imports: [
     NgbTooltipModule,
@@ -147,7 +151,7 @@ import { ChangeContactnumberComponent } from './change-contactnumber/change-cont
   ],
  // exports: [WebStorageCodec, WebStorageCodec, SessionStorage],
   providers: [GlobalsService, { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }, BnNgIdleService,DatePipe],
-  bootstrap: [AppComponent],
+  bootstrap: [LpsBasicPageComponent],
   entryComponents: [ AddApplicationTypesComponent, UpdateApplicationTypesComponent, VerificationlvComponent ]
 })
 export class AppModule { }
