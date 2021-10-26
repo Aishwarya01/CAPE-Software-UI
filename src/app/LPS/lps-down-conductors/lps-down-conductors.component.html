@@ -128,14 +128,9 @@
                 </div>
 
 <!-- tables -->
+        <div class="table-responsive">
             <div style="margin-top: 40px;">
                 <table class="table-responsive" > 
-                    <thead style="text-align: center;">
-                            <th>SI.No</th>
-                            <th>Description</th>
-                            <th>Observation</th>
-                            <th>Remarks</th>
-                    </thead>
                     <tbody>
                         <tr>
                             <td style="width: 1rem; text-align: center;" >1.</td>
@@ -284,15 +279,15 @@
                     </tbody>
                 </table>
             </div>
+        </div>
         </mat-expansion-panel>
 
         <mat-expansion-panel>
            <mat-expansion-panel-header>Down conductors</mat-expansion-panel-header>
-           
            <div class="table-responsive">
             <table>    
-                <tbody formArrayName="downArr" *ngFor="let a of downConductorControls(); let i = index">
-                <div class="form-group" [formGroupName]="i">
+                <tbody formArrayName="downArr" *ngFor="let a of downConductorControls(); let j = index">
+                <div class="form-group" [formGroupName]="j">
                         <tr>
                         <td style="width: 1rem; text-align: center;" >7.1</td>
                         <td style="width: 30rem;">Physical inspection (damage/break/bend/corroded/route):</td>
@@ -653,7 +648,7 @@
                             </div>
                         </td>
                     </tr>
-                    <button class="btn btn-primary" type="button" (click)="submit()" style="margin-left: 93rem;margin-bottom: 4px;">Add</button>
+                <button class="btn btn-primary" type="button" (click)="submit()" style="margin-left: 93rem;margin-bottom: 4px;">Add</button>
             </div>
             </tbody>
             </table>
@@ -661,185 +656,182 @@
 
         </mat-expansion-panel>
 
-        <mat-expansion-panel [hideToggle]="false">       
+        <mat-expansion-panel>       
         <mat-expansion-panel-header>Bridging Cables</mat-expansion-panel-header>
-        <div>
-         <table class="table-responsive" > 
-             <thead style="text-align: center;">
-                     <th>SI.No</th>
-                     <th>Description</th>
-                     <th>Observation</th>
-                     <th>Remarks</th>
-             </thead>
-             <tbody>
-                 <tr >
-                     <td style="width: 1rem; text-align: center;" >8.1</td>
-                     <td style="width: 24rem;">Ensure bridging cable is used at corner of structures to avoid sharp bends:</td>
-                     <td style="width: 35rem;">
-                         <div class="input-group">
-                             <div class="input-group-prepend">
-                                 <span class="input-group-text">
-                                     <i class="bi bi-text-paragraph"></i>
-                                 </span>
-                             </div>
-                             <textarea    type="text" class="form-control" placeholder="Ex.."></textarea>
-                         </div>
-                     </td>
-                     <td style="width: 35rem;">
-                         <div class="input-group">
-                             <div class="input-group-prepend">
-                                 <span class="input-group-text">
-                                     <i class="bi bi-text-paragraph"></i>
-                                 </span>
-                             </div>
-                             <textarea type="text"  class="form-control" placeholder="Ex.."></textarea>
-                         </div>
-                     </td>
-                 </tr>
-                 <tr>
-                     <td style="text-align: center;">8.2</td>
-                     <td>Check the connection of aluminium conductor into the side wall:</td>
-                     <td>
-                         <div class="input-group">
-                             <div class="input-group-prepend">
-                                 <span class="input-group-text">
-                                     <i class="bi bi-text-paragraph"></i>
-                                 </span>
-                             </div>
-                             <textarea  type="text" class="form-control" placeholder="Ex.."></textarea>
-                         </div>
-                     </td>
-                     <td>
-                         <div class="input-group">
-                             <div class="input-group-prepend">
-                                 <span class="input-group-text">
-                                     <i class="bi bi-text-paragraph"></i>
-                                 </span>
-                             </div>
-                             <textarea  type="text" class="form-control" placeholder="Ex.."></textarea>
-                         </div>
-                     </td>
-                 </tr>
-                 <tr>
-                     <td style="text-align: center;">8.3</td>
-                         <td>Ensure the conection of bridging cable (losse/tight /corroded):</td>
-                         <td>
-                             <div class="input-group">
-                                 <div class="input-group-prepend">
-                                     <span class="input-group-text">
-                                         <i class="bi bi-text-paragraph"></i>
-                                     </span>
-                                 </div>
-                                 <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
-                             </div>
-                         </td>
-                         <td>
-                             <div class="input-group">
-                                 <div class="input-group-prepend">
-                                     <span class="input-group-text">
-                                         <i class="bi bi-text-paragraph"></i>
-                                     </span>
-                                 </div>
-                                 <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
-                             </div>
-                     </td>
-                 </tr>
-                 <tr>
-                     <td style="text-align: center;">8.4</td>
-                     <td>Total number of bridging cables:</td>
-                     <td>
-                         <div class="input-group">
-                             <div class="input-group-prepend">
-                                 <span class="input-group-text">
-                                     <i class="bi bi-text-paragraph"></i>
-                                 </span>
-                             </div>
-                             <textarea  type="text" class="form-control" placeholder="Ex.."></textarea>
-                         </div>
-                     </td>
-                     <td>
-                         <div class="input-group">
-                             <div class="input-group-prepend">
-                                 <span class="input-group-text">
-                                     <i class="bi bi-text-paragraph"></i>
-                                 </span>
-                             </div>
-                             <textarea  type="text" class="form-control" placeholder="Ex.."></textarea>
-                         </div>
-                     </td>
-                 </tr>
-                 <tr>
-                     <td style="text-align: center;">8.5</td>
-                     <td>Number of bridging cables inspected:</td>
-                     <td>
-                         <div class="input-group">
-                             <div class="input-group-prepend">
-                                 <span class="input-group-text">
-                                     <i class="bi bi-text-paragraph"></i>
-                                 </span>
-                             </div>
-                             <textarea  type="text" class="form-control" placeholder="Ex.."></textarea>
-                         </div>
-                     </td>
-                     <td>
-                         <div class="input-group">
-                             <div class="input-group-prepend">
-                                 <span class="input-group-text">
-                                     <i class="bi bi-text-paragraph"></i>
-                                 </span>
-                             </div>
-                             <textarea  type="text" class="form-control" placeholder="Ex.."></textarea>
-                         </div>
-                     </td>
-                 </tr>
-                 <tr>
-                     <td style="text-align: center;">8.6</td>
-                     <td>Number of inspections passed:</td>
-                     <td>
-                         <div class="input-group">
-                             <div class="input-group-prepend">
-                                 <span class="input-group-text">
-                                     <i class="bi bi-text-paragraph"></i>
-                                 </span>
-                             </div>
-                             <textarea  type="text" class="form-control" placeholder="Ex.."></textarea>
-                         </div>
-                     </td>
-                     <td>
-                         <div class="input-group">
-                             <div class="input-group-prepend">
-                                 <span class="input-group-text">
-                                     <i class="bi bi-text-paragraph"></i>
-                                 </span>
-                             </div>
-                             <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
-                         </div>
-                     </td>
-                 </tr>
-                 <tr>
-                     <td style="text-align: center;">8.7</td>
-                     <td>Number of inspections failed:</td>
-                     <td>
-                         <div class="input-group">
-                             <div class="input-group-prepend">
-                                 <span class="input-group-text">
-                                     <i class="bi bi-text-paragraph"></i>
-                                 </span>
-                             </div>
-                             <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
-                         </div>
-                     </td>
-                     <td>
-                         <div class="input-group">
-                             <div class="input-group-prepend">
-                                 <span class="input-group-text">
-                                     <i class="bi bi-text-paragraph"></i>
-                                 </span>
-                             </div>
-                             <textarea  type="text" class="form-control" placeholder="Ex.."></textarea>
-                         </div>
-                     </td>
-                 </tr>
+        <div class="table-responsive">
+         <table>
+             <tbody formArrayName="bridgingArr" *ngFor="let a of bridgingCablesControls(); let f = index">
+                 <div class="form-group" [formGroupName]="f">
+                    <tr >
+                        <td style="width: 1rem; text-align: center;" >8.1</td>
+                        <td style="width: 24rem;">Ensure bridging cable is used at corner of structures to avoid sharp bends:</td>
+                        <td style="width: 35rem;">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                    </span>
+                                </div>
+                                <textarea formControlName="obs1" type="text" class="form-control" placeholder="Ex.."></textarea>
+                            </div>
+                        </td>
+                        <td style="width: 35rem;">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                    </span>
+                                </div>
+                                <textarea type="text" formControlName="rem1" class="form-control" placeholder="Ex.."></textarea>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">8.2</td>
+                        <td>Check the connection of aluminium conductor into the side wall:</td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                    </span>
+                                </div>
+                                <textarea formControlName="obs2" type="text" class="form-control" placeholder="Ex.."></textarea>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                    </span>
+                                </div>
+                                <textarea formControlName="rem2" type="text" class="form-control" placeholder="Ex.."></textarea>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">8.3</td>
+                            <td>Ensure the conection of bridging cable (losse/tight /corroded):</td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea formControlName="obs3" type="text" class="form-control" placeholder="Ex.."></textarea>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea formControlName="rem3" type="text" class="form-control" placeholder="Ex.."></textarea>
+                                </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">8.4</td>
+                        <td>Total number of bridging cables:</td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                    </span>
+                                </div>
+                                <textarea formControlName="obs4" type="text" class="form-control" placeholder="Ex.."></textarea>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                    </span>
+                                </div>
+                                <textarea formControlName="rem4" type="text" class="form-control" placeholder="Ex.."></textarea>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">8.5</td>
+                        <td>Number of bridging cables inspected:</td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                    </span>
+                                </div>
+                                <textarea formControlName="obs5" type="text" class="form-control" placeholder="Ex.."></textarea>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                    </span>
+                                </div>
+                                <textarea formControlName="rem5" type="text" class="form-control" placeholder="Ex.."></textarea>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">8.6</td>
+                        <td>Number of inspections passed:</td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                    </span>
+                                </div>
+                                <textarea formControlName="obs6" type="text" class="form-control" placeholder="Ex.."></textarea>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                    </span>
+                                </div>
+                                <textarea formControlName="rem6" type="text" class="form-control" placeholder="Ex.."></textarea>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">8.7</td>
+                        <td>Number of inspections failed:</td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                    </span>
+                                </div>
+                                <textarea formControlName="obs7" type="text" class="form-control" placeholder="Ex.."></textarea>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                    </span>
+                                </div>
+                                <textarea formControlName="rem7" type="text" class="form-control" placeholder="Ex.."></textarea>
+                            </div>
+                        </td>
+                    </tr>
+                 <button class="btn btn-primary" type="button" (click)="submit1()" style="margin-left: 93rem;margin-bottom: 4px;">Add</button>
+                 </div>
              </tbody>
          </table>
         </div>
@@ -847,17 +839,12 @@
 
         <mat-expansion-panel>
             <mat-expansion-panel-header>Holders</mat-expansion-panel-header>
-            <div>
-                <table class="table-responsive" > 
-                    <thead style="text-align: center;">
-                            <th>SI.No</th>
-                            <th>Description</th>
-                            <th>Observation</th>
-                            <th>Remarks</th>
-                    </thead>
-                    <tbody>
+            <div class="table-responsive">
+            <table>
+                <tbody formArrayName="holderArr" *ngFor="let a of holdersControls(); let k = index">
+                    <div class="form-group" [formGroupName]="k">
                         <tr>
-                            <td style="width: 1rem; text-align: center;" >9.1</td>
+                            <td style="width: 1rem; text-align: center;">9.1</td>
                             <td style="width: 24rem;">Physical inspection (damage/break/corroded):</td>
                             <td style="width: 35rem;">
                                 <div class="input-group">
@@ -866,7 +853,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlName="holderObs1" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                             <td style="width: 35rem;">
@@ -876,7 +863,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlName="holderRem1" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -890,7 +877,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlName="hobs2" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                             <td>
@@ -900,7 +887,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlName="holderRem2"  type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -914,7 +901,7 @@
                                                 <i class="bi bi-text-paragraph"></i>
                                             </span>
                                         </div>
-                                        <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        <textarea formControlName="holderObs3" type="text" class="form-control" placeholder="Ex.."></textarea>
                                     </div>
                                 </td>
                                 <td>
@@ -924,7 +911,7 @@
                                                 <i class="bi bi-text-paragraph"></i>
                                             </span>
                                         </div>
-                                        <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        <textarea formControlName="holderRem3" type="text" class="form-control" placeholder="Ex.."></textarea>
                                     </div>
                             </td>
                         </tr>
@@ -938,7 +925,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlName="holderObs4" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                             <td>
@@ -948,7 +935,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlName="holderRem4" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -962,7 +949,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlName="holderObs5" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                             <td>
@@ -972,7 +959,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlName="holderRem5" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -986,7 +973,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlName="holderObs6" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                             <td>
@@ -996,7 +983,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlName="holderRem6" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -1010,7 +997,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlName="holderObs7" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                             <td>
@@ -1020,7 +1007,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlName="holderRem7" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -1034,7 +1021,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlName="holderObs8" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                             <td>
@@ -1044,10 +1031,12 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlName="holderRem8" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                         </tr>
+                        <button class="btn btn-primary" type="button" (click)="submit2()" style="margin-left: 93rem;margin-bottom: 4px;">Add</button>
+                    </div>
                     </tbody>
                 </table>
                </div>
@@ -1055,15 +1044,10 @@
 
         <mat-expansion-panel>
             <mat-expansion-panel-header>Connectors</mat-expansion-panel-header>
-            <div>
-                <table class="table-responsive" > 
-                    <thead style="text-align: center;">
-                            <th>SI.No</th>
-                            <th>Description</th>
-                            <th>Observation</th>
-                            <th>Remarks</th>
-                    </thead>
-                    <tbody>
+            <div class="table-responsive">
+                <table>
+                    <tbody formArrayName="connectorArr" *ngFor="let a of connectorsControls(); let z = index">
+                        <div class="form-group" [formGroupName]="z">
                         <tr>
                             <td style="width: 1rem; text-align: center;" >10.1</td>
                             <td style="width: 24rem;">Physical inspection (damage/break/corroded):</td>
@@ -1074,7 +1058,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlName="cobs1" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                             <td style="width: 35rem;">
@@ -1084,7 +1068,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlName="crem1" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -1098,7 +1082,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlName="cobs2" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                             <td>
@@ -1108,7 +1092,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlName="crem2" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -1122,7 +1106,7 @@
                                                 <i class="bi bi-text-paragraph"></i>
                                             </span>
                                         </div>
-                                        <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        <textarea formControlName="cobs3" type="text" class="form-control" placeholder="Ex.."></textarea>
                                     </div>
                                 </td>
                                 <td>
@@ -1132,7 +1116,7 @@
                                                 <i class="bi bi-text-paragraph"></i>
                                             </span>
                                         </div>
-                                        <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        <textarea formControlName="crem3" type="text" class="form-control" placeholder="Ex.."></textarea>
                                     </div>
                             </td>
                         </tr>
@@ -1146,7 +1130,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlName="cobs4" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                             <td>
@@ -1156,7 +1140,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlName="crem4" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -1170,7 +1154,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea type="text" formControlName="cobs5" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                             <td>
@@ -1180,7 +1164,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea type="text" formControlName="crem5"  class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -1194,7 +1178,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea type="text" formControlName="cobs6"  class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                             <td>
@@ -1204,7 +1188,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea type="text" formControlName="crem6"  class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -1218,7 +1202,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea type="text" formControlName="cobs7" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                             <td>
@@ -1228,7 +1212,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea type="text" formControlName="crem7"  class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -1242,7 +1226,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea type="text" formControlName="cobs8" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                             <td>
@@ -1252,10 +1236,12 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea type="text" formControlName="crem8" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                         </tr>
+                    <button class="btn btn-primary" type="button" (click)="submit3()" style="margin-left: 93rem;margin-bottom: 4px;">Add</button>
+                    </div>
                     </tbody>
                 </table>
                </div>
@@ -1263,15 +1249,10 @@
 
         <mat-expansion-panel>
             <mat-expansion-panel-header>Lightning Counters</mat-expansion-panel-header>
-            <div>
-                <table class="table-responsive" > 
-                    <thead style="text-align: center;">
-                            <th>SI.No</th>
-                            <th>Description</th>
-                            <th>Observation</th>
-                            <th>Remarks</th>
-                    </thead>
-                    <tbody>
+            <div class="table-responsive">
+                <table>
+                    <tbody formArrayName="lightArr" *ngFor="let a of lightControls(); let f = index">
+                        <div class="form-group" [formGroupName]="f">
                         <tr>
                             <td style="width: 1rem; text-align: center;" >11.1</td>
                             <td style="width: 24rem;">Threshold current:</td>
@@ -1282,7 +1263,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlNam="lobs1" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                             <td style="width: 35rem;">
@@ -1292,7 +1273,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlNam="lrem1" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -1306,7 +1287,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlNam="lobs2" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                             <td>
@@ -1316,7 +1297,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlNam="lrem2" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -1330,7 +1311,7 @@
                                                 <i class="bi bi-text-paragraph"></i>
                                             </span>
                                         </div>
-                                        <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        <textarea formControlNam="lobs3" type="text" class="form-control" placeholder="Ex.."></textarea>
                                     </div>
                                 </td>
                                 <td>
@@ -1340,7 +1321,7 @@
                                                 <i class="bi bi-text-paragraph"></i>
                                             </span>
                                         </div>
-                                        <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        <textarea formControlNam="lrem3" type="text" class="form-control" placeholder="Ex.."></textarea>
                                     </div>
                             </td>
                         </tr>
@@ -1354,7 +1335,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlNam="lobs4" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                             <td>
@@ -1364,7 +1345,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlNam="lrem4" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -1378,7 +1359,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlNam="lobs5" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                             <td>
@@ -1388,7 +1369,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlNam="lrem5" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -1402,7 +1383,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlNam="lobs6" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                             <td>
@@ -1412,7 +1393,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlNam="lrem6" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -1426,7 +1407,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlNam="lobs7" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                             <td>
@@ -1436,7 +1417,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlNam="lrem7" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -1450,7 +1431,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlNam="lobs8" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                             <td>
@@ -1460,7 +1441,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlNam="lrem8" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -1474,7 +1455,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlNam="lobs9" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                             <td>
@@ -1484,7 +1465,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlNam="lrem9" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -1498,7 +1479,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlNam="lobs10" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                             <td>
@@ -1508,7 +1489,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlNam="lrem10" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -1522,7 +1503,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlNam="lobs11" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                             <td>
@@ -1532,10 +1513,12 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                    <textarea formControlNam="lrem11" type="text" class="form-control" placeholder="Ex.."></textarea>
                                 </div>
                             </td>
                         </tr>
+                        <button class="btn btn-primary" type="button" (click)="submit4()" style="margin-left: 93rem;margin-bottom: 4px;">Add</button>
+                        </div>
                     </tbody>
                 </table>
                </div>
@@ -1543,14 +1526,8 @@
 
         <mat-expansion-panel>
             <mat-expansion-panel-header>Test Joints</mat-expansion-panel-header>
-            <div>
-                <table class="table-responsive" > 
-                    <thead style="text-align: center;">
-                            <th>SI.No</th>
-                            <th>Description</th>
-                            <th>Observation</th>
-                            <th>Remarks</th>
-                    </thead>
+            <div class="table-responsive">
+                <table>
                     <tbody>
                         <tr>
                             <td style="width: 1rem; text-align: center;" >12.1</td>
@@ -1797,10 +1774,6 @@
                </div>
         </mat-expansion-panel>
     </mat-accordion>
-    <div class="form-floating">
-        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-        <label for="floatingTextarea2">Comments</label>
-      </div>
 </form>
 </div>
 		
