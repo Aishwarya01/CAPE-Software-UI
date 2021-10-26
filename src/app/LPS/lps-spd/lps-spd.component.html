@@ -1,0 +1,805 @@
+<div class="card-body">
+    <!-- Heading tag -->
+        <div style="margin-top: 2rem;">
+            <h3>Checklist for SPD of LPS as per IS/IEC 62305</h3>
+        </div>
+    <!-- Basic Details -->
+    <div class="card-body">
+        <form [formGroup]="downConductorForm">
+        <mat-accordion>
+    <mat-expansion-panel>
+               <mat-expansion-panel-header>Basic Details</mat-expansion-panel-header>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="clientname">Client Name:</label>
+                             <!-- icon code -->
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-person-lines-fill"></i>
+                                    </span>
+                                </div>
+                                <input tpe="text" class="form-control" placeholder="Enter client name">
+                            </div>
+                        </div>
+                            
+                        <div class="col-md-4">
+                            <label for="projectname">Project Name:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-journal-plus"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Enter project name">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="typeofindustry">Type of Industry:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-building"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Enter Type of Industry name">
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <label for="typeofbuilding">Type of Building:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-building"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Enter Type of Building name">
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div style="margin-top: 10px; font-weight: bold;">
+                        <label for="buildingdimension">Building Dimension:</label>
+                    </div>
+                
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="length(m)">Length(m)</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-align-start"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control"  placeholder="Enter length in meter">
+                            </div>
+                        </div>
+                
+                        <div class="col-md-4">
+                            <label for="width(m)">Width(m)</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-border-width"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Enter width in meter">
+                            </div>
+                        </div>
+                
+                        <div class="col-md-4">
+                            <label for="height(m)">Height(m)</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-distribute-horizontal"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Enter height in meter">
+                            </div>
+                        </div>
+                    </div>
+                                
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col-md-4">
+                            <label for="levelofprotection">Level of protection:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-shield-fill-x"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Enter Level of protection name">
+                            </div>
+                        </div>
+                            
+                        <div class="col-md-4">
+                            <label for="soilresistivity">Soil Resistivity:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-shield-fill-x"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Enter Soil Resistivity name">
+                            </div>
+                        </div>
+                    </div>
+    
+    <!-- tables -->
+    <div style="margin-top: 40px;" class="row">
+            <table class="table" border="1">
+                <thead style="text-align: center;">
+                    <th>SI.No</th>
+                    <th>Description</th>
+                    <th>Observation</th>
+                    <th>Remarks</th>
+                </thead>
+            <tbody>
+                <tr>
+                    <td style="width: 1rem; text-align: center;" >1.</td>
+                    <td style="width: 24rem;">Mains incoming panel:</td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">2.</td>
+                    <td>Total Number of mains incoming panels:</td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">3.</td>
+                        <td>Total Number of panels supplting power to outdoor equipment such as light fittings / air conditioner chiller units (not split AC outdoor unit):</td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                    </span>
+                                </div>
+                                <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                    </span>
+                                </div>
+                                <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                            </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">4.</td>
+                    <td>Total Number of outdoor equipment and type each equipment:</td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    </mat-expansion-panel>
+
+    <div style="margin-top: 10px;">
+        <label style="font-size: bold;">* SPD is necessary for each mains incoming panel and each electrical panel feeding power to an outdoor equipment</label>
+    </div>
+
+    <mat-expansion-panel [hideToggle]="false">
+        <mat-expansion-panel-header>Mains incoming panel (if more panels are available data from each panel is necessary)</mat-expansion-panel-header>
+        <!-- tables -->
+    <div class="row">
+            <table class="table" border="1">
+                <thead style="text-align: center;">
+                    <th>SI.No</th>
+                    <th>Description</th>
+                    <th>Observation</th>
+                    <th>Remarks</th>
+                </thead>
+            <tbody>
+                <tr>
+                    <td style="width: 1rem; text-align: center;" >5.1</td>
+                    <td style="width: 24rem;">Type of SPD / Model:</td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">5.2</td>
+                    <td>Application:</td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">5.3</td>
+                        <td>Panel name:</td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                    </span>
+                                </div>
+                                <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                    </span>
+                                </div>
+                                <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                            </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">5.4</td>
+                    <td>Check Incomer rating of the panel:</td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">5.5</td>
+                    <td>Check Back up fuse:</td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">5.6</td>
+                    <td>Check Connecting wire length:</td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">5.7</td>
+                    <td>Check Connecting wire size:</td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [hideToggle]="false">
+        <mat-expansion-panel-header>Street light panel(if more panels are available data from each panel is necessary)</mat-expansion-panel-header>
+        <!-- tables -->
+    <div class="row">
+            <table class="table" border="1">
+                <thead style="text-align: center;">
+                    <th>SI.No</th>
+                    <th>Description</th>
+                    <th>Observation</th>
+                    <th>Remarks</th>
+                </thead>
+            <tbody>
+                <tr>
+                    <td style="width: 1rem; text-align: center;" >6.1</td>
+                    <td style="width: 24rem;">Type of SPD / Model:</td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">6.2</td>
+                    <td>Application:</td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">6.3</td>
+                        <td>Panel name:</td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                    </span>
+                                </div>
+                                <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                    </span>
+                                </div>
+                                <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                            </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">6.4</td>
+                    <td>Check Incomer rating of the panel:</td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">6.5</td>
+                    <td>Check Back up fuse:</td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">6.6</td>
+                    <td>Check Connecting wire length:</td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">6.7</td>
+                    <td>Check Connecting wire size:</td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [hideToggle]="false">
+        <mat-expansion-panel-header>Other panels feeding power to outdoor equipment if more panels are available data from each panel is necessary)</mat-expansion-panel-header>
+        <!-- tables -->
+    <div class="row">
+            <table class="table" border="1">
+                <thead style="text-align: center;">
+                    <th>SI.No</th>
+                    <th>Description</th>
+                    <th>Observation</th>
+                    <th>Remarks</th>
+                </thead>
+            <tbody>
+                <tr>
+                    <td style="width: 1rem; text-align: center;" >7.1</td>
+                    <td style="width: 24rem;">Type of SPD / Model:</td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">7.2</td>
+                    <td>Application:</td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">7.3</td>
+                        <td>Panel name:</td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                    </span>
+                                </div>
+                                <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                    </span>
+                                </div>
+                                <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                            </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">7.4</td>
+                    <td>Check Incomer rating of the panel:</td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">7.5</td>
+                    <td>Check Back up fuse:</td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">6.6</td>
+                    <td>Check Connecting wire length:</td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">6.7</td>
+                    <td>Check Connecting wire size:</td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </mat-expansion-panel>
+    </mat-accordion>
+    <button style="margin-top: 10px;" class="btn btn-primary">Back</button>
+    <button style="margin-top: 10px;" class="btn btn-success">Next</button>
+    </form>
+</div>
+</div>

@@ -1,0 +1,174 @@
+<div class="card-body">
+    <!-- Heading tag -->
+        <div style="margin-top: 2rem;">
+            <h3>Checklist for Separation Distance of LPS as per IS/IEC 62305</h3>
+        </div>
+    <!-- Basic Details -->
+<div class="card-body">
+    <form [formGroup]="downConductorForm">
+        <mat-accordion>
+         <mat-expansion-panel>
+            <mat-expansion-panel-header>Basic Details</mat-expansion-panel-header>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="clientname">Client Name:</label>
+                             <!-- icon code -->
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-person-lines-fill"></i>
+                                    </span>
+                                </div>
+                                <input tpe="text" class="form-control" placeholder="Enter client name">
+                            </div>
+                        </div>
+                            
+                        <div class="col-md-4">
+                            <label for="projectname">Project Name:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-journal-plus"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Enter project name">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="typeofindustry">Type of Industry:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-building"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Enter Type of Industry name">
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <label for="typeofbuilding">Type of Building:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-building"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Enter Type of Building name">
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div style="margin-top: 10px; font-weight: bold;">
+                        <label for="buildingdimension">Building Dimension:</label>
+                    </div>
+                
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="length(m)">Length(m)</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-align-start"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control"  placeholder="Enter length in meter">
+                            </div>
+                        </div>
+                
+                        <div class="col-md-4">
+                            <label for="width(m)">Width(m)</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-border-width"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Enter width in meter">
+                            </div>
+                        </div>
+                
+                        <div class="col-md-4">
+                            <label for="height(m)">Height(m)</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-distribute-horizontal"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Enter height in meter">
+                            </div>
+                        </div>
+                    </div>
+                                
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col-md-4">
+                            <label for="levelofprotection">Level of protection:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-shield-fill-x"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Enter Level of protection name">
+                            </div>
+                        </div>
+                            
+                        <div class="col-md-4">
+                            <label for="soilresistivity">Soil Resistivity:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-shield-fill-x"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Enter Soil Resistivity name">
+                            </div>
+                        </div>
+                    </div>
+    
+    <!-- tables -->
+    <div style="margin-top: 40px;" class="row">
+            <table class="table" border="1">
+                <thead style="text-align: center;">
+                    <th>SI.No</th>
+                    <th>Description</th>
+                    <th>Observation</th>
+                    <th>Remarks</th>
+                </thead>
+            <tbody>
+                <tr>
+                    <td style="width: 1rem; text-align: center;" >1.</td>
+                    <td style="width: 24rem;">Measured Seperation distance beweeen air termination and electrical apparatus (lights, Solar PV, AC chillers, cameras…. Etc)(Measurement required in atleast 10 locations on roof top):</td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+         </mat-expansion-panel>
+        </mat-accordion>
+        <button style="margin-top: 10px;" class="btn btn-primary">Back</button>
+        <button style="margin-top: 10px;" class="btn btn-success">Next</button>
+    </form>
+</div>
+</div>
