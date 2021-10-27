@@ -667,10 +667,10 @@ export class VerificationlvComponent implements OnInit {
     this.selectedIndex = 0;
     this.basic.changeTab(0,siteId,userName,clientName,departmentName,site);
   }
-  // testingNgOnINit(){
-  //   debugger
-  //   this.testing.ngOnInit();
-  // }
+  testingNgOnINit(){
+    debugger
+    this.testing.ngOnInit();
+  }
   // onTabChanged(e: any) {
   //   if(!this.conFlag) {
   //     debugger

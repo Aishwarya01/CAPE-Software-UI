@@ -26,6 +26,7 @@ import { SiteService } from '../services/site.service';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
 import { CommentsSection } from '../model/comments-section';
 import { MainNavComponent } from '../main-nav/main-nav.component';
+import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
 
 @Component({
   selector: 'app-inspection-verification-incoming-equipment',
@@ -153,6 +154,7 @@ export class InspectionVerificationIncomingEquipmentComponent
     private siteService: SiteService,
     private UpateInspectionService: InspectionVerificationService,
     private basic: MainNavComponent,
+    private verification: VerificationlvComponent
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
   }
@@ -1020,5 +1022,6 @@ showHideAccordion(index: number) {
           this.errorMsg = 'Something went wrong, kindly check all the fields';
         });
     }
+    this.verification.testingNgOnINit();
   }
 }

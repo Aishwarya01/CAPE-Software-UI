@@ -9,13 +9,19 @@ import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scrol
 export class GlobalsService {
    
   private data = {};  
+  backBtn:boolean=true;
   siteCount: number = 0; 
   iterationList: any=[]; //for location no. & name
 //from supply to testing table
   supplyList: any;
   retrieveMainNominalVoltage:any=[];
-  nominalVoltageArr:any=[];
+  nominalVoltageArr2:any=[];
   testingTable:any=[];
+  testingTable2:any=[];
+  retrieveTable:boolean=false;
+  mainNominalVoltage :any=[];
+  mainNominalFrequency :any=[];
+  mainNominalCurrent:any=[];
 //viewer inspector details
   viewerName!: String;
   inspectorName!: String;
