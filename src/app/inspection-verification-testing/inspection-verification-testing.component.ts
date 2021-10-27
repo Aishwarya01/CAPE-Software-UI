@@ -121,7 +121,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   testingRetrieve: boolean = false;
   inspectionRetrieve: boolean = false;
   SourceList: any = ['Mains Incoming'];
-
+  //disableSource:boolean=true;
   //comments starts
   completedCommentArr3: any = [];
   successMsg: string = "";
@@ -210,6 +210,10 @@ export class InspectionVerificationTestingComponent implements OnInit {
   nominalVoltageArr3: any = [];
   nominalVoltageArr2: any = [];
   alternateNominalArr: any = [];
+  changedIndex:number=0;
+  formList!: FormArray;
+  formList1!: FormArray;
+  tempArr: any = [];
 
   constructor(
     private testingService: TestingService,
@@ -286,6 +290,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
           this.mainNominalArr = [];
           this.mainNominalArr.push(this.mainNominalVoltageArr1,this.mainNominalVoltageArr2,this.mainNominalVoltageArr3);
           this.service.retrieveMainNominalVoltage=this.mainNominalArr;
+          this.service.mainNominalVoltageValue=i.mainNominalVoltage;
+          this.service.mainNominalFrequencyValue=i.mainNominalFrequency;
+          this.service.mainNominalCurrentValue=i.mainNominalCurrent;
         }
         this.service.supplyList = i.supplyNumber;
         let count =1;
@@ -327,8 +334,11 @@ export class InspectionVerificationTestingComponent implements OnInit {
     this.testingDetails.createdBy = this.testList.testingReport.createdBy;
     this.testingDetails.createdDate = this.testList.testingReport.createdDate;
     this.retrieveDetailsFromSupply();
-    this.populateData();
-    this.populateDataComments();
+    setTimeout(() => {
+      this.populateData();
+      this.populateDataComments();
+    }, 1000);
+   
     this.flag = true;
   }
 
@@ -751,14 +761,14 @@ export class InspectionVerificationTestingComponent implements OnInit {
   }
 
   private populateTestDistributionForm(testDistributionItem: any): FormGroup {
-    this.changeSource(testDistributionItem[0].sourceFromSupply,"s");
-    // this.changedValue=testDistributionItem[0].sourceFromSupply;
-    // if ( this.changedValue == 'Mains Incoming') {
-    //   this.service.testingTable = this.service.retrieveMainNominalVoltage;
-    // }
-    // else {
-    //   this.service.testingTable2 = this.alternateNominalArr;
-    // }
+    //this.changeSource(testDistributionItem[0].sourceFromSupply,c);
+    console.log(this.pushJsonArray);
+    for(let p of this.pushJsonArray){
+      if(p.sourceFromSupply==testDistributionItem[0].sourceFromSupply){
+        this.tempArr=p;
+      }
+    }
+    console.log(this.tempArr);
     return new FormGroup({
       distributionId: new FormControl({ disabled: false, value: testDistributionItem[0].distributionId }),
       distributionBoardDetails: new FormControl({ disabled: false, value: testDistributionItem[0].distributionBoardDetails }),
@@ -775,10 +785,10 @@ export class InspectionVerificationTestingComponent implements OnInit {
       incomingLoopImpedance: new FormControl({ disabled: false, value: testDistributionItem[0].incomingLoopImpedance }),
       incomingFaultCurrent: new FormControl({ disabled: false, value: testDistributionItem[0].incomingFaultCurrent }),
       distributionIncomingValueArr: this.formBuilder.array([
-        this.populatedistributionIncomingValue("1,2,3,4,5,6,7,8,9,0", "1,2,3,4,5,6,7,8,9,0", "1,2,3,4,5,6,7,8,9,0"),
+        this.populatedistributionIncomingValue(this.tempArr.incomingVoltage,this.tempArr.incomingFrequency,this.tempArr.incomingFaultCurrent),
       ]),
       distributionIncomingValueArr2: this.formBuilder.array([
-        this.populatedistributionIncomingValue("1,2,3,4,5,6,7,8,9,0", "1,2,3,4,5,6,7,8,9,0", "1,2,3,4,5,6,7,8,9,0"),
+        this.populatedistributionIncomingValue(this.tempArr.incomingVoltage,this.tempArr.incomingFrequency,this.tempArr.incomingFaultCurrent),
       ]),
     });
   }
@@ -800,15 +810,17 @@ export class InspectionVerificationTestingComponent implements OnInit {
   }
 
   //selected source dd from supply to testing
-  changeSource(event: any,s:any) {
+  changeSource(event: any,c:any) {
+    console.log(c);
+    this.formList = c.get('distributionIncomingValueArr') as FormArray;
+    this.formList1 = c.get('distributionIncomingValueArr2') as FormArray;
+   
     if(event.target != undefined) {
       this.changedValue = event.target.value;
     }
     else{
       this.changedValue = event;
     }
-    //this.currentIndex=s;
-
     for(let i=0; i < this.SourceList.length; i++){
       if(this.changedValue==this.SourceList[i]){
        this.currentIndex=i;
@@ -816,10 +828,13 @@ export class InspectionVerificationTestingComponent implements OnInit {
     }
     if ( this.changedValue == 'Mains Incoming') {
       this.service.testingTable = this.service.retrieveMainNominalVoltage;
+    if(this.service.mainNominalVoltageValue!=""){
+      this.formList.clear();
+      this.formList.push(this.populatedistributionIncomingValue(this.service.mainNominalVoltageValue, this.service.mainNominalFrequencyValue,this.service.mainNominalCurrentValue));
+      }
     }
     else {
-      console.log(this.service.nominalVoltageArr2[1]);
-        if(this.changedValue == 'Alternate Source of Supply-' + this.currentIndex){
+      if(this.changedValue == 'Alternate Source of Supply-' + this.currentIndex){
           this.nominalVoltageArr1 = [];
           this.nominalVoltageArr2 = [];
           this.nominalVoltageArr3 = [];
@@ -830,6 +845,11 @@ export class InspectionVerificationTestingComponent implements OnInit {
       
           this.alternateNominalArr = [];
           this.alternateNominalArr.push(this.nominalVoltageArr1,this.nominalVoltageArr2,this.nominalVoltageArr3);
+          this.formList1.clear();
+          this.formList1.push(this.populatedistributionIncomingValue
+            (this.service.nominalVoltageArr2[this.currentIndex-1].nominalVoltage, 
+              this.service.nominalVoltageArr2[this.currentIndex-1].nominalFrequency,
+              this.service.nominalVoltageArr2[this.currentIndex-1].faultCurrent));
         }
       this.service.testingTable2 = this.alternateNominalArr;
     }
@@ -1019,8 +1039,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
       rateArr: this.formBuilder.array([this.ratingAmps()]),
       numOutputCircuitsSpare: new FormControl('', [Validators.required]),
       installedEquipmentVulnarable: new FormControl('', [Validators.required]),
-
-     
       incomingVoltage: new FormControl(''),
       incomingLoopImpedance: new FormControl(''),
       incomingFaultCurrent: new FormControl(''),
@@ -1223,7 +1241,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
       impedance: ['', Validators.required],
       rcd: ['', Validators.required],
       earthElectrodeResistance: ['', Validators.required],
-
       testDistribution: this.formBuilder.array([
         this.createtestDistributionForm(),
       ]),

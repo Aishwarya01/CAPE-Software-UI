@@ -71,12 +71,14 @@ mat-header-cell.mat-header-cell {
 .next{
   background-color: #f1f1f1;
   color: black;
-  margin-left: 30px;
+  /* margin-left: 30px; */
+  margin: 0 auto;
 }
 .next:hover{
   background-color: #04AA6D;
   color: white;
-  margin-left: 30px;
+  /* margin-left: 30px; */
+  margin: 0 auto;
 }
 .reply{
   background-color: #f1f1f1;

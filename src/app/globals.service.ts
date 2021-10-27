@@ -22,6 +22,9 @@ export class GlobalsService {
   mainNominalVoltage :any=[];
   mainNominalFrequency :any=[];
   mainNominalCurrent:any=[];
+  mainNominalVoltageValue:String="";
+  mainNominalFrequencyValue:String="";
+  mainNominalCurrentValue:String="";
 //viewer inspector details
   viewerName!: String;
   inspectorName!: String;

@@ -198,16 +198,16 @@ export class LicenselistComponent implements OnInit {
   } 
   }
   pdfModal(siteId: any,userName: any){
-    this.disable=true;
+    this.disable=false;
     this.inspectionService.printPDF(siteId,userName)
   }
   
   downloadPdf(siteId: any,userName: any): any {
-    this.disable=true;
+    this.disable=false;
     this.inspectionService.downloadPDF(siteId,userName)
   }
   emailPDF(siteId: any,userName: any){
-    this.disable=true;
+    this.disable=false;
     this.inspectionService.mailPDF(siteId,userName).subscribe(
     data => {
     this.success = true;

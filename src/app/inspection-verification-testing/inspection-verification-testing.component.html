@@ -5,7 +5,7 @@
             <mat-icon aria-hidden="false" (click)="addItem()" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>
     </button> -->
      <form [formGroup]="testingForm" (ngSubmit)="nextTab(flag)">
-       <div formArrayName="testaccordianArr" *ngFor="let a of getTestControls(); let i = index; let s = index" >
+       <div formArrayName="testaccordianArr" *ngFor="let a of getTestControls(); let i = index;" >
             <div [formGroupName]="i">
                     <div class="search-bar">
                         <div class="form-group">
@@ -234,7 +234,7 @@
 
                                 <div class="col-md-4"> 
                                     <label>Selected Source:</label>
-                                    <select class="form-control" formControlName="sourceFromSupply" (change)="changeSource($event,s)"
+                                    <select class="form-control" formControlName="sourceFromSupply" (change)="changeSource($event,c)"
                                     [ngClass]="{ 'is-invalid': submitted && c.get('sourceFromSupply')?.errors }">
                                     <option value="0" selected>Select Option</option>
                                     <option *ngFor="let value of SourceList" [selected]="value=== c.get('sourceFromSupply')?.value">
@@ -246,7 +246,7 @@
                               </div>
                               </div>
 
-                <div class="row" *ngIf="service.testingTable.length > 0 && changedValue == 'Mains Incoming' && s==currentIndex">
+                <div class="row" *ngIf="c.get('sourceFromSupply').value=='Mains Incoming'">
                     <div class="col-sm-12">
                         <div class="table-responsive" >
                             <table  class="table testingTable" id="table1">
@@ -266,71 +266,71 @@
                                                 <th>L3-PE</th>
                                             </tr>
                                         </thead>
-                                        <tbody [formGroupName]="j">
+                                        <tbody [formGroupName]="j" >
                                             <tr>
                                                 <td>Nominal Voltage U/U0 (V)</td>
                                                 <td><input type="text" formControlName="incomingVoltage1" class="form-control disable" 
-                                                  [(ngModel)]="service.testingTable[0][0]"></td>
+                                                 ></td>
                                                 <td><input type="text"  formControlName="incomingVoltage2" class="form-control disable"
-                                                  [(ngModel)]="service.testingTable[0][1]"></td>
+                                                 ></td>
                                                 <td><input type="text"  formControlName="incomingVoltage3" class="form-control disable"
-                                                  [(ngModel)]="service.testingTable[0][2]"></td>
+                                                  ></td>
                                                 <td><input type="text" formControlName="incomingVoltage4" class="form-control disable"
-                                                  [(ngModel)]="service.testingTable[0][3]"></td>
+                                                  ></td>
                                                 <td><input type="text"  formControlName="incomingVoltage5" class="form-control disable"
-                                                  [(ngModel)]="service.testingTable[0][4]"></td>
+                                                 ></td>
                                                 <td><input type="text" formControlName="incomingVoltage6" class="form-control disable"
-                                                  [(ngModel)]="service.testingTable[0][5]"></td>
+                                                 ></td>
                                                 <td><input type="text" formControlName="incomingVoltage7" class="form-control disable"
-                                                  [(ngModel)]="service.testingTable[0][6]"></td>
+                                                  ></td>
                                                 <td><input type="text" formControlName="incomingVoltage8" class="form-control disable"
-                                                  [(ngModel)]="service.testingTable[0][7]"></td>
+                                                  ></td>
                                                 <td><input type="text" formControlName="incomingVoltage9" class="form-control disable"
-                                                  [(ngModel)]="service.testingTable[0][8]"></td>
+                                                  ></td>
                                             </tr>
 
                                             <tr>
                                                 <td>Nominal Frequency f (HZ)</td>
                                                 <td><input type="text" formControlName="incomingZs1" class="form-control disable"
-                                                  [(ngModel)]="service.testingTable[1][0]"></td>
+                                                  ></td>
                                                 <td><input type="text"formControlName="incomingZs2" class="form-control disable"
-                                                  [(ngModel)]="service.testingTable[1][1]"></td>
+                                                  ></td>
                                                 <td><input type="text" formControlName="incomingZs3" class="form-control disable"
-                                                  [(ngModel)]="service.testingTable[1][2]"></td>
+                                                 ></td>
                                                 <td><input type="text" formControlName="incomingZs4" class="form-control disable"
-                                                  [(ngModel)]="service.testingTable[1][3]"></td>
+                                                  ></td>
                                                 <td><input type="text" formControlName="incomingZs5" class="form-control disable"
-                                                  [(ngModel)]="service.testingTable[1][4]"></td>
+                                                  ></td>
                                                 <td><input type="text"  formControlName="incomingZs6" class="form-control disable"
-                                                  [(ngModel)]="service.testingTable[1][5]"></td>
+                                                  ></td>
                                                 <td><input type="text" formControlName="incomingZs7" class="form-control disable"
-                                                  [(ngModel)]="service.testingTable[1][6]"></td>
+                                                  ></td>
                                                 <td><input type="text" formControlName="incomingZs8" class="form-control disable"
-                                                  [(ngModel)]="service.testingTable[1][7]"></td>
+                                                  ></td>
                                                 <td><input type="text" formControlName="incomingZs9" class="form-control disable"
-                                                  [(ngModel)]="service.testingTable[1][8]"></td>
+                                                  ></td>
                                             </tr>
 
                                             <tr>
                                                 <td>Prospective fault current Ipfc (kA)</td>
                                                 <td><input type="text" formControlName="incomingIpf1" class="form-control disable"
-                                                  [(ngModel)]="service.testingTable[2][0]"></td>
+                                                  ></td>
                                                 <td><input type="text"  formControlName="incomingIpf2" class="form-control disable"
-                                                  [(ngModel)]="service.testingTable[2][1]"></td>
+                                                  ></td>
                                                 <td><input type="text" formControlName="incomingIpf3" class="form-control disable"
-                                                  [(ngModel)]="service.testingTable[2][2]"></td>
+                                                  ></td>
                                                 <td><input type="text" formControlName="incomingIpf4" class="form-control disable"
-                                                  [(ngModel)]="service.testingTable[2][3]"></td>
+                                                  ></td>
                                                 <td><input type="text"  formControlName="incomingIpf5" class="form-control disable"
-                                                  [(ngModel)]="service.testingTable[2][4]"></td>
+                                                  ></td>
                                                 <td><input type="text" formControlName="incomingIpf6" class="form-control disable"
-                                                  [(ngModel)]="service.testingTable[2][5]"></td>
+                                                  ></td>
                                                 <td><input type="text" formControlName="incomingIpf7" class="form-control disable"
-                                                  [(ngModel)]="service.testingTable[2][6]"></td>
+                                                  ></td>
                                                 <td><input type="text" formControlName="incomingIpf8" class="form-control disable"
-                                                  [(ngModel)]="service.testingTable[2][7]"></td>
+                                                  ></td>
                                                 <td><input type="text" formControlName="incomingIpf9" class="form-control disable"
-                                                  [(ngModel)]="service.testingTable[2][8]"></td>
+                                                  ></td>
                                             </tr>
 
                                         </tbody>
@@ -341,7 +341,7 @@
                     </div>
                 </div>
 
-                <div class="row" *ngIf="service.testingTable2.length > 0 && changedValue != 'Mains Incoming' && i!=currentIndex">
+                <div class="row" *ngIf="c.get('sourceFromSupply').value!='Mains Incoming'">
                   <div class="col-sm-12">
                       <div class="table-responsive" >
                           <table  class="table testingTable" id="table1">
@@ -365,67 +365,67 @@
                                           <tr>
                                               <td>Nominal Voltage U/U0 (V)</td>
                                               <td><input type="text" formControlName="incomingVoltage1" class="form-control disable" 
-                                                [(ngModel)]="service.testingTable2[0][0]"></td>
+                                                ></td>
                                               <td><input type="text"  formControlName="incomingVoltage2" class="form-control disable"
-                                                [(ngModel)]="service.testingTable2[0][1]"></td>
+                                                ></td>
                                               <td><input type="text"  formControlName="incomingVoltage3" class="form-control disable"
-                                                [(ngModel)]="service.testingTable2[0][2]"></td>
+                                                ></td>
                                               <td><input type="text" formControlName="incomingVoltage4" class="form-control disable"
-                                                [(ngModel)]="service.testingTable2[0][3]"></td>
+                                               ></td>
                                               <td><input type="text"  formControlName="incomingVoltage5" class="form-control disable"
-                                                [(ngModel)]="service.testingTable2[0][4]"></td>
+                                                ></td>
                                               <td><input type="text" formControlName="incomingVoltage6" class="form-control disable"
-                                                [(ngModel)]="service.testingTable2[0][5]"></td>
+                                                ></td>
                                               <td><input type="text" formControlName="incomingVoltage7" class="form-control disable"
-                                                [(ngModel)]="service.testingTable2[0][6]"></td>
+                                                ></td>
                                               <td><input type="text" formControlName="incomingVoltage8" class="form-control disable"
-                                                [(ngModel)]="service.testingTable2[0][7]"></td>
+                                                ></td>
                                               <td><input type="text" formControlName="incomingVoltage9" class="form-control disable"
-                                                [(ngModel)]="service.testingTable2[0][8]"></td>
+                                                ></td>
                                           </tr>
 
                                           <tr>
                                               <td>Nominal Frequency f (HZ)</td>
                                               <td><input type="text" formControlName="incomingZs1" class="form-control disable"
-                                                [(ngModel)]="service.testingTable2[1][0]"></td>
+                                                ></td>
                                               <td><input type="text"formControlName="incomingZs2" class="form-control disable"
-                                                [(ngModel)]="service.testingTable2[1][1]"></td>
+                                                ></td>
                                               <td><input type="text" formControlName="incomingZs3" class="form-control disable"
-                                                [(ngModel)]="service.testingTable2[1][2]"></td>
+                                                ></td>
                                               <td><input type="text" formControlName="incomingZs4" class="form-control disable"
-                                                [(ngModel)]="service.testingTable2[1][3]"></td>
+                                                ></td>
                                               <td><input type="text" formControlName="incomingZs5" class="form-control disable"
-                                                [(ngModel)]="service.testingTable2[1][4]"></td>
+                                                ></td>
                                               <td><input type="text"  formControlName="incomingZs6" class="form-control disable"
-                                                [(ngModel)]="service.testingTable2[1][5]"></td>
+                                                ></td>
                                               <td><input type="text" formControlName="incomingZs7" class="form-control disable"
-                                                [(ngModel)]="service.testingTable2[1][6]"></td>
+                                                ></td>
                                               <td><input type="text" formControlName="incomingZs8" class="form-control disable"
-                                                [(ngModel)]="service.testingTable2[1][7]"></td>
+                                                ></td>
                                               <td><input type="text" formControlName="incomingZs9" class="form-control disable"
-                                                [(ngModel)]="service.testingTable2[1][8]"></td>
+                                                ></td>
                                           </tr>
 
                                           <tr>
                                               <td>Prospective fault current Ipfc (kA)</td>
                                               <td><input type="text" formControlName="incomingIpf1" class="form-control disable"
-                                                [(ngModel)]="service.testingTable2[2][0]"></td>
+                                                ></td>
                                               <td><input type="text"  formControlName="incomingIpf2" class="form-control disable"
-                                                [(ngModel)]="service.testingTable2[2][1]"></td>
+                                                ></td>
                                               <td><input type="text" formControlName="incomingIpf3" class="form-control disable"
-                                                [(ngModel)]="service.testingTable2[2][2]"></td>
+                                                ></td>
                                               <td><input type="text" formControlName="incomingIpf4" class="form-control disable"
-                                                [(ngModel)]="service.testingTable2[2][3]"></td>
+                                                ></td>
                                               <td><input type="text"  formControlName="incomingIpf5" class="form-control disable"
-                                                [(ngModel)]="service.testingTable2[2][4]"></td>
+                                                ></td>
                                               <td><input type="text" formControlName="incomingIpf6" class="form-control disable"
-                                                [(ngModel)]="service.testingTable2[2][5]"></td>
+                                                ></td>
                                               <td><input type="text" formControlName="incomingIpf7" class="form-control disable"
-                                                [(ngModel)]="service.testingTable2[2][6]"></td>
+                                                ></td>
                                               <td><input type="text" formControlName="incomingIpf8" class="form-control disable"
-                                                [(ngModel)]="service.testingTable2[2][7]"></td>
+                                                ></td>
                                               <td><input type="text" formControlName="incomingIpf9" class="form-control disable"
-                                                [(ngModel)]="service.testingTable2[2][8]"></td>
+                                                ></td>
                                           </tr>
 
                                       </tbody>
