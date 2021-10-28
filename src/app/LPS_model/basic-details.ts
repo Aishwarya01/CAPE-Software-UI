@@ -1,4 +1,5 @@
 export class BasicDetails {
+    basicLpsId : number;
     clientName : String;
     userName : String;
     projectName : String;

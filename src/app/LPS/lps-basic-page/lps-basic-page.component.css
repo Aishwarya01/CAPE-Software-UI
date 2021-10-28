@@ -11,3 +11,13 @@ label {
 td {
     font-size: smaller;
 }
+button {
+
+    width: 7rem;
+    
+    height: 3rem;
+    
+}
+tbody tr td{
+    font-size: 16px;
+}

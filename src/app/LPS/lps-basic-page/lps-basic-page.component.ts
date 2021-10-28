@@ -14,14 +14,15 @@ export class LpsBasicPageComponent implements OnInit {
   basicLpsDescription = new BasicLpsDescription;
   LPSBasicForm!: FormGroup;
   lPSBasicDetailsService;
-
+  submitted=false;
 
   constructor(private formBuilder: FormBuilder, lPSBasicDetailsService: LPSBasicDetailsService) {
     this.lPSBasicDetailsService = lPSBasicDetailsService;
   }
 
+  
   ngOnInit(): void {
-
+    
     this.LPSBasicForm = this.formBuilder.group({
       clientName: ['', Validators.required],
       userName: ['', Validators.required],
@@ -70,9 +71,12 @@ export class LpsBasicPageComponent implements OnInit {
   }
  
   onSubmit() {
+    this.submitted=true;
     this.lPSBasicDetailsService.saveLPSBasicDetails(this.LPSBasicForm.value).subscribe(
 
       data => {
+         
+      
       },
       error => {
       }
@@ -82,4 +86,8 @@ export class LpsBasicPageComponent implements OnInit {
   getDescriptionControl(): AbstractControl[] {
     return (<FormArray>this.LPSBasicForm.get('basicLpsDescription')).controls;
   }
+  get f() {
+    return this.LPSBasicForm.controls;
+  }
+  
 }

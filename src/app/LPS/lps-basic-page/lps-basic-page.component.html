@@ -4,7 +4,7 @@
         <h3>CHECK LIST FOR LIGHTNING PROTECTION SYSTEM BASIC DETAILS</h3>
     </div>
     <!-- Basic information tags are given by... -->
-    <form [formGroup]="LPSBasicForm"  (ngSubmit)="onSubmit()">
+    <form [formGroup]="LPSBasicForm" (ngSubmit)="onSubmit()">
         <div class="card-body">
             <div style="font-weight: bold;">
                 <label for="Basicdetails">Basic Details:</label>
@@ -19,8 +19,12 @@
                                 <i class="bi bi-person-lines-fill"></i>
                             </span>
                         </div>
-                        <input tpe="text" class="form-control" placeholder="Enter client name"
-                            formControlName="clientName">
+                        <input tpe="text" class="form-control" placeholder="Enter clientname"
+                            formControlName="clientName"
+                            [ngClass]="{ 'is-invalid': submitted && f.clientName.errors}" />
+                        <div *ngIf="submitted && f.clientName.errors" class="invalid-feedback">
+                            <div *ngIf="f.clientName.errors.required">ClientName is required</div>
+                        </div>
                     </div>
                 </div>
 
@@ -33,24 +37,32 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter project name"
-                            formControlName="projectName">
+                            formControlName="projectName"
+                            [ngClass]="{ 'is-invalid': submitted && f.projectName.errors}" />
+                        <div *ngIf="submitted && f.projectName.errors" class="invalid-feedback">
+                            <div *ngIf="f.projectName.errors.required">ProjectName is required</div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-md-4">
-                    <label for="pmcname">PMC Name:</label>
+                    <label for="pmcname">PMC Name </label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
                                 <i class="bi bi-person-lines-fill"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Enter PMC name" formControlName="pmcName">
+                        <input type="text" class="form-control" placeholder="Enter PMC name" formControlName="pmcName"
+                            [ngClass]="{ 'is-invalid': submitted && f.pmcName.errors}" />
+                        <div *ngIf="submitted && f.pmcName.errors" class="invalid-feedback">
+                            <div *ngIf="f.pmcName.errors.required">PMC Name is required</div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-md-4">
-                    <label for="consultantname">Consultant Name:</label>
+                    <label for="consultantname">Consultant Name </label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -58,12 +70,16 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter consultant name"
-                            formControlName="consultantName">
+                            formControlName="consultantName"
+                            [ngClass]="{ 'is-invalid': submitted && f.consultantName.errors}" />
+                        <div *ngIf="submitted && f.consultantName.errors" class="invalid-feedback">
+                            <div *ngIf="f.consultantName.errors.required">Consultant Name is required</div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-md-4">
-                    <label for="contractorname">Contractor Name:</label>
+                    <label for="contractorname">Contractor Name </label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -71,12 +87,16 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter contractor name"
-                            formControlName="contractorName">
+                            formControlName="contractorName"
+                            [ngClass]="{ 'is-invalid': submitted && f.contractorName.errors}" />
+                        <div *ngIf="submitted && f.contractorName.errors" class="invalid-feedback">
+                            <div *ngIf="f.contractorName.errors.required">Contractor Name is required</div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-md-4">
-                    <label for="dealer/sub-contractor">Dealer/Sub-contractor:</label>
+                    <label for="dealer/sub-contractor">Dealer/Sub-contractor </label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -84,12 +104,16 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter dealer/sub-contractor name"
-                            formControlName="dealerContractorName">
+                            formControlName="dealerContractorName"
+                            [ngClass]="{ 'is-invalid': submitted && f.dealerContractorName.errors}" />
+                        <div *ngIf="submitted && f.dealerContractorName.errors" class="invalid-feedback">
+                            <div *ngIf="f.dealerContractorName.errors.required">Dealer/Sub-contractor is required</div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-md-4">
-                    <label for="address">Address:</label>
+                    <label for="address">Address </label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -97,12 +121,15 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter address name"
-                            formControlName="address">
+                            formControlName="address" [ngClass]="{ 'is-invalid': submitted && f.address.errors}" />
+                        <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+                            <div *ngIf="f.address.errors.required">Address is required</div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-md-4">
-                    <label for="location/region/branch">Location/Region/Branch:</label>
+                    <label for="location/region/branch">Location/Region/Branch </label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -110,12 +137,16 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter Location/Region/Branch name"
-                            formControlName="location">
+                            formControlName="location" [ngClass]="{ 'is-invalid': submitted && f.location.errors}" />
+                        <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
+                            <div *ngIf="f.location.errors.required">location is required</div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-md-4">
-                    <label for="installationbyCAPE/contractor/dealer">Installation by CAPE / Contractor/Dealer:</label>
+                    <label for="installationbyCAPE/contractor/dealer">Installation by CAPE /
+                        Contractor/Dealer </label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -124,12 +155,17 @@
                         </div>
                         <input type="text" class="form-control"
                             placeholder="Enter Installation by CAPE / Contractor/Dealer name"
-                            formControlName="installationContractor">
+                            formControlName="installationContractor"
+                            [ngClass]="{ 'is-invalid': submitted && f.installationContractor.errors}" />
+                        <div *ngIf="submitted && f.installationContractor.errors" class="invalid-feedback">
+                            <div *ngIf="f.installationContractor.errors.required">Installation by CAPE /
+                                Contractor/Dealer is required</div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-md-4">
-                    <label for="typeofindustry">Type of Industry:</label>
+                    <label for="typeofindustry">Type of Industry </label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -137,12 +173,16 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter Type of Industry name"
-                            formControlName="industryType">
+                            formControlName="industryType"
+                            [ngClass]="{ 'is-invalid': submitted && f.industryType.errors}" />
+                        <div *ngIf="submitted && f.industryType.errors" class="invalid-feedback">
+                            <div *ngIf="f.industryType.errors.required">Type of Industry is required</div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-md-4">
-                    <label for="typeofbuilding">Type of Building:</label>
+                    <label for="typeofbuilding">Type of Building </label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -150,13 +190,17 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter Type of Building name"
-                            formControlName="buildingType">
+                            formControlName="buildingType"
+                            [ngClass]="{ 'is-invalid': submitted && f.buildingType.errors}" />
+                        <div *ngIf="submitted && f.buildingType.errors" class="invalid-feedback">
+                            <div *ngIf="f.buildingType.errors.required">Type of Building is required</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div style="margin-top: 10px; font-weight: bold;">
-                <label for="buildingdimension">Building Dimension:</label>
+                <label for="buildingdimension">Building Dimension </label>
             </div>
 
             <div class="row">
@@ -169,7 +213,11 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter length in meter"
-                            formControlName="buildingLength">
+                            formControlName="buildingLength"
+                            [ngClass]="{ 'is-invalid': submitted && f.buildingLength.errors}" />
+                        <div *ngIf="submitted && f.buildingLength.errors" class="invalid-feedback">
+                            <div *ngIf="f.buildingLength.errors.required">Length(m) is required</div>
+                        </div>
                     </div>
                 </div>
 
@@ -182,7 +230,11 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter width in meter"
-                            formControlName="buildingWidth">
+                            formControlName="buildingWidth"
+                            [ngClass]="{ 'is-invalid': submitted && f.buildingWidth.errors}" />
+                        <div *ngIf="submitted && f.buildingWidth.errors" class="invalid-feedback">
+                            <div *ngIf="f.buildingWidth.errors.required">Width(m) is required</div>
+                        </div>
                     </div>
                 </div>
 
@@ -195,14 +247,19 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter height in meter"
-                            formControlName="buildingHeight">
+                            formControlName="buildingHeight"
+                            [ngClass]="{ 'is-invalid': submitted && f.buildingHeight.errors}" />
+                        <div *ngIf="submitted && f.buildingHeight.errors" class="invalid-feedback">
+                            <div *ngIf="f.buildingHeight.errors.required">Height(m) is required</div>
+                        </div>
+
                     </div>
                 </div>
             </div>
 
-            <div class="row" style="margin-top: 10px;">
+            <div class="row">
                 <div class="col-md-4">
-                    <label for="levelofprotection">Level of protection:</label>
+                    <label for="levelofprotection">Level of protection </label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -210,12 +267,16 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter Level of protection name"
-                            formControlName="levelOfProtection">
+                            formControlName="levelOfProtection"
+                            [ngClass]="{ 'is-invalid': submitted && f.levelOfProtection.errors}" />
+                        <div *ngIf="submitted && f.levelOfProtection.errors" class="invalid-feedback">
+                            <div *ngIf="f.levelOfProtection.errors.required">Height(m) is required</div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-md-4">
-                    <label for="soilresistivity">Soil Resistivity:</label>
+                    <label for="soilresistivity">Soil Resistivity </label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -223,272 +284,408 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter Soil Resistivity name"
-                            formControlName="soilResistivity">
+                            formControlName="soilResistivity"
+                            [ngClass]="{ 'is-invalid': submitted && f.soilResistivity.errors}" />
+                        <div *ngIf="submitted && f.soilResistivity.errors" class="invalid-feedback">
+                            <div *ngIf="f.soilResistivity.errors.required">Height(m) is required</div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <!-- Table -->
+            <div style="margin-top: 40px;" formArrayName="basicLpsDescription"
+                *ngFor="let x of getDescriptionControl(); let j = index">
+                <table class="table" [formGroupName]="j">
+                    <thead style="text-align: center;">
+                        <th>SI.No:</th>
+                        <th>Description:</th>
+                        <th>Observation:</th>
+                        <th>Remarks:</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="width: 1rem; text-align: center;">1.</td>
+                            <td style="width: 24rem;">Collect approved copy of drawing from the site </td>
+                            <td>
+                                <div class="input-group">
 
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea class="form-control" cols="30" rows="1" placeholder="Ex.."
+                                        formControlName="approvedDrawingObserv"
+                                        [ngClass]="{ 'is-invalid': submitted && x.get('approvedDrawingObserv')?.errors }"
+                                        required></textarea>
 
+                                    <div *ngIf="submitted && x.get('approvedDrawingObserv')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="x.get('approvedDrawingObserv')?.errors?.required">Observation is
+                                            required</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                        formControlName="approvedDrawingRemarks"
+                                        [ngClass]="{ 'is-invalid': submitted && x.get('approvedDrawingRemarks')?.errors }"
+                                        required></textarea>
 
-                    <div style="margin-top: 40px;" formArrayName="basicLpsDescription" *ngFor="let x of getDescriptionControl(); let j = index">
-                        <table class="table" [formGroupName]="j">
-                            <thead style="text-align: center;">
-                                <th>SI.No:</th>
-                                <th>Description:</th>
-                                <th>Observation:</th>
-                                <th>Remarks:</th>
-                            </thead>
-                            <tbody >
-                                <tr>
-                                    <td style="width: 1rem; text-align: center;">1.</td>
-                                    <td style="width: 24rem;">Collect approved copy of drawing from the site:</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" placeholder="Ex.."
-                                                formControlName="approvedDrawingObserv"></textarea>
-                                        </div>
-                                         
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" placeholder="Ex.."
-                                                formControlName="approvedDrawingRemarks"></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center;">1(a).</td>
-                                    <td>Architect Name:</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" placeholder="Ex.."
-                                                formControlName="architectNameObserv"></textarea>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" placeholder="Ex.."
-                                                formControlName="architectNameRemarks"></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center;">1(b).</td>
-                                    <td>Date of Design:</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <input  type="date" class="form-control" 
-                                                formControlName="designDateObserv">
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" placeholder="Ex.."
-                                                formControlName="designDateRemarks"></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center;">1(c).</td>
-                                    <td>Approved by:</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" placeholder="Ex.."
-                                                formControlName="approvedByObserv"></textarea>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" placeholder="Ex.."
-                                                formControlName="approvedByRemarks"></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center;">1(d).</td>
-                                    <td>Date of approval:</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <input type="date" class="form-control"
-                                                formControlName="dateOfApprovalOb">
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" placeholder="Ex.."
-                                                formControlName="dateOfApprovalRem"></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center;">1(e).</td>
-                                    <td>Drawing number:</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" placeholder="Ex.."
-                                                formControlName="drawingObserv"></textarea>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" placeholder="Ex.."
-                                                formControlName="drawingRemarks"></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center;">1(f).</td>
-                                    <td>Revision number:</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" placeholder="Ex.."
-                                                formControlName="revisionNoObserv"></textarea>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" placeholder="Ex.."
-                                                formControlName="revisionNoRemarks"></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
+                                    <div *ngIf="submitted && x.get('approvedDrawingRemarks')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="x.get('approvedDrawingRemarks')?.errors?.required">Remarks is
+                                            required</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">1(a).</td>
+                            <td>Architect Name </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                        formControlName="architectNameObserv"
+                                        [ngClass]="{ 'is-invalid': submitted && x.get('architectNameObserv')?.errors }"
+                                        required></textarea>
 
-                            <tbody>
-                                <tr>
-                                    <td style="text-align: center;">2.</td>
-                                    <td>Check for any deviation of design with standard:</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" placeholder="Ex.."
-                                                formControlName="deviationObserv"></textarea>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" placeholder="Ex.."
-                                                formControlName="deviationRemarks"></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
+                                    <div *ngIf="submitted && x.get('architectNameObserv')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="x.get('architectNameObserv')?.errors?.required">Observation is
+                                            required</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                        formControlName="architectNameRemarks"
+                                        [ngClass]="{ 'is-invalid': submitted && x.get('architectNameRemarks')?.errors }"
+                                        required></textarea>
 
-                            <tbody>
-                                <tr>
-                                    <td style="text-align: center;">3.</td>
-                                    <td>Quality of installation:</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" placeholder="Ex.."
-                                                formControlName="installationQualityObserv"></textarea>
+                                    <div *ngIf="submitted && x.get('architectNameRemarks')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="x.get('architectNameRemarks')?.errors?.required">Remarks is required
                                         </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" placeholder="Ex.."
-                                                formControlName="installationQualityRemarks"></textarea>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">1(b).</td>
+                            <td>Date of Design</td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-calendar-week-fill"></i>
+                                        </span>
+                                    </div>
+                                    <input type="date" class="form-control" formControlName="designDateObserv"
+                                        [ngClass]="{ 'is-invalid': submitted && x.get('designDateObserv')?.errors }">
+
+                                    <div *ngIf="submitted && x.get('designDateObserv')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="x.get('designDateObserv')?.errors?.required">Date is required</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                        formControlName="designDateRemarks"
+                                        [ngClass]="{ 'is-invalid': submitted && x.get('designDateRemarks')?.errors }"></textarea>
+
+                                    <div *ngIf="submitted && x.get('designDateRemarks')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="x.get('designDateRemarks')?.errors?.required">Remarks is required
                                         </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">1(c).</td>
+                            <td>Approved by</td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                        formControlName="approvedByObserv"
+                                        [ngClass]="{ 'is-invalid': submitted && x.get('approvedByObserv')?.errors }"
+                                        required></textarea>
 
-                    </div>
-  
-            <button class="btn btn-primary">Back</button>
-            <button class="btn btn-success">Next</button>
+                                    <div *ngIf="submitted && x.get('approvedByObserv')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="x.get('approvedByObserv')?.errors?.required">Observation is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                        formControlName="approvedByRemarks"
+                                        [ngClass]="{ 'is-invalid': submitted && x.get('approvedByRemarks')?.errors }"
+                                        required></textarea>
 
+                                    <div *ngIf="submitted && x.get('approvedByRemarks')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="x.get('approvedByRemarks')?.errors?.required">Remarks is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">1(d).</td>
+                            <td>Date of approval </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-calendar-week-fill"></i>
+                                        </span>
+                                    </div>
+                                    <input type="date" class="form-control" formControlName="dateOfApprovalOb"
+                                        [ngClass]="{ 'is-invalid': submitted && x.get('dateOfApprovalOb')?.errors }" />
+
+                                    <div *ngIf="submitted && x.get('dateOfApprovalOb')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="x.get('dateOfApprovalOb')?.errors?.required">Date is required</div>
+                                    </div>
+
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                        formControlName="dateOfApprovalRem"
+                                        [ngClass]="{ 'is-invalid': submitted && x.get('dateOfApprovalRem')?.errors }"
+                                        required></textarea>
+
+                                    <div *ngIf="submitted && x.get('dateOfApprovalRem')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="x.get('dateOfApprovalRem')?.errors?.required">Remarks is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">1(e).</td>
+                            <td>Drawing number </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                        formControlName="drawingObserv"
+                                        [ngClass]="{ 'is-invalid': submitted && x.get('drawingObserv')?.errors }"
+                                        required></textarea>
+
+                                    <div *ngIf="submitted && x.get('drawingObserv')?.errors" class="invalid-feedback">
+                                        <div *ngIf="x.get('drawingObserv')?.errors?.required">Observation is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                        formControlName="drawingRemarks"
+                                        [ngClass]="{ 'is-invalid': submitted && x.get('drawingRemarks')?.errors }"
+                                        required></textarea>
+
+                                    <div *ngIf="submitted && x.get('drawingRemarks')?.errors" class="invalid-feedback">
+                                        <div *ngIf="x.get('drawingRemarks')?.errors?.required">Remarks is required</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">1(f).</td>
+                            <td>Revision number </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                        formControlName="revisionNoObserv"
+                                        [ngClass]="{ 'is-invalid': submitted && x.get('revisionNoObserv')?.errors }"
+                                        required></textarea>
+
+                                    <div *ngIf="submitted && x.get('revisionNoObserv')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="x.get('revisionNoObserv')?.errors?.required">Observation is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                        formControlName="revisionNoRemarks"
+                                        [ngClass]="{ 'is-invalid': submitted && x.get('revisionNoRemarks')?.errors }"
+                                        required></textarea>
+
+                                    <div *ngIf="submitted && x.get('revisionNoRemarks')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="x.get('revisionNoRemarks')?.errors?.required">Remarks is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                    <tbody>
+                        <tr>
+                            <td style="text-align: center;">2.</td>
+                            <td>Check for any deviation of design with standard </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                        formControlName="deviationObserv"
+                                        [ngClass]="{ 'is-invalid': submitted && x.get('deviationObserv')?.errors }"
+                                        required></textarea>
+
+                                    <div *ngIf="submitted && x.get('deviationObserv')?.errors" class="invalid-feedback">
+                                        <div *ngIf="x.get('deviationObserv')?.errors?.required">Observation is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                        formControlName="deviationRemarks"
+                                        [ngClass]="{ 'is-invalid': submitted && x.get('deviationRemarks')?.errors }"
+                                        required></textarea>
+
+                                    <div *ngIf="submitted && x.get('deviationRemarks')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="x.get('deviationRemarks')?.errors?.required">Remarks is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                    <tbody>
+                        <tr>
+                            <td style="text-align: center;">3.</td>
+                            <td>Quality of installation </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                        formControlName="installationQualityObserv"
+                                        [ngClass]="{ 'is-invalid': submitted && x.get('installationQualityObserv')?.errors }"
+                                        required></textarea>
+
+                                    <div *ngIf="submitted && x.get('installationQualityObserv')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="x.get('installationQualityObserv')?.errors?.required">Observation is
+                                            required</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                        formControlName="installationQualityRemarks"
+                                        [ngClass]="{ 'is-invalid': submitted && x.get('installationQualityRemarks')?.errors }"
+                                        required></textarea>
+
+                                    <div *ngIf="submitted && x.get('installationQualityRemarks')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="x.get('installationQualityRemarks')?.errors?.required">Remarks is
+                                            required</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+        <div style="text-align: center;margin-top: 8px;">
+            <button class="btn btn-success" type="submit">Next</button>
+        </div>
+
     </form>
 
 </div>

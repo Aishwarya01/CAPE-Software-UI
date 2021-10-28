@@ -14,7 +14,7 @@ export class LPSBasicDetailsService {
 
   public saveLPSBasicDetails(basicDetails:BasicDetails): Observable<any> {
     debugger
-    return this.http.post<any>(this.apiUrl + '/addBasicLps', basicDetails, { responseType: 'text' as 'json' })
+    return this.http.post<BasicDetails>(this.apiUrl + '/addBasicLps', basicDetails, { responseType: 'text' as 'json' })
   }
  
 }
