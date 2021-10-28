@@ -242,13 +242,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
       viewerCommentArr: this.formBuilder.array([this.addCommentViewer()]),
       completedCommentArr1: this.formBuilder.array([]),
     });
-
-    //selected source dd from supply to testing
-    // if (this.service.supplyList != '' && this.service.supplyList != undefined) {
-    //   for (let i = 1; i <= this.service.supplyList; i++) {
-    //     this.SourceList.push('Alternate Source of Supply-' + i);
-    //   }
-    // }
     //location iteration
     if (this.service.iterationList != '' && this.service.iterationList != undefined) {
       this.testingRetrieve = false;
@@ -271,50 +264,99 @@ export class InspectionVerificationTestingComponent implements OnInit {
  retrieveDetailsFromSupply(){
   this.pushJsonArray=[];
    if(this.service.siteCount !=0 && this.service.siteCount!=undefined){
-    this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.email, this.service.siteCount).subscribe(
-      data=>{
-      console.log(data);
-      this.supplyValues = JSON.parse(data);
-      for(let i of this.supplyValues) {
-        this.service.nominalVoltageArr2=i.supplyParameters;
-        if(i.liveConductorType == "AC") {
-          this.addValues("Mains Incoming", i.mainNominalVoltage,i.mainNominalFrequency, i.mainNominalCurrent);
-          this.mainNominalVoltageArr1 = [];
-          this.mainNominalVoltageArr2 = [];
-          this.mainNominalVoltageArr3 = [];
-      
-          this.mainNominalVoltageArr1 = i.mainNominalVoltage.split(",");
-          this.mainNominalVoltageArr2 = i.mainNominalFrequency.split(",");
-          this.mainNominalVoltageArr3 = i.mainNominalCurrent.split(",");
-      
-          this.mainNominalArr = [];
-          this.mainNominalArr.push(this.mainNominalVoltageArr1,this.mainNominalVoltageArr2,this.mainNominalVoltageArr3);
-          this.service.retrieveMainNominalVoltage=this.mainNominalArr;
-          this.service.mainNominalVoltageValue=i.mainNominalVoltage;
-          this.service.mainNominalFrequencyValue=i.mainNominalFrequency;
-          this.service.mainNominalCurrentValue=i.mainNominalCurrent;
+     if(this.currentUser1.role == 'Inspector') {
+      this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.email, this.service.siteCount).subscribe(
+        data=>{
+        console.log(data);
+        this.supplyValues = JSON.parse(data);
+        for(let i of this.supplyValues) {
+          this.service.nominalVoltageArr2=i.supplyParameters;
+          if(i.liveConductorType == "AC") {
+            this.addValues("Mains Incoming", i.mainNominalVoltage,i.mainNominalFrequency, i.mainNominalCurrent);
+            this.mainNominalVoltageArr1 = [];
+            this.mainNominalVoltageArr2 = [];
+            this.mainNominalVoltageArr3 = [];
+        
+            this.mainNominalVoltageArr1 = i.mainNominalVoltage.split(",");
+            this.mainNominalVoltageArr2 = i.mainNominalFrequency.split(",");
+            this.mainNominalVoltageArr3 = i.mainNominalCurrent.split(",");
+        
+            this.mainNominalArr = [];
+            this.mainNominalArr.push(this.mainNominalVoltageArr1,this.mainNominalVoltageArr2,this.mainNominalVoltageArr3);
+            this.service.retrieveMainNominalVoltage=this.mainNominalArr;
+            this.service.mainNominalVoltageValue=i.mainNominalVoltage;
+            this.service.mainNominalFrequencyValue=i.mainNominalFrequency;
+            this.service.mainNominalCurrentValue=i.mainNominalCurrent;
+          }
+          this.service.supplyList = i.supplyNumber;
+          let count =1;
+          for(let j of i.supplyParameters) {
+           if(j.aLLiveConductorType == "AC") {
+            this.addValues("Alternate Source of Supply-" +count, j.nominalVoltage,j.nominalFrequency, j.faultCurrent);
+            count++;
+           }
+          }
         }
-        this.service.supplyList = i.supplyNumber;
-        let count =1;
-        for(let j of i.supplyParameters) {
-         if(j.aLLiveConductorType == "AC") {
-          this.addValues("Alternate Source of Supply-" +count, j.nominalVoltage,j.nominalFrequency, j.faultCurrent);
-          count++;
-         }
+        //retrieve selected source dd from supply to testing
+      if (this.service.supplyList != '' && this.service.supplyList != undefined) {
+        this.SourceList=['Mains Incoming'];
+        for (let i = 1; i <= this.service.supplyList; i++) {
+          this.SourceList.push('Alternate Source of Supply-' + i);
         }
       }
-      //retrieve selected source dd from supply to testing
-    if (this.service.supplyList != '' && this.service.supplyList != undefined) {
-      this.SourceList=['Mains Incoming'];
-      for (let i = 1; i <= this.service.supplyList; i++) {
-        this.SourceList.push('Alternate Source of Supply-' + i);
+        },
+        error=>{
+  
+        }
+      )
+     }
+     else {
+      this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.currentUser1.assignedBy, this.service.siteCount).subscribe(
+        data=>{
+        console.log(data);
+        this.supplyValues = JSON.parse(data);
+        for(let i of this.supplyValues) {
+          this.service.nominalVoltageArr2=i.supplyParameters;
+          if(i.liveConductorType == "AC") {
+            this.addValues("Mains Incoming", i.mainNominalVoltage,i.mainNominalFrequency, i.mainNominalCurrent);
+            this.mainNominalVoltageArr1 = [];
+            this.mainNominalVoltageArr2 = [];
+            this.mainNominalVoltageArr3 = [];
+        
+            this.mainNominalVoltageArr1 = i.mainNominalVoltage.split(",");
+            this.mainNominalVoltageArr2 = i.mainNominalFrequency.split(",");
+            this.mainNominalVoltageArr3 = i.mainNominalCurrent.split(",");
+        
+            this.mainNominalArr = [];
+            this.mainNominalArr.push(this.mainNominalVoltageArr1,this.mainNominalVoltageArr2,this.mainNominalVoltageArr3);
+            this.service.retrieveMainNominalVoltage=this.mainNominalArr;
+            this.service.mainNominalVoltageValue=i.mainNominalVoltage;
+            this.service.mainNominalFrequencyValue=i.mainNominalFrequency;
+            this.service.mainNominalCurrentValue=i.mainNominalCurrent;
+          }
+          this.service.supplyList = i.supplyNumber;
+          let count =1;
+          for(let j of i.supplyParameters) {
+           if(j.aLLiveConductorType == "AC") {
+            this.addValues("Alternate Source of Supply-" +count, j.nominalVoltage,j.nominalFrequency, j.faultCurrent);
+            count++;
+           }
+          }
+        }
+        //retrieve selected source dd from supply to testing
+      if (this.service.supplyList != '' && this.service.supplyList != undefined) {
+        this.SourceList=['Mains Incoming'];
+        for (let i = 1; i <= this.service.supplyList; i++) {
+          this.SourceList.push('Alternate Source of Supply-' + i);
+        }
       }
-    }
-      },
-      error=>{
-
-      }
-    )
+        },
+        error=>{
+  
+        }
+      )
+     }
+    
    }
  }
 
