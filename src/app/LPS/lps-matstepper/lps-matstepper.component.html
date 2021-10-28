@@ -1,0 +1,42 @@
+<mat-tab-group [selectedIndex]="selectedIndex" style="background-color:white;">
+    <mat-tab label="Lightning Protection System" >
+      <mat-horizontal-stepper linear #stepper>
+  
+        <mat-step >
+          <ng-template matStepLabel >Basics</ng-template>
+          <app-lps-basic-page></app-lps-basic-page>
+        </mat-step>
+  
+        <mat-step >
+          <ng-template matStepLabel>Air Termination</ng-template>
+          <app-lps-air-termination></app-lps-air-termination>
+        </mat-step>
+  
+        <mat-step >
+          <ng-template matStepLabel>Down Conductors</ng-template>
+          <app-lps-down-conductors></app-lps-down-conductors>
+        </mat-step>
+  
+        <mat-step >
+          <ng-template matStepLabel>Earthing</ng-template>
+          <app-lps-earthing></app-lps-earthing>
+        </mat-step>
+  
+        <mat-step >
+          <ng-template matStepLabel>SPD</ng-template>
+          <app-lps-spd></app-lps-spd>
+        </mat-step>
+  
+        <mat-step >
+          <ng-template matStepLabel>Seperation Distance</ng-template>
+          <app-lps-seperation-distance></app-lps-seperation-distance>
+        </mat-step>
+  
+        <mat-step >
+          <ng-template matStepLabel>Earth Stud</ng-template>
+          <app-lps-earth-stud></app-lps-earth-stud>
+        </mat-step>
+  
+      </mat-horizontal-stepper>
+    </mat-tab>
+  </mat-tab-group>

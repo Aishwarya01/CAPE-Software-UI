@@ -270,7 +270,7 @@
                             formControlName="levelOfProtection"
                             [ngClass]="{ 'is-invalid': submitted && f.levelOfProtection.errors}" />
                         <div *ngIf="submitted && f.levelOfProtection.errors" class="invalid-feedback">
-                            <div *ngIf="f.levelOfProtection.errors.required">Height(m) is required</div>
+                            <div *ngIf="f.levelOfProtection.errors.required">Lovel of protection is required</div>
                         </div>
                     </div>
                 </div>
@@ -287,15 +287,16 @@
                             formControlName="soilResistivity"
                             [ngClass]="{ 'is-invalid': submitted && f.soilResistivity.errors}" />
                         <div *ngIf="submitted && f.soilResistivity.errors" class="invalid-feedback">
-                            <div *ngIf="f.soilResistivity.errors.required">Height(m) is required</div>
+                            <div *ngIf="f.soilResistivity.errors.required">Soil Resistivity is requird</div>
                         </div>
                     </div>
                 </div>
             </div>
+
             <!-- Table -->
             <div style="margin-top: 40px;" formArrayName="basicLpsDescription"
                 *ngFor="let x of getDescriptionControl(); let j = index">
-                <table class="table" [formGroupName]="j">
+                <table class="table" [formGroupName]="j" >
                     <thead style="text-align: center;">
                         <th>SI.No:</th>
                         <th>Description:</th>
@@ -333,7 +334,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                    <textarea type="text" class="form-control" cols="30" rows="1" placeholder="Ex.."
                                         formControlName="approvedDrawingRemarks"
                                         [ngClass]="{ 'is-invalid': submitted && x.get('approvedDrawingRemarks')?.errors }"
                                         required></textarea>
@@ -356,7 +357,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                    <textarea type="text" class="form-control" cols="30" rows="1" placeholder="Ex.."
                                         formControlName="architectNameObserv"
                                         [ngClass]="{ 'is-invalid': submitted && x.get('architectNameObserv')?.errors }"
                                         required></textarea>
@@ -375,7 +376,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                    <textarea type="text" class="form-control" cols="30" rows="1" placeholder="Ex.."
                                         formControlName="architectNameRemarks"
                                         [ngClass]="{ 'is-invalid': submitted && x.get('architectNameRemarks')?.errors }"
                                         required></textarea>
@@ -414,7 +415,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
                                         formControlName="designDateRemarks"
                                         [ngClass]="{ 'is-invalid': submitted && x.get('designDateRemarks')?.errors }"></textarea>
 
@@ -436,7 +437,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
                                         formControlName="approvedByObserv"
                                         [ngClass]="{ 'is-invalid': submitted && x.get('approvedByObserv')?.errors }"
                                         required></textarea>
@@ -455,7 +456,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
                                         formControlName="approvedByRemarks"
                                         [ngClass]="{ 'is-invalid': submitted && x.get('approvedByRemarks')?.errors }"
                                         required></textarea>
@@ -495,7 +496,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
                                         formControlName="dateOfApprovalRem"
                                         [ngClass]="{ 'is-invalid': submitted && x.get('dateOfApprovalRem')?.errors }"
                                         required></textarea>
@@ -518,7 +519,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
                                         formControlName="drawingObserv"
                                         [ngClass]="{ 'is-invalid': submitted && x.get('drawingObserv')?.errors }"
                                         required></textarea>
@@ -536,7 +537,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
                                         formControlName="drawingRemarks"
                                         [ngClass]="{ 'is-invalid': submitted && x.get('drawingRemarks')?.errors }"
                                         required></textarea>
@@ -557,7 +558,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
                                         formControlName="revisionNoObserv"
                                         [ngClass]="{ 'is-invalid': submitted && x.get('revisionNoObserv')?.errors }"
                                         required></textarea>
@@ -576,7 +577,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
                                         formControlName="revisionNoRemarks"
                                         [ngClass]="{ 'is-invalid': submitted && x.get('revisionNoRemarks')?.errors }"
                                         required></textarea>
@@ -602,7 +603,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
                                         formControlName="deviationObserv"
                                         [ngClass]="{ 'is-invalid': submitted && x.get('deviationObserv')?.errors }"
                                         required></textarea>
@@ -620,7 +621,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
                                         formControlName="deviationRemarks"
                                         [ngClass]="{ 'is-invalid': submitted && x.get('deviationRemarks')?.errors }"
                                         required></textarea>
@@ -646,7 +647,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
                                         formControlName="installationQualityObserv"
                                         [ngClass]="{ 'is-invalid': submitted && x.get('installationQualityObserv')?.errors }"
                                         required></textarea>
@@ -665,7 +666,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" placeholder="Ex.."
+                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
                                         formControlName="installationQualityRemarks"
                                         [ngClass]="{ 'is-invalid': submitted && x.get('installationQualityRemarks')?.errors }"
                                         required></textarea>

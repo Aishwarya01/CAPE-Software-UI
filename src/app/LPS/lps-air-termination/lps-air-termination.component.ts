@@ -26,7 +26,6 @@ export class LpsAirTerminationComponent implements OnInit {
       vatArr: this.formBuilder.array([this.createVatArrForm()]),
       meshArr: this.formBuilder.array([this.createMeshArrForm()]),
       holderArr: this.formBuilder.array([this.createHolderArrForm()]),
-
       clampArr: this.formBuilder.array([this.createClampArrForm()]),
       expArr: this.formBuilder.array([this.createExpansioArrForm()]),
       conArr: this.formBuilder.array([this.createConArrForm()])
