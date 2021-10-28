@@ -6,9 +6,10 @@
     <!-- Basic Details -->
     <div class="card-body">
         <form>
-        <mat-accordion>
-    <mat-expansion-panel>
-               <mat-expansion-panel-header>Basic Details</mat-expansion-panel-header>
+            <div class="card-body">
+                <div style="font-weight: bold;">
+                    <label for="Basicdetails">Basic Details:</label>
+                </div>
                     <div class="row">
                         <div class="col-md-4">
                             <label for="clientname">Client Name:</label>
@@ -126,10 +127,11 @@
                             </div>
                         </div>
                     </div>
+            </div>
     
     <!-- tables -->
-    <div style="margin-top: 40px;" class="row">
-            <table class="table" border="1">
+    <div style="margin-top: 40px;">
+            <table class="table">
                 <thead style="text-align: center;">
                     <th>SI.No</th>
                     <th>Description</th>
@@ -260,9 +262,6 @@
             </tbody>
         </table>
     </div>
-    
-    </mat-expansion-panel>
-    </mat-accordion>
     <button style="margin-top: 10px;" class="btn btn-primary">Back</button>
     <button style="margin-top: 10px;" class="btn btn-success">Next</button>
     </form>

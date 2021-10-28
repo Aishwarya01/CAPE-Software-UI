@@ -296,7 +296,7 @@
             <!-- Table -->
             <div style="margin-top: 40px;" formArrayName="basicLpsDescription"
                 *ngFor="let x of getDescriptionControl(); let j = index">
-                <table class="table" [formGroupName]="j" >
+                <table class="table" [formGroupName]="j">
                     <thead style="text-align: center;">
                         <th>SI.No:</th>
                         <th>Description:</th>
@@ -309,7 +309,6 @@
                             <td style="width: 24rem;">Collect approved copy of drawing from the site </td>
                             <td>
                                 <div class="input-group">
-
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <i class="bi bi-text-paragraph"></i>

@@ -11,3 +11,4 @@ label {
 td {
     font-size: smaller;
 }
+textarea.form-control{height: 30px !important}

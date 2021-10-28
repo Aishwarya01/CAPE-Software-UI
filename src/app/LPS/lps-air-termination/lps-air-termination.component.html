@@ -269,9 +269,9 @@
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Vertical air terminal (VAT)</mat-expansion-panel-header>
-                    <div class="row">
-                        <div class="table-responsive">
-                            <table>
+                    <button class="btn btn-primary" type="button" (click)="submit()" style="margin-left: 90rem;margin-bottom: 4px;">Add</button>
+                    <div>
+                            <table class="table">
             <!-- Form Array -->
                                 <tbody formArrayName="vatArr" *ngFor="let a of vatControls(); let j = index">
                                     <div class="form-group" [formGroupName]="j">
@@ -593,21 +593,17 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        <button class="btn btn-primary" type="button" (click)="submit()" style="margin-left: 93rem;margin-bottom: 4px;">Add</button>
                                     </div>
+                                    <button class="btn btn-danger" type="button" style="margin-left: 90rem;margin-bottom: 4px;">Delete</button>
                                 </tbody>
                             </table>
-                        </div>
                     </div>
-                    
-
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Mesh conductors</mat-expansion-panel-header>
-                    <div class="row">
-                    <div class="table-responsive">
-                    <table>
+                    <div>
+                    <table class="table">
                         <tbody formArrayName="meshArr" *ngFor="let a of meshControls(); let i = index">
                             <div class="form-group" [formGroupName]="i">
                                 <tr>
@@ -781,20 +777,17 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <button class="btn btn-primary" type="button" (click)="submit1()" style="margin-left: 93rem;margin-bottom: 4px;">Add</button>
+                                <button class="btn btn-primary" type="button" (click)="submit1()" style="margin-left: 91rem;margin-bottom: 4px;">Add</button>
                             </div>
                         </tbody>
                     </table>
                     </div>
-                    </div>
-
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Holders</mat-expansion-panel-header>
-                    <div class="row">
-                    <div class="table-responsive">
-                    <table>
+                    <div>
+                    <table class="table">
                         <tbody formArrayName="holderArr" *ngFor="let a of holdersContols(); let j = index">
                             <div class="form-group" [formGroupName]="j">
                                 <tr>
@@ -1158,11 +1151,10 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <button class="btn btn-primary" type="button" (click)="submit2()" style="margin-left: 93rem;margin-bottom: 4px;">Add</button>
+                                    <button class="btn btn-primary" type="button" (click)="submit2()" style="margin-left: 91rem;margin-bottom: 4px;">Add</button>
                                 </div>
                             </tbody>
-                        </table>
-                    </div>
+                    </table>
                     </div>
 
 
@@ -1170,10 +1162,8 @@
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Clamps</mat-expansion-panel-header>
-
-                    <div class="row">
-                    <div class="table-responsive">
-                    <table>
+                    <div>
+                    <table class="table">
                         <tbody formArrayName="clampArr" *ngFor="let a of clampsControls(); let i = index">
                             <div class="form-group" [formGroupName]="i">
                                 <tr>
@@ -1392,20 +1382,18 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <button class="btn btn-primary" type="button" (click)="submit3()" style="margin-left: 93rem;margin-bottom: 4px;">Add</button>
+                                <button class="btn btn-primary" type="button" (click)="submit3()" style="margin-left: 91rem;margin-bottom: 4px;">Add</button>
                             </div>
                         </tbody>
                         </table>
-                    </div>
                     </div>
 
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Expansion Pieces</mat-expansion-panel-header>
-                    <div class="row">
-                    <div class="table-responsive">
-                    <table>
+                    <div>
+                    <table class="table">
                         <tbody formArrayName="expArr" *ngFor="let a of expansionControls(); let i = index">
                             <div class="form-group" [formGroupName]="i">
                                 <tr>
@@ -1577,20 +1565,18 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <button class="btn btn-primary" type="button" (click)="submit4()" style="margin-left: 93rem;margin-bottom: 4px;">Add</button>
+                                <button class="btn btn-primary" type="button" (click)="submit4()" style="margin-left: 91rem;margin-bottom: 4px;">Add</button>
                             </div>
                             </tbody>
-                        </table>
-                    </div>
+                    </table>
                     </div>
 
                 </mat-expansion-panel>
 
-                <mat-expansion-panel>`
+                <mat-expansion-panel>
                     <mat-expansion-panel-header>Connectors</mat-expansion-panel-header>
-                    <div class="row">
-                    <div class="table-responsive">
-                        <table>
+                    <div>
+                        <table class="table">
                             <tbody formArrayName="conArr" *ngFor="let a of connectorsControls(); let i = index">
                                 <div class="form-group" [formGroupName]="i">
                                 <tr>
@@ -1858,11 +1844,10 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <button class="btn btn-primary" type="button" (click)="submit5()" style="margin-left: 93rem;margin-bottom: 4px;">Add</button>
+                                <button class="btn btn-primary" type="button" (click)="submit5()" style="margin-left: 91rem;margin-bottom: 4px;">Add</button>
                             </div>
                             </tbody>
                         </table>
-                    </div>
                 </div>
                 </mat-expansion-panel>
 
@@ -1872,6 +1857,6 @@
         </form>
 
     </div>
-    <button class="btn btn-primary">Previous</button>
+    <button class="btn btn-primary">Back</button>
     <button class="btn btn-success">Next</button>
 </div>

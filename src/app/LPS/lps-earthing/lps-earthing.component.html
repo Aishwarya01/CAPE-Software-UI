@@ -3,9 +3,8 @@
 <!--  -->
 <div class="card-body">
     <form>
-        <mat-accordion displayMode="default" [multi]="true"
-                       [hideToggle]="false">
-            <mat-expansion-panel [hideToggle]="false">
+        <mat-accordion>
+            <mat-expansion-panel>
                 <mat-expansion-panel-header>Basic Details</mat-expansion-panel-header>
                 <div class="row">
                     <div class="col-md-4">
@@ -124,8 +123,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="table-responsive">
+                <div style="margin-top: 40px;">
                         <table class="table">
                             <thead>
                                 <th>SI.No</th>
@@ -135,43 +133,98 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>1</td>
-                                    <td>Type of Earthing (Type-A/Type-B/both)</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td style="width: 1rem; text-align: center;">1</td>
+                                    <td style="width: 24rem;">Type of Earthing (Type-A/Type-B/both)</td>
+                                    <td style="width: 35rem;">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea  type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td style="width: 35rem;">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea  type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>2</td>
+                                    <td style="text-align: center;">2</td>
                                     <td>Check for bimetallic issue (connections between dissimilar metals are not allowed)</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea  type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea  type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>3</td>
+                                    <td style="text-align: center;">3</td>
                                     <td>Connections made by brazing/welding/crimping /seaming/screwing/bolting</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea  type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea  type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
                 </div>
             </mat-expansion-panel>
 
-            <mat-expansion-panel [hideToggle]="false">
+            <mat-expansion-panel>
                 <mat-expansion-panel-header>Type-A earthing system</mat-expansion-panel-header>
                 <div class="row">
-                    <div class="table-responsive">
-                       <div class="container">
-                           <div class="col-md-4">
+                    <div class="container">
+                           <div>
                                <label for="lname">Location Name</label>
                                <input class="form-control" type="text">
                            </div>
-                           <div class="col-md-4">
+                           <div>
                                <label for="lnumber">Location Number</label>
                                 <input class="form-control" type="text">
                            </div>
-                       </div>
+                    </div>
+                </div>
+                    <!-- Table -->
+                    <div style="margin-top: 40px;">
                         <table class="table">
                             <thead>
                                 <th>SI.No</th>
@@ -181,120 +234,443 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>4.1</td>
-                                    <td>Soil resistivity</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td style="width: 1rem; text-align: center;">4.1</td>
+                                    <td style="width: 24rem;">Soil resistivity</td>
+                                    <td style="width: 35rem;">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td style="width: 35rem;">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>4.2</td>
+                                    <td style="text-align: center;">4.2</td>
                                     <td>Earth pit work - Digging or Boring to ensure the soil nature</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>4.3</td>
+                                    <td style="text-align: center;">4.3</td>
                                     <td>Number of earth electrode should not be less than the  number of down conductors</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>4.4</td>
+                                    <td style="text-align: center;">4.4</td>
                                     <td>Ensure all down conductors are connected to earth termination system</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>4.5</td>
+                                    <td style="text-align: center;">4.5</td>
                                     <td>Route of earthing conductor from test joint to earth electrode (under soil/under concrete/via gutter)</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>4.6</td>
+                                    <td style="text-align: center;">4.6</td>
                                     <td>Coumpound filled properly upto gorund level</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>4.7</td>
+                                    <td style="text-align: center;">4.7</td>
                                     <td>Location of earth electrode (walk pathway/ vehicle runway)</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>4.8</td>
+                                    <td style="text-align: center;">4.8</td>
                                     <td>Material of earth electrode</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>4.9</td>
+                                    <td style="text-align: center;">4.9</td>
                                     <td>Size/cross section area of earth electrode</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>4.10</td>
+                                    <td style="text-align: center;">4.10</td>
                                     <td>Length of earth electrode</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>4.11</td>
+                                    <td style="text-align: center;">4.11</td>
                                     <td>Maximum distance between earth electrode and wall</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>4.12</td>
+                                    <td style="text-align: center;">4.12</td>
                                     <td>Minimum distance between earth electrode and wall</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>4.13</td>
+                                    <td style="text-align: center;">4.13</td>
                                     <td>Maximum distance between earth electrodes</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>4.14</td>
+                                    <td style="text-align: center;">4.14</td>
                                     <td>Minimum distance between earth electrodes</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>4.15</td>
+                                    <td style="text-align: center;">4.15</td>
                                     <td>Total number of earthing electrodes</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>4.16</td>
+                                    <td style="text-align: center;">4.16</td>
                                     <td>Number of earthing electrode inspected</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>4.17</td>
+                                    <td style="text-align: center;">4.17</td>
                                     <td>Number of inspection passed</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>4.18</td>
+                                    <td style="text-align: center;">4.18</td>
                                     <td>Number of inspection failed</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                </div>
             </mat-expansion-panel>
 
-            <mat-expansion-panel [hideToggle]="false">
+            <mat-expansion-panel>
                 <mat-expansion-panel-header>Clamps</mat-expansion-panel-header>
                 <div class="row">
                     <div class="table-responsive">
@@ -307,58 +683,220 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>5.1</td>
-                                    <td>Physical inspection (damage/break/corroded)</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td style="width: 1rem; text-align: center;">5.1</td>
+                                    <td style="width: 24rem;">Physical inspection (damage/break/corroded)</td>
+                                    <td style="width: 35rem;">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td style="width: 35rem;">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>5.2</td>
+                                    <td style="text-align: center;">5.2</td>
                                     <td>Clamp is firmly fixed/mounted on to earth electrode</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>5.3</td>
                                     <td>Interconnection of earthing conductor with clamp (tight/loose/corroded)</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>5.4</td>
                                     <td>Type of clamp</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>5.5</td>
                                     <td>Material of clamp</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>5.6</td>
                                     <td>Total number of clamps</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>5.7</td>
                                     <td>Number of clamps inspected</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>5.8</td>
                                     <td>Number of inspections passed</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>5.9</td>
                                     <td>Number of inspections failed</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -366,10 +904,9 @@
                 </div>
             </mat-expansion-panel>
 
-            <mat-expansion-panel [hideToggle]="false">
+            <mat-expansion-panel>
                 <mat-expansion-panel-header>Earth electrode chambers</mat-expansion-panel-header>
-                <div class="row">
-                    <div class="table-responsive">
+                <div>
                         <table class="table">
                             <thead>
                                 <th>SI.No</th>
@@ -379,70 +916,230 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>6.1</td>
-                                    <td>Physical inspection (damage/break/corroded)</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td style="width: 1rem; text-align: center;">6.1</td>
+                                    <td style="width: 24rem;">Physical inspection (damage/break/corroded)</td>
+                                    <td style="width: 35rem;">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td style="width: 35rem;">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>6.2</td>
+                                    <td style="text-align: center;">6.2</td>
                                     <td>Type of chamber (concrete/metal/plastic)</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>6.3</td>
+                                    <td style="text-align: center;">6.3</td>
                                     <td>Size of chamber</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>6.4</td>
+                                    <td style="text-align: center;">6.4</td>
                                     <td>Maximum withstand load</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>6.5</td>
+                                    <td style="text-align: center;">6.5</td>
                                     <td>Chamber is properly placed in soil</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>6.6</td>
+                                    <td style="text-align: center;">6.6</td>
                                     <td>Total number of chambers</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>6.7</td>
+                                    <td style="text-align: center;">6.7</td>
                                     <td>Number of chambers inspected</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>6.8</td>
+                                    <td style="text-align: center;">6.8</td>
                                     <td>Number of inspections passed</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>6.9</td>
+                                    <td style="text-align: center;">6.9</td>
                                     <td>Number of inspections failed</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
                 </div>
             </mat-expansion-panel>
 
-            <mat-expansion-panel [hideToggle]="false">
+            <mat-expansion-panel>
                 <mat-expansion-panel-header>Type-B earthing system</mat-expansion-panel-header>
-                <div class="row">
-                    <div class="table-responsive">
-                        <table class="table">
+                <div>
+                        <table class="table" style="border:solid 1px #ddd; border-collapse:collapse;">
                             <thead>
                                 <th>SI.No</th>
                                 <th>Description</th>
@@ -451,44 +1148,383 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>7.1</td>
-                                    <td>Earth electrode must be buried atleast 0.5m depth and 1m distance from external wall as closed loop.</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td style="width: 1rem; text-align: center;">7.1</td>
+                                    <td style="width: 24rem;">Earth electrode must be buried atleast 0.5m depth and 1m distance from external wall as closed loop.</td>
+                                    <td style="width: 35rem;">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td style="width: 35rem;">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>7.2.1</td>
+                                    <td rowspan="5" style="text-align: center;">7.2</td>
                                     <td>Depth of electrode from ground level</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>7.2.2</td>
                                     <td>East</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>7.2.3</td>
                                     <td>West</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>7.2.4</td>
                                     <td>North</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>7.2.5</td>
                                     <td>South</td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
-                                    <td><textarea placeholder="Ex.."></textarea></td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="5" style="text-align: center;">7.3</td>
+                                    <td>Distance of ring earthing from wall</td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>East</td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>West</td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>North</td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>South</td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">7.4</td>
+                                    <td>Joints made by brazing/welding/crimping/seaming/screwing/bolting</td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">7.5</td>
+                                    <td>Material of earth electrode</td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">7.6</td>
+                                    <td>Size/cross section area of earth electrode</td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">7.7</td>
+                                    <td>Maximum distance between earth electrode and wall</td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">7.8</td>
+                                    <td>Minimum distance between earth electrode and wall</td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
                 </div>
             </mat-expansion-panel>
 
