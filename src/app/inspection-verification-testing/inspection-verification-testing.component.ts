@@ -242,10 +242,12 @@ export class InspectionVerificationTestingComponent implements OnInit {
       viewerCommentArr: this.formBuilder.array([this.addCommentViewer()]),
       completedCommentArr1: this.formBuilder.array([]),
     });
+    
     //location iteration
-    if (this.service.iterationList != '' && this.service.iterationList != undefined) {
+    if (this.service.iterationList != '' && this.service.iterationList != undefined && this.service.iterationList.length != 0) {
       this.testingRetrieve = false;
       this.inspectionRetrieve = true;
+      
       let a = this.service.iterationList.length;
       for (let i = 0; i < a; i++) {
         this.addItem();
@@ -360,9 +362,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
    }
  }
 
- addValues(sourceFromSupply: any, incomingVoltage: String, incomingFrequency: String, incomingFaultCurrent: String) {
+ addValues(sourceFromSupply: any, incomingVoltage: String, incomingLoopImpedance: String, incomingFaultCurrent: String) {
   if(sourceFromSupply != "" ) {
-     this.jsonArray = {"sourceFromSupply": sourceFromSupply, "incomingVoltage": incomingVoltage, "incomingFrequency": incomingFrequency, "incomingFaultCurrent": incomingFaultCurrent}
+     this.jsonArray = {"sourceFromSupply": sourceFromSupply, "incomingVoltage": incomingVoltage, "incomingLoopImpedance": incomingLoopImpedance, "incomingFaultCurrent": incomingFaultCurrent}
      this.pushJsonArray.push(this.jsonArray);
     }
 }
@@ -827,10 +829,10 @@ export class InspectionVerificationTestingComponent implements OnInit {
       incomingLoopImpedance: new FormControl({ disabled: false, value: testDistributionItem[0].incomingLoopImpedance }),
       incomingFaultCurrent: new FormControl({ disabled: false, value: testDistributionItem[0].incomingFaultCurrent }),
       distributionIncomingValueArr: this.formBuilder.array([
-        this.populatedistributionIncomingValue(this.tempArr.incomingVoltage,this.tempArr.incomingFrequency,this.tempArr.incomingFaultCurrent),
+        this.populatedistributionIncomingValue(this.tempArr.incomingVoltage,this.tempArr.incomingLoopImpedance,this.tempArr.incomingFaultCurrent),
       ]),
       distributionIncomingValueArr2: this.formBuilder.array([
-        this.populatedistributionIncomingValue(this.tempArr.incomingVoltage,this.tempArr.incomingFrequency,this.tempArr.incomingFaultCurrent),
+        this.populatedistributionIncomingValue(this.tempArr.incomingVoltage,this.tempArr.incomingLoopImpedance,this.tempArr.incomingFaultCurrent),
       ]),
     });
   }

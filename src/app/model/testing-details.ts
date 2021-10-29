@@ -86,7 +86,7 @@ export class TestIncomingDistribution {
 
   incomingDistributionId!: String;
   incomingVoltage!: String;
-  incomingFrequency!: String;
+  incomingLoopImpedance!: String;
   incomingFaultCurrent!: String;
   sourceFromSupply!: String;
  

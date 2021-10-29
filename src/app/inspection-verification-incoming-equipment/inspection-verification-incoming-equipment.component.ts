@@ -983,6 +983,7 @@ showHideAccordion(index: number) {
     }
   }
   nextTab3(flag: any) {
+    
     if(!flag) {
       this.inspectionDetails.siteId = this.service.siteCount;
     }
@@ -1022,6 +1023,6 @@ showHideAccordion(index: number) {
           this.errorMsg = 'Something went wrong, kindly check all the fields';
         });
     }
-    this.verification.testingNgOnINit();
+    // this.verification.testingNgOnINit();
   }
 }
