@@ -214,6 +214,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   formList!: FormArray;
   formList1!: FormArray;
   tempArr: any = [];
+  incomingValues: any;
 
   constructor(
     private testingService: TestingService,
@@ -243,25 +244,70 @@ export class InspectionVerificationTestingComponent implements OnInit {
       completedCommentArr1: this.formBuilder.array([]),
     });
     
-    //location iteration
-    if (this.service.iterationList != '' && this.service.iterationList != undefined && this.service.iterationList.length != 0) {
-      this.testingRetrieve = false;
-      this.inspectionRetrieve = true;
-      
-      let a = this.service.iterationList.length;
-      for (let i = 0; i < a; i++) {
-        this.addItem();
-      }
-      for (let j = 0; j < this.testaccordianArr.controls.length; j++) {
-        this.testaccordianArr.value[j].locationNumber = this.service.iterationList[j].locationNumber;
-        this.testaccordianArr.value[j].locationName = this.service.iterationList[j].locationName;
-      }
-      this.location.locationArr = this.service.iterationList;
-      this.service.iterationList = [];
-    }
+    this.retrieveDetailsFromIncoming();
     this.expandedIndex = -1;
     this.retrieveDetailsFromSupply();
   }
+
+ retrieveDetailsFromIncoming() {
+
+  if(this.service.siteCount !=0 && this.service.siteCount!=undefined) {
+    if(this.currentUser1.role == 'Inspector') {
+      this.inspectionDetailsService.retrieveInspectionDetails(this.email, this.service.siteCount).subscribe(
+        data=>{
+        console.log(data);
+        this.incomingValues = JSON.parse(data);
+        for(let i of this.incomingValues) {
+          console.log(i);
+        }
+        //location iteration
+        if (this.service.iterationList != '' && this.service.iterationList != undefined && this.service.iterationList.length != 0) {
+          this.testingRetrieve = false;
+          this.inspectionRetrieve = true;
+          
+          let a = this.service.iterationList.length;
+          for (let i = 0; i < a; i++) {
+            this.addItem();
+          }
+          for (let j = 0; j < this.testaccordianArr.controls.length; j++) {
+            this.testaccordianArr.value[j].locationNumber = this.service.iterationList[j].locationNumber;
+            this.testaccordianArr.value[j].locationName = this.service.iterationList[j].locationName;
+          }
+          this.location.locationArr = this.service.iterationList;
+          this.service.iterationList = [];
+        }
+      });
+    }
+    else {
+      this.inspectionDetailsService.retrieveInspectionDetails(this.currentUser1.assignedBy, this.service.siteCount).subscribe(
+        data=>{
+        console.log(data);
+        this.incomingValues = JSON.parse(data);
+        for(let i of this.incomingValues) {
+          console.log(i);
+          this.service.iterationList = i.ipaoInspection;
+        }
+        //location iteration
+        if (this.service.iterationList != '' && this.service.iterationList != undefined && this.service.iterationList.length != 0) {
+          this.testingRetrieve = false;
+          this.inspectionRetrieve = true;
+          
+          let a = this.service.iterationList.length;
+          for (let i = 0; i < a; i++) {
+            this.addItem();
+          }
+          for (let j = 0; j < this.testaccordianArr.controls.length; j++) {
+            this.testaccordianArr.value[j].locationNumber = this.service.iterationList[j].locationNumber;
+            this.testaccordianArr.value[j].locationName = this.service.iterationList[j].locationName;
+          }
+          this.location.locationArr = this.service.iterationList;
+          this.service.iterationList = [];
+        }
+      });
+    }
+  }
+}
+  
 
  retrieveDetailsFromSupply(){
   this.pushJsonArray=[];
@@ -378,6 +424,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
     this.testingDetails.createdBy = this.testList.testingReport.createdBy;
     this.testingDetails.createdDate = this.testList.testingReport.createdDate;
     this.retrieveDetailsFromSupply();
+    this.retrieveDetailsFromIncoming();
     setTimeout(() => {
       this.populateData();
       this.populateDataComments();
