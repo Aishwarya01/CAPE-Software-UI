@@ -250,7 +250,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
   }
 
  retrieveDetailsFromIncoming() {
-
   if(this.service.siteCount !=0 && this.service.siteCount!=undefined) {
     if(this.currentUser1.role == 'Inspector') {
       this.inspectionDetailsService.retrieveInspectionDetails(this.email, this.service.siteCount).subscribe(
@@ -259,6 +258,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
         this.incomingValues = JSON.parse(data);
         for(let i of this.incomingValues) {
           console.log(i);
+          this.service.iterationList=i.ipaoInspection;
         }
         //location iteration
         if (this.service.iterationList != '' && this.service.iterationList != undefined && this.service.iterationList.length != 0) {
@@ -420,17 +420,19 @@ export class InspectionVerificationTestingComponent implements OnInit {
     this.inspectionRetrieve = false;
     this.testList = JSON.parse(data);
     this.testingDetails.siteId = siteId;
+    this.retrieveDetailsFromSupply();
+    this.retrieveDetailsFromIncoming();
+    if(this.testList.testingReport != null) {
     this.testingDetails.testingReportId = this.testList.testingReport.testingReportId;
     this.testingDetails.createdBy = this.testList.testingReport.createdBy;
     this.testingDetails.createdDate = this.testList.testingReport.createdDate;
-    this.retrieveDetailsFromSupply();
-    this.retrieveDetailsFromIncoming();
     setTimeout(() => {
       this.populateData();
       this.populateDataComments();
     }, 1000);
-   
     this.flag = true;
+
+    }    
   }
 
   //comments section starts

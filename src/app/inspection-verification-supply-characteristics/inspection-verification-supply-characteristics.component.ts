@@ -964,7 +964,7 @@ showHideAccordion(index: number) {
         aLLiveConductorDC: new FormControl({disabled: false ,value: item.aLLiveConductorDC}),
         aLSystemEarthingBNote: new FormControl({disabled: false ,value: item.aLSystemEarthingBNote}),
         aLLiveConductorBNote: new FormControl({disabled: false ,value: item.aLSystemEarthingBNote}),
-        currentDissconnection: new FormControl({disabled: false ,value: item.aLLiveConductorBNote}),
+        currentDissconnection: new FormControl({disabled: false ,value: item.currentDissconnection}),
         protectiveDevice: new FormControl({disabled: false ,value: item.protectiveDevice}),
         ratedCurrent: new FormControl({disabled: false ,value: item.ratedCurrent}),
         nominalVoltageArr1: this.formBuilder.array([this.createNominalForm(item.nominalVoltage,item.nominalFrequency,item.faultCurrent,item.loopImpedance,item.installedCapacity,item.actualLoad)]),

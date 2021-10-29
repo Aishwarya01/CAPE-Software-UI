@@ -66,7 +66,11 @@ font-size: 14px !important;
     width: 14px !important;
     height: 14px !important;
 }
-
+.divider{
+  width: 19%;
+  height: auto;
+  display:inline-block;
+}
 [class^="bi-"]::before, [class*=" bi-"]::before{
     vertical-align: middle !important;
 }
