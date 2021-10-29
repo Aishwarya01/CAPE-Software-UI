@@ -164,7 +164,7 @@
 
                                 <div class="col-md-4">
                                     <label>Reference (name)</label>
-                                    <input type="text" formControlName="referance" placeholder=" Enter Referance Name" class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('referance')?.errors }"  >
+                                    <input type="text" formControlName="referance" placeholder=" Enter Reference Name" class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('referance')?.errors }"  >
                                     <div *ngIf="submitted && c.get('referance')?.errors" class="invalid-feedback">
                                       <div *ngIf="c.get('referance')?.errors?.required">Reference name  is required</div>
                                     </div>
