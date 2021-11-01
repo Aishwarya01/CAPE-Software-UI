@@ -38,17 +38,17 @@
 
 .auth-form-btn {
     margin-top: 40px;
-    width: 8%;
+    width: auto;
 }
 
-.auth-form-btn .icon {
+/* .auth-form-btn .icon {
     float: left;
     margin-top: -2px;
-}
+} */
 
 .cancel {
     margin-top: 40px;
-    width: 8%;
+    width: auto;
     /* height: 47px; */
 }
 

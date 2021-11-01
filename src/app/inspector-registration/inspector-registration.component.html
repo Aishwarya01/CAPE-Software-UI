@@ -286,12 +286,17 @@
             <div *ngIf="successMsgOTP" class="alert alert-success" style="margin: 55px auto 0px auto;width: 65%;">{{successMsg}}</div>
             <div *ngIf="errorMsgflag" class="alert alert-danger" style="margin: 55px auto 0px auto;width: 65%;">{{errorMsg}}</div>
 
-            <div style="display: inline;">
+            <div class="row" style="display: block;">
+                <div class="col-xs-12">
+                    <div class="text-align" style="text-align: center;">
                 <button [disabled]="loading" [ngStyle]="{'cursor': loading ? 'not-allowed' : 'pointer'}" 
-                style="float: left; margin-left: 400px;" type="submit" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" id="login-btn"><i class="bi bi-person-plus-fill icon"></i> Register</button>
-                <button  [routerLink]="['/login']" style="float:right; margin-right: 400px;"  class="btn btn-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
+                type="submit" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" id="login-btn"><i class="bi bi-person-plus-fill icon"></i> Register</button>
+                <div class="divider"> </div>
+                <button  [routerLink]="['/login']" class="btn btn-danger cancel" ><i class="bi bi-x icon"></i> Cancel</button>
             </div>
-
+            </div>
+            </div>
+ 
             </form>
         </div>
     </div>

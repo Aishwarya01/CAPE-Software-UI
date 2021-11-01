@@ -126,7 +126,7 @@ clear() {
     return this.loginForm.controls;
   }
   resendOTP(){
-    this.updateInspectorService.resendOTPInspector(this.inspector.contactNumber).subscribe(
+    this.updateInspectorService.resendOTPInspector(this.email,this.inspector.contactNumber).subscribe(
       data=> {
        this.showOTPMessage=true;
        setTimeout(()=>{

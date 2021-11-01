@@ -37,8 +37,8 @@ export class InspectorregisterService {
     return this.http.put<any>(this.apiUrl+'/createPassword', updatePassInspector,  { responseType: 'text' as 'json' })
   }
 
-  public  resendOTPInspector (mobilenumber: any): Observable<any> {
-    return this.http.get<any>(this.apiUrl+'/sendOtp'+'/'+mobilenumber,  { responseType: 'text' as 'json' })
+  public  resendOTPInspector (email:any,mobilenumber: any): Observable<any> {
+    return this.http.get<any>(this.apiUrl+'/sendOtp'+'/'+email+ '/' +mobilenumber,  { responseType: 'text' as 'json' })
   }
 
   public  sendOTPInspector (email: any,mobilenumber: any): Observable<any> {

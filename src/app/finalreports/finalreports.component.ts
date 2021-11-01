@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Site } from '../model/site';
 import { ClientService } from '../services/client.service';
 import { DepartmentService } from '../services/department.service';
+import { InspectionVerificationService } from '../services/inspection-verification.service';
 import { SiteService } from '../services/site.service';
 
 @Component({
@@ -29,6 +30,7 @@ export class FinalreportsComponent implements OnInit {
               private clientService: ClientService,
               private departmentService: DepartmentService,
               private siteService: SiteService,
+              private inspectionService: InspectionVerificationService,
   ) { 
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
@@ -96,5 +98,9 @@ applyFilter(event: Event) {
 
   continue(siteId: any) {
     
+  }
+  downloadPdf(siteId: any,userName: any): any {
+   // this.disable=false;
+    this.inspectionService.downloadPDF(siteId,userName)
   }
 }

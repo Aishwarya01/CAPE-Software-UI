@@ -17,6 +17,8 @@
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
+    cursor: not-allowed;
+
   }
   
   #table1  th {
@@ -55,3 +57,6 @@
       color: white;
       margin-left: 30px;
     }
+    .disable{
+      pointer-events: none;
+      }

@@ -5,9 +5,8 @@
             <mat-icon aria-hidden="false" (click)="addItem()" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>
     </button> -->
      <form [formGroup]="testingForm" (ngSubmit)="nextTab(flag)">
-       <div formArrayName="testaccordianArr" *ngFor="let a of getTestControls(); let i = index" >
+       <div formArrayName="testaccordianArr" *ngFor="let a of getTestControls(); let i = index;" >
             <div [formGroupName]="i">
-
                     <div class="search-bar">
                         <div class="form-group">
                             <div class="row" *ngIf="inspectionRetrieve">
@@ -165,7 +164,7 @@
 
                                 <div class="col-md-4">
                                     <label>Reference (name)</label>
-                                    <input type="text" formControlName="referance" placeholder=" Enter Referance Name" class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('referance')?.errors }"  >
+                                    <input type="text" formControlName="referance" placeholder=" Enter Reference Name" class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('referance')?.errors }"  >
                                     <div *ngIf="submitted && c.get('referance')?.errors" class="invalid-feedback">
                                       <div *ngIf="c.get('referance')?.errors?.required">Reference name  is required</div>
                                     </div>
@@ -232,22 +231,25 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-md-4"> 
+                                    <label>Selected Source:</label>
+                                    <select class="form-control" formControlName="sourceFromSupply" (change)="changeSource($event,c)"
+                                    [ngClass]="{ 'is-invalid': submitted && c.get('sourceFromSupply')?.errors }">
+                                    <option value="0" selected>Select Option</option>
+                                    <option *ngFor="let value of SourceList" [selected]="value=== c.get('sourceFromSupply')?.value">
+                                      {{value}}</option>
+                                  </select>
+                                    <div *ngIf="submitted && c.get('sourceFromSupply')?.errors" class="invalid-feedback">
+                                      <div *ngIf="c.get('sourceFromSupply')?.errors?.required">Source is required</div>
+                                  </div>
                               </div>
-
-        <!-- working on it -->
-                <!-- <div class="row">
-                  <div class="col-md-4"> 
-                    <label>Selected Source: </label>
-                    <input type="text" class="form-control" formControlName="sourceFromSupply"
-                    placeholder="Select Source" [readonly]="true"
-                    style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
-                </div>
-              </div> -->
-
-                <div class="row">
+                              </div>
+<br>
+                <div class="row" *ngIf="c.get('sourceFromSupply').value=='Mains Incoming'">
                     <div class="col-sm-12">
                         <div class="table-responsive" >
-                            <table  class="table" id="table1">
+                            <table  class="table testingTable" id="table1">
                                 <div formArrayName="distributionIncomingValueArr" *ngFor="let e of getdistributionIncomingValueControls(c); let j= index">
                                     <div class="form-group" style="border: 1px solid black;">
                                         <thead>
@@ -264,45 +266,71 @@
                                                 <th>L3-PE</th>
                                             </tr>
                                         </thead>
-                                        <tbody  [formGroupName]="j" >
-                                            <tr  >
-
-                                                <td>Incoming Voltage</td>
-                                                <td><input type="text" formControlName="incomingVoltage1"class="form-control"  ></td>
-                                                <td><input type="text"  formControlName="incomingVoltage2" class="form-control" ></td>
-                                                <td><input type="text"  formControlName="incomingVoltage3"  class="form-control"  ></td>
-                                                <td><input type="text" formControlName="incomingVoltage4"   class="form-control"  ></td>
-                                                <td><input type="text"  formControlName="incomingVoltage5"  class="form-control"  ></td>
-                                                <td><input type="text" formControlName="incomingVoltage6"   class="form-control" ></td>
-                                                <td><input type="text" formControlName="incomingVoltage7"  class="form-control" ></td>
-                                                <td><input type="text" formControlName="incomingVoltage8"  class="form-control" ></td>
-                                                <td><input type="text" formControlName="incomingVoltage9"   class="form-control"  ></td>
+                                        <tbody [formGroupName]="j" >
+                                            <tr>
+                                                <td>Nominal Voltage U/U0 (V)</td>
+                                                <td><input type="text" formControlName="incomingVoltage1" class="form-control disable" 
+                                                 ></td>
+                                                <td><input type="text"  formControlName="incomingVoltage2" class="form-control disable"
+                                                 ></td>
+                                                <td><input type="text"  formControlName="incomingVoltage3" class="form-control disable"
+                                                  ></td>
+                                                <td><input type="text" formControlName="incomingVoltage4" class="form-control disable"
+                                                  ></td>
+                                                <td><input type="text"  formControlName="incomingVoltage5" class="form-control disable"
+                                                 ></td>
+                                                <td><input type="text" formControlName="incomingVoltage6" class="form-control disable"
+                                                 ></td>
+                                                <td><input type="text" formControlName="incomingVoltage7" class="form-control disable"
+                                                  ></td>
+                                                <td><input type="text" formControlName="incomingVoltage8" class="form-control disable"
+                                                  ></td>
+                                                <td><input type="text" formControlName="incomingVoltage9" class="form-control disable"
+                                                  ></td>
                                             </tr>
 
                                             <tr>
-                                                <td>Incoming Zs (Ω)</td>
-                                                <td><input type="text" formControlName="incomingZs1" class="form-control"  ></td>
-                                                <td><input type="text"formControlName="incomingZs2" class class="form-control" ></td>
-                                                <td><input type="text" formControlName="incomingZs3" class="form-control"  ></td>
-                                                <td><input type="text" formControlName="incomingZs4" class="form-control"  ></td>
-                                                <td><input type="text" formControlName="incomingZs5"  class="form-control" ></td>
-                                                <td><input type="text"  formControlName="incomingZs6" class="form-control"  ></td>
-                                                <td><input type="text" formControlName="incomingZs7"   class="form-control" ></td>
-                                                <td><input type="text" formControlName="incomingZs8"   class="form-control"  ></td>
-                                                <td><input type="text" formControlName="incomingZs9"    class="form-control"  ></td>
+                                                <td>External Loop Impedance Ze (Ω)</td>
+                                                <td><input type="text" formControlName="incomingZs1" class="form-control disable"
+                                                  ></td>
+                                                <td><input type="text"formControlName="incomingZs2" class="form-control disable"
+                                                  ></td>
+                                                <td><input type="text" formControlName="incomingZs3" class="form-control disable"
+                                                 ></td>
+                                                <td><input type="text" formControlName="incomingZs4" class="form-control disable"
+                                                  ></td>
+                                                <td><input type="text" formControlName="incomingZs5" class="form-control disable"
+                                                  ></td>
+                                                <td><input type="text"  formControlName="incomingZs6" class="form-control disable"
+                                                  ></td>
+                                                <td><input type="text" formControlName="incomingZs7" class="form-control disable"
+                                                  ></td>
+                                                <td><input type="text" formControlName="incomingZs8" class="form-control disable"
+                                                  ></td>
+                                                <td><input type="text" formControlName="incomingZs9" class="form-control disable"
+                                                  ></td>
                                             </tr>
 
                                             <tr>
-                                                <td>Incoming Ipf (Amps)</td>
-                                                <td><input type="text" formControlName="incomingIpf1"   class="form-control"  ></td>
-                                                <td><input type="text"  formControlName="incomingIpf2"   class="form-control" ></td>
-                                                <td><input type="text" formControlName="incomingIpf3"  class="form-control"  ></td>
-                                                <td><input type="text" formControlName="incomingIpf4"  class="form-control"  ></td>
-                                                <td><input type="text"  formControlName="incomingIpf5" class="form-control"  ></td>
-                                                <td><input type="text" formControlName="incomingIpf6"   class="form-control"  ></td>
-                                                <td><input type="text" formControlName="incomingIpf7"  class="form-control" ></td>
-                                                <td><input type="text" formControlName="incomingIpf8" class="form-control"  ></td>
-                                                <td><input type="text" formControlName="incomingIpf9"  class="form-control"  ></td>
+                                                <td>Prospective fault current Ipfc (kA)</td>
+                                                <td><input type="text" formControlName="incomingIpf1" class="form-control disable"
+                                                  ></td>
+                                                <td><input type="text"  formControlName="incomingIpf2" class="form-control disable"
+                                                  ></td>
+                                                <td><input type="text" formControlName="incomingIpf3" class="form-control disable"
+                                                  ></td>
+                                                <td><input type="text" formControlName="incomingIpf4" class="form-control disable"
+                                                  ></td>
+                                                <td><input type="text"  formControlName="incomingIpf5" class="form-control disable"
+                                                  ></td>
+                                                <td><input type="text" formControlName="incomingIpf6" class="form-control disable"
+                                                  ></td>
+                                                <td><input type="text" formControlName="incomingIpf7" class="form-control disable"
+                                                  ></td>
+                                                <td><input type="text" formControlName="incomingIpf8" class="form-control disable"
+                                                  ></td>
+                                                <td><input type="text" formControlName="incomingIpf9" class="form-control disable"
+                                                  ></td>
                                             </tr>
 
                                         </tbody>
@@ -312,6 +340,101 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row" *ngIf="c.get('sourceFromSupply').value!='Mains Incoming'">
+                  <div class="col-sm-12">
+                      <div class="table-responsive" >
+                          <table  class="table testingTable" id="table1">
+                              <div formArrayName="distributionIncomingValueArr2" *ngFor="let e of getdistributionIncomingValueControls2(c); let j= index">
+                                  <div class="form-group" style="border: 1px solid black;">
+                                      <thead>
+                                          <tr align="center">
+                                              <th></th>
+                                              <th>L1-L2</th>
+                                              <th>L2-L3</th>
+                                              <th>L1-L3</th>
+                                              <th>L1-N</th>
+                                              <th>L2-N</th>
+                                              <th>L3-N</th>
+                                              <th>L1-PE</th>
+                                              <th>L2-PE</th>
+                                              <th>L3-PE</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody [formGroupName]="j">
+                                          <tr>
+                                              <td>Nominal Voltage U/U0 (V)</td>
+                                              <td><input type="text" formControlName="incomingVoltage1" class="form-control disable" 
+                                                ></td>
+                                              <td><input type="text"  formControlName="incomingVoltage2" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text"  formControlName="incomingVoltage3" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text" formControlName="incomingVoltage4" class="form-control disable"
+                                               ></td>
+                                              <td><input type="text"  formControlName="incomingVoltage5" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text" formControlName="incomingVoltage6" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text" formControlName="incomingVoltage7" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text" formControlName="incomingVoltage8" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text" formControlName="incomingVoltage9" class="form-control disable"
+                                                ></td>
+                                          </tr>
+
+                                          <tr>
+                                              <td>External Loop Impedance Ze (Ω)</td>
+                                              <td><input type="text" formControlName="incomingZs1" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text"formControlName="incomingZs2" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text" formControlName="incomingZs3" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text" formControlName="incomingZs4" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text" formControlName="incomingZs5" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text"  formControlName="incomingZs6" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text" formControlName="incomingZs7" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text" formControlName="incomingZs8" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text" formControlName="incomingZs9" class="form-control disable"
+                                                ></td>
+                                          </tr>
+
+                                          <tr>
+                                              <td>Prospective fault current Ipfc (kA)</td>
+                                              <td><input type="text" formControlName="incomingIpf1" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text"  formControlName="incomingIpf2" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text" formControlName="incomingIpf3" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text" formControlName="incomingIpf4" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text"  formControlName="incomingIpf5" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text" formControlName="incomingIpf6" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text" formControlName="incomingIpf7" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text" formControlName="incomingIpf8" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text" formControlName="incomingIpf9" class="form-control disable"
+                                                ></td>
+                                          </tr>
+
+                                      </tbody>
+                                  </div>
+                              </div>
+                          </table>
+                      </div>
+                  </div>
+              </div>
             </div>
           </div>
 
@@ -490,21 +613,9 @@
                     </div>
                   </div>
                 </div>
-
-               
             </mat-expansion-panel>
-
-            <!-- <input _ngcontent-yjk-c225="" type="text" formcontrolname="locationName" placeholder="Enter Location Name" 
-            class="form-control ng-untouched ng-pristine ng-valid" style="cursor: not-allowed; border-color: #cdcecf; 
-            box-shadow: unset;" ng-reflect-name="locationName" readonly="">
-
-<input _ngcontent-yjk-c225="" type="text" formcontrolname="sourceFromSupply" class="form-control ng-pristine ng-valid ng-touched" 
-style="cursor: not-allowed; border-color: #cdcecf; box-shadow: unset;" ng-reflect-name="sourceFromSupply" readonly=""> -->
-
-
 </mat-accordion>
 </div>
-<!-- <mat-icon class="mousechange"  style="float:right;" *ngIf="getTestControls().length > 1" (click)="removeAccordian(i)">delete</mat-icon>  -->
 </div>
 
 <mat-accordion>

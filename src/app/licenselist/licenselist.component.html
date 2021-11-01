@@ -13,21 +13,21 @@
     
                       <div class="row">
                         <div class="col-md-3">
-                            <div class="form-group">
+                             <div class="form-group"> <!--//aish -->
                                 <label>No of available License:</label>
-                                <input type="text" class="form-control" ([ngModel])="noofLicense" formControlName="noOfAvailableLicense" readonly [value]="noofLicense" >
+                                <input type="text" class="form-control" ([ngModel])="service.noofLicense" formControlName="noOfAvailableLicense" readonly [value]="service.noofLicense">
                             </div>
                         </div>
     
                         <div class="col-md-3">
                             <div class="form-group">
-                                <button class="btn btn-primary" [disabled]="noofLicense<=0" (click)=decreaseLicense() style="margin-top: 28px;">Use</button>
+                                <button class="btn btn-primary" [disabled]="service.noofLicense<=0" (click)=decreaseLicense() style="margin-top: 28px;">Use</button>
                             </div>
                         </div>
     
                         <div class="col-md-6">
                             <div class="form-group">
-                                <button class="btn btn-primary" [disabled]="noofLicense!=0" (click)=purchaseLicense() style="margin-top: 28px;">Get Complimentary Licenses</button>
+                                <button class="btn btn-primary" [disabled]="service.noofLicense!=0" (click)=purchaseLicense() style="margin-top: 28px;">Get Complimentary Licenses</button>
                             </div>
                         </div>
                       </div>
@@ -207,19 +207,19 @@
                       (click)="viewSite(element.siteId,element.userName,element.site,element.departmentName,element.companyName)">
                         <mat-icon>visibility</mat-icon>
                       </button>
-                      <button class="btn btn-outline-danger delete" title="Download PDF Future Implementation" 
+                      <button class="btn btn-outline-danger delete" title="Download Final PDF" 
                       (click)="downloadPdf(element.siteId,element.userName)" [disabled]="disable"
-                      style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
+                      style="border-color: #cdcecf;box-shadow: unset;">
                         <mat-icon>download</mat-icon>
                       </button>
-                      <button class="btn btn-outline-danger delete" title="Email Future Implementation" 
+                      <button class="btn btn-outline-danger delete" title="Trigger Email With Final PDF" 
                       (click)="emailPDF(element.siteId,element.userName)" [disabled]="disable"
-                      style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
+                      style="border-color: #cdcecf;box-shadow: unset;">
                         <mat-icon>email</mat-icon>
                       </button>
-                      <button class="btn btn-outline-danger delete" title="Print PDF Future Implementation" 
+                      <button class="btn btn-outline-danger delete" title="Print Final PDF" 
                       (click)="pdfModal(element.siteId,element.userName)" [disabled]="disable"
-                      style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
+                      style="border-color: #cdcecf;box-shadow: unset;">
                         <mat-icon>print</mat-icon>
                       </button>
                     </td>

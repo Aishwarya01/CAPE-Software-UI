@@ -1,4 +1,4 @@
-import {ChangeDetectorRef,Component,EventEmitter,OnInit,Output,ElementRef,ViewChild} from '@angular/core';
+import {ChangeDetectorRef,Component,EventEmitter,OnInit,Output,ElementRef,ViewChild, Input} from '@angular/core';
 import {AbstractControl,FormArray,FormBuilder,FormControl,FormGroup,Validators,} from '@angular/forms';
 import { from } from 'rxjs';
 import {Supplycharacteristics,Supplyparameters,} from '../model/supplycharacteristics';
@@ -274,6 +274,12 @@ export class InspectionVerificationSupplyCharacteristicsComponent
    expandedIndexx!: number;
    inspectorName: String = '';	
    hideShowComment: boolean=false;
+  mainNominalArr: any=[];
+  mainNominalVoltageArr1: any=[];
+  mainNominalVoltageArr2: any=[];
+  mainNominalVoltageArr3: any=[];
+  mainNominalVoltageArr4: any=[];
+
    //comments end
 
   constructor(
@@ -682,7 +688,6 @@ getViewerFirstMessage(x: any) {
   return x.controls.completedCommentArr.controls[0].controls.viewerComments.value;
 }
 showHideAccordion(index: number) {  
-  //console.log(x);
   this.expandedIndexx = index === this.expandedIndexx ? -1 : index;  
   this.isClicked[index] = !this.isClicked[index];
   }
@@ -959,7 +964,7 @@ showHideAccordion(index: number) {
         aLLiveConductorDC: new FormControl({disabled: false ,value: item.aLLiveConductorDC}),
         aLSystemEarthingBNote: new FormControl({disabled: false ,value: item.aLSystemEarthingBNote}),
         aLLiveConductorBNote: new FormControl({disabled: false ,value: item.aLSystemEarthingBNote}),
-        currentDissconnection: new FormControl({disabled: false ,value: item.aLLiveConductorBNote}),
+        currentDissconnection: new FormControl({disabled: false ,value: item.currentDissconnection}),
         protectiveDevice: new FormControl({disabled: false ,value: item.protectiveDevice}),
         ratedCurrent: new FormControl({disabled: false ,value: item.ratedCurrent}),
         nominalVoltageArr1: this.formBuilder.array([this.createNominalForm(item.nominalVoltage,item.nominalFrequency,item.faultCurrent,item.loopImpedance,item.installedCapacity,item.actualLoad)]),
@@ -1102,6 +1107,7 @@ showHideAccordion(index: number) {
       protectiveDevice: new FormControl('', [Validators.required]),
       ratedCurrent: new FormControl('', [Validators.required]),
       currentDissconnection: new FormControl('', [Validators.required]),
+      alternateArrFormValue: new FormControl('')
     });
   }
 
@@ -1613,7 +1619,7 @@ showHideAccordion(index: number) {
     if (this.supplycharesteristicForm.invalid) {
       return;
     }
-    //this.service.supplyList = this.alternateArr.value;
+   
     //this.service.supplyList= this.supplycharesteristicForm.value.alternateArr[0].aLLiveConductorType;
     this.nominalVoltageArr.push(
       this.NV1,
@@ -1660,6 +1666,7 @@ showHideAccordion(index: number) {
       this.EL9
     );
 
+    
     // alternate
     this.alternateArr = this.supplycharesteristicForm.get(
       'alternateArr'
@@ -1710,6 +1717,20 @@ showHideAccordion(index: number) {
       }
     }
     this.loopImpedence = this.loopImpedence.replace(/,\s*$/, '');
+
+    this.mainNominalVoltageArr1 = [];
+    this.mainNominalVoltageArr2 = [];
+    this.mainNominalVoltageArr3 = [];
+    this.mainNominalVoltageArr4 = [];
+
+    this.mainNominalVoltageArr1 = this.nominalVoltage.split(",");
+    this.mainNominalVoltageArr2 = this.nominalFrequency.split(",");
+    this.mainNominalVoltageArr3 = this.nominalCurrent.split(",");
+    this.mainNominalVoltageArr4 = this.loopImpedence.split(",");
+
+    this.mainNominalArr = [];
+    this.mainNominalArr.push(this.mainNominalVoltageArr1,this.mainNominalVoltageArr2,this.mainNominalVoltageArr3,this.mainNominalVoltageArr4);
+
 
     // Supply Parameters Table
     if (this.alternateArr.length != 0) {
@@ -1843,9 +1864,9 @@ showHideAccordion(index: number) {
         }
       }
 
-      for (let i of this.alternateArr.controls) {
-        delete i.value.nominalVoltageArr1;
-      }
+      // for (let i of this.alternateArr.controls) {
+      //   delete i.value.nominalVoltageArr1;
+      // }
 
       if (
         this.alternateArr.value[0].aLSupplyNo != null && this.alternateArr.length != 0
@@ -1863,23 +1884,33 @@ showHideAccordion(index: number) {
 
     
     }
-
+    
     if (this.supplycharesteristic.liveConductorType != 'DC') {
       this.supplycharesteristic.mainNominalVoltage = this.nominalVoltage;
       this.supplycharesteristic.mainNominalFrequency = this.nominalFrequency;
       this.supplycharesteristic.mainNominalCurrent = this.nominalCurrent;
       this.supplycharesteristic.mainLoopImpedance = this.loopImpedence;
+
+      this.service.mainNominalVoltage = this.nominalVoltage;
+      this.service.mainNominalFrequency = this.nominalFrequency;
+      this.service.mainNominalCurrent = this.nominalCurrent;
     }
 
     this.supplycharesteristic.instalLocationReport =this.supplycharesteristicForm.value.location1Arr;
     this.supplycharesteristic.boundingLocationReport =this.supplycharesteristicForm.value.location2Arr;
     this.supplycharesteristic.earthingLocationReport =this.supplycharesteristicForm.value.location3Arr;
+  
+    
 
-    if(flag) {
+    if(flag) { 
       this.UpateInspectionService.updateSupply(this.supplycharesteristic).subscribe(
         data=> {
           this.success = true;
           this.successMsg = data;
+          this.service.supplyList= this.supplycharesteristic.supplyNumber;
+          this.service.retrieveMainNominalVoltage=this.mainNominalArr;
+          this.service.retrieveMainNominalVoltage=this.retrieveMainNominalVoltage;
+          this.service.nominalVoltageArr2=this.supplycharesteristic.supplyParameters;
          },
          (error) => {
           this.Error = true;
@@ -1895,6 +1926,10 @@ else{
           this.success = true;
           this.successMsg = data;
           this.disable = true;
+          this.service.supplyList= this.supplycharesteristic.supplyNumber;
+          this.service.retrieveMainNominalVoltage=this.mainNominalArr;
+          this.service.retrieveMainNominalVoltage=this.retrieveMainNominalVoltage;
+          this.service.nominalVoltageArr2=this.supplycharesteristic.supplyParameters;
         },
         (error) => {
           this.Error = true;

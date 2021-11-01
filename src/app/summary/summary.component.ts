@@ -182,6 +182,7 @@ export class SummaryComponent implements OnInit {
   inspectorName: String = '';	
   completedCommentArr3: any = [];
   hideShowComment: boolean=false;
+  finalFlag: boolean = false;
   //comments end
 
   constructor(
@@ -818,6 +819,12 @@ showHideAccordion(index: number) {
       this.success = false;
       this.modalService.dismissAll((this.successMsg = ''));
     }
+
+    if(this.finalFlag) {
+      this.final.changeTab1(2);
+      this.finalFlag = false;
+
+    }
   }
   SubmitTab5(flag: any) {
     
@@ -841,6 +848,7 @@ showHideAccordion(index: number) {
         data=> {
           this.success = true;
           this.successMsg = 'Summary Information Successfully Updated';
+          this.finalFlag = true;
          },
          (error) => {
           this.Error = true;
@@ -856,7 +864,7 @@ showHideAccordion(index: number) {
           this.success = true;
           this.successMsg = 'Summary Information Successfully Saved';
           this.disable = true;
-          this.final.changeTab1(2);
+          this.finalFlag = true;
         },
         (error) => {
           this.Error = true;

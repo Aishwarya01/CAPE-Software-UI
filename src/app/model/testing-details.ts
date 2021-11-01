@@ -7,6 +7,7 @@ export class TestingDetails{
   updatedBy!: String;
   updatedDate!: Date;
   testing!:Testing[];
+  testIncomingDistribution!: TestIncomingDistribution[];
 }
 export class Testing{
   locationNumber!: String;
@@ -37,13 +38,12 @@ export class TestDistribution {
   ratingsAmps!: String;
   numOutputCircuitsSpare!: String;
   installedEquipmentVulnarable!: String;
-
-
+  sourceFromSupply!: String;
 
   incomingVoltage!: String;
   incomingLoopImpedance!: String;
   incomingFaultCurrent!: String;
-  
+
 }
 
 
@@ -82,5 +82,13 @@ export class TestingRecords {
 
 }
 
+export class TestIncomingDistribution {
+
+  incomingDistributionId!: String;
+  incomingVoltage!: String;
+  incomingLoopImpedance!: String;
+  incomingFaultCurrent!: String;
+  sourceFromSupply!: String;
  
+}
   

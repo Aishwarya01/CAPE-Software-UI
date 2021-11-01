@@ -75,10 +75,21 @@ export class MainNavComponent implements OnInit, OnDestroy {
    // 'action',
   ];
   ongoingSite_dataSource!: MatTableDataSource<Company[]>;
-  
-  @ViewChild('ongoingSitePaginator', { static: true }) ongoingSitePaginator!: MatPaginator;
-  @ViewChild('ongoingSiteSort', { static: true }) ongoingSiteSort!: MatSort;
+  //@ViewChild('ongoingSitePaginator', { static: false }) ongoingSitePaginator!: MatPaginator;
+  //@ViewChild('ongoingSiteSort', { static: false }) ongoingSiteSort!: MatSort;
+  private ongoingSitePaginator!: MatPaginator;
+  private ongoingSiteSort!: MatSort;
 
+  @ViewChild('ongoingSiteSort') set matSortOn(ms: MatSort) {
+    this.ongoingSiteSort = ms;
+    this.setOngoingDataSourceAttributes();
+   }
+ 
+   @ViewChild('ongoingSitePaginator') set matPaginatorOn(mp: MatPaginator) {
+    this.ongoingSitePaginator = mp;
+    this.setOngoingDataSourceAttributes();
+   }
+   
   completedLicenseColumns: string[] = [
     'siteCd',
     'site',
@@ -91,10 +102,22 @@ export class MainNavComponent implements OnInit, OnDestroy {
     'action',
   ];
 
-  //completedLicense_dataSource!: MatTableDataSource<Site[]>;
   completedLicense_dataSource!: MatTableDataSource<Company[]>;
-  @ViewChild('completedLicensePaginator', { static: true }) completedLicensePaginator!: MatPaginator;
-  @ViewChild('completedLicenseSort', { static: true }) completedLicenseSort!: MatSort;
+  //@ViewChild('completedLicensePaginator', { static: false }) completedLicensePaginator!: MatPaginator;
+  //@ViewChild('completedLicenseSort', { static: false }) completedLicenseSort!: MatSort;
+
+  private completedLicensePaginator!: MatPaginator;
+  private completedLicenseSort!: MatSort;
+
+  @ViewChild('completedLicenseSort') set matSort(ms: MatSort) {
+   this.completedLicenseSort = ms;
+   this.setCompletedDataSourceAttributes();
+  }
+
+  @ViewChild('completedLicensePaginator') set matPaginator(mp: MatPaginator) {
+   this.completedLicensePaginator = mp;
+   this.setCompletedDataSourceAttributes();
+  }
 
   sidenavWidth: any;
   isExpanded: boolean = false;
@@ -255,8 +278,22 @@ export class MainNavComponent implements OnInit, OnDestroy {
     if(this.showREP) {
       this.retrieveSiteDetails();
     }
+  
   }
-
+  
+  setCompletedDataSourceAttributes() {
+    if(this.completedLicense_dataSource !== undefined){
+     this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
+     this.completedLicense_dataSource.sort = this.completedLicenseSort;
+    }
+    
+   }
+   setOngoingDataSourceAttributes(){
+    if(this.ongoingSite_dataSource !== undefined){
+      this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
+      this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
+     }
+   }
   newNotify(){
   this.inspectionService.notificationRetrieveComments(this.email).subscribe(
     (data)=>{
@@ -422,8 +459,8 @@ triggerNavigateTo(siteName:any){
         this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
   
         this.completedLicense_dataSource = new MatTableDataSource(JSON.parse(data));
-        this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
-        this.completedLicense_dataSource.sort = this.completedLicenseSort;
+        //this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
+        //this.completedLicense_dataSource.sort = this.completedLicenseSort;
       });
     }
     else {
@@ -444,12 +481,12 @@ triggerNavigateTo(siteName:any){
              }
            }
         this.ongoingSite_dataSource = new MatTableDataSource(this.ongoingFilterData);
-        this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
-        this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
+        //this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
+        //this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
   
         this.completedLicense_dataSource = new MatTableDataSource(this.completedFilterData);
-        this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
-        this.completedLicense_dataSource.sort = this.completedLicenseSort;
+       // this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
+        //this.completedLicense_dataSource.sort = this.completedLicenseSort;
       });
     }
     }
@@ -574,17 +611,17 @@ triggerNavigateTo(siteName:any){
 }
 
 pdfModal(siteId: any,userName: any){
-  this.disable=true;
+  this.disable=false;
   this.inspectionService.printPDF(siteId,userName);
 }
 
 downloadPdf(siteId: any,userName: any): any {
-  this.disable=true;
+  this.disable=false;
   this.inspectionService.downloadPDF(siteId,userName);
 }
 
 emailPDF(siteId: any,userName: any){
-  this.disable=true;
+  this.disable=false;
   this.inspectionService.mailPDF(siteId,userName).subscribe(
   data => {
   console.log('worked');

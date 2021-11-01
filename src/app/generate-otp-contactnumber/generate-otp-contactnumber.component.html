@@ -18,17 +18,23 @@
 
                             <div class="col-sm-12">
                                 <label for="mobileNumber">Mobile Number: </label>
-                                    <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" (countryChange)="countryChange($event)" formControlName="mobileNumber" class="form-control"   placeholder="Enter Number" [ngClass]="{ 'is-invalid': submitted && f.mobileNumber?.errors }">
+                                    <input type="tel" ng2TelInput id="changeContactPadding" [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" (countryChange)="countryChange($event)" formControlName="mobileNumber" class="form-control"   placeholder="Enter Number" [ngClass]="{ 'is-invalid': submitted && f.mobileNumber?.errors }">
                                     <div *ngIf="submitted && f.mobileNumber?.errors" class="invalid-feedback">
                                         <div *ngIf="f.mobileNumber?.errors?.required">Mobile Number Is Required</div>
                                         <!-- <div *ngIf="f.mobileNumber?.errors?.minlength">Enter 10 Digit Number</div> -->
                                         <div *ngIf="f.mobileNumber?.errors?.maxlength">Enter 10 Digit Number</div>
                                     </div>                                        
                             </div>
-
-                            <button [disabled]="loading"
-                                class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"><i
-                                    class="bi bi-box-arrow-in-right"></i> Generate</button>
+                            <div class="row" style="display: block;">
+                                <div class="col-xs-12">
+                                    <div class="text-align" style="text-align: center;">
+                                        <button [disabled]="loading"
+                                class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"><i
+                                    class="bi bi-box-arrow-in-right"></i> Generate</button>                          
+                            </div>
+                            </div>
+                             </div>
+                           
                         </form>
                     </div>
                 </div>

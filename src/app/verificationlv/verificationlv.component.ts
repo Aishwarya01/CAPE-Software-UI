@@ -561,12 +561,13 @@ export class VerificationlvComponent implements OnInit {
              this.supply.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
              if(this.dataJSON.periodicInspection != null) {
                this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
-               if(this.dataJSON.testingReport != null) {
-                 this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
+               this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
+              //  if(this.dataJSON.testingReport != null) {
+              //    this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
                  if(this.dataJSON.summary != null) {
                    this.summary.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
                  }
-               }
+              // }
              }
            }
            if(this.service.commentScrollToBottom==1){
@@ -598,16 +599,15 @@ export class VerificationlvComponent implements OnInit {
         if(this.dataJSON.reportDetails != null) {
           this.selectedIndex = index;            
           this.basic.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+          this.service.siteCount = sitedId;
            if(this.dataJSON.supplyCharacteristics != null) {
              this.supply.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
              if(this.dataJSON.periodicInspection != null) {
                this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
-               if(this.dataJSON.testingReport != null) {
-                 this.testing.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+               this.testing.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
                  if(this.dataJSON.summary != null) {
                    this.summary.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
-                 }
-               }
+                 }             
              }
            }
            if(this.service.commentScrollToBottom==1){
@@ -667,10 +667,10 @@ export class VerificationlvComponent implements OnInit {
     this.selectedIndex = 0;
     this.basic.changeTab(0,siteId,userName,clientName,departmentName,site);
   }
-  // testingNgOnINit(){
-  //   debugger
-  //   this.testing.ngOnInit();
-  // }
+  testingNgOnINit(){
+        
+    this.testing.ngOnInit();
+  }
   // onTabChanged(e: any) {
   //   if(!this.conFlag) {
   //     debugger

@@ -66,7 +66,11 @@ font-size: 14px !important;
     width: 14px !important;
     height: 14px !important;
 }
-
+.divider{
+  width: 19%;
+  height: auto;
+  display:inline-block;
+}
 [class^="bi-"]::before, [class*=" bi-"]::before{
     vertical-align: middle !important;
 }
@@ -168,7 +172,9 @@ font-size: 14px !important;
   left: 0;
   right: 0;
 }
-
+#changeContactPadding{
+  padding-left: 88px !important;
+}
 .example-is-mobile .example-toolbar {
   position: fixed;
   /* Make sure the toolbar will stay on top of the content as it scrolls past. */
@@ -479,7 +485,7 @@ th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:la
 }
 
 .auth-form-btn {
-  width: 40% !important;
+  width: auto !important;
 }
 .register{
   padding-top: unset !important;

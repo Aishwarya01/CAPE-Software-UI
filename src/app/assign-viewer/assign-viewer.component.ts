@@ -255,6 +255,9 @@ createGroup(item: any) {
    this.modalService.dismissAll(contentViewer2)
   }
   closeModalDialogContinue(){
+    if(!this.globalService.useClicked){
+      this.globalService.noofLicense=0; //aish
+    }
     this.dialog.closeAll();
    }
 //   assignViewer(id: string) {

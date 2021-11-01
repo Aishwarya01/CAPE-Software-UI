@@ -304,7 +304,6 @@ export class ProfileComponent implements OnInit {
   //profile
   onSubmit() {
     this.submitted = true;
-
     //Breaks if form is invalid
     if(this.profileForm.invalid) {
       return;
@@ -349,7 +348,7 @@ export class ProfileComponent implements OnInit {
   }
 
   resendOTP(){
-    this.inspectorRegisterService.resendOTPInspector(this.changeContact.mobileNumber).subscribe(
+    this.inspectorRegisterService.resendOTPInspector(this.email,this.changeContact.mobileNumber).subscribe(
       data=> {
        this.showOTPMessage=true;
        setTimeout(()=>{
