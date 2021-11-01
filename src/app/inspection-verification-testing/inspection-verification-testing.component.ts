@@ -230,7 +230,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
   }
-
+  
   ngOnInit(): void {
     this.currentUser = sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
@@ -254,10 +254,16 @@ export class InspectionVerificationTestingComponent implements OnInit {
     if(this.currentUser1.role == 'Inspector') {
       this.inspectionDetailsService.retrieveInspectionDetails(this.email, this.service.siteCount).subscribe(
         data=>{
-        console.log(data);
         this.incomingValues = JSON.parse(data);
+        this.testingForm = this.formBuilder.group({
+          testIncomingDistribution: this.formBuilder.array([
+           this.IncomingValue(),
+         ]),
+         testaccordianArr: this.formBuilder.array([]),
+         viewerCommentArr: this.formBuilder.array([this.addCommentViewer()]),
+         completedCommentArr1: this.formBuilder.array([]),
+       });
         for(let i of this.incomingValues) {
-          console.log(i);
           this.service.iterationList=i.ipaoInspection;
         }
         //location iteration
@@ -281,10 +287,8 @@ export class InspectionVerificationTestingComponent implements OnInit {
     else {
       this.inspectionDetailsService.retrieveInspectionDetails(this.currentUser1.assignedBy, this.service.siteCount).subscribe(
         data=>{
-        console.log(data);
         this.incomingValues = JSON.parse(data);
         for(let i of this.incomingValues) {
-          console.log(i);
           this.service.iterationList = i.ipaoInspection;
         }
         //location iteration
@@ -307,7 +311,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
     }
   }
 }
-  
 
  retrieveDetailsFromSupply(){
   this.pushJsonArray=[];
@@ -315,7 +318,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
      if(this.currentUser1.role == 'Inspector') {
       this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.email, this.service.siteCount).subscribe(
         data=>{
-        console.log(data);
         this.supplyValues = JSON.parse(data);
         for(let i of this.supplyValues) {
           this.service.nominalVoltageArr2=i.supplyParameters;
@@ -361,7 +363,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
      else {
       this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.currentUser1.assignedBy, this.service.siteCount).subscribe(
         data=>{
-        console.log(data);
         this.supplyValues = JSON.parse(data);
         for(let i of this.supplyValues) {
           this.service.nominalVoltageArr2=i.supplyParameters;
@@ -855,13 +856,11 @@ export class InspectionVerificationTestingComponent implements OnInit {
 
   private populateTestDistributionForm(testDistributionItem: any): FormGroup {
     //this.changeSource(testDistributionItem[0].sourceFromSupply,c);
-    console.log(this.pushJsonArray);
     for(let p of this.pushJsonArray){
       if(p.sourceFromSupply==testDistributionItem[0].sourceFromSupply){
         this.tempArr=p;
       }
     }
-    console.log(this.tempArr);
     return new FormGroup({
       distributionId: new FormControl({ disabled: false, value: testDistributionItem[0].distributionId }),
       distributionBoardDetails: new FormControl({ disabled: false, value: testDistributionItem[0].distributionBoardDetails }),
@@ -904,7 +903,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
 
   //selected source dd from supply to testing
   changeSource(event: any,c:any) {
-    console.log(c);
     this.formList = c.get('distributionIncomingValueArr') as FormArray;
     this.formList1 = c.get('distributionIncomingValueArr2') as FormArray;
    
