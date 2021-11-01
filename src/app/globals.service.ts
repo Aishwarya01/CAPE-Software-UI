@@ -23,7 +23,7 @@ export class GlobalsService {
   mainNominalFrequency :any=[];
   mainNominalCurrent:any=[];
   mainNominalVoltageValue:String="";
-  mainNominalFrequencyValue:String="";
+  mainLoopImpedanceValue:String="";
   mainNominalCurrentValue:String="";
 //viewer inspector details
   viewerName!: String;
