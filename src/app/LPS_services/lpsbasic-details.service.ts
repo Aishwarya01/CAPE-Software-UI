@@ -13,7 +13,6 @@ export class LPSBasicDetailsService {
   constructor(private http: HttpClient) { }
 
   public saveLPSBasicDetails(basicDetails:BasicDetails): Observable<any> {
-    debugger
     return this.http.post<BasicDetails>(this.apiUrl + '/addBasicLps', basicDetails, { responseType: 'text' as 'json' })
   }
  

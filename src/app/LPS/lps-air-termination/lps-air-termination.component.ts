@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Airtermination } from 'src/app/LPS_model/airtermination';
+import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 
 @Component({
   selector: 'app-lps-air-termination',
@@ -21,10 +22,12 @@ export class LpsAirTerminationComponent implements OnInit {
   submitted=false;
   i: any;
   j: any;
-
+  airterminationService;
   constructor(
-    private formBuilder: FormBuilder
-  ) { }
+    private formBuilder: FormBuilder,private airterminationServices:AirterminationService
+  ) { 
+    this.airterminationService=airterminationServices;
+  }
 
   ngOnInit(): void {
     this.airTerminationForm = this.formBuilder.group({
@@ -52,34 +55,47 @@ export class LpsAirTerminationComponent implements OnInit {
   onSubmit(){
     this.submitted=true;
     debugger
-    if (this.airTerminationForm.valid) {
-      this.airtermination.userName=this.airTerminationForm.value.userName;
-      this.airtermination.connectionMadeBraOb=this.airTerminationForm.value.connectionMadeBraOb;
-      this.airtermination.connectionMadeBraRe=this.airTerminationForm.value.connectionMadeBraRe;
-      this.airtermination.electricalEquipPlacedOb=this.airTerminationForm.value.electricalEquipPlacedOb;
-      this.airtermination.electricalEquipPlacedRe=this.airTerminationForm.value.electricalEquipPlacedRe;
-      this.airtermination.combustablePartOb=this.airTerminationForm.value.combustablePartOb;
-      this.airtermination.combustablePartRe=this.airTerminationForm.value.combustablePartRe;
-      this.airtermination.terminationMeshConductorOb=this.airTerminationForm.value.terminationMeshConductorOb;
-      this.airtermination.terminationMeshConductorRe=this.airTerminationForm.value.terminationMeshConductorRe;
-      this.airtermination.bondingEquipotentialOb=this.airTerminationForm.value.bondingEquipotentialOb;
-      this.airtermination.bondingEquipotentialRe=this.airTerminationForm.value.bondingEquipotentialRe;
-      
-      this.airtermination.airClamps=this.airTerminationForm.value.clampArr;
-      this.airtermination.airConnectors=this.airTerminationForm.value.conArr;
-      this.airtermination.airMeshDescription=this.airTerminationForm.value.meshArr;
-      this.airtermination.lpsVerticalAirTermination=this.airTerminationForm.value.vatArr;
-      this.airtermination.airExpansion=this.airTerminationForm.value.expArr;
-      this.airtermination.airHolderDescription=this.airTerminationForm.value.holderArr;
-      
-      console.log(this.airTerminationForm.value.bondingEquipotentialRe);
-      console.log(this.airtermination);
+    if (this.airTerminationForm.invalid) {
     
+     
+      console.log("check all fields");
+      console.log(this.airTerminationForm.value);
     }  
     else{
-    console.log("check all fields");
+        //this.airtermination.userName=this.airTerminationForm.value.userName;
+        this.airtermination.connectionMadeBraOb=this.airTerminationForm.value.connectionMadeBraOb;
+        this.airtermination.connectionMadeBraRe=this.airTerminationForm.value.connectionMadeBraRe;
+        this.airtermination.electricalEquipPlacedOb=this.airTerminationForm.value.electricalEquipPlacedOb;
+        this.airtermination.electricalEquipPlacedRe=this.airTerminationForm.value.electricalEquipPlacedRe;
+        this.airtermination.combustablePartOb=this.airTerminationForm.value.combustablePartOb;
+        this.airtermination.combustablePartRe=this.airTerminationForm.value.combustablePartRe;
+        this.airtermination.terminationMeshConductorOb=this.airTerminationForm.value.terminationMeshConductorOb;
+        this.airtermination.terminationMeshConductorRe=this.airTerminationForm.value.terminationMeshConductorRe;
+        this.airtermination.bondingEquipotentialOb=this.airTerminationForm.value.bondingEquipotentialOb;
+        this.airtermination.bondingEquipotentialRe=this.airTerminationForm.value.bondingEquipotentialRe;
+        
+        this.airtermination.airClamps=this.airTerminationForm.value.clampArr;
+        this.airtermination.airConnectors=this.airTerminationForm.value.conArr;
+        this.airtermination.airMeshDescription=this.airTerminationForm.value.meshArr;
+        this.airtermination.lpsVerticalAirTermination=this.airTerminationForm.value.vatArr;
+        this.airtermination.airExpansion=this.airTerminationForm.value.expArr;
+        this.airtermination.airHolderDescription=this.airTerminationForm.value.holderArr;
+        
+        console.log(this.airTerminationForm.value.bondingEquipotentialRe);
+        console.log(this.airtermination);
+        this.airterminationService.saveAirtermination(this.airtermination).subscribe(
+
+          data => {
+             
+          
+          },
+          error => {
+          }
+        )
+      };
     }
-  }
+  
+
   vatControls(): AbstractControl[] {
     return (<FormArray>this.airTerminationForm.get('vatArr')).controls;
   }
@@ -209,9 +225,9 @@ export class LpsAirTerminationComponent implements OnInit {
       inspectionPassedOb: new FormControl('', Validators.required),
       inspectionPassedRe: new FormControl(''),
       inspectionFailedReOb: new FormControl('', Validators.required),
-      inspectionFailedReRe: new FormControl(''),
-      clampobs9: new FormControl('', Validators.required),
-      clamprem9: new FormControl('')
+      inspectionFailedReRe: new FormControl('')
+      //clampobs9: new FormControl('', Validators.required),
+     // clamprem9: new FormControl('')
     })
   }
 
