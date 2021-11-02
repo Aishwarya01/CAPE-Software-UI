@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Airtermination } from 'src/app/LPS_model/airtermination';
 
 @Component({
   selector: 'app-lps-air-termination',
@@ -8,14 +9,18 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from 
 })
 export class LpsAirTerminationComponent implements OnInit {
 
-
-  airTerminationForm!: FormGroup;
+  airtermination=new Airtermination;
+  
+  airTerminationForm: FormGroup;
   vatArr!: FormArray;
   meshArr!: FormArray;
   holderArr!: FormArray;
   clampArr!: FormArray;
   expArr!: FormArray;
   conArr!: FormArray;
+  submitted=false;
+  i: any;
+  j: any;
 
   constructor(
     private formBuilder: FormBuilder
@@ -23,6 +28,19 @@ export class LpsAirTerminationComponent implements OnInit {
 
   ngOnInit(): void {
     this.airTerminationForm = this.formBuilder.group({
+      // basicLpsId: ['', Validators.required],
+      // userName: ['', Validators.required],
+      connectionMadeBraOb: ['', Validators.required],
+      connectionMadeBraRe: [''],
+      electricalEquipPlacedOb: ['', Validators.required],
+      electricalEquipPlacedRe: [''],
+      combustablePartOb: ['', Validators.required],
+      combustablePartRe: [''],
+      terminationMeshConductorOb: ['', Validators.required],
+      terminationMeshConductorRe: [''],
+      bondingEquipotentialOb: ['', Validators.required],
+      bondingEquipotentialRe: [''],
+      
       vatArr: this.formBuilder.array([this.createVatArrForm()]),
       meshArr: this.formBuilder.array([this.createMeshArrForm()]),
       holderArr: this.formBuilder.array([this.createHolderArrForm()]),
@@ -31,7 +49,37 @@ export class LpsAirTerminationComponent implements OnInit {
       conArr: this.formBuilder.array([this.createConArrForm()])
     });
   }
-
+  onSubmit(){
+    this.submitted=true;
+    debugger
+    if (this.airTerminationForm.valid) {
+      this.airtermination.userName=this.airTerminationForm.value.userName;
+      this.airtermination.connectionMadeBraOb=this.airTerminationForm.value.connectionMadeBraOb;
+      this.airtermination.connectionMadeBraRe=this.airTerminationForm.value.connectionMadeBraRe;
+      this.airtermination.electricalEquipPlacedOb=this.airTerminationForm.value.electricalEquipPlacedOb;
+      this.airtermination.electricalEquipPlacedRe=this.airTerminationForm.value.electricalEquipPlacedRe;
+      this.airtermination.combustablePartOb=this.airTerminationForm.value.combustablePartOb;
+      this.airtermination.combustablePartRe=this.airTerminationForm.value.combustablePartRe;
+      this.airtermination.terminationMeshConductorOb=this.airTerminationForm.value.terminationMeshConductorOb;
+      this.airtermination.terminationMeshConductorRe=this.airTerminationForm.value.terminationMeshConductorRe;
+      this.airtermination.bondingEquipotentialOb=this.airTerminationForm.value.bondingEquipotentialOb;
+      this.airtermination.bondingEquipotentialRe=this.airTerminationForm.value.bondingEquipotentialRe;
+      
+      this.airtermination.airClamps=this.airTerminationForm.value.clampArr;
+      this.airtermination.airConnectors=this.airTerminationForm.value.conArr;
+      this.airtermination.airMeshDescription=this.airTerminationForm.value.meshArr;
+      this.airtermination.lpsVerticalAirTermination=this.airTerminationForm.value.vatArr;
+      this.airtermination.airExpansion=this.airTerminationForm.value.expArr;
+      this.airtermination.airHolderDescription=this.airTerminationForm.value.holderArr;
+      
+      console.log(this.airTerminationForm.value.bondingEquipotentialRe);
+      console.log(this.airtermination);
+    
+    }  
+    else{
+    console.log("check all fields");
+    }
+  }
   vatControls(): AbstractControl[] {
     return (<FormArray>this.airTerminationForm.get('vatArr')).controls;
   }
@@ -40,7 +88,7 @@ export class LpsAirTerminationComponent implements OnInit {
     return (<FormArray>this.airTerminationForm.get('meshArr')).controls;
   }
 
-  holdersContols(): AbstractControl[] {
+ holdersContols(): AbstractControl[] {
     return (<FormArray>this.airTerminationForm.get('holderArr')).controls;
   }
 
@@ -58,192 +106,196 @@ export class LpsAirTerminationComponent implements OnInit {
 
   private createVatArrForm(): FormGroup{
     return new FormGroup({
-      vatobs1: new FormControl(''),
-      vatrem1: new FormControl(''),
-      vatobs2: new FormControl(''),
-      vatrem2: new FormControl(''),
-      vatobs3: new FormControl(''),
-      vatrem3: new FormControl(''),
-      vatobs4: new FormControl(''),
-      vatrem4: new FormControl(''),
-      vatobs5: new FormControl(''),
-      vatrem5: new FormControl(''),
-      vatobs6: new FormControl(''),
-      vatrem6: new FormControl(''),
-      vatobs7: new FormControl(''),
-      vatrem7: new FormControl(''),
-      vatobs8: new FormControl(''),
-      vatrem8: new FormControl(''),
-      vatobs9: new FormControl(''),
-      vatrem9: new FormControl(''),
-      vatobs10: new FormControl(''),
-      vatrem10: new FormControl(''),
-      vatobs11: new FormControl(''),
-      vatrem11: new FormControl(''),
-      vatobs12: new FormControl(''),
-      vatrem12: new FormControl(''),
-      vatobs13: new FormControl(''),
-      vatrem13: new FormControl(''),
+      physicalInspectionOb: new FormControl('', Validators.required),
+      physicalInspectionRe: new FormControl(''),
+      conductorClampsFlatSurafaceOb: new FormControl('', Validators.required),
+      conductorClampsFlatSurafaceRe: new FormControl(''),
+      sizeOfTerminalOb: new FormControl('', Validators.required),
+      sizeOfTerminalRe: new FormControl(''),
+      heightOfTerminalOb: new FormControl('', Validators.required),
+      heightOfTerminalRe: new FormControl(''),
+      angleProtectionHeightOb: new FormControl('', Validators.required),
+      angleProtectionHeightRe: new FormControl(''),
+      materialOfTerminalOb: new FormControl('', Validators.required),
+      materialOfTerminalRe: new FormControl(''),
+      supportFlatSurfaceOb: new FormControl('', Validators.required),
+      supportFlatSurfaceRe: new FormControl(''),
+      heightFlatSurfaceOb: new FormControl('', Validators.required),
+      heightFlatSurfaceRe: new FormControl(''),
+      vatToRoofConductorOB: new FormControl('', Validators.required),
+      vatToRoofConductorRe: new FormControl(''),
+      totalNumberOb: new FormControl('', Validators.required),
+      totalNumberRe: new FormControl(''),
+      inspNoOb: new FormControl('', Validators.required),
+      inspNoRe: new FormControl(''),
+      inspPassedNoOb: new FormControl('', Validators.required),
+      inspPassedNoRe: new FormControl(''),
+      inspFaileddNoOb: new FormControl('', Validators.required),
+      inspFaileddNoRe: new FormControl('')
     })
   }
 
   private createMeshArrForm(): FormGroup{
     return new FormGroup({
-      meshobs1: new FormControl(''),
+      meshobs1: new FormControl('', Validators.required),
       meshrem1: new FormControl(''),
-      meshobs2: new FormControl(''),
+      meshobs2: new FormControl('', Validators.required),
       meshrem2: new FormControl(''),
-      meshobs3: new FormControl(''),
-      meshrem3: new FormControl(''),
-      meshobs4: new FormControl(''),
-      meshrem4: new FormControl(''),
-      meshobs5: new FormControl(''),
-      meshrem5: new FormControl(''),
-      meshobs6: new FormControl(''),
-      meshrem6: new FormControl(''),
-      meshobs7: new FormControl(''),
-      meshrem7: new FormControl(''),
+      sizeOfConductorOb: new FormControl('', Validators.required),
+      sizeOfConductorRe: new FormControl(''),
+      meshSizeOb: new FormControl('', Validators.required),
+      meshSizeRe: new FormControl(''),
+      maximumDistanceOb: new FormControl('', Validators.required),
+      maximumDistanceRe: new FormControl(''),
+      minimumDistanceOb: new FormControl('', Validators.required),
+      minimumDistanceRe: new FormControl(''),
+      heightOfConductorFlatSurfaceOb: new FormControl('', Validators.required),
+      heightOfConductorFlatSurfaceRe: new FormControl('')
     })
   }
 
   private createHolderArrForm(): FormGroup{
     return new FormGroup({
-      holdersobs1: new FormControl(''),
-      holdersrem1: new FormControl(''),
-      holdersobs2: new FormControl(''),
-      holdersrem2: new FormControl(''),
-      holdersobs3: new FormControl(''),
-      holdersrem3: new FormControl(''),
-      holdersobs4: new FormControl(''),
-      holdersrem4: new FormControl(''),
-      holdersobs5: new FormControl(''),
-      holdersrem5: new FormControl(''),
-      holdersobs6: new FormControl(''),
-      holdersrem6: new FormControl(''),
-      holdersobs7: new FormControl(''),
-      holdersrem7: new FormControl(''),
-      holdersobs8: new FormControl(''),
-      holdersrem8: new FormControl(''),
-      holdersobs9: new FormControl(''),
-      holdersrem9: new FormControl(''),
-      holdersobs10: new FormControl(''),
-      holdersrem10: new FormControl(''),
-      holdersobs11: new FormControl(''),
-      holdersrem11: new FormControl(''),
-      holdersobs12: new FormControl(''),
-      holdersrem12: new FormControl(''),
-      holdersobs13: new FormControl(''),
-      holdersrem13: new FormControl(''),
-      holdersobs14: new FormControl(''),
-      holdersrem14: new FormControl(''),
-      holdersobs15: new FormControl(''),
-      holdersrem15: new FormControl('')
+      physicalInspectionOb: new FormControl('', Validators.required),
+      physicalInspectionRe: new FormControl(''),
+      conductorHolderFlatSurfaceOb: new FormControl('', Validators.required),
+      conductorHolderFlatSurfaceRe: new FormControl(''),
+      conductorHolderOb: new FormControl('', Validators.required),
+      conductorHolderRe: new FormControl(''),
+      holderTypeOb: new FormControl('', Validators.required),
+      holderTypeRe: new FormControl(''),
+      materialHolderOb: new FormControl('', Validators.required),
+      materialHolderRe: new FormControl(''),
+      totalHolderNoOb: new FormControl('', Validators.required),
+      totalHolderNoRe: new FormControl(''),
+      totalParpetHolderNoOb: new FormControl('', Validators.required),
+      totalParpetHolderNoRe: new FormControl(''),
+      holderInspNoOb: new FormControl('', Validators.required),
+      holderInspNoRe: new FormControl(''),
+      holderInspPassedOb: new FormControl('', Validators.required),
+      holderInspPassedNoRe: new FormControl(''),
+      holderInspFailedNoOb: new FormControl('', Validators.required),
+      holderInspFailedNoRe: new FormControl(''),
+     
+      parpetInspectionNoOb: new FormControl('', Validators.required),
+      parpetInspectionNoRe: new FormControl(''),
+      parpetInspectionPassedNoOb: new FormControl('', Validators.required),
+      parpetInspectionPassedNoRe: new FormControl(''),
+      parpetInspectionFailedNoOb: new FormControl('', Validators.required),
+      parpetInspectionFailedNoRe: new FormControl('')
+    
+      //8.12 Total number of holders: pending
+      //8.11 Material of parpet holder:
     }) 
   }
 
   private createClampArrForm(): FormGroup{
     return new FormGroup({
-      clampobs1: new FormControl(''),
-      clamprem1: new FormControl(''),
-      clampobs2: new FormControl(''),
-      clamprem2: new FormControl(''),
-      clampobs3: new FormControl(''),
-      clamprem3: new FormControl(''),
-      clampobs4: new FormControl(''),
-      clamprem4: new FormControl(''),
-      clampobs5: new FormControl(''),
-      clamprem5: new FormControl(''),
-      clampobs6: new FormControl(''),
-      clamprem6: new FormControl(''),
-      clampobs7: new FormControl(''),
-      clamprem7: new FormControl(''),
-      clampobs8: new FormControl(''),
-      clamprem8: new FormControl(''),
-      clampobs9: new FormControl(''),
+      physicalInspectionOb: new FormControl('', Validators.required),
+      physicalInspectionRe: new FormControl(''),
+      conductorClampsFlatSurafaceOb: new FormControl('', Validators.required),
+      conductorClampsFlatSurafaceRe: new FormControl(''),
+      interConnectionOfClampsOb: new FormControl('', Validators.required),
+      interConnectionOfClampsRe: new FormControl(''),
+      clampTypeOb: new FormControl('', Validators.required),
+      clampTypRe: new FormControl(''),
+
+      materialOfClampsOb: new FormControl('', Validators.required),
+      materialOfClampsRe: new FormControl(''),
+      totalClampsNoOb: new FormControl('', Validators.required),
+      totalClampsNoRe: new FormControl(''),
+      inspectionNoOb: new FormControl('', Validators.required),
+      inspectionNoRe: new FormControl(''),
+      inspectionPassedOb: new FormControl('', Validators.required),
+      inspectionPassedRe: new FormControl(''),
+      inspectionFailedReOb: new FormControl('', Validators.required),
+      inspectionFailedReRe: new FormControl(''),
+      clampobs9: new FormControl('', Validators.required),
       clamprem9: new FormControl('')
     })
   }
 
   private createExpansioArrForm(): FormGroup{
     return new FormGroup({
-      expobs1: new FormControl(''),
-      exprem1: new FormControl(''),
-      expobs2: new FormControl(''),
-      exprem2: new FormControl(''),
-      expobs3: new FormControl(''),
-      exprem3: new FormControl(''),
-      expobs4: new FormControl(''),
-      exprem4: new FormControl(''),
-      expobs5: new FormControl(''),
-      exprem5: new FormControl(''),
-      expobs6: new FormControl(''),
-      exprem6: new FormControl(''),
-      expobs7: new FormControl(''),
-      exprem7: new FormControl('')
+      physicalInspectionOb: new FormControl('', Validators.required),
+      physicalInspectionRe: new FormControl(''),
+      strightConnectorPiecOb: new FormControl('', Validators.required),
+      strightConnectorPiecRe: new FormControl(''),
+      materialOfExpansionOb: new FormControl('', Validators.required),
+      materialOfExpansionRe: new FormControl(''),
+      totalNoExpansionOb: new FormControl('', Validators.required),
+      totalNoExpansionRe: new FormControl(''),
+      inspectionNoOb: new FormControl('', Validators.required),
+      inspectionNoRe: new FormControl(''),
+      inspectionPassedNoOb: new FormControl('', Validators.required),
+      inspectionPassedNoRe: new FormControl(''),
+      inspectionFailedNoOb: new FormControl('', Validators.required),
+      inspectionFailedNoRe: new FormControl('')
     })
   }
   
   private createConArrForm(): FormGroup{
     return new FormGroup({
-      conobs1: new FormControl(''),
-      conrem1: new FormControl(''),
-      conobs2: new FormControl(''),
-      conrem2: new FormControl(''),
-      conobs3: new FormControl(''),
-      conrem3: new FormControl(''),
-      conobs4: new FormControl(''),
-      conrem4: new FormControl(''),
-      conobs5: new FormControl(''),
-      conrem5: new FormControl(''),
-      conobs6: new FormControl(''),
-      conrem6: new FormControl(''),
-      conobs7: new FormControl(''),
-      conrem7: new FormControl(''),
-      conobs8: new FormControl(''),
-      conrem8: new FormControl(''),
-      conobs9: new FormControl(''),
-      conrem9: new FormControl(''),
-      conobs10: new FormControl(''),
-      conrem10: new FormControl(''),
-      conobs11: new FormControl(''),
-      conrem11: new FormControl('')
+      physicalInspectionOb: new FormControl('', Validators.required),
+      physicalInspectionRe: new FormControl(''),
+      checkConnectionConnectorsOb: new FormControl('', Validators.required),
+      checkConnectionConnectorsRe: new FormControl(''),
+      materialOfConnectorOb: new FormControl('', Validators.required),
+      materialOfConnectorRe: new FormControl(''),
+      strightConnectorOb: new FormControl('', Validators.required),
+      strightConnectorRe: new FormControl(''),
+      tConnectorOb: new FormControl('', Validators.required),
+      tConnectorRe: new FormControl(''),
+      lConnectorOb: new FormControl('', Validators.required),
+      lConnectorRe: new FormControl(''),
+      totalNoConnectorOb: new FormControl('', Validators.required),
+      totalNoConnectorRe: new FormControl(''),
+      inspectionNoOb: new FormControl('', Validators.required),
+      inspectionNoRe: new FormControl(''),
+      inspectionPassedNoOb: new FormControl('', Validators.required),
+      inspectionPassedNoRe: new FormControl(''),
+      inspectionFailedOb: new FormControl('', Validators.required),
+      inspectionFailedRe: new FormControl('')
     })
   }
 
   submit(){
     this.vatArr = this.airTerminationForm.get('vatArr') as FormArray;
-    this.vatArr.push(this.createVatArrForm());
-    console.log(this.airTerminationForm)
+  this.vatArr.push(this.createVatArrForm());
+    //console.log(this.airTerminationForm.value)
   }
 
   submit1(){
     this.meshArr = this.airTerminationForm.get('meshArr') as FormArray;
     this.meshArr.push(this.createMeshArrForm());
-    console.log(this.airTerminationForm)
+   // console.log(this.airTerminationForm)
   }
 
   submit2(){
     this.holderArr = this.airTerminationForm.get('holderArr') as FormArray;
     this.holderArr.push(this.createHolderArrForm());
-    console.log(this.airTerminationForm)
+    //console.log(this.airTerminationForm)
   }
 
   submit3(){
     this.clampArr = this.airTerminationForm.get('clampArr') as FormArray;
-    this.clampArr.push(this.createClampArrForm());
-    console.log(this.airTerminationForm)
+  this.clampArr.push(this.createClampArrForm());
+    //console.log(this.airTerminationForm)
   }
 
   submit4(){
     this.expArr = this.airTerminationForm.get('expArr') as FormArray;
-    this.expArr.push(this.createExpansioArrForm());
-    console.log(this.airTerminationForm)
+  this.expArr.push(this.createExpansioArrForm());
+   // console.log(this.airTerminationForm)
   }
 
   submit5(){
     this.conArr = this.airTerminationForm.get('conArr') as FormArray;
-    this.conArr.push(this.createConArrForm());
-    console.log(this.airTerminationForm)
+  this.conArr.push(this.createConArrForm());
+    //console.log(this.airTerminationForm)
   }
-
+  get f() {
+    return this.airTerminationForm.controls;
+  }
+  
 }
