@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Spd } from 'src/app/LPS_model/spd';
+import { LpsSpd_Service } from 'src/app/LPS_services/lps-spd.service';
 
 @Component({
   selector: 'app-lps-spd',
@@ -6,10 +9,112 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./lps-spd.component.css']
 })
 export class LpsSpdComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
+  spd=new Spd();
+  lpsSpd_Service;
+  j: any;
+  constructor(private formBuilder: FormBuilder, lpsSpd_Services: LpsSpd_Service) {
+    this.lpsSpd_Service = lpsSpd_Services;
   }
 
+  spdForm: FormGroup;
+
+  ngOnInit(): void {
+    this.spdForm = this.formBuilder.group({
+      //spdId!: number;
+      //basicLpsId!: number;
+      //userName!: String;
+      mainsIncomingOb:new FormControl('', Validators.required),
+      mainsIncomingRem: new FormControl(''),
+      totalMainsIncomingOb:new FormControl('', Validators.required),
+      totalMainsIncomingRem: new FormControl(''),
+      noPannelSupplittingOb:new FormControl('', Validators.required),
+      noPannelSupplittingRem: new FormControl(''),
+      totalNoOutDoorRequipmentOb:new FormControl('', Validators.required),
+      totalNoOutDoorRequipmentRem: new FormControl(''),
+
+      spdarr: this.formBuilder.array([this.spdarrfun()]),
+      panelarr: this.formBuilder.array([this.panelarrfun()]),
+      powerarr: this.formBuilder.array([this.powerarrfun()]),
+
+    });
+  }
+  private spdarrfun(): FormGroup{
+    return new FormGroup({
+      //spdDescriptionRole:new FormControl('', Validators.required),
+      spdTypeOb:new FormControl('', Validators.required),
+      spdTypeRe: new FormControl(''),
+      spdApplicationOb:new FormControl('', Validators.required),
+      spdApplicationRem: new FormControl(''),
+      panelNameOb:new FormControl('', Validators.required),
+      panelNameRem: new FormControl(''),
+      incomingRatingOb:new FormControl('', Validators.required),
+      incomingRatingRem: new FormControl(''),
+      backupFuseCheckOb:new FormControl('', Validators.required),
+      backupFuseCheckRem: new FormControl(''),
+      connectingWireLengthOb:new FormControl('', Validators.required),
+      connectingWireLengthRem: new FormControl(''),
+      connectingWireSizeOb:new FormControl('', Validators.required),
+      connectingWireSizeRem: new FormControl('')
+
+    });
+  }
+
+  private panelarrfun(): FormGroup{
+    return new FormGroup({
+      //spdDescriptionRole:new FormControl('', Validators.required),
+      spdTypeOb:new FormControl('', Validators.required),
+      spdTypeRe: new FormControl(''),
+      spdApplicationOb:new FormControl('', Validators.required),
+      spdApplicationRem: new FormControl(''),
+      panelNameOb:new FormControl('', Validators.required),
+      panelNameRem: new FormControl(''),
+      incomingRatingOb:new FormControl('', Validators.required),
+      incomingRatingRem: new FormControl(''),
+      backupFuseCheckOb:new FormControl('', Validators.required),
+      backupFuseCheckRem: new FormControl(''),
+      connectingWireLengthOb:new FormControl('', Validators.required),
+      connectingWireLengthRem: new FormControl(''),
+      connectingWireSizeOb:new FormControl('', Validators.required),
+      connectingWireSizeRem: new FormControl('')
+
+    });
+  }
+
+  private powerarrfun(): FormGroup{
+    return new FormGroup({
+      //spdDescriptionRole:new FormControl('', Validators.required),
+      spdTypeOb:new FormControl('', Validators.required),
+      spdTypeRe: new FormControl(''),
+      spdApplicationOb:new FormControl('', Validators.required),
+      spdApplicationRem: new FormControl(''),
+      panelNameOb:new FormControl('', Validators.required),
+      panelNameRem: new FormControl(''),
+      incomingRatingOb:new FormControl('', Validators.required),
+      incomingRatingRem: new FormControl(''),
+      backupFuseCheckOb:new FormControl('', Validators.required),
+      backupFuseCheckRem: new FormControl(''),
+      connectingWireLengthOb:new FormControl('', Validators.required),
+      connectingWireLengthRem: new FormControl(''),
+      connectingWireSizeOb:new FormControl('', Validators.required),
+      connectingWireSizeRem: new FormControl('')
+
+    });
+  }
+
+  spdarrControls(): AbstractControl[] {
+ 
+    return (<FormArray>this.spdForm.get('spdarr')).controls;
+  }
+
+  panelarrControls(): AbstractControl[] {
+    return (<FormArray>this.spdForm.get('panelarr')).controls;
+  }
+
+  powerarrControls(): AbstractControl[] {
+    return (<FormArray>this.spdForm.get('powerarr')).controls;
+  }
+
+  onSubmit(){
+   
+   }
 }

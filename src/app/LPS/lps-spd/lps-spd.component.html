@@ -5,7 +5,7 @@
     </div>
     <!-- Basic Details -->
     <div class="card-body">
-        <form>
+        <form [formGroup]="spdForm"  (ngSubmit)="onSubmit()">
             <mat-accordion>
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Basic Details</mat-expansion-panel-header>
@@ -254,12 +254,13 @@
                         panel feeding power to an outdoor equipment</label>
                 </div>
 
-                <mat-expansion-panel [hideToggle]="false">
+                <mat-expansion-panel >
                     <mat-expansion-panel-header>Mains incoming panel (if more panels are available data from each panel
                         is necessary)</mat-expansion-panel-header>
                     <!-- tables -->
-                    <div>
-                        <table class="table">
+                    <div  style="margin-top: 40px;" formArrayName="spdarr"
+                        *ngFor="let x of spdarrControls(); let j = index">
+                        <table class="table" [formGroupName]="j">
                             <thead style="text-align: center;">
                                 <th>SI.No</th>
                                 <th>Description</th>
@@ -454,12 +455,13 @@
                     </div>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel [hideToggle]="false">
+                <mat-expansion-panel>
                     <mat-expansion-panel-header>Street light panel(if more panels are available data from each panel is
                         necessary)</mat-expansion-panel-header>
                     <!-- tables -->
-                    <div>
-                        <table class="table">
+                    <div  style="margin-top: 40px;" formArrayName="panelarr"
+                        *ngFor="let x of panelarrControls(); let j = index">
+                        <table class="table" [formGroupName]="j">
                             <thead style="text-align: center;">
                                 <th>SI.No</th>
                                 <th>Description</th>
@@ -658,14 +660,15 @@
                     <mat-expansion-panel-header>Other panels feeding power to outdoor equipment if more panels are
                         available data from each panel is necessary)</mat-expansion-panel-header>
                     <!-- tables -->
-                    <div>
-                        <table class="table">
-                            <thead style="text-align: center;">
-                                <th>SI.No</th>
-                                <th>Description</th>
-                                <th>Observation</th>
-                                <th>Remarks</th>
-                            </thead>
+                    <div  style="margin-top: 40px;" formArrayName="powerarr"
+                    *ngFor="let x of powerarrControls(); let j = index">
+                    <table class="table" [formGroupName]="j">
+                        <thead style="text-align: center;">
+                            <th>SI.No</th>
+                            <th>Description</th>
+                            <th>Observation</th>
+                            <th>Remarks</th>
+                        </thead>
                             <tbody>
                                 <tr>
                                     <td style="width: 1rem; text-align: center;">7.1</td>

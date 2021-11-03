@@ -41,6 +41,7 @@ export class EarthingDescription {
     earthelectMaxiDistWallInOb!: String;
     earthelectMaxiDistWallInRem!: String;
     earthelectManimumDistanceWallInOb!: String;
+    earthelectManimumDistanceWallInRem!: String;
     earthelectManiDistWallInRem!: String;
     earthelectMaxiDistOb!: String;
     earthelectMaxiDistRem!: String;
@@ -128,6 +129,7 @@ export class EarthingSystem {
     materialOfEartElectrodeRem!: String;
     sizeOfEarthElectrodeOb!: String;
     sizeOfEarthElectrodeRem!: String;
+  
     maximumDistanceEartElectrodeWalOb!: String;
     maximumDistanceEartElectrodeWalRem!: String;
     manimumDistanceEartElectrodeWalOb!: String;
