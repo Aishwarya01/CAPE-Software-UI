@@ -163,40 +163,37 @@
 
 <!-- step 2 -->
       <mat-step [completed]="true">
-
         <ng-template matStepLabel>Supply Characteristics</ng-template>
-
         <app-inspection-verification-supply-characteristics  (proceedNext)="doSomething2($event)"></app-inspection-verification-supply-characteristics>
-
+        <button class="previousSupply" mat-button (click)="goBack(stepper)" *ngIf="service.backBtn">&laquo; Back</button> 
       </mat-step>
 
 <!-- step 3 -->
       <mat-step [completed]="true">
         <ng-template matStepLabel>Inspection</ng-template>
         <app-inspection-verification-incoming-equipment (proceedNext)="doSomething3($event)"></app-inspection-verification-incoming-equipment>
+        <button class="previousIncoming" mat-button (click)="goBack(stepper)" *ngIf="service.backBtn">&laquo; Back</button> 
       </mat-step>
 
       <mat-step [completed]="true">
         <ng-template matStepLabel>Testing</ng-template>
         <app-inspection-verification-testing (proceedNext)="doSomething4($event)"></app-inspection-verification-testing>
-
-
+        <button class="previousSupply" mat-button (click)="goBack(stepper)" *ngIf="service.backBtn">&laquo; Back</button> 
       </mat-step>
 
       <mat-step [completed]="true">
         <ng-template matStepLabel>Summary</ng-template>
        <app-summary (proceedNext)="NextStep5($event)"></app-summary>
+       <button class="previousSupply" mat-button (click)="goBack(stepper)" *ngIf="service.backBtn">&laquo; Back</button> 
       </mat-step>
     </mat-horizontal-stepper>
-
-
 
   </mat-tab>
   <mat-tab label="Saved Reports">
     <app-savedreports></app-savedreports>
   </mat-tab>
 
-  <mat-tab label="Final Reports">
+  <mat-tab label="Final Reports" [disabled]="service.allStepsCompleted" class="disableTab">
     <app-finalreports></app-finalreports>
   </mat-tab>
 </mat-tab-group>

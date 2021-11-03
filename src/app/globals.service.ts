@@ -43,7 +43,9 @@ export class GlobalsService {
 //get complimentary license
   noofLicense!: number;  
   useClicked:boolean=false;
-
+//completed-saved-final
+ disbaleFields:boolean=false;
+ allStepsCompleted:boolean=false;
   constructor(private _scrollToService: ScrollToService) {}
   
 //Scroll Top to Bottom for notification

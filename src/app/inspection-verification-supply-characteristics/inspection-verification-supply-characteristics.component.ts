@@ -381,6 +381,9 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   }
 
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
+    if(this.service.disbaleFields==true){
+      this.supplycharesteristicForm.disable();
+     }
        this.step2List = JSON.parse(data);
        this.supplycharesteristic.siteId = siteId;
        this.supplycharesteristic.supplyCharacteristicsId = this.step2List.supplyCharacteristics.supplyCharacteristicsId;
@@ -504,6 +507,9 @@ export class InspectionVerificationSupplyCharacteristicsComponent
           
        
       }
+     }
+     reloadFromBack(){
+      this.supplycharesteristicForm.markAsPristine();
      }
 //comments section starts
 
@@ -901,6 +907,9 @@ showHideAccordion(index: number) {
 //comments section ends
 
      populateData() {
+      if(this.service.disbaleFields==true){
+        this.disable=true;
+        }
       for (let item of this.step2List.supplyCharacteristics.boundingLocationReport) {     
         this.arr2.push(this.createGroup(item));
       }
@@ -1589,7 +1598,7 @@ showHideAccordion(index: number) {
   //   alert("Step2 successfully saved");
   //   }
   // }
-  gotoNextModal(content1: any) {
+  gotoNextModal(content1: any,content2:any) {
     if (this.supplycharesteristicForm.invalid) {
       this.validationError = true;
       this.validationErrorMsg = 'Please check all the fields';
@@ -1598,7 +1607,15 @@ showHideAccordion(index: number) {
       }, 3000);
       return;
     }
-    this.modalService.open(content1, { centered: true });
+    if(this.supplycharesteristicForm.dirty){
+      this.modalService.open(content1, { centered: true})
+     }
+     if(!this.supplycharesteristicForm.dirty){
+      this.modalService.open(content2, {
+         centered: true, 
+         size: 'md'
+        })
+     }
   }
   closeModalDialog() {
     if (this.errorMsg != '') {
@@ -1903,6 +1920,7 @@ showHideAccordion(index: number) {
     
 
     if(flag) { 
+      if(this.supplycharesteristicForm.dirty){
       this.UpateInspectionService.updateSupply(this.supplycharesteristic).subscribe(
         data=> {
           this.success = true;
@@ -1918,6 +1936,7 @@ showHideAccordion(index: number) {
           this.errorArr = JSON.parse(error.error);
           this.errorMsg = this.errorArr.message;
          });
+        }
     }
 else{
     this.supplyCharacteristicsService.addSupplyCharacteristics(this.supplycharesteristic).subscribe(

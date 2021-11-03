@@ -61,10 +61,46 @@ mat-header-cell.mat-header-cell {
 .previous {
   background-color: #f1f1f1;
   color: black;
+  position: relative;
+  bottom: 92px;
+  left: 38%;
 }
 .previous:hover {
   background-color: #747a76;
   color: white;
+  position: relative;
+  bottom: 92px;
+  left: 38%;
+}
+
+.previousSupply {
+  background-color: #f1f1f1;
+  color: black;
+  position: relative;
+  bottom: 57px;
+  left: 40%;
+}
+.previousSupply:hover {
+  background-color: #747a76;
+  color: white;
+  position: relative;
+  bottom: 57px;
+  left: 40%;
+}
+
+.previousIncoming {
+  background-color: #f1f1f1;
+  color: black;
+  position: relative;
+  bottom: 92px;
+  left: 40%;
+}
+.previousIncoming:hover {
+  background-color: #747a76;
+  color: white;
+  position: relative;
+  bottom: 92px;
+  left: 40%;
 }
 .next{
   background-color: #f1f1f1;

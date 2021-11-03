@@ -562,6 +562,7 @@ triggerNavigateTo(siteName:any){
  }
 
  editSite(siteId: any,userName: any,site: any) {
+  this.service.allStepsCompleted=true;
   if (confirm("Are you sure you want to edit site details?"))
   {
     this.value= true;
@@ -572,6 +573,7 @@ triggerNavigateTo(siteName:any){
     setTimeout(()=>{
       this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
     }, 1000);
+    this.service.disbaleFields=true;
   } 
   else {
     this.value= false;
@@ -582,6 +584,7 @@ triggerNavigateTo(siteName:any){
  }
 
  viewSite(siteId: any,userName: any,site: any){
+  this.service.allStepsCompleted=false;
   if (confirm("Are you sure you want to view site details?"))
   {
     this.value= true;
@@ -592,6 +595,7 @@ triggerNavigateTo(siteName:any){
     setTimeout(()=>{
       this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
     }, 1000);
+    this.service.disbaleFields=true;
   } 
   else {
     this.value= false;
