@@ -19,6 +19,7 @@ import { GenerateOtpComponent } from './generate-otp/generate-otp.component';
 import { GenerateOtpContactnumberComponent } from './generate-otp-contactnumber/generate-otp-contactnumber.component';
 import { ChangeContactnumberComponent } from './change-contactnumber/change-contactnumber.component';
 import { LpsEarthingComponent } from './LPS/lps-earthing/lps-earthing.component';
+import { LpsSpdComponent } from './LPS/lps-spd/lps-spd.component';
 
 const routes: Routes = [
   {path: '', redirectTo: "/SignIn", pathMatch: 'full' },
@@ -42,6 +43,7 @@ const routes: Routes = [
   {path: 'generateContactNumber',component:GenerateOtpContactnumberComponent},
   {path: 'createContactNumber',component:ChangeContactnumberComponent},
   {path: 'LpsEarthingComponent',component:LpsEarthingComponent},
+  {path: 'LpsSpdComponent',component:LpsSpdComponent},
 ];
 
 @NgModule({

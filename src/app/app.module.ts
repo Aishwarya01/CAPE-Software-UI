@@ -73,6 +73,7 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { GenerateOtpContactnumberComponent } from './generate-otp-contactnumber/generate-otp-contactnumber.component';
 import { ChangeContactnumberComponent } from './change-contactnumber/change-contactnumber.component';
 import { LpsEarthingComponent } from './LPS/lps-earthing/lps-earthing.component';
+import { LpsSpdComponent } from './LPS/lps-spd/lps-spd.component';
 
 @NgModule({
   declarations: [
@@ -117,7 +118,8 @@ import { LpsEarthingComponent } from './LPS/lps-earthing/lps-earthing.component'
     DateAgoPipe,
     GenerateOtpContactnumberComponent,
     ChangeContactnumberComponent,
-    LpsEarthingComponent
+    LpsEarthingComponent,
+    LpsSpdComponent
   ],
   imports: [
     NgbTooltipModule,
