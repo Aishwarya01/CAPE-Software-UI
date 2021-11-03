@@ -148,13 +148,12 @@ export class LicenselistComponent implements OnInit {
   this.completedLicense_dataSource = new MatTableDataSource(this.completedFilterData);
   this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
   this.completedLicense_dataSource.sort = this.completedLicenseSort;
-
-  
 });
 }
   
  
   editSite(siteId:any,userName:any,site:any,departmentName:any,companyName:any){
+    this.service.allStepsCompleted=true;
     if (confirm("Are you sure you want to edit site details?"))
     {
       
@@ -170,6 +169,7 @@ export class LicenselistComponent implements OnInit {
     setTimeout(()=>{
       this.verification.changeTab(0,siteId,userName,companyName,departmentName,site);
     }, 1000);
+    this.service.disbaleFields=false;
     } 
     else {
       this.destroy = false;
@@ -178,6 +178,7 @@ export class LicenselistComponent implements OnInit {
   }
 
   viewSite(siteId: any,userName: any,site: any,departmentName:any,companyName:any){
+    this.service.allStepsCompleted=false;
     if (confirm("Are you sure you want to view site details?"))
   {
     // this.viewContainerRef.clear();
@@ -191,6 +192,7 @@ export class LicenselistComponent implements OnInit {
     setTimeout(()=>{
       this.verification.changeTab(0,siteId,userName,companyName,departmentName,site);
     }, 1000);
+    this.service.disbaleFields=true;
   } 
   else {
     this.destroy = false;

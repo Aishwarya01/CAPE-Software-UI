@@ -58,10 +58,16 @@ mat-header-cell.mat-header-cell {
 .previous {
   background-color: #f1f1f1;
   color: black;
+  /* position: relative;
+  bottom: 92px;
+  left: 40%; */
 }
 .previous:hover {
   background-color: #747a76;
   color: white;
+  /* position: relative;
+  bottom: 92px;
+  left: 40%; */
 }
 .next{
   background-color: #f1f1f1;
@@ -93,4 +99,7 @@ mat-header-cell.mat-header-cell {
 .auth-form-btn {
   width: 20%;
   margin: 0 auto;
+}
+.disableForm{
+  pointer-events: none;
 }

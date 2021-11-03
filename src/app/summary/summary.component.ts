@@ -238,9 +238,13 @@ export class SummaryComponent implements OnInit {
   refresh() {
     this.ChangeDetectorRef.detectChanges();
   }
-
+  reloadFromBack(){
+    this.addsummary.markAsPristine();
+   }
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
-        
+    if(this.service.disbaleFields==true){
+      this.addsummary.disable();
+     }
        this.summaryList = JSON.parse(data);
        this.summary.siteId = siteId;
        this.summary.summaryId = this.summaryList.summary.summaryId;
@@ -678,6 +682,9 @@ showHideAccordion(index: number) {
 //comments section ends
 
      populateData() {
+      if(this.service.disbaleFields==true){
+        this.disable=true;
+        }
        this.arr = [];
       for (let item of this.summaryList.summary.summaryObervation) {
         this.arr.push(this.createGroup(item));
@@ -800,7 +807,7 @@ showHideAccordion(index: number) {
   changeTab1(index: number, sitedId: any, userName: any): void {
     this.selectedIndex = index;
   }
-  gotoNextModal(content5: any) {
+  gotoNextModal(content5: any,content2:any) {
     if (this.addsummary.invalid) {
       this.validationError = true;
       this.validationErrorMsg = 'Please check all the fields';
@@ -809,7 +816,16 @@ showHideAccordion(index: number) {
       }, 3000);
       return;
     }
-    this.modalService.open(content5, { centered: true });
+    if(this.addsummary.dirty){
+      this.modalService.open(content5, { centered: true})
+      
+     }
+     if(!this.addsummary.dirty){
+      this.modalService.open(content2, {
+         centered: true, 
+         size: 'md'
+        })
+     }
   }
   closeModalDialog() {
     if (this.errorMsg != '') {
@@ -820,11 +836,11 @@ showHideAccordion(index: number) {
       this.modalService.dismissAll((this.successMsg = ''));
     }
 
-    if(this.finalFlag) {
-      this.final.changeTab1(2);
-      this.finalFlag = false;
+    // if(this.finalFlag) {
+    //   this.final.changeTab1(2);
+    //   this.finalFlag = false;
 
-    }
+    // }
   }
   SubmitTab5(flag: any) {
     
@@ -844,6 +860,7 @@ showHideAccordion(index: number) {
 
 
     if(flag) {
+      if(this.addsummary.dirty){
       this.UpateInspectionService.updateSummary(this.summary).subscribe(
         data=> {
           this.success = true;
@@ -854,6 +871,7 @@ showHideAccordion(index: number) {
           this.Error = true;
           this.errorMsg = 'Something went wrong, kindly check all the fields';
          });
+        }
     }
 
     else {

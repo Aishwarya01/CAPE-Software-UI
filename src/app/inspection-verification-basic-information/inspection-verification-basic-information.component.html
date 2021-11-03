@@ -72,7 +72,8 @@
 
             <mat-form-field class="client-description ">
               <mat-label><h3>Reason for the Report*</h3></mat-label>
-              <textarea matInput class="client-box-description" formControlName="reasonOfReport" maxlength="500" placeholder="Ex. Report reason..." [(ngModel)]="reportDetails.reasonOfReport" [ngClass]="{ 'is-invalid': submitted && f.reasonOfReport.errors }"></textarea>
+              <textarea matInput class="client-box-description" formControlName="reasonOfReport" 
+              maxlength="500" placeholder="Ex. Report reason..." [(ngModel)]="reportDetails.reasonOfReport" [ngClass]="{ 'is-invalid': submitted && f.reasonOfReport.errors }"></textarea>
               <div *ngIf="submitted && f.reasonOfReport.errors" class="invalid-feedback">
                 <div *ngIf="f.reasonOfReport?.errors?.required">Reason is required</div>
             </div>
@@ -515,10 +516,10 @@
             <mat-icon *ngIf="showAddButton" class="mousechange" (click)="addDesigner()" style="float:right; padding-right: 37px; padding-top: 10px;">add_box</mat-icon>
 
               <div formArrayName="designer1Arr" *ngFor="let a of getDesigner1Controls(); let i = index">
-                <div class="form-group" [formGroupName]="i">
+                <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':disable== true}">
                   <h2>Designer 1*</h2>
 
-                  <div class="form-group" >
+                  <div class="form-group">
                     <div class="row">
                         <div class="col-md-4">
                             <label>Person Name:</label>
@@ -682,7 +683,7 @@
                 <mat-icon class="mousechange"  (click)="removeDesigner()" style="float:right; padding-right: 37px; padding-top: 10px;">delete</mat-icon>
 
                 <div formArrayName="designer2Arr" *ngFor="let a of getDesigner2Controls(); let i = index">
-                  <div class="form-group" [formGroupName]="i">
+                  <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':disable== true}">
                     <h2>Designer 2 (Optional)</h2>
 
                     <div class="form-group" >
@@ -853,7 +854,7 @@
             <h2>Contractor Details*</h2>
 
               <div formArrayName="contractorArr" *ngFor="let a of getContractorControls(); let i = index">
-                  <div class="form-group" [formGroupName]="i">
+                  <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':disable== true}">
 
                     <div class="form-group" >
                       <div class="row">
@@ -1024,7 +1025,7 @@
             <h2>Inspector Details*</h2>
 
               <div formArrayName="inspectorArr" *ngFor="let a of getInspectorControls(); let i = index">
-                <div class="form-group" [formGroupName]="i">
+                <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':disable== true}">
                   <div class="form-group">
                     <div class="row">
                         <div class="col-md-4">
@@ -1395,9 +1396,10 @@
         <span class="alert alert-danger">Your response to comments has been rejected</span>
       </div>
       <br>
-      <div style="text-align: center;margin-top: 40px;">
+      <div class="row" style="margin-top: 40px;">
         <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
-        <button  class="next" [disabled]="disable" (click)="gotoNextModal(content1)" mat-button>Next &raquo;</button>
+        <button class="next" (click)="gotoNextModal(content1,content2)"
+        mat-button>Next &raquo;</button>
       </div>
 
     </form>
@@ -1419,10 +1421,34 @@
   <br>
      <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
      aria-label="Close"  (click)="closeModalDialog()" matStepperNext>
-
       <span aria-hidden="true">Ok</span>
-
   </button>
 
 
   </ng-template>
+
+  <ng-template #content2 let-modal>
+    <div class="modal-body">
+     <div class="centre-text m-btm30">
+      <div style="text-align: center;">
+        <span class="successshow">Are you sure you want to procced? </span>
+        <br>
+        <span style="font-size: 12px;">Note: Please verify all the details! </span>
+       </div>
+      </div>
+     </div>
+    <br>
+    <div class="row">
+       <button type="button" class="col-md-6" style="text-align:center; width: auto;" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+       aria-label="Close" (click)="closeModalDialog()" matStepperNext>
+       <i class="bi bi-arrow-right-circle"></i>&nbsp;
+        <span aria-hidden="true">Ok</span>
+    </button>
+    <button type="button" class="col-md-6" style="width: auto;" class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn"
+       aria-label="Close" (click)="closeModalDialog()">
+       <i class="bi bi-x icon"></i>
+        <span aria-hidden="true">Cancel</span>
+    </button>
+  </div>
+
+    </ng-template>

@@ -250,6 +250,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
   }
 
  retrieveDetailsFromIncoming() {
+  if(this.service.disbaleFields==true){
+    this.testingForm.disable();
+   }
   if(this.service.siteCount !=0 && this.service.siteCount!=undefined) {
     if(this.currentUser1.role == 'Inspector') {
       this.inspectionDetailsService.retrieveInspectionDetails(this.email, this.service.siteCount).subscribe(
@@ -313,6 +316,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
 }
 
  retrieveDetailsFromSupply(){
+  if(this.service.disbaleFields==true){
+    this.testingForm.disable();
+   }
   this.pushJsonArray=[];
    if(this.service.siteCount !=0 && this.service.siteCount!=undefined){
      if(this.currentUser1.role == 'Inspector') {
@@ -417,6 +423,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
 }
 
   retrieveDetailsfromSavedReports(userName: any, siteId: any, clientName: any, departmentName: any, site: any, data: any) {
+    if(this.service.disbaleFields==true){
+      this.testingForm.disable();
+     }
     this.testingRetrieve = true;
     this.inspectionRetrieve = false;
     this.testList = JSON.parse(data);
@@ -825,8 +834,13 @@ export class InspectionVerificationTestingComponent implements OnInit {
     });
   }
   //comments section ends
-
+  reloadFromBack(){
+    this.testingForm.markAsPristine();
+   }
   populateData() {
+    if(this.service.disbaleFields==true){
+      this.disable=true;
+      }
     this.arr = [];
     for (let item of this.testList.testingReport.testing) {
       this.arr.push(this.createGroup(item));
@@ -1370,7 +1384,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
     return this.testingForm.controls;
   }
 
-  gotoNextModal(content4: any) {
+  gotoNextModal(content4: any,content2:any) {
     if (this.testingForm.invalid) {
       this.validationError = true;
       this.validationErrorMsg = 'Please check all the fields';
@@ -1379,7 +1393,16 @@ export class InspectionVerificationTestingComponent implements OnInit {
       }, 3000);
       return;
     }
-    this.modalService.open(content4, { centered: true });
+    if(this.testingForm.dirty){
+      this.modalService.open(content4, { centered: true})
+      
+     }
+     if(!this.testingForm.dirty){
+      this.modalService.open(content2, {
+         centered: true, 
+         size: 'md'
+        })
+     }
   }
 
   callMethod() {
@@ -1698,6 +1721,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
     this.testingDetails.testIncomingDistribution=this.pushJsonArray;
     this.testingDetails.testing = this.testingForm.value.testaccordianArr;
     if (flag) {
+      if(this.testingForm.dirty){
       this.UpateInspectionService.updateTesting(this.testingDetails).subscribe(
         data => {
           this.success = true;
@@ -1709,6 +1733,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
           this.errorArr = JSON.parse(error.error);
           this.errorMsg = this.errorArr.message;
         });
+      }
     }
     else {
       this.testingService.savePeriodicTesting(this.testingDetails).subscribe(

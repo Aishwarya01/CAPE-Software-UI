@@ -548,7 +548,6 @@ export class VerificationlvComponent implements OnInit {
 
 //for ongoing & completed
   changeTab(index: number, sitedId: any, userName: any, companyName: any, departmentName: any, site: any): void {
-    
     // this.selectedIndex=1;
     this.siteService.retrieveFinal(userName,sitedId).subscribe(
       data=> {
@@ -680,6 +679,14 @@ export class VerificationlvComponent implements OnInit {
   //   }
     
   // }
+  goBack(stepper: MatStepper) {
+    stepper.previous();
+    this.basic.reloadFromBack();
+    this.supply.reloadFromBack();
+    this.incoming.reloadFromBack();
+    this.testing.reloadFromBack();
+    this.summary.reloadFromBack();
 
+  }
 
 }

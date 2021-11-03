@@ -173,6 +173,9 @@ export class InspectionVerificationIncomingEquipmentComponent
   }
 
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){ 
+    if(this.service.disbaleFields==true){
+      this.addstep3.disable();
+     }
         this.step3List = JSON.parse(data);
         this.inspectionDetails.siteId = siteId;
         this.inspectionDetails.periodicInspectionId = this.step3List.periodicInspection.periodicInspectionId;
@@ -182,7 +185,9 @@ export class InspectionVerificationIncomingEquipmentComponent
         this.populateData();
         this.populateDataComments();
   }
- 
+  reloadFromBack(){
+    this.addstep3.markAsPristine();
+   }
 //comments section starts
 
 populateDataComments() {
@@ -580,6 +585,9 @@ showHideAccordion(index: number) {
 //comments section ends
 
   populateData() {
+    if(this.service.disbaleFields==true){
+      this.disable=true;
+      }
     this.arr = [];
     for (let item of this.step3List.periodicInspection.ipaoInspection) {
       this.arr.push(this.createGroup(item));
@@ -962,7 +970,7 @@ showHideAccordion(index: number) {
   removeItem(index: any) {
     (this.addstep3.get('incomingArr') as FormArray).removeAt(index);
   }
-  gotoNextModal(content3: any) {
+  gotoNextModal(content3: any,content2:any) {
     if (this.addstep3.invalid) {
       this.validationError = true;
       this.validationErrorMsg = 'Please check all the fields';
@@ -971,7 +979,16 @@ showHideAccordion(index: number) {
       }, 3000);
       return;
     }
-    this.modalService.open(content3, { centered: true });
+    if(this.addstep3.dirty){
+      this.modalService.open(content3, { centered: true})
+      
+     }
+     if(!this.addstep3.dirty){
+      this.modalService.open(content2, {
+         centered: true, 
+         size: 'md'
+        })
+     }
   }
   closeModalDialog() {
     if (this.errorMsg != '') {
@@ -997,6 +1014,7 @@ showHideAccordion(index: number) {
     this.inspectionDetails.ipaoInspection = this.addstep3.value.incomingArr;
 
     if(flag) {
+      if(this.addstep3.dirty){
       this.UpateInspectionService.updateIncoming(this.inspectionDetails).subscribe(
         data=> {
           this.success = true;
@@ -1006,6 +1024,7 @@ showHideAccordion(index: number) {
           this.Error = true;
           this.errorMsg = 'Something went wrong, kindly check all the fields';
          });
+        }
     }
     else {
       this.inspectionDetailsService

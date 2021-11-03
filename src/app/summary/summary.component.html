@@ -8,7 +8,7 @@
                 <h3>Extent And Limitations Of Inspection And Testing</h3>
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <div class="form-group">                    
+            <div class="form-group" [ngClass]="{'disableForm':disable== true}">                    
               <div class="row">
                   <div class="col-sm-12">
                     <div class="form-group">
@@ -81,7 +81,7 @@
                 <h3>Observations </h3>
               </mat-panel-title>
             </mat-expansion-panel-header>
-              <div class="row">
+              <div class="row" [ngClass]="{'disableForm':disable== true}">
               <div class="col-sm-12">
                 <div class="form-group">
                   <label>Referring to attached inspection report and test results and subject to the 
@@ -102,7 +102,7 @@
          </div>
          <div *ngIf="selectedType">
               <div formArrayName="ObservationsArr" *ngFor="let a of getObservationsControls(); let i = index">
-              <div class="form-group" [formGroupName]="i">
+              <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':disable== true}">
             <div class="form-group">
         <div class="row">
               <div class="col-sm-12">
@@ -169,7 +169,7 @@
                 <h3>Recommendations</h3>
               </mat-panel-title>
             </mat-expansion-panel-header>
-              <div class="form-group">
+              <div class="form-group" [ngClass]="{'disableForm':disable== true}">
                 <div class="row">
                   <div class="col-sm-12">
                     <div class="form-group">
@@ -199,7 +199,7 @@
                 <h3>Summary And Conditions Of The Installation </h3>
               </mat-panel-title>
             </mat-expansion-panel-header>
-                <div class="form-group">
+                <div class="form-group" [ngClass]="{'disableForm':disable== true}">
                   <div class="row">
                     <div class="col-sm-12">
                       <div class="form-group">
@@ -243,7 +243,7 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
               <div formArrayName="Declaration1Arr" *ngFor="let a of getDeclaration1Controls(); let i = index">
-                <div class="form-group" [formGroupName]="i">
+                <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':disable== true}">
                   <label>I/we being the person responsible for the inspection & testing  of the electrical 
                     installation (as indicated by my/our signatures below), particulars of which are described 
                     in this report, having exercised reasonable skill and care when carrying out the inspection 
@@ -324,7 +324,7 @@
               </div>
 
                 <div formArrayName="Declaration2Arr" *ngFor="let a of getDeclaration2Controls(); let i = index">
-                  <div class="form-group" [formGroupName]="i">
+                  <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':disable== true}">
                     <h2>Authorised by:</h2>
                     <div class="form-group">
                     <div class="row">
@@ -589,14 +589,14 @@ style="margin-left: 10px;" >
       <span class="alert alert-danger">Your response to comments has been rejected</span>
     </div>
     <br>
-      <div style="text-align: center;margin-top: 40px;">
+      <!-- <div style="text-align: center;margin-top: 40px;">
         <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
-      </div>
+      </div> -->
     
       <div style="text-align: center;margin-top: 30px;">
-        <button  style="width: 110px;" type="submit" (click)="gotoNextModal(content5)"
+        <button  style="width: auto;" type="submit" (click)="gotoNextModal(content5,content2)"
         class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn next"
-        [disabled]="disable" mat-button>
+        mat-button>
           <i class="bi bi-journal-arrow-up icon"></i> Submit</button>
     </div>
   
@@ -620,8 +620,33 @@ style="margin-left: 10px;" >
     </div>
     <br>
     <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-   aria-label="Close" (click)="closeModalDialog()" matStepperNext>
+   aria-label="Close" (click)="closeModalDialog()">
     <span aria-hidden="true">Ok</span>
 </button>
 
 </ng-template>
+<ng-template #content2 let-modal>
+  <div class="modal-body">
+   <div class="centre-text m-btm30">
+    <div style="text-align: center;">
+      <span class="successshow">Are you sure you want to procced? </span>
+      <br>
+      <span style="font-size: 12px;">Note: Please verify all the details! </span>
+     </div>
+    </div>
+   </div>
+  <br>
+  <div class="row">
+     <button type="button" class="col-md-6" style="text-align:center; width: auto;" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+     aria-label="Close" (click)="closeModalDialog()" matStepperNext>
+     <i class="bi bi-arrow-right-circle"></i>&nbsp;
+      <span aria-hidden="true">Ok</span>
+  </button>
+  <button type="button" class="col-md-6" style="width: auto;" class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn"
+     aria-label="Close" (click)="closeModalDialog()">
+     <i class="bi bi-x icon"></i>
+      <span aria-hidden="true">Cancel</span>
+  </button>
+</div>
+
+  </ng-template>

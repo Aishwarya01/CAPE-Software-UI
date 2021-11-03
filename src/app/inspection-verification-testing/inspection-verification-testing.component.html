@@ -55,7 +55,7 @@
             </mat-panel-title>
          </mat-expansion-panel-header>
 
-    <div class="row">
+    <div class="row" [ngClass]="{'disableForm':disable== true}">
         <div class="col-md-4">
             <label>Test Engineer Name </label>
             <input type="text" formControlName="testEngineerName" class="form-control"    placeholder="Enter Test Engineer Name "
@@ -83,7 +83,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row" [ngClass]="{'disableForm':disable== true}">
                         <div class="col-md-4">
                             <label> Company Name</label>
                             <input type="text" formControlName="companyName"  placeholder="Enter Company Name " class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('companyName')?.errors }"  >
@@ -109,7 +109,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row" [ngClass]="{'disableForm':disable== true}">
                         <div class="col-md-4">
                             <label>Insulation Resistance</label>
                             <input type="number" min="0" formControlName="insulationResisance"   placeholder=" Enter Insulation resistance"class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('insulationResisance')?.errors }"  >
@@ -134,7 +134,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" [ngClass]="{'disableForm':disable== true}">
                     <div class="col-md-4">
                         <label>Earth Electrode Resistance</label>
                         <input type="number" min="0" formControlName="earthElectrodeResistance"  placeholder=" Enter Earth Electrode Resistance" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('earthElectrodeResistance')?.errors }"  >
@@ -152,7 +152,7 @@
                         </mat-expansion-panel-header>
 
                    <div formArrayName="testDistribution" *ngFor="let c of gettestDistributionFormControls(a); let i = index">
-                        <div class="form-group" [formGroupName]="i">
+                        <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':disable== true}">
                             <div class="row">
                                 <div class="col-md-4">
                                     <label>Distribution Board Details </label>
@@ -438,7 +438,7 @@
             </div>
           </div>
 
-          <div class="row">
+          <div class="row" [ngClass]="{'disableForm':disable== true}">
             <div class="col">
                 <div class="table-responsive" id="style-1">
                   <table class="table" border="1" id="table2" style="margin-bottom: unset;">
@@ -813,8 +813,8 @@ style="margin-left: 10px;" >
               </div>
               <br>
             <div style="text-align: center;margin-top: 40px;">
-                <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
-                <button class="next" [disabled]="disable" (click)="gotoNextModal(content4)" mat-button>Next &raquo;</button>
+                <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
+                <button class="next" (click)="gotoNextModal(content4,content2)" mat-button>Next &raquo;</button>
         </div>
       </form>
     </div>
@@ -839,3 +839,28 @@ style="margin-left: 10px;" >
 
     </ng-template>
 
+    <ng-template #content2 let-modal>
+      <div class="modal-body">
+       <div class="centre-text m-btm30">
+        <div style="text-align: center;">
+          <span class="successshow">Are you sure you want to procced? </span>
+          <br>
+          <span style="font-size: 12px;">Note: Please verify all the details! </span>
+         </div>
+        </div>
+       </div>
+      <br>
+      <div class="row">
+         <button type="button" class="col-md-6" style="text-align:center; width: auto;" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+         aria-label="Close" (click)="closeModalDialog()" matStepperNext>
+         <i class="bi bi-arrow-right-circle"></i>&nbsp;
+          <span aria-hidden="true">Ok</span>
+      </button>
+      <button type="button" class="col-md-6" style="width: auto;" class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn"
+         aria-label="Close" (click)="closeModalDialog()">
+         <i class="bi bi-x icon"></i>
+          <span aria-hidden="true">Cancel</span>
+      </button>
+    </div>
+    
+      </ng-template>

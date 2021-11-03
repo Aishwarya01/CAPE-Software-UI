@@ -1,5 +1,5 @@
 import { SignatorDetails } from './../model/reportdetails';
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup,Validators,ValidatorFn } from '@angular/forms';
 import {​​​ NgbModal }​​​ from'@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
@@ -179,7 +179,8 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 companyNameSite: String = '';
 departmentNameSite: String = '';
 siteValue: String = '';
- 
+ShowNext: boolean = true;
+  
   constructor(
     private _formBuilder: FormBuilder,
     private router: ActivatedRoute,
@@ -264,6 +265,7 @@ siteValue: String = '';
       completedCommentArr1: this._formBuilder.array([]),
       //inspectorCommentArr: this._formBuilder.array([this.addCommentInspector()])
     });
+   
     this.siteService.retrieveCountry().subscribe(
       data => {
         this.countryList = JSON.parse(data);
@@ -273,6 +275,7 @@ siteValue: String = '';
     this.retrieveSiteDetails(this.service.viewerData.companyName,this.service.viewerData.department,this.service.viewerData.siteName);
     this.inspectorArr = this.step1Form.get('inspectorArr') as FormArray;
     this.expandedIndex = -1 ;
+    
   }
 
 //for company site detail continue
@@ -290,6 +293,9 @@ siteValue: String = '';
  
   // Need to check this task
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
+    if(this.service.disbaleFields==true){
+      this.step1Form.disable();
+     }
       this.service.siteCount = siteId;
        this.savedUserName = userName;
        this.siteDetails1 = true;
@@ -371,7 +377,20 @@ siteValue: String = '';
     this.flag=true;
    // this.disable=true;
      }
-   
+   reloadFromBack(){
+    this.step1Form.markAsPristine();
+   }
+
+   getDisabledValue() {
+    //your condition, in this case textarea will be disbaled.
+    if(this.service.disbaleFields==true){
+      this.disable=true;
+      return true; 
+     }
+     else{
+      return false; 
+     }
+  }
 //comments section starts
 
 populateDataComments() {
@@ -944,6 +963,9 @@ showHideAccordion(index: number) {
   
   populateData() {
     for (let item of this.step1List.reportDetails.signatorDetails) {
+      if(this.service.disbaleFields==true){
+        this.disable=true;
+        }
       if(item.signatorRole == "designer1") {
       this.mobilearr.push(this.createGroup(item));
       this.step1Form.setControl('designer1Arr', this._formBuilder.array(this.mobilearr || []))
@@ -1289,7 +1311,7 @@ showHideAccordion(index: number) {
     this.proceedNext.emit(true);
   }
 //modal popup
-  gotoNextModal(content1: any) {
+  gotoNextModal(content1: any,content2:any) {
       if(this.step1Form.invalid) {
         this.validationError=true;
         this.validationErrorMsg="Please check all the fields";
@@ -1298,8 +1320,18 @@ showHideAccordion(index: number) {
      }, 3000);
         return;
       }
+      if(this.step1Form.dirty){
       this.modalService.open(content1, { centered: true})
+      
+     }
+     if(!this.step1Form.dirty){
+      this.modalService.open(content2, {
+         centered: true, 
+         size: 'md'
+        })
+     }
     }
+   
     closeModalDialog(){
       if(this.errorMsg != ""){
         this.Error = false;
@@ -1310,9 +1342,10 @@ showHideAccordion(index: number) {
         this.modalService.dismissAll(this.successMsg="") 
       }
     }
-
+  
 //next button--final submit
 	nextTab(flag: any) {
+      //this.dirty=true;
       this.loading = true;
       this.submitted = true
       if(this.step1Form.invalid) {
@@ -1505,22 +1538,25 @@ showHideAccordion(index: number) {
       }
       this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.getRawValue().contractorArr,this.step1Form.getRawValue().inspectorArr);
     }
-    
+  
     if(flag){
+      if(this.step1Form.dirty){
+        this.UpateBasicService.updateBasic(this.reportDetails).subscribe(
+          data=> {
+           this.success = true;
+           this.successMsg = data;
+          },
+          (error) => {
+            this.Error = true;
+            this.errorArr = [];
+            this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.errorArr.message;
+          });
+      }
+      
     //  this.reportDetails.siteId = this.retrivedSiteId;
      //this.disable=false;
-   this.UpateBasicService.updateBasic(this.reportDetails).subscribe(
-    data=> {
-     this.success = true;
-     this.successMsg = data;
-    },
-    (error) => {
-      this.Error = true;
-      this.errorArr = [];
-      this.errorArr = JSON.parse(error.error);
-      this.errorMsg = this.errorArr.message;
-    });
-   
+  
    }
    else{
    this.reportDetailsService.addReportDetails(this.reportDetails).subscribe(
