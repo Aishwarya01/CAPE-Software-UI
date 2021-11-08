@@ -73,7 +73,7 @@ export class LpsBasicPageComponent implements OnInit {
   onSubmit() {
     this.submitted=true;
     this.lPSBasicDetailsService.saveLPSBasicDetails(this.LPSBasicForm.value).subscribe(
-
+    
       data => {
          
       

@@ -142,7 +142,7 @@
                                     <td style="width: 1rem; text-align: center;">1.</td>
                                     <td style="width: 24rem;">Connections are made by brazing/welding/crimping/
                                         seaming/screwing/bolting:</td>
-                                    <td>
+                                    <td style="width: 35rem;">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -159,7 +159,7 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td>
+                                    <td style="width: 35rem;">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -299,7 +299,6 @@
                                         </div>
                                     </td>
                                 </tr>
-
                             </tbody>
                         </table>
                     </div>
@@ -992,6 +991,7 @@
                                             water
                                             level):</td>
                                         <td>
+                                            <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
                                                     <i class="bi bi-text-paragraph"></i>
@@ -1005,7 +1005,9 @@
                                                 <div
                                                     *ngIf="a.get('heightOfConductorFlatSurfaceOb')?.errors?.required">
                                                     Description
-                                                    is required</div>
+                                                    is required
+                                                </div>
+                                            </div>
                                             </div>
                                         </td>
                                         <td>
@@ -2399,10 +2401,12 @@
                         </table>
                     </div>
                 </mat-expansion-panel>
-                <button class="btn btn-primary">Previous</button>
-                <button class="btn btn-success" type="submit">Next</button>
             </mat-accordion>
 
+            <div style="margin-top: 2rem;">
+                <button style="margin-inline: 30rem;width: 7rem;height: 3rem;" class="btn btn-primary">Back</button>
+                <button style="width: 7rem;height: 3rem;" class="btn btn-success" type="submit">Next</button>
+            </div>
 
         </form>
 

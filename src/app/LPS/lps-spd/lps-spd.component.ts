@@ -12,6 +12,7 @@ export class LpsSpdComponent implements OnInit {
   spd=new Spd();
   lpsSpd_Service;
   j: any;
+  submitted=false;
   constructor(private formBuilder: FormBuilder, lpsSpd_Services: LpsSpd_Service) {
     this.lpsSpd_Service = lpsSpd_Services;
   }
@@ -40,7 +41,7 @@ export class LpsSpdComponent implements OnInit {
   }
   private spdarrfun(): FormGroup{
     return new FormGroup({
-      //spdDescriptionRole:new FormControl('', Validators.required),
+      spdDescriptionRole:new FormControl('Mains_SPD'),
       spdTypeOb:new FormControl('', Validators.required),
       spdTypeRe: new FormControl(''),
       spdApplicationOb:new FormControl('', Validators.required),
@@ -61,7 +62,7 @@ export class LpsSpdComponent implements OnInit {
 
   private panelarrfun(): FormGroup{
     return new FormGroup({
-      //spdDescriptionRole:new FormControl('', Validators.required),
+      spdDescriptionRole:new FormControl('Street_SPD'),
       spdTypeOb:new FormControl('', Validators.required),
       spdTypeRe: new FormControl(''),
       spdApplicationOb:new FormControl('', Validators.required),
@@ -82,7 +83,7 @@ export class LpsSpdComponent implements OnInit {
 
   private powerarrfun(): FormGroup{
     return new FormGroup({
-      //spdDescriptionRole:new FormControl('', Validators.required),
+      spdDescriptionRole:new FormControl('Other_SPD'),
       spdTypeOb:new FormControl('', Validators.required),
       spdTypeRe: new FormControl(''),
       spdApplicationOb:new FormControl('', Validators.required),
@@ -114,27 +115,35 @@ export class LpsSpdComponent implements OnInit {
     return (<FormArray>this.spdForm.get('powerarr')).controls;
   }
 
+  get f() {
+    return this.spdForm.controls;
+  }
+
   onSubmit(){
-          
-        // this.spd.spdDescription=this.spdForm.value.spdarr;
-        // this.spd.spdDescription=this.spdForm.value.panelarr;
-        // this.spd.spdDescription=this.spdForm.value.powerarr;
-debugger
+        
+        this.submitted=true;
+        this.spd.mainsIncomingOb = this.spdForm.value.mainsIncomingOb;
+        this.spd.mainsIncomingRem = this.spdForm.value.mainsIncomingRem;
+        this.spd.totalMainsIncomingOb = this.spdForm.value.totalMainsIncomingOb;
+        this.spd.totalMainsIncomingRem = this.spdForm.value.totalMainsIncomingRem;
+        this.spd.noPannelSupplittingOb = this.spdForm.value.noPannelSupplittingOb;
+        this.spd.noPannelSupplittingRem = this.spdForm.value.noPannelSupplittingRem;
+        this.spd.totalNoOutDoorRequipmentOb = this.spdForm.value.totalNoOutDoorRequipmentOb;
+        this.spd.totalNoOutDoorRequipmentRem = this.spdForm.value.totalNoOutDoorRequipmentRem;
         this.spd.spdDescription = this.spdForm.getRawValue().spdarr;
         this.spd.spdDescription=this.spd.spdDescription.concat(this.spdForm.getRawValue().panelarr);
         this.spd.spdDescription=this.spd.spdDescription.concat(this.spdForm.getRawValue().powerarr);
-         
         console.log(this.spd);
+        this.lpsSpd_Service.saveSPDDetails(this.spd).subscribe(
 
-        //this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.value.designer2Arr);
-
-        // else {
-      
+        
+          data => {
+             
           
-        //   if(this.step1Form.value.designer2Arr[0].personName != "" && this.step1Form.value.designer2Arr[0].personName != null) {
-        //     this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.getRawValue().designer2Arr);
-        //   }
-        //   this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.getRawValue().contractorArr,this.step1Form.getRawValue().inspectorArr);
-        // }
-   }
+          },
+          error => {
+          }
+        )
+      };
+    
 }
