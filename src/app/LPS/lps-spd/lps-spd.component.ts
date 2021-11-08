@@ -115,6 +115,26 @@ export class LpsSpdComponent implements OnInit {
   }
 
   onSubmit(){
-   
+          
+        // this.spd.spdDescription=this.spdForm.value.spdarr;
+        // this.spd.spdDescription=this.spdForm.value.panelarr;
+        // this.spd.spdDescription=this.spdForm.value.powerarr;
+debugger
+        this.spd.spdDescription = this.spdForm.getRawValue().spdarr;
+        this.spd.spdDescription=this.spd.spdDescription.concat(this.spdForm.getRawValue().panelarr);
+        this.spd.spdDescription=this.spd.spdDescription.concat(this.spdForm.getRawValue().powerarr);
+         
+        console.log(this.spd);
+
+        //this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.value.designer2Arr);
+
+        // else {
+      
+          
+        //   if(this.step1Form.value.designer2Arr[0].personName != "" && this.step1Form.value.designer2Arr[0].personName != null) {
+        //     this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.getRawValue().designer2Arr);
+        //   }
+        //   this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.getRawValue().contractorArr,this.step1Form.getRawValue().inspectorArr);
+        // }
    }
 }
