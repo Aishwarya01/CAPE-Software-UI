@@ -596,16 +596,13 @@ style="margin-left: 10px;" >
       <div style="text-align: center;margin-top: 30px;">
         <button  style="width: auto;" type="submit" (click)="gotoNextModal(content5,content2)"
         class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn next"
-        mat-button>
+        mat-button [ngClass]="{'disableForm':disable== true}">
           <i class="bi bi-journal-arrow-up icon"></i> Submit</button>
     </div>
   
   </form>
 </div>
 </div>
- 
-   
-  
 
   <ng-template #content5 let-modal>
     <div class="modal-body">

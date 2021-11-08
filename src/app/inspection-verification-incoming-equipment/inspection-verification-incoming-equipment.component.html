@@ -4,7 +4,7 @@
 <div class="card-body" formArrayName="incomingArr" *ngFor="let a of getIncomingControls(); let i = index" >
   <div [formGroupName]="i" >
   <div class="search-bar">
-    <div class="form-group">
+    <div class="form-group" [ngClass]="{'disableForm':disable== true}">
       <div class="row">
         <div class="col-md-4">
               <label>Location Number*</label>
