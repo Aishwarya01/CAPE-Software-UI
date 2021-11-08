@@ -10,7 +10,7 @@ import { Spd } from '../LPS_model/spd';
 
 export class LpsSpd_Service {
 
-    apiUrl = environment.apiUrl;
+    apiUrl = environment.apiUrl_LPS;
     constructor(private http: HttpClient) { }
 
 

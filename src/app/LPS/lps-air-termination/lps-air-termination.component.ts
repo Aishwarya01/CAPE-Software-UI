@@ -81,8 +81,6 @@ export class LpsAirTerminationComponent implements OnInit {
         this.airtermination.airExpansion=this.airTerminationForm.value.expArr;
         this.airtermination.airHolderDescription=this.airTerminationForm.value.holderArr;
         
-        console.log(this.airTerminationForm.value.bondingEquipotentialRe);
-        console.log(this.airtermination);
         this.airterminationService.saveAirtermination(this.airtermination).subscribe(
 
           data => {
