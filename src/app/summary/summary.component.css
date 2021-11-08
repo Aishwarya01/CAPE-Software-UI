@@ -42,6 +42,9 @@
   }   
   .disableForm{
     pointer-events: none;
+  }
+  .disableSubmit{
+    pointer-events: none;
     background-color: lightgrey;
     color: black;
   }

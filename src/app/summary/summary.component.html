@@ -593,13 +593,16 @@ style="margin-left: 10px;" >
         <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
       </div> -->
     
-      <div style="text-align: center;margin-top: 30px;">
+      <div class="row" style="display:block;margin-top: 30px;margin-left: 40px;">
+        <div class="col-sm-12">
+        <div style="text-align: center;">
         <button  style="width: auto;" type="submit" (click)="gotoNextModal(content5,content2)"
         class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn next"
-        mat-button [ngClass]="{'disableForm':disable== true}">
+        mat-button [ngClass]="{'disableSubmit':disable== true}">
           <i class="bi bi-journal-arrow-up icon"></i> Submit</button>
     </div>
-  
+        </div>
+      </div>
   </form>
 </div>
 </div>

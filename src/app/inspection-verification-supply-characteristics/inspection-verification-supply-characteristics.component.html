@@ -90,9 +90,9 @@
           </div>
 
           <div class="row" *ngIf="tableAC" [ngClass]="{'disableForm':disable== true}">
-            <div class="col" >
+            <div class="col-sm-12">
               <h2>Applicable for AC: (Note: Please mention NA if any column is not applicable)</h2>
-                <div class="table-responsive">
+                <div class="table-responsive" style="border: 1px solid black">
                   <table class="table">
                     <thead>
                       <tr align="center">
@@ -163,11 +163,12 @@
                 </div>
             </div>
           </div>
+         <br>
 
-
-          <div class="row" style="margin-top: 50px;" [ngClass]="{'disableForm':disable== true}">
+          <div class="row" [ngClass]="{'disableForm':disable== true}">
             <div class="col-sm-12">
               <h2>Incoming (Supply) Protective Device Characteristics:</h2>
+              <div class="table-responsive" style="border: 1px solid black">
               <table  class="table">
                 <tr>
                   <td nowrap="nowrap">Type Of Over Current Protective Device</td>
@@ -200,6 +201,7 @@
                   </td>
                 </tr>
               </table>
+              </div>
             </div>
           </div>
 
@@ -359,9 +361,9 @@
 
 
                   <div class="row" *ngIf="a.get('aLLiveConductorType')?.value=='AC'" [ngClass]="{'disableForm':disable== true}">
-                    <div class="col">
+                    <div class="col-sm-12">
                       <h2>Applicable for AC: (Note: Please mention NA if any column is not applicable)</h2>
-                      <div class="table-responsive">
+                      <div class="table-responsive" style="border: 1px solid black">
                         <table  class="table" formArrayName="nominalVoltageArr1" *ngFor="let row of getTableArray(a); let j = index">
                           <thead>
                               <tr align="center">
@@ -446,13 +448,13 @@
                       </div>
                     </div>
                   </div>
+                  <br>
 
-
-                  <div class="row" style="margin-top: 50px;" [ngClass]="{'disableForm':disable== true}">
-                    <div class="col">
+                  <div class="row" [ngClass]="{'disableForm':disable== true}">
+                    <div class="col-sm-12">
                       <h2>Incoming (Supply) Protective Device Characteristics:</h2>
+                      <div class="table-responsive" style="border: 1px solid black">
                       <table  class="table">
-
                           <tr>
                             <td nowrap="nowrap">Type Of Over Current Protective Device</td>
                             <td>
@@ -483,6 +485,7 @@
                             </td>
                           </tr>
                       </table>
+                    </div>
                     </div>
                   </div>
 
