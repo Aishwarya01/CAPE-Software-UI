@@ -12,6 +12,7 @@ export class LpsSpdComponent implements OnInit {
   spd=new Spd();
   lpsSpd_Service;
   j: any;
+  submitted=false;
   constructor(private formBuilder: FormBuilder, lpsSpd_Services: LpsSpd_Service) {
     this.lpsSpd_Service = lpsSpd_Services;
   }
@@ -114,8 +115,13 @@ export class LpsSpdComponent implements OnInit {
     return (<FormArray>this.spdForm.get('powerarr')).controls;
   }
 
+  get f() {
+    return this.spdForm.controls;
+  }
+
   onSubmit(){
-          
+        
+        this.submitted=true;
         this.spd.mainsIncomingOb = this.spdForm.value.mainsIncomingOb;
         this.spd.mainsIncomingRem = this.spdForm.value.mainsIncomingRem;
         this.spd.totalMainsIncomingOb = this.spdForm.value.totalMainsIncomingOb;
@@ -127,8 +133,10 @@ export class LpsSpdComponent implements OnInit {
         this.spd.spdDescription = this.spdForm.getRawValue().spdarr;
         this.spd.spdDescription=this.spd.spdDescription.concat(this.spdForm.getRawValue().panelarr);
         this.spd.spdDescription=this.spd.spdDescription.concat(this.spdForm.getRawValue().powerarr);
+        console.log(this.spd);
         this.lpsSpd_Service.saveSPDDetails(this.spd).subscribe(
 
+        
           data => {
              
           

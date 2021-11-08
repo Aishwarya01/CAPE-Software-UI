@@ -5,7 +5,7 @@
         </div>
     <!-- Basic Details -->
     <div class="card-body">
-        <form>
+        <form [formGroup]="EarthStudForm" (ngSubmit)="onSubmit()">
             <div class="card-body">
                 <div style="font-weight: bold;">
                     <label for="Basicdetails">Basic Details:</label>
@@ -136,30 +136,33 @@
                     <th>SI.No</th>
                     <th>Description</th>
                     <th>Observation</th>
-                    <th>Remarks</th>
+                    <th>Remarks(Optional)</th>
                 </thead>
             <tbody>
                 <tr>
                     <td style="width: 1rem; text-align: center;" >1.</td>
                     <td style="width: 24rem;">Earth stud visibility if any:</td>
-                    <td>
+                    <td style="width: 35rem">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <i class="bi bi-text-paragraph"></i>
                                 </span>
                             </div>
-                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                            <textarea formControlName="earthStudVisibilityOb" class="form-control" placeholder="please enter observation" [ngClass]="{ 'is-invalid': submitted && f.earthStudVisibilityOb.errors}"></textarea>
+                            <div *ngIf="submitted && f.earthStudVisibilityOb.errors" class="invalid-feedback">
+                                <div *ngIf="f.earthStudVisibilityOb.errors.required">Observation is required</div>
+                            </div>
                         </div>
                     </td>
-                    <td>
+                    <td style="width: 35rem;">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <i class="bi bi-text-paragraph"></i>
                                 </span>
                             </div>
-                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                            <textarea formControlName="earthStudVisibilityRem" type="text" class="form-control" placeholder="Ex.."></textarea>
                         </div>
                     </td>
                 </tr>
@@ -173,7 +176,10 @@
                                     <i class="bi bi-text-paragraph"></i>
                                 </span>
                             </div>
-                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                            <textarea formControlName="earthStudBendOb" type="text" class="form-control" placeholder="please enter observation" [ngClass]="{ 'is-invalid': submitted && f.earthStudBendOb.errors}"></textarea>
+                            <div *ngIf="submitted && f.earthStudBendOb.errors" class="invalid-feedback">
+                                <div *ngIf="f.earthStudBendOb.errors.required">Observation is required</div>
+                            </div>
                         </div>
                     </td>
                     <td>
@@ -183,7 +189,7 @@
                                     <i class="bi bi-text-paragraph"></i>
                                 </span>
                             </div>
-                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                            <textarea formControlName="earthStudBendRem" type="text" class="form-control" placeholder="Ex.."></textarea>
                         </div>
                     </td>
                 </tr>
@@ -197,7 +203,10 @@
                                         <i class="bi bi-text-paragraph"></i>
                                     </span>
                                 </div>
-                                <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                <textarea formControlName="properBondingRailOb" type="text" class="form-control" placeholder="please enter observation" [ngClass]="{ 'is-invalid': submitted && f.properBondingRailOb.errors}"></textarea>
+                                <div *ngIf="submitted && f.properBondingRailOb.errors" class="invalid-feedback">
+                                    <div *ngIf="f.properBondingRailOb.errors.required">Observation is required</div>
+                                </div>
                             </div>
                         </td>
                         <td>
@@ -207,7 +216,7 @@
                                         <i class="bi bi-text-paragraph"></i>
                                     </span>
                                 </div>
-                                <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                                <textarea formControlName="properBondingRailRem" type="text" class="form-control" placeholder="Ex.."></textarea>
                             </div>
                     </td>
                 </tr>
@@ -221,7 +230,10 @@
                                     <i class="bi bi-text-paragraph"></i>
                                 </span>
                             </div>
-                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                            <textarea formControlName="physicalDamageStudOb" type="text" class="form-control" placeholder="please enter observation" [ngClass]="{ 'is-invalid': submitted && f.physicalDamageStudOb.errors}"></textarea>
+                            <div *ngIf="submitted && f.physicalDamageStudOb.errors" class="invalid-feedback">
+                                <div *ngIf="f.physicalDamageStudOb.errors.required">Observation is required</div>
+                            </div>
                         </div>
                     </td>
                     <td>
@@ -231,7 +243,7 @@
                                     <i class="bi bi-text-paragraph"></i>
                                 </span>
                             </div>
-                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                            <textarea formControlName="physicalDamageStudRem" type="text" class="form-control" placeholder="Ex.."></textarea>
                         </div>
                     </td>
                 </tr>
@@ -245,7 +257,10 @@
                                     <i class="bi bi-text-paragraph"></i>
                                 </span>
                             </div>
-                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                            <textarea formControlName="continutyExistaEarthOb" type="text" class="form-control" placeholder="please enter observation" [ngClass]="{ 'is-invalid': submitted && f.continutyExistaEarthOb.errors}"></textarea>
+                            <div *ngIf="submitted && f.continutyExistaEarthOb.errors" class="invalid-feedback">
+                                <div *ngIf="f.continutyExistaEarthOb.errors.required">Observation is required</div>
+                            </div>
                         </div>
                     </td>
                     <td>
@@ -255,15 +270,17 @@
                                     <i class="bi bi-text-paragraph"></i>
                                 </span>
                             </div>
-                            <textarea type="text" class="form-control" placeholder="Ex.."></textarea>
+                            <textarea formControlName="continutyExistaEarthRem" type="text" class="form-control" placeholder="Ex.."></textarea>
                         </div>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <button style="margin-top: 10px;" class="btn btn-primary">Back</button>
-    <button style="margin-top: 10px;" class="btn btn-success">Next</button>
+    <div style="margin-top: 2rem;">
+        <button style="margin-inline: 30rem;width: 7rem;height: 3rem;" class="btn btn-primary">Back</button>
+        <button style="width: 7rem;height: 3rem;" class="btn btn-success" type="submit">Next</button>
+    </div>
     </form>
 </div>
 </div>
