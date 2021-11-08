@@ -44,7 +44,7 @@ export class GlobalsService {
   noofLicense!: number;  
   useClicked:boolean=false;
 //completed-saved-final
- disbaleFields:boolean=false;
+ disableFields:boolean=false;
  allStepsCompleted:boolean=false;
   constructor(private _scrollToService: ScrollToService) {}
   

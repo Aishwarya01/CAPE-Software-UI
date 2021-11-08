@@ -573,7 +573,7 @@ triggerNavigateTo(siteName:any){
     setTimeout(()=>{
       this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
     }, 1000);
-    this.service.disbaleFields=true;
+    this.service.disableFields=false;
   } 
   else {
     this.value= false;
@@ -595,7 +595,7 @@ triggerNavigateTo(siteName:any){
     setTimeout(()=>{
       this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
     }, 1000);
-    this.service.disbaleFields=true;
+    this.service.disableFields=true;
   } 
   else {
     this.value= false;

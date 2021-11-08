@@ -242,7 +242,7 @@ export class SummaryComponent implements OnInit {
     this.addsummary.markAsPristine();
    }
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
-    if(this.service.disbaleFields==true){
+    if(this.service.disableFields==true){
       this.addsummary.disable();
      }
        this.summaryList = JSON.parse(data);
@@ -682,7 +682,7 @@ showHideAccordion(index: number) {
 //comments section ends
 
      populateData() {
-      if(this.service.disbaleFields==true){
+      if(this.service.disableFields==true){
         this.disable=true;
         }
        this.arr = [];

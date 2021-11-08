@@ -381,7 +381,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   }
 
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
-    if(this.service.disbaleFields==true){
+    if(this.service.disableFields==true){
       this.supplycharesteristicForm.disable();
      }
        this.step2List = JSON.parse(data);
@@ -907,7 +907,7 @@ showHideAccordion(index: number) {
 //comments section ends
 
      populateData() {
-      if(this.service.disbaleFields==true){
+      if(this.service.disableFields==true){
         this.disable=true;
         }
       for (let item of this.step2List.supplyCharacteristics.boundingLocationReport) {     

@@ -250,7 +250,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   }
 
  retrieveDetailsFromIncoming() {
-  if(this.service.disbaleFields==true){
+  if(this.service.disableFields==true){
     this.testingForm.disable();
    }
   if(this.service.siteCount !=0 && this.service.siteCount!=undefined) {
@@ -316,7 +316,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
 }
 
  retrieveDetailsFromSupply(){
-  if(this.service.disbaleFields==true){
+  if(this.service.disableFields==true){
     this.testingForm.disable();
    }
   this.pushJsonArray=[];
@@ -423,7 +423,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
 }
 
   retrieveDetailsfromSavedReports(userName: any, siteId: any, clientName: any, departmentName: any, site: any, data: any) {
-    if(this.service.disbaleFields==true){
+    if(this.service.disableFields==true){
       this.testingForm.disable();
      }
     this.testingRetrieve = true;
@@ -838,7 +838,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
     this.testingForm.markAsPristine();
    }
   populateData() {
-    if(this.service.disbaleFields==true){
+    if(this.service.disableFields==true){
       this.disable=true;
       }
     this.arr = [];

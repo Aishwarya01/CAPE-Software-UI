@@ -293,7 +293,7 @@ ShowNext: boolean = true;
  
   // Need to check this task
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
-    if(this.service.disbaleFields==true){
+    if(this.service.disableFields==true){
       this.step1Form.disable();
      }
       this.service.siteCount = siteId;
@@ -383,7 +383,7 @@ ShowNext: boolean = true;
 
    getDisabledValue() {
     //your condition, in this case textarea will be disbaled.
-    if(this.service.disbaleFields==true){
+    if(this.service.disableFields==true){
       this.disable=true;
       return true; 
      }
@@ -963,7 +963,7 @@ showHideAccordion(index: number) {
   
   populateData() {
     for (let item of this.step1List.reportDetails.signatorDetails) {
-      if(this.service.disbaleFields==true){
+      if(this.service.disableFields==true){
         this.disable=true;
         }
       if(item.signatorRole == "designer1") {

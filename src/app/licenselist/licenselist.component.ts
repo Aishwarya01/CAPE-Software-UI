@@ -169,7 +169,7 @@ export class LicenselistComponent implements OnInit {
     setTimeout(()=>{
       this.verification.changeTab(0,siteId,userName,companyName,departmentName,site);
     }, 1000);
-    this.service.disbaleFields=false;
+    this.service.disableFields=false;
     } 
     else {
       this.destroy = false;
@@ -192,7 +192,7 @@ export class LicenselistComponent implements OnInit {
     setTimeout(()=>{
       this.verification.changeTab(0,siteId,userName,companyName,departmentName,site);
     }, 1000);
-    this.service.disbaleFields=true;
+    this.service.disableFields=true;
   } 
   else {
     this.destroy = false;
