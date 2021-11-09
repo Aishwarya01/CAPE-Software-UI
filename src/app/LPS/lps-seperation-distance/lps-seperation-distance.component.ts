@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Separatedistance } from 'src/app/LPS_model/separatedistance';
 import { SeparatedistanceService } from 'src/app/LPS_services/separatedistance.service';
 
@@ -38,9 +38,9 @@ export class LpsSeperationDistanceComponent implements OnInit {
   }
   private separateDistanceArrForm(): FormGroup {
     return new FormGroup({
-      seperationDistanceDesc: new FormControl(''),
-      seperationDistanceOb: new FormControl(''),
-      seperationDistanceRem: new FormControl(''),
+      seperationDistanceDesc: new FormControl('',Validators.required),
+      seperationDistanceOb: new FormControl('',Validators.required),
+      seperationDistanceRem: new FormControl('',Validators.required),
 
     })
   }
@@ -77,4 +77,8 @@ export class LpsSeperationDistanceComponent implements OnInit {
     console.log(this.separatedistance);
 
   }
+
+  removeItem(index: any) {
+    (this.separeteDistanceForm.get('separateDistanceDescriptionArr') as FormArray).removeAt(index);
+    }
 }

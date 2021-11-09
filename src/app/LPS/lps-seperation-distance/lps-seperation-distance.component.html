@@ -129,8 +129,8 @@
                 </div>
 
                 <!-- tables -->
-            <div style="margin-top: 40px;">
-                <!-- <table class="table">
+                <div style="margin-top: 40px;">
+                    <!-- <table class="table">
                     <thead>
                       <tr>
                        <th>SI.No</th>
@@ -182,77 +182,98 @@
                     </tr>
                   </tbody>
                 </table> -->
-                <table class="table">
-                    <thead style="text-align: center;">
-                        <th>SI.No</th>
-                        <th>Description</th>
-                        <th>Observation</th>
-                        <th>Remarks</th>
-                    </thead>
+                    <table class="table">
+                        <thead style="text-align: center;">
+                            <th>SI.No</th>
+                            <th>Description</th>
+                            <th>Observation</th>
+                            <th>Remarks</th>
+                        </thead>
                         <tbody>
                             <tr>
                                 <td style="width: 1rem; text-align: center;"></td>
-                                <td colspan="3" style="width: 24rem;">Measured Seperation distance beweeen air termination and electrical
-                                    apparatus (lights, Solar PV, AC chillers, cameras…. Etc)(Measurement required in atleast
+                                <td colspan="3" style="width: 24rem;">Measured Seperation distance beweeen air
+                                    termination and electrical
+                                    apparatus (lights, Solar PV, AC chillers, cameras…. Etc)(Measurement required in
+                                    atleast
                                     10 locations on roof top):
                                 </td>
                             </tr>
                         </tbody>
 
-                </table>
-                <table>
-                    <tbody formArrayName="separateDistanceDescriptionArr" *ngFor="let f of getseparateDistanceDescriptionControls(); let i = index">
-                        <div class="form-group" [formGroupName]="i">
-                            <td style="width: 4rem; text-align: center;">{{i+1}}</td>
-                            <td style="width: 35rem; margin-left: 1rem;">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="bi bi-text-paragraph"></i>
-                                        </span>
+                    </table>
+                    <table>
+                        <tbody formArrayName="separateDistanceDescriptionArr"
+                            *ngFor="let f of getseparateDistanceDescriptionControls(); let i = index">
+                            <div class="form-group" [formGroupName]="i">
+                                <td style="width: 4rem; text-align: center;">{{i+1}}</td>
+                                <td style="width: 35rem; margin-left: 1rem;">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="bi bi-text-paragraph"></i>
+                                            </span>
+                                        </div>
+                                        <textarea type="text" formControlName="seperationDistanceDesc"
+                                            class="form-control" placeholder="Ex.."
+                                            [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceDesc')?.errors }">
+                                        <div *ngIf="submitted && f.get('seperationDistanceDesc')?.errors" class="invalid-feedback">
+                                            <div *ngIf="f.get('seperationDistanceDesc')?.errors?.required">SeparateDistance Description is required</div>
+                                        </div></textarea>
                                     </div>
-                                    <textarea type="text" formControlName="seperationDistanceDesc"
-                                        class="form-control" placeholder="Ex.."></textarea>
-                                </div>
-                            </td>
-                            <td style="width: 35rem;">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="bi bi-text-paragraph"></i>
-                                        </span>
+                                </td>
+                                <td style="width: 35rem;">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="bi bi-text-paragraph"></i>
+                                            </span>
+                                        </div>
+                                        <textarea type="text" formControlName="seperationDistanceOb"
+                                            class="form-control" placeholder="Ex.."
+                                            [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceOb')?.errors }">
+                                        <div *ngIf="submitted && f.get('seperationDistanceOb')?.errors" class="invalid-feedback">
+                                            <div *ngIf="f.get('seperationDistanceOb')?.errors?.required"> SeparateDistance Description Observation is required</div>
+                                        </div></textarea>
                                     </div>
-                                    <textarea type="text" formControlName="seperationDistanceOb"
-                                        class="form-control" placeholder="Ex.."></textarea>
-                                </div>
-                            </td>
-                            <td style="width: 35rem;"> 
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="bi bi-text-paragraph"></i>
-                                        </span>
+                                </td>
+                                <td style="width: 35rem;">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="bi bi-text-paragraph"></i>
+                                            </span>
+                                        </div>
+                                        <textarea type="text" formControlName="seperationDistanceRem"
+                                            class="form-control" placeholder="Ex.."
+                                            [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceRem')?.errors }">
+                                        <div *ngIf="submitted && f.get('seperationDistanceRem')?.errors" class="invalid-feedback">
+                                            <div *ngIf="f.get('seperationDistanceRem')?.errors?.required">SeparateDistance Description Remarks is required</div>
+                                        </div></textarea>
                                     </div>
-                                    <textarea type="text" formControlName="seperationDistanceRem"
-                                        class="form-control" placeholder="Ex.."></textarea>
-                                </div>
-                            </td>
-                        </div>
-                        <div>
-                            <button class="btn btn-primary" type="button" (click)="add()"
-                                style="margin-left: 91rem;margin-bottom: 4px;">Add</button>
-                        </div>
-                    </tbody>
-                </table>
-            </div>
-        </div>  
-        <div>
+                                </td>
+                            </div>
+                            <div>
+                                <mat-icon class="mousechange" (click)="add()"
+                                    style="margin-left: 91rem;margin-bottom: 4px;">add_box</mat-icon>
 
-        </div>
-        <div>
-            <button style="margin-inline: 30rem;width: 7rem;height: 3rem;" class="btn btn-primary">Back</button>
-            <button style="width: 7rem;height: 3rem;" (click)="onSubmit()" class="btn btn-success">Next</button>
-        </div>
+
+
+                                <mat-icon class="mousechange"
+                                    *ngIf="getseparateDistanceDescriptionControls().length > 1" (click)="removeItem(i)"
+                                    style="float:left;margin: 0px 15px 0px 15px;">delete</mat-icon>
+                            </div>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div>
+
+            </div>
+            <div>
+                <button style="margin-inline: 30rem;width: 7rem;height: 3rem;" class="btn btn-primary">Back</button>
+                <button style="width: 7rem;height: 3rem;" (click)="onSubmit()" class="btn btn-success">Next</button>
+            </div>
         </form>
     </div>
 </div>
