@@ -10,19 +10,19 @@ import { EarthStudService } from 'src/app/LPS_services/earth-stud.service';
 })
 export class LpsEarthStudComponent implements OnInit {
 
-  EarthStudForm: FormGroup;
+  EarthStudForm!: FormGroup;
   submitted=false;
   earthStud = new EarthStud;
 
   constructor(
     private formBuilder: FormBuilder,
-    private earthStudService: EarthStudService,
+    private earthStudService: EarthStudService
     ) { }
 
   ngOnInit(): void {
     this.EarthStudForm = this.formBuilder.group({
 
-      userName: ['', Validators.required],
+      // userName: ['', Validators.required],
       earthStudVisibilityOb: ['', Validators.required],
       earthStudVisibilityRem: [''],
       earthStudBendOb: ['', Validators.required],
@@ -38,8 +38,24 @@ export class LpsEarthStudComponent implements OnInit {
 
   onSubmit(){
     this.submitted=true;
-    console.log(this.EarthStudForm.value);
-  }
+    this.earthStud.earthStudVisibilityOb = this.EarthStudForm.value.earthStudVisibilityOb;
+    this.earthStud.earthStudVisibilityRem = this.EarthStudForm.value.earthStudVisibilityRem;
+    this.earthStud.earthStudBendOb = this.EarthStudForm.value.earthStudBendOb;
+    this.earthStud.earthStudBendRem = this.EarthStudForm.value.earthStudBendRem;
+    this.earthStud.properBondingRailOb = this.EarthStudForm.value.properBondingRailOb;
+    this.earthStud.properBondingRailRem = this.EarthStudForm.value.properBondingRailRem;
+    this.earthStud.physicalDamageStudOb = this.EarthStudForm.value.physicalDamageStudOb;
+    this.earthStud.physicalDamageStudRem = this.EarthStudForm.value.physicalDamageStudRem;
+    this.earthStud.continutyExistaEarthOb = this.EarthStudForm.value.continutyExistaEarthOb;
+    this.earthStud.continutyExistaEarthRem = this.EarthStudForm.value.continutyExistaEarthRem;
+    this.earthStudService.saveEarthStud(this.earthStud).subscribe(
+
+      data => {
+      },
+      error => {
+      })
+  };
+  
   get f() {
     return this.EarthStudForm.controls;
   }

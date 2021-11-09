@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DownConductorDescription } from 'src/app/LPS_model/down-conductor';
 import { LpsDownconductorService } from 'src/app/LPS_services/lps-downconductor.service';
 
@@ -10,7 +10,7 @@ import { LpsDownconductorService } from 'src/app/LPS_services/lps-downconductor.
 })
 export class LpsDownConductorsComponent implements OnInit {
 
-  downConductorForm!: FormGroup;
+  downConductorForm: FormGroup;
 
   downArr!: FormArray;
   bridgingArr!: FormArray;
@@ -30,17 +30,17 @@ export class LpsDownConductorsComponent implements OnInit {
   ngOnInit(): void {
     this.downConductorForm = this.formBuilder.group({
 
-      biMetallicIssueOb: new FormControl(''),
+      biMetallicIssueOb: new FormControl('', Validators.required),
       biMetallicIssueRem: new FormControl(''),
-      warningNoticeGroundLevelOb: new FormControl(''),
+      warningNoticeGroundLevelOb: new FormControl('', Validators.required),
       warningNoticeGroundLevelRem: new FormControl(''),
-      noPowerDownConductorOb: new FormControl(''),
+      noPowerDownConductorOb: new FormControl('', Validators.required),
       noPowerDownConductorRem: new FormControl(''),
-      connectMadeBrazingOb: new FormControl(''),
+      connectMadeBrazingOb: new FormControl('', Validators.required),
       connectMadeBrazingRem: new FormControl(''),
-      chemicalSprinklerOb: new FormControl(''),
+      chemicalSprinklerOb: new FormControl('', Validators.required),
       chemicalSprinklerRem: new FormControl(''),
-      cobustMaterialWallOB: new FormControl(''),
+      cobustMaterialWallOB: new FormControl('', Validators.required),
       cobustMaterialWallRem: new FormControl(''),
 
       downArr: this.formBuilder.array([this.createDownArrForm()]),
@@ -79,35 +79,35 @@ export class LpsDownConductorsComponent implements OnInit {
   private createDownArrForm(): FormGroup {
 
     return new FormGroup({
-      lacationNo: new FormControl(''),
-      lacationName: new FormControl(''),
-      physicalInspectionOb: new FormControl(''),
+      lacationNo: new FormControl('', Validators.required),
+      lacationName: new FormControl('', Validators.required),
+      physicalInspectionOb: new FormControl('', Validators.required),
       physicalInspectionRem: new FormControl(''),
-      conductMaterialOb: new FormControl(''),
+      conductMaterialOb: new FormControl('', Validators.required),
       conductMaterialRem: new FormControl(''),
-      conductSizeOb: new FormControl(''),
+      conductSizeOb: new FormControl('', Validators.required),
       conductSizeRem: new FormControl(''),
-      downConductExposedOb: new FormControl(''),
+      downConductExposedOb: new FormControl('', Validators.required),
       downConductExposedRem: new FormControl(''),
-      downConductLocationdOb: new FormControl(''),
+      downConductLocationdOb: new FormControl('', Validators.required),
       downConductLocationdRem: new FormControl(''),
-      downConductGutterOb: new FormControl(''),
+      downConductGutterOb: new FormControl('', Validators.required),
       downConductGutterRem: new FormControl(''),
-      ensureDownCnoductOb: new FormControl(''),
+      ensureDownCnoductOb: new FormControl('', Validators.required),
       ensureDownCnoductRem: new FormControl(''),
-      installationDownConductOb: new FormControl(''),
+      installationDownConductOb: new FormControl('', Validators.required),
       installationDownConductRem: new FormControl(''),
-      maximumDownConductOb: new FormControl(''),
+      maximumDownConductOb: new FormControl('', Validators.required),
       maximumDownConductRem: new FormControl(''),
-      manimumDownConductOb: new FormControl(''),
+      manimumDownConductOb: new FormControl('', Validators.required),
       manimumDownConductRem: new FormControl(''),
-      totalNoDownConductOb: new FormControl(''),
+      totalNoDownConductOb: new FormControl('', Validators.required),
       totalNoDownConductRem: new FormControl(''),
-      inspectedNoOb: new FormControl(''),
+      inspectedNoOb: new FormControl('', Validators.required),
       inspectedNoRem: new FormControl(''),
-      inspectionPassedNoOb: new FormControl(''),
+      inspectionPassedNoOb: new FormControl('', Validators.required),
       inspectionPassedNoRem: new FormControl(''),
-      inspectionFailedNoOb: new FormControl(''),
+      inspectionFailedNoOb: new FormControl('', Validators.required),
       inspectionFailedNoRem: new FormControl('')
     })
   }
@@ -115,21 +115,21 @@ export class LpsDownConductorsComponent implements OnInit {
   private createBridgeArrForm(): FormGroup {
 
     return new FormGroup({
-      lacationNo: new FormControl(''),
-      lacationName: new FormControl(''),
-      ensureBridgingCableOb: new FormControl(''),
+      lacationNo: new FormControl('', Validators.required),
+      lacationName: new FormControl('', Validators.required),
+      ensureBridgingCableOb: new FormControl('', Validators.required),
       ensureBridgingCableRem: new FormControl(''),
-      aluminiumConductorSideWallOb: new FormControl(''),
+      aluminiumConductorSideWallOb: new FormControl('', Validators.required),
       aluminiumConductorSideWallRem: new FormControl(''),
-      bridgingCableConnectionOb: new FormControl(''),
+      bridgingCableConnectionOb: new FormControl('', Validators.required),
       bridgingCableConnectionRem: new FormControl(''),
-      totalNoBridgingCableOb: new FormControl(''),
+      totalNoBridgingCableOb: new FormControl('', Validators.required),
       totalNoBridgingCableRem: new FormControl(''),
-      inspectedNoOb: new FormControl(''),
+      inspectedNoOb: new FormControl('', Validators.required),
       inspectedNoRem: new FormControl(''),
-      inspectionPassedNoOb: new FormControl(''),
+      inspectionPassedNoOb: new FormControl('', Validators.required),
       inspectionPassedNoRem: new FormControl(''),
-      inspectionFailedNoOb: new FormControl(''),
+      inspectionFailedNoOb: new FormControl('', Validators.required),
       inspectionFailedNoRem: new FormControl('')
     })
   }
@@ -137,21 +137,21 @@ export class LpsDownConductorsComponent implements OnInit {
   private createHolderArrForm(): FormGroup {
 
     return new FormGroup({
-      physicalInspectionOb: new FormControl(''),
+      physicalInspectionOb: new FormControl('', Validators.required),
       physicalInspectionRem: new FormControl(''),
-      conductHolderFlatSurfaceOb: new FormControl(''),
+      conductHolderFlatSurfaceOb: new FormControl('', Validators.required),
       conductHolderFlatSurfaceRem: new FormControl(''),
-      conductorHoldedOb: new FormControl(''),
+      conductorHoldedOb: new FormControl('', Validators.required),
       conductorHoldedRem: new FormControl(''),
-      materialHolderOb: new FormControl(''),
+      materialHolderOb: new FormControl('', Validators.required),
       materialHolderRem: new FormControl(''),
-      totalNoHolderOb: new FormControl(''),
+      totalNoHolderOb: new FormControl('', Validators.required),
       totalNoHolderRem: new FormControl(''),
-      inspectedNoOb: new FormControl(''),
+      inspectedNoOb: new FormControl('', Validators.required),
       inspectedNoRem: new FormControl(''),
-      inspectionPassedNoOb: new FormControl(''),
+      inspectionPassedNoOb: new FormControl('', Validators.required),
       inspectionPassedNoRem: new FormControl(''),
-      inspectionFailedNoOb: new FormControl(''),
+      inspectionFailedNoOb: new FormControl('', Validators.required),
       inspectionFailedNoRem: new FormControl('')
     })
   }
@@ -159,21 +159,21 @@ export class LpsDownConductorsComponent implements OnInit {
   private createConnectorArrForm(): FormGroup {
 
     return new FormGroup({
-      physicalInspectionOb: new FormControl(''),
+      physicalInspectionOb: new FormControl('', Validators.required),
       physicalInspectionRem: new FormControl(''),
-      strightConnectCheckOb: new FormControl(''),
+      strightConnectCheckOb: new FormControl('', Validators.required),
       strightConnectCheckRem: new FormControl(''),
-      materialConnectorOb: new FormControl(''),
+      materialConnectorOb: new FormControl('', Validators.required),
       materialConnectorRem: new FormControl(''),
-      maxConnectorsDownConductorOb: new FormControl(''),
+      maxConnectorsDownConductorOb: new FormControl('', Validators.required),
       maxConnectorsDownConductorRem: new FormControl(''),
-      totalNoConnectorsOb: new FormControl(''),
+      totalNoConnectorsOb: new FormControl('', Validators.required),
       totalNoConnectorsRem: new FormControl(''),
-      inspectedNoOb: new FormControl(''),
+      inspectedNoOb: new FormControl('', Validators.required),
       inspectedNoRem: new FormControl(''),
-      inspectionPassedNoOb: new FormControl(''),
+      inspectionPassedNoOb: new FormControl('', Validators.required),
       inspectionPassedNoRem: new FormControl(''),
-      inspectionFailedNoOb: new FormControl(''),
+      inspectionFailedNoOb: new FormControl('', Validators.required),
       inspectionFailedNoRem: new FormControl('')
     })
   }
@@ -181,27 +181,27 @@ export class LpsDownConductorsComponent implements OnInit {
   private createLightArrForm(): FormGroup {
    
     return new FormGroup({
-      threadHoldCurrentOb: new FormControl(''),
+      threadHoldCurrentOb: new FormControl('', Validators.required),
       threadHoldCurrentRem: new FormControl(''),
-      maximumWithStandCurrentOb: new FormControl(''),
+      maximumWithStandCurrentOb: new FormControl('', Validators.required),
       maximumWithStandCurrentRem: new FormControl(''),
-      countsOb: new FormControl(''),
+      countsOb: new FormControl('', Validators.required),
       countsRem: new FormControl(''),
-      batteryLifeTimeOb: new FormControl(''),
+      batteryLifeTimeOb: new FormControl('', Validators.required),
       batteryLifeTimeRem: new FormControl(''),
-      properConnectionLightingCounterOb: new FormControl(''),
+      properConnectionLightingCounterOb: new FormControl('', Validators.required),
       properConnectionLightingCounterRem: new FormControl(''),
-      lightingCounterPlacedOb: new FormControl(''),
+      lightingCounterPlacedOb: new FormControl('', Validators.required),
       lightingCounterPlacedRem: new FormControl(''),
-      conditionOfLightingCounterOb: new FormControl(''),
+      conditionOfLightingCounterOb: new FormControl('', Validators.required),
       conditionOfLightingCounterRem: new FormControl(''),
-      totalNoLightingCounterOb: new FormControl(''),
+      totalNoLightingCounterOb: new FormControl('', Validators.required),
       totalNoLightingCounterRem: new FormControl(''),
-      inspectedNoOb: new FormControl(''),
+      inspectedNoOb: new FormControl('', Validators.required),
       inspectedNoRem: new FormControl(''),
-      inspectionPassedNoOb: new FormControl(''),
+      inspectionPassedNoOb: new FormControl('', Validators.required),
       inspectionPassedNoRem: new FormControl(''),
-      inspectionFailedNoOb: new FormControl(''),
+      inspectionFailedNoOb: new FormControl('', Validators.required),
       inspectionFailedNoRem: new FormControl('')
     })
   }
@@ -209,27 +209,27 @@ export class LpsDownConductorsComponent implements OnInit {
   private createTestJointsArrForm(): FormGroup {
   
     return new FormGroup({
-      lacationNo: new FormControl(''),
+      lacationNo: new FormControl('', Validators.required),
       lacationName: new FormControl(''),
-      testJointTypeOb: new FormControl(''),
+      testJointTypeOb: new FormControl('', Validators.required),
       testJointTypeRem: new FormControl(''),
-      materialTestJointOb: new FormControl(''),
+      materialTestJointOb: new FormControl('', Validators.required),
       materialTestJointRem: new FormControl(''),
-      accessibilityOfTestJointOb: new FormControl(''),
+      accessibilityOfTestJointOb: new FormControl('', Validators.required),
       accessibilityOfTestJointRem: new FormControl(''),
-      nonMetalicProtectionOb: new FormControl(''),
+      nonMetalicProtectionOb: new FormControl('', Validators.required),
       nonMetalicProtectionRem: new FormControl(''),
-      testJointPlacedGroungLevelOb: new FormControl(''),
+      testJointPlacedGroungLevelOb: new FormControl('', Validators.required),
       testJointPlacedGroungLevelRem: new FormControl(''),
-      bimetallicIssueCheckOb: new FormControl(''),
+      bimetallicIssueCheckOb: new FormControl('', Validators.required),
       bimetallicIssueCheckRem: new FormControl(''),
-      totalNoOfTestJointOB: new FormControl(''),
+      totalNoOfTestJointOB: new FormControl('', Validators.required),
       totalNoOfTestJointRem: new FormControl(''),
-      inspectedNoOb: new FormControl(''),
+      inspectedNoOb: new FormControl('', Validators.required),
       inspectedNoRem: new FormControl(''),
-      inspectionPassedNoOb: new FormControl(''),
+      inspectionPassedNoOb: new FormControl('', Validators.required),
       inspectionPassedNoRem: new FormControl(''),
-      inspectionFailedNoOb: new FormControl(''),
+      inspectionFailedNoOb: new FormControl('', Validators.required),
       inspectionFailedNoRem: new FormControl('')
     })
   }
@@ -260,6 +260,10 @@ export class LpsDownConductorsComponent implements OnInit {
     console.log(this.downConductorForm)
   }
 
+  get f() {
+    return this.downConductorForm.controls;
+  }
+
    onSubmit() {
     this.submitted=true;
 this.downConductorDescription.userName="inspector2@gmail.com";
@@ -280,9 +284,6 @@ this.downConductorDescription.testingJoint = this.downConductorForm.value.testjo
     this.lpsDownconductorService.saveDownConductors(this.downConductorDescription).subscribe(
 
       () => {
-
-         
-      
       },
       () => {
       }
@@ -290,8 +291,5 @@ this.downConductorDescription.testingJoint = this.downConductorForm.value.testjo
     console.log(this.downConductorDescription)
   }
 
-  get f() {
-    return this.downConductorForm.controls;
-  }
 }
 

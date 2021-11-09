@@ -323,14 +323,13 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" class="form-control" placeholder="Ex.."
-                                                    formControlName="physicalInspectionOb"
+                                                <textarea type="text" class="form-control"
+                                                    formControlName="physicalInspectionOb" placeholder="please enter observation here"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('physicalInspectionOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('physicalInspectionOb')?.errors?.required">
-                                                        Description
-                                                        is required</div>
+                                                        Observation is Required</div>
                                                 </div>
                                             </div>
                                         </td>
@@ -364,7 +363,7 @@
                                                                         class="invalid-feedback">
                                                                         <div
                                                                             *ngIf="a.get('conductorClampsFlatSurafaceOb')?.errors?.required">
-                                                                            Description is required</div>
+                                                                            Observation is Required</div>
                                                                     </div>
                                             </div>
                                         </td>
@@ -398,8 +397,7 @@
                                                     class="invalid-feedback">
                                                     <div
                                                         *ngIf="a.get('sizeOfTerminalOb')?.errors?.required">
-                                                        Description is
-                                                        required</div>
+                                                        Observation is Required</div>
                                                 </div>
                                             </div>
                                         </td>
@@ -433,8 +431,7 @@
                                                     class="invalid-feedback">
                                                     <div
                                                         *ngIf="a.get('heightOfTerminalOb')?.errors?.required">
-                                                        Description is
-                                                        required</div>
+                                                        Observation is Required</div>
                                                 </div>
                                             </div>
                                         </td>
@@ -648,8 +645,7 @@
                                                     class="invalid-feedback">
                                                     <div
                                                         *ngIf="a.get('totalNumberOb')?.errors?.required">
-                                                        Description is
-                                                        required</div>
+                                                        Observation is Required</div>
                                                 </div>
                                             </div>
                                         </td>
@@ -717,8 +713,7 @@
                                                     class="invalid-feedback">
                                                     <div
                                                         *ngIf="a.get('inspPassedNoOb')?.errors?.required">
-                                                        Description is
-                                                        required</div>
+                                                        Observation is Required</div>
                                                 </div>
                                             </div>
                                         </td>
@@ -752,8 +747,7 @@
                                                     class="invalid-feedback">
                                                     <div
                                                         *ngIf="a.get('inspFaileddNoOb')?.errors?.required">
-                                                        Description is
-                                                        required</div>
+                                                        Observation is Required</div>
                                                 </div>
                                             </div>
                                         </td>
@@ -1121,8 +1115,7 @@
                                                 <div *ngIf="submitted && a.get('conductorHolderOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('conductorHolderOb')?.errors?.required">
-                                                        Description is
-                                                        required</div>
+                                                        Observation is Required</div>
                                                 </div>
                                             </div>
                                         </td>
@@ -1187,8 +1180,7 @@
                                                 <div *ngIf="submitted && a.get('materialHolderOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('materialHolderOb')?.errors?.required">
-                                                        Description is
-                                                        required</div>
+                                                        Observation is Required</div>
                                                 </div>
                                             </div>
                                         </td>
@@ -1220,8 +1212,7 @@
                                                 <div *ngIf="submitted && a.get('totalHolderNoOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('totalHolderNoOb')?.errors?.required">
-                                                        Description is
-                                                        required</div>
+                                                        Observation is Required</div>
                                                 </div>
                                             </div>
                                         </td>
@@ -1286,8 +1277,7 @@
                                                 <div *ngIf="submitted && a.get('holderInspNoOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('holderInspNoOb')?.errors?.required">
-                                                        Description is
-                                                        required</div>
+                                                        Observation is Required</div>
                                                 </div>
                                             </div>
                                         </td>
@@ -1319,8 +1309,7 @@
                                                 <div *ngIf="submitted && a.get('holderInspPassedOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('holderInspPassedOb')?.errors?.required">
-                                                        Description is
-                                                        required</div>
+                                                        Observation is Required</div>
                                                 </div>
                                             </div>
                                         </td>

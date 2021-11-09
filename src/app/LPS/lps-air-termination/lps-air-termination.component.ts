@@ -54,12 +54,9 @@ export class LpsAirTerminationComponent implements OnInit {
   }
   onSubmit(){
     this.submitted=true;
-    debugger
+
     if (this.airTerminationForm.invalid) {
-    
-     
-      console.log("check all fields");
-      console.log(this.airTerminationForm.value);
+      return;
     }  
     else{
         //this.airtermination.userName=this.airTerminationForm.value.userName;
@@ -308,6 +305,7 @@ export class LpsAirTerminationComponent implements OnInit {
   this.conArr.push(this.createConArrForm());
     //console.log(this.airTerminationForm)
   }
+  
   get f() {
     return this.airTerminationForm.controls;
   }

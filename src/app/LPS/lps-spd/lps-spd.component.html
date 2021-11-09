@@ -309,11 +309,9 @@
                                             <textarea type="text" class="form-control" formControlName="spdTypeOb" placeholder="please enter observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && x.get('spdTypeOb')?.errors}"></textarea>
                                             <div *ngIf="submitted && x.get('spdTypeOb')?.errors" class="invalid-feedback">
-                                                <div *ngIf="x.get('spdTypeOb')?.errors?.required">Description is required</div>
+                                                <div *ngIf="x.get('spdTypeOb')?.errors?.required">Observation is required</div>
                                             </div>
                                         </div>
-
-
                                     </td>
                                     <td style="width: 35rem;">
                                         <div class="input-group">

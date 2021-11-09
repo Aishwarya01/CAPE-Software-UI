@@ -50,28 +50,50 @@ export class LpsBasicPageComponent implements OnInit {
   private createLpsDescriptionarr() {
     return this.formBuilder.group({
       approvedDrawingObserv: ['', Validators.required],
-      approvedDrawingRemarks: ['', Validators.required],
+      approvedDrawingRemarks: [''],
       architectNameObserv: ['', Validators.required],
-      architectNameRemarks: ['', Validators.required],
+      architectNameRemarks: [''],
       designDateObserv: ['', Validators.required],
-      designDateRemarks: ['', Validators.required],
+      designDateRemarks: [''],
       approvedByObserv: ['', Validators.required],
-      approvedByRemarks: ['', Validators.required],
+      approvedByRemarks: [''],
       dateOfApprovalOb: ['', Validators.required],
-      dateOfApprovalRem: ['', Validators.required],
+      dateOfApprovalRem: [''],
       drawingObserv: ['', Validators.required],
-      drawingRemarks: ['', Validators.required],
+      drawingRemarks: [''],
       revisionNoObserv: ['', Validators.required],
-      revisionNoRemarks: ['', Validators.required],
+      revisionNoRemarks: [''],
       deviationObserv: ['', Validators.required],
-      deviationRemarks: ['', Validators.required],
+      deviationRemarks: [''],
       installationQualityObserv: ['', Validators.required],
-      installationQualityRemarks: ['', Validators.required]
+      installationQualityRemarks: ['']
     });
   }
  
   onSubmit() {
     this.submitted=true;
+
+    this.basicDetails.clientName = this.LPSBasicForm.value.clientName;
+    this.basicDetails.userName = this.LPSBasicForm.value.userName;
+    this.basicDetails.projectName = this.LPSBasicForm.value.projectName;
+    this.basicDetails.pmcName = this.LPSBasicForm.value.pmcName;
+    this.basicDetails.consultantName = this.LPSBasicForm.value.consultantName;
+    this.basicDetails.contractorName = this.LPSBasicForm.value.contractorName;
+    this.basicDetails.address = this.LPSBasicForm.value.address;
+    this.basicDetails.location = this.LPSBasicForm.value.location;
+    this.basicDetails.installationContractor = this.LPSBasicForm.value.installationContractor;
+    this.basicDetails.industryType = this.LPSBasicForm.value.industryType;
+    this.basicDetails.buildingType = this.LPSBasicForm.value.buildingType;
+    this.basicDetails.buildingLength = this.LPSBasicForm.value.buildingLength;
+    this.basicDetails.buildingHeight = this.LPSBasicForm.value.buildingHeight;
+    this.basicDetails.levelOfProtection = this.LPSBasicForm.value.levelOfProtection;
+    this.basicDetails.soilResistivity = this.LPSBasicForm.value.soilResistivity;
+    this.basicDetails.dealerContractorName = this.LPSBasicForm.value.dealerContractorName;
+    this.basicDetails.buildingWidth = this.LPSBasicForm.value.buildingWidth;
+    
+    this.basicDetails.basicLpsDescription = this.LPSBasicForm.value.basicLpsDescription;
+    console.log(this.basicDetails);
+    
     this.lPSBasicDetailsService.saveLPSBasicDetails(this.LPSBasicForm.value).subscribe(
     
       data => {

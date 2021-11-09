@@ -10,7 +10,7 @@ import { EarthStud } from '../LPS_model/earth-stud';
 })
 export class EarthStudService {
 
-  apiUrl = environment.apiUrl;
+  apiUrl = environment.apiUrl_LPS;
   constructor(private http: HttpClient) { }
 
   public saveEarthStud(earthStud:EarthStud): Observable<any> {
