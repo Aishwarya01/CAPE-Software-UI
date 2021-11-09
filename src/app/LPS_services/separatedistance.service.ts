@@ -8,7 +8,7 @@ import { Separatedistance } from '../LPS_model/separatedistance';
   providedIn: 'root'
 })
 export class SeparatedistanceService {
-  apiUrl = environment.apiUrl;
+  apiUrl = environment.apiUrl_LPS;
   constructor(private http: HttpClient) { }
 
   public saveSeparateDistance(separatedistance: Separatedistance): Observable<any> {

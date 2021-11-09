@@ -10,72 +10,36 @@ import { LpsEarthing } from 'src/app/LPS_services/lps-earthing';
 })
 export class LpsEarthingComponent implements OnInit {
 
-  earthingForm:FormGroup;
+  earthingForm: FormGroup;
   earthingLpsDescription = new EarthingLpsDescription;
-
-  lpsEarthing;
+  submitted=false;
+  lpsEarthingService;
 
   constructor(
-    private formBuilder: FormBuilder,private lpsEarthings:LpsEarthing
-  ) { 
-    this.lpsEarthing=lpsEarthings;
+    private formBuilder: FormBuilder, private lpsEarthings: LpsEarthing
+  ) {
+    this.lpsEarthingService = lpsEarthings;
   }
 
   ngOnInit(): void {
     this.earthingForm = this.formBuilder.group({
-     
-     // earthingId!: number;
-    //userName!: ['', Validators.required],
-    //basicLpsId!: ['', Validators.required],
-    earthingTypeInOb : ['', Validators.required],
-    earthingTypeInRem : [''],
-    bimetallicIssueInOb : ['', Validators.required],
-    bimetallicIssueInRem : [''],
-    brazingConnectInOb : ['', Validators.required],
-    brazingConnectInRem : [''],
-    locationNumber :['', Validators.required],
-    locationName : ['', Validators.required],
-    soilResistivityInOb : ['', Validators.required],
-    soilResistivityInRem : String,
-    earthPitDigOb : ['', Validators.required],
-    earthPitDigRem : [''],
-    earthElectrodeLesthanDownConductorInOb : ['', Validators.required],
-    earthElectrodeLesthanDownConductorInRem : [''],
-    connectedEarthTerminalInOb : ['', Validators.required],
-    connectedEarthTerminalInRem : [''],
-    testJointEarthElectrodeInOb : ['', Validators.required],
-    testJointEarthElectrodeInRem : [''],
-    grountLevelComponentFilledInOb : ['', Validators.required],
-    grountLevelComponentFilledInRem : [''],
-    earthElectrodeLocationInOb : ['', Validators.required],
-    earthElectrodeLocationInRem : [''],
-    earthElectrodeMaterialInOb : ['', Validators.required],
-    earthElectrodeMaterialInRem : [''],
-    earthElectrodeSizeInOb : ['', Validators.required],
-    earthElectrodeSizeInRem : [''],
-    earthElectrodeLengthingOb : ['', Validators.required],
-    earthElectrodeLengthingRem : [''],
-    earthelectMaxiDistWallInOb: new FormControl('', Validators.required),
-    earthelectMaxiDistWallInRem: [''],
-    earthelectManimumDistanceWallInOb: new FormControl('', Validators.required),
-    earthelectManimumDistanceWallInRem: new FormControl(''),
-    earthelectMaxiDistOb: new FormControl('', Validators.required),
-    earthelectMaxiDistRem: new FormControl(''),
-    earthelectManiDistOb: new FormControl('', Validators.required),
-    earthelectManiDistRem: new FormControl(''),
-    totalNumberOfElectrodeOb: new FormControl('', Validators.required),
-    totalNumberOfElectrodeRem: new FormControl(''),
-    inspectedNoOb: new FormControl('', Validators.required),
-    inspectedNoRem: new FormControl(''),
-    inspectedPassedNoOb: new FormControl('', Validators.required),
-    inspectedPassedNoRem: new FormControl(''),
-    inspectedFailedNoOb: new FormControl('', Validators.required),
-    inspectedFailedNoRem: new FormControl(''),
-    
-    earthingDescription :this.formBuilder.array([this.earthingDescriptionArr()]),
-    earthingClamps :this.formBuilder.array([this.earthingClamps()]),
-    earthElectrodeChamber :this.formBuilder.array([this.earthElectrodeChamber()]),
-    earthingSystem :this.formBuilder.array([this.earthingSystem()])
+
+      // earthingId!: number;
+      //userName!:  new FormControl('', Validators.required),
+      //basicLpsId!:  new FormControl('', Validators.required),
+      earthingTypeInOb: new FormControl('', Validators.required),
+      earthingTypeInRem: new FormControl(''),
+      bimetallicIssueInOb: new FormControl('', Validators.required),
+      bimetallicIssueInRem: new FormControl(''),
+      brazingConnectInOb: new FormControl('', Validators.required),
+      brazingConnectInRem: new FormControl(''),
+      locationNumber: new FormControl('', Validators.required),
+      locationName: new FormControl('', Validators.required),
+
+      descriptionArr: this.formBuilder.array([this.earthingDescription()]),
+      ClampsArr: this.formBuilder.array([this.earthingClamps()]),
+      chamberArr: this.formBuilder.array([this.earthElectrodeChamber()]),
+      earthingArr: this.formBuilder.array([this.earthingSystem()])
     });
   }
 
@@ -92,11 +56,11 @@ export class LpsEarthingComponent implements OnInit {
   }
 
   earthingSystemarr(): AbstractControl[] {
-    return (<FormArray>this.earthingForm.get('earthingSystemArr')).controls;
+    return (<FormArray>this.earthingForm.get('earthingArr')).controls;
   }
 
- 
-  earthingSystem():FormGroup{
+
+  earthingSystem(): FormGroup {
     return new FormGroup({
       buriedElectrodeOb: new FormControl('', Validators.required),
       buriedElectrodeRem: new FormControl(''),
@@ -126,62 +90,81 @@ export class LpsEarthingComponent implements OnInit {
       materialOfEartElectrodeRem: new FormControl(''),
       sizeOfEarthElectrodeOb: new FormControl('', Validators.required),
       sizeOfEarthElectrodeRem: new FormControl(''),
-      //earthelectMaxiDistWallInOb: new FormControl('', Validators.required),
-      //earthelectMaxiDistWallInRem: new FormControl(''),
       maximumDistanceEartElectrodeWalOb: new FormControl('', Validators.required),
       maximumDistanceEartElectrodeWalRem: new FormControl(''),
       manimumDistanceEartElectrodeWalOb: new FormControl('', Validators.required),
       manimumDistanceEartElectrodeWalRem: new FormControl(''),
-       
-    })
-  }
-  earthElectrodeChamber(): FormGroup{
-    return new FormGroup({
-      physicalInspeOb: new FormControl('', Validators.required),
-    physicalInspeRem: new FormControl(''),
-    chamberTypeOb: new FormControl('', Validators.required),
-    chamberTypeRem: new FormControl(''),
-    chamberSizeOb: new FormControl('', Validators.required),
-    chamberSizeRem: new FormControl(''),
-    maximumWithStandLoadOb: new FormControl('', Validators.required),
-    maximumWithStandLoadRem: new FormControl(''),
-    maximumPlacedSoilOb: new FormControl('', Validators.required),
-    maximumPlacedSoilRem: new FormControl(''),
-    totalChamberNoOb: new FormControl('', Validators.required),
-    totalChamberNoRem: new FormControl(''),
-    inspectedChamberInOb: new FormControl('', Validators.required),
-    inspectedChamberInRem: new FormControl(''),
-    inspectionPassedInOb: new FormControl('', Validators.required),
-    inspectionPassedInRem: new FormControl(''),
-    inspectionFailedInOb: new FormControl('', Validators.required),
-    inspectionFailedInRem: new FormControl('')
 
     })
   }
-  earthingClamps(): FormGroup{
+  earthElectrodeChamber(): FormGroup {
     return new FormGroup({
-      physicalInspectionInOb: new FormControl('', Validators.required),
-    psysicalInspectionInRem: new FormControl(''),
-    clampsFirmlyOb: new FormControl('', Validators.required),
-    clampsFirmlyRem: new FormControl(''),
-    interConnectOfEarthClampInOb: new FormControl('', Validators.required),
-    interConnectOfEarthClampInRem: new FormControl(''),
-    typeOfClampsInOb: new FormControl('', Validators.required),
-    typeOfClampsInRem: new FormControl(''),
-    materialOfClampsInOb: new FormControl('', Validators.required),
-    materialOfClampsInRem: new FormControl(''),
-    totalNoClampsInOb: new FormControl('', Validators.required),
-    totalNoClampsInRem: new FormControl(''),
-    inspectedClampsInOb: new FormControl('', Validators.required),
-    inspectedClampsInRem: new FormControl(''),
-    inspectionPassedInOb: new FormControl('', Validators.required),
-    inspectionPassedInRem: new FormControl(''),
-    inspectionFailedInOb: new FormControl('', Validators.required),
-    inspectionFailedInRem: new FormControl('')
+      physicalInspeOb: new FormControl('', Validators.required),
+      physicalInspeRem: new FormControl(''),
+      chamberTypeOb: new FormControl('', Validators.required),
+      chamberTypeRem: new FormControl(''),
+      chamberSizeOb: new FormControl('', Validators.required),
+      chamberSizeRem: new FormControl(''),
+      maximumWithStandLoadOb: new FormControl('', Validators.required),
+      maximumWithStandLoadRem: new FormControl(''),
+      maximumPlacedSoilOb: new FormControl('', Validators.required),
+      maximumPlacedSoilRem: new FormControl(''),
+      totalChamberNoOb: new FormControl('', Validators.required),
+      totalChamberNoRem: new FormControl(''),
+      inspectedChamberInOb: new FormControl('', Validators.required),
+      inspectedChamberInRem: new FormControl(''),
+      inspectionPassedInOb: new FormControl('', Validators.required),
+      inspectionPassedInRem: new FormControl(''),
+      inspectionFailedInOb: new FormControl('', Validators.required),
+      inspectionFailedInRem: new FormControl('')
+
     })
   }
-  earthingDescriptionArr():  FormGroup{
+  earthingClamps(): FormGroup {
     return new FormGroup({
+      physicalInspectionInOb: new FormControl('', Validators.required),
+      psysicalInspectionInRem: new FormControl(''),
+      clampsFirmlyOb: new FormControl('', Validators.required),
+      clampsFirmlyRem: new FormControl(''),
+      interConnectOfEarthClampInOb: new FormControl('', Validators.required),
+      interConnectOfEarthClampInRem: new FormControl(''),
+      typeOfClampsInOb: new FormControl('', Validators.required),
+      typeOfClampsInRem: new FormControl(''),
+      materialOfClampsInOb: new FormControl('', Validators.required),
+      materialOfClampsInRem: new FormControl(''),
+      totalNoClampsInOb: new FormControl('', Validators.required),
+      totalNoClampsInRem: new FormControl(''),
+      inspectedClampsInOb: new FormControl('', Validators.required),
+      inspectedClampsInRem: new FormControl(''),
+      inspectionPassedInOb: new FormControl('', Validators.required),
+      inspectionPassedInRem: new FormControl(''),
+      inspectionFailedInOb: new FormControl('', Validators.required),
+      inspectionFailedInRem: new FormControl('')
+    })
+  }
+  earthingDescription(): FormGroup {
+    return new FormGroup({
+
+      soilResistivityInOb: new FormControl('', Validators.required),
+      soilResistivityInRem: new FormControl(''),
+      earthPitDigOb: new FormControl('', Validators.required),
+      earthPitDigRem: new FormControl(''),
+      earthElectrodeLesthanDownConductorInOb: new FormControl('', Validators.required),
+      earthElectrodeLesthanDownConductorInRem: new FormControl(''),
+      connectedEarthTerminalInOb: new FormControl('', Validators.required),
+      connectedEarthTerminalInRem: new FormControl(''),
+      testJointEarthElectrodeInOb: new FormControl('', Validators.required),
+      testJointEarthElectrodeInRem: new FormControl(''),
+      grountLevelComponentFilledInOb: new FormControl('', Validators.required),
+      grountLevelComponentFilledInRem: new FormControl(''),
+      earthElectrodeLocationInOb: new FormControl('', Validators.required),
+      earthElectrodeLocationInRem: new FormControl(''),
+      earthElectrodeMaterialInOb: new FormControl('', Validators.required),
+      earthElectrodeMaterialInRem: new FormControl(''),
+      earthElectrodeSizeInOb: new FormControl('', Validators.required),
+      earthElectrodeSizeInRem: new FormControl(''),
+      earthElectrodeLengthingOb: new FormControl('', Validators.required),
+      earthElectrodeLengthingRem: new FormControl(''),
       earthelectMaxiDistWallInOb: new FormControl('', Validators.required),
       earthelectMaxiDistWallInRem: new FormControl(''),
       earthelectManimumDistanceWallInOb: new FormControl('', Validators.required),
@@ -197,10 +180,42 @@ export class LpsEarthingComponent implements OnInit {
       inspectedPassedNoOb: new FormControl('', Validators.required),
       inspectedPassedNoRem: new FormControl(''),
       inspectedFailedNoOb: new FormControl('', Validators.required),
-      inspectedFailedNoRem: new FormControl('')
+      inspectedFailedNoRem: new FormControl(''),
+
+
     })
   }
-  onSubmit(){
-    console.log(this.earthingForm.value);
+  onSubmit() {
+    this.submitted=true;
+    
+    this.earthingLpsDescription.bimetallicIssueInOb = this.earthingForm.value.bimetallicIssueInOb;
+    this.earthingLpsDescription.bimetallicIssueInRem = this.earthingForm.value.bimetallicIssueInRem;
+    this.earthingLpsDescription.brazingConnectInOb = this.earthingForm.value.brazingConnectInOb;
+    this.earthingLpsDescription.brazingConnectInRem = this.earthingForm.value.brazingConnectInRem;
+    this.earthingLpsDescription.earthingTypeInOb = this.earthingForm.value.earthingTypeInOb;
+    this.earthingLpsDescription.earthingTypeInRem = this.earthingForm.value.earthingTypeInRem;
+    this.earthingLpsDescription.locationName = this.earthingForm.value.locationName;
+    this.earthingLpsDescription.locationNumber = this.earthingForm.value.locationNumber;
+
+    this.earthingLpsDescription.earthingClamps = this.earthingForm.value.ClampsArr;
+    this.earthingLpsDescription.earthingDescription = this.earthingForm.value.descriptionArr;
+    this.earthingLpsDescription.earthElectrodeChamber = this.earthingForm.value.chamberArr;
+    this.earthingLpsDescription.earthingSystem = this.earthingForm.value.earthingArr;
+
+    this.lpsEarthingService.saveEarthingDetails(this.earthingLpsDescription).subscribe(
+
+
+      data => {
+
+
+      },
+      error => {
+      }
+    )
+  };
+
+  get f() {
+    return this.earthingForm.controls;
   }
+
 }

@@ -1,4 +1,4 @@
-export class EarthingLpsDescription {
+export class EarthingLpsDescription{
     earthingId!: number;
     userName!: String;
     basicLpsId!: number;
@@ -10,6 +10,16 @@ export class EarthingLpsDescription {
     brazingConnectInRem!: String;
     locationNumber!: number;
     locationName!: String;
+    
+    earthingDescription!: EarthingDescription[];
+    earthingClamps!: EarthingClamps[];
+    earthElectrodeChamber!: EarthElectrodeChamber[];
+    earthingSystem!: EarthingSystem[];
+}
+
+export class EarthingDescription {
+    
+   
     soilResistivityInOb!: String;
     soilResistivityInRem!: String;
     earthPitDigOb!: String;
@@ -30,19 +40,10 @@ export class EarthingLpsDescription {
     earthElectrodeSizeInRem!: String;
     earthElectrodeLengthingOb!: String;
     earthElectrodeLengthingRem!: String;
-
-    earthingDescription!: EarthingDescription[];
-    earthingClamps!: EarthingClamps[];
-    earthElectrodeChamber!: EarthElectrodeChamber[];
-    earthingSystem!: EarthingSystem[];
-}
-
-export class EarthingDescription {
     earthelectMaxiDistWallInOb!: String;
     earthelectMaxiDistWallInRem!: String;
     earthelectManimumDistanceWallInOb!: String;
     earthelectManimumDistanceWallInRem!: String;
-    earthelectManiDistWallInRem!: String;
     earthelectMaxiDistOb!: String;
     earthelectMaxiDistRem!: String;
     earthelectManiDistOb!: String;
@@ -56,6 +57,7 @@ export class EarthingDescription {
     inspectedFailedNoOb!: String;
     inspectedFailedNoRem!: String;
 }
+ 
 
 export class EarthingClamps {
     physicalInspectionInOb!: String;

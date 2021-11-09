@@ -133,7 +133,7 @@ export class LpsSpdComponent implements OnInit {
         this.spd.spdDescription = this.spdForm.getRawValue().spdarr;
         this.spd.spdDescription=this.spd.spdDescription.concat(this.spdForm.getRawValue().panelarr);
         this.spd.spdDescription=this.spd.spdDescription.concat(this.spdForm.getRawValue().powerarr);
-        console.log(this.spd);
+        
         this.lpsSpd_Service.saveSPDDetails(this.spd).subscribe(
 
         

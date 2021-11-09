@@ -10,7 +10,7 @@ import { EarthingLpsDescription } from '../LPS_model/earthing';
 
 export class LpsEarthing {
 
-    apiUrl = environment.apiUrl;
+    apiUrl = environment.apiUrl_LPS;
     constructor(private http: HttpClient) { }
 
     public saveEarthingDetails(earthingLpsDescription: EarthingLpsDescription): Observable<any> {
