@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EarthStud } from 'src/app/LPS_model/earth-stud';
+import { EarthStudService } from 'src/app/LPS_services/earth-stud.service';
 
 @Component({
   selector: 'app-lps-earth-stud',
@@ -13,7 +14,10 @@ export class LpsEarthStudComponent implements OnInit {
   submitted=false;
   earthStud = new EarthStud;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private earthStudService: EarthStudService,
+    ) { }
 
   ngOnInit(): void {
     this.EarthStudForm = this.formBuilder.group({

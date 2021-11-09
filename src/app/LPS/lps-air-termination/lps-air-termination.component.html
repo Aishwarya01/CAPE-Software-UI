@@ -306,8 +306,7 @@
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Vertical air terminal (VAT)</mat-expansion-panel-header>
-                    <button class="btn btn-primary" type="button" (click)="submit()"
-                        style="margin-left: 90rem;margin-bottom: 4px;">Add</button>
+                    
                     <div>
                         <table class="table">
                             <!-- Form Array -->
@@ -564,7 +563,7 @@
                                             water
                                             level):</td>
                                         <td>
-                                            <<div class="input-group">
+                                            <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
                                                         <i class="bi bi-text-paragraph"></i>
@@ -771,8 +770,10 @@
                                         </td>
                                     </tr>
                                 </div>
-                                <button class="btn btn-danger" type="button"
-                                    style="margin-left: 90rem;margin-bottom: 4px;">Delete</button>
+                                <mat-icon class="mousechange" type="button" (click)="submit()"
+                                style="margin-left: 90rem;margin-bottom: 4px;" title="Add another Text Fields">add_box</mat-icon>
+                                <mat-icon class="mousechange" *ngIf="vatControls().length > 1" (click)="removeItem(i)"
+                                    style="margin-right: 90rem;margin-bottom: 4px;">delete</mat-icon>
                             </tbody>
                         </table>
                     </div>

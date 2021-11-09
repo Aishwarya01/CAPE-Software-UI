@@ -311,5 +311,9 @@ export class LpsAirTerminationComponent implements OnInit {
   get f() {
     return this.airTerminationForm.controls;
   }
+
+  removeItem(index: any) {
+    (this.airTerminationForm.get('vatArr') as FormArray).removeAt(index);
+    }
   
 }
