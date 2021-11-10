@@ -11,7 +11,6 @@ import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.se
 export class LpsBasicPageComponent implements OnInit {
 
   basicDetails = new BasicDetails;
-  basicLpsDescription = new BasicLpsDescription;
   LPSBasicForm!: FormGroup;
   lPSBasicDetailsService;
   submitted=false;
@@ -72,29 +71,11 @@ export class LpsBasicPageComponent implements OnInit {
  
   onSubmit() {
     this.submitted=true;
-
-    this.basicDetails.clientName = this.LPSBasicForm.value.clientName;
-    this.basicDetails.userName = this.LPSBasicForm.value.userName;
-    this.basicDetails.projectName = this.LPSBasicForm.value.projectName;
-    this.basicDetails.pmcName = this.LPSBasicForm.value.pmcName;
-    this.basicDetails.consultantName = this.LPSBasicForm.value.consultantName;
-    this.basicDetails.contractorName = this.LPSBasicForm.value.contractorName;
-    this.basicDetails.address = this.LPSBasicForm.value.address;
-    this.basicDetails.location = this.LPSBasicForm.value.location;
-    this.basicDetails.installationContractor = this.LPSBasicForm.value.installationContractor;
-    this.basicDetails.industryType = this.LPSBasicForm.value.industryType;
-    this.basicDetails.buildingType = this.LPSBasicForm.value.buildingType;
-    this.basicDetails.buildingLength = this.LPSBasicForm.value.buildingLength;
-    this.basicDetails.buildingHeight = this.LPSBasicForm.value.buildingHeight;
-    this.basicDetails.levelOfProtection = this.LPSBasicForm.value.levelOfProtection;
-    this.basicDetails.soilResistivity = this.LPSBasicForm.value.soilResistivity;
-    this.basicDetails.dealerContractorName = this.LPSBasicForm.value.dealerContractorName;
-    this.basicDetails.buildingWidth = this.LPSBasicForm.value.buildingWidth;
-    
+    // if (this.LPSBasicForm.invalid) {
+    //   return;
+    // }
     this.basicDetails.basicLpsDescription = this.LPSBasicForm.value.basicLpsDescription;
-    console.log(this.basicDetails);
-    
-    this.lPSBasicDetailsService.saveLPSBasicDetails(this.LPSBasicForm.value).subscribe(
+    this.lPSBasicDetailsService.saveLPSBasicDetails(this.basicDetails).subscribe(
     
       data => {
          
@@ -103,7 +84,9 @@ export class LpsBasicPageComponent implements OnInit {
       error => {
       }
     )
+    console.log(this.basicDetails);
   }
+
 
   getDescriptionControl(): AbstractControl[] {
     return (<FormArray>this.LPSBasicForm.get('basicLpsDescription')).controls;

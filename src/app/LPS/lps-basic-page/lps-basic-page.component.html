@@ -20,7 +20,7 @@
                             </span>
                         </div>
                         <input tpe="text" class="form-control" placeholder="Enter clientname"
-                            formControlName="clientName"
+                            formControlName="clientName"[(ngModel)]="basicDetails.clientName"
                             [ngClass]="{ 'is-invalid': submitted && f.clientName.errors}" />
                         <div *ngIf="submitted && f.clientName.errors" class="invalid-feedback">
                             <div *ngIf="f.clientName.errors.required">ClientName is required</div>
@@ -37,7 +37,7 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter project name"
-                            formControlName="projectName"
+                            formControlName="projectName" [(ngModel)]="basicDetails.projectName"
                             [ngClass]="{ 'is-invalid': submitted && f.projectName.errors}" />
                         <div *ngIf="submitted && f.projectName.errors" class="invalid-feedback">
                             <div *ngIf="f.projectName.errors.required">ProjectName is required</div>
@@ -53,7 +53,7 @@
                                 <i class="bi bi-person-lines-fill"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Enter PMC name" formControlName="pmcName"
+                        <input type="text" class="form-control" placeholder="Enter PMC name" formControlName="pmcName" [(ngModel)]="basicDetails.pmcName"
                             [ngClass]="{ 'is-invalid': submitted && f.pmcName.errors}" />
                         <div *ngIf="submitted && f.pmcName.errors" class="invalid-feedback">
                             <div *ngIf="f.pmcName.errors.required">PMC Name is required</div>
@@ -70,7 +70,7 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter consultant name"
-                            formControlName="consultantName"
+                            formControlName="consultantName" [(ngModel)]="basicDetails.consultantName"
                             [ngClass]="{ 'is-invalid': submitted && f.consultantName.errors}" />
                         <div *ngIf="submitted && f.consultantName.errors" class="invalid-feedback">
                             <div *ngIf="f.consultantName.errors.required">Consultant Name is required</div>
@@ -87,7 +87,7 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter contractor name"
-                            formControlName="contractorName"
+                            formControlName="contractorName" [(ngModel)]="basicDetails.contractorName"
                             [ngClass]="{ 'is-invalid': submitted && f.contractorName.errors}" />
                         <div *ngIf="submitted && f.contractorName.errors" class="invalid-feedback">
                             <div *ngIf="f.contractorName.errors.required">Contractor Name is required</div>
@@ -104,7 +104,7 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter dealer/sub-contractor name"
-                            formControlName="dealerContractorName"
+                            formControlName="dealerContractorName"  [(ngModel)]="basicDetails.dealerContractorName"
                             [ngClass]="{ 'is-invalid': submitted && f.dealerContractorName.errors}" />
                         <div *ngIf="submitted && f.dealerContractorName.errors" class="invalid-feedback">
                             <div *ngIf="f.dealerContractorName.errors.required">Dealer/Sub-contractor is required</div>
@@ -120,7 +120,7 @@
                                 <i class="bi bi-geo-fill"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Enter address name"
+                        <input type="text" class="form-control" placeholder="Enter address name"  [(ngModel)]="basicDetails.address"
                             formControlName="address" [ngClass]="{ 'is-invalid': submitted && f.address.errors}" />
                         <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
                             <div *ngIf="f.address.errors.required">Address is required</div>
@@ -136,7 +136,7 @@
                                 <i class="bi bi-geo-fill"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Enter Location/Region/Branch name"
+                        <input type="text" class="form-control" placeholder="Enter Location/Region/Branch name" [(ngModel)]="basicDetails.location"
                             formControlName="location" [ngClass]="{ 'is-invalid': submitted && f.location.errors}" />
                         <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
                             <div *ngIf="f.location.errors.required">location is required</div>
@@ -155,7 +155,7 @@
                         </div>
                         <input type="text" class="form-control"
                             placeholder="Enter Installation by CAPE / Contractor/Dealer name"
-                            formControlName="installationContractor"
+                            formControlName="installationContractor" [(ngModel)]="basicDetails.installationContractor"
                             [ngClass]="{ 'is-invalid': submitted && f.installationContractor.errors}" />
                         <div *ngIf="submitted && f.installationContractor.errors" class="invalid-feedback">
                             <div *ngIf="f.installationContractor.errors.required">Installation by CAPE /
@@ -173,7 +173,7 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter Type of Industry name"
-                            formControlName="industryType"
+                            formControlName="industryType" [(ngModel)]="basicDetails.industryType"
                             [ngClass]="{ 'is-invalid': submitted && f.industryType.errors}" />
                         <div *ngIf="submitted && f.industryType.errors" class="invalid-feedback">
                             <div *ngIf="f.industryType.errors.required">Type of Industry is required</div>
@@ -190,7 +190,7 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter Type of Building name"
-                            formControlName="buildingType"
+                            formControlName="buildingType" [(ngModel)]="basicDetails.buildingType"
                             [ngClass]="{ 'is-invalid': submitted && f.buildingType.errors}" />
                         <div *ngIf="submitted && f.buildingType.errors" class="invalid-feedback">
                             <div *ngIf="f.buildingType.errors.required">Type of Building is required</div>
@@ -213,7 +213,7 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter length in meter"
-                            formControlName="buildingLength"
+                            formControlName="buildingLength"  [(ngModel)]="basicDetails.buildingLength"
                             [ngClass]="{ 'is-invalid': submitted && f.buildingLength.errors}" />
                         <div *ngIf="submitted && f.buildingLength.errors" class="invalid-feedback">
                             <div *ngIf="f.buildingLength.errors.required">Length(m) is required</div>
@@ -230,7 +230,7 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter width in meter"
-                            formControlName="buildingWidth"
+                            formControlName="buildingWidth"  [(ngModel)]="basicDetails.buildingWidth"
                             [ngClass]="{ 'is-invalid': submitted && f.buildingWidth.errors}" />
                         <div *ngIf="submitted && f.buildingWidth.errors" class="invalid-feedback">
                             <div *ngIf="f.buildingWidth.errors.required">Width(m) is required</div>
@@ -247,7 +247,7 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter height in meter"
-                            formControlName="buildingHeight"
+                            formControlName="buildingHeight" [(ngModel)]="basicDetails.buildingHeight"
                             [ngClass]="{ 'is-invalid': submitted && f.buildingHeight.errors}" />
                         <div *ngIf="submitted && f.buildingHeight.errors" class="invalid-feedback">
                             <div *ngIf="f.buildingHeight.errors.required">Height(m) is required</div>
@@ -267,7 +267,7 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter Level of protection name"
-                            formControlName="levelOfProtection"
+                            formControlName="levelOfProtection" [(ngModel)]="basicDetails.levelOfProtection"
                             [ngClass]="{ 'is-invalid': submitted && f.levelOfProtection.errors}" />
                         <div *ngIf="submitted && f.levelOfProtection.errors" class="invalid-feedback">
                             <div *ngIf="f.levelOfProtection.errors.required">Lovel of protection is required</div>
@@ -284,7 +284,7 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter Soil Resistivity name"
-                            formControlName="soilResistivity"
+                            formControlName="soilResistivity" [(ngModel)]="basicDetails.soilResistivity"
                             [ngClass]="{ 'is-invalid': submitted && f.soilResistivity.errors}" />
                         <div *ngIf="submitted && f.soilResistivity.errors" class="invalid-feedback">
                             <div *ngIf="f.soilResistivity.errors.required">Soil Resistivity is requird</div>
