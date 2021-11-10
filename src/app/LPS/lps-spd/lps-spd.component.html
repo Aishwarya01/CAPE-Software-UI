@@ -147,7 +147,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control" formControlName="mainsIncomingOb"
+                                            <textarea type="text" class="form-control"   [(ngModel)]="spd.mainsIncomingOb"formControlName="mainsIncomingOb"
                                                 placeholder="please enter observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && f.mainsIncomingOb.errors}"></textarea>
                                             <div *ngIf="submitted && f.mainsIncomingOb.errors" class="invalid-feedback">
@@ -164,7 +164,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="mainsIncomingRem"
+                                                formControlName="mainsIncomingRem"  [(ngModel)]="spd.mainsIncomingRem"
                                                 placeholder="please enter remarks here(Optional)"></textarea>
                                         </div>
                                     </td>
@@ -180,7 +180,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="totalMainsIncomingOb"
+                                                formControlName="totalMainsIncomingOb"  [(ngModel)]="spd.totalMainsIncomingOb"
                                                 placeholder="please enter observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && f.totalMainsIncomingOb.errors}"></textarea>
                                             <div *ngIf="submitted && f.totalMainsIncomingOb.errors"
@@ -198,7 +198,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="totalMainsIncomingRem"
+                                                formControlName="totalMainsIncomingRem"  [(ngModel)]="spd.totalMainsIncomingRem"
                                                 placeholder="please enter remarks here(Optional)"></textarea>
                                         </div>
                                     </td>
@@ -215,7 +215,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="noPannelSupplittingOb"
+                                                formControlName="noPannelSupplittingOb"  [(ngModel)]="spd.noPannelSupplittingOb"
                                                 placeholder="please enter observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && f.noPannelSupplittingOb.errors}"></textarea>
                                             <div *ngIf="submitted && f.noPannelSupplittingOb.errors"
@@ -232,7 +232,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control"
+                                            <textarea type="text" class="form-control"  [(ngModel)]="spd.noPannelSupplittingRem"
                                                 formControlName="noPannelSupplittingRem"
                                                 placeholder="please enter remarks here(Optional)"></textarea>
                                         </div>
@@ -248,7 +248,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control"
+                                            <textarea type="text" class="form-control" [(ngModel)]="spd.totalNoOutDoorRequipmentOb"
                                                 formControlName="totalNoOutDoorRequipmentOb"
                                                 placeholder="please enter observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && f.totalNoOutDoorRequipmentOb.errors}"></textarea>
@@ -266,7 +266,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control"
+                                            <textarea type="text" class="form-control" [(ngModel)]="spd.totalNoOutDoorRequipmentRem"
                                                 formControlName="totalNoOutDoorRequipmentRem"
                                                 placeholder="please enter remarks here(Optional)"></textarea>
                                         </div>

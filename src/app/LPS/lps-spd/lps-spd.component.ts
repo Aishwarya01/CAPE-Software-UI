@@ -122,14 +122,18 @@ export class LpsSpdComponent implements OnInit {
   onSubmit(){
         
         this.submitted=true;
-        this.spd.mainsIncomingOb = this.spdForm.value.mainsIncomingOb;
-        this.spd.mainsIncomingRem = this.spdForm.value.mainsIncomingRem;
-        this.spd.totalMainsIncomingOb = this.spdForm.value.totalMainsIncomingOb;
-        this.spd.totalMainsIncomingRem = this.spdForm.value.totalMainsIncomingRem;
-        this.spd.noPannelSupplittingOb = this.spdForm.value.noPannelSupplittingOb;
-        this.spd.noPannelSupplittingRem = this.spdForm.value.noPannelSupplittingRem;
-        this.spd.totalNoOutDoorRequipmentOb = this.spdForm.value.totalNoOutDoorRequipmentOb;
-        this.spd.totalNoOutDoorRequipmentRem = this.spdForm.value.totalNoOutDoorRequipmentRem;
+        this.spd.userName="";
+        this.spd.basicLpsId=4444;
+      
+        // this.spd.mainsIncomingOb = this.spdForm.value.mainsIncomingOb;
+        // this.spd.mainsIncomingRem = this.spdForm.value.mainsIncomingRem;
+        // this.spd.totalMainsIncomingOb = this.spdForm.value.totalMainsIncomingOb;
+        // this.spd.totalMainsIncomingRem = this.spdForm.value.totalMainsIncomingRem;
+        // this.spd.noPannelSupplittingOb = this.spdForm.value.noPannelSupplittingOb;
+        // this.spd.noPannelSupplittingRem = this.spdForm.value.noPannelSupplittingRem;
+        // this.spd.totalNoOutDoorRequipmentOb = this.spdForm.value.totalNoOutDoorRequipmentOb;
+        // this.spd.totalNoOutDoorRequipmentRem = this.spdForm.value.totalNoOutDoorRequipmentRem;
+
         this.spd.spdDescription = this.spdForm.getRawValue().spdarr;
         this.spd.spdDescription=this.spd.spdDescription.concat(this.spdForm.getRawValue().panelarr);
         this.spd.spdDescription=this.spd.spdDescription.concat(this.spdForm.getRawValue().powerarr);
