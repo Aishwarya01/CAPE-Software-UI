@@ -143,7 +143,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="earthingTypeInOb" placeholder="Ex.."
+                                                formControlName="earthingTypeInOb"  [(ngModel)]="earthingLpsDescription.earthingTypeInOb" placeholder="Ex.."
                                                 [ngClass]="{ 'is-invalid': submitted && f.earthingTypeInOb.errors}"></textarea>
                                             <div *ngIf="submitted && f.earthingTypeInOb.errors"
                                                 class="invalid-feedback">
@@ -159,7 +159,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control"
+                                            <textarea type="text" class="form-control" [(ngModel)]="earthingLpsDescription.earthingTypeInRem"
                                                 formControlName="earthingTypeInRem" placeholder="Ex.."></textarea>
                                         </div>
                                     </td>
@@ -175,7 +175,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control"
+                                            <textarea type="text" class="form-control" [(ngModel)]="earthingLpsDescription.bimetallicIssueInOb"
                                                 formControlName="bimetallicIssueInOb" placeholder="Ex.."
                                                 [ngClass]="{ 'is-invalid': submitted && f.bimetallicIssueInOb.errors}"></textarea>
                                             <div *ngIf="submitted && f.bimetallicIssueInOb.errors"
@@ -192,7 +192,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control"
+                                            <textarea type="text" class="form-control" [(ngModel)]="earthingLpsDescription.bimetallicIssueInRem"
                                                 formControlName="bimetallicIssueInRem" placeholder="Ex.."></textarea>
                                         </div>
                                     </td>
@@ -207,7 +207,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control"
+                                            <textarea type="text" class="form-control" [(ngModel)]="earthingLpsDescription.brazingConnectInOb"
                                                 formControlName="brazingConnectInOb" placeholder="Ex.."
                                                 [ngClass]="{ 'is-invalid': submitted && f.brazingConnectInOb.errors}"></textarea>
                                             <div *ngIf="submitted && f.brazingConnectInOb.errors"
@@ -224,7 +224,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control"
+                                            <textarea type="text" class="form-control"  [(ngModel)]="earthingLpsDescription.brazingConnectInRem"
                                                 formControlName="brazingConnectInRem" placeholder="Ex.."></textarea>
                                         </div>
                                     </td>
@@ -241,7 +241,7 @@
                         <div class="container">
                             <div>
                                 <label for="lname">Location Name</label>
-                                <input class="form-control" formControlName="locationName" type="text"
+                                <input class="form-control" formControlName="locationName" type="text" [(ngModel)]="earthingLpsDescription.locationName"
                                     [ngClass]="{ 'is-invalid': submitted && f.locationName.errors}">
                                 <div *ngIf="submitted && f.locationName.errors" class="invalid-feedback">
                                     <div *ngIf="f.locationName.errors.required">Location Name is required</div>
@@ -249,7 +249,7 @@
                             </div>
                             <div>
                                 <label for="lnumber">Location Number</label>
-                                <input class="form-control" formControlName="locationNumber" type="text"
+                                <input class="form-control" formControlName="locationNumber" type="text"  [(ngModel)]="earthingLpsDescription.locationNumber"
                                     [ngClass]="{ 'is-invalid': submitted && f.locationNumber.errors}">
                                 <div *ngIf="submitted && f.locationNumber.errors" class="invalid-feedback">
                                     <div *ngIf="f.locationNumber.errors.required">Location Number is required</div>

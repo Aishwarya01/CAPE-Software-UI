@@ -187,15 +187,17 @@ export class LpsEarthingComponent implements OnInit {
   }
   onSubmit() {
     this.submitted=true;
+    this.earthingLpsDescription.userName="";
+    this.earthingLpsDescription.basicLpsId=44;
     
-    this.earthingLpsDescription.bimetallicIssueInOb = this.earthingForm.value.bimetallicIssueInOb;
-    this.earthingLpsDescription.bimetallicIssueInRem = this.earthingForm.value.bimetallicIssueInRem;
-    this.earthingLpsDescription.brazingConnectInOb = this.earthingForm.value.brazingConnectInOb;
-    this.earthingLpsDescription.brazingConnectInRem = this.earthingForm.value.brazingConnectInRem;
-    this.earthingLpsDescription.earthingTypeInOb = this.earthingForm.value.earthingTypeInOb;
-    this.earthingLpsDescription.earthingTypeInRem = this.earthingForm.value.earthingTypeInRem;
-    this.earthingLpsDescription.locationName = this.earthingForm.value.locationName;
-    this.earthingLpsDescription.locationNumber = this.earthingForm.value.locationNumber;
+    // this.earthingLpsDescription.bimetallicIssueInOb = this.earthingForm.value.bimetallicIssueInOb;
+    // this.earthingLpsDescription.bimetallicIssueInRem = this.earthingForm.value.bimetallicIssueInRem;
+    // this.earthingLpsDescription.brazingConnectInOb = this.earthingForm.value.brazingConnectInOb;
+    // this.earthingLpsDescription.brazingConnectInRem = this.earthingForm.value.brazingConnectInRem;
+    // this.earthingLpsDescription.earthingTypeInOb = this.earthingForm.value.earthingTypeInOb;
+    // this.earthingLpsDescription.earthingTypeInRem = this.earthingForm.value.earthingTypeInRem;
+    // this.earthingLpsDescription.locationName = this.earthingForm.value.locationName;
+    // this.earthingLpsDescription.locationNumber = this.earthingForm.value.locationNumber;
 
     this.earthingLpsDescription.earthingClamps = this.earthingForm.value.ClampsArr;
     this.earthingLpsDescription.earthingDescription = this.earthingForm.value.descriptionArr;
@@ -212,6 +214,7 @@ export class LpsEarthingComponent implements OnInit {
       error => {
       }
     )
+   
   };
 
   get f() {
