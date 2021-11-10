@@ -377,7 +377,7 @@
                                         <td style="width: 1rem; text-align: center;">7.1</td>
                                         <td style="width: 30rem;">Physical inspection
                                             (damage/break/bend/corroded/route):</td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -393,7 +393,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -798,9 +798,11 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <button class="btn btn-primary" type="button" (click)="submit()"
-                                        style="margin-right: 91rem;margin-bottom: 4px;">Add</button>
                                 </div>
+                                <mat-icon class="mousechange" type="button" (click)="submit()"
+                                style="float: left;position: absolute;left: 105rem !important;" title="Add another Text Fields">add_box</mat-icon>
+                                <mat-icon class="mousechange" *ngIf="downConductorControls().length > 1" (click)="removeItem(j)"
+                                    style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
                             </tbody>
                         </table>
                     </div>
@@ -836,7 +838,7 @@
                                         <td style="width: 1rem; text-align: center;">8.1</td>
                                         <td style="width: 24rem;">Ensure bridging cable is used at corner of structures
                                             to avoid sharp bends:</td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -851,7 +853,7 @@
                                                     </div>
                                             </div>
                                         </td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1043,9 +1045,12 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <button class="btn btn-primary" type="button" (click)="submit1()"
-                                        style="margin-right: 91rem;margin-bottom: 4px;">Add</button>
                                 </div>
+                                <mat-icon class="mousechange" type="button" (click)="submit1()"
+                                style="float: left;position: absolute;left: 105rem !important;" title="Add another Text Fields">add_box</mat-icon>
+                                <mat-icon class="mousechange" *ngIf="bridgingCablesControls().length > 1" (click)="removeItem1(f)"
+                                    style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
+                            
                             </tbody>
                         </table>
                     </div>
@@ -1066,7 +1071,7 @@
                                     <tr>
                                         <td style="width: 1rem; text-align: center;">9.1</td>
                                         <td style="width: 24rem;">Physical inspection (damage/break/corroded):</td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1081,7 +1086,7 @@
                                                     </div>
                                             </div>
                                         </td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1304,9 +1309,12 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <button class="btn btn-primary" type="button" (click)="submit2()"
-                                        style="margin-left: 91rem;margin-bottom: 4px;">Add</button>
                                 </div>
+                                <mat-icon class="mousechange" type="button" (click)="submit2()"
+                                style="float: left;position: absolute;left: 105rem !important;" title="Add another Text Fields">add_box</mat-icon>
+                                <mat-icon class="mousechange" *ngIf="holdersControls().length > 1" (click)="removeItem2(k)"
+                                    style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
+                            
                             </tbody>
                         </table>
                     </div>
@@ -1327,7 +1335,7 @@
                                     <tr>
                                         <td style="width: 1rem; text-align: center;">10.1</td>
                                         <td style="width: 24rem;">Physical inspection (damage/break/corroded):</td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1342,7 +1350,7 @@
                                                     </div>
                                             </div>
                                         </td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1564,9 +1572,12 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <button class="btn btn-primary" type="button" (click)="submit3()"
-                                        style="margin-left: 91rem;margin-bottom: 4px;">Add</button>
                                 </div>
+                                <mat-icon class="mousechange" type="button" (click)="submit3()"
+                                style="float: left;position: absolute;left: 105rem !important;" title="Add another Text Fields">add_box</mat-icon>
+                                <mat-icon class="mousechange" *ngIf="connectorsControls().length > 1" (click)="removeItem3(z)"
+                                    style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
+                            
                             </tbody>
                         </table>
                     </div>
@@ -1587,7 +1598,7 @@
                                     <tr>
                                         <td style="width: 1rem; text-align: center;">11.1</td>
                                         <td style="width: 24rem;">Threshold current:</td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1602,7 +1613,7 @@
                                                     </div>
                                             </div>
                                         </td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1915,9 +1926,12 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <button class="btn btn-primary" type="button" (click)="submit4()"
-                                        style="margin-left: 91rem;margin-bottom: 4px;">Add</button>
                                 </div>
+                                <mat-icon class="mousechange" type="button" (click)="submit4()"
+                                style="float: left;position: absolute;left: 105rem !important;" title="Add another Text Fields">add_box</mat-icon>
+                                <mat-icon class="mousechange" *ngIf="lightControls().length > 1" (click)="removeItem4(f)"
+                                    style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
+                            
                             </tbody>
                         </table>
                     </div>
@@ -1951,7 +1965,7 @@
                                     <tr>
                                         <td style="width: 1rem; text-align: center;">12.1</td>
                                         <td style="width: 24rem;">Test joint available or not:</td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1966,7 +1980,7 @@
                                                     </div>
                                             </div>
                                         </td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">

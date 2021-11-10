@@ -260,9 +260,26 @@ export class LpsDownConductorsComponent implements OnInit {
     console.log(this.downConductorForm)
   }
 
+  removeItem(index: any) {
+    (this.downConductorForm.get('downArr') as FormArray).removeAt(index);
+    }
+  removeItem1(index: any) {
+    (this.downConductorForm.get('bridgingArr') as FormArray).removeAt(index);
+    }
+  removeItem2(index: any) {
+    (this.downConductorForm.get('holderArr') as FormArray).removeAt(index);
+    }
+  removeItem3(index: any) {
+    (this.downConductorForm.get('connectorArr') as FormArray).removeAt(index);
+    }
+  removeItem4(index: any) {
+    (this.downConductorForm.get('lightArr') as FormArray).removeAt(index);
+    }
+  
   get f() {
     return this.downConductorForm.controls;
   }
+
 
    onSubmit() {
     this.submitted=true;

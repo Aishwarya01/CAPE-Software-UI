@@ -187,7 +187,6 @@ export class LpsAirTerminationComponent implements OnInit {
       holderInspPassedNoRe: new FormControl(''),
       holderInspFailedNoOb: new FormControl('', Validators.required),
       holderInspFailedNoRe: new FormControl(''),
-     
       parpetInspectionNoOb: new FormControl('', Validators.required),
       parpetInspectionNoRe: new FormControl(''),
       parpetInspectionPassedNoOb: new FormControl('', Validators.required),
@@ -313,5 +312,20 @@ export class LpsAirTerminationComponent implements OnInit {
   removeItem(index: any) {
     (this.airTerminationForm.get('vatArr') as FormArray).removeAt(index);
     }
-  
+  removeItem1(index: any) {
+    (this.airTerminationForm.get('meshArr') as FormArray).removeAt(index);
+    }
+  removeItem2(index: any) {
+    (this.airTerminationForm.get('holderArr') as FormArray).removeAt(index);
+    }
+  removeItem3(index: any) {
+    (this.airTerminationForm.get('clampArr') as FormArray).removeAt(index);
+    }
+  removeItem4(index: any) {
+    (this.airTerminationForm.get('expArr') as FormArray).removeAt(index);
+    }
+  removeItem5(index: any) {
+    (this.airTerminationForm.get('conArr') as FormArray).removeAt(index);
+    }
+
 }

@@ -316,7 +316,7 @@
                                         <td style="width: 1rem; text-align: center;">6.1</td>
                                         <td style="width: 24rem;">Physical inspection
                                             (damage/break/bend/corroded/route):</td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -333,7 +333,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -764,11 +764,12 @@
                                         </td>
                                     </tr>
                                 </div>
-                                <mat-icon class="mousechange" type="button" (click)="submit()"
-                                style="margin-left: 90rem;margin-bottom: 4px;" title="Add another Text Fields">add_box</mat-icon>
-                                <mat-icon class="mousechange" *ngIf="vatControls().length > 1" (click)="removeItem(i)"
-                                    style="margin-right: 90rem;margin-bottom: 4px;">delete</mat-icon>
+                                
                             </tbody>
+                            <mat-icon class="mousechange" type="button" (click)="submit()"
+                                style="float: left;position: absolute;left: 105rem !important;" title="Add another Text Fields">add_box</mat-icon>
+                                <mat-icon class="mousechange" *ngIf="vatControls().length > 1" (click)="removeItem(i)"
+                                    style="margin-inline: 1rem;float: right;position: relative;">delete</mat-icon>
                         </table>
                     </div>
                 </mat-expansion-panel>
@@ -784,7 +785,7 @@
                                         <td style="width: 24rem;">Physical inspection
                                             (damage/break/bend/corroded/route):
                                         </td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -802,7 +803,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1017,9 +1018,11 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <button class="btn btn-primary" type="button" (click)="submit1()"
-                                        style="margin-left: 91rem;margin-bottom: 4px;">Add</button>
                                 </div>
+                                <mat-icon class="mousechange" type="button" (click)="submit1()"
+                                style="float: left;position: absolute;left: 105rem !important;" title="Add another Text Fields">add_box</mat-icon>
+                                <mat-icon class="mousechange" *ngIf="meshControls().length > 1" (click)="removeItem1(i)"
+                                    style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
                             </tbody>
                         </table>
                     </div>
@@ -1034,7 +1037,7 @@
                                     <tr>
                                         <td style="width: 1rem; text-align: center;">8.1</td>
                                         <td style="width: 24rem;">Physical inspection (damage/break/corroded):</td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1053,7 +1056,7 @@
 
                                             </div>
                                         </td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1336,7 +1339,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="holderInspFailedNoOb" type="text"
-                                                    class="form-control" placeholder="Ex.."
+                                                    class="form-control" placeholder="ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('holderInspFailedNoOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('holderInspFailedNoOb')?.errors"
                                                     class="invalid-feedback">
@@ -1368,8 +1371,14 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea  type="text"
-                                                    class="form-control" placeholder="Ex.."></textarea>
+                                                <textarea type="text" formControlName="parpetInspectionNoOb"
+                                                    class="form-control" placeholder="ex.."
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('holderInspFailedNoOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('holderInspFailedNoOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('holderInspFailedNoOb')?.errors?.required">
+                                                        Description is required</div>
+                                                </div>
                                             </div>
                                         </td>
                                         <td>
@@ -1379,7 +1388,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text"
+                                                <textarea type="text" formControlName="parpetInspectionNoRe"
                                                     class="form-control" placeholder="Ex.."></textarea>
                                             </div>
                                         </td>
@@ -1395,7 +1404,14 @@
                                                     </span>
                                                 </div>
                                                 <textarea type="text"
-                                                    class="form-control" placeholder="Ex.."></textarea>
+                                                    class="form-control" formControlName="parpetInspectionPassedNoOb" placeholder="ex.."
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('holderInspFailedNoOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('holderInspFailedNoOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('holderInspFailedNoOb')?.errors?.required">
+                                                        Description
+                                                        is required</div>
+                                                </div>
                                             </div>
                                         </td>
                                         <td>
@@ -1406,7 +1422,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea  type="text"
-                                                    class="form-control" placeholder="Ex.."></textarea>
+                                                    class="form-control" formcontrolName="parpetInspectionPassedNoRe" placeholder="Ex.."></textarea>
                                             </div>
                                         </td>
                                     </tr>
@@ -1476,42 +1492,11 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td style="text-align: center;">8.15</td>
-                                        <td>Number of inspections failed:</td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <textarea formControlName="parpetInspectionFailedNoOb" type="text"
-                                                    class="form-control" placeholder="Ex.."
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('parpetInspectionFailedNoOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('parpetInspectionFailedNoOb')?.errors"
-                                                    class="invalid-feedback">
-                                                    <div
-                                                        *ngIf="a.get('parpetInspectionFailedNoOb')?.errors?.required">
-                                                        Description is required</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <textarea formControlName="parpetInspectionFailedNoRe" type="text"
-                                                    class="form-control" placeholder="Ex.."></textarea>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <button class="btn btn-primary" type="button" (click)="submit2()"
-                                        style="margin-left: 91rem;margin-bottom: 4px;">Add</button>
                                 </div>
+                                <mat-icon class="mousechange" type="button" (click)="submit2()"
+                                style="float: left;position: absolute;left: 105rem !important;" title="Add another Text Fields">add_box</mat-icon>
+                                <mat-icon class="mousechange" *ngIf="holdersContols().length > 1" (click)="removeItem2(i)"
+                                    style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
                             </tbody>
                         </table>
                     </div>
@@ -1528,7 +1513,7 @@
                                     <tr>
                                         <td style="width: 1rem; text-align: center;">9.1</td>
                                         <td style="width: 24rem;">Physical inspection (damage/break/corroded):</td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1545,7 +1530,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1811,9 +1796,11 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <button class="btn btn-primary" type="button" (click)="submit3()"
-                                        style="margin-left: 91rem;margin-bottom: 4px;">Add</button>
                                 </div>
+                                <mat-icon class="mousechange" type="button" (click)="submit3()"
+                                style="float: left;position: absolute;left: 105rem !important;" title="Add another Text Fields">add_box</mat-icon>
+                                <mat-icon class="mousechange" *ngIf="clampsControls().length > 1" (click)="removeItem3(i)"
+                                    style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
                             </tbody>
                         </table>
                     </div>
@@ -1829,7 +1816,7 @@
                                     <tr>
                                         <td style="width: 1rem; text-align: center;">10.1</td>
                                         <td style="width: 24rem;">Physical inspection (damage/break/corroded):</td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1846,7 +1833,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -2051,9 +2038,11 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <button class="btn btn-primary" type="button" (click)="submit4()"
-                                        style="margin-left: 91rem;margin-bottom: 4px;">Add</button>
                                 </div>
+                                <mat-icon class="mousechange" type="button" (click)="submit4()"
+                                style="float: left;position: absolute;left: 105rem !important;" title="Add another Text Fields">add_box</mat-icon>
+                                <mat-icon class="mousechange" *ngIf="expansionControls().length > 1" (click)="removeItem4(i)"
+                                    style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
                             </tbody>
                         </table>
                     </div>
@@ -2069,7 +2058,7 @@
                                     <tr>
                                         <td style="width: 1rem; text-align: center;">11.1</td>
                                         <td style="width: 24rem;">Physical inspection (damage/break/corroded):</td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -2086,7 +2075,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -2384,9 +2373,11 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <button class="btn btn-primary" type="button" (click)="submit5()"
-                                        style="margin-left: 91rem;margin-bottom: 4px;">Add</button>
                                 </div>
+                                <mat-icon class="mousechange" type="button" (click)="submit5()"
+                                style="float: left;position: absolute;left: 105rem !important;" title="Add another Text Fields">add_box</mat-icon>
+                                <mat-icon class="mousechange" *ngIf="connectorsControls().length > 1" (click)="removeItem5(i)"
+                                    style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
                             </tbody>
                         </table>
                     </div>
