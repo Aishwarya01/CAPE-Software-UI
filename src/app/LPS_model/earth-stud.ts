@@ -1,5 +1,6 @@
 export class EarthStud {
     userName : String;
+    basicLpsId:number;
     earthStudVisibilityOb : String;
     earthStudVisibilityRem : String;
     earthStudBendOb : String;

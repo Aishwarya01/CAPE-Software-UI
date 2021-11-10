@@ -38,22 +38,16 @@ export class LpsEarthStudComponent implements OnInit {
 
   onSubmit(){
     this.submitted=true;
-    this.earthStud.earthStudVisibilityOb = this.EarthStudForm.value.earthStudVisibilityOb;
-    this.earthStud.earthStudVisibilityRem = this.EarthStudForm.value.earthStudVisibilityRem;
-    this.earthStud.earthStudBendOb = this.EarthStudForm.value.earthStudBendOb;
-    this.earthStud.earthStudBendRem = this.EarthStudForm.value.earthStudBendRem;
-    this.earthStud.properBondingRailOb = this.EarthStudForm.value.properBondingRailOb;
-    this.earthStud.properBondingRailRem = this.EarthStudForm.value.properBondingRailRem;
-    this.earthStud.physicalDamageStudOb = this.EarthStudForm.value.physicalDamageStudOb;
-    this.earthStud.physicalDamageStudRem = this.EarthStudForm.value.physicalDamageStudRem;
-    this.earthStud.continutyExistaEarthOb = this.EarthStudForm.value.continutyExistaEarthOb;
-    this.earthStud.continutyExistaEarthRem = this.EarthStudForm.value.continutyExistaEarthRem;
+    this.earthStud.userName="";
+    this.earthStud.basicLpsId=99;
     this.earthStudService.saveEarthStud(this.earthStud).subscribe(
 
       data => {
       },
       error => {
       })
+   
+  
   };
   
   get f() {

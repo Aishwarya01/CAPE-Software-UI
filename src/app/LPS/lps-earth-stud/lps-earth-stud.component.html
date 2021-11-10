@@ -149,7 +149,7 @@
                                     <i class="bi bi-text-paragraph"></i>
                                 </span>
                             </div>
-                            <textarea formControlName="earthStudVisibilityOb" class="form-control" placeholder="please enter observation" [ngClass]="{ 'is-invalid': submitted && f.earthStudVisibilityOb.errors}"></textarea>
+                            <textarea formControlName="earthStudVisibilityOb"    [(ngModel)]="earthStud.earthStudVisibilityOb" class="form-control" placeholder="please enter observation" [ngClass]="{ 'is-invalid': submitted && f.earthStudVisibilityOb.errors}"></textarea>
                             <div *ngIf="submitted && f.earthStudVisibilityOb.errors" class="invalid-feedback">
                                 <div *ngIf="f.earthStudVisibilityOb.errors.required">Earth stud visibility is required</div>
                             </div>
@@ -162,7 +162,8 @@
                                     <i class="bi bi-text-paragraph"></i>
                                 </span>
                             </div>
-                            <textarea formControlName="earthStudVisibilityRem" type="text" class="form-control" placeholder="Ex.."></textarea>
+                            <textarea formControlName="earthStudVisibilityRem"
+                            [(ngModel)]="earthStud.earthStudVisibilityRem" type="text" class="form-control" placeholder="Ex.."></textarea>
                         </div>
                     </td>
                 </tr>
@@ -176,7 +177,7 @@
                                     <i class="bi bi-text-paragraph"></i>
                                 </span>
                             </div>
-                            <textarea formControlName="earthStudBendOb" type="text" class="form-control" placeholder="please enter observation" [ngClass]="{ 'is-invalid': submitted && f.earthStudBendOb.errors}"></textarea>
+                            <textarea formControlName="earthStudBendOb"     [(ngModel)]="earthStud.earthStudBendOb" type="text" class="form-control" placeholder="please enter observation" [ngClass]="{ 'is-invalid': submitted && f.earthStudBendOb.errors}"></textarea>
                             <div *ngIf="submitted && f.earthStudBendOb.errors" class="invalid-feedback">
                                 <div *ngIf="f.earthStudBendOb.errors.required">Earth stud bend is required</div>
                             </div>
@@ -189,7 +190,7 @@
                                     <i class="bi bi-text-paragraph"></i>
                                 </span>
                             </div>
-                            <textarea formControlName="earthStudBendRem" type="text" class="form-control" placeholder="Ex.."></textarea>
+                            <textarea formControlName="earthStudBendRem"  [(ngModel)]="earthStud.earthStudBendRem" type="text" class="form-control" placeholder="Ex.."></textarea>
                         </div>
                     </td>
                 </tr>
@@ -203,7 +204,7 @@
                                         <i class="bi bi-text-paragraph"></i>
                                     </span>
                                 </div>
-                                <textarea formControlName="properBondingRailOb" type="text" class="form-control" placeholder="please enter observation" [ngClass]="{ 'is-invalid': submitted && f.properBondingRailOb.errors}"></textarea>
+                                <textarea formControlName="properBondingRailOb"  [(ngModel)]="earthStud.properBondingRailOb" type="text" class="form-control" placeholder="please enter observation" [ngClass]="{ 'is-invalid': submitted && f.properBondingRailOb.errors}"></textarea>
                                 <div *ngIf="submitted && f.properBondingRailOb.errors" class="invalid-feedback">
                                     <div *ngIf="f.properBondingRailOb.errors.required">Proper bonding rail is required</div>
                                 </div>
@@ -216,7 +217,7 @@
                                         <i class="bi bi-text-paragraph"></i>
                                     </span>
                                 </div>
-                                <textarea formControlName="properBondingRailRem" type="text" class="form-control" placeholder="Ex.."></textarea>
+                                <textarea formControlName="properBondingRailRem" [(ngModel)]="earthStud.properBondingRailRem" type="text" class="form-control" placeholder="Ex.."></textarea>
                             </div>
                     </td>
                 </tr>
@@ -230,7 +231,7 @@
                                     <i class="bi bi-text-paragraph"></i>
                                 </span>
                             </div>
-                            <textarea formControlName="physicalDamageStudOb" type="text" class="form-control" placeholder="please enter observation" [ngClass]="{ 'is-invalid': submitted && f.physicalDamageStudOb.errors}"></textarea>
+                            <textarea formControlName="physicalDamageStudOb"  [(ngModel)]="earthStud.physicalDamageStudOb"type="text" class="form-control" placeholder="please enter observation" [ngClass]="{ 'is-invalid': submitted && f.physicalDamageStudOb.errors}"></textarea>
                             <div *ngIf="submitted && f.physicalDamageStudOb.errors" class="invalid-feedback">
                                 <div *ngIf="f.physicalDamageStudOb.errors.required">Physical damage of stud is required</div>
                             </div>
@@ -243,7 +244,7 @@
                                     <i class="bi bi-text-paragraph"></i>
                                 </span>
                             </div>
-                            <textarea formControlName="physicalDamageStudRem" type="text" class="form-control" placeholder="Ex.."></textarea>
+                            <textarea formControlName="physicalDamageStudRem"  [(ngModel)]="earthStud.physicalDamageStudRem"type="text" class="form-control" placeholder="Ex.."></textarea>
                         </div>
                     </td>
                 </tr>
@@ -257,7 +258,7 @@
                                     <i class="bi bi-text-paragraph"></i>
                                 </span>
                             </div>
-                            <textarea formControlName="continutyExistaEarthOb" type="text" class="form-control" placeholder="please enter observation" [ngClass]="{ 'is-invalid': submitted && f.continutyExistaEarthOb.errors}"></textarea>
+                            <textarea formControlName="continutyExistaEarthOb"    [(ngModel)]="earthStud.continutyExistaEarthOb" type="text" class="form-control" placeholder="please enter observation" [ngClass]="{ 'is-invalid': submitted && f.continutyExistaEarthOb.errors}"></textarea>
                             <div *ngIf="submitted && f.continutyExistaEarthOb.errors" class="invalid-feedback">
                                 <div *ngIf="f.continutyExistaEarthOb.errors.required">Whether continuity exist is required</div>
                             </div>
@@ -270,7 +271,7 @@
                                     <i class="bi bi-text-paragraph"></i>
                                 </span>
                             </div>
-                            <textarea formControlName="continutyExistaEarthRem" type="text" class="form-control" placeholder="Ex.."></textarea>
+                            <textarea formControlName="continutyExistaEarthRem"   [(ngModel)]="earthStud.continutyExistaEarthRem" type="text" class="form-control" placeholder="Ex.."></textarea>
                         </div>
                     </td>
                 </tr>
