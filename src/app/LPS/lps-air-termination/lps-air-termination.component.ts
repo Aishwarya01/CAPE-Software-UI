@@ -59,17 +59,20 @@ export class LpsAirTerminationComponent implements OnInit {
       return;
     }  
     else{
+
+      this.airtermination.userName="";
+      this.airtermination.basicLpsId=444;
         //this.airtermination.userName=this.airTerminationForm.value.userName;
-        this.airtermination.connectionMadeBraOb=this.airTerminationForm.value.connectionMadeBraOb;
-        this.airtermination.connectionMadeBraRe=this.airTerminationForm.value.connectionMadeBraRe;
-        this.airtermination.electricalEquipPlacedOb=this.airTerminationForm.value.electricalEquipPlacedOb;
-        this.airtermination.electricalEquipPlacedRe=this.airTerminationForm.value.electricalEquipPlacedRe;
-        this.airtermination.combustablePartOb=this.airTerminationForm.value.combustablePartOb;
-        this.airtermination.combustablePartRe=this.airTerminationForm.value.combustablePartRe;
-        this.airtermination.terminationMeshConductorOb=this.airTerminationForm.value.terminationMeshConductorOb;
-        this.airtermination.terminationMeshConductorRe=this.airTerminationForm.value.terminationMeshConductorRe;
-        this.airtermination.bondingEquipotentialOb=this.airTerminationForm.value.bondingEquipotentialOb;
-        this.airtermination.bondingEquipotentialRe=this.airTerminationForm.value.bondingEquipotentialRe;
+        // this.airtermination.connectionMadeBraOb=this.airTerminationForm.value.connectionMadeBraOb;
+        // this.airtermination.connectionMadeBraRe=this.airTerminationForm.value.connectionMadeBraRe;
+        // this.airtermination.electricalEquipPlacedOb=this.airTerminationForm.value.electricalEquipPlacedOb;
+        // this.airtermination.electricalEquipPlacedRe=this.airTerminationForm.value.electricalEquipPlacedRe;
+        // this.airtermination.combustablePartOb=this.airTerminationForm.value.combustablePartOb;
+        // this.airtermination.combustablePartRe=this.airTerminationForm.value.combustablePartRe;
+        // this.airtermination.terminationMeshConductorOb=this.airTerminationForm.value.terminationMeshConductorOb;
+        // this.airtermination.terminationMeshConductorRe=this.airTerminationForm.value.terminationMeshConductorRe;
+        // this.airtermination.bondingEquipotentialOb=this.airTerminationForm.value.bondingEquipotentialOb;
+        // this.airtermination.bondingEquipotentialRe=this.airTerminationForm.value.bondingEquipotentialRe;
         
         this.airtermination.airClamps=this.airTerminationForm.value.clampArr;
         this.airtermination.airConnectors=this.airTerminationForm.value.conArr;
