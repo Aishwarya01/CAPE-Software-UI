@@ -210,7 +210,7 @@ export class LpsDownConductorsComponent implements OnInit {
   
     return new FormGroup({
       lacationNo: new FormControl('', Validators.required),
-      lacationName: new FormControl(''),
+      lacationName: new FormControl('', Validators.required),
       testJointTypeOb: new FormControl('', Validators.required),
       testJointTypeRem: new FormControl(''),
       materialTestJointOb: new FormControl('', Validators.required),
