@@ -198,6 +198,8 @@ export class SummaryComponent implements OnInit {
   tabError: boolean = false;
   tabErrorMsg: string="";
 
+  //@ViewChild('picker',{static:false}) picker!: ElementRef;
+
   constructor(
     private _formBuilder: FormBuilder,
     private modalService: NgbModal,
@@ -247,7 +249,9 @@ export class SummaryComponent implements OnInit {
     this.expandedIndex = -1 ;
     // this.Declaration2Arr = this.addsummary.get('Declaration2Arr') as FormArray;
   }
-
+  // ngAfterViewInit(){
+  //   this.picker.nativeElement.open()
+  // }
   refresh() {
     this.ChangeDetectorRef.detectChanges();
   }
@@ -936,7 +940,7 @@ showHideAccordion(index: number) {
           this.proceedNext.emit(true);
           // show success message after click button
           this.success = true;
-          this.successMsg = 'Summary Information Successfully Saved';
+          this.successMsg = 'Summary Information Successfully Submitted';
           this.service.allFieldsDisable = true;
           this.finalFlag = true;
         },
