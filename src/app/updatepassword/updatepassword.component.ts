@@ -16,7 +16,7 @@ export class UpdatepasswordComponent implements OnInit {
     email: new FormControl(''),
     password: new FormControl(''),
     confirmpassword: new FormControl('') ,
-    otp: new FormControl('')
+    // otp: new FormControl('')
   });
 
   loading = false;
@@ -39,7 +39,7 @@ export class UpdatepasswordComponent implements OnInit {
     this.updatepassform = this.formBuilder.group({
       password: ['', Validators.required],
       confirmpassword: ['', Validators.required],
-      otp: ['', Validators.required]
+      // otp: ['', Validators.required]
       });
 
 

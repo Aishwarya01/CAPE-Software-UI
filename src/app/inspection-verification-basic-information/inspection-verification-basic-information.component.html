@@ -563,7 +563,7 @@
                             <label>* Mobile Number:</label>
                             <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
                             (keypress)="keyPressNumbers($event)" (countryChange)="countryChange($event)" placeholder="Enter Mobile Number"
-                             formControlName="personContactNo" class="form-control"
+                             formControlName="personContactNo" class="form-control" [readonly]="setReadOnly"
                             [ngClass]="{ 'is-invalid': submitted && a.get('personContactNo')?.errors }">
                             <div *ngIf="submitted && a.get('personContactNo')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('personContactNo')?.errors?.required">Mobile Number is Required</div>
@@ -598,7 +598,7 @@
                         <div class="col-md-4">
                           <label>* Mobile Number:</label>
                           <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
-                          (keypress)="keyPressNumbers($event)" (countryChange)="countryChange1($event)"
+                          (keypress)="keyPressNumbers($event)" (countryChange)="countryChange1($event)" [readonly]="setReadOnly"
                           formControlName="managerContactNo" class="form-control" placeholder="Enter Mobile Number"
                           [ngClass]="{ 'is-invalid': submitted && a.get('managerContactNo')?.errors }">
                           <div *ngIf="submitted && a.get('managerContactNo')?.errors" class="invalid-feedback">
@@ -730,7 +730,7 @@
                             <label>* Mobile Number:</label>
                             <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
                             (keypress)="keyPressNumbers($event)" (countryChange)="countryChange2($event)" placeholder="Enter Mobile Number"
-                             formControlName="personContactNo" class="form-control"
+                             formControlName="personContactNo" class="form-control" [readonly]="setReadOnly1"
                             [ngClass]="{ 'is-invalid': submitted && a.get('personContactNo')?.errors }">
                             <div *ngIf="submitted && a.get('personContactNo')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('personContactNo')?.errors?.required">Mobile Number is Required</div>
@@ -766,7 +766,7 @@
                             <label>* Mobile Number:</label>
                             <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
                             (keypress)="keyPressNumbers($event)" (countryChange)="countryChange3($event)" formControlName="managerContactNo" class="form-control" placeholder="Enter Mobile Number"
-                            [ngClass]="{ 'is-invalid': submitted && a.get('managerContactNo')?.errors }">
+                            [readonly]="setReadOnly1" [ngClass]="{ 'is-invalid': submitted && a.get('managerContactNo')?.errors }">
                             <div *ngIf="submitted && a.get('managerContactNo')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('managerContactNo')?.errors?.required">Mobile Number is Required</div>
                               <div *ngIf="a.get('managerContactNo')?.errors?.maxlength">Please Enter 10 Digit Number</div>
@@ -899,7 +899,7 @@
                           <div class="col-md-4">
                               <label>* Mobile Number:</label>
                               <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
-                              (keypress)="keyPressNumbers($event)" (countryChange)="countryChange4($event)" formControlName="personContactNo" class="form-control" placeholder="Enter Mobile Number"
+                              (keypress)="keyPressNumbers($event)" (countryChange)="countryChange4($event)" [readonly]="setReadOnly" formControlName="personContactNo" class="form-control" placeholder="Enter Mobile Number"
                               [ngClass]="{ 'is-invalid': submitted && a.get('personContactNo')?.errors }">
                               <div *ngIf="submitted && a.get('personContactNo')?.errors" class="invalid-feedback">
                                 <div *ngIf="a.get('personContactNo')?.errors?.required">Mobile Number is Required</div>
@@ -935,7 +935,7 @@
                           <div class="col-md-4">
                             <label>* Mobile Number:</label>
                             <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
-                            (keypress)="keyPressNumbers($event)" (countryChange)="countryChange5($event)" formControlName="managerContactNo" class="form-control" placeholder="Enter Mobile Number"
+                            (keypress)="keyPressNumbers($event)" (countryChange)="countryChange5($event)" [readonly]="setReadOnly" formControlName="managerContactNo" class="form-control" placeholder="Enter Mobile Number"
                             [ngClass]="{ 'is-invalid': submitted && a.get('managerContactNo')?.errors }">
                           <div *ngIf="submitted && a.get('managerContactNo')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('managerContactNo')?.errors?.required">Mobile Number is Required</div>
@@ -1104,7 +1104,7 @@
                           <label>* Mobile Number:</label>
                           <input type="tel"  ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
                           (keypress)="keyPressNumbers($event)" (countryChange)="countryChange7($event)" formControlName="managerContactNo" class="form-control" placeholder="Enter Mobile Number"
-                          [ngClass]="{ 'is-invalid': submitted && a.get('managerContactNo')?.errors}">
+                          [readonly]="setReadOnly" [ngClass]="{ 'is-invalid': submitted && a.get('managerContactNo')?.errors}">
                           <div *ngIf="submitted && a.get('managerContactNo')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('managerContactNo')?.errors?.required">Mobile Number is Required</div>
                             <!-- <div *ngIf="a.get('managerContactNo')?.errors?.minlength">Please Enter 10 Digit Number</div> -->

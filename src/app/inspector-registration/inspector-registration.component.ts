@@ -85,11 +85,11 @@ export class InspectorRegistrationComponent implements OnInit {
       terms: ['', Validators.required]
     });
 
-    // this.siteService.retrieveCountry().subscribe(
-    //   data => {
-    //     this.countryList = JSON.parse(data);
-    //   }
-    // )
+    this.siteService.retrieveCountry().subscribe(
+      data => {
+        this.countryList = JSON.parse(data);
+      }
+    )
     // this.dropdownList = [
     //   { item_id: 1, item_text: 'Mumbai' },
     //   { item_id: 2, item_text: 'Bangaluru' },
@@ -134,21 +134,21 @@ export class InspectorRegistrationComponent implements OnInit {
   selectCountry(e: any) {
     let changedValue = e.target.value;
     this.stateList = [];
-      // for(let arr of this.countryList) {
-      //   if( arr.name == changedValue) {
-      //     this.siteService.retrieveState(arr.code).subscribe(
-      //       data => {
-      //         this.stateList = JSON.parse(data)
-      //       }
-      //     )};
-      // }
-      if(changedValue == "IND") {
-        this.siteService.retrieveStateV2(changedValue).subscribe(
-          data => {
-            this.stateList = JSON.parse(data)
-          }
-        );
+      for(let arr of this.countryList) {
+        if( arr.name == changedValue) {
+          this.siteService.retrieveState(arr.code).subscribe(
+            data => {
+              this.stateList = JSON.parse(data)
+            }
+          )};
       }
+      // if(changedValue == "IND") {
+      //   this.siteService.retrieveStateV2(changedValue).subscribe(
+      //     data => {
+      //       this.stateList = JSON.parse(data)
+      //     }
+      //   );
+      // }
        
   }
 

@@ -101,6 +101,8 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   countryCode3: any;
   countryCode2: any;
   errorArr: any=[];
+  setReadOnly: boolean = false;
+  setReadOnly1: boolean = false;
 
   //comments starts
   completedCommentArr3: any = [];
@@ -320,6 +322,7 @@ ShowNext: boolean = true;
        this.reportDetails.estimatedWireAge = this.step1List.reportDetails.estimatedWireAge;
        //this.showField2= this.step1List.reportDetails.evidanceWireAge,
        this.step1List.state=this.step1List.reportDetails.state;
+       this.setReadOnly = true;
        this.populateData();
        this.populateDataComments();
        //this.notification();
@@ -965,6 +968,7 @@ showHideAccordion(index: number) {
       this.mobilearr = [];
       }
       else if(item.signatorRole == "designer2") {
+        this.setReadOnly1 = false;
         this.mobilearr1.push(this.createGroup(item))
         this.step1Form.setControl('designer2Arr', this._formBuilder.array(this.mobilearr1 || []))
         this.mobilearr1 = [];
