@@ -17,7 +17,8 @@
                                     <label>Location Number*</label>
                                     <input type="number" class="form-control" formControlName="locationNumber"
                                         placeholder="Enter Location Number"
-                                       [readonly]="true"
+                                        value="{{location.locationArr[i]?.locationNumber}}"
+                                        [(ngModel)]="location.locationArr[i].locationNumber" [readonly]="true"
                                         style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
                                 </div>
 
@@ -25,7 +26,8 @@
                                     <label>Location Name*</label>
                                     <input type="text" class="form-control" formControlName="locationName"
                                         placeholder="Enter Location Name"
-                                       [readonly]="true"
+                                        value="{{location.locationArr[i]?.locationName}}"
+                                        [(ngModel)]="location.locationArr[i].locationName" [readonly]="true"
                                         style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
                                 </div>
                             </div>
