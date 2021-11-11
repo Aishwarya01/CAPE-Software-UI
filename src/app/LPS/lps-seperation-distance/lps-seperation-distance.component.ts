@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Separatedistance } from 'src/app/LPS_model/separatedistance';
 import { SeparatedistanceService } from 'src/app/LPS_services/separatedistance.service';
 
@@ -21,13 +22,37 @@ export class LpsSeperationDistanceComponent implements OnInit {
   submitted!: boolean;
   email: any;
   router: any;
+  validationError: boolean = false;
+  validationErrorMsg: String = '';
+  successMsg: string="";
+  errorMsg: string="";
+  success: boolean=false;
+  Error: boolean=false;
+  errorArr: any=[];
+  disable: boolean = false;
+ 
   constructor(
 
     private formBuilder: FormBuilder,
     private separatedistanceService: SeparatedistanceService,
+    private modalService: NgbModal,
   ) {
 
 
+  }
+
+
+  gotoNextModal(content: any) {
+    if (this.separeteDistanceForm.invalid) {
+      this.validationError = true;
+      
+      this.validationErrorMsg = 'Please check all the fields';
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
+      return;
+    }
+    this.modalService.open(content, { centered: true });
   }
 
   ngOnInit(): void {
@@ -53,25 +78,39 @@ export class LpsSeperationDistanceComponent implements OnInit {
 
   }
 
+
+  closeModalDialog() {
+    if (this.errorMsg != '') {
+      this.Error = false;
+      this.modalService.dismissAll((this.errorMsg = ''));
+    } else {
+      this.success = false;
+      this.modalService.dismissAll((this.successMsg = ''));
+    }
+  }
   onSubmit() {
 
 
     this.separatedistance.userName = "Sivaraju@capeindia.net";
 
-    this.separatedistance.basicLpsId = 44;
+    this.separatedistance.basicLpsId =988;
     this.submitted = true;
     if (this.separeteDistanceForm.invalid) {
       return;
     }
 
     this.separatedistance.separateDistanceDescription = this.separeteDistanceForm.value.separateDistanceDescriptionArr;
-    console.log(this.separeteDistanceForm.value)
     this.separatedistanceService.saveSeparateDistance(this.separatedistance).subscribe(
-      data => {
-
+      (data) => {
+        this.success = true;
+        this.successMsg = data;
+        this.disable = true;
       },
-      error => {
-
+      (error) => {
+        this.Error = true;
+        this.errorArr = [];
+        this.errorArr = JSON.parse(error.error);
+        this.errorMsg = this.errorArr.message;
       }
     );
     console.log(this.separatedistance);

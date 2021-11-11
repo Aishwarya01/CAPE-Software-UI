@@ -272,8 +272,38 @@
             </div>
             <div>
                 <button style="margin-inline: 30rem;width: 7rem;height: 3rem;" class="btn btn-primary">Back</button>
-                <button style="width: 7rem;height: 3rem;" (click)="onSubmit()" class="btn btn-success">Next</button>
+                <button style="width: 7rem;height: 3rem;" (click)="onSubmit()"[disabled]="disable" (click)="gotoNextModal(content)"  class="btn btn-primary" >Next</button>
             </div>
+             
+            <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+                <span class="alert alert-danger">{{validationErrorMsg}}</span>
+            </div>
+
+            
+
         </form>
     </div>
 </div>
+
+<ng-template #content let-modal>
+    <div class="modal-body">
+        <div class="centre-text m-btm30">
+            <div *ngIf="success" style="text-align: center;">
+                <span class="successshow">{{successMsg}}</span>
+            </div>
+            <div *ngIf="Error" style="text-align: center;">
+                <span class="errorshow">{{errorMsg}}</span>
+            </div>
+        </div>
+    </div>
+    <br>
+    <!-- <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+    aria-label="Close" (click)="closeModalDialog()" matStepperNext>
+     <span aria-hidden="true">Ok</span>
+ </button> -->
+    
+
+</ng-template> 
+
+    
+ 
