@@ -374,7 +374,7 @@ export class ProfileComponent implements OnInit {
   }
 
   resendOTP(){
-    this.inspectorRegisterService.resendOTPInspector(this.email,this.changeContact.mobileNumber).subscribe(
+    this.inspectorRegisterService.sendOtpContactNumber(this.email,this.changeContact.mobileNumber).subscribe(
       data=> {
        this.showOTPMessage=true;
        setTimeout(()=>{
