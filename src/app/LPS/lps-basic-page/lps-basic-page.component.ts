@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BasicDetails, BasicLpsDescription } from 'src/app/LPS_model/basic-details';
 import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.service';
 
@@ -13,9 +14,18 @@ export class LpsBasicPageComponent implements OnInit {
   basicDetails = new BasicDetails;
   LPSBasicForm!: FormGroup;
   lPSBasicDetailsService;
-  submitted=false;
+  submitted!: boolean;
+  success: boolean=false;
+  successMsg: string="";
+  disable: boolean=false;
+  Error: boolean=false;
+  errorArr: any=[];
+  errorMsg: string="";
+  validationError: boolean = false;
+  validationErrorMsg: String = '';
 
-  constructor(private formBuilder: FormBuilder, lPSBasicDetailsService: LPSBasicDetailsService) {
+  constructor(private formBuilder: FormBuilder, lPSBasicDetailsService: LPSBasicDetailsService,
+    private modalService: NgbModal,) {
     this.lPSBasicDetailsService = lPSBasicDetailsService;
   }
 
@@ -68,6 +78,29 @@ export class LpsBasicPageComponent implements OnInit {
       installationQualityRemarks: ['']
     });
   }
+
+  closeModalDialog() {
+    if (this.errorMsg != '') {
+      this.Error = false;
+      this.modalService.dismissAll((this.errorMsg = ''));
+    } else {
+      this.success = false;
+      this.modalService.dismissAll((this.successMsg = ''));
+    }
+  }
+
+  gotoNextModal(content: any) {
+    if (this.LPSBasicForm.invalid) {
+      this.validationError = true;
+      
+      this.validationErrorMsg = 'Please check all the fields';
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
+      return;
+    }
+    this.modalService.open(content, { centered: true });
+  }
  
   onSubmit() {
     this.submitted=true;
@@ -77,11 +110,16 @@ export class LpsBasicPageComponent implements OnInit {
     this.basicDetails.basicLpsDescription = this.LPSBasicForm.value.basicLpsDescription;
     this.lPSBasicDetailsService.saveLPSBasicDetails(this.basicDetails).subscribe(
     
-      data => {
-         
-      
+      (data) => {
+        this.success = true;
+        this.successMsg = data;
+        this.disable = true;
       },
-      error => {
+      (error) => {
+        this.Error = true;
+        this.errorArr = [];
+        this.errorArr = JSON.parse(error.error);
+        this.errorMsg = this.errorArr.message;
       }
     )
     console.log(this.basicDetails);

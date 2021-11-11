@@ -1,5 +1,5 @@
 <div class="card">
-    <h3>"Checklist for Earthing System of LPS as per IS/IEC 62305"</h3>
+    <!-- <h3>"Checklist for Earthing System of LPS as per IS/IEC 62305"</h3> -->
     <!--  -->
     <div class="card-body">
         <form [formGroup]="earthingForm" (ngSubmit)="onSubmit()">
@@ -129,7 +129,7 @@
                                 <th>SI.No</th>
                                 <th>Description</th>
                                 <th>Observation</th>
-                                <th>Remarks</th>
+                                <th>Remarks(Optional)</th>
                             </thead>
                             <tbody>
                                 <tr>
@@ -235,7 +235,6 @@
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
-
                     <mat-expansion-panel-header>Type-A earthing system</mat-expansion-panel-header>
                     <div class="row">
                         <div class="container">
@@ -261,20 +260,26 @@
 
                     <div style="margin-top: 40px;">
                         <table class="table">
-                            <thead>
+                            <!-- <thead>
                                 <th>SI.No</th>
                                 <th>Description</th>
                                 <th>Observation</th>
                                 <th>Remarks</th>
-                            </thead>
+                            </thead> -->
 
                             <tbody formArrayName="descriptionArr"
                                 *ngFor="let a of earthingDescriptionarr(); let j = index">
                                 <div class="form-group" [formGroupName]="j">
+                                    <thead>
+                                        <th>SI.No</th>
+                                        <th>Description</th>
+                                        <th>Observation</th>
+                                        <th>Remarks(Optional)</th>
+                                    </thead>
                                     <tr>
                                         <td style="width: 1rem; text-align: center;">4.1</td>
                                         <td style="width: 24rem;">Soil resistivity</td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -291,7 +296,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -880,21 +885,20 @@
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Clamps</mat-expansion-panel-header>
-                    <div class="row">
-                        <div class="table-responsive">
+                        <div>
                             <table class="table">
-                                <thead>
-                                    <th>SI.No</th>
-                                    <th>Description</th>
-                                    <th>Observation</th>
-                                    <th>Remarks</th>
-                                </thead>
                                 <tbody formArrayName="ClampsArr" *ngFor="let a of earthingClampsarr(); let j = index">
                                     <div class="form-group" [formGroupName]="j">
+                                        <thead>
+                                            <th>SI.No</th>
+                                            <th>Description</th>
+                                            <th>Observation</th>
+                                            <th>Remarks(Optional)</th>
+                                        </thead>
                                         <tr>
                                             <td style="width: 1rem; text-align: center;">5.1</td>
                                             <td style="width: 24rem;">Physical inspection (damage/break/corroded)</td>
-                                            <td style="width: 35rem;">
+                                            <td style="width: 40rem;">
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">
@@ -911,7 +915,7 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td style="width: 35rem;">
+                                            <td style="width: 40rem;">
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">
@@ -1194,26 +1198,25 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Earth electrode chambers</mat-expansion-panel-header>
                     <div>
                         <table class="table">
-                            <thead>
-                                <th>SI.No</th>
-                                <th>Description</th>
-                                <th>Observation</th>
-                                <th>Remarks</th>
-                            </thead>
                             <tbody formArrayName="chamberArr"
                                 *ngFor="let a of earthElectrodeChambearr(); let j = index">
                                 <div class="form-group" [formGroupName]="j">
+                                    <thead>
+                                        <th>SI.No</th>
+                                        <th>Description</th>
+                                        <th>Observation</th>
+                                        <th>Remarks(Optional)</th>
+                                    </thead>
                                     <tr>
                                         <td style="width: 1rem; text-align: center;">6.1</td>
                                         <td style="width: 24rem;">Physical inspection (damage/break/corroded)</td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1230,7 +1233,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1512,20 +1515,20 @@
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Type-B earthing system</mat-expansion-panel-header>
                     <div>
-                        <table class="table" style="border:solid 1px #ddd; border-collapse:collapse;">
-                            <thead>
-                                <th>SI.No</th>
-                                <th>Description</th>
-                                <th>Observation</th>
-                                <th>Remarks</th>
-                            </thead>
+                        <table class="table">
                             <tbody formArrayName="earthingArr" *ngFor="let a of earthingSystemarr(); let j = index">
                                 <div class="form-group" [formGroupName]="j">
+                                    <thead>
+                                        <th>SI.No</th>
+                                        <th>Description</th>
+                                        <th>Observation</th>
+                                        <th>Remarks(Optional)</th>
+                                    </thead>
                                     <tr>
                                         <td style="width: 1rem; text-align: center;">7.1</td>
                                         <td style="width: 24rem;">Earth electrode must be buried atleast 0.5m depth and
                                             1m distance from external wall as closed loop.</td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1542,7 +1545,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td style="width: 35rem;">
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -2048,9 +2051,9 @@
                 </mat-expansion-panel>
 
             </mat-accordion>
-            <div style="margin-top: 2rem;">
-                <button style="margin-inline: 30rem;width: 7rem;height: 3rem;" class="btn btn-primary">Back</button>
-                <button style="width: 7rem;height: 3rem;" class="btn btn-success" type="submit">Next</button>
+            <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
+                <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
+                <button  class="next"  [disabled]="disable" mat-button >Next &raquo;</button>
             </div>
         </form>
     </div>

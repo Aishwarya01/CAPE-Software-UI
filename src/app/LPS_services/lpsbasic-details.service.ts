@@ -9,7 +9,7 @@ import { BasicDetails } from '../LPS_model/basic-details';
 })
 export class LPSBasicDetailsService {
 
-  apiUrl = environment.apiUrl;
+  apiUrl = environment.apiUrl_LPS;
   constructor(private http: HttpClient) { }
 
   public saveLPSBasicDetails(basicDetails:BasicDetails): Observable<any> {

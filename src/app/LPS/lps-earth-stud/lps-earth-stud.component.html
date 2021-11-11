@@ -1,8 +1,8 @@
 <div class="card-body">
     <!-- Heading tag -->
-        <div style="margin-top: 2rem;">
+        <!-- <div style="margin-top: 2rem;">
             <h3>"Checklist for Earth Studs of LPS as per IS/IEC 62305"</h3>
-        </div>
+        </div> -->
     <!-- Basic Details -->
     <div class="card-body">
         <form [formGroup]="EarthStudForm" (ngSubmit)="onSubmit()">
@@ -278,9 +278,9 @@
             </tbody>
         </table>
     </div>
-    <div style="margin-top: 2rem;">
-        <button style="margin-inline: 30rem;width: 7rem;height: 3rem;" class="btn btn-primary">Back</button>
-        <button style="width: 7rem;height: 3rem;" class="btn btn-success" type="submit">Next</button>
+    <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
+        <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
+        <button  class="next"  [disabled]="disable" mat-button >Submit &raquo;</button>
     </div>
     </form>
 </div>

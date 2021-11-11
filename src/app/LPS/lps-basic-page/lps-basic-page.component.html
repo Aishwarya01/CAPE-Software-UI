@@ -1,8 +1,8 @@
 <div class="card-body">
     <!-- Heading tag -->
-    <div style="margin-top: 2rem;">
+    <!-- <div style="margin-top: 2rem;">
         <h3>CHECK LIST FOR LIGHTNING PROTECTION SYSTEM BASIC DETAILS</h3>
-    </div>
+    </div> -->
     <!-- Basic information tags are given by... -->
     <form [formGroup]="LPSBasicForm" (ngSubmit)="onSubmit()">
         <div class="card-body">
@@ -301,13 +301,13 @@
                         <th>SI.No</th>
                         <th>Description</th>
                         <th>Observation</th>
-                        <th>Remarks</th>
+                        <th>Remarks(Optional)</th>
                     </thead>
                     <tbody>
                         <tr>
                             <td style="width: 1rem; text-align: center;">1.</td>
                             <td style="width: 24rem;">Collect approved copy of drawing from the site </td>
-                            <td>
+                            <td style="width: 35rem;">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -326,7 +326,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td>
+                            <td style="width: 35rem;">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -614,9 +614,22 @@
             </div>
         </div>
         <div style="text-align: center;margin-top: 8px;">
-            <button class="btn btn-success" type="submit">Next</button>
+            <button  class="next"  [disabled]="disable" (click)="gotoNextModal(content)" mat-button >Next &raquo;</button>
         </div>
-
+        <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+            <span class="alert alert-danger">{{validationErrorMsg}}</span>
+        </div>
     </form>
-
 </div>
+<ng-template #content let-modal>
+    <div class="modal-body">
+        <div class="centre-text m-btm30">
+            <div *ngIf="success" style="text-align: center;">
+                <span class="successshow">{{successMsg}}</span>
+            </div>
+            <div *ngIf="Error" style="text-align: center;">
+                <span class="errorshow">{{errorMsg}}</span>
+            </div>
+        </div>
+    </div>
+</ng-template> 

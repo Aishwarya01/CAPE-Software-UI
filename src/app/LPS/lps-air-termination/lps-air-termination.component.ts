@@ -172,28 +172,40 @@ export class LpsAirTerminationComponent implements OnInit {
     return new FormGroup({
       physicalInspectionOb: new FormControl('', Validators.required),
       physicalInspectionRe: new FormControl(''),
+
       conductorHolderFlatSurfaceOb: new FormControl('', Validators.required),
       conductorHolderFlatSurfaceRe: new FormControl(''),
+
       conductorHolderOb: new FormControl('', Validators.required),
       conductorHolderRe: new FormControl(''),
+
       holderTypeOb: new FormControl('', Validators.required),
       holderTypeRe: new FormControl(''),
+
       materialHolderOb: new FormControl('', Validators.required),
       materialHolderRe: new FormControl(''),
+
       totalHolderNoOb: new FormControl('', Validators.required),
       totalHolderNoRe: new FormControl(''),
+
       totalParpetHolderNoOb: new FormControl('', Validators.required),
       totalParpetHolderNoRe: new FormControl(''),
+
       holderInspNoOb: new FormControl('', Validators.required),
       holderInspNoRe: new FormControl(''),
+
       holderInspPassedOb: new FormControl('', Validators.required),
       holderInspPassedNoRe: new FormControl(''),
+
       holderInspFailedNoOb: new FormControl('', Validators.required),
       holderInspFailedNoRe: new FormControl(''),
+
       parpetInspectionNoOb: new FormControl('', Validators.required),
       parpetInspectionNoRe: new FormControl(''),
+
       parpetInspectionPassedNoOb: new FormControl('', Validators.required),
       parpetInspectionPassedNoRe: new FormControl(''),
+      
       parpetInspectionFailedNoOb: new FormControl('', Validators.required),
       parpetInspectionFailedNoRe: new FormControl('')
     

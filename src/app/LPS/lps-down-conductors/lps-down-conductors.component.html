@@ -1,8 +1,8 @@
 <div class="card-body">
     <!-- Heading tag -->
-    <div style="margin-top: 2rem;">
+    <!-- <div style="margin-top: 2rem;">
         <h3>CHECKLIST FOR DOWN CONDUCTORS OF LPS AS PER IS/IEC 62305</h3>
-    </div>
+    </div> -->
     <!-- Basic Details -->
     <div class="card-body">
         <form [formGroup]="downConductorForm" (ngSubmit)="onSubmit()">
@@ -849,7 +849,7 @@
                                     </tr>
                                 </div>
                                 <mat-icon class="mousechange" type="button" (click)="submit()"
-                                    style="float: left;position: absolute;left: 105rem !important;"
+                                    style="margin-inline: 1rem;float: right;position: relative;"
                                     title="Add another Text Fields">add_box</mat-icon>
                                 <mat-icon class="mousechange" *ngIf="downConductorControls().length > 1"
                                     (click)="removeItem(j)"
@@ -1127,7 +1127,7 @@
                                     </tr>
                                 </div>
                                 <mat-icon class="mousechange" type="button" (click)="submit1()"
-                                    style="float: left;position: absolute;left: 105rem !important;"
+                                    style="margin-inline: 1rem;float: right;position: relative;"
                                     title="Add another Text Fields">add_box</mat-icon>
                                 <mat-icon class="mousechange" *ngIf="bridgingCablesControls().length > 1"
                                     (click)="removeItem1(f)"
@@ -1409,7 +1409,7 @@
                                     </tr>
                                 </div>
                                 <mat-icon class="mousechange" type="button" (click)="submit2()"
-                                    style="float: left;position: absolute;left: 105rem !important;"
+                                    style="margin-inline: 1rem;float: right;position: relative;"
                                     title="Add another Text Fields">add_box</mat-icon>
                                 <mat-icon class="mousechange" *ngIf="holdersControls().length > 1"
                                     (click)="removeItem2(k)"
@@ -1693,7 +1693,7 @@
                                     </tr>
                                 </div>
                                 <mat-icon class="mousechange" type="button" (click)="submit3()"
-                                    style="float: left;position: absolute;left: 105rem !important;"
+                                    style="margin-inline: 1rem;float: right;position: relative;"
                                     title="Add another Text Fields">add_box</mat-icon>
                                 <mat-icon class="mousechange" *ngIf="connectorsControls().length > 1"
                                     (click)="removeItem3(z)"
@@ -2076,7 +2076,7 @@
                                     </tr>
                                 </div>
                                 <mat-icon class="mousechange" type="button" (click)="submit4()"
-                                    style="float: left;position: absolute;left: 105rem !important;"
+                                    style="margin-inline: 1rem;float: right;position: relative;"
                                     title="Add another Text Fields">add_box</mat-icon>
                                 <mat-icon class="mousechange" *ngIf="lightControls().length > 1"
                                     (click)="removeItem4(f)"
@@ -2472,10 +2472,9 @@
                     </div>
                 </mat-expansion-panel>
             </mat-accordion>
-            <div style="margin-top: 2rem;">
-                <button style="margin-inline: 30rem;width: 7rem;height: 3rem;" class="btn btn-primary">Back</button>
-                <button class="btn btn-success" type="submit" (click)="onSubmit()"
-                    style="width: 7rem;height: 3rem;">Next</button>
+            <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
+                <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
+                <button  class="next"  [disabled]="disable" mat-button >Next &raquo;</button>
             </div>
         </form>
     </div>

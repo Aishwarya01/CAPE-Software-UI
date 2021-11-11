@@ -92,7 +92,6 @@ export class LpsSeperationDistanceComponent implements OnInit {
 
 
     this.separatedistance.userName = "Sivaraju@capeindia.net";
-
     this.separatedistance.basicLpsId =988;
     this.submitted = true;
     if (this.separeteDistanceForm.invalid) {

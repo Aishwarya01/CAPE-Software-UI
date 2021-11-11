@@ -18,3 +18,22 @@ button {
 /* td{
     font-size: 16px;
 } */
+
+.previous {
+    background-color: #f1f1f1;
+    color: black;
+  }
+  .previous:hover {
+    background-color: #747a76;
+    color: white;
+  }
+  .next{
+    background-color: #f1f1f1;
+    color: black;
+    margin-left: 30px;
+  }
+  .next:hover{
+    background-color: #04AA6D;
+    color: white;
+    margin-left: 30px;
+  }

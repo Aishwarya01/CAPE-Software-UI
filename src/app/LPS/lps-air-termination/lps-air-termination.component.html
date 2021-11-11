@@ -1,9 +1,9 @@
 <div class="card-body">
     <!-- Heading tag -->
-    <div style="margin-top: 2rem;">
+    <!-- <div style="margin-top: 2rem;">
         <h3>CHECKLIST FOR AIR TERMINATION SYSTEM OF LPS
             AS PER IS/IEC 62305</h3>
-    </div>
+    </div> -->
     <!-- Basic information tags are given by... -->
     <div class="card-body">
         <form [formGroup]="airTerminationForm" (ngSubmit)="onSubmit()">
@@ -132,10 +132,10 @@
                     <div style="margin-top: 40px;">
                         <table class="table">
                             <thead style="text-align: center;">
-                                <th>SI.No:</th>
-                                <th>Description:</th>
-                                <th>Observation:</th>
-                                <th>Remarks:</th>
+                                <th>SI.No</th>
+                                <th>Description</th>
+                                <th>Observation</th>
+                                <th>Remarks(Optional</th>
                             </thead>
                             <tbody>
                                 <tr>
@@ -311,12 +311,23 @@
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Vertical air terminal (VAT)</mat-expansion-panel-header>
-
                     <div>
                         <table class="table">
+                            <!-- <thead>
+                                <th>SI.No</th>
+                                <th>Description</th>
+                                <th>Observation</th>
+                                <th>Remarks</th>
+                            </thead> -->
                             <!-- Form Array -->
                             <tbody formArrayName="vatArr" *ngFor="let a of vatControls(); let j = index">
                                 <div class="form-group" [formGroupName]="j">
+                                    <thead>
+                                        <th>SI.No</th>
+                                        <th>Description</th>
+                                        <th>Observation</th>
+                                        <th>Remarks(Optional)</th>
+                                    </thead>
                                     <tr>
                                         <td style="width: 1rem; text-align: center;">6.1</td>
                                         <td style="width: 24rem;">Physical inspection
@@ -753,7 +764,7 @@
 
                             </tbody>
                             <mat-icon class="mousechange" type="button" (click)="submit()"
-                                style="float: left;position: absolute;left: 105rem !important;"
+                                style="margin-inline: 1rem;float: right;position: relative;"
                                 title="Add another Text Fields">add_box</mat-icon>
                             <mat-icon class="mousechange" *ngIf="vatControls().length > 1" (click)="removeItem(i)"
                                 style="margin-inline: 1rem;float: right;position: relative;">delete</mat-icon>
@@ -767,6 +778,12 @@
                         <table class="table">
                             <tbody formArrayName="meshArr" *ngFor="let a of meshControls(); let i = index">
                                 <div class="form-group" [formGroupName]="i">
+                                    <thead>
+                                        <th>SI.No</th>
+                                        <th>Description</th>
+                                        <th>Observation</th>
+                                        <th>Remarks(Optional)</th>
+                                    </thead>
                                     <tr>
                                         <td style="width: 1rem; text-align: center;">7.1</td>
                                         <td style="width: 24rem;">Physical inspection
@@ -1004,7 +1021,7 @@
                                     </tr>
                                 </div>
                                 <mat-icon class="mousechange" type="button" (click)="submit1()"
-                                    style="float: left;position: absolute;left: 105rem !important;"
+                                style="margin-inline: 1rem;float: right;position: relative;"
                                     title="Add another Text Fields">add_box</mat-icon>
                                 <mat-icon class="mousechange" *ngIf="meshControls().length > 1" (click)="removeItem1(i)"
                                     style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
@@ -1019,6 +1036,12 @@
                         <table class="table">
                             <tbody formArrayName="holderArr" *ngFor="let a of holdersContols(); let j = index">
                                 <div class="form-group" [formGroupName]="j">
+                                    <thead>
+                                        <th>SI.No</th>
+                                        <th>Description</th>
+                                        <th>Observation</th>
+                                        <th>Remarks(Optional)</th>
+                                    </thead>
                                     <tr>
                                         <td style="width: 1rem; text-align: center;">8.1</td>
                                         <td style="width: 24rem;">Physical inspection (damage/break/corroded):</td>
@@ -1473,7 +1496,7 @@
                                     </tr>
                                 </div>
                                 <mat-icon class="mousechange" type="button" (click)="submit2()"
-                                    style="float: left;position: absolute;left: 105rem !important;"
+                                style="margin-inline: 1rem;float: right;position: relative;"
                                     title="Add another Text Fields">add_box</mat-icon>
                                 <mat-icon class="mousechange" *ngIf="holdersContols().length > 1"
                                     (click)="removeItem2(i)"
@@ -1481,8 +1504,6 @@
                             </tbody>
                         </table>
                     </div>
-
-
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
@@ -1491,6 +1512,12 @@
                         <table class="table">
                             <tbody formArrayName="clampArr" *ngFor="let a of clampsControls(); let i = index">
                                 <div class="form-group" [formGroupName]="i">
+                                    <thead>
+                                        <th>SI.No</th>
+                                        <th>Description</th>
+                                        <th>Observation</th>
+                                        <th>Remarks(Optional)</th>
+                                    </thead>
                                     <tr>
                                         <td style="width: 1rem; text-align: center;">9.1</td>
                                         <td style="width: 24rem;">Physical inspection (damage/break/corroded):</td>
@@ -1783,7 +1810,7 @@
                                     </tr>
                                 </div>
                                 <mat-icon class="mousechange" type="button" (click)="submit3()"
-                                    style="float: left;position: absolute;left: 105rem !important;"
+                                style="margin-inline: 1rem;float: right;position: relative;"
                                     title="Add another Text Fields">add_box</mat-icon>
                                 <mat-icon class="mousechange" *ngIf="clampsControls().length > 1"
                                     (click)="removeItem3(i)"
@@ -1800,6 +1827,12 @@
                         <table class="table">
                             <tbody formArrayName="expArr" *ngFor="let a of expansionControls(); let i = index">
                                 <div class="form-group" [formGroupName]="i">
+                                    <thead>
+                                        <th>SI.No</th>
+                                        <th>Description</th>
+                                        <th>Observation</th>
+                                        <th>Remarks(Optioanl</th>
+                                    </thead>
                                     <tr>
                                         <td style="width: 1rem; text-align: center;">10.1</td>
                                         <td style="width: 24rem;">Physical inspection (damage/break/corroded):</td>
@@ -2028,7 +2061,7 @@
                                     </tr>
                                 </div>
                                 <mat-icon class="mousechange" type="button" (click)="submit4()"
-                                    style="float: left;position: absolute;left: 105rem !important;"
+                                style="margin-inline: 1rem;float: right;position: relative;"
                                     title="Add another Text Fields">add_box</mat-icon>
                                 <mat-icon class="mousechange" *ngIf="expansionControls().length > 1"
                                     (click)="removeItem4(i)"
@@ -2045,6 +2078,12 @@
                         <table class="table">
                             <tbody formArrayName="conArr" *ngFor="let a of connectorsControls(); let i = index">
                                 <div class="form-group" [formGroupName]="i">
+                                    <thead>
+                                        <th>SI.No</th>
+                                        <th>Description</th>
+                                        <th>Observation</th>
+                                        <th>Remarks(Optional)</th>
+                                    </thead>
                                     <tr>
                                         <td style="width: 1rem; text-align: center;">11.1</td>
                                         <td style="width: 24rem;">Physical inspection (damage/break/corroded):</td>
@@ -2368,7 +2407,7 @@
                                     </tr>
                                 </div>
                                 <mat-icon class="mousechange" type="button" (click)="submit5()"
-                                    style="float: left;position: absolute;left: 105rem !important;"
+                                style="margin-inline: 1rem;float: right;position: relative;"
                                     title="Add another Text Fields">add_box</mat-icon>
                                 <mat-icon class="mousechange" *ngIf="connectorsControls().length > 1"
                                     (click)="removeItem5(i)"
@@ -2379,13 +2418,10 @@
                 </mat-expansion-panel>
             </mat-accordion>
 
-            <div style="margin-top: 2rem;">
-                <button style="margin-inline: 30rem;width: 7rem;height: 3rem;" class="btn btn-primary">Back</button>
-                <button style="width: 7rem;height: 3rem;" class="btn btn-success" type="submit">Next</button>
+            <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
+                <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
+                <button  class="next"  [disabled]="disable" mat-button >Next &raquo;</button>
             </div>
-
         </form>
-
     </div>
-
 </div>

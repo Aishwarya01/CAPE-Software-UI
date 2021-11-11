@@ -1,8 +1,8 @@
 <div class="card-body">
     <!-- Heading tag -->
-    <div style="margin-top: 2rem;">
+    <!-- <div style="margin-top: 2rem;">
         <h3>Checklist for Separation Distance of LPS as per IS/IEC 62305</h3>
-    </div>
+    </div> -->
     <!-- Basic Details -->
     <div class="card-body">
         <form [formGroup]="separeteDistanceForm">
@@ -187,7 +187,7 @@
                             <th>SI.No</th>
                             <th>Description</th>
                             <th>Observation</th>
-                            <th>Remarks</th>
+                            <th>Remarks(Optional)</th>
                         </thead>
                         <tbody>
                             <tr>
@@ -255,13 +255,11 @@
                             </div>
                             <div>
                                 <mat-icon class="mousechange" (click)="add()"
-                                    style="margin-left: 91rem;margin-bottom: 4px;">add_box</mat-icon>
-
-
+                                style="margin-inline: 1rem;float: right;position: relative;">add_box</mat-icon>
 
                                 <mat-icon class="mousechange"
                                     *ngIf="getseparateDistanceDescriptionControls().length > 1" (click)="removeItem(i)"
-                                    style="float:left;margin: 0px 15px 0px 15px;">delete</mat-icon>
+                                    style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
                             </div>
                         </tbody>
                     </table>
@@ -270,9 +268,14 @@
             <div>
 
             </div>
-            <div>
+            <!-- <div>
                 <button style="margin-inline: 30rem;width: 7rem;height: 3rem;" class="btn btn-primary">Back</button>
                 <button style="width: 7rem;height: 3rem;" (click)="onSubmit()"[disabled]="disable" (click)="gotoNextModal(content)"  class="btn btn-primary" >Next</button>
+            </div> -->
+
+            <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
+                <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
+                <button  class="next" (click)="onSubmit()" [disabled]="disable" (click)="gotoNextModal(content)" mat-button >Next &raquo;</button>
             </div>
              
             <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
@@ -285,17 +288,17 @@
     </div>
 </div>
 
-<ng-template #content let-modal>
-    <div class="modal-body">
-        <div class="centre-text m-btm30">
-            <div *ngIf="success" style="text-align: center;">
-                <span class="successshow">{{successMsg}}</span>
-            </div>
-            <div *ngIf="Error" style="text-align: center;">
-                <span class="errorshow">{{errorMsg}}</span>
+    <ng-template #content let-modal>
+        <div class="modal-body">
+            <div class="centre-text m-btm30">
+                <div *ngIf="success" style="text-align: center;">
+                    <span class="successshow">{{successMsg}}</span>
+                </div>
+                <div *ngIf="Error" style="text-align: center;">
+                    <span class="errorshow">{{errorMsg}}</span>
+                </div>
             </div>
         </div>
-    </div>
     <br>
     <!-- <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
     aria-label="Close" (click)="closeModalDialog()" matStepperNext>
