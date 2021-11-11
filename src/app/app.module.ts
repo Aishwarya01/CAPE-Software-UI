@@ -74,6 +74,13 @@ import { GenerateOtpContactnumberComponent } from './generate-otp-contactnumber/
 import { ChangeContactnumberComponent } from './change-contactnumber/change-contactnumber.component';
 import { LpsEarthingComponent } from './LPS/lps-earthing/lps-earthing.component';
 import { LpsSpdComponent } from './LPS/lps-spd/lps-spd.component';
+import { LpsSeperationDistanceComponent } from './LPS/lps-seperation-distance/lps-seperation-distance.component';
+import { LpsEarthing } from './LPS_services/lps-earthing';
+import { LpsMatstepperComponent } from './LPS/lps-matstepper/lps-matstepper.component';
+import { LpsAirTerminationComponent } from './LPS/lps-air-termination/lps-air-termination.component';
+import { LpsBasicPageComponent } from './LPS/lps-basic-page/lps-basic-page.component';
+import { LpsDownConductorsComponent } from './LPS/lps-down-conductors/lps-down-conductors.component';
+import { LpsEarthStudComponent } from './LPS/lps-earth-stud/lps-earth-stud.component';
 
 @NgModule({
   declarations: [
@@ -119,7 +126,14 @@ import { LpsSpdComponent } from './LPS/lps-spd/lps-spd.component';
     GenerateOtpContactnumberComponent,
     ChangeContactnumberComponent,
     LpsEarthingComponent,
-    LpsSpdComponent
+    LpsSpdComponent,
+    LpsSeperationDistanceComponent,
+    LpsMatstepperComponent,
+    LpsEarthingComponent,
+    LpsAirTerminationComponent,
+    LpsBasicPageComponent,
+    LpsDownConductorsComponent,
+    LpsEarthStudComponent
   ],
   imports: [
     NgbTooltipModule,
