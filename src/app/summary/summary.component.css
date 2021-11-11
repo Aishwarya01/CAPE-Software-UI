@@ -47,5 +47,6 @@
     pointer-events: none;
     background-color: lightgrey;
     color: black;
+    cursor: not-allowed !important;
   }
  

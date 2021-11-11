@@ -1,10 +1,13 @@
 <!-- step 3 -->
+<div *ngIf="tabError" style="text-align: center;">
+  <span class="alert alert-danger">{{tabErrorMsg}}</span>
+</div>
 <div class="card">
   <form [formGroup]="addstep3" (ngSubmit)="nextTab3(flag)">
 <div class="card-body" formArrayName="incomingArr" *ngFor="let a of getIncomingControls(); let i = index" >
   <div [formGroupName]="i" >
   <div class="search-bar">
-    <div class="form-group" [ngClass]="{'disableForm':disable== true}">
+    <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
       <div class="row">
         <div class="col-md-4">
               <label>Location Number*</label>
@@ -35,7 +38,7 @@
           <h3>Incoming Equipment</h3>
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <div class="row" [ngClass]="{'disableForm':disable== true}">
+      <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Service cable:</label>
@@ -137,7 +140,7 @@
 
       </mat-expansion-panel-header>
      
-      <div class="row" [ngClass]="{'disableForm':disable== true}">
+      <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Dedicated Earthing Arrangement Independent To That Of Public Supply:</label>
@@ -249,7 +252,7 @@
           <h3>Automatic Disconnection Of Supply</h3>
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <div class="row" [ngClass]="{'disableForm':disable== true}">
+      <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Main Earthing / Bonding arrangements:</label>
@@ -377,7 +380,7 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <h3><b>Basic and Fault Protection</b></h3>
-      <div class="row" [ngClass]="{'disableForm':disable== true}">
+      <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>SELV System, Including The Source And Associated Circuits:</label>
@@ -419,7 +422,7 @@
         </div>
       </div>
 
-      <div class="row" [ngClass]="{'disableForm':disable== true}">
+      <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>ReInforced Insulation:</label>
@@ -462,7 +465,7 @@
       </div>
 
       <h3><b>Basic Protection (Prevention Of Contact With Live Parts)</b></h3>
-      <div class="row" [ngClass]="{'disableForm':disable== true}">
+      <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Insulation of Live Parts (Conductors Completely Covered With Durable Insulating
@@ -520,7 +523,7 @@
       </div>
 
       <h3><b>Fault protection</b></h3>
-      <div class="row" [ngClass]="{'disableForm':disable== true}">
+      <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Non-Conducting Location – Earth Free local Equipotential Bonding:</label>
@@ -551,7 +554,7 @@
       </div>
 
       <h3><b>Additional Protection</b></h3>
-      <div class="row" [ngClass]="{'disableForm':disable== true}">
+      <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>RCD(s) Not Exceeding 30 mA Operating Current:</label>
@@ -591,7 +594,7 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <div formArrayName="consumerUnit" *ngFor="let b of getearthingControls(a); let i = index">
-        <div class="form-group" [formGroupName]="i"  [ngClass]="{'disableForm':disable== true}">
+        <div class="form-group" [formGroupName]="i"  [ngClass]="{'disableForm':service.allFieldsDisable}">
       <div class="row">
         <div class="col-sm-12">
           <div class="form-group equipment">
@@ -1029,7 +1032,7 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <div formArrayName="circuit" *ngFor="let c of getcircuitControls(a); let i = index">
-        <div class="form-group" [formGroupName]="i"  [ngClass]="{'disableForm':disable== true}">
+        <div class="form-group" [formGroupName]="i"  [ngClass]="{'disableForm':service.allFieldsDisable}">
       <div class="row">
         <div class="col-sm-12">
           <div class="form-group equipment">
@@ -1486,7 +1489,7 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div formArrayName="isolationCurrent" *ngFor="let d of getisolationCurrentControls(a); let i = index">
-      <div class="form-group" [formGroupName]="i"  [ngClass]="{'disableForm':disable== true}">
+      <div class="form-group" [formGroupName]="i"  [ngClass]="{'disableForm':service.allFieldsDisable}">
     <div class="row">
       <div class="col-sm-12">
         <div class="form-group equipment">

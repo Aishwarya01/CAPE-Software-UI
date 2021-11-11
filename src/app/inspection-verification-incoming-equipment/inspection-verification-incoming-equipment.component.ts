@@ -142,6 +142,9 @@ export class InspectionVerificationIncomingEquipmentComponent
   inspectorName: String = '';	
   completedCommentArr3: any = [];
   hideShowComment: boolean=false;
+  modalReference: any;
+  tabErrorMsg: string="";
+  tabError: boolean = false;
   //comments end
 
   constructor(
@@ -970,6 +973,31 @@ showHideAccordion(index: number) {
   removeItem(index: any) {
     (this.addstep3.get('incomingArr') as FormArray).removeAt(index);
   }
+  gotoNextTab() {
+    if ((this.addstep3.dirty && this.addstep3.invalid) || this.service.isCompleted2==false) {
+      this.service.isCompleted3= false;
+      this.service.isLinear=true;
+      this.validationError = true;
+      this.validationErrorMsg = 'Please check all the fields';
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
+      return;
+    }
+    else if(this.addstep3.dirty && this.addstep3.touched){
+      this.service.isCompleted3= false;
+      this.service.isLinear=true;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+   }
+    else{
+      this.service.isCompleted3= true;
+      this.service.isLinear=false;
+    }
+  }
   gotoNextModal(content3: any,content2:any) {
     if (this.addstep3.invalid) {
       this.validationError = true;
@@ -979,24 +1007,31 @@ showHideAccordion(index: number) {
       }, 3000);
       return;
     }
-    if(this.addstep3.dirty){
-      this.modalService.open(content3, { centered: true})
-      
-     }
-     if(!this.addstep3.dirty){
-      this.modalService.open(content2, {
+    if(this.addstep3.touched || this.addstep3.untouched){
+      this.modalReference = this.modalService.open(content2, {
          centered: true, 
          size: 'md'
         })
      }
+     if(this.addstep3.dirty && this.addstep3.touched){ //update
+      this.modalService.open(content3, { centered: true});
+      this.modalReference.close();
+     }
+   
   }
   closeModalDialog() {
     if (this.errorMsg != '') {
       this.Error = false;
+      this.service.isCompleted3= false;
+      this.service.isLinear=true;
       this.modalService.dismissAll((this.errorMsg = ''));
-    } else {
+    } 
+    else {
       this.success = false;
+      this.service.isCompleted3= true;
+      this.service.isLinear=false;
       this.modalService.dismissAll((this.successMsg = ''));
+      this.disable = false;
     }
   }
   nextTab3(flag: any) {
@@ -1018,10 +1053,14 @@ showHideAccordion(index: number) {
       this.UpateInspectionService.updateIncoming(this.inspectionDetails).subscribe(
         data=> {
           this.success = true;
+          this.service.isCompleted3= true;
+          this.service.isLinear=false;
           this.successMsg = 'Incoming Equipment Successfully Updated';
          },
          (error) => {
           this.Error = true;
+          this.service.isCompleted3= false;
+          this.service.isLinear=true;
           this.errorMsg = 'Something went wrong, kindly check all the fields';
          });
         }
@@ -1035,10 +1074,13 @@ showHideAccordion(index: number) {
           this.success = true;
           this.successMsg = 'Incoming Equipment Successfully Saved';
           this.disable = true;
+          this.service.allFieldsDisable = true;
         },
         (error: any) => {
           this.proceedNext.emit(false);
           this.Error = true;
+          this.service.isCompleted3= false;
+        this.service.isLinear=true;
           this.errorMsg = 'Something went wrong, kindly check all the fields';
         });
     }

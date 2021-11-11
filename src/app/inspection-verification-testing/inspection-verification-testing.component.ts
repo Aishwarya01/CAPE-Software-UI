@@ -215,6 +215,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
   formList1!: FormArray;
   tempArr: any = [];
   incomingValues: any;
+  modalReference: any;
+  tabErrorMsg: string="";
+  tabError: boolean = false;
 
   constructor(
     private testingService: TestingService,
@@ -1383,7 +1386,31 @@ export class InspectionVerificationTestingComponent implements OnInit {
   get f(): any {
     return this.testingForm.controls;
   }
-
+  gotoNextTab() {
+    if ((this.testingForm.dirty && this.testingForm.invalid) || this.service.isCompleted3==false) {
+      this.service.isCompleted4= false;
+      this.service.isLinear=true;
+      this.validationError = true;
+      this.validationErrorMsg = 'Please check all the fields';
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
+      return;
+    }
+    else if(this.testingForm.dirty && this.testingForm.touched){
+      this.service.isCompleted4= false;
+      this.service.isLinear=true;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+   }
+    else{
+      this.service.isCompleted4= true;
+      this.service.isLinear=false;
+    }
+  }
   gotoNextModal(content4: any,content2:any) {
     if (this.testingForm.invalid) {
       this.validationError = true;
@@ -1393,16 +1420,17 @@ export class InspectionVerificationTestingComponent implements OnInit {
       }, 3000);
       return;
     }
-    if(this.testingForm.dirty){
-      this.modalService.open(content4, { centered: true})
-      
-     }
-     if(!this.testingForm.dirty){
-      this.modalService.open(content2, {
+    if(this.testingForm.touched || this.testingForm.untouched){
+      this.modalReference = this.modalService.open(content2, {
          centered: true, 
          size: 'md'
         })
      }
+     if(this.testingForm.dirty && this.testingForm.touched){ //update
+      this.modalService.open(content4, { centered: true});
+      this.modalReference.close();
+     }
+
   }
 
   callMethod() {
@@ -1411,9 +1439,14 @@ export class InspectionVerificationTestingComponent implements OnInit {
   closeModalDialog() {
     if (this.errorMsg != '') {
       this.Error = false;
+      this.service.isCompleted4= false;
+      this.service.isLinear=true;
       this.modalService.dismissAll((this.errorMsg = ''));
-    } else {
+    } 
+    else {
       this.success = false;
+      this.service.isCompleted4= true;
+      this.service.isLinear=false;
       this.modalService.dismissAll((this.successMsg = ''));
     }
   }
@@ -1725,10 +1758,14 @@ export class InspectionVerificationTestingComponent implements OnInit {
       this.UpateInspectionService.updateTesting(this.testingDetails).subscribe(
         data => {
           this.success = true;
+          this.service.isCompleted4= true;
+          this.service.isLinear=false;
           this.successMsg = data;
         },
         (error) => {
           this.Error = true;
+          this.service.isCompleted4= false;
+        this.service.isLinear=true;
           this.errorArr = [];
           this.errorArr = JSON.parse(error.error);
           this.errorMsg = this.errorArr.message;
@@ -1743,10 +1780,12 @@ export class InspectionVerificationTestingComponent implements OnInit {
           this.success = true;
           this.successMsg = data;
           this.disable = true;
+          this.service.allFieldsDisable = true;
         },
         (error) => {
           this.Error = true;
-          // show error button
+          this.service.isCompleted4= false;
+          this.service.isLinear=true;          
           this.proceedNext.emit(false);
           this.errorArr = [];
           this.errorArr = JSON.parse(error.error);

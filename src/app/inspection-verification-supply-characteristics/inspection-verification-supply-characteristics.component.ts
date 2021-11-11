@@ -11,6 +11,7 @@ import { SiteService } from '../services/site.service';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
 import { MainNavComponent } from '../main-nav/main-nav.component';
 import { CommentsSection } from '../model/comments-section';
+import { InspectionVerificationBasicInformationComponent } from '../inspection-verification-basic-information/inspection-verification-basic-information.component';
 
 @Component({
   selector: 'app-inspection-verification-supply-characteristics',
@@ -279,15 +280,20 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   mainNominalVoltageArr2: any=[];
   mainNominalVoltageArr3: any=[];
   mainNominalVoltageArr4: any=[];
+  modalReference: any;
 
    //comments end
-
+   @ViewChild(InspectionVerificationBasicInformationComponent)
+   step1!: InspectionVerificationBasicInformationComponent;
+   tabErrorMsg: string="";
+  tabError: boolean = false;
   constructor(
     private supplyCharacteristicsService: SupplyCharacteristicsService,
     public service: GlobalsService,
     private formBuilder: FormBuilder,
     private router: ActivatedRoute,
     private basic: MainNavComponent,
+    //private step1: InspectionVerificationBasicInformationComponent,
     private modalService: NgbModal,private siteService: SiteService,
     private UpateInspectionService: InspectionVerificationService,
   ) {
@@ -1598,6 +1604,31 @@ showHideAccordion(index: number) {
   //   alert("Step2 successfully saved");
   //   }
   // }
+  gotoNextTab() {
+    if ((this.supplycharesteristicForm.dirty && this.supplycharesteristicForm.invalid) || this.service.isCompleted==false) {
+      this.service.isCompleted2= false;
+      this.service.isLinear=true;
+      this.validationError = true;
+      this.validationErrorMsg = 'Please check all the fields';
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
+      return;
+    }
+    else if(this.supplycharesteristicForm.dirty && this.supplycharesteristicForm.touched){
+      this.service.isCompleted2= false;
+      this.service.isLinear=true;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+   }
+    else{
+      this.service.isCompleted2= true;
+      this.service.isLinear=false;
+    }
+  }
   gotoNextModal(content1: any,content2:any) {
     if (this.supplycharesteristicForm.invalid) {
       this.validationError = true;
@@ -1607,22 +1638,27 @@ showHideAccordion(index: number) {
       }, 3000);
       return;
     }
-    if(this.supplycharesteristicForm.dirty){
-      this.modalService.open(content1, { centered: true})
-     }
-     if(!this.supplycharesteristicForm.dirty){
-      this.modalService.open(content2, {
+    if(this.supplycharesteristicForm.touched || this.supplycharesteristicForm.untouched){
+      this.modalReference = this.modalService.open(content2, {
          centered: true, 
          size: 'md'
         })
+     }
+     if(this.supplycharesteristicForm.dirty && this.supplycharesteristicForm.touched){ //update
+      this.modalService.open(content1, { centered: true});
+      this.modalReference.close();
      }
   }
   closeModalDialog() {
     if (this.errorMsg != '') {
       this.Error = false;
+      this.service.isCompleted2= false;
+      this.service.isLinear=true;
       this.modalService.dismissAll((this.errorMsg = ''));
     } else {
       this.success = false;
+      this.service.isCompleted2= true;
+      this.service.isLinear=false;
       this.modalService.dismissAll((this.successMsg = ''));
     }
   }
@@ -1924,6 +1960,8 @@ showHideAccordion(index: number) {
       this.UpateInspectionService.updateSupply(this.supplycharesteristic).subscribe(
         data=> {
           this.success = true;
+          this.service.isCompleted2= true;
+          this.service.isLinear=false;
           this.successMsg = data;
           this.service.supplyList= this.supplycharesteristic.supplyNumber;
           this.service.retrieveMainNominalVoltage=this.mainNominalArr;
@@ -1932,6 +1970,8 @@ showHideAccordion(index: number) {
          },
          (error) => {
           this.Error = true;
+          this.service.isCompleted2= false;
+        this.service.isLinear=true;
           this.errorArr = [];
           this.errorArr = JSON.parse(error.error);
           this.errorMsg = this.errorArr.message;
@@ -1952,6 +1992,8 @@ else{
         },
         (error) => {
           this.Error = true;
+          this.service.isCompleted2= false;
+        this.service.isLinear=true;
           this.proceedNext.emit(false);
           this.errorArr = [];
           this.errorArr = JSON.parse(error.error);

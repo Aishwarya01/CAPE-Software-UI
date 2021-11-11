@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AbstractControl, FormArray, FormControl } from '@angular/forms';
-import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { StepperSelectionEvent, STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -178,11 +178,12 @@ export class VerificationlvComponent implements OnInit {
 
   @ViewChild(MatTabGroup) tabGroup!: MatTabGroup;
 
-  isCompleted: boolean = false;
-  isCompleted2: boolean = false;
-  isCompleted4: boolean = false;
-  isCompleted5: boolean = false;
-  isCompleted3: boolean = false;
+  // isCompleted: boolean = true;
+  // isCompleted2: boolean = true;
+  // isCompleted4: boolean = true;
+  // isCompleted5: boolean = true;
+  // isCompleted3: boolean = true;
+  //isLinear: boolean = false;
 
   checkArray: any = [];
 
@@ -214,7 +215,9 @@ export class VerificationlvComponent implements OnInit {
   instance: any;
   siteData: any=[];
   inspectorData: any = [];
-
+  validationError: boolean=false;
+  validationErrorMsg: string="";
+  disableTab: boolean=false;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -518,32 +521,57 @@ export class VerificationlvComponent implements OnInit {
             this.departmentList = JSON.parse(data);
           });
       }
-    }
+    } 
   }
 
   refresh() {
     this.ChangeDetectorRef.detectChanges();
   }
 
-  public doSomething1(next: any): void {
-    this.isCompleted = next;
+  triggerClickTab(){
+    // if(!this.service.step1Form.pristine || !this.service.supplycharesteristicForm.pristine || !this.service.addstep3.pristine 
+    //   || !this.service.testingForm.pristine || !this.service.addsummary.pristine)
+    //   { 
+    //   this.isLinear=true;
+    //   this.basic.gotoNextTab();
+    //   this.supply.gotoNextTab();
+    //   this.incoming.gotoNextTab();
+    //   this.testing.gotoNextTab();
+    // }
+      this.basic.gotoNextTab();
+      this.supply.gotoNextTab();
+      this.incoming.gotoNextTab();
+      this.testing.gotoNextTab();
+      this.summary.gotoNextTab();
+    // else{
+    //   this.isLinear=false;
+    // }
   }
- 
-  public doSomething2(next: any): void {
-    this.isCompleted2 = next;
+  public NextStep1(next: any): void {
+    this.service.isLinear=false;
+    //this.service.step1Form = next;
+    this.service.isCompleted= next;
   }
-
-  public doSomething3(next: any): void {
+  public NextStep2(next: any): void {
+    this.service.isLinear=false;
+    //this.service.supplycharesteristicForm = next;
+    this.service.isCompleted2= next;
+  }
+  public NextStep3(next: any): void {
     this.testing.callMethod();
-    this.isCompleted3 = next;
+    //this.service.addstep3 = next;
+    this.service.isLinear=false;
+    this.service.isCompleted3= next;
   }
-
-  public doSomething4(next: any): void {
-    this.isCompleted4 = next;
+  public NextStep4(next: any): void {
+    this.service.isLinear=false;
+    //this.service.testingForm = next;
+    this.service.isCompleted4= next;
   }
-
   public NextStep5(next: any): void {
-    this.isCompleted5 = next;
+    this.service.isLinear=false;
+    //this.service.addsummary = next;
+    this.service.isCompleted5 = next;
   }
 
 //for ongoing & completed
@@ -667,7 +695,6 @@ export class VerificationlvComponent implements OnInit {
     this.basic.changeTab(0,siteId,userName,clientName,departmentName,site);
   }
   testingNgOnINit(){
-        
     this.testing.ngOnInit();
   }
   // onTabChanged(e: any) {
@@ -686,7 +713,7 @@ export class VerificationlvComponent implements OnInit {
     this.incoming.reloadFromBack();
     this.testing.reloadFromBack();
     this.summary.reloadFromBack();
-
+    this.service.goBacktoprevious=true;
   }
 
 }

@@ -1,4 +1,5 @@
 import {Injectable } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
 
 @Injectable({
@@ -46,7 +47,18 @@ export class GlobalsService {
 //completed-saved-final
  disableFields:boolean=false;
  allStepsCompleted:boolean=false;
-  constructor(private _scrollToService: ScrollToService) {}
+ allFieldsDisable:boolean=false; //after submiting all 5 steps
+ disableSubmitSummary:boolean=false; //after submiting all 5 steps
+//verification component for stepper
+ isLinear:boolean=false; 
+ isCompleted: boolean = true;
+ isCompleted2: boolean = true;
+ isCompleted4: boolean = true;
+ isCompleted5: boolean = true;
+ isCompleted3: boolean = true;
+ goBacktoprevious: boolean=false;
+
+ constructor(private _scrollToService: ScrollToService) {}
   
 //Scroll Top to Bottom for notification
   public triggerScrollTo() {

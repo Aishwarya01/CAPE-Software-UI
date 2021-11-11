@@ -1,3 +1,6 @@
+<div *ngIf="tabError" style="text-align: center;">
+  <span class="alert alert-danger">{{tabErrorMsg}}</span>
+</div>
 <div class="card">
   <div class="card-body">
     <form [formGroup]="supplycharesteristicForm" (ngSubmit)="nextTab2(flag)">
@@ -8,7 +11,7 @@
               <h3>Mains Incoming</h3>
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <div class="form-group" [ngClass]="{'disableForm':disable== true}">
+          <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
             <div class="row">
               <div class="col-md-4">
                 <label>System Earthing:</label>
@@ -75,7 +78,7 @@
             </div>
           </div>
 
-          <div class="row" [ngClass]="{'disableForm':disable== true}">
+          <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
             <div class="col-md-4">
               <mat-form-field class="client-description " >
                 <mat-label>
@@ -89,7 +92,7 @@
             </div>
           </div>
 
-          <div class="row" *ngIf="tableAC" [ngClass]="{'disableForm':disable== true}">
+          <div class="row" *ngIf="tableAC" [ngClass]="{'disableForm':service.allFieldsDisable}">
             <div class="col-sm-12">
               <h2>Applicable for AC: (Note: Please mention NA if any column is not applicable)</h2>
                 <div class="table-responsive" style="border: 1px solid black">
@@ -165,7 +168,7 @@
           </div>
          <br>
 
-          <div class="row" [ngClass]="{'disableForm':disable== true}">
+          <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
             <div class="col-sm-12">
               <h2>Incoming (Supply) Protective Device Characteristics:</h2>
               <div class="table-responsive" style="border: 1px solid black">
@@ -205,7 +208,7 @@
             </div>
           </div>
 
-          <div class="row" [ngClass]="{'disableForm':disable== true}">
+          <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
             <div class="col-md-4">
               <mat-form-field class="client-description " >
                 <mat-label>
@@ -229,7 +232,7 @@
                 <h3>Alternative Source of Supply</h3>
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <div class="row" [ngClass]="{'disableForm':disable== true}">
+            <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
               <div class="col-md-4">
                 <div class="form-group">
                   <label> Availability of Alternate Supply:</label>
@@ -270,14 +273,14 @@
             <div *ngIf="sources">
               <div formArrayName="alternateArr" *ngFor="let a of getLocation4Controls(); let i = index">
                 <h2>Alternate Form :</h2>
-                <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':disable== true}">
+                <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
                   <!-- <div class="row">
                     <div class="col-md-4">
                       <input type="text" class="form-control" formControlName="alternateArrFormValue" 
                       value="Alternate Source of Supply-{{i}}">
                     </div>
                   </div> -->
-                  <div class="row" [ngClass]="{'disableForm':disable== true}">
+                  <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                     <div class="col-md-4">
                       <label>Alternate supply no:</label>
                       <input type="number"   min="0" class="form-control"  formControlName="aLSupplyNo" [ngClass]="{ 'is-invalid': submitted && a.get('aLSupplyNo')?.errors }">
@@ -345,7 +348,7 @@
                     </div>
                   </div>
 
-                  <div class="row" [ngClass]="{'disableForm':disable== true}">
+                  <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                     <div class="col-md-4">
                       <mat-form-field class="client-description">
                         <mat-label>
@@ -360,7 +363,7 @@
                   </div>
 
 
-                  <div class="row" *ngIf="a.get('aLLiveConductorType')?.value=='AC'" [ngClass]="{'disableForm':disable== true}">
+                  <div class="row" *ngIf="a.get('aLLiveConductorType')?.value=='AC'" [ngClass]="{'disableForm':service.allFieldsDisable}">
                     <div class="col-sm-12">
                       <h2>Applicable for AC: (Note: Please mention NA if any column is not applicable)</h2>
                       <div class="table-responsive" style="border: 1px solid black">
@@ -450,7 +453,7 @@
                   </div>
                   <br>
 
-                  <div class="row" [ngClass]="{'disableForm':disable== true}">
+                  <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                     <div class="col-sm-12">
                       <h2>Incoming (Supply) Protective Device Characteristics:</h2>
                       <div class="table-responsive" style="border: 1px solid black">
@@ -489,7 +492,7 @@
                     </div>
                   </div>
 
-                  <div class="row" [ngClass]="{'disableForm':disable== true}">
+                  <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                     <div class="col-md-4">
                       <mat-form-field class="client-description">
                         <mat-label>
@@ -514,7 +517,7 @@
                   <h3>Particulars Of Installation Referred in the Report</h3>
                 </mat-panel-title>
               </mat-expansion-panel-header>
-              <div class="row" [ngClass]="{'disableForm':disable== true}">
+              <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="col-md-4" style="margin-top: 30px">
                   <p>Maximum Demand <input type="number" min="0" formControlName="maximumDemand"   
                   [ngClass]="{ 'is-invalid': submitted && f.maximumDemand.errors }"[(ngModel)]="supplycharesteristic.maximumDemand" style="
@@ -552,7 +555,7 @@
                 </div>
               </div>
 
-              <div class="row" style="margin-top: 30px" [ngClass]="{'disableForm':disable== true}">
+              <div class="row" style="margin-top: 30px" [ngClass]="{'disableForm':service.allFieldsDisable}">
 
                 <div class="col-md-4">
                   <label>Type Of Earth Electrode :</label>
@@ -595,7 +598,7 @@
                 </div>
               </div>
             <br>
-              <div class="row" [ngClass]="{'disableForm':disable== true}">
+              <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="col-sm-12">
                   <h2>Number Of Locations</h2>
                 </div>
@@ -603,7 +606,7 @@
               </div>
 
 
-              <div class="row" [ngClass]="{'disableForm':disable== true}">
+              <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="col-md-3">
                   <label style="text-align: center;">Location Number</label>
                 </div>
@@ -619,7 +622,7 @@
               </div>
 
               <div formArrayName="location1Arr" *ngFor="let a of getLocation1Controls(); let i = index">
-                <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':disable== true}">
+                <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
                   <div class="row">
                     <div class="col-md-3">
                       <input type="number" min=1  formControlName="locationNo" class="form-control"  
@@ -662,7 +665,7 @@
                 </mat-panel-title>
               </mat-expansion-panel-header>
 
-              <div class="form-group" [ngClass]="{'disableForm':disable== true}">
+              <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 57px">
                     <p>Size of Earthing Conductor <input type="number" min="0" formControlName="conductorSize" 
@@ -699,7 +702,7 @@
                 </div>
               </div>
 
-              <div class="form-group" [ngClass]="{'disableForm':disable== true}">
+              <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 30px">
                     <p>Size of Main Protective Bonding Conductor <input type="number" min="0" formControlName="bondingConductorSize" 
@@ -736,7 +739,7 @@
                 </div>
               </div>
 
-              <div class="form-group" [ngClass]="{'disableForm':disable== true}">
+              <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 30px">
                     <p>Type Of Joints (Impairing Safety) <input type="number" min="1" formControlName="bondingJointsType" 
@@ -767,14 +770,14 @@
                 </div>
               </div>
 
-              <div class="row" [ngClass]="{'disableForm':disable== true}">
+              <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="col-sm-12">
                 <h2>Location Table</h2>
                 <!-- <mat-icon class="mousechange" (click)="addLocation2()" style=" padding-top: 5px;">add_box</mat-icon> -->
               </div>
               </div>
 
-              <div class="row" [ngClass]="{'disableForm':disable== true}">
+              <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="col-md-4">
                   <label style="text-align: center;">Location</label>
                 </div>
@@ -787,7 +790,7 @@
               </div>
 
               <div formArrayName="location2Arr" *ngFor="let a of getLocation2Controls(); let i = index">
-                <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':disable== true}">
+                <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
                   <div class="row">
                     <div class="col-md-4">
                       <input type="text"  formControlName="location" class="form-control"  
@@ -814,7 +817,7 @@
                 </div>
               </div>
 
-              <div class="form-group" [ngClass]="{'disableForm':disable== true}">
+              <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 30px">
                     <p>Size of Main Protective Earthing Conductor<input type="number" min="0" formControlName="earthingConductorSize" 
@@ -851,7 +854,7 @@
                 </div>
               </div>
 
-              <div class="form-group" [ngClass]="{'disableForm':disable== true}">
+              <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 30px">
                     <p>Type of Joints<input type="number" min="1" formControlName="earthingJointsType" [ngClass]="{ 'is-invalid': submitted && f.earthingJointsType.errors }" [(ngModel)]="supplycharesteristic.earthingJointsType" style="
@@ -879,14 +882,14 @@
                 </div>
               </div>
 
-              <div class="row" [ngClass]="{'disableForm':disable== true}">
+              <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="col-sm-12">
                 <h2>Location Table</h2>
                 </div>
                 <!-- <mat-icon class="mousechange" (click)="addLocation3()" style=" padding-top: 5px;">add_box</mat-icon> -->
               </div>
 
-              <div class="row" [ngClass]="{'disableForm':disable== true}">
+              <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="col-md-4">
                   <label style="text-align: center;">Location</label>
                 </div>
@@ -899,7 +902,7 @@
               </div>
 
               <div formArrayName="location3Arr" *ngFor="let a of getLocation3Controls(); let i = index">
-                <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':disable== true}">
+                <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
                   <div class="row">
                     <div class="col-md-4">
                       <input type="text"  formControlName="location" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('location')?.errors }" placeholder="Enter location" >
@@ -934,7 +937,7 @@
                     </mat-panel-title>
                   </mat-expansion-panel-header>
                   <div formArrayName="circuitArr" *ngFor="let a of getCircuitControls(); let i = index">
-                    <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':disable== true}">
+                    <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
                       <h2>Details Of Circuit Breaker</h2>
                       <div class="row">
                         <div class="col-md-4">
@@ -1231,7 +1234,7 @@ style="margin-left: 10px;" >
               <span class="alert alert-danger">Your response to comments has been rejected</span>
             </div>
             <br>
-             <div style="text-align: center;margin-top: 40px;">
+             <div style="text-align: center;margin-top: 40px;margin-left: 80px;">
               <!-- <button class="previous" mat-button matStepperPrevious *ngIf="service.backBtn">&laquo; Back</button> -->
               <button  class="next" (click)="gotoNextModal(content1,content2)" mat-button >Next &raquo;</button>
              </div>
@@ -1256,14 +1259,10 @@ style="margin-left: 10px;" >
 <br>
    <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
    aria-label="Close" (click)="closeModalDialog()" matStepperNext>
-
     <span aria-hidden="true">Ok</span>
-
 </button>
-
-
-
 </ng-template>
+
 <ng-template #content2 let-modal>
   <div class="modal-body">
    <div class="centre-text m-btm30">

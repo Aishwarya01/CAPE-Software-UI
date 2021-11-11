@@ -180,6 +180,9 @@ companyNameSite: String = '';
 departmentNameSite: String = '';
 siteValue: String = '';
 ShowNext: boolean = true;
+  modalReference: any;
+  tabError: boolean=false;
+  tabErrorMsg: string="";
   
   constructor(
     private _formBuilder: FormBuilder,
@@ -379,18 +382,8 @@ ShowNext: boolean = true;
      }
    reloadFromBack(){
     this.step1Form.markAsPristine();
-   }
-
-   getDisabledValue() {
-    //your condition, in this case textarea will be disbaled.
-    if(this.service.disableFields==true){
-      this.disable=true;
-      return true; 
-     }
-     else{
-      return false; 
-     }
   }
+   
 //comments section starts
 
 populateDataComments() {
@@ -1310,6 +1303,31 @@ showHideAccordion(index: number) {
     }
     this.proceedNext.emit(true);
   }
+  gotoNextTab() {
+    if (this.step1Form.dirty && this.step1Form.invalid) {
+      this.service.isCompleted= false;
+      this.service.isLinear=true;
+      this.validationError = true;
+      this.validationErrorMsg = 'Please check all the fields';
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
+      return;
+    }
+    else if(this.step1Form.dirty && this.step1Form.touched){
+      this.service.isCompleted= false;
+      this.service.isLinear=true;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+   }
+    else{
+      this.service.isCompleted= true;
+      this.service.isLinear=false;
+    }
+  }
 //modal popup
   gotoNextModal(content1: any,content2:any) {
       if(this.step1Form.invalid) {
@@ -1320,25 +1338,29 @@ showHideAccordion(index: number) {
      }, 3000);
         return;
       }
-      if(this.step1Form.dirty){
-      this.modalService.open(content1, { centered: true})
-      
-     }
-     if(!this.step1Form.dirty){
-      this.modalService.open(content2, {
+     if(this.step1Form.touched || this.step1Form.untouched){
+      this.modalReference = this.modalService.open(content2, {
          centered: true, 
          size: 'md'
         })
+     }
+     if(this.step1Form.dirty && this.step1Form.touched){ //update
+      this.modalService.open(content1, { centered: true});
+      this.modalReference.close();
      }
     }
    
     closeModalDialog(){
       if(this.errorMsg != ""){
         this.Error = false;
+        this.service.isCompleted= false;
+        this.service.isLinear=true;
         this.modalService.dismissAll(this.errorMsg = "")
       }
       else {
         this.success=false;
+        this.service.isCompleted= true;
+        this.service.isLinear=false;
         this.modalService.dismissAll(this.successMsg="") 
       }
     }
@@ -1545,6 +1567,8 @@ showHideAccordion(index: number) {
           data=> {
            this.success = true;
            this.successMsg = data;
+           this.service.isCompleted= true;
+           this.service.isLinear=false;
           },
           (error) => {
             this.Error = true;
@@ -1564,10 +1588,12 @@ showHideAccordion(index: number) {
        this.proceedNext.emit(true);
        this.success = true;
        this.successMsg = data;
-       this.disable = true;
+       //this.disable = true;
      },
      (error) => {
        this.Error = true;
+       this.service.isCompleted= false;
+        this.service.isLinear=true;
        this.errorArr = [];
        this.errorArr = JSON.parse(error.error);
        this.errorMsg = this.errorArr.message;

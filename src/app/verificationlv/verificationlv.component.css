@@ -78,14 +78,14 @@ mat-header-cell.mat-header-cell {
   color: black;
   position: relative;
   bottom: 57px;
-  left: 40%;
+  left: 43.5%;
 }
 .previousSupply:hover {
   background-color: #747a76;
   color: white;
   position: relative;
   bottom: 57px;
-  left: 40%;
+  left: 43.5%;
 }
 
 .previousIncoming {
@@ -101,6 +101,13 @@ mat-header-cell.mat-header-cell {
   position: relative;
   bottom: 92px;
   left: 40%;
+}
+.previousSummary{
+    background-color: #f1f1f1;
+    color: black;
+    position: relative;
+    bottom: 80px;
+    left: 40%;
 }
 .next{
   background-color: #f1f1f1;
@@ -140,4 +147,7 @@ mat-header-cell.mat-header-cell {
     background-color: hsl(101deg 45% 88%);
     border-color: hsl(101deg 45% 100%);
     border-radius: 0.25rem;
+  }
+  .disableForm{
+    pointer-events:none
   }

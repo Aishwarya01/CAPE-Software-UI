@@ -1,3 +1,6 @@
+<div *ngIf="tabError" style="text-align: center;">
+  <span class="alert alert-danger">{{tabErrorMsg}}</span>
+</div>
 <div class="card">
     <div class="card-body">
     <!-- <button class="btn btn-info mousechange"
@@ -14,8 +17,7 @@
                                     <label>Location Number*</label>
                                     <input type="number" class="form-control" formControlName="locationNumber"
                                         placeholder="Enter Location Number"
-                                        value="{{location.locationArr[i]?.locationNumber}}"
-                                        [(ngModel)]="location.locationArr[i].locationNumber" [readonly]="true"
+                                       [readonly]="true"
                                         style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
                                 </div>
 
@@ -23,8 +25,7 @@
                                     <label>Location Name*</label>
                                     <input type="text" class="form-control" formControlName="locationName"
                                         placeholder="Enter Location Name"
-                                        value="{{location.locationArr[i]?.locationName}}"
-                                        [(ngModel)]="location.locationArr[i].locationName" [readonly]="true"
+                                       [readonly]="true"
                                         style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
                                 </div>
                             </div>
@@ -55,7 +56,7 @@
             </mat-panel-title>
          </mat-expansion-panel-header>
 
-    <div class="row" [ngClass]="{'disableForm':disable== true}">
+    <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
         <div class="col-md-4">
             <label>Test Engineer Name </label>
             <input type="text" formControlName="testEngineerName" class="form-control"    placeholder="Enter Test Engineer Name "
@@ -83,7 +84,7 @@
                         </div>
                     </div>
 
-                    <div class="row" [ngClass]="{'disableForm':disable== true}">
+                    <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                         <div class="col-md-4">
                             <label> Company Name</label>
                             <input type="text" formControlName="companyName"  placeholder="Enter Company Name " class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('companyName')?.errors }"  >
@@ -109,7 +110,7 @@
                         </div>
                     </div>
 
-                    <div class="row" [ngClass]="{'disableForm':disable== true}">
+                    <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                         <div class="col-md-4">
                             <label>Insulation Resistance</label>
                             <input type="number" min="0" formControlName="insulationResisance"   placeholder=" Enter Insulation resistance"class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('insulationResisance')?.errors }"  >
@@ -134,7 +135,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row" [ngClass]="{'disableForm':disable== true}">
+                    <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                     <div class="col-md-4">
                         <label>Earth Electrode Resistance</label>
                         <input type="number" min="0" formControlName="earthElectrodeResistance"  placeholder=" Enter Earth Electrode Resistance" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('earthElectrodeResistance')?.errors }"  >
@@ -152,7 +153,7 @@
                         </mat-expansion-panel-header>
 
                    <div formArrayName="testDistribution" *ngFor="let c of gettestDistributionFormControls(a); let i = index">
-                        <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':disable== true}">
+                        <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
                             <div class="row">
                                 <div class="col-md-4">
                                     <label>Distribution Board Details </label>
@@ -438,7 +439,7 @@
             </div>
           </div>
 
-          <div class="row" [ngClass]="{'disableForm':disable== true}">
+          <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
             <div class="col">
                 <div class="table-responsive" id="style-1">
                   <table class="table" border="1" id="table2" style="margin-bottom: unset;">
@@ -812,7 +813,7 @@ style="margin-left: 10px;" >
                 <span class="alert alert-danger">Your response to comments has been rejected</span>
               </div>
               <br>
-            <div style="text-align: center;margin-top: 40px;">
+            <div style="text-align: center;margin-top: 40px;margin-left: 40px;">
                 <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
                 <button class="next" (click)="gotoNextModal(content4,content2)" mat-button>Next &raquo;</button>
         </div>
