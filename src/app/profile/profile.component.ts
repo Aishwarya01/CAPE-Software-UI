@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChildren } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute,Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
@@ -19,19 +19,19 @@ import { SiteService } from '../services/site.service';
 export class ProfileComponent implements OnInit {
 
   profileForm = new FormGroup({
-    name: new FormControl(''),
-    email: new FormControl(''),
-    contactNumber: new FormControl(''),
-    userType: new FormControl(''),
-    companyName: new FormControl(''),
-    department: new FormControl(''),
-    designation: new FormControl(''),
-    country: new FormControl(''),
-    state: new FormControl(''),
-    district: new FormControl(''),
-    address: new FormControl(''),
-    applicationType: new FormControl(''),
-    pinCode: new FormControl(''),
+    // name: new FormControl(''),
+    // email: new FormControl(''),
+    // contactNumber: new FormControl(''),
+    // userType: new FormControl(''),
+    // companyName: new FormControl(''),
+    // department: new FormControl(''),
+    // designation: new FormControl(''),
+    // country: new FormControl(''),
+    // state: new FormControl(''),
+    // district: new FormControl(''),
+    // address: new FormControl(''),
+    // applicationType: new FormControl(''),
+    // pinCode: new FormControl(''),
   });
 
   generateContactNumberOtpForm = new FormGroup({
@@ -124,10 +124,10 @@ export class ProfileComponent implements OnInit {
       if(this.register.applicationType != null) {
         this.selectedItems = this.register.applicationType.split(',');
       }
-      this.mobileArr= this.register.contactNumber.split('-');
+      //this.mobileArr= this.register.contactNumber.split('-');
       setTimeout(()=>{
         this.populateForm();
-      }, 3000);
+      }, 1000);
       }
     )
     this.applicationService.retrieveApplicationTypesV2().subscribe(
@@ -202,6 +202,11 @@ export class ProfileComponent implements OnInit {
     });
     return new FormGroup(group);
   }
+
+  getProfileControls(): AbstractControl[] {
+    return (<FormArray> this.profileForm.get('profileArr')).controls 
+  }
+
   keyUpEvent(event:any, index:any) {
     let pos = index;
     if (event.keyCode === 8 && event.which === 8) {
@@ -224,20 +229,41 @@ export class ProfileComponent implements OnInit {
 
   populateForm() {
     this.profileForm = this.formBuilder.group({
-      name: [this.register.name, Validators.required],
-      email: [this.register.username],
-      contactNumber: [this.mobileArr[1], Validators.required],
-      userType: [this.register.role],
-      companyName: [this.register.companyName],
-      department: [this.register.department],
-      designation: [this.register.designation],
-      country: [this.register.country, Validators.required],
-      state: [this.register.state, Validators.required],
-      district: [this.register.district],
-      address: [this.register.address, Validators.required],
-      applicationType: [this.selectedItems],
-      pinCode: [this.register.pinCode, Validators.required],
+      profileArr: this.formBuilder.array([
+        this.createProfile(),
+      ])
+      // name: [this.register.name, Validators.required],
+      // email: [this.register.username],
+      // contactNumber: [this.register.contactNumber, Validators.required],
+      // userType: [this.register.role],
+      // companyName: [this.register.companyName],
+      // department: [this.register.department],
+      // designation: [this.register.designation],
+      // country: [this.register.country, Validators.required],
+      // state: [this.register.state, Validators.required],
+      // district: [this.register.district],
+      // address: [this.register.address, Validators.required],
+      // applicationType: [this.selectedItems],
+      // pinCode: [this.register.pinCode, Validators.required],
     });
+  }
+
+  createProfile(): FormGroup {
+    return new FormGroup({
+    name: new FormControl(this.register.name, Validators.required),
+    email: new FormControl(this.register.username),
+    contactNumber: new FormControl(this.register.contactNumber, Validators.required),
+    userType: new FormControl(this.register.role),
+    companyName: new FormControl(this.register.companyName),
+    department: new FormControl(this.register.department),
+    designation: new FormControl(this.register.designation),
+    country: new FormControl(this.register.country, Validators.required),
+    state: new FormControl(this.register.state, Validators.required),
+    district: new FormControl(this.register.district),
+    address: new FormControl(this.register.address, Validators.required),
+    applicationType: new FormControl(this.selectedItems),
+    pinCode: new FormControl(this.register.pinCode, Validators.required),
+    })
   }
 
   generateForm() {
@@ -309,10 +335,10 @@ export class ProfileComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this.contactNumber = "";
-    this.contactNumber = "+"+this.countryCode+"-"+this.profileForm.value.contactNumber
+    //this.contactNumber = "";
+    //this.contactNumber = "+"+this.countryCode+"-"+this.profileForm.controls.profileArr.value[0].contactNumber
 
-    this.register.contactNumber = this.contactNumber;
+    this.register.contactNumber = this.profileForm.controls.profileArr.value[0].contactNumber;
 
     this.profileService.updateRegister(this.register).subscribe(
       data=> {
@@ -348,7 +374,7 @@ export class ProfileComponent implements OnInit {
   }
 
   resendOTP(){
-    this.inspectorRegisterService.resendOTPInspector(this.email,this.changeContact.mobileNumber).subscribe(
+    this.inspectorRegisterService.sendOtpContactNumber(this.email,this.changeContact.mobileNumber).subscribe(
       data=> {
        this.showOTPMessage=true;
        setTimeout(()=>{

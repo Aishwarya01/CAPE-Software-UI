@@ -154,9 +154,11 @@ export class LicenselistComponent implements OnInit {
  
   editSite(siteId:any,userName:any,site:any,departmentName:any,companyName:any){
     this.service.allStepsCompleted=true;
+    this.service.disableSubmitSummary=false;
+    this.service.allFieldsDisable = false;
+
     if (confirm("Are you sure you want to edit site details?"))
     {
-      
     // this.viewContainerRef.clear();
     // this.destroy = true;
     // const verificationFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
@@ -179,6 +181,10 @@ export class LicenselistComponent implements OnInit {
 
   viewSite(siteId: any,userName: any,site: any,departmentName:any,companyName:any){
     this.service.allStepsCompleted=false;
+    this.service.disableSubmitSummary=true;
+    this.service.disableFields=true;
+    this.service.allFieldsDisable = true;
+
     if (confirm("Are you sure you want to view site details?"))
   {
     // this.viewContainerRef.clear();
@@ -192,7 +198,6 @@ export class LicenselistComponent implements OnInit {
     setTimeout(()=>{
       this.verification.changeTab(0,siteId,userName,companyName,departmentName,site);
     }, 1000);
-    this.service.disableFields=true;
   } 
   else {
     this.destroy = false;

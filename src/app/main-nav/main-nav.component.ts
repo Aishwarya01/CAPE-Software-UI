@@ -563,6 +563,8 @@ triggerNavigateTo(siteName:any){
 
  editSite(siteId: any,userName: any,site: any) {
   this.service.allStepsCompleted=true;
+  this.service.disableSubmitSummary=false;
+
   if (confirm("Are you sure you want to edit site details?"))
   {
     this.value= true;
@@ -585,6 +587,8 @@ triggerNavigateTo(siteName:any){
 
  viewSite(siteId: any,userName: any,site: any){
   this.service.allStepsCompleted=false;
+  this.service.disableSubmitSummary=true;
+
   if (confirm("Are you sure you want to view site details?"))
   {
     this.value= true;

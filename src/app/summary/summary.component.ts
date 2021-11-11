@@ -84,6 +84,7 @@ export class SummaryComponent implements OnInit {
   disable: boolean = false;
   flag: boolean = false;
   // @Output("changeTab1") changeTab1: EventEmitter<any> = new EventEmitter();
+  dataJSON: any = [];
 
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
   formBuilder: any;
@@ -109,6 +110,7 @@ export class SummaryComponent implements OnInit {
     'observations',
     'referanceNumberReport',
   ];
+  errorArr: any=[];
 
   //comments starts
   successMsg: string="";
@@ -182,8 +184,21 @@ export class SummaryComponent implements OnInit {
   inspectorName: String = '';	
   completedCommentArr3: any = [];
   hideShowComment: boolean=false;
-  finalFlag: boolean = false;
   //comments end
+
+  finalFlag: boolean = false;
+  confirmMsg: string="";
+  SubmitDisable: boolean = false;
+  StepError: boolean = false;
+  StepErrorMsg: string="";
+  showSubmit: boolean = false;
+  AllFilled: boolean = false;
+  disableSubmit: boolean = false;
+  modalReference: any;
+  tabError: boolean = false;
+  tabErrorMsg: string="";
+
+  //@ViewChild('picker',{static:false}) picker!: ElementRef;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -234,7 +249,9 @@ export class SummaryComponent implements OnInit {
     this.expandedIndex = -1 ;
     // this.Declaration2Arr = this.addsummary.get('Declaration2Arr') as FormArray;
   }
-
+  // ngAfterViewInit(){
+  //   this.picker.nativeElement.open()
+  // }
   refresh() {
     this.ChangeDetectorRef.detectChanges();
   }
@@ -244,6 +261,7 @@ export class SummaryComponent implements OnInit {
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
     if(this.service.disableFields==true){
       this.addsummary.disable();
+      //this.service.allStepsCompleted=true;
      }
        this.summaryList = JSON.parse(data);
        this.summary.siteId = siteId;
@@ -684,6 +702,7 @@ showHideAccordion(index: number) {
      populateData() {
       if(this.service.disableFields==true){
         this.disable=true;
+        //this.service.allStepsCompleted=true;
         }
        this.arr = [];
       for (let item of this.summaryList.summary.summaryObervation) {
@@ -807,7 +826,32 @@ showHideAccordion(index: number) {
   changeTab1(index: number, sitedId: any, userName: any): void {
     this.selectedIndex = index;
   }
-  gotoNextModal(content5: any,content2:any) {
+  gotoNextTab() {
+    if ((this.addsummary.dirty && this.addsummary.invalid) || this.service.isCompleted4==false) {
+      this.service.isCompleted= false;
+      this.service.isLinear=true;
+      this.validationError = true;
+      this.validationErrorMsg = 'Please check all the fields';
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
+      return;
+    }
+    else if(this.addsummary.dirty && this.addsummary.touched){
+      this.service.isCompleted5= false;
+      this.service.isLinear=true;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+   }
+    else{
+      this.service.isCompleted= true;
+      this.service.isLinear=false;
+    }
+  }
+  gotoNextModal(content5:any) {
     if (this.addsummary.invalid) {
       this.validationError = true;
       this.validationErrorMsg = 'Please check all the fields';
@@ -816,24 +860,42 @@ showHideAccordion(index: number) {
       }, 3000);
       return;
     }
-    if(this.addsummary.dirty){
-      this.modalService.open(content5, { centered: true})
-      
+   
+    // if(this.addsummary.touched || this.addsummary.untouched){
+    //   this.modalReference = this.modalService.open(content2, {
+    //      centered: true, 
+    //      size: 'md'
+    //     })
+    //  }
+     if(this.addsummary.dirty && this.addsummary.touched){ //update
+      this.modalService.open(content5, { centered: true});
+      //this.modalReference.close();
      }
-     if(!this.addsummary.dirty){
-      this.modalService.open(content2, {
-         centered: true, 
-         size: 'md'
-        })
-     }
+     this.disableSubmit=true;
+     this.showSubmit=true;
+  }
+
+  openModalDialog(content2: any){
+    this.modalService.open(content2, {
+      centered: true, 
+      size: 'md'
+     })
+   //this.checkForAllSteps();
   }
   closeModalDialog() {
     if (this.errorMsg != '') {
       this.Error = false;
+      this.service.isCompleted5= false;
+      this.service.isLinear=true;
       this.modalService.dismissAll((this.errorMsg = ''));
-    } else {
+    } 
+    else {
       this.success = false;
+      this.service.isCompleted5= true;
+      this.service.isLinear=false;
       this.modalService.dismissAll((this.successMsg = ''));
+      //this.disable = false;
+     // this.disableSubmit=false;
     }
 
     // if(this.finalFlag) {
@@ -843,7 +905,6 @@ showHideAccordion(index: number) {
     // }
   }
   SubmitTab5(flag: any) {
-    
     if(!flag) {
       this.summary.siteId = this.service.siteCount;
     }
@@ -851,13 +912,12 @@ showHideAccordion(index: number) {
     this.submitted = true;
     if (this.addsummary.invalid) {
       return;
-    }
+        }
     this.summary.summaryObervation = this.addsummary.value.ObservationsArr;
     this.summary.summaryDeclaration = this.addsummary.value.Declaration1Arr;
     this.summary.summaryDeclaration = this.summary.summaryDeclaration.concat(
       this.addsummary.value.Declaration2Arr
     );
-
 
     if(flag) {
       if(this.addsummary.dirty){
@@ -878,19 +938,39 @@ showHideAccordion(index: number) {
       this.summarydetailsService.addSummary(this.summary).subscribe(
         (data) => {
           this.proceedNext.emit(true);
-          // show success message ofter click button
+          // show success message after click button
           this.success = true;
-          this.successMsg = 'Summary Information Successfully Saved';
-          this.disable = true;
+          this.successMsg = 'Summary Information Successfully Submitted';
+          this.service.allFieldsDisable = true;
           this.finalFlag = true;
         },
         (error) => {
           this.Error = true;
-          // show error button
+          this.errorArr = [];
+          this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.errorArr.message;
           this.proceedNext.emit(false);
-          this.errorMsg = 'Something went wrong, kindly check all the fields';
         });
     }
-    
   }
-}
+
+  // checkForAllSteps() {
+  //   this.summarydetailsService.addSummary(this.summary).subscribe(
+  //     (data) => {
+  //       this.proceedNext.emit(true);
+  //       this.AllFilled = true;
+  //       this.disable = true;
+  //       this.finalFlag = true;
+  //       this.showSubmit=true;
+  //     },
+  //     (error) => {
+  //       this.Error = true;
+  //       this.proceedNext.emit(false);
+  //       this.errorMsg = 'Please enter previous steps to proceed further';
+  //       this.showSubmit=false;
+  //     });
+  // }
+
+  } 
+
+

@@ -162,9 +162,9 @@
                                 <select  formControlName="country" class="form-control"
                                 [ngClass]="{ 'is-invalid': submitted && f.country.errors }" [(ngModel)]="register.country" (change)=selectCountry($event)>
                                     <option value="" selected>Select country</option>
-                                    <option value="IND" selected>India</option>
+                                    <!-- <option value="IND" selected>India</option> -->
     
-                                    <!-- <option *ngFor="let a of countryList">{{a}}</option> -->
+                                    <option *ngFor="let a of countryList">{{a.name}}</option>
                                 </select>
                                 <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
                                     <div *ngIf="f.country.errors.required">Please select country</div>

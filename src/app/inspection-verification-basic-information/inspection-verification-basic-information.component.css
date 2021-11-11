@@ -173,10 +173,7 @@ p span {
   white-space: nowrap;
   vertical-align: middle;
 }
+
 .disableForm{
   pointer-events: none;
- 
 }
-.disableForm:hover{
-  cursor: not-allowed;
-  }
