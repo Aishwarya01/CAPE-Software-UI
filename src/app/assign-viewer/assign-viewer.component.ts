@@ -146,7 +146,7 @@ export class AssignViewerComponent implements OnInit {
     }
 
   populateData() {
-    //this.viewerRegisterForm.reset();
+    this.viewerRegisterForm.reset();
       if((this.registerData.role == 'ROLE') || (this.registerData.role == 'Viewer')) {
       this.demoArr = [];
       this.viewerRegisterForm.reset();
@@ -157,11 +157,13 @@ export class AssignViewerComponent implements OnInit {
         this.register = new Register;
         this.register.username = this.assignViewerForm.value.viewerEmail;
         this.register.role = 'Viewer';
+        this.demoArr = [];
+        this.demoArr.push(this.createNewGroup(this.register));
+        this.viewerRegisterForm.setControl('viewerArr', this.formBuilder.array(this.demoArr || []))
         this.setReadOnly = false;
         this.state = '';
       }
     this.registerData = [];
-
   }
 
   getViewerControls() : AbstractControl[] {
@@ -230,6 +232,25 @@ createGroup(item: any): FormGroup{
     terms: new FormControl(''),
     
 
+  });
+}
+
+createNewGroup(item: any): FormGroup{
+  return this.formBuilder.group({
+    name: new FormControl('',Validators.required),
+    companyName: new FormControl('',Validators.required),
+    siteName: new FormControl('',Validators.required),
+    email: new FormControl({value: item.username}),
+    designation: new FormControl('',Validators.required),
+    contactNumber: new FormControl('',Validators.required),
+    department: new FormControl('',Validators.required),
+    address: new FormControl('',Validators.required),
+    district: new FormControl(''),
+    country: new FormControl('',Validators.required),
+    state: new FormControl('',Validators.required),
+    pinCode: new FormControl('',Validators.required),
+    userType: new FormControl({value: 'Viewer'}),
+    terms: new FormControl(''),
   });
 }
 
