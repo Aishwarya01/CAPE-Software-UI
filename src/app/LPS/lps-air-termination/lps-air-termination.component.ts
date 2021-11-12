@@ -55,8 +55,6 @@ export class LpsAirTerminationComponent implements OnInit {
 
   ngOnInit(): void {
     this.airTerminationForm = this.formBuilder.group({
-      // basicLpsId: ['', Validators.required],
-      // userName: ['', Validators.required],
       connectionMadeBraOb: ['', Validators.required],
       connectionMadeBraRe: [''],
       electricalEquipPlacedOb: ['', Validators.required],
@@ -78,15 +76,16 @@ export class LpsAirTerminationComponent implements OnInit {
   }
 
   gotoNextModal(content: any) {
-    // if (this.airTerminationForm.invalid) {
-    //   this.validationError = true;
+ 
+     if (this.airTerminationForm.invalid) {
+       this.validationError = true;
       
-    //   this.validationErrorMsg = 'Please check all the fields';
-    //   setTimeout(() => {
-    //     this.validationError = false;
-    //   }, 3000);
-    //   return;
-    // }
+       this.validationErrorMsg = 'Please check all the fields';
+       setTimeout(() => {
+         this.validationError = false;
+       }, 3000);
+       return;
+     }
     this.modalService.open(content, { centered: true });
   }
 
@@ -101,16 +100,10 @@ export class LpsAirTerminationComponent implements OnInit {
   }
 
   onSubmit(){
-    this.submitted=true;
-debugger
-    if (this.airTerminationForm.invalid) {
-      return;
-    }  
-    else{
-
-      debugger
+       this.submitted=true;
+ 
       this.airtermination.userName=this.router.snapshot.paramMap.get('email') || '{}';;
-         this.airtermination.basicLpsId=this.basicLpsId; 
+      this.airtermination.basicLpsId=this.basicLpsId; 
      
         this.airtermination.airClamps=this.airTerminationForm.value.clampArr;
         this.airtermination.airConnectors=this.airTerminationForm.value.conArr;
@@ -132,7 +125,7 @@ debugger
             this.errorArr = JSON.parse(error.error);
             this.errorMsg = this.errorArr.message;
           });
-      };
+     
     }
   
 
