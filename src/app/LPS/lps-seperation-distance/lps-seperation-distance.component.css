@@ -30,3 +30,12 @@ td {
     color: white;
     margin-left: 30px;
   }
+
+  ok{
+    display: inline-block;
+    max-width: 4rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    vertical-align: middle;
+  }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Spd } from 'src/app/LPS_model/spd';
 import { LpsSpd_Service } from 'src/app/LPS_services/lps-spd.service';
 
@@ -13,11 +14,20 @@ export class LpsSpdComponent implements OnInit {
   lpsSpd_Service;
   j: any;
   submitted=false;
-  constructor(private formBuilder: FormBuilder, lpsSpd_Services: LpsSpd_Service) {
+  constructor(private formBuilder: FormBuilder, lpsSpd_Services: LpsSpd_Service,
+    private modalService: NgbModal) {
     this.lpsSpd_Service = lpsSpd_Services;
   }
 
   spdForm: FormGroup;
+  validationError: boolean = false;
+  validationErrorMsg: String = '';
+  successMsg: string="";
+  errorMsg: string="";
+  success: boolean=false;
+  Error: boolean=false;
+  errorArr: any=[];
+  disable: boolean = false;
 
   ngOnInit(): void {
     this.spdForm = this.formBuilder.group({
@@ -119,6 +129,29 @@ export class LpsSpdComponent implements OnInit {
     return this.spdForm.controls;
   }
 
+  gotoNextModal(content: any) {
+    if (this.spdForm.invalid) {
+      this.validationError = true;
+      
+      this.validationErrorMsg = 'Please check all the fields';
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
+      return;
+    }
+    this.modalService.open(content, { centered: true });
+  }
+
+  closeModalDialog() {
+    if (this.errorMsg != '') {
+      this.Error = false;
+      this.modalService.dismissAll((this.errorMsg = ''));
+    } else {
+      this.success = false;
+      this.modalService.dismissAll((this.successMsg = ''));
+    }
+  }
+
   onSubmit(){
         
         this.submitted=true;
@@ -140,14 +173,16 @@ export class LpsSpdComponent implements OnInit {
         
         this.lpsSpd_Service.saveSPDDetails(this.spd).subscribe(
 
-        
-          data => {
-             
-          
+          (data) => {
+            this.success = true;
+            this.successMsg = data;
+            this.disable = true;
           },
-          error => {
-          }
-        )
+          (error) => {
+            this.Error = true;
+            this.errorArr = [];
+            this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.errorArr.message;
+          });
       };
-    
 }

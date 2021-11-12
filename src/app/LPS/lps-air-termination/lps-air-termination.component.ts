@@ -88,13 +88,13 @@ export class LpsAirTerminationComponent implements OnInit {
 
   onSubmit(){
     this.submitted=true;
-
+    debugger
     if (this.airTerminationForm.invalid) {
       return;
     }  
     else{
 
-      this.airtermination.userName="";
+      this.airtermination.userName="Sivaraju@capeindia.net";
       this.airtermination.basicLpsId=444;
         //this.airtermination.userName=this.airTerminationForm.value.userName;
         // this.airtermination.connectionMadeBraOb=this.airTerminationForm.value.connectionMadeBraOb;
@@ -128,6 +128,7 @@ export class LpsAirTerminationComponent implements OnInit {
             this.errorArr = JSON.parse(error.error);
             this.errorMsg = this.errorArr.message;
           });
+          console.log(this.airtermination);
       };
     }
   
@@ -220,24 +221,30 @@ export class LpsAirTerminationComponent implements OnInit {
       holderTypeOb: new FormControl('', Validators.required),
       holderTypeRe: new FormControl(''),
 
-      materialHolderOb: new FormControl('', Validators.required),
-      materialHolderRe: new FormControl(''),
+      materailOfHolderOb: new FormControl('', Validators.required),
+      materailOfHolderRem: new FormControl(''),
 
       totalHolderNoOb: new FormControl('', Validators.required),
       totalHolderNoRe: new FormControl(''),
 
-      totalParpetHolderNoOb: new FormControl('', Validators.required),
-      totalParpetHolderNoRe: new FormControl(''),
-
       holderInspNoOb: new FormControl('', Validators.required),
       holderInspNoRe: new FormControl(''),
 
-      holderInspPassedOb: new FormControl('', Validators.required),
+      holderInspPassedNoOb: new FormControl('', Validators.required),
       holderInspPassedNoRe: new FormControl(''),
 
       holderInspFailedNoOb: new FormControl('', Validators.required),
       holderInspFailedNoRe: new FormControl(''),
 
+      totalParpetHolderNoOb: new FormControl('', Validators.required),
+      totalParpetHolderNoRe: new FormControl(''),
+
+      materailOfParpetHolderOb: new FormControl('', Validators.required),
+      materailOfParpetHolderRem: new FormControl(''),
+
+      // totalParpetHolderNoOb: new FormControl('', Validators.required),
+      // totalParpetHolderNoRe: new FormControl(''),
+      
       parpetInspectionNoOb: new FormControl('', Validators.required),
       parpetInspectionNoRe: new FormControl(''),
 
@@ -247,8 +254,6 @@ export class LpsAirTerminationComponent implements OnInit {
       parpetInspectionFailedNoOb: new FormControl('', Validators.required),
       parpetInspectionFailedNoRe: new FormControl('')
     
-      //8.12 Total number of holders: pending
-      //8.11 Material of parpet holder:
     }) 
   }
 

@@ -36,10 +36,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
     private formBuilder: FormBuilder,
     private separatedistanceService: SeparatedistanceService,
     private modalService: NgbModal,
-  ) {
-
-
-  }
+  ) {  }
 
 
   gotoNextModal(content: any) {

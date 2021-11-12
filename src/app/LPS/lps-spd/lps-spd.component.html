@@ -1000,8 +1000,24 @@
             </mat-accordion>
             <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
                 <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
-                <button  class="next"  [disabled]="disable" mat-button >Next &raquo;</button>
+                <button  class="next" (click)="onSubmit()" [disabled]="disable" (click)="gotoNextModal(content)" mat-button >Next &raquo;</button>
             </div>  
+            <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+                <span class="alert alert-danger">{{validationErrorMsg}}</span>
+            </div>
         </form>
     </div>
 </div>
+
+<ng-template #content let-modal>
+    <div class="modal-body">
+        <div class="centre-text m-btm30">
+            <div *ngIf="success" style="text-align: center;">
+                <span class="successshow">{{successMsg}}</span>
+            </div>
+            <div *ngIf="Error" style="text-align: center;">
+                <span class="errorshow">{{errorMsg}}</span>
+            </div>
+        </div>
+    </div>
+</ng-template> 
