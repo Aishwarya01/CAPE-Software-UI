@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -36,7 +36,8 @@ export class LpsEarthingComponent implements OnInit {
   errorMsg: string="";
   validationError: boolean = false;
   validationErrorMsg: String = '';
-
+  @Output() proceedNext = new EventEmitter<any>();
+  
   constructor(
     private formBuilder: FormBuilder, private lpsEarthings: LpsEarthing,private modalService: NgbModal, private router: ActivatedRoute
   ) {
@@ -209,7 +210,7 @@ export class LpsEarthingComponent implements OnInit {
   }
   onSubmit() {
     this.submitted=true;
-    
+    if(this.earthingForm.invalid){return}
     this.earthingLpsDescription.userName = this.router.snapshot.paramMap.get('email') || '{}';;
     this.earthingLpsDescription.basicLpsId = this.basicLpsId;
 
@@ -221,15 +222,21 @@ export class LpsEarthingComponent implements OnInit {
     this.lpsEarthingService.saveEarthingDetails(this.earthingLpsDescription).subscribe(
 
 
-      data => {
-
-
+      (data) => {
+        this.success = true;
+        this.successMsg = data;
+        this.disable = true;
+        this.proceedNext.emit(true);
       },
-      error => {
-      }
-    )
+      (error) => {
+        this.Error = true;
+        this.errorArr = [];
+        this.errorArr = JSON.parse(error.error);
+        this.errorMsg = this.errorArr.message;
+        this.proceedNext.emit(false);
+      });
    
-  };
+  }
 
   get f() {
     return this.earthingForm.controls;

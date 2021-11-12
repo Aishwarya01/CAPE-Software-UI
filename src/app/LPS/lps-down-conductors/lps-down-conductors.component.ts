@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -43,7 +43,8 @@ export class LpsDownConductorsComponent implements OnInit {
   errorMsg: string = "";
   validationError: boolean = false;
   validationErrorMsg: String = '';
-
+  @Output() proceedNext = new EventEmitter<any>();
+  
   constructor(
     private formBuilder: FormBuilder, lpsDownconductorService: LpsDownconductorService,
     private modalService: NgbModal, private router: ActivatedRoute) {
@@ -260,27 +261,22 @@ export class LpsDownConductorsComponent implements OnInit {
   submit() {
     this.downArr = this.downConductorForm.get('downArr') as FormArray;
     this.downArr.push(this.createDownArrForm());
-    console.log(this.downConductorForm)
   }
   submit1() {
     this.downArr = this.downConductorForm.get('bridgingArr') as FormArray;
     this.downArr.push(this.createBridgeArrForm());
-    console.log(this.downConductorForm)
   }
   submit2() {
     this.holderArr = this.downConductorForm.get('holderArr') as FormArray;
     this.holderArr.push(this.createHolderArrForm());
-    console.log(this.downConductorForm)
   }
   submit3() {
     this.connectorArr = this.downConductorForm.get('connectorArr') as FormArray;
     this.connectorArr.push(this.createConnectorArrForm());
-    console.log(this.downConductorForm)
   }
   submit4() {
     this.lightArr = this.downConductorForm.get('lightArr') as FormArray;
     this.lightArr.push(this.createLightArrForm());
-    console.log(this.downConductorForm)
   }
 
   removeItem(index: any) {
@@ -313,6 +309,7 @@ export class LpsDownConductorsComponent implements OnInit {
       return;
 
     }
+    else{
     this.downConductorDescription.userName = this.router.snapshot.paramMap.get('email') || '{}';;
     this.downConductorDescription.basicLpsId = this.basicLpsId;
     this.downConductorDescription.downConductor = this.downConductorForm.value.downArr;
@@ -325,12 +322,20 @@ export class LpsDownConductorsComponent implements OnInit {
 
     this.lpsDownconductorService.saveDownConductors(this.downConductorDescription).subscribe(
 
-      () => {
+      (data) => {
+        this.success = true;
+        this.successMsg = data;
+        this.disable = true;
+        this.proceedNext.emit(true);
       },
-      () => {
-      }
-    )
-    console.log(this.downConductorDescription)
+      (error) => {
+        this.Error = true;
+        this.errorArr = [];
+        this.errorArr = JSON.parse(error.error);
+        this.errorMsg = this.errorArr.message;
+        this.proceedNext.emit(false);
+      });
+    }
   }
   closeModalDialog() {
     if (this.errorMsg != '') {

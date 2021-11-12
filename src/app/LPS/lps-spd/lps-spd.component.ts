@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -34,7 +34,8 @@ export class LpsSpdComponent implements OnInit {
   errorMsg: string="";
   validationError: boolean = false;
   validationErrorMsg: String = '';
-
+  @Output() proceedNext = new EventEmitter<any>();
+  
   constructor(private formBuilder: FormBuilder, lpsSpd_Services: LpsSpd_Service
     ,private modalService: NgbModal, private router: ActivatedRoute) {
     this.lpsSpd_Service = lpsSpd_Services;
@@ -145,7 +146,7 @@ export class LpsSpdComponent implements OnInit {
   onSubmit(){
         
         this.submitted=true;
-      
+      if(this.spdForm.invalid){return}
         this.spd.userName = this.router.snapshot.paramMap.get('email') || '{}';;
         this.spd.basicLpsId = this.basicLpsId;
 
@@ -156,14 +157,20 @@ export class LpsSpdComponent implements OnInit {
         this.lpsSpd_Service.saveSPDDetails(this.spd).subscribe(
 
         
-          data => {
-             
-          
+          (data) => {
+            this.success = true;
+            this.successMsg = data;
+            this.disable = true;
+            this.proceedNext.emit(true);
           },
-          error => {
-          }
-        )
-      };
+          (error) => {
+            this.Error = true;
+            this.errorArr = [];
+            this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.errorArr.message;
+            this.proceedNext.emit(false);
+          });
+      }
       closeModalDialog() {
         if (this.errorMsg != '') {
           this.Error = false;

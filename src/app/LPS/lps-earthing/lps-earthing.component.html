@@ -251,7 +251,7 @@
                             <div>
                                 <label for="lname">Location Name</label>
                                 <input class="form-control" formControlName="locationName" type="text" [(ngModel)]="earthingLpsDescription.locationName"
-                                    [ngClass]="{ 'is-invalid': submitted && f.locationName.errors}">
+                                    [ngClass]="{ 'is-invalid': submitted && f.locationName.errors}" placeholder="Location Name"> 
                                 <div *ngIf="submitted && f.locationName.errors" class="invalid-feedback">
                                     <div *ngIf="f.locationName.errors.required">Location Name is required</div>
                                 </div>
@@ -259,7 +259,7 @@
                             <div>
                                 <label for="lnumber">Location Number</label>
                                 <input class="form-control" formControlName="locationNumber" type="text"  [(ngModel)]="earthingLpsDescription.locationNumber"
-                                    [ngClass]="{ 'is-invalid': submitted && f.locationNumber.errors}">
+                                    [ngClass]="{ 'is-invalid': submitted && f.locationNumber.errors}" placeholder="Location Number">
                                 <div *ngIf="submitted && f.locationNumber.errors" class="invalid-feedback">
                                     <div *ngIf="f.locationNumber.errors.required">Location Number is required</div>
                                 </div>
@@ -2063,7 +2063,10 @@
             </mat-accordion>
             <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
                 <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
-                <button  class="next"  [disabled]="disable" mat-button >Next &raquo;</button>
+                <button  class="next"  [disabled]="disable" (click)="gotoNextModal(content)" mat-button >Next &raquo;</button>
+            </div>
+            <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+                <span class="alert alert-danger">{{validationErrorMsg}}</span>
             </div>
         </form>
     </div>

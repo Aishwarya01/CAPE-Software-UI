@@ -281,18 +281,13 @@
                 <button style="margin-inline: 30rem;width: 7rem;height: 3rem;" class="btn btn-primary">Back</button>
                 <button style="width: 7rem;height: 3rem;" (click)="onSubmit()"[disabled]="disable" (click)="gotoNextModal(content)"  class="btn btn-primary" >Next</button>
             </div> -->
-
             <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
                 <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
                 <button  class="next" (click)="onSubmit()" [disabled]="disable" (click)="gotoNextModal(content)" mat-button >Next &raquo;</button>
             </div>
-             
             <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
                 <span class="alert alert-danger">{{validationErrorMsg}}</span>
             </div>
-
-            
-
         </form>
     </div>
 </div>

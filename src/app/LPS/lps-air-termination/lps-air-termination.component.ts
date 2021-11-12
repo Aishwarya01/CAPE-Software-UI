@@ -98,10 +98,12 @@ export class LpsAirTerminationComponent implements OnInit {
       this.modalService.dismissAll((this.successMsg = ''));
     }
   }
-
+  
   onSubmit(){
        this.submitted=true;
- 
+          if(this.airTerminationForm.invalid){
+            return
+          }
       this.airtermination.userName=this.router.snapshot.paramMap.get('email') || '{}';;
       this.airtermination.basicLpsId=this.basicLpsId; 
      
@@ -118,12 +120,14 @@ export class LpsAirTerminationComponent implements OnInit {
             this.success = true;
             this.successMsg = data;
             this.disable = true;
+            this.proceedNext.emit(true);
           },
           (error) => {
             this.Error = true;
             this.errorArr = [];
             this.errorArr = JSON.parse(error.error);
             this.errorMsg = this.errorArr.message;
+            this.proceedNext.emit(false);
           });
      
     }
@@ -322,38 +326,32 @@ export class LpsAirTerminationComponent implements OnInit {
 
   submit(){
     this.vatArr = this.airTerminationForm.get('vatArr') as FormArray;
-  this.vatArr.push(this.createVatArrForm());
-    //console.log(this.airTerminationForm.value)
+    this.vatArr.push(this.createVatArrForm());
   }
 
   submit1(){
     this.meshArr = this.airTerminationForm.get('meshArr') as FormArray;
     this.meshArr.push(this.createMeshArrForm());
-   // console.log(this.airTerminationForm)
   }
 
   submit2(){
     this.holderArr = this.airTerminationForm.get('holderArr') as FormArray;
     this.holderArr.push(this.createHolderArrForm());
-    //console.log(this.airTerminationForm)
   }
 
   submit3(){
     this.clampArr = this.airTerminationForm.get('clampArr') as FormArray;
-  this.clampArr.push(this.createClampArrForm());
-    //console.log(this.airTerminationForm)
+    this.clampArr.push(this.createClampArrForm());
   }
 
   submit4(){
     this.expArr = this.airTerminationForm.get('expArr') as FormArray;
-  this.expArr.push(this.createExpansioArrForm());
-   // console.log(this.airTerminationForm)
+    this.expArr.push(this.createExpansioArrForm());
   }
 
   submit5(){
     this.conArr = this.airTerminationForm.get('conArr') as FormArray;
-  this.conArr.push(this.createConArrForm());
-    //console.log(this.airTerminationForm)
+    this.conArr.push(this.createConArrForm());
   }
   
   get f() {

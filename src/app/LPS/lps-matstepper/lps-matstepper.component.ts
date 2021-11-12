@@ -18,6 +18,7 @@ import { LpsEarthStudComponent } from '../lps-earth-stud/lps-earth-stud.componen
 import { LpsSeperationDistanceComponent } from '../lps-seperation-distance/lps-seperation-distance.component';
 
 import { LpsSpdComponent } from '../lps-spd/lps-spd.component';
+import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.service';
 
 @Component({
   selector: 'app-lps-matstepper',

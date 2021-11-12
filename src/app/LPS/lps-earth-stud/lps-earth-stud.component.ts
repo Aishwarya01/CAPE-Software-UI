@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -35,6 +35,7 @@ export class LpsEarthStudComponent implements OnInit {
   errorMsg: string="";
   validationError: boolean = false;
   validationErrorMsg: String = '';
+  @Output() proceedNext = new EventEmitter<any>();
   
   constructor(
     private formBuilder: FormBuilder,
@@ -60,18 +61,29 @@ export class LpsEarthStudComponent implements OnInit {
 
   onSubmit(){
     this.submitted=true;
+    if(this.EarthStudForm.invalid){return}
+
     this.earthStud.userName = this.router.snapshot.paramMap.get('email') || '{}';;
     this.earthStud.basicLpsId = this.basicLpsId;
     
     this.earthStudService.saveEarthStud(this.earthStud).subscribe(
 
-      data => {
+      (data) => {
+        this.success = true;
+        this.successMsg = data;
+        this.disable = true;
+        this.proceedNext.emit(true);
       },
-      error => {
-      })
+      (error) => {
+        this.Error = true;
+        this.errorArr = [];
+        this.errorArr = JSON.parse(error.error);
+        this.errorMsg = this.errorArr.message;
+        this.proceedNext.emit(false);
+      });
    
   
-  };
+  }
   
   get f() {
     return this.EarthStudForm.controls;

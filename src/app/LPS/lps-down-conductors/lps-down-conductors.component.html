@@ -159,7 +159,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea type="text" class="form-control"
-                                                    [(ngModel)]="downConductorDescription.biMetallicIssueOb"
+                                                    [(ngModel)]="downConductorDescription.biMetallicIssueOb" placeholder="Ex.."
                                                     formControlName="biMetallicIssueOb"
                                                     [ngClass]="{ 'is-invalid': submitted && f.biMetallicIssueOb.errors}"></textarea>
                                                 <div *ngIf="submitted && f.biMetallicIssueOb.errors"
@@ -193,7 +193,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea type="text" class="form-control"
-                                                    [(ngModel)]="downConductorDescription.warningNoticeGroundLevelOb"
+                                                    [(ngModel)]="downConductorDescription.warningNoticeGroundLevelOb" placeholder="Ex.."
                                                     formControlName="warningNoticeGroundLevelOb"
                                                     [ngClass]="{ 'is-invalid': submitted && f.warningNoticeGroundLevelOb.errors}"></textarea>
                                                 <div *ngIf="submitted && f.warningNoticeGroundLevelOb.errors"
@@ -230,7 +230,7 @@
                                                 </div>
                                                 <textarea type="text" class="form-control"
                                                     [(ngModel)]="downConductorDescription.noPowerDownConductorOb"
-                                                    formControlName="noPowerDownConductorOb"
+                                                    formControlName="noPowerDownConductorOb" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && f.noPowerDownConductorOb.errors}"></textarea>
                                                 <div *ngIf="submitted && f.noPowerDownConductorOb.errors"
                                                     class="invalid-feedback">
@@ -265,7 +265,7 @@
                                                 </div>
                                                 <textarea type="text" class="form-control"
                                                     [(ngModel)]="downConductorDescription.connectMadeBrazingOb"
-                                                    formControlName="connectMadeBrazingOb"
+                                                    formControlName="connectMadeBrazingOb" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && f.connectMadeBrazingOb.errors}"></textarea>
                                                 <div *ngIf="submitted && f.connectMadeBrazingOb.errors"
                                                     class="invalid-feedback">
@@ -301,7 +301,7 @@
                                                 </div>
                                                 <textarea type="text" class="form-control"
                                                     [(ngModel)]="downConductorDescription.chemicalSprinklerOb"
-                                                    formControlName="chemicalSprinklerOb"
+                                                    formControlName="chemicalSprinklerOb" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && f.chemicalSprinklerOb.errors}"></textarea>
                                                 <div *ngIf="submitted && f.chemicalSprinklerOb.errors"
                                                     class="invalid-feedback">
@@ -337,7 +337,7 @@
                                                 </div>
                                                 <textarea type="text" class="form-control"
                                                     [(ngModel)]="downConductorDescription.cobustMaterialWallOB"
-                                                    formControlName="cobustMaterialWallOB"
+                                                    formControlName="cobustMaterialWallOB" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && f.cobustMaterialWallOB.errors}"></textarea>
                                                 <div *ngIf="submitted && f.cobustMaterialWallOB.errors"
                                                     class="invalid-feedback">
@@ -376,7 +376,7 @@
                                         <div class="container">
                                             <div>
                                                 <label for="lname">Location Name</label>
-                                                <input class="form-control" formControlName="lacationName" type="text"
+                                                <input class="form-control" formControlName="lacationName" type="text" placeholder="Location Name"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('lacationName')?.errors}">
                                                 <div *ngIf="submitted && a.get('lacationName')?.errors"
                                                     class="invalid-feedback">
@@ -386,7 +386,7 @@
                                             </div>
                                             <div>
                                                 <label for="lnumber">Location Number</label>
-                                                <input class="form-control" formControlName="lacationNo" type="text"
+                                                <input class="form-control" formControlName="lacationNo" type="text" placeholder="Location Number"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('lacationNo')?.errors}">
                                                 <div *ngIf="submitted && a.get('lacationNo')?.errors"
                                                     class="invalid-feedback">
@@ -416,7 +416,7 @@
                                                 </div>
                                                 <textarea formControlName="physicalInspectionOb" type="text"
                                                     id="floatingTextarea2" class="form-control"
-                                                    placeholder="please enter observation here"
+                                                    placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('physicalInspectionOb')?.errors"
                                                     class="invalid-feedback">
@@ -433,7 +433,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="physicalInspectionRem" type="text"
-                                                    class="form-control" placeholder="Remarks"></textarea>
+                                                    class="form-control" placeholder="Ex.."></textarea>
                                             </div>
                                         </td>
                                     </tr>
@@ -448,7 +448,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="conductMaterialOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('conductMaterialOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('conductMaterialOb')?.errors"
                                                     class="invalid-feedback">
@@ -480,7 +480,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="conductSizeOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('conductSizeOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('conductSizeOb')?.errors"
                                                     class="invalid-feedback">
@@ -512,7 +512,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="downConductExposedOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('downConductExposedOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('downConductExposedOb')?.errors"
                                                     class="invalid-feedback">
@@ -546,7 +546,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="downConductLocationdOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('downConductLocationdOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('downConductLocationdOb')?.errors"
                                                     class="invalid-feedback">
@@ -579,7 +579,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="downConductGutterOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('downConductGutterOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('downConductGutterOb')?.errors"
                                                     class="invalid-feedback">
@@ -611,7 +611,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="ensureDownCnoductOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('ensureDownCnoductOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('ensureDownCnoductOb')?.errors"
                                                     class="invalid-feedback">
@@ -643,7 +643,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="installationDownConductOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('installationDownConductOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('installationDownConductOb')?.errors"
                                                     class="invalid-feedback">
@@ -675,7 +675,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="maximumDownConductOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('maximumDownConductOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('maximumDownConductOb')?.errors"
                                                     class="invalid-feedback">
@@ -707,7 +707,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="manimumDownConductOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('manimumDownConductOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('manimumDownConductOb')?.errors"
                                                     class="invalid-feedback">
@@ -739,7 +739,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="totalNoDownConductOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('totalNoDownConductOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('totalNoDownConductOb')?.errors"
                                                     class="invalid-feedback">
@@ -771,7 +771,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="inspectedNoOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectedNoOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('inspectedNoOb')?.errors"
                                                     class="invalid-feedback">
@@ -803,7 +803,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="inspectionPassedNoOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedNoOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('inspectionPassedNoOb')?.errors"
                                                     class="invalid-feedback">
@@ -835,7 +835,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="inspectionFailedNoOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedNoOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('inspectionFailedNoOb')?.errors"
                                                     class="invalid-feedback">
@@ -879,7 +879,7 @@
                                         <div class="container">
                                             <div>
                                                 <label for="lname">Location Name</label>
-                                                <input class="form-control" formControlName="lacationName" type="text"
+                                                <input class="form-control" formControlName="lacationName" type="text" placeholder="Location Name"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('lacationName')?.errors}">
                                                 <div *ngIf="submitted && a.get('lacationName')?.errors"
                                                     class="invalid-feedback">
@@ -889,7 +889,7 @@
                                             </div>
                                             <div>
                                                 <label for="lnumber">Location Number</label>
-                                                <input class="form-control" formControlName="lacationNo" type="text"
+                                                <input class="form-control" formControlName="lacationNo" type="text" placeholder="Location Number"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('lacationNo')?.errors}">
                                                 <div *ngIf="submitted && a.get('lacationNo')?.errors"
                                                     class="invalid-feedback">
@@ -918,7 +918,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="ensureBridgingCableOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('ensureBridgingCableOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('ensureBridgingCableOb')?.errors"
                                                     class="invalid-feedback">
@@ -951,7 +951,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="aluminiumConductorSideWallOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('aluminiumConductorSideWallOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('aluminiumConductorSideWallOb')?.errors"
                                                     class="invalid-feedback">
@@ -984,7 +984,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="bridgingCableConnectionOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('bridgingCableConnectionOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('bridgingCableConnectionOb')?.errors"
                                                     class="invalid-feedback">
@@ -1017,7 +1017,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="totalNoBridgingCableOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('totalNoBridgingCableOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('totalNoBridgingCableOb')?.errors"
                                                     class="invalid-feedback">
@@ -1049,7 +1049,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="inspectedNoOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectedNoOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('inspectedNoOb')?.errors"
                                                     class="invalid-feedback">
@@ -1081,7 +1081,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="inspectionPassedNoOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedNoOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('inspectionPassedNoOb')?.errors"
                                                     class="invalid-feedback">
@@ -1113,7 +1113,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="inspectionFailedNoOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedNoOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('inspectionFailedNoOb')?.errors"
                                                     class="invalid-feedback">
@@ -1170,7 +1170,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="physicalInspectionOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('physicalInspectionOb')?.errors"
                                                     class="invalid-feedback">
@@ -1202,7 +1202,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="conductHolderFlatSurfaceOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('conductHolderFlatSurfaceOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('conductHolderFlatSurfaceOb')?.errors"
                                                     class="invalid-feedback">
@@ -1235,7 +1235,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="conductorHoldedOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('conductorHoldedOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('conductorHoldedOb')?.errors"
                                                     class="invalid-feedback">
@@ -1267,7 +1267,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="materialHolderOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('materialHolderOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('materialHolderOb')?.errors"
                                                     class="invalid-feedback">
@@ -1299,7 +1299,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="totalNoHolderOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('totalNoHolderOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('totalNoHolderOb')?.errors"
                                                     class="invalid-feedback">
@@ -1331,7 +1331,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="inspectedNoOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectedNoOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('inspectedNoOb')?.errors"
                                                     class="invalid-feedback">
@@ -1363,7 +1363,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="inspectionPassedNoOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedNoOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('inspectionPassedNoOb')?.errors"
                                                     class="invalid-feedback">
@@ -1395,7 +1395,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="inspectionFailedNoOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedNoOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('inspectionFailedNoOb')?.errors"
                                                     class="invalid-feedback">
@@ -1452,7 +1452,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="physicalInspectionOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('physicalInspectionOb')?.errors"
                                                     class="invalid-feedback">
@@ -1484,7 +1484,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="strightConnectCheckOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('strightConnectCheckOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('strightConnectCheckOb')?.errors"
                                                     class="invalid-feedback">
@@ -1517,7 +1517,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="materialConnectorOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('materialConnectorOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('materialConnectorOb')?.errors"
                                                     class="invalid-feedback">
@@ -1549,7 +1549,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="maxConnectorsDownConductorOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('maxConnectorsDownConductorOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('maxConnectorsDownConductorOb')?.errors"
                                                     class="invalid-feedback">
@@ -1583,7 +1583,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea type="text" formControlName="totalNoConnectorsOb"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('totalNoConnectorsOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('totalNoConnectorsOb')?.errors"
                                                     class="invalid-feedback">
@@ -1615,7 +1615,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea type="text" formControlName="inspectedNoOb"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectedNoOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('inspectedNoOb')?.errors"
                                                     class="invalid-feedback">
@@ -1647,7 +1647,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea type="text" formControlName="inspectionPassedNoOb"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedNoOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('inspectionPassedNoOb')?.errors"
                                                     class="invalid-feedback">
@@ -1679,7 +1679,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea type="text" formControlName="inspectionFailedNoOb"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedNoOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('inspectionFailedNoOb')?.errors"
                                                     class="invalid-feedback">
@@ -1736,7 +1736,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="threadHoldCurrentOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('threadHoldCurrentOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('threadHoldCurrentOb')?.errors"
                                                     class="invalid-feedback">
@@ -1768,7 +1768,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="maximumWithStandCurrentOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('maximumWithStandCurrentOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('maximumWithStandCurrentOb')?.errors"
                                                     class="invalid-feedback">
@@ -1800,7 +1800,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="countsOb" type="text" class="form-control"
-                                                    placeholder="please enter observation here"
+                                                    placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('countsOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('countsOb')?.errors"
                                                     class="invalid-feedback">
@@ -1832,7 +1832,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="batteryLifeTimeOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('batteryLifeTimeOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('batteryLifeTimeOb')?.errors"
                                                     class="invalid-feedback">
@@ -1865,7 +1865,7 @@
                                                 </div>
                                                 <textarea formControlName="properConnectionLightingCounterOb"
                                                     type="text" class="form-control"
-                                                    placeholder="please enter observation here"
+                                                    placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('properConnectionLightingCounterOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('properConnectionLightingCounterOb')?.errors"
                                                     class="invalid-feedback">
@@ -1899,7 +1899,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="lightingCounterPlacedOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('lightingCounterPlacedOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('lightingCounterPlacedOb')?.errors"
                                                     class="invalid-feedback">
@@ -1933,7 +1933,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="conditionOfLightingCounterOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('conditionOfLightingCounterOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('conditionOfLightingCounterOb')?.errors"
                                                     class="invalid-feedback">
@@ -1966,7 +1966,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="totalNoLightingCounterOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('totalNoLightingCounterOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('totalNoLightingCounterOb')?.errors"
                                                     class="invalid-feedback">
@@ -1998,7 +1998,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="inspectedNoOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectedNoOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('inspectedNoOb')?.errors"
                                                     class="invalid-feedback">
@@ -2030,7 +2030,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="inspectionPassedNoOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedNoOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('inspectionPassedNoOb')?.errors"
                                                     class="invalid-feedback">
@@ -2062,7 +2062,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea formControlName="inspectionFailedNoOb" type="text"
-                                                    class="form-control" placeholder="please enter observation here"
+                                                    class="form-control" placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedNoOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('inspectionFailedNoOb')?.errors"
                                                     class="invalid-feedback">
@@ -2106,7 +2106,7 @@
                                         <div class="container">
                                             <div>
                                                 <label for="lname">Location Name</label>
-                                                <input class="form-control" formControlName="lacationName" type="text"
+                                                <input class="form-control" formControlName="lacationName" type="text" placeholder="Location Name"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('lacationName')?.errors}">
                                                 <div *ngIf="submitted && a.get('lacationName')?.errors"
                                                     class="invalid-feedback">
@@ -2116,7 +2116,7 @@
                                             </div>
                                             <div>
                                                 <label for="lnumber">Location Number</label>
-                                                <input class="form-control" formControlName="lacationNo" type="text"
+                                                <input class="form-control" formControlName="lacationNo" type="text" placeholder="Location Number"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('lacationNo')?.errors}">
                                                 <div *ngIf="submitted && a.get('lacationNo')?.errors"
                                                     class="invalid-feedback">
@@ -2145,7 +2145,7 @@
                                                 </div>
                                                 <textarea type="text" class="form-control"
                                                     formControlName="testJointTypeOb"
-                                                    placeholder="please enter observation here"
+                                                    placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('testJointTypeOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('testJointTypeOb')?.errors"
                                                     class="invalid-feedback">
@@ -2178,7 +2178,7 @@
                                                 </div>
                                                 <textarea type="text" class="form-control"
                                                     formControlName="materialTestJointOb"
-                                                    placeholder="please enter observation here"
+                                                    placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('materialTestJointOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('materialTestJointOb')?.errors"
                                                     class="invalid-feedback">
@@ -2212,7 +2212,7 @@
                                                 </div>
                                                 <textarea type="text" class="form-control"
                                                     formControlName="accessibilityOfTestJointOb"
-                                                    placeholder="please enter observation here"
+                                                    placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('accessibilityOfTestJointOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('accessibilityOfTestJointOb')?.errors"
                                                     class="invalid-feedback">
@@ -2246,7 +2246,7 @@
                                                 </div>
                                                 <textarea type="text" class="form-control"
                                                     formControlName="nonMetalicProtectionOb"
-                                                    placeholder="please enter observation here"
+                                                    placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('nonMetalicProtectionOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('nonMetalicProtectionOb')?.errors"
                                                     class="invalid-feedback">
@@ -2281,7 +2281,7 @@
                                                 </div>
                                                 <textarea type="text" class="form-control"
                                                     formControlName="testJointPlacedGroungLevelOb"
-                                                    placeholder="please enter observation here"
+                                                    placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('testJointPlacedGroungLevelOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('testJointPlacedGroungLevelOb')?.errors"
                                                     class="invalid-feedback">
@@ -2318,7 +2318,7 @@
                                                 </div>
                                                 <textarea type="text" class="form-control"
                                                     formControlName="bimetallicIssueCheckOb"
-                                                    placeholder="please enter observation here"
+                                                    placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('bimetallicIssueCheckOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('bimetallicIssueCheckOb')?.errors"
                                                     class="invalid-feedback">
@@ -2352,7 +2352,7 @@
                                                 </div>
                                                 <textarea type="text" class="form-control"
                                                     formControlName="totalNoOfTestJointOB"
-                                                    placeholder="please enter observation here"
+                                                    placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('totalNoOfTestJointOB')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('totalNoOfTestJointOB')?.errors"
                                                     class="invalid-feedback">
@@ -2386,7 +2386,7 @@
                                                 </div>
                                                 <textarea type="text" class="form-control"
                                                     formControlName="inspectedNoOb"
-                                                    placeholder="please enter observation here"
+                                                    placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectedNoOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('inspectedNoOb')?.errors"
                                                     class="invalid-feedback">
@@ -2419,7 +2419,7 @@
                                                 </div>
                                                 <textarea type="text" class="form-control"
                                                     formControlName="inspectionPassedNoOb"
-                                                    placeholder="please enter observation here"
+                                                    placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedNoOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('inspectionPassedNoOb')?.errors"
                                                     class="invalid-feedback">
@@ -2453,7 +2453,7 @@
                                                 </div>
                                                 <textarea type="text" class="form-control"
                                                     formControlName="inspectionFailedNoOb"
-                                                    placeholder="please enter observation here"
+                                                    placeholder="Ex.."
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedNoOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('inspectionFailedNoOb')?.errors"
                                                     class="invalid-feedback">
@@ -2483,7 +2483,10 @@
             </mat-accordion>
             <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
                 <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
-                <button  class="next"  [disabled]="disable" mat-button >Next &raquo;</button>
+                <button  class="next"  [disabled]="disable" (click)="gotoNextModal(content)" mat-button >Next &raquo;</button>
+            </div>
+            <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+                <span class="alert alert-danger">{{validationErrorMsg}}</span>
             </div>
         </form>
     </div>

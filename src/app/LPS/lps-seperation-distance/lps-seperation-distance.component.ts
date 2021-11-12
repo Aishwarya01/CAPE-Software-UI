@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -43,6 +43,8 @@ export class LpsSeperationDistanceComponent implements OnInit {
   levelOfProtection: String='';
   soilResistivity: String='';
  
+  @Output() proceedNext = new EventEmitter<any>();
+  
   constructor(
 
     private formBuilder: FormBuilder,
@@ -116,15 +118,16 @@ export class LpsSeperationDistanceComponent implements OnInit {
         this.success = true;
         this.successMsg = data;
         this.disable = true;
+        this.proceedNext.emit(true);
       },
       (error) => {
         this.Error = true;
         this.errorArr = [];
         this.errorArr = JSON.parse(error.error);
         this.errorMsg = this.errorArr.message;
-      }
-    );
-    console.log(this.separatedistance);
+        this.proceedNext.emit(false);
+      });
+    
 
   }
 
