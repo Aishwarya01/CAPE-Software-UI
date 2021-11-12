@@ -9,7 +9,7 @@ import { Airtermination } from '../LPS_model/airtermination';
 })
 export class AirterminationService {
 
-  apiUrl = environment.apiUrl;
+  apiUrl = environment.apiUrl_LPS;
   constructor(private http: HttpClient) { }
 
   public saveAirtermination(airtermination:Airtermination): Observable<any> {

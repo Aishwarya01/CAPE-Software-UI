@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Airtermination } from 'src/app/LPS_model/airtermination';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 
@@ -20,11 +21,20 @@ export class LpsAirTerminationComponent implements OnInit {
   expArr!: FormArray;
   conArr!: FormArray;
   submitted=false;
+  validationError: boolean = false;
+  validationErrorMsg: String = '';
+  successMsg: string="";
+  errorMsg: string="";
+  success: boolean=false;
+  Error: boolean=false;
+  errorArr: any=[];
+  disable: boolean = false;
   i: any;
   j: any;
   airterminationService;
   constructor(
-    private formBuilder: FormBuilder,private airterminationServices:AirterminationService
+    private formBuilder: FormBuilder,private airterminationServices:AirterminationService,
+    private modalService: NgbModal
   ) { 
     this.airterminationService=airterminationServices;
   }
@@ -52,6 +62,30 @@ export class LpsAirTerminationComponent implements OnInit {
       conArr: this.formBuilder.array([this.createConArrForm()])
     });
   }
+
+  gotoNextModal(content: any) {
+    if (this.airTerminationForm.invalid) {
+      this.validationError = true;
+      
+      this.validationErrorMsg = 'Please check all the fields';
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
+      return;
+    }
+    this.modalService.open(content, { centered: true });
+  }
+
+  closeModalDialog() {
+    if (this.errorMsg != '') {
+      this.Error = false;
+      this.modalService.dismissAll((this.errorMsg = ''));
+    } else {
+      this.success = false;
+      this.modalService.dismissAll((this.successMsg = ''));
+    }
+  }
+
   onSubmit(){
     this.submitted=true;
 
@@ -83,13 +117,17 @@ export class LpsAirTerminationComponent implements OnInit {
         
         this.airterminationService.saveAirtermination(this.airtermination).subscribe(
 
-          data => {
-             
-          
+          (data) => {
+            this.success = true;
+            this.successMsg = data;
+            this.disable = true;
           },
-          error => {
-          }
-        )
+          (error) => {
+            this.Error = true;
+            this.errorArr = [];
+            this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.errorArr.message;
+          });
       };
     }
   
