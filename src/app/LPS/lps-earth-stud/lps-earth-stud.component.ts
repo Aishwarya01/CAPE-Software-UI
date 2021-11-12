@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EarthStud } from 'src/app/LPS_model/earth-stud';
 import { EarthStudService } from 'src/app/LPS_services/earth-stud.service';
@@ -37,13 +38,13 @@ export class LpsEarthStudComponent implements OnInit {
   
   constructor(
     private formBuilder: FormBuilder,
-    private earthStudService: EarthStudService,private modalService: NgbModal
+    private earthStudService: EarthStudService,private modalService: NgbModal, private router: ActivatedRoute
     ) { }
 
   ngOnInit(): void {
     this.EarthStudForm = this.formBuilder.group({
 
-      // userName: ['', Validators.required],
+      
       earthStudVisibilityOb: ['', Validators.required],
       earthStudVisibilityRem: [''],
       earthStudBendOb: ['', Validators.required],
@@ -59,8 +60,9 @@ export class LpsEarthStudComponent implements OnInit {
 
   onSubmit(){
     this.submitted=true;
-    this.earthStud.userName="";
-    this.earthStud.basicLpsId=99;
+    this.earthStud.userName = this.router.snapshot.paramMap.get('email') || '{}';;
+    this.earthStud.basicLpsId = this.basicLpsId;
+    
     this.earthStudService.saveEarthStud(this.earthStud).subscribe(
 
       data => {
