@@ -26,6 +26,8 @@ export class LpsBasicPageComponent implements OnInit {
   validationError: boolean = false;
   validationErrorMsg: String = '';
   @Output() proceedNext = new EventEmitter<any>();
+  step1List: any = [];
+  flag: boolean = false;
   
 
   constructor(private formBuilder: FormBuilder, lPSBasicDetailsService: LPSBasicDetailsService,
@@ -59,9 +61,100 @@ export class LpsBasicPageComponent implements OnInit {
 
   }
 
+  retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
+   debugger
+     this.step1List = data.basicLps;
+     this.basicDetails.basicLpsId = basicLpsId;
+     this.basicDetails.clientName = this.step1List.clientName;
+     this.basicDetails.projectName = this.step1List.projectName;
+     this.basicDetails.pmcName = this.step1List.pmcName;
+     this.basicDetails.address = this.step1List.address;
+     this.basicDetails.buildingHeight = this.step1List.buildingHeight;
+     this.basicDetails.buildingLength = this.step1List.buildingLength;
+     this.basicDetails.buildingType = this.step1List.buildingType;
+     this.basicDetails.buildingWidth = this.step1List.buildingWidth;
+     this.basicDetails.consultantName = this.step1List.consultantName;
+     this.basicDetails.contractorName = this.step1List.contractorName;
+     this.basicDetails.createdBy = this.step1List.createdBy;
+     this.basicDetails.createdDate = this.step1List.createdDate;
+     this.basicDetails.dealerContractorName = this.step1List.dealerContractorName;
+     this.basicDetails.industryType = this.step1List.industryType;
+     this.basicDetails.installationContractor = this.step1List.installationContractor;
+     this.basicDetails.levelOfProtection = this.step1List.levelOfProtection;
+     this.basicDetails.location = this.step1List.location;
+     this.basicDetails.soilResistivity = this.step1List.soilResistivity;
+     this.basicDetails.userName = this.step1List.userName;
+
+     for(let i of this.step1List.basicLpsDescription) {
+       this.LPSBasicForm.patchValue ({
+        basicLpsDescription: [i],
+       })
+     }
+    // this.populateData();
+  //    this.populateDataComments();
+  //    //this.notification();
+
+  //   for( let i of this.step1List.reportDetails.signatorDetails) {
+  //     if(i.signatorRole == "designer1"){
+  //       this.step1Form.patchValue({
+  //         designer1AcknowledgeArr: [i]
+  //       })
+  //       this.designer1changeCountry(i.country);
+  //     this.state1 = i.state;
+  //     }
+  //       else if(i.signatorRole == "designer2"){
+  //       this.step1Form.patchValue({
+  //         designer2AcknowledgeArr: [i]
+  //       })
+  //       this.showDesigner2 = true;
+  //       this.state2 = i.state;
+  //       this.designer2changeCountry(i.country);
+  //      }
+  //    else if(i.signatorRole == "contractor"){
+  //     this.step1Form.patchValue({
+  //       contractorAcknowledgeArr: [i]
+  //      })
+  //     this.state3 = i.state;
+  //     this.contractorchangeCountry(i.country);
+  //    }
+  //    else if(i.signatorRole == "inspector"){
+  //       this.step1Form.patchValue({
+  //         inspectorAcknowledgeArr: [i]
+  //       })
+  //       this.state4 = i.state;
+  //       this.inspectorchangeCountry(i.country);
+  //     }
+  //   }
+  //    this.step1Form.patchValue({
+  //     clientName1: clientName,
+  //     departmentName1: departmentName,
+  //     site1: site,
+  //     descriptionOfReport: this.step1List.reportDetails.descriptionReport,
+  //     reasonOfReport: this.step1List.reportDetails.reasonOfReport,
+  //     showField1: this.step1List.reportDetails.estimatedWireAge,
+  //    // evidenceAlterations: [this.step1List.reportDetails.evidenceAlterations],
+  //     showField2: this.step1List.reportDetails.evidanceWireAge,
+  //     inspectionLast: this.step1List.reportDetails.lastInspection,
+  //     nextInspection: this.step1List.reportDetails.nextInspection,
+  //     extentInstallation: this.step1List.reportDetails.extentInstallation,
+  //     detailsOfClient:this.step1List.reportDetails.clientDetails,
+  //     detailsOfInstallation: this.step1List.reportDetails.installationDetails,
+  //     startingDateVerification: this.step1List.reportDetails.verificationDate,
+  //     engineerName: this.step1List.reportDetails.verifiedEngineer,
+  //     designation: this.step1List.reportDetails.designation,
+  //     companyName: this.step1List.reportDetails.company,
+  //     inspectorDesignation: this.step1List.reportDetails.inspectorDesignation,
+  //     inspectorCompanyName: this.step1List.reportDetails.inspectorCompanyName,
+  //     limitations: this.step1List.reportDetails.limitations
+  // })
+  this.flag=true;
+ // this.disable=true;
+   }
+
 
   private createLpsDescriptionarr() {
     return this.formBuilder.group({
+      basicLpsDescriptionId: [''],
       approvedDrawingObserv: ['', Validators.required],
       approvedDrawingRemarks: [''],
       architectNameObserv: ['', Validators.required],
@@ -106,7 +199,7 @@ export class LpsBasicPageComponent implements OnInit {
     this.modalService.open(content, { centered: true });
   }
  
-  onSubmit() {
+  onSubmit(flag: any) {
     
     this.submitted=true;
      if (this.LPSBasicForm.invalid) {
@@ -116,26 +209,44 @@ export class LpsBasicPageComponent implements OnInit {
 
     this.basicDetails.userName=this.router.snapshot.paramMap.get('email') || '{}';
     this.basicDetails.basicLpsDescription = this.LPSBasicForm.value.basicLpsDescription;
-    this.lPSBasicDetailsService.saveLPSBasicDetails(this.basicDetails).subscribe(
+
+    if(flag) {
+      this.lPSBasicDetailsService.updateLpsBasicDetails(this.basicDetails).subscribe(
+        (data) => {
+          this.success = true;
+          this.successMsg = "Sucessfully updated";
+          this.proceedNext.emit(true);
+        },
+        (error) => {
+          this.Error = true;
+          this.errorArr = [];
+          this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.errorArr.message;
+          this.proceedNext.emit(false);
+        }
+      )
+    }
+    else {
+      this.lPSBasicDetailsService.saveLPSBasicDetails(this.basicDetails).subscribe(
     
-      (data) => {
-        let basicDetailsItr=JSON.parse(data);
-             
-        debugger
-        this.basicDetails.basicLpsId=basicDetailsItr.basicLpsId;
-        this.success = true;
-        this.successMsg = "Sucessfully saved";
-        this.disable = true;
-        this.proceedNext.emit(true);
-      },
-      (error) => {
-        this.Error = true;
-        this.errorArr = [];
-        this.errorArr = JSON.parse(error.error);
-        this.errorMsg = this.errorArr.message;
-        this.proceedNext.emit(false);
-      }
-    )
+        (data) => {
+          let basicDetailsItr=JSON.parse(data);              
+          debugger
+          this.basicDetails.basicLpsId=basicDetailsItr.basicLpsId;
+          this.success = true;
+          this.successMsg = "Sucessfully saved";
+          this.disable = true;
+          this.proceedNext.emit(true);
+        },
+        (error) => {
+          this.Error = true;
+          this.errorArr = [];
+          this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.errorArr.message;
+          this.proceedNext.emit(false);
+        }
+      )
+    }
     console.log(this.basicDetails);
   }
 

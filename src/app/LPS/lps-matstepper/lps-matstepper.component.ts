@@ -56,9 +56,10 @@ export class LpsMatstepperComponent implements OnInit {
   seperationDistance!: LpsSeperationDistanceComponent;
   @ViewChild(LpsEarthStudComponent)
   earthStud!: LpsEarthStudComponent;
+  dataJSON: any = [];
    
 
-  constructor() { }
+  constructor(private basicLpsService: LPSBasicDetailsService) { }
 
   ngOnInit(): void {
   }
@@ -147,6 +148,21 @@ export class LpsMatstepperComponent implements OnInit {
   }
   public doSomething7(next: any): void {
     this.isCompleted7 = next;
+  }
+
+  public changeTabLpsSavedReport(index: number, basicLpsId: any, userName: any, clientName: any) {
+    this.basicLpsService.retrieveFinalLps(userName,basicLpsId).subscribe(
+      (data) => {
+        this.dataJSON = JSON.parse(data);
+        if(this.dataJSON.basicLps != null) {
+          this.selectedIndex = index;            
+          this.basic.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
+        }
+      },
+      (error) => {
+
+      }
+    )
   }
   
 }

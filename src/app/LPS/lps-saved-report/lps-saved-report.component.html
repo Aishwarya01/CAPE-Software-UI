@@ -1,0 +1,82 @@
+<div class="card">
+    
+    <div class="card-body">
+      <table mat-table [dataSource]="savedReportLps_dataSource" class="mat-elevation-z8 table" matSort
+        #savedReportSort="matSort" >
+
+        <!-- <ng-container matColumnDef="siteCD">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Site Code </th>
+          <td mat-cell *matCellDef="let element"> {{element.siteCd}} </td>
+        </ng-container> -->
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="clientName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Client Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.clientName}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="projectName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>  Project Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.projectName}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="consultantName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Consultant Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.consultantName}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="contractorName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Contractor Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.contractorName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dealerContractorName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Dealer Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.dealerContractorName}} </td>
+          </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="address">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
+            <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="createdDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.createdDate | date : 'shortDate'}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="createdBy">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Created By </th>
+            <td mat-cell *matCellDef="let element"> {{element.createdBy}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="continue">
+            <th mat-header-cell *matHeaderCellDef> Action </th>        
+            <td mat-cell *matCellDef="let element"> 
+                <button class="btn btn-info" (click)="continue(element.basicLpsId,element.userName,element.clientName)"
+                >continue</button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="savedReportsLpsColumns"></tr> 
+        <tr mat-row *matRowDef="let row; columns: savedReportsLpsColumns;"
+          [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
+          (mouseout)="row.hovered = false" [ngClass]="service.highlightText == true ? 'highlight-text' : 'highlight-row' "></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <!-- <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+        </tr> -->
+      </table>
+
+      <mat-paginator #savedReportLpsPaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+    <!-- <span *ngIf="noDetailsRec" class="errorshow" style="margin: 0 auto;">{{noDetailsRecMsg}}</span> -->
+  </div> 

@@ -10,10 +10,21 @@ import { BasicDetails } from '../LPS_model/basic-details';
 export class LPSBasicDetailsService {
 
   apiUrl = environment.apiUrl_LPS;
+  apiUrl1 = environment.apiUrl
   constructor(private http: HttpClient) { }
 
   public saveLPSBasicDetails(basicDetails:BasicDetails): Observable<any> {
     return this.http.post<BasicDetails>(this.apiUrl + '/addBasicLps', basicDetails, { responseType: 'text' as 'json' })
   }
- 
+
+  public updateLpsBasicDetails(basicDetails: BasicDetails): Observable<any> {
+    return this.http.put<any>(this.apiUrl + '/updateBasicLps', basicDetails, { responseType: 'text' as 'json' })
+  }
+  public retrieveListOfBasicLps(userName: any): Observable<any> { 
+    return this.http.get<BasicDetails>(this.apiUrl1 + '/retrieveListOfBasicLps' + '/' + userName , { responseType: 'text' as 'json' })
+  }
+
+  public retrieveFinalLps(userName: String,basicLpsId: any): Observable<any> {
+    return this.http.get<any>(this.apiUrl1 + '/retrieveLpsReport' + '/' +userName+ '/' +basicLpsId, { responseType: 'text' as 'json' })
+  } 
 }

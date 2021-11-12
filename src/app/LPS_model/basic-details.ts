@@ -17,11 +17,14 @@ export class BasicDetails {
     buildingHeight : String;
     levelOfProtection : String;
     soilResistivity : String;
+    createdDate: Date;
+    createdBy: String;
     basicLpsDescription:BasicLpsDescription[];
 }
 
 export class BasicLpsDescription 
     {
+     basicLpsDescriptionId: number;
      approvedDrawingObserv :  String;
      approvedDrawingRemarks :  String;
      architectNameObserv : String;
