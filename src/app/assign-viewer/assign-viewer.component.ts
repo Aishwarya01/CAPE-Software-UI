@@ -146,8 +146,7 @@ export class AssignViewerComponent implements OnInit {
     }
 
   populateData() {
-    this.viewerRegisterForm.reset();
-
+    //this.viewerRegisterForm.reset();
       if((this.registerData.role == 'ROLE') || (this.registerData.role == 'Viewer')) {
       this.demoArr = [];
       this.viewerRegisterForm.reset();
@@ -272,9 +271,11 @@ createGroup(item: any): FormGroup{
         }, 3000);
       },
       (error) => {
-        let errorArr = JSON.parse(error.error);
+        console.log(error);
         this.Error = true;
-        this.errorMsg1 = errorArr.message;
+         let errorArr = [];
+         errorArr = JSON.parse(error.error);
+          this.errorMsg1 = errorArr.message;
         this.showAssign = false;
         this.showRegister = true;
         this.viewerFlag = true;
