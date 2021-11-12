@@ -10,7 +10,7 @@ import { DownConductorDescription } from '../LPS_model/down-conductor';
 
 export class LpsDownconductorService {
 
-    apiUrl = environment.apiUrl_LPS;
+    apiUrl = environment.apiUrl;
     constructor(private http: HttpClient) { }
 
 

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EarthingLpsDescription } from 'src/app/LPS_model/earthing';
 import { LpsEarthing } from 'src/app/LPS_services/lps-earthing';
 
@@ -15,18 +14,9 @@ export class LpsEarthingComponent implements OnInit {
   earthingLpsDescription = new EarthingLpsDescription;
   submitted=false;
   lpsEarthingService;
-  validationError: boolean = false;
-  validationErrorMsg: String = '';
-  successMsg: string="";
-  errorMsg: string="";
-  success: boolean=false;
-  Error: boolean=false;
-  errorArr: any=[];
-  disable: boolean = false;
 
   constructor(
-    private formBuilder: FormBuilder, private lpsEarthings: LpsEarthing,
-    private modalService: NgbModal
+    private formBuilder: FormBuilder, private lpsEarthings: LpsEarthing
   ) {
     this.lpsEarthingService = lpsEarthings;
   }
@@ -191,32 +181,10 @@ export class LpsEarthingComponent implements OnInit {
       inspectedPassedNoRem: new FormControl(''),
       inspectedFailedNoOb: new FormControl('', Validators.required),
       inspectedFailedNoRem: new FormControl(''),
+
+
     })
   }
-
-  gotoNextModal(content: any) {
-    if (this.earthingForm.invalid) {
-      this.validationError = true;
-      
-      this.validationErrorMsg = 'Please check all the fields';
-      setTimeout(() => {
-        this.validationError = false;
-      }, 3000);
-      return;
-    }
-    this.modalService.open(content, { centered: true });
-  }
-
-  closeModalDialog() {
-    if (this.errorMsg != '') {
-      this.Error = false;
-      this.modalService.dismissAll((this.errorMsg = ''));
-    } else {
-      this.success = false;
-      this.modalService.dismissAll((this.successMsg = ''));
-    }
-  }
-
   onSubmit() {
     this.submitted=true;
     this.earthingLpsDescription.userName="";
@@ -238,17 +206,15 @@ export class LpsEarthingComponent implements OnInit {
 
     this.lpsEarthingService.saveEarthingDetails(this.earthingLpsDescription).subscribe(
 
-      (data) => {
-        this.success = true;
-        this.successMsg = data;
-        this.disable = true;
+
+      data => {
+
+
       },
-      (error) => {
-        this.Error = true;
-        this.errorArr = [];
-        this.errorArr = JSON.parse(error.error);
-        this.errorMsg = this.errorArr.message;
-      });
+      error => {
+      }
+    )
+   
   };
 
   get f() {
