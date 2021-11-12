@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Separatedistance } from 'src/app/LPS_model/separatedistance';
 import { SeparatedistanceService } from 'src/app/LPS_services/separatedistance.service';
@@ -21,7 +22,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
   separateDistanceDescriptionArr!: FormArray;
   submitted!: boolean;
   email: any;
-  router: any;
+  
   validationError: boolean = false;
   validationErrorMsg: String = '';
   successMsg: string="";
@@ -46,7 +47,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
 
     private formBuilder: FormBuilder,
     private separatedistanceService: SeparatedistanceService,
-    private modalService: NgbModal,
+    private modalService: NgbModal, private router: ActivatedRoute
   ) {
 
 
@@ -101,9 +102,9 @@ export class LpsSeperationDistanceComponent implements OnInit {
   }
   onSubmit() {
 
-
-    this.separatedistance.userName = "Sivaraju@capeindia.net";
-    this.separatedistance.basicLpsId =988;
+    this.separatedistance.userName = this.router.snapshot.paramMap.get('email') || '{}';;
+    this.separatedistance.basicLpsId = this.basicLpsId;
+     
     this.submitted = true;
     if (this.separeteDistanceForm.invalid) {
       return;

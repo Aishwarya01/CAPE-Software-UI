@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EarthingLpsDescription } from 'src/app/LPS_model/earthing';
 import { LpsEarthing } from 'src/app/LPS_services/lps-earthing';
@@ -37,7 +38,7 @@ export class LpsEarthingComponent implements OnInit {
   validationErrorMsg: String = '';
 
   constructor(
-    private formBuilder: FormBuilder, private lpsEarthings: LpsEarthing,private modalService: NgbModal
+    private formBuilder: FormBuilder, private lpsEarthings: LpsEarthing,private modalService: NgbModal, private router: ActivatedRoute
   ) {
     this.lpsEarthingService = lpsEarthings;
   }
@@ -208,17 +209,9 @@ export class LpsEarthingComponent implements OnInit {
   }
   onSubmit() {
     this.submitted=true;
-    this.earthingLpsDescription.userName="";
-    this.earthingLpsDescription.basicLpsId=44;
     
-    // this.earthingLpsDescription.bimetallicIssueInOb = this.earthingForm.value.bimetallicIssueInOb;
-    // this.earthingLpsDescription.bimetallicIssueInRem = this.earthingForm.value.bimetallicIssueInRem;
-    // this.earthingLpsDescription.brazingConnectInOb = this.earthingForm.value.brazingConnectInOb;
-    // this.earthingLpsDescription.brazingConnectInRem = this.earthingForm.value.brazingConnectInRem;
-    // this.earthingLpsDescription.earthingTypeInOb = this.earthingForm.value.earthingTypeInOb;
-    // this.earthingLpsDescription.earthingTypeInRem = this.earthingForm.value.earthingTypeInRem;
-    // this.earthingLpsDescription.locationName = this.earthingForm.value.locationName;
-    // this.earthingLpsDescription.locationNumber = this.earthingForm.value.locationNumber;
+    this.earthingLpsDescription.userName = this.router.snapshot.paramMap.get('email') || '{}';;
+    this.earthingLpsDescription.basicLpsId = this.basicLpsId;
 
     this.earthingLpsDescription.earthingClamps = this.earthingForm.value.ClampsArr;
     this.earthingLpsDescription.earthingDescription = this.earthingForm.value.descriptionArr;

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Spd } from 'src/app/LPS_model/spd';
 import { LpsSpd_Service } from 'src/app/LPS_services/lps-spd.service';
@@ -35,7 +36,7 @@ export class LpsSpdComponent implements OnInit {
   validationErrorMsg: String = '';
 
   constructor(private formBuilder: FormBuilder, lpsSpd_Services: LpsSpd_Service
-    ,private modalService: NgbModal) {
+    ,private modalService: NgbModal, private router: ActivatedRoute) {
     this.lpsSpd_Service = lpsSpd_Services;
   }
 
@@ -144,17 +145,9 @@ export class LpsSpdComponent implements OnInit {
   onSubmit(){
         
         this.submitted=true;
-        this.spd.userName="";
-        this.spd.basicLpsId=4444;
       
-        // this.spd.mainsIncomingOb = this.spdForm.value.mainsIncomingOb;
-        // this.spd.mainsIncomingRem = this.spdForm.value.mainsIncomingRem;
-        // this.spd.totalMainsIncomingOb = this.spdForm.value.totalMainsIncomingOb;
-        // this.spd.totalMainsIncomingRem = this.spdForm.value.totalMainsIncomingRem;
-        // this.spd.noPannelSupplittingOb = this.spdForm.value.noPannelSupplittingOb;
-        // this.spd.noPannelSupplittingRem = this.spdForm.value.noPannelSupplittingRem;
-        // this.spd.totalNoOutDoorRequipmentOb = this.spdForm.value.totalNoOutDoorRequipmentOb;
-        // this.spd.totalNoOutDoorRequipmentRem = this.spdForm.value.totalNoOutDoorRequipmentRem;
+        this.spd.userName = this.router.snapshot.paramMap.get('email') || '{}';;
+        this.spd.basicLpsId = this.basicLpsId;
 
         this.spd.spdDescription = this.spdForm.getRawValue().spdarr;
         this.spd.spdDescription=this.spd.spdDescription.concat(this.spdForm.getRawValue().panelarr);

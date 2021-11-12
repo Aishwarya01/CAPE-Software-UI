@@ -22,31 +22,32 @@ export class LpsDownConductorsComponent implements OnInit {
   testjointsArr!: FormArray;
   lpsDownconductorService;
   submitted = false;
-  downConductorDescription= new DownConductorDescription();
-  disable: boolean=false;
+  downConductorDescription = new DownConductorDescription();
+  disable: boolean = false;
 
   basicLpsId: number = 0;
-  ClientName: String='';
-  projectName: String='';
-  industryType: String='';
-  buildingType: String='';
-  buildingLength: String='';
-  buildingWidth: String='';
-  buildingHeight: String='';
-  levelOfProtection: String='';
-  soilResistivity: String='';
+  ClientName: String = '';
+  projectName: String = '';
+  industryType: String = '';
+  buildingType: String = '';
+  buildingLength: String = '';
+  buildingWidth: String = '';
+  buildingHeight: String = '';
+  levelOfProtection: String = '';
+  soilResistivity: String = '';
 
-  success: boolean=false;
-  successMsg: string="";
-  Error: boolean=false;
-  errorArr: any=[];
-  errorMsg: string="";
+  success: boolean = false;
+  successMsg: string = "";
+  Error: boolean = false;
+  errorArr: any = [];
+  errorMsg: string = "";
   validationError: boolean = false;
   validationErrorMsg: String = '';
 
   constructor(
-    private formBuilder: FormBuilder, lpsDownconductorService: LpsDownconductorService,private modalService: NgbModal) {
-    this.lpsDownconductorService = lpsDownconductorService
+    private formBuilder: FormBuilder, lpsDownconductorService: LpsDownconductorService,
+    private modalService: NgbModal, private router: ActivatedRoute) {
+    this.lpsDownconductorService = lpsDownconductorService,
   }
 
   ngOnInit(): void {
@@ -201,7 +202,7 @@ export class LpsDownConductorsComponent implements OnInit {
   }
 
   private createLightArrForm(): FormGroup {
-   
+
     return new FormGroup({
       threadHoldCurrentOb: new FormControl('', Validators.required),
       threadHoldCurrentRem: new FormControl(''),
@@ -229,7 +230,7 @@ export class LpsDownConductorsComponent implements OnInit {
   }
 
   private createTestJointsArrForm(): FormGroup {
-  
+
     return new FormGroup({
       lacationNo: new FormControl('', Validators.required),
       lacationName: new FormControl('', Validators.required),
@@ -284,40 +285,42 @@ export class LpsDownConductorsComponent implements OnInit {
 
   removeItem(index: any) {
     (this.downConductorForm.get('downArr') as FormArray).removeAt(index);
-    }
+  }
   removeItem1(index: any) {
     (this.downConductorForm.get('bridgingArr') as FormArray).removeAt(index);
-    }
+  }
   removeItem2(index: any) {
     (this.downConductorForm.get('holderArr') as FormArray).removeAt(index);
-    }
+  }
   removeItem3(index: any) {
     (this.downConductorForm.get('connectorArr') as FormArray).removeAt(index);
-    }
+  }
   removeItem4(index: any) {
     (this.downConductorForm.get('lightArr') as FormArray).removeAt(index);
-    }
-  
+  }
+
   get f() {
     return this.downConductorForm.controls;
   }
 
 
-   onSubmit() {
-    this.submitted=true;
-this.downConductorDescription.userName="inspector2@gmail.com";
-this.downConductorDescription.basicLpsId=22;
-if (this.downConductorForm.invalid) {
+  onSubmit() {
+    this.submitted = true;
+    this.downConductorDescription.userName = "inspector2@gmail.com";
+    this.downConductorDescription.basicLpsId = 22;
+    if (this.downConductorForm.invalid) {
 
-  return;
+      return;
 
-}
-this.downConductorDescription.downConductor = this.downConductorForm.value.downArr;
-this.downConductorDescription.bridgingDescription = this.downConductorForm.value.bridgingArr;
-this.downConductorDescription.holder = this.downConductorForm.value.holderArr;
-this.downConductorDescription.connectors = this.downConductorForm.value.connectorArr;
-this.downConductorDescription.lightningCounter = this.downConductorForm.value.lightArr;
-this.downConductorDescription.testingJoint = this.downConductorForm.value.testjointsArr;
+    }
+    this.downConductorDescription.userName = this.router.snapshot.paramMap.get('email') || '{}';;
+    this.downConductorDescription.basicLpsId = this.basicLpsId;
+    this.downConductorDescription.downConductor = this.downConductorForm.value.downArr;
+    this.downConductorDescription.bridgingDescription = this.downConductorForm.value.bridgingArr;
+    this.downConductorDescription.holder = this.downConductorForm.value.holderArr;
+    this.downConductorDescription.connectors = this.downConductorForm.value.connectorArr;
+    this.downConductorDescription.lightningCounter = this.downConductorForm.value.lightArr;
+    this.downConductorDescription.testingJoint = this.downConductorForm.value.testjointsArr;
 
 
     this.lpsDownconductorService.saveDownConductors(this.downConductorDescription).subscribe(
@@ -340,15 +343,15 @@ this.downConductorDescription.testingJoint = this.downConductorForm.value.testjo
   }
 
   gotoNextModal(content: any) {
-     if (this.downConductorForm.invalid) {
-       this.validationError = true;
-      
-       this.validationErrorMsg = 'Please check all the fields';
-       setTimeout(() => {
+    if (this.downConductorForm.invalid) {
+      this.validationError = true;
+
+      this.validationErrorMsg = 'Please check all the fields';
+      setTimeout(() => {
         this.validationError = false;
-       }, 3000);
-       return;
-     }
+      }, 3000);
+      return;
+    }
     this.modalService.open(content, { centered: true });
   }
 
