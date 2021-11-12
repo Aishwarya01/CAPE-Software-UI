@@ -1183,12 +1183,12 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea formControlName="materialHolderOb" type="text"
+                                                <textarea formControlName="materailOfHolderOb" type="text"
                                                     class="form-control" placeholder="Ex.."
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('materialHolderOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('materialHolderOb')?.errors"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('materailOfHolderOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('materailOfHolderOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('materialHolderOb')?.errors?.required">
+                                                    <div *ngIf="a.get('materailOfHolderOb')?.errors?.required">
                                                         Material of holder observation is Required</div>
                                                 </div>
                                             </div>
@@ -1200,7 +1200,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea formControlName="materialHolderRe" type="text"
+                                                <textarea formControlName="materailOfHolderRem" type="text"
                                                     class="form-control" placeholder="Ex.."></textarea>
                                             </div>
                                         </td>
@@ -1279,12 +1279,12 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea formControlName="holderInspPassedOb" type="text"
+                                                <textarea formControlName="holderInspPassedNoOb" type="text"
                                                     class="form-control" placeholder="Ex.."
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('holderInspPassedOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('holderInspPassedOb')?.errors"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('holderInspPassedNoOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('holderInspPassedNoOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('holderInspPassedOb')?.errors?.required">
+                                                    <div *ngIf="a.get('holderInspPassedNoOb')?.errors?.required">
                                                         Number of holders inspected observation is Required</div>
                                                 </div>
                                             </div>
@@ -1375,12 +1375,12 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" formControlName="parpetInspectionNoOb"
+                                                <textarea type="text" formControlName="totalParpetHolderNoOb"
                                                     class="form-control" placeholder="ex.."
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('holderInspFailedNoOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('holderInspFailedNoOb')?.errors"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('totalParpetHolderNoOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('totalParpetHolderNoOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('holderInspFailedNoOb')?.errors?.required">
+                                                    <div *ngIf="a.get('totalParpetHolderNoOb')?.errors?.required">
                                                         Material of parpet holder observation is required</div>
                                                 </div>
                                             </div>
@@ -1392,7 +1392,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" formControlName="parpetInspectionNoRe"
+                                                <textarea type="text" formControlName="totalParpetHolderNoRe"
                                                     class="form-control" placeholder="Ex.."></textarea>
                                             </div>
                                         </td>
@@ -1408,11 +1408,11 @@
                                                     </span>
                                                 </div>
                                                 <textarea type="text" class="form-control"
-                                                    formControlName="parpetInspectionPassedNoOb" placeholder="ex.."
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('holderInspFailedNoOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('holderInspFailedNoOb')?.errors"
+                                                    formControlName="parpetInspectionNoOb" placeholder="ex.."
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('parpetInspectionNoOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('parpetInspectionNoOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('holderInspFailedNoOb')?.errors?.required">
+                                                    <div *ngIf="a.get('parpetInspectionNoOb')?.errors?.required">
                                                         Total number of holders observation is required</div>
                                                 </div>
                                             </div>
@@ -1425,7 +1425,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea type="text" class="form-control"
-                                                    formcontrolName="parpetInspectionPassedNoRe"
+                                                    formcontrolName="parpetInspectionNoRe"
                                                     placeholder="Ex.."></textarea>
                                             </div>
                                         </td>
@@ -1440,12 +1440,12 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea formControlName="parpetInspectionNoOb" type="text"
+                                                <textarea formControlName="parpetInspectionPassedNoOb" type="text"
                                                     class="form-control" placeholder="Ex.."
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('parpetInspectionNoOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('parpetInspectionNoOb')?.errors"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('parpetInspectionPassedNoOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('parpetInspectionPassedNoOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('parpetInspectionNoOb')?.errors?.required">
+                                                    <div *ngIf="a.get('parpetInspectionPassedNoOb')?.errors?.required">
                                                         Number of holders inspected observation is required</div>
                                                 </div>
                                             </div>
@@ -1457,7 +1457,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea formControlName="parpetInspectionNoRe" type="text"
+                                                <textarea formControlName="parpetInspectionPassedNoRe" type="text"
                                                     class="form-control" placeholder="Ex.."></textarea>
                                             </div>
                                         </td>
@@ -1472,12 +1472,12 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea formControlName="parpetInspectionPassedNoOb" type="text"
+                                                <textarea formControlName="parpetInspectionFailedNoOb" type="text"
                                                     class="form-control" placeholder="Ex.."
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('parpetInspectionPassedNoOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('parpetInspectionPassedNoOb')?.errors"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('parpetInspectionFailedNoOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('parpetInspectionFailedNoOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('parpetInspectionPassedNoOb')?.errors?.required">
+                                                    <div *ngIf="a.get('parpetInspectionFailedNoOb')?.errors?.required">
                                                         Number of inspections passed observation is required</div>
                                                 </div>
                                             </div>
@@ -1489,7 +1489,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea formControlName="parpetInspectionPassedNoRe" type="text"
+                                                <textarea formControlName="parpetInspectionFailedNoRe" type="text"
                                                     class="form-control" placeholder="Ex.."></textarea>
                                             </div>
                                         </td>
