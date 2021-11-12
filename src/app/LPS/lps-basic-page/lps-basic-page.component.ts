@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output,EventEmitter } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { BasicDetails, BasicLpsDescription } from 'src/app/LPS_model/basic-details';
+
+import { BasicDetails} from 'src/app/LPS_model/basic-details';
 import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.service';
 
 @Component({
@@ -10,7 +12,7 @@ import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.se
   styleUrls: ['./lps-basic-page.component.css']
 })
 export class LpsBasicPageComponent implements OnInit {
-
+  
   basicDetails = new BasicDetails;
   LPSBasicForm!: FormGroup;
   lPSBasicDetailsService;
@@ -23,9 +25,11 @@ export class LpsBasicPageComponent implements OnInit {
   errorMsg: string="";
   validationError: boolean = false;
   validationErrorMsg: String = '';
+  @Output() proceedNext = new EventEmitter<any>();
+  
 
   constructor(private formBuilder: FormBuilder, lPSBasicDetailsService: LPSBasicDetailsService,
-    private modalService: NgbModal,) {
+    private modalService: NgbModal,private router: ActivatedRoute) {
     this.lPSBasicDetailsService = lPSBasicDetailsService;
   }
 
@@ -33,8 +37,8 @@ export class LpsBasicPageComponent implements OnInit {
   ngOnInit(): void {
     
     this.LPSBasicForm = this.formBuilder.group({
+    
       clientName: ['', Validators.required],
-      userName: ['', Validators.required],
       projectName: ['', Validators.required],
       pmcName: ['', Validators.required],
       consultantName: ['', Validators.required],
@@ -90,36 +94,46 @@ export class LpsBasicPageComponent implements OnInit {
   }
 
   gotoNextModal(content: any) {
-    if (this.LPSBasicForm.invalid) {
-      this.validationError = true;
+     if (this.LPSBasicForm.invalid) {
+       this.validationError = true;
       
-      this.validationErrorMsg = 'Please check all the fields';
-      setTimeout(() => {
+       this.validationErrorMsg = 'Please check all the fields';
+       setTimeout(() => {
         this.validationError = false;
-      }, 3000);
-      return;
-    }
+       }, 3000);
+       return;
+     }
     this.modalService.open(content, { centered: true });
   }
  
   onSubmit() {
+    
     this.submitted=true;
-    // if (this.LPSBasicForm.invalid) {
-    //   return;
-    // }
+     if (this.LPSBasicForm.invalid) {
+       return;
+     }
+     
+
+    this.basicDetails.userName=this.router.snapshot.paramMap.get('email') || '{}';
     this.basicDetails.basicLpsDescription = this.LPSBasicForm.value.basicLpsDescription;
     this.lPSBasicDetailsService.saveLPSBasicDetails(this.basicDetails).subscribe(
     
       (data) => {
+        let basicDetailsItr=JSON.parse(data);
+             
+        debugger
+        this.basicDetails.basicLpsId=basicDetailsItr.basicLpsId;
         this.success = true;
-        this.successMsg = data;
+        this.successMsg = "Sucessfully saved";
         this.disable = true;
+        this.proceedNext.emit(true);
       },
       (error) => {
         this.Error = true;
         this.errorArr = [];
         this.errorArr = JSON.parse(error.error);
         this.errorMsg = this.errorArr.message;
+        this.proceedNext.emit(false);
       }
     )
     console.log(this.basicDetails);

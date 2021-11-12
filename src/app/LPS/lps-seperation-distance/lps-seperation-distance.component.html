@@ -288,24 +288,24 @@
     </div>
 </div>
 
-    <ng-template #content let-modal>
-        <div class="modal-body">
-            <div class="centre-text m-btm30">
-                <div *ngIf="success" style="text-align: center;">
-                    <span class="successshow">{{successMsg}}</span>
-                </div>
-                <div *ngIf="Error" style="text-align: center;">
-                    <span class="errorshow">{{errorMsg}}</span>
-                </div>
+<ng-template #content let-modal>
+    <div class="modal-body">
+        <div class="centre-text m-btm30">
+            <div *ngIf="success" style="text-align: center;">
+                <span class="successshow">{{successMsg}}</span>
+            </div>
+            <div *ngIf="Error" style="text-align: center;">
+                <span class="errorshow">{{errorMsg}}</span>
             </div>
         </div>
+    </div>
     <br>
-    <!-- <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-    aria-label="Close" (click)="closeModalDialog()" matStepperNext>
-     <span aria-hidden="true">Ok</span>
- </button> -->
-    
+     <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+     aria-label="Close"  (click)="closeModalDialog()" matStepperNext>
 
+      <span aria-hidden="true">Ok</span>
+
+  </button>
 </ng-template> 
 
     

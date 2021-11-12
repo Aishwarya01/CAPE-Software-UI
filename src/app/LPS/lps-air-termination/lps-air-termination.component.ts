@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Airtermination } from 'src/app/LPS_model/airtermination';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
@@ -31,10 +32,23 @@ export class LpsAirTerminationComponent implements OnInit {
   disable: boolean = false;
   i: any;
   j: any;
+
+  @Output() proceedNext = new EventEmitter<any>();
+  basicLpsId: number = 0;
+  ClientName: String='';
+  projectName: String='';
+  industryType: String='';
+  buildingType: String='';
+  buildingLength: String='';
+  buildingWidth: String='';
+  buildingHeight: String='';
+  levelOfProtection: String='';
+  soilResistivity: String='';
+  
   airterminationService;
   constructor(
     private formBuilder: FormBuilder,private airterminationServices:AirterminationService,
-    private modalService: NgbModal
+    private modalService: NgbModal,private router: ActivatedRoute
   ) { 
     this.airterminationService=airterminationServices;
   }
@@ -64,15 +78,15 @@ export class LpsAirTerminationComponent implements OnInit {
   }
 
   gotoNextModal(content: any) {
-    if (this.airTerminationForm.invalid) {
-      this.validationError = true;
+    // if (this.airTerminationForm.invalid) {
+    //   this.validationError = true;
       
-      this.validationErrorMsg = 'Please check all the fields';
-      setTimeout(() => {
-        this.validationError = false;
-      }, 3000);
-      return;
-    }
+    //   this.validationErrorMsg = 'Please check all the fields';
+    //   setTimeout(() => {
+    //     this.validationError = false;
+    //   }, 3000);
+    //   return;
+    // }
     this.modalService.open(content, { centered: true });
   }
 
@@ -88,26 +102,16 @@ export class LpsAirTerminationComponent implements OnInit {
 
   onSubmit(){
     this.submitted=true;
-
+debugger
     if (this.airTerminationForm.invalid) {
       return;
     }  
     else{
 
-      this.airtermination.userName="";
-      this.airtermination.basicLpsId=444;
-        //this.airtermination.userName=this.airTerminationForm.value.userName;
-        // this.airtermination.connectionMadeBraOb=this.airTerminationForm.value.connectionMadeBraOb;
-        // this.airtermination.connectionMadeBraRe=this.airTerminationForm.value.connectionMadeBraRe;
-        // this.airtermination.electricalEquipPlacedOb=this.airTerminationForm.value.electricalEquipPlacedOb;
-        // this.airtermination.electricalEquipPlacedRe=this.airTerminationForm.value.electricalEquipPlacedRe;
-        // this.airtermination.combustablePartOb=this.airTerminationForm.value.combustablePartOb;
-        // this.airtermination.combustablePartRe=this.airTerminationForm.value.combustablePartRe;
-        // this.airtermination.terminationMeshConductorOb=this.airTerminationForm.value.terminationMeshConductorOb;
-        // this.airtermination.terminationMeshConductorRe=this.airTerminationForm.value.terminationMeshConductorRe;
-        // this.airtermination.bondingEquipotentialOb=this.airTerminationForm.value.bondingEquipotentialOb;
-        // this.airtermination.bondingEquipotentialRe=this.airTerminationForm.value.bondingEquipotentialRe;
-        
+      debugger
+      this.airtermination.userName=this.router.snapshot.paramMap.get('email') || '{}';;
+         this.airtermination.basicLpsId=this.basicLpsId; 
+     
         this.airtermination.airClamps=this.airTerminationForm.value.clampArr;
         this.airtermination.airConnectors=this.airTerminationForm.value.conArr;
         this.airtermination.airMeshDescription=this.airTerminationForm.value.meshArr;
@@ -245,8 +249,12 @@ export class LpsAirTerminationComponent implements OnInit {
       parpetInspectionPassedNoRe: new FormControl(''),
       
       parpetInspectionFailedNoOb: new FormControl('', Validators.required),
-      parpetInspectionFailedNoRe: new FormControl('')
-    
+      parpetInspectionFailedNoRe: new FormControl(''),
+
+      materailOfParpetHolderOb: new FormControl('', Validators.required),
+      materailOfParpetHolderRem: new FormControl('')
+
+       
       //8.12 Total number of holders: pending
       //8.11 Material of parpet holder:
     }) 

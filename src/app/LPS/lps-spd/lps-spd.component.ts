@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Spd } from 'src/app/LPS_model/spd';
 import { LpsSpd_Service } from 'src/app/LPS_services/lps-spd.service';
 
@@ -13,7 +14,28 @@ export class LpsSpdComponent implements OnInit {
   lpsSpd_Service;
   j: any;
   submitted=false;
-  constructor(private formBuilder: FormBuilder, lpsSpd_Services: LpsSpd_Service) {
+  disable: boolean=false;
+  basicLpsId: number = 0;
+  ClientName: String='';
+  projectName: String='';
+  industryType: String='';
+  buildingType: String='';
+  buildingLength: String='';
+  buildingWidth: String='';
+  buildingHeight: String='';
+  levelOfProtection: String='';
+  soilResistivity: String='';
+
+  success: boolean=false;
+  successMsg: string="";
+  Error: boolean=false;
+  errorArr: any=[];
+  errorMsg: string="";
+  validationError: boolean = false;
+  validationErrorMsg: String = '';
+
+  constructor(private formBuilder: FormBuilder, lpsSpd_Services: LpsSpd_Service
+    ,private modalService: NgbModal) {
     this.lpsSpd_Service = lpsSpd_Services;
   }
 
@@ -149,5 +171,27 @@ export class LpsSpdComponent implements OnInit {
           }
         )
       };
+      closeModalDialog() {
+        if (this.errorMsg != '') {
+          this.Error = false;
+          this.modalService.dismissAll((this.errorMsg = ''));
+        } else {
+          this.success = false;
+          this.modalService.dismissAll((this.successMsg = ''));
+        }
+      }
+    
+      gotoNextModal(content: any) {
+         if (this.spdForm.invalid) {
+           this.validationError = true;
+          
+           this.validationErrorMsg = 'Please check all the fields';
+           setTimeout(() => {
+            this.validationError = false;
+           }, 3000);
+           return;
+         }
+        this.modalService.open(content, { centered: true });
+      }
     
 }

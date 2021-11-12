@@ -30,6 +30,17 @@ export class LpsSeperationDistanceComponent implements OnInit {
   Error: boolean=false;
   errorArr: any=[];
   disable: boolean = false;
+
+  basicLpsId: number = 0;
+  ClientName: String='';
+  projectName: String='';
+  industryType: String='';
+  buildingType: String='';
+  buildingLength: String='';
+  buildingWidth: String='';
+  buildingHeight: String='';
+  levelOfProtection: String='';
+  soilResistivity: String='';
  
   constructor(
 

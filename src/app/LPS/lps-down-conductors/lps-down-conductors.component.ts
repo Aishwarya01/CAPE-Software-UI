@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DownConductorDescription } from 'src/app/LPS_model/down-conductor';
 import { LpsDownconductorService } from 'src/app/LPS_services/lps-downconductor.service';
 
@@ -21,9 +23,29 @@ export class LpsDownConductorsComponent implements OnInit {
   lpsDownconductorService;
   submitted = false;
   downConductorDescription= new DownConductorDescription();
+  disable: boolean=false;
+
+  basicLpsId: number = 0;
+  ClientName: String='';
+  projectName: String='';
+  industryType: String='';
+  buildingType: String='';
+  buildingLength: String='';
+  buildingWidth: String='';
+  buildingHeight: String='';
+  levelOfProtection: String='';
+  soilResistivity: String='';
+
+  success: boolean=false;
+  successMsg: string="";
+  Error: boolean=false;
+  errorArr: any=[];
+  errorMsg: string="";
+  validationError: boolean = false;
+  validationErrorMsg: String = '';
 
   constructor(
-    private formBuilder: FormBuilder, lpsDownconductorService: LpsDownconductorService) {
+    private formBuilder: FormBuilder, lpsDownconductorService: LpsDownconductorService,private modalService: NgbModal) {
     this.lpsDownconductorService = lpsDownconductorService
   }
 
@@ -306,6 +328,28 @@ this.downConductorDescription.testingJoint = this.downConductorForm.value.testjo
       }
     )
     console.log(this.downConductorDescription)
+  }
+  closeModalDialog() {
+    if (this.errorMsg != '') {
+      this.Error = false;
+      this.modalService.dismissAll((this.errorMsg = ''));
+    } else {
+      this.success = false;
+      this.modalService.dismissAll((this.successMsg = ''));
+    }
+  }
+
+  gotoNextModal(content: any) {
+     if (this.downConductorForm.invalid) {
+       this.validationError = true;
+      
+       this.validationErrorMsg = 'Please check all the fields';
+       setTimeout(() => {
+        this.validationError = false;
+       }, 3000);
+       return;
+     }
+    this.modalService.open(content, { centered: true });
   }
 
 }

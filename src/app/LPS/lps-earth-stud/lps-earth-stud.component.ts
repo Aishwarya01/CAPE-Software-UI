@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EarthStud } from 'src/app/LPS_model/earth-stud';
 import { EarthStudService } from 'src/app/LPS_services/earth-stud.service';
 
@@ -13,10 +14,30 @@ export class LpsEarthStudComponent implements OnInit {
   EarthStudForm!: FormGroup;
   submitted=false;
   earthStud = new EarthStud;
+  disable: boolean=false;
 
+  basicLpsId: number = 0;
+  ClientName: String='';
+  projectName: String='';
+  industryType: String='';
+  buildingType: String='';
+  buildingLength: String='';
+  buildingWidth: String='';
+  buildingHeight: String='';
+  levelOfProtection: String='';
+  soilResistivity: String='';
+
+  success: boolean=false;
+  successMsg: string="";
+  Error: boolean=false;
+  errorArr: any=[];
+  errorMsg: string="";
+  validationError: boolean = false;
+  validationErrorMsg: String = '';
+  
   constructor(
     private formBuilder: FormBuilder,
-    private earthStudService: EarthStudService
+    private earthStudService: EarthStudService,private modalService: NgbModal
     ) { }
 
   ngOnInit(): void {
@@ -53,4 +74,28 @@ export class LpsEarthStudComponent implements OnInit {
   get f() {
     return this.EarthStudForm.controls;
   }
+
+  closeModalDialog() {
+    if (this.errorMsg != '') {
+      this.Error = false;
+      this.modalService.dismissAll((this.errorMsg = ''));
+    } else {
+      this.success = false;
+      this.modalService.dismissAll((this.successMsg = ''));
+    }
+  }
+
+  gotoNextModal(content: any) {
+     if (this.EarthStudForm.invalid) {
+       this.validationError = true;
+      
+       this.validationErrorMsg = 'Please check all the fields';
+       setTimeout(() => {
+        this.validationError = false;
+       }, 3000);
+       return;
+     }
+    this.modalService.open(content, { centered: true });
+  }
+
 }

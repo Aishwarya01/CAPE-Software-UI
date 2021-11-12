@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EarthingLpsDescription } from 'src/app/LPS_model/earthing';
 import { LpsEarthing } from 'src/app/LPS_services/lps-earthing';
 
@@ -14,9 +15,29 @@ export class LpsEarthingComponent implements OnInit {
   earthingLpsDescription = new EarthingLpsDescription;
   submitted=false;
   lpsEarthingService;
+  disable: boolean=false;
+
+  basicLpsId: number = 0;
+  ClientName: String='';
+  projectName: String='';
+  industryType: String='';
+  buildingType: String='';
+  buildingLength: String='';
+  buildingWidth: String='';
+  buildingHeight: String='';
+  levelOfProtection: String='';
+  soilResistivity: String='';
+
+  success: boolean=false;
+  successMsg: string="";
+  Error: boolean=false;
+  errorArr: any=[];
+  errorMsg: string="";
+  validationError: boolean = false;
+  validationErrorMsg: String = '';
 
   constructor(
-    private formBuilder: FormBuilder, private lpsEarthings: LpsEarthing
+    private formBuilder: FormBuilder, private lpsEarthings: LpsEarthing,private modalService: NgbModal
   ) {
     this.lpsEarthingService = lpsEarthings;
   }
@@ -220,5 +241,26 @@ export class LpsEarthingComponent implements OnInit {
   get f() {
     return this.earthingForm.controls;
   }
-
+ closeModalDialog() {
+      if (this.errorMsg != '') {
+        this.Error = false;
+        this.modalService.dismissAll((this.errorMsg = ''));
+      } else {
+        this.success = false;
+        this.modalService.dismissAll((this.successMsg = ''));
+      }
+    }
+  
+    gotoNextModal(content: any) {
+       if (this.earthingForm.invalid) {
+         this.validationError = true;
+        
+         this.validationErrorMsg = 'Please check all the fields';
+         setTimeout(() => {
+          this.validationError = false;
+         }, 3000);
+         return;
+       }
+      this.modalService.open(content, { centered: true });
+    }
 }
