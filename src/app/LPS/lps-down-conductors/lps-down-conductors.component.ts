@@ -47,7 +47,7 @@ export class LpsDownConductorsComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder, lpsDownconductorService: LpsDownconductorService,
     private modalService: NgbModal, private router: ActivatedRoute) {
-    this.lpsDownconductorService = lpsDownconductorService,
+    this.lpsDownconductorService = lpsDownconductorService
   }
 
   ngOnInit(): void {
