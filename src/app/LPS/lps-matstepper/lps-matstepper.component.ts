@@ -16,7 +16,7 @@ import { LpsDownConductorsComponent } from '../lps-down-conductors/lps-down-cond
 import { LpsEarthingComponent } from '../lps-earthing/lps-earthing.component';
 import { LpsEarthStudComponent } from '../lps-earth-stud/lps-earth-stud.component';
 import { LpsSeperationDistanceComponent } from '../lps-seperation-distance/lps-seperation-distance.component';
-import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.service';
+
 import { LpsSpdComponent } from '../lps-spd/lps-spd.component';
 
 @Component({
@@ -64,7 +64,6 @@ export class LpsMatstepperComponent implements OnInit {
   ngOnInit(): void {
   }
   public doSomething1(next: any): void {
-    debugger
     this.airTermination.basicLpsId=this.basic.basicDetails.basicLpsId;
     this.airTermination.ClientName=this.basic.basicDetails.clientName;
     this.airTermination.projectName=this.basic.basicDetails.projectName;
@@ -75,6 +74,11 @@ export class LpsMatstepperComponent implements OnInit {
     this.airTermination.buildingHeight=this.basic.basicDetails.buildingHeight;
     this.airTermination.levelOfProtection=this.basic.basicDetails.levelOfProtection;
     this.airTermination.soilResistivity=this.basic.basicDetails.soilResistivity;
+    this.doSomething2(false);
+    this.doSomething3(false);
+    this.doSomething4(false);
+    this.doSomething5(false);
+    this.doSomething6(false);
     this.isCompleted1 = next;
   }
   public doSomething2(next: any): void {
