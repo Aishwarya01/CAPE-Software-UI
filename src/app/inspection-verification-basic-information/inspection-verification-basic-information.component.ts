@@ -193,6 +193,7 @@ ShowNext: boolean = true;
   modalReference: any;
   tabError: boolean=false;
   tabErrorMsg: string="";
+  lastInspectionDate: boolean=false;
   
   constructor(
     private _formBuilder: FormBuilder,
@@ -1315,6 +1316,34 @@ showHideAccordion(index: number) {
     }
     this.proceedNext.emit(true);
   }
+ 
+  previousRecord(event: any) {
+    let changedValue;
+    if(event.target != undefined) {
+      changedValue = event.target.value;
+    }
+    else{
+      changedValue = event;
+    }
+
+    if (changedValue == 'No') {
+      this.lastInspectionDate = false;
+      this.step1Form.controls['inspectionLast'].clearValidators();
+      this.step1Form.controls[
+        'inspectionLast'
+      ].updateValueAndValidity();
+      }
+     else {
+      this.lastInspectionDate=true;
+      this.step1Form.controls['inspectionLast'].setValidators(
+        Validators.required
+      );
+      this.step1Form.controls[
+        'inspectionLast'
+      ].updateValueAndValidity();
+    }
+  }
+
 /*e-siganture starts in progress*/
 //   ngAfterViewInit() {
 //     // this.signaturePad is now available
