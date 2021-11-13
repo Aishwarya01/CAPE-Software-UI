@@ -282,15 +282,15 @@
                         [readonly]="setReadOnly"
                         placeholder="Enter your department"
                         [ngClass]="{
-                          'is-invalid': submitted && a.get('departmentName')?.errors
+                          'is-invalid': submitted && a.get('department')?.errors
                         }"
                         [(ngModel)]="register.department"
                       />
                       <div
-                        *ngIf="submitted && a.get('departmentName')?.errors"
+                        *ngIf="submitted && a.get('department')?.errors"
                         class="invalid-feedback"
                       >
-                        <div *ngIf="a.get('departmentName')?.errors?.required">
+                        <div *ngIf="a.get('department')?.errors?.required">
                           Department is required
                         </div>
                       </div>
