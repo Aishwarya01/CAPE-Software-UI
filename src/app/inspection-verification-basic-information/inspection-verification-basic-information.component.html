@@ -53,7 +53,7 @@
           </div>
       </div>
       </div>
-
+      <!-- (click)="clickAcc();" -->
       <mat-accordion>
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
@@ -65,48 +65,29 @@
 
             <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
               <div class="col-md-4">
-                <div class="form-group">
-                  <label>Description of Report*</label>
-                  <textarea matInput class="client-box-description client-description " formControlName="descriptionOfReport" 
-              maxlength="500" placeholder="Ex. Report description..." [(ngModel)]="reportDetails.descriptionReport"
-              [ngClass]="{ 'is-invalid': submitted && f.descriptionOfReport.errors }"></textarea>
-              <div *ngIf="submitted && f.descriptionOfReport.errors" class="invalid-feedback">
-                <div *ngIf="f.descriptionOfReport?.errors?.required">Description is required</div>
-            </div>
+                <mat-form-field class="client-description">
+                  <mat-label><h3>Description of Report*</h3></mat-label>
+                  <textarea matInput class="client-box-description" formControlName="descriptionOfReport" [ngClass]="{'disableForm':service.allFieldsDisable}"
+                  maxlength="500" placeholder="Ex. Report description..." [(ngModel)]="reportDetails.descriptionReport"
+                  [ngClass]="{ 'is-invalid': submitted && f.descriptionOfReport.errors }"></textarea>
+                  <div *ngIf="submitted && f.descriptionOfReport.errors" class="invalid-feedback">
+                    <div *ngIf="f.descriptionOfReport?.errors?.required">Description is required</div>
                 </div>
+                </mat-form-field>
               </div>
             </div>
               <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
               <div class="col-md-4">
-                <div class="form-group">
-                  <label>Reason for the Report*</label>
-                  <textarea matInput class="client-box-description client-description " formControlName="reasonOfReport"
+                <mat-form-field class="client-description ">
+                  <mat-label><h3>Reason for the Report*</h3></mat-label>
+                  <textarea matInput class="client-box-description" formControlName="reasonOfReport" [ngClass]="{'disableForm':service.allFieldsDisable}"
                   maxlength="500" placeholder="Ex. Report reason..." [(ngModel)]="reportDetails.reasonOfReport" [ngClass]="{ 'is-invalid': submitted && f.reasonOfReport.errors }"></textarea>
                   <div *ngIf="submitted && f.reasonOfReport.errors" class="invalid-feedback">
                     <div *ngIf="f.reasonOfReport?.errors?.required">Reason is required</div>
                 </div>
-                </div>
+                </mat-form-field>
               </div>
             </div>
-
-            <!-- <mat-form-field class="client-description">
-              <mat-label><h3>Description of Report*</h3></mat-label>
-              <textarea matInput class="client-box-description" formControlName="descriptionOfReport" [ngClass]="{'disableForm':service.allFieldsDisable}"
-              maxlength="500" placeholder="Ex. Report description..." [(ngModel)]="reportDetails.descriptionReport"
-              [ngClass]="{ 'is-invalid': submitted && f.descriptionOfReport.errors }"></textarea>
-              <div *ngIf="submitted && f.descriptionOfReport.errors" class="invalid-feedback">
-                <div *ngIf="f.descriptionOfReport?.errors?.required">Description is required</div>
-            </div>
-            </mat-form-field> -->
-
-            <!-- <mat-form-field class="client-description ">
-              <mat-label><h3>Reason for the Report*</h3></mat-label>
-              <textarea matInput class="client-box-description" formControlName="reasonOfReport" [ngClass]="{'disableForm':service.allFieldsDisable}"
-              maxlength="500" placeholder="Ex. Report reason..." [(ngModel)]="reportDetails.reasonOfReport" [ngClass]="{ 'is-invalid': submitted && f.reasonOfReport.errors }"></textarea>
-              <div *ngIf="submitted && f.reasonOfReport.errors" class="invalid-feedback">
-                <div *ngIf="f.reasonOfReport?.errors?.required">Reason is required</div>
-            </div>
-            </mat-form-field> -->
           </mat-expansion-panel>
 
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -188,7 +169,7 @@
 
               <div class="col-md-4">
                 <label>Previous Records Available* :</label>
-                <select class="form-control" formControlName="previousRecord"
+                <select class="form-control" formControlName="previousRecord" (change)="previousRecord($event)"
                 [(ngModel)]="reportDetails.previousRecords" [ngClass]="{ 'is-invalid': submitted && f.previousRecord.errors }">
                   <option value="0" selected>Select Option</option>
                   <option *ngFor="let value of previousRecordList" >{{value}}</option>
@@ -198,7 +179,7 @@
                 </div>
               </div>
 
-              <div class="col-md-4">
+              <div class="col-md-4" *ngIf="lastInspectionDate">
                 <label>Last Date Of Inspection* :</label>
                 <input type="date" class="form-control" formControlName="inspectionLast" placeholder="Enter Date"
                 [(ngModel)]="reportDetails.lastInspection" [ngClass]="{ 'is-invalid': submitted && f.inspectionLast.errors }">
@@ -207,7 +188,7 @@
                 </div>
               </div>
             </div>
-
+ 
             <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
               <div class="col-md-4">
                 <mat-form-field class="client-description ">
@@ -364,7 +345,7 @@
                 <p>
                   The extent of liability of the signatory or signatories is limited to the work described above as the subject of this report.
                 </p>
-
+                <!-- (focus)="focusFunction(contentSig)" -->
                 <div formArrayName="designer1AcknowledgeArr" *ngFor="let a of getDesigner1AcknowledgeControls(); let i = index">
                   <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
                     <h2>Designer 1* :</h2>
@@ -372,6 +353,7 @@
                       <div class="col-md-4">
                         <label>Signature:</label>
                         <input type="text" formControlName="declarationSignature" class="form-control"
+                        
                         [ngClass]="{ 'is-invalid': submitted && a.get('declarationSignature')?.errors }">
                           <div *ngIf="submitted && a.get('declarationSignature')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('declarationSignature')?.errors?.required">Signature is required</div>
@@ -1476,4 +1458,18 @@
         <span aria-hidden="true">Cancel</span>
     </button>
   </div>
-    </ng-template>
+    </ng-template> 
+
+    <!-- <ng-template #contentSig let-modal>
+      <div class="modal-body">
+        <div class="signature-container">
+          <signature-pad [options]="signaturePadOptions"></signature-pad>
+        </div>
+     
+        <div class="buttons">
+          <button (click)="clearSignature()">Clear signature pad</button>
+          <button (click)="savePad()">Save signature</button>
+        </div>
+      
+       </div>
+      </ng-template>   -->

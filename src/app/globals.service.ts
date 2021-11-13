@@ -57,7 +57,9 @@ export class GlobalsService {
  isCompleted5: boolean = true;
  isCompleted3: boolean = true;
  goBacktoprevious: boolean=false;
+ editable: boolean = true;
 
+ 
  constructor(private _scrollToService: ScrollToService) {}
   
 //Scroll Top to Bottom for notification

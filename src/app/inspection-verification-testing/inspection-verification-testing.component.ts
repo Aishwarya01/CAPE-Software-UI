@@ -1386,10 +1386,14 @@ export class InspectionVerificationTestingComponent implements OnInit {
   get f(): any {
     return this.testingForm.controls;
   }
+  // clickAcc(){
+  //   this.gotoNextTab();
+  // }
   gotoNextTab() {
-    if ((this.testingForm.dirty && this.testingForm.invalid) || this.service.isCompleted3==false) {
+    if ((this.testingForm.dirty && this.testingForm.invalid) || this.service.isCompleted3==false){
       this.service.isCompleted4= false;
       this.service.isLinear=true;
+      this.service.editable=false;
       this.validationError = true;
       this.validationErrorMsg = 'Please check all the fields';
       setTimeout(() => {
@@ -1400,6 +1404,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
     else if(this.testingForm.dirty && this.testingForm.touched){
       this.service.isCompleted4= false;
       this.service.isLinear=true;
+      this.service.editable=false;
       this.tabError = true;
       this.tabErrorMsg = 'Kindly click on next button to update the changes!';
       setTimeout(() => {
@@ -1409,6 +1414,8 @@ export class InspectionVerificationTestingComponent implements OnInit {
     else{
       this.service.isCompleted4= true;
       this.service.isLinear=false;
+      this.service.editable=true;
+
     }
   }
   gotoNextModal(content4: any,content2:any) {
@@ -1761,6 +1768,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
           this.service.isCompleted4= true;
           this.service.isLinear=false;
           this.successMsg = data;
+          this.testingForm.markAsPristine();
         },
         (error) => {
           this.Error = true;

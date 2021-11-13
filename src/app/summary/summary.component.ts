@@ -826,10 +826,14 @@ showHideAccordion(index: number) {
   changeTab1(index: number, sitedId: any, userName: any): void {
     this.selectedIndex = index;
   }
+  // clickAcc(){
+  //   this.gotoNextTab();
+  // }
   gotoNextTab() {
-    if ((this.addsummary.dirty && this.addsummary.invalid) || this.service.isCompleted4==false) {
+    if ((this.addsummary.dirty && this.addsummary.invalid) || this.service.isCompleted4==false){
       this.service.isCompleted= false;
       this.service.isLinear=true;
+      this.service.editable=false;
       this.validationError = true;
       this.validationErrorMsg = 'Please check all the fields';
       setTimeout(() => {
@@ -840,6 +844,7 @@ showHideAccordion(index: number) {
     else if(this.addsummary.dirty && this.addsummary.touched){
       this.service.isCompleted5= false;
       this.service.isLinear=true;
+      this.service.editable=false;
       this.tabError = true;
       this.tabErrorMsg = 'Kindly click on next button to update the changes!';
       setTimeout(() => {
@@ -849,8 +854,11 @@ showHideAccordion(index: number) {
     else{
       this.service.isCompleted= true;
       this.service.isLinear=false;
+      this.service.editable=true;
+
     }
   }
+  
   gotoNextModal(content5:any) {
     if (this.addsummary.invalid) {
       this.validationError = true;
@@ -926,6 +934,7 @@ showHideAccordion(index: number) {
           this.success = true;
           this.successMsg = 'Summary Information Successfully Updated';
           this.finalFlag = true;
+          this.addsummary.markAsPristine();
          },
          (error) => {
           this.Error = true;

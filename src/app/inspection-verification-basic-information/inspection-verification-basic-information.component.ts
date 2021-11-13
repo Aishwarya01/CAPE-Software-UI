@@ -19,6 +19,7 @@ import { DatePipe } from '@angular/common';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { ignoreElements } from 'rxjs/operators';
 import { MainNavComponent } from '../main-nav/main-nav.component';
+//import { SignaturePad } from 'angular2-signaturepad';
 
 //import { ErrorHandlerService } from './../../shared/services/error-handler.service';
 @Component({
@@ -27,8 +28,15 @@ import { MainNavComponent } from '../main-nav/main-nav.component';
   styleUrls: ['./inspection-verification-basic-information.component.css']
 })
 export class InspectionVerificationBasicInformationComponent implements OnInit {
+//e-siganture in progress
+  // signatureImg: string="";
+  // @ViewChild(SignaturePad) signaturePad!: SignaturePad;
 
-  
+  // signaturePadOptions: Object = { 
+  //   'minWidth': 2,
+  //   'canvasWidth': 425,
+  //   'canvasHeight': 300
+  // };
   step1Form!: FormGroup;
   public data: string = "";
   model: any = {};
@@ -74,7 +82,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   validationError: boolean =false;
   validationErrorMsg: String ="";
   disable: boolean = false;
-  retrieveSave: boolean = false;
+  retrieveSave: boolean = false; 
   step1List: any = [];
   siteDetails: boolean = true;
   siteDetails1: boolean = false;
@@ -185,6 +193,7 @@ ShowNext: boolean = true;
   modalReference: any;
   tabError: boolean=false;
   tabErrorMsg: string="";
+  lastInspectionDate: boolean=false;
   
   constructor(
     private _formBuilder: FormBuilder,
@@ -282,7 +291,7 @@ ShowNext: boolean = true;
     this.expandedIndex = -1 ;
     
   }
-
+ 
 //for company site detail continue
   changeTab(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any): void {
     this.siteDetails1 = true;
@@ -1307,10 +1316,69 @@ showHideAccordion(index: number) {
     }
     this.proceedNext.emit(true);
   }
+ 
+  previousRecord(event: any) {
+    let changedValue;
+    if(event.target != undefined) {
+      changedValue = event.target.value;
+    }
+    else{
+      changedValue = event;
+    }
+
+    if (changedValue == 'No') {
+      this.lastInspectionDate = false;
+      this.step1Form.controls['inspectionLast'].clearValidators();
+      this.step1Form.controls[
+        'inspectionLast'
+      ].updateValueAndValidity();
+      }
+     else {
+      this.lastInspectionDate=true;
+      this.step1Form.controls['inspectionLast'].setValidators(
+        Validators.required
+      );
+      this.step1Form.controls[
+        'inspectionLast'
+      ].updateValueAndValidity();
+    }
+  }
+
+/*e-siganture starts in progress*/
+//   ngAfterViewInit() {
+//     // this.signaturePad is now available
+//     this.signaturePad.set('minWidth', 2); 
+//     this.signaturePad.clear(); 
+//   }
+
+//clearSignature() {
+  // console.log(this.signaturePad);
+  // this.signaturePad.clear();
+  // this.signatureImg ="";
+  //this.closeModalDialog();
+  //this.modalService.dismissAll(this.signatureImg="") 
+
+//}
+// savePad() {
+//   const base64Data = this.signaturePad.toDataURL();
+//   this.signatureImg = base64Data;
+// }
+//   focusFunction(contentSig: any){
+//     this.modalService.open(contentSig, { centered: true});
+//   }
+  /*e-siganture ends*/
+
+  /*disable tab starts*/
+  // clickAcc(){
+  //   this.gotoNextTab();
+  // }
+  /*disable tab ends*/
+
   gotoNextTab() {
     if (this.step1Form.dirty && this.step1Form.invalid) {
       this.service.isCompleted= false;
       this.service.isLinear=true;
+      this.service.editable=false;
       this.validationError = true;
       this.validationErrorMsg = 'Please check all the fields';
       setTimeout(() => {
@@ -1321,15 +1389,18 @@ showHideAccordion(index: number) {
     else if(this.step1Form.dirty && this.step1Form.touched){
       this.service.isCompleted= false;
       this.service.isLinear=true;
+      this.service.editable=false;
       this.tabError = true;
       this.tabErrorMsg = 'Kindly click on next button to update the changes!';
       setTimeout(() => {
         this.tabError = false;
       }, 3000);
+      return;
    }
     else{
       this.service.isCompleted= true;
       this.service.isLinear=false;
+      this.service.editable=true;
     }
   }
 //modal popup
@@ -1573,6 +1644,7 @@ showHideAccordion(index: number) {
            this.successMsg = data;
            this.service.isCompleted= true;
            this.service.isLinear=false;
+           this.step1Form.markAsPristine();
           },
           (error) => {
             this.Error = true;

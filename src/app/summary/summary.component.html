@@ -169,7 +169,7 @@
                 <h3>Recommendations</h3>
               </mat-panel-title>
             </mat-expansion-panel-header>
-              <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
+              <div [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="row">
                   <div class="col-sm-12">
                     <div class="form-group">
@@ -181,13 +181,21 @@
                         recommended” (Code C3) should be given due consideration. Subject to necessary remedial 
                         action being taken, I/We recommended that the installation is further inspected and tested
                          by date.:</label>
-                         <input type="date" class="form-control" placeholder="Enter Date"
+                         <!-- <input type="date" class="form-control" placeholder="Enter Date"
                           [(ngModel)]="summary.recommendationsDate" formControlName="recommendationsDate"
-                          [ngClass]="{ 'is-invalid': submitted && f.recommendationsDate?.errors }">  
+                          [ngClass]="{ 'is-invalid': submitted && f.recommendationsDate?.errors }">   -->
+
+                          <input type="date" matInput [matDatepicker]="picker" (click)="picker.open()" placeholder="Choose a date"
+                          [(ngModel)]="summary.recommendationsDate" formControlName="recommendationsDate" autocomplete="off"
+                          [ngClass]="{ 'is-invalid': submitted && f.recommendationsDate?.errors }" 
+                          style="border-bottom: 1px solid darkgrey;padding: 10px;">
+                          <mat-datepicker-toggle matSuffix [for]="picker" style="float: right;position: relative;bottom: 40px;"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+
                           <div *ngIf="submitted && f.recommendationsDate?.errors" class="invalid-feedback">
                             <div *ngIf="f.recommendationsDate?.errors?.required">Field Is Required</div>
                         </div>            
-                    </div>
+                    </div> 
                   </div>
                 </div>
               </div>

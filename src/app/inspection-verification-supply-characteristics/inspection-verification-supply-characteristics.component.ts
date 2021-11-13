@@ -1604,10 +1604,14 @@ showHideAccordion(index: number) {
   //   alert("Step2 successfully saved");
   //   }
   // }
+  // clickAcc(){
+  //   this.gotoNextTab();
+  // }
   gotoNextTab() {
-    if ((this.supplycharesteristicForm.dirty && this.supplycharesteristicForm.invalid) || this.service.isCompleted==false) {
+    if ((this.supplycharesteristicForm.dirty && this.supplycharesteristicForm.invalid) || this.service.isCompleted==false){
       this.service.isCompleted2= false;
       this.service.isLinear=true;
+      this.service.editable=false;
       this.validationError = true;
       this.validationErrorMsg = 'Please check all the fields';
       setTimeout(() => {
@@ -1618,6 +1622,7 @@ showHideAccordion(index: number) {
     else if(this.supplycharesteristicForm.dirty && this.supplycharesteristicForm.touched){
       this.service.isCompleted2= false;
       this.service.isLinear=true;
+      this.service.editable=false;
       this.tabError = true;
       this.tabErrorMsg = 'Kindly click on next button to update the changes!';
       setTimeout(() => {
@@ -1627,6 +1632,8 @@ showHideAccordion(index: number) {
     else{
       this.service.isCompleted2= true;
       this.service.isLinear=false;
+      this.service.editable=true;
+
     }
   }
   gotoNextModal(content1: any,content2:any) {
@@ -1967,6 +1974,7 @@ showHideAccordion(index: number) {
           this.service.retrieveMainNominalVoltage=this.mainNominalArr;
           this.service.retrieveMainNominalVoltage=this.retrieveMainNominalVoltage;
           this.service.nominalVoltageArr2=this.supplycharesteristic.supplyParameters;
+          this.supplycharesteristicForm.markAsPristine();
          },
          (error) => {
           this.Error = true;

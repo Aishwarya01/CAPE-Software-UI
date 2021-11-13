@@ -143,7 +143,7 @@
                 arrow_right
               </span> [ngClass]="[goBacktoprevious ? 'mat-step-icon-state-edit' : 'mat-step-icon mat-step-icon-state-number']"
               Continue
-            </button> -->
+            </button> (selectionChange)="stepChanged($event, stepper);" -->
         <!-- </div>
 
       </mat-step>
@@ -153,14 +153,14 @@
 
     <mat-horizontal-stepper [linear]="service.isLinear" #stepper>
       <!-- step 1 (proceedNext)="doSomething1($event)"-->
-      <mat-step [completed]="service.isCompleted">
+      <mat-step [completed]="service.isCompleted" [editable]="service.editable">
         <ng-template matStepLabel>
-          <span >Basic Information</span></ng-template>
+             <span (click)="triggerClickTab();">Basic Information</span></ng-template>
         <app-inspection-verification-basic-information (proceedNext)="NextStep1($event)"></app-inspection-verification-basic-information>
       </mat-step>
 
 <!-- step 2 -->
-      <mat-step [completed]="service.isCompleted2">
+      <mat-step [completed]="service.isCompleted2" [editable]="service.editable">
         <ng-template matStepLabel>
           <span (click)="triggerClickTab();">Supply Characteristics</span></ng-template>
         <app-inspection-verification-supply-characteristics (proceedNext)="NextStep2($event)"></app-inspection-verification-supply-characteristics>
@@ -168,21 +168,21 @@
       </mat-step>
 
 <!-- step 3 -->
-      <mat-step [completed]="service.isCompleted3">
+      <mat-step [completed]="service.isCompleted3" [editable]="service.editable">
         <ng-template matStepLabel>
-          <span (click)="triggerClickTab();">Inspection</span></ng-template>
+           <span (click)="triggerClickTab();">Inspection</span></ng-template>
         <app-inspection-verification-incoming-equipment (proceedNext)="NextStep3($event)"></app-inspection-verification-incoming-equipment>
         <button class="previousIncoming" mat-button (click)="goBack(stepper)" *ngIf="service.backBtn">&laquo; Back</button> 
       </mat-step>
 
-      <mat-step [completed]="service.isCompleted4">
+      <mat-step [completed]="service.isCompleted4" [editable]="service.editable">
         <ng-template matStepLabel>
           <span (click)="triggerClickTab();">Testing</span></ng-template>
         <app-inspection-verification-testing (proceedNext)="NextStep4($event)"></app-inspection-verification-testing>
         <button class="previousSupply" mat-button (click)="goBack(stepper)" *ngIf="service.backBtn">&laquo; Back</button> 
       </mat-step>
 
-      <mat-step [completed]="service.isCompleted5">
+      <mat-step [completed]="service.isCompleted5" [editable]="service.editable">
         <ng-template matStepLabel>
           <span (click)="triggerClickTab();">Summary</span></ng-template>
        <app-summary (proceedNext)="NextStep5($event)"></app-summary>

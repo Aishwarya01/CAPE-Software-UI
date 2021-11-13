@@ -250,7 +250,7 @@ export class LicenselistComponent implements OnInit {
   decreaseLicense() {
     this.service.useClicked=true;
     const dialogRef = this.dialog.open(AssignViewerComponent, {
-      width: '500px',
+      width: '720px',
     });
     dialogRef.componentInstance.email = this.email;
     dialogRef.componentInstance.onSave.subscribe(data=>{
