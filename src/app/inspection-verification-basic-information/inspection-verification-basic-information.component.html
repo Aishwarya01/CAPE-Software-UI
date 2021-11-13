@@ -53,7 +53,7 @@
           </div>
       </div>
       </div>
-
+      <!-- (click)="clickAcc();" -->
       <mat-accordion>
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
@@ -364,7 +364,7 @@
                 <p>
                   The extent of liability of the signatory or signatories is limited to the work described above as the subject of this report.
                 </p>
-
+                <!-- (focus)="focusFunction(contentSig)" -->
                 <div formArrayName="designer1AcknowledgeArr" *ngFor="let a of getDesigner1AcknowledgeControls(); let i = index">
                   <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
                     <h2>Designer 1* :</h2>
@@ -372,6 +372,7 @@
                       <div class="col-md-4">
                         <label>Signature:</label>
                         <input type="text" formControlName="declarationSignature" class="form-control"
+                        
                         [ngClass]="{ 'is-invalid': submitted && a.get('declarationSignature')?.errors }">
                           <div *ngIf="submitted && a.get('declarationSignature')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('declarationSignature')?.errors?.required">Signature is required</div>
@@ -1477,3 +1478,17 @@
     </button>
   </div>
     </ng-template>
+
+    <!-- <ng-template #contentSig let-modal>
+      <div class="modal-body">
+        <div class="signature-container">
+          <signature-pad [options]="signaturePadOptions"></signature-pad>
+        </div>
+     
+        <div class="buttons">
+          <button (click)="clearSignature()">Clear signature pad</button>
+          <button (click)="savePad()">Save signature</button>
+        </div>
+      
+       </div>
+      </ng-template>   -->
