@@ -528,7 +528,19 @@ export class VerificationlvComponent implements OnInit {
     this.ChangeDetectorRef.detectChanges();
   }
 
+  // stepChanged(event: StepperSelectionEvent) { //1>2
+  //   if (event.previouslySelectedIndex > event.selectedIndex) {
+  //    event.previouslySelectedStep.interacted = false;
+  //   }
+  // }
+
   triggerClickTab(){
+    this.basic.gotoNextTab();
+    this.supply.gotoNextTab();
+    this.incoming.gotoNextTab();
+    this.testing.gotoNextTab();
+    this.summary.gotoNextTab();
+  }
     // if(!this.service.step1Form.pristine || !this.service.supplycharesteristicForm.pristine || !this.service.addstep3.pristine 
     //   || !this.service.testingForm.pristine || !this.service.addsummary.pristine)
     //   { 
@@ -538,18 +550,17 @@ export class VerificationlvComponent implements OnInit {
     //   this.incoming.gotoNextTab();
     //   this.testing.gotoNextTab();
     // }
-      this.basic.gotoNextTab();
-      this.supply.gotoNextTab();
-      this.incoming.gotoNextTab();
-      this.testing.gotoNextTab();
-      this.summary.gotoNextTab();
+    // if(this.service.goBacktoprevious==true){
+    //   this.basic.reloadFromBack();
+    // }
     // else{
     //   this.isLinear=false;
     // }
-  }
+   
   public NextStep1(next: any): void {
     this.service.isLinear=false;
     //this.service.step1Form = next;
+    //this.basic.gotoNextTab();
     this.service.isCompleted= next;
   }
   public NextStep2(next: any): void {

@@ -973,10 +973,14 @@ showHideAccordion(index: number) {
   removeItem(index: any) {
     (this.addstep3.get('incomingArr') as FormArray).removeAt(index);
   }
+  // clickAcc(){
+  //   this.gotoNextTab();
+  // }
   gotoNextTab() {
     if ((this.addstep3.dirty && this.addstep3.invalid) || this.service.isCompleted2==false) {
       this.service.isCompleted3= false;
-      this.service.isLinear=true;
+      this.service.isLinear=true;      
+      this.service.editable=false;
       this.validationError = true;
       this.validationErrorMsg = 'Please check all the fields';
       setTimeout(() => {
@@ -987,6 +991,7 @@ showHideAccordion(index: number) {
     else if(this.addstep3.dirty && this.addstep3.touched){
       this.service.isCompleted3= false;
       this.service.isLinear=true;
+      this.service.editable=false;
       this.tabError = true;
       this.tabErrorMsg = 'Kindly click on next button to update the changes!';
       setTimeout(() => {
@@ -996,6 +1001,8 @@ showHideAccordion(index: number) {
     else{
       this.service.isCompleted3= true;
       this.service.isLinear=false;
+      this.service.editable=true;
+
     }
   }
   gotoNextModal(content3: any,content2:any) {
@@ -1056,6 +1063,7 @@ showHideAccordion(index: number) {
           this.service.isCompleted3= true;
           this.service.isLinear=false;
           this.successMsg = 'Incoming Equipment Successfully Updated';
+          this.addstep3.markAsPristine();
          },
          (error) => {
           this.Error = true;
