@@ -37,3 +37,10 @@ button {
     color: white;
     margin-left: 30px;
   }
+
+  .auth-form-btn {
+    width: 20%;
+    margin: 0 auto;
+}
+
+ 
