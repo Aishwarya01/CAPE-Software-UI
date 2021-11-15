@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { GlobalsService } from '../globals.service';
 import { Site } from '../model/site';
 import { ClientService } from '../services/client.service';
@@ -34,6 +35,9 @@ export class FinalreportsComponent implements OnInit {
   inspectorData: any = [];
  //ongoingFilterData:any=[];
   completedFilterData:any=[];
+  allData: any = [];
+  superAdminFlag: boolean = false;
+  filteredData: any;
   
   constructor(private router: ActivatedRoute,
               private clientService: ClientService,
@@ -84,27 +88,33 @@ applyFilter(event: Event) {
 
   retrieveSiteDetails() {
     //this.ongoingFilterData=[];
+    this.filteredData = [];
     this.completedFilterData=[];
-    if(this.currentUser1.role == 'Inspector') {
-      this.siteService.retrieveListOfSite(this.email).subscribe(
+    for(let i of environment.superAdmin) {
+      if(this.email == i) {
+        this.superAdminFlag = true;
+      }
+    }
+
+    if(this.superAdminFlag) {
+      this.siteService.retrieveAllSite(this.email).subscribe(
         data => {
-          this.inspectorData=JSON.parse(data);
-          for(let i of this.inspectorData){
-              if(i.allStepsCompleted=="AllStepCompleted"){
-                this.completedFilterData.push(i);
-              }
-              // else{
-              //  this.ongoingFilterData.push(i);
-              // }
+          this.allData = JSON.parse(data);
+          for(let i of this.allData) {
+            if(i.allStepsCompleted == "AllStepCompleted") {
+              this.filteredData.push(i);
+            }
           }
-          this.finalReport_dataSource = new MatTableDataSource(this.completedFilterData);
+          this.finalReport_dataSource = new MatTableDataSource(this.filteredData);
           this.finalReport_dataSource.paginator = this.finalReportPaginator;
           this.finalReport_dataSource.sort = this.finalReportSort;
         });
+
+      this.superAdminFlag = false;
     }
     else {
-      if(this.currentUser1.assignedBy!=null) {
-        this.siteService.retrieveListOfSite(this.currentUser1.assignedBy).subscribe(
+      if(this.currentUser1.role == 'Inspector') {
+        this.siteService.retrieveListOfSite(this.email).subscribe(
           data => {
             this.inspectorData=JSON.parse(data);
             for(let i of this.inspectorData){
@@ -119,9 +129,27 @@ applyFilter(event: Event) {
             this.finalReport_dataSource.paginator = this.finalReportPaginator;
             this.finalReport_dataSource.sort = this.finalReportSort;
           });
-      } 
-    }
-        
+      }
+      else {
+        if(this.currentUser1.assignedBy!=null) {
+          this.siteService.retrieveListOfSite(this.currentUser1.assignedBy).subscribe(
+            data => {
+              this.inspectorData=JSON.parse(data);
+              for(let i of this.inspectorData){
+                  if(i.allStepsCompleted=="AllStepCompleted"){
+                    this.completedFilterData.push(i);
+                  }
+                  // else{
+                  //  this.ongoingFilterData.push(i);
+                  // }
+              }
+              this.finalReport_dataSource = new MatTableDataSource(this.completedFilterData);
+              this.finalReport_dataSource.paginator = this.finalReportPaginator;
+              this.finalReport_dataSource.sort = this.finalReportSort;
+            });
+        } 
+      }
+    }   
   }
  
   continue(siteId: any,userName :any,site: any) {
