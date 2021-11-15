@@ -94,7 +94,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
  
   // Second Tab dependencies
   panelOpenState = false;
-  installationList: String[]= ['New Installation','First Verification Of An Existing','Addition Of An Existing Installation','Alteration In An Existing Installation','Periodic Verification'];
+  installationList: String[]= ['New Installation','First Verification Of An Existing Installation','Addition Of An Existing Installation','Alteration In An Existing Installation','Periodic Verification'];
   premiseList: String[]= ['Domestic(Individual)','Domestic(Apartment)','Commercial','IT/Office','Data Center','Industrial(Non Ex Environment)','Industrial(Ex Environment)'];
   evidenceList: String[]= ['Yes', 'No', 'Not Apparent'];
   previousRecordList: String[]= ['Yes', 'No'];
@@ -1025,14 +1025,14 @@ showHideAccordion(index: number) {
       personContactNo: new FormControl('',[Validators.maxLength(10),Validators.required]),
       personMailID: new FormControl('',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       managerName: new FormControl('',[Validators.required]),
-      managerContactNo: new FormControl('',[Validators.maxLength(10), Validators.required]),
+      managerContactNo: new FormControl('',[Validators.maxLength(10)]),
       managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       companyName: new FormControl('',[Validators.required]),
       addressLine1: new FormControl('',[Validators.required]),
       addressLine2: new FormControl(''),
       landMark: new FormControl(''),
       country: new FormControl('',[Validators.required]),
-      state: new FormControl('',[Validators.required]),
+      state: new FormControl('',[Validators.required]), 
       pinCode: new FormControl('',[Validators.required]),
       signatorRole: new FormControl(''),
       declarationSignature: new FormControl(''),
@@ -1112,7 +1112,7 @@ showHideAccordion(index: number) {
     personContactNo: new FormControl('',[Validators.maxLength(10),Validators.required]),
     personMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
     managerName: new FormControl('',[Validators.required]),
-    managerContactNo: new FormControl('',[Validators.maxLength(10), Validators.required]),
+    managerContactNo: new FormControl('',[Validators.maxLength(10)]),
     managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
     companyName: new FormControl('',[Validators.required]),
     addressLine1: new FormControl('',[Validators.required]),
@@ -1159,7 +1159,7 @@ showHideAccordion(index: number) {
       personContactNo: new FormControl(value.contactNumber,[Validators.required]),
       personMailID: new FormControl(value.username,[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       managerName: new FormControl('',[Validators.required]),
-      managerContactNo: new FormControl('',[Validators.maxLength(10),Validators.required]),
+      managerContactNo: new FormControl('',[Validators.maxLength(10)]),
       managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       companyName: new FormControl(value.companyName,[Validators.required]),
       addressLine1: new FormControl(value.address,[Validators.required]),
@@ -1229,7 +1229,7 @@ showHideAccordion(index: number) {
     this.f.designer2Arr.controls[0].controls['personMailID'].updateValueAndValidity();
     this.f.designer2Arr.controls[0].controls['managerName'].setValidators(Validators.required);
     this.f.designer2Arr.controls[0].controls['managerName'].updateValueAndValidity();
-    this.f.designer2Arr.controls[0].controls['managerContactNo'].setValidators([Validators.required, Validators.maxLength(10)]);
+    this.f.designer2Arr.controls[0].controls['managerContactNo'].setValidators([Validators.maxLength(10)]);
     this.f.designer2Arr.controls[0].controls['managerContactNo'].updateValueAndValidity();
     this.f.designer2Arr.controls[0].controls['managerMailID'].setValidators([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]);
     this.f.designer2Arr.controls[0].controls['managerMailID'].updateValueAndValidity();

@@ -80,14 +80,14 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   NV9: any;
 
   NF1: any;
-  NF2: any;
-  NF3: any;
-  NF4: any;
-  NF5: any;
-  NF6: any;
-  NF7: any;
-  NF8: any;
-  NF9: any;
+  // NF2: any;
+  // NF3: any;
+  // NF4: any;
+  // NF5: any;
+  // NF6: any;
+  // NF7: any;
+  // NF8: any;
+  // NF9: any;
 
   PF1: any;
   PF2: any;
@@ -287,6 +287,11 @@ export class InspectionVerificationSupplyCharacteristicsComponent
    step1!: InspectionVerificationBasicInformationComponent;
    tabErrorMsg: string="";
   tabError: boolean = false;
+ 
+  JointLocationTable: boolean = false;
+  key1LocationTable: boolean = false;
+  key3LocationTable: boolean = false;
+
   constructor(
     private supplyCharacteristicsService: SupplyCharacteristicsService,
     public service: GlobalsService,
@@ -309,8 +314,8 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       liveConductor: ['', Validators.required],
       AcConductor: ['', Validators.required],
       DcConductor: ['', Validators.required],
-      briefNote: ['', Validators.required],
-      liveConductorBNote: ['', Validators.required],
+      briefNote: [''],
+      liveConductorBNote: [''],
       mainNominalProtectiveDevice: ['', Validators.required],
       mainRatedCurrent: ['', Validators.required],
       mainCurrentDisconnection: ['', Validators.required],
@@ -346,14 +351,14 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       NV9: '',
 
       NF1: '',
-      NF2: '',
-      NF3: '',
-      NF4: '',
-      NF5: '',
-      NF6: '',
-      NF7: '',
-      NF8: '',
-      NF9: '',
+      // NF2: '',
+      // NF3: '',
+      // NF4: '',
+      // NF5: '',
+      // NF6: '',
+      // NF7: '',
+      // NF8: '',
+      // NF9: '',
 
       PF1: '',
       PF2: '',
@@ -482,14 +487,14 @@ export class InspectionVerificationSupplyCharacteristicsComponent
           this.NV9 = this.retrieveMainNominalVoltage[0][8];
       
           this.NF1 = this.retrieveMainNominalVoltage[1][0];
-          this.NF2 = this.retrieveMainNominalVoltage[1][1];
-          this.NF3 = this.retrieveMainNominalVoltage[1][2];
-          this.NF4 = this.retrieveMainNominalVoltage[1][3];
-          this.NF5 = this.retrieveMainNominalVoltage[1][4];
-          this.NF6 = this.retrieveMainNominalVoltage[1][5];
-          this.NF7 = this.retrieveMainNominalVoltage[1][6];
-          this.NF8 = this.retrieveMainNominalVoltage[1][7];
-          this.NF9 = this.retrieveMainNominalVoltage[1][8];
+          // this.NF2 = this.retrieveMainNominalVoltage[1][1];
+          // this.NF3 = this.retrieveMainNominalVoltage[1][2];
+          // this.NF4 = this.retrieveMainNominalVoltage[1][3];
+          // this.NF5 = this.retrieveMainNominalVoltage[1][4];
+          // this.NF6 = this.retrieveMainNominalVoltage[1][5];
+          // this.NF7 = this.retrieveMainNominalVoltage[1][6];
+          // this.NF8 = this.retrieveMainNominalVoltage[1][7];
+          // this.NF9 = this.retrieveMainNominalVoltage[1][8];
 
           this.PF1 = this.retrieveMainNominalVoltage[2][0];
           this.PF2 = this.retrieveMainNominalVoltage[2][1];
@@ -1040,14 +1045,14 @@ showHideAccordion(index: number) {
         nominalVoltage9: new FormControl({disabled: false ,value: item[0][8]}),
   
         nominalFrequency1: new FormControl({disabled: false ,value: item[1][0]}),
-        nominalFrequency2: new FormControl({disabled: false ,value: item[1][1]}),
-        nominalFrequency3: new FormControl({disabled: false ,value: item[1][2]}),
-        nominalFrequency4: new FormControl({disabled: false ,value: item[1][3]}),
-        nominalFrequency5: new FormControl({disabled: false ,value: item[1][4]}),
-        nominalFrequency6: new FormControl({disabled: false ,value: item[1][5]}),
-        nominalFrequency7: new FormControl({disabled: false ,value: item[1][6]}),
-        nominalFrequency8: new FormControl({disabled: false ,value: item[1][7]}),
-        nominalFrequency9: new FormControl({disabled: false ,value: item[1][8]}),
+        // nominalFrequency2: new FormControl({disabled: false ,value: item[1][1]}),
+        // nominalFrequency3: new FormControl({disabled: false ,value: item[1][2]}),
+        // nominalFrequency4: new FormControl({disabled: false ,value: item[1][3]}),
+        // nominalFrequency5: new FormControl({disabled: false ,value: item[1][4]}),
+        // nominalFrequency6: new FormControl({disabled: false ,value: item[1][5]}),
+        // nominalFrequency7: new FormControl({disabled: false ,value: item[1][6]}),
+        // nominalFrequency8: new FormControl({disabled: false ,value: item[1][7]}),
+        // nominalFrequency9: new FormControl({disabled: false ,value: item[1][8]}),
   
         current1: new FormControl({disabled: false ,value: item[2][0]}),
         current2: new FormControl({disabled: false ,value: item[2][1]}),
@@ -1110,8 +1115,8 @@ showHideAccordion(index: number) {
       aLLiveConductorType: new FormControl('', [Validators.required]),
       aLLiveConductorAC: new FormControl(''),
       aLLiveConductorDC: new FormControl(''),
-      aLSystemEarthingBNote: new FormControl('', [Validators.required]),
-      aLLiveConductorBNote: new FormControl('', [Validators.required]),
+      aLSystemEarthingBNote: new FormControl(''),
+      aLLiveConductorBNote: new FormControl(''),
       nominalVoltage: new FormControl(''),
       nominalFrequency: new FormControl(''),
       faultCurrent: new FormControl(''),
@@ -1139,14 +1144,14 @@ showHideAccordion(index: number) {
       nominalVoltage9: new FormControl(''),
 
       nominalFrequency1: new FormControl(''),
-      nominalFrequency2: new FormControl(''),
-      nominalFrequency3: new FormControl(''),
-      nominalFrequency4: new FormControl(''),
-      nominalFrequency5: new FormControl(''),
-      nominalFrequency6: new FormControl(''),
-      nominalFrequency7: new FormControl(''),
-      nominalFrequency8: new FormControl(''),
-      nominalFrequency9: new FormControl(''),
+      // nominalFrequency2: new FormControl(''),
+      // nominalFrequency3: new FormControl(''),
+      // nominalFrequency4: new FormControl(''),
+      // nominalFrequency5: new FormControl(''),
+      // nominalFrequency6: new FormControl(''),
+      // nominalFrequency7: new FormControl(''),
+      // nominalFrequency8: new FormControl(''),
+      // nominalFrequency9: new FormControl(''),
 
       current1: new FormControl(''),
       current2: new FormControl(''),
@@ -1196,7 +1201,8 @@ showHideAccordion(index: number) {
     this.location1Arr = this.supplycharesteristicForm.get(
       'location1Arr'
     ) as FormArray;
-
+    if(this.value!=0){
+      this.key1LocationTable=true;
     if (this.location1Arr.length == 0) {
       if (this.value != '') {
         for (this.i = 1; this.i < this.value; this.i++) {
@@ -1206,12 +1212,14 @@ showHideAccordion(index: number) {
           this.location1Arr.push(this.createLocation1Form());
         }
       }
-    } else if (this.value == '') {
+    } 
+    else if (this.value == '') {
       this.loclength = this.location1Arr.length;
       for (this.i = 1; this.i < this.loclength; this.i++) {
         this.location1Arr.removeAt(this.location1Arr.length - 1);
       }
-    } else if (this.location1Arr.length < this.value) {
+    } 
+    else if (this.location1Arr.length < this.value) {
       if (this.value != '') {
         this.delarr = this.value - this.location1Arr.length;
         for (this.i = 0; this.i < this.delarr; this.i++) {
@@ -1221,7 +1229,8 @@ showHideAccordion(index: number) {
           this.location1Arr.push(this.createLocation1Form());
         }
       }
-    } else if (this.location1Arr.length > this.value && this.value != 0) {
+    } 
+    else if (this.location1Arr.length > this.value && this.value != 0) {
       if (this.value != '') {
         this.delarr = this.location1Arr.length - this.value;
         for (this.i = 0; this.i < this.delarr; this.i++) {
@@ -1233,6 +1242,10 @@ showHideAccordion(index: number) {
       }
     }
   }
+  else{
+    this.key1LocationTable=false;
+  }
+  }
 
   onKey(event: KeyboardEvent) {
     this.values = (<HTMLInputElement>event.target).value;
@@ -1240,6 +1253,8 @@ showHideAccordion(index: number) {
     this.location2Arr = this.supplycharesteristicForm.get(
       'location2Arr'
     ) as FormArray;
+    if(this.value!=0){
+      this.JointLocationTable=true;
     if (this.location2Arr.length == 0) {
       if (this.value != '') {
         for (this.i = 1; this.i < this.value; this.i++) {
@@ -1249,12 +1264,14 @@ showHideAccordion(index: number) {
           this.location2Arr.push(this.createLocation2Form());
         }
       }
-    } else if (this.value == '') {
+    } 
+    else if (this.value == '') {
       this.loclength = this.location2Arr.length;
       for (this.i = 1; this.i < this.loclength; this.i++) {
         this.location2Arr.removeAt(this.location2Arr.length - 1);
       }
-    } else if (this.location2Arr.length < this.value) {
+    } 
+    else if (this.location2Arr.length < this.value) {
       if (this.value != '') {
         this.delarr = this.value - this.location2Arr.length;
         for (this.i = 0; this.i < this.delarr; this.i++) {
@@ -1264,7 +1281,8 @@ showHideAccordion(index: number) {
           this.location2Arr.push(this.createLocation2Form());
         }
       }
-    } else if (this.location2Arr.length > this.value && this.value != 0) {
+    } 
+    else if (this.location2Arr.length > this.value && this.value != 0) {
       if (this.value != '') {
         this.delarr = this.location2Arr.length - this.value;
         for (this.i = 0; this.i < this.delarr; this.i++) {
@@ -1276,13 +1294,28 @@ showHideAccordion(index: number) {
       }
     }
   }
-
+  else{
+    this.JointLocationTable=false;
+  }
+  }
+  keyTypeJoint(event: KeyboardEvent){
+    this.values = (<HTMLInputElement>event.target).value;
+    this.value = this.values;
+    if(this.value!=0  && this.key3LocationTable==false){
+      this.key3LocationTable=true;
+    }
+    else{
+      this.key3LocationTable=false;
+    }
+  }
   onKey3(event: KeyboardEvent) {
     this.values = (<HTMLInputElement>event.target).value;
     this.value = this.values;
     this.location3Arr = this.supplycharesteristicForm.get(
       'location3Arr'
     ) as FormArray;
+    if(this.value!=0 && this.JointLocationTable==false){
+      this.key3LocationTable=true;
     if (this.location3Arr.length == 0) {
       if (this.value != '') {
         for (this.i = 1; this.i < this.value; this.i++) {
@@ -1292,12 +1325,14 @@ showHideAccordion(index: number) {
           this.location3Arr.push(this.createLocation3Form());
         }
       }
-    } else if (this.value == '') {
+    } 
+    else if (this.value == '') {
       this.loclength = this.location3Arr.length;
       for (this.i = 1; this.i < this.loclength; this.i++) {
         this.location3Arr.removeAt(this.location3Arr.length - 1);
       }
-    } else if (this.location3Arr.length < this.value) {
+    } 
+    else if (this.location3Arr.length < this.value) {
       if (this.value != '') {
         this.delarr = this.value - this.location3Arr.length;
         for (this.i = 0; this.i < this.delarr; this.i++) {
@@ -1307,7 +1342,8 @@ showHideAccordion(index: number) {
           this.location3Arr.push(this.createLocation3Form());
         }
       }
-    } else if (this.location3Arr.length > this.value && this.value != 0) {
+    } 
+    else if (this.location3Arr.length > this.value && this.value != 0) {
       if (this.value != '') {
         this.delarr = this.location3Arr.length - this.value;
         for (this.i = 0; this.i < this.delarr; this.i++) {
@@ -1318,6 +1354,10 @@ showHideAccordion(index: number) {
         }
       }
     }
+  }
+  else{
+    this.key3LocationTable=false;
+  }
   }
 
   getLocation1Controls(): AbstractControl[] {
@@ -1694,14 +1734,14 @@ showHideAccordion(index: number) {
     );
     this.nominalFrequencyArr.push(
       this.NF1,
-      this.NF2,
-      this.NF3,
-      this.NF4,
-      this.NF5,
-      this.NF6,
-      this.NF7,
-      this.NF8,
-      this.NF9
+      // this.NF2,
+      // this.NF3,
+      // this.NF4,
+      // this.NF5,
+      // this.NF6,
+      // this.NF7,
+      // this.NF8,
+      // this.NF9
     );
     this.nominalCurrentArr.push(
       this.PF1,
@@ -1815,14 +1855,14 @@ showHideAccordion(index: number) {
           );
           arr1.push(
             j.nominalFrequency1,
-            j.nominalFrequency2,
-            j.nominalFrequency3,
-            j.nominalFrequency4,
-            j.nominalFrequency5,
-            j.nominalFrequency6,
-            j.nominalFrequency7,
-            j.nominalFrequency8,
-            j.nominalFrequency9
+            // j.nominalFrequency2,
+            // j.nominalFrequency3,
+            // j.nominalFrequency4,
+            // j.nominalFrequency5,
+            // j.nominalFrequency6,
+            // j.nominalFrequency7,
+            // j.nominalFrequency8,
+            // j.nominalFrequency9
           );
           arr2.push(
             j.current1,
