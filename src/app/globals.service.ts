@@ -1,6 +1,8 @@
 import {Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
+// import { Reportdetails } from './model/reportdetails';
+// import { SiteService } from './services/site.service';
 
 @Injectable({
   providedIn: 'root'
@@ -58,9 +60,13 @@ export class GlobalsService {
  isCompleted3: boolean = true;
  goBacktoprevious: boolean=false;
  editable: boolean = true;
+jointType: any;
+noOfjoint: any; 
+// clientList: any = [];
+// reportDetails =new Reportdetails;
 
- 
- constructor(private _scrollToService: ScrollToService) {}
+ constructor(private _scrollToService: ScrollToService
+  ) {}
   
 //Scroll Top to Bottom for notification
   public triggerScrollTo() {
@@ -70,6 +76,18 @@ export class GlobalsService {
       };
       this._scrollToService.scrollTo(config);
     }
+
+    // retrieveSiteDetails(companyName: any,departmentName: any,siteName: any) {
+    //   if((companyName!= undefined) && (departmentName!= undefined) && (siteName!= undefined))  {
+    //   this.siteService.retrieveSiteForInspection(companyName,departmentName,siteName).subscribe(
+    //     data => {
+    //       this.clientList = [];
+    //       this.clientList=JSON.parse(data);
+    //       this.reportDetails.siteId = this.clientList.siteId;
+    //       this.siteCount = this.reportDetails.siteId;
+    //     });
+    //   }
+    // }
   }
 
  
