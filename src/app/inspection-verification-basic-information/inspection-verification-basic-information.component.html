@@ -307,7 +307,8 @@
                 <div class="col-md-4">
                   <label>Date of Starting the Verification *</label>
                   <input type="date" class="form-control" formControlName="startingDateVerification"
-                  [ngClass]="{ 'is-invalid': submitted && f.startingDateVerification.errors }" placeholder="Enter Date" [(ngModel)]="reportDetails.verificationDate">
+                  [ngClass]="{ 'is-invalid': submitted && f.startingDateVerification.errors }" placeholder="Enter Date" 
+                  [(ngModel)]="reportDetails.verificationDate">
                   <div *ngIf="submitted && f.startingDateVerification.errors" class="invalid-feedback">
                     <div *ngIf="f.startingDateVerification?.errors?.required">Field Is Required</div>
                 </div>
@@ -372,7 +373,8 @@
                       <div class="col-md-4">
                         <label>Name (In block letters) :</label>
                         <input type="text" formControlName="declarationName" class="form-control" placeholder="Enter Designer Name"
-                        [ngClass]="{ 'is-invalid': submitted && a.get('declarationName')?.errors }">
+                        [ngClass]="{ 'is-invalid': submitted && a.get('declarationName')?.errors }" 
+                        (keyup)="onKeyPersonName($event)" [(ngModel)]="declarationPersonName">
                           <div *ngIf="submitted && a.get('declarationName')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('declarationName')?.errors?.required">Name (In block letters) is required</div>
                         </div>
@@ -534,8 +536,12 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label>Person Name:</label>
-                            <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name"
-                            [ngClass]="{ 'is-invalid': submitted && a.get('personName')?.errors }">
+                            <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name" readonly
+                            [ngClass]="{ 'is-invalid': submitted && a.get('personName')?.errors }" [(ngModel)]="declarationPersonName"
+                            (focus)="focusPersonFunction()">
+                            <div *ngIf="showPersonNameMsg" class="invalid-feedback">
+                             Please fill out the details in Liability and Declaration tab!
+                            </div>
                           <div *ngIf="submitted && a.get('personName')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('personName')?.errors?.required">Person name is required</div>
                         </div>
@@ -578,7 +584,7 @@
                         </div>
 
                         <div class="col-md-4">
-                          <label>* Mobile Number:</label>
+                          <label>* Mobile Number (Optional):</label>
                           <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
                           (keypress)="keyPressNumbers($event)" (countryChange)="countryChange1($event)" [readonly]="setReadOnly"
                           formControlName="managerContactNo" class="form-control" placeholder="Enter Mobile Number"
@@ -745,7 +751,7 @@
                           </div>
 
                           <div class="col-md-4">
-                            <label>* Mobile Number:</label>
+                            <label>* Mobile Number (Optional):</label>
                             <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
                             (keypress)="keyPressNumbers($event)" (countryChange)="countryChange3($event)" formControlName="managerContactNo" class="form-control" placeholder="Enter Mobile Number"
                             [readonly]="setReadOnly1" [ngClass]="{ 'is-invalid': submitted && a.get('managerContactNo')?.errors }">
@@ -915,7 +921,7 @@
                           </div>
 
                           <div class="col-md-4">
-                            <label>* Mobile Number:</label>
+                            <label>* Mobile Number (Optional):</label>
                             <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
                             (keypress)="keyPressNumbers($event)" (countryChange)="countryChange5($event)" [readonly]="setReadOnly" formControlName="managerContactNo" class="form-control" placeholder="Enter Mobile Number"
                             [ngClass]="{ 'is-invalid': submitted && a.get('managerContactNo')?.errors }">
@@ -1083,7 +1089,7 @@
                         </div>
 
                         <div class="col-md-4">
-                          <label>* Mobile Number:</label>
+                          <label>* Mobile Number (Optional):</label>
                           <input type="tel"  ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
                           (keypress)="keyPressNumbers($event)" (countryChange)="countryChange7($event)" formControlName="managerContactNo" class="form-control" placeholder="Enter Mobile Number"
                           [readonly]="setReadOnly" [ngClass]="{ 'is-invalid': submitted && a.get('managerContactNo')?.errors}">

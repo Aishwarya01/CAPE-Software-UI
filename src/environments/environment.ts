@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   environmentName: 'dev',
+  superAdmin: ['sd@capeindia.net'],
   apiUrl: 'http://localhost:5000/api/v1',
   sessionTimeOut: 6000,
   apiUrl_v2: 'http://localhost:5000/api/v2',

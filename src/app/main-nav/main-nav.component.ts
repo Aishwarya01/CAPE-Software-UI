@@ -79,6 +79,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
   //@ViewChild('ongoingSiteSort', { static: false }) ongoingSiteSort!: MatSort;
   private ongoingSitePaginator!: MatPaginator;
   private ongoingSiteSort!: MatSort;
+  superAdminFlag: boolean = false;
+  allData: any = [];
 
   @ViewChild('ongoingSiteSort') set matSortOn(ms: MatSort) {
     this.ongoingSiteSort = ms;
@@ -251,13 +253,13 @@ export class MainNavComponent implements OnInit, OnDestroy {
    this.newNotify();
     this.mobileDisplay = false;
     this.desktopDisplay = true;
-    this.bnIdle.startWatching(environment.sessionTimeOut).subscribe((isTimedOut: boolean) => {
-      if (isTimedOut) {
-        alert('Your session is timed out')
-        this.logout();
-        this.bnIdle.stopTimer();
-      }
-    });
+    // this.bnIdle.startWatching(environment.sessionTimeOut).subscribe((isTimedOut: boolean) => {
+    //   if (isTimedOut) {
+    //     alert('Your session is timed out')
+    //     this.logout();
+    //     this.bnIdle.stopTimer();
+    //   }
+    // });
     this.currentUser=sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
@@ -452,43 +454,77 @@ triggerNavigateTo(siteName:any){
   lvInspectionRef.changeDetectorRef.detectChanges();
 }
   retrieveSiteDetails() {
-    if(this.currentUser1.role == 'Inspector') {
-      this.siteService.retrieveSite(this.email).subscribe((data) => {
-        this.ongoingSite_dataSource = new MatTableDataSource(JSON.parse(data));
-        this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
-        this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
-  
-        this.completedLicense_dataSource = new MatTableDataSource(JSON.parse(data));
-        //this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
-        //this.completedLicense_dataSource.sort = this.completedLicenseSort;
-      });
+    this.completedFilterData = [];
+    this.ongoingFilterData = [];
+
+    for(let i of environment.superAdmin) {
+      if(this.email == i) {
+        this.superAdminFlag = true;
+      }
+    }
+
+    if(this.superAdminFlag) {
+      this.siteService.retrieveAllSite(this.email).subscribe(
+        data => {
+          this.allData = JSON.parse(data);
+          for(let i of this.allData){
+              if(i.allStepsCompleted=="AllStepCompleted"){
+                this.completedFilterData.push(i);
+              }
+              else{
+               this.ongoingFilterData.push(i);
+              }
+          }
+          this.ongoingSite_dataSource = new MatTableDataSource(this.ongoingFilterData);
+          this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
+          this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
+    
+          this.completedLicense_dataSource = new MatTableDataSource(this.completedFilterData);
+          //this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
+          //this.completedLicense_dataSource.sort = this.completedLicenseSort;
+        });
+
+      this.superAdminFlag = false;
     }
     else {
-      if(this.currentUser1.assignedBy!=null) {
-        this.ongoingFilterData=[];
-        this.completedFilterData=[];
-        this.siteService.retrieveListOfSite(this.currentUser1.assignedBy).subscribe(
-          data => {
-            this.userData=JSON.parse(data);
-           for(let i of this.userData){
-             if(i.assignedTo==this.email){
-               if(i.allStepsCompleted=="AllStepCompleted"){
-                 this.completedFilterData.push(i);
-               }
-               else{
-                this.ongoingFilterData.push(i);
+      if(this.currentUser1.role == 'Inspector') {
+        this.siteService.retrieveSite(this.email).subscribe((data) => {
+          this.ongoingSite_dataSource = new MatTableDataSource(JSON.parse(data));
+          this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
+          this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
+    
+          this.completedLicense_dataSource = new MatTableDataSource(JSON.parse(data));
+          //this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
+          //this.completedLicense_dataSource.sort = this.completedLicenseSort;
+        });
+      }
+      else {
+        if(this.currentUser1.assignedBy!=null) {
+          this.ongoingFilterData=[];
+          this.completedFilterData=[];
+          this.siteService.retrieveListOfSite(this.currentUser1.assignedBy).subscribe(
+            data => {
+              this.userData=JSON.parse(data);
+             for(let i of this.userData){
+               if(i.assignedTo==this.email){
+                 if(i.allStepsCompleted=="AllStepCompleted"){
+                   this.completedFilterData.push(i);
+                 }
+                 else{
+                  this.ongoingFilterData.push(i);
+                 }
                }
              }
-           }
-        this.ongoingSite_dataSource = new MatTableDataSource(this.ongoingFilterData);
-        //this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
-        //this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
-  
-        this.completedLicense_dataSource = new MatTableDataSource(this.completedFilterData);
-       // this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
-        //this.completedLicense_dataSource.sort = this.completedLicenseSort;
-      });
-    }
+          this.ongoingSite_dataSource = new MatTableDataSource(this.ongoingFilterData);
+          //this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
+          //this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
+    
+          this.completedLicense_dataSource = new MatTableDataSource(this.completedFilterData);
+         // this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
+          //this.completedLicense_dataSource.sort = this.completedLicenseSort;
+        });
+        }
+      }
     }
     
   }

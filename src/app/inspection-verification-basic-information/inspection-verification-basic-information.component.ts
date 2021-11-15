@@ -94,7 +94,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
  
   // Second Tab dependencies
   panelOpenState = false;
-  installationList: String[]= ['New Installation','First Verification Of An Existing','Addition Of An Existing Installation','Alteration In An Existing Installation','Periodic Verification'];
+  installationList: String[]= ['New Installation','First Verification Of An Existing Installation','Addition Of An Existing Installation','Alteration In An Existing Installation','Periodic Verification'];
   premiseList: String[]= ['Domestic(Individual)','Domestic(Apartment)','Commercial','IT/Office','Data Center','Industrial(Non Ex Environment)','Industrial(Ex Environment)'];
   evidenceList: String[]= ['Yes', 'No', 'Not Apparent'];
   previousRecordList: String[]= ['Yes', 'No'];
@@ -194,7 +194,9 @@ ShowNext: boolean = true;
   tabError: boolean=false;
   tabErrorMsg: string="";
   lastInspectionDate: boolean=false;
-  
+  showPersonNameMsg: boolean = false;
+  declarationPersonName: string="";
+  values: any;
   constructor(
     private _formBuilder: FormBuilder,
     private router: ActivatedRoute,
@@ -289,9 +291,25 @@ ShowNext: boolean = true;
     this.retrieveSiteDetails(this.service.viewerData.companyName,this.service.viewerData.department,this.service.viewerData.siteName);
     this.inspectorArr = this.step1Form.get('inspectorArr') as FormArray;
     this.expandedIndex = -1 ;
-    
+    //this.service.siteCount = this.reportDetails.siteId;
   }
- 
+  focusPersonFunction(){
+    if(this.declarationPersonName==''){
+      this.showPersonNameMsg=true;
+    }
+    else{
+      this.showPersonNameMsg=false;
+    }
+  }
+  onKeyPersonName(event: KeyboardEvent) { 
+    this.values = (<HTMLInputElement>event.target).value;
+   if(this.values==''){
+    this.showPersonNameMsg=true;
+   }
+   else{
+    this.showPersonNameMsg=false;
+  }
+  }
 //for company site detail continue
   changeTab(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any): void {
     this.siteDetails1 = true;
@@ -324,6 +342,8 @@ ShowNext: boolean = true;
        this.reportDetails.evidanceAddition=this.step1List.reportDetails.evidanceAddition;
        this.showEstimatedAge(this.step1List.reportDetails.evidanceAddition);
        this.reportDetails.previousRecords=this.step1List.reportDetails.previousRecords;
+       this.previousRecord(this.step1List.reportDetails.previousRecords);
+       this.reportDetails.lastInspection=this.step1List.reportDetails.lastInspection;
        this.step1List.evidenceAlterations=this.step1List.reportDetails.evidenceAlterations;
        this.reportDetails.limitations= this.step1List.reportDetails.limitations;
        this.reportDetails.createdBy = this.step1List.reportDetails.createdBy;
@@ -811,13 +831,13 @@ showHideAccordion(index: number) {
 
 //retrieve client details
   private retrieveSiteDetails(companyName: any,departmentName: any,siteName: any) {
-
     if((companyName!= undefined) && (departmentName!= undefined) && (siteName!= undefined))  {
     this.siteService.retrieveSiteForInspection(companyName,departmentName,siteName).subscribe(
       data => {
         this.clientList = [];
         this.clientList=JSON.parse(data);
         this.reportDetails.siteId = this.clientList.siteId;
+        this.service.siteCount = this.reportDetails.siteId;
       });
     }
   }
@@ -1025,14 +1045,14 @@ showHideAccordion(index: number) {
       personContactNo: new FormControl('',[Validators.maxLength(10),Validators.required]),
       personMailID: new FormControl('',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       managerName: new FormControl('',[Validators.required]),
-      managerContactNo: new FormControl('',[Validators.maxLength(10), Validators.required]),
+      managerContactNo: new FormControl('',[Validators.maxLength(10)]),
       managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       companyName: new FormControl('',[Validators.required]),
       addressLine1: new FormControl('',[Validators.required]),
       addressLine2: new FormControl(''),
       landMark: new FormControl(''),
       country: new FormControl('',[Validators.required]),
-      state: new FormControl('',[Validators.required]),
+      state: new FormControl('',[Validators.required]), 
       pinCode: new FormControl('',[Validators.required]),
       signatorRole: new FormControl(''),
       declarationSignature: new FormControl(''),
@@ -1112,7 +1132,7 @@ showHideAccordion(index: number) {
     personContactNo: new FormControl('',[Validators.maxLength(10),Validators.required]),
     personMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
     managerName: new FormControl('',[Validators.required]),
-    managerContactNo: new FormControl('',[Validators.maxLength(10), Validators.required]),
+    managerContactNo: new FormControl('',[Validators.maxLength(10)]),
     managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
     companyName: new FormControl('',[Validators.required]),
     addressLine1: new FormControl('',[Validators.required]),
@@ -1159,7 +1179,7 @@ showHideAccordion(index: number) {
       personContactNo: new FormControl(value.contactNumber,[Validators.required]),
       personMailID: new FormControl(value.username,[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       managerName: new FormControl('',[Validators.required]),
-      managerContactNo: new FormControl('',[Validators.maxLength(10),Validators.required]),
+      managerContactNo: new FormControl('',[Validators.maxLength(10)]),
       managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       companyName: new FormControl(value.companyName,[Validators.required]),
       addressLine1: new FormControl(value.address,[Validators.required]),
@@ -1229,7 +1249,7 @@ showHideAccordion(index: number) {
     this.f.designer2Arr.controls[0].controls['personMailID'].updateValueAndValidity();
     this.f.designer2Arr.controls[0].controls['managerName'].setValidators(Validators.required);
     this.f.designer2Arr.controls[0].controls['managerName'].updateValueAndValidity();
-    this.f.designer2Arr.controls[0].controls['managerContactNo'].setValidators([Validators.required, Validators.maxLength(10)]);
+    this.f.designer2Arr.controls[0].controls['managerContactNo'].setValidators([Validators.maxLength(10)]);
     this.f.designer2Arr.controls[0].controls['managerContactNo'].updateValueAndValidity();
     this.f.designer2Arr.controls[0].controls['managerMailID'].setValidators([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]);
     this.f.designer2Arr.controls[0].controls['managerMailID'].updateValueAndValidity();
@@ -1675,7 +1695,7 @@ showHideAccordion(index: number) {
        this.errorMsg = this.errorArr.message;
        this.proceedNext.emit(false);
      });
-     this.service.siteCount = this.reportDetails.siteId;
   }
+  //this.service.siteCount = this.reportDetails.siteId;
  }
 }

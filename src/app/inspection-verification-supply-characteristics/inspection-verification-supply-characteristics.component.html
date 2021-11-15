@@ -82,9 +82,11 @@
             <div class="col-md-4">
               <mat-form-field class="client-description " >
                 <mat-label>
-                  <h3>Brief Note (in case of confusion)</h3>
+                  <h3>Brief Note (in case of confusion)(Optional)</h3>
                 </mat-label>
-                <textarea matInput class="client-box-description" formControlName="briefNote" [ngClass]="{ 'is-invalid': submitted && f.briefNote.errors }" [(ngModel)]="supplycharesteristic.systemEarthingBNote" maxlength="500" placeholder="Ex. Brief Note ..." ></textarea>
+                <textarea matInput class="client-box-description" formControlName="briefNote" 
+                [ngClass]="{ 'is-invalid': submitted && f.briefNote.errors }" 
+                [(ngModel)]="supplycharesteristic.systemEarthingBNote" maxlength="500" placeholder="Ex. Brief Note ..." ></textarea>
               </mat-form-field>
               <div *ngIf="submitted && f.briefNote.errors" class="invalid-feedback">
                 <div *ngIf="f.briefNote?.errors?.required">Field Is Required</div>
@@ -126,7 +128,8 @@
                       </tr>
                       <tr>
                         <td nowrap="nowrap">Nominal Frequency f (HZ)</td>
-                        <td><input  type="text" style="width:50px" formControlName="NF1" [(ngModel)]="NF1"></td>
+                        <td colspan="9"><input  type="text" formControlName="NF1" [(ngModel)]="NF1" style="width: 950px"></td>
+                        <!-- <td><input  type="text" style="width:50px" formControlName="NF1" [(ngModel)]="NF1"></td>
                         <td><input  type="text" style="width:50px" formControlName="NF2" [(ngModel)]="NF2"></td>
                         <td><input  type="text" style="width:50px" formControlName="NF3" [(ngModel)]="NF3"></td>
                         <td><input  type="text" style="width:50px" formControlName="NF4" [(ngModel)]="NF4"></td>
@@ -134,7 +137,7 @@
                         <td><input  type="text" style="width:50px" formControlName="NF6" [(ngModel)]="NF6"></td>
                         <td><input  type="text" style="width:50px" formControlName="NF7" [(ngModel)]="NF7"></td>
                         <td><input  type="text" style="width:50px" formControlName="NF8" [(ngModel)]="NF8"></td>
-                        <td><input  type="text" style="width:50px" formControlName="NF9" [(ngModel)]="NF9"></td>
+                        <td><input  type="text" style="width:50px" formControlName="NF9" [(ngModel)]="NF9"></td> -->
                       </tr>
                       <tr>
                         <td nowrap="nowrap">Prospective fault current Ipfc (kA) </td>
@@ -212,9 +215,11 @@
             <div class="col-md-4">
               <mat-form-field class="client-description " >
                 <mat-label>
-                  <h3>Brief note</h3>
+                  <h3>Brief note (Optional)</h3>
                 </mat-label>
-                <textarea matInput class="client-box-description" formControlName="liveConductorBNote" [ngClass]="{ 'is-invalid': submitted && f.liveConductorBNote.errors }" [(ngModel)]="supplycharesteristic.liveConductorBNote" maxlength="500" placeholder="Ex. Brief Note ..." ></textarea>
+                <textarea matInput class="client-box-description" formControlName="liveConductorBNote" 
+                [ngClass]="{ 'is-invalid': submitted && f.liveConductorBNote.errors }" 
+                [(ngModel)]="supplycharesteristic.liveConductorBNote" maxlength="500" placeholder="Ex. Brief Note ..." ></textarea>
               </mat-form-field>
               <div *ngIf="submitted && f.liveConductorBNote.errors" class="invalid-feedback">
                 <div *ngIf="f.liveConductorBNote?.errors?.required">Field Is Required</div>
@@ -352,9 +357,11 @@
                     <div class="col-md-4">
                       <mat-form-field class="client-description">
                         <mat-label>
-                          <h3>Brief Note (in case of confusion)</h3>
+                          <h3>Brief Note (in case of confusion)(Optional)</h3>
                         </mat-label>
-                        <textarea matInput class="client-box-description" formControlName="aLSystemEarthingBNote" [ngClass]="{ 'is-invalid': submitted && a.get('aLSystemEarthingBNote')?.errors }" maxlength="500" placeholder="Ex. Brief Note ..." ></textarea>
+                        <textarea matInput class="client-box-description" formControlName="aLSystemEarthingBNote" 
+                        [ngClass]="{ 'is-invalid': submitted && a.get('aLSystemEarthingBNote')?.errors }" maxlength="500" 
+                        placeholder="Ex. Brief Note ..." ></textarea>
                       </mat-form-field>
                       <div *ngIf="submitted && a.get('aLSystemEarthingBNote')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('aLSystemEarthingBNote')?.errors?.required">Field Is Required</div>
@@ -396,9 +403,10 @@
                                 <td><input  type="text" formControlName="nominalVoltage9" style="width:70px"></td>
 
                               </tr>
-                              <tr>
+                              <tr> 
                                 <td nowrap="nowrap">Nominal Frequency f (HZ)</td>
-                                <td><input  type="text"   formControlName="nominalFrequency1" style="width:70px"></td>
+                                <td colspan="9"><input  type="text" formControlName="nominalFrequency1" style="width: 950px"></td>
+                                <!-- <td><input  type="text"   formControlName="nominalFrequency1" style="width:70px"></td>
                                 <td><input  type="text" formControlName="nominalFrequency2" style="width:70px"></td>
                                 <td><input  type="text"  formControlName="nominalFrequency3" style="width:70px"></td>
                                 <td><input  type="text" formControlName="nominalFrequency4" style="width:70px"></td>
@@ -406,7 +414,7 @@
                                 <td><input  type="text" formControlName="nominalFrequency6" style="width:70px"></td>
                                 <td><input  type="text" formControlName="nominalFrequency7" style="width:70px"></td>
                                 <td><input  type="text"  formControlName="nominalFrequency8" style="width:70px"></td>
-                                <td><input  type="text" formControlName="nominalFrequency9" style="width:70px"></td>
+                                <td><input  type="text" formControlName="nominalFrequency9" style="width:70px"></td> -->
                               </tr>
                               <tr>
                                 <td nowrap="nowrap">Prospective Fault Current Ipfc (kA) </td>
@@ -496,9 +504,11 @@
                     <div class="col-md-4">
                       <mat-form-field class="client-description">
                         <mat-label>
-                          <h3>Brief Note (in case of confusion)</h3>
+                          <h3>Brief Note (in case of confusion)(Optional)</h3>
                         </mat-label>
-                        <textarea matInput class="client-box-description" formControlName="aLLiveConductorBNote" [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorBNote')?.errors }" maxlength="500" placeholder="Ex. Brief Note ..." ></textarea>
+                        <textarea matInput class="client-box-description" formControlName="aLLiveConductorBNote" 
+                        [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorBNote')?.errors }" maxlength="500" 
+                        placeholder="Ex. Brief Note ..." ></textarea>
                         <div *ngIf="submitted && a.get('aLLiveConductorBNote')?.errors" class="invalid-feedback">
                           <div *ngIf="a.get('aLLiveConductorBNote')?.errors?.required">Field Is Required</div>
                         </div>
@@ -584,20 +594,21 @@
 
                 <div class="col-md-4" style="margin-top: 30px">
                   <p class="joints">Number Of Locations 
-                    <input type="tel" min="1" formControlName="noOfLocation" 
+                    <input type="tel" min="0" formControlName="noOfLocation" 
                     [ngClass]="{ 'is-invalid': submitted && f.noOfLocation.errors }" 
                     [(ngModel)]="supplycharesteristic.noOfLocation" style="
                     width: 50px;
                     background: transparent;
                     border: none;
-                    border-bottom: 1px solid #000000;" (keyup)="onKey1($event)"></p>
+                    border-bottom: 1px solid #000000;" (keyup)="onKey1($event)" (change)="LocationsRecord($event)"></p>
                     <div *ngIf="submitted && f.noOfLocation.errors" class="invalid-feedback">
                       <div *ngIf="f.noOfLocation?.errors?.required">Location number is required</div>
-                      <div *ngIf="f.noOfLocation?.errors?.min">Please enter value above 0</div>
+                      <!-- <div *ngIf="f.noOfLocation?.errors?.min">Please enter value above 0</div> -->
                     </div>
                 </div>
               </div>
             <br>
+            <div *ngIf="key1LocationTable">
               <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="col-sm-12">
                   <h2>Number Of Locations</h2>
@@ -647,7 +658,7 @@
                     </div>
 
                     <div class="col-md-3">
-                      <input type="number" min="0"  formControlName="electrodeResistanceGird" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('electrodeResistanceGird')?.errors }" placeholder="Enter electrode resistance" >
+                      <input type="tel" min="0"  formControlName="electrodeResistanceGird" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('electrodeResistanceGird')?.errors }" placeholder="Enter electrode resistance" >
                       <div *ngIf="submitted && a.get('electrodeResistanceGird')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('electrodeResistanceGird')?.errors?.required">Field Is Required</div>
                       </div>
@@ -655,7 +666,7 @@
                   </div>
                 </div>
               </div>
-
+            </div>
             </mat-expansion-panel>
 
             <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -719,7 +730,8 @@
                   <div class="col-md-4">
                     <label>Material Of Main Protective Bonding Conductor:</label>
                     <input type="text"  class="form-control" formControlName="bondingConductorMaterial" 
-                    [ngClass]="{ 'is-invalid': submitted && f.bondingConductorMaterial.errors }" [(ngModel)]="supplycharesteristic.bondingConductorMaterial">
+                    [ngClass]="{ 'is-invalid': submitted && f.bondingConductorMaterial.errors }" 
+                    [(ngModel)]="supplycharesteristic.bondingConductorMaterial">
                     <div *ngIf="submitted && f.bondingConductorMaterial.errors" class="invalid-feedback">
                       <div *ngIf="f.bondingConductorMaterial?.errors?.required">Field Is Required</div>
                     </div>
@@ -742,34 +754,40 @@
               <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 30px">
-                    <p>Type Of Joints (Impairing Safety) <input type="number" min="1" formControlName="bondingJointsType" 
-                    [ngClass]="{ 'is-invalid': submitted && f.bondingJointsType.errors }" [(ngModel)]="supplycharesteristic.bondingJointsType" style="
+                    <p  class="joints">No Of Joints
+                      <input type="tel" min="0" formControlName="bondingNoOfJoints" [(ngModel)]="supplycharesteristic.bondingNoOfJoints" [ngClass]="{ 'is-invalid': submitted && f.bondingNoOfJoints.errors }" style="
+                      width: 50px;
+                      background: transparent;
+                      border: none;
+                      border-bottom: 1px solid #000000;" (keyup)="onKey($event)" (change)="jointSafetyRecord($event,i)"
+                      ></p>
+                      <div *ngIf="submitted && f.bondingNoOfJoints.errors" class="invalid-feedback">
+                        <div *ngIf="f.bondingNoOfJoints?.errors?.required">Number of joints is required</div>
+                        <!-- <div *ngIf="f.bondingNoOfJoints?.errors?.min">Please enter value above 0</div> -->
+                      </div>
+                  </div>
+                  <div class="col-md-4" style="margin-top: 30px" *ngIf="JointLocationTable">
+                    <label>Type Of Joints (Impairing Safety):</label>
+                    <input type="text"  class="form-control" formControlName="bondingJointsType" 
+                    [ngClass]="{ 'is-invalid': submitted && f.bondingJointsType.errors }" 
+                    [(ngModel)]="supplycharesteristic.bondingJointsType">
+                    <!-- <p>Type Of Joints (Impairing Safety) 
+                      <input type="text" formControlName="bondingJointsType" 
+                    [ngClass]="{ 'is-invalid': submitted && f.bondingJointsType.errors }" 
+                    [(ngModel)]="supplycharesteristic.bondingJointsType" style="
                       width: 50px;
                       background: transparent;
                       border: none;
                       border-bottom: 1px solid #000000;">
-                    </p>
+                    </p> -->
                     <div *ngIf="submitted && f.bondingJointsType.errors" class="invalid-feedback">
                       <div *ngIf="f.bondingJointsType?.errors?.required">Field Is Required</div>
                     </div>
                   </div>
-                  <div class="col-md-4" style="margin-top: 30px">
-                    <p  class="joints">No Of Joints
-                      <input type="tel" min="1" formControlName="bondingNoOfJoints" [(ngModel)]="supplycharesteristic.bondingNoOfJoints" [ngClass]="{ 'is-invalid': submitted && f.bondingNoOfJoints.errors }" style="
-                      width: 50px;
-                      background: transparent;
-                      border: none;
-                      border-bottom: 1px solid #000000;" (keyup)="onKey($event)"
-                      ></p>
-                      <div *ngIf="submitted && f.bondingNoOfJoints.errors" class="invalid-feedback">
-                        <div *ngIf="f.bondingNoOfJoints?.errors?.required">Number of joints is required</div>
-                        <div *ngIf="f.bondingNoOfJoints?.errors?.min">Please enter value above 0</div>
-                      </div>
-                  </div>
                   <!-- (blur)="update(box.value)" (keyup)="onKey($event)"-->
                 </div>
               </div>
-
+               <div *ngIf="JointLocationTable"> 
               <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="col-sm-12">
                 <h2>Location Table</h2>
@@ -816,7 +834,7 @@
                   </div>
                 </div>
               </div>
-
+              </div>
               <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 30px">
@@ -857,77 +875,85 @@
               <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 30px">
-                    <p>Type of Joints<input type="number" min="1" formControlName="earthingJointsType" [ngClass]="{ 'is-invalid': submitted && f.earthingJointsType.errors }" [(ngModel)]="supplycharesteristic.earthingJointsType" style="
+                    <p class="joints">No Of Joints <input type="tel" min="0" formControlName="earthingNoOfJoints" 
+                    [ngClass]="{ 'is-invalid': submitted && f.earthingNoOfJoints.errors }" 
+                    [(ngModel)]="supplycharesteristic.earthingNoOfJoints" style="
+                      width: 50px;
+                      background: transparent;
+                      border: none;
+                      border-bottom: 1px solid #000000;" (keyup)="onKey3($event)" (change)="jointRecord($event,i)"></p>
+                      <div *ngIf="submitted && f.earthingNoOfJoints.errors" class="invalid-feedback">
+                        <div *ngIf="f.earthingNoOfJoints?.errors?.required">Field Is Required</div>
+                        <!-- <div *ngIf="f.earthingNoOfJoints?.errors?.min">Please enter value above 0</div> -->
+                      </div>
+                  </div>
+                  <div class="col-md-4" style="margin-top: 30px" *ngIf=keyJOintLocationTable>
+                    <label>Type Of Joints:</label>
+                    <input type="text"  class="form-control" formControlName="earthingJointsType" 
+                    [ngClass]="{ 'is-invalid': submitted && f.earthingJointsType.errors }" 
+                    [(ngModel)]="supplycharesteristic.earthingJointsType">
+                    <!-- <p>Type of Joints<input type="number" min="0" formControlName="earthingJointsType" 
+                    [ngClass]="{ 'is-invalid': submitted && f.earthingJointsType.errors }" 
+                    [(ngModel)]="supplycharesteristic.earthingJointsType" style="
                       width: 50px;
                       background: transparent;
                       border: none;
                       border-bottom: 1px solid #000000;">
-                    </p>
+                    </p> -->
                     <div *ngIf="submitted && f.earthingJointsType.errors" class="invalid-feedback">
                       <div *ngIf="f.earthingJointsType?.errors?.required">Field Is Required</div>
                     </div>
                   </div>
-
-                  <div class="col-md-4" style="margin-top: 30px">
-                    <p class="joints">No Of Joints <input type="tel" min="1" formControlName="earthingNoOfJoints" [ngClass]="{ 'is-invalid': submitted && f.earthingNoOfJoints.errors }" [(ngModel)]="supplycharesteristic.earthingNoOfJoints" style="
-                      width: 50px;
-                      background: transparent;
-                      border: none;
-                      border-bottom: 1px solid #000000;" (keyup)="onKey3($event)"></p>
-                      <div *ngIf="submitted && f.earthingNoOfJoints.errors" class="invalid-feedback">
-                        <div *ngIf="f.earthingNoOfJoints?.errors?.required">Field Is Required</div>
-                        <div *ngIf="f.earthingNoOfJoints?.errors?.min">Please enter value above 0</div>
-                      </div>
+                  <!-- (keyup)="keyUpJoint($event)" -->
+                </div>
+              </div>
+              <div *ngIf=keyJOintLocationTable>
+                <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
+                  <div class="col-sm-12">
+                  <h2>Location Table</h2>
+                  </div>
+                  <!-- <mat-icon class="mousechange" (click)="addLocation3()" style=" padding-top: 5px;">add_box</mat-icon> -->
+                </div>
+  
+                <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
+                  <div class="col-md-4">
+                    <label style="text-align: center;">Location</label>
+                  </div>
+                  <div class="col-md-4">
+                    <label style="text-align: center;">Joint No</label>
+                  </div>
+                  <div class="col-md-4">
+                    <label style="text-align: center;">Joint Resistance (Ω)</label>
                   </div>
                 </div>
-              </div>
-
-              <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
-                <div class="col-sm-12">
-                <h2>Location Table</h2>
-                </div>
-                <!-- <mat-icon class="mousechange" (click)="addLocation3()" style=" padding-top: 5px;">add_box</mat-icon> -->
-              </div>
-
-              <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
-                <div class="col-md-4">
-                  <label style="text-align: center;">Location</label>
-                </div>
-                <div class="col-md-4">
-                  <label style="text-align: center;">Joint No</label>
-                </div>
-                <div class="col-md-4">
-                  <label style="text-align: center;">Joint Resistance (Ω)</label>
-                </div>
-              </div>
-
-              <div formArrayName="location3Arr" *ngFor="let a of getLocation3Controls(); let i = index">
-                <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <input type="text"  formControlName="location" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('location')?.errors }" placeholder="Enter location" >
-                      <div *ngIf="submitted && a.get('location')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('location')?.errors?.required">Location is required</div>
+  
+                <div formArrayName="location3Arr" *ngFor="let a of getLocation3Controls(); let i = index">
+                  <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <input type="text"  formControlName="location" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('location')?.errors }" placeholder="Enter location" >
+                        <div *ngIf="submitted && a.get('location')?.errors" class="invalid-feedback">
+                          <div *ngIf="a.get('location')?.errors?.required">Location is required</div>
+                        </div>
                       </div>
-                    </div>
-
-                    <div class="col-md-4">
-                      <input type="number" min="0"  formControlName="jointNo" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('jointNo')?.errors }" placeholder="Enter Joint No" >
-                      <div *ngIf="submitted && a.get('jointNo')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('jointNo')?.errors?.required">Joint number is required</div>
+  
+                      <div class="col-md-4">
+                        <input type="number" min="0"  formControlName="jointNo" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('jointNo')?.errors }" placeholder="Enter Joint No" >
+                        <div *ngIf="submitted && a.get('jointNo')?.errors" class="invalid-feedback">
+                          <div *ngIf="a.get('jointNo')?.errors?.required">Joint number is required</div>
+                        </div>
                       </div>
-                    </div>
-
-                    <div class="col-md-4">
-                      <input type="number" min="0"  formControlName="jointResistance" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('jointResistance')?.errors }" placeholder="Enter Joint resistance" >
-                      <div *ngIf="submitted && a.get('jointResistance')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('jointResistance')?.errors?.required">Field Is Required</div>
+  
+                      <div class="col-md-4">
+                        <input type="number" min="0"  formControlName="jointResistance" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('jointResistance')?.errors }" placeholder="Enter Joint resistance" >
+                        <div *ngIf="submitted && a.get('jointResistance')?.errors" class="invalid-feedback">
+                          <div *ngIf="a.get('jointResistance')?.errors?.required">Field Is Required</div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-
             </mat-expansion-panel>
 
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngIf="breaker">
