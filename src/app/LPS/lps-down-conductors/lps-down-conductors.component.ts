@@ -509,6 +509,11 @@ export class LpsDownConductorsComponent implements OnInit {
     this.lightArr.push(this.createLightArrForm());
   }
 
+  submit5() {
+    this.lightArr = this.downConductorForm.get('testjointsArr') as FormArray;
+    this.lightArr.push(this.createTestJointsArrForm());
+  }
+
   removeItem(index: any) {
     (this.downConductorForm.get('downArr') as FormArray).removeAt(index);
   }
@@ -523,6 +528,9 @@ export class LpsDownConductorsComponent implements OnInit {
   }
   removeItem4(index: any) {
     (this.downConductorForm.get('lightArr') as FormArray).removeAt(index);
+  }
+  removeItem5(index: any) {
+    (this.downConductorForm.get('testjointsArr') as FormArray).removeAt(index);
   }
 
   get f() {

@@ -120,6 +120,7 @@
                                         </div>
                                     </td>
                                 </tr>
+
                             </tbody>
                         </table>
                     </div>
@@ -769,6 +770,12 @@
                                         </td>
                                     </tr>
                                 </div>
+                                <mat-icon class="mousechange" type="button" (click)="submit1()" *ngIf="earthingDescriptionarr().length == j+1"
+                                    style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section"
+                                  >add_box</mat-icon>
+                                <mat-icon title="delete" class="mousechange" type="button" *ngIf="earthingDescriptionarr().length > 1"
+                                    (click)="removeItem1(j)"
+                                    style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
                             </tbody>
                         </table>
                     </div>
@@ -1086,6 +1093,12 @@
                                             </td>
                                         </tr>
                                     </div>
+                                    <mat-icon class="mousechange" type="button" (click)="submit2()" *ngIf="earthingClampsarr().length == j+1"
+                                    style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section"
+                                  >add_box</mat-icon>
+                                <mat-icon title="delete" class="mousechange" type="button" *ngIf="earthingClampsarr().length > 1"
+                                    (click)="removeItem2(j)"
+                                    style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
                                 </tbody>
                             </table>
                         </div>
@@ -1398,6 +1411,12 @@
                                         </td>
                                     </tr>
                                 </div>
+                                <mat-icon class="mousechange" type="button" (click)="submit3()" *ngIf="earthElectrodeChambearr().length == j+1"
+                                    style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section"
+                                  >add_box</mat-icon>
+                                <mat-icon title="delete" class="mousechange" type="button" *ngIf="earthElectrodeChambearr().length > 1"
+                                    (click)="removeItem3(j)"
+                                    style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
                             </tbody>
                         </table>
                     </div>

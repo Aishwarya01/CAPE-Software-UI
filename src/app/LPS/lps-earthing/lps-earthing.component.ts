@@ -43,6 +43,11 @@ export class LpsEarthingComponent implements OnInit {
   arr4: any = [];
   step4List: any = [];
   flag: boolean = false;
+
+  descriptionArr!: FormArray;
+  ClampsArr!: FormArray;
+  chamberArr!: FormArray;
+  earthingArr!: FormArray;
   
   constructor(
     private formBuilder: FormBuilder, private lpsEarthings: LpsEarthing,private modalService: NgbModal, private router: ActivatedRoute
@@ -269,8 +274,27 @@ export class LpsEarthingComponent implements OnInit {
   earthingSystemarr(): AbstractControl[] {
     return (<FormArray>this.earthingForm.get('earthingArr')).controls;
   }
-
-
+  submit1(){
+    this.descriptionArr = this.earthingForm.get('descriptionArr') as FormArray;
+    this.descriptionArr.push(this.earthingDescription());
+  }
+  submit2(){
+    this.ClampsArr = this.earthingForm.get('ClampsArr') as FormArray;
+    this.ClampsArr.push(this.earthingDescription());
+  }
+  submit3(){
+    this.chamberArr = this.earthingForm.get('chamberArr') as FormArray;
+    this.chamberArr.push(this.earthingDescription());
+  }
+  removeItem1(index: any) {
+    (this.earthingForm.get('descriptionArr') as FormArray).removeAt(index);
+  }
+  removeItem2(index: any) {
+    (this.earthingForm.get('ClampsArr') as FormArray).removeAt(index);
+  }
+  removeItem3(index: any) {
+    (this.earthingForm.get('chamberArr') as FormArray).removeAt(index);
+  }
   earthingSystem(): FormGroup {
     return new FormGroup({
       buriedElectrodeOb: new FormControl('', Validators.required),

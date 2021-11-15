@@ -737,10 +737,10 @@
                                         </td>
                                     </tr>
                                 </div>
-                                <mat-icon class="mousechange" type="button" (click)="submit()"
-                                    style="margin-inline: 1rem;float: right;position: relative;"
-                                    title="Add another Text Fields">add_box</mat-icon>
-                                <mat-icon class="mousechange" *ngIf="downConductorControls().length > 1"
+                                <mat-icon class="mousechange" type="button" (click)="submit()" *ngIf="downConductorControls().length == j+1"
+                                    style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section"
+                                  >add_box</mat-icon>
+                                <mat-icon title="delete" class="mousechange" *ngIf="downConductorControls().length > 1"
                                     (click)="removeItem(j)"
                                     style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
                             </tbody>
@@ -1015,10 +1015,9 @@
                                         </td>
                                     </tr>
                                 </div>
-                                <mat-icon class="mousechange" type="button" (click)="submit1()"
-                                    style="margin-inline: 1rem;float: right;position: relative;"
-                                    title="Add another Text Fields">add_box</mat-icon>
-                                <mat-icon class="mousechange" *ngIf="bridgingCablesControls().length > 1"
+                                <mat-icon class="mousechange" type="button" (click)="submit1()" *ngIf="bridgingCablesControls().length == f+1"
+                                style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section" >add_box</mat-icon>
+                            <mat-icon title="delete" *ngIf="bridgingCablesControls().length > 1"
                                     (click)="removeItem1(f)"
                                     style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
 
@@ -1297,10 +1296,9 @@
                                         </td>
                                     </tr>
                                 </div>
-                                <mat-icon class="mousechange" type="button" (click)="submit2()"
-                                    style="margin-inline: 1rem;float: right;position: relative;"
-                                    title="Add another Text Fields">add_box</mat-icon>
-                                <mat-icon class="mousechange" *ngIf="holdersControls().length > 1"
+                                <mat-icon class="mousechange" type="button" (click)="submit2()" *ngIf="holdersControls().length == k+1"
+                                style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section" >add_box</mat-icon>
+                            <mat-icon title="delete" *ngIf="holdersControls().length > 1"
                                     (click)="removeItem2(k)"
                                     style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
 
@@ -1581,10 +1579,9 @@
                                         </td>
                                     </tr>
                                 </div>
-                                <mat-icon class="mousechange" type="button" (click)="submit3()"
-                                    style="margin-inline: 1rem;float: right;position: relative;"
-                                    title="Add another Text Fields">add_box</mat-icon>
-                                <mat-icon class="mousechange" *ngIf="connectorsControls().length > 1"
+                                <mat-icon class="mousechange" type="button" (click)="submit3()" *ngIf="connectorsControls().length == z+1"
+                                style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section" >add_box</mat-icon>
+                            <mat-icon title="delete" *ngIf="connectorsControls().length > 1"
                                     (click)="removeItem3(z)"
                                     style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
 
@@ -1964,10 +1961,9 @@
                                         </td>
                                     </tr>
                                 </div>
-                                <mat-icon class="mousechange" type="button" (click)="submit4()"
-                                    style="margin-inline: 1rem;float: right;position: relative;"
-                                    title="Add another Text Fields">add_box</mat-icon>
-                                <mat-icon class="mousechange" *ngIf="lightControls().length > 1"
+                                <mat-icon class="mousechange" type="button" (click)="submit4()" *ngIf="lightControls().length == f+1"
+                                style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section" >add_box</mat-icon>
+                            <mat-icon title="delete" *ngIf="lightControls().length > 1"
                                     (click)="removeItem4(f)"
                                     style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
 
@@ -2356,6 +2352,12 @@
                                         </td>
                                     </tr>
                                 </div>
+                                <mat-icon class="mousechange" type="button" (click)="submit5()" *ngIf="jointControls().length == x+1"
+                                style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section" >add_box</mat-icon>
+                            <mat-icon title="delete" *ngIf="jointControls().length > 1"
+                                    (click)="removeItem5(x)"
+                                    style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
+
                             </tbody>
                         </table>
                     </div>

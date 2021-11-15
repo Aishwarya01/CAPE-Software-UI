@@ -121,31 +121,37 @@ export class AirExpansion {
     inspectionFailedNoRe!: string
 }
 export class AirHolderDescription {
-    physicalInspectionOb!: string;
-    physicalInspectionRe!: string;
-    conductorHolderFlatSurfaceOb!: string;
-    conductorHolderFlatSurfaceRe!: string;
-    conductorHolderOb!: string;
-    conductorHolderRe!: string;
-    holderTypeOb!: string;
-    holderTypeRe!: string;
-    materialHolderOb!: string;
-    materialHolderRe!: string;
-    totalHolderNoOb!: string;
-    totalHolderNoRe!: string;
-    totalParpetHolderNoOb!: string;
-    totalParpetHolderNoRe!: string;
-    holderInspNoOb!: string;
-    holderInspNoRe!: string;
-    holderInspPassedOb!: string;
-    holderInspPassedNoRe!: string;
-    holderInspFailedNoOb!: string;
-    parpetInspectionNoOb!: string;
-    parpetInspectionNoRe!: string;
-    holderInspPassedNoOb!: string;
-    parpetInspectionPassedNoOb!: string;
-    parpetInspectionPassedNoRe!: string;
-    parpetInspectionFailedNoOb!: string;
-    parpetInspectionFailedNoRe!: string;
-    holderInspFailedNoRe!: string
+	 physicalInspectionOb!: string;
+	 physicalInspectionRe!: string;
+	 conductorHolderFlatSurfaceOb!: string;
+	 conductorHolderFlatSurfaceRe!: string;
+	 conductorHolderOb!: string;
+	 conductorHolderRe!: string;
+	 materailOfHolderOb!: string;
+	 materailOfHolderRem!: string;
+	 materailOfParpetHolderOb!: string;
+	 materailOfParpetHolderRem!: string;
+	 holderTypeOb!: string;
+	 holderTypeRe!: string;
+//	 materialHolderOb!: string;
+//	 materialHolderRe!: string;
+	 totalHolderNoOb!: string;
+	 totalHolderNoRe!: string;
+	 totalParpetHolderNoOb!: string;
+	 totalParpetHolderNoRe!: string;
+	 holderInspNoOb!: string;
+	 holderInspNoRe!: string;
+	 holderInspPassedNoOb!: string;
+	 holderInspPassedNoRe!: string;
+	 holderInspFailedNoOb!: string;
+	 holderInspFailedNoRe!: string;
+	 parpetInspectionNoOb!: string;
+	 parpetInspectionNoRe!: string;
+	 parpetInspectionPassedNoOb!: string;
+	 parpetInspectionPassedNoRe!: string;
+	 parpetInspectionFailedNoOb!: string;
+	 parpetInspectionFailedNoRe!: string;
+	
+
+    
 }

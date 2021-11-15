@@ -276,14 +276,14 @@
                 </div>
 
                 <div class="col-md-4">
-                    <label for="soilresistivity">Soil Resistivity </label>
+                    <label for="soilresistivity">Soil Resistivity (Ω)</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
                                 <i class="bi bi-shield-fill-x"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Enter Soil Resistivity name"
+                        <input type="number" class="form-control" placeholder="Enter Soil Resistivity"
                             formControlName="soilResistivity" [(ngModel)]="basicDetails.soilResistivity"
                             [ngClass]="{ 'is-invalid': submitted && f.soilResistivity.errors}" />
                         <div *ngIf="submitted && f.soilResistivity.errors" class="invalid-feedback">

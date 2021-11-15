@@ -658,13 +658,12 @@
                                         </td>
                                     </tr>
                                 </div>
-
-                            </tbody>
-                            <mat-icon class="mousechange" type="button" (click)="submit()"
+                                <mat-icon class="mousechange" type="button"  *ngIf="vatControls().length == j+1" (click)="submit()"
                                 style="margin-inline: 1rem;float: right;position: relative;"
-                                title="Add another Text Fields">add_box</mat-icon>
-                            <mat-icon class="mousechange" *ngIf="vatControls().length > 1" (click)="removeItem(i)"
+                                title="add another Section">add_box</mat-icon>
+                            <mat-icon class="mousechange" *ngIf="vatControls().length > 1" (click)="removeItem(j)"  title="delete"
                                 style="margin-inline: 1rem;float: right;position: relative;">delete</mat-icon>
+                            </tbody>
                         </table>
                     </div>
                 </mat-expansion-panel>
@@ -917,13 +916,13 @@
                                         </td>
                                     </tr>
                                 </div>
-                                <mat-icon class="mousechange" type="button" (click)="submit1()"
+                                <mat-icon class="mousechange" type="button"  *ngIf="meshControls().length == i+1" (click)="submit1()"
                                 style="margin-inline: 1rem;float: right;position: relative;"
-                                    title="Add another Text Fields">add_box</mat-icon>
-                                <mat-icon class="mousechange" *ngIf="meshControls().length > 1" (click)="removeItem1(i)"
-                                    style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
-                            </tbody>
-                        </table>
+                                title="add another Section">add_box</mat-icon>
+                            <mat-icon class="mousechange" *ngIf="meshControls().length > 1" (click)="removeItem1(i)"  title="delete"
+                                style="margin-inline: 1rem;float: right;position: relative;">delete</mat-icon> </tbody>
+                             
+                            </table>
                     </div>
                 </mat-expansion-panel>
 
@@ -1392,13 +1391,11 @@
                                         </td>
                                     </tr>
                                 </div>
-                                <mat-icon class="mousechange" type="button" (click)="submit2()"
+                                <mat-icon class="mousechange" type="button"  *ngIf="holdersContols().length == j+1" (click)="submit2()"
                                 style="margin-inline: 1rem;float: right;position: relative;"
-                                    title="Add another Text Fields">add_box</mat-icon>
-                                <mat-icon class="mousechange" *ngIf="holdersContols().length > 1"
-                                    (click)="removeItem2(i)"
-                                    style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
-                            </tbody>
+                                title="add another Section">add_box</mat-icon>
+                            <mat-icon class="mousechange" *ngIf="holdersContols().length > 1" (click)="removeItem2(j)"  title="delete"
+                                style="margin-inline: 1rem;float: right;position: relative;">delete</mat-icon></tbody>
                         </table>
                     </div>
                 </mat-expansion-panel>
@@ -1706,13 +1703,11 @@
                                         </td>
                                     </tr>
                                 </div>
-                                <mat-icon class="mousechange" type="button" (click)="submit3()"
+                                <mat-icon class="mousechange" type="button"  *ngIf="clampsControls().length == i+1" (click)="submit3()"
                                 style="margin-inline: 1rem;float: right;position: relative;"
-                                    title="Add another Text Fields">add_box</mat-icon>
-                                <mat-icon class="mousechange" *ngIf="clampsControls().length > 1"
-                                    (click)="removeItem3(i)"
-                                    style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
-                            </tbody>
+                                title="add another Section">add_box</mat-icon>
+                            <mat-icon class="mousechange" *ngIf="clampsControls().length > 1" (click)="removeItem3(j)"  title="delete"
+                                style="margin-inline: 1rem;float: right;position: relative;">delete</mat-icon></tbody>
                         </table>
                     </div>
 
@@ -1957,13 +1952,11 @@
                                         </td>
                                     </tr>
                                 </div>
-                                <mat-icon class="mousechange" type="button" (click)="submit4()"
+                                <mat-icon class="mousechange" type="button"  *ngIf="expansionControls().length == i+1" (click)="submit4()"
                                 style="margin-inline: 1rem;float: right;position: relative;"
-                                    title="Add another Text Fields">add_box</mat-icon>
-                                <mat-icon class="mousechange" *ngIf="expansionControls().length > 1"
-                                    (click)="removeItem4(i)"
-                                    style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
-                            </tbody>
+                                title="add another Section">add_box</mat-icon>
+                            <mat-icon class="mousechange" *ngIf="expansionControls().length > 1" (click)="removeItem4(i)"  title="delete"
+                                style="margin-inline: 1rem;float: right;position: relative;">delete</mat-icon> </tbody>
                         </table>
                     </div>
 
@@ -2303,12 +2296,11 @@
                                         </td>
                                     </tr>
                                 </div>
-                                <mat-icon class="mousechange" type="button" (click)="submit5()"
+                                <mat-icon class="mousechange" type="button"  *ngIf="connectorsControls().length == i+1" (click)="submit5()"
                                 style="margin-inline: 1rem;float: right;position: relative;"
-                                    title="Add another Text Fields">add_box</mat-icon>
-                                <mat-icon class="mousechange" *ngIf="connectorsControls().length > 1"
-                                    (click)="removeItem5(i)"
-                                    style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
+                                title="add another Section">add_box</mat-icon>
+                            <mat-icon class="mousechange" *ngIf="connectorsControls().length > 1" (click)="removeItem5(i)"  title="delete"
+                                style="margin-inline: 1rem;float: right;position: relative;">delete</mat-icon>
                             </tbody>
                         </table>
                     </div>
