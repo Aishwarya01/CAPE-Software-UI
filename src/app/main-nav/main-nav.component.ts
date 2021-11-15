@@ -36,6 +36,7 @@ import { InspectionVerificationService } from '../services/inspection-verificati
 
 import { SavedreportsComponent } from '../savedreports/savedreports.component';
 import { LpsMatstepperComponent } from '../LPS/lps-matstepper/lps-matstepper.component';
+import { LpsWelcomePageComponent } from '../LPS/lps-welcome-page/lps-welcome-page.component';
 
 export interface PeriodicElement {
   siteCd: string;
@@ -661,7 +662,7 @@ emailPDF(siteId: any,userName: any){
         break;
       case 'LPS Systems':
         this.viewContainerRef.clear();
-        const LpsInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LpsMatstepperComponent);
+        const LpsInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LpsWelcomePageComponent);
         const LpsInspectionRef = this.viewContainerRef.createComponent(LpsInspectionFactory);
         LpsInspectionRef.changeDetectorRef.detectChanges();
         break;

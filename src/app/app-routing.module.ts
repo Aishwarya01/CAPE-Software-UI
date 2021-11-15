@@ -20,6 +20,8 @@ import { GenerateOtpContactnumberComponent } from './generate-otp-contactnumber/
 import { ChangeContactnumberComponent } from './change-contactnumber/change-contactnumber.component';
 import { LpsEarthingComponent } from './LPS/lps-earthing/lps-earthing.component';
 import { LpsSpdComponent } from './LPS/lps-spd/lps-spd.component';
+import { LpsMatstepperComponent } from './LPS/lps-matstepper/lps-matstepper.component';
+import { LpsWelcomePageComponent } from './LPS/lps-welcome-page/lps-welcome-page.component';
 
 const routes: Routes = [
   {path: '', redirectTo: "/SignIn", pathMatch: 'full' },
@@ -36,6 +38,8 @@ const routes: Routes = [
   {path: 'addApplicationType', component: AddApplicationTypesComponent},
   {path: 'home',component:HomeComponent, canActivate:[AuthenticationGuard]},
   {path: 'verificationlv',component:VerificationlvComponent},
+  {path: 'lpsmatstepper',component:LpsMatstepperComponent},
+  {path: 'lpswelcomepage',component:LpsWelcomePageComponent},
   {path: 'register',component:InspectorRegistrationComponent},
   {path: 'createPassword',component:InspectorUpdatePasswordComponent},
   {path: 'SignIn',component:SingInPageComponent},
