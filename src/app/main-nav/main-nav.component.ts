@@ -253,13 +253,13 @@ export class MainNavComponent implements OnInit, OnDestroy {
    this.newNotify();
     this.mobileDisplay = false;
     this.desktopDisplay = true;
-    this.bnIdle.startWatching(environment.sessionTimeOut).subscribe((isTimedOut: boolean) => {
-      if (isTimedOut) {
-        alert('Your session is timed out')
-        this.logout();
-        this.bnIdle.stopTimer();
-      }
-    });
+    // this.bnIdle.startWatching(environment.sessionTimeOut).subscribe((isTimedOut: boolean) => {
+    //   if (isTimedOut) {
+    //     alert('Your session is timed out')
+    //     this.logout();
+    //     this.bnIdle.stopTimer();
+    //   }
+    // });
     this.currentUser=sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
