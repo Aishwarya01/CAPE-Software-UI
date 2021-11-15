@@ -14,4 +14,8 @@ export class SeparatedistanceService {
   public saveSeparateDistance(separatedistance: Separatedistance): Observable<any> {
     return this.http.post<Separatedistance>(this.apiUrl + '/addSeperationDistance', separatedistance, { responseType: 'text' as 'json' })
   }
+
+  public updateSeparateDistance(separatedistance: Separatedistance): Observable<any> {
+    return this.http.put<any>(this.apiUrl + '/updateSeperationDistance', separatedistance, { responseType: 'text' as 'json' })
+  }
 }

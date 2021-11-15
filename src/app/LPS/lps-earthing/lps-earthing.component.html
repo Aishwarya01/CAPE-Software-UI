@@ -2,7 +2,7 @@
     <!-- <h3>"Checklist for Earthing System of LPS as per IS/IEC 62305"</h3> -->
     <!--  -->
     <div class="card-body">
-        <form [formGroup]="earthingForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="earthingForm" (ngSubmit)="onSubmit(flag)">
             <mat-accordion>
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Basic Details</mat-expansion-panel-header>

@@ -1,7 +1,9 @@
 export class Separatedistance {
-
+    seperationDistanceId!: number;
     basicLpsId!: number;
     userName!: String;
+    createdDate!: Date;
+    createdBy!: String;
 
     separateDistanceDescription!: SeparateDistanceDescription[];
 }

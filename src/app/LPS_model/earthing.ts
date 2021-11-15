@@ -10,7 +10,8 @@ export class EarthingLpsDescription{
     brazingConnectInRem!: String;
     locationNumber!: number;
     locationName!: String;
-    
+    createdBy!: String;
+    createdDate!: Date;
     earthingDescription!: EarthingDescription[];
     earthingClamps!: EarthingClamps[];
     earthElectrodeChamber!: EarthElectrodeChamber[];

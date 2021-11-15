@@ -11,6 +11,8 @@ export class Airtermination {
     terminationMeshConductorRe!: string;
     bondingEquipotentialOb!: string;
     bondingEquipotentialRe!: string;
+    createdBy!: String;
+    createdDate!: Date;
     airClamps!:AirClamps[];
     airConnectors!:AirConnectors[];
     lpsVerticalAirTermination!:LpsVerticalAirTermination[];

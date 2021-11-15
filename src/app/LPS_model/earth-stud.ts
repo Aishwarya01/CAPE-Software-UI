@@ -1,4 +1,5 @@
 export class EarthStud {
+    earthStudDescId : number;
     userName : String;
     basicLpsId:number;
     earthStudVisibilityOb : String;
@@ -11,4 +12,6 @@ export class EarthStud {
     physicalDamageStudRem : String;
     continutyExistaEarthOb : String;
     continutyExistaEarthRem : String;
+    createdDate: Date;
+    createdBy: String;
 }

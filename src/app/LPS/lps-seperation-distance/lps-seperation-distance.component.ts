@@ -44,6 +44,9 @@ export class LpsSeperationDistanceComponent implements OnInit {
   soilResistivity: String='';
  
   @Output() proceedNext = new EventEmitter<any>();
+  step6List: any = [];
+  flag: boolean = false;
+  arr: any;
   
   constructor(
 
@@ -75,6 +78,19 @@ export class LpsSeperationDistanceComponent implements OnInit {
       separateDistanceDescriptionArr: this.formBuilder.array([this.separateDistanceArrForm()])
     });
   }
+
+  retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
+    debugger
+      this.step6List = data.seperationDistanceDesc;
+      this.separatedistance.basicLpsId = basicLpsId;   
+      this.separatedistance.seperationDistanceId = this.step6List.seperationDistanceId  
+      this.separatedistance.createdBy = this.step6List.createdBy;
+      this.separatedistance.createdDate = this.step6List.createdDate;   
+      this.separatedistance.userName = this.step6List.userName;   
+      this.populateData();     
+      this.flag=true;
+    }
+
   private separateDistanceArrForm(): FormGroup {
     return new FormGroup({
       seperationDistanceDesc: new FormControl('',Validators.required),
@@ -83,6 +99,26 @@ export class LpsSeperationDistanceComponent implements OnInit {
 
     })
   }
+
+  populateData() {
+    for (let item of this.step6List.separateDistanceDescription) {     
+      this.arr.push(this.createGroup(item));
+    }
+    this.separeteDistanceForm.setControl('separateDistanceDescriptionArr', this.formBuilder.array(this.arr || []))
+    this.arr = [];
+  }
+
+  createGroup(item: any): FormGroup {
+    return this.formBuilder.group({
+
+    seperationDistanceDescId: new FormControl({disabled: false, value: item.seperationDistanceDescId}),
+    seperationDistanceDesc: new FormControl({disabled: false, value: item.seperationDistanceDesc}, Validators.required),
+    seperationDistanceOb: new FormControl({disabled: false, value: item.seperationDistanceOb}, Validators.required),
+    seperationDistanceRem: new FormControl({disabled: false, value: item.seperationDistanceRem}, Validators.required),
+    });
+  }
+
+
   getseparateDistanceDescriptionControls(): AbstractControl[] {
     return (<FormArray>this.separeteDistanceForm.get('separateDistanceDescriptionArr')).controls
   }
@@ -102,7 +138,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
       this.modalService.dismissAll((this.successMsg = ''));
     }
   }
-  onSubmit() {
+  onSubmit(flag: any) {
 
     this.separatedistance.userName = this.router.snapshot.paramMap.get('email') || '{}';;
     this.separatedistance.basicLpsId = this.basicLpsId;
@@ -113,20 +149,39 @@ export class LpsSeperationDistanceComponent implements OnInit {
     }
 
     this.separatedistance.separateDistanceDescription = this.separeteDistanceForm.value.separateDistanceDescriptionArr;
-    this.separatedistanceService.saveSeparateDistance(this.separatedistance).subscribe(
-      (data) => {
-        this.success = true;
-        this.successMsg = data;
-        this.disable = true;
-        this.proceedNext.emit(true);
-      },
-      (error) => {
-        this.Error = true;
-        this.errorArr = [];
-        this.errorArr = JSON.parse(error.error);
-        this.errorMsg = this.errorArr.message;
-        this.proceedNext.emit(false);
-      });
+
+      if(flag) {
+        this.separatedistanceService.updateSeparateDistance(this.separatedistance).subscribe(
+          (data) => {
+            this.success = true;
+            this.successMsg = "Sucessfully updated";
+            this.proceedNext.emit(true);
+          },
+          (error) => {
+            this.Error = true;
+            this.errorArr = [];
+            this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.errorArr.message;
+            this.proceedNext.emit(false);
+          }
+        )
+      }
+      else {
+        this.separatedistanceService.saveSeparateDistance(this.separatedistance).subscribe(
+          (data) => {
+            this.success = true;
+            this.successMsg = data;
+            this.disable = true;
+            this.proceedNext.emit(true);
+          },
+          (error) => {
+            this.Error = true;
+            this.errorArr = [];
+            this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.errorArr.message;
+            this.proceedNext.emit(false);
+          });
+      }
     
 
   }

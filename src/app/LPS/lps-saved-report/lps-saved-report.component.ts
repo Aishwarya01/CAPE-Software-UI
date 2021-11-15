@@ -86,7 +86,6 @@ export class LpsSavedReportComponent implements OnInit {
   }
 
   continue(basicLpsId: any,userName :any,clientName: any) {
-    this.service.commentScrollToBottom=1;
     this.lpsParent.changeTabLpsSavedReport(0,basicLpsId,userName,clientName);
   }
   // savedContinue()

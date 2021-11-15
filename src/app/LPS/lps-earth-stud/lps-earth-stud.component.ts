@@ -36,6 +36,8 @@ export class LpsEarthStudComponent implements OnInit {
   validationError: boolean = false;
   validationErrorMsg: String = '';
   @Output() proceedNext = new EventEmitter<any>();
+  flag: boolean = false;
+  step7List: any = [];
   
   constructor(
     private formBuilder: FormBuilder,
@@ -59,28 +61,67 @@ export class LpsEarthStudComponent implements OnInit {
     });
   }
 
-  onSubmit(){
+  retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
+    debugger
+      this.step7List = data.earthStudDescription;
+      this.earthStud.basicLpsId = basicLpsId;
+      this.earthStud.earthStudDescId = this.step7List.earthStudDescId;
+      this.earthStud.earthStudVisibilityOb  = this.step7List.earthStudVisibilityOb;
+      this.earthStud.earthStudVisibilityRem  = this.step7List.earthStudVisibilityRem;
+      this.earthStud.earthStudBendOb  = this.step7List.earthStudBendOb;
+      this.earthStud.earthStudBendRem  = this.step7List.earthStudBendRem
+      this.earthStud.properBondingRailOb  = this.step7List.properBondingRailOb;
+      this.earthStud.properBondingRailRem  = this.step7List.properBondingRailRem;
+      this.earthStud.physicalDamageStudOb  = this.step7List.physicalDamageStudOb;
+      this.earthStud.physicalDamageStudRem  = this.step7List.physicalDamageStudRem;
+      this.earthStud.continutyExistaEarthOb  = this.step7List.continutyExistaEarthOb;
+      this.earthStud.continutyExistaEarthRem  = this.step7List.continutyExistaEarthRem
+      this.earthStud.userName = this.step7List.userName;
+      this.earthStud.createdBy = this.step7List.createdBy;
+      this.earthStud.createdDate = this.step7List.createdDate;
+ 
+      this.flag=true;
+    }
+
+  onSubmit(flag: any){
     this.submitted=true;
     if(this.EarthStudForm.invalid){return}
 
     this.earthStud.userName = this.router.snapshot.paramMap.get('email') || '{}';;
     this.earthStud.basicLpsId = this.basicLpsId;
-    
-    this.earthStudService.saveEarthStud(this.earthStud).subscribe(
 
-      (data) => {
-        this.success = true;
-        this.successMsg = data;
-        this.disable = true;
-        this.proceedNext.emit(true);
-      },
-      (error) => {
-        this.Error = true;
-        this.errorArr = [];
-        this.errorArr = JSON.parse(error.error);
-        this.errorMsg = this.errorArr.message;
-        this.proceedNext.emit(false);
-      });
+      if(flag) {
+        this.earthStudService.updateEarthStud(this.earthStud).subscribe(
+          (data) => {
+            this.success = true;
+            this.successMsg = "Sucessfully updated";
+            this.proceedNext.emit(true);
+          }, 
+          (error) => {
+            this.Error = true;
+            this.errorArr = [];
+            this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.errorArr.message;
+            this.proceedNext.emit(false);
+          }
+        )
+      }
+      else {
+        this.earthStudService.saveEarthStud(this.earthStud).subscribe(
+          (data) => {
+            this.success = true;
+            this.successMsg = data;
+            this.disable = true;
+            this.proceedNext.emit(true);
+          },
+          (error) => {
+            this.Error = true;
+            this.errorArr = [];
+            this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.errorArr.message;
+            this.proceedNext.emit(false);
+          });
+      }
    
   
   }

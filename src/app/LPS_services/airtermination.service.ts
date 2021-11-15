@@ -13,7 +13,10 @@ export class AirterminationService {
   constructor(private http: HttpClient) { }
 
   public saveAirtermination(airtermination:Airtermination): Observable<any> {
-    debugger
     return this.http.post<Airtermination>(this.apiUrl + '/addAirTerminationLps', airtermination, { responseType: 'text' as 'json' })
+  }
+
+  public updateAirtermination(airTermination: Airtermination): Observable<any> {
+    return this.http.put<any>(this.apiUrl + '/updateAirTerminationLps', airTermination, { responseType: 'text' as 'json' })
   }
 }

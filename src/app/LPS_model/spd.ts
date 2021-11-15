@@ -10,6 +10,8 @@ export class Spd {
     noPannelSupplittingRem!: String;
     totalNoOutDoorRequipmentOb!: String;
     totalNoOutDoorRequipmentRem!: String;
+    createdBy!: String;
+    createdDate!: Date;
     // mainsIncomingEachPanelOb!: String;
     // mainsIncomingEachPanelRem!: String;
     // streetLightPannelOb!: String;
@@ -21,6 +23,7 @@ export class Spd {
 }
 
 export class SpdDescription {
+    SpdDescriptionId!: number;
     spdDescriptionRole!: String;
     spdTypeOb!: String;
     spdTypeRe!: String;

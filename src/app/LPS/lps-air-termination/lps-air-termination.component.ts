@@ -14,7 +14,7 @@ export class LpsAirTerminationComponent implements OnInit {
 
   airtermination=new Airtermination;
   
-  airTerminationForm: FormGroup;
+  airTerminationForm!: FormGroup;
   vatArr!: FormArray;
   meshArr!: FormArray;
   holderArr!: FormArray;
@@ -46,6 +46,15 @@ export class LpsAirTerminationComponent implements OnInit {
   soilResistivity: String='';
   
   airterminationService;
+  step2List: any = [];
+  arr1: any = [];
+  arr2: any = [];
+  arr3: any = [];
+  arr4: any = [];
+  arr5: any = [];
+  arr6: any = [];
+  flag: boolean = false;
+
   constructor(
     private formBuilder: FormBuilder,private airterminationServices:AirterminationService,
     private modalService: NgbModal,private router: ActivatedRoute
@@ -75,6 +84,230 @@ export class LpsAirTerminationComponent implements OnInit {
     });
   }
 
+  retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
+    debugger
+      this.step2List = data.lpsAirDiscription;
+      this.airtermination.basicLpsId = basicLpsId;
+      this.airtermination.connectionMadeBraOb = this.step2List.connectionMadeBraOb;
+      this.airtermination.connectionMadeBraRe = this.step2List.connectionMadeBraRe;
+      this.airtermination.electricalEquipPlacedOb = this.step2List.electricalEquipPlacedOb;
+      this.airtermination.electricalEquipPlacedRe = this.step2List.electricalEquipPlacedRe;
+      this.airtermination.combustablePartOb = this.step2List.combustablePartOb;
+      this.airtermination.combustablePartRe = this.step2List.combustablePartRe;
+      this.airtermination.terminationMeshConductorOb = this.step2List.terminationMeshConductorOb;
+      this.airtermination.terminationMeshConductorRe = this.step2List.terminationMeshConductorRe;
+      this.airtermination.bondingEquipotentialOb = this.step2List.bondingEquipotentialOb;
+      this.airtermination.bondingEquipotentialRe = this.step2List.bondingEquipotentialRe;
+      
+      this.airtermination.createdBy = this.step2List.createdBy;
+      this.airtermination.createdDate = this.step2List.createdDate;     
+      this.airtermination.userName = this.step2List.userName;
+ 
+      this.populateData();
+      this.flag=true;
+    }
+
+    populateData() {
+      for (let item of this.step2List.lpsVerticalAirTermination) {     
+        this.arr1.push(this.createGroup(item));
+      }
+      for (let item of this.step2List.airMeshDescription) {     
+        this.arr2.push(this.createGroup1(item));
+      }
+      for (let item of this.step2List.airHolderDescription) {     
+        this.arr3.push(this.createGroup2(item));
+      }
+      for (let item of this.step2List.airClamps) { 
+        this.arr4.push(this.createGroup3(item));
+      }
+      for (let item of this.step2List.airExpansion) { 
+        this.arr5.push(this.createGroup4(item));
+      }
+      for (let item of this.step2List.airConnectors) {     
+        this.arr6.push(this.createGroup5(item));
+      }
+      this.airTerminationForm.setControl('vatArr', this.formBuilder.array(this.arr1 || []))
+      this.airTerminationForm.setControl('meshArr', this.formBuilder.array(this.arr2 || []))
+      this.airTerminationForm.setControl('holderArr', this.formBuilder.array(this.arr3 || []))
+      this.airTerminationForm.setControl('clampArr', this.formBuilder.array(this.arr4 || []))
+      this.airTerminationForm.setControl('expArr', this.formBuilder.array(this.arr5 || []))
+      this.airTerminationForm.setControl('conArr', this.formBuilder.array(this.arr6 || []))
+
+      this.arr1 = [];
+      this.arr2 = [];
+      this.arr3 = [];
+      this.arr4 = [];
+      this.arr5 = [];
+      this.arr6 = [];
+    }
+
+    createGroup(item: any): FormGroup {
+      return this.formBuilder.group({
+
+      lpsVerticalAirTerminationId: new FormControl({disabled: false, value: item.lpsVerticalAirTerminationId}),
+      physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
+      physicalInspectionRe: new FormControl({disabled: false, value: item.physicalInspectionRe}),
+      conductorClampsFlatSurafaceOb: new FormControl({disabled: false, value: item.conductorClampsFlatSurafaceOb}, Validators.required),
+      conductorClampsFlatSurafaceRe: new FormControl({disabled: false, value: item.conductorClampsFlatSurafaceRe}),
+      sizeOfTerminalOb: new FormControl({disabled: false, value: item.sizeOfTerminalOb}, Validators.required),
+      sizeOfTerminalRe: new FormControl({disabled: false, value: item.sizeOfTerminalRe}),
+      heightOfTerminalOb: new FormControl({disabled: false, value: item.heightOfTerminalOb}, Validators.required),
+      heightOfTerminalRe: new FormControl({disabled: false, value: item.heightOfTerminalRe}),
+      angleProtectionHeightOb: new FormControl({disabled: false, value: item.angleProtectionHeightOb}, Validators.required),
+      angleProtectionHeightRe: new FormControl({disabled: false, value: item.angleProtectionHeightRe}),
+      materialOfTerminalOb: new FormControl({disabled: false, value: item.materialOfTerminalOb}, Validators.required),
+      materialOfTerminalRe: new FormControl({disabled: false, value: item.materialOfTerminalRe}),
+      supportFlatSurfaceOb: new FormControl({disabled: false, value: item.supportFlatSurfaceOb}, Validators.required),
+      supportFlatSurfaceRe: new FormControl({disabled: false, value: item.supportFlatSurfaceRe}),
+      heightFlatSurfaceOb: new FormControl({disabled: false, value: item.heightFlatSurfaceOb}, Validators.required),
+      heightFlatSurfaceRe: new FormControl({disabled: false, value: item.heightFlatSurfaceRe}),
+      vatToRoofConductorOB: new FormControl({disabled: false, value: item.vatToRoofConductorOB}, Validators.required),
+      vatToRoofConductorRe: new FormControl({disabled: false, value: item.vatToRoofConductorRe}),
+      totalNumberOb: new FormControl({disabled: false, value: item.totalNumberOb}, Validators.required),
+      totalNumberRe: new FormControl({disabled: false, value: item.totalNumberRe}),
+      inspNoOb: new FormControl({disabled: false, value: item.inspNoOb}, Validators.required),
+      inspNoRe: new FormControl({disabled: false, value: item.inspNoRe}),
+      inspPassedNoOb: new FormControl({disabled: false, value: item.inspPassedNoOb}, Validators.required),
+      inspPassedNoRe: new FormControl({disabled: false, value: item.inspPassedNoRe}),
+      inspFaileddNoOb: new FormControl({disabled: false, value: item.inspFaileddNoOb}, Validators.required),
+      inspFaileddNoRe: new FormControl({disabled: false, value: item.inspFaileddNoRe})
+      });
+    }
+
+    createGroup1(item: any): FormGroup {
+      return this.formBuilder.group({
+
+        meshDescriptionId: new FormControl({disabled: false, value: item.meshDescriptionId}),
+        meshobs1: new FormControl({disabled: false, value: item.meshobs1}, Validators.required),
+        meshrem1: new FormControl({disabled: false, value: item.meshrem1}),
+        meshobs2: new FormControl({disabled: false, value: item.meshobs2}, Validators.required),
+        meshrem2: new FormControl({disabled: false, value: item.meshrem2}),
+        sizeOfConductorOb: new FormControl({disabled: false, value: item.sizeOfConductorOb}, Validators.required),
+        sizeOfConductorRe: new FormControl({disabled: false, value: item.sizeOfConductorRe}),
+        meshSizeOb: new FormControl({disabled: false, value: item.meshSizeOb}, Validators.required),
+        meshSizeRe: new FormControl({disabled: false, value: item.meshSizeRe}),
+        maximumDistanceOb: new FormControl({disabled: false, value: item.maximumDistanceOb}, Validators.required),
+        maximumDistanceRe: new FormControl({disabled: false, value: item.maximumDistanceRe}),
+        minimumDistanceOb: new FormControl({disabled: false, value: item.minimumDistanceOb}, Validators.required),
+        minimumDistanceRe: new FormControl({disabled: false, value: item.minimumDistanceRe}),
+        heightOfConductorFlatSurfaceOb: new FormControl({disabled: false, value: item.heightOfConductorFlatSurfaceOb}, Validators.required),
+        heightOfConductorFlatSurfaceRe: new FormControl({disabled: false, value: item.heightOfConductorFlatSurfaceRe})
+      });
+    }
+
+    createGroup2(item: any): FormGroup {
+      return this.formBuilder.group({
+
+        holderDescriptionId: new FormControl({disabled: false, value: item.holderDescriptionId}),
+        physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
+        physicalInspectionRe: new FormControl({disabled: false, value: item.physicalInspectionRe}), 
+        conductorHolderFlatSurfaceOb: new FormControl({disabled: false, value: item.conductorHolderFlatSurfaceOb}, Validators.required),
+        conductorHolderFlatSurfaceRe: new FormControl({disabled: false, value: item.conductorHolderFlatSurfaceRe}), 
+        conductorHolderOb: new FormControl({disabled: false, value: item.conductorHolderOb}, Validators.required),
+        conductorHolderRe: new FormControl({disabled: false, value: item.conductorHolderRe}), 
+        holderTypeOb: new FormControl({disabled: false, value: item.holderTypeOb}, Validators.required),
+        holderTypeRe: new FormControl({disabled: false, value: item.holderTypeRe}), 
+        materailOfHolderOb: new FormControl({disabled: false, value: item.materailOfHolderOb}, Validators.required),
+        materailOfHolderRem: new FormControl({disabled: false, value: item.materailOfHolderRem}), 
+        totalHolderNoOb: new FormControl({disabled: false, value: item.totalHolderNoOb}, Validators.required),
+        totalHolderNoRe: new FormControl({disabled: false, value: item.totalHolderNoRe}), 
+        holderInspNoOb: new FormControl({disabled: false, value: item.holderInspNoOb}, Validators.required),
+        holderInspNoRe: new FormControl({disabled: false, value: item.holderInspNoRe}), 
+        holderInspPassedNoOb: new FormControl({disabled: false, value: item.holderInspPassedNoOb}, Validators.required),
+        holderInspPassedNoRe: new FormControl({disabled: false, value: item.holderInspPassedNoRe}), 
+        holderInspFailedNoOb: new FormControl({disabled: false, value: item.holderInspFailedNoOb}, Validators.required),
+        holderInspFailedNoRe: new FormControl({disabled: false, value: item.holderInspFailedNoRe}), 
+        totalParpetHolderNoOb: new FormControl({disabled: false, value: item.totalParpetHolderNoOb}, Validators.required),
+        totalParpetHolderNoRe: new FormControl({disabled: false, value: item.totalParpetHolderNoRe}), 
+        materailOfParpetHolderOb: new FormControl({disabled: false, value: item.materailOfParpetHolderOb}, Validators.required),
+        materailOfParpetHolderRem: new FormControl({disabled: false, value: item.materailOfParpetHolderRem}),      
+        parpetInspectionNoOb: new FormControl({disabled: false, value: item.parpetInspectionNoOb}, Validators.required),
+        parpetInspectionNoRe: new FormControl({disabled: false, value: item.parpetInspectionNoRe}), 
+        parpetInspectionPassedNoOb: new FormControl({disabled: false, value: item.parpetInspectionPassedNoOb}, Validators.required),
+        parpetInspectionPassedNoRe: new FormControl({disabled: false, value: item.parpetInspectionPassedNoRe}),        
+        parpetInspectionFailedNoOb: new FormControl({disabled: false, value: item.parpetInspectionFailedNoOb}, Validators.required),
+        parpetInspectionFailedNoRe: new FormControl({disabled: false, value: item.parpetInspectionFailedNoRe})
+  
+      });
+    }
+
+
+    createGroup3(item: any): FormGroup {
+      return this.formBuilder.group({
+
+        clampsId: new FormControl({disabled: false, value: item.clampsId}),
+        physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
+        physicalInspectionRe: new FormControl({disabled: false, value: item.physicalInspectionRe}),
+        conductorClampsFlatSurafaceOb: new FormControl({disabled: false, value: item.conductorClampsFlatSurafaceOb}, Validators.required),
+        conductorClampsFlatSurafaceRe: new FormControl({disabled: false, value: item.conductorClampsFlatSurafaceRe}),
+        interConnectionOfClampsOb: new FormControl({disabled: false, value: item.interConnectionOfClampsOb}, Validators.required),
+        interConnectionOfClampsRe: new FormControl({disabled: false, value: item.interConnectionOfClampsRe}),
+        clampTypeOb: new FormControl({disabled: false, value: item.clampTypeOb}, Validators.required),
+        clampTypRe: new FormControl({disabled: false, value: item.clampTypRe}),
+        materialOfClampsOb: new FormControl({disabled: false, value: item.materialOfClampsOb}, Validators.required),
+        materialOfClampsRe: new FormControl({disabled: false, value: item.materialOfClampsRe}),
+        totalClampsNoOb: new FormControl({disabled: false, value: item.totalClampsNoOb}, Validators.required),
+        totalClampsNoRe: new FormControl({disabled: false, value: item.totalClampsNoRe}),
+        inspectionNoOb: new FormControl({disabled: false, value: item.inspectionNoOb}, Validators.required),
+        inspectionNoRe: new FormControl({disabled: false, value: item.inspectionNoRe}),
+        inspectionPassedOb: new FormControl({disabled: false, value: item.inspectionPassedOb}, Validators.required),
+        inspectionPassedRe: new FormControl({disabled: false, value: item.inspectionPassedRe}),
+        inspectionFailedReOb: new FormControl({disabled: false, value: item.inspectionFailedReOb}, Validators.required),
+        inspectionFailedReRe: new FormControl({disabled: false, value: item.inspectionFailedReRe})
+        //clampobs9: new FormControl({disabled: false, value: item.clampobs9}, Validators.required),
+       // clamprem9: new FormControl({disabled: false, value: item.clamprem9})
+      });
+    }
+
+
+    createGroup4(item: any): FormGroup {
+      return this.formBuilder.group({
+
+        expansionId: new FormControl({disabled: false, value: item.expansionId}),
+        physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
+        physicalInspectionRe: new FormControl({disabled: false, value: item.physicalInspectionRe}),
+        strightConnectorPiecOb: new FormControl({disabled: false, value: item.strightConnectorPiecOb}, Validators.required),
+        strightConnectorPiecRe: new FormControl({disabled: false, value: item.strightConnectorPiecRe}),
+        materialOfExpansionOb: new FormControl({disabled: false, value: item.materialOfExpansionOb}, Validators.required),
+        materialOfExpansionRe: new FormControl({disabled: false, value: item.materialOfExpansionRe}),
+        totalNoExpansionOb: new FormControl({disabled: false, value: item.totalNoExpansionOb}, Validators.required),
+        totalNoExpansionRe: new FormControl({disabled: false, value: item.totalNoExpansionRe}),
+        inspectionNoOb: new FormControl({disabled: false, value: item.inspectionNoOb}, Validators.required),
+        inspectionNoRe: new FormControl({disabled: false, value: item.inspectionNoRe}),
+        inspectionPassedNoOb: new FormControl({disabled: false, value: item.inspectionPassedNoOb}, Validators.required),
+        inspectionPassedNoRe: new FormControl({disabled: false, value: item.inspectionPassedNoRe}),
+        inspectionFailedNoOb: new FormControl({disabled: false, value: item.inspectionFailedNoOb}, Validators.required),
+        inspectionFailedNoRe: new FormControl({disabled: false, value: item.inspectionFailedNoRe})
+      });
+    }
+
+
+    createGroup5(item: any): FormGroup {
+      return this.formBuilder.group({
+        connectorId: new FormControl({disabled: false, value: item.connectorId}),
+        physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
+        physicalInspectionRe: new FormControl({disabled: false, value: item.physicalInspectionRe}),
+        checkConnectionConnectorsOb: new FormControl({disabled: false, value: item.checkConnectionConnectorsOb}, Validators.required),
+        checkConnectionConnectorsRe: new FormControl({disabled: false, value: item.checkConnectionConnectorsRe}),
+        materialOfConnectorOb: new FormControl({disabled: false, value: item.materialOfConnectorOb}, Validators.required),
+        materialOfConnectorRe: new FormControl({disabled: false, value: item.materialOfConnectorRe}),
+        strightConnectorOb: new FormControl({disabled: false, value: item.strightConnectorOb}, Validators.required),
+        strightConnectorRe: new FormControl({disabled: false, value: item.strightConnectorRe}),
+        tConnectorOb: new FormControl({disabled: false, value: item.tConnectorOb}, Validators.required),
+        tConnectorRe: new FormControl({disabled: false, value: item.tConnectorRe}),
+        lConnectorOb: new FormControl({disabled: false, value: item.lConnectorOb}, Validators.required),
+        lConnectorRe: new FormControl({disabled: false, value: item.lConnectorRe}),
+        totalNoConnectorOb: new FormControl({disabled: false, value: item.totalNoConnectorOb}, Validators.required),
+        totalNoConnectorRe: new FormControl({disabled: false, value: item.totalNoConnectorRe}),
+        inspectionNoOb: new FormControl({disabled: false, value: item.inspectionNoOb}, Validators.required),
+        inspectionNoRe: new FormControl({disabled: false, value: item.inspectionNoRe}),
+        inspectionPassedNoOb: new FormControl({disabled: false, value: item.inspectionPassedNoOb}, Validators.required),
+        inspectionPassedNoRe: new FormControl({disabled: false, value: item.inspectionPassedNoRe}),
+        inspectionFailedOb: new FormControl({disabled: false, value: item.inspectionFailedOb}, Validators.required),
+        inspectionFailedRe: new FormControl({disabled: false, value: item.inspectionFailedRe})      
+      });
+    }
+
   gotoNextModal(content: any) {
  
      if (this.airTerminationForm.invalid) {
@@ -99,7 +332,7 @@ export class LpsAirTerminationComponent implements OnInit {
     }
   }
   
-  onSubmit(){
+  onSubmit(flag: any){
        this.submitted=true;
           if(this.airTerminationForm.invalid){
             return
@@ -115,7 +348,6 @@ export class LpsAirTerminationComponent implements OnInit {
         this.airtermination.airHolderDescription=this.airTerminationForm.value.holderArr;
         
         this.airterminationService.saveAirtermination(this.airtermination).subscribe(
-
           (data) => {
             this.success = true;
             this.successMsg = data;
@@ -129,6 +361,39 @@ export class LpsAirTerminationComponent implements OnInit {
             this.errorMsg = this.errorArr.message;
             this.proceedNext.emit(false);
           });
+
+
+          if(flag) {
+            this.airterminationService.updateAirtermination(this.airtermination).subscribe(
+              (data) => {
+                this.success = true;
+                this.successMsg = "Sucessfully updated";
+                this.proceedNext.emit(true);
+              },
+              (error) => {
+                this.Error = true;
+                this.errorArr = [];
+                this.errorArr = JSON.parse(error.error);
+                this.errorMsg = this.errorArr.message;
+                this.proceedNext.emit(false);
+              });
+          }
+          else {
+              this.airterminationService.saveAirtermination(this.airtermination).subscribe(
+                (data) => {
+                  this.success = true;
+                  this.successMsg = "Sucessfully saved";
+                  this.disable = true;
+                  this.proceedNext.emit(true);
+                },
+                (error) => {
+                  this.Error = true;
+                  this.errorArr = [];
+                  this.errorArr = JSON.parse(error.error);
+                  this.errorMsg = this.errorArr.message;
+                  this.proceedNext.emit(false);
+                });
+          }
      
     }
   

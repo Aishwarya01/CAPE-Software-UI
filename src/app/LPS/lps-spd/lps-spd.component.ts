@@ -35,13 +35,18 @@ export class LpsSpdComponent implements OnInit {
   validationError: boolean = false;
   validationErrorMsg: String = '';
   @Output() proceedNext = new EventEmitter<any>();
+  step5List: any = [];
+  flag: boolean = false;
+  mobilearr: any = [];
+  mobilearr2: any = [];
+  mobilearr3: any = [];
   
   constructor(private formBuilder: FormBuilder, lpsSpd_Services: LpsSpd_Service
     ,private modalService: NgbModal, private router: ActivatedRoute) {
     this.lpsSpd_Service = lpsSpd_Services;
   }
 
-  spdForm: FormGroup;
+  spdForm!: FormGroup;
 
   ngOnInit(): void {
     this.spdForm = this.formBuilder.group({
@@ -63,6 +68,70 @@ export class LpsSpdComponent implements OnInit {
 
     });
   }
+
+  retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
+    debugger
+      this.step5List = data.spddesc;
+      this.spd.basicLpsId = basicLpsId;
+      this.spd.spdId = this.step5List.spdId
+      this.spd.mainsIncomingOb = this.step5List.mainsIncomingOb;
+      this.spd.mainsIncomingRem = this.step5List.mainsIncomingRem;
+      this.spd.totalMainsIncomingOb = this.step5List.totalMainsIncomingOb;
+      this.spd.totalMainsIncomingRem = this.step5List.totalMainsIncomingRem;
+      this.spd.noPannelSupplittingOb = this.step5List.noPannelSupplittingOb;
+      this.spd.noPannelSupplittingRem = this.step5List.noPannelSupplittingRem;
+      this.spd.totalNoOutDoorRequipmentOb = this.step5List.totalNoOutDoorRequipmentOb;
+      this.spd.totalNoOutDoorRequipmentRem = this.step5List.totalNoOutDoorRequipmentRem;
+      this.spd.createdBy = this.step5List.createdBy;
+      this.spd.createdDate = this.step5List.createdDate;      
+      this.spd.userName = this.step5List.userName;
+ 
+      this.populateData();
+      this.flag=true;
+    }
+
+    populateData() {
+      for (let item of this.step5List.spdDescription) {
+        if(item.spdDescriptionRole == "Mains_SPD") {
+        this.mobilearr.push(this.createGroup(item));
+        this.spdForm.setControl('spdarr', this.formBuilder.array(this.mobilearr || []))
+        this.mobilearr = [];
+        }
+        else if(item.spdDescriptionRole == "Street_SPD") {
+          this.mobilearr2.push(this.createGroup(item))
+          this.spdForm.setControl('panelarr', this.formBuilder.array(this.mobilearr2 || []))  
+          this.mobilearr2 = [];
+        }
+        else if(item.spdDescriptionRole == "Other_SPD") {
+          this.mobilearr3.push(this.createGroup(item))
+          this.spdForm.setControl('powerarr', this.formBuilder.array(this.mobilearr3 || []))
+          this.mobilearr3 = [];
+        }
+      }
+    }
+
+    createGroup(item: any): FormGroup {
+      return this.formBuilder.group({
+        SpdDescriptionId:new FormControl({disabled: false, value: item.SpdDescriptionId}),
+        spdDescriptionRole:new FormControl({disabled: false, value: item.spdDescriptionRole}),
+        spdTypeOb:new FormControl({disabled: false, value: item.spdTypeOb}, Validators.required),
+        spdTypeRe: new FormControl({disabled: false, value: item.spdTypeRe}),
+        spdApplicationOb:new FormControl({disabled: false, value: item.spdApplicationOb}, Validators.required),
+        spdApplicationRem: new FormControl({disabled: false, value: item.spdApplicationRem}),
+        panelNameOb:new FormControl({disabled: false, value: item.panelNameOb}, Validators.required),
+        panelNameRem: new FormControl({disabled: false, value: item.panelNameRem}),
+        incomingRatingOb:new FormControl({disabled: false, value: item.incomingRatingOb}, Validators.required),
+        incomingRatingRem: new FormControl({disabled: false, value: item.incomingRatingRem}),
+        backupFuseCheckOb:new FormControl({disabled: false, value: item.backupFuseCheckOb}, Validators.required),
+        backupFuseCheckRem: new FormControl({disabled: false, value: item.backupFuseCheckRem}),
+        connectingWireLengthOb:new FormControl({disabled: false, value: item.connectingWireLengthOb}, Validators.required),
+        connectingWireLengthRem: new FormControl({disabled: false, value: item.connectingWireLengthRem}),
+        connectingWireSizeOb:new FormControl({disabled: false, value: item.connectingWireSizeOb}, Validators.required),
+        connectingWireSizeRem: new FormControl({disabled: false, value: item.connectingWireSizeRem})
+      });
+    }
+  
+
   private spdarrfun(): FormGroup{
     return new FormGroup({
       spdDescriptionRole:new FormControl('Mains_SPD'),
@@ -143,7 +212,7 @@ export class LpsSpdComponent implements OnInit {
     return this.spdForm.controls;
   }
 
-  onSubmit(){
+  onSubmit(flag: any){
         
         this.submitted=true;
       if(this.spdForm.invalid){return}
@@ -153,23 +222,40 @@ export class LpsSpdComponent implements OnInit {
         this.spd.spdDescription = this.spdForm.getRawValue().spdarr;
         this.spd.spdDescription=this.spd.spdDescription.concat(this.spdForm.getRawValue().panelarr);
         this.spd.spdDescription=this.spd.spdDescription.concat(this.spdForm.getRawValue().powerarr);
-        
-        this.lpsSpd_Service.saveSPDDetails(this.spd).subscribe(
+      
 
-        
-          (data) => {
-            this.success = true;
-            this.successMsg = data;
-            this.disable = true;
-            this.proceedNext.emit(true);
-          },
-          (error) => {
-            this.Error = true;
-            this.errorArr = [];
-            this.errorArr = JSON.parse(error.error);
-            this.errorMsg = this.errorArr.message;
-            this.proceedNext.emit(false);
-          });
+          if(flag) {
+            this.lpsSpd_Service.updateSpdDetails(this.spd).subscribe(
+              (data) => {
+                this.success = true;
+                this.successMsg = "Sucessfully updated";
+                this.proceedNext.emit(true);
+              },
+              (error) => {
+                this.Error = true;
+                this.errorArr = [];
+                this.errorArr = JSON.parse(error.error);
+                this.errorMsg = this.errorArr.message;
+                this.proceedNext.emit(false);
+              }
+            )
+          }
+          else {
+            this.lpsSpd_Service.saveSPDDetails(this.spd).subscribe(       
+              (data) => {
+                this.success = true;
+                this.successMsg = data;
+                this.disable = true;
+                this.proceedNext.emit(true);
+              },
+              (error) => {
+                this.Error = true;
+                this.errorArr = [];
+                this.errorArr = JSON.parse(error.error);
+                this.errorMsg = this.errorArr.message;
+                this.proceedNext.emit(false);
+              });
+          }
       }
       closeModalDialog() {
         if (this.errorMsg != '') {

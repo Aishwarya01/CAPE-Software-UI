@@ -6,7 +6,7 @@
     </div> -->
     <!-- Basic information tags are given by... -->
     <div class="card-body">
-        <form [formGroup]="airTerminationForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="airTerminationForm" (ngSubmit)="onSubmit(flag)">
             <mat-accordion>
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Basic Details</mat-expansion-panel-header>

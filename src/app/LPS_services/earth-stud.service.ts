@@ -16,4 +16,8 @@ export class EarthStudService {
   public saveEarthStud(earthStud:EarthStud): Observable<any> {
     return this.http.post<EarthStud>(this.apiUrl + '/addEarthStud', earthStud, { responseType: 'text' as 'json' })
   }
+
+  public updateEarthStud(earthStud: EarthStud): Observable<any> {
+    return this.http.put<any>(this.apiUrl + '/updateEarthStud', earthStud, { responseType: 'text' as 'json' })
+  }
 }

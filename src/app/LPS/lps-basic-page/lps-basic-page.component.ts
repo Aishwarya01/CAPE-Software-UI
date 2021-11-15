@@ -90,65 +90,7 @@ export class LpsBasicPageComponent implements OnInit {
         basicLpsDescription: [i],
        })
      }
-    // this.populateData();
-  //    this.populateDataComments();
-  //    //this.notification();
-
-  //   for( let i of this.step1List.reportDetails.signatorDetails) {
-  //     if(i.signatorRole == "designer1"){
-  //       this.step1Form.patchValue({
-  //         designer1AcknowledgeArr: [i]
-  //       })
-  //       this.designer1changeCountry(i.country);
-  //     this.state1 = i.state;
-  //     }
-  //       else if(i.signatorRole == "designer2"){
-  //       this.step1Form.patchValue({
-  //         designer2AcknowledgeArr: [i]
-  //       })
-  //       this.showDesigner2 = true;
-  //       this.state2 = i.state;
-  //       this.designer2changeCountry(i.country);
-  //      }
-  //    else if(i.signatorRole == "contractor"){
-  //     this.step1Form.patchValue({
-  //       contractorAcknowledgeArr: [i]
-  //      })
-  //     this.state3 = i.state;
-  //     this.contractorchangeCountry(i.country);
-  //    }
-  //    else if(i.signatorRole == "inspector"){
-  //       this.step1Form.patchValue({
-  //         inspectorAcknowledgeArr: [i]
-  //       })
-  //       this.state4 = i.state;
-  //       this.inspectorchangeCountry(i.country);
-  //     }
-  //   }
-  //    this.step1Form.patchValue({
-  //     clientName1: clientName,
-  //     departmentName1: departmentName,
-  //     site1: site,
-  //     descriptionOfReport: this.step1List.reportDetails.descriptionReport,
-  //     reasonOfReport: this.step1List.reportDetails.reasonOfReport,
-  //     showField1: this.step1List.reportDetails.estimatedWireAge,
-  //    // evidenceAlterations: [this.step1List.reportDetails.evidenceAlterations],
-  //     showField2: this.step1List.reportDetails.evidanceWireAge,
-  //     inspectionLast: this.step1List.reportDetails.lastInspection,
-  //     nextInspection: this.step1List.reportDetails.nextInspection,
-  //     extentInstallation: this.step1List.reportDetails.extentInstallation,
-  //     detailsOfClient:this.step1List.reportDetails.clientDetails,
-  //     detailsOfInstallation: this.step1List.reportDetails.installationDetails,
-  //     startingDateVerification: this.step1List.reportDetails.verificationDate,
-  //     engineerName: this.step1List.reportDetails.verifiedEngineer,
-  //     designation: this.step1List.reportDetails.designation,
-  //     companyName: this.step1List.reportDetails.company,
-  //     inspectorDesignation: this.step1List.reportDetails.inspectorDesignation,
-  //     inspectorCompanyName: this.step1List.reportDetails.inspectorCompanyName,
-  //     limitations: this.step1List.reportDetails.limitations
-  // })
   this.flag=true;
- // this.disable=true;
    }
 
 

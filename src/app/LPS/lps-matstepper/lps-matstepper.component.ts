@@ -162,6 +162,30 @@ export class LpsMatstepperComponent implements OnInit {
         if(this.dataJSON.basicLps != null) {
           this.selectedIndex = index;            
           this.basic.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
+          if(this.dataJSON.lpsAirDiscription != null) {
+            this.airTermination.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
+
+            if(this.dataJSON.downConductorDesc != null) {
+              this.downConductors.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
+
+              if(this.dataJSON.earthingLpsDescription != null) {
+                this.earthing.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
+
+                if(this.dataJSON.spddesc != null) {
+                  this.spd.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
+
+                  if(this.dataJSON.seperationDistanceDesc != null) {
+                    this.seperationDistance.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
+
+                    if(this.dataJSON.earthStudDescription != null) {
+                      this.earthStud.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
+
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       },
       (error) => {

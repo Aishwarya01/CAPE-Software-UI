@@ -1,5 +1,6 @@
 export class DownConductorDescription {
     basicLpsId!: number;
+    downConduDescId!: number;
     userName!: String;
     biMetallicIssueOb!: String;
     biMetallicIssueRem!: String;
@@ -13,7 +14,8 @@ export class DownConductorDescription {
     chemicalSprinklerRem!: String;
     cobustMaterialWallOB!: String;
     cobustMaterialWallRem!: String;
-
+    createdBy!: String;
+    createdDate!: Date;
     downConductor!: DownConductor[];
     bridgingDescription!: BridgingDescription[];
     holder!: Holder[];
