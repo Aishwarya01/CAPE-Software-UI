@@ -399,7 +399,8 @@
 
                       <div class="col-md-4">
                         <label>Name (In block letters) :</label>
-                        <input type="text" formControlName="declarationName" class="form-control" placeholder="Enter Designer Name">
+                        <input type="text" formControlName="declarationName" class="form-control" placeholder="Enter Designer Name"
+                        [(ngModel)]="designer2PersonName" (keyup)="onKeyDesigner2PersonName($event)">
                       </div>
                     </div>
 
@@ -536,7 +537,8 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label>Person Name:</label>
-                            <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name" readonly
+                            <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name" 
+                            readonly
                             [ngClass]="{ 'is-invalid': submitted && a.get('personName')?.errors }" [(ngModel)]="declarationPersonName"
                             (focus)="focusPersonFunction()">
                             <div *ngIf="showPersonNameMsg" class="invalid-feedback">
@@ -707,8 +709,12 @@
                       <div class="row">
                           <div class="col-md-4">
                               <label>Person Name:</label>
-                              <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name"
-                              [ngClass]="{ 'is-invalid': submitted && a.get('personName')?.errors }">
+                              <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name" readonly
+                              [ngClass]="{ 'is-invalid': submitted && a.get('personName')?.errors }" [(ngModel)]="designer2PersonName"
+                              (focus)="designer2PersonFunction()">
+                            <div *ngIf="designer2PersonNameMsg" class="invalid-feedback">
+                             Please fill out the details in Liability and Declaration tab!
+                            </div>
                           <div *ngIf="submitted && a.get('personName')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('personName')?.errors?.required">Person name is required</div>
                         </div>

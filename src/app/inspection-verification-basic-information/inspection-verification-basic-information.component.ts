@@ -197,6 +197,9 @@ ShowNext: boolean = true;
   showPersonNameMsg: boolean = false;
   declarationPersonName: string="";
   values: any;
+  designer2PersonName: string="";
+  designer2PersonNameMsg: boolean = false;
+
   constructor(
     private _formBuilder: FormBuilder,
     private router: ActivatedRoute,
@@ -304,6 +307,14 @@ ShowNext: boolean = true;
     else{
       this.showPersonNameMsg=false;
     }
+  } 
+  designer2PersonFunction(){
+    if(this.designer2PersonName==''){
+      this.designer2PersonNameMsg=true;
+    }
+    else{
+      this.designer2PersonNameMsg=false;
+    }
   }
   onKeyPersonName(event: KeyboardEvent) { 
     this.values = (<HTMLInputElement>event.target).value;
@@ -313,6 +324,15 @@ ShowNext: boolean = true;
    else{
     this.showPersonNameMsg=false;
   }
+  }
+  onKeyDesigner2PersonName(event: KeyboardEvent){
+    this.values = (<HTMLInputElement>event.target).value;
+    if(this.values==''){
+     this.designer2PersonNameMsg=true;
+    }
+    else{
+     this.designer2PersonNameMsg=false;
+   }
   }
 //for company site detail continue
   changeTab(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any): void {
@@ -1045,7 +1065,7 @@ showHideAccordion(index: number) {
 // Deisgner details forms
   private createDesigner1Form(): FormGroup {
     return new FormGroup({
-      personName: new FormControl('',[Validators.required]),
+      personName: new FormControl(''),
       personContactNo: new FormControl('',[Validators.maxLength(10),Validators.required]),
       personMailID: new FormControl('',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       managerName: new FormControl('',[Validators.required]),
