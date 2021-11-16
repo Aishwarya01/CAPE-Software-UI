@@ -104,7 +104,7 @@ export class LpsEarthingComponent implements OnInit {
       for (let item of this.step4List.earthingClamps) {     
         this.arr2.push(this.createGroup1(item));
       }
-      for (let item of this.step4List.earthElectrodeChamber) {     
+      for (let item of this.step4List.earthingElectrodeChamber) {     
         this.arr3.push(this.createGroup2(item));
       }
       for (let item of this.step4List.earthingSystem) { 
@@ -444,7 +444,7 @@ export class LpsEarthingComponent implements OnInit {
 
     this.earthingLpsDescription.earthingClamps = this.earthingForm.value.ClampsArr;
     this.earthingLpsDescription.earthingDescription = this.earthingForm.value.descriptionArr;
-    this.earthingLpsDescription.earthElectrodeChamber = this.earthingForm.value.chamberArr;
+    this.earthingLpsDescription.earthingElectrodeChamber = this.earthingForm.value.chamberArr;
     this.earthingLpsDescription.earthingSystem = this.earthingForm.value.earthingArr;
 
     

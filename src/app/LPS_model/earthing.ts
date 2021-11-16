@@ -17,7 +17,7 @@ export class EarthingLpsDescription{
     createdDate!: Date;
     earthingDescription!: EarthingDescription[];
     earthingClamps!: EarthingClamps[];
-    earthElectrodeChamber!: EarthElectrodeChamber[];
+    earthingElectrodeChamber!: EarthingElectrodeChamber[];
     earthingSystem!: EarthingSystem[];
 }
 
@@ -92,7 +92,7 @@ export class EarthingClamps {
     inspectionFailedInRem!: String;
 }
 
-export class EarthElectrodeChamber {
+export class EarthingElectrodeChamber {
     locationNumber!:number;
     locationName!:String;
     physicalInspeOb!: String;
