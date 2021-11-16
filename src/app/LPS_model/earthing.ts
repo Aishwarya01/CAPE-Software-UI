@@ -2,14 +2,17 @@ export class EarthingLpsDescription{
     earthingId!: number;
     userName!: String;
     basicLpsId!: number;
+
     earthingTypeInOb!: String;
     earthingTypeInRem!: String;
     bimetallicIssueInOb!: String;
     bimetallicIssueInRem!: String;
     brazingConnectInOb!: String;
     brazingConnectInRem!: String;
-    locationNumber!: number;
-    locationName!: String;
+
+
+    //locationNumber!: number;
+    //locationName!: String;
     createdBy!: String;
     createdDate!: Date;
     earthingDescription!: EarthingDescription[];
@@ -24,12 +27,16 @@ export class EarthingDescription {
     locationName!:String;
     soilResistivityInOb!: String;
     soilResistivityInRem!: String;
+
     earthPitDigOb!: String;
     earthPitDigRem!: String;
+
     earthElectrodeLesthanDownConductorInOb!: String;
     earthElectrodeLesthanDownConductorInRem!: String;
+
     connectedEarthTerminalInOb!: String;
     connectedEarthTerminalInRem!: String;
+
     testJointEarthElectrodeInOb!: String;
     testJointEarthElectrodeInRem!: String;
     grountLevelComponentFilledInOb!: String;
@@ -52,6 +59,7 @@ export class EarthingDescription {
     earthelectManiDistRem!: String;
     totalNumberOfElectrodeOb!: String;
     totalNumberOfElectrodeRem!: String;
+
     inspectedNoOb!: String;
     inspectedNoRem!: String;
     inspectedPassedNoOb!: String;

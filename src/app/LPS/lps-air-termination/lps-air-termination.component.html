@@ -2095,10 +2095,10 @@
                                         <div class="col-md-6">
                                             <label for="lnumber">Location Number</label>
                                             <input class="form-control" formControlName="locationNumber" type="text" placeholder="Location Number"
-                                                [ngClass]="{ 'is-invalid': submitted && j.get('locationNumber')?.errors}">
-                                            <div *ngIf="submitted && j.get('locationNumber')?.errors"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors}">
+                                            <div *ngIf="submitted && a.get('locationNumber')?.errors"
                                                 class="invalid-feedback">
-                                                <div *ngIf="j.get('locationNumber')?.errors?.required">
+                                                <div *ngIf="a.get('locationNumber')?.errors?.required">
                                                     Location Number is required</div>
                                             </div>
                                         </div>

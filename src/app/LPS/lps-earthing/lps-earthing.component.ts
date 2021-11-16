@@ -78,7 +78,6 @@ export class LpsEarthingComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
-    debugger
       this.step4List = data.earthingLpsDescription;
       this.earthingLpsDescription.basicLpsId = basicLpsId;
       this.earthingLpsDescription.earthingId = this.step4List.earthingId;
@@ -88,8 +87,8 @@ export class LpsEarthingComponent implements OnInit {
       this.earthingLpsDescription.bimetallicIssueInRem = this.step4List.bimetallicIssueInRem;
       this.earthingLpsDescription.brazingConnectInOb = this.step4List.brazingConnectInOb;
       this.earthingLpsDescription.brazingConnectInRem = this.step4List.brazingConnectInRem;
-      this.earthingLpsDescription.locationNumber = this.step4List.locationNumber;
-      this.earthingLpsDescription.locationName = this.step4List.locationName;
+      //this.earthingLpsDescription.locationNumber = this.step4List.locationNumber;
+     // this.earthingLpsDescription.locationName = this.step4List.locationName;
       this.earthingLpsDescription.createdBy = this.step4List.createdBy;
       this.earthingLpsDescription.createdDate = this.step4List.createdDate;
       this.earthingLpsDescription.userName = this.step4List.userName;
@@ -289,11 +288,11 @@ export class LpsEarthingComponent implements OnInit {
   }
   submit2(){
     this.ClampsArr = this.earthingForm.get('ClampsArr') as FormArray;
-    this.ClampsArr.push(this.earthingDescription());
+    this.ClampsArr.push(this.earthingClamps());
   }
   submit3(){
     this.chamberArr = this.earthingForm.get('chamberArr') as FormArray;
-    this.chamberArr.push(this.earthingDescription());
+    this.chamberArr.push(this.earthElectrodeChamber());
   }
   removeItem1(index: any) {
     (this.earthingForm.get('descriptionArr') as FormArray).removeAt(index);
@@ -437,6 +436,8 @@ export class LpsEarthingComponent implements OnInit {
   }
   onSubmit(flag: any) {
     this.submitted=true;
+    console.log(this.earthingForm.value);
+    
     if(this.earthingForm.invalid){return}
     this.earthingLpsDescription.userName = this.router.snapshot.paramMap.get('email') || '{}';;
     this.earthingLpsDescription.basicLpsId = this.basicLpsId;
@@ -498,6 +499,7 @@ export class LpsEarthingComponent implements OnInit {
     }
   
     gotoNextModal(content: any) {
+      console.log(this.earthingForm.value);
        if (this.earthingForm.invalid) {
          this.validationError = true;
         

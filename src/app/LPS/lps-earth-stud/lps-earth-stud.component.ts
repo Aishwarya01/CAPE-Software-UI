@@ -62,7 +62,6 @@ export class LpsEarthStudComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
-    debugger
       this.step7List = data.earthStudDescription;
       this.earthStud.basicLpsId = basicLpsId;
       this.earthStud.earthStudDescId = this.step7List.earthStudDescId;

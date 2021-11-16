@@ -70,7 +70,6 @@ export class LpsSpdComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
-    debugger
       this.step5List = data.spddesc;
       this.spd.basicLpsId = basicLpsId;
       this.spd.spdId = this.step5List.spdId

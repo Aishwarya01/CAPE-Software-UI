@@ -62,7 +62,6 @@ export class LpsBasicPageComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
-   debugger
      this.step1List = data.basicLps;
      this.basicDetails.basicLpsId = basicLpsId;
      this.basicDetails.clientName = this.step1List.clientName;
@@ -173,7 +172,7 @@ export class LpsBasicPageComponent implements OnInit {
     
         (data) => {
           let basicDetailsItr=JSON.parse(data);              
-          debugger
+          
           this.basicDetails.basicLpsId=basicDetailsItr.basicLpsId;
           this.success = true;
           this.successMsg = "Sucessfully saved";

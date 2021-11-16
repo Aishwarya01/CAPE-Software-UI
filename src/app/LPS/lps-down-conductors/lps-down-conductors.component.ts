@@ -86,7 +86,6 @@ export class LpsDownConductorsComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
-    debugger
       this.step3List = data.downConductorDesc;
       this.downConductorDescription.basicLpsId = basicLpsId;
       this.downConductorDescription.downConduDescId = this.step3List.downConduDescId;

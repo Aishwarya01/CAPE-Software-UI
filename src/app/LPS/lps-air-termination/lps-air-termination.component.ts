@@ -85,7 +85,6 @@ export class LpsAirTerminationComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
-    debugger
       this.step2List = data.lpsAirDiscription;
       this.airtermination.basicLpsId = basicLpsId;
       this.airtermination.connectionMadeBraOb = this.step2List.connectionMadeBraOb;
@@ -359,6 +358,7 @@ export class LpsAirTerminationComponent implements OnInit {
         this.airtermination.lpsVerticalAirTermination=this.airTerminationForm.value.vatArr;
         this.airtermination.airExpansion=this.airTerminationForm.value.expArr;
         this.airtermination.airHolderDescription=this.airTerminationForm.value.holderArr;
+        console.log(this.airtermination);
         
         this.airterminationService.saveAirtermination(this.airtermination).subscribe(
           (data) => {

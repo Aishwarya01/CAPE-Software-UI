@@ -80,7 +80,6 @@ export class LpsSeperationDistanceComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
-    debugger
       this.step6List = data.seperationDistanceDesc;
       this.separatedistance.basicLpsId = basicLpsId;   
       this.separatedistance.seperationDistanceId = this.step6List.seperationDistanceId  
