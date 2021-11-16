@@ -970,7 +970,7 @@ showHideAccordion(index: number) {
 // Signature part
   private createDesigner1AcknowledgeForm(): FormGroup {
       return new FormGroup({
-        declarationSignature: new FormControl('',[Validators.required]),
+        declarationSignature: new FormControl(''),
         declarationDate: new FormControl('',[Validators.required]),
         declarationName: new FormControl('',[Validators.required])
       })
@@ -984,14 +984,14 @@ showHideAccordion(index: number) {
     }
   private createContractorAcknowledgeForm(): FormGroup {
       return new FormGroup({
-        declarationSignature: new FormControl('',[Validators.required]),
+        declarationSignature: new FormControl(''),
         declarationDate: new FormControl('',[Validators.required]),
         declarationName: new FormControl('',[Validators.required])
       })
     }
   private createInspectorAcknowledgeForm(): FormGroup {
       return new FormGroup({
-        declarationSignature: new FormControl('',[Validators.required]),
+        declarationSignature: new FormControl(''),
         declarationDate: new FormControl('',[Validators.required]),
         declarationName: new FormControl('',[Validators.required])
       })
@@ -1497,7 +1497,7 @@ showHideAccordion(index: number) {
       this.step1Form.value.designer1Arr[0].declarationName= this.step1Form.value.designer1AcknowledgeArr[0].declarationName;
       this.step1Form.value.designer1Arr[0].declarationDate= this.step1Form.value.designer1AcknowledgeArr[0].declarationDate;
       this.step1Form.value.designer2Arr[0].signatorRole= this.designer2Role;
-      if((this.step1Form.value.designer2AcknowledgeArr[0].declarationSignature != "") && (this.step1Form.value.designer2AcknowledgeArr[0].declarationName != "") && (this.step1Form.value.designer2AcknowledgeArr[0].declarationDate != ""))
+      if((this.step1Form.value.designer2AcknowledgeArr[0].declarationName != "") && (this.step1Form.value.designer2AcknowledgeArr[0].declarationDate != ""))
       {
       this.step1Form.value.designer2Arr[0].declarationSignature= this.step1Form.value.designer2AcknowledgeArr[0].declarationSignature;
       this.step1Form.value.designer2Arr[0].declarationName= this.step1Form.value.designer2AcknowledgeArr[0].declarationName;

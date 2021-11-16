@@ -276,7 +276,7 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Signature:</label>
-                        <input type="text" class="form-control" formControlName="signature"
+                        <input type="text" class="form-control" formControlName="signature" readonly
                         [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }">
                         <div *ngIf="submitted && a.get('signature')?.errors" class="invalid-feedback">
                           <div *ngIf="a.get('signature')?.errors?.required">Signature is required</div>
@@ -350,7 +350,7 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label>Signature:</label>
-                          <input type="text" class="form-control" formControlName="signature"
+                          <input type="text" class="form-control" formControlName="signature" readonly
                           [ngClass]="{ 'is-invalid': submitted && a.get('signature')?.errors }">
                         <div *ngIf="submitted && a.get('signature')?.errors" class="invalid-feedback">
                           <div *ngIf="a.get('signature')?.errors?.required">Signature is required</div>

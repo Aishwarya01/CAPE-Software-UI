@@ -35,6 +35,7 @@ import { VerificationlvComponent } from '../verificationlv/verificationlv.compon
 import { InspectionVerificationService } from '../services/inspection-verification.service';
 
 import { SavedreportsComponent } from '../savedreports/savedreports.component';
+import { wind } from 'ngx-bootstrap-icons';
 
 export interface PeriodicElement {
   siteCd: string;
@@ -572,6 +573,7 @@ triggerNavigateTo(siteName:any){
   logout() {
     this.loginservice.logout();
     this.route.navigate(['login']);
+    window.location.reload();
   }
 
   displayUserFullName(email: String) {

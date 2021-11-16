@@ -224,11 +224,13 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4" formArrayName="rateArr" *ngFor="let d of gettestrateFormControls(c); let j = index">
+                                <div class="col-md-4" formArrayName="rateArr" 
+                                *ngFor="let d of gettestrateFormControls(c); let j = index">
                                     <div class="form-group" [formGroupName]="j">
                                         <label>Ratings In Amps </label>
-                                        <input type="number" min="0" formControlName="ratingsAmps" class="form-control" placeholder=" Enter Ratings in Amps "
-                                            [ngClass]="{ 'is-invalid': submitted && d.get('ratingsAmps')?.errors }">
+                                        <input type="number" min="0" formControlName="ratingsAmps" 
+                                        class="form-control" placeholder=" Enter Ratings in Amps "
+                                          [ngClass]="{ 'is-invalid': submitted && d.get('ratingsAmps')?.errors }">
                                         <div *ngIf="submitted && d.get('ratingsAmps')?.errors" class="invalid-feedback">
                                             <div *ngIf="d.get('ratingsAmps')?.errors?.required">Ratings in Amps value is required</div>
                                         </div>
@@ -236,7 +238,7 @@
                                 </div>
 
                                 <div class="col-md-4"> 
-                                    <label>Selected Source:</label>
+                                    <label>Source Of Incoming:</label>
                                     <select class="form-control" formControlName="sourceFromSupply" (change)="changeSource($event,c)"
                                     [ngClass]="{ 'is-invalid': submitted && c.get('sourceFromSupply')?.errors }">
                                     <option value="0" selected>Select Option</option>
