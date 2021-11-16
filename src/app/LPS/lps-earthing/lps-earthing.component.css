@@ -36,3 +36,6 @@ td {
     width: 20%;
     margin: 0 auto;
 }
+thead {
+  text-align: center;
+}

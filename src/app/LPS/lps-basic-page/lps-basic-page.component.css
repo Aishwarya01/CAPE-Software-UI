@@ -43,4 +43,6 @@ button {
     margin: 0 auto;
 }
 
- 
+thead {
+  text-align: center;
+}
