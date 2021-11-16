@@ -1028,6 +1028,27 @@
                         <table class="table">
                             <tbody formArrayName="holderArr" *ngFor="let a of holdersControls(); let k = index">
                                 <div class="form-group" [formGroupName]="k">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="lname">Location Name</label>
+                                            <input class="form-control" formControlName="lacationName" type="text" placeholder="Location Name"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('lacationName')?.errors}">
+                                            <div *ngIf="submitted && a.get('lacationName')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="a.get('lacationName')?.errors?.required">Location Name is required</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="lnumber">Location Number</label>
+                                            <input class="form-control" formControlName="lacationNo" type="text" placeholder="Location Number"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('lacationNo')?.errors}">
+                                            <div *ngIf="submitted && a.get('lacationNo')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="a.get('lacationNo')?.errors?.required">Location Number is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
                                     <thead>
                                         <th>Sl.No</th>
                                         <th>Description</th>
@@ -1309,6 +1330,29 @@
                         <table class="table">
                             <tbody formArrayName="connectorArr" *ngFor="let a of connectorsControls(); let z = index">
                                 <div class="form-group" [formGroupName]="z">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="lname">Location Name</label>
+                                            <input class="form-control" formControlName="lacationName" type="text" placeholder="Location Name"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('lacationName')?.errors}">
+                                            <div *ngIf="submitted && a.get('lacationName')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="a.get('lacationName')?.errors?.required">
+                                                    Location Name is required</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="lnumber">Location Number</label>
+                                            <input class="form-control" formControlName="lacationNo" type="text" placeholder="Location Number"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('lacationNo')?.errors}">
+                                            <div *ngIf="submitted && a.get('lacationNo')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="a.get('lacationNo')?.errors?.required">
+                                                    Location Number is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
                                     <thead>
                                         <th>Sl.No</th>
                                         <th>Description</th>
@@ -1592,6 +1636,29 @@
                         <table class="table">
                             <tbody formArrayName="lightArr" *ngFor="let a of lightControls(); let f = index">
                                 <div class="form-group" [formGroupName]="f">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="lname">Location Name</label>
+                                            <input class="form-control" formControlName="lacationName" type="text" placeholder="Location Name"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('lacationName')?.errors}">
+                                            <div *ngIf="submitted && a.get('lacationName')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="a.get('lacationName')?.errors?.required">
+                                                    Location Name is required</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="lnumber">Location Number</label>
+                                            <input class="form-control" formControlName="lacationNo" type="text" placeholder="Location Number"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('lacationNo')?.errors}">
+                                            <div *ngIf="submitted && a.get('lacationNo')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="a.get('lacationNo')?.errors?.required">
+                                                    Location Number is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
                                     <thead>
                                         <th>Sl.No</th>
                                         <th>Description</th>

@@ -77,6 +77,8 @@ export class BridgingDescription {
 }
 
 export class Holder {
+    lacationNo!: number;
+    lacationName!: String;
     physicalInspectionOb!: String;
     physicalInspectionRem!: String;
     conductHolderFlatSurfaceOb!: String;
@@ -96,6 +98,8 @@ export class Holder {
 }
 
 export class Connectors {
+    lacationNo!: number;
+    lacationName!: String;
     physicalInspectionOb!: String;
     physicalInspectionRem!: String;
     strightConnectCheckOb!: String;
@@ -116,6 +120,8 @@ export class Connectors {
 
 
 export class LightningCounter {
+    lacationNo!: number;
+    lacationName!: String;
     threadHoldCurrentOb!: String;
     threadHoldCurrentRem!: String;
     maximumWithStandCurrentOb!: String;
