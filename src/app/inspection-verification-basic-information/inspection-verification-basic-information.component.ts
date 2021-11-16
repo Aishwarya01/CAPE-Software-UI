@@ -1,5 +1,5 @@
 import { SignatorDetails } from './../model/reportdetails';
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup,Validators,ValidatorFn } from '@angular/forms';
 import {​​​ NgbModal }​​​ from'@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
@@ -27,7 +27,7 @@ import { MainNavComponent } from '../main-nav/main-nav.component';
   templateUrl: './inspection-verification-basic-information.component.html',
   styleUrls: ['./inspection-verification-basic-information.component.css']
 })
-export class InspectionVerificationBasicInformationComponent implements OnInit {
+export class InspectionVerificationBasicInformationComponent implements OnInit,OnDestroy {
 //e-siganture in progress
   // signatureImg: string="";
   // @ViewChild(SignaturePad) signaturePad!: SignaturePad;
@@ -215,6 +215,10 @@ ShowNext: boolean = true;
       this.today = new Date();
     }, 1);
     
+  }
+  ngOnDestroy(): void {
+    this.service.viewerData = [];
+    this.service.inspectorData = [];
   }
 
   ngOnInit(): void {
