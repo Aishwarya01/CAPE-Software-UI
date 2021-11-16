@@ -20,7 +20,8 @@ export class EarthingLpsDescription{
 
 export class EarthingDescription {
     
-   
+    locationNumber!:number;
+    locationName!:String;
     soilResistivityInOb!: String;
     soilResistivityInRem!: String;
     earthPitDigOb!: String;
@@ -61,6 +62,8 @@ export class EarthingDescription {
  
 
 export class EarthingClamps {
+    locationNumber!:number;
+    locationName!:String;
     physicalInspectionInOb!: String;
     psysicalInspectionInRem!: String;
     clampsFirmlyOb!: String;
@@ -82,6 +85,8 @@ export class EarthingClamps {
 }
 
 export class EarthElectrodeChamber {
+    locationNumber!:number;
+    locationName!:String;
     physicalInspeOb!: String;
     physicalInspeRem!: String;
     chamberTypeOb!: String;
@@ -104,6 +109,8 @@ export class EarthElectrodeChamber {
 
 
 export class EarthingSystem {
+    locationNumber!:number;
+    locationName!:String;
     buriedElectrodeOb!: String;
     buriedElectrodeRem!: String;
     depthOfElectrodeOb!: String;

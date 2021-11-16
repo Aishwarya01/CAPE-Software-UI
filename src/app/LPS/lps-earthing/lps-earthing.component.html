@@ -126,32 +126,34 @@
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Type-A earthing system</mat-expansion-panel-header>
-                    <div class="row">
-                            <div class="col-md-6">
-                                <label for="lname">Location Name</label>
-                                <input class="form-control" formControlName="locationName" type="text" [(ngModel)]="earthingLpsDescription.locationName"
-                                    [ngClass]="{ 'is-invalid': submitted && f.locationName.errors}" placeholder="Location Name"> 
-                                <div *ngIf="submitted && f.locationName.errors" class="invalid-feedback">
-                                    <div *ngIf="f.locationName.errors.required">Location Name is required</div>
+                    <div>
+                    <table class="table">
+                        <tbody formArrayName="descriptionArr" *ngFor="let a of earthingDescriptionarr(); let j = index">
+                         <div class="form-group" [formGroupName]="j">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="lname">Location Name</label>
+                                    <input class="form-control" formControlName="locationName" type="text" placeholder="Location Name"
+                                        [ngClass]="{ 'is-invalid': submitted && a.get('locationName')?.errors}">
+                                    <div *ngIf="submitted && a.get('locationName')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="a.get('locationName')?.errors?.required">
+                                            Location Name is required</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="lnumber">Location Number</label>
+                                    <input class="form-control" formControlName="locationNumber" type="text" placeholder="Location Number"
+                                        [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors}">
+                                    <div *ngIf="submitted && a.get('locationNumber')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="a.get('locationNumber')?.errors?.required">
+                                            Location Number is required</div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <label for="lnumber">Location Number</label>
-                                <input class="form-control" formControlName="locationNumber" type="text"  [(ngModel)]="earthingLpsDescription.locationNumber"
-                                    [ngClass]="{ 'is-invalid': submitted && f.locationNumber.errors}" placeholder="Location Number">
-                                <div *ngIf="submitted && f.locationNumber.errors" class="invalid-feedback">
-                                    <div *ngIf="f.locationNumber.errors.required">Location Number is required</div>
-                                </div>
-                            </div>
-                    </div>
                     <!-- Table -->
-
-                    <div style="margin-top: 40px;">
-                        <table class="table">
-                            <tbody formArrayName="descriptionArr"
-                                *ngFor="let a of earthingDescriptionarr(); let j = index">
-                                <div class="form-group" [formGroupName]="j">
-                                    <thead>
+                              <thead>
                                         <th>SI.No</th>
                                         <th>Description</th>
                                         <th>Observation</th>
@@ -776,6 +778,28 @@
                             <table class="table">
                                 <tbody formArrayName="ClampsArr" *ngFor="let a of earthingClampsarr(); let j = index">
                                     <div class="form-group" [formGroupName]="j">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="lname">Location Name</label>
+                                                <input class="form-control" formControlName="locationName" type="text" placeholder="Location Name"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('locationName')?.errors}">
+                                                <div *ngIf="submitted && a.get('locationName')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('locationName')?.errors?.required">
+                                                        Location Name is required</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="lnumber">Location Number</label>
+                                                <input class="form-control" formControlName="locationNumber" type="text" placeholder="Location Number"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors}">
+                                                <div *ngIf="submitted && a.get('locationNumber')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('locationNumber')?.errors?.required">
+                                                        Location Number is required</div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <thead>
                                             <th>SI.No</th>
                                             <th>Description</th>
@@ -1100,6 +1124,28 @@
                             <tbody formArrayName="chamberArr"
                                 *ngFor="let a of earthElectrodeChambearr(); let j = index">
                                 <div class="form-group" [formGroupName]="j">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="lname">Location Name</label>
+                                            <input class="form-control" formControlName="locationName" type="text" placeholder="Location Name"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('locationName')?.errors}">
+                                            <div *ngIf="submitted && a.get('locationName')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="a.get('locationName')?.errors?.required">
+                                                    Location Name is required</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="lnumber">Location Number</label>
+                                            <input class="form-control" formControlName="locationNumber" type="text" placeholder="Location Number"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors}">
+                                            <div *ngIf="submitted && a.get('locationNumber')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="a.get('locationNumber')?.errors?.required">
+                                                    Location Number is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <thead>
                                         <th>SI.No</th>
                                         <th>Description</th>

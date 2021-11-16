@@ -67,8 +67,8 @@ export class LpsEarthingComponent implements OnInit {
       bimetallicIssueInRem: new FormControl(''),
       brazingConnectInOb: new FormControl('', Validators.required),
       brazingConnectInRem: new FormControl(''),
-      locationNumber: new FormControl('', Validators.required),
-      locationName: new FormControl('', Validators.required),
+      // locationNumber: new FormControl('', Validators.required),
+      // locationName: new FormControl('', Validators.required),
 
       descriptionArr: this.formBuilder.array([this.earthingDescription()]),
       ClampsArr: this.formBuilder.array([this.earthingClamps()]),
@@ -128,6 +128,8 @@ export class LpsEarthingComponent implements OnInit {
     createGroup(item: any): FormGroup {
       return this.formBuilder.group({
         //description arr
+      locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
+      locationName: new FormControl({disabled: false, value: item.locationName}),
       earthDescriptionId: new FormControl({disabled: false, value: item.earthDescriptionId}),
       soilResistivityInOb: new FormControl({disabled: false, value: item.soilResistivityInOb}, Validators.required),
       soilResistivityInRem: new FormControl({disabled: false, value: item.soilResistivityInRem}),
@@ -171,6 +173,8 @@ export class LpsEarthingComponent implements OnInit {
     createGroup1(item: any): FormGroup {
       return this.formBuilder.group({
         // clamps
+        locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
+        locationName: new FormControl({disabled: false, value: item.locationName}),
         earthingClampsId: new FormControl({disabled: false, value: item.earthingClampsId}),
         physicalInspectionInOb: new FormControl({disabled: false, value: item.physicalInspectionInOb}, Validators.required),
         psysicalInspectionInRem: new FormControl({disabled: false, value: item.psysicalInspectionInRem}),
@@ -196,6 +200,8 @@ export class LpsEarthingComponent implements OnInit {
     createGroup2(item: any): FormGroup {
       return this.formBuilder.group({
         //chamber
+        locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
+        locationName: new FormControl({disabled: false, value: item.locationName}),
         earthingElectrodeChamberId: new FormControl({disabled: false, value: item.earthingElectrodeChamberId}),
         physicalInspeOb: new FormControl({disabled: false, value: item.physicalInspeOb}, Validators.required),
         physicalInspeRem: new FormControl({disabled: false, value: item.physicalInspeRem}),
@@ -222,6 +228,9 @@ export class LpsEarthingComponent implements OnInit {
     createGroup3(item: any): FormGroup {
       return this.formBuilder.group({
         //earthing
+        
+        locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
+        locationName: new FormControl({disabled: false, value: item.locationName}),
         earthingSystemId: new FormControl({disabled: false, value: item.earthingSystemId}),
         buriedElectrodeOb: new FormControl({disabled: false, value: item.buriedElectrodeOb}, Validators.required),
         buriedElectrodeRem: new FormControl({disabled: false, value: item.buriedElectrodeRem}),
@@ -297,6 +306,7 @@ export class LpsEarthingComponent implements OnInit {
   }
   earthingSystem(): FormGroup {
     return new FormGroup({
+     
       buriedElectrodeOb: new FormControl('', Validators.required),
       buriedElectrodeRem: new FormControl(''),
       depthOfElectrodeOb: new FormControl('', Validators.required),
@@ -334,6 +344,8 @@ export class LpsEarthingComponent implements OnInit {
   }
   earthElectrodeChamber(): FormGroup {
     return new FormGroup({
+      locationNumber: new FormControl('', Validators.required),
+      locationName: new FormControl(''),
       physicalInspeOb: new FormControl('', Validators.required),
       physicalInspeRem: new FormControl(''),
       chamberTypeOb: new FormControl('', Validators.required),
@@ -357,6 +369,8 @@ export class LpsEarthingComponent implements OnInit {
   }
   earthingClamps(): FormGroup {
     return new FormGroup({
+      locationNumber: new FormControl('', Validators.required),
+      locationName: new FormControl(''),
       physicalInspectionInOb: new FormControl('', Validators.required),
       psysicalInspectionInRem: new FormControl(''),
       clampsFirmlyOb: new FormControl('', Validators.required),
@@ -379,7 +393,8 @@ export class LpsEarthingComponent implements OnInit {
   }
   earthingDescription(): FormGroup {
     return new FormGroup({
-
+      locationNumber: new FormControl('', Validators.required),
+      locationName: new FormControl(''),
       soilResistivityInOb: new FormControl('', Validators.required),
       soilResistivityInRem: new FormControl(''),
       earthPitDigOb: new FormControl('', Validators.required),

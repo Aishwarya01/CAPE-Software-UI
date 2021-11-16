@@ -219,6 +219,29 @@
                             <!-- Form Array -->
                             <tbody formArrayName="vatArr" *ngFor="let a of vatControls(); let j = index">
                                 <div class="form-group" [formGroupName]="j">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="lname">Location Name</label>
+                                            <input class="form-control" formControlName="locationName" type="text" placeholder="Location Name"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('locationName')?.errors}">
+                                            <div *ngIf="submitted && a.get('locationName')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="a.get('locationName')?.errors?.required">
+                                                    Location Name is required</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="lnumber">Location Number</label>
+                                            <input class="form-control" formControlName="locationNumber" type="text" placeholder="Location Number"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors}">
+                                            <div *ngIf="submitted && a.get('locationNumber')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="a.get('locationNumber')?.errors?.required">
+                                                    Location Number is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
                                     <thead>
                                         <th>SI.No</th>
                                         <th>Description</th>
@@ -661,7 +684,7 @@
                                 <mat-icon class="mousechange" type="button"  *ngIf="vatControls().length == j+1" (click)="submit()"
                                 style="margin-inline: 1rem;float: right;position: relative;"
                                 title="add another Section">add_box</mat-icon>
-                            <mat-icon class="mousechange" *ngIf="vatControls().length > 1" (click)="removeItem(j)"  title="delete"
+                            <mat-icon class="mousechange" type="button" title="delete" *ngIf="vatControls().length > 1" (click)="removeItem(j)"  title="delete"
                                 style="margin-inline: 1rem;float: right;position: relative;">delete</mat-icon>
                             </tbody>
                         </table>
@@ -674,6 +697,29 @@
                         <table class="table">
                             <tbody formArrayName="meshArr" *ngFor="let a of meshControls(); let i = index">
                                 <div class="form-group" [formGroupName]="i">
+                                    <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="lname">Location Name</label>
+                                        <input class="form-control" formControlName="locationName" type="text" placeholder="Location Name"
+                                            [ngClass]="{ 'is-invalid': submitted && a.get('locationName')?.errors}">
+                                        <div *ngIf="submitted && a.get('locationName')?.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="a.get('locationName')?.errors?.required">
+                                                Location Name is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="lnumber">Location Number</label>
+                                        <input class="form-control" formControlName="locationNumber" type="text" placeholder="Location Number"
+                                            [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors}">
+                                        <div *ngIf="submitted && a.get('locationNumber')?.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="a.get('locationNumber')?.errors?.required">
+                                                Location Number is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
                                     <thead>
                                         <th>SI.No</th>
                                         <th>Description</th>
@@ -919,7 +965,7 @@
                                 <mat-icon class="mousechange" type="button"  *ngIf="meshControls().length == i+1" (click)="submit1()"
                                 style="margin-inline: 1rem;float: right;position: relative;"
                                 title="add another Section">add_box</mat-icon>
-                            <mat-icon class="mousechange" *ngIf="meshControls().length > 1" (click)="removeItem1(i)"  title="delete"
+                            <mat-icon class="mousechange"  type="button" title="delete" *ngIf="meshControls().length > 1" (click)="removeItem1(i)"  title="delete"
                                 style="margin-inline: 1rem;float: right;position: relative;">delete</mat-icon> </tbody>
                              
                             </table>
@@ -932,6 +978,29 @@
                         <table class="table">
                             <tbody formArrayName="holderArr" *ngFor="let a of holdersContols(); let j = index">
                                 <div class="form-group" [formGroupName]="j">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="lname">Location Name</label>
+                                            <input class="form-control" formControlName="locationName" type="text" placeholder="Location Name"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('locationName')?.errors}">
+                                            <div *ngIf="submitted && a.get('locationName')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="a.get('locationName')?.errors?.required">
+                                                    Location Name is required</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="lnumber">Location Number</label>
+                                            <input class="form-control" formControlName="lacationNo" type="text" placeholder="Location Number"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('lacationNo')?.errors}">
+                                            <div *ngIf="submitted && a.get('lacationNo')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="a.get('lacationNo')?.errors?.required">
+                                                    Location Number is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
                                     <thead>
                                         <th>SI.No</th>
                                         <th>Description</th>
@@ -1406,6 +1475,28 @@
                         <table class="table">
                             <tbody formArrayName="clampArr" *ngFor="let a of clampsControls(); let i = index">
                                 <div class="form-group" [formGroupName]="i">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="lname">Location Name</label>
+                                            <input class="form-control" formControlName="locationName" type="text" placeholder="Location Name"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('locationName')?.errors}">
+                                            <div *ngIf="submitted && a.get('locationName')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="a.get('locationName')?.errors?.required">
+                                                    Location Name is required</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="lnumber">Location Number</label>
+                                            <input class="form-control" formControlName="locationNumber" type="text" placeholder="Location Number"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors}">
+                                            <div *ngIf="submitted && a.get('locationNumber')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="a.get('locationNumber')?.errors?.required">
+                                                    Location Number is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <thead>
                                         <th>SI.No</th>
                                         <th>Description</th>
@@ -1706,7 +1797,7 @@
                                 <mat-icon class="mousechange" type="button"  *ngIf="clampsControls().length == i+1" (click)="submit3()"
                                 style="margin-inline: 1rem;float: right;position: relative;"
                                 title="add another Section">add_box</mat-icon>
-                            <mat-icon class="mousechange" *ngIf="clampsControls().length > 1" (click)="removeItem3(j)"  title="delete"
+                            <mat-icon class="mousechange" type="button" title="delete" *ngIf="clampsControls().length > 1" (click)="removeItem3(j)"  title="delete"
                                 style="margin-inline: 1rem;float: right;position: relative;">delete</mat-icon></tbody>
                         </table>
                     </div>
@@ -1719,11 +1810,33 @@
                         <table class="table">
                             <tbody formArrayName="expArr" *ngFor="let a of expansionControls(); let i = index">
                                 <div class="form-group" [formGroupName]="i">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="lname">Location Name</label>
+                                            <input class="form-control" formControlName="locationName" type="text" placeholder="Location Name"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('locationName')?.errors}">
+                                            <div *ngIf="submitted && a.get('locationName')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="a.get('locationName')?.errors?.required">
+                                                    Location Name is required</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="lnumber">Location Number</label>
+                                            <input class="form-control" formControlName="locationNumber" type="text" placeholder="Location Number"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors}">
+                                            <div *ngIf="submitted && a.get('locationNumber')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="a.get('locationNumber')?.errors?.required">
+                                                    Location Number is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <thead>
                                         <th>SI.No</th>
                                         <th>Description</th>
                                         <th>Observation</th>
-                                        <th>Remarks(Optioanl)</th>
+                                        <th>Remarks(Optional)</th>
                                     </thead>
                                     <tr>
                                         <td style="width: 1rem; text-align: center;">10.1</td>
@@ -1968,6 +2081,28 @@
                         <table class="table">
                             <tbody formArrayName="conArr" *ngFor="let a of connectorsControls(); let i = index">
                                 <div class="form-group" [formGroupName]="i">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="lname">Location Name</label>
+                                            <input class="form-control" formControlName="locationName" type="text" placeholder="Location Name"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('locationName')?.errors}">
+                                            <div *ngIf="submitted && a.get('locationName')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="a.get('locationName')?.errors?.required">
+                                                    Location Name is required</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="lnumber">Location Number</label>
+                                            <input class="form-control" formControlName="locationNumber" type="text" placeholder="Location Number"
+                                                [ngClass]="{ 'is-invalid': submitted && j.get('locationNumber')?.errors}">
+                                            <div *ngIf="submitted && j.get('locationNumber')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="j.get('locationNumber')?.errors?.required">
+                                                    Location Number is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <thead>
                                         <th>SI.No</th>
                                         <th>Description</th>
@@ -2299,7 +2434,7 @@
                                 <mat-icon class="mousechange" type="button"  *ngIf="connectorsControls().length == i+1" (click)="submit5()"
                                 style="margin-inline: 1rem;float: right;position: relative;"
                                 title="add another Section">add_box</mat-icon>
-                            <mat-icon class="mousechange" *ngIf="connectorsControls().length > 1" (click)="removeItem5(i)"  title="delete"
+                            <mat-icon class="mousechange" type="button" title="delete" *ngIf="connectorsControls().length > 1" (click)="removeItem5(i)"  title="delete"
                                 style="margin-inline: 1rem;float: right;position: relative;">delete</mat-icon>
                             </tbody>
                         </table>

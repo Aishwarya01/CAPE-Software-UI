@@ -23,6 +23,8 @@ export class Airtermination {
 
 }
 export class AirClamps {
+    locationNumber!:number;
+    locationName!:String;
     physicalInspectionOb!: string;
     physicalInspectionRe!: string;
     conductorClampsFlatSurafaceOb!: string;
@@ -44,6 +46,8 @@ export class AirClamps {
 }
 
 export class AirConnectors {
+    locationNumber!:number;
+    locationName!:String;
     physicalInspectionOb!: string;
     physicalInspectionRe!: string;
     checkConnectionConnectorsOb!: string;
@@ -67,6 +71,8 @@ export class AirConnectors {
 }
 
 export class LpsVerticalAirTermination {
+    locationNumber!:number;
+    locationName!:String;
     sizeOfTerminalOb!: string;
     sizeOfTerminalRe!: string;
     heightOfTerminalOb!: string;
@@ -93,6 +99,8 @@ export class LpsVerticalAirTermination {
     inspFaileddNoRe!: string
 }
 export class AirMeshDescription {
+    locationNumber!:number;
+    locationName!:String;
     sizeOfConductorOb!: string;
     sizeOfConductorRe!: string;
     meshSizeOb!: string;
@@ -105,6 +113,8 @@ export class AirMeshDescription {
     heightOfConductorFlatSurfaceRe!: string
 }
 export class AirExpansion {
+    locationNumber!:number;
+    locationName!:String;
     physicalInspectionOb!: string;
     physicalInspectionRe!: string;
     strightConnectorPiecOb!: string;
@@ -121,6 +131,8 @@ export class AirExpansion {
     inspectionFailedNoRe!: string
 }
 export class AirHolderDescription {
+    locationNumber!:number;
+    locationName!:String;
 	 physicalInspectionOb!: string;
 	 physicalInspectionRe!: string;
 	 conductorHolderFlatSurfaceOb!: string;
