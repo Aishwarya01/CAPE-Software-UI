@@ -126,16 +126,20 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   locationElectrodeArr: any = [];
 
   panelOpenState = false;
-  systemEarthingList: String[] = ['TN-C', 'TN-C-S', 'TN-S', 'IT', 'TT'];
+  systemEarthingList: String[] = ['TN-C', 'TN-C-S', 'TN-S', 'IT', 'TT', 'Others'];
   liveConductorACList: String[] = [
     '1-phase, 2-wire (LN)',
     '1-phase, 3-wire (LLM)',
     '2-phase, 3-wire (LLN)',
     '3-phase, 3-wire (LLL)',
-    '3-phase, 4-wire (LLLN)',
+    '3-phase, 4-wire (LLLN)'
   ];
   liveConductorDCList: String[] = ['2-pole', '3-pole', 'Others'];
-  AcConductorList: String[] = ['1-phase', '2-wire (LN)', '3-wire (LLM)','2-phase','3-wire (LLN)','3-phase','3-wire (LLL)','3-phase','4-wire (LLLN)'];
+  AcConductorList: String[] = ['1-phase, 2-wire (LN)',
+  '1-phase, 3-wire (LLM)',
+  '2-phase, 3-wire (LLN)',
+  '3-phase, 3-wire (LLL)',
+  '3-phase, 4-wire (LLLN)'];
   ProtectiveDevicelist: string[] = ['Fuse', 'MCB', 'MCCB', 'ACB'];
   AlternatesupplyList: string[] = ['Yes', 'No'];
   MeansofEarthingList: string[] = [
@@ -293,6 +297,8 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   key1LocationTable: boolean = false;
   key3LocationTable: boolean = false;
   keyJOintLocationTable: boolean= false;
+  showRemarks: boolean= false;
+  showBrief: boolean= false;
 
   constructor(
     private supplyCharacteristicsService: SupplyCharacteristicsService,
@@ -405,16 +411,30 @@ export class InspectionVerificationSupplyCharacteristicsComponent
        this.supplycharesteristic.createdDate = this.step2List.supplyCharacteristics.createdDate;
        this.supplycharesteristic.alternativeSupply=this.step2List.supplyCharacteristics.alternativeSupply;
        this.showAlternateField(this.step2List.supplyCharacteristics.alternativeSupply);
-       this.supplycharesteristic.electrodeMaterial=this.step2List.supplyCharacteristics.electrodeMaterial;
+       this.changeSystem(this.step2List.supplyCharacteristics.mainSystemEarthing);
+       this.supplycharesteristic.systemEarthingBNote=this.step2List.supplyCharacteristics.systemEarthingBNote;       this.supplycharesteristic.electrodeMaterial=this.step2List.supplyCharacteristics.electrodeMaterial;
        this.supplycharesteristic.meansEarthing=this.step2List.supplyCharacteristics.meansEarthing;
        this.supplycharesteristic.electrodeType=this.step2List.supplyCharacteristics.electrodeType;
-      //  this.supplycharesteristic.noOfLocation=this.step2List.supplyCharacteristics.noOfLocation;
-      // this.LocationsRecord(this.step2List.supplycharesteristic.noOfLocation);
-      // this.supplycharesteristic.bondingNoOfJoints=this.step2List.supplyCharacteristics.bondingNoOfJoints;
-      // this.jointSafetyRecord(this.step2List.supplycharesteristic.bondingNoOfJoints);
-      // this.supplycharesteristic.earthingNoOfJoints=this.step2List.supplyCharacteristics.earthingNoOfJoints;
-      // this.jointRecord(this.step2List.supplycharesteristic.earthingNoOfJoints);
-
+      if(this.step2List.supplyCharacteristics.noOfLocation!=0){
+        this.key1LocationTable=true;
+      }
+      else{
+        this.key1LocationTable=false;
+      }
+      if(this.step2List.supplyCharacteristics.bondingNoOfJoints!=0){
+        this.JointLocationTable=true;
+      }
+      else{
+        this.JointLocationTable=false;
+      }
+      if(this.step2List.supplyCharacteristics.earthingNoOfJoints!=0){
+        this.keyJOintLocationTable=true;
+      }
+      else{
+        this.keyJOintLocationTable=false;
+      }
+      this.supplycharesteristic.bondingJointsType=this.step2List.supplyCharacteristics.bondingJointsType;
+      this.supplycharesteristic.earthingJointsType=this.step2List.supplyCharacteristics.earthingJointsType;
        this.supplycharesteristic.conductorVerify= this.step2List.supplyCharacteristics.conductorVerify;
        this.step2List.type= this.step2List.supplyCharacteristics.type;
        this.supplycharesteristic.liveConductorAC= this.step2List.supplyCharacteristics.liveConductorAC;
@@ -1207,7 +1227,13 @@ showHideAccordion(index: number) {
   }
   
   LocationsRecord(e: any, a: any) {
-    let changedValue = e.target.value;
+    let changedValue 
+    if(e.target != undefined) {
+      changedValue = e.target.value;
+    }
+    else{
+      changedValue = e;
+    }
     if (changedValue == 0) {
       this.key1LocationTable = false;
       this.f.location1Arr.controls[a].controls['locationNo'].clearValidators();
@@ -1252,25 +1278,9 @@ showHideAccordion(index: number) {
     ) as FormArray;
     if(this.value!=0){
       this.key1LocationTable=true;
-      // this.f.location1Arr.controls[i].controls['locationNo'].setValidators(
-      //   Validators.required
-      // );
-      // this.f.location1Arr.controls[i].controls['locationNo'].updateValueAndValidity();
-      // this.f.location1Arr.controls[i].controls['locationName'].setValidators(
-      //   Validators.required
-      // );
-      // this.f.location1Arr.controls[i].controls[
-      //   'locationName'
-      // ].updateValueAndValidity();
-      // this.f.location1Arr.controls[i].controls['electrodeResistanceEarth'].setValidators(
-      //   Validators.required
-      // );
-      // this.f.location1Arr.controls[i].controls[
-      //   'electrodeResistanceEarth'
-      // ].updateValueAndValidity();
     if (this.location1Arr.length == 0) {
       if (this.value != '') {
-        for (this.i = 1; this.i < this.value; this.i++) {
+        for (this.i = 0; this.i < this.value; this.i++) {
           this.location1Arr = this.supplycharesteristicForm.get(
             'location1Arr'
           ) as FormArray;
@@ -1309,6 +1319,9 @@ showHideAccordion(index: number) {
   }
   else{
     this.key1LocationTable=false;
+    let arr:any=[];
+    this.supplycharesteristicForm.setControl('location1Arr', this.formBuilder.array(arr || []))
+
     // this.f.location1Arr.controls[i].controls['locationNo'].clearValidators();
     //   this.f.location1Arr.controls[i].controls[
     //     'locationNo'
@@ -1325,7 +1338,13 @@ showHideAccordion(index: number) {
   }
 
   jointSafetyRecord(e: any, a: any) {
-    let changedValue = e.target.value;
+    let changedValue
+    if(e.target != undefined) {
+      changedValue = e.target.value;
+    }
+    else{
+      changedValue = e;
+    }
     if (changedValue == 0) {
       this.key1LocationTable = false;
       this.supplycharesteristicForm.controls['bondingJointsType'].clearValidators();
@@ -1378,9 +1397,13 @@ showHideAccordion(index: number) {
     ) as FormArray;
   if(this.value!=0){
     this.JointLocationTable=true;
+    this.supplycharesteristicForm.controls['bondingJointsType'].setValidators(
+      Validators.required
+    );
+    this.supplycharesteristicForm.controls['bondingJointsType'].updateValueAndValidity();
     if (this.location2Arr.length == 0) {
       if (this.value != '') {
-        for (this.i = 1; this.i < this.value; this.i++) {
+        for (this.i = 0; this.i < this.value; this.i++) {
           this.location2Arr = this.supplycharesteristicForm.get(
             'location2Arr'
           ) as FormArray;
@@ -1419,6 +1442,12 @@ showHideAccordion(index: number) {
   }
   else{
     this.JointLocationTable=false;
+    let arr:any=[];
+    this.supplycharesteristicForm.setControl('location2Arr', this.formBuilder.array(arr || []))
+    this.supplycharesteristicForm.controls['bondingJointsType'].clearValidators();
+    this.supplycharesteristicForm.controls[
+      'bondingJointsType'
+    ].updateValueAndValidity();
   }
   // else{
   //   this.JointLocationTable=false;
@@ -1474,7 +1503,13 @@ showHideAccordion(index: number) {
   //   // }
   // }
   jointRecord(e: any, a: any) {
-    let changedValue = e.target.value;
+    let changedValue
+    if(e.target != undefined) {
+      changedValue = e.target.value;
+    }
+    else{
+      changedValue = e;
+    }
     if (changedValue == 0) {
       this.key1LocationTable = false;
       this.supplycharesteristicForm.controls['earthingJointsType'].clearValidators();
@@ -1526,9 +1561,13 @@ showHideAccordion(index: number) {
     ) as FormArray;
     if(this.service.noOfjoint!=0){
       this.keyJOintLocationTable=true;
+      this.supplycharesteristicForm.controls['earthingJointsType'].setValidators(
+        Validators.required
+      );
+      this.supplycharesteristicForm.controls['earthingJointsType'].updateValueAndValidity();
     if (this.location3Arr.length == 0) {
       if (this.service.noOfjoint != '') {
-        for (this.i = 1; this.i < this.value; this.i++) {
+        for (this.i = 0; this.i < this.value; this.i++) {
           this.location3Arr = this.supplycharesteristicForm.get(
             'location3Arr'
           ) as FormArray;
@@ -1567,6 +1606,12 @@ showHideAccordion(index: number) {
   }
   else{
     this.keyJOintLocationTable=false;
+    let arr:any=[];
+    this.supplycharesteristicForm.setControl('location3Arr', this.formBuilder.array(arr || []))
+    this.supplycharesteristicForm.controls['earthingJointsType'].clearValidators();
+    this.supplycharesteristicForm.controls[
+      'earthingJointsType'
+    ].updateValueAndValidity();
   }
 //     else if((this.service.jointType==1 && this.service.noOfjoint==0) || (this.service.jointType=='' && this.service.noOfjoint==0))
 //     {
@@ -1636,7 +1681,30 @@ showHideAccordion(index: number) {
       ].updateValueAndValidity();
     }
   }
-
+  changeSystem(e: any) {
+    let changedValue;
+    if(e.target != undefined) {
+      changedValue = e.target.value;
+    }
+    else{
+      changedValue = e;
+    }
+    if (changedValue == 'Others') {
+      this.showRemarks = true;
+      this.showBrief=false;
+      this.supplycharesteristicForm.controls['briefNote'].setValidators([Validators.required]);
+      this.supplycharesteristicForm.controls[
+        'briefNote'
+      ].updateValueAndValidity();
+    } else {
+      this.showRemarks = false;
+      this.showBrief=true;
+      this.supplycharesteristicForm.controls['briefNote'].clearValidators();
+      this.supplycharesteristicForm.controls[
+        'briefNote'
+      ].updateValueAndValidity();
+    }
+  }
   changeCurrent(e: any) {
     let changedValue;
     if(e.target != undefined) {

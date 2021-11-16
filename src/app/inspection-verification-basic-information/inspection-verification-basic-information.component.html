@@ -354,7 +354,7 @@
                       <div class="col-md-4">
                         <label>Signature:</label>
                         <input type="text" formControlName="declarationSignature" class="form-control"
-                        
+                        readonly
                         [ngClass]="{ 'is-invalid': submitted && a.get('declarationSignature')?.errors }">
                           <div *ngIf="submitted && a.get('declarationSignature')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('declarationSignature')?.errors?.required">Signature is required</div>
@@ -390,7 +390,7 @@
                     <div class="row">
                       <div class="col-md-4">
                         <label>Signature:</label>
-                        <input type="text" formControlName="declarationSignature" class="form-control">
+                        <input type="text" formControlName="declarationSignature" class="form-control" readonly>
                       </div>
                       <div class="col-md-4">
                         <label>Date:</label>
@@ -423,7 +423,7 @@
                       <div class="row">
                         <div class="col-md-4">
                           <label>Signature:</label>
-                          <input type="text" formControlName="declarationSignature" class="form-control"
+                          <input type="text" formControlName="declarationSignature" class="form-control" readonly
                           [ngClass]="{ 'is-invalid': submitted && a.get('declarationSignature')?.errors }">
                           <div *ngIf="submitted && a.get('declarationSignature')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('declarationSignature')?.errors?.required">Signature is required</div>
@@ -468,7 +468,7 @@
                       <div class="row">
                         <div class="col-md-4">
                           <label>Signature:</label>
-                          <input type="text" formControlName="declarationSignature" class="form-control"
+                          <input type="text" formControlName="declarationSignature" class="form-control" readonly
                           [ngClass]="{ 'is-invalid': submitted && a.get('declarationSignature')?.errors }">
                           <div *ngIf="submitted && a.get('declarationSignature')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('declarationSignature')?.errors?.required">Signature is required</div>

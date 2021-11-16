@@ -719,7 +719,6 @@ showHideAccordion(index: number) {
         furtherActions: new FormControl({disabled: false,value: item.furtherActions}),
         referanceNumberReport: new FormControl({disabled: false,value: item.referanceNumberReport}),
         comment: new FormControl({disabled: false,value: item.comment}),
-        
       });
     }
   
@@ -728,7 +727,7 @@ showHideAccordion(index: number) {
     return new FormGroup({
       declarationId: new FormControl(''),
       name: new FormControl('', Validators.required),
-      signature: new FormControl('', Validators.required),
+      signature: new FormControl(''),
       company: new FormControl('', Validators.required),
       position: new FormControl('', Validators.required),
       address: new FormControl('', Validators.required),
@@ -741,7 +740,7 @@ showHideAccordion(index: number) {
     return new FormGroup({
       declarationId: new FormControl(''),
       name: new FormControl('', Validators.required),
-      signature: new FormControl('', Validators.required),
+      signature: new FormControl(''),
       company: new FormControl('', Validators.required),
       position: new FormControl('', Validators.required),
       address: new FormControl('', Validators.required),
