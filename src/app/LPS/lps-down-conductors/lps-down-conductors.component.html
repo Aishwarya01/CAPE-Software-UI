@@ -253,26 +253,24 @@
                             <tbody formArrayName="downArr" *ngFor="let a of downConductorControls(); let j = index">
                                 <div class="form-group" [formGroupName]="j">
                                     <div class="row">
-                                        <div class="container">
-                                            <div>
-                                                <label for="lname">Location Name</label>
-                                                <input class="form-control" formControlName="lacationName" type="text" placeholder="Location Name"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('lacationName')?.errors}">
-                                                <div *ngIf="submitted && a.get('lacationName')?.errors"
-                                                    class="invalid-feedback">
-                                                    <div *ngIf="a.get('lacationName')?.errors?.required">
-                                                        Location Name is required</div>
-                                                </div>
+                                        <div class="col-md-6">
+                                            <label for="lname">Location Name</label>
+                                            <input class="form-control" formControlName="lacationName" type="text" placeholder="Location Name"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('lacationName')?.errors}">
+                                            <div *ngIf="submitted && a.get('lacationName')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="a.get('lacationName')?.errors?.required">
+                                                    Location Name is required</div>
                                             </div>
-                                            <div>
-                                                <label for="lnumber">Location Number</label>
-                                                <input class="form-control" formControlName="lacationNo" type="text" placeholder="Location Number"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('lacationNo')?.errors}">
-                                                <div *ngIf="submitted && a.get('lacationNo')?.errors"
-                                                    class="invalid-feedback">
-                                                    <div *ngIf="a.get('lacationNo')?.errors?.required">
-                                                        Location Number is required</div>
-                                                </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="lnumber">Location Number</label>
+                                            <input class="form-control" formControlName="lacationNo" type="text" placeholder="Location Number"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('lacationNo')?.errors}">
+                                            <div *ngIf="submitted && a.get('lacationNo')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="a.get('lacationNo')?.errors?.required">
+                                                    Location Number is required</div>
                                             </div>
                                         </div>
                                     </div>
@@ -756,26 +754,24 @@
                                 *ngFor="let a of bridgingCablesControls(); let f = index">
                                 <div class="form-group" [formGroupName]="f">
                                     <div class="row">
-                                        <div class="container">
-                                            <div>
-                                                <label for="lname">Location Name</label>
-                                                <input class="form-control" formControlName="lacationName" type="text" placeholder="Location Name"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('lacationName')?.errors}">
-                                                <div *ngIf="submitted && a.get('lacationName')?.errors"
-                                                    class="invalid-feedback">
-                                                    <div *ngIf="a.get('lacationName')?.errors?.required">
-                                                        Location Name is required</div>
-                                                </div>
+                                        <div class="col-md-6">
+                                            <label for="lname">Location Name</label>
+                                            <input class="form-control" formControlName="lacationName" type="text" placeholder="Location Name"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('lacationName')?.errors}">
+                                            <div *ngIf="submitted && a.get('lacationName')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="a.get('lacationName')?.errors?.required">
+                                                    Location Name is required</div>
                                             </div>
-                                            <div>
-                                                <label for="lnumber">Location Number</label>
-                                                <input class="form-control" formControlName="lacationNo" type="text" placeholder="Location Number"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('lacationNo')?.errors}">
-                                                <div *ngIf="submitted && a.get('lacationNo')?.errors"
-                                                    class="invalid-feedback">
-                                                    <div *ngIf="a.get('lacationNo')?.errors?.required">
-                                                        Location Number is required</div>
-                                                </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="lnumber">Location Number</label>
+                                            <input class="form-control" formControlName="lacationNo" type="text" placeholder="Location Number"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('lacationNo')?.errors}">
+                                            <div *ngIf="submitted && a.get('lacationNo')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="a.get('lacationNo')?.errors?.required">
+                                                    Location Number is required</div>
                                             </div>
                                         </div>
                                     </div>
@@ -1979,26 +1975,24 @@
                             <tbody formArrayName="testjointsArr" *ngFor="let a of jointControls(); let x = index">
                                 <div class="form-group" [formGroupName]="x">
                                     <div class="row">
-                                        <div class="container">
-                                            <div>
-                                                <label for="lname">Location Name</label>
-                                                <input class="form-control" formControlName="lacationName" type="text" placeholder="Location Name"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('lacationName')?.errors}">
-                                                <div *ngIf="submitted && a.get('lacationName')?.errors"
-                                                    class="invalid-feedback">
-                                                    <div *ngIf="a.get('lacationName')?.errors?.required">
-                                                        Location Name is required</div>
-                                                </div>
+                                        <div class="col-md-6">
+                                            <label for="lname">Location Name</label>
+                                            <input class="form-control" formControlName="lacationName" type="text" placeholder="Location Name"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('lacationName')?.errors}">
+                                            <div *ngIf="submitted && a.get('lacationName')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="a.get('lacationName')?.errors?.required">
+                                                    Location Name is required</div>
                                             </div>
-                                            <div>
-                                                <label for="lnumber">Location Number</label>
-                                                <input class="form-control" formControlName="lacationNo" type="text" placeholder="Location Number"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('lacationNo')?.errors}">
-                                                <div *ngIf="submitted && a.get('lacationNo')?.errors"
-                                                    class="invalid-feedback">
-                                                    <div *ngIf="a.get('lacationNo')?.errors?.required">
-                                                        Location Number is required</div>
-                                                </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="lnumber">Location Number</label>
+                                            <input class="form-control" formControlName="lacationNo" type="text" placeholder="Location Number"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('lacationNo')?.errors}">
+                                            <div *ngIf="submitted && a.get('lacationNo')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="a.get('lacationNo')?.errors?.required">
+                                                    Location Number is required</div>
                                             </div>
                                         </div>
                                     </div>
