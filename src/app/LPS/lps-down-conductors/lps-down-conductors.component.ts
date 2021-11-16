@@ -148,7 +148,7 @@ export class LpsDownConductorsComponent implements OnInit {
     createGroup(item: any): FormGroup {
       return this.formBuilder.group({
         downConductorId: new FormControl({disabled: false, value: item.downConductorId}),
-        lacationNo: new FormControl({disabled: false, value: item.lacationNo}, Validators.required),
+        locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
         lacationName: new FormControl({disabled: false, value: item.lacationName}, Validators.required),
         physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
         physicalInspectionRem: new FormControl({disabled: false, value: item.physicalInspectionRem}),
@@ -184,7 +184,7 @@ export class LpsDownConductorsComponent implements OnInit {
     createGroup1(item: any): FormGroup {
       return this.formBuilder.group({
       bridgingDescriptionId: new FormControl({disabled: false, value: item.bridgingDescriptionId}),
-      lacationNo: new FormControl({disabled: false, value: item.lacationNo}, Validators.required),
+      locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
       lacationName: new FormControl({disabled: false, value: item.lacationName}, Validators.required),
       ensureBridgingCableOb: new FormControl({disabled: false, value: item.ensureBridgingCableOb}, Validators.required),
       ensureBridgingCableRem: new FormControl({disabled: false, value: item.ensureBridgingCableRem}),
@@ -206,7 +206,7 @@ export class LpsDownConductorsComponent implements OnInit {
     createGroup2(item: any): FormGroup {
       return this.formBuilder.group({
       holderId: new FormControl({disabled: false, value: item.holderId}),
-      lacationNo: new FormControl({disabled: false, value: item.lacationNo}, Validators.required),
+      locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
       lacationName: new FormControl({disabled: false, value: item.lacationName}, Validators.required),
       physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
       physicalInspectionRem: new FormControl({disabled: false, value: item.physicalInspectionRem}),
@@ -231,7 +231,7 @@ export class LpsDownConductorsComponent implements OnInit {
     createGroup3(item: any): FormGroup {
       return this.formBuilder.group({
       connectorId: new FormControl({disabled: false, value: item.connectorId}),
-      lacationNo: new FormControl({disabled: false, value: item.lacationNo}, Validators.required),
+      locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
       lacationName: new FormControl({disabled: false, value: item.lacationName}, Validators.required),
       physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
       physicalInspectionRem: new FormControl({disabled: false, value: item.physicalInspectionRem}),
@@ -256,7 +256,7 @@ export class LpsDownConductorsComponent implements OnInit {
     createGroup4(item: any): FormGroup {
       return this.formBuilder.group({
       lightingCountersId: new FormControl({disabled: false, value: item.lightingCountersId}),
-      lacationNo: new FormControl({disabled: false, value: item.lacationNo}, Validators.required),
+      locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
       lacationName: new FormControl({disabled: false, value: item.lacationName}, Validators.required),
       threadHoldCurrentOb: new FormControl({disabled: false, value: item.threadHoldCurrentOb}, Validators.required),
       threadHoldCurrentRem: new FormControl({disabled: false, value: item.threadHoldCurrentRem}),
@@ -287,7 +287,7 @@ export class LpsDownConductorsComponent implements OnInit {
     createGroup5(item: any): FormGroup {
       return this.formBuilder.group({
       testJointId: new FormControl({disabled: false, value: item.testJointId}),
-      lacationNo: new FormControl({disabled: false, value: item.lacationNo}, Validators.required),
+      locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
       lacationName: new FormControl({disabled: false, value: item.lacationName}, Validators.required),
       testJointTypeOb: new FormControl({disabled: false, value: item.testJointTypeOb}, Validators.required),
       testJointTypeRem: new FormControl({disabled: false, value: item.testJointTypeRem}),
@@ -339,7 +339,7 @@ export class LpsDownConductorsComponent implements OnInit {
   private createDownArrForm(): FormGroup {
 
     return new FormGroup({
-      lacationNo: new FormControl('', Validators.required),
+      locationNumber: new FormControl('', Validators.required),
       lacationName: new FormControl('', Validators.required),
       physicalInspectionOb: new FormControl('', Validators.required),
       physicalInspectionRem: new FormControl(''),
@@ -375,7 +375,7 @@ export class LpsDownConductorsComponent implements OnInit {
   private createBridgeArrForm(): FormGroup {
 
     return new FormGroup({
-      lacationNo: new FormControl('', Validators.required),
+      locationNumber: new FormControl('', Validators.required),
       lacationName: new FormControl('', Validators.required),
       ensureBridgingCableOb: new FormControl('', Validators.required),
       ensureBridgingCableRem: new FormControl(''),
@@ -398,7 +398,7 @@ export class LpsDownConductorsComponent implements OnInit {
 
     return new FormGroup({
       lacationName: new FormControl('',Validators.required),
-      lacationNo: new FormControl('',Validators.required),
+      locationNumber: new FormControl('',Validators.required),
       physicalInspectionOb: new FormControl('', Validators.required),
       physicalInspectionRem: new FormControl(''),
       conductHolderFlatSurfaceOb: new FormControl('', Validators.required),
@@ -421,7 +421,7 @@ export class LpsDownConductorsComponent implements OnInit {
   private createConnectorArrForm(): FormGroup {
 
     return new FormGroup({
-      lacationNo: new FormControl('', Validators.required),
+      locationNumber: new FormControl('', Validators.required),
       lacationName: new FormControl('', Validators.required),
       physicalInspectionOb: new FormControl('', Validators.required),
       physicalInspectionRem: new FormControl(''),
@@ -445,7 +445,7 @@ export class LpsDownConductorsComponent implements OnInit {
   private createLightArrForm(): FormGroup {
 
     return new FormGroup({
-      lacationNo: new FormControl('', Validators.required),
+      locationNumber: new FormControl('', Validators.required),
       lacationName: new FormControl('', Validators.required),
       threadHoldCurrentOb: new FormControl('', Validators.required),
       threadHoldCurrentRem: new FormControl(''),
@@ -475,7 +475,7 @@ export class LpsDownConductorsComponent implements OnInit {
   private createTestJointsArrForm(): FormGroup {
 
     return new FormGroup({
-      lacationNo: new FormControl('', Validators.required),
+      locationNumber: new FormControl('', Validators.required),
       lacationName: new FormControl('', Validators.required),
       testJointTypeOb: new FormControl('', Validators.required),
       testJointTypeRem: new FormControl(''),
