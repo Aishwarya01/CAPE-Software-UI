@@ -1,7 +1,6 @@
 export const environment = {
   production: true,
   environmentName: 'Production',
-  superAdmin: ['gk@capeindia.net'],
   apiUrl: 'https://service.api.rushforsafety.com/api/v1',
   apiUrl_v2: 'https://service.api.rushforsafety.com/api/v2',
   sessionTimeOut: 3600,

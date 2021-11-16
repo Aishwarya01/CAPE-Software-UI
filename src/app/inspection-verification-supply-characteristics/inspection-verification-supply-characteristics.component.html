@@ -600,7 +600,7 @@
                     width: 50px;
                     background: transparent;
                     border: none;
-                    border-bottom: 1px solid #000000;" (keyup)="onKey1($event)" (change)="LocationsRecord($event)"></p>
+                    border-bottom: 1px solid #000000;" (keyup)="onKey1($event)" (change)="LocationsRecord($event,i)"></p>
                     <div *ngIf="submitted && f.noOfLocation.errors" class="invalid-feedback">
                       <div *ngIf="f.noOfLocation?.errors?.required">Location number is required</div>
                       <!-- <div *ngIf="f.noOfLocation?.errors?.min">Please enter value above 0</div> -->

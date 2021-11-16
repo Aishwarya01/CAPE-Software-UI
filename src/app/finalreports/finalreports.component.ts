@@ -38,7 +38,7 @@ export class FinalreportsComponent implements OnInit {
   allData: any = [];
   superAdminFlag: boolean = false;
   filteredData: any;
-  
+  superAdminArr: any = [];
   constructor(private router: ActivatedRoute,
               private clientService: ClientService,
               private departmentService: DepartmentService,
@@ -52,11 +52,13 @@ export class FinalreportsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.superAdminArr = [];
     this.currentUser=sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
     // this.retrieveClientDetails();
     this.retrieveSiteDetails();
+    //this.superAdminArr.push('sd@capeindia.net');
 
   }
 
@@ -90,11 +92,12 @@ applyFilter(event: Event) {
     //this.ongoingFilterData=[];
     this.filteredData = [];
     this.completedFilterData=[];
-    for(let i of environment.superAdmin) {
-      if(this.email == i) {
-        this.superAdminFlag = true;
-      }
-    }
+
+    // for(let i of this.superAdminArr) {
+    //   if(this.email == i) {
+    //     this.superAdminFlag = true;
+    //   }
+    // }
 
     if(this.superAdminFlag) {
       this.siteService.retrieveAllSite(this.email).subscribe(
