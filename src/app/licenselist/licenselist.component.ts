@@ -93,7 +93,7 @@ export class LicenselistComponent implements OnInit {
   disable: boolean=false;
   allData: any = [];
   superAdminFlag: boolean = false;;
-  
+  //superAdminArr: any = ['gk@capeindia.net'];
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
               private siteService: SiteService,
@@ -135,11 +135,11 @@ export class LicenselistComponent implements OnInit {
   this.completedFilterData=[];
     
 
-  for(let i of environment.superAdmin) {
-    if(this.email == i) {
-      this.superAdminFlag = true;
-    }
-  }
+  // for(let i of this.superAdminArr) {
+  //   if(this.email == i) {
+  //     this.superAdminFlag = true;
+  //   }
+  // }
 
   if(this.superAdminFlag) {
     this.siteService.retrieveAllSite(this.email).subscribe(

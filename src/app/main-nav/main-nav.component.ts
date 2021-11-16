@@ -139,7 +139,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   Error: boolean=false;
   errorMsg: string="";
   errorArr: any=[];
-
+  // superAdminArr: any = ['gk@capeindia.net'];
   @ViewChild('ref', { read: ViewContainerRef })
   viewContainerRef!: ViewContainerRef;
   
@@ -457,11 +457,11 @@ triggerNavigateTo(siteName:any){
     this.completedFilterData = [];
     this.ongoingFilterData = [];
 
-    for(let i of environment.superAdmin) {
-      if(this.email == i) {
-        this.superAdminFlag = true;
-      }
-    }
+    // for(let i of this.superAdminArr) {
+    //   if(this.email == i) {
+    //     this.superAdminFlag = true;
+    //   }
+    // }
 
     if(this.superAdminFlag) {
       this.siteService.retrieveAllSite(this.email).subscribe(
