@@ -120,7 +120,13 @@ mat-header-cell.mat-header-cell {
   margin-left: 30px;
 }
 
-
+.stepper-header-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
 
 .example-section {
   margin: 12px 0;

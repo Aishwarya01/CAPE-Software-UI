@@ -408,8 +408,13 @@ export class InspectionVerificationSupplyCharacteristicsComponent
        this.supplycharesteristic.electrodeMaterial=this.step2List.supplyCharacteristics.electrodeMaterial;
        this.supplycharesteristic.meansEarthing=this.step2List.supplyCharacteristics.meansEarthing;
        this.supplycharesteristic.electrodeType=this.step2List.supplyCharacteristics.electrodeType;
-       this.supplycharesteristic.noOfLocation=this.step2List.reportDetails.noOfLocation;
-      this.LocationsRecord(this.step2List.supplycharesteristic.noOfLocation);
+      //  this.supplycharesteristic.noOfLocation=this.step2List.supplyCharacteristics.noOfLocation;
+      // this.LocationsRecord(this.step2List.supplycharesteristic.noOfLocation);
+      // this.supplycharesteristic.bondingNoOfJoints=this.step2List.supplyCharacteristics.bondingNoOfJoints;
+      // this.jointSafetyRecord(this.step2List.supplycharesteristic.bondingNoOfJoints);
+      // this.supplycharesteristic.earthingNoOfJoints=this.step2List.supplyCharacteristics.earthingNoOfJoints;
+      // this.jointRecord(this.step2List.supplycharesteristic.earthingNoOfJoints);
+
        this.supplycharesteristic.conductorVerify= this.step2List.supplyCharacteristics.conductorVerify;
        this.step2List.type= this.step2List.supplyCharacteristics.type;
        this.supplycharesteristic.liveConductorAC= this.step2List.supplyCharacteristics.liveConductorAC;
@@ -1201,39 +1206,39 @@ showHideAccordion(index: number) {
     });
   }
   
-  LocationsRecord(e: any) {
+  LocationsRecord(e: any, a: any) {
     let changedValue = e.target.value;
     if (changedValue == 0) {
       this.key1LocationTable = false;
-      this.f.location1Arr.controls[changedValue].controls['locationNo'].clearValidators();
-      this.f.location1Arr.controls[changedValue].controls[
+      this.f.location1Arr.controls[a].controls['locationNo'].clearValidators();
+      this.f.location1Arr.controls[a].controls[
         'locationNo'
       ].updateValueAndValidity();
-      this.f.location1Arr.controls[changedValue].controls['locationName'].clearValidators();
-      this.f.location1Arr.controls[changedValue].controls[
+      this.f.location1Arr.controls[a].controls['locationName'].clearValidators();
+      this.f.location1Arr.controls[a].controls[
         'locationName'
       ].updateValueAndValidity();
-      this.f.location1Arr.controls[changedValue].controls['electrodeResistanceEarth'].clearValidators();
-      this.f.location1Arr.controls[changedValue].controls[
+      this.f.location1Arr.controls[a].controls['electrodeResistanceEarth'].clearValidators();
+      this.f.location1Arr.controls[a].controls[
         'electrodeResistanceEarth'
       ].updateValueAndValidity();
       }
      else {
       this.key1LocationTable=true;
-      this.f.location1Arr.controls[changedValue].controls['locationNo'].setValidators(
+      this.f.location1Arr.controls[a].controls['locationNo'].setValidators(
         Validators.required
       );
-      this.f.location1Arr.controls[changedValue].controls['locationNo'].updateValueAndValidity();
-      this.f.location1Arr.controls[changedValue].controls['locationName'].setValidators(
+      this.f.location1Arr.controls[a].controls['locationNo'].updateValueAndValidity();
+      this.f.location1Arr.controls[a].controls['locationName'].setValidators(
         Validators.required
       );
-      this.f.location1Arr.controls[changedValue].controls[
+      this.f.location1Arr.controls[a].controls[
         'locationName'
       ].updateValueAndValidity();
-      this.f.location1Arr.controls[changedValue].controls['electrodeResistanceEarth'].setValidators(
+      this.f.location1Arr.controls[a].controls['electrodeResistanceEarth'].setValidators(
         Validators.required
       );
-      this.f.location1Arr.controls[changedValue].controls[
+      this.f.location1Arr.controls[a].controls[
         'electrodeResistanceEarth'
       ].updateValueAndValidity();
     }
@@ -1319,39 +1324,47 @@ showHideAccordion(index: number) {
   }
   }
 
-  jointSafetyRecord(e: any,i:any) {
+  jointSafetyRecord(e: any, a: any) {
     let changedValue = e.target.value;
     if (changedValue == 0) {
       this.key1LocationTable = false;
-      this.f.location1Arr.controls[i].controls['location'].clearValidators();
-      this.f.location1Arr.controls[i].controls[
+      this.supplycharesteristicForm.controls['bondingJointsType'].clearValidators();
+      this.supplycharesteristicForm.controls[
+        'bondingJointsType'
+      ].updateValueAndValidity();
+      this.f.location2Arr.controls[a].controls['location'].clearValidators();
+      this.f.location2Arr.controls[a].controls[
         'location'
       ].updateValueAndValidity();
-      this.f.location1Arr.controls[i].controls['jointNo'].clearValidators();
-      this.f.location1Arr.controls[i].controls[
+      this.f.location2Arr.controls[a].controls['jointNo'].clearValidators();
+      this.f.location2Arr.controls[a].controls[
         'jointNo'
       ].updateValueAndValidity();
-      this.f.location1Arr.controls[i].controls['jointResistance'].clearValidators();
-      this.f.location1Arr.controls[i].controls[
+      this.f.location2Arr.controls[a].controls['jointResistance'].clearValidators();
+      this.f.location2Arr.controls[a].controls[
         'jointResistance'
       ].updateValueAndValidity();
       }
      else {
       this.key1LocationTable=true;
-      this.f.location1Arr.controls[i].controls['location'].setValidators(
+      this.supplycharesteristicForm.controls['bondingJointsType'].setValidators(
         Validators.required
       );
-      this.f.location1Arr.controls[i].controls['location'].updateValueAndValidity();
-      this.f.location1Arr.controls[i].controls['jointNo'].setValidators(
+      this.supplycharesteristicForm.controls['bondingJointsType'].updateValueAndValidity();
+      this.f.location2Arr.controls[a].controls['location'].setValidators(
         Validators.required
       );
-      this.f.location1Arr.controls[i].controls[
+      this.f.location2Arr.controls[a].controls['location'].updateValueAndValidity();
+      this.f.location2Arr.controls[a].controls['jointNo'].setValidators(
+        Validators.required
+      );
+      this.f.location2Arr.controls[a].controls[
         'jointNo'
       ].updateValueAndValidity();
-      this.f.location1Arr.controls[i].controls['jointResistance'].setValidators(
+      this.f.location2Arr.controls[a].controls['jointResistance'].setValidators(
         Validators.required
       );
-      this.f.location1Arr.controls[i].controls[
+      this.f.location2Arr.controls[a].controls[
         'jointResistance'
       ].updateValueAndValidity();
     }
@@ -1460,39 +1473,47 @@ showHideAccordion(index: number) {
   //   //   this.keyJOintLocationTable=false;
   //   // }
   // }
-  jointRecord(e: any,i:any) {
+  jointRecord(e: any, a: any) {
     let changedValue = e.target.value;
     if (changedValue == 0) {
       this.key1LocationTable = false;
-      this.f.location1Arr.controls[i].controls['location'].clearValidators();
-      this.f.location1Arr.controls[i].controls[
+      this.supplycharesteristicForm.controls['earthingJointsType'].clearValidators();
+      this.supplycharesteristicForm.controls[
+        'earthingJointsType'
+      ].updateValueAndValidity();
+      this.f.location3Arr.controls[a].controls['location'].clearValidators();
+      this.f.location3Arr.controls[a].controls[
         'location'
       ].updateValueAndValidity();
-      this.f.location1Arr.controls[i].controls['jointNo'].clearValidators();
-      this.f.location1Arr.controls[i].controls[
+      this.f.location3Arr.controls[a].controls['jointNo'].clearValidators();
+      this.f.location3Arr.controls[a].controls[
         'jointNo'
       ].updateValueAndValidity();
-      this.f.location1Arr.controls[i].controls['jointResistance'].clearValidators();
-      this.f.location1Arr.controls[i].controls[
+      this.f.location3Arr.controls[a].controls['jointResistance'].clearValidators();
+      this.f.location3Arr.controls[a].controls[
         'jointResistance'
       ].updateValueAndValidity();
       }
      else {
       this.key1LocationTable=true;
-      this.f.location1Arr.controls[i].controls['location'].setValidators(
+      this.supplycharesteristicForm.controls['earthingJointsType'].setValidators(
         Validators.required
       );
-      this.f.location1Arr.controls[i].controls['location'].updateValueAndValidity();
-      this.f.location1Arr.controls[i].controls['jointNo'].setValidators(
+      this.supplycharesteristicForm.controls['earthingJointsType'].updateValueAndValidity();
+      this.f.location3Arr.controls[a].controls['location'].setValidators(
         Validators.required
       );
-      this.f.location1Arr.controls[i].controls[
+      this.f.location3Arr.controls[a].controls['location'].updateValueAndValidity();
+      this.f.location3Arr.controls[a].controls['jointNo'].setValidators(
+        Validators.required
+      );
+      this.f.location3Arr.controls[a].controls[
         'jointNo'
       ].updateValueAndValidity();
-      this.f.location1Arr.controls[i].controls['jointResistance'].setValidators(
+      this.f.location3Arr.controls[a].controls['jointResistance'].setValidators(
         Validators.required
       );
-      this.f.location1Arr.controls[i].controls[
+      this.f.location3Arr.controls[a].controls[
         'jointResistance'
       ].updateValueAndValidity();
     }
