@@ -141,7 +141,7 @@ export class LpsBasicPageComponent implements OnInit {
   }
  
   onSubmit(flag: any) {
-    
+    debugger
     this.submitted=true;
      if (this.LPSBasicForm.invalid) {
        return;
@@ -155,7 +155,7 @@ export class LpsBasicPageComponent implements OnInit {
       this.lPSBasicDetailsService.updateLpsBasicDetails(this.basicDetails).subscribe(
         (data) => {
           this.success = true;
-          this.successMsg = "Basic Information sucessfully Saved";
+          this.successMsg = data;
           this.proceedNext.emit(true);
         },
         (error) => {
@@ -188,7 +188,7 @@ export class LpsBasicPageComponent implements OnInit {
         }
       )
     }
-    console.log(this.basicDetails);
+    (this.basicDetails);
   }
 
 

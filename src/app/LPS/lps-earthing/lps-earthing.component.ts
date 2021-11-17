@@ -228,8 +228,8 @@ export class LpsEarthingComponent implements OnInit {
       return this.formBuilder.group({
         //earthing
         
-        locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
-        locationName: new FormControl({disabled: false, value: item.locationName}),
+       // locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
+       // locationName: new FormControl({disabled: false, value: item.locationName}),
         earthingSystemId: new FormControl({disabled: false, value: item.earthingSystemId}),
         buriedElectrodeOb: new FormControl({disabled: false, value: item.buriedElectrodeOb}, Validators.required),
         buriedElectrodeRem: new FormControl({disabled: false, value: item.buriedElectrodeRem}),
@@ -436,7 +436,7 @@ export class LpsEarthingComponent implements OnInit {
   }
   onSubmit(flag: any) {
     this.submitted=true;
-    console.log(this.earthingForm.value);
+   
     
     if(this.earthingForm.invalid){return}
     this.earthingLpsDescription.userName = this.router.snapshot.paramMap.get('email') || '{}';;
@@ -497,7 +497,7 @@ export class LpsEarthingComponent implements OnInit {
     }
   
     gotoNextModal(content: any) {
-      console.log(this.earthingForm.value);
+      (this.earthingForm.value);
        if (this.earthingForm.invalid) {
          this.validationError = true;
         

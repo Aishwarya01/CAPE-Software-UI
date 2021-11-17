@@ -85,8 +85,10 @@ export class LpsAirTerminationComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
+    debugger
       this.step2List = data.lpsAirDiscription;
       this.airtermination.basicLpsId = basicLpsId;
+      this.airtermination.lpsAirDescId = this.step2List.lpsAirDescId;
       this.airtermination.connectionMadeBraOb = this.step2List.connectionMadeBraOb;
       this.airtermination.connectionMadeBraRe = this.step2List.connectionMadeBraRe;
       this.airtermination.electricalEquipPlacedOb = this.step2List.electricalEquipPlacedOb;
@@ -358,22 +360,22 @@ export class LpsAirTerminationComponent implements OnInit {
         this.airtermination.lpsVerticalAirTermination=this.airTerminationForm.value.vatArr;
         this.airtermination.airExpansion=this.airTerminationForm.value.expArr;
         this.airtermination.airHolderDescription=this.airTerminationForm.value.holderArr;
-        console.log(this.airtermination);
+       
         
-        this.airterminationService.saveAirtermination(this.airtermination).subscribe(
-          (data) => {
-            this.success = true;
-            this.successMsg = data;
-            this.disable = true;
-            this.proceedNext.emit(true);
-          },
-          (error) => {
-            this.Error = true;
-            this.errorArr = [];
-            this.errorArr = JSON.parse(error.error);
-            this.errorMsg = this.errorArr.message;
-            this.proceedNext.emit(false);
-          });
+        // this.airterminationService.saveAirtermination(this.airtermination).subscribe(
+        //   (data) => {
+        //     this.success = true;
+        //     this.successMsg = data;
+        //     this.disable = true;
+        //     this.proceedNext.emit(true);
+        //   },
+        //   (error) => {
+        //     this.Error = true;
+        //     this.errorArr = [];
+        //     this.errorArr = JSON.parse(error.error);
+        //     this.errorMsg = this.errorArr.message;
+        //     this.proceedNext.emit(false);
+        //   });
 
 
           if(flag) {

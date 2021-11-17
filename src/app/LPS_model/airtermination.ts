@@ -1,5 +1,6 @@
 export class Airtermination {
     basicLpsId!: number;
+    lpsAirDescId!: number;
     userName!: string;
     connectionMadeBraOb!: string;
     connectionMadeBraRe!: string;
