@@ -227,7 +227,7 @@ export class LpsSpdComponent implements OnInit {
             this.lpsSpd_Service.updateSpdDetails(this.spd).subscribe(
               (data) => {
                 this.success = true;
-                this.successMsg = "Sucessfully updated";
+                this.successMsg = data;
                 this.proceedNext.emit(true);
               },
               (error) => {

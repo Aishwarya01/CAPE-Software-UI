@@ -614,7 +614,7 @@
             </div>
         </div>
         <div style="text-align: center;margin-top: 8px;">
-            <button style="width: max-content; height: max-content;"  class="next"  [disabled]="disable" (click)="gotoNextModal(content)" mat-button >Next &raquo;</button>
+            <button   class="next"  [disabled]="disable" (click)="gotoNextModal(content)" mat-button >Next &raquo;</button>
         </div>
         <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
             <span class="alert alert-danger">{{validationErrorMsg}}</span>

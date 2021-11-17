@@ -572,7 +572,7 @@ export class LpsDownConductorsComponent implements OnInit {
         this.lpsDownconductorService.updateDownConductor(this.downConductorDescription).subscribe(
           (data) => {
             this.success = true;
-            this.successMsg = "Sucessfully updated";
+            this.successMsg = data;
             this.proceedNext.emit(true);
           },
           (error) => {

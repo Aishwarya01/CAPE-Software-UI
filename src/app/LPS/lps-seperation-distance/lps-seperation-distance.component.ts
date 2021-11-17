@@ -153,7 +153,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
         this.separatedistanceService.updateSeparateDistance(this.separatedistance).subscribe(
           (data) => {
             this.success = true;
-            this.successMsg = "Sucessfully updated";
+            this.successMsg = data;
             this.proceedNext.emit(true);
           },
           (error) => {

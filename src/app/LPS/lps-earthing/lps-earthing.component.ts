@@ -344,7 +344,7 @@ export class LpsEarthingComponent implements OnInit {
   earthElectrodeChamber(): FormGroup {
     return new FormGroup({
       locationNumber: new FormControl('', Validators.required),
-      locationName: new FormControl(''),
+      locationName: new FormControl('', Validators.required),
       physicalInspeOb: new FormControl('', Validators.required),
       physicalInspeRem: new FormControl(''),
       chamberTypeOb: new FormControl('', Validators.required),
@@ -369,7 +369,7 @@ export class LpsEarthingComponent implements OnInit {
   earthingClamps(): FormGroup {
     return new FormGroup({
       locationNumber: new FormControl('', Validators.required),
-      locationName: new FormControl(''),
+      locationName: new FormControl('', Validators.required),
       physicalInspectionInOb: new FormControl('', Validators.required),
       psysicalInspectionInRem: new FormControl(''),
       clampsFirmlyOb: new FormControl('', Validators.required),
@@ -393,7 +393,7 @@ export class LpsEarthingComponent implements OnInit {
   earthingDescription(): FormGroup {
     return new FormGroup({
       locationNumber: new FormControl('', Validators.required),
-      locationName: new FormControl(''),
+      locationName: new FormControl('', Validators.required),
       soilResistivityInOb: new FormControl('', Validators.required),
       soilResistivityInRem: new FormControl(''),
       earthPitDigOb: new FormControl('', Validators.required),
@@ -453,7 +453,7 @@ export class LpsEarthingComponent implements OnInit {
         this.lpsEarthingService.updateEarthingLps(this.earthingLpsDescription).subscribe(
           (data) => {
             this.success = true;
-            this.successMsg = "Sucessfully updated";
+            this.successMsg = data;
             this.proceedNext.emit(true);
           },
           (error) => {
@@ -481,8 +481,6 @@ export class LpsEarthingComponent implements OnInit {
             this.proceedNext.emit(false);
           });
       } 
-
-   
   }
 
   get f() {

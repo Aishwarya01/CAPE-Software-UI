@@ -155,7 +155,7 @@ export class LpsBasicPageComponent implements OnInit {
       this.lPSBasicDetailsService.updateLpsBasicDetails(this.basicDetails).subscribe(
         (data) => {
           this.success = true;
-          this.successMsg = "Sucessfully updated";
+          this.successMsg = "Basic Information sucessfully Saved";
           this.proceedNext.emit(true);
         },
         (error) => {
@@ -175,7 +175,7 @@ export class LpsBasicPageComponent implements OnInit {
           
           this.basicDetails.basicLpsId=basicDetailsItr.basicLpsId;
           this.success = true;
-          this.successMsg = "Sucessfully saved";
+          this.successMsg = "Basic Information sucessfully Saved";
           this.disable = true;
           this.proceedNext.emit(true);
         },
