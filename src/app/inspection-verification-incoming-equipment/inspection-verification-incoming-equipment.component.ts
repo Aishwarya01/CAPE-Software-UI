@@ -1081,7 +1081,7 @@ showHideAccordion(index: number) {
           this.proceedNext.emit(true);
           this.success = true;
           this.successMsg = 'Incoming Equipment Successfully Saved';
-          this.disable = true;
+          //this.disable = true;
           this.service.allFieldsDisable = true;
         },
         (error: any) => {

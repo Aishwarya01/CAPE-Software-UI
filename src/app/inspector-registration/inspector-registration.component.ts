@@ -7,6 +7,7 @@ import { Register } from '../model/register';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -56,7 +57,7 @@ export class InspectorRegistrationComponent implements OnInit {
   contactNumber: string = '';
 
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: FormBuilder, private modalService: NgbModal,
               private siteService: SiteService,
               private applicationService: ApplicationTypeService,
               private inspectorRegisterService: InspectorregisterService,
@@ -129,8 +130,12 @@ export class InspectorRegistrationComponent implements OnInit {
   get f() {
     return this.InspectorRegisterForm.controls;
   }
-
-
+  termsCondition(termsContent:any){
+    this.modalService.open(termsContent,{size: 'xl'})
+  }
+  closeModalDialogTerms(termsContent:any){
+    this.modalService.dismissAll(termsContent)
+   }
   selectCountry(e: any) {
     let changedValue = e.target.value;
     this.stateList = [];

@@ -1777,7 +1777,6 @@ showHideAccordion(index: number) {
         this.alternateArr.reset();
         this.circuitArr.reset();
       }
-
       this.disableValidators();
     }
      else {
@@ -1879,7 +1878,7 @@ showHideAccordion(index: number) {
       'alternateArr'
     ) as FormArray;
     this.loclength = this.alternateArr.length;
-
+    this.supplycharesteristicForm.controls['supplyNumber'].setValue('');
     this.supplycharesteristicForm.controls['supplyNumber'].clearValidators();
     this.supplycharesteristicForm.controls[
       'supplyNumber'
@@ -1895,7 +1894,7 @@ showHideAccordion(index: number) {
         ].updateValueAndValidity();
       }
 
-      for (this.k; this.k < this.circuitName.length; this.k++) {
+      for (this.k=0; this.k < this.circuitName.length; this.k++) {
         this.f.circuitArr.controls[this.i].controls[
           this.circuitName[this.k]
         ].clearValidators();
@@ -2330,7 +2329,8 @@ else{
           this.proceedNext.emit(true);
           this.success = true;
           this.successMsg = data;
-          this.disable = true;
+          //this.disable = true;
+          this.service.allFieldsDisable = true;
           this.service.supplyList= this.supplycharesteristic.supplyNumber;
           this.service.retrieveMainNominalVoltage=this.mainNominalArr;
           this.service.retrieveMainNominalVoltage=this.retrieveMainNominalVoltage;

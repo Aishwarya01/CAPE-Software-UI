@@ -564,6 +564,7 @@ export class VerificationlvComponent implements OnInit {
     this.service.isCompleted= next;
   }
   public NextStep2(next: any): void {
+    this.testing.callMethod();
     this.service.isLinear=false;
     //this.service.supplycharesteristicForm = next;
     this.service.isCompleted2= next;
@@ -597,6 +598,7 @@ export class VerificationlvComponent implements OnInit {
           this.basic.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
            if(this.dataJSON.supplyCharacteristics != null) {
              this.supply.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
+             this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
              if(this.dataJSON.periodicInspection != null) {
                this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
                this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
