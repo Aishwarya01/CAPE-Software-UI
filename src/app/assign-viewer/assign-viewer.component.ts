@@ -257,7 +257,9 @@ createNewGroup(item: any): FormGroup{
   openModal(contentViewer: any) {
     this.modalService.open(contentViewer,{size: 'xl', backdrop: 'static' })
   }
- 
+  termsCondition(termsContent:any){
+    this.modalService.open(termsContent,{size: 'xl'})
+  }
   continue(contentViewer:any) {
     this.submitted1 = true;
     if(this.assignViewerForm.invalid) {
@@ -320,6 +322,9 @@ createNewGroup(item: any): FormGroup{
   closeModalDialog(contentViewer2:any){
    this.modalService.dismissAll(contentViewer2)
   }
+  closeModalDialogTerms(termsContent:any){
+    this.modalService.dismissAll(termsContent)
+   }
   closeModalDialogContinue(){
     if(!this.globalService.useClicked){
       this.globalService.noofLicense=0; //aish

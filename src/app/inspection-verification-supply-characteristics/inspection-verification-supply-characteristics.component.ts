@@ -516,7 +516,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
           this.NV8 = this.retrieveMainNominalVoltage[0][7];
           this.NV9 = this.retrieveMainNominalVoltage[0][8];
 
-          this.NF1 = this.retrieveMainNominalVoltage[1][0];
+          this.NF1 = this.retrieveMainNominalVoltage[1];
           //this.NF1 = this.retrieveMainNominalVoltage[1][0];
           // this.NF2 = this.retrieveMainNominalVoltage[1][1];
           // this.NF3 = this.retrieveMainNominalVoltage[1][2];
@@ -1075,7 +1075,7 @@ showHideAccordion(index: number) {
         nominalVoltage8: new FormControl({disabled: false ,value: item[0][7]}),
         nominalVoltage9: new FormControl({disabled: false ,value: item[0][8]}),
   
-        nominalFrequency1: new FormControl({disabled: false ,value: item[1][0]}),
+        nominalFrequency1: new FormControl({disabled: false ,value: item[1]}),
         // nominalFrequency2: new FormControl({disabled: false ,value: item[1][1]}),
         // nominalFrequency3: new FormControl({disabled: false ,value: item[1][2]}),
         // nominalFrequency4: new FormControl({disabled: false ,value: item[1][3]}),
@@ -1777,7 +1777,6 @@ showHideAccordion(index: number) {
         this.alternateArr.reset();
         this.circuitArr.reset();
       }
-
       this.disableValidators();
     }
      else {
@@ -1879,7 +1878,7 @@ showHideAccordion(index: number) {
       'alternateArr'
     ) as FormArray;
     this.loclength = this.alternateArr.length;
-
+    this.supplycharesteristicForm.controls['supplyNumber'].setValue('');
     this.supplycharesteristicForm.controls['supplyNumber'].clearValidators();
     this.supplycharesteristicForm.controls[
       'supplyNumber'
@@ -1895,7 +1894,7 @@ showHideAccordion(index: number) {
         ].updateValueAndValidity();
       }
 
-      for (this.k; this.k < this.circuitName.length; this.k++) {
+      for (this.k=0; this.k < this.circuitName.length; this.k++) {
         this.f.circuitArr.controls[this.i].controls[
           this.circuitName[this.k]
         ].clearValidators();
@@ -2004,7 +2003,16 @@ showHideAccordion(index: number) {
     if (this.supplycharesteristicForm.invalid) {
       return;
     }
-   
+    this.nominalVoltageArr = [];
+    this.nominalFrequencyArr = [];
+    this.nominalCurrentArr = [];
+    this.loopImpedenceArr = [];
+
+    this.nominalVoltage = '';
+    this.nominalFrequency = '';
+    this.nominalCurrent  = '';
+    this.loopImpedence = '';
+
     //this.service.supplyList= this.supplycharesteristicForm.value.alternateArr[0].aLLiveConductorType;
     this.nominalVoltageArr.push(
       this.NV1,
@@ -2074,7 +2082,6 @@ showHideAccordion(index: number) {
       }
     }
     this.nominalVoltage = this.nominalVoltage.replace(/,\s*$/, '');
-
     // Main table Nominal Frequency
     for (let j of this.nominalFrequencyArr) {
       if(j == undefined) {
@@ -2084,6 +2091,7 @@ showHideAccordion(index: number) {
         this.nominalFrequency=j;
       }
     }
+    
     //this.nominalFrequency = this.nominalFrequency.replace(/,\s*$/, '');
 
     // Main table Nominal Current
@@ -2320,8 +2328,12 @@ showHideAccordion(index: number) {
         this.service.isLinear=true;
           this.errorArr = [];
           this.errorArr = JSON.parse(error.error);
-          this.errorMsg = this.errorArr.message;
-         });
+          if(this.errorArr.message =='multiple points'){
+            this.errorMsg = 'Please fill valid values for AC Table'
+          } else{
+            this.errorMsg = this.errorArr.message;
+          }
+        });
         }
     }
 else{
@@ -2330,7 +2342,8 @@ else{
           this.proceedNext.emit(true);
           this.success = true;
           this.successMsg = data;
-          this.disable = true;
+          //this.disable = true;
+          this.service.allFieldsDisable = true;
           this.service.supplyList= this.supplycharesteristic.supplyNumber;
           this.service.retrieveMainNominalVoltage=this.mainNominalArr;
           this.service.retrieveMainNominalVoltage=this.retrieveMainNominalVoltage;
@@ -2343,7 +2356,11 @@ else{
           this.proceedNext.emit(false);
           this.errorArr = [];
           this.errorArr = JSON.parse(error.error);
-          this.errorMsg = this.errorArr.message;
+          if(this.errorArr.message =='multiple points'){
+            this.errorMsg = 'Please fill valid values for AC Table'
+          } else{
+            this.errorMsg = this.errorArr.message;
+          }
         }
       );
   }

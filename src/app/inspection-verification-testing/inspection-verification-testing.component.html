@@ -38,14 +38,26 @@
                                     <label>Location Number*</label>
                                     <input type="number" class="form-control" formControlName="locationNumber"
                                         placeholder="Enter Location Number" [readonly]="true"
-                                        style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
+                                        style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;"
+                                        [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors }">
+                                        <div *ngIf="submitted && a.get('locationNumber')?.errors" class="invalid-feedback">
+                                            <div *ngIf="a.get('locationNumber')?.errors?.required">Please fill out the details in Inspection form!</div>
+                                        </div>
+                                        <!-- (focus)="focusPersonFunction()"
+                                    <div *ngIf="showPersonNameMsg" class="invalid-feedback">
+                                    Please fill out the details in Inspection form!
+                                    </div> -->
                                 </div>
 
                                 <div class="col-md-6">
                                     <label>Location Name*</label>
                                     <input type="text" class="form-control" formControlName="locationName"
                                         placeholder="Enter Location Name" [readonly]="true"
-                                        style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
+                                        style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;"
+                                        [ngClass]="{ 'is-invalid': submitted && a.get('locationName')?.errors }">
+                                        <div *ngIf="submitted && a.get('locationName')?.errors" class="invalid-feedback">
+                                            <div *ngIf="a.get('locationName')?.errors?.required">Please fill out the details in Inspection form!</div>
+                                        </div>
                                 </div>
                             </div>
                         </div>
@@ -245,9 +257,12 @@
                                     <option *ngFor="let value of SourceList" [selected]="value=== c.get('sourceFromSupply')?.value">
                                       {{value}}</option>
                                   </select>
-                                    <div *ngIf="submitted && c.get('sourceFromSupply')?.errors" class="invalid-feedback">
-                                      <div *ngIf="c.get('sourceFromSupply')?.errors?.required">Source is required</div>
+                                    <div *ngIf="submitted && SourceList.length == 0" class="invalid-feedback">
+                                      <div>Please fill out the details in Supplycharesteristic form!</div> 
                                   </div>
+                                  <div *ngIf="submitted && c.get('sourceFromSupply')?.errors" class="invalid-feedback">
+                                    <div *ngIf="c.get('sourceFromSupply')?.errors?.required">Source is required</div>
+                                </div>
                               </div>
                               </div>
 <br>
@@ -295,6 +310,28 @@
                                             </tr>
 
                                             <tr>
+                                              <td>Prospective fault current Ipfc (kA)</td>
+                                              <td><input type="text" formControlName="incomingIpf1" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text"  formControlName="incomingIpf2" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text" formControlName="incomingIpf3" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text" formControlName="incomingIpf4" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text"  formControlName="incomingIpf5" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text" formControlName="incomingIpf6" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text" formControlName="incomingIpf7" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text" formControlName="incomingIpf8" class="form-control disable"
+                                                ></td>
+                                              <td><input type="text" formControlName="incomingIpf9" class="form-control disable"
+                                                ></td>
+                                          </tr>
+
+                                            <tr>
                                                 <td>External Loop Impedance Ze (Ω)</td>
                                                 <td><input type="text" formControlName="incomingZs1" class="form-control disable"
                                                   ></td>
@@ -316,27 +353,7 @@
                                                   ></td>
                                             </tr>
 
-                                            <tr>
-                                                <td>Prospective fault current Ipfc (kA)</td>
-                                                <td><input type="text" formControlName="incomingIpf1" class="form-control disable"
-                                                  ></td>
-                                                <td><input type="text"  formControlName="incomingIpf2" class="form-control disable"
-                                                  ></td>
-                                                <td><input type="text" formControlName="incomingIpf3" class="form-control disable"
-                                                  ></td>
-                                                <td><input type="text" formControlName="incomingIpf4" class="form-control disable"
-                                                  ></td>
-                                                <td><input type="text"  formControlName="incomingIpf5" class="form-control disable"
-                                                  ></td>
-                                                <td><input type="text" formControlName="incomingIpf6" class="form-control disable"
-                                                  ></td>
-                                                <td><input type="text" formControlName="incomingIpf7" class="form-control disable"
-                                                  ></td>
-                                                <td><input type="text" formControlName="incomingIpf8" class="form-control disable"
-                                                  ></td>
-                                                <td><input type="text" formControlName="incomingIpf9" class="form-control disable"
-                                                  ></td>
-                                            </tr>
+                                          
 
                                         </tbody>
                                     </div>
@@ -390,6 +407,28 @@
                                           </tr>
 
                                           <tr>
+                                            <td>Prospective fault current Ipfc (kA)</td>
+                                            <td><input type="text" formControlName="incomingIpf1" class="form-control disable"
+                                              ></td>
+                                            <td><input type="text"  formControlName="incomingIpf2" class="form-control disable"
+                                              ></td>
+                                            <td><input type="text" formControlName="incomingIpf3" class="form-control disable"
+                                              ></td>
+                                            <td><input type="text" formControlName="incomingIpf4" class="form-control disable"
+                                              ></td>
+                                            <td><input type="text"  formControlName="incomingIpf5" class="form-control disable"
+                                              ></td>
+                                            <td><input type="text" formControlName="incomingIpf6" class="form-control disable"
+                                              ></td>
+                                            <td><input type="text" formControlName="incomingIpf7" class="form-control disable"
+                                              ></td>
+                                            <td><input type="text" formControlName="incomingIpf8" class="form-control disable"
+                                              ></td>
+                                            <td><input type="text" formControlName="incomingIpf9" class="form-control disable"
+                                              ></td>
+                                        </tr>
+                                        
+                                          <tr>
                                               <td>External Loop Impedance Ze (Ω)</td>
                                               <td><input type="text" formControlName="incomingZs1" class="form-control disable"
                                                 ></td>
@@ -411,27 +450,7 @@
                                                 ></td>
                                           </tr>
 
-                                          <tr>
-                                              <td>Prospective fault current Ipfc (kA)</td>
-                                              <td><input type="text" formControlName="incomingIpf1" class="form-control disable"
-                                                ></td>
-                                              <td><input type="text"  formControlName="incomingIpf2" class="form-control disable"
-                                                ></td>
-                                              <td><input type="text" formControlName="incomingIpf3" class="form-control disable"
-                                                ></td>
-                                              <td><input type="text" formControlName="incomingIpf4" class="form-control disable"
-                                                ></td>
-                                              <td><input type="text"  formControlName="incomingIpf5" class="form-control disable"
-                                                ></td>
-                                              <td><input type="text" formControlName="incomingIpf6" class="form-control disable"
-                                                ></td>
-                                              <td><input type="text" formControlName="incomingIpf7" class="form-control disable"
-                                                ></td>
-                                              <td><input type="text" formControlName="incomingIpf8" class="form-control disable"
-                                                ></td>
-                                              <td><input type="text" formControlName="incomingIpf9" class="form-control disable"
-                                                ></td>
-                                          </tr>
+                                          
 
                                       </tbody>
                                   </div>

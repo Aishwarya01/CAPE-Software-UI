@@ -118,9 +118,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
   testList: any = [];
   arr: any = [];
   Ratearr1: any = [];
-  testingRetrieve: boolean = false;
+  testingRetrieve: boolean = true;
   inspectionRetrieve: boolean = false;
-  SourceList: any = ['Mains Incoming'];
+  SourceList: any = [];
   //disableSource:boolean=true;
   //comments starts
   completedCommentArr3: any = [];
@@ -242,7 +242,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
        testIncomingDistribution: this.formBuilder.array([
         this.IncomingValue(),
       ]),
-      testaccordianArr: this.formBuilder.array([]),
+      testaccordianArr: this.formBuilder.array([this.createItem()]),
       viewerCommentArr: this.formBuilder.array([this.addCommentViewer()]),
       completedCommentArr1: this.formBuilder.array([]),
     });
@@ -1337,8 +1337,8 @@ export class InspectionVerificationTestingComponent implements OnInit {
 
   createItem() {
     return this.formBuilder.group({
-      locationNumber: new FormControl(),
-      locationName: new FormControl(),
+      locationNumber: ['', Validators.required],
+      locationName: ['', Validators.required],
       testEngineerName: ['', Validators.required],
       date: ['', Validators.required],
       companyName: ['', Validators.required],
@@ -1787,7 +1787,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
           // show success message ofter click button
           this.success = true;
           this.successMsg = data;
-          this.disable = true;
+          //this.disable = true;
           this.service.allFieldsDisable = true;
         },
         (error) => {

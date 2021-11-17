@@ -1708,6 +1708,7 @@ showHideAccordion(index: number) {
        this.proceedNext.emit(true);
        this.success = true;
        this.successMsg = data;
+       this.service.allFieldsDisable = true;
        //this.disable = true;
      },
      (error) => {

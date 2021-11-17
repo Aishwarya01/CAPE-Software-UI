@@ -281,7 +281,7 @@
 
             <div class="form-check">
                 <input type="checkbox"  formControlName="terms" (change)="showSubmit()" [(ngModel)]="isChecked"/>
-                I agree to the <a href="#">Terms and Conditions</a> for using online services of Rush Applications
+                I agree to the <a style="cursor: pointer; text-decoration: underline;" (click)="termsCondition(termsContent)">Terms and Conditions</a> for using online services of Rush Applications
             </div>
             <div *ngIf="successMsgOTP" class="alert alert-success" style="margin: 55px auto 0px auto;width: 65%;">{{successMsg}}</div>
             <div *ngIf="errorMsgflag" class="alert alert-danger" style="margin: 55px auto 0px auto;width: 65%;">{{errorMsg}}</div>
@@ -325,3 +325,29 @@
     </div> -->
 </div>
 
+<ng-template #termsContent let-modal>
+    <div class="modal-header" style="text-align: center; display: block">
+      <h2 class="modal-title" style="display: contents">Terms & Condition</h2>
+      <!-- <p>
+        <b>Note:</b>
+        First time viewers need to be registered by the inspector. Viewer can also register directly.
+      </p> -->
+    </div>
+    <div class="modal-body" modal-xl>
+      <div class="card">
+        <div class="card-body">
+          <div class="row" style="display: block;">
+            <div class="col-xs-12">
+                <div class="text-align" style="text-align: end;margin: 10px;">
+                    <button   type="button" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" 
+                    printSectionId="printdiv" ngxPrint>Print</button>
+                    <button  type="button" class="btn btn-danger cancel" (click)="closeModalDialogTerms(termsContent)">
+                      <i class="bi bi-x icon"></i> Cancel</button>
+                   </div>
+        </div>
+         </div>
+         <div id="printdiv"></div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
