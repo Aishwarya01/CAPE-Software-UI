@@ -293,12 +293,12 @@
                                                     </span>
                                                 </div>
                                                 <textarea type="text" class="form-control" placeholder="Ex.."
-                                                    formControlName="conductorClampsFlatSurafaceOb"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('conductorClampsFlatSurafaceOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('conductorClampsFlatSurafaceOb')?.errors"
+                                                    formControlName="materialOfTerminalOb"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('materialOfTerminalOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('materialOfTerminalOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div
-                                                        *ngIf="a.get('conductorClampsFlatSurafaceOb')?.errors?.required">
+                                                        *ngIf="a.get('materialOfTerminalOb')?.errors?.required">
                                                         Material of air terminal observation is Required</div>
                                                 </div>
                                             </div>
@@ -310,7 +310,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea formControlName="conductorClampsFlatSurafaceRe" type="text"
+                                                <textarea formControlName="materialOfTerminalRe" type="text"
                                                     class="form-control" placeholder="Ex.."></textarea>
                                             </div>
                                         </td>
@@ -417,7 +417,7 @@
                                         <td style="text-align: center;">6.6</td>
                                         <td>Any metal installations protrudes outside the volume protected by air
                                             termination systems (coverage area check):</td>
-                                        <td>
+                                        <td> 
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -425,11 +425,11 @@
                                                     </span>
                                                 </div>
                                                 <textarea type="text" class="form-control" placeholder="Ex.."
-                                                    formControlName="materialOfTerminalOb"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('materialOfTerminalOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('materialOfTerminalOb')?.errors"
+                                                    formControlName="installationTerminationsystemOb"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('installationTerminationsystemOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('installationTerminationsystemOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('materialOfTerminalOb')?.errors?.required">
+                                                    <div *ngIf="a.get('installationTerminationsystemOb')?.errors?.required">
                                                         Any metal installations protrudes outside the volume protected
                                                         observation is required</div>
                                                 </div>
@@ -442,7 +442,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea formControlName="materialOfTerminalRe" type="text"
+                                                <textarea formControlName="installationTerminationsystemRem" type="text"
                                                     class="form-control" placeholder="Ex.."></textarea>
                                             </div>
                                         </td>
@@ -738,12 +738,12 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea formControlName="meshobs1" type="text" class="form-control"
+                                                <textarea formControlName="physicalInspectionOb" type="text" class="form-control"
                                                     placeholder="Ex.."
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('meshobs1')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('meshobs1')?.errors"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('physicalInspectionOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('meshobs1')?.errors?.required">
+                                                    <div *ngIf="a.get('physicalInspectionOb')?.errors?.required">
                                                         Physical inspection observation is required</div>
                                                 </div>
                                             </div>
@@ -755,7 +755,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea formControlName="meshrem1" type="text" class="form-control"
+                                                <textarea formControlName="physicalInspectionRe" type="text" class="form-control"
                                                     placeholder="Ex.."></textarea>
                                             </div>
                                         </td>
@@ -770,12 +770,12 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea formControlName="meshobs2" type="text" class="form-control"
+                                                <textarea formControlName="materailOfConductorOb" type="text" class="form-control"
                                                     placeholder="Ex.."
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('meshobs2')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('meshobs2')?.errors"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('materailOfConductorOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('materailOfConductorOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('meshobs2')?.errors?.required">
+                                                    <div *ngIf="a.get('materailOfConductorOb')?.errors?.required">
                                                         Material of conductor observation is required</div>
                                                 </div>
                                             </div>
@@ -787,7 +787,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea formControlName="meshrem2" type="text" class="form-control"
+                                                <textarea formControlName="materailOfConductorRem" type="text" class="form-control"
                                                     placeholder="Ex.."></textarea>
                                             </div>
                                         </td>

@@ -26,7 +26,7 @@ export class DownConductorDescription {
 
 export class DownConductor {
     locationNumber!:number;
-    lacationName!:String;
+    locationName!:String;
     physicalInspectionOb!: String;
     physicalInspectionRem!: String;
     conductMaterialOb!: String;
@@ -59,7 +59,7 @@ export class DownConductor {
 
 export class BridgingDescription {
     locationNumber!: number;
-    lacationName!: String;
+    locationName!: String;
     ensureBridgingCableOb!: String;
     ensureBridgingCableRem!: String;
     aluminiumConductorSideWallOb!: String;
@@ -78,7 +78,7 @@ export class BridgingDescription {
 
 export class Holder {
     locationNumber!: number;
-    lacationName!: String;
+    locationName!: String;
     physicalInspectionOb!: String;
     physicalInspectionRem!: String;
     conductHolderFlatSurfaceOb!: String;
@@ -99,7 +99,7 @@ export class Holder {
 
 export class Connectors {
     locationNumber!: number;
-    lacationName!: String;
+    locationName!: String;
     physicalInspectionOb!: String;
     physicalInspectionRem!: String;
     strightConnectCheckOb!: String;
@@ -121,7 +121,7 @@ export class Connectors {
 
 export class LightningCounter {
     locationNumber!: number;
-    lacationName!: String;
+    locationName!: String;
     threadHoldCurrentOb!: String;
     threadHoldCurrentRem!: String;
     maximumWithStandCurrentOb!: String;
@@ -148,7 +148,7 @@ export class LightningCounter {
 
 export class TestingJoint {
     locationNumber!: number;
-    lacationName!: String;
+    locationName!: String;
     testJointTypeOb!: String;
     testJointTypeRem!: String;
     materialTestJointOb!: String;

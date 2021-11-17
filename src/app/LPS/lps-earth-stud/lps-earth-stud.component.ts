@@ -93,7 +93,7 @@ export class LpsEarthStudComponent implements OnInit {
         this.earthStudService.updateEarthStud(this.earthStud).subscribe(
           (data) => {
             this.success = true;
-            this.successMsg = "Sucessfully updated";
+            this.successMsg = data;
             this.proceedNext.emit(true);
           }, 
           (error) => {

@@ -148,7 +148,7 @@ export class LpsDownConductorsComponent implements OnInit {
       return this.formBuilder.group({
         downConductorId: new FormControl({disabled: false, value: item.downConductorId}),
         locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
-        lacationName: new FormControl({disabled: false, value: item.lacationName}, Validators.required),
+        locationName: new FormControl({disabled: false, value: item.locationName}, Validators.required),
         physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
         physicalInspectionRem: new FormControl({disabled: false, value: item.physicalInspectionRem}),
         conductMaterialOb: new FormControl({disabled: false, value: item.conductMaterialOb}, Validators.required),
@@ -184,7 +184,7 @@ export class LpsDownConductorsComponent implements OnInit {
       return this.formBuilder.group({
       bridgingDescriptionId: new FormControl({disabled: false, value: item.bridgingDescriptionId}),
       locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
-      lacationName: new FormControl({disabled: false, value: item.lacationName}, Validators.required),
+      locationName: new FormControl({disabled: false, value: item.locationName}, Validators.required),
       ensureBridgingCableOb: new FormControl({disabled: false, value: item.ensureBridgingCableOb}, Validators.required),
       ensureBridgingCableRem: new FormControl({disabled: false, value: item.ensureBridgingCableRem}),
       aluminiumConductorSideWallOb: new FormControl({disabled: false, value: item.aluminiumConductorSideWallOb}, Validators.required),
@@ -206,7 +206,7 @@ export class LpsDownConductorsComponent implements OnInit {
       return this.formBuilder.group({
       holderId: new FormControl({disabled: false, value: item.holderId}),
       locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
-      lacationName: new FormControl({disabled: false, value: item.lacationName}, Validators.required),
+      locationName: new FormControl({disabled: false, value: item.locationName}, Validators.required),
       physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
       physicalInspectionRem: new FormControl({disabled: false, value: item.physicalInspectionRem}),
       conductHolderFlatSurfaceOb: new FormControl({disabled: false, value: item.conductHolderFlatSurfaceOb}, Validators.required),
@@ -231,7 +231,7 @@ export class LpsDownConductorsComponent implements OnInit {
       return this.formBuilder.group({
       connectorId: new FormControl({disabled: false, value: item.connectorId}),
       locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
-      lacationName: new FormControl({disabled: false, value: item.lacationName}, Validators.required),
+      locationName: new FormControl({disabled: false, value: item.locationName}, Validators.required),
       physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
       physicalInspectionRem: new FormControl({disabled: false, value: item.physicalInspectionRem}),
       strightConnectCheckOb: new FormControl({disabled: false, value: item.strightConnectCheckOb}, Validators.required),
@@ -256,7 +256,7 @@ export class LpsDownConductorsComponent implements OnInit {
       return this.formBuilder.group({
       lightingCountersId: new FormControl({disabled: false, value: item.lightingCountersId}),
       locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
-      lacationName: new FormControl({disabled: false, value: item.lacationName}, Validators.required),
+      locationName: new FormControl({disabled: false, value: item.locationName}, Validators.required),
       threadHoldCurrentOb: new FormControl({disabled: false, value: item.threadHoldCurrentOb}, Validators.required),
       threadHoldCurrentRem: new FormControl({disabled: false, value: item.threadHoldCurrentRem}),
       maximumWithStandCurrentOb: new FormControl({disabled: false, value: item.maximumWithStandCurrentOb}, Validators.required),
@@ -287,7 +287,7 @@ export class LpsDownConductorsComponent implements OnInit {
       return this.formBuilder.group({
       testJointId: new FormControl({disabled: false, value: item.testJointId}),
       locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
-      lacationName: new FormControl({disabled: false, value: item.lacationName}, Validators.required),
+      locationName: new FormControl({disabled: false, value: item.locationName}, Validators.required),
       testJointTypeOb: new FormControl({disabled: false, value: item.testJointTypeOb}, Validators.required),
       testJointTypeRem: new FormControl({disabled: false, value: item.testJointTypeRem}),
       materialTestJointOb: new FormControl({disabled: false, value: item.materialTestJointOb}, Validators.required),
@@ -339,7 +339,7 @@ export class LpsDownConductorsComponent implements OnInit {
 
     return new FormGroup({
       locationNumber: new FormControl('', Validators.required),
-      lacationName: new FormControl('', Validators.required),
+      locationName: new FormControl('', Validators.required),
       physicalInspectionOb: new FormControl('', Validators.required),
       physicalInspectionRem: new FormControl(''),
       conductMaterialOb: new FormControl('', Validators.required),
@@ -375,7 +375,7 @@ export class LpsDownConductorsComponent implements OnInit {
 
     return new FormGroup({
       locationNumber: new FormControl('', Validators.required),
-      lacationName: new FormControl('', Validators.required),
+      locationName: new FormControl('', Validators.required),
       ensureBridgingCableOb: new FormControl('', Validators.required),
       ensureBridgingCableRem: new FormControl(''),
       aluminiumConductorSideWallOb: new FormControl('', Validators.required),
@@ -396,8 +396,8 @@ export class LpsDownConductorsComponent implements OnInit {
   private createHolderArrForm(): FormGroup {
 
     return new FormGroup({
-      lacationName: new FormControl('',Validators.required),
-      locationNumber: new FormControl('',Validators.required),
+      locationNumber: new FormControl('', Validators.required),
+      locationName: new FormControl('', Validators.required),
       physicalInspectionOb: new FormControl('', Validators.required),
       physicalInspectionRem: new FormControl(''),
       conductHolderFlatSurfaceOb: new FormControl('', Validators.required),
@@ -421,7 +421,7 @@ export class LpsDownConductorsComponent implements OnInit {
 
     return new FormGroup({
       locationNumber: new FormControl('', Validators.required),
-      lacationName: new FormControl('', Validators.required),
+      locationName: new FormControl('', Validators.required),
       physicalInspectionOb: new FormControl('', Validators.required),
       physicalInspectionRem: new FormControl(''),
       strightConnectCheckOb: new FormControl('', Validators.required),
@@ -445,7 +445,7 @@ export class LpsDownConductorsComponent implements OnInit {
 
     return new FormGroup({
       locationNumber: new FormControl('', Validators.required),
-      lacationName: new FormControl('', Validators.required),
+      locationName: new FormControl('', Validators.required),
       threadHoldCurrentOb: new FormControl('', Validators.required),
       threadHoldCurrentRem: new FormControl(''),
       maximumWithStandCurrentOb: new FormControl('', Validators.required),
@@ -475,7 +475,7 @@ export class LpsDownConductorsComponent implements OnInit {
 
     return new FormGroup({
       locationNumber: new FormControl('', Validators.required),
-      lacationName: new FormControl('', Validators.required),
+      locationName: new FormControl('', Validators.required),
       testJointTypeOb: new FormControl('', Validators.required),
       testJointTypeRem: new FormControl(''),
       materialTestJointOb: new FormControl('', Validators.required),

@@ -117,8 +117,8 @@ export class EarthingElectrodeChamber {
 
 
 export class EarthingSystem {
-    locationNumber!:number;
-    locationName!:String;
+    // locationNumber!:number;
+    // locationName!:String;
     buriedElectrodeOb!: String;
     buriedElectrodeRem!: String;
     depthOfElectrodeOb!: String;

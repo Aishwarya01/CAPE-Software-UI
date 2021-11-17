@@ -28,8 +28,8 @@ export class AirClamps {
     locationName!:String;
     physicalInspectionOb!: string;
     physicalInspectionRe!: string;
-    conductorClampsFlatSurafaceOb!: string;
-    conductorClampsFlatSurafaceRe!: string;
+    installationTerminationsystemOb!: string;
+    installationTerminationsystemRem!: string;
     interConnectionOfClampsOb!: string;
     interConnectionOfClampsRe!: string;
     clampTypeOb!: string;
@@ -102,6 +102,10 @@ export class LpsVerticalAirTermination {
 export class AirMeshDescription {
     locationNumber!:number;
     locationName!:String;
+    physicalInspectionOb!: string;
+    physicalInspectionRe!: string;
+    materailOfConductorOb!: string;
+    materailOfConductorRem!: string;
     sizeOfConductorOb!: string;
     sizeOfConductorRe!: string;
     meshSizeOb!: string;

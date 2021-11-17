@@ -85,7 +85,7 @@ export class LpsAirTerminationComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
-    debugger
+    
       this.step2List = data.lpsAirDiscription;
       this.airtermination.basicLpsId = basicLpsId;
       this.airtermination.lpsAirDescId = this.step2List.lpsAirDescId;
@@ -150,8 +150,8 @@ export class LpsAirTerminationComponent implements OnInit {
       locationName: new FormControl({disabled: false, value: item.locationName}),
       physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
       physicalInspectionRe: new FormControl({disabled: false, value: item.physicalInspectionRe}),
-      conductorClampsFlatSurafaceOb: new FormControl({disabled: false, value: item.conductorClampsFlatSurafaceOb}, Validators.required),
-      conductorClampsFlatSurafaceRe: new FormControl({disabled: false, value: item.conductorClampsFlatSurafaceRe}),
+      installationTerminationsystemOb: new FormControl({disabled: false, value: item.installationTerminationsystemOb}, Validators.required),
+      installationTerminationsystemRem: new FormControl({disabled: false, value: item.installationTerminationsystemRem}),
       sizeOfTerminalOb: new FormControl({disabled: false, value: item.sizeOfTerminalOb}, Validators.required),
       sizeOfTerminalRe: new FormControl({disabled: false, value: item.sizeOfTerminalRe}),
       heightOfTerminalOb: new FormControl({disabled: false, value: item.heightOfTerminalOb}, Validators.required),
@@ -183,10 +183,10 @@ export class LpsAirTerminationComponent implements OnInit {
         meshDescriptionId: new FormControl({disabled: false, value: item.meshDescriptionId}),
         locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
         locationName: new FormControl({disabled: false, value: item.locationName}),
-        meshobs1: new FormControl({disabled: false, value: item.meshobs1}, Validators.required),
-        meshrem1: new FormControl({disabled: false, value: item.meshrem1}),
-        meshobs2: new FormControl({disabled: false, value: item.meshobs2}, Validators.required),
-        meshrem2: new FormControl({disabled: false, value: item.meshrem2}),
+        physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
+        physicalInspectionRe: new FormControl({disabled: false, value: item.physicalInspectionRe}),
+        materailOfConductorOb: new FormControl({disabled: false, value: item.materailOfConductorOb}, Validators.required),
+        materailOfConductorRem: new FormControl({disabled: false, value: item.materailOfConductorRem}),
         sizeOfConductorOb: new FormControl({disabled: false, value: item.sizeOfConductorOb}, Validators.required),
         sizeOfConductorRe: new FormControl({disabled: false, value: item.sizeOfConductorRe}),
         meshSizeOb: new FormControl({disabled: false, value: item.meshSizeOb}, Validators.required),
@@ -444,8 +444,8 @@ export class LpsAirTerminationComponent implements OnInit {
       locationName: new FormControl('', Validators.required),
       physicalInspectionOb: new FormControl('', Validators.required),
       physicalInspectionRe: new FormControl(''),
-      conductorClampsFlatSurafaceOb: new FormControl('', Validators.required),
-      conductorClampsFlatSurafaceRe: new FormControl(''),
+      installationTerminationsystemOb: new FormControl('', Validators.required),
+      installationTerminationsystemRem: new FormControl(''),
       sizeOfTerminalOb: new FormControl('', Validators.required),
       sizeOfTerminalRe: new FormControl(''),
       heightOfTerminalOb: new FormControl('', Validators.required),
@@ -475,10 +475,10 @@ export class LpsAirTerminationComponent implements OnInit {
     return new FormGroup({
       locationNumber: new FormControl('', Validators.required),
       locationName: new FormControl('', Validators.required),
-      meshobs1: new FormControl('', Validators.required),
-      meshrem1: new FormControl(''),
-      meshobs2: new FormControl('', Validators.required),
-      meshrem2: new FormControl(''),
+      physicalInspectionOb: new FormControl('', Validators.required),
+      physicalInspectionRe: new FormControl(''),
+      materailOfConductorOb: new FormControl('', Validators.required),
+      materailOfConductorRem: new FormControl(''),
       sizeOfConductorOb: new FormControl('', Validators.required),
       sizeOfConductorRe: new FormControl(''),
       meshSizeOb: new FormControl('', Validators.required),
