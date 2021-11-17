@@ -46,7 +46,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
   @Output() proceedNext = new EventEmitter<any>();
   step6List: any = [];
   flag: boolean = false;
-  arr: any;
+  arr: any  = [];
   
   constructor(
 
