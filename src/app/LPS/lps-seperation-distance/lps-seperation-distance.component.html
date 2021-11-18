@@ -97,7 +97,7 @@
                                 *ngIf="getseparateDistanceDescriptionControls().length == i+1" title="add another Section">add_box</mat-icon>
 
                                 <mat-icon class="mousechange"
-                                    *ngIf="getseparateDistanceDescriptionControls().length > 1" (click)="removeItem(i)"
+                                    *ngIf="getseparateDistanceDescriptionControls().length > 1" (click)="removeItem(f,i)"
                                     style="margin-inline: 0rem;float: right;position: relative;" title="delete">delete</mat-icon>
                             </div>
                         </tbody>

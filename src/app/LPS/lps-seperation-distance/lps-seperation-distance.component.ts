@@ -47,7 +47,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
   step6List: any = [];
   flag: boolean = false;
   arr: any  = [];
-  
+  separatedistancePushArr:any=[];
   constructor(
 
     private formBuilder: FormBuilder,
@@ -95,13 +95,14 @@ export class LpsSeperationDistanceComponent implements OnInit {
       seperationDistanceDesc: new FormControl('',Validators.required),
       seperationDistanceOb: new FormControl('',Validators.required),
       seperationDistanceRem: new FormControl('',Validators.required),
+      flag: new FormControl('true'),
 
     })
   }
 
   populateData() {
     for (let item of this.step6List.separateDistanceDescription) {     
-      this.arr.push(this.createGroup(item));
+      if(item.flag) {this.arr.push(this.createGroup(item));}
     }
     this.separeteDistanceForm.setControl('separateDistanceDescriptionArr', this.formBuilder.array(this.arr || []))
     this.arr = [];
@@ -114,6 +115,8 @@ export class LpsSeperationDistanceComponent implements OnInit {
     seperationDistanceDesc: new FormControl({disabled: false, value: item.seperationDistanceDesc}, Validators.required),
     seperationDistanceOb: new FormControl({disabled: false, value: item.seperationDistanceOb}, Validators.required),
     seperationDistanceRem: new FormControl({disabled: false, value: item.seperationDistanceRem}, Validators.required),
+    flag: new FormControl({disabled: false, value: item.flag}),
+       
     });
   }
 
@@ -148,7 +151,9 @@ export class LpsSeperationDistanceComponent implements OnInit {
     }
 
     this.separatedistance.separateDistanceDescription = this.separeteDistanceForm.value.separateDistanceDescriptionArr;
-
+    
+    this.separatedistance.separateDistanceDescription=this.separatedistance.separateDistanceDescription.concat(this.separatedistancePushArr);
+    this.separatedistancePushArr=[];
       if(flag) {
         this.separatedistanceService.updateSeparateDistance(this.separatedistance).subscribe(
           (data) => {
@@ -185,7 +190,15 @@ export class LpsSeperationDistanceComponent implements OnInit {
 
   }
 
-  removeItem(index: any) {
+  removeItem(a:any,index: any) {
+    if(a.value.seperationDistanceDescId !=0 && a.value.seperationDistanceDescId !=undefined){
+      a.value.flag=false;
     (this.separeteDistanceForm.get('separateDistanceDescriptionArr') as FormArray).removeAt(index);
-    }
+    this.separatedistancePushArr= this.separatedistancePushArr.concat(a.value);
+   
+   }
+
+  else  {(this.separeteDistanceForm.get('separateDistanceDescriptionArr') as FormArray).removeAt(index);}
+    
+  }
 }

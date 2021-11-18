@@ -25,6 +25,7 @@ export class DownConductorDescription {
 }
 
 export class DownConductor {
+    flag!:boolean;
     locationNumber!:number;
     locationName!:String;
     physicalInspectionOb!: String;
@@ -58,6 +59,7 @@ export class DownConductor {
 }
 
 export class BridgingDescription {
+    flag!:boolean;
     locationNumber!: number;
     locationName!: String;
     ensureBridgingCableOb!: String;
@@ -77,6 +79,7 @@ export class BridgingDescription {
 }
 
 export class Holder {
+    flag!:boolean;
     locationNumber!: number;
     locationName!: String;
     physicalInspectionOb!: String;
@@ -98,6 +101,7 @@ export class Holder {
 }
 
 export class Connectors {
+    flag!:boolean;
     locationNumber!: number;
     locationName!: String;
     physicalInspectionOb!: String;
@@ -120,6 +124,7 @@ export class Connectors {
 
 
 export class LightningCounter {
+    flag!:boolean;
     locationNumber!: number;
     locationName!: String;
     threadHoldCurrentOb!: String;
@@ -147,6 +152,7 @@ export class LightningCounter {
 }
 
 export class TestingJoint {
+    flag!:boolean;
     locationNumber!: number;
     locationName!: String;
     testJointTypeOb!: String;

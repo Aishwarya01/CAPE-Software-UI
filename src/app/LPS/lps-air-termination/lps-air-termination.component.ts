@@ -55,6 +55,14 @@ export class LpsAirTerminationComponent implements OnInit {
   arr6: any = [];
   flag: boolean = false;
 
+  vatPusharr: any = [];
+  meshPusharr: any = [];
+  holderPusharr: any = [];
+  clampPusharr: any = [];
+  exPusharr: any = [];
+  conPusharr: any = [];
+  
+   
   constructor(
     private formBuilder: FormBuilder,private airterminationServices:AirterminationService,
     private modalService: NgbModal,private router: ActivatedRoute
@@ -109,23 +117,24 @@ export class LpsAirTerminationComponent implements OnInit {
     }
 
     populateData() {
-      for (let item of this.step2List.lpsVerticalAirTermination) {     
-        this.arr1.push(this.createGroup(item));
+      for (let item of this.step2List.lpsVerticalAirTermination) {
+        if(item.flag) {this.arr1.push(this.createGroup(item));}    
+        
       }
       for (let item of this.step2List.airMeshDescription) {     
-        this.arr2.push(this.createGroup1(item));
+        if(item.flag) {this.arr2.push(this.createGroup1(item));}
       }
       for (let item of this.step2List.airHolderDescription) {     
-        this.arr3.push(this.createGroup2(item));
+        if(item.flag) {this.arr3.push(this.createGroup2(item));}
       }
       for (let item of this.step2List.airClamps) { 
-        this.arr4.push(this.createGroup3(item));
+        if(item.flag) {this.arr4.push(this.createGroup3(item));}
       }
       for (let item of this.step2List.airExpansion) { 
-        this.arr5.push(this.createGroup4(item));
+        if(item.flag) {this.arr5.push(this.createGroup4(item));}
       }
       for (let item of this.step2List.airConnectors) {     
-        this.arr6.push(this.createGroup5(item));
+        if(item.flag) {this.arr6.push(this.createGroup5(item));}
       }
       this.airTerminationForm.setControl('vatArr', this.formBuilder.array(this.arr1 || []))
       this.airTerminationForm.setControl('meshArr', this.formBuilder.array(this.arr2 || []))
@@ -146,6 +155,7 @@ export class LpsAirTerminationComponent implements OnInit {
       return this.formBuilder.group({
 
       lpsVerticalAirTerminationId: new FormControl({disabled: false, value: item.lpsVerticalAirTerminationId}),
+      flag: new FormControl({disabled: false, value: item.flag}),
       locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
       locationName: new FormControl({disabled: false, value: item.locationName}),
       physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
@@ -181,6 +191,7 @@ export class LpsAirTerminationComponent implements OnInit {
       return this.formBuilder.group({
 
         meshDescriptionId: new FormControl({disabled: false, value: item.meshDescriptionId}),
+        flag: new FormControl({disabled: false, value: item.flag}),
         locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
         locationName: new FormControl({disabled: false, value: item.locationName}),
         physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
@@ -204,6 +215,7 @@ export class LpsAirTerminationComponent implements OnInit {
       return this.formBuilder.group({
 
         holderDescriptionId: new FormControl({disabled: false, value: item.holderDescriptionId}),
+        flag: new FormControl({disabled: false, value: item.flag}),
         locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
         locationName: new FormControl({disabled: false, value: item.locationName}),
         physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
@@ -243,6 +255,7 @@ export class LpsAirTerminationComponent implements OnInit {
       return this.formBuilder.group({
 
         clampsId: new FormControl({disabled: false, value: item.clampsId}),
+        flag: new FormControl({disabled: false, value: item.flag}),
         locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
         locationName: new FormControl({disabled: false, value: item.locationName}),
         physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
@@ -273,6 +286,7 @@ export class LpsAirTerminationComponent implements OnInit {
       return this.formBuilder.group({
 
         expansionId: new FormControl({disabled: false, value: item.expansionId}),
+        flag: new FormControl({disabled: false, value: item.flag}),
         locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
         locationName: new FormControl({disabled: false, value: item.locationName}),
         physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
@@ -296,7 +310,7 @@ export class LpsAirTerminationComponent implements OnInit {
     createGroup5(item: any): FormGroup {
       return this.formBuilder.group({
         connectorId: new FormControl({disabled: false, value: item.connectorId}),
-         
+        flag: new FormControl({disabled: false, value: item.flag}),
         locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
         locationName: new FormControl({disabled: false, value: item.locationName}),
         physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
@@ -361,22 +375,19 @@ export class LpsAirTerminationComponent implements OnInit {
         this.airtermination.airExpansion=this.airTerminationForm.value.expArr;
         this.airtermination.airHolderDescription=this.airTerminationForm.value.holderArr;
        
-        
-        // this.airterminationService.saveAirtermination(this.airtermination).subscribe(
-        //   (data) => {
-        //     this.success = true;
-        //     this.successMsg = data;
-        //     this.disable = true;
-        //     this.proceedNext.emit(true);
-        //   },
-        //   (error) => {
-        //     this.Error = true;
-        //     this.errorArr = [];
-        //     this.errorArr = JSON.parse(error.error);
-        //     this.errorMsg = this.errorArr.message;
-        //     this.proceedNext.emit(false);
-        //   });
-
+        this.airtermination.lpsVerticalAirTermination=this.airtermination.lpsVerticalAirTermination.concat(this.vatPusharr);
+        this.airtermination.airClamps= this.airtermination.airClamps.concat(this.clampPusharr);
+        this.airtermination.airConnectors=this.airtermination.airConnectors.concat(this.conPusharr);
+        this.airtermination.airMeshDescription= this.airtermination.airMeshDescription.concat(this.meshPusharr);
+        this.airtermination.airExpansion=this.airtermination.airExpansion.concat(this.exPusharr);
+        this.airtermination.airHolderDescription=this.airtermination.airHolderDescription.concat(this.holderPusharr);
+       
+        this.vatPusharr=[];
+        this.meshPusharr= [];
+        this.holderPusharr= [];
+        this.clampPusharr= [];
+        this.exPusharr= [];
+        this.conPusharr=[];
 
           if(flag) {
             this.airterminationService.updateAirtermination(this.airtermination).subscribe(
@@ -467,7 +478,8 @@ export class LpsAirTerminationComponent implements OnInit {
       inspPassedNoOb: new FormControl('', Validators.required),
       inspPassedNoRe: new FormControl(''),
       inspFaileddNoOb: new FormControl('', Validators.required),
-      inspFaileddNoRe: new FormControl('')
+      inspFaileddNoRe: new FormControl(''),
+      flag: new FormControl('true'),
     })
   }
 
@@ -488,7 +500,8 @@ export class LpsAirTerminationComponent implements OnInit {
       minimumDistanceOb: new FormControl('', Validators.required),
       minimumDistanceRe: new FormControl(''),
       heightOfConductorFlatSurfaceOb: new FormControl('', Validators.required),
-      heightOfConductorFlatSurfaceRe: new FormControl('')
+      heightOfConductorFlatSurfaceRe: new FormControl(''),
+      flag: new FormControl('true')
     })
   }
 
@@ -537,7 +550,8 @@ export class LpsAirTerminationComponent implements OnInit {
       parpetInspectionPassedNoRe: new FormControl(''),
       
       parpetInspectionFailedNoOb: new FormControl('', Validators.required),
-      parpetInspectionFailedNoRe: new FormControl('')
+      parpetInspectionFailedNoRe: new FormControl(''),
+     flag: new FormControl('true')
     
     }) 
   }
@@ -564,7 +578,8 @@ export class LpsAirTerminationComponent implements OnInit {
       inspectionPassedOb: new FormControl('', Validators.required),
       inspectionPassedRe: new FormControl(''),
       inspectionFailedReOb: new FormControl('', Validators.required),
-      inspectionFailedReRe: new FormControl('')
+      inspectionFailedReRe: new FormControl(''),
+      flag: new FormControl('true')
       //clampobs9: new FormControl('', Validators.required),
      // clamprem9: new FormControl('')
     })
@@ -587,7 +602,8 @@ export class LpsAirTerminationComponent implements OnInit {
       inspectionPassedNoOb: new FormControl('', Validators.required),
       inspectionPassedNoRe: new FormControl(''),
       inspectionFailedNoOb: new FormControl('', Validators.required),
-      inspectionFailedNoRe: new FormControl('')
+      inspectionFailedNoRe: new FormControl(''),
+      flag: new FormControl('true')
     })
   }
   
@@ -614,7 +630,8 @@ export class LpsAirTerminationComponent implements OnInit {
       inspectionPassedNoOb: new FormControl('', Validators.required),
       inspectionPassedNoRe: new FormControl(''),
       inspectionFailedOb: new FormControl('', Validators.required),
-      inspectionFailedRe: new FormControl('')
+      inspectionFailedRe: new FormControl(''),
+      flag: new FormControl('true')
     })
   }
 
@@ -652,23 +669,63 @@ export class LpsAirTerminationComponent implements OnInit {
     return this.airTerminationForm.controls;
   }
 
-  removeItem(index: any) {
-    (this.airTerminationForm.get('vatArr') as FormArray).removeAt(index);
+  removeItem(a:any,index: any) {
+    if(a.value.lpsVerticalAirTerminationId !=0 && a.value.lpsVerticalAirTerminationId !=undefined){
+       a.value.flag=false;
+     (this.airTerminationForm.get('vatArr') as FormArray).removeAt(index);
+     this.vatPusharr= this.vatPusharr.concat(a.value);
+    
     }
-  removeItem1(index: any) {
+    else{
+      (this.airTerminationForm.get('vatArr') as FormArray).removeAt(index);
+    }
+    
+    }
+  removeItem1(a:any,index: any) {
+    if(a.value.meshDescriptionId !=0 && a.value.meshDescriptionId !=undefined){
+      a.value.flag=false;
     (this.airTerminationForm.get('meshArr') as FormArray).removeAt(index);
+    this.meshPusharr= this.meshPusharr.concat(a.value);
+    
+   
+   }
+    else{
+    (this.airTerminationForm.get('meshArr') as FormArray).removeAt(index);     
     }
-  removeItem2(index: any) {
+    }
+  removeItem2(a:any,index: any) {
+    if(a.value.holderDescriptionId !=0 && a.value.holderDescriptionId !=undefined){
+      a.value.flag=false;
     (this.airTerminationForm.get('holderArr') as FormArray).removeAt(index);
-    }
-  removeItem3(index: any) {
+   
+    this.holderPusharr= this.holderPusharr.concat(a.value);
+   }
+   else{
+    (this.airTerminationForm.get('holderArr') as FormArray).removeAt(index);
+    }}
+  removeItem3(a:any,index: any) {
+    if(a.value.clampsId !=0 && a.value.clampsId !=undefined){
+      a.value.flag=false;
     (this.airTerminationForm.get('clampArr') as FormArray).removeAt(index);
+    this.clampPusharr= this.clampPusharr.concat(a.value);
+   }
+    else
+    {(this.airTerminationForm.get('clampArr') as FormArray).removeAt(index);}
     }
-  removeItem4(index: any) {
+  removeItem4(a:any,index: any) {
+    if(a.value.expansionId !=0 && a.value.expansionId !=undefined){
+      a.value.flag=false;
     (this.airTerminationForm.get('expArr') as FormArray).removeAt(index);
-    }
-  removeItem5(index: any) {
+    this.exPusharr= this.exPusharr.concat(a.value);
+   }else
+{(this.airTerminationForm.get('expArr') as FormArray).removeAt(index); }}
+  removeItem5(a:any,index: any) {
+    if(a.value.connectorId !=0 && a.value.connectorId !=undefined){
+      a.value.flag=false;
     (this.airTerminationForm.get('conArr') as FormArray).removeAt(index);
+    this.conPusharr= this.conPusharr.concat(a.value);
+   }else
+    {(this.airTerminationForm.get('conArr') as FormArray).removeAt(index);}
     }
 
 }

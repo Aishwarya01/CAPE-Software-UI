@@ -49,6 +49,10 @@ export class LpsEarthingComponent implements OnInit {
   chamberArr!: FormArray;
   earthingArr!: FormArray;
   
+  descriptionPushArr: any = [];
+  ClampsPushArr: any = [];
+  chamberPushArr: any = [];
+  
   constructor(
     private formBuilder: FormBuilder, private lpsEarthings: LpsEarthing,private modalService: NgbModal, private router: ActivatedRoute
   ) {
@@ -99,13 +103,13 @@ export class LpsEarthingComponent implements OnInit {
 
     populateData() {
       for (let item of this.step4List.earthingDescription) {     
-        this.arr1.push(this.createGroup(item));
+        if(item.flag) {this.arr1.push(this.createGroup(item));}
       }
       for (let item of this.step4List.earthingClamps) {     
-        this.arr2.push(this.createGroup1(item));
+        if(item.flag) { this.arr2.push(this.createGroup1(item));}
       }
       for (let item of this.step4List.earthingElectrodeChamber) {     
-        this.arr3.push(this.createGroup2(item));
+        if(item.flag)  {this.arr3.push(this.createGroup2(item));}
       }
       for (let item of this.step4List.earthingSystem) { 
         this.arr4.push(this.createGroup3(item));
@@ -127,6 +131,7 @@ export class LpsEarthingComponent implements OnInit {
     createGroup(item: any): FormGroup {
       return this.formBuilder.group({
         //description arr
+      flag: new FormControl({disabled: false, value: item.flag}),
       locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
       locationName: new FormControl({disabled: false, value: item.locationName}),
       earthDescriptionId: new FormControl({disabled: false, value: item.earthDescriptionId}),
@@ -172,6 +177,7 @@ export class LpsEarthingComponent implements OnInit {
     createGroup1(item: any): FormGroup {
       return this.formBuilder.group({
         // clamps
+        flag: new FormControl({disabled: false, value: item.flag}),
         locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
         locationName: new FormControl({disabled: false, value: item.locationName}),
         earthingClampsId: new FormControl({disabled: false, value: item.earthingClampsId}),
@@ -199,6 +205,7 @@ export class LpsEarthingComponent implements OnInit {
     createGroup2(item: any): FormGroup {
       return this.formBuilder.group({
         //chamber
+        flag: new FormControl({disabled: false, value: item.flag}),
         locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
         locationName: new FormControl({disabled: false, value: item.locationName}),
         earthingElectrodeChamberId: new FormControl({disabled: false, value: item.earthingElectrodeChamberId}),
@@ -228,8 +235,6 @@ export class LpsEarthingComponent implements OnInit {
       return this.formBuilder.group({
         //earthing
         
-       // locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
-       // locationName: new FormControl({disabled: false, value: item.locationName}),
         earthingSystemId: new FormControl({disabled: false, value: item.earthingSystemId}),
         buriedElectrodeOb: new FormControl({disabled: false, value: item.buriedElectrodeOb}, Validators.required),
         buriedElectrodeRem: new FormControl({disabled: false, value: item.buriedElectrodeRem}),
@@ -293,15 +298,33 @@ export class LpsEarthingComponent implements OnInit {
   submit3(){
     this.chamberArr = this.earthingForm.get('chamberArr') as FormArray;
     this.chamberArr.push(this.earthElectrodeChamber());
-  }
-  removeItem1(index: any) {
+  }  
+  removeItem1(a:any,index: any) {
+    if(a.value.earthDescriptionId !=0 && a.value.earthDescriptionId !=undefined){
+      a.value.flag=false;
     (this.earthingForm.get('descriptionArr') as FormArray).removeAt(index);
+    this.descriptionPushArr= this.descriptionPushArr.concat(a.value);
+   
+   }
+    else{(this.earthingForm.get('descriptionArr') as FormArray).removeAt(index);}
   }
-  removeItem2(index: any) {
+  removeItem2(a:any,index: any) {
+    if(a.value.earthingClampsId !=0 && a.value.earthingClampsId !=undefined){
+      a.value.flag=false;
     (this.earthingForm.get('ClampsArr') as FormArray).removeAt(index);
+    this.ClampsPushArr= this.ClampsPushArr.concat(a.value);
+   
+   }
+   else {(this.earthingForm.get('ClampsArr') as FormArray).removeAt(index);}
   }
-  removeItem3(index: any) {
+  removeItem3(a:any,index: any) {
+    if(a.value.earthingElectrodeChamberId !=0 && a.value.earthingElectrodeChamberId !=undefined){
+      a.value.flag=false;
     (this.earthingForm.get('chamberArr') as FormArray).removeAt(index);
+    this.chamberPushArr= this.chamberPushArr.concat(a.value);
+   
+   }
+   else {(this.earthingForm.get('chamberArr') as FormArray).removeAt(index);}
   }
   earthingSystem(): FormGroup {
     return new FormGroup({
@@ -362,8 +385,8 @@ export class LpsEarthingComponent implements OnInit {
       inspectionPassedInOb: new FormControl('', Validators.required),
       inspectionPassedInRem: new FormControl(''),
       inspectionFailedInOb: new FormControl('', Validators.required),
-      inspectionFailedInRem: new FormControl('')
-
+      inspectionFailedInRem: new FormControl(''),
+      flag: new FormControl('true')
     })
   }
   earthingClamps(): FormGroup {
@@ -387,7 +410,8 @@ export class LpsEarthingComponent implements OnInit {
       inspectionPassedInOb: new FormControl('', Validators.required),
       inspectionPassedInRem: new FormControl(''),
       inspectionFailedInOb: new FormControl('', Validators.required),
-      inspectionFailedInRem: new FormControl('')
+      inspectionFailedInRem: new FormControl(''),
+      flag: new FormControl('true')
     })
   }
   earthingDescription(): FormGroup {
@@ -430,7 +454,7 @@ export class LpsEarthingComponent implements OnInit {
       inspectedPassedNoRem: new FormControl(''),
       inspectedFailedNoOb: new FormControl('', Validators.required),
       inspectedFailedNoRem: new FormControl(''),
-
+      flag: new FormControl('true')
 
     })
   }
@@ -446,8 +470,14 @@ export class LpsEarthingComponent implements OnInit {
     this.earthingLpsDescription.earthingDescription = this.earthingForm.value.descriptionArr;
     this.earthingLpsDescription.earthingElectrodeChamber = this.earthingForm.value.chamberArr;
     this.earthingLpsDescription.earthingSystem = this.earthingForm.value.earthingArr;
+   
+    this.earthingLpsDescription.earthingDescription=this.earthingLpsDescription.earthingDescription.concat(this.descriptionPushArr);
+    this.earthingLpsDescription.earthingClamps=this.earthingLpsDescription.earthingClamps.concat(this.ClampsPushArr);
+    this.earthingLpsDescription.earthingElectrodeChamber=this.earthingLpsDescription.earthingElectrodeChamber.concat(this.chamberPushArr);
 
-    
+    this.descriptionPushArr = [];
+    this.ClampsPushArr = [];
+    this.chamberPushArr = [];
 
       if(flag) {
         this.lpsEarthingService.updateEarthingLps(this.earthingLpsDescription).subscribe(

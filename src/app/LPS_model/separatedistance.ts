@@ -8,6 +8,7 @@ export class Separatedistance {
     separateDistanceDescription!: SeparateDistanceDescription[];
 }
 export class SeparateDistanceDescription {
+    flag!:boolean;
     seperationDistanceDesc!: String;
     seperationDistanceOb!: String;
     seperationDistanceRem!: String;

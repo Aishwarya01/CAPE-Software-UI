@@ -53,7 +53,13 @@ export class LpsDownConductorsComponent implements OnInit {
   arr5: any = [];
   arr6: any = [];
 
-  
+  downPushArr: any = [];
+  bridgingPushArr: any = [];
+  holderPushArr: any = [];
+  connectorPushArr: any = [];
+  lightPushArr: any = [];
+  testjointsPushArr: any = [];
+
   constructor(
     private formBuilder: FormBuilder, lpsDownconductorService: LpsDownconductorService,
     private modalService: NgbModal, private router: ActivatedRoute) {
@@ -112,19 +118,19 @@ export class LpsDownConductorsComponent implements OnInit {
 
     populateData() {
       for (let item of this.step3List.downConductor) {     
-        this.arr1.push(this.createGroup(item));
+        if(item.flag) {this.arr1.push(this.createGroup(item));}
       }
       for (let item of this.step3List.bridgingDescription) {     
-        this.arr2.push(this.createGroup1(item));
+        if(item.flag)  {this.arr2.push(this.createGroup1(item));}
       }
       for (let item of this.step3List.holder) {     
-        this.arr3.push(this.createGroup2(item));
+        if(item.flag)  {this.arr3.push(this.createGroup2(item));}
       }
       for (let item of this.step3List.connectors) { 
-        this.arr4.push(this.createGroup3(item));
+        if(item.flag) {this.arr4.push(this.createGroup3(item));}
       }
       for (let item of this.step3List.lightningCounter) { 
-        this.arr5.push(this.createGroup4(item));
+        if(item.flag)  {this.arr5.push(this.createGroup4(item));}
       }
       for (let item of this.step3List.testingJoint) {     
         this.arr6.push(this.createGroup5(item));
@@ -147,6 +153,7 @@ export class LpsDownConductorsComponent implements OnInit {
     createGroup(item: any): FormGroup {
       return this.formBuilder.group({
         downConductorId: new FormControl({disabled: false, value: item.downConductorId}),
+        flag: new FormControl({disabled: false, value: item.flag}),
         locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
         locationName: new FormControl({disabled: false, value: item.locationName}, Validators.required),
         physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
@@ -183,6 +190,7 @@ export class LpsDownConductorsComponent implements OnInit {
     createGroup1(item: any): FormGroup {
       return this.formBuilder.group({
       bridgingDescriptionId: new FormControl({disabled: false, value: item.bridgingDescriptionId}),
+      flag: new FormControl({disabled: false, value: item.flag}),
       locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
       locationName: new FormControl({disabled: false, value: item.locationName}, Validators.required),
       ensureBridgingCableOb: new FormControl({disabled: false, value: item.ensureBridgingCableOb}, Validators.required),
@@ -205,6 +213,7 @@ export class LpsDownConductorsComponent implements OnInit {
     createGroup2(item: any): FormGroup {
       return this.formBuilder.group({
       holderId: new FormControl({disabled: false, value: item.holderId}),
+      flag: new FormControl({disabled: false, value: item.flag}),
       locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
       locationName: new FormControl({disabled: false, value: item.locationName}, Validators.required),
       physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
@@ -230,6 +239,7 @@ export class LpsDownConductorsComponent implements OnInit {
     createGroup3(item: any): FormGroup {
       return this.formBuilder.group({
       connectorId: new FormControl({disabled: false, value: item.connectorId}),
+      flag: new FormControl({disabled: false, value: item.flag}),
       locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
       locationName: new FormControl({disabled: false, value: item.locationName}, Validators.required),
       physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
@@ -255,6 +265,7 @@ export class LpsDownConductorsComponent implements OnInit {
     createGroup4(item: any): FormGroup {
       return this.formBuilder.group({
       lightingCountersId: new FormControl({disabled: false, value: item.lightingCountersId}),
+      flag: new FormControl({disabled: false, value: item.flag}),
       locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
       locationName: new FormControl({disabled: false, value: item.locationName}, Validators.required),
       threadHoldCurrentOb: new FormControl({disabled: false, value: item.threadHoldCurrentOb}, Validators.required),
@@ -286,6 +297,7 @@ export class LpsDownConductorsComponent implements OnInit {
     createGroup5(item: any): FormGroup {
       return this.formBuilder.group({
       testJointId: new FormControl({disabled: false, value: item.testJointId}),
+      flag: new FormControl({disabled: false, value: item.flag}),
       locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
       locationName: new FormControl({disabled: false, value: item.locationName}, Validators.required),
       testJointTypeOb: new FormControl({disabled: false, value: item.testJointTypeOb}, Validators.required),
@@ -367,7 +379,8 @@ export class LpsDownConductorsComponent implements OnInit {
       inspectionPassedNoOb: new FormControl('', Validators.required),
       inspectionPassedNoRem: new FormControl(''),
       inspectionFailedNoOb: new FormControl('', Validators.required),
-      inspectionFailedNoRem: new FormControl('')
+      inspectionFailedNoRem: new FormControl(''),
+      flag: new FormControl('true'),
     })
   }
 
@@ -389,7 +402,8 @@ export class LpsDownConductorsComponent implements OnInit {
       inspectionPassedNoOb: new FormControl('', Validators.required),
       inspectionPassedNoRem: new FormControl(''),
       inspectionFailedNoOb: new FormControl('', Validators.required),
-      inspectionFailedNoRem: new FormControl('')
+      inspectionFailedNoRem: new FormControl(''),
+      flag: new FormControl('true'),
     })
   }
 
@@ -413,7 +427,8 @@ export class LpsDownConductorsComponent implements OnInit {
       inspectionPassedNoOb: new FormControl('', Validators.required),
       inspectionPassedNoRem: new FormControl(''),
       inspectionFailedNoOb: new FormControl('', Validators.required),
-      inspectionFailedNoRem: new FormControl('')
+      inspectionFailedNoRem: new FormControl(''),
+      flag: new FormControl('true'),
     })
   }
 
@@ -437,7 +452,8 @@ export class LpsDownConductorsComponent implements OnInit {
       inspectionPassedNoOb: new FormControl('', Validators.required),
       inspectionPassedNoRem: new FormControl(''),
       inspectionFailedNoOb: new FormControl('', Validators.required),
-      inspectionFailedNoRem: new FormControl('')
+      inspectionFailedNoRem: new FormControl(''),
+      flag: new FormControl('true'),
     })
   }
 
@@ -467,7 +483,8 @@ export class LpsDownConductorsComponent implements OnInit {
       inspectionPassedNoOb: new FormControl('', Validators.required),
       inspectionPassedNoRem: new FormControl(''),
       inspectionFailedNoOb: new FormControl('', Validators.required),
-      inspectionFailedNoRem: new FormControl('')
+      inspectionFailedNoRem: new FormControl(''),
+      flag: new FormControl('true'),
     })
   }
 
@@ -495,7 +512,8 @@ export class LpsDownConductorsComponent implements OnInit {
       inspectionPassedNoOb: new FormControl('', Validators.required),
       inspectionPassedNoRem: new FormControl(''),
       inspectionFailedNoOb: new FormControl('', Validators.required),
-      inspectionFailedNoRem: new FormControl('')
+      inspectionFailedNoRem: new FormControl(''),
+      flag: new FormControl('true'),
     })
   }
 
@@ -524,24 +542,60 @@ export class LpsDownConductorsComponent implements OnInit {
     this.lightArr = this.downConductorForm.get('testjointsArr') as FormArray;
     this.lightArr.push(this.createTestJointsArrForm());
   }
-
-  removeItem(index: any) {
+         
+  removeItem(a:any,index: any) {
+    if(a.value.downConductorId !=0 && a.value.downConductorId !=undefined){
+      a.value.flag=false;
     (this.downConductorForm.get('downArr') as FormArray).removeAt(index);
+    this.downPushArr= this.downPushArr.concat(a.value);
+   
+   }
+   else {(this.downConductorForm.get('downArr') as FormArray).removeAt(index);}
   }
-  removeItem1(index: any) {
+  removeItem1(a:any,index: any) {
+    if(a.value.bridgingDescriptionId !=0 && a.value.bridgingDescriptionId !=undefined){
+      a.value.flag=false;
     (this.downConductorForm.get('bridgingArr') as FormArray).removeAt(index);
+    this.bridgingPushArr= this.bridgingPushArr.concat(a.value);
+   
+   }
+   else {(this.downConductorForm.get('bridgingArr') as FormArray).removeAt(index);}
   }
-  removeItem2(index: any) {
+  removeItem2(a:any,index: any) {
+    if(a.value.holderId !=0 && a.value.holderId !=undefined){
+      a.value.flag=false;
     (this.downConductorForm.get('holderArr') as FormArray).removeAt(index);
+    this.holderPushArr= this.holderPushArr.concat(a.value);
+   
+   }
+   else {(this.downConductorForm.get('holderArr') as FormArray).removeAt(index);}
   }
-  removeItem3(index: any) {
+  removeItem3(a:any,index: any) {
+    if(a.value.connectorId !=0 && a.value.connectorId !=undefined){
+      a.value.flag=false;
     (this.downConductorForm.get('connectorArr') as FormArray).removeAt(index);
+    this.connectorPushArr= this.connectorPushArr.concat(a.value);
+   
+   }
+   else {(this.downConductorForm.get('connectorArr') as FormArray).removeAt(index);}
   }
-  removeItem4(index: any) {
+  removeItem4(a:any,index: any) {
+    if(a.value.lightingCountersId !=0 && a.value.lightingCountersId !=undefined){
+      a.value.flag=false;
     (this.downConductorForm.get('lightArr') as FormArray).removeAt(index);
+    this.lightPushArr= this.lightPushArr.concat(a.value);
+   
+   }
+  else  {(this.downConductorForm.get('lightArr') as FormArray).removeAt(index);}
   }
-  removeItem5(index: any) {
+  removeItem5(a:any,index: any) {
+    if(a.value.testJointId !=0 && a.value.testJointId !=undefined){
+      a.value.flag=false;
     (this.downConductorForm.get('testjointsArr') as FormArray).removeAt(index);
+    this.testjointsPushArr= this.testjointsPushArr.concat(a.value);
+   
+   }
+   else {(this.downConductorForm.get('testjointsArr') as FormArray).removeAt(index);}
   }
 
   get f() {
@@ -566,7 +620,21 @@ export class LpsDownConductorsComponent implements OnInit {
     this.downConductorDescription.holder = this.downConductorForm.value.holderArr;
     this.downConductorDescription.connectors = this.downConductorForm.value.connectorArr;
     this.downConductorDescription.lightningCounter = this.downConductorForm.value.lightArr;
-    this.downConductorDescription.testingJoint = this.downConductorForm.value.testjointsArr;   
+    this.downConductorDescription.testingJoint = this.downConductorForm.value.testjointsArr; 
+    
+    this.downConductorDescription.downConductor = this.downConductorDescription.downConductor.concat(this.downPushArr);
+    this.downConductorDescription.bridgingDescription = this.downConductorDescription.bridgingDescription.concat(this.bridgingPushArr);
+    this.downConductorDescription.holder = this.downConductorDescription.holder.concat(this.holderPushArr);
+    this.downConductorDescription.connectors = this.downConductorDescription.connectors.concat(this.connectorPushArr);
+    this.downConductorDescription.lightningCounter = this.downConductorDescription.lightningCounter.concat(this.lightPushArr);
+    this.downConductorDescription.testingJoint = this.downConductorDescription.testingJoint.concat(this.testjointsPushArr);
+    
+    this.downPushArr= [];
+    this.bridgingPushArr = [];
+    this.holderPushArr= [];
+    this.connectorPushArr = [];
+    this.lightPushArr = [];
+    this.testjointsPushArr = [];
 
       if(flag) {
         this.lpsDownconductorService.updateDownConductor(this.downConductorDescription).subscribe(

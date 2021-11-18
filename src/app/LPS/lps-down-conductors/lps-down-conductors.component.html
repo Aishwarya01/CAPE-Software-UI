@@ -739,7 +739,7 @@
                                     style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section"
                                   >add_box</mat-icon>
                                 <mat-icon title="delete" class="mousechange" *ngIf="downConductorControls().length > 1"
-                                    (click)="removeItem(j)"
+                                    (click)="removeItem(a,j)"
                                     style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
                             </tbody>
                         </table>
@@ -1014,7 +1014,7 @@
                                 <mat-icon class="mousechange" type="button" (click)="submit1()" *ngIf="bridgingCablesControls().length == f+1"
                                 style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section" >add_box</mat-icon>
                             <mat-icon title="delete" *ngIf="bridgingCablesControls().length > 1"
-                                    (click)="removeItem1(f)"
+                                    (click)="removeItem1(a,f)"
                                     style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
 
                             </tbody>
@@ -1316,7 +1316,7 @@
                                 <mat-icon class="mousechange" type="button" (click)="submit2()" *ngIf="holdersControls().length == k+1"
                                 style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section" >add_box</mat-icon>
                             <mat-icon title="delete" *ngIf="holdersControls().length > 1"
-                                    (click)="removeItem2(k)"
+                                    (click)="removeItem2(a,k)"
                                     style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
 
                             </tbody>
@@ -1622,7 +1622,7 @@
                                 <mat-icon class="mousechange" type="button" (click)="submit3()" *ngIf="connectorsControls().length == z+1"
                                 style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section" >add_box</mat-icon>
                             <mat-icon title="delete" *ngIf="connectorsControls().length > 1"
-                                    (click)="removeItem3(z)"
+                                    (click)="removeItem3(a,z)"
                                     style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
 
                             </tbody>
@@ -2027,7 +2027,7 @@
                                 <mat-icon class="mousechange" type="button" (click)="submit4()" *ngIf="lightControls().length == f+1"
                                 style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section" >add_box</mat-icon>
                             <mat-icon title="delete" *ngIf="lightControls().length > 1"
-                                    (click)="removeItem4(f)"
+                                    (click)="removeItem4(a,f)"
                                     style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
 
                             </tbody>
@@ -2416,7 +2416,7 @@
                                 <mat-icon class="mousechange" type="button" (click)="submit5()" *ngIf="jointControls().length == x+1"
                                 style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section" >add_box</mat-icon>
                             <mat-icon title="delete" *ngIf="jointControls().length > 1"
-                                    (click)="removeItem5(x)"
+                                    (click)="removeItem5(a,x)"
                                     style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
 
                             </tbody>
