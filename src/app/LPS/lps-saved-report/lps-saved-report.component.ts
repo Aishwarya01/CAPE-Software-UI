@@ -52,12 +52,13 @@ export class LpsSavedReportComponent implements OnInit {
     this.currentUser=sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
-    this.retrieveSiteDetails();
+    this.retrieveLpsDetails();
    
   }
 
-  retrieveSiteDetails() {
+  retrieveLpsDetails() {
     if(this.currentUser1.role == 'Inspector') {
+      //debugger
       this.lpsService.retrieveListOfBasicLps(this.email).subscribe(
         data => {
          this.savedReportLps_dataSource = new MatTableDataSource(JSON.parse(data));
@@ -88,15 +89,5 @@ export class LpsSavedReportComponent implements OnInit {
   continue(basicLpsId: any,userName :any,clientName: any) {
     this.lpsParent.changeTabLpsSavedReport(0,basicLpsId,userName,clientName);
   }
-  // savedContinue()
-  // {   
-  //   if(this.verification.noDetails==true){
-  //   this.noDetailsRec=true;
-  //   this.noDetailsRecMsg="No details found for this Record";
-  //   setTimeout(() => {
-  //     this.noDetailsRec = false;
-  //     this.noDetailsRecMsg='';
-  //   }, 3000);
-  //  }
-  // }
+ 
 }

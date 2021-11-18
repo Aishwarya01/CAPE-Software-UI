@@ -11,7 +11,7 @@
                     <mat-expansion-panel-header>Basic Details</mat-expansion-panel-header>
                     
                     <div class="container">
-                        <textarea  class="form-control" style="height: 40px; resize: none; overflow:hidden;padding: 10px;" readonly>
+                        <textarea  class="form-control" style="height: 60px; overflow:hidden;padding: 20px;" readonly>
                         Client Name: {{ClientName}}, Project Name: {{projectName}}, Type of Industry: {{industryType}}, Type of Building: {{buildingType}}
                         </textarea>
                     </div>
@@ -265,7 +265,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label for="lnumber">Location Number</label>
-                                            <input class="form-control" formControlName="locationNumber" type="text" placeholder="Location Number"
+                                            <input class="form-control" formControlName="locationNumber" type="number" placeholder="Location Number"
                                                 [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors}">
                                             <div *ngIf="submitted && a.get('locationNumber')?.errors"
                                                 class="invalid-feedback">
@@ -766,7 +766,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label for="lnumber">Location Number</label>
-                                            <input class="form-control" formControlName="locationNumber" type="text" placeholder="Location Number"
+                                            <input class="form-control" formControlName="locationNumber" type="number" placeholder="Location Number"
                                                 [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors}">
                                             <div *ngIf="submitted && a.get('locationNumber')?.errors"
                                                 class="invalid-feedback">
@@ -1040,7 +1040,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label for="lnumber">Location Number</label>
-                                            <input class="form-control" formControlName="locationNumber" type="text" placeholder="Location Number"
+                                            <input class="form-control" formControlName="locationNumber" type="number" placeholder="Location Number"
                                                 [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors}">
                                             <div *ngIf="submitted && a.get('locationNumber')?.errors"
                                                 class="invalid-feedback">
@@ -1343,7 +1343,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label for="lnumber">Location Number</label>
-                                            <input class="form-control" formControlName="locationNumber" type="text" placeholder="Location Number"
+                                            <input class="form-control" formControlName="locationNumber" type="number" placeholder="Location Number"
                                                 [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors}">
                                             <div *ngIf="submitted && a.get('locationNumber')?.errors"
                                                 class="invalid-feedback">
@@ -1649,7 +1649,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label for="lnumber">Location Number</label>
-                                            <input class="form-control" formControlName="locationNumber" type="text" placeholder="Location Number"
+                                            <input class="form-control" formControlName="locationNumber" type="number" placeholder="Location Number"
                                                 [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors}">
                                             <div *ngIf="submitted && a.get('locationNumber')?.errors"
                                                 class="invalid-feedback">
@@ -2054,7 +2054,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label for="lnumber">Location Number</label>
-                                            <input class="form-control" formControlName="locationNumber" type="text" placeholder="Location Number"
+                                            <input class="form-control" formControlName="locationNumber" type="number" placeholder="Location Number"
                                                 [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors}">
                                             <div *ngIf="submitted && a.get('locationNumber')?.errors"
                                                 class="invalid-feedback">

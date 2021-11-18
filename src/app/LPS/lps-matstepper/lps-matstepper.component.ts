@@ -70,11 +70,11 @@ export class LpsMatstepperComponent implements OnInit {
     this.airTermination.projectName=this.basic.basicDetails.projectName;
     this.airTermination.industryType=this.basic.basicDetails.industryType;
     this.airTermination.buildingType=this.basic.basicDetails.buildingType;
-    this.airTermination.buildingLength=this.basic.basicDetails.buildingLength;
-    this.airTermination.buildingWidth=this.basic.basicDetails.buildingWidth;
-    this.airTermination.buildingHeight=this.basic.basicDetails.buildingHeight;
-    this.airTermination.levelOfProtection=this.basic.basicDetails.levelOfProtection;
-    this.airTermination.soilResistivity=this.basic.basicDetails.soilResistivity;
+    // this.airTermination.buildingLength=this.basic.basicDetails.buildingLength;
+    // this.airTermination.buildingWidth=this.basic.basicDetails.buildingWidth;
+    // this.airTermination.buildingHeight=this.basic.basicDetails.buildingHeight;
+    // this.airTermination.levelOfProtection=this.basic.basicDetails.levelOfProtection;
+    // this.airTermination.soilResistivity=this.basic.basicDetails.soilResistivity;
     this.doSomething2(false);
     this.doSomething3(false);
     this.doSomething4(false);
@@ -88,11 +88,11 @@ export class LpsMatstepperComponent implements OnInit {
     this.downConductors.projectName=this.basic.basicDetails.projectName;
     this.downConductors.industryType=this.basic.basicDetails.industryType;
     this.downConductors.buildingType=this.basic.basicDetails.buildingType;
-    this.downConductors.buildingLength=this.basic.basicDetails.buildingLength;
-    this.downConductors.buildingWidth=this.basic.basicDetails.buildingWidth;
-    this.downConductors.buildingHeight=this.basic.basicDetails.buildingHeight;
-    this.downConductors.levelOfProtection=this.basic.basicDetails.levelOfProtection;
-    this.downConductors.soilResistivity=this.basic.basicDetails.soilResistivity; 
+    // this.downConductors.buildingLength=this.basic.basicDetails.buildingLength;
+    // this.downConductors.buildingWidth=this.basic.basicDetails.buildingWidth;
+    // this.downConductors.buildingHeight=this.basic.basicDetails.buildingHeight;
+    // this.downConductors.levelOfProtection=this.basic.basicDetails.levelOfProtection;
+    // this.downConductors.soilResistivity=this.basic.basicDetails.soilResistivity; 
     this.isCompleted2 = next;
   }
 
@@ -103,11 +103,11 @@ export class LpsMatstepperComponent implements OnInit {
     this.earthing.projectName=this.basic.basicDetails.projectName;
     this.earthing.industryType=this.basic.basicDetails.industryType;
     this.earthing.buildingType=this.basic.basicDetails.buildingType;
-    this.earthing.buildingLength=this.basic.basicDetails.buildingLength;
-    this.earthing.buildingWidth=this.basic.basicDetails.buildingWidth;
-    this.earthing.buildingHeight=this.basic.basicDetails.buildingHeight;
-    this.earthing.levelOfProtection=this.basic.basicDetails.levelOfProtection;
-    this.earthing.soilResistivity=this.basic.basicDetails.soilResistivity; 
+    // this.earthing.buildingLength=this.basic.basicDetails.buildingLength;
+    // this.earthing.buildingWidth=this.basic.basicDetails.buildingWidth;
+    // this.earthing.buildingHeight=this.basic.basicDetails.buildingHeight;
+    // this.earthing.levelOfProtection=this.basic.basicDetails.levelOfProtection;
+    // this.earthing.soilResistivity=this.basic.basicDetails.soilResistivity; 
     this.isCompleted3 = next;
   }
 
@@ -117,11 +117,11 @@ export class LpsMatstepperComponent implements OnInit {
     this.spd.projectName=this.basic.basicDetails.projectName;
     this.spd.industryType=this.basic.basicDetails.industryType;
     this.spd.buildingType=this.basic.basicDetails.buildingType;
-    this.spd.buildingLength=this.basic.basicDetails.buildingLength;
-    this.spd.buildingWidth=this.basic.basicDetails.buildingWidth;
-    this.spd.buildingHeight=this.basic.basicDetails.buildingHeight;
-    this.spd.levelOfProtection=this.basic.basicDetails.levelOfProtection;
-    this.spd.soilResistivity=this.basic.basicDetails.soilResistivity; 
+    // this.spd.buildingLength=this.basic.basicDetails.buildingLength;
+    // this.spd.buildingWidth=this.basic.basicDetails.buildingWidth;
+    // this.spd.buildingHeight=this.basic.basicDetails.buildingHeight;
+    // this.spd.levelOfProtection=this.basic.basicDetails.levelOfProtection;
+    // this.spd.soilResistivity=this.basic.basicDetails.soilResistivity; 
     this.isCompleted4 = next;
   }
 
@@ -131,11 +131,11 @@ export class LpsMatstepperComponent implements OnInit {
     this.seperationDistance.projectName=this.basic.basicDetails.projectName;
     this.seperationDistance.industryType=this.basic.basicDetails.industryType;
     this.seperationDistance.buildingType=this.basic.basicDetails.buildingType;
-    this.seperationDistance.buildingLength=this.basic.basicDetails.buildingLength;
-    this.seperationDistance.buildingWidth=this.basic.basicDetails.buildingWidth;
-    this.seperationDistance.buildingHeight=this.basic.basicDetails.buildingHeight;
-    this.seperationDistance.levelOfProtection=this.basic.basicDetails.levelOfProtection;
-    this.seperationDistance.soilResistivity=this.basic.basicDetails.soilResistivity; 
+    // this.seperationDistance.buildingLength=this.basic.basicDetails.buildingLength;
+    // this.seperationDistance.buildingWidth=this.basic.basicDetails.buildingWidth;
+    // this.seperationDistance.buildingHeight=this.basic.basicDetails.buildingHeight;
+    // this.seperationDistance.levelOfProtection=this.basic.basicDetails.levelOfProtection;
+    // this.seperationDistance.soilResistivity=this.basic.basicDetails.soilResistivity; 
     this.isCompleted5 = next;
   }
   public doSomething6(next: any): void {
@@ -144,11 +144,11 @@ export class LpsMatstepperComponent implements OnInit {
     this.earthStud.projectName=this.basic.basicDetails.projectName;
     this.earthStud.industryType=this.basic.basicDetails.industryType;
     this.earthStud.buildingType=this.basic.basicDetails.buildingType;
-    this.earthStud.buildingLength=this.basic.basicDetails.buildingLength;
-    this.earthStud.buildingWidth=this.basic.basicDetails.buildingWidth;
-    this.earthStud.buildingHeight=this.basic.basicDetails.buildingHeight;
-    this.earthStud.levelOfProtection=this.basic.basicDetails.levelOfProtection;
-    this.earthStud.soilResistivity=this.basic.basicDetails.soilResistivity; 
+    // this.earthStud.buildingLength=this.basic.basicDetails.buildingLength;
+    // this.earthStud.buildingWidth=this.basic.basicDetails.buildingWidth;
+    // this.earthStud.buildingHeight=this.basic.basicDetails.buildingHeight;
+    // this.earthStud.levelOfProtection=this.basic.basicDetails.levelOfProtection;
+    // this.earthStud.soilResistivity=this.basic.basicDetails.soilResistivity; 
     this.isCompleted6 = next;
   }
   public doSomething7(next: any): void {
@@ -156,10 +156,12 @@ export class LpsMatstepperComponent implements OnInit {
   }
 
   public changeTabLpsSavedReport(index: number, basicLpsId: any, userName: any, clientName: any) {
+    //debugger
     this.basicLpsService.retrieveFinalLps(userName,basicLpsId).subscribe(
       (data) => {
         this.dataJSON = JSON.parse(data);
         if(this.dataJSON.basicLps != null) {
+          debugger
           this.selectedIndex = index;            
           this.basic.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
           this.doSomething1(false);
@@ -193,6 +195,11 @@ export class LpsMatstepperComponent implements OnInit {
 
       }
     )
+  }
+
+  // Final Report
+  changeTab1(index: number): void {
+    this.selectedIndex = index;
   }
   
 }

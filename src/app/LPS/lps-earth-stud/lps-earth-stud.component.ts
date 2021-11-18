@@ -4,11 +4,14 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EarthStud } from 'src/app/LPS_model/earth-stud';
 import { EarthStudService } from 'src/app/LPS_services/earth-stud.service';
+import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.service';
+import { LpsFinalReportComponent } from '../lps-final-report/lps-final-report.component';
+import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 
 @Component({
   selector: 'app-lps-earth-stud',
   templateUrl: './lps-earth-stud.component.html',
-  styleUrls: ['./lps-earth-stud.component.css']
+  styleUrls: ['./lps-earth-stud.component.css'],
 })
 export class LpsEarthStudComponent implements OnInit {
 
@@ -38,10 +41,16 @@ export class LpsEarthStudComponent implements OnInit {
   @Output() proceedNext = new EventEmitter<any>();
   flag: boolean = false;
   step7List: any = [];
+  selectedIndex = 0;
   
   constructor(
     private formBuilder: FormBuilder,
-    private earthStudService: EarthStudService,private modalService: NgbModal, private router: ActivatedRoute
+    private earthStudService: EarthStudService,
+    private modalService: NgbModal, 
+    private router: ActivatedRoute,
+    private lpsMatstepper: LpsMatstepperComponent,
+    // private finalReport: LpsFinalReportComponent,
+    // private lpsService: LPSBasicDetailsService
     ) { }
 
   ngOnInit(): void {
@@ -108,10 +117,12 @@ export class LpsEarthStudComponent implements OnInit {
       else {
         this.earthStudService.saveEarthStud(this.earthStud).subscribe(
           (data) => {
+            debugger
             this.success = true;
             this.successMsg = data;
             this.disable = true;
             this.proceedNext.emit(true);
+            //this.lpsMatstepper.changeTab1(2);
           },
           (error) => {
             this.Error = true;
@@ -150,6 +161,11 @@ export class LpsEarthStudComponent implements OnInit {
        return;
      }
     this.modalService.open(content, { centered: true });
+  }
+  changeTab1(index: number): void {
+    // debugger
+    // this.finalReport.retrieveLpsDetails();
+    this.selectedIndex = index;
   }
 
 }
