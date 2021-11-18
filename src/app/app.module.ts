@@ -83,6 +83,7 @@ import { LpsDownConductorsComponent } from './LPS/lps-down-conductors/lps-down-c
 import { LpsEarthStudComponent } from './LPS/lps-earth-stud/lps-earth-stud.component';
 import { LpsSavedReportComponent } from './LPS/lps-saved-report/lps-saved-report.component';
 import { LpsWelcomePageComponent } from './LPS/lps-welcome-page/lps-welcome-page.component';
+import { LpsFinalReportComponent } from './LPS/lps-final-report/lps-final-report.component';
 
 @NgModule({
   declarations: [
@@ -137,7 +138,8 @@ import { LpsWelcomePageComponent } from './LPS/lps-welcome-page/lps-welcome-page
     LpsDownConductorsComponent,
     LpsEarthStudComponent,
     LpsSavedReportComponent,
-    LpsWelcomePageComponent
+    LpsWelcomePageComponent, 
+    LpsFinalReportComponent
   ],
   imports: [
     NgbTooltipModule,
