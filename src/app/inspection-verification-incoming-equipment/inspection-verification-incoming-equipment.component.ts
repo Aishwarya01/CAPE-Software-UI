@@ -1082,14 +1082,14 @@ showHideAccordion(index: number) {
           this.success = true;
           this.successMsg = 'Incoming Equipment Successfully Saved';
           //this.disable = true;
-          this.service.allFieldsDisable = true;
+          //this.service.allFieldsDisable = true;
         },
         (error: any) => {
           this.proceedNext.emit(false);
           this.Error = true;
-          this.service.isCompleted3= false;
-        this.service.isLinear=true;
           this.errorMsg = 'Something went wrong, kindly check all the fields';
+          this.service.isCompleted3= false;
+          this.service.isLinear=true;
         });
     }
     // this.verification.testingNgOnINit();

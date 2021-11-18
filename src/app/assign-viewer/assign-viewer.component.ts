@@ -322,9 +322,9 @@ createNewGroup(item: any): FormGroup{
   closeModalDialog(contentViewer2:any){
    this.modalService.dismissAll(contentViewer2)
   }
-  closeModalDialogTerms(termsContent:any){
-    this.modalService.dismissAll(termsContent)
-   }
+  // closeModalDialogTerms(termsContent:any){
+  //   this.modalService.dismissAll(termsContent)
+  //  }
   closeModalDialogContinue(){
     if(!this.globalService.useClicked){
       this.globalService.noofLicense=0; //aish

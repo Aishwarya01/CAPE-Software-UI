@@ -2343,7 +2343,7 @@ else{
           this.success = true;
           this.successMsg = data;
           //this.disable = true;
-          this.service.allFieldsDisable = true;
+          //this.service.allFieldsDisable = true;
           this.service.supplyList= this.supplycharesteristic.supplyNumber;
           this.service.retrieveMainNominalVoltage=this.mainNominalArr;
           this.service.retrieveMainNominalVoltage=this.retrieveMainNominalVoltage;
@@ -2351,8 +2351,6 @@ else{
         },
         (error) => {
           this.Error = true;
-          this.service.isCompleted2= false;
-        this.service.isLinear=true;
           this.proceedNext.emit(false);
           this.errorArr = [];
           this.errorArr = JSON.parse(error.error);
@@ -2361,6 +2359,8 @@ else{
           } else{
             this.errorMsg = this.errorArr.message;
           }
+          this.service.isCompleted2= false;
+          this.service.isLinear=true;
         }
       );
   }
