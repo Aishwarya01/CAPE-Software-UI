@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-body">
-<form [formGroup]="addsummary" (ngSubmit)="SubmitTab5(flag)">
+<form [formGroup]="addsummary" (ngSubmit)="SubmitTab5(flag,content5)">
         <mat-accordion>
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
@@ -604,7 +604,7 @@ style="margin-left: 10px;" >
       <div class="row" style="display:block;margin-top: 30px;margin-left: 40px;">
         <div class="col-sm-12">
         <div style="text-align: center;"> 
-        <button  style="width: auto;" type="submit" (click)="gotoNextModal(content5);" 
+        <button  style="width: auto;" type="submit" 
         class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn next"
         mat-button [ngClass]="{'disableSubmit':service.disableSubmitSummary}">
           <i class="bi bi-journal-arrow-up icon"></i> Submit</button>
@@ -648,20 +648,28 @@ style="margin-left: 10px;" >
 <ng-template #content2 let-modal>
   <div class="modal-body">
    <div class="centre-text m-btm30">
-    <div style="text-align: center;" *ngIf="AllFilled">
+    <div style="text-align: center;" *ngIf="ConfirmSuccess">
       <span class="successshow">Are you sure you want to procced? </span>
       <br>
       <span style="font-size: 12px;"><b>Note:</b>Once saved, details can't be edited!</span>
      </div>
-     <div *ngIf="StepError" style="text-align: center;">
-      <span class="alert alert-danger">{{StepErrorMsg}}</span>
+     <div *ngIf="Error" style="text-align: center;">
+      <span class="alert alert-danger">{{errorMsg}}</span>
   </div>
+  <br>
+  <div class="row" *ngIf="Error">
+    <button type="button" class="col-md-6" style="text-align:center; width: auto;" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+    aria-label="Close" (click)="closeModalDialog()">
+    <i class="bi bi-arrow-right-circle"></i>&nbsp;
+     <span aria-hidden="true">Ok</span>
+ </button>
+</div>
     </div>
    </div>
   <br>
-  <div class="row">
+  <div class="row" *ngIf="ConfirmSuccess">
      <button type="button" class="col-md-6" style="text-align:center; width: auto;" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-     aria-label="Close" (click)="closeModalDialog()">
+     aria-label="Close" (click)="OkModalDialog(content5)">
      <i class="bi bi-arrow-right-circle"></i>&nbsp;
       <span aria-hidden="true">Ok</span>
   </button>

@@ -197,6 +197,7 @@ export class SummaryComponent implements OnInit {
   modalReference: any;
   tabError: boolean = false;
   tabErrorMsg: string="";
+  ConfirmSuccess: boolean= false;
 
   //@ViewChild('picker',{static:false}) picker!: ElementRef;
 
@@ -841,24 +842,30 @@ showHideAccordion(index: number) {
       return;
     }
     else if(this.addsummary.dirty && this.addsummary.touched){
+      if(this.addsummary.valid){
+        this.service.isCompleted= true;
+        this.service.isLinear=false;
+        this.service.editable=true;
+      }
+      else{
       this.service.isCompleted5= false;
-      this.service.isLinear=true;
+      this.service.isLinear=true; 
       this.service.editable=false;
       this.tabError = true;
       this.tabErrorMsg = 'Kindly click on next button to update the changes!';
       setTimeout(() => {
         this.tabError = false;
       }, 3000);
+    }
    }
     else{
       this.service.isCompleted= true;
       this.service.isLinear=false;
       this.service.editable=true;
-
     }
   }
   
-  gotoNextModal(content5:any) {
+  gotoNextModal() {
     if (this.addsummary.invalid) {
       this.validationError = true;
       this.validationErrorMsg = 'Please check all the fields';
@@ -867,21 +874,20 @@ showHideAccordion(index: number) {
       }, 3000);
       return;
     }
-   
     // if(this.addsummary.touched || this.addsummary.untouched){
     //   this.modalReference = this.modalService.open(content2, {
     //      centered: true, 
     //      size: 'md'
     //     })
     //  }
-     if(this.addsummary.dirty && this.addsummary.touched){ //update
-      this.modalService.open(content5, { centered: true});
-      //this.modalReference.close();
-     }
      this.disableSubmit=true;
-     this.showSubmit=true;
+     //this.showSubmit=true;
   }
-
+  OkModalDialog(content5: any){
+    if(this.addsummary.dirty && this.addsummary.touched){ //update msg
+      this.modalService.open(content5, { centered: true});
+     }
+  }
   openModalDialog(content2: any){
     this.modalService.open(content2, {
       centered: true, 
@@ -911,15 +917,29 @@ showHideAccordion(index: number) {
 
     // }
   }
-  SubmitTab5(flag: any) {
+  SubmitTab5(flag: any,content5:any) {
     if(!flag) {
       this.summary.siteId = this.service.siteCount;
     }
     this.summary.userName = this.email;
     this.submitted = true;
     if (this.addsummary.invalid) {
+      this.validationError = true;
+      this.validationErrorMsg = 'Please check all the fields';
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
       return;
-        }
+    }
+    if(!confirm("Are you sure you want to procced? Note: Once saved, details can't be edited!")){
+     return;
+    }
+  else{
+    //if((this.addsummary.dirty && this.addsummary.touched)){
+      this.modalService.open(content5, { centered: true});
+    // }
+     this.service.disableSubmitSummary=true;
+  }
     this.summary.summaryObervation = this.addsummary.value.ObservationsArr;
     this.summary.summaryDeclaration = this.addsummary.value.Declaration1Arr;
     this.summary.summaryDeclaration = this.summary.summaryDeclaration.concat(
@@ -946,7 +966,7 @@ showHideAccordion(index: number) {
       this.summarydetailsService.addSummary(this.summary).subscribe(
         (data) => {
           this.proceedNext.emit(true);
-          // show success message after click button
+          this.ConfirmSuccess=true;
           this.success = true;
           this.successMsg = 'Summary Information Successfully Submitted';
           this.service.allFieldsDisable = true;
@@ -958,26 +978,10 @@ showHideAccordion(index: number) {
           this.errorArr = JSON.parse(error.error);
           this.errorMsg = this.errorArr.message;
           this.proceedNext.emit(false);
+          //this.addsummary.markAsPristine();
         });
     }
   }
-
-  // checkForAllSteps() {
-  //   this.summarydetailsService.addSummary(this.summary).subscribe(
-  //     (data) => {
-  //       this.proceedNext.emit(true);
-  //       this.AllFilled = true;
-  //       this.disable = true;
-  //       this.finalFlag = true;
-  //       this.showSubmit=true;
-  //     },
-  //     (error) => {
-  //       this.Error = true;
-  //       this.proceedNext.emit(false);
-  //       this.errorMsg = 'Please enter previous steps to proceed further';
-  //       this.showSubmit=false;
-  //     });
-  // }
 
   } 
 

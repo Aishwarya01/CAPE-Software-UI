@@ -42,7 +42,7 @@ export class SavedreportsComponent implements OnInit {
   userData: any=[];
   viewerFilterData:any=[];
   selectedIndex: number=0;
-  // superAdminArr: any = ['gk@capeindia.net'];
+  superAdminArr: any = [];
  @ViewChild('input') input!: MatInput;
   superAdminFlag: boolean = false;
   allData: any = [];
@@ -64,13 +64,14 @@ export class SavedreportsComponent implements OnInit {
     this.currentUser=sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
+    this.superAdminArr = [];
+    this.superAdminArr.push('gk@capeindia.net');
     this.retrieveSiteDetails();
    setTimeout(() => this.input.focus(), 500);
     this.siteName=this.service.filterSiteName;
     // if(this.service.filterSiteName){
     //   this.applyFilter(this.siteName);
     // }
-   
   }
 
   applyFilter(siteName:any) {
@@ -112,11 +113,11 @@ export class SavedreportsComponent implements OnInit {
 
   retrieveSiteDetails() {
 
-    // for(let i of this.superAdminArr) {
-    //   if(this.email == i) {
-    //     this.superAdminFlag = true;
-    //   }
-    // }
+    for(let i of this.superAdminArr) {
+      if(this.email == i) {
+        this.superAdminFlag = true;
+      }
+    }
 
     if(this.superAdminFlag) {
       this.siteService.retrieveAllSite(this.email).subscribe(
@@ -179,14 +180,14 @@ export class SavedreportsComponent implements OnInit {
   }
   savedContinue()
   {
-    
     if(this.verification.noDetails==true){
     this.noDetailsRec=true;
     this.noDetailsRecMsg="No details found for this Record";
     setTimeout(() => {
       this.noDetailsRec = false;
       this.noDetailsRecMsg='';
+     // this.verification.selectedIndex=1;
     }, 3000);
-   }
+  }
   }
 }

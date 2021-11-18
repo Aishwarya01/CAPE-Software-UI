@@ -1788,16 +1788,16 @@ export class InspectionVerificationTestingComponent implements OnInit {
           this.success = true;
           this.successMsg = data;
           //this.disable = true;
-          this.service.allFieldsDisable = true;
+          //this.service.allFieldsDisable = true;
         },
         (error) => {
-          this.Error = true;
-          this.service.isCompleted4= false;
-          this.service.isLinear=true;          
+          this.Error = true;      
           this.proceedNext.emit(false);
           this.errorArr = [];
           this.errorArr = JSON.parse(error.error);
           this.errorMsg = this.errorArr.message;
+          this.service.isCompleted4= false;
+          this.service.isLinear=true;    
         }
       );
     }

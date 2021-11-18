@@ -57,9 +57,8 @@ export class FinalreportsComponent implements OnInit {
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
     // this.retrieveClientDetails();
+    this.superAdminArr.push('gk@capeindia.net');
     this.retrieveSiteDetails();
-    //this.superAdminArr.push('sd@capeindia.net');
-
   }
 
 //filter for final reports
@@ -93,11 +92,11 @@ applyFilter(event: Event) {
     this.filteredData = [];
     this.completedFilterData=[];
 
-    // for(let i of this.superAdminArr) {
-    //   if(this.email == i) {
-    //     this.superAdminFlag = true;
-    //   }
-    // }
+    for(let i of this.superAdminArr) {
+      if(this.email == i) {
+        this.superAdminFlag = true;
+      }
+    }
 
     if(this.superAdminFlag) {
       this.siteService.retrieveAllSite(this.email).subscribe(

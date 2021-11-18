@@ -1708,17 +1708,17 @@ showHideAccordion(index: number) {
        this.proceedNext.emit(true);
        this.success = true;
        this.successMsg = data;
-       this.service.allFieldsDisable = true;
+       //this.service.allFieldsDisable = true;
        //this.disable = true;
      },
      (error) => {
        this.Error = true;
-       this.service.isCompleted= false;
-        this.service.isLinear=true;
        this.errorArr = [];
        this.errorArr = JSON.parse(error.error);
        this.errorMsg = this.errorArr.message;
        this.proceedNext.emit(false);
+       this.service.isCompleted= false;
+       this.service.isLinear=true;
      });
   }
   //this.service.siteCount = this.reportDetails.siteId;
