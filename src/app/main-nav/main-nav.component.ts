@@ -82,6 +82,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   private ongoingSiteSort!: MatSort;
   superAdminFlag: boolean = false;
   allData: any = [];
+ 
 
   @ViewChild('ongoingSiteSort') set matSortOn(ms: MatSort) {
     this.ongoingSiteSort = ms;
@@ -140,7 +141,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   Error: boolean=false;
   errorMsg: string="";
   errorArr: any=[];
-  // superAdminArr: any = ['gk@capeindia.net'];
+  superAdminArr: any = [];
   @ViewChild('ref', { read: ViewContainerRef })
   viewContainerRef!: ViewContainerRef;
   
@@ -264,6 +265,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
     this.currentUser=sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
+    this.superAdminArr = [];
+    this.superAdminArr.push('gk@capeindia.net');
     if(this.currentUser1.role == 'Inspector') {
       this.showTIC = true;
       this.showREP = false;
@@ -281,7 +284,6 @@ export class MainNavComponent implements OnInit, OnDestroy {
     if(this.showREP) {
       this.retrieveSiteDetails();
     }
-  
   }
   
   setCompletedDataSourceAttributes() {
@@ -458,11 +460,11 @@ triggerNavigateTo(siteName:any){
     this.completedFilterData = [];
     this.ongoingFilterData = [];
 
-    // for(let i of this.superAdminArr) {
-    //   if(this.email == i) {
-    //     this.superAdminFlag = true;
-    //   }
-    // }
+    for(let i of this.superAdminArr) {
+      if(this.email == i) {
+        this.superAdminFlag = true;
+      }
+    }
 
     if(this.superAdminFlag) {
       this.siteService.retrieveAllSite(this.email).subscribe(
