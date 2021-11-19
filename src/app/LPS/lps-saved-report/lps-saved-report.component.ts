@@ -38,6 +38,8 @@ export class LpsSavedReportComponent implements OnInit {
   selectedIndex: number=0;
  
  @ViewChild('input') input!: MatInput;
+ lpsData: any=[];
+completedFilterData: any=[];
 
   constructor(private router: ActivatedRoute,
               public service: GlobalsService,
@@ -67,7 +69,15 @@ export class LpsSavedReportComponent implements OnInit {
       //
       this.lpsService.retrieveListOfBasicLps(this.email).subscribe(
         data => {
-         this.savedReportLps_dataSource = new MatTableDataSource(JSON.parse(data));
+          this.lpsData=JSON.parse(data);
+          for(let i of this.lpsData){
+            if(i.allStepsCompleted != "AllStepCompleted"){
+              this.completedFilterData.push(i);
+            }
+          }
+          this.savedReportLps_dataSource = new MatTableDataSource(this.completedFilterData);
+          this.completedFilterData = [];
+          this.lpsData = [];
           this.savedReportLps_dataSource.paginator = this.savedReportLpsPaginator;
           this.savedReportLps_dataSource.sort = this.savedReportLpsSort;
         });
@@ -78,12 +88,14 @@ export class LpsSavedReportComponent implements OnInit {
         this.lpsService.retrieveListOfBasicLps(this.currentUser1.assignedBy).subscribe(
           data => {
             this.userData=JSON.parse(data);
-           for(let i of this.userData){
-             if(i.assignedTo==this.email){
-               this.viewerFilterData.push(i);
-             }
-           }
-           this.savedReportLps_dataSource = new MatTableDataSource(this.viewerFilterData);
+            for(let i of this.lpsData){
+              if(i.allStepsCompleted != "AllStepCompleted"){
+                this.completedFilterData.push(i);
+              }
+            }
+           this.savedReportLps_dataSource = new MatTableDataSource(this.completedFilterData);
+           this.completedFilterData = [];
+           this.lpsData = [];
            this.savedReportLps_dataSource.paginator = this.savedReportLpsPaginator;
            this.savedReportLps_dataSource.sort = this.savedReportLpsSort;
           });

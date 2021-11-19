@@ -19,6 +19,8 @@ import { LpsSeperationDistanceComponent } from '../lps-seperation-distance/lps-s
 
 import { LpsSpdComponent } from '../lps-spd/lps-spd.component';
 import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.service';
+import { LpsSavedReportComponent } from '../lps-saved-report/lps-saved-report.component';
+import { LpsFinalReportComponent } from '../lps-final-report/lps-final-report.component';
 
 @Component({
   selector: 'app-lps-matstepper',
@@ -63,12 +65,16 @@ export class LpsMatstepperComponent implements OnInit {
   @ViewChild(LpsEarthStudComponent)
   earthStud!: LpsEarthStudComponent;
   dataJSON: any = [];
+  @ViewChild(LpsSavedReportComponent)saved!: LpsSavedReportComponent;
+  @ViewChild(LpsFinalReportComponent)final!: LpsFinalReportComponent;
+  //ChangeDetectorRef: any;
   //Completed8: boolean=this.earthStud.success;
 
   constructor(
     private _formBuilder: FormBuilder,
     private basicLpsService: LPSBasicDetailsService,
-    private router: ActivatedRoute) { }
+    private router: ActivatedRoute,
+    private ChangeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     // this.firstFormGroup = this._formBuilder.group({
@@ -77,6 +83,7 @@ export class LpsMatstepperComponent implements OnInit {
     // this.secondFormGroup = this._formBuilder.group({
     //   secondCtrl: ['', Validators.required],
     // });
+    this.refresh();
   }
   public doSomething1(next: any): void {
 
@@ -118,6 +125,7 @@ export class LpsMatstepperComponent implements OnInit {
     this.earthStud.buildingType=this.basic.basicDetails.buildingType;
 
     this.Completed1 = this.basic.success;
+    this.saved.ngOnInit();
   }
   public doSomething2(next: any): void {
     this.Completed2 = this.airTermination.success;
@@ -139,6 +147,7 @@ export class LpsMatstepperComponent implements OnInit {
   }
   public doSomething7(next: any): void {
     this.Completed7 = this.earthStud.success;
+    this.final.ngOnInit();
   }
 
   public changeTabLpsSavedReport(index: number, basicLpsId: any, userName: any, clientName: any) {
@@ -183,6 +192,7 @@ export class LpsMatstepperComponent implements OnInit {
                       this.earthStud.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
                       this.doSomething7(false);
                       this.Completed7 = true;
+                      
                     }
                   }
                 }
@@ -199,10 +209,14 @@ export class LpsMatstepperComponent implements OnInit {
 
   // Final Report 
   changeTab1(index: number): void {
+    this.ngOnInit();
     let userName=this.router.snapshot.paramMap.get('email') || '{}';
     this.changeTabLpsSavedReport(index,this.earthStud.basicLpsId,userName,this.earthStud.ClientName);
     this.selectedIndex = index;
-    
+    debugger
   }
-  
+  refresh() {
+    debugger
+    this.ChangeDetectorRef.detectChanges();
+  }
 }

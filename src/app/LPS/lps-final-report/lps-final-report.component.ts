@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild,ChangeDetectorRef } from '@angular/core';
 import { MatInput } from '@angular/material/input';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { BasicDetails } from 'src/app/LPS_model/basic-details';
 import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.service';
+import { LpsWelcomePageComponent } from '../lps-welcome-page/lps-welcome-page.component';
 
 @Component({
   selector: 'app-lps-final-report',
@@ -43,7 +44,8 @@ export class LpsFinalReportComponent implements OnInit {
 
   constructor(private router: ActivatedRoute,
               private lpsService: LPSBasicDetailsService,
-  ) { 
+              private ChangeDetectorRef: ChangeDetectorRef,
+              private welcome: LpsWelcomePageComponent) { 
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
 
@@ -52,7 +54,6 @@ export class LpsFinalReportComponent implements OnInit {
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
     this.retrieveLpsDetails();
-
   }
 
   //filter for final reports
@@ -60,13 +61,11 @@ export class LpsFinalReportComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.finalReport_dataSource.filter = filterValue.trim().toLowerCase();
   }
-
-
+  
   retrieveLpsDetails() {
       
       this.lpsService.retrieveListOfBasicLps(this.email).subscribe(
         data => {
-          
           // this.myfunction(data);
           this.lpsData=JSON.parse(data);
           for(let i of this.lpsData){
@@ -75,9 +74,16 @@ export class LpsFinalReportComponent implements OnInit {
             }
           }
           this.finalReport_dataSource = new MatTableDataSource(this.completedFilterData);
+          this.completedFilterData = [];
+          this.lpsData = [];
           this.finalReport_dataSource.paginator = this.finalReportPaginator;
           this.finalReport_dataSource.sort = this.finalReportSort;
         });
+  }
+
+  refresh() {
+    debugger
+    this.ChangeDetectorRef.detectChanges();
   }
 }
 

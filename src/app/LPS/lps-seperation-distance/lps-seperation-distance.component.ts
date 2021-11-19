@@ -192,8 +192,6 @@ export class LpsSeperationDistanceComponent implements OnInit {
             this.proceedNext.emit(false);
           });
       }
-    
-
   }
 
   removeItem(a:any,index: any) {

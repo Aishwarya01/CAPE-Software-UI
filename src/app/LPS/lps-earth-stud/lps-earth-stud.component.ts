@@ -7,6 +7,7 @@ import { EarthStudService } from 'src/app/LPS_services/earth-stud.service';
 import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.service';
 import { LpsFinalReportComponent } from '../lps-final-report/lps-final-report.component';
 import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
+import { LpsWelcomePageComponent } from '../lps-welcome-page/lps-welcome-page.component';
 
 @Component({
   selector: 'app-lps-earth-stud',
@@ -49,14 +50,11 @@ export class LpsEarthStudComponent implements OnInit {
     private modalService: NgbModal, 
     private router: ActivatedRoute,
     private lpsMatstepper: LpsMatstepperComponent,
-    // private finalReport: LpsFinalReportComponent,
-    // private lpsService: LPSBasicDetailsService
+    private welcome: LpsWelcomePageComponent
     ) { }
 
   ngOnInit(): void {
     this.EarthStudForm = this.formBuilder.group({
-
-      
       earthStudVisibilityOb: ['', Validators.required],
       earthStudVisibilityRem: [''],
       earthStudBendOb: ['', Validators.required],
@@ -121,7 +119,9 @@ export class LpsEarthStudComponent implements OnInit {
             this.successMsg = data;
             this.disable = true;
             this.proceedNext.emit(true);
-            this.lpsMatstepper.changeTab1(2);
+            setTimeout(() => {
+              this.lpsMatstepper.changeTab1(2);
+             }, 5000);
           },
           (error) => {
             this.Error = true;
@@ -168,10 +168,4 @@ export class LpsEarthStudComponent implements OnInit {
     }
     this.modalService.open(content, { centered: true });
   }
-  // changeTab1(index: number): void {
-    
-  //   this.finalReport.retrieveLpsDetails();
-  //   this.selectedIndex = index;
-  // }
-
 }
