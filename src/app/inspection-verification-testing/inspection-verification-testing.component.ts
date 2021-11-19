@@ -34,6 +34,7 @@ import { MainNavComponent } from '../main-nav/main-nav.component';
 //import { convertTypeAcquisitionFromJson } from 'typescript';
 import { SupplyCharacteristicsService } from '../services/supply-characteristics.service';
 import { concat } from 'rxjs';
+import { DatePipe } from '@angular/common'
 
 @Component({
   selector: 'app-inspection-verification-testing',
@@ -230,7 +231,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
     private router: ActivatedRoute,
     private inspectionDetailsService: InspectiondetailsService,
     private siteService: SiteService,
-    private basic: MainNavComponent,
+    private basic: MainNavComponent,public datepipe: DatePipe,
     private UpateInspectionService: InspectionVerificationService,
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
@@ -333,6 +334,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
         //for(let i of this.supplyValues) {
           this.service.nominalVoltageArr2=this.supplyValues.supplyParameters;
           if(this.supplyValues.liveConductorType == "AC") {
+            this.SourceList=['Mains Incoming'];
             this.addValues("Mains Incoming", this.supplyValues.mainNominalVoltage,this.supplyValues.mainLoopImpedance, this.supplyValues.mainNominalCurrent);
             this.mainNominalVoltageArr1 = [];
             this.mainNominalVoltageArr2 = [];
@@ -887,18 +889,27 @@ export class InspectionVerificationTestingComponent implements OnInit {
       // impedance: new FormControl({ disabled: false, value: item.impedance }),
       // rcd: new FormControl({ disabled: false, value: item.rcd }),
       // earthElectrodeResistance: new FormControl({ disabled: false, value: item.earthElectrodeResistance }),
-      testingEquipment: this.formBuilder.array([this.populateTestInstrumentForm(item.testingEquipment)]),
+      testingEquipment: this.formBuilder.array(this.populateTestInstrumentForm(item.testingEquipment)),
       testDistribution: this.formBuilder.array([this.populateTestDistributionForm(item.testDistribution)]),
       testingRecords: this.formBuilder.array(this.populateTestRecordsForm(item.testingRecords)),
     });
   }
-  private populateTestInstrumentForm(testingEquipmentItem: any): FormGroup {
+  private populateTestInstrumentForm(testEquipmentItem: any) {
+    let testingEquipmentArr = [];
+    for (let item of testEquipmentItem) {
+      testingEquipmentArr.push(this.pushTestEquipmentTable(item))
+    }
+    return testingEquipmentArr;
+  }
+  pushTestEquipmentTable(testingEquipmentItem: any): FormGroup {
+    let latest_date =this.datepipe.transform(testingEquipmentItem.equipmentCalibrationDueDate, 'yyyy-MM-dd');
     return new FormGroup({
-      equipmentName: new FormControl({ disabled: false, value: testingEquipmentItem[0].equipmentName }),
-      equipmentMake: new FormControl({ disabled: false, value: testingEquipmentItem[0].equipmentMake }),
-      equipmentModel: new FormControl({ disabled: false, value: testingEquipmentItem[0].equipmentModel }),
-      equipmentSerialNo: new FormControl({ disabled: false, value: testingEquipmentItem[0].equipmentSerialNo }),
-      equipmentCalibrationDueDate: new FormControl({ disabled: false, value: testingEquipmentItem[0].equipmentCalibrationDueDate }),
+      equipmentId: new FormControl({ disabled: false, value: testingEquipmentItem.equipmentId }),
+      equipmentName: new FormControl({ disabled: false, value: testingEquipmentItem.equipmentName }),
+      equipmentMake: new FormControl({ disabled: false, value: testingEquipmentItem.equipmentMake }),
+      equipmentModel: new FormControl({ disabled: false, value: testingEquipmentItem.equipmentModel }),
+      equipmentSerialNo: new FormControl({ disabled: false, value: testingEquipmentItem.equipmentSerialNo }),
+      equipmentCalibrationDueDate: new FormControl({ disabled: false, value: latest_date }),
     });
   }
 
@@ -1530,6 +1541,8 @@ export class InspectionVerificationTestingComponent implements OnInit {
     ) as FormArray;
 
     for (let i of this.testaccordianArr.controls) {
+      //this.testingEquipment = i.get('testingEquipment') as FormArray;
+
       this.testDistribution = i.get('testDistribution') as FormArray;
       this.testingRecords = i.get('testingRecords') as FormArray;
 

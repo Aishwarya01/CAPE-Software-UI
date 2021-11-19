@@ -160,8 +160,9 @@
                                                ></td>
                                               <td><input type="text" formControlName="equipmentSerialNo" class="form-control"
                                                ></td>
-                                              <td><input type="date" formControlName="equipmentCalibrationDueDate" class="form-control"
-                                                ></td>
+                                              <td>
+                                                <input type="date" formControlName="equipmentCalibrationDueDate" class="form-control" placeholder="Enter Date">
+                                              </td>
                                                 <mat-icon style="cursor: pointer;margin: 20px 5px 20px 5px;" *ngIf="gettestInstrumentControls(a).length > 1" (click)="removeItem(a,j)">
                                                   delete</mat-icon>                                          
                                                 </tr>
