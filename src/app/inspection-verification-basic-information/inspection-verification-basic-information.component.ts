@@ -1,5 +1,5 @@
 import { SignatorDetails } from './../model/reportdetails';
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup,Validators,ValidatorFn } from '@angular/forms';
 import {​​​ NgbModal }​​​ from'@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
@@ -19,6 +19,7 @@ import { DatePipe } from '@angular/common';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { ignoreElements } from 'rxjs/operators';
 import { MainNavComponent } from '../main-nav/main-nav.component';
+//import { SignaturePad } from 'angular2-signaturepad';
 
 //import { ErrorHandlerService } from './../../shared/services/error-handler.service';
 @Component({
@@ -26,9 +27,16 @@ import { MainNavComponent } from '../main-nav/main-nav.component';
   templateUrl: './inspection-verification-basic-information.component.html',
   styleUrls: ['./inspection-verification-basic-information.component.css']
 })
-export class InspectionVerificationBasicInformationComponent implements OnInit {
+export class InspectionVerificationBasicInformationComponent implements OnInit,OnDestroy {
+//e-siganture in progress
+  // signatureImg: string="";
+  // @ViewChild(SignaturePad) signaturePad!: SignaturePad;
 
-  
+  // signaturePadOptions: Object = { 
+  //   'minWidth': 2,
+  //   'canvasWidth': 425,
+  //   'canvasHeight': 300
+  // };
   step1Form!: FormGroup;
   public data: string = "";
   model: any = {};
@@ -74,7 +82,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   validationError: boolean =false;
   validationErrorMsg: String ="";
   disable: boolean = false;
-  retrieveSave: boolean = false;
+  retrieveSave: boolean = false; 
   step1List: any = [];
   siteDetails: boolean = true;
   siteDetails1: boolean = false;
@@ -86,7 +94,7 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
  
   // Second Tab dependencies
   panelOpenState = false;
-  installationList: String[]= ['New Installation','First Verification Of An Existing','Addition Of An Existing Installation','Alteration In An Existing Installation','Periodic Verification'];
+  installationList: String[]= ['New Installation','First Verification Of An Existing Installation','Addition Of An Existing Installation','Alteration In An Existing Installation','Periodic Verification'];
   premiseList: String[]= ['Domestic(Individual)','Domestic(Apartment)','Commercial','IT/Office','Data Center','Industrial(Non Ex Environment)','Industrial(Ex Environment)'];
   evidenceList: String[]= ['Yes', 'No', 'Not Apparent'];
   previousRecordList: String[]= ['Yes', 'No'];
@@ -101,6 +109,8 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
   countryCode3: any;
   countryCode2: any;
   errorArr: any=[];
+  setReadOnly: boolean = false;
+  setReadOnly1: boolean = false;
 
   //comments starts
   completedCommentArr3: any = [];
@@ -179,7 +189,17 @@ export class InspectionVerificationBasicInformationComponent implements OnInit {
 companyNameSite: String = '';
 departmentNameSite: String = '';
 siteValue: String = '';
- 
+ShowNext: boolean = true;
+  modalReference: any;
+  tabError: boolean=false;
+  tabErrorMsg: string="";
+  lastInspectionDate: boolean=false;
+  showPersonNameMsg: boolean = false;
+  declarationPersonName: string="";
+  values: any;
+  designer2PersonName: string="";
+  designer2PersonNameMsg: boolean = false;
+
   constructor(
     private _formBuilder: FormBuilder,
     private router: ActivatedRoute,
@@ -198,6 +218,10 @@ siteValue: String = '';
       this.today = new Date();
     }, 1);
     
+  }
+  ngOnDestroy(): void {
+    this.service.viewerData = [];
+    this.service.inspectorData = [];
   }
 
   ngOnInit(): void {
@@ -264,6 +288,7 @@ siteValue: String = '';
       completedCommentArr1: this._formBuilder.array([]),
       //inspectorCommentArr: this._formBuilder.array([this.addCommentInspector()])
     });
+   
     this.siteService.retrieveCountry().subscribe(
       data => {
         this.countryList = JSON.parse(data);
@@ -273,8 +298,42 @@ siteValue: String = '';
     this.retrieveSiteDetails(this.service.viewerData.companyName,this.service.viewerData.department,this.service.viewerData.siteName);
     this.inspectorArr = this.step1Form.get('inspectorArr') as FormArray;
     this.expandedIndex = -1 ;
+    //this.service.siteCount = this.reportDetails.siteId;
   }
-
+  focusPersonFunction(){
+    if(this.declarationPersonName==''){
+      this.showPersonNameMsg=true;
+    }
+    else{
+      this.showPersonNameMsg=false;
+    }
+  } 
+  designer2PersonFunction(){
+    if(this.designer2PersonName==''){
+      this.designer2PersonNameMsg=true;
+    }
+    else{
+      this.designer2PersonNameMsg=false;
+    }
+  }
+  onKeyPersonName(event: KeyboardEvent) { 
+    this.values = (<HTMLInputElement>event.target).value;
+   if(this.values==''){
+    this.showPersonNameMsg=true;
+   }
+   else{
+    this.showPersonNameMsg=false;
+  }
+  }
+  onKeyDesigner2PersonName(event: KeyboardEvent){
+    this.values = (<HTMLInputElement>event.target).value;
+    if(this.values==''){
+     this.designer2PersonNameMsg=true;
+    }
+    else{
+     this.designer2PersonNameMsg=false;
+   }
+  }
 //for company site detail continue
   changeTab(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any): void {
     this.siteDetails1 = true;
@@ -290,6 +349,9 @@ siteValue: String = '';
  
   // Need to check this task
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
+    if(this.service.disableFields==true){
+      this.step1Form.disable();
+     }
       this.service.siteCount = siteId;
        this.savedUserName = userName;
        this.siteDetails1 = true;
@@ -304,6 +366,8 @@ siteValue: String = '';
        this.reportDetails.evidanceAddition=this.step1List.reportDetails.evidanceAddition;
        this.showEstimatedAge(this.step1List.reportDetails.evidanceAddition);
        this.reportDetails.previousRecords=this.step1List.reportDetails.previousRecords;
+       this.previousRecord(this.step1List.reportDetails.previousRecords);
+       this.reportDetails.lastInspection=this.step1List.reportDetails.lastInspection;
        this.step1List.evidenceAlterations=this.step1List.reportDetails.evidenceAlterations;
        this.reportDetails.limitations= this.step1List.reportDetails.limitations;
        this.reportDetails.createdBy = this.step1List.reportDetails.createdBy;
@@ -311,6 +375,7 @@ siteValue: String = '';
        this.reportDetails.estimatedWireAge = this.step1List.reportDetails.estimatedWireAge;
        //this.showField2= this.step1List.reportDetails.evidanceWireAge,
        this.step1List.state=this.step1List.reportDetails.state;
+       this.setReadOnly = true;
        this.populateData();
        this.populateDataComments();
        //this.notification();
@@ -371,6 +436,9 @@ siteValue: String = '';
     this.flag=true;
    // this.disable=true;
      }
+   reloadFromBack(){
+    this.step1Form.markAsPristine();
+  }
    
 //comments section starts
 
@@ -787,13 +855,13 @@ showHideAccordion(index: number) {
 
 //retrieve client details
   private retrieveSiteDetails(companyName: any,departmentName: any,siteName: any) {
-
     if((companyName!= undefined) && (departmentName!= undefined) && (siteName!= undefined))  {
     this.siteService.retrieveSiteForInspection(companyName,departmentName,siteName).subscribe(
       data => {
         this.clientList = [];
         this.clientList=JSON.parse(data);
         this.reportDetails.siteId = this.clientList.siteId;
+        this.service.siteCount = this.reportDetails.siteId;
       });
     }
   }
@@ -902,7 +970,7 @@ showHideAccordion(index: number) {
 // Signature part
   private createDesigner1AcknowledgeForm(): FormGroup {
       return new FormGroup({
-        declarationSignature: new FormControl('',[Validators.required]),
+        declarationSignature: new FormControl(''),
         declarationDate: new FormControl('',[Validators.required]),
         declarationName: new FormControl('',[Validators.required])
       })
@@ -916,14 +984,14 @@ showHideAccordion(index: number) {
     }
   private createContractorAcknowledgeForm(): FormGroup {
       return new FormGroup({
-        declarationSignature: new FormControl('',[Validators.required]),
+        declarationSignature: new FormControl(''),
         declarationDate: new FormControl('',[Validators.required]),
         declarationName: new FormControl('',[Validators.required])
       })
     }
   private createInspectorAcknowledgeForm(): FormGroup {
       return new FormGroup({
-        declarationSignature: new FormControl('',[Validators.required]),
+        declarationSignature: new FormControl(''),
         declarationDate: new FormControl('',[Validators.required]),
         declarationName: new FormControl('',[Validators.required])
       })
@@ -944,12 +1012,16 @@ showHideAccordion(index: number) {
   
   populateData() {
     for (let item of this.step1List.reportDetails.signatorDetails) {
+      if(this.service.disableFields==true){
+        this.disable=true;
+        }
       if(item.signatorRole == "designer1") {
       this.mobilearr.push(this.createGroup(item));
       this.step1Form.setControl('designer1Arr', this._formBuilder.array(this.mobilearr || []))
       this.mobilearr = [];
       }
       else if(item.signatorRole == "designer2") {
+        this.setReadOnly1 = false;
         this.mobilearr1.push(this.createGroup(item))
         this.step1Form.setControl('designer2Arr', this._formBuilder.array(this.mobilearr1 || []))
         this.mobilearr1 = [];
@@ -993,18 +1065,18 @@ showHideAccordion(index: number) {
 // Deisgner details forms
   private createDesigner1Form(): FormGroup {
     return new FormGroup({
-      personName: new FormControl('',[Validators.required]),
+      personName: new FormControl(''),
       personContactNo: new FormControl('',[Validators.maxLength(10),Validators.required]),
       personMailID: new FormControl('',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       managerName: new FormControl('',[Validators.required]),
-      managerContactNo: new FormControl('',[Validators.maxLength(10), Validators.required]),
+      managerContactNo: new FormControl('',[Validators.maxLength(10)]),
       managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       companyName: new FormControl('',[Validators.required]),
       addressLine1: new FormControl('',[Validators.required]),
       addressLine2: new FormControl(''),
       landMark: new FormControl(''),
       country: new FormControl('',[Validators.required]),
-      state: new FormControl('',[Validators.required]),
+      state: new FormControl('',[Validators.required]), 
       pinCode: new FormControl('',[Validators.required]),
       signatorRole: new FormControl(''),
       declarationSignature: new FormControl(''),
@@ -1084,7 +1156,7 @@ showHideAccordion(index: number) {
     personContactNo: new FormControl('',[Validators.maxLength(10),Validators.required]),
     personMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
     managerName: new FormControl('',[Validators.required]),
-    managerContactNo: new FormControl('',[Validators.maxLength(10), Validators.required]),
+    managerContactNo: new FormControl('',[Validators.maxLength(10)]),
     managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
     companyName: new FormControl('',[Validators.required]),
     addressLine1: new FormControl('',[Validators.required]),
@@ -1131,7 +1203,7 @@ showHideAccordion(index: number) {
       personContactNo: new FormControl(value.contactNumber,[Validators.required]),
       personMailID: new FormControl(value.username,[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       managerName: new FormControl('',[Validators.required]),
-      managerContactNo: new FormControl('',[Validators.maxLength(10),Validators.required]),
+      managerContactNo: new FormControl('',[Validators.maxLength(10)]),
       managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       companyName: new FormControl(value.companyName,[Validators.required]),
       addressLine1: new FormControl(value.address,[Validators.required]),
@@ -1201,7 +1273,7 @@ showHideAccordion(index: number) {
     this.f.designer2Arr.controls[0].controls['personMailID'].updateValueAndValidity();
     this.f.designer2Arr.controls[0].controls['managerName'].setValidators(Validators.required);
     this.f.designer2Arr.controls[0].controls['managerName'].updateValueAndValidity();
-    this.f.designer2Arr.controls[0].controls['managerContactNo'].setValidators([Validators.required, Validators.maxLength(10)]);
+    this.f.designer2Arr.controls[0].controls['managerContactNo'].setValidators([Validators.maxLength(10)]);
     this.f.designer2Arr.controls[0].controls['managerContactNo'].updateValueAndValidity();
     this.f.designer2Arr.controls[0].controls['managerMailID'].setValidators([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]);
     this.f.designer2Arr.controls[0].controls['managerMailID'].updateValueAndValidity();
@@ -1288,8 +1360,95 @@ showHideAccordion(index: number) {
     }
     this.proceedNext.emit(true);
   }
+ 
+  previousRecord(event: any) {
+    let changedValue;
+    if(event.target != undefined) {
+      changedValue = event.target.value;
+    }
+    else{
+      changedValue = event;
+    }
+
+    if (changedValue == 'No') {
+      this.lastInspectionDate = false;
+      this.step1Form.controls['inspectionLast'].clearValidators();
+      this.step1Form.controls[
+        'inspectionLast'
+      ].updateValueAndValidity();
+      }
+     else {
+      this.lastInspectionDate=true;
+      this.step1Form.controls['inspectionLast'].setValidators(
+        Validators.required
+      );
+      this.step1Form.controls[
+        'inspectionLast'
+      ].updateValueAndValidity();
+    }
+  }
+
+/*e-siganture starts in progress*/
+//   ngAfterViewInit() {
+//     // this.signaturePad is now available
+//     this.signaturePad.set('minWidth', 2); 
+//     this.signaturePad.clear(); 
+//   }
+
+//clearSignature() {
+  // console.log(this.signaturePad);
+  // this.signaturePad.clear();
+  // this.signatureImg ="";
+  //this.closeModalDialog();
+  //this.modalService.dismissAll(this.signatureImg="") 
+
+//}
+// savePad() {
+//   const base64Data = this.signaturePad.toDataURL();
+//   this.signatureImg = base64Data;
+// }
+//   focusFunction(contentSig: any){
+//     this.modalService.open(contentSig, { centered: true});
+//   }
+  /*e-siganture ends*/
+
+  /*disable tab starts*/
+  // clickAcc(){
+  //   this.gotoNextTab();
+  // }
+  /*disable tab ends*/
+
+  gotoNextTab() {
+    if (this.step1Form.dirty && this.step1Form.invalid) {
+      this.service.isCompleted= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
+      this.validationError = true;
+      this.validationErrorMsg = 'Please check all the fields';
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
+      return;
+    }
+    else if(this.step1Form.dirty && this.step1Form.touched){
+      this.service.isCompleted= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+      return;
+   }
+    else{
+      this.service.isCompleted= true;
+      this.service.isLinear=false;
+      this.service.editable=true;
+    }
+  }
 //modal popup
-  gotoNextModal(content1: any) {
+  gotoNextModal(content1: any,content2:any) {
       if(this.step1Form.invalid) {
         this.validationError=true;
         this.validationErrorMsg="Please check all the fields";
@@ -1298,21 +1457,36 @@ showHideAccordion(index: number) {
      }, 3000);
         return;
       }
-      this.modalService.open(content1, { centered: true})
+     if(this.step1Form.touched || this.step1Form.untouched){
+      this.modalReference = this.modalService.open(content2, {
+         centered: true, 
+         size: 'md'
+        })
+     }
+     if(this.step1Form.dirty && this.step1Form.touched){ //update
+      this.modalService.open(content1, { centered: true});
+      this.modalReference.close();
+     }
     }
+   
     closeModalDialog(){
       if(this.errorMsg != ""){
         this.Error = false;
+        this.service.isCompleted= false;
+        this.service.isLinear=true;
         this.modalService.dismissAll(this.errorMsg = "")
       }
       else {
         this.success=false;
+        this.service.isCompleted= true;
+        this.service.isLinear=false;
         this.modalService.dismissAll(this.successMsg="") 
       }
     }
-
+  
 //next button--final submit
 	nextTab(flag: any) {
+      //this.dirty=true;
       this.loading = true;
       this.submitted = true
       if(this.step1Form.invalid) {
@@ -1323,7 +1497,7 @@ showHideAccordion(index: number) {
       this.step1Form.value.designer1Arr[0].declarationName= this.step1Form.value.designer1AcknowledgeArr[0].declarationName;
       this.step1Form.value.designer1Arr[0].declarationDate= this.step1Form.value.designer1AcknowledgeArr[0].declarationDate;
       this.step1Form.value.designer2Arr[0].signatorRole= this.designer2Role;
-      if((this.step1Form.value.designer2AcknowledgeArr[0].declarationSignature != "") && (this.step1Form.value.designer2AcknowledgeArr[0].declarationName != "") && (this.step1Form.value.designer2AcknowledgeArr[0].declarationDate != ""))
+      if((this.step1Form.value.designer2AcknowledgeArr[0].declarationName != "") && (this.step1Form.value.designer2AcknowledgeArr[0].declarationDate != ""))
       {
       this.step1Form.value.designer2Arr[0].declarationSignature= this.step1Form.value.designer2AcknowledgeArr[0].declarationSignature;
       this.step1Form.value.designer2Arr[0].declarationName= this.step1Form.value.designer2AcknowledgeArr[0].declarationName;
@@ -1505,22 +1679,28 @@ showHideAccordion(index: number) {
       }
       this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.getRawValue().contractorArr,this.step1Form.getRawValue().inspectorArr);
     }
-    
+  
     if(flag){
+      if(this.step1Form.dirty){
+        this.UpateBasicService.updateBasic(this.reportDetails).subscribe(
+          data=> {
+           this.success = true;
+           this.successMsg = data;
+           this.service.isCompleted= true;
+           this.service.isLinear=false;
+           this.step1Form.markAsPristine();
+          },
+          (error) => {
+            this.Error = true;
+            this.errorArr = [];
+            this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.errorArr.message;
+          });
+      }
+      
     //  this.reportDetails.siteId = this.retrivedSiteId;
      //this.disable=false;
-   this.UpateBasicService.updateBasic(this.reportDetails).subscribe(
-    data=> {
-     this.success = true;
-     this.successMsg = data;
-    },
-    (error) => {
-      this.Error = true;
-      this.errorArr = [];
-      this.errorArr = JSON.parse(error.error);
-      this.errorMsg = this.errorArr.message;
-    });
-   
+  
    }
    else{
    this.reportDetailsService.addReportDetails(this.reportDetails).subscribe(
@@ -1528,7 +1708,8 @@ showHideAccordion(index: number) {
        this.proceedNext.emit(true);
        this.success = true;
        this.successMsg = data;
-       this.disable = true;
+       //this.service.allFieldsDisable = true;
+       //this.disable = true;
      },
      (error) => {
        this.Error = true;
@@ -1536,8 +1717,10 @@ showHideAccordion(index: number) {
        this.errorArr = JSON.parse(error.error);
        this.errorMsg = this.errorArr.message;
        this.proceedNext.emit(false);
+       this.service.isCompleted= false;
+       this.service.isLinear=true;
      });
-     this.service.siteCount = this.reportDetails.siteId;
   }
+  //this.service.siteCount = this.reportDetails.siteId;
  }
 }

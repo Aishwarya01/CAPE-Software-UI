@@ -130,7 +130,7 @@ clear() {
     return this.changeContactNumberForm.controls;
   }
   resendOTP(){
-    this.updateInspectorService.resendOTPInspector(this.changeContact.mobileNumber).subscribe(
+    this.updateInspectorService.sendOtpContactNumber(this.email,this.changeContact.mobileNumber).subscribe(
       data=> {
        this.showOTPMessage=true;
        setTimeout(()=>{

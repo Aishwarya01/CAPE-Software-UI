@@ -1,4 +1,4 @@
-import {ChangeDetectorRef,Component,EventEmitter,OnInit,Output,ElementRef,ViewChild} from '@angular/core';
+import {ChangeDetectorRef,Component,EventEmitter,OnInit,Output,ElementRef,ViewChild, Input} from '@angular/core';
 import {AbstractControl,FormArray,FormBuilder,FormControl,FormGroup,Validators,} from '@angular/forms';
 import { from } from 'rxjs';
 import {Supplycharacteristics,Supplyparameters,} from '../model/supplycharacteristics';
@@ -11,6 +11,7 @@ import { SiteService } from '../services/site.service';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
 import { MainNavComponent } from '../main-nav/main-nav.component';
 import { CommentsSection } from '../model/comments-section';
+import { InspectionVerificationBasicInformationComponent } from '../inspection-verification-basic-information/inspection-verification-basic-information.component';
 
 @Component({
   selector: 'app-inspection-verification-supply-characteristics',
@@ -79,14 +80,14 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   NV9: any;
 
   NF1: any;
-  NF2: any;
-  NF3: any;
-  NF4: any;
-  NF5: any;
-  NF6: any;
-  NF7: any;
-  NF8: any;
-  NF9: any;
+  // NF2: any;
+  // NF3: any;
+  // NF4: any;
+  // NF5: any;
+  // NF6: any;
+  // NF7: any;
+  // NF8: any;
+  // NF9: any;
 
   PF1: any;
   PF2: any;
@@ -122,18 +123,23 @@ export class InspectionVerificationSupplyCharacteristicsComponent
 
   // Alternate table array
   nominalVoltageArr1: any = [];
+  locationElectrodeArr: any = [];
 
   panelOpenState = false;
-  systemEarthingList: String[] = ['TN-C', 'TN-C-S', 'TN-S', 'IT', 'TT'];
+  systemEarthingList: String[] = ['TN-C', 'TN-C-S', 'TN-S', 'IT', 'TT', 'Others'];
   liveConductorACList: String[] = [
     '1-phase, 2-wire (LN)',
     '1-phase, 3-wire (LLM)',
     '2-phase, 3-wire (LLN)',
     '3-phase, 3-wire (LLL)',
-    '3-phase, 4-wire (LLLN)',
+    '3-phase, 4-wire (LLLN)'
   ];
   liveConductorDCList: String[] = ['2-pole', '3-pole', 'Others'];
-  AcConductorList: String[] = ['1-phase', '2-wire (LN)', '3-wire (LLM)','2-phase','3-wire (LLN)','3-phase','3-wire (LLL)','3-phase','4-wire (LLLN)'];
+  AcConductorList: String[] = ['1-phase, 2-wire (LN)',
+  '1-phase, 3-wire (LLM)',
+  '2-phase, 3-wire (LLN)',
+  '3-phase, 3-wire (LLL)',
+  '3-phase, 4-wire (LLLN)'];
   ProtectiveDevicelist: string[] = ['Fuse', 'MCB', 'MCCB', 'ACB'];
   AlternatesupplyList: string[] = ['Yes', 'No'];
   MeansofEarthingList: string[] = [
@@ -274,7 +280,25 @@ export class InspectionVerificationSupplyCharacteristicsComponent
    expandedIndexx!: number;
    inspectorName: String = '';	
    hideShowComment: boolean=false;
+  mainNominalArr: any=[];
+  mainNominalVoltageArr1: any=[];
+  mainNominalVoltageArr2: any=[];
+  mainNominalVoltageArr3: any=[];
+  mainNominalVoltageArr4: any=[];
+  modalReference: any;
+
    //comments end
+   @ViewChild(InspectionVerificationBasicInformationComponent)
+   step1!: InspectionVerificationBasicInformationComponent;
+   tabErrorMsg: string="";
+  tabError: boolean = false;
+ 
+  JointLocationTable: boolean = false;
+  key1LocationTable: boolean = false;
+  key3LocationTable: boolean = false;
+  keyJOintLocationTable: boolean= false;
+  showRemarks: boolean= false;
+  showBrief: boolean= false;
 
   constructor(
     private supplyCharacteristicsService: SupplyCharacteristicsService,
@@ -282,6 +306,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
     private formBuilder: FormBuilder,
     private router: ActivatedRoute,
     private basic: MainNavComponent,
+    //private step1: InspectionVerificationBasicInformationComponent,
     private modalService: NgbModal,private siteService: SiteService,
     private UpateInspectionService: InspectionVerificationService,
   ) {
@@ -297,8 +322,8 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       liveConductor: ['', Validators.required],
       AcConductor: ['', Validators.required],
       DcConductor: ['', Validators.required],
-      briefNote: ['', Validators.required],
-      liveConductorBNote: ['', Validators.required],
+      briefNote: [''],
+      liveConductorBNote: [''],
       mainNominalProtectiveDevice: ['', Validators.required],
       mainRatedCurrent: ['', Validators.required],
       mainCurrentDisconnection: ['', Validators.required],
@@ -309,7 +334,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       meansEarthing: ['', Validators.required],
       electrodeType: ['', Validators.required],
       electrodeMaterial: ['', Validators.required],
-      noOfLocation: ['', [Validators.required, Validators.min(1)]],
+      noOfLocation: ['', [Validators.required, Validators.min(0)]],
       conductorSize: ['', Validators.required],
       conductormaterial: ['', Validators.required],
       conductorVerify: ['', Validators.required],
@@ -317,12 +342,12 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       bondingConductorMaterial: ['', Validators.required],
       bondingConductorVerify: ['', Validators.required],
       bondingJointsType: ['', Validators.required],
-      bondingNoOfJoints: ['', [Validators.required, Validators.min(1)]],
+      bondingNoOfJoints: ['', [Validators.required, Validators.min(0)]],
       earthingConductorSize: ['', Validators.required],
       earthingConductorMaterial: ['', Validators.required],
       earthingConductorVerify: ['', Validators.required],
       earthingJointsType: ['', Validators.required],
-      earthingNoOfJoints: ['', [Validators.required, Validators.min(1)]],
+      earthingNoOfJoints: ['', [Validators.required, Validators.min(0)]],
       NV1: '',
       NV2: '',
       NV3: '',
@@ -334,14 +359,14 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       NV9: '',
 
       NF1: '',
-      NF2: '',
-      NF3: '',
-      NF4: '',
-      NF5: '',
-      NF6: '',
-      NF7: '',
-      NF8: '',
-      NF9: '',
+      // NF2: '',
+      // NF3: '',
+      // NF4: '',
+      // NF5: '',
+      // NF6: '',
+      // NF7: '',
+      // NF8: '',
+      // NF9: '',
 
       PF1: '',
       PF2: '',
@@ -371,10 +396,14 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       viewerCommentArr: this.formBuilder.array([this.addCommentViewer()]),
       completedCommentArr1: this.formBuilder.array([]),
     });
+    //this.service.retrieveSiteDetails(this.service.viewerData.companyName,this.service.viewerData.department,this.service.viewerData.siteName);
     this.expandedIndex = -1 ;
   }
 
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
+    if(this.service.disableFields==true){
+      this.supplycharesteristicForm.disable();
+     }
        this.step2List = JSON.parse(data);
        this.supplycharesteristic.siteId = siteId;
        this.supplycharesteristic.supplyCharacteristicsId = this.step2List.supplyCharacteristics.supplyCharacteristicsId;
@@ -382,9 +411,30 @@ export class InspectionVerificationSupplyCharacteristicsComponent
        this.supplycharesteristic.createdDate = this.step2List.supplyCharacteristics.createdDate;
        this.supplycharesteristic.alternativeSupply=this.step2List.supplyCharacteristics.alternativeSupply;
        this.showAlternateField(this.step2List.supplyCharacteristics.alternativeSupply);
-       this.supplycharesteristic.electrodeMaterial=this.step2List.supplyCharacteristics.electrodeMaterial;
+       this.changeSystem(this.step2List.supplyCharacteristics.mainSystemEarthing);
+       this.supplycharesteristic.systemEarthingBNote=this.step2List.supplyCharacteristics.systemEarthingBNote;       this.supplycharesteristic.electrodeMaterial=this.step2List.supplyCharacteristics.electrodeMaterial;
        this.supplycharesteristic.meansEarthing=this.step2List.supplyCharacteristics.meansEarthing;
        this.supplycharesteristic.electrodeType=this.step2List.supplyCharacteristics.electrodeType;
+      if(this.step2List.supplyCharacteristics.noOfLocation!=0){
+        this.key1LocationTable=true;
+      }
+      else{
+        this.key1LocationTable=false;
+      }
+      if(this.step2List.supplyCharacteristics.bondingNoOfJoints!=0){
+        this.JointLocationTable=true;
+      }
+      else{
+        this.JointLocationTable=false;
+      }
+      if(this.step2List.supplyCharacteristics.earthingNoOfJoints!=0){
+        this.keyJOintLocationTable=true;
+      }
+      else{
+        this.keyJOintLocationTable=false;
+      }
+      this.supplycharesteristic.bondingJointsType=this.step2List.supplyCharacteristics.bondingJointsType;
+      this.supplycharesteristic.earthingJointsType=this.step2List.supplyCharacteristics.earthingJointsType;
        this.supplycharesteristic.conductorVerify= this.step2List.supplyCharacteristics.conductorVerify;
        this.step2List.type= this.step2List.supplyCharacteristics.type;
        this.supplycharesteristic.liveConductorAC= this.step2List.supplyCharacteristics.liveConductorAC;
@@ -448,7 +498,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
         this.mainArr4 = [];
 
         this.mainArr1 = this.step2List.supplyCharacteristics.mainNominalVoltage.split(",");
-        this.mainArr2 = this.step2List.supplyCharacteristics.mainNominalFrequency.split(",");
+        this.mainArr2 = this.step2List.supplyCharacteristics.mainNominalFrequency;
         this.mainArr3 = this.step2List.supplyCharacteristics.mainNominalCurrent.split(",");
         this.mainArr4 = this.step2List.supplyCharacteristics.mainLoopImpedance.split(",");
 
@@ -465,16 +515,17 @@ export class InspectionVerificationSupplyCharacteristicsComponent
           this.NV7 = this.retrieveMainNominalVoltage[0][6];
           this.NV8 = this.retrieveMainNominalVoltage[0][7];
           this.NV9 = this.retrieveMainNominalVoltage[0][8];
-      
-          this.NF1 = this.retrieveMainNominalVoltage[1][0];
-          this.NF2 = this.retrieveMainNominalVoltage[1][1];
-          this.NF3 = this.retrieveMainNominalVoltage[1][2];
-          this.NF4 = this.retrieveMainNominalVoltage[1][3];
-          this.NF5 = this.retrieveMainNominalVoltage[1][4];
-          this.NF6 = this.retrieveMainNominalVoltage[1][5];
-          this.NF7 = this.retrieveMainNominalVoltage[1][6];
-          this.NF8 = this.retrieveMainNominalVoltage[1][7];
-          this.NF9 = this.retrieveMainNominalVoltage[1][8];
+
+          this.NF1 = this.retrieveMainNominalVoltage[1];
+          //this.NF1 = this.retrieveMainNominalVoltage[1][0];
+          // this.NF2 = this.retrieveMainNominalVoltage[1][1];
+          // this.NF3 = this.retrieveMainNominalVoltage[1][2];
+          // this.NF4 = this.retrieveMainNominalVoltage[1][3];
+          // this.NF5 = this.retrieveMainNominalVoltage[1][4];
+          // this.NF6 = this.retrieveMainNominalVoltage[1][5];
+          // this.NF7 = this.retrieveMainNominalVoltage[1][6];
+          // this.NF8 = this.retrieveMainNominalVoltage[1][7];
+          // this.NF9 = this.retrieveMainNominalVoltage[1][8];
 
           this.PF1 = this.retrieveMainNominalVoltage[2][0];
           this.PF2 = this.retrieveMainNominalVoltage[2][1];
@@ -498,6 +549,9 @@ export class InspectionVerificationSupplyCharacteristicsComponent
           
        
       }
+     }
+     reloadFromBack(){
+      this.supplycharesteristicForm.markAsPristine();
      }
 //comments section starts
 
@@ -682,7 +736,6 @@ getViewerFirstMessage(x: any) {
   return x.controls.completedCommentArr.controls[0].controls.viewerComments.value;
 }
 showHideAccordion(index: number) {  
-  //console.log(x);
   this.expandedIndexx = index === this.expandedIndexx ? -1 : index;  
   this.isClicked[index] = !this.isClicked[index];
   }
@@ -896,6 +949,9 @@ showHideAccordion(index: number) {
 //comments section ends
 
      populateData() {
+      if(this.service.disableFields==true){
+        this.disable=true;
+        }
       for (let item of this.step2List.supplyCharacteristics.boundingLocationReport) {     
         this.arr2.push(this.createGroup(item));
       }
@@ -959,7 +1015,7 @@ showHideAccordion(index: number) {
         aLLiveConductorDC: new FormControl({disabled: false ,value: item.aLLiveConductorDC}),
         aLSystemEarthingBNote: new FormControl({disabled: false ,value: item.aLSystemEarthingBNote}),
         aLLiveConductorBNote: new FormControl({disabled: false ,value: item.aLSystemEarthingBNote}),
-        currentDissconnection: new FormControl({disabled: false ,value: item.aLLiveConductorBNote}),
+        currentDissconnection: new FormControl({disabled: false ,value: item.currentDissconnection}),
         protectiveDevice: new FormControl({disabled: false ,value: item.protectiveDevice}),
         ratedCurrent: new FormControl({disabled: false ,value: item.ratedCurrent}),
         nominalVoltageArr1: this.formBuilder.array([this.createNominalForm(item.nominalVoltage,item.nominalFrequency,item.faultCurrent,item.loopImpedance,item.installedCapacity,item.actualLoad)]),
@@ -1000,7 +1056,7 @@ showHideAccordion(index: number) {
       let  actualLoadAL= [];
       
       nominalVoltageAL= nominalVoltage.split(",");
-      nominalFrequencyAL=   nominalFrequency.split(",");
+      nominalFrequencyAL=   nominalFrequency;
       faultCurrentAL=   faultCurrent.split(",");
       loopImpedanceAL=  loopImpedance.split(",");
       installedCapacityAL=  installedCapacity.split(",");
@@ -1019,15 +1075,15 @@ showHideAccordion(index: number) {
         nominalVoltage8: new FormControl({disabled: false ,value: item[0][7]}),
         nominalVoltage9: new FormControl({disabled: false ,value: item[0][8]}),
   
-        nominalFrequency1: new FormControl({disabled: false ,value: item[1][0]}),
-        nominalFrequency2: new FormControl({disabled: false ,value: item[1][1]}),
-        nominalFrequency3: new FormControl({disabled: false ,value: item[1][2]}),
-        nominalFrequency4: new FormControl({disabled: false ,value: item[1][3]}),
-        nominalFrequency5: new FormControl({disabled: false ,value: item[1][4]}),
-        nominalFrequency6: new FormControl({disabled: false ,value: item[1][5]}),
-        nominalFrequency7: new FormControl({disabled: false ,value: item[1][6]}),
-        nominalFrequency8: new FormControl({disabled: false ,value: item[1][7]}),
-        nominalFrequency9: new FormControl({disabled: false ,value: item[1][8]}),
+        nominalFrequency1: new FormControl({disabled: false ,value: item[1]}),
+        // nominalFrequency2: new FormControl({disabled: false ,value: item[1][1]}),
+        // nominalFrequency3: new FormControl({disabled: false ,value: item[1][2]}),
+        // nominalFrequency4: new FormControl({disabled: false ,value: item[1][3]}),
+        // nominalFrequency5: new FormControl({disabled: false ,value: item[1][4]}),
+        // nominalFrequency6: new FormControl({disabled: false ,value: item[1][5]}),
+        // nominalFrequency7: new FormControl({disabled: false ,value: item[1][6]}),
+        // nominalFrequency8: new FormControl({disabled: false ,value: item[1][7]}),
+        // nominalFrequency9: new FormControl({disabled: false ,value: item[1][8]}),
   
         current1: new FormControl({disabled: false ,value: item[2][0]}),
         current2: new FormControl({disabled: false ,value: item[2][1]}),
@@ -1070,7 +1126,7 @@ showHideAccordion(index: number) {
       locationNo: new FormControl('', [Validators.required]),
       locationName: new FormControl('', [Validators.required]),
       electrodeResistanceEarth: new FormControl('', [Validators.required]),
-      electrodeResistanceGird: new FormControl('', [Validators.required]),
+      electrodeResistanceGird: new FormControl(''),
     });
   }
 
@@ -1090,8 +1146,8 @@ showHideAccordion(index: number) {
       aLLiveConductorType: new FormControl('', [Validators.required]),
       aLLiveConductorAC: new FormControl(''),
       aLLiveConductorDC: new FormControl(''),
-      aLSystemEarthingBNote: new FormControl('', [Validators.required]),
-      aLLiveConductorBNote: new FormControl('', [Validators.required]),
+      aLSystemEarthingBNote: new FormControl(''),
+      aLLiveConductorBNote: new FormControl(''),
       nominalVoltage: new FormControl(''),
       nominalFrequency: new FormControl(''),
       faultCurrent: new FormControl(''),
@@ -1102,8 +1158,9 @@ showHideAccordion(index: number) {
       protectiveDevice: new FormControl('', [Validators.required]),
       ratedCurrent: new FormControl('', [Validators.required]),
       currentDissconnection: new FormControl('', [Validators.required]),
+      alternateArrFormValue: new FormControl('')
     });
-  }
+  } 
 
   nominalVoltageForm(): FormGroup {
     return new FormGroup({
@@ -1118,14 +1175,14 @@ showHideAccordion(index: number) {
       nominalVoltage9: new FormControl(''),
 
       nominalFrequency1: new FormControl(''),
-      nominalFrequency2: new FormControl(''),
-      nominalFrequency3: new FormControl(''),
-      nominalFrequency4: new FormControl(''),
-      nominalFrequency5: new FormControl(''),
-      nominalFrequency6: new FormControl(''),
-      nominalFrequency7: new FormControl(''),
-      nominalFrequency8: new FormControl(''),
-      nominalFrequency9: new FormControl(''),
+      // nominalFrequency2: new FormControl(''),
+      // nominalFrequency3: new FormControl(''),
+      // nominalFrequency4: new FormControl(''),
+      // nominalFrequency5: new FormControl(''),
+      // nominalFrequency6: new FormControl(''),
+      // nominalFrequency7: new FormControl(''),
+      // nominalFrequency8: new FormControl(''),
+      // nominalFrequency9: new FormControl(''),
 
       current1: new FormControl(''),
       current2: new FormControl(''),
@@ -1168,6 +1225,50 @@ showHideAccordion(index: number) {
       residualTime: new FormControl('', [Validators.required]),
     });
   }
+  
+  LocationsRecord(e: any, a: any) {
+    let changedValue 
+    if(e.target != undefined) {
+      changedValue = e.target.value;
+    }
+    else{
+      changedValue = e;
+    }
+    if (changedValue == 0) {
+      this.key1LocationTable = false;
+      this.f.location1Arr.controls[a].controls['locationNo'].clearValidators();
+      this.f.location1Arr.controls[a].controls[
+        'locationNo'
+      ].updateValueAndValidity();
+      this.f.location1Arr.controls[a].controls['locationName'].clearValidators();
+      this.f.location1Arr.controls[a].controls[
+        'locationName'
+      ].updateValueAndValidity();
+      this.f.location1Arr.controls[a].controls['electrodeResistanceEarth'].clearValidators();
+      this.f.location1Arr.controls[a].controls[
+        'electrodeResistanceEarth'
+      ].updateValueAndValidity();
+      }
+     else {
+      this.key1LocationTable=true;
+      this.f.location1Arr.controls[a].controls['locationNo'].setValidators(
+        Validators.required
+      );
+      this.f.location1Arr.controls[a].controls['locationNo'].updateValueAndValidity();
+      this.f.location1Arr.controls[a].controls['locationName'].setValidators(
+        Validators.required
+      );
+      this.f.location1Arr.controls[a].controls[
+        'locationName'
+      ].updateValueAndValidity();
+      this.f.location1Arr.controls[a].controls['electrodeResistanceEarth'].setValidators(
+        Validators.required
+      );
+      this.f.location1Arr.controls[a].controls[
+        'electrodeResistanceEarth'
+      ].updateValueAndValidity();
+    }
+  }
 
   onKey1(event: KeyboardEvent) {
     this.values = (<HTMLInputElement>event.target).value;
@@ -1175,22 +1276,25 @@ showHideAccordion(index: number) {
     this.location1Arr = this.supplycharesteristicForm.get(
       'location1Arr'
     ) as FormArray;
-
+    if(this.value!=0){
+      this.key1LocationTable=true;
     if (this.location1Arr.length == 0) {
       if (this.value != '') {
-        for (this.i = 1; this.i < this.value; this.i++) {
+        for (this.i = 0; this.i < this.value; this.i++) {
           this.location1Arr = this.supplycharesteristicForm.get(
             'location1Arr'
           ) as FormArray;
           this.location1Arr.push(this.createLocation1Form());
         }
       }
-    } else if (this.value == '') {
+    } 
+    else if (this.value == '') {
       this.loclength = this.location1Arr.length;
       for (this.i = 1; this.i < this.loclength; this.i++) {
         this.location1Arr.removeAt(this.location1Arr.length - 1);
       }
-    } else if (this.location1Arr.length < this.value) {
+    } 
+    else if (this.location1Arr.length < this.value) {
       if (this.value != '') {
         this.delarr = this.value - this.location1Arr.length;
         for (this.i = 0; this.i < this.delarr; this.i++) {
@@ -1200,7 +1304,8 @@ showHideAccordion(index: number) {
           this.location1Arr.push(this.createLocation1Form());
         }
       }
-    } else if (this.location1Arr.length > this.value && this.value != 0) {
+    } 
+    else if (this.location1Arr.length > this.value && this.value != 0) {
       if (this.value != '') {
         this.delarr = this.location1Arr.length - this.value;
         for (this.i = 0; this.i < this.delarr; this.i++) {
@@ -1212,6 +1317,77 @@ showHideAccordion(index: number) {
       }
     }
   }
+  else{
+    this.key1LocationTable=false;
+    let arr:any=[];
+    this.supplycharesteristicForm.setControl('location1Arr', this.formBuilder.array(arr || []))
+
+    // this.f.location1Arr.controls[i].controls['locationNo'].clearValidators();
+    //   this.f.location1Arr.controls[i].controls[
+    //     'locationNo'
+    //   ].updateValueAndValidity();
+    //   this.f.location1Arr.controls[i].controls['locationName'].clearValidators();
+    //   this.f.location1Arr.controls[i].controls[
+    //     'locationName'
+    //   ].updateValueAndValidity();
+    //   this.f.location1Arr.controls[i].controls['electrodeResistanceEarth'].clearValidators();
+    //   this.f.location1Arr.controls[i].controls[
+    //     'electrodeResistanceEarth'
+    //   ].updateValueAndValidity();
+  }
+  }
+
+  jointSafetyRecord(e: any, a: any) {
+    let changedValue
+    if(e.target != undefined) {
+      changedValue = e.target.value;
+    }
+    else{
+      changedValue = e;
+    }
+    if (changedValue == 0) {
+      this.key1LocationTable = false;
+      this.supplycharesteristicForm.controls['bondingJointsType'].clearValidators();
+      this.supplycharesteristicForm.controls[
+        'bondingJointsType'
+      ].updateValueAndValidity();
+      this.f.location2Arr.controls[a].controls['location'].clearValidators();
+      this.f.location2Arr.controls[a].controls[
+        'location'
+      ].updateValueAndValidity();
+      this.f.location2Arr.controls[a].controls['jointNo'].clearValidators();
+      this.f.location2Arr.controls[a].controls[
+        'jointNo'
+      ].updateValueAndValidity();
+      this.f.location2Arr.controls[a].controls['jointResistance'].clearValidators();
+      this.f.location2Arr.controls[a].controls[
+        'jointResistance'
+      ].updateValueAndValidity();
+      }
+     else {
+      this.key1LocationTable=true;
+      this.supplycharesteristicForm.controls['bondingJointsType'].setValidators(
+        Validators.required
+      );
+      this.supplycharesteristicForm.controls['bondingJointsType'].updateValueAndValidity();
+      this.f.location2Arr.controls[a].controls['location'].setValidators(
+        Validators.required
+      );
+      this.f.location2Arr.controls[a].controls['location'].updateValueAndValidity();
+      this.f.location2Arr.controls[a].controls['jointNo'].setValidators(
+        Validators.required
+      );
+      this.f.location2Arr.controls[a].controls[
+        'jointNo'
+      ].updateValueAndValidity();
+      this.f.location2Arr.controls[a].controls['jointResistance'].setValidators(
+        Validators.required
+      );
+      this.f.location2Arr.controls[a].controls[
+        'jointResistance'
+      ].updateValueAndValidity();
+    }
+  }
 
   onKey(event: KeyboardEvent) {
     this.values = (<HTMLInputElement>event.target).value;
@@ -1219,21 +1395,29 @@ showHideAccordion(index: number) {
     this.location2Arr = this.supplycharesteristicForm.get(
       'location2Arr'
     ) as FormArray;
+  if(this.value!=0){
+    this.JointLocationTable=true;
+    this.supplycharesteristicForm.controls['bondingJointsType'].setValidators(
+      Validators.required
+    );
+    this.supplycharesteristicForm.controls['bondingJointsType'].updateValueAndValidity();
     if (this.location2Arr.length == 0) {
       if (this.value != '') {
-        for (this.i = 1; this.i < this.value; this.i++) {
+        for (this.i = 0; this.i < this.value; this.i++) {
           this.location2Arr = this.supplycharesteristicForm.get(
             'location2Arr'
           ) as FormArray;
           this.location2Arr.push(this.createLocation2Form());
         }
       }
-    } else if (this.value == '') {
+    } 
+    else if (this.value == '') {
       this.loclength = this.location2Arr.length;
       for (this.i = 1; this.i < this.loclength; this.i++) {
         this.location2Arr.removeAt(this.location2Arr.length - 1);
       }
-    } else if (this.location2Arr.length < this.value) {
+    } 
+    else if (this.location2Arr.length < this.value) {
       if (this.value != '') {
         this.delarr = this.value - this.location2Arr.length;
         for (this.i = 0; this.i < this.delarr; this.i++) {
@@ -1243,7 +1427,8 @@ showHideAccordion(index: number) {
           this.location2Arr.push(this.createLocation2Form());
         }
       }
-    } else if (this.location2Arr.length > this.value && this.value != 0) {
+    } 
+    else if (this.location2Arr.length > this.value && this.value != 0) {
       if (this.value != '') {
         this.delarr = this.location2Arr.length - this.value;
         for (this.i = 0; this.i < this.delarr; this.i++) {
@@ -1255,30 +1440,150 @@ showHideAccordion(index: number) {
       }
     }
   }
-
-  onKey3(event: KeyboardEvent) {
+  else{
+    this.JointLocationTable=false;
+    let arr:any=[];
+    this.supplycharesteristicForm.setControl('location2Arr', this.formBuilder.array(arr || []))
+    this.supplycharesteristicForm.controls['bondingJointsType'].clearValidators();
+    this.supplycharesteristicForm.controls[
+      'bondingJointsType'
+    ].updateValueAndValidity();
+  }
+  // else{
+  //   this.JointLocationTable=false;
+  // }
+  }
+  // keyTypeJoint(event: KeyboardEvent){ //Type of Joints
+  //   this.values = (<HTMLInputElement>event.target).value;
+  //   this.service.jointType = this.values;
+  //     if (this.location3Arr.length == 0) {
+  //       if (this.service.jointType != '') {
+  //         for (this.i = 1; this.i < this.service.jointType; this.i++) {
+  //           this.location3Arr = this.supplycharesteristicForm.get(
+  //             'location3Arr'
+  //           ) as FormArray;
+  //           this.location3Arr.push(this.createLocation3Form());
+  //         }
+  //       }
+  //     } 
+  //      if (this.service.jointType == '') {
+  //       this.loclength = this.location3Arr.length;
+  //       for (this.i = 1; this.i < this.loclength; this.i++) {
+  //         this.location3Arr.removeAt(this.location3Arr.length - 1);
+  //       }
+  //     } 
+  //     else if (this.location3Arr.length < this.service.jointType) {
+  //       if (this.service.jointType != '') {
+  //         this.delarr = this.service.jointType - this.location3Arr.length;
+  //         for (this.i = 0; this.i < this.delarr; this.i++) {
+  //           this.location3Arr = this.supplycharesteristicForm.get(
+  //             'location3Arr'
+  //           ) as FormArray;
+  //           this.location3Arr.push(this.createLocation3Form());
+  //         }
+  //       }
+  //     } 
+  //     else if (this.location3Arr.length > this.service.jointType || this.service.jointType != 0) {
+  //       if (this.service.jointType != '') {
+  //         this.delarr = this.location3Arr.length - this.service.jointType;
+  //         for (this.i = 0; this.i < this.delarr; this.i++) {
+  //           this.location3Arr = this.supplycharesteristicForm.get(
+  //             'location3Arr'
+  //           ) as FormArray;
+  //           this.location3Arr.removeAt(this.location3Arr.length - 1);
+  //         }
+  //       }
+  //     }
+  //   //   else if((this.service.jointType==0 && this.service.noOfjoint==1) || (this.service.jointType==0 && this.service.noOfjoint==''))
+  //   //     {
+  //   //       this.keyJOintLocationTable=true;
+  //   //   }
+  //   // else if(this.service.jointType==0 && this.service.noOfjoint==0){ 
+  //   //   this.keyJOintLocationTable=false;
+  //   // }
+  // }
+  jointRecord(e: any, a: any) {
+    let changedValue
+    if(e.target != undefined) {
+      changedValue = e.target.value;
+    }
+    else{
+      changedValue = e;
+    }
+    if (changedValue == 0) {
+      this.key1LocationTable = false;
+      this.supplycharesteristicForm.controls['earthingJointsType'].clearValidators();
+      this.supplycharesteristicForm.controls[
+        'earthingJointsType'
+      ].updateValueAndValidity();
+      this.f.location3Arr.controls[a].controls['location'].clearValidators();
+      this.f.location3Arr.controls[a].controls[
+        'location'
+      ].updateValueAndValidity();
+      this.f.location3Arr.controls[a].controls['jointNo'].clearValidators();
+      this.f.location3Arr.controls[a].controls[
+        'jointNo'
+      ].updateValueAndValidity();
+      this.f.location3Arr.controls[a].controls['jointResistance'].clearValidators();
+      this.f.location3Arr.controls[a].controls[
+        'jointResistance'
+      ].updateValueAndValidity();
+      }
+     else {
+      this.key1LocationTable=true;
+      this.supplycharesteristicForm.controls['earthingJointsType'].setValidators(
+        Validators.required
+      );
+      this.supplycharesteristicForm.controls['earthingJointsType'].updateValueAndValidity();
+      this.f.location3Arr.controls[a].controls['location'].setValidators(
+        Validators.required
+      );
+      this.f.location3Arr.controls[a].controls['location'].updateValueAndValidity();
+      this.f.location3Arr.controls[a].controls['jointNo'].setValidators(
+        Validators.required
+      );
+      this.f.location3Arr.controls[a].controls[
+        'jointNo'
+      ].updateValueAndValidity();
+      this.f.location3Arr.controls[a].controls['jointResistance'].setValidators(
+        Validators.required
+      );
+      this.f.location3Arr.controls[a].controls[
+        'jointResistance'
+      ].updateValueAndValidity();
+    }
+  }
+  onKey3(event: KeyboardEvent) { //No Of Joints
     this.values = (<HTMLInputElement>event.target).value;
-    this.value = this.values;
+    this.service.noOfjoint = this.values;
     this.location3Arr = this.supplycharesteristicForm.get(
       'location3Arr'
     ) as FormArray;
+    if(this.service.noOfjoint!=0){
+      this.keyJOintLocationTable=true;
+      this.supplycharesteristicForm.controls['earthingJointsType'].setValidators(
+        Validators.required
+      );
+      this.supplycharesteristicForm.controls['earthingJointsType'].updateValueAndValidity();
     if (this.location3Arr.length == 0) {
-      if (this.value != '') {
-        for (this.i = 1; this.i < this.value; this.i++) {
+      if (this.service.noOfjoint != '') {
+        for (this.i = 0; this.i < this.value; this.i++) {
           this.location3Arr = this.supplycharesteristicForm.get(
             'location3Arr'
           ) as FormArray;
           this.location3Arr.push(this.createLocation3Form());
         }
       }
-    } else if (this.value == '') {
+    }  
+     if (this.service.noOfjoint == '') {
       this.loclength = this.location3Arr.length;
       for (this.i = 1; this.i < this.loclength; this.i++) {
         this.location3Arr.removeAt(this.location3Arr.length - 1);
       }
-    } else if (this.location3Arr.length < this.value) {
-      if (this.value != '') {
-        this.delarr = this.value - this.location3Arr.length;
+    } 
+    else if (this.location3Arr.length < this.service.noOfjoint) {
+      if (this.service.noOfjoint != '') {
+        this.delarr = this.service.noOfjoint - this.location3Arr.length;
         for (this.i = 0; this.i < this.delarr; this.i++) {
           this.location3Arr = this.supplycharesteristicForm.get(
             'location3Arr'
@@ -1286,9 +1591,10 @@ showHideAccordion(index: number) {
           this.location3Arr.push(this.createLocation3Form());
         }
       }
-    } else if (this.location3Arr.length > this.value && this.value != 0) {
-      if (this.value != '') {
-        this.delarr = this.location3Arr.length - this.value;
+    } 
+    else if (this.location3Arr.length > this.service.noOfjoint && this.service.noOfjoint != 0) {
+      if (this.service.noOfjoint != '') {
+        this.delarr = this.location3Arr.length - this.service.noOfjoint;
         for (this.i = 0; this.i < this.delarr; this.i++) {
           this.location3Arr = this.supplycharesteristicForm.get(
             'location3Arr'
@@ -1297,6 +1603,23 @@ showHideAccordion(index: number) {
         }
       }
     }
+  }
+  else{
+    this.keyJOintLocationTable=false;
+    let arr:any=[];
+    this.supplycharesteristicForm.setControl('location3Arr', this.formBuilder.array(arr || []))
+    this.supplycharesteristicForm.controls['earthingJointsType'].clearValidators();
+    this.supplycharesteristicForm.controls[
+      'earthingJointsType'
+    ].updateValueAndValidity();
+  }
+//     else if((this.service.jointType==1 && this.service.noOfjoint==0) || (this.service.jointType=='' && this.service.noOfjoint==0))
+//     {
+//       this.keyJOintLocationTable=true;
+//   }
+//  else if(this.service.jointType==0 && this.service.noOfjoint==0){ 
+//   this.keyJOintLocationTable=false;
+//  }
   }
 
   getLocation1Controls(): AbstractControl[] {
@@ -1358,7 +1681,30 @@ showHideAccordion(index: number) {
       ].updateValueAndValidity();
     }
   }
-
+  changeSystem(e: any) {
+    let changedValue;
+    if(e.target != undefined) {
+      changedValue = e.target.value;
+    }
+    else{
+      changedValue = e;
+    }
+    if (changedValue == 'Others') {
+      this.showRemarks = true;
+      this.showBrief=false;
+      this.supplycharesteristicForm.controls['briefNote'].setValidators([Validators.required]);
+      this.supplycharesteristicForm.controls[
+        'briefNote'
+      ].updateValueAndValidity();
+    } else {
+      this.showRemarks = false;
+      this.showBrief=true;
+      this.supplycharesteristicForm.controls['briefNote'].clearValidators();
+      this.supplycharesteristicForm.controls[
+        'briefNote'
+      ].updateValueAndValidity();
+    }
+  }
   changeCurrent(e: any) {
     let changedValue;
     if(e.target != undefined) {
@@ -1431,7 +1777,6 @@ showHideAccordion(index: number) {
         this.alternateArr.reset();
         this.circuitArr.reset();
       }
-
       this.disableValidators();
     }
      else {
@@ -1533,7 +1878,7 @@ showHideAccordion(index: number) {
       'alternateArr'
     ) as FormArray;
     this.loclength = this.alternateArr.length;
-
+    this.supplycharesteristicForm.controls['supplyNumber'].setValue('');
     this.supplycharesteristicForm.controls['supplyNumber'].clearValidators();
     this.supplycharesteristicForm.controls[
       'supplyNumber'
@@ -1549,7 +1894,7 @@ showHideAccordion(index: number) {
         ].updateValueAndValidity();
       }
 
-      for (this.k; this.k < this.circuitName.length; this.k++) {
+      for (this.k=0; this.k < this.circuitName.length; this.k++) {
         this.f.circuitArr.controls[this.i].controls[
           this.circuitName[this.k]
         ].clearValidators();
@@ -1583,7 +1928,39 @@ showHideAccordion(index: number) {
   //   alert("Step2 successfully saved");
   //   }
   // }
-  gotoNextModal(content1: any) {
+  // clickAcc(){
+  //   this.gotoNextTab();
+  // }
+  gotoNextTab() {
+    if ((this.supplycharesteristicForm.dirty && this.supplycharesteristicForm.invalid) || this.service.isCompleted==false){
+      this.service.isCompleted2= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
+      this.validationError = true;
+      this.validationErrorMsg = 'Please check all the fields';
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
+      return;
+    }
+    else if(this.supplycharesteristicForm.dirty && this.supplycharesteristicForm.touched){
+      this.service.isCompleted2= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+   }
+    else{
+      this.service.isCompleted2= true;
+      this.service.isLinear=false;
+      this.service.editable=true;
+
+    }
+  }
+  gotoNextModal(content1: any,content2:any) {
     if (this.supplycharesteristicForm.invalid) {
       this.validationError = true;
       this.validationErrorMsg = 'Please check all the fields';
@@ -1592,14 +1969,27 @@ showHideAccordion(index: number) {
       }, 3000);
       return;
     }
-    this.modalService.open(content1, { centered: true });
+    if(this.supplycharesteristicForm.touched || this.supplycharesteristicForm.untouched){
+      this.modalReference = this.modalService.open(content2, {
+         centered: true, 
+         size: 'md'
+        })
+     }
+     if(this.supplycharesteristicForm.dirty && this.supplycharesteristicForm.touched){ //update
+      this.modalService.open(content1, { centered: true});
+      this.modalReference.close();
+     }
   }
   closeModalDialog() {
     if (this.errorMsg != '') {
       this.Error = false;
+      this.service.isCompleted2= false;
+      this.service.isLinear=true;
       this.modalService.dismissAll((this.errorMsg = ''));
     } else {
       this.success = false;
+      this.service.isCompleted2= true;
+      this.service.isLinear=false;
       this.modalService.dismissAll((this.successMsg = ''));
     }
   }
@@ -1613,7 +2003,16 @@ showHideAccordion(index: number) {
     if (this.supplycharesteristicForm.invalid) {
       return;
     }
-    //this.service.supplyList = this.alternateArr.value;
+    this.nominalVoltageArr = [];
+    this.nominalFrequencyArr = [];
+    this.nominalCurrentArr = [];
+    this.loopImpedenceArr = [];
+
+    this.nominalVoltage = '';
+    this.nominalFrequency = '';
+    this.nominalCurrent  = '';
+    this.loopImpedence = '';
+
     //this.service.supplyList= this.supplycharesteristicForm.value.alternateArr[0].aLLiveConductorType;
     this.nominalVoltageArr.push(
       this.NV1,
@@ -1627,15 +2026,15 @@ showHideAccordion(index: number) {
       this.NV9
     );
     this.nominalFrequencyArr.push(
-      this.NF1,
-      this.NF2,
-      this.NF3,
-      this.NF4,
-      this.NF5,
-      this.NF6,
-      this.NF7,
-      this.NF8,
-      this.NF9
+      this.NF1
+      // this.NF2,
+      // this.NF3,
+      // this.NF4,
+      // this.NF5,
+      // this.NF6,
+      // this.NF7,
+      // this.NF8,
+      // this.NF9
     );
     this.nominalCurrentArr.push(
       this.PF1,
@@ -1659,7 +2058,10 @@ showHideAccordion(index: number) {
       this.EL8,
       this.EL9
     );
-
+    // this.arr1.push(
+    //   this.electrodeResistanceGird
+    // );
+    
     // alternate
     this.alternateArr = this.supplycharesteristicForm.get(
       'alternateArr'
@@ -1680,16 +2082,17 @@ showHideAccordion(index: number) {
       }
     }
     this.nominalVoltage = this.nominalVoltage.replace(/,\s*$/, '');
-
     // Main table Nominal Frequency
     for (let j of this.nominalFrequencyArr) {
-      if (j != undefined) {
-        this.nominalFrequency += j + ',';
-      } else {
-        this.nominalFrequency += 'NA,';
+      if(j == undefined) {
+        this.nominalFrequency= 'NA';
+      }
+      else{
+        this.nominalFrequency=j;
       }
     }
-    this.nominalFrequency = this.nominalFrequency.replace(/,\s*$/, '');
+    
+    //this.nominalFrequency = this.nominalFrequency.replace(/,\s*$/, '');
 
     // Main table Nominal Current
     for (let k of this.nominalCurrentArr) {
@@ -1710,6 +2113,20 @@ showHideAccordion(index: number) {
       }
     }
     this.loopImpedence = this.loopImpedence.replace(/,\s*$/, '');
+
+    this.mainNominalVoltageArr1 = [];
+    this.mainNominalVoltageArr2 = [];
+    this.mainNominalVoltageArr3 = [];
+    this.mainNominalVoltageArr4 = [];
+
+    this.mainNominalVoltageArr1 = this.nominalVoltage.split(",");
+    this.mainNominalVoltageArr2 = this.nominalFrequency.split(",");
+    this.mainNominalVoltageArr3 = this.nominalCurrent.split(",");
+    this.mainNominalVoltageArr4 = this.loopImpedence.split(",");
+
+    this.mainNominalArr = [];
+    this.mainNominalArr.push(this.mainNominalVoltageArr1,this.mainNominalVoltageArr2,this.mainNominalVoltageArr3,this.mainNominalVoltageArr4);
+
 
     // Supply Parameters Table
     if (this.alternateArr.length != 0) {
@@ -1734,14 +2151,14 @@ showHideAccordion(index: number) {
           );
           arr1.push(
             j.nominalFrequency1,
-            j.nominalFrequency2,
-            j.nominalFrequency3,
-            j.nominalFrequency4,
-            j.nominalFrequency5,
-            j.nominalFrequency6,
-            j.nominalFrequency7,
-            j.nominalFrequency8,
-            j.nominalFrequency9
+            // j.nominalFrequency2,
+            // j.nominalFrequency3,
+            // j.nominalFrequency4,
+            // j.nominalFrequency5,
+            // j.nominalFrequency6,
+            // j.nominalFrequency7,
+            // j.nominalFrequency8,
+            // j.nominalFrequency9
           );
           arr2.push(
             j.current1,
@@ -1793,14 +2210,18 @@ showHideAccordion(index: number) {
           i.nominalVoltage = nominalVoltage;
 
           for (let b of arr1) {
-            if (b != '') {
-              nominalFrequency += b + ',';
-            } else {
-              nominalFrequency += 'NA,';
+            // if (b != '') {
+            //   nominalFrequency += b + ',';
+            // } 
+            if(b == '') {
+              nominalFrequency= 'NA';
             }
+              else{
+                nominalFrequency=b;
+              }
           }
       
-          nominalFrequency = nominalFrequency.replace(/,\s*$/, '');
+         // nominalFrequency = nominalFrequency.replace(/,\s*$/, '');
           i.nominalFrequency = nominalFrequency;
 
           for (let c of arr2) {
@@ -1843,9 +2264,9 @@ showHideAccordion(index: number) {
         }
       }
 
-      for (let i of this.alternateArr.controls) {
-        delete i.value.nominalVoltageArr1;
-      }
+      // for (let i of this.alternateArr.controls) {
+      //   delete i.value.nominalVoltageArr1;
+      // }
 
       if (
         this.alternateArr.value[0].aLSupplyNo != null && this.alternateArr.length != 0
@@ -1863,30 +2284,57 @@ showHideAccordion(index: number) {
 
     
     }
-
+    
     if (this.supplycharesteristic.liveConductorType != 'DC') {
       this.supplycharesteristic.mainNominalVoltage = this.nominalVoltage;
       this.supplycharesteristic.mainNominalFrequency = this.nominalFrequency;
       this.supplycharesteristic.mainNominalCurrent = this.nominalCurrent;
       this.supplycharesteristic.mainLoopImpedance = this.loopImpedence;
+
+      this.service.mainNominalVoltage = this.nominalVoltage;
+      this.service.mainNominalFrequency = this.nominalFrequency;
+      this.service.mainNominalCurrent = this.nominalCurrent;
     }
 
+ //Electrode Resistance to Grid (Ω)
+  for (let x of this.supplycharesteristicForm.value.location1Arr) {
+    if(x.electrodeResistanceGird == undefined || x.electrodeResistanceGird==null || x.electrodeResistanceGird=="") {
+      x.electrodeResistanceGird= 'NA';
+    }
+  }
     this.supplycharesteristic.instalLocationReport =this.supplycharesteristicForm.value.location1Arr;
     this.supplycharesteristic.boundingLocationReport =this.supplycharesteristicForm.value.location2Arr;
     this.supplycharesteristic.earthingLocationReport =this.supplycharesteristicForm.value.location3Arr;
+  
+    
 
-    if(flag) {
+    if(flag) { 
+      if(this.supplycharesteristicForm.dirty){
       this.UpateInspectionService.updateSupply(this.supplycharesteristic).subscribe(
         data=> {
           this.success = true;
+          this.service.isCompleted2= true;
+          this.service.isLinear=false;
           this.successMsg = data;
+          this.service.supplyList= this.supplycharesteristic.supplyNumber;
+          this.service.retrieveMainNominalVoltage=this.mainNominalArr;
+          this.service.retrieveMainNominalVoltage=this.retrieveMainNominalVoltage;
+          this.service.nominalVoltageArr2=this.supplycharesteristic.supplyParameters;
+          this.supplycharesteristicForm.markAsPristine();
          },
          (error) => {
           this.Error = true;
+          this.service.isCompleted2= false;
+        this.service.isLinear=true;
           this.errorArr = [];
           this.errorArr = JSON.parse(error.error);
-          this.errorMsg = this.errorArr.message;
-         });
+          if(this.errorArr.message =='multiple points'){
+            this.errorMsg = 'Please fill valid values for AC Table'
+          } else{
+            this.errorMsg = this.errorArr.message;
+          }
+        });
+        }
     }
 else{
     this.supplyCharacteristicsService.addSupplyCharacteristics(this.supplycharesteristic).subscribe(
@@ -1894,14 +2342,25 @@ else{
           this.proceedNext.emit(true);
           this.success = true;
           this.successMsg = data;
-          this.disable = true;
+          //this.disable = true;
+          //this.service.allFieldsDisable = true;
+          this.service.supplyList= this.supplycharesteristic.supplyNumber;
+          this.service.retrieveMainNominalVoltage=this.mainNominalArr;
+          this.service.retrieveMainNominalVoltage=this.retrieveMainNominalVoltage;
+          this.service.nominalVoltageArr2=this.supplycharesteristic.supplyParameters;
         },
         (error) => {
           this.Error = true;
           this.proceedNext.emit(false);
           this.errorArr = [];
           this.errorArr = JSON.parse(error.error);
-          this.errorMsg = this.errorArr.message;
+          if(this.errorArr.message =='multiple points'){
+            this.errorMsg = 'Please fill valid values for AC Table'
+          } else{
+            this.errorMsg = this.errorArr.message;
+          }
+          this.service.isCompleted2= false;
+          this.service.isLinear=true;
         }
       );
   }

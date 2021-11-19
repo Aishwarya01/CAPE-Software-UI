@@ -1,8 +1,11 @@
+<div *ngIf="tabError" style="text-align: center;">
+  <span class="alert alert-danger">{{tabErrorMsg}}</span>
+</div>
 <div class="card">
     <div class="card-body">
       <form [formGroup]="step1Form" (ngSubmit)="nextTab(flag)">
       <div class="search-bar">
-        <div class="form-group" *ngIf="siteDetails">
+        <div class="form-group" *ngIf="siteDetails" [ngClass]="{'disableForm':service.allFieldsDisable}">
 
           <div class="row">
 
@@ -33,7 +36,7 @@
           </div>
 
       </div>
-        <div class="form-group" *ngIf="siteDetails1">
+        <div class="form-group" *ngIf="siteDetails1" [ngClass]="{'disableForm':service.allFieldsDisable}">
           <div class="row">
             <!-- <div class="col-md-4">
                   <label>Company Name</label>
@@ -50,7 +53,7 @@
           </div>
       </div>
       </div>
-
+      <!-- (click)="clickAcc();" -->
       <mat-accordion>
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
@@ -60,23 +63,31 @@
 
             </mat-expansion-panel-header>
 
-            <mat-form-field class="client-description ">
-              <mat-label><h3>Description of Report*</h3></mat-label>
-              <textarea matInput class="client-box-description" formControlName="descriptionOfReport"
-              maxlength="500" placeholder="Ex. Report description..." [(ngModel)]="reportDetails.descriptionReport"
-              [ngClass]="{ 'is-invalid': submitted && f.descriptionOfReport.errors }"></textarea>
-              <div *ngIf="submitted && f.descriptionOfReport.errors" class="invalid-feedback">
-                <div *ngIf="f.descriptionOfReport?.errors?.required">Description is required</div>
+            <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
+              <div class="col-md-4">
+                <mat-form-field class="client-description">
+                  <mat-label><h3>Description of Report*</h3></mat-label>
+                  <textarea matInput class="client-box-description" formControlName="descriptionOfReport" [ngClass]="{'disableForm':service.allFieldsDisable}"
+                  maxlength="500" placeholder="Ex. Report description..." [(ngModel)]="reportDetails.descriptionReport"
+                  [ngClass]="{ 'is-invalid': submitted && f.descriptionOfReport.errors }"></textarea>
+                  <div *ngIf="submitted && f.descriptionOfReport.errors" class="invalid-feedback">
+                    <div *ngIf="f.descriptionOfReport?.errors?.required">Description is required</div>
+                </div>
+                </mat-form-field>
+              </div>
             </div>
-            </mat-form-field>
-
-            <mat-form-field class="client-description ">
-              <mat-label><h3>Reason for the Report*</h3></mat-label>
-              <textarea matInput class="client-box-description" formControlName="reasonOfReport" maxlength="500" placeholder="Ex. Report reason..." [(ngModel)]="reportDetails.reasonOfReport" [ngClass]="{ 'is-invalid': submitted && f.reasonOfReport.errors }"></textarea>
-              <div *ngIf="submitted && f.reasonOfReport.errors" class="invalid-feedback">
-                <div *ngIf="f.reasonOfReport?.errors?.required">Reason is required</div>
+              <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
+              <div class="col-md-4">
+                <mat-form-field class="client-description ">
+                  <mat-label><h3>Reason for the Report*</h3></mat-label>
+                  <textarea matInput class="client-box-description" formControlName="reasonOfReport" [ngClass]="{'disableForm':service.allFieldsDisable}"
+                  maxlength="500" placeholder="Ex. Report reason..." [(ngModel)]="reportDetails.reasonOfReport" [ngClass]="{ 'is-invalid': submitted && f.reasonOfReport.errors }"></textarea>
+                  <div *ngIf="submitted && f.reasonOfReport.errors" class="invalid-feedback">
+                    <div *ngIf="f.reasonOfReport?.errors?.required">Reason is required</div>
+                </div>
+                </mat-form-field>
+              </div>
             </div>
-            </mat-form-field>
           </mat-expansion-panel>
 
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -86,7 +97,7 @@
               </mat-panel-title>
 
             </mat-expansion-panel-header>
-            <div class="row">
+            <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
               <div class="col-md-4">
                 <div class="form-group">
                   <label>Type of Installation* :</label>
@@ -158,7 +169,7 @@
 
               <div class="col-md-4">
                 <label>Previous Records Available* :</label>
-                <select class="form-control" formControlName="previousRecord"
+                <select class="form-control" formControlName="previousRecord" (change)="previousRecord($event)"
                 [(ngModel)]="reportDetails.previousRecords" [ngClass]="{ 'is-invalid': submitted && f.previousRecord.errors }">
                   <option value="0" selected>Select Option</option>
                   <option *ngFor="let value of previousRecordList" >{{value}}</option>
@@ -168,7 +179,7 @@
                 </div>
               </div>
 
-              <div class="col-md-4">
+              <div class="col-md-4" *ngIf="lastInspectionDate">
                 <label>Last Date Of Inspection* :</label>
                 <input type="date" class="form-control" formControlName="inspectionLast" placeholder="Enter Date"
                 [(ngModel)]="reportDetails.lastInspection" [ngClass]="{ 'is-invalid': submitted && f.inspectionLast.errors }">
@@ -177,8 +188,8 @@
                 </div>
               </div>
             </div>
-
-            <div class="row">
+ 
+            <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
               <div class="col-md-4">
                 <mat-form-field class="client-description ">
                   <mat-label><h3>Extent of Installation Covered By This Report*</h3> </mat-label>
@@ -203,7 +214,7 @@
 
             </mat-expansion-panel-header>
 
-            <div class="row">
+            <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
               <div class="col-md-4">
                 <mat-form-field class="client-description ">
                   <mat-label><h3>Details Of Client / Person Ordering This Report</h3></mat-label>
@@ -218,7 +229,7 @@
               </div>
             </div>
            
-            <div class="form-group">
+            <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
               <div class="row">
                 <!-- <div class="col-md-4">
                   <label>Details Of Client / Person Ordering This Report</label>
@@ -249,7 +260,7 @@
             
 
             <h1>Inspector Details:</h1>
-            <div class="form-group">
+            <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
               <div class="row">
                 <div class="col-md-4">
                   <label>Name of Engineer Who Carries Out Verification * :</label>
@@ -278,7 +289,7 @@
               </div>
             </div>
 
-            <div class="row">
+            <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
               <div class="col-md-4">
                 <mat-form-field class="client-description ">
                   <mat-label><h3>Details Of Installation Referred In This Report * (maximum length is 75 )</h3></mat-label>
@@ -290,13 +301,14 @@
               </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
               <div class="row">
 
                 <div class="col-md-4">
                   <label>Date of Starting the Verification *</label>
                   <input type="date" class="form-control" formControlName="startingDateVerification"
-                  [ngClass]="{ 'is-invalid': submitted && f.startingDateVerification.errors }" placeholder="Enter Date" [(ngModel)]="reportDetails.verificationDate">
+                  [ngClass]="{ 'is-invalid': submitted && f.startingDateVerification.errors }" placeholder="Enter Date" 
+                  [(ngModel)]="reportDetails.verificationDate">
                   <div *ngIf="submitted && f.startingDateVerification.errors" class="invalid-feedback">
                     <div *ngIf="f.startingDateVerification?.errors?.required">Field Is Required</div>
                 </div>
@@ -334,15 +346,15 @@
                 <p>
                   The extent of liability of the signatory or signatories is limited to the work described above as the subject of this report.
                 </p>
-
+                <!-- (focus)="focusFunction(contentSig)" -->
                 <div formArrayName="designer1AcknowledgeArr" *ngFor="let a of getDesigner1AcknowledgeControls(); let i = index">
-                  <div class="form-group" [formGroupName]="i">
-
+                  <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
                     <h2>Designer 1* :</h2>
                     <div class="row">
                       <div class="col-md-4">
                         <label>Signature:</label>
                         <input type="text" formControlName="declarationSignature" class="form-control"
+                        readonly
                         [ngClass]="{ 'is-invalid': submitted && a.get('declarationSignature')?.errors }">
                           <div *ngIf="submitted && a.get('declarationSignature')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('declarationSignature')?.errors?.required">Signature is required</div>
@@ -361,7 +373,8 @@
                       <div class="col-md-4">
                         <label>Name (In block letters) :</label>
                         <input type="text" formControlName="declarationName" class="form-control" placeholder="Enter Designer Name"
-                        [ngClass]="{ 'is-invalid': submitted && a.get('declarationName')?.errors }">
+                        [ngClass]="{ 'is-invalid': submitted && a.get('declarationName')?.errors }" 
+                        (keyup)="onKeyPersonName($event)" [(ngModel)]="declarationPersonName">
                           <div *ngIf="submitted && a.get('declarationName')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('declarationName')?.errors?.required">Name (In block letters) is required</div>
                         </div>
@@ -372,12 +385,12 @@
                 </div>
 
               <div formArrayName="designer2AcknowledgeArr" *ngFor="let a of getDesigner2AcknowledgeControls(); let i = index">
-                <div class="form-group" [formGroupName]="i">
+                <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
                    <h2>Designer 2: (Optional)</h2>
                     <div class="row">
                       <div class="col-md-4">
                         <label>Signature:</label>
-                        <input type="text" formControlName="declarationSignature" class="form-control">
+                        <input type="text" formControlName="declarationSignature" class="form-control" readonly>
                       </div>
                       <div class="col-md-4">
                         <label>Date:</label>
@@ -386,7 +399,8 @@
 
                       <div class="col-md-4">
                         <label>Name (In block letters) :</label>
-                        <input type="text" formControlName="declarationName" class="form-control" placeholder="Enter Designer Name">
+                        <input type="text" formControlName="declarationName" class="form-control" placeholder="Enter Designer Name"
+                        [(ngModel)]="designer2PersonName" (keyup)="onKeyDesigner2PersonName($event)">
                       </div>
                     </div>
 
@@ -394,7 +408,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <h3><b>Declaration of Contractor of Installation:</b></h3>
                   <p>
                     I/we being the person responsible for the construction of the electrical installation (as indicated by my/our signatures below), particulars of which are described above, having exercised reasonable skill and care when carrying out the design hereby declare that the design work for which I/We have been responsible is to the best of my/our knowledge and belief in accordance with IEC 60364
@@ -409,7 +423,7 @@
                       <div class="row">
                         <div class="col-md-4">
                           <label>Signature:</label>
-                          <input type="text" formControlName="declarationSignature" class="form-control"
+                          <input type="text" formControlName="declarationSignature" class="form-control" readonly
                           [ngClass]="{ 'is-invalid': submitted && a.get('declarationSignature')?.errors }">
                           <div *ngIf="submitted && a.get('declarationSignature')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('declarationSignature')?.errors?.required">Signature is required</div>
@@ -439,7 +453,7 @@
                   </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <h3><b>Declaration of Safety Engineer (Inspector):</b></h3>
                   <p>
                     I/we being the person responsible for the inspection & testing  of the electrical installation (as indicated by my/our signatures below), particulars of which are described above, having exercised reasonable skill and care when carrying out the design hereby declare that the design work for which I/We have been responsible is to the best of my/our knowledge and belief in accordance with IEC 60364
@@ -454,7 +468,7 @@
                       <div class="row">
                         <div class="col-md-4">
                           <label>Signature:</label>
-                          <input type="text" formControlName="declarationSignature" class="form-control"
+                          <input type="text" formControlName="declarationSignature" class="form-control" readonly
                           [ngClass]="{ 'is-invalid': submitted && a.get('declarationSignature')?.errors }">
                           <div *ngIf="submitted && a.get('declarationSignature')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('declarationSignature')?.errors?.required">Signature is required</div>
@@ -493,7 +507,8 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
             <label>I/We recommend that installation is further inspected and tested after an interval of not more than: </label>
-              <input type="number" min="0" [ngClass]="{ 'is-invalid': submitted && f.nextInspection.errors }" style="
+              <input type="number" min="0" [ngClass]="{ 'is-invalid': submitted && f.nextInspection.errors }" 
+              [ngClass]="{'disableForm':service.allFieldsDisable}" style="
               width: 75px;
               background: transparent;
               border: none;
@@ -515,15 +530,20 @@
             <mat-icon *ngIf="showAddButton" class="mousechange" (click)="addDesigner()" style="float:right; padding-right: 37px; padding-top: 10px;">add_box</mat-icon>
 
               <div formArrayName="designer1Arr" *ngFor="let a of getDesigner1Controls(); let i = index">
-                <div class="form-group" [formGroupName]="i">
+                <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
                   <h2>Designer 1*</h2>
 
-                  <div class="form-group" >
+                  <div class="form-group">
                     <div class="row">
                         <div class="col-md-4">
                             <label>Person Name:</label>
-                            <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name"
-                            [ngClass]="{ 'is-invalid': submitted && a.get('personName')?.errors }">
+                            <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name" 
+                            readonly
+                            [ngClass]="{ 'is-invalid': submitted && a.get('personName')?.errors }" [(ngModel)]="declarationPersonName"
+                            (focus)="focusPersonFunction()">
+                            <div *ngIf="showPersonNameMsg" class="invalid-feedback">
+                             Please fill out the details in Liability and Declaration tab!
+                            </div>
                           <div *ngIf="submitted && a.get('personName')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('personName')?.errors?.required">Person name is required</div>
                         </div>
@@ -533,7 +553,7 @@
                             <label>* Mobile Number:</label>
                             <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
                             (keypress)="keyPressNumbers($event)" (countryChange)="countryChange($event)" placeholder="Enter Mobile Number"
-                             formControlName="personContactNo" class="form-control"
+                             formControlName="personContactNo" class="form-control" [readonly]="setReadOnly"
                             [ngClass]="{ 'is-invalid': submitted && a.get('personContactNo')?.errors }">
                             <div *ngIf="submitted && a.get('personContactNo')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('personContactNo')?.errors?.required">Mobile Number is Required</div>
@@ -566,9 +586,9 @@
                         </div>
 
                         <div class="col-md-4">
-                          <label>* Mobile Number:</label>
+                          <label>* Mobile Number (Optional):</label>
                           <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
-                          (keypress)="keyPressNumbers($event)" (countryChange)="countryChange1($event)"
+                          (keypress)="keyPressNumbers($event)" (countryChange)="countryChange1($event)" [readonly]="setReadOnly"
                           formControlName="managerContactNo" class="form-control" placeholder="Enter Mobile Number"
                           [ngClass]="{ 'is-invalid': submitted && a.get('managerContactNo')?.errors }">
                           <div *ngIf="submitted && a.get('managerContactNo')?.errors" class="invalid-feedback">
@@ -682,15 +702,19 @@
                 <mat-icon class="mousechange"  (click)="removeDesigner()" style="float:right; padding-right: 37px; padding-top: 10px;">delete</mat-icon>
 
                 <div formArrayName="designer2Arr" *ngFor="let a of getDesigner2Controls(); let i = index">
-                  <div class="form-group" [formGroupName]="i">
+                  <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
                     <h2>Designer 2 (Optional)</h2>
 
                     <div class="form-group" >
                       <div class="row">
                           <div class="col-md-4">
                               <label>Person Name:</label>
-                              <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name"
-                              [ngClass]="{ 'is-invalid': submitted && a.get('personName')?.errors }">
+                              <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name" readonly
+                              [ngClass]="{ 'is-invalid': submitted && a.get('personName')?.errors }" [(ngModel)]="designer2PersonName"
+                              (focus)="designer2PersonFunction()">
+                            <div *ngIf="designer2PersonNameMsg" class="invalid-feedback">
+                             Please fill out the details in Liability and Declaration tab!
+                            </div>
                           <div *ngIf="submitted && a.get('personName')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('personName')?.errors?.required">Person name is required</div>
                         </div>
@@ -700,7 +724,7 @@
                             <label>* Mobile Number:</label>
                             <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
                             (keypress)="keyPressNumbers($event)" (countryChange)="countryChange2($event)" placeholder="Enter Mobile Number"
-                             formControlName="personContactNo" class="form-control"
+                             formControlName="personContactNo" class="form-control" [readonly]="setReadOnly1"
                             [ngClass]="{ 'is-invalid': submitted && a.get('personContactNo')?.errors }">
                             <div *ngIf="submitted && a.get('personContactNo')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('personContactNo')?.errors?.required">Mobile Number is Required</div>
@@ -733,10 +757,10 @@
                           </div>
 
                           <div class="col-md-4">
-                            <label>* Mobile Number:</label>
+                            <label>* Mobile Number (Optional):</label>
                             <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
                             (keypress)="keyPressNumbers($event)" (countryChange)="countryChange3($event)" formControlName="managerContactNo" class="form-control" placeholder="Enter Mobile Number"
-                            [ngClass]="{ 'is-invalid': submitted && a.get('managerContactNo')?.errors }">
+                            [readonly]="setReadOnly1" [ngClass]="{ 'is-invalid': submitted && a.get('managerContactNo')?.errors }">
                             <div *ngIf="submitted && a.get('managerContactNo')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('managerContactNo')?.errors?.required">Mobile Number is Required</div>
                               <div *ngIf="a.get('managerContactNo')?.errors?.maxlength">Please Enter 10 Digit Number</div>
@@ -853,7 +877,7 @@
             <h2>Contractor Details*</h2>
 
               <div formArrayName="contractorArr" *ngFor="let a of getContractorControls(); let i = index">
-                  <div class="form-group" [formGroupName]="i">
+                  <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
 
                     <div class="form-group" >
                       <div class="row">
@@ -869,7 +893,7 @@
                           <div class="col-md-4">
                               <label>* Mobile Number:</label>
                               <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
-                              (keypress)="keyPressNumbers($event)" (countryChange)="countryChange4($event)" formControlName="personContactNo" class="form-control" placeholder="Enter Mobile Number"
+                              (keypress)="keyPressNumbers($event)" (countryChange)="countryChange4($event)" [readonly]="setReadOnly" formControlName="personContactNo" class="form-control" placeholder="Enter Mobile Number"
                               [ngClass]="{ 'is-invalid': submitted && a.get('personContactNo')?.errors }">
                               <div *ngIf="submitted && a.get('personContactNo')?.errors" class="invalid-feedback">
                                 <div *ngIf="a.get('personContactNo')?.errors?.required">Mobile Number is Required</div>
@@ -903,9 +927,9 @@
                           </div>
 
                           <div class="col-md-4">
-                            <label>* Mobile Number:</label>
+                            <label>* Mobile Number (Optional):</label>
                             <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
-                            (keypress)="keyPressNumbers($event)" (countryChange)="countryChange5($event)" formControlName="managerContactNo" class="form-control" placeholder="Enter Mobile Number"
+                            (keypress)="keyPressNumbers($event)" (countryChange)="countryChange5($event)" [readonly]="setReadOnly" formControlName="managerContactNo" class="form-control" placeholder="Enter Mobile Number"
                             [ngClass]="{ 'is-invalid': submitted && a.get('managerContactNo')?.errors }">
                           <div *ngIf="submitted && a.get('managerContactNo')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('managerContactNo')?.errors?.required">Mobile Number is Required</div>
@@ -1024,7 +1048,7 @@
             <h2>Inspector Details*</h2>
 
               <div formArrayName="inspectorArr" *ngFor="let a of getInspectorControls(); let i = index">
-                <div class="form-group" [formGroupName]="i">
+                <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
                   <div class="form-group">
                     <div class="row">
                         <div class="col-md-4">
@@ -1071,10 +1095,10 @@
                         </div>
 
                         <div class="col-md-4">
-                          <label>* Mobile Number:</label>
+                          <label>* Mobile Number (Optional):</label>
                           <input type="tel"  ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
                           (keypress)="keyPressNumbers($event)" (countryChange)="countryChange7($event)" formControlName="managerContactNo" class="form-control" placeholder="Enter Mobile Number"
-                          [ngClass]="{ 'is-invalid': submitted && a.get('managerContactNo')?.errors}">
+                          [readonly]="setReadOnly" [ngClass]="{ 'is-invalid': submitted && a.get('managerContactNo')?.errors}">
                           <div *ngIf="submitted && a.get('managerContactNo')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('managerContactNo')?.errors?.required">Mobile Number is Required</div>
                             <!-- <div *ngIf="a.get('managerContactNo')?.errors?.minlength">Please Enter 10 Digit Number</div> -->
@@ -1395,9 +1419,10 @@
         <span class="alert alert-danger">Your response to comments has been rejected</span>
       </div>
       <br>
-      <div style="text-align: center;margin-top: 40px;">
+      <div class="row" style="margin-top: 40px;">
         <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
-        <button  class="next" [disabled]="disable" (click)="gotoNextModal(content1)" mat-button>Next &raquo;</button>
+        <button class="next" (click)="gotoNextModal(content1,content2)"
+        mat-button>Next &raquo;</button>
       </div>
 
     </form>
@@ -1405,7 +1430,6 @@
     </div>
   </div>
   <ng-template #content1 let-modal>
-
   <div class="modal-body">
    <div class="centre-text m-btm30">
     <div *ngIf="success" style="text-align: center;">
@@ -1419,10 +1443,45 @@
   <br>
      <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
      aria-label="Close"  (click)="closeModalDialog()" matStepperNext>
-
       <span aria-hidden="true">Ok</span>
-
   </button>
-
-
   </ng-template>
+
+  <ng-template #content2 let-modal>
+    <div class="modal-body">
+     <div class="centre-text m-btm30">
+      <div style="text-align: center;">
+        <span class="successshow">Are you sure you want to procced? </span>
+        <br>
+        <span style="font-size: 12px;">Note: Please verify all the details! </span>
+       </div>
+      </div>
+     </div>
+    <br>
+    <div class="row">
+       <button type="button" class="col-md-6" style="text-align:center; width: auto;" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+       aria-label="Close" (click)="closeModalDialog()" matStepperNext>
+       <i class="bi bi-arrow-right-circle"></i>&nbsp;
+        <span aria-hidden="true">Ok</span>
+    </button>
+    <button type="button" class="col-md-6" style="width: auto;" class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn"
+       aria-label="Close" (click)="closeModalDialog()">
+       <i class="bi bi-x icon"></i>
+        <span aria-hidden="true">Cancel</span>
+    </button>
+  </div>
+    </ng-template> 
+
+    <!-- <ng-template #contentSig let-modal>
+      <div class="modal-body">
+        <div class="signature-container">
+          <signature-pad [options]="signaturePadOptions"></signature-pad>
+        </div>
+     
+        <div class="buttons">
+          <button (click)="clearSignature()">Clear signature pad</button>
+          <button (click)="savePad()">Save signature</button>
+        </div>
+      
+       </div>
+      </ng-template>   -->

@@ -1,5 +1,8 @@
 import {Injectable } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
+// import { Reportdetails } from './model/reportdetails';
+// import { SiteService } from './services/site.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +12,22 @@ import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scrol
 export class GlobalsService {
    
   private data = {};  
+  backBtn:boolean=true;
   siteCount: number = 0; 
   iterationList: any=[]; //for location no. & name
 //from supply to testing table
   supplyList: any;
   retrieveMainNominalVoltage:any=[];
-  nominalVoltageArr:any=[];
+  nominalVoltageArr2:any=[];
   testingTable:any=[];
+  testingTable2:any=[];
+  retrieveTable:boolean=false;
+  mainNominalVoltage :any=[];
+  mainNominalFrequency :any=[];
+  mainNominalCurrent:any=[];
+  mainNominalVoltageValue:String="";
+  mainLoopImpedanceValue:String="";
+  mainNominalCurrentValue:String="";
 //viewer inspector details
   viewerName!: String;
   inspectorName!: String;
@@ -34,8 +46,27 @@ export class GlobalsService {
 //get complimentary license
   noofLicense!: number;  
   useClicked:boolean=false;
+//completed-saved-final
+ disableFields:boolean=false;
+ allStepsCompleted:boolean=false;
+ allFieldsDisable:boolean=false; //after submiting all 5 steps
+ disableSubmitSummary:boolean=false; //after submiting all 5 steps
+//verification component for stepper
+ isLinear:boolean=false; 
+ isCompleted: boolean = true;
+ isCompleted2: boolean = true;
+ isCompleted4: boolean = true;
+ isCompleted5: boolean = true;
+ isCompleted3: boolean = true;
+ goBacktoprevious: boolean=false;
+ editable: boolean = true;
+jointType: any;
+noOfjoint: any; 
+// clientList: any = [];
+// reportDetails =new Reportdetails;
 
-  constructor(private _scrollToService: ScrollToService) {}
+ constructor(private _scrollToService: ScrollToService
+  ) {}
   
 //Scroll Top to Bottom for notification
   public triggerScrollTo() {
@@ -45,6 +76,18 @@ export class GlobalsService {
       };
       this._scrollToService.scrollTo(config);
     }
+
+    // retrieveSiteDetails(companyName: any,departmentName: any,siteName: any) {
+    //   if((companyName!= undefined) && (departmentName!= undefined) && (siteName!= undefined))  {
+    //   this.siteService.retrieveSiteForInspection(companyName,departmentName,siteName).subscribe(
+    //     data => {
+    //       this.clientList = [];
+    //       this.clientList=JSON.parse(data);
+    //       this.reportDetails.siteId = this.clientList.siteId;
+    //       this.siteCount = this.reportDetails.siteId;
+    //     });
+    //   }
+    // }
   }
 
  
