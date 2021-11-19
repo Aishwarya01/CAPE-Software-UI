@@ -7,6 +7,7 @@ import { Register } from '../model/register';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -56,7 +57,7 @@ export class InspectorRegistrationComponent implements OnInit {
   contactNumber: string = '';
 
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: FormBuilder, private modalService: NgbModal,
               private siteService: SiteService,
               private applicationService: ApplicationTypeService,
               private inspectorRegisterService: InspectorregisterService,
@@ -85,11 +86,11 @@ export class InspectorRegistrationComponent implements OnInit {
       terms: ['', Validators.required]
     });
 
-    // this.siteService.retrieveCountry().subscribe(
-    //   data => {
-    //     this.countryList = JSON.parse(data);
-    //   }
-    // )
+    this.siteService.retrieveCountry().subscribe(
+      data => {
+        this.countryList = JSON.parse(data);
+      }
+    )
     // this.dropdownList = [
     //   { item_id: 1, item_text: 'Mumbai' },
     //   { item_id: 2, item_text: 'Bangaluru' },
@@ -129,26 +130,30 @@ export class InspectorRegistrationComponent implements OnInit {
   get f() {
     return this.InspectorRegisterForm.controls;
   }
-
-
+  termsCondition(termsContent:any){
+    this.modalService.open(termsContent,{size: 'xl'})
+  }
+  closeModalDialogTerms(termsContent:any){
+    this.modalService.dismissAll(termsContent)
+   }
   selectCountry(e: any) {
     let changedValue = e.target.value;
     this.stateList = [];
-      // for(let arr of this.countryList) {
-      //   if( arr.name == changedValue) {
-      //     this.siteService.retrieveState(arr.code).subscribe(
-      //       data => {
-      //         this.stateList = JSON.parse(data)
-      //       }
-      //     )};
-      // }
-      if(changedValue == "IND") {
-        this.siteService.retrieveStateV2(changedValue).subscribe(
-          data => {
-            this.stateList = JSON.parse(data)
-          }
-        );
+      for(let arr of this.countryList) {
+        if( arr.name == changedValue) {
+          this.siteService.retrieveState(arr.code).subscribe(
+            data => {
+              this.stateList = JSON.parse(data)
+            }
+          )};
       }
+      // if(changedValue == "IND") {
+      //   this.siteService.retrieveStateV2(changedValue).subscribe(
+      //     data => {
+      //       this.stateList = JSON.parse(data)
+      //     }
+      //   );
+      // }
        
   }
 

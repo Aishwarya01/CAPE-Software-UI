@@ -63,20 +63,28 @@ mat-header-cell.mat-header-cell {
 .previous {
   background-color: #f1f1f1;
   color: black;
+  /* position: relative;
+  bottom: 57px;
+  left: 40%; */
 }
 .previous:hover {
   background-color: #747a76;
   color: white;
+  /* position: relative;
+  bottom: 57px;
+  left: 40%; */
 }
 .next{
   background-color: #f1f1f1;
   color: black;
-  margin-left: 30px;
+  /* margin-left: 30px; */
+  margin: 0 auto;
 }
 .next:hover{
   background-color: #04AA6D;
   color: white;
-  margin-left: 30px;
+  /* margin-left: 30px; */
+  margin: 0 auto;
 }
 .reply{
   background-color: #f1f1f1;
@@ -164,4 +172,8 @@ p span {
   overflow: hidden;
   white-space: nowrap;
   vertical-align: middle;
+}
+
+.disableForm{
+  pointer-events: none;
 }

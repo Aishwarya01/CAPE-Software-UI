@@ -26,6 +26,7 @@ import { SiteService } from '../services/site.service';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
 import { CommentsSection } from '../model/comments-section';
 import { MainNavComponent } from '../main-nav/main-nav.component';
+import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
 
 @Component({
   selector: 'app-inspection-verification-incoming-equipment',
@@ -141,6 +142,9 @@ export class InspectionVerificationIncomingEquipmentComponent
   inspectorName: String = '';	
   completedCommentArr3: any = [];
   hideShowComment: boolean=false;
+  modalReference: any;
+  tabErrorMsg: string="";
+  tabError: boolean = false;
   //comments end
 
   constructor(
@@ -153,6 +157,7 @@ export class InspectionVerificationIncomingEquipmentComponent
     private siteService: SiteService,
     private UpateInspectionService: InspectionVerificationService,
     private basic: MainNavComponent,
+    private verification: VerificationlvComponent
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
   }
@@ -171,6 +176,9 @@ export class InspectionVerificationIncomingEquipmentComponent
   }
 
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){ 
+    if(this.service.disableFields==true){
+      this.addstep3.disable();
+     }
         this.step3List = JSON.parse(data);
         this.inspectionDetails.siteId = siteId;
         this.inspectionDetails.periodicInspectionId = this.step3List.periodicInspection.periodicInspectionId;
@@ -180,7 +188,9 @@ export class InspectionVerificationIncomingEquipmentComponent
         this.populateData();
         this.populateDataComments();
   }
- 
+  reloadFromBack(){
+    this.addstep3.markAsPristine();
+   }
 //comments section starts
 
 populateDataComments() {
@@ -578,6 +588,9 @@ showHideAccordion(index: number) {
 //comments section ends
 
   populateData() {
+    if(this.service.disableFields==true){
+      this.disable=true;
+      }
     this.arr = [];
     for (let item of this.step3List.periodicInspection.ipaoInspection) {
       this.arr.push(this.createGroup(item));
@@ -960,7 +973,39 @@ showHideAccordion(index: number) {
   removeItem(index: any) {
     (this.addstep3.get('incomingArr') as FormArray).removeAt(index);
   }
-  gotoNextModal(content3: any) {
+  // clickAcc(){
+  //   this.gotoNextTab();
+  // }
+  gotoNextTab() {
+    if ((this.addstep3.dirty && this.addstep3.invalid) || this.service.isCompleted2==false) {
+      this.service.isCompleted3= false;
+      this.service.isLinear=true;      
+      this.service.editable=false;
+      this.validationError = true;
+      this.validationErrorMsg = 'Please check all the fields';
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
+      return;
+    }
+    else if(this.addstep3.dirty && this.addstep3.touched){
+      this.service.isCompleted3= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+   }
+    else{
+      this.service.isCompleted3= true;
+      this.service.isLinear=false;
+      this.service.editable=true;
+
+    }
+  }
+  gotoNextModal(content3: any,content2:any) {
     if (this.addstep3.invalid) {
       this.validationError = true;
       this.validationErrorMsg = 'Please check all the fields';
@@ -969,18 +1014,35 @@ showHideAccordion(index: number) {
       }, 3000);
       return;
     }
-    this.modalService.open(content3, { centered: true });
+    if(this.addstep3.touched || this.addstep3.untouched){
+      this.modalReference = this.modalService.open(content2, {
+         centered: true, 
+         size: 'md'
+        })
+     }
+     if(this.addstep3.dirty && this.addstep3.touched){ //update
+      this.modalService.open(content3, { centered: true});
+      this.modalReference.close();
+     }
+   
   }
   closeModalDialog() {
     if (this.errorMsg != '') {
       this.Error = false;
+      this.service.isCompleted3= false;
+      this.service.isLinear=true;
       this.modalService.dismissAll((this.errorMsg = ''));
-    } else {
+    } 
+    else {
       this.success = false;
+      this.service.isCompleted3= true;
+      this.service.isLinear=false;
       this.modalService.dismissAll((this.successMsg = ''));
+      this.disable = false;
     }
   }
   nextTab3(flag: any) {
+    
     if(!flag) {
       this.inspectionDetails.siteId = this.service.siteCount;
     }
@@ -994,15 +1056,22 @@ showHideAccordion(index: number) {
     this.inspectionDetails.ipaoInspection = this.addstep3.value.incomingArr;
 
     if(flag) {
+      if(this.addstep3.dirty){
       this.UpateInspectionService.updateIncoming(this.inspectionDetails).subscribe(
         data=> {
           this.success = true;
+          this.service.isCompleted3= true;
+          this.service.isLinear=false;
           this.successMsg = 'Incoming Equipment Successfully Updated';
+          this.addstep3.markAsPristine();
          },
          (error) => {
           this.Error = true;
+          this.service.isCompleted3= false;
+          this.service.isLinear=true;
           this.errorMsg = 'Something went wrong, kindly check all the fields';
          });
+        }
     }
     else {
       this.inspectionDetailsService
@@ -1012,13 +1081,17 @@ showHideAccordion(index: number) {
           this.proceedNext.emit(true);
           this.success = true;
           this.successMsg = 'Incoming Equipment Successfully Saved';
-          this.disable = true;
+          //this.disable = true;
+          //this.service.allFieldsDisable = true;
         },
         (error: any) => {
           this.proceedNext.emit(false);
           this.Error = true;
           this.errorMsg = 'Something went wrong, kindly check all the fields';
+          this.service.isCompleted3= false;
+          this.service.isLinear=true;
         });
     }
+    // this.verification.testingNgOnINit();
   }
 }

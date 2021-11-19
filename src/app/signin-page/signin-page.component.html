@@ -28,13 +28,18 @@
                 erection of the installation. Initial and periodic verifications are necessary. -->
         </p>
        <div class="a-divider a-divider-break"><h5>New to Rush Safety Applications?</h5></div>
-        <div style="display: inline;">
-            <button style="float: left; margin-left: 400px;width: 14%;" type="submit" [routerLink]="['/register']"
-            class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" id="login-btn">
-            <i class="bi bi-person-plus-fill icon"></i> New User/Register</button>
 
-            <button [routerLink]="['/login']" style="float:right; margin-right: 400px;;width: 12%;"  class="btn btn-success cancel" >
+        <div class="row" style="display: block;">
+            <div class="col-xs-12">
+                <div class="text-align" style="text-align: center;">
+            <button type="submit" [routerLink]="['/register']"
+            class="btn newUserBtn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" id="login-btn">
+            <i class="bi bi-person-plus-fill icon"></i> New User/Register</button>
+            <div class="divider"> </div>
+            <button [routerLink]="['/login']" style="width: auto;" class="btn btn-success cancel" >
                 <i class="bi bi-x icon"></i> SignIn/Login</button>
+        </div>
+            </div>
         </div>
 
         </div>

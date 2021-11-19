@@ -29,6 +29,10 @@ export class SiteService {
     return this.http.get<Site>(this.apiUrl + '/retriveSite' + '/' + userName, { responseType: 'text' as 'json' })
   }
 
+  public retrieveAllSite(userName: any): Observable<any> {
+    return this.http.get<Site>(this.apiUrl + '/retrieveAllSites', { responseType: 'text' as 'json' })
+  }
+
   public retrieveListOfSite(userName: any): Observable<any> { 
     return this.http.get<Site>(this.apiUrl + '/retrieveListOfSite' + '/' + userName , { responseType: 'text' as 'json' })
   }

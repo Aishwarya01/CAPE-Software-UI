@@ -45,6 +45,21 @@ mat-header-cell.mat-header-cell {
 .client-box-description {
   height: 100px;
 }
+.auth-form-btn {
+  margin-top: 40px;
+  width: 25%;
+}
+
+.auth-form-btn .icon {
+  float: left;
+  margin-top: -2px;
+}
+
+.cancel {
+  margin-top: 40px;
+  width: 25%; 
+  /* height: 47px; */
+}
 
 .auth-form-btn {
   width: auto;

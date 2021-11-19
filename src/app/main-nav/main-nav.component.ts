@@ -37,6 +37,7 @@ import { InspectionVerificationService } from '../services/inspection-verificati
 import { SavedreportsComponent } from '../savedreports/savedreports.component';
 import { LpsMatstepperComponent } from '../LPS/lps-matstepper/lps-matstepper.component';
 import { LpsWelcomePageComponent } from '../LPS/lps-welcome-page/lps-welcome-page.component';
+import { wind } from 'ngx-bootstrap-icons';
 
 export interface PeriodicElement {
   siteCd: string;
@@ -77,10 +78,24 @@ export class MainNavComponent implements OnInit, OnDestroy {
    // 'action',
   ];
   ongoingSite_dataSource!: MatTableDataSource<Company[]>;
-  
-  @ViewChild('ongoingSitePaginator', { static: true }) ongoingSitePaginator!: MatPaginator;
-  @ViewChild('ongoingSiteSort', { static: true }) ongoingSiteSort!: MatSort;
+  //@ViewChild('ongoingSitePaginator', { static: false }) ongoingSitePaginator!: MatPaginator;
+  //@ViewChild('ongoingSiteSort', { static: false }) ongoingSiteSort!: MatSort;
+  private ongoingSitePaginator!: MatPaginator;
+  private ongoingSiteSort!: MatSort;
+  superAdminFlag: boolean = false;
+  allData: any = [];
+ 
 
+  @ViewChild('ongoingSiteSort') set matSortOn(ms: MatSort) {
+    this.ongoingSiteSort = ms;
+    this.setOngoingDataSourceAttributes();
+   }
+ 
+   @ViewChild('ongoingSitePaginator') set matPaginatorOn(mp: MatPaginator) {
+    this.ongoingSitePaginator = mp;
+    this.setOngoingDataSourceAttributes();
+   }
+   
   completedLicenseColumns: string[] = [
     'siteCd',
     'site',
@@ -93,10 +108,22 @@ export class MainNavComponent implements OnInit, OnDestroy {
     'action',
   ];
 
-  //completedLicense_dataSource!: MatTableDataSource<Site[]>;
   completedLicense_dataSource!: MatTableDataSource<Company[]>;
-  @ViewChild('completedLicensePaginator', { static: true }) completedLicensePaginator!: MatPaginator;
-  @ViewChild('completedLicenseSort', { static: true }) completedLicenseSort!: MatSort;
+  //@ViewChild('completedLicensePaginator', { static: false }) completedLicensePaginator!: MatPaginator;
+  //@ViewChild('completedLicenseSort', { static: false }) completedLicenseSort!: MatSort;
+
+  private completedLicensePaginator!: MatPaginator;
+  private completedLicenseSort!: MatSort;
+
+  @ViewChild('completedLicenseSort') set matSort(ms: MatSort) {
+   this.completedLicenseSort = ms;
+   this.setCompletedDataSourceAttributes();
+  }
+
+  @ViewChild('completedLicensePaginator') set matPaginator(mp: MatPaginator) {
+   this.completedLicensePaginator = mp;
+   this.setCompletedDataSourceAttributes();
+  }
 
   sidenavWidth: any;
   isExpanded: boolean = false;
@@ -116,7 +143,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   Error: boolean=false;
   errorMsg: string="";
   errorArr: any=[];
-
+  superAdminArr: any = [];
   @ViewChild('ref', { read: ViewContainerRef })
   viewContainerRef!: ViewContainerRef;
   
@@ -230,16 +257,18 @@ export class MainNavComponent implements OnInit, OnDestroy {
    this.newNotify();
     this.mobileDisplay = false;
     this.desktopDisplay = true;
-    this.bnIdle.startWatching(environment.sessionTimeOut).subscribe((isTimedOut: boolean) => {
-      if (isTimedOut) {
-        alert('Your session is timed out')
-        this.logout();
-        this.bnIdle.stopTimer();
-      }
-    });
+    // this.bnIdle.startWatching(environment.sessionTimeOut).subscribe((isTimedOut: boolean) => {
+    //   if (isTimedOut) {
+    //     alert('Your session is timed out')
+    //     this.logout();
+    //     this.bnIdle.stopTimer();
+    //   }
+    // });
     this.currentUser=sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
+    this.superAdminArr = [];
+    this.superAdminArr.push('gk@capeindia.net');
     if(this.currentUser1.role == 'Inspector') {
       this.showTIC = true;
       this.showREP = false;
@@ -258,7 +287,20 @@ export class MainNavComponent implements OnInit, OnDestroy {
       this.retrieveSiteDetails();
     }
   }
-
+  
+  setCompletedDataSourceAttributes() {
+    if(this.completedLicense_dataSource !== undefined){
+     this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
+     this.completedLicense_dataSource.sort = this.completedLicenseSort;
+    }
+    
+   }
+   setOngoingDataSourceAttributes(){
+    if(this.ongoingSite_dataSource !== undefined){
+      this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
+      this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
+     }
+   }
   newNotify(){
   this.inspectionService.notificationRetrieveComments(this.email).subscribe(
     (data)=>{
@@ -417,43 +459,77 @@ triggerNavigateTo(siteName:any){
   lvInspectionRef.changeDetectorRef.detectChanges();
 }
   retrieveSiteDetails() {
-    if(this.currentUser1.role == 'Inspector') {
-      this.siteService.retrieveSite(this.email).subscribe((data) => {
-        this.ongoingSite_dataSource = new MatTableDataSource(JSON.parse(data));
-        this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
-        this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
-  
-        this.completedLicense_dataSource = new MatTableDataSource(JSON.parse(data));
-        this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
-        this.completedLicense_dataSource.sort = this.completedLicenseSort;
-      });
+    this.completedFilterData = [];
+    this.ongoingFilterData = [];
+
+    for(let i of this.superAdminArr) {
+      if(this.email == i) {
+        this.superAdminFlag = true;
+      }
+    }
+
+    if(this.superAdminFlag) {
+      this.siteService.retrieveAllSite(this.email).subscribe(
+        data => {
+          this.allData = JSON.parse(data);
+          for(let i of this.allData){
+              if(i.allStepsCompleted=="AllStepCompleted"){
+                this.completedFilterData.push(i);
+              }
+              else{
+               this.ongoingFilterData.push(i);
+              }
+          }
+          this.ongoingSite_dataSource = new MatTableDataSource(this.ongoingFilterData);
+          this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
+          this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
+    
+          this.completedLicense_dataSource = new MatTableDataSource(this.completedFilterData);
+          //this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
+          //this.completedLicense_dataSource.sort = this.completedLicenseSort;
+        });
+
+      this.superAdminFlag = false;
     }
     else {
-      if(this.currentUser1.assignedBy!=null) {
-        this.ongoingFilterData=[];
-        this.completedFilterData=[];
-        this.siteService.retrieveListOfSite(this.currentUser1.assignedBy).subscribe(
-          data => {
-            this.userData=JSON.parse(data);
-           for(let i of this.userData){
-             if(i.assignedTo==this.email){
-               if(i.allStepsCompleted=="AllStepCompleted"){
-                 this.completedFilterData.push(i);
-               }
-               else{
-                this.ongoingFilterData.push(i);
+      if(this.currentUser1.role == 'Inspector') {
+        this.siteService.retrieveSite(this.email).subscribe((data) => {
+          this.ongoingSite_dataSource = new MatTableDataSource(JSON.parse(data));
+          this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
+          this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
+    
+          this.completedLicense_dataSource = new MatTableDataSource(JSON.parse(data));
+          //this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
+          //this.completedLicense_dataSource.sort = this.completedLicenseSort;
+        });
+      }
+      else {
+        if(this.currentUser1.assignedBy!=null) {
+          this.ongoingFilterData=[];
+          this.completedFilterData=[];
+          this.siteService.retrieveListOfSite(this.currentUser1.assignedBy).subscribe(
+            data => {
+              this.userData=JSON.parse(data);
+             for(let i of this.userData){
+               if(i.assignedTo==this.email){
+                 if(i.allStepsCompleted=="AllStepCompleted"){
+                   this.completedFilterData.push(i);
+                 }
+                 else{
+                  this.ongoingFilterData.push(i);
+                 }
                }
              }
-           }
-        this.ongoingSite_dataSource = new MatTableDataSource(this.ongoingFilterData);
-        this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
-        this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
-  
-        this.completedLicense_dataSource = new MatTableDataSource(this.completedFilterData);
-        this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
-        this.completedLicense_dataSource.sort = this.completedLicenseSort;
-      });
-    }
+          this.ongoingSite_dataSource = new MatTableDataSource(this.ongoingFilterData);
+          //this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
+          //this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
+    
+          this.completedLicense_dataSource = new MatTableDataSource(this.completedFilterData);
+         // this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
+          //this.completedLicense_dataSource.sort = this.completedLicenseSort;
+        });
+        }
+      }
     }
     
   }
@@ -501,6 +577,7 @@ triggerNavigateTo(siteName:any){
   logout() {
     this.loginservice.logout();
     this.route.navigate(['login']);
+    window.location.reload();
   }
 
   displayUserFullName(email: String) {
@@ -527,6 +604,9 @@ triggerNavigateTo(siteName:any){
  }
 
  editSite(siteId: any,userName: any,site: any) {
+  this.service.allStepsCompleted=true;
+  this.service.disableSubmitSummary=false;
+
   if (confirm("Are you sure you want to edit site details?"))
   {
     this.value= true;
@@ -537,6 +617,7 @@ triggerNavigateTo(siteName:any){
     setTimeout(()=>{
       this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
     }, 1000);
+    this.service.disableFields=false;
   } 
   else {
     this.value= false;
@@ -547,6 +628,9 @@ triggerNavigateTo(siteName:any){
  }
 
  viewSite(siteId: any,userName: any,site: any){
+  this.service.allStepsCompleted=false;
+  this.service.disableSubmitSummary=true;
+
   if (confirm("Are you sure you want to view site details?"))
   {
     this.value= true;
@@ -557,6 +641,7 @@ triggerNavigateTo(siteName:any){
     setTimeout(()=>{
       this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
     }, 1000);
+    this.service.disableFields=true;
   } 
   else {
     this.value= false;
@@ -576,17 +661,17 @@ triggerNavigateTo(siteName:any){
 }
 
 pdfModal(siteId: any,userName: any){
-  this.disable=true;
+  this.disable=false;
   this.inspectionService.printPDF(siteId,userName);
 }
 
 downloadPdf(siteId: any,userName: any): any {
-  this.disable=true;
+  this.disable=false;
   this.inspectionService.downloadPDF(siteId,userName);
 }
 
 emailPDF(siteId: any,userName: any){
-  this.disable=true;
+  this.disable=false;
   this.inspectionService.mailPDF(siteId,userName).subscribe(
   data => {
   console.log('worked');

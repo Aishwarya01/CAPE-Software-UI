@@ -126,13 +126,19 @@ clear() {
     return this.loginForm.controls;
   }
   resendOTP(){
-    this.updateInspectorService.resendOTPInspector(this.inspector.contactNumber).subscribe(
+    this.updateInspectorService.resendOTPInspector(this.email,this.inspector.contactNumber).subscribe(
       data=> {
        this.showOTPMessage=true;
        setTimeout(()=>{
         this.showOTPMessage=false;
       }, 3000);
-      this.updatePassInspector.otpSession = data;
+      this.updateInspectorService.retrieveInspector(this.email).subscribe(
+        data =>{ 
+          this.inspector = JSON.parse(data);
+          this.updatePassInspector.otpSession = this.inspector.otpSessionKey; 
+        }
+      ) 
+      //this.updatePassInspector.otpSession = data;
 
       },
       error => {

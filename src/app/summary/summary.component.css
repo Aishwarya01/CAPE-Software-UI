@@ -9,10 +9,16 @@
   .previous {
     background-color: #f1f1f1;
     color: black;
+    /* position: relative;
+    bottom: 57px;
+    left: 40%; */
   }
   .previous:hover {
     background-color: #747a76;
     color: white;
+    /* position: relative;
+    bottom: 57px;
+    left: 40%; */
   }
   /* .next{
     background-color: #f1f1f1;
@@ -34,3 +40,13 @@
     margin-left: 30px;
     cursor: not-allowed;
   }   
+  .disableForm{
+    pointer-events: none;
+  }
+  .disableSubmit{
+    pointer-events: none;
+    background-color: lightgrey;
+    color: black;
+    cursor: not-allowed !important;
+  }
+ 
