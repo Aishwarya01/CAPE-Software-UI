@@ -1,40 +1,28 @@
 <div *ngIf="tabError" style="text-align: center;">
   <span class="alert alert-danger">{{tabErrorMsg}}</span>
 </div>
+<div *ngIf="validationErrorTab" style="text-align: center;margin-top: 30px;">
+  <span class="alert alert-danger">{{validationErrorMsgTab}}</span>
+</div>
 <div class="card">
     <div class="card-body">
-      <form [formGroup]="step1Form" (ngSubmit)="nextTab(flag)">
+      <form [formGroup]="step1Form" (ngSubmit)="nextTab(flag)" (keyup)="onKeyForm($event)">
       <div class="search-bar">
         <div class="form-group" *ngIf="siteDetails" [ngClass]="{'disableForm':service.allFieldsDisable}">
-
           <div class="row">
-
             <!-- <div class="col-md-4">
-
                   <label>Company Name*</label>
-
                   <input type="text" class="form-control" formControlName="clientName" [(ngModel)]="companyNameSite" readonly/>
-
             </div>
-
             <div class="col-md-4">
-
                   <label>Department Name*</label>
-
                   <input type="text" class="form-control"  formControlName="departmentName" [(ngModel)]="departmentNameSite" readonly/>
-
             </div> -->
-
             <div class="col-md-6">
-
                   <label>Site Name*</label>
-
                   <input type="text" class="form-control"  formControlName="siteName" [(ngModel)]="siteValue" readonly/>
-
             </div>
-
           </div>
-
       </div>
         <div class="form-group" *ngIf="siteDetails1" [ngClass]="{'disableForm':service.allFieldsDisable}">
           <div class="row">
@@ -60,9 +48,7 @@
               <mat-panel-title>
                 <h3>Details Of Report</h3>
               </mat-panel-title>
-
             </mat-expansion-panel-header>
-
             <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
               <div class="col-md-4">
                 <mat-form-field class="client-description">
@@ -89,7 +75,6 @@
               </div>
             </div>
           </mat-expansion-panel>
-
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
               <mat-panel-title>
@@ -442,7 +427,8 @@
                         <div class="col-md-4">
                           <label>Name (In block letters) :</label>
                           <input type="text" formControlName="declarationName" class="form-control" placeholder="Enter Contractor Name"
-                          [ngClass]="{ 'is-invalid': submitted && a.get('declarationName')?.errors }">
+                          [ngClass]="{ 'is-invalid': submitted && a.get('declarationName')?.errors }" [(ngModel)]="ContractorPersonName"
+                          (keyup)="onKeyContractorPersonName($event)">
                           <div *ngIf="submitted && a.get('declarationName')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('declarationName')?.errors?.required">Name (In block letters) is required</div>
                         </div>
@@ -487,7 +473,7 @@
                         <div class="col-md-4">
                           <label>Name (In block letters) :</label>
                           <input type="text" formControlName="declarationName" class="form-control" placeholder="Enter Inspector Name"
-                          [ngClass]="{ 'is-invalid': submitted && a.get('declarationName')?.errors }">
+                          [ngClass]="{ 'is-invalid': submitted && a.get('declarationName')?.errors }" readonly>
                           <div *ngIf="submitted && a.get('declarationName')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('declarationName')?.errors?.required">Name (In block letters) is required</div>
                         </div>
@@ -710,7 +696,7 @@
                           <div class="col-md-4">
                               <label>Person Name:</label>
                               <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name" readonly
-                              [ngClass]="{ 'is-invalid': submitted && a.get('personName')?.errors }" [(ngModel)]="designer2PersonName"
+                              [ngClass]="{ 'is-invalid': submitted && a.get('personName')?.errors }"
                               (focus)="designer2PersonFunction()">
                             <div *ngIf="designer2PersonNameMsg" class="invalid-feedback">
                              Please fill out the details in Liability and Declaration tab!
@@ -884,7 +870,11 @@
                           <div class="col-md-4">
                               <label>Person Name:</label>
                               <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name"
-                              [ngClass]="{ 'is-invalid': submitted && a.get('personName')?.errors }">
+                              [ngClass]="{ 'is-invalid': submitted && a.get('personName')?.errors }" [(ngModel)]="ContractorPersonName" readonly 
+                              (focus)="ContractorPersonFunction()">
+                              <div *ngIf="ContractorPersonNameMsg" class="invalid-feedback">
+                               Please fill out the details in Liability and Declaration tab!
+                              </div>
                           <div *ngIf="submitted && a.get('personName')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('personName')?.errors?.required">Person name is required</div>
                         </div>
@@ -1405,7 +1395,7 @@
 </mat-expansion-panel>
 <!-- completed comments end--> 
       </mat-accordion>
-   
+     
       <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
         <span class="alert alert-danger">{{validationErrorMsg}}</span>
       </div>

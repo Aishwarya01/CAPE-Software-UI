@@ -3,7 +3,7 @@
 </div>
 <div class="card">
   <div class="card-body">
-    <form [formGroup]="supplycharesteristicForm" (ngSubmit)="nextTab2(flag)">
+    <form [formGroup]="supplycharesteristicForm" (ngSubmit)="nextTab2(flag)" (keyup)="onKeyForm($event)">
       <mat-accordion>
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
@@ -128,15 +128,24 @@
                     <tbody>
                       <tr>
                         <td nowrap="nowrap">Nominal voltage U/U0 (V)</td>
-                        <td><input  type="text" style="width:50px" formControlName="NV1" [(ngModel)]="NV1"></td>
-                        <td><input  type="text" style="width:50px" formControlName="NV2" [(ngModel)]="NV2"></td>
-                        <td><input  type="text" style="width:50px" formControlName="NV3" [(ngModel)]="NV3"></td>
-                        <td><input  type="text" style="width:50px" formControlName="NV4" [(ngModel)]="NV4"></td>
-                        <td><input  type="text" style="width:50px" formControlName="NV5" [(ngModel)]="NV5"></td>
-                        <td><input  type="text" style="width:50px" formControlName="NV6" [(ngModel)]="NV6"></td>
-                        <td><input  type="text" style="width:50px" formControlName="NV7" [(ngModel)]="NV7"></td>
-                        <td><input  type="text" style="width:50px" formControlName="NV8" [(ngModel)]="NV8"></td>
-                        <td><input  type="text" style="width:50px" formControlName="NV9" [(ngModel)]="NV9"></td>
+                        <td><input  type="text" style="width:50px" formControlName="NV1" [(ngModel)]="NV1"
+                          (keyup)="onKeyVoltage($event)"></td>
+                        <td><input  type="text" style="width:50px" formControlName="NV2" [(ngModel)]="NV2"
+                          (keyup)="onKeyVoltage($event)"></td>
+                        <td><input  type="text" style="width:50px" formControlName="NV3" [(ngModel)]="NV3"
+                          (keyup)="onKeyVoltage($event)"></td>
+                        <td><input  type="text" style="width:50px" formControlName="NV4" [(ngModel)]="NV4"
+                          (keyup)="onKeyVoltage($event)"></td>
+                        <td><input  type="text" style="width:50px" formControlName="NV5" [(ngModel)]="NV5"
+                          (keyup)="onKeyVoltage($event)"></td>
+                        <td><input  type="text" style="width:50px" formControlName="NV6" [(ngModel)]="NV6"
+                          (keyup)="onKeyVoltage($event)"></td>
+                        <td><input  type="text" style="width:50px" formControlName="NV7" [(ngModel)]="NV7"
+                          (keyup)="onKeyVoltage($event)"></td>
+                        <td><input  type="text" style="width:50px" formControlName="NV8" [(ngModel)]="NV8"
+                          (keyup)="onKeyVoltage($event)"></td>
+                        <td><input  type="text" style="width:50px" formControlName="NV9" [(ngModel)]="NV9"
+                          (keyup)="onKeyVoltage($event)"></td>
                       </tr>
                       <tr>
                         <td nowrap="nowrap">Nominal Frequency f (HZ)</td>
@@ -152,29 +161,37 @@
                         <td><input  type="text" style="width:50px" formControlName="NF9" [(ngModel)]="NF9"></td> -->
                       </tr>
                       <tr>
-                        <td nowrap="nowrap">Prospective fault current Ipfc (kA) </td>
-                        <td><input  type="text" style="width:50px" formControlName="PF1" [(ngModel)]="PF1"></td>
-                        <td><input  type="text" style="width:50px" formControlName="PF2" [(ngModel)]="PF2"></td>
-                        <td><input  type="text" style="width:50px" formControlName="PF3" [(ngModel)]="PF3"></td>
-                        <td><input  type="text" style="width:50px" formControlName="PF4" [(ngModel)]="PF4"></td>
-                        <td><input  type="text" style="width:50px" formControlName="PF5" [(ngModel)]="PF5"></td>
-                        <td><input  type="text" style="width:50px" formControlName="PF6" [(ngModel)]="PF6"></td>
-                        <td><input  type="text" style="width:50px" formControlName="PF7" [(ngModel)]="PF7"></td>
-                        <td><input  type="text" style="width:50px" formControlName="PF8" [(ngModel)]="PF8"></td>
-                        <td><input  type="text" style="width:50px" formControlName="PF9" [(ngModel)]="PF9"></td>
-                      </tr>
-
-                      <tr>
                         <td nowrap="nowrap">External Loop Impedance Ze (Ω)</td>
-                        <td><input  type="text" style="width:50px" formControlName="EL1" [(ngModel)]="EL1"></td>
-                        <td><input  type="text" style="width:50px" formControlName="EL2" [(ngModel)]="EL2" ></td>
-                        <td><input  type="text" style="width:50px" formControlName="EL3" [(ngModel)]="EL3"></td>
-                        <td><input  type="text" style="width:50px" formControlName="EL4" [(ngModel)]="EL4"></td>
-                        <td><input  type="text" style="width:50px" formControlName="EL5" [(ngModel)]="EL5"></td>
-                        <td><input  type="text" style="width:50px" formControlName="EL6" [(ngModel)]="EL6"></td>
-                        <td><input  type="text" style="width:50px" formControlName="EL7" [(ngModel)]="EL7"></td>
-                        <td><input  type="text" style="width:50px" formControlName="EL8" [(ngModel)]="EL8"></td>
-                        <td><input  type="text" style="width:50px" formControlName="EL9" [(ngModel)]="EL9"></td>
+                        <td><input  type="text" style="width:50px" formControlName="EL1" [(ngModel)]="EL1"
+                          (keyup)="onKeyImpedance($event)"></td>
+                        <td><input  type="text" style="width:50px" formControlName="EL2" [(ngModel)]="EL2" 
+                          (keyup)="onKeyImpedance($event)"></td>
+                        <td><input  type="text" style="width:50px" formControlName="EL3" [(ngModel)]="EL3"
+                          (keyup)="onKeyImpedance($event)"></td>
+                        <td><input  type="text" style="width:50px" formControlName="EL4" [(ngModel)]="EL4"
+                          (keyup)="onKeyImpedance($event)"></td>
+                        <td><input  type="text" style="width:50px" formControlName="EL5" [(ngModel)]="EL5"
+                          (keyup)="onKeyImpedance($event)"></td>
+                        <td><input  type="text" style="width:50px" formControlName="EL6" [(ngModel)]="EL6"
+                          (keyup)="onKeyImpedance($event)"></td>
+                        <td><input  type="text" style="width:50px" formControlName="EL7" [(ngModel)]="EL7"
+                          (keyup)="onKeyImpedance($event)"></td>
+                        <td><input  type="text" style="width:50px" formControlName="EL8" [(ngModel)]="EL8"
+                          (keyup)="onKeyImpedance($event)"></td>
+                        <td><input  type="text" style="width:50px" formControlName="EL9" [(ngModel)]="EL9"
+                          (keyup)="onKeyImpedance($event)"></td>
+                      </tr>
+                      <tr>
+                        <td nowrap="nowrap">Prospective fault current Ipfc (kA) </td>
+                        <td><input  type="text" style="width:50px" formControlName="PF1" readonly [(ngModel)]="PF1"></td>
+                        <td><input  type="text" style="width:50px" formControlName="PF2" readonly [(ngModel)]="PF2"></td>
+                        <td><input  type="text" style="width:50px" formControlName="PF3" readonly [(ngModel)]="PF3"></td>
+                        <td><input  type="text" style="width:50px" formControlName="PF4" readonly [(ngModel)]="PF4"></td>
+                        <td><input  type="text" style="width:50px" formControlName="PF5" readonly [(ngModel)]="PF5"></td>
+                        <td><input  type="text" style="width:50px" formControlName="PF6" readonly [(ngModel)]="PF6"></td>
+                        <td><input  type="text" style="width:50px" formControlName="PF7" readonly [(ngModel)]="PF7"></td>
+                        <td><input  type="text" style="width:50px" formControlName="PF8" readonly [(ngModel)]="PF8"></td>
+                        <td><input  type="text" style="width:50px" formControlName="PF9" readonly [(ngModel)]="PF9"></td>
                       </tr>
                     </tbody>
                   </table>
@@ -466,19 +483,6 @@
                                 <td><input  type="text" formControlName="nominalFrequency9" style="width:70px"></td> -->
                               </tr>
                               <tr>
-                                <td nowrap="nowrap">Prospective Fault Current Ipfc (kA) </td>
-                                <td><input  type="text"  formControlName="current1" style="width:70px"></td>
-                                <td><input  type="text"  formControlName="current2" style="width:70px"></td>
-                                <td><input  type="text" formControlName="current3" style="width:70px"></td>
-                                <td><input  type="text"  formControlName="current4" style="width:70px"></td>
-                                <td><input  type="text" formControlName="current5" style="width:70px"></td>
-                                <td><input  type="text"  formControlName="current6" style="width:70px"></td>
-                                <td><input  type="text"  formControlName="current7" style="width:70px"></td>
-                                <td><input  type="text" formControlName="current8" style="width:70px"></td>
-                                <td><input  type="text" formControlName="current9" style="width:70px"></td>
-
-                              </tr>
-                              <tr>
                                 <td nowrap="nowrap">External Loop Impedance Ze (Ω)</td>
                                 <td><input  type="text"  formControlName="impedence1" style="width:70px"></td>
                                 <td><input  type="text"  formControlName="impedence2" style="width:70px"></td>
@@ -491,6 +495,20 @@
                                 <td><input  type="text" formControlName="impedence9" style="width:70px"></td>
 
                               </tr>
+                              <tr>
+                                <td nowrap="nowrap" readonly>Prospective Fault Current Ipfc (kA) </td>
+                                <td><input  type="text"  formControlName="current1" style="width:70px"></td>
+                                <td><input  type="text"  formControlName="current2" style="width:70px"></td>
+                                <td><input  type="text" formControlName="current3" style="width:70px"></td>
+                                <td><input  type="text"  formControlName="current4" style="width:70px"></td>
+                                <td><input  type="text" formControlName="current5" style="width:70px"></td>
+                                <td><input  type="text"  formControlName="current6" style="width:70px"></td>
+                                <td><input  type="text"  formControlName="current7" style="width:70px"></td>
+                                <td><input  type="text" formControlName="current8" style="width:70px"></td>
+                                <td><input  type="text" formControlName="current9" style="width:70px"></td>
+
+                              </tr>
+                            
                                 <tr><td >Installed Capacity (kVA)</td>
                                   <td colspan="9"><input  type="text" formControlName="capacity" style="width: 950px"></td>
                                 </tr>
@@ -824,7 +842,9 @@
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 30px">
                     <p  class="joints">No Of Joints
-                      <input type="tel" min="0" formControlName="bondingNoOfJoints" [(ngModel)]="supplycharesteristic.bondingNoOfJoints" [ngClass]="{ 'is-invalid': submitted && f.bondingNoOfJoints.errors }" style="
+                      <input type="tel" formControlName="bondingNoOfJoints" 
+                      [(ngModel)]="supplycharesteristic.bondingNoOfJoints" 
+                      [ngClass]="{ 'is-invalid': submitted && f.bondingNoOfJoints.errors }" style="
                       width: 50px;
                       background: transparent;
                       border: none;

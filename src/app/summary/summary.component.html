@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-body">
-<form [formGroup]="addsummary" (ngSubmit)="SubmitTab5(flag,content5)">
+<form [formGroup]="addsummary" (ngSubmit)="SubmitTab5(flag,content5)" (keyup)="onKeyForm($event)">
         <mat-accordion>
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>

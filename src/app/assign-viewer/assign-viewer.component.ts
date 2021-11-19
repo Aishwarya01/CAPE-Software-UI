@@ -1,7 +1,7 @@
 import { Component, OnInit,Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, EventEmitter} from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ViewerRegisterComponent } from '../viewer-register/viewer-register.component';
 import { Register } from '../model/register';
 import { ApplicationTypeService } from '../services/application.service';
@@ -92,8 +92,8 @@ export class AssignViewerComponent implements OnInit {
               private router: Router,
               private componentFactoryResolver: ComponentFactoryResolver,
               private route: ActivatedRoute,
-              private globalService: GlobalsService
-
+              private globalService: GlobalsService,
+              public activeModal: NgbActiveModal
               ) {
                 this.urlEmail = this.route.snapshot.paramMap.get('email') || '{}';
                }

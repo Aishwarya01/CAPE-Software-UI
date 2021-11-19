@@ -185,9 +185,23 @@ export class InspectionVerificationIncomingEquipmentComponent
         this.inspectionDetails.createdBy = this.step3List.periodicInspection.createdBy;
         this.inspectionDetails.createdDate  = this.step3List.periodicInspection.createdDate;
         this.flag = true;
-        this.populateData();
+        this.populateData(this.step3List.periodicInspection);
         this.populateDataComments();
   }
+
+  retrieveAllDetailsforIncoming(userName: any,siteId: any,data: any){ 
+    if(this.service.disableFields==true){
+      this.addstep3.disable();
+     }
+        this.step3List = JSON.parse(data);
+        this.inspectionDetails.siteId = siteId;
+        this.inspectionDetails.periodicInspectionId = this.step3List.periodicInspectionId;
+        this.inspectionDetails.createdBy = this.step3List.createdBy;
+        this.inspectionDetails.createdDate  = this.step3List.createdDate;
+        this.flag = true;
+        this.populateData(this.step3List);
+  }
+
   reloadFromBack(){
     this.addstep3.markAsPristine();
    }
@@ -587,12 +601,12 @@ showHideAccordion(index: number) {
   }
 //comments section ends
 
-  populateData() {
+  populateData(value:any) {
     if(this.service.disableFields==true){
       this.disable=true;
       }
     this.arr = [];
-    for (let item of this.step3List.periodicInspection.ipaoInspection) {
+    for (let item of value.ipaoInspection) {
       this.arr.push(this.createGroup(item));
       
     }
@@ -633,7 +647,7 @@ showHideAccordion(index: number) {
       doubleInsulation: new FormControl({disabled: false,value: item.doubleInsulation}),
       reinforcedInsulation: new FormControl({disabled: false,value: item.reinforcedInsulation}),
       basicElectricalSepartion: new FormControl({disabled: false,value: item.basicElectricalSepartion}),
-      isolatePublicSupply: new FormControl({disabled: false,value: item.isolatePublicSupply}),
+      //isolatePublicSupply: new FormControl({disabled: false,value: item.isolatePublicSupply}),
       insulationLiveParts: new FormControl({disabled: false,value: item.insulationLiveParts}),
       barriersEnclosers: new FormControl({disabled: false,value: item.barriersEnclosers}),
       obstacles: new FormControl({disabled: false,value: item.obstacles}),
@@ -947,7 +961,7 @@ showHideAccordion(index: number) {
       doubleInsulation: new FormControl('', [Validators.required]),
       reinforcedInsulation: new FormControl('', [Validators.required]),
       basicElectricalSepartion: new FormControl('', [Validators.required]),
-      isolatePublicSupply: new FormControl('', [Validators.required]),
+      //isolatePublicSupply: new FormControl('', [Validators.required]),
       insulationLiveParts: new FormControl('', [Validators.required]),
       barriersEnclosers: new FormControl('', [Validators.required]),
       obstacles: new FormControl('', [Validators.required]),
@@ -973,9 +987,11 @@ showHideAccordion(index: number) {
   removeItem(index: any) {
     (this.addstep3.get('incomingArr') as FormArray).removeAt(index);
   }
-  // clickAcc(){
-  //   this.gotoNextTab();
-  // }
+  onKeyForm(event: KeyboardEvent) { 
+    if(!this.addstep3.invalid){
+     this.validationError=false;
+    }
+   }
   gotoNextTab() {
     if ((this.addstep3.dirty && this.addstep3.invalid) || this.service.isCompleted2==false) {
       this.service.isCompleted3= false;
@@ -1081,6 +1097,11 @@ showHideAccordion(index: number) {
           this.proceedNext.emit(true);
           this.success = true;
           this.successMsg = 'Incoming Equipment Successfully Saved';
+          this.inspectionDetailsService.retrieveInspectionDetails(this.inspectionDetails.userName,this.inspectionDetails.siteId).subscribe(
+            data=>{
+             this.retrieveAllDetailsforIncoming(this.inspectionDetails.userName,this.inspectionDetails.siteId,data);
+            }
+          )
           //this.disable = true;
           //this.service.allFieldsDisable = true;
         },

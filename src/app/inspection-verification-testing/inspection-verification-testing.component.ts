@@ -218,6 +218,8 @@ export class InspectionVerificationTestingComponent implements OnInit {
   modalReference: any;
   tabErrorMsg: string="";
   tabError: boolean = false;
+  testInstrumentArr: any=[];
+  showAdd: boolean = true;
 
   constructor(
     private testingService: TestingService,
@@ -269,9 +271,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
          viewerCommentArr: this.formBuilder.array([this.addCommentViewer()]),
          completedCommentArr1: this.formBuilder.array([]),
        });
-        for(let i of this.incomingValues) {
-          this.service.iterationList=i.ipaoInspection;
-        }
+        //for(let i of this.incomingValues) {
+          this.service.iterationList=this.incomingValues.ipaoInspection;
+       // }
         //location iteration
         if (this.service.iterationList != '' && this.service.iterationList != undefined && this.service.iterationList.length != 0) {
           this.testingRetrieve = false;
@@ -294,9 +296,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
       this.inspectionDetailsService.retrieveInspectionDetails(this.currentUser1.assignedBy, this.service.siteCount).subscribe(
         data=>{
         this.incomingValues = JSON.parse(data);
-        for(let i of this.incomingValues) {
-          this.service.iterationList = i.ipaoInspection;
-        }
+        //for(let i of this.incomingValues) {
+          this.service.iterationList = this.incomingValues.ipaoInspection;
+        //}
         //location iteration
         if (this.service.iterationList != '' && this.service.iterationList != undefined && this.service.iterationList.length != 0) {
           this.testingRetrieve = false;
@@ -328,34 +330,34 @@ export class InspectionVerificationTestingComponent implements OnInit {
       this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.email, this.service.siteCount).subscribe(
         data=>{
         this.supplyValues = JSON.parse(data);
-        for(let i of this.supplyValues) {
-          this.service.nominalVoltageArr2=i.supplyParameters;
-          if(i.liveConductorType == "AC") {
-            this.addValues("Mains Incoming", i.mainNominalVoltage,i.mainLoopImpedance, i.mainNominalCurrent);
+        //for(let i of this.supplyValues) {
+          this.service.nominalVoltageArr2=this.supplyValues.supplyParameters;
+          if(this.supplyValues.liveConductorType == "AC") {
+            this.addValues("Mains Incoming", this.supplyValues.mainNominalVoltage,this.supplyValues.mainLoopImpedance, this.supplyValues.mainNominalCurrent);
             this.mainNominalVoltageArr1 = [];
             this.mainNominalVoltageArr2 = [];
             this.mainNominalVoltageArr3 = [];
         
-            this.mainNominalVoltageArr1 = i.mainNominalVoltage.split(",");
-            this.mainNominalVoltageArr2 = i.mainLoopImpedance.split(",");
-            this.mainNominalVoltageArr3 = i.mainNominalCurrent.split(",");
+            this.mainNominalVoltageArr1 = this.supplyValues.mainNominalVoltage.split(",");
+            this.mainNominalVoltageArr2 = this.supplyValues.mainLoopImpedance.split(",");
+            this.mainNominalVoltageArr3 = this.supplyValues.mainNominalCurrent.split(",");
         
             this.mainNominalArr = [];
             this.mainNominalArr.push(this.mainNominalVoltageArr1,this.mainNominalVoltageArr2,this.mainNominalVoltageArr3);
             this.service.retrieveMainNominalVoltage=this.mainNominalArr;
-            this.service.mainNominalVoltageValue=i.mainNominalVoltage;
-            this.service.mainLoopImpedanceValue=i.mainLoopImpedance;
-            this.service.mainNominalCurrentValue=i.mainNominalCurrent;
+            this.service.mainNominalVoltageValue=this.supplyValues.mainNominalVoltage;
+            this.service.mainLoopImpedanceValue=this.supplyValues.mainLoopImpedance;
+            this.service.mainNominalCurrentValue=this.supplyValues.mainNominalCurrent;
           }
-          this.service.supplyList = i.supplyNumber;
+          this.service.supplyList = this.supplyValues.supplyNumber;
           let count =1;
-          for(let j of i.supplyParameters) {
+          for(let j of this.supplyValues.supplyParameters) {
            if(j.aLLiveConductorType == "AC") {
             this.addValues("Alternate Source of Supply-" +count, j.nominalVoltage,j.loopImpedance, j.faultCurrent);
             count++;
            }
           }
-        }
+       // }
         //retrieve selected source dd from supply to testing
       if (this.service.supplyList != '' && this.service.supplyList != undefined) {
         this.SourceList=['Mains Incoming'];
@@ -373,34 +375,34 @@ export class InspectionVerificationTestingComponent implements OnInit {
       this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.currentUser1.assignedBy, this.service.siteCount).subscribe(
         data=>{
         this.supplyValues = JSON.parse(data);
-        for(let i of this.supplyValues) {
-          this.service.nominalVoltageArr2=i.supplyParameters;
-          if(i.liveConductorType == "AC") {
-            this.addValues("Mains Incoming", i.mainNominalVoltage,i.mainLoopImpedance, i.mainNominalCurrent);
+        //for(let i of this.supplyValues) {
+          this.service.nominalVoltageArr2=this.supplyValues.supplyParameters;
+          if(this.supplyValues.liveConductorType == "AC") {
+            this.addValues("Mains Incoming", this.supplyValues.mainNominalVoltage,this.supplyValues.mainLoopImpedance, this.supplyValues.mainNominalCurrent);
             this.mainNominalVoltageArr1 = [];
             this.mainNominalVoltageArr2 = [];
             this.mainNominalVoltageArr3 = [];
         
-            this.mainNominalVoltageArr1 = i.mainNominalVoltage.split(",");
-            this.mainNominalVoltageArr2 = i.mainLoopImpedance.split(",");
-            this.mainNominalVoltageArr3 = i.mainNominalCurrent.split(",");
+            this.mainNominalVoltageArr1 = this.supplyValues.mainNominalVoltage.split(",");
+            this.mainNominalVoltageArr2 = this.supplyValues.mainLoopImpedance.split(",");
+            this.mainNominalVoltageArr3 = this.supplyValues.mainNominalCurrent.split(",");
         
             this.mainNominalArr = [];
             this.mainNominalArr.push(this.mainNominalVoltageArr1,this.mainNominalVoltageArr2,this.mainNominalVoltageArr3);
             this.service.retrieveMainNominalVoltage=this.mainNominalArr;
-            this.service.mainNominalVoltageValue=i.mainNominalVoltage;
-            this.service.mainLoopImpedanceValue=i.mainLoopImpedance;
-            this.service.mainNominalCurrentValue=i.mainNominalCurrent;
+            this.service.mainNominalVoltageValue=this.supplyValues.mainNominalVoltage;
+            this.service.mainLoopImpedanceValue=this.supplyValues.mainLoopImpedance;
+            this.service.mainNominalCurrentValue=this.supplyValues.mainNominalCurrent;
           }
-          this.service.supplyList = i.supplyNumber;
+          this.service.supplyList = this.supplyValues.supplyNumber;
           let count =1;
-          for(let j of i.supplyParameters) {
+          for(let j of this.supplyValues.supplyParameters) {
            if(j.aLLiveConductorType == "AC") {
             this.addValues("Alternate Source of Supply-" +count, j.nominalVoltage,j.loopImpedance, j.faultCurrent);
             count++;
            }
           }
-        }
+        //}
         //retrieve selected source dd from supply to testing
       if (this.service.supplyList != '' && this.service.supplyList != undefined) {
         this.SourceList=['Mains Incoming'];
@@ -425,6 +427,26 @@ export class InspectionVerificationTestingComponent implements OnInit {
     }
 }
 
+  retrieveDetailsforTesting(userName: any, siteId: any,data: any) {
+    if(this.service.disableFields==true){
+      this.testingForm.disable();
+     }
+    this.testingRetrieve = true;
+    this.inspectionRetrieve = false;
+    this.testList = JSON.parse(data);
+    this.testingDetails.siteId = siteId;
+    this.retrieveDetailsFromSupply();
+    this.retrieveDetailsFromIncoming();
+    if(this.testList != null) {
+    this.testingDetails.testingReportId = this.testList.testingReportId;
+    this.testingDetails.createdBy = this.testList.createdBy;
+    this.testingDetails.createdDate = this.testList.createdDate;
+    setTimeout(() => {
+      this.populateData(this.testList);
+    }, 1000);
+    this.flag = true;
+    }    
+  }
   retrieveDetailsfromSavedReports(userName: any, siteId: any, clientName: any, departmentName: any, site: any, data: any) {
     if(this.service.disableFields==true){
       this.testingForm.disable();
@@ -440,11 +462,10 @@ export class InspectionVerificationTestingComponent implements OnInit {
     this.testingDetails.createdBy = this.testList.testingReport.createdBy;
     this.testingDetails.createdDate = this.testList.testingReport.createdDate;
     setTimeout(() => {
-      this.populateData();
+      this.populateData(this.testList.testingReport);
       this.populateDataComments();
     }, 1000);
     this.flag = true;
-
     }    
   }
 
@@ -840,12 +861,12 @@ export class InspectionVerificationTestingComponent implements OnInit {
   reloadFromBack(){
     this.testingForm.markAsPristine();
    }
-  populateData() {
+  populateData(value:any) {
     if(this.service.disableFields==true){
       this.disable=true;
       }
     this.arr = [];
-    for (let item of this.testList.testingReport.testing) {
+    for (let item of value.testing) {
       this.arr.push(this.createGroup(item));
     }
     this.testingForm.setControl('testaccordianArr', this.formBuilder.array(this.arr || []))
@@ -858,16 +879,26 @@ export class InspectionVerificationTestingComponent implements OnInit {
       locationName: new FormControl({ disabled: false, value: item.locationName }),
       testEngineerName: new FormControl({ disabled: false, value: item.testEngineerName }),
       date: new FormControl({ disabled: false, value: item.date }),
-      companyName: new FormControl({ disabled: false, value: item.companyName }),
-      designation: new FormControl({ disabled: false, value: item.designation }),
-      detailsTestInstrument: new FormControl({ disabled: false, value: item.detailsTestInstrument }),
-      continuity: new FormControl({ disabled: false, value: item.continuity }),
-      insulationResisance: new FormControl({ disabled: false, value: item.insulationResisance }),
-      impedance: new FormControl({ disabled: false, value: item.impedance }),
-      rcd: new FormControl({ disabled: false, value: item.rcd }),
-      earthElectrodeResistance: new FormControl({ disabled: false, value: item.earthElectrodeResistance }),
+      //companyName: new FormControl({ disabled: false, value: item.companyName }),
+      //designation: new FormControl({ disabled: false, value: item.designation }),
+      // detailsTestInstrument: new FormControl({ disabled: false, value: item.detailsTestInstrument }),
+      // continuity: new FormControl({ disabled: false, value: item.continuity }),
+      // insulationResisance: new FormControl({ disabled: false, value: item.insulationResisance }),
+      // impedance: new FormControl({ disabled: false, value: item.impedance }),
+      // rcd: new FormControl({ disabled: false, value: item.rcd }),
+      // earthElectrodeResistance: new FormControl({ disabled: false, value: item.earthElectrodeResistance }),
+      testInstrumentArr: this.formBuilder.array([this.populateTestInstrumentForm(item.testingEquipment)]),
       testDistribution: this.formBuilder.array([this.populateTestDistributionForm(item.testDistribution)]),
       testingRecords: this.formBuilder.array(this.populateTestRecordsForm(item.testingRecords)),
+    });
+  }
+  private populateTestInstrumentForm(testingEquipmentItem: any): FormGroup {
+    return new FormGroup({
+      equipmentName: new FormControl({ disabled: false, value: testingEquipmentItem[0].equipmentName }),
+      equipmentMake: new FormControl({ disabled: false, value: testingEquipmentItem[0].equipmentMake }),
+      equipmentModel: new FormControl({ disabled: false, value: testingEquipmentItem[0].equipmentModel }),
+      equipmentSerialNo: new FormControl({ disabled: false, value: testingEquipmentItem[0].equipmentSerialNo }),
+      equipmentCalibrationDueDate: new FormControl({ disabled: false, value: testingEquipmentItem[0].equipmentCalibrationDueDate }),
     });
   }
 
@@ -1115,7 +1146,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
       rcdRemarks: new FormControl({ disabled: false, value: itemTestingValue.rcdRemarks }),
     });
   }
-
+  gettestInstrumentControls(form: any) {
+    return form.controls.testInstrumentArr?.controls;
+  }
   getdistributionIncomingValueControls(form: any) {
     return form.controls.distributionIncomingValueArr?.controls;
   }
@@ -1142,7 +1175,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
       location: new FormControl('', [Validators.required]),
       sourceFromSupply: new FormControl('', [Validators.required]),
       correctSupplyPolarity: new FormControl('', [Validators.required]),
-      numOutputCircuitsUse: new FormControl('', [Validators.required]),
+      numOutputCircuitsUse: new FormControl('', [Validators.required,Validators.minLength(1),Validators.maxLength(5)]),
       ratingsAmps: new FormControl(''),
       rateArr: this.formBuilder.array([this.ratingAmps()]),
       numOutputCircuitsSpare: new FormControl('', [Validators.required]),
@@ -1284,7 +1317,11 @@ export class InspectionVerificationTestingComponent implements OnInit {
       rcdRemarks: new FormControl(''),
     });
   }
-
+  onKeyForm(event: KeyboardEvent) { 
+    if(!this.testingForm.invalid){
+     this.validationError=false;
+    }
+   }
   // Dynamically iterate some fields
   onKey(event: KeyboardEvent, c: any, a: any) {
     this.values = (<HTMLInputElement>event.target).value;
@@ -1334,25 +1371,46 @@ export class InspectionVerificationTestingComponent implements OnInit {
       }
     }
   }
-
+ 
   createItem() {
     return this.formBuilder.group({
       locationNumber: ['', Validators.required],
       locationName: ['', Validators.required],
       testEngineerName: ['', Validators.required],
       date: ['', Validators.required],
-      companyName: ['', Validators.required],
-      designation: ['', Validators.required],
-      detailsTestInstrument: ['', Validators.required],
-      continuity: ['', Validators.required],
-      insulationResisance: ['', Validators.required],
-      impedance: ['', Validators.required],
-      rcd: ['', Validators.required],
-      earthElectrodeResistance: ['', Validators.required],
+      //companyName: ['', Validators.required],
+      //designation: ['', Validators.required],
+      // detailsTestInstrument: ['', Validators.required],
+      // continuity: ['', Validators.required],
+      // insulationResisance: ['', Validators.required],
+      // impedance: ['', Validators.required],
+      // rcd: ['', Validators.required],
+      // earthElectrodeResistance: ['', Validators.required],
+      testInstrumentArr:this.formBuilder.array([
+        this.createTestInstrumentForm(),
+      ]),
       testDistribution: this.formBuilder.array([
         this.createtestDistributionForm(),
       ]),
       testingRecords: this.formBuilder.array([this.createtestValueForm()]),
+    });
+  }
+  addDesigner(a:any) {
+    this.testInstrumentArr = a.controls.testInstrumentArr as FormArray;
+    this.testInstrumentArr.push(this.createTestInstrumentForm());
+  }
+  removeItem(a: any,j:any) {
+    this.testInstrumentArr = a.controls.testInstrumentArr as FormArray;
+    this.testInstrumentArr.removeAt(j);
+  }
+
+  createTestInstrumentForm(): FormGroup {
+    return new FormGroup({
+      equipmentName: new FormControl('',[Validators.required]),
+      equipmentMake: new FormControl('',[Validators.required]),
+      equipmentModel: new FormControl('',[Validators.required]),
+      equipmentSerialNo: new FormControl('',[Validators.required]),
+      equipmentCalibrationDueDate: new FormControl('',[Validators.required]),
     });
   }
   createtestDistribution(): FormGroup {
@@ -1422,9 +1480,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
     if (this.testingForm.invalid) {
       this.validationError = true;
       this.validationErrorMsg = 'Please check all the fields';
-      setTimeout(() => {
-        this.validationError = false;
-      }, 3000);
+      // setTimeout(() => {
+      //   this.validationError = false;
+      // }, 3000);
       return;
     }
     if(this.testingForm.touched || this.testingForm.untouched){
@@ -1787,6 +1845,11 @@ export class InspectionVerificationTestingComponent implements OnInit {
           // show success message ofter click button
           this.success = true;
           this.successMsg = data;
+          this.testingService.retrieveTesting(this.testingDetails.siteId,this.testingDetails.userName).subscribe(
+            data=>{
+             this.retrieveDetailsforTesting(this.testingDetails.userName,this.testingDetails.siteId,data);
+            }
+          )
           //this.disable = true;
           //this.service.allFieldsDisable = true;
         },

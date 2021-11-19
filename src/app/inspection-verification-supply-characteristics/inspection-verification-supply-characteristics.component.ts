@@ -150,6 +150,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
     'Vertical',
     'Horizontal',
     'Combined Vertical + Horizontal',
+    'Ring Earth', 'Foundation Earth', 'TNS-PME'
   ];
   electrodeMaterialList: string[] = [
     'Copper',
@@ -396,6 +397,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       viewerCommentArr: this.formBuilder.array([this.addCommentViewer()]),
       completedCommentArr1: this.formBuilder.array([]),
     });
+    //this.PF1=this.NV1/this.EL1;
     //this.service.retrieveSiteDetails(this.service.viewerData.companyName,this.service.viewerData.department,this.service.viewerData.siteName);
     this.expandedIndex = -1 ;
   }
@@ -412,7 +414,11 @@ export class InspectionVerificationSupplyCharacteristicsComponent
        this.supplycharesteristic.alternativeSupply=this.step2List.supplyCharacteristics.alternativeSupply;
        this.showAlternateField(this.step2List.supplyCharacteristics.alternativeSupply);
        this.changeSystem(this.step2List.supplyCharacteristics.mainSystemEarthing);
-       this.supplycharesteristic.systemEarthingBNote=this.step2List.supplyCharacteristics.systemEarthingBNote;       this.supplycharesteristic.electrodeMaterial=this.step2List.supplyCharacteristics.electrodeMaterial;
+       this.onKey(this.step2List.supplyCharacteristics.bondingNoOfJoints);
+       this.onKey3(this.step2List.supplyCharacteristics.earthingNoOfJoints);
+
+       this.supplycharesteristic.systemEarthingBNote=this.step2List.supplyCharacteristics.systemEarthingBNote;       
+       this.supplycharesteristic.electrodeMaterial=this.step2List.supplyCharacteristics.electrodeMaterial;
        this.supplycharesteristic.meansEarthing=this.step2List.supplyCharacteristics.meansEarthing;
        this.supplycharesteristic.electrodeType=this.step2List.supplyCharacteristics.electrodeType;
       if(this.step2List.supplyCharacteristics.noOfLocation!=0){
@@ -443,7 +449,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
        this.DcValue = this.step2List.supplyCharacteristics.liveConductorDC;
        this.step2List.liveConductor= this.step2List.supplyCharacteristics.liveConductor;
        this.flag = true;
-       this.populateData();
+       this.populateData(this.step2List.supplyCharacteristics);
        this.populateDataComments();
        this.supplycharesteristicForm.patchValue({
         clientName1: clientName,
@@ -550,8 +556,271 @@ export class InspectionVerificationSupplyCharacteristicsComponent
        
       }
      }
+
+  retrieveAllDetailsforSupply(userName: any,siteId: any,data: any){
+    if(this.service.disableFields==true){
+        this.supplycharesteristicForm.disable();
+    }
+         this.step2List = JSON.parse(data);
+         this.supplycharesteristic.siteId = siteId;
+         this.supplycharesteristic.supplyCharacteristicsId = this.step2List.supplyCharacteristicsId;
+         this.supplycharesteristic.createdBy = this.step2List.createdBy;
+         this.supplycharesteristic.createdDate = this.step2List.createdDate;
+         this.supplycharesteristic.alternativeSupply=this.step2List.alternativeSupply;
+         this.showAlternateField(this.step2List.alternativeSupply);
+         this.changeSystem(this.step2List.mainSystemEarthing);
+         this.onKey(this.step2List.bondingNoOfJoints);
+         this.onKey3(this.step2List.earthingNoOfJoints);
+         this.supplycharesteristic.systemEarthingBNote=this.step2List.systemEarthingBNote;       
+         this.supplycharesteristic.electrodeMaterial=this.step2List.electrodeMaterial;
+         this.supplycharesteristic.meansEarthing=this.step2List.meansEarthing;
+         this.supplycharesteristic.electrodeType=this.step2List.electrodeType;
+        if(this.step2List.noOfLocation!=0){
+          this.key1LocationTable=true;
+        }
+        else{
+          this.key1LocationTable=false;
+        }
+        if(this.step2List.bondingNoOfJoints!=0){
+          this.JointLocationTable=true;
+        }
+        else{
+          this.JointLocationTable=false;
+        }
+        if(this.step2List.earthingNoOfJoints!=0){
+          this.keyJOintLocationTable=true;
+        }
+        else{
+          this.keyJOintLocationTable=false;
+        }
+        this.supplycharesteristic.bondingJointsType=this.step2List.bondingJointsType;
+        this.supplycharesteristic.earthingJointsType=this.step2List.earthingJointsType;
+         this.supplycharesteristic.conductorVerify= this.step2List.conductorVerify;
+         this.step2List.type= this.step2List.type;
+         this.supplycharesteristic.liveConductorAC= this.step2List.liveConductorAC;
+         this.supplycharesteristic.liveConductorDC=this.step2List.liveConductorDC,
+         this.AcValue = this.step2List.liveConductorAC;
+         this.DcValue = this.step2List.liveConductorDC;
+         this.step2List.liveConductor= this.step2List.liveConductor;
+         this.flag = true;
+         this.populateData(this.step2List);
+         this.supplycharesteristicForm.patchValue({
+          systemEarthing:this.step2List.mainSystemEarthing,
+          liveConductor:this.step2List.liveConductorType,
+        
+          briefNote:this.step2List.systemEarthingBNote,
+          mainNominalProtectiveDevice:this.step2List.mainNominalProtectiveDevice,
+          mainRatedCurrent:this.step2List.mainRatedCurrent,
+          mainCurrentDisconnection:this.step2List.mainCurrentDisconnection,
+          liveConductorBNote:this.step2List.liveConductorBNote,
+          supplyNumber:this.step2List.supplyNumber,
+          maximumDemand:this.step2List.maximumDemand,
+          maximumLoad:this.step2List.maximumLoad,
+  
+          noOfLocation:this.step2List.noOfLocation,
+          conductorSize:this.step2List.conductorSize,
+          conductormaterial:this.step2List.conductormaterial,
+          bondingConductorSize:this.step2List.bondingConductorSize,
+  
+          bondingConductorMaterial:this.step2List.bondingConductorMaterial,
+          bondingConductorVerify:this.step2List.bondingConductorVerify,
+          bondingJointsType:this.step2List.bondingJointsType,
+          bondingNoOfJoints:this.step2List.bondingNoOfJoints,
+          earthingConductorSize:this.step2List.earthingConductorSize,
+  
+          earthingConductorMaterial:this.step2List.earthingConductorMaterial,
+          earthingConductorVerify:this.step2List.earthingConductorVerify,
+          earthingJointsType:this.step2List.earthingJointsType,
+          earthingNoOfJoints:this.step2List.earthingNoOfJoints,
+          residualTime:this.step2List.residualTime,
+  
+          residualCurrent:this.step2List.residualCurrent,
+          fuse:this.step2List.fuse,
+          voltage:this.step2List.voltage,
+          current:this.step2List.current,
+          noPoles:this.step2List.noPoles,
+          location:this.step2List.location,
+      })
+  
+      this.changeCurrent(this.step2List.liveConductorType);
+  
+        if(this.step2List.liveConductorType == "AC") {
+          this.enableAC=true;
+          this.tableAC =  true;
+  
+          this.mainArr1 = [];
+          this.mainArr2 = [];
+          this.mainArr3 = [];
+          this.mainArr4 = [];
+  
+          this.mainArr1 = this.step2List.mainNominalVoltage.split(",");
+          this.mainArr2 = this.step2List.mainNominalFrequency;
+          this.mainArr3 = this.step2List.mainNominalCurrent.split(",");
+          this.mainArr4 = this.step2List.mainLoopImpedance.split(",");
+  
+          this.retrieveMainNominalVoltage = [];
+          this.retrieveMainNominalVoltage.push(this.mainArr1,this.mainArr2,this.mainArr3,this.mainArr4);
+          
+  
+            this.NV1 = this.retrieveMainNominalVoltage[0][0];
+            this.NV2 = this.retrieveMainNominalVoltage[0][1];
+            this.NV3 = this.retrieveMainNominalVoltage[0][2];
+            this.NV4 = this.retrieveMainNominalVoltage[0][3];
+            this.NV5 = this.retrieveMainNominalVoltage[0][4];
+            this.NV6 = this.retrieveMainNominalVoltage[0][5];
+            this.NV7 = this.retrieveMainNominalVoltage[0][6];
+            this.NV8 = this.retrieveMainNominalVoltage[0][7];
+            this.NV9 = this.retrieveMainNominalVoltage[0][8];
+  
+            this.NF1 = this.retrieveMainNominalVoltage[1];
+            //this.NF1 = this.retrieveMainNominalVoltage[1][0];
+            // this.NF2 = this.retrieveMainNominalVoltage[1][1];
+            // this.NF3 = this.retrieveMainNominalVoltage[1][2];
+            // this.NF4 = this.retrieveMainNominalVoltage[1][3];
+            // this.NF5 = this.retrieveMainNominalVoltage[1][4];
+            // this.NF6 = this.retrieveMainNominalVoltage[1][5];
+            // this.NF7 = this.retrieveMainNominalVoltage[1][6];
+            // this.NF8 = this.retrieveMainNominalVoltage[1][7];
+            // this.NF9 = this.retrieveMainNominalVoltage[1][8];
+  
+            this.PF1 = this.retrieveMainNominalVoltage[2][0];
+            this.PF2 = this.retrieveMainNominalVoltage[2][1];
+            this.PF3 = this.retrieveMainNominalVoltage[2][2];
+            this.PF4 = this.retrieveMainNominalVoltage[2][3];
+            this.PF5 = this.retrieveMainNominalVoltage[2][4];
+            this.PF6 = this.retrieveMainNominalVoltage[2][5];
+            this.PF7 = this.retrieveMainNominalVoltage[2][6];
+            this.PF8 = this.retrieveMainNominalVoltage[2][7];
+            this.PF9 = this.retrieveMainNominalVoltage[2][8];
+  
+            this.EL1 = this.retrieveMainNominalVoltage[3][0];
+            this.EL2 = this.retrieveMainNominalVoltage[3][1];
+            this.EL3 = this.retrieveMainNominalVoltage[3][2];
+            this.EL4 = this.retrieveMainNominalVoltage[3][3];
+            this.EL5 = this.retrieveMainNominalVoltage[3][4];
+            this.EL6 = this.retrieveMainNominalVoltage[3][5];
+            this.EL7 = this.retrieveMainNominalVoltage[3][6];
+            this.EL8 = this.retrieveMainNominalVoltage[3][7];
+            this.EL9 = this.retrieveMainNominalVoltage[3][8];
+            
+         
+        }
+       }
+
      reloadFromBack(){
       this.supplycharesteristicForm.markAsPristine();
+     }
+     onKeyVoltage(event:KeyboardEvent){
+     if(this.NV1!='' && this.EL1!='' && this.EL1!=undefined && this.NV1!=undefined){
+     this.PF1= this.NV1/this.EL1;
+    }
+    else{
+      this.PF1='';
+    }
+    if(this.NV2!='' && this.EL2!='' && this.EL2!=undefined && this.NV2!=undefined){
+      this.PF2= this.NV2/this.EL2;
+     }
+     else{
+       this.PF2='';
+     }
+     if(this.NV3!='' && this.EL3!='' && this.EL3!=undefined && this.NV3!=undefined){
+      this.PF3= this.NV3/this.EL3;
+     }
+     else{
+       this.PF3='';
+     }
+     if(this.NV4!='' && this.EL4!='' && this.EL4!=undefined && this.NV4!=undefined){
+      this.PF4= this.NV4/this.EL4;
+     }
+     else{
+       this.PF4='';
+     }
+     if(this.NV5!='' && this.EL5!='' && this.EL5!=undefined && this.NV5!=undefined){
+      this.PF5= this.NV5/this.EL5;
+     }
+     else{
+       this.PF5='';
+     }
+     if(this.NV6!='' && this.EL6!='' && this.EL6!=undefined && this.NV6!=undefined){
+      this.PF6= this.NV6/this.EL6;
+     }
+     else{
+       this.PF6='';
+     }
+     if(this.NV7!='' && this.EL7!='' && this.EL7!=undefined && this.NV7!=undefined){
+      this.PF7= this.NV7/this.EL7;
+     }
+     else{
+       this.PF7='';
+     }
+     if(this.NV8!='' && this.EL8!='' && this.EL8!=undefined && this.NV8!=undefined){
+      this.PF8= this.NV8/this.EL8;
+     }
+     else{
+       this.PF8='';
+     }
+     if(this.NV9!='' && this.EL9!='' && this.EL9!=undefined && this.NV9!=undefined){
+      this.PF9= this.NV9/this.EL9;
+     }
+     else{
+       this.PF9='';
+     }
+     }
+     onKeyImpedance(event:KeyboardEvent){
+      if(this.NV1!='' && this.EL1!='' && this.EL1!=undefined && this.NV1!=undefined){
+        this.PF1= this.NV1/this.EL1;
+       }
+       else{
+         this.PF1='';
+       }
+       if(this.NV2!='' && this.EL2!='' && this.EL2!=undefined && this.NV2!=undefined){
+         this.PF2= this.NV2/this.EL2;
+        }
+        else{
+          this.PF2='';
+        }
+        if(this.NV3!='' && this.EL3!='' && this.EL3!=undefined && this.NV3!=undefined){
+         this.PF3= this.NV3/this.EL3;
+        }
+        else{
+          this.PF3='';
+        }
+        if(this.NV4!='' && this.EL4!='' && this.EL4!=undefined && this.NV4!=undefined){
+         this.PF4= this.NV4/this.EL4;
+        }
+        else{
+          this.PF4='';
+        }
+        if(this.NV5!='' && this.EL5!='' && this.EL5!=undefined && this.NV5!=undefined){
+         this.PF5= this.NV5/this.EL5;
+        }
+        else{
+          this.PF5='';
+        }
+        if(this.NV6!='' && this.EL6!='' && this.EL6!=undefined && this.NV6!=undefined){
+         this.PF6= this.NV6/this.EL6;
+        }
+        else{
+          this.PF6='';
+        }
+        if(this.NV7!='' && this.EL7!='' && this.EL7!=undefined && this.NV7!=undefined){
+         this.PF7= this.NV7/this.EL7;
+        }
+        else{
+          this.PF7='';
+        }
+        if(this.NV8!='' && this.EL8!='' && this.EL8!=undefined && this.NV8!=undefined){
+         this.PF8= this.NV8/this.EL8;
+        }
+        else{
+          this.PF8='';
+        }
+        if(this.NV9!='' && this.EL9!='' && this.EL9!=undefined && this.NV9!=undefined){
+         this.PF9= this.NV9/this.EL9;
+        }
+        else{
+          this.PF9='';
+        }
      }
 //comments section starts
 
@@ -948,29 +1217,29 @@ showHideAccordion(index: number) {
   }
 //comments section ends
 
-     populateData() {
+     populateData(value:any) {
       if(this.service.disableFields==true){
         this.disable=true;
         }
-      for (let item of this.step2List.supplyCharacteristics.boundingLocationReport) {     
+      for (let item of value.boundingLocationReport) {     
         this.arr2.push(this.createGroup(item));
       }
-      for (let item of this.step2List.supplyCharacteristics.instalLocationReport) {     
+      for (let item of value.instalLocationReport) {     
         this.arr1.push(this.createGroup1(item));
       }
-      for (let item of this.step2List.supplyCharacteristics.earthingLocationReport) {     
+      for (let item of value.earthingLocationReport) {     
         this.arr3.push(this.createGroup(item));
       }
-      for (let item of this.step2List.supplyCharacteristics.supplyParameters) { 
+      for (let item of value.supplyParameters) { 
         this.sources=true;    
         this.breaker=true;
         this.alArr.push(this.createGroupAl(item));
       }
-      for (let item of this.step2List.supplyCharacteristics.supplyParameters) { 
+      for (let item of value.supplyParameters) { 
         this.tableAC=true;    
         this.alArr2.push(this.createGroupAl2(item));
       }
-      for (let item of this.step2List.supplyCharacteristics.circuitBreaker) {     
+      for (let item of value.circuitBreaker) {     
         this.circuitB.push(this.createGroupCircuitB(item));
       }
       this.supplycharesteristicForm.setControl('location2Arr', this.formBuilder.array(this.arr2 || []))
@@ -1390,8 +1659,15 @@ showHideAccordion(index: number) {
   }
 
   onKey(event: KeyboardEvent) {
-    this.values = (<HTMLInputElement>event.target).value;
-    this.value = this.values;
+    this.values='';
+    if(event.target != undefined) {
+      this.values = (<HTMLInputElement>event.target).value;    
+    }
+    else{
+      this.value =event;
+    }
+    // this.values = (<HTMLInputElement>event.target).value;
+    // this.value = this.values;
     this.location2Arr = this.supplycharesteristicForm.get(
       'location2Arr'
     ) as FormArray;
@@ -1554,7 +1830,14 @@ showHideAccordion(index: number) {
     }
   }
   onKey3(event: KeyboardEvent) { //No Of Joints
-    this.values = (<HTMLInputElement>event.target).value;
+    this.values='';
+    if(event.target != undefined) {
+      this.values = (<HTMLInputElement>event.target).value;    
+    }
+    else{
+      this.value =event;
+    }
+    // this.values = (<HTMLInputElement>event.target).value;
     this.service.noOfjoint = this.values;
     this.location3Arr = this.supplycharesteristicForm.get(
       'location3Arr'
@@ -1621,7 +1904,7 @@ showHideAccordion(index: number) {
 //   this.keyJOintLocationTable=false;
 //  }
   }
-
+ 
   getLocation1Controls(): AbstractControl[] {
     return (<FormArray>this.supplycharesteristicForm.get('location1Arr'))
       .controls;
@@ -1960,13 +2243,18 @@ showHideAccordion(index: number) {
 
     }
   }
+  onKeyForm(event: KeyboardEvent) { 
+    if(!this.supplycharesteristicForm.invalid){
+     this.validationError=false;
+    }
+   }
   gotoNextModal(content1: any,content2:any) {
     if (this.supplycharesteristicForm.invalid) {
       this.validationError = true;
       this.validationErrorMsg = 'Please check all the fields';
-      setTimeout(() => {
-        this.validationError = false;
-      }, 3000);
+      // setTimeout(() => {
+      //   this.validationError = false;
+      // }, 3000);
       return;
     }
     if(this.supplycharesteristicForm.touched || this.supplycharesteristicForm.untouched){
@@ -1983,11 +2271,14 @@ showHideAccordion(index: number) {
   closeModalDialog() {
     if (this.errorMsg != '') {
       this.Error = false;
+      this.success = false;
       this.service.isCompleted2= false;
       this.service.isLinear=true;
       this.modalService.dismissAll((this.errorMsg = ''));
-    } else {
+    } 
+    else {
       this.success = false;
+      this.Error = false;
       this.service.isCompleted2= true;
       this.service.isLinear=false;
       this.modalService.dismissAll((this.successMsg = ''));
@@ -2348,6 +2639,11 @@ else{
           this.service.retrieveMainNominalVoltage=this.mainNominalArr;
           this.service.retrieveMainNominalVoltage=this.retrieveMainNominalVoltage;
           this.service.nominalVoltageArr2=this.supplycharesteristic.supplyParameters;
+          this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.supplycharesteristic.userName,this.supplycharesteristic.siteId).subscribe(
+            data=>{
+             this.retrieveAllDetailsforSupply(this.supplycharesteristic.userName,this.supplycharesteristic.siteId,data);
+            }
+          )
         },
         (error) => {
           this.Error = true;

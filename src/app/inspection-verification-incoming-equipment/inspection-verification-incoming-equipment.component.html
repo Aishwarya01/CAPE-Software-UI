@@ -3,7 +3,7 @@
   <span class="alert alert-danger">{{tabErrorMsg}}</span>
 </div>
 <div class="card">
-  <form [formGroup]="addstep3" (ngSubmit)="nextTab3(flag)">
+  <form [formGroup]="addstep3" (ngSubmit)="nextTab3(flag)" (keyup)="onKeyForm($event)">
 <div class="card-body" formArrayName="incomingArr" *ngFor="let a of getIncomingControls(); let i = index" >
   <div [formGroupName]="i" >
   <div class="search-bar">
@@ -41,7 +41,7 @@
       <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
         <div class="col-sm-12">
           <div class="form-group equipment">
-            <label>Service cable:</label>
+            <label>Cable/Busbar trunking:</label>
             <select class="form-control" formControlName="serviceCable"
             
             [ngClass]="{ 'is-invalid': submitted && a.get('serviceCable')?.errors }">
@@ -57,7 +57,7 @@
 
         <div class="col-sm-12">
           <div class="form-group equipment">
-            <label>Service Cut Out / Fuse:</label>
+            <label>Incoming Protective Device:</label>
             <select class="form-control" formControlName="serviceFuse" 
             
             [ngClass]="{ 'is-invalid': submitted && a.get('serviceFuse')?.errors }">
@@ -72,7 +72,7 @@
 
         <div class="col-sm-12">
           <div class="form-group equipment">
-            <label>Meter tails – Distributor:</label>
+            <label>Energy Meters for Mains Incoming:</label>
             <select class="form-control" formControlName="meterDistributor" 
             
             [ngClass]="{ 'is-invalid': submitted && a.get('meterDistributor')?.errors }">
@@ -87,7 +87,7 @@
 
         <div class="col-sm-12">
           <div class="form-group equipment">
-            <label>Meter tails – Consumer:</label>
+            <label>Energy Meters for Outgoings:</label>
             <select class="form-control" formControlName="meterConsumer" 
             
             [ngClass]="{ 'is-invalid': submitted && a.get('meterConsumer')?.errors }">
@@ -102,7 +102,7 @@
 
         <div class="col-sm-12">
           <div class="form-group equipment">
-            <label>Metering Equipment:</label>
+            <label>Over Voltage Protection:</label>
             <select class="form-control" formControlName="meterEqu" 
             [ngClass]="{ 'is-invalid': submitted && a.get('meterEqu')?.errors }" >
               <option value="0" selected>Select Option</option>
@@ -116,7 +116,7 @@
 
         <div class="col-sm-12">
           <div class="form-group equipment">
-            <label>Isolator (Means To Isolate The Public Supply System):</label>
+            <label>Isolator (Means To Isolate The Incoming Supply System):</label>
             <select class="form-control" formControlName="isolator" 
             [ngClass]="{ 'is-invalid': submitted && a.get('isolator')?.errors }" >
               <option value="0" selected>Select Option</option>
@@ -137,13 +137,11 @@
         <mat-panel-title>
           <h3>Presence of Adequate Arrangements For Parallel Or Switched Alternative Sources Of Supply </h3>
         </mat-panel-title>
-
       </mat-expansion-panel-header>
-     
       <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
         <div class="col-sm-12">
           <div class="form-group equipment">
-            <label>Dedicated Earthing Arrangement Independent To That Of Public Supply:</label>
+            <label>Dedicated Earthing Arrangement Independent To That Of Incoming Utility Supply:</label>
             <select class="form-control" formControlName="earthingArrangement" 
             [ngClass]="{ 'is-invalid': submitted && a.get('earthingArrangement')?.errors }" >
               <option value="0" selected>Select Option</option>
@@ -157,8 +155,8 @@
 
         <div class="col-sm-12">
           <div class="form-group equipment">
-            <label>Presence of Adequate Arrangements Where Generator To Operate in Parallel With The Public
-              Supply System:</label>
+            <label>Presence of Adequate Arrangements Where Generator To Operate in Parallel With The Incoming Utility
+              Supply:</label>
             <select class="form-control" formControlName="adequateArrangement" 
             [ngClass]="{ 'is-invalid': submitted && a.get('adequateArrangement')?.errors }" >
               <option value="0" selected>Select Option</option>
@@ -172,7 +170,7 @@
 
         <div class="col-sm-12">
           <div class="form-group equipment">
-            <label>Correct Connections Of Generator In Parallel. (Note: Special Attention To Circulating
+            <label>Correct Connections Of Generator In Parallel. (Note: Special Attention To Neutral Circulating
               Currents):</label>
             <select class="form-control" formControlName="connectionGenerator" 
             [ngClass]="{ 'is-invalid': submitted && a.get('connectionGenerator')?.errors }" >
@@ -187,7 +185,7 @@
 
         <div class="col-sm-12">
           <div class="form-group equipment">
-            <label>Compatibility of Characteristics Of Means Of Generation:</label>
+            <label>Compatibility of Characteristics Of Generator (V,I,Hz):</label>
             <select class="form-control" formControlName="compatibilityCharacteristics" 
             [ngClass]="{ 'is-invalid': submitted && a.get('compatibilityCharacteristics')?.errors }" >
               <option value="0" selected>Select Option</option>
@@ -201,8 +199,8 @@
 
         <div class="col-sm-12">
           <div class="form-group equipment">
-            <label>Means To Provide Automatic Disconnection Of Generator In The Event Of
-              Loss Of Public Supply System Or Voltage Or Frequency Deviation Beyond Declared Values:</label>
+            <label>Means To Provide Automatic Change Over Of Generator In The Event Of
+              Loss Of Incoming Utility Supply Or Voltage Or Frequency Deviation Beyond Declared Values:</label>
             <select class="form-control" formControlName="automaticDisconnectGenerator" 
             [ngClass]="{ 'is-invalid': submitted && a.get('automaticDisconnectGenerator')?.errors }" >
               <option value="0" selected>Select Option</option>
@@ -216,8 +214,8 @@
 
         <div class="col-sm-12">
           <div class="form-group equipment">
-            <label>Means to prevent connection of generator in the event of loss of
-              public supply system or voltage or frequency deviation beyond declared values:</label>
+            <label>Means to Automatically Change Over to Incoming Utility Supply and ShotDown of Generator when the Utility Supply
+              is Normally Available:</label>
             <select class="form-control" formControlName="preventConnectGenerator" 
             [ngClass]="{ 'is-invalid': submitted && a.get('preventConnectGenerator')?.errors }" >
               <option value="0" selected>Select Option</option>
@@ -255,7 +253,7 @@
       <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
         <div class="col-sm-12">
           <div class="form-group equipment">
-            <label>Main Earthing / Bonding arrangements:</label>
+            <label>Main Earthing and Main Protective Bonding arrangements:</label>
             <select class="form-control" formControlName="mainEarting" 
             [ngClass]="{ 'is-invalid': submitted && a.get('mainEarting')?.errors }" >
               <option value="0" selected>Select Option</option>
@@ -269,7 +267,7 @@
 
         <div class="col-sm-12">
           <div class="form-group equipment">
-            <label>Presence And Adequacy Of Energy Suppliers Earthing Arrangement Or Installation Earth
+            <label>Presence and Adequacy Of Earthing Arrangement to Source Or Installation Earth
               Electrode Arrangement:</label>
             <select class="form-control" formControlName="earthElectordeArrangement" 
             [ngClass]="{ 'is-invalid': submitted && a.get('earthElectordeArrangement')?.errors }" >
@@ -313,7 +311,7 @@
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Presence and Adequacy Of Main Protective Bonding Conductors And Connections (Colour, Sizes,
-              Termination, And Provision of Independent Earthing) :</label>
+              Termination, and Provision of Independent Earthing) :</label>
             <select class="form-control" formControlName="aainProtectBonding" 
             [ngClass]="{ 'is-invalid': submitted && a.get('aainProtectBonding')?.errors }" >
               <option value="0" selected>Select Option</option>
@@ -376,7 +374,7 @@
       <mat-expansion-panel-header>
         <mat-panel-title>
           <h3>Other Methods Of Protection Applicable To Locations Where Automatic Disconnection Of Supply Is
-            Not Employed</h3>
+            Not Employed.</h3>
         </mat-panel-title>
       </mat-expansion-panel-header>
       <h3><b>Basic and Fault Protection</b></h3>
@@ -438,7 +436,7 @@
         </div>
         <div class="col-sm-12">
           <div class="form-group equipment">
-            <label>Electrical Separation For One Item of equipment (shaver supply unit) :</label>
+            <label>Electrical Separation:</label>
             <select class="form-control" formControlName="basicElectricalSepartion" 
             [ngClass]="{ 'is-invalid': submitted && a.get('basicElectricalSepartion')?.errors }" >
               <option value="0" selected>Select Option</option>
@@ -449,7 +447,7 @@
           </div>
           </div>
         </div>
-        <div class="col-sm-12">
+        <!-- <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Isolator(Means to isolate the public supply system) :</label>
             <select class="form-control" formControlName="isolatePublicSupply" 
@@ -461,7 +459,7 @@
               <div *ngIf="a.get('isolatePublicSupply')?.errors?.required">Field Is Required</div>
           </div>
           </div>
-        </div>
+        </div> -->
       </div>
 
       <h3><b>Basic Protection (Prevention Of Contact With Live Parts)</b></h3>
@@ -820,7 +818,7 @@
 
         <div class="col-sm-12">
           <div class="form-group equipment">
-            <label>Presence Of RCD Quarterly Test Notice At Or Near Origin:</label>
+            <label>Presence Of RCD Quarterly Test Notice:</label>
             <select class="form-control" formControlName="rcdQuarterlyTest" 
             [ngClass]="{ 'is-invalid': submitted && b.get('rcdQuarterlyTest')?.errors }">
               <option value="0" selected>Select Option</option>
@@ -1160,34 +1158,6 @@
           </div>
           </div>
         </div>
-
-        <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Single-Pole Devices For Switching Or Protection In Line Conductors Only:</label>
-            <select class="form-control" formControlName="singlePoleDevices" 
-            [ngClass]="{ 'is-invalid': submitted && c.get('singlePoleDevices')?.errors }" >
-              <option value="0" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('singlePoleDevices')?.value">{{value}}</option>
-            </select>
-            <div *ngIf="submitted && c.get('singlePoleDevices')?.errors" class="invalid-feedback">
-              <div *ngIf="c.get('singlePoleDevices')?.errors?.required">Field Is Required</div>
-          </div>
-          </div>
-        </div>
-
-        <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Adequacy Of Connections, Including Protective Conductors, Within Accessories And Fixed And Stationary Equipment:</label>
-            <select class="form-control" formControlName="adequacyConnections" 
-            [ngClass]="{ 'is-invalid': submitted && c.get('adequacyConnections')?.errors }" >
-              <option value="0" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('adequacyConnections')?.value">{{value}}</option>
-            </select>
-            <div *ngIf="submitted && c.get('adequacyConnections')?.errors" class="invalid-feedback">
-              <div *ngIf="c.get('adequacyConnections')?.errors?.required">Field Is Required</div>
-          </div>
-          </div>
-        </div>
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Adequacy Of Protective Devices, Type And Fault Current Rating For Fault Protection:</label>
@@ -1201,21 +1171,6 @@
           </div>
           </div>
         </div>
-
-        <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Presence, operation, And Correct Location of Appropriate Devices For Isolation And Switching:</label>
-            <select class="form-control" formControlName="isolationSwitching" 
-            [ngClass]="{ 'is-invalid': submitted && c.get('isolationSwitching')?.errors }" >
-              <option value="0" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('isolationSwitching')?.value">{{value}}</option>
-            </select>
-            <div *ngIf="submitted && c.get('isolationSwitching')?.errors" class="invalid-feedback">
-              <div *ngIf="c.get('isolationSwitching')?.errors?.required">Field Is Required</div>
-          </div>
-          </div>
-        </div>
-
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Presence, Adequacy, And Correct Termination Of Protective Conductors:</label>
@@ -1242,7 +1197,6 @@
           </div>
           </div>
         </div>
-
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Wiring Systems And Cable Installation Methods/ Practices With Regard To The Type And Nature
@@ -1272,7 +1226,6 @@
           </div>
           </div>
         </div>
-
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Additional Protection By RCD’s Having Residual Operating Current (I∆n) Not Exceeding 30mA
@@ -1303,7 +1256,6 @@
           </div>
           </div>
         </div>
-
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Additional Protection By RCD’s Having Residual Operating Current (I∆n) Not Exceeding 30mA
@@ -1318,7 +1270,6 @@
           </div>
           </div>
         </div>
-
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Additional Protection By RCD’s Having Residual Operating Current (I∆n) Not Exceeding 30mA
@@ -1333,7 +1284,6 @@
           </div>
           </div>
         </div>
-
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Provision Of Fire Barriers, Sealing Arrangements So As To Minimize The Spread Of
@@ -1361,7 +1311,6 @@
           </div>
           </div>
         </div>
-
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Segregation/separation Of Electrical And Non-Electrical Services:</label>
@@ -1375,7 +1324,6 @@
           </div>
           </div>
         </div>
-
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Condition Of Circuit Accessories:</label>
@@ -1389,7 +1337,6 @@
           </div>
           </div>
         </div>
-
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Cables And Conductors Correctly Terminated, Enclosed And With No UnDue Mechanical
@@ -1474,7 +1421,48 @@
           </div>
           </div>
         </div>
-        
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>Single-Pole Devices For Switching Or Protection In Line Conductors Only:</label>
+            <select class="form-control" formControlName="singlePoleDevices" 
+            [ngClass]="{ 'is-invalid': submitted && c.get('singlePoleDevices')?.errors }" >
+              <option value="0" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('singlePoleDevices')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && c.get('singlePoleDevices')?.errors" class="invalid-feedback">
+              <div *ngIf="c.get('singlePoleDevices')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>Adequacy Of Connections, Including Protective Conductors, Within Accessories And Fixed And Stationary Equipment:</label>
+            <select class="form-control" formControlName="adequacyConnections" 
+            [ngClass]="{ 'is-invalid': submitted && c.get('adequacyConnections')?.errors }" >
+              <option value="0" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('adequacyConnections')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && c.get('adequacyConnections')?.errors" class="invalid-feedback">
+              <div *ngIf="c.get('adequacyConnections')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+     
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>Presence, operation, And Correct Location of Appropriate Devices For Isolation And Switching:</label>
+            <select class="form-control" formControlName="isolationSwitching" 
+            [ngClass]="{ 'is-invalid': submitted && c.get('isolationSwitching')?.errors }" >
+              <option value="0" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('isolationSwitching')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && c.get('isolationSwitching')?.errors" class="invalid-feedback">
+              <div *ngIf="c.get('isolationSwitching')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+
       </div>
         </div>
       </div>
@@ -1562,7 +1550,7 @@
 
       <div class="col-sm-12">
         <div class="form-group equipment">
-          <label>Isolators - The installation, Circuit Or Section Thereof That Will Be Isolated Is Clearly Identified By Location And/Or Durable Marking:</label>
+          <label>Isolators - The installation, Circuit Or Section There of That Will Be Isolated Is Clearly Identified By Location And/Or Durable Marking:</label>
           <select class="form-control" formControlName="installCircuit" 
           [ngClass]="{ 'is-invalid': submitted && d.get('installCircuit')?.errors }" >
             <option value="0" selected>Select Option</option>

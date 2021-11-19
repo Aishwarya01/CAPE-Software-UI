@@ -864,14 +864,18 @@ showHideAccordion(index: number) {
       this.service.editable=true;
     }
   }
-  
+  onKeyForm(event: KeyboardEvent) { 
+    if(!this.addsummary.invalid){
+     this.validationError=false;
+    }
+   }
   gotoNextModal() {
     if (this.addsummary.invalid) {
       this.validationError = true;
       this.validationErrorMsg = 'Please check all the fields';
-      setTimeout(() => {
-        this.validationError = false;
-      }, 3000);
+      // setTimeout(() => {
+      //   this.validationError = false;
+      // }, 3000);
       return;
     }
     // if(this.addsummary.touched || this.addsummary.untouched){
@@ -917,6 +921,7 @@ showHideAccordion(index: number) {
 
     // }
   }
+ 
   SubmitTab5(flag: any,content5:any) {
     if(!flag) {
       this.summary.siteId = this.service.siteCount;
@@ -926,19 +931,19 @@ showHideAccordion(index: number) {
     if (this.addsummary.invalid) {
       this.validationError = true;
       this.validationErrorMsg = 'Please check all the fields';
-      setTimeout(() => {
-        this.validationError = false;
-      }, 3000);
+      // setTimeout(() => {
+      //   this.validationError = false;
+      // }, 3000);
       return;
     }
-    if(!confirm("Are you sure you want to procced? Note: Once saved, details can't be edited!")){
+    if(!confirm("Are you sure you want to procced? Note: Once saved, details can't be modified!")){
      return;
     }
   else{
     //if((this.addsummary.dirty && this.addsummary.touched)){
       this.modalService.open(content5, { centered: true});
     // }
-     this.service.disableSubmitSummary=true;
+     //this.service.disableSubmitSummary=true;
   }
     this.summary.summaryObervation = this.addsummary.value.ObservationsArr;
     this.summary.summaryDeclaration = this.addsummary.value.Declaration1Arr;
@@ -969,7 +974,8 @@ showHideAccordion(index: number) {
           this.ConfirmSuccess=true;
           this.success = true;
           this.successMsg = 'Summary Information Successfully Submitted';
-          this.service.allFieldsDisable = true;
+          //this.service.allFieldsDisable = true; 
+          this.service.disableSubmitSummary=true;
           this.finalFlag = true;
         },
         (error) => {
@@ -978,6 +984,7 @@ showHideAccordion(index: number) {
           this.errorArr = JSON.parse(error.error);
           this.errorMsg = this.errorArr.message;
           this.proceedNext.emit(false);
+          this.service.disableSubmitSummary=false;
           //this.addsummary.markAsPristine();
         });
     }

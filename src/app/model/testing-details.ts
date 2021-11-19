@@ -22,11 +22,20 @@ export class Testing{
   designation!: String;
   companyName!: String;
   Impedance!: String;
+  testingEquipment!:TestingEquipment[];
   testDistribution!:TestDistribution[];
   testingRecords!: TestingRecords[];
 }
 
- 
+export class TestingEquipment {
+
+  equipmentId!: number;
+  equipmentName!: String;
+  equipmentMake!: String;
+  equipmentModel!: String;
+  equipmentSerialNo!: String;
+  equipmentCalibrationDueDate!: String;
+}
 
 export class TestDistribution {
 
