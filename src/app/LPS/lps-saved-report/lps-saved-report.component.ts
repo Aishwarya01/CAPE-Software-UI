@@ -89,5 +89,8 @@ export class LpsSavedReportComponent implements OnInit {
   continue(basicLpsId: any,userName :any,clientName: any) {
     this.lpsParent.changeTabLpsSavedReport(0,basicLpsId,userName,clientName);
   }
- 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.savedReportLps_dataSource.filter = filterValue.trim().toLowerCase();
+  }
 }
