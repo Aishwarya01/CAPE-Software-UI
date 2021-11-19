@@ -65,6 +65,8 @@ export class LpsFinalReportComponent implements OnInit {
       //debugger
       this.lpsService.retrieveListOfBasicLps(this.email).subscribe(
         data => {
+          debugger
+          // this.myfunction(data);
           this.finalReport_dataSource = new MatTableDataSource(JSON.parse(data));
           this.finalReport_dataSource.paginator = this.finalReportPaginator;
           this.finalReport_dataSource.sort = this.finalReportSort;
@@ -90,12 +92,11 @@ export class LpsFinalReportComponent implements OnInit {
         
   }
 
-  deleteSite(siteName: any) {
+//   myfunction(data:any){
+//     let completeddata=JSON.parse(data);
 
+//     for (let i = 0; i < array.length; i++) {
+//     console.log(array[i]);
+// }
   }
-
-  continue(siteId: any) {
-    
-  }
-}
 

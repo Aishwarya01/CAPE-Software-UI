@@ -35,3 +35,13 @@ label {
 thead {
   text-align: center;
 }
+
+/* Text area description */
+.client-box-description {
+  height: 100px;
+}
+
+.client-description {
+  width: 800px;
+  height: 150px;
+}

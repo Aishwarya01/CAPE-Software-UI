@@ -40,3 +40,13 @@ thead {
     width: 20%;
     margin: 0 auto;
 }
+
+/* Text area description */
+.client-box-description {
+  height: 100px;
+}
+
+.client-description {
+  width: 800px;
+  height: 150px;
+}

@@ -63,34 +63,39 @@ export class LpsBasicPageComponent implements OnInit {
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
      this.step1List = data.basicLps;
-     this.basicDetails.basicLpsId = basicLpsId;
-     this.basicDetails.clientName = this.step1List.clientName;
-     this.basicDetails.projectName = this.step1List.projectName;
-     this.basicDetails.pmcName = this.step1List.pmcName;
-     this.basicDetails.address = this.step1List.address;
-     this.basicDetails.buildingHeight = this.step1List.buildingHeight;
-     this.basicDetails.buildingLength = this.step1List.buildingLength;
-     this.basicDetails.buildingType = this.step1List.buildingType;
-     this.basicDetails.buildingWidth = this.step1List.buildingWidth;
-     this.basicDetails.consultantName = this.step1List.consultantName;
-     this.basicDetails.contractorName = this.step1List.contractorName;
-     this.basicDetails.createdBy = this.step1List.createdBy;
-     this.basicDetails.createdDate = this.step1List.createdDate;
-     this.basicDetails.dealerContractorName = this.step1List.dealerContractorName;
-     this.basicDetails.industryType = this.step1List.industryType;
-     this.basicDetails.installationContractor = this.step1List.installationContractor;
-     this.basicDetails.levelOfProtection = this.step1List.levelOfProtection;
-     this.basicDetails.location = this.step1List.location;
-     this.basicDetails.soilResistivity = this.step1List.soilResistivity;
-     this.basicDetails.userName = this.step1List.userName;
-
-     for(let i of this.step1List.basicLpsDescription) {
-       this.LPSBasicForm.patchValue ({
-        basicLpsDescription: [i],
-       })
-     }
-  this.flag=true;
-   }
+    //  if(this.step1List.clientName != null){
+       debugger
+      this.success = true;
+      this.basicDetails.basicLpsId = basicLpsId;
+      this.basicDetails.clientName = this.step1List.clientName;
+      this.basicDetails.projectName = this.step1List.projectName;
+      this.basicDetails.pmcName = this.step1List.pmcName;
+      this.basicDetails.address = this.step1List.address;
+      this.basicDetails.buildingHeight = this.step1List.buildingHeight;
+      this.basicDetails.buildingLength = this.step1List.buildingLength;
+      this.basicDetails.buildingType = this.step1List.buildingType;
+      this.basicDetails.buildingWidth = this.step1List.buildingWidth;
+      this.basicDetails.consultantName = this.step1List.consultantName;
+      this.basicDetails.contractorName = this.step1List.contractorName;
+      this.basicDetails.createdBy = this.step1List.createdBy;
+      this.basicDetails.createdDate = this.step1List.createdDate;
+      this.basicDetails.dealerContractorName = this.step1List.dealerContractorName;
+      this.basicDetails.industryType = this.step1List.industryType;
+      this.basicDetails.installationContractor = this.step1List.installationContractor;
+      this.basicDetails.levelOfProtection = this.step1List.levelOfProtection;
+      this.basicDetails.location = this.step1List.location;
+      this.basicDetails.soilResistivity = this.step1List.soilResistivity;
+      this.basicDetails.userName = this.step1List.userName;
+ 
+      for(let i of this.step1List.basicLpsDescription) {
+        this.LPSBasicForm.patchValue ({
+         basicLpsDescription: [i],
+        })
+       }
+    //  }
+     
+    this.flag=true;
+    }
 
 
   private createLpsDescriptionarr() {
@@ -118,6 +123,7 @@ export class LpsBasicPageComponent implements OnInit {
   }
 
   closeModalDialog() {
+    debugger
     if (this.errorMsg != '') {
       this.Error = false;
       this.modalService.dismissAll((this.errorMsg = ''));
@@ -128,6 +134,7 @@ export class LpsBasicPageComponent implements OnInit {
   }
 
   gotoNextModal(content: any) {
+    debugger
      if (this.LPSBasicForm.invalid) {
        this.validationError = true;
       
@@ -141,7 +148,7 @@ export class LpsBasicPageComponent implements OnInit {
   }
  
   onSubmit(flag: any) {
-    
+    debugger
     this.submitted=true;
      if (this.LPSBasicForm.invalid) {
        return;
@@ -153,12 +160,12 @@ export class LpsBasicPageComponent implements OnInit {
 
     if(flag) {
       this.lPSBasicDetailsService.updateLpsBasicDetails(this.basicDetails).subscribe(
-        (data) => {
+        data => {debugger
           this.success = true;
           this.successMsg = data;
           this.proceedNext.emit(true);
         },
-        (error) => {
+        error => {
           this.Error = true;
           this.errorArr = [];
           this.errorArr = JSON.parse(error.error);
@@ -170,7 +177,7 @@ export class LpsBasicPageComponent implements OnInit {
     else {
       this.lPSBasicDetailsService.saveLPSBasicDetails(this.basicDetails).subscribe(
     
-        (data) => {
+        data => {
           let basicDetailsItr=JSON.parse(data);              
           
           this.basicDetails.basicLpsId=basicDetailsItr.basicLpsId;
@@ -179,7 +186,7 @@ export class LpsBasicPageComponent implements OnInit {
           this.disable = true;
           this.proceedNext.emit(true);
         },
-        (error) => {
+        error => {
           this.Error = true;
           this.errorArr = [];
           this.errorArr = JSON.parse(error.error);

@@ -10,15 +10,19 @@
                 <div style="font-weight: bold;">
                     <label for="Basicdetails">Basic Details:</label>
                 </div>
-                <div class="container">
+                <!-- <div class="container">
                     <textarea  class="form-control" style="height: 60px; overflow:hidden;padding: 20px;" readonly>
                     Client Name: {{ClientName}}, Project Name: {{projectName}}, Type of Industry: {{industryType}}, Type of Building: {{buildingType}}
                     </textarea>
-                </div>
+                </div> -->
+                <mat-form-field class="client-description ">
+                    <textarea matInput class="client-box-description"
+                    maxlength="500" readonly> Client Name: {{ClientName}}, Project Name: {{projectName}}, Type of Industry: {{industryType}}, Type of Building: {{buildingType}} </textarea>
+                </mat-form-field>
             </div>
     
     <!-- tables -->
-    <div style="margin-top: 30px;">
+    <div style="margin-top: 0px;">
             <table class="table">
                 <thead>
                     <th>SI.No</th>
@@ -193,7 +197,7 @@
      <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
      aria-label="Close"  (click)="closeModalDialog()" matStepperNext>
 
-      <span aria-hidden="true">Ok</span>
+      <span aria-hidden="true">Submit</span>
 
   </button>
 </ng-template> 

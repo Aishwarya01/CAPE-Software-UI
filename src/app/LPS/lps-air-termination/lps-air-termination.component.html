@@ -19,14 +19,19 @@
                         <div class="pr-2"> <u><b>Type of Building:</b></u>  <span> &nbsp; {{buildingType}}</span> </div> &nbsp;&nbsp;
                       </div> -->
 
-                      <div class="container">
+                      <!-- <div class="container">
                         <textarea  class="form-control" style="height: 60px; overflow:hidden;padding: 20px;" readonly>
                         Client Name: {{ClientName}}, Project Name: {{projectName}}, Type of Industry: {{industryType}}, Type of Building: {{buildingType}}
                         </textarea>
-                    </div>
+                    </div> -->
+
+                    <mat-form-field class="client-description ">
+                        <textarea matInput class="client-box-description"
+                        maxlength="500" readonly> Client Name: {{ClientName}}, Project Name: {{projectName}}, Type of Industry: {{industryType}}, Type of Building: {{buildingType}} </textarea>
+                    </mat-form-field>
 
                     <!-- tables -->
-                    <div style="margin-top: 40px;">
+                    <div style="margin-top: 0px;">
                         <table class="table">
                             <thead style="text-align: center;">
                                 <th>SI.No</th>

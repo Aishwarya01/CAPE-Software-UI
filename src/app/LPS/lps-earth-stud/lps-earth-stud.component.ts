@@ -122,7 +122,7 @@ export class LpsEarthStudComponent implements OnInit {
             this.successMsg = data;
             this.disable = true;
             this.proceedNext.emit(true);
-            //this.lpsMatstepper.changeTab1(2);
+            this.lpsMatstepper.changeTab1(2);
           },
           (error) => {
             this.Error = true;
@@ -165,7 +165,7 @@ export class LpsEarthStudComponent implements OnInit {
   changeTab1(index: number): void {
     // debugger
     // this.finalReport.retrieveLpsDetails();
-    this.selectedIndex = index;
+    // this.selectedIndex = index;
   }
 
 }

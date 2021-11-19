@@ -33,15 +33,20 @@ import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.se
 })
 export class LpsMatstepperComponent implements OnInit {
 
+  firstFormGroup!: FormGroup;
+  secondFormGroup!: FormGroup;
+
   @ViewChild(MatTabGroup) tabGroup!: MatTabGroup;
   selectedIndex: any;
-  isCompleted1: boolean=false;
-  isCompleted2: boolean=false;
-  isCompleted3: boolean=false;
-  isCompleted4: boolean=false;
-  isCompleted5: boolean=false;
-  isCompleted6: boolean=false;
-  isCompleted7: boolean=false;
+  Completed1: boolean=false;
+  Completed2: boolean=false;
+  Completed3: boolean=false;
+  Completed4: boolean=false;
+  Completed5: boolean=false;
+  Completed6: boolean=false;
+  Completed7: boolean=false;
+  
+  
 
   @ViewChild(LpsBasicPageComponent)
   basic!: LpsBasicPageComponent;
@@ -58,13 +63,23 @@ export class LpsMatstepperComponent implements OnInit {
   @ViewChild(LpsEarthStudComponent)
   earthStud!: LpsEarthStudComponent;
   dataJSON: any = [];
-   
+  //Completed8: boolean=this.earthStud.success;
 
-  constructor(private basicLpsService: LPSBasicDetailsService) { }
+  constructor(
+    private _formBuilder: FormBuilder,
+    private basicLpsService: LPSBasicDetailsService,
+    private router: ActivatedRoute) { }
 
   ngOnInit(): void {
+    // this.firstFormGroup = this._formBuilder.group({
+    //   firstCtrl: ['', Validators.required],
+    // });
+    // this.secondFormGroup = this._formBuilder.group({
+    //   secondCtrl: ['', Validators.required],
+    // });
   }
   public doSomething1(next: any): void {
+    debugger
     this.airTermination.basicLpsId=this.basic.basicDetails.basicLpsId;
     this.airTermination.ClientName=this.basic.basicDetails.clientName;
     this.airTermination.projectName=this.basic.basicDetails.projectName;
@@ -75,14 +90,15 @@ export class LpsMatstepperComponent implements OnInit {
     // this.airTermination.buildingHeight=this.basic.basicDetails.buildingHeight;
     // this.airTermination.levelOfProtection=this.basic.basicDetails.levelOfProtection;
     // this.airTermination.soilResistivity=this.basic.basicDetails.soilResistivity;
-    this.doSomething2(false);
-    this.doSomething3(false);
-    this.doSomething4(false);
-    this.doSomething5(false);
-    this.doSomething6(false);
-    this.isCompleted1 = next;
+    // this.doSomething2(false);
+    // this.doSomething3(false);
+    // this.doSomething4(false);
+    // this.doSomething5(false);
+    // this.doSomething6(false);
+    this.Completed1 = this.basic.success;
   }
   public doSomething2(next: any): void {
+    debugger
     this.downConductors.basicLpsId=this.basic.basicDetails.basicLpsId;
     this.downConductors.ClientName=this.basic.basicDetails.clientName;
     this.downConductors.projectName=this.basic.basicDetails.projectName;
@@ -93,7 +109,7 @@ export class LpsMatstepperComponent implements OnInit {
     // this.downConductors.buildingHeight=this.basic.basicDetails.buildingHeight;
     // this.downConductors.levelOfProtection=this.basic.basicDetails.levelOfProtection;
     // this.downConductors.soilResistivity=this.basic.basicDetails.soilResistivity; 
-    this.isCompleted2 = next;
+    this.Completed2 = this.airTermination.success;
   }
 
    
@@ -108,7 +124,7 @@ export class LpsMatstepperComponent implements OnInit {
     // this.earthing.buildingHeight=this.basic.basicDetails.buildingHeight;
     // this.earthing.levelOfProtection=this.basic.basicDetails.levelOfProtection;
     // this.earthing.soilResistivity=this.basic.basicDetails.soilResistivity; 
-    this.isCompleted3 = next;
+    this.Completed3 = this.downConductors.success;
   }
 
   public doSomething4(next: any): void {
@@ -122,7 +138,7 @@ export class LpsMatstepperComponent implements OnInit {
     // this.spd.buildingHeight=this.basic.basicDetails.buildingHeight;
     // this.spd.levelOfProtection=this.basic.basicDetails.levelOfProtection;
     // this.spd.soilResistivity=this.basic.basicDetails.soilResistivity; 
-    this.isCompleted4 = next;
+    this.Completed4 = this.earthing.success;
   }
 
   public doSomething5(next: any): void {
@@ -136,7 +152,7 @@ export class LpsMatstepperComponent implements OnInit {
     // this.seperationDistance.buildingHeight=this.basic.basicDetails.buildingHeight;
     // this.seperationDistance.levelOfProtection=this.basic.basicDetails.levelOfProtection;
     // this.seperationDistance.soilResistivity=this.basic.basicDetails.soilResistivity; 
-    this.isCompleted5 = next;
+    this.Completed5 = this.spd.success;
   }
   public doSomething6(next: any): void {
     this.earthStud.basicLpsId=this.basic.basicDetails.basicLpsId;
@@ -149,10 +165,10 @@ export class LpsMatstepperComponent implements OnInit {
     // this.earthStud.buildingHeight=this.basic.basicDetails.buildingHeight;
     // this.earthStud.levelOfProtection=this.basic.basicDetails.levelOfProtection;
     // this.earthStud.soilResistivity=this.basic.basicDetails.soilResistivity; 
-    this.isCompleted6 = next;
+    this.Completed6 = this.seperationDistance.success;
   }
   public doSomething7(next: any): void {
-    this.isCompleted7 = next;
+    this.Completed7 = this.earthStud.success;
   }
 
   public changeTabLpsSavedReport(index: number, basicLpsId: any, userName: any, clientName: any) {
@@ -162,27 +178,41 @@ export class LpsMatstepperComponent implements OnInit {
         this.dataJSON = JSON.parse(data);
         if(this.dataJSON.basicLps != null) {
           debugger
+          
           this.selectedIndex = index;            
           this.basic.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
           this.doSomething1(false);
+          this.Completed1 = true;
           if(this.dataJSON.lpsAirDiscription != null) {
+            
             this.airTermination.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
-            this.doSomething1(false);
+            this.doSomething2(false);
+            this.Completed2 = true;
             if(this.dataJSON.downConductorDesc != null) {
+              
               this.downConductors.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
-              this.doSomething1(false);
+              this.doSomething3(false);
+              this.Completed3 = true;
               if(this.dataJSON.earthingLpsDescription != null) {
+                
                 this.earthing.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
-                this.doSomething1(false);
+                this.doSomething4(false);
+                this.Completed4 = true;
                 if(this.dataJSON.spddesc != null) {
+                  
                   this.spd.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
-                  this.doSomething1(false);
+                  this.doSomething5(false);
+                  this.Completed5 = true;
                   if(this.dataJSON.seperationDistanceDesc != null) {
+                    
                     this.seperationDistance.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
-                    this.doSomething1(false);
+                    this.doSomething6(false);
+                    this.Completed6 = true;
                     if(this.dataJSON.earthStudDescription != null) {
+                      
                       this.earthStud.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
-                      this.doSomething1(false);
+                      this.doSomething7(false);
+                      this.Completed7 = true;
                     }
                   }
                 }
@@ -197,9 +227,12 @@ export class LpsMatstepperComponent implements OnInit {
     )
   }
 
-  // Final Report
+  // Final Report 
   changeTab1(index: number): void {
+    let userName=this.router.snapshot.paramMap.get('email') || '{}';
+    this.changeTabLpsSavedReport(index,this.earthStud.basicLpsId,userName,this.earthStud.ClientName);
     this.selectedIndex = index;
+    
   }
   
 }
