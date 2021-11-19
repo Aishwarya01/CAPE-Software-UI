@@ -974,7 +974,7 @@ showHideAccordion(index: number) {
           this.ConfirmSuccess=true;
           this.success = true;
           this.successMsg = 'Summary Information Successfully Submitted';
-          //this.service.allFieldsDisable = true; 
+          this.service.allFieldsDisable = true; 
           this.service.disableSubmitSummary=true;
           this.finalFlag = true;
         },
