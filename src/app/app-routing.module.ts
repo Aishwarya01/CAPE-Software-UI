@@ -18,6 +18,10 @@ import { SingInPageComponent } from './signin-page/signin-page.component';
 import { GenerateOtpComponent } from './generate-otp/generate-otp.component';
 import { GenerateOtpContactnumberComponent } from './generate-otp-contactnumber/generate-otp-contactnumber.component';
 import { ChangeContactnumberComponent } from './change-contactnumber/change-contactnumber.component';
+import { LpsEarthingComponent } from './LPS/lps-earthing/lps-earthing.component';
+import { LpsSpdComponent } from './LPS/lps-spd/lps-spd.component';
+import { LpsMatstepperComponent } from './LPS/lps-matstepper/lps-matstepper.component';
+import { LpsWelcomePageComponent } from './LPS/lps-welcome-page/lps-welcome-page.component';
 
 const routes: Routes = [
   {path: '', redirectTo: "/SignIn", pathMatch: 'full' },
@@ -34,13 +38,16 @@ const routes: Routes = [
   {path: 'addApplicationType', component: AddApplicationTypesComponent},
   {path: 'home',component:HomeComponent, canActivate:[AuthenticationGuard]},
   {path: 'verificationlv',component:VerificationlvComponent},
+  {path: 'lpsmatstepper',component:LpsMatstepperComponent},
+  {path: 'lpswelcomepage',component:LpsWelcomePageComponent},
   {path: 'register',component:InspectorRegistrationComponent},
   {path: 'createPassword',component:InspectorUpdatePasswordComponent},
   {path: 'SignIn',component:SingInPageComponent},
   {path: 'generateOtp',component:GenerateOtpComponent},
   {path: 'generateContactNumber',component:GenerateOtpContactnumberComponent},
   {path: 'createContactNumber',component:ChangeContactnumberComponent},
-  
+  {path: 'LpsEarthingComponent',component:LpsEarthingComponent},
+  {path: 'LpsSpdComponent',component:LpsSpdComponent},
 ];
 
 @NgModule({

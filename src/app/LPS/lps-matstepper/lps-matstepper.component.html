@@ -1,0 +1,49 @@
+<mat-tab-group [selectedIndex]="selectedIndex" style="background-color:white;">
+    <mat-tab label="Lightning Protection System" >
+      <mat-horizontal-stepper linear #stepper>
+  
+        <mat-step [completed]=Completed1>
+          <ng-template matStepLabel >Basics</ng-template>
+          <app-lps-basic-page (proceedNext)="doSomething1($event)"></app-lps-basic-page>
+        </mat-step>
+     
+        <mat-step [completed]=Completed2>
+          <ng-template matStepLabel>Air Termination</ng-template>
+          <app-lps-air-termination (proceedNext)="doSomething2($event)"></app-lps-air-termination>
+        </mat-step>
+
+        <mat-step [completed]=Completed3>
+          <ng-template matStepLabel >Down Conductors</ng-template>
+          <app-lps-down-conductors (proceedNext)="doSomething3($event)"></app-lps-down-conductors>
+        </mat-step>
+  
+        <mat-step [completed]=Completed4>
+          <ng-template matStepLabel>Earthing</ng-template>
+          <app-lps-earthing (proceedNext)="doSomething4($event)"></app-lps-earthing>
+        </mat-step>
+  
+        <mat-step [completed]=Completed5>
+          <ng-template matStepLabel>SPD</ng-template>
+          <app-lps-spd (proceedNext)="doSomething5($event)"></app-lps-spd>
+        </mat-step>
+  
+        <mat-step [completed]=Completed6>
+          <ng-template matStepLabel>Seperation Distance</ng-template>
+          <app-lps-seperation-distance (proceedNext)="doSomething6($event)"></app-lps-seperation-distance>
+        </mat-step>
+  
+        <mat-step [completed]=Completed7>
+          <ng-template matStepLabel>Equipotential Bonding</ng-template>
+          <app-lps-earth-stud (proceedNext)="doSomething7($event)"></app-lps-earth-stud>
+        </mat-step>
+  
+      </mat-horizontal-stepper>
+    </mat-tab>
+
+    <mat-tab label="Saved Reports">
+      <app-lps-saved-report></app-lps-saved-report>
+    </mat-tab>
+    <mat-tab label="Final Reports">
+      <app-lps-final-report ></app-lps-final-report>
+    </mat-tab>
+  </mat-tab-group>

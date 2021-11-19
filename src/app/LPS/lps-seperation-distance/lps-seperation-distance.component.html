@@ -1,0 +1,150 @@
+<div class="card-body">
+    <!-- Heading tag -->
+    <!-- <div style="margin-top: 2rem;">
+        <h3>Checklist for Separation Distance of LPS as per IS/IEC 62305</h3>
+    </div> -->
+    <!-- Basic Details -->
+    <div class="card-body">
+        <form [formGroup]="separeteDistanceForm" (ngSubmit)="onSubmit(flag)">
+            <div class="card-body">
+                <div style="font-weight: bold;">
+                    <label for="Basicdetails">Basic Details:</label>
+                </div>
+                
+                <!-- <div class="container">
+                    <textarea  class="form-control" style="height: 60px; overflow:hidden;padding: 20px;" readonly>
+                    Client Name: {{ClientName}}, Project Name: {{projectName}}, Type of Industry: {{industryType}}, Type of Building: {{buildingType}}
+                    </textarea>
+                </div> -->
+                <mat-form-field class="client-description ">
+                    <textarea matInput class="client-box-description"
+                    maxlength="500" readonly> Client Name: {{ClientName}}, Project Name: {{projectName}}, Type of Industry: {{industryType}}, Type of Building: {{buildingType}} </textarea>
+                </mat-form-field>
+
+                <!-- tables -->
+                <div style="margin-top: 0px;">
+
+                    <table class="table">
+                        <thead>
+                            <th>SI.No</th>
+                            <th>Description</th>
+                            <th>Observation</th>
+                            <th>Remarks(Optional)</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="width: 1rem; text-align: center;"></td>
+                                <td colspan="3" style="width: 24rem;">Measured Seperation distance beweeen air
+                                    termination and electrical
+                                    apparatus (lights, Solar PV, AC chillers, cameras…. Etc)(Measurement required in
+                                    atleast
+                                    10 locations on roof top):
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                    <table>
+                        <tbody formArrayName="separateDistanceDescriptionArr"
+                            *ngFor="let f of getseparateDistanceDescriptionControls(); let i = index">
+                            <div class="form-group" [formGroupName]="i">
+                                <td style="width: 4rem; text-align: center;">{{i+1}}</td>
+                                <td style="width: 35rem; margin-left: 1rem;">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="bi bi-text-paragraph"></i>
+                                            </span>
+                                        </div>
+                                        <textarea type="text" formControlName="seperationDistanceDesc"
+                                            class="form-control" placeholder="Ex.."
+                                            [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceDesc')?.errors }">
+                                        <div *ngIf="submitted && f.get('seperationDistanceDesc')?.errors" class="invalid-feedback">
+                                            <div *ngIf="f.get('seperationDistanceDesc')?.errors?.required">SeparateDistance Description is required</div>
+                                        </div></textarea>
+                                    </div>
+                                </td>
+                                <td style="width: 35rem;">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="bi bi-text-paragraph"></i>
+                                            </span>
+                                        </div>
+                                        <textarea type="text" formControlName="seperationDistanceOb"
+                                            class="form-control" placeholder="Ex.."
+                                            [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceOb')?.errors }">
+                                        <div *ngIf="submitted && f.get('seperationDistanceOb')?.errors" class="invalid-feedback">
+                                            <div *ngIf="f.get('seperationDistanceOb')?.errors?.required"> SeparateDistance Description Observation is required</div>
+                                        </div></textarea>
+                                    </div>
+                                </td>
+                                <td style="width: 35rem;">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="bi bi-text-paragraph"></i>
+                                            </span>
+                                        </div>
+                                        <textarea type="text" formControlName="seperationDistanceRem"
+                                            class="form-control" placeholder="Ex.."
+                                            [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceRem')?.errors }">
+                                        <div *ngIf="submitted && f.get('seperationDistanceRem')?.errors" class="invalid-feedback">
+                                            <div *ngIf="f.get('seperationDistanceRem')?.errors?.required">SeparateDistance Description Remarks is required</div>
+                                        </div></textarea>
+                                    </div>
+                                </td>
+                            </div>
+                            <div>
+                                <mat-icon class="mousechange" (click)="add()"
+                                style="margin-inline: 1rem;float: right;position: relative;"
+                                *ngIf="getseparateDistanceDescriptionControls().length == i+1" title="add another Section">add_box</mat-icon>
+
+                                <mat-icon class="mousechange"
+                                    *ngIf="getseparateDistanceDescriptionControls().length > 1" (click)="removeItem(f,i)"
+                                    style="margin-inline: 0rem;float: right;position: relative;" title="delete">delete</mat-icon>
+                            </div>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div>
+
+            </div>
+            <!-- <div>
+                <button style="margin-inline: 30rem;width: 7rem;height: 3rem;" class="btn btn-primary">Back</button>
+                <button style="width: 7rem;height: 3rem;" (click)="onSubmit()"[disabled]="disable" (click)="gotoNextModal(content)"  class="btn btn-primary" >Next</button>
+            </div> -->
+            <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
+                <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
+                <button  class="next" [disabled]="disable" (click)="gotoNextModal(content)" mat-button >Next &raquo;</button>
+            </div>
+            <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+                <span class="alert alert-danger">{{validationErrorMsg}}</span>
+            </div>
+        </form>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-body">
+        <div class="centre-text m-btm30">
+            <div *ngIf="success" style="text-align: center;">
+                <span class="successshow">{{successMsg}}</span>
+            </div>
+            <div *ngIf="Error" style="text-align: center;">
+                <span class="errorshow">{{errorMsg}}</span>
+            </div>
+        </div>
+    </div>
+    <br>
+     <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+     aria-label="Close"  (click)="closeModalDialog()" matStepperNext>
+
+      <span aria-hidden="true">Ok</span>
+
+  </button>
+</ng-template> 
+
+    
+ 
