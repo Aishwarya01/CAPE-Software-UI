@@ -72,6 +72,18 @@ import { DateAgoPipe } from './pipes/date-ago.pipe';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { GenerateOtpContactnumberComponent } from './generate-otp-contactnumber/generate-otp-contactnumber.component';
 import { ChangeContactnumberComponent } from './change-contactnumber/change-contactnumber.component';
+import { LpsEarthingComponent } from './LPS/lps-earthing/lps-earthing.component';
+import { LpsSpdComponent } from './LPS/lps-spd/lps-spd.component';
+import { LpsSeperationDistanceComponent } from './LPS/lps-seperation-distance/lps-seperation-distance.component';
+import { LpsEarthing } from './LPS_services/lps-earthing';
+import { LpsMatstepperComponent } from './LPS/lps-matstepper/lps-matstepper.component';
+import { LpsAirTerminationComponent } from './LPS/lps-air-termination/lps-air-termination.component';
+import { LpsBasicPageComponent } from './LPS/lps-basic-page/lps-basic-page.component';
+import { LpsDownConductorsComponent } from './LPS/lps-down-conductors/lps-down-conductors.component';
+import { LpsEarthStudComponent } from './LPS/lps-earth-stud/lps-earth-stud.component';
+import { LpsSavedReportComponent } from './LPS/lps-saved-report/lps-saved-report.component';
+import { LpsWelcomePageComponent } from './LPS/lps-welcome-page/lps-welcome-page.component';
+import { LpsFinalReportComponent } from './LPS/lps-final-report/lps-final-report.component';
 
 @NgModule({
   declarations: [
@@ -115,7 +127,19 @@ import { ChangeContactnumberComponent } from './change-contactnumber/change-cont
     ViewerRegisterComponent,
     DateAgoPipe,
     GenerateOtpContactnumberComponent,
-    ChangeContactnumberComponent
+    ChangeContactnumberComponent,
+    LpsEarthingComponent,
+    LpsSpdComponent,
+    LpsSeperationDistanceComponent,
+    LpsMatstepperComponent,
+    LpsEarthingComponent,
+    LpsAirTerminationComponent,
+    LpsBasicPageComponent,
+    LpsDownConductorsComponent,
+    LpsEarthStudComponent,
+    LpsSavedReportComponent,
+    LpsWelcomePageComponent, 
+    LpsFinalReportComponent
   ],
   imports: [
     NgbTooltipModule,

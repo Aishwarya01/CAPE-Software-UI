@@ -1,0 +1,52 @@
+h3 {
+    background-color: aliceblue;
+    font-weight: bolder;
+    text-align: center;
+}
+
+label {
+    font-size: smaller;
+}
+
+td {
+    font-size: smaller;
+}
+
+/* textarea.form-control{height: 30px !important} */
+
+thead {
+    text-align: center;
+}
+
+.previous {
+    background-color: #f1f1f1;
+    color: black;
+  }
+  .previous:hover {
+    background-color: #747a76;
+    color: white;
+  }
+  .next{
+    background-color: #f1f1f1;
+    color: black;
+    margin-left: 30px;
+  }
+  .next:hover{
+    background-color: #04AA6D;
+    color: white;
+    margin-left: 30px;
+  }
+  .auth-form-btn {
+    width: 20%;
+    margin: 0 auto;
+}
+
+/* Text area description */
+.client-box-description {
+  height: 100px;
+}
+
+.client-description {
+  width: 800px;
+  height: 150px;
+}

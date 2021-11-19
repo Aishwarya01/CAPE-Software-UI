@@ -1,0 +1,203 @@
+<div class="card-body">
+    <!-- Heading tag -->
+        <!-- <div style="margin-top: 2rem;">
+            <h3>"Checklist for Earth Studs of LPS as per IS/IEC 62305"</h3>
+        </div> -->
+    <!-- Basic Details -->
+    <div class="card-body">
+        <form [formGroup]="EarthStudForm" (ngSubmit)="onSubmit(flag)">
+            <div class="card-body">
+                <div style="font-weight: bold;">
+                    <label for="Basicdetails">Basic Details:</label>
+                </div>
+                <!-- <div class="container">
+                    <textarea  class="form-control" style="height: 60px; overflow:hidden;padding: 20px;" readonly>
+                    Client Name: {{ClientName}}, Project Name: {{projectName}}, Type of Industry: {{industryType}}, Type of Building: {{buildingType}}
+                    </textarea>
+                </div> -->
+                <mat-form-field class="client-description ">
+                    <textarea matInput class="client-box-description"
+                    maxlength="500" readonly> Client Name: {{ClientName}}, Project Name: {{projectName}}, Type of Industry: {{industryType}}, Type of Building: {{buildingType}} </textarea>
+                </mat-form-field>
+            </div>
+    
+    <!-- tables -->
+    <div style="margin-top: 0px;">
+            <table class="table">
+                <thead>
+                    <th>SI.No</th>
+                    <th>Description</th>
+                    <th>Observation</th>
+                    <th>Remarks(Optional)</th>
+                </thead>
+            <tbody>
+                <tr>
+                    <td style="width: 1rem; text-align: center;" >1.</td>
+                    <td style="width: 24rem;">Earth stud visibility if any:</td>
+                    <td style="width: 35rem">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea formControlName="earthStudVisibilityOb"    [(ngModel)]="earthStud.earthStudVisibilityOb" class="form-control" placeholder="Ex.." [ngClass]="{ 'is-invalid': submitted && f.earthStudVisibilityOb.errors}"></textarea>
+                            <div *ngIf="submitted && f.earthStudVisibilityOb.errors" class="invalid-feedback">
+                                <div *ngIf="f.earthStudVisibilityOb.errors.required">Earth stud visibility is required</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="width: 35rem;">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea formControlName="earthStudVisibilityRem"
+                            [(ngModel)]="earthStud.earthStudVisibilityRem" type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">2.</td>
+                    <td>Earth stud bend if any:</td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea formControlName="earthStudBendOb"     [(ngModel)]="earthStud.earthStudBendOb" type="text" class="form-control" placeholder="Ex.." [ngClass]="{ 'is-invalid': submitted && f.earthStudBendOb.errors}"></textarea>
+                            <div *ngIf="submitted && f.earthStudBendOb.errors" class="invalid-feedback">
+                                <div *ngIf="f.earthStudBendOb.errors.required">Earth stud bend is required</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea formControlName="earthStudBendRem"  [(ngModel)]="earthStud.earthStudBendRem" type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">3.</td>
+                        <td>Proper bonding rail:</td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                    </span>
+                                </div>
+                                <textarea formControlName="properBondingRailOb"  [(ngModel)]="earthStud.properBondingRailOb" type="text" class="form-control" placeholder="Ex.." [ngClass]="{ 'is-invalid': submitted && f.properBondingRailOb.errors}"></textarea>
+                                <div *ngIf="submitted && f.properBondingRailOb.errors" class="invalid-feedback">
+                                    <div *ngIf="f.properBondingRailOb.errors.required">Proper bonding rail is required</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-text-paragraph"></i>
+                                    </span>
+                                </div>
+                                <textarea formControlName="properBondingRailRem" [(ngModel)]="earthStud.properBondingRailRem" type="text" class="form-control" placeholder="Ex.."></textarea>
+                            </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">4.</td>
+                    <td>Physical damage of stud:</td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea formControlName="physicalDamageStudOb"  [(ngModel)]="earthStud.physicalDamageStudOb"type="text" class="form-control" placeholder="Ex.." [ngClass]="{ 'is-invalid': submitted && f.physicalDamageStudOb.errors}"></textarea>
+                            <div *ngIf="submitted && f.physicalDamageStudOb.errors" class="invalid-feedback">
+                                <div *ngIf="f.physicalDamageStudOb.errors.required">Physical damage of stud is required</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea formControlName="physicalDamageStudRem"  [(ngModel)]="earthStud.physicalDamageStudRem"type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">5.</td>
+                    <td>Whether continuity exist in earth stud:</td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea formControlName="continutyExistaEarthOb"    [(ngModel)]="earthStud.continutyExistaEarthOb" type="text" class="form-control" placeholder="Ex.." [ngClass]="{ 'is-invalid': submitted && f.continutyExistaEarthOb.errors}"></textarea>
+                            <div *ngIf="submitted && f.continutyExistaEarthOb.errors" class="invalid-feedback">
+                                <div *ngIf="f.continutyExistaEarthOb.errors.required">Whether continuity exist is required</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-text-paragraph"></i>
+                                </span>
+                            </div>
+                            <textarea formControlName="continutyExistaEarthRem"   [(ngModel)]="earthStud.continutyExistaEarthRem" type="text" class="form-control" placeholder="Ex.."></textarea>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
+        <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
+
+        <button  class="next" [disabled]="disable" (click)="gotoNextModal(content)" mat-button >Submit &raquo;</button>
+
+    </div>
+    <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+        <span class="alert alert-danger">{{validationErrorMsg}}</span>
+    </div>
+    </form>
+</div>
+</div>
+<ng-template #content let-modal>
+    <div class="modal-body">
+        <div class="centre-text m-btm30">
+            <div *ngIf="success" style="text-align: center;">
+                <span class="successshow">{{successMsg}}</span>
+            </div>
+            <div *ngIf="Error" style="text-align: center;">
+                <span class="errorshow">{{errorMsg}}</span>
+            </div>
+        </div>
+    </div>
+    <br>
+     <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+     aria-label="Close"  (click)="closeModalDialog()" matStepperNext>
+
+      <span aria-hidden="true">Submit</span>
+
+  </button>
+</ng-template> 
