@@ -2,11 +2,11 @@
     
     <div class="card-body">
 
-      <!-- <mat-form-field appearance="standard" style=" font-size: 14px;width: 30%;">
-        <mat-label>Filter Sites</mat-label>
-        <input matInput (keyup)="applyFilter1($event)" (focus)="applyFilter(clientName)"
-        value="clientName" placeholder="Ex. ium" #input="matInput" [(ngModel)]="clientName">
-      </mat-form-field> -->
+       <!-- Filter Tag -->
+       <mat-form-field appearance="standard" style=" font-size: 14px;width: 30%;">
+        <mat-label>Filter Client</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Client Name" #input>
+      </mat-form-field>
 
       <table mat-table [dataSource]="savedReportLps_dataSource" class="mat-elevation-z8 table" matSort
         #savedReportSort="matSort" >

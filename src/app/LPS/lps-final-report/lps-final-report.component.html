@@ -1,10 +1,12 @@
 <div class="card">
 
     <div class="card-body">
+      <!-- Filter Tag -->
       <mat-form-field appearance="standard" style=" font-size: 14px;width: 30%;">
-        <mat-label>Filter Sites</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+        <mat-label>Filter Client</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Client Name" #input>
       </mat-form-field>
+
       <table mat-table [dataSource]="finalReport_dataSource" class="mat-elevation-z8 table" matSort
         #finalReportSort="matSort">
 
