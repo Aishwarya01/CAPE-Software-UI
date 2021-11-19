@@ -1664,10 +1664,10 @@ showHideAccordion(index: number) {
       this.values = (<HTMLInputElement>event.target).value;    
     }
     else{
-      this.value =event;
+      this.values =event;
     }
     // this.values = (<HTMLInputElement>event.target).value;
-    // this.value = this.values;
+     this.value = this.values;
     this.location2Arr = this.supplycharesteristicForm.get(
       'location2Arr'
     ) as FormArray;
@@ -1835,7 +1835,7 @@ showHideAccordion(index: number) {
       this.values = (<HTMLInputElement>event.target).value;    
     }
     else{
-      this.value =event;
+      this.values =event;
     }
     // this.values = (<HTMLInputElement>event.target).value;
     this.service.noOfjoint = this.values;
@@ -1850,7 +1850,7 @@ showHideAccordion(index: number) {
       this.supplycharesteristicForm.controls['earthingJointsType'].updateValueAndValidity();
     if (this.location3Arr.length == 0) {
       if (this.service.noOfjoint != '') {
-        for (this.i = 0; this.i < this.value; this.i++) {
+        for (this.i = 0; this.i < this.service.noOfjoint; this.i++) {
           this.location3Arr = this.supplycharesteristicForm.get(
             'location3Arr'
           ) as FormArray;

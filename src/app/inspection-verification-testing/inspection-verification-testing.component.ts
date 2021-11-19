@@ -218,7 +218,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   modalReference: any;
   tabErrorMsg: string="";
   tabError: boolean = false;
-  testInstrumentArr: any=[];
+  testingEquipment: any=[];
   showAdd: boolean = true;
 
   constructor(
@@ -887,7 +887,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
       // impedance: new FormControl({ disabled: false, value: item.impedance }),
       // rcd: new FormControl({ disabled: false, value: item.rcd }),
       // earthElectrodeResistance: new FormControl({ disabled: false, value: item.earthElectrodeResistance }),
-      testInstrumentArr: this.formBuilder.array([this.populateTestInstrumentForm(item.testingEquipment)]),
+      testingEquipment: this.formBuilder.array([this.populateTestInstrumentForm(item.testingEquipment)]),
       testDistribution: this.formBuilder.array([this.populateTestDistributionForm(item.testDistribution)]),
       testingRecords: this.formBuilder.array(this.populateTestRecordsForm(item.testingRecords)),
     });
@@ -1147,7 +1147,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
     });
   }
   gettestInstrumentControls(form: any) {
-    return form.controls.testInstrumentArr?.controls;
+    return form.controls.testingEquipment?.controls;
   }
   getdistributionIncomingValueControls(form: any) {
     return form.controls.distributionIncomingValueArr?.controls;
@@ -1386,7 +1386,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
       // impedance: ['', Validators.required],
       // rcd: ['', Validators.required],
       // earthElectrodeResistance: ['', Validators.required],
-      testInstrumentArr:this.formBuilder.array([
+      testingEquipment:this.formBuilder.array([
         this.createTestInstrumentForm(),
       ]),
       testDistribution: this.formBuilder.array([
@@ -1396,12 +1396,12 @@ export class InspectionVerificationTestingComponent implements OnInit {
     });
   }
   addDesigner(a:any) {
-    this.testInstrumentArr = a.controls.testInstrumentArr as FormArray;
-    this.testInstrumentArr.push(this.createTestInstrumentForm());
+    this.testingEquipment = a.controls.testingEquipment as FormArray;
+    this.testingEquipment.push(this.createTestInstrumentForm());
   }
   removeItem(a: any,j:any) {
-    this.testInstrumentArr = a.controls.testInstrumentArr as FormArray;
-    this.testInstrumentArr.removeAt(j);
+    this.testingEquipment = a.controls.testingEquipment as FormArray;
+    this.testingEquipment.removeAt(j);
   }
 
   createTestInstrumentForm(): FormGroup {
