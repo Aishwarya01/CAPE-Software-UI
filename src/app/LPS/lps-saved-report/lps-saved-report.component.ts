@@ -64,7 +64,7 @@ export class LpsSavedReportComponent implements OnInit {
 
   retrieveLpsDetails() {
     if(this.currentUser1.role == 'Inspector') {
-      //debugger
+      //
       this.lpsService.retrieveListOfBasicLps(this.email).subscribe(
         data => {
          this.savedReportLps_dataSource = new MatTableDataSource(JSON.parse(data));
@@ -93,7 +93,7 @@ export class LpsSavedReportComponent implements OnInit {
   }
 
   continue(basicLpsId: any,userName :any,clientName: any) {
+    
     this.lpsParent.changeTabLpsSavedReport(0,basicLpsId,userName,clientName);
-  }
-  
+  } 
 }

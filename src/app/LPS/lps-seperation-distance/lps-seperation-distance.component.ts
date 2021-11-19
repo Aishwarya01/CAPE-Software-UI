@@ -54,16 +54,22 @@ export class LpsSeperationDistanceComponent implements OnInit {
     private separatedistanceService: SeparatedistanceService,
     private modalService: NgbModal, private router: ActivatedRoute
   ) {
-
-
   }
 
-
   gotoNextModal(content: any) {
+    
     if (this.separeteDistanceForm.invalid) {
       this.validationError = true;
-      
       this.validationErrorMsg = 'Please check all the fields';
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
+      return;
+    }
+    
+    if (this.basicLpsId == 0) {
+      this.validationError = true;
+      this.validationErrorMsg = 'Basics Form is Required, Please fill';
       setTimeout(() => {
         this.validationError = false;
       }, 3000);

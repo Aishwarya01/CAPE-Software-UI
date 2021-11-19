@@ -94,7 +94,6 @@ export class LpsEarthStudComponent implements OnInit {
   onSubmit(flag: any){
     this.submitted=true;
     if(this.EarthStudForm.invalid){return}
-
     this.earthStud.userName = this.router.snapshot.paramMap.get('email') || '{}';;
     this.earthStud.basicLpsId = this.basicLpsId;
 
@@ -117,7 +116,7 @@ export class LpsEarthStudComponent implements OnInit {
       else {
         this.earthStudService.saveEarthStud(this.earthStud).subscribe(
           (data) => {
-            debugger
+            
             this.success = true;
             this.successMsg = data;
             this.disable = true;
@@ -132,8 +131,6 @@ export class LpsEarthStudComponent implements OnInit {
             this.proceedNext.emit(false);
           });
       }
-   
-  
   }
   
   get f() {
@@ -160,12 +157,21 @@ export class LpsEarthStudComponent implements OnInit {
        }, 3000);
        return;
      }
+
+     if (this.basicLpsId == 0) {
+      this.validationError = true;
+      this.validationErrorMsg = 'Basics Form is Required, Please fill';
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
+      return;
+    }
     this.modalService.open(content, { centered: true });
   }
-  changeTab1(index: number): void {
-    // debugger
-    // this.finalReport.retrieveLpsDetails();
-    // this.selectedIndex = index;
-  }
+  // changeTab1(index: number): void {
+    
+  //   this.finalReport.retrieveLpsDetails();
+  //   this.selectedIndex = index;
+  // }
 
 }

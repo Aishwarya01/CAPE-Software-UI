@@ -537,6 +537,15 @@ export class LpsEarthingComponent implements OnInit {
          }, 3000);
          return;
        }
+       
+       if (this.basicLpsId == 0) {
+        this.validationError = true;
+        this.validationErrorMsg = 'Basics Form is Required, Please fill';
+        setTimeout(() => {
+          this.validationError = false;
+        }, 3000);
+        return;
+      }
       this.modalService.open(content, { centered: true });
     }
 }

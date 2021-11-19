@@ -38,6 +38,8 @@ export class LpsFinalReportComponent implements OnInit {
 
   @ViewChild('input') input!: MatInput;
   clientService: any;
+  lpsData: any=[];
+  completedFilterData: any=[];
 
   constructor(private router: ActivatedRoute,
               private lpsService: LPSBasicDetailsService,
@@ -61,42 +63,21 @@ export class LpsFinalReportComponent implements OnInit {
 
 
   retrieveLpsDetails() {
-    if(this.currentUser1.role == 'Inspector') {
-      //debugger
+      
       this.lpsService.retrieveListOfBasicLps(this.email).subscribe(
         data => {
-          debugger
+          
           // this.myfunction(data);
-          this.finalReport_dataSource = new MatTableDataSource(JSON.parse(data));
+          this.lpsData=JSON.parse(data);
+          for(let i of this.lpsData){
+            if(i.allStepsCompleted=="AllStepCompleted"){
+              this.completedFilterData.push(i);
+            }
+          }
+          this.finalReport_dataSource = new MatTableDataSource(this.completedFilterData);
           this.finalReport_dataSource.paginator = this.finalReportPaginator;
           this.finalReport_dataSource.sort = this.finalReportSort;
         });
-    }
-    else { //viewer
-      if(this.currentUser1.assignedBy!=null) {
-        this.viewerFilterData=[];
-        this.lpsService.retrieveListOfBasicLps(this.currentUser1.assignedBy).subscribe(
-          data => {
-            this.userData=JSON.parse(data);
-           for(let i of this.userData){
-             if(i.assignedTo==this.email){
-               this.viewerFilterData.push(i);
-             }
-           }
-            this.finalReport_dataSource = new MatTableDataSource(JSON.parse(data));
-            this.finalReport_dataSource.paginator = this.finalReportPaginator;
-            this.finalReport_dataSource.sort = this.finalReportSort;
-          });
-      } 
-   }
-        
   }
-
-//   myfunction(data:any){
-//     let completeddata=JSON.parse(data);
-
-//     for (let i = 0; i < array.length; i++) {
-//     console.log(array[i]);
-// }
-  }
+}
 

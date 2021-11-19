@@ -339,16 +339,24 @@ export class LpsAirTerminationComponent implements OnInit {
     }
 
   gotoNextModal(content: any) {
- 
+    
      if (this.airTerminationForm.invalid) {
        this.validationError = true;
-      
        this.validationErrorMsg = 'Please check all the fields';
        setTimeout(() => {
          this.validationError = false;
        }, 3000);
        return;
      }
+     
+     if (this.basicLpsId == 0) {
+      this.validationError = true;
+      this.validationErrorMsg = 'Basics Form is Required, Please fill';
+      setTimeout(() => {
+        this.validationError = false;
+      }, 3000);
+      return;
+    }
     this.modalService.open(content, { centered: true });
   }
 

@@ -64,7 +64,7 @@ export class LpsBasicPageComponent implements OnInit {
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
      this.step1List = data.basicLps;
     //  if(this.step1List.clientName != null){
-       debugger
+       
       this.success = true;
       this.basicDetails.basicLpsId = basicLpsId;
       this.basicDetails.clientName = this.step1List.clientName;
@@ -123,7 +123,7 @@ export class LpsBasicPageComponent implements OnInit {
   }
 
   closeModalDialog() {
-    debugger
+    
     if (this.errorMsg != '') {
       this.Error = false;
       this.modalService.dismissAll((this.errorMsg = ''));
@@ -134,7 +134,7 @@ export class LpsBasicPageComponent implements OnInit {
   }
 
   gotoNextModal(content: any) {
-    debugger
+    
      if (this.LPSBasicForm.invalid) {
        this.validationError = true;
       
@@ -148,7 +148,7 @@ export class LpsBasicPageComponent implements OnInit {
   }
  
   onSubmit(flag: any) {
-    debugger
+    
     this.submitted=true;
      if (this.LPSBasicForm.invalid) {
        return;
@@ -160,7 +160,7 @@ export class LpsBasicPageComponent implements OnInit {
 
     if(flag) {
       this.lPSBasicDetailsService.updateLpsBasicDetails(this.basicDetails).subscribe(
-        data => {debugger
+        data => {
           this.success = true;
           this.successMsg = data;
           this.proceedNext.emit(true);
