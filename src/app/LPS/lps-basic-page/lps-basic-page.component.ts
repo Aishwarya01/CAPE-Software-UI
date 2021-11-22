@@ -53,7 +53,7 @@ export class LpsBasicPageComponent implements OnInit {
       buildingLength: ['', Validators.required],
       buildingHeight: ['', Validators.required],
       levelOfProtection: ['', Validators.required],
-      soilResistivity: ['', Validators.required],
+      soilResistivity: [''],
       dealerContractorName: ['', Validators.required],
       buildingWidth: ['', Validators.required],
       basicLpsDescription: this.formBuilder.array([this.createLpsDescriptionarr()])
