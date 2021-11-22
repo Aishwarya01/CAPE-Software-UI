@@ -269,9 +269,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
          viewerCommentArr: this.formBuilder.array([this.addCommentViewer()]),
          completedCommentArr1: this.formBuilder.array([]),
        });
-        for(let i of this.incomingValues) {
-          this.service.iterationList=i.ipaoInspection;
-        }
+            //for(let i of this.incomingValues) {	
+              this.service.iterationList=this.incomingValues.ipaoInspection;	
+              // }
         //location iteration
         if (this.service.iterationList != '' && this.service.iterationList != undefined && this.service.iterationList.length != 0) {
           this.testingRetrieve = false;
@@ -294,9 +294,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
       this.inspectionDetailsService.retrieveInspectionDetails(this.currentUser1.assignedBy, this.service.siteCount).subscribe(
         data=>{
         this.incomingValues = JSON.parse(data);
-        for(let i of this.incomingValues) {
-          this.service.iterationList = i.ipaoInspection;
-        }
+         //for(let i of this.incomingValues) {	
+          this.service.iterationList = this.incomingValues.ipaoInspection;	
+        //}
         //location iteration
         if (this.service.iterationList != '' && this.service.iterationList != undefined && this.service.iterationList.length != 0) {
           this.testingRetrieve = false;
@@ -328,34 +328,35 @@ export class InspectionVerificationTestingComponent implements OnInit {
       this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.email, this.service.siteCount).subscribe(
         data=>{
         this.supplyValues = JSON.parse(data);
-        for(let i of this.supplyValues) {
-          this.service.nominalVoltageArr2=i.supplyParameters;
-          if(i.liveConductorType == "AC") {
-            this.addValues("Mains Incoming", i.mainNominalVoltage,i.mainLoopImpedance, i.mainNominalCurrent);
-            this.mainNominalVoltageArr1 = [];
-            this.mainNominalVoltageArr2 = [];
-            this.mainNominalVoltageArr3 = [];
-        
-            this.mainNominalVoltageArr1 = i.mainNominalVoltage.split(",");
-            this.mainNominalVoltageArr2 = i.mainLoopImpedance.split(",");
-            this.mainNominalVoltageArr3 = i.mainNominalCurrent.split(",");
-        
-            this.mainNominalArr = [];
-            this.mainNominalArr.push(this.mainNominalVoltageArr1,this.mainNominalVoltageArr2,this.mainNominalVoltageArr3);
-            this.service.retrieveMainNominalVoltage=this.mainNominalArr;
-            this.service.mainNominalVoltageValue=i.mainNominalVoltage;
-            this.service.mainLoopImpedanceValue=i.mainLoopImpedance;
-            this.service.mainNominalCurrentValue=i.mainNominalCurrent;
-          }
-          this.service.supplyList = i.supplyNumber;
-          let count =1;
-          for(let j of i.supplyParameters) {
-           if(j.aLLiveConductorType == "AC") {
-            this.addValues("Alternate Source of Supply-" +count, j.nominalVoltage,j.loopImpedance, j.faultCurrent);
-            count++;
-           }
-          }
-        }
+       	        //for(let i of this.supplyValues) {	
+                  this.service.nominalVoltageArr2=this.supplyValues.supplyParameters;	
+                  if(this.supplyValues.liveConductorType == "AC") {	
+                    this.SourceList=['Mains Incoming'];	
+                    this.addValues("Mains Incoming", this.supplyValues.mainNominalVoltage,this.supplyValues.mainLoopImpedance, this.supplyValues.mainNominalCurrent);	
+                    this.mainNominalVoltageArr1 = [];	
+                    this.mainNominalVoltageArr2 = [];	
+                    this.mainNominalVoltageArr3 = [];	
+                  
+                    this.mainNominalVoltageArr1 = this.supplyValues.mainNominalVoltage.split(",");	
+                    this.mainNominalVoltageArr2 = this.supplyValues.mainLoopImpedance.split(",");	
+                    this.mainNominalVoltageArr3 = this.supplyValues.mainNominalCurrent.split(",");	
+                  
+                    this.mainNominalArr = [];	
+                    this.mainNominalArr.push(this.mainNominalVoltageArr1,this.mainNominalVoltageArr2,this.mainNominalVoltageArr3);	
+                    this.service.retrieveMainNominalVoltage=this.mainNominalArr;	
+                    this.service.mainNominalVoltageValue=this.supplyValues.mainNominalVoltage;	
+                    this.service.mainLoopImpedanceValue=this.supplyValues.mainLoopImpedance;	
+                    this.service.mainNominalCurrentValue=this.supplyValues.mainNominalCurrent;	
+                  }	
+                  this.service.supplyList = this.supplyValues.supplyNumber;	
+                  let count =1;	
+                  for(let j of this.supplyValues.supplyParameters) {	
+                   if(j.aLLiveConductorType == "AC") {	
+                    this.addValues("Alternate Source of Supply-" +count, j.nominalVoltage,j.loopImpedance, j.faultCurrent);	
+                    count++;	
+                   }	
+                  }	
+               // }
         //retrieve selected source dd from supply to testing
       if (this.service.supplyList != '' && this.service.supplyList != undefined) {
         this.SourceList=['Mains Incoming'];
@@ -373,34 +374,34 @@ export class InspectionVerificationTestingComponent implements OnInit {
       this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.currentUser1.assignedBy, this.service.siteCount).subscribe(
         data=>{
         this.supplyValues = JSON.parse(data);
-        for(let i of this.supplyValues) {
-          this.service.nominalVoltageArr2=i.supplyParameters;
-          if(i.liveConductorType == "AC") {
-            this.addValues("Mains Incoming", i.mainNominalVoltage,i.mainLoopImpedance, i.mainNominalCurrent);
-            this.mainNominalVoltageArr1 = [];
-            this.mainNominalVoltageArr2 = [];
-            this.mainNominalVoltageArr3 = [];
-        
-            this.mainNominalVoltageArr1 = i.mainNominalVoltage.split(",");
-            this.mainNominalVoltageArr2 = i.mainLoopImpedance.split(",");
-            this.mainNominalVoltageArr3 = i.mainNominalCurrent.split(",");
-        
-            this.mainNominalArr = [];
-            this.mainNominalArr.push(this.mainNominalVoltageArr1,this.mainNominalVoltageArr2,this.mainNominalVoltageArr3);
-            this.service.retrieveMainNominalVoltage=this.mainNominalArr;
-            this.service.mainNominalVoltageValue=i.mainNominalVoltage;
-            this.service.mainLoopImpedanceValue=i.mainLoopImpedance;
-            this.service.mainNominalCurrentValue=i.mainNominalCurrent;
-          }
-          this.service.supplyList = i.supplyNumber;
-          let count =1;
-          for(let j of i.supplyParameters) {
-           if(j.aLLiveConductorType == "AC") {
-            this.addValues("Alternate Source of Supply-" +count, j.nominalVoltage,j.loopImpedance, j.faultCurrent);
-            count++;
-           }
-          }
-        }
+           //for(let i of this.supplyValues) {	
+            this.service.nominalVoltageArr2=this.supplyValues.supplyParameters;	
+            if(this.supplyValues.liveConductorType == "AC") {	
+              this.addValues("Mains Incoming", this.supplyValues.mainNominalVoltage,this.supplyValues.mainLoopImpedance, this.supplyValues.mainNominalCurrent);	
+              this.mainNominalVoltageArr1 = [];	
+              this.mainNominalVoltageArr2 = [];	
+              this.mainNominalVoltageArr3 = [];	
+            
+              this.mainNominalVoltageArr1 = this.supplyValues.mainNominalVoltage.split(",");	
+              this.mainNominalVoltageArr2 = this.supplyValues.mainLoopImpedance.split(",");	
+              this.mainNominalVoltageArr3 = this.supplyValues.mainNominalCurrent.split(",");	
+            
+              this.mainNominalArr = [];	
+              this.mainNominalArr.push(this.mainNominalVoltageArr1,this.mainNominalVoltageArr2,this.mainNominalVoltageArr3);	
+              this.service.retrieveMainNominalVoltage=this.mainNominalArr;	
+              this.service.mainNominalVoltageValue=this.supplyValues.mainNominalVoltage;	
+              this.service.mainLoopImpedanceValue=this.supplyValues.mainLoopImpedance;	
+              this.service.mainNominalCurrentValue=this.supplyValues.mainNominalCurrent;	
+            }	
+            this.service.supplyList = this.supplyValues.supplyNumber;	
+            let count =1;	
+            for(let j of this.supplyValues.supplyParameters) {	
+             if(j.aLLiveConductorType == "AC") {	
+              this.addValues("Alternate Source of Supply-" +count, j.nominalVoltage,j.loopImpedance, j.faultCurrent);	
+              count++;	
+             }	
+            }	
+          //}
         //retrieve selected source dd from supply to testing
       if (this.service.supplyList != '' && this.service.supplyList != undefined) {
         this.SourceList=['Mains Incoming'];
@@ -440,7 +441,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
     this.testingDetails.createdBy = this.testList.testingReport.createdBy;
     this.testingDetails.createdDate = this.testList.testingReport.createdDate;
     setTimeout(() => {
-      this.populateData();
+      this.populateData(this.testList.testingReport);      
       this.populateDataComments();
     }, 1000);
     this.flag = true;
@@ -840,15 +841,15 @@ export class InspectionVerificationTestingComponent implements OnInit {
   reloadFromBack(){
     this.testingForm.markAsPristine();
    }
-  populateData() {
-    if(this.service.disableFields==true){
-      this.disable=true;
-      }
-    this.arr = [];
-    for (let item of this.testList.testingReport.testing) {
-      this.arr.push(this.createGroup(item));
-    }
-    this.testingForm.setControl('testaccordianArr', this.formBuilder.array(this.arr || []))
+   populateData(value:any) {	
+    if(this.service.disableFields==true){	
+      this.disable=true;	
+      }	
+    this.arr = [];	
+    for (let item of value.testing) {	
+      this.arr.push(this.createGroup(item));	
+    }	
+    this.testingForm.setControl('testaccordianArr', this.formBuilder.array(this.arr || []))	
   }
 
   createGroup(item: any): FormGroup {

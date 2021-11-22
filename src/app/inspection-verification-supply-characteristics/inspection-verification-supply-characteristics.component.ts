@@ -412,7 +412,13 @@ export class InspectionVerificationSupplyCharacteristicsComponent
        this.supplycharesteristic.alternativeSupply=this.step2List.supplyCharacteristics.alternativeSupply;
        this.showAlternateField(this.step2List.supplyCharacteristics.alternativeSupply);
        this.changeSystem(this.step2List.supplyCharacteristics.mainSystemEarthing);
-       this.supplycharesteristic.systemEarthingBNote=this.step2List.supplyCharacteristics.systemEarthingBNote;       this.supplycharesteristic.electrodeMaterial=this.step2List.supplyCharacteristics.electrodeMaterial;
+       this.onKey(this.step2List.supplyCharacteristics.bondingNoOfJoints);
+       this.onKey3(this.step2List.supplyCharacteristics.earthingNoOfJoints);
+
+       this.supplycharesteristic.systemEarthingBNote=this.step2List.supplyCharacteristics.systemEarthingBNote;  
+       this.supplycharesteristic.liveConductorBNote=this.step2List.supplyCharacteristics.liveConductorBNote;       
+     
+       this.supplycharesteristic.electrodeMaterial=this.step2List.supplyCharacteristics.electrodeMaterial;
        this.supplycharesteristic.meansEarthing=this.step2List.supplyCharacteristics.meansEarthing;
        this.supplycharesteristic.electrodeType=this.step2List.supplyCharacteristics.electrodeType;
       if(this.step2List.supplyCharacteristics.noOfLocation!=0){
@@ -1014,7 +1020,7 @@ showHideAccordion(index: number) {
         aLLiveConductorAC: new FormControl({disabled: false ,value: item.aLLiveConductorAC}),
         aLLiveConductorDC: new FormControl({disabled: false ,value: item.aLLiveConductorDC}),
         aLSystemEarthingBNote: new FormControl({disabled: false ,value: item.aLSystemEarthingBNote}),
-        aLLiveConductorBNote: new FormControl({disabled: false ,value: item.aLSystemEarthingBNote}),
+        aLLiveConductorBNote: new FormControl({disabled: false ,value: item.aLLiveConductorBNote}),
         currentDissconnection: new FormControl({disabled: false ,value: item.currentDissconnection}),
         protectiveDevice: new FormControl({disabled: false ,value: item.protectiveDevice}),
         ratedCurrent: new FormControl({disabled: false ,value: item.ratedCurrent}),
