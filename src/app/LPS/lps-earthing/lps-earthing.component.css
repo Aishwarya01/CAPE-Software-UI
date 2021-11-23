@@ -49,3 +49,22 @@ thead {
   width: 800px;
   height: 150px;
 }
+
+/* add and delete button */
+.add{
+  background-color: #f1f1f1;
+  color: black;
+}
+.add:hover{
+  background-color: #04AA6D;
+  color: white;
+}
+
+.dlt{
+  background-color: #f1f1f1;
+  color: black;
+}
+.dlt:hover{
+  background-color: #df0000;
+  color: white;
+}
