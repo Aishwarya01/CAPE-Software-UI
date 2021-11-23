@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { BasicDetails } from 'src/app/LPS_model/basic-details';
+import { FinalPdfServiceService } from 'src/app/LPS_services/final-pdf-service.service';
 import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.service';
 import { LpsWelcomePageComponent } from '../lps-welcome-page/lps-welcome-page.component';
 
@@ -45,7 +46,8 @@ export class LpsFinalReportComponent implements OnInit {
   constructor(private router: ActivatedRoute,
               private lpsService: LPSBasicDetailsService,
               private ChangeDetectorRef: ChangeDetectorRef,
-              private welcome: LpsWelcomePageComponent) { 
+              private welcome: LpsWelcomePageComponent,
+              private finalpdf: FinalPdfServiceService) { 
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
 
@@ -85,5 +87,17 @@ export class LpsFinalReportComponent implements OnInit {
     debugger
     this.ChangeDetectorRef.detectChanges();
   }
+
+  userName=this.router.snapshot.paramMap.get('email') || '{}';
+
+  downloadPdf(basicLpsId: any): any {
+    debugger
+     this.finalpdf.downloadPDF(basicLpsId,this.userName)
+   }
+
+  //  priviewPdf(allStepsCompleted:any, basicLpsId:any){
+  //   debugger
+  //   this.verification.changeTabSavedReport(0,siteId,userName,'clientName','departmentName',site);
+  //  }
 }
 
