@@ -1,13 +1,16 @@
 <div *ngIf="tabError" style="text-align: center;">
   <span class="alert alert-danger">{{tabErrorMsg}}</span>
 </div>
+<div *ngIf="validationErrorTab" style="text-align: center;">
+  <span class="alert alert-danger">{{validationErrorMsgTab}}</span>
+</div>
 <div class="card">
     <div class="card-body">
     <!-- <button class="btn btn-info mousechange"
         style="padding: 7px 10px 0px 10px;left: 93%;top: 10px;width: 4%;position: relative;">
             <mat-icon aria-hidden="false" (click)="addItem()" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>
     </button> -->
-     <form [formGroup]="testingForm" (ngSubmit)="nextTab(flag)" (keyup)="onKeyForm($event)">
+     <form [formGroup]="testingForm" (ngSubmit)="nextTab(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
        <div formArrayName="testaccordianArr" *ngFor="let a of getTestControls(); let i = index;" >
             <div [formGroupName]="i">
                     <div class="search-bar">
@@ -361,6 +364,28 @@
                                                 <td><input type="text" formControlName="incomingVoltage9" class="form-control disable"
                                                   ></td>
                                             </tr>
+                                          
+                                            <tr>
+                                                <td>External Loop Impedance Ze (Ω)</td>
+                                                <td><input type="text" formControlName="incomingZs1" class="form-control disable"
+                                                  ></td>
+                                                <td><input type="text"formControlName="incomingZs2" class="form-control disable"
+                                                  ></td>
+                                                <td><input type="text" formControlName="incomingZs3" class="form-control disable"
+                                                 ></td>
+                                                <td><input type="text" formControlName="incomingZs4" class="form-control disable"
+                                                  ></td>
+                                                <td><input type="text" formControlName="incomingZs5" class="form-control disable"
+                                                  ></td>
+                                                <td><input type="text"  formControlName="incomingZs6" class="form-control disable"
+                                                  ></td>
+                                                <td><input type="text" formControlName="incomingZs7" class="form-control disable"
+                                                  ></td>
+                                                <td><input type="text" formControlName="incomingZs8" class="form-control disable"
+                                                  ></td>
+                                                <td><input type="text" formControlName="incomingZs9" class="form-control disable"
+                                                  ></td>
+                                            </tr>
 
                                             <tr>
                                               <td>Prospective fault current Ipfc (kA)</td>
@@ -384,29 +409,6 @@
                                                 ></td>
                                           </tr>
 
-                                            <tr>
-                                                <td>External Loop Impedance Ze (Ω)</td>
-                                                <td><input type="text" formControlName="incomingZs1" class="form-control disable"
-                                                  ></td>
-                                                <td><input type="text"formControlName="incomingZs2" class="form-control disable"
-                                                  ></td>
-                                                <td><input type="text" formControlName="incomingZs3" class="form-control disable"
-                                                 ></td>
-                                                <td><input type="text" formControlName="incomingZs4" class="form-control disable"
-                                                  ></td>
-                                                <td><input type="text" formControlName="incomingZs5" class="form-control disable"
-                                                  ></td>
-                                                <td><input type="text"  formControlName="incomingZs6" class="form-control disable"
-                                                  ></td>
-                                                <td><input type="text" formControlName="incomingZs7" class="form-control disable"
-                                                  ></td>
-                                                <td><input type="text" formControlName="incomingZs8" class="form-control disable"
-                                                  ></td>
-                                                <td><input type="text" formControlName="incomingZs9" class="form-control disable"
-                                                  ></td>
-                                            </tr>
-
-                                          
 
                                         </tbody>
                                     </div>

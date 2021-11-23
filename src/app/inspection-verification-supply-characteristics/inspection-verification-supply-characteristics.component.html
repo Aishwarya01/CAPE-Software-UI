@@ -1,9 +1,12 @@
 <div *ngIf="tabError" style="text-align: center;">
   <span class="alert alert-danger">{{tabErrorMsg}}</span>
 </div>
+<div *ngIf="validationErrorTab" style="text-align: center;">
+  <span class="alert alert-danger">{{validationErrorMsgTab}}</span>
+</div>
 <div class="card">
   <div class="card-body">
-    <form [formGroup]="supplycharesteristicForm" (ngSubmit)="nextTab2(flag)" (keyup)="onKeyForm($event)">
+    <form [formGroup]="supplycharesteristicForm" (ngSubmit)="nextTab2(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
       <mat-accordion>
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
@@ -183,15 +186,15 @@
                       </tr>
                       <tr>
                         <td nowrap="nowrap">Prospective fault current Ipfc (kA) </td>
-                        <td><input  type="text" style="width:50px" formControlName="PF1" readonly [(ngModel)]="PF1"></td>
-                        <td><input  type="text" style="width:50px" formControlName="PF2" readonly [(ngModel)]="PF2"></td>
-                        <td><input  type="text" style="width:50px" formControlName="PF3" readonly [(ngModel)]="PF3"></td>
-                        <td><input  type="text" style="width:50px" formControlName="PF4" readonly [(ngModel)]="PF4"></td>
-                        <td><input  type="text" style="width:50px" formControlName="PF5" readonly [(ngModel)]="PF5"></td>
-                        <td><input  type="text" style="width:50px" formControlName="PF6" readonly [(ngModel)]="PF6"></td>
-                        <td><input  type="text" style="width:50px" formControlName="PF7" readonly [(ngModel)]="PF7"></td>
-                        <td><input  type="text" style="width:50px" formControlName="PF8" readonly [(ngModel)]="PF8"></td>
-                        <td><input  type="text" style="width:50px" formControlName="PF9" readonly [(ngModel)]="PF9"></td>
+                        <td><input  type="text" style="width:50px;pointer-events: none;" formControlName="PF1" readonly [(ngModel)]="PF1"></td>
+                        <td><input  type="text" style="width:50px;pointer-events: none;" formControlName="PF2" readonly [(ngModel)]="PF2"></td>
+                        <td><input  type="text" style="width:50px;pointer-events: none;" formControlName="PF3" readonly [(ngModel)]="PF3"></td>
+                        <td><input  type="text" style="width:50px;pointer-events: none;" formControlName="PF4" readonly [(ngModel)]="PF4"></td>
+                        <td><input  type="text" style="width:50px;pointer-events: none;" formControlName="PF5" readonly [(ngModel)]="PF5"></td>
+                        <td><input  type="text" style="width:50px;pointer-events: none;" formControlName="PF6" readonly [(ngModel)]="PF6"></td>
+                        <td><input  type="text" style="width:50px;pointer-events: none;" formControlName="PF7" readonly [(ngModel)]="PF7"></td>
+                        <td><input  type="text" style="width:50px;pointer-events: none;" formControlName="PF8" readonly [(ngModel)]="PF8"></td>
+                        <td><input  type="text" style="width:50px;pointer-events: none;" formControlName="PF9" readonly [(ngModel)]="PF9"></td>
                       </tr>
                     </tbody>
                   </table>
@@ -458,15 +461,15 @@
                           <tbody [formGroupName]="j">
                               <tr>
                                 <td nowrap="nowrap">Nominal Voltage U/U0 (V)</td>
-                                <td><input  type="text" formControlName="nominalVoltage1"  style="width:70px"></td>
-                                <td><input  type="text" formControlName="nominalVoltage2"  style="width:70px"></td>
-                                <td><input  type="text"  formControlName="nominalVoltage3" style="width:70px"></td>
-                                <td><input  type="text" formControlName="nominalVoltage4" style="width:70px"></td>
-                                <td><input  type="text" formControlName="nominalVoltage5" style="width:70px"></td>
-                                <td><input  type="text" formControlName="nominalVoltage6" style="width:70px"></td>
-                                <td><input  type="text"  formControlName="nominalVoltage7" style="width:70px"></td>
-                                <td><input  type="text" formControlName="nominalVoltage8" style="width:70px"></td>
-                                <td><input  type="text" formControlName="nominalVoltage9" style="width:70px"></td>
+                                <td><input  type="text" formControlName="nominalVoltage1"  style="width:70px" (keyup)="onKeyVoltage1($event,row)"></td>
+                                <td><input  type="text" formControlName="nominalVoltage2"  style="width:70px" (keyup)="onKeyVoltage1($event,row)"></td>
+                                <td><input  type="text"  formControlName="nominalVoltage3" style="width:70px" (keyup)="onKeyVoltage1($event,row)"></td>
+                                <td><input  type="text" formControlName="nominalVoltage4" style="width:70px" (keyup)="onKeyVoltage1($event,row)"></td>
+                                <td><input  type="text" formControlName="nominalVoltage5" style="width:70px" (keyup)="onKeyVoltage1($event,row)"></td>
+                                <td><input  type="text" formControlName="nominalVoltage6" style="width:70px" (keyup)="onKeyVoltage1($event,row)"></td>
+                                <td><input  type="text"  formControlName="nominalVoltage7" style="width:70px" (keyup)="onKeyVoltage1($event,row)"></td>
+                                <td><input  type="text" formControlName="nominalVoltage8" style="width:70px" (keyup)="onKeyVoltage1($event,row)"></td>
+                                <td><input  type="text" formControlName="nominalVoltage9" style="width:70px" (keyup)="onKeyVoltage1($event,row)"></td>
 
                               </tr>
                               <tr> 
@@ -484,29 +487,37 @@
                               </tr>
                               <tr>
                                 <td nowrap="nowrap">External Loop Impedance Ze (Ω)</td>
-                                <td><input  type="text"  formControlName="impedence1" style="width:70px"></td>
-                                <td><input  type="text"  formControlName="impedence2" style="width:70px"></td>
-                                <td><input  type="text" formControlName="impedence3" style="width:70px"></td>
-                                <td><input  type="text"   formControlName="impedence4" style="width:70px"></td>
-                                <td><input  type="text" formControlName="impedence5" style="width:70px"></td>
-                                <td><input  type="text"  formControlName="impedence6" style="width:70px"></td>
-                                <td><input  type="text"  formControlName="impedence7" style="width:70px"></td>
-                                <td><input  type="text"  formControlName="impedence8" style="width:70px"></td>
-                                <td><input  type="text" formControlName="impedence9" style="width:70px"></td>
+                                <td><input  type="text"  formControlName="impedence1" style="width:70px" (keyup)="onKeyImpedance1($event,row)"></td>
+                                <td><input  type="text"  formControlName="impedence2" style="width:70px" (keyup)="onKeyImpedance1($event,row)"></td>
+                                <td><input  type="text" formControlName="impedence3" style="width:70px" (keyup)="onKeyImpedance1($event,row)"></td>
+                                <td><input  type="text"   formControlName="impedence4" style="width:70px" (keyup)="onKeyImpedance1($event,row)"></td>
+                                <td><input  type="text" formControlName="impedence5" style="width:70px" (keyup)="onKeyImpedance1($event,row)"></td>
+                                <td><input  type="text"  formControlName="impedence6" style="width:70px" (keyup)="onKeyImpedance1($event,row)"></td>
+                                <td><input  type="text"  formControlName="impedence7" style="width:70px" (keyup)="onKeyImpedance1($event,row)"></td>
+                                <td><input  type="text"  formControlName="impedence8" style="width:70px" (keyup)="onKeyImpedance1($event,row)"></td>
+                                <td><input  type="text" formControlName="impedence9" style="width:70px" (keyup)="onKeyImpedance1($event,row)"></td>
 
                               </tr>
                               <tr>
                                 <td nowrap="nowrap" readonly>Prospective Fault Current Ipfc (kA) </td>
-                                <td><input  type="text"  formControlName="current1" style="width:70px"></td>
-                                <td><input  type="text"  formControlName="current2" style="width:70px"></td>
-                                <td><input  type="text" formControlName="current3" style="width:70px"></td>
-                                <td><input  type="text"  formControlName="current4" style="width:70px"></td>
-                                <td><input  type="text" formControlName="current5" style="width:70px"></td>
-                                <td><input  type="text"  formControlName="current6" style="width:70px"></td>
-                                <td><input  type="text"  formControlName="current7" style="width:70px"></td>
-                                <td><input  type="text" formControlName="current8" style="width:70px"></td>
-                                <td><input  type="text" formControlName="current9" style="width:70px"></td>
-
+                                <td><input  type="text"  formControlName="current1" style="width:70px;pointer-events: none;" readonly 
+                                  [value]="row.get('current1')?.value"></td>
+                                <td><input  type="text"  formControlName="current2" style="width:70px;pointer-events: none;" 
+                                  readonly [value]="row.get('current2')?.value"></td>
+                                <td><input  type="text" formControlName="current3" style="width:70px;pointer-events: none;" readonly 
+                                  [value]="row.get('current3')?.value"></td>
+                                <td><input  type="text"  formControlName="current4" style="width:70px;pointer-events: none;" readonly 
+                                  [value]="row.get('current4')?.value"></td>
+                                <td><input  type="text" formControlName="current5" style="width:70px;pointer-events: none;" readonly 
+                                  [value]="row.get('current5')?.value"></td>
+                                <td><input  type="text"  formControlName="current6" style="width:70px;pointer-events: none;" readonly 
+                                  [value]="row.get('current6')?.value"></td>
+                                <td><input  type="text"  formControlName="current7" style="width:70px;pointer-events: none;" readonly 
+                                  [value]="row.get('current7')?.value"></td>
+                                <td><input  type="text" formControlName="current8" style="width:70px;pointer-events: none;" readonly 
+                                  [value]="row.get('current8')?.value"></td>
+                                <td><input  type="text" formControlName="current9" style="width:70px;pointer-events: none;" readonly 
+                                  [value]="row.get('current9')?.value"></td>
                               </tr>
                             
                                 <tr><td >Installed Capacity (kVA)</td>

@@ -6,6 +6,7 @@ import { ClientService } from 'src/app/services/client.service';
 import { DepartmentService } from 'src/app/services/department.service';
 import { SiteService } from 'src/app/services/site.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GlobalsService } from 'src/app/globals.service';
 
 
 @Component({
@@ -60,7 +61,8 @@ export class SiteaddComponent implements OnInit {
               public departmentService: DepartmentService,
               public siteService: SiteService,
               public formBuilder: FormBuilder,
-              private modalService: NgbModal
+              private modalService: NgbModal,
+              private service: GlobalsService
               ) {
               }
 
@@ -223,6 +225,7 @@ export class SiteaddComponent implements OnInit {
           this.dialog.closeAll();
           this.onSubmitSite.emit(true);
         }, 2000);
+        this.service.msgForStep1Flag=true;
       },
       error => {
         this.Error = true;
@@ -233,7 +236,6 @@ export class SiteaddComponent implements OnInit {
         setTimeout(() => {
           this.Error = false;
         }, 3000);
-        this.addSiteForm.reset();
         this.loading=false;
       }
       )

@@ -221,7 +221,8 @@ export class InspectionVerificationTestingComponent implements OnInit {
   tabError: boolean = false;
   testingEquipment: any=[];
   showAdd: boolean = true;
-
+  validationErrorTab: boolean = false;
+  validationErrorMsgTab: string="";
   constructor(
     private testingService: TestingService,
     private supplyCharacteristicsService: SupplyCharacteristicsService,
@@ -291,6 +292,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
           this.location.locationArr = this.service.iterationList;
           this.service.iterationList = [];
         }
+        this.testingForm.markAsPristine();
       });
     }
     else {
@@ -860,18 +862,16 @@ export class InspectionVerificationTestingComponent implements OnInit {
     });
   }
   //comments section ends
-  reloadFromBack(){
-    this.testingForm.markAsPristine();
-   }
-   populateData(value:any) {	
-    if(this.service.disableFields==true){	
-      this.disable=true;	
-      }	
-    this.arr = [];	
-    for (let item of value.testing) {	
-      this.arr.push(this.createGroup(item));	
-    }	
-    this.testingForm.setControl('testaccordianArr', this.formBuilder.array(this.arr || []))	
+
+  populateData(value:any) {
+    if(this.service.disableFields==true){
+      this.disable=true;
+      }
+    this.arr = [];
+    for (let item of value.testing) {
+      this.arr.push(this.createGroup(item));
+    }
+    this.testingForm.setControl('testaccordianArr', this.formBuilder.array(this.arr || []))
   }
 
   createGroup(item: any): FormGroup {
@@ -1328,6 +1328,11 @@ export class InspectionVerificationTestingComponent implements OnInit {
       rcdRemarks: new FormControl(''),
     });
   }
+  onChangeForm(event:any){
+    if(!this.testingForm.invalid){
+      this.validationError=false;
+     }
+  }
   onKeyForm(event: KeyboardEvent) { 
     if(!this.testingForm.invalid){
      this.validationError=false;
@@ -1458,15 +1463,46 @@ export class InspectionVerificationTestingComponent implements OnInit {
   // clickAcc(){
   //   this.gotoNextTab();
   // }
+  reloadFromBack(){
+    if(this.testingForm.invalid){
+     this.service.isCompleted4= false;
+     this.service.isLinear=true;
+     this.service.editable=false;
+     this.validationErrorTab = true;
+     this.validationErrorMsgTab= 'Please check all the fields in testing';
+     setTimeout(() => {
+       this.validationErrorTab = false;
+     }, 3000);
+     return false;
+    }
+    else if(this.testingForm.dirty && this.testingForm.touched){
+      this.service.isCompleted4= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+      return false;
+    }
+    else{
+      this.service.isCompleted4= true;
+      this.service.isLinear=false;
+      this.service.editable=true;
+   this.testingForm.markAsPristine();
+   return true;
+    }
+  }
   gotoNextTab() {
     if ((this.testingForm.dirty && this.testingForm.invalid) || this.service.isCompleted3==false){
       this.service.isCompleted4= false;
       this.service.isLinear=true;
       this.service.editable=false;
-      this.validationError = true;
-      this.validationErrorMsg = 'Please check all the fields';
+      this.validationErrorTab = true;
+      this.validationErrorMsgTab= 'Please check all the fields in testing';
       setTimeout(() => {
-        this.validationError = false;
+        this.validationErrorTab = false;
       }, 3000);
       return;
     }
@@ -1484,7 +1520,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
       this.service.isCompleted4= true;
       this.service.isLinear=false;
       this.service.editable=true;
-
     }
   }
   gotoNextModal(content4: any,content2:any) {

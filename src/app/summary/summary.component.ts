@@ -185,7 +185,8 @@ export class SummaryComponent implements OnInit {
   completedCommentArr3: any = [];
   hideShowComment: boolean=false;
   //comments end
-
+  validationErrorTab: boolean = false;
+  validationErrorMsgTab: string="";
   finalFlag: boolean = false;
   confirmMsg: string="";
   SubmitDisable: boolean = false;
@@ -256,9 +257,27 @@ export class SummaryComponent implements OnInit {
   refresh() {
     this.ChangeDetectorRef.detectChanges();
   }
-  reloadFromBack(){
-    this.addsummary.markAsPristine();
-   }
+ 
+   reloadFromBack(){
+    if(this.addsummary.invalid){
+     this.service.isCompleted5= false;
+     this.service.isLinear=true;
+     this.service.editable=false;
+     this.validationErrorTab = true;
+     this.validationErrorMsgTab= 'Please check all the fields in summary';
+     setTimeout(() => {
+       this.validationErrorTab = false;
+     }, 3000);
+     return false;
+    }
+    else{
+      this.service.isCompleted= true;
+      this.service.isLinear=false;
+      this.service.editable=true;
+   this.addsummary.markAsPristine();
+   return true;
+    }
+  }
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
     if(this.service.disableFields==true){
       this.addsummary.disable();
@@ -279,7 +298,6 @@ export class SummaryComponent implements OnInit {
             Declaration1Arr: [i]
           })
          }
-
          else{
           this.addsummary.patchValue({
             Declaration2Arr: [i]
@@ -863,6 +881,11 @@ showHideAccordion(index: number) {
       this.service.isLinear=false;
       this.service.editable=true;
     }
+  }
+  onChangeForm(event:any){
+    if(!this.addsummary.invalid){
+      this.validationError=false;
+     }
   }
   onKeyForm(event: KeyboardEvent) { 
     if(!this.addsummary.invalid){

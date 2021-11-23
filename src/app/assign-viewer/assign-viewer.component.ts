@@ -19,6 +19,7 @@ import { SiteaddComponent } from '../site/siteadd/siteadd.component';
   styleUrls: ['./assign-viewer.component.css']
 })
 export class AssignViewerComponent implements OnInit {
+
   assignViewerForm = new FormGroup({
     viewerEmail: new FormControl(''),
   });
@@ -38,6 +39,7 @@ export class AssignViewerComponent implements OnInit {
     userType: new FormControl(''),
     terms: new FormControl('')
   });
+  modalReference: any;
 
   loading = true;
   submitted = false;
@@ -83,7 +85,6 @@ export class AssignViewerComponent implements OnInit {
   inspectorData: any = [];
   demoArr: any = [];
 
-
   constructor(private dialog: MatDialog,
               private formBuilder: FormBuilder, private modalService: NgbModal,
               private siteService: SiteService,
@@ -92,8 +93,7 @@ export class AssignViewerComponent implements OnInit {
               private router: Router,
               private componentFactoryResolver: ComponentFactoryResolver,
               private route: ActivatedRoute,
-              private globalService: GlobalsService,
-              public activeModal: NgbActiveModal
+              private globalService: GlobalsService, private _NgbActiveModal: NgbActiveModal
               ) {
                 this.urlEmail = this.route.snapshot.paramMap.get('email') || '{}';
                }
@@ -124,12 +124,12 @@ export class AssignViewerComponent implements OnInit {
         }
       )
   }
-
+ 
   createViewer(): FormGroup {
     return new FormGroup({
     name: new FormControl('', Validators.required),
     companyName: new FormControl('', Validators.required),
-    siteName: new FormControl('', Validators.required),
+    siteName: new FormControl('', [Validators.required, Validators.minLength(3)]),
     email: new FormControl('', Validators.required),
     designation: new FormControl('', Validators.required),
     contactNumber: new FormControl('', Validators.required),
@@ -218,7 +218,7 @@ createGroup(item: any): FormGroup{
   return this.formBuilder.group({
     name: new FormControl({value: item.name}),
     companyName: new FormControl({value: item.companyName}),
-    siteName: new FormControl('',Validators.required),
+    siteName: new FormControl('',[Validators.required, Validators.minLength(3)]),
     email: new FormControl({value: item.username}),
     designation: new FormControl({value: item.designation}),
     contactNumber: new FormControl(item.contactNumber),
@@ -239,7 +239,7 @@ createNewGroup(item: any): FormGroup{
   return this.formBuilder.group({
     name: new FormControl('',Validators.required),
     companyName: new FormControl('',Validators.required),
-    siteName: new FormControl('',Validators.required),
+    siteName: new FormControl('',[Validators.required, Validators.minLength(3)]),
     email: new FormControl({value: item.username}),
     designation: new FormControl('',Validators.required),
     contactNumber: new FormControl('',Validators.required),
@@ -258,7 +258,10 @@ createNewGroup(item: any): FormGroup{
     this.modalService.open(contentViewer,{size: 'xl', backdrop: 'static' })
   }
   termsCondition(termsContent:any){
-    this.modalService.open(termsContent,{size: 'xl'})
+    this.modalReference = this.modalService.open(termsContent,{size: 'xl'})
+  }
+  onCancel() {
+    this.modalReference.close();
   }
   continue(contentViewer:any) {
     this.submitted1 = true;

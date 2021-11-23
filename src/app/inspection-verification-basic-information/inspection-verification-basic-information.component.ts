@@ -227,9 +227,16 @@ ShowNext: boolean = true;
   ngOnDestroy(): void {
     this.service.viewerData = [];
     this.service.inspectorData = [];
+    this.service.msgForStep1Flag=false;
   }
 
   ngOnInit(): void {
+    if(this.service.msgForStep1Flag){
+      this.service.msgForStep1=true;
+      setTimeout(() => {
+       this.service.msgForStep1 = false;
+     }, 5000);
+    }
     this.currentUser=sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
@@ -375,6 +382,7 @@ ShowNext: boolean = true;
     if(this.service.disableFields==true){
       this.step1Form.disable();
      }
+   
       this.service.siteCount = siteId;
        this.savedUserName = userName;
        this.siteDetails1 = true;
@@ -457,8 +465,8 @@ ShowNext: boolean = true;
         limitations: this.step1List.reportDetails.limitations
     })
     this.flag=true;
-   // this.disable=true;
-     }
+   
+    }
 
 // retrieve basic report
 retrieveAllDetailsforBasic(userName: any,siteId: any,site:any,data: any){
@@ -1563,7 +1571,11 @@ showHideAccordion(index: number) {
       this.service.editable=true;
     }
   }
-
+  onChangeForm(event:any){
+    if(!this.step1Form.invalid){
+      this.validationError=false;
+     }
+  }
   onKeyForm(event: KeyboardEvent) { 
    if(!this.step1Form.invalid){
     this.validationError=false;

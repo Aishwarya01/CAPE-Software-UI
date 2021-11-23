@@ -594,7 +594,8 @@ export class VerificationlvComponent implements OnInit {
         //this.selectedIndex = index;
         this.dataJSON = JSON.parse(data);
         if(this.dataJSON.reportDetails != null) {
-          this.selectedIndex = index;            
+          this.selectedIndex = index;    
+          this.service.msgForStep1Flag=false;
           this.basic.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
            if(this.dataJSON.supplyCharacteristics != null) {
              this.supply.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
@@ -617,6 +618,7 @@ export class VerificationlvComponent implements OnInit {
           }   
         else{
           this.noDetails=true;
+          this.service.msgForStep1Flag=true;
           this.retrieveSite(companyName,departmentName,site);
           setTimeout(() => {
             this.noDetails=false;
@@ -637,7 +639,8 @@ export class VerificationlvComponent implements OnInit {
         //this.selectedIndex = index;
         this.dataJSON = JSON.parse(data);
         if(this.dataJSON.reportDetails != null) {
-          this.selectedIndex = index;            
+          this.selectedIndex = index;       
+          this.service.msgForStep1Flag=false;
           this.basic.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
           this.service.siteCount = sitedId;
            if(this.dataJSON.supplyCharacteristics != null) {
@@ -657,6 +660,7 @@ export class VerificationlvComponent implements OnInit {
           }   
         else{
           this.noDetails=true;
+          this.service.msgForStep1Flag=true;
           this.saved.savedContinue();
           setTimeout(() => {
             this.noDetails=false;
@@ -719,14 +723,29 @@ export class VerificationlvComponent implements OnInit {
   //   }
     
   // }
-  goBack(stepper: MatStepper) {
-    stepper.previous();
-    this.basic.reloadFromBack();
-    this.supply.reloadFromBack();
-    this.incoming.reloadFromBack();
-    this.testing.reloadFromBack();
-    this.summary.reloadFromBack();
-    this.service.goBacktoprevious=true;
+  goBack2(stepper: MatStepper) {
+    if(this.supply.reloadFromBack()){
+      stepper.previous();
+      //this.service.goBacktoprevious=true;
+    }
+  }
+  goBack3(stepper: MatStepper) {
+    if(this.incoming.reloadFromBack()){
+      stepper.previous();
+      //this.service.goBacktoprevious=true;
+    }
+  }
+  goBack4(stepper: MatStepper) {
+    if(this.testing.reloadFromBack()){
+      stepper.previous();
+      //this.service.goBacktoprevious=true;
+    }
+  }
+  goBack5(stepper: MatStepper) {
+    if(this.summary.reloadFromBack()){
+      stepper.previous();
+      //this.service.goBacktoprevious=true;
+    }
   }
 
 }

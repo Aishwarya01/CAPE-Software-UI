@@ -69,7 +69,8 @@ export class InspectionVerificationIncomingEquipmentComponent
   step3List: any = [];
   flag: boolean=false;
   @Output() testing = new EventEmitter<any>();
-
+  validationErrorTab: boolean = false;
+  validationErrorMsgTab: string="";
   //comments starts
   successMsg: string="";
   commentSuccess: boolean=false;
@@ -202,9 +203,7 @@ export class InspectionVerificationIncomingEquipmentComponent
         this.populateData(this.step3List);
   }
 
-  reloadFromBack(){
-    this.addstep3.markAsPristine();
-   }
+ 
 //comments section starts
 
 populateDataComments() {
@@ -987,20 +986,56 @@ showHideAccordion(index: number) {
   removeItem(index: any) {
     (this.addstep3.get('incomingArr') as FormArray).removeAt(index);
   }
+  onChangeForm(event:any){
+    if(!this.addstep3.invalid){
+      this.validationError=false;
+     }
+  }
   onKeyForm(event: KeyboardEvent) { 
     if(!this.addstep3.invalid){
      this.validationError=false;
     }
    }
+   reloadFromBack(){
+    if(this.addstep3.invalid){
+     this.service.isCompleted3= false;
+     this.service.isLinear=true;
+     this.service.editable=false;
+     this.validationErrorTab = true;
+     this.validationErrorMsgTab= 'Please check all the fields in inspection';
+     setTimeout(() => {
+       this.validationErrorTab = false;
+     }, 3000);
+     return false;
+    }
+    else if(this.addstep3.dirty && this.addstep3.touched){
+      this.service.isCompleted3= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+      return false;
+    }
+    else{
+   this.service.isCompleted3= true;
+   this.service.isLinear=false;
+   this.service.editable=true;
+   this.addstep3.markAsPristine();
+   return true;
+    }
+  }
   gotoNextTab() {
     if ((this.addstep3.dirty && this.addstep3.invalid) || this.service.isCompleted2==false) {
       this.service.isCompleted3= false;
       this.service.isLinear=true;      
       this.service.editable=false;
-      this.validationError = true;
-      this.validationErrorMsg = 'Please check all the fields';
+      this.validationErrorTab = true;
+      this.validationErrorMsgTab= 'Please check all the fields in inspection';
       setTimeout(() => {
-        this.validationError = false;
+        this.validationErrorTab = false;
       }, 3000);
       return;
     }
@@ -1018,16 +1053,15 @@ showHideAccordion(index: number) {
       this.service.isCompleted3= true;
       this.service.isLinear=false;
       this.service.editable=true;
-
     }
   }
   gotoNextModal(content3: any,content2:any) {
     if (this.addstep3.invalid) {
       this.validationError = true;
       this.validationErrorMsg = 'Please check all the fields';
-      setTimeout(() => {
-        this.validationError = false;
-      }, 3000);
+      // setTimeout(() => {
+      //   this.validationError = false;
+      // }, 3000);
       return;
     }
     if(this.addstep3.touched || this.addstep3.untouched){

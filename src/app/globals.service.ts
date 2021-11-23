@@ -62,6 +62,8 @@ export class GlobalsService {
  editable: boolean = true;
 jointType: any;
 noOfjoint: any; 
+msgForStep1:boolean=false;
+msgForStep1Flag:boolean=false;
 // clientList: any = [];
 // reportDetails =new Reportdetails;
 

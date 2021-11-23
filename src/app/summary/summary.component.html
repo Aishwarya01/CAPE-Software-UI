@@ -1,6 +1,9 @@
+<div *ngIf="validationErrorTab" style="text-align: center;">
+  <span class="alert alert-danger">{{validationErrorMsgTab}}</span>
+</div>
 <div class="card">
   <div class="card-body">
-<form [formGroup]="addsummary" (ngSubmit)="SubmitTab5(flag,content5)" (keyup)="onKeyForm($event)">
+<form [formGroup]="addsummary" (ngSubmit)="SubmitTab5(flag,content5)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
         <mat-accordion>
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>

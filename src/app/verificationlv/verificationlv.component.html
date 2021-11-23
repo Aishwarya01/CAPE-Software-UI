@@ -170,7 +170,7 @@
           Supply Characteristics
           </ng-template> 
         <app-inspection-verification-supply-characteristics (proceedNext)="NextStep2($event)"></app-inspection-verification-supply-characteristics>
-        <button class="previousSupply" mat-button (click)="goBack(stepper)" *ngIf="service.backBtn">&laquo; Back</button> 
+        <button class="previousSupply" mat-button (click)="goBack2(stepper)">&laquo; Back</button> 
       </mat-step>
 
 <!-- step 3 -->
@@ -181,7 +181,7 @@
            Inspection
           </ng-template>
         <app-inspection-verification-incoming-equipment (proceedNext)="NextStep3($event)"></app-inspection-verification-incoming-equipment>
-        <button class="previousIncoming" mat-button (click)="goBack(stepper)" *ngIf="service.backBtn">&laquo; Back</button> 
+        <button class="previousIncoming" mat-button (click)="goBack3(stepper)">&laquo; Back</button> 
       </mat-step>
 
       <mat-step [completed]="service.isCompleted4" [editable]="service.editable">
@@ -191,7 +191,7 @@
           Testing
         </ng-template>
         <app-inspection-verification-testing (proceedNext)="NextStep4($event)"></app-inspection-verification-testing>
-        <button class="previousSupply" mat-button (click)="goBack(stepper)" *ngIf="service.backBtn">&laquo; Back</button> 
+        <button class="previousSupply" mat-button (click)="goBack4(stepper)">&laquo; Back</button> 
       </mat-step>
 
       <mat-step [completed]="service.isCompleted5" [editable]="service.editable">
@@ -201,7 +201,7 @@
           Summary
         </ng-template>
        <app-summary (proceedNext)="NextStep5($event)"></app-summary>
-       <button class="previousSummary" mat-button (click)="goBack(stepper)" *ngIf="service.backBtn">&laquo; Back</button> 
+       <button class="previousSummary" mat-button (click)="goBack5(stepper)">&laquo; Back</button> 
       </mat-step>
       
     </mat-horizontal-stepper>
