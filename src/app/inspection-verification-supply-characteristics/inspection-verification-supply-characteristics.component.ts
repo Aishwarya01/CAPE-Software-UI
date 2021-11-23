@@ -449,7 +449,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
        this.DcValue = this.step2List.supplyCharacteristics.liveConductorDC;
        this.step2List.liveConductor= this.step2List.supplyCharacteristics.liveConductor;
        this.flag = true;
-       this.populateData();
+       this.populateData(this.step2List.supplyCharacteristics);
        this.populateDataComments();
        this.supplycharesteristicForm.patchValue({
         clientName1: clientName,
@@ -954,44 +954,43 @@ showHideAccordion(index: number) {
   }
 //comments section ends
 
-     populateData() {
-      if(this.service.disableFields==true){
-        this.disable=true;
-        }
-      for (let item of this.step2List.supplyCharacteristics.boundingLocationReport) {     
-        this.arr2.push(this.createGroup(item));
-      }
-      for (let item of this.step2List.supplyCharacteristics.instalLocationReport) {     
-        this.arr1.push(this.createGroup1(item));
-      }
-      for (let item of this.step2List.supplyCharacteristics.earthingLocationReport) {     
-        this.arr3.push(this.createGroup(item));
-      }
-      for (let item of this.step2List.supplyCharacteristics.supplyParameters) { 
-        this.sources=true;    
-        this.breaker=true;
-        this.alArr.push(this.createGroupAl(item));
-      }
-      for (let item of this.step2List.supplyCharacteristics.supplyParameters) { 
-        this.tableAC=true;    
-        this.alArr2.push(this.createGroupAl2(item));
-      }
-      for (let item of this.step2List.supplyCharacteristics.circuitBreaker) {     
-        this.circuitB.push(this.createGroupCircuitB(item));
-      }
-      this.supplycharesteristicForm.setControl('location2Arr', this.formBuilder.array(this.arr2 || []))
-      this.supplycharesteristicForm.setControl('location1Arr', this.formBuilder.array(this.arr1 || []))
-      this.supplycharesteristicForm.setControl('location3Arr', this.formBuilder.array(this.arr3 || []))
-      this.supplycharesteristicForm.setControl('alternateArr', this.formBuilder.array(this.alArr || []))
-      this.supplycharesteristicForm.setControl('circuitArr', this.formBuilder.array(this.circuitB || []))
-      this.supplycharesteristicForm.setControl('circuitArr', this.formBuilder.array(this.circuitB || []))
-
-      this.arr1 = [];
-      this.arr2 = [];
-      this.arr3 = [];
-      this.alArr = [];
-      this.circuitB = []
+populateData(value:any) {
+  if(this.service.disableFields==true){
+    this.disable=true;
     }
+  for (let item of value.boundingLocationReport) {     
+    this.arr2.push(this.createGroup(item));
+  }
+  for (let item of value.instalLocationReport) {     
+    this.arr1.push(this.createGroup1(item));
+  }
+  for (let item of value.earthingLocationReport) {     
+    this.arr3.push(this.createGroup(item));
+  }
+  for (let item of value.supplyParameters) { 
+    this.sources=true;    
+    this.breaker=true;
+    this.alArr.push(this.createGroupAl(item));
+  }
+  for (let item of value.supplyParameters) { 
+    this.tableAC=true;    
+    this.alArr2.push(this.createGroupAl2(item));
+  }
+  for (let item of value.circuitBreaker) {     
+    this.circuitB.push(this.createGroupCircuitB(item));
+  }
+  this.supplycharesteristicForm.setControl('location2Arr', this.formBuilder.array(this.arr2 || []))
+  this.supplycharesteristicForm.setControl('location1Arr', this.formBuilder.array(this.arr1 || []))
+  this.supplycharesteristicForm.setControl('location3Arr', this.formBuilder.array(this.arr3 || []))
+  this.supplycharesteristicForm.setControl('alternateArr', this.formBuilder.array(this.alArr || []))
+  this.supplycharesteristicForm.setControl('circuitArr', this.formBuilder.array(this.circuitB || []))
+  this.supplycharesteristicForm.setControl('circuitArr', this.formBuilder.array(this.circuitB || []))
+  this.arr1 = [];
+  this.arr2 = [];
+  this.arr3 = [];
+  this.alArr = [];
+  this.circuitB = []
+}
 
     createGroup(item: any): FormGroup {
       return this.formBuilder.group({
@@ -1575,7 +1574,6 @@ showHideAccordion(index: number) {
       this.values =event;
     }
     // this.values = (<HTMLInputElement>event.target).value;
-     this.value = this.values;
     this.service.noOfjoint = this.values;
     this.location3Arr = this.supplycharesteristicForm.get(
       'location3Arr'
@@ -1588,7 +1586,7 @@ showHideAccordion(index: number) {
       this.supplycharesteristicForm.controls['earthingJointsType'].updateValueAndValidity();
     if (this.location3Arr.length == 0) {
       if (this.service.noOfjoint != '') {
-        for (this.i = 0; this.i < this.value; this.i++) {
+        for (this.i = 0; this.i < this.service.noOfjoint; this.i++) {
           this.location3Arr = this.supplycharesteristicForm.get(
             'location3Arr'
           ) as FormArray;
@@ -1642,6 +1640,7 @@ showHideAccordion(index: number) {
 //   this.keyJOintLocationTable=false;
 //  }
   }
+
 
   getLocation1Controls(): AbstractControl[] {
     return (<FormArray>this.supplycharesteristicForm.get('location1Arr'))
