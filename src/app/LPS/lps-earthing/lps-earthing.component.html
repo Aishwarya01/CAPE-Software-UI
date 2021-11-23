@@ -766,10 +766,10 @@
                                         </td>
                                     </tr>
                                 </div>
-                                <mat-icon class="mousechange" type="button" (click)="submit1()" *ngIf="earthingDescriptionarr().length == j+1"
+                                <mat-icon class="mousechange" class="add" type="button" (click)="submit1()" *ngIf="earthingDescriptionarr().length == j+1"
                                     style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section"
                                   >add_box</mat-icon>
-                                <mat-icon title="delete" class="mousechange" type="button" *ngIf="earthingDescriptionarr().length > 1"
+                                <mat-icon class="mousechange" class="dlt" type="button" title="delete" *ngIf="earthingDescriptionarr().length > 1"
                                     (click)="removeItem1(a,j)"
                                     style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
                             </tbody>
@@ -1112,10 +1112,10 @@
                                             </td>
                                         </tr>
                                     </div>
-                                    <mat-icon class="mousechange" type="button" (click)="submit2()" *ngIf="earthingClampsarr().length == j+1"
+                                    <mat-icon class="mousechange" class="add" type="button" (click)="submit2()" *ngIf="earthingClampsarr().length == j+1"
                                     style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section"
                                   >add_box</mat-icon>
-                                <mat-icon title="delete" class="mousechange" type="button" *ngIf="earthingClampsarr().length > 1"
+                                <mat-icon class="mousechange" class="dlt" type="button" title="delete" *ngIf="earthingClampsarr().length > 1"
                                     (click)="removeItem2(a,j)"
                                     style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
                                 </tbody>
@@ -1453,10 +1453,10 @@
                                         </td>
                                     </tr>
                                 </div>
-                                <mat-icon class="mousechange" type="button" (click)="submit3()" *ngIf="earthElectrodeChambearr().length == j+1"
+                                <mat-icon class="mousechange" class="add" type="button" (click)="submit3()" *ngIf="earthElectrodeChambearr().length == j+1"
                                     style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section"
                                   >add_box</mat-icon>
-                                <mat-icon title="delete" class="mousechange" type="button" *ngIf="earthElectrodeChambearr().length > 1"
+                                <mat-icon class="mousechange" class="dlt" type="button" title="delete" *ngIf="earthElectrodeChambearr().length > 1"
                                     (click)="removeItem3(a,j)"
                                     style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
                             </tbody>

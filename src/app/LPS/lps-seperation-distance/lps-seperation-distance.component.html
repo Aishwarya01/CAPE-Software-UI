@@ -58,10 +58,10 @@
                                         </div>
                                         <textarea type="text" formControlName="seperationDistanceDesc"
                                             class="form-control" placeholder="Ex.."
-                                            [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceDesc')?.errors }">
+                                            [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceDesc')?.errors }"></textarea>
                                         <div *ngIf="submitted && f.get('seperationDistanceDesc')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('seperationDistanceDesc')?.errors?.required">SeparateDistance Description is required</div>
-                                        </div></textarea>
+                                        </div>
                                     </div>
                                 </td>
                                 <td style="width: 35rem;">
@@ -73,10 +73,10 @@
                                         </div>
                                         <textarea type="text" formControlName="seperationDistanceOb"
                                             class="form-control" placeholder="Ex.."
-                                            [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceOb')?.errors }">
+                                            [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceOb')?.errors }"></textarea>
                                         <div *ngIf="submitted && f.get('seperationDistanceOb')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('seperationDistanceOb')?.errors?.required"> SeparateDistance Description Observation is required</div>
-                                        </div></textarea>
+                                        </div>
                                     </div>
                                 </td>
                                 <td style="width: 35rem;">
@@ -88,19 +88,19 @@
                                         </div>
                                         <textarea type="text" formControlName="seperationDistanceRem"
                                             class="form-control" placeholder="Ex.."
-                                            [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceRem')?.errors }">
+                                            [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceRem')?.errors }"></textarea>
                                         <div *ngIf="submitted && f.get('seperationDistanceRem')?.errors" class="invalid-feedback">
                                             <div *ngIf="f.get('seperationDistanceRem')?.errors?.required">SeparateDistance Description Remarks is required</div>
-                                        </div></textarea>
+                                        </div>
                                     </div>
                                 </td>
                             </div>
                             <div>
-                                <mat-icon class="mousechange" (click)="add()"
+                                <mat-icon class="mousechange" class="add" (click)="add()" type="button"
                                 style="margin-inline: 1rem;float: right;position: relative;"
                                 *ngIf="getseparateDistanceDescriptionControls().length == i+1" title="add another Section">add_box</mat-icon>
 
-                                <mat-icon class="mousechange"
+                                <mat-icon class="mousechange" class="dlt" type="button" title="delete"
                                     *ngIf="getseparateDistanceDescriptionControls().length > 1" (click)="removeItem(f,i)"
                                     style="margin-inline: 0rem;float: right;position: relative;" title="delete">delete</mat-icon>
                             </div>
