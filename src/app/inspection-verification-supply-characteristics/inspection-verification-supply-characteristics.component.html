@@ -578,11 +578,11 @@
                         <mat-label>
                           <h3>Brief Note (in case of confusion)(Optional)</h3>
                         </mat-label>
-                        <textarea matInput class="client-box-description" formControlName="aLSystemEarthingBNote" 
-                        [ngClass]="{ 'is-invalid': submitted && a.get('aLSystemEarthingBNote')?.errors }" maxlength="500" 
+                        <textarea matInput class="client-box-description" formControlName="aLLiveConductorBNote" 
+                        [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorBNote')?.errors }" maxlength="500" 
                         placeholder="Ex. Brief Note ..." ></textarea>
-                        <div *ngIf="submitted && a.get('aLSystemEarthingBNote')?.errors" class="invalid-feedback">
-                          <div *ngIf="a.get('aLSystemEarthingBNote')?.errors?.required">Field Is Required</div>
+                        <div *ngIf="submitted && a.get('aLLiveConductorBNote')?.errors" class="invalid-feedback">
+                          <div *ngIf="a.get('aLLiveConductorBNote')?.errors?.required">Field Is Required</div>
                         </div>
                       </mat-form-field>
                     </div>
@@ -592,13 +592,13 @@
                         <mat-label>
                           <h3>Remarks</h3>
                         </mat-label>
-                        <textarea matInput class="client-box-description" formControlName="aLSystemEarthingBNote" 
-                        [ngClass]="{ 'is-invalid': submitted && a.get('aLSystemEarthingBNote')?.errors }" 
+                        <textarea matInput class="client-box-description" formControlName="aLLiveConductorBNote" 
+                        [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorBNote')?.errors }" 
                         maxlength="500" 
                         placeholder="Ex. Remarks ..." ></textarea>
                       </mat-form-field>
-                      <div *ngIf="submitted && a.get('aLSystemEarthingBNote')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('aLSystemEarthingBNote')?.errors?.required">Field Is Required</div>
+                      <div *ngIf="submitted && a.get('aLLiveConductorBNote')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('aLLiveConductorBNote')?.errors?.required">Field Is Required</div>
                       </div>
                     </div>
                   </div>

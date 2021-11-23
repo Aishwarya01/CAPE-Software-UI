@@ -1,0 +1,639 @@
+<div class="card-body">
+    <!-- Heading tag -->
+    <!-- <div style="margin-top: 2rem;">
+        <h3>CHECK LIST FOR LIGHTNING PROTECTION SYSTEM BASIC DETAILS</h3>
+    </div> -->
+    <!-- Basic information tags are given by... -->
+    <form [formGroup]="LPSBasicForm" (ngSubmit)="onSubmit(flag)">
+        <div class="card-body">
+            <div style="font-weight: bold;">
+                <label for="Basicdetails">Basic Details:</label>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="clientname">Client Name:</label>
+                    <!-- icon code -->
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-person-lines-fill"></i>
+                            </span>
+                        </div>
+                        <input tpe="text" class="form-control" placeholder="Enter clientname"
+                            formControlName="clientName"[(ngModel)]="basicDetails.clientName"
+                            [ngClass]="{ 'is-invalid': submitted && f.clientName.errors}" />
+                        <div *ngIf="submitted && f.clientName.errors" class="invalid-feedback">
+                            <div *ngIf="f.clientName.errors.required">ClientName is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="projectname">Project Name:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-journal-plus"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Enter project name"
+                            formControlName="projectName" [(ngModel)]="basicDetails.projectName"
+                            [ngClass]="{ 'is-invalid': submitted && f.projectName.errors}" />
+                        <div *ngIf="submitted && f.projectName.errors" class="invalid-feedback">
+                            <div *ngIf="f.projectName.errors.required">ProjectName is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="pmcname">PMC Name </label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-person-lines-fill"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Enter PMC name" formControlName="pmcName" [(ngModel)]="basicDetails.pmcName"
+                            [ngClass]="{ 'is-invalid': submitted && f.pmcName.errors}" />
+                        <div *ngIf="submitted && f.pmcName.errors" class="invalid-feedback">
+                            <div *ngIf="f.pmcName.errors.required">PMC Name is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="consultantname">Consultant Name </label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-person-lines-fill"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Enter consultant name"
+                            formControlName="consultantName" [(ngModel)]="basicDetails.consultantName"
+                            [ngClass]="{ 'is-invalid': submitted && f.consultantName.errors}" />
+                        <div *ngIf="submitted && f.consultantName.errors" class="invalid-feedback">
+                            <div *ngIf="f.consultantName.errors.required">Consultant Name is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="contractorname">Contractor Name </label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-person-lines-fill"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Enter contractor name"
+                            formControlName="contractorName" [(ngModel)]="basicDetails.contractorName"
+                            [ngClass]="{ 'is-invalid': submitted && f.contractorName.errors}" />
+                        <div *ngIf="submitted && f.contractorName.errors" class="invalid-feedback">
+                            <div *ngIf="f.contractorName.errors.required">Contractor Name is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="dealer/sub-contractor">Dealer/Sub-contractor </label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-person-lines-fill"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Enter dealer/sub-contractor name"
+                            formControlName="dealerContractorName"  [(ngModel)]="basicDetails.dealerContractorName"
+                            [ngClass]="{ 'is-invalid': submitted && f.dealerContractorName.errors}" />
+                        <div *ngIf="submitted && f.dealerContractorName.errors" class="invalid-feedback">
+                            <div *ngIf="f.dealerContractorName.errors.required">Dealer/Sub-contractor is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="address">Address </label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-geo-fill"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Enter address name"  [(ngModel)]="basicDetails.address"
+                            formControlName="address" [ngClass]="{ 'is-invalid': submitted && f.address.errors}" />
+                        <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+                            <div *ngIf="f.address.errors.required">Address is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="location/region/branch">Location/Region/Branch </label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-geo-fill"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Enter Location/Region/Branch name" [(ngModel)]="basicDetails.location"
+                            formControlName="location" [ngClass]="{ 'is-invalid': submitted && f.location.errors}" />
+                        <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
+                            <div *ngIf="f.location.errors.required">location is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="installationbyCAPE/contractor/dealer">Installation by CAPE /
+                        Contractor/Dealer </label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-person-lines-fill"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control"
+                            placeholder="Enter Installation by CAPE / Contractor/Dealer name"
+                            formControlName="installationContractor" [(ngModel)]="basicDetails.installationContractor"
+                            [ngClass]="{ 'is-invalid': submitted && f.installationContractor.errors}" />
+                        <div *ngIf="submitted && f.installationContractor.errors" class="invalid-feedback">
+                            <div *ngIf="f.installationContractor.errors.required">Installation by CAPE /
+                                Contractor/Dealer is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="typeofindustry">Type of Industry </label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-building"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Enter Type of Industry name"
+                            formControlName="industryType" [(ngModel)]="basicDetails.industryType"
+                            [ngClass]="{ 'is-invalid': submitted && f.industryType.errors}" />
+                        <div *ngIf="submitted && f.industryType.errors" class="invalid-feedback">
+                            <div *ngIf="f.industryType.errors.required">Type of Industry is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="typeofbuilding">Type of Building </label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-building"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Enter Type of Building name"
+                            formControlName="buildingType" [(ngModel)]="basicDetails.buildingType"
+                            [ngClass]="{ 'is-invalid': submitted && f.buildingType.errors}" />
+                        <div *ngIf="submitted && f.buildingType.errors" class="invalid-feedback">
+                            <div *ngIf="f.buildingType.errors.required">Type of Building is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 10px; font-weight: bold;">
+                <label for="buildingdimension">Building Dimension </label>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="length(m)">Length(m)</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-align-start"></i>
+                            </span>
+                        </div>
+                        <input type="number" class="form-control" placeholder="Enter length in meter"
+                            formControlName="buildingLength"  [(ngModel)]="basicDetails.buildingLength"
+                            [ngClass]="{ 'is-invalid': submitted && f.buildingLength.errors}" />
+                        <div *ngIf="submitted && f.buildingLength.errors" class="invalid-feedback">
+                            <div *ngIf="f.buildingLength.errors.required">Length(m) is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="width(m)">Width(m)</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-border-width"></i>
+                            </span>
+                        </div>
+                        <input type="number" class="form-control" placeholder="Enter width in meter"
+                            formControlName="buildingWidth"  [(ngModel)]="basicDetails.buildingWidth"
+                            [ngClass]="{ 'is-invalid': submitted && f.buildingWidth.errors}" />
+                        <div *ngIf="submitted && f.buildingWidth.errors" class="invalid-feedback">
+                            <div *ngIf="f.buildingWidth.errors.required">Width(m) is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="height(m)">Height(m)</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-distribute-horizontal"></i>
+                            </span>
+                        </div>
+                        <input type="number" class="form-control" placeholder="Enter height in meter"
+                            formControlName="buildingHeight" [(ngModel)]="basicDetails.buildingHeight"
+                            [ngClass]="{ 'is-invalid': submitted && f.buildingHeight.errors}" />
+                        <div *ngIf="submitted && f.buildingHeight.errors" class="invalid-feedback">
+                            <div *ngIf="f.buildingHeight.errors.required">Height(m) is required</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="levelofprotection">Level of protection </label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-shield-fill-x"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Enter Level of protection name"
+                            formControlName="levelOfProtection" [(ngModel)]="basicDetails.levelOfProtection"
+                            [ngClass]="{ 'is-invalid': submitted && f.levelOfProtection.errors}" />
+                        <div *ngIf="submitted && f.levelOfProtection.errors" class="invalid-feedback">
+                            <div *ngIf="f.levelOfProtection.errors.required">Lovel of protection is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="soilresistivity">Soil Resistivity-(Ω) (Optional)</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-shield-fill-x"></i>
+                            </span>
+                        </div>
+                        <input type="number" class="form-control" placeholder="Enter Soil Resistivity"
+                            formControlName="soilResistivity" [(ngModel)]="basicDetails.soilResistivity"
+                            />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div style="margin-top: 40px;" formArrayName="basicLpsDescription"
+                *ngFor="let x of getDescriptionControl(); let j = index">
+                <table class="table" [formGroupName]="j">
+                    <thead style="text-align: center;">
+                        <th>SI.No</th>
+                        <th>Description</th>
+                        <th>Observation</th>
+                        <th>Remarks(Optional)</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="width: 1rem; text-align: center;">1.</td>
+                            <td style="width: 24rem;">Collect approved copy of drawing from the site </td>
+                            <td style="width: 35rem;">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea class="form-control" cols="30" rows="1" placeholder="Ex.."
+                                        formControlName="approvedDrawingObserv"
+                                        [ngClass]="{ 'is-invalid': submitted && x.get('approvedDrawingObserv')?.errors }"
+                                        required></textarea>
+
+                                    <div *ngIf="submitted && x.get('approvedDrawingObserv')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="x.get('approvedDrawingObserv')?.errors?.required">Collect approved copy of drawing from the site Observation is
+                                            required</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="width: 35rem;">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" class="form-control" cols="30" rows="1" placeholder="Ex.."
+                                        formControlName="approvedDrawingRemarks"></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">1(a).</td>
+                            <td>Architect Name </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" class="form-control" cols="30" rows="1" placeholder="Ex.."
+                                        formControlName="architectNameObserv"
+                                        [ngClass]="{ 'is-invalid': submitted && x.get('architectNameObserv')?.errors }"
+                                        required></textarea>
+
+                                    <div *ngIf="submitted && x.get('architectNameObserv')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="x.get('architectNameObserv')?.errors?.required">Architect Name is
+                                            required</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" class="form-control" cols="30" rows="1" placeholder="Ex.."
+                                        formControlName="architectNameRemarks"></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">1(b).</td>
+                            <td>Date of Design</td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-calendar-week-fill"></i>
+                                        </span>
+                                    </div>
+                                    <input type="date" class="form-control" formControlName="designDateObserv"
+                                        [ngClass]="{ 'is-invalid': submitted && x.get('designDateObserv')?.errors }">
+
+                                    <div *ngIf="submitted && x.get('designDateObserv')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="x.get('designDateObserv')?.errors?.required">Date of Design is required</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
+                                        formControlName="designDateRemarks"></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">1(c).</td>
+                            <td>Approved by</td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
+                                        formControlName="approvedByObserv"
+                                        [ngClass]="{ 'is-invalid': submitted && x.get('approvedByObserv')?.errors }"
+                                        required></textarea>
+
+                                    <div *ngIf="submitted && x.get('approvedByObserv')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="x.get('approvedByObserv')?.errors?.required">Approved by is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
+                                        formControlName="approvedByRemarks"></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">1(d).</td>
+                            <td>Date of approval </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-calendar-week-fill"></i>
+                                        </span>
+                                    </div>
+                                    <input type="date" class="form-control" formControlName="dateOfApprovalOb"
+                                        [ngClass]="{ 'is-invalid': submitted && x.get('dateOfApprovalOb')?.errors }" />
+
+                                    <div *ngIf="submitted && x.get('dateOfApprovalOb')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="x.get('dateOfApprovalOb')?.errors?.required">Date of approval is required</div>
+                                    </div>
+
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
+                                        formControlName="dateOfApprovalRem"></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">1(e).</td>
+                            <td>Drawing number </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
+                                        formControlName="drawingObserv"
+                                        [ngClass]="{ 'is-invalid': submitted && x.get('drawingObserv')?.errors }"
+                                        required></textarea>
+
+                                    <div *ngIf="submitted && x.get('drawingObserv')?.errors" class="invalid-feedback">
+                                        <div *ngIf="x.get('drawingObserv')?.errors?.required">Drawing number is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
+                                        formControlName="drawingRemarks"></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">1(f).</td>
+                            <td>Revision number </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
+                                        formControlName="revisionNoObserv"
+                                        [ngClass]="{ 'is-invalid': submitted && x.get('revisionNoObserv')?.errors }"
+                                        required></textarea>
+
+                                    <div *ngIf="submitted && x.get('revisionNoObserv')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="x.get('revisionNoObserv')?.errors?.required">Revision number is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
+                                        formControlName="revisionNoRemarks"></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                    <tbody>
+                        <tr>
+                            <td style="text-align: center;">2.</td>
+                            <td>Check for any deviation of design with standard </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
+                                        formControlName="deviationObserv"
+                                        [ngClass]="{ 'is-invalid': submitted && x.get('deviationObserv')?.errors }"
+                                        required></textarea>
+
+                                    <div *ngIf="submitted && x.get('deviationObserv')?.errors" class="invalid-feedback">
+                                        <div *ngIf="x.get('deviationObserv')?.errors?.required">Check for any deviation of design with standard observation is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
+                                        formControlName="deviationRemarks"></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                    <tbody>
+                        <tr>
+                            <td style="text-align: center;">3.</td>
+                            <td>Quality of installation </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
+                                        formControlName="installationQualityObserv"
+                                        [ngClass]="{ 'is-invalid': submitted && x.get('installationQualityObserv')?.errors }"
+                                        required></textarea>
+
+                                    <div *ngIf="submitted && x.get('installationQualityObserv')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="x.get('installationQualityObserv')?.errors?.required">Quality of installation observation is
+                                            required</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-text-paragraph"></i>
+                                        </span>
+                                    </div>
+                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
+                                        formControlName="installationQualityRemarks"></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div style="text-align: center;margin-top: 8px;">
+            <button class="next"  [disabled]="disable" (click)="gotoNextModal(content)" mat-button >Next &raquo;</button>
+        </div>
+        <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+            <span class="alert alert-danger">{{validationErrorMsg}}</span>
+        </div>
+    </form>
+</div>
+<ng-template #content let-modal>
+    <div class="modal-body">
+        <div class="centre-text m-btm30">
+            <div *ngIf="success" style="text-align: center;">
+                <span class="successshow">{{successMsg}}</span>
+            </div>
+            <div *ngIf="Error" style="text-align: center;">
+                <span class="errorshow">{{errorMsg}}</span>
+            </div>
+        </div>
+    </div>
+    <br>
+     <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+     aria-label="Close"  (click)="closeModalDialog()" style="margin-left: 195px;width: 16%;" matStepperNext>
+
+      <span aria-hidden="true">Ok</span>
+
+  </button>
+</ng-template> 

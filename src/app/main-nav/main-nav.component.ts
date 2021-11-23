@@ -35,6 +35,8 @@ import { VerificationlvComponent } from '../verificationlv/verificationlv.compon
 import { InspectionVerificationService } from '../services/inspection-verification.service';
 
 import { SavedreportsComponent } from '../savedreports/savedreports.component';
+import { LpsMatstepperComponent } from '../LPS/lps-matstepper/lps-matstepper.component';
+import { LpsWelcomePageComponent } from '../LPS/lps-welcome-page/lps-welcome-page.component';
 import { wind } from 'ngx-bootstrap-icons';
 
 export interface PeriodicElement {
@@ -747,8 +749,11 @@ emailPDF(siteId: any,userName: any){
         const emcAssessmentInspectionRef = this.viewContainerRef.createComponent(emcAssessmentInspectionFactory);
         emcAssessmentInspectionRef.changeDetectorRef.detectChanges();
         break;
-      case 5:
+      case 'LPS Systems':
         this.viewContainerRef.clear();
+        const LpsInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LpsWelcomePageComponent);
+        const LpsInspectionRef = this.viewContainerRef.createComponent(LpsInspectionFactory);
+        LpsInspectionRef.changeDetectorRef.detectChanges();
         break;
       case 6:
         this.viewContainerRef.clear();
