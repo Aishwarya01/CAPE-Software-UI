@@ -93,7 +93,7 @@ export class AssignViewerComponent implements OnInit {
               private router: Router,
               private componentFactoryResolver: ComponentFactoryResolver,
               private route: ActivatedRoute,
-              private globalService: GlobalsService, private _NgbActiveModal: NgbActiveModal
+              private globalService: GlobalsService,
               ) {
                 this.urlEmail = this.route.snapshot.paramMap.get('email') || '{}';
                }
