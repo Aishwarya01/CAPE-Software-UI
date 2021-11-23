@@ -95,7 +95,7 @@ export class LpsFinalReportComponent implements OnInit {
      this.finalpdf.downloadPDF(basicLpsId,this.userName)
    }
 
-    priviewPdf(allStepsCompleted:any, basicLpsId:any){
+    priviewPdf(basicLpsId:any){
    debugger
   //   this.verification.changeTabSavedReport(0,siteId,userName,'clientName','departmentName',site);
     }
