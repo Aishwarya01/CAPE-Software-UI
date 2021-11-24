@@ -159,6 +159,7 @@ export class LpsBasicPageComponent implements OnInit {
     this.basicDetails.basicLpsDescription = this.LPSBasicForm.value.basicLpsDescription;
 
     if(flag) {
+      if(this.LPSBasicForm.dirty && this.LPSBasicForm.touched){ 
       this.lPSBasicDetailsService.updateLpsBasicDetails(this.basicDetails).subscribe(
         data => {
           this.success = true;
@@ -172,7 +173,13 @@ export class LpsBasicPageComponent implements OnInit {
           this.errorMsg = this.errorArr.message;
           this.proceedNext.emit(false);
         }
-      )
+      )}
+      else{
+        this.success = true;
+        this.successMsg ="Required changes for updating process"
+        this.proceedNext.emit(true);
+      }
+      
     }
     else {
       this.lPSBasicDetailsService.saveLPSBasicDetails(this.basicDetails).subscribe(

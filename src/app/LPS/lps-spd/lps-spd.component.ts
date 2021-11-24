@@ -224,6 +224,7 @@ export class LpsSpdComponent implements OnInit {
       
 
           if(flag) {
+            if(this.spdForm.dirty && this.spdForm.touched){ 
             this.lpsSpd_Service.updateSpdDetails(this.spd).subscribe(
               (data) => {
                 this.success = true;
@@ -238,6 +239,12 @@ export class LpsSpdComponent implements OnInit {
                 this.proceedNext.emit(false);
               }
             )
+          }
+          else{
+                this.success = true;
+                this.successMsg ="Required changes for updating process"
+                this.proceedNext.emit(true);
+          }
           }
           else {
             this.lpsSpd_Service.saveSPDDetails(this.spd).subscribe(       

@@ -96,6 +96,7 @@ export class LpsEarthStudComponent implements OnInit {
     this.earthStud.basicLpsId = this.basicLpsId;
 
       if(flag) {
+        if(this.EarthStudForm.dirty && this.EarthStudForm.touched){ 
         this.earthStudService.updateEarthStud(this.earthStud).subscribe(
           (data) => {
             this.success = true;
@@ -110,6 +111,12 @@ export class LpsEarthStudComponent implements OnInit {
             this.proceedNext.emit(false);
           }
         )
+      }
+      else{
+               this.success = true;
+                this.successMsg ="Required changes for updating process"
+                this.proceedNext.emit(true);
+      }
       }
       else {
         this.earthStudService.saveEarthStud(this.earthStud).subscribe(

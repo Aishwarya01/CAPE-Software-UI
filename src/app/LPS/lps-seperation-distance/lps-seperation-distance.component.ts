@@ -162,6 +162,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
     this.separatedistance.separateDistanceDescription=this.separatedistance.separateDistanceDescription.concat(this.separatedistancePushArr);
     this.separatedistancePushArr=[];
       if(flag) {
+        if(this.separeteDistanceForm.dirty && this.separeteDistanceForm.touched){ 
         this.separatedistanceService.updateSeparateDistance(this.separatedistance).subscribe(
           (data) => {
             this.success = true;
@@ -176,6 +177,12 @@ export class LpsSeperationDistanceComponent implements OnInit {
             this.proceedNext.emit(false);
           }
         )
+      }
+      else{
+        this.success = true;
+       this.successMsg ="Required changes for updating process"
+       this.proceedNext.emit(true);
+      }
       }
       else {
         this.separatedistanceService.saveSeparateDistance(this.separatedistance).subscribe(

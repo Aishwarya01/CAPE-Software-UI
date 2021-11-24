@@ -133,17 +133,21 @@ export class LpsMatstepperComponent implements OnInit {
 
     this.Completed1 = this.basic.success;
     this.saved.ngOnInit();
+    this.refresh();
   }
   public doSomething2(next: any): void {
     this.Completed2 = this.airTermination.success;
+    this.refresh();
   }
 
   public doSomething3(next: any): void {
     this.Completed3 = this.downConductors.success;
+    this.refresh();
   }
 
   public doSomething4(next: any): void {
     this.Completed4 = this.earthing.success;
+    this.refresh();
   }
 
   public doSomething5(next: any): void {

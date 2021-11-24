@@ -480,6 +480,7 @@ export class LpsEarthingComponent implements OnInit {
     this.chamberPushArr = [];
 
       if(flag) {
+        if(this.earthingForm.dirty && this.earthingForm.touched){ 
         this.lpsEarthingService.updateEarthingLps(this.earthingLpsDescription).subscribe(
           (data) => {
             this.success = true;
@@ -494,6 +495,12 @@ export class LpsEarthingComponent implements OnInit {
             this.proceedNext.emit(false);
           }
         )
+      }
+      else{
+                this.success = true;
+                this.successMsg ="Required changes for updating process"
+                this.proceedNext.emit(true);
+      }
       }
       else {
         this.lpsEarthingService.saveEarthingDetails(this.earthingLpsDescription).subscribe(

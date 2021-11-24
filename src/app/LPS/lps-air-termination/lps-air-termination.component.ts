@@ -357,7 +357,9 @@ export class LpsAirTerminationComponent implements OnInit {
       }, 3000);
       return;
     }
+    
     this.modalService.open(content, { centered: true });
+     
   }
 
   closeModalDialog() {
@@ -400,6 +402,7 @@ export class LpsAirTerminationComponent implements OnInit {
         this.conPusharr=[];
 
           if(flag) {
+            if(this.airTerminationForm.dirty && this.airTerminationForm.touched){ 
             this.airterminationService.updateAirtermination(this.airtermination).subscribe(
               (data) => {
                 this.success = true;
@@ -412,7 +415,12 @@ export class LpsAirTerminationComponent implements OnInit {
                 this.errorArr = JSON.parse(error.error);
                 this.errorMsg = this.errorArr.message;
                 this.proceedNext.emit(false);
-              });
+              });}
+              else{
+                this.success = true;
+                this.successMsg ="Required changes for updating process"
+                this.proceedNext.emit(true);
+              }
           }
           else {
               this.airterminationService.saveAirtermination(this.airtermination).subscribe(

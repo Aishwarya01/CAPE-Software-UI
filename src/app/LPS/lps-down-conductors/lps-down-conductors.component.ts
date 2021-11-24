@@ -637,6 +637,7 @@ export class LpsDownConductorsComponent implements OnInit {
     this.testjointsPushArr = [];
 
       if(flag) {
+        if(this.downConductorForm.dirty && this.downConductorForm.touched){ 
         this.lpsDownconductorService.updateDownConductor(this.downConductorDescription).subscribe(
           (data) => {
             this.success = true;
@@ -651,6 +652,12 @@ export class LpsDownConductorsComponent implements OnInit {
             this.proceedNext.emit(false);
           }
         )
+      }
+      else{
+        this.success = true;
+       this.successMsg ="Required changes for updating process"
+       this.proceedNext.emit(true);
+      }
       }
       else {
         this.lpsDownconductorService.saveDownConductors(this.downConductorDescription).subscribe(
