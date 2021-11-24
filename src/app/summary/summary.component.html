@@ -16,6 +16,13 @@
                   <div class="col-sm-12">
                     <div class="form-group">
                       <label>Extent Of Installation Covered By This Report:</label>
+                      <mat-icon style="float: right;font-size: 18px;
+                      line-height: unset;"
+                       matTooltip="Actual area / portion of the building/block/floor details covered in this report"
+                       matTooltipClass="example-tooltip-red."
+                       aria-label="Button that shows a red tooltip"
+                       class="example-button"> info_outline
+                     </mat-icon>
                       <input type="text" class="form-control" formControlName="extentInstallation"
                       [(ngModel)]="summary.extentInstallation" 
                       [ngClass]="{ 'is-invalid': submitted && f.extentInstallation?.errors }">
@@ -89,6 +96,13 @@
                 <div class="form-group">
                   <label>Referring to attached inspection report and test results and subject to the 
                     limitations specified at the extent and limitations of inspection and testing :</label>
+                    <mat-icon style="float: right;font-size: 18px;
+                    line-height: unset;"
+                     matTooltip="If no remedial action required is selected, then following table is not necessary"
+                     matTooltipClass="example-tooltip-red."
+                     aria-label="Button that shows a red tooltip"
+                     class="example-button"> info_outline
+                   </mat-icon>
                   <select class="form-control" formControlName="limitationsInspection" (change)="onChange($event)"
                   [(ngModel)]="summary.limitationsInspection"
                   [ngClass]="{ 'is-invalid': submitted && f.limitationsInspection?.errors }">

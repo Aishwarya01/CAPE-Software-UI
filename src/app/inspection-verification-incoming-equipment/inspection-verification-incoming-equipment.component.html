@@ -45,6 +45,13 @@
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Cable/Busbar trunking:</label>
+            <mat-icon style="float: right;font-size: 18px;
+                     line-height: unset;"
+                     matTooltip="Type and availability status to be included"
+                 matTooltipClass="example-tooltip-red."
+                aria-label="Button that shows a red tooltip"
+                 class="example-button"> info_outline
+            </mat-icon>
             <select class="form-control" formControlName="serviceCable"
             
             [ngClass]="{ 'is-invalid': submitted && a.get('serviceCable')?.errors }">
@@ -61,6 +68,13 @@
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Incoming Protective Device:</label>
+            <mat-icon style="float: right;font-size: 18px;
+                     line-height: unset;"
+                     matTooltip="Availability status to be included"
+                 matTooltipClass="example-tooltip-red."
+                aria-label="Button that shows a red tooltip"
+                 class="example-button"> info_outline
+            </mat-icon>
             <select class="form-control" formControlName="serviceFuse" 
             
             [ngClass]="{ 'is-invalid': submitted && a.get('serviceFuse')?.errors }">
@@ -76,6 +90,13 @@
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Energy Meters for Mains Incoming:</label>
+            <mat-icon style="float: right;font-size: 18px;
+                 line-height: unset;"
+                 matTooltip="Availability status to be included"
+                matTooltipClass="example-tooltip-red."
+               aria-label="Button that shows a red tooltip"
+                class="example-button"> info_outline
+             </mat-icon>
             <select class="form-control" formControlName="meterDistributor" 
             
             [ngClass]="{ 'is-invalid': submitted && a.get('meterDistributor')?.errors }">
@@ -91,6 +112,13 @@
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Energy Meters for Outgoings:</label>
+            <mat-icon style="float: right;font-size: 18px;
+                 line-height: unset;"
+                matTooltip="Availability status to be included"
+                matTooltipClass="example-tooltip-red."
+                aria-label="Button that shows a red tooltip"
+                class="example-button"> info_outline
+            </mat-icon>
             <select class="form-control" formControlName="meterConsumer" 
             
             [ngClass]="{ 'is-invalid': submitted && a.get('meterConsumer')?.errors }">
@@ -106,6 +134,13 @@
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Over Voltage Protection:</label>
+            <mat-icon style="float: right;font-size: 18px;
+                line-height: unset;"
+                matTooltip="Availability status to be included"
+                matTooltipClass="example-tooltip-red."
+                aria-label="Button that shows a red tooltip"
+                class="example-button"> info_outline
+            </mat-icon>
             <select class="form-control" formControlName="meterEqu" 
             [ngClass]="{ 'is-invalid': submitted && a.get('meterEqu')?.errors }" >
               <option value="0" selected>Select Option</option>
@@ -120,6 +155,13 @@
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Isolator (Means To Isolate The Incoming Supply System):</label>
+            <mat-icon style="float: right;font-size: 18px;
+                line-height: unset;"
+            matTooltip="Availability status to be included. Generally, the incoming protective device have this facility."
+            matTooltipClass="example-tooltip-red."
+            aria-label="Button that shows a red tooltip"
+            class="example-button"> info_outline
+        </mat-icon>
             <select class="form-control" formControlName="isolator" 
             [ngClass]="{ 'is-invalid': submitted && a.get('isolator')?.errors }" >
               <option value="0" selected>Select Option</option>
@@ -145,6 +187,13 @@
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Dedicated Earthing Arrangement Independent To That Of Incoming Utility Supply:</label>
+            <mat-icon style="float: right;font-size: 18px;
+                line-height: unset;"
+                matTooltip="Arrangement of earthing downstream point of commencement of supply"
+                matTooltipClass="example-tooltip-red."
+                aria-label="Button that shows a red tooltip"
+                class="example-button"> info_outline
+            </mat-icon>
             <select class="form-control" formControlName="earthingArrangement" 
             [ngClass]="{ 'is-invalid': submitted && a.get('earthingArrangement')?.errors }" >
               <option value="0" selected>Select Option</option>
@@ -257,6 +306,13 @@
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Main Earthing and Main Protective Bonding arrangements:</label>
+               <mat-icon style="float: right;font-size: 18px;
+                 line-height: unset;"
+                  matTooltip="If the earth busbar of mains incoming panel and nearby metal installations such as metal pipes, metal handrails and lightning protection down conductors are not connected, select NO"
+                  matTooltipClass="example-tooltip-red."
+                  aria-label="Button that shows a red tooltip"
+                  class="example-button"> info_outline
+                </mat-icon>
             <select class="form-control" formControlName="mainEarting" 
             [ngClass]="{ 'is-invalid': submitted && a.get('mainEarting')?.errors }" >
               <option value="0" selected>Select Option</option>
@@ -272,6 +328,13 @@
           <div class="form-group equipment">
             <label>Presence and Adequacy Of Earthing Arrangement to Source Or Installation Earth
               Electrode Arrangement:</label>
+              <mat-icon style="float: right;font-size: 18px;
+                 line-height: unset;"
+                  matTooltip="For TN system, protective conductor to source neutral is applicable. TT system earth electrode is applicable."
+                  matTooltipClass="example-tooltip-red."
+                  aria-label="Button that shows a red tooltip"
+                  class="example-button"> info_outline
+                </mat-icon>
             <select class="form-control" formControlName="earthElectordeArrangement" 
             [ngClass]="{ 'is-invalid': submitted && a.get('earthElectordeArrangement')?.errors }" >
               <option value="0" selected>Select Option</option>
@@ -315,6 +378,13 @@
           <div class="form-group equipment">
             <label>Presence and Adequacy Of Main Protective Bonding Conductors And Connections (Colour, Sizes,
               Termination, and Provision of Independent Earthing) :</label>
+              <mat-icon style="float: right;font-size: 18px;
+                 line-height: unset;"
+                  matTooltip="If the earth busbar of mains incoming panel and nearby metal installations such as metal pipes, metal handrails and lightning protection down conductors are not connected, select NO"
+                  matTooltipClass="example-tooltip-red."
+                  aria-label="Button that shows a red tooltip"
+                  class="example-button"> info_outline
+                </mat-icon>
             <select class="form-control" formControlName="aainProtectBonding" 
             [ngClass]="{ 'is-invalid': submitted && a.get('aainProtectBonding')?.errors }" >
               <option value="0" selected>Select Option</option>
@@ -329,6 +399,13 @@
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Accessibility Of All Protective Bonding Connections:</label>
+            <mat-icon style="float: right;font-size: 18px;
+            line-height: unset;"
+             matTooltip="If the earth busbar of mains incoming panel and nearby metal installations such as metal pipes, metal handrails and lightning protection down conductors are not connected, select NO"
+             matTooltipClass="example-tooltip-red."
+             aria-label="Button that shows a red tooltip"
+             class="example-button"> info_outline
+           </mat-icon>
             <select class="form-control" formControlName="allProtectBonding" 
             [ngClass]="{ 'is-invalid': submitted && a.get('allProtectBonding')?.errors }" 
             >
@@ -385,6 +462,13 @@
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>SELV System, Including The Source And Associated Circuits:</label>
+            <mat-icon style="float: right;font-size: 18px;
+            line-height: unset;"
+             matTooltip="YES - If this protective measure is applied in the installation"
+             matTooltipClass="example-tooltip-red."
+             aria-label="Button that shows a red tooltip"
+             class="example-button"> info_outline
+           </mat-icon>
             <select class="form-control" formControlName="selvSystem" 
             [ngClass]="{ 'is-invalid': submitted && a.get('selvSystem')?.errors }" >
               <option value="0" selected>Select Option</option>
@@ -398,6 +482,13 @@
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>PELV system, Including The Source And Associated Circuits:</label>
+            <mat-icon style="float: right;font-size: 18px;
+            line-height: unset;"
+             matTooltip="YES - If this protective measure is applied in the installation"
+             matTooltipClass="example-tooltip-red."
+             aria-label="Button that shows a red tooltip"
+             class="example-button"> info_outline
+           </mat-icon>
             <select class="form-control" formControlName="pelvSystem" 
             [ngClass]="{ 'is-invalid': submitted && a.get('pelvSystem')?.errors }" >
               <option value="0" selected>Select Option</option>
@@ -411,6 +502,13 @@
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Double Insulation (Class II or Equivalent Equipment And Associated Circuits):</label>
+            <mat-icon style="float: right;font-size: 18px;
+            line-height: unset;"
+             matTooltip="YES - If this protective measure is applied in the installation"
+             matTooltipClass="example-tooltip-red."
+             aria-label="Button that shows a red tooltip"
+             class="example-button"> info_outline
+           </mat-icon>
             <select class="form-control" formControlName="doubleInsulation" 
             [ngClass]="{ 'is-invalid': submitted && a.get('doubleInsulation')?.errors }" >
               <option value="0" selected>Select Option</option>
@@ -427,6 +525,13 @@
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>ReInforced Insulation:</label>
+            <mat-icon style="float: right;font-size: 18px;
+            line-height: unset;"
+             matTooltip="YES - If this protective measure is applied in the installation"
+             matTooltipClass="example-tooltip-red."
+             aria-label="Button that shows a red tooltip"
+             class="example-button"> info_outline
+           </mat-icon>
             <select class="form-control" formControlName="reinforcedInsulation" 
             [ngClass]="{ 'is-invalid': submitted && a.get('reinforcedInsulation')?.errors }" >
               <option value="0" selected>Select Option</option>
@@ -440,6 +545,13 @@
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Electrical Separation:</label>
+            <mat-icon style="float: right;font-size: 18px;
+            line-height: unset;"
+             matTooltip="YES - If this protective measure is applied in the installation"
+             matTooltipClass="example-tooltip-red."
+             aria-label="Button that shows a red tooltip"
+             class="example-button"> info_outline
+           </mat-icon>
             <select class="form-control" formControlName="basicElectricalSepartion" 
             [ngClass]="{ 'is-invalid': submitted && a.get('basicElectricalSepartion')?.errors }" >
               <option value="0" selected>Select Option</option>
@@ -471,6 +583,13 @@
           <div class="form-group equipment">
             <label>Insulation of Live Parts (Conductors Completely Covered With Durable Insulating
               Material):</label>
+              <mat-icon style="float: right;font-size: 18px;
+              line-height: unset;"
+               matTooltip="YES - If this protective measure is applied in the installation"
+               matTooltipClass="example-tooltip-red."
+               aria-label="Button that shows a red tooltip"
+               class="example-button"> info_outline
+             </mat-icon>
             <select class="form-control" formControlName="insulationLiveParts" 
             [ngClass]="{ 'is-invalid': submitted && a.get('insulationLiveParts')?.errors }" >
               <option value="0" selected>Select Option</option>
@@ -485,6 +604,13 @@
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Barriers Or Enclosures (Correct IP Rating):</label>
+            <mat-icon style="float: right;font-size: 18px;
+            line-height: unset;"
+             matTooltip="YES - If this protective measure is applied in the installation"
+             matTooltipClass="example-tooltip-red."
+             aria-label="Button that shows a red tooltip"
+             class="example-button"> info_outline
+           </mat-icon>
             <select class="form-control" formControlName="barriersEnclosers" 
             [ngClass]="{ 'is-invalid': submitted && a.get('barriersEnclosers')?.errors }" >
               <option value="0" selected>Select Option</option>
@@ -498,6 +624,13 @@
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Obstacles:</label>
+            <mat-icon style="float: right;font-size: 18px;
+            line-height: unset;"
+             matTooltip="YES - If this protective measure is applied in the installation"
+             matTooltipClass="example-tooltip-red."
+             aria-label="Button that shows a red tooltip"
+             class="example-button"> info_outline
+           </mat-icon>
             <select class="form-control" formControlName="obstacles" 
             [ngClass]="{ 'is-invalid': submitted && a.get('obstacles')?.errors }" >
               <option value="0" selected>Select Option</option>
@@ -511,6 +644,13 @@
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Placing out of reach:</label>
+            <mat-icon style="float: right;font-size: 18px;
+            line-height: unset;"
+             matTooltip="YES - If this protective measure is applied in the installation"
+             matTooltipClass="example-tooltip-red."
+             aria-label="Button that shows a red tooltip"
+             class="example-button"> info_outline
+           </mat-icon>
             <select class="form-control" formControlName="placingOutReach" 
             [ngClass]="{ 'is-invalid': submitted && a.get('placingOutReach')?.errors }" >
               <option value="0" selected>Select Option</option>
@@ -528,6 +668,13 @@
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Non-Conducting Location – Earth Free local Equipotential Bonding:</label>
+            <mat-icon style="float: right;font-size: 18px;
+            line-height: unset;"
+             matTooltip="YES - If this protective measure is applied in the installation"
+             matTooltipClass="example-tooltip-red."
+             aria-label="Button that shows a red tooltip"
+             class="example-button"> info_outline
+           </mat-icon>
             <select class="form-control" formControlName="nonConductLocation" 
             [ngClass]="{ 'is-invalid': submitted && a.get('nonConductLocation')?.errors }" >
               <option value="0" selected>Select Option</option>
@@ -542,6 +689,13 @@
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Electrical Separation:</label>
+            <mat-icon style="float: right;font-size: 18px;
+            line-height: unset;"
+             matTooltip="YES - If this protective measure is applied in the installation"
+             matTooltipClass="example-tooltip-red."
+             aria-label="Button that shows a red tooltip"
+             class="example-button"> info_outline
+           </mat-icon>
             <select class="form-control" formControlName="faultElectricalSepartion" 
             [ngClass]="{ 'is-invalid': submitted && a.get('faultElectricalSepartion')?.errors }" >
               <option value="0" selected>Select Option</option>
@@ -559,6 +713,13 @@
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>RCD(s) Not Exceeding 30 mA Operating Current:</label>
+            <mat-icon style="float: right;font-size: 18px;
+            line-height: unset;"
+             matTooltip="YES - If this protective measure is applied in the installation"
+             matTooltipClass="example-tooltip-red."
+             aria-label="Button that shows a red tooltip"
+             class="example-button"> info_outline
+           </mat-icon>
             <select class="form-control" formControlName="operatingCurrent" 
             [ngClass]="{ 'is-invalid': submitted && a.get('operatingCurrent')?.errors }">
               <option value="0" selected>Select Option</option>
@@ -573,6 +734,13 @@
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Supplementary Bonding:</label>
+            <mat-icon style="float: right;font-size: 18px;
+            line-height: unset;"
+             matTooltip="YES - If this protective measure is applied in the installation"
+             matTooltipClass="example-tooltip-red."
+             aria-label="Button that shows a red tooltip"
+             class="example-button"> info_outline
+           </mat-icon>
             <select class="form-control" formControlName="supplementaryBonding" 
             [ngClass]="{ 'is-invalid': submitted && a.get('supplementaryBonding')?.errors }">
               <option value="0" selected>Select Option</option>
@@ -601,6 +769,13 @@
           <div class="form-group equipment">
             <label>Adequacy Of Access And Working Space For Items Of Electrical Equipment Including
               Switchgear:</label>
+              <mat-icon style="float: right;font-size: 18px;
+              line-height: unset;"
+               matTooltip="Spacing requirements shall be referred to NEC/NBC"
+               matTooltipClass="example-tooltip-red."
+               aria-label="Button that shows a red tooltip"
+               class="example-button"> info_outline
+             </mat-icon>
             <select class="form-control" formControlName="accessWorking" 
             [ngClass]="{ 'is-invalid': submitted && b.get('accessWorking')?.errors }">
               <option value="0" selected>Select Option</option>
@@ -615,6 +790,13 @@
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Security Of Fixing:</label>
+            <mat-icon style="float: right;font-size: 18px;
+            line-height: unset;"
+             matTooltip="Quality of terminations and fixings"
+             matTooltipClass="example-tooltip-red."
+             aria-label="Button that shows a red tooltip"
+             class="example-button"> info_outline
+           </mat-icon>
             <select class="form-control" formControlName="securityFixing" 
             [ngClass]="{ 'is-invalid': submitted && b.get('securityFixing')?.errors }" >
               <option value="0" selected>Select Option</option>
