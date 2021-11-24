@@ -173,7 +173,7 @@
     <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
         <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
 
-        <button  class="next" [disabled]="disable" (click)="gotoNextModal(content)" mat-button >Submit &raquo;</button>
+        <button  class="next" [disabled]="disable" (click)="gotoNextModal(content,contents)" mat-button >Submit &raquo;</button>
 
     </div>
     <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
@@ -201,3 +201,22 @@
 
   </button>
 </ng-template> 
+<ng-template #contents let-modal>
+    <div class="modal-body">
+     <div class="centre-text m-btm30">
+      <div style="text-align: center;">
+        <span style="font-size: 12px;">Note: Please verify all the details! </span>
+       </div>
+      </div>
+     </div>
+    <br>
+    <div class="row">
+       <button type="button" class="col-md-6" style="text-align:center; width: auto;" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+       aria-label="Close" (click)="closeModalDialog()" >
+       <i class="bi bi-arrow-right-circle"></i>&nbsp;
+        <span aria-hidden="true">Ok</span>
+    </button>
+    
+  </div>
+  
+    </ng-template>

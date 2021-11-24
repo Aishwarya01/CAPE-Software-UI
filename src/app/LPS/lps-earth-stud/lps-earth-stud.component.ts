@@ -113,9 +113,14 @@ export class LpsEarthStudComponent implements OnInit {
         )
       }
       else{
-               this.success = true;
-                this.successMsg ="Required changes for updating process"
-                this.proceedNext.emit(true);
+        if(this.isEditable){
+          this.success = true;
+          this.proceedNext.emit(true);
+        }else{
+          this.success = true;
+          this.successMsg ="Required changes for updating process"
+          this.proceedNext.emit(true);
+        }
       }
       }
       else {
@@ -154,7 +159,7 @@ export class LpsEarthStudComponent implements OnInit {
     }
   }
 
-  gotoNextModal(content: any) {
+  gotoNextModal(content: any,contents:any) {
      if (this.EarthStudForm.invalid) {
        this.validationError = true;
       
@@ -173,6 +178,11 @@ export class LpsEarthStudComponent implements OnInit {
       }, 3000);
       return;
     }
+    if(this.isEditable){
+      this.modalService.open(contents, { centered: true });
+   }
+   if(!this.isEditable){
     this.modalService.open(content, { centered: true });
+   }
   }
 }

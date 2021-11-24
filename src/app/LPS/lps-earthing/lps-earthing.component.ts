@@ -497,9 +497,14 @@ export class LpsEarthingComponent implements OnInit {
         )
       }
       else{
-                this.success = true;
-                this.successMsg ="Required changes for updating process"
-                this.proceedNext.emit(true);
+        if(this.isEditable){
+          this.success = true;
+          this.proceedNext.emit(true);
+        }else{
+          this.success = true;
+          this.successMsg ="Required changes for updating process"
+          this.proceedNext.emit(true);
+        }
       }
       }
       else {
@@ -533,7 +538,7 @@ export class LpsEarthingComponent implements OnInit {
       }
     }
   
-    gotoNextModal(content: any) {
+    gotoNextModal(content: any,contents:any) {
       (this.earthingForm.value);
        if (this.earthingForm.invalid) {
          this.validationError = true;
@@ -553,6 +558,11 @@ export class LpsEarthingComponent implements OnInit {
         }, 3000);
         return;
       }
+      if(this.isEditable){
+        this.modalService.open(contents, { centered: true });
+     }
+     if(!this.isEditable){
       this.modalService.open(content, { centered: true });
+     }
     }
 }

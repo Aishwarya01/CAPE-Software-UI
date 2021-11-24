@@ -133,7 +133,7 @@ export class LpsBasicPageComponent implements OnInit {
     }
   }
 
-  gotoNextModal(content: any) {
+  gotoNextModal(content: any,contents: any) {
     
      if (this.LPSBasicForm.invalid) {
        this.validationError = true;
@@ -144,7 +144,15 @@ export class LpsBasicPageComponent implements OnInit {
        }, 3000);
        return;
      }
-    this.modalService.open(content, { centered: true });
+     debugger
+      if(this.isEditable){
+        this.modalService.open(contents, { centered: true });
+     }
+     if(!this.isEditable){
+      this.modalService.open(content, { centered: true });
+      
+     }
+     
   }
  
   onSubmit(flag: any) {
@@ -162,9 +170,11 @@ export class LpsBasicPageComponent implements OnInit {
       if(this.LPSBasicForm.dirty && this.LPSBasicForm.touched){ 
       this.lPSBasicDetailsService.updateLpsBasicDetails(this.basicDetails).subscribe(
         data => {
+          
           this.success = true;
           this.successMsg = data;
           this.proceedNext.emit(true);
+          
         },
         error => {
           this.Error = true;
@@ -175,9 +185,16 @@ export class LpsBasicPageComponent implements OnInit {
         }
       )}
       else{
-        this.success = true;
-        this.successMsg ="Required changes for updating process"
-        this.proceedNext.emit(true);
+        if(this.isEditable){
+          this.success = true;
+          this.proceedNext.emit(true);
+        //  this.closeModalDialog();
+        }else{
+          
+          this.success = true;
+          this.successMsg ="Required changes for updating process"
+          this.proceedNext.emit(true);
+        }
       }
       
     }

@@ -338,7 +338,7 @@ export class LpsAirTerminationComponent implements OnInit {
       });
     }
 
-  gotoNextModal(content: any) {
+  gotoNextModal(content: any,contents:any) {
     
      if (this.airTerminationForm.invalid) {
        this.validationError = true;
@@ -357,8 +357,14 @@ export class LpsAirTerminationComponent implements OnInit {
       }, 3000);
       return;
     }
-    
+    if(this.isEditable){
+      this.modalService.open(contents, { centered: true });
+   }
+   if(!this.isEditable){
     this.modalService.open(content, { centered: true });
+    this.successMsg ='';
+   }
+   
      
   }
 
@@ -417,9 +423,14 @@ export class LpsAirTerminationComponent implements OnInit {
                 this.proceedNext.emit(false);
               });}
               else{
-                this.success = true;
-                this.successMsg ="Required changes for updating process"
-                this.proceedNext.emit(true);
+                if(this.isEditable){
+                  this.success = true;
+                  this.proceedNext.emit(true);
+                }else{
+                  this.success = true;
+                  this.successMsg ="Required changes for updating process"
+                  this.proceedNext.emit(true);
+                }
               }
           }
           else {
