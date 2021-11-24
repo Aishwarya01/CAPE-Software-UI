@@ -86,7 +86,7 @@ export class LpsBasicPageComponent implements OnInit {
       this.basicDetails.location = this.step1List.location;
       this.basicDetails.soilResistivity = this.step1List.soilResistivity;
       this.basicDetails.userName = this.step1List.userName;
- 
+      this.basicDetails.allStepsCompleted = this.step1List.allStepsCompleted;
       for(let i of this.step1List.basicLpsDescription) {
         this.LPSBasicForm.patchValue ({
          basicLpsDescription: [i],
