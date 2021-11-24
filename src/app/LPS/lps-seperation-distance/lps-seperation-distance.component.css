@@ -64,3 +64,19 @@ thead {
   background-color: #df0000;
   color: white;
 }
+
+table tr td {
+  font-size: 11px;
+}
+
+textarea{
+  font-size: 12px;
+}
+
+::placeholder{
+  font-size: 10px;
+}
+
+label{
+  font-size: 11px;
+}

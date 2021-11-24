@@ -48,3 +48,19 @@ thead {
   width: 800px;
   height: 150px;
 }
+
+table tr td {
+  font-size: 11px;
+}
+
+textarea{
+  font-size: 12px;
+}
+
+label{
+  font-size: 11px;
+}
+
+::placeholder{
+  font-size: 10px;
+}
