@@ -17,7 +17,7 @@ import { LpsWelcomePageComponent } from '../lps-welcome-page/lps-welcome-page.co
 })
 export class LpsFinalReportComponent implements OnInit {
 
-  finalReportsColumns: string[] = [ 'clientName', 'projectName', 'consultantName', 'contractorName', 'dealerContractorName' , 'address', 'createdDate', 'createdBy', 'preview' , 'download','email'];
+  finalReportsColumns: string[] = [ 'clientName', 'projectName', 'consultantName', 'contractorName', 'dealerContractorName' , 'address', 'createdDate', 'createdBy', 'preview' , 'download','email', 'print'];
   finalReport_dataSource!: MatTableDataSource<BasicDetails[]>;
 
   @ViewChild('finalReportPaginator', { static: true }) finalReportPaginator!: MatPaginator;
@@ -97,9 +97,14 @@ export class LpsFinalReportComponent implements OnInit {
      this.finalpdf.downloadPDF(basicLpsId,this.userName)
    }
 
-    priviewPdf(basicLpsId:any,clientName:any){
+  priviewPdf(basicLpsId:any,clientName:any){
      debugger
      this.matstepper.preview(basicLpsId,clientName);
-    }
+   }
+
+  // printPdf(){
+  //   debugger
+  //   this.finalpdf.
+  // }
 }
 

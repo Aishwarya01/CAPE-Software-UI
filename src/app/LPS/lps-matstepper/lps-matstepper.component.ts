@@ -232,9 +232,11 @@ export class LpsMatstepperComponent implements OnInit {
     this.isEditable=true;
     let userName=this.router.snapshot.paramMap.get('email') || '{}';
     this.changeTabLpsSavedReport(0,basicLpsId,userName,ClientName);
-    
-    debugger
   }
+
+  // print(){
+
+  // }
   continue(basicLpsId: any,ClientName:any): void {
     this.ngOnInit();
     this.isEditable=false;
