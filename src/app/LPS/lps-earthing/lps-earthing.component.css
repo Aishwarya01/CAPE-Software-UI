@@ -38,6 +38,7 @@ td {
 }
 thead {
   text-align: center;
+  font-size: 16px;
 }
 
 /* Text area description */
@@ -67,4 +68,22 @@ thead {
 .dlt:hover{
   background-color: #df0000;
   color: white;
+}
+
+
+label{
+  font-size: 14px;
+}
+
+::placeholder{
+  font-size: 10px;
+}
+
+
+table tr td {
+  font-size: 14px;
+}
+
+textarea{
+  font-size: 12px;
 }

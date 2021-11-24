@@ -48,6 +48,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
   flag: boolean = false;
   arr: any  = [];
   separatedistancePushArr:any=[];
+  isEditable!:boolean
   constructor(
 
     private formBuilder: FormBuilder,
@@ -100,7 +101,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
     return new FormGroup({
       seperationDistanceDesc: new FormControl('',Validators.required),
       seperationDistanceOb: new FormControl('',Validators.required),
-      seperationDistanceRem: new FormControl('',Validators.required),
+      seperationDistanceRem: new FormControl(''),
       flag: new FormControl('true'),
 
     })

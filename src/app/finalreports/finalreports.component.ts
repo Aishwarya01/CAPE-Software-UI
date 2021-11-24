@@ -18,7 +18,7 @@ import { VerificationlvComponent } from '../verificationlv/verificationlv.compon
   styleUrls: ['./finalreports.component.css']
 })
 export class FinalreportsComponent implements OnInit {
-  finalReportsColumns: string[] = [ 'siteCD', 'siteName', 'personIncharge', 'contactNumber', 'contactDetails', 'state', 'country', 'preview' , 'download'];
+  finalReportsColumns: string[] = [ 'siteCD', 'siteName', 'personIncharge', 'contactNumber', 'contactDetails', 'state', 'country', 'preview' , 'download','email'];
   finalReport_dataSource!: MatTableDataSource<Site[]>;
   @ViewChild('finalReportPaginator', { static: true }) finalReportPaginator!: MatPaginator;
   @ViewChild('finalReportSort', {static: true}) finalReportSort!: MatSort;

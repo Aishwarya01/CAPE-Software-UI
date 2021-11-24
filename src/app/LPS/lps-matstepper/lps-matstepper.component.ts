@@ -67,8 +67,8 @@ export class LpsMatstepperComponent implements OnInit {
   dataJSON: any = [];
   @ViewChild(LpsSavedReportComponent)saved!: LpsSavedReportComponent;
   @ViewChild(LpsFinalReportComponent)final!: LpsFinalReportComponent;
-  //ChangeDetectorRef: any;
-  //Completed8: boolean=this.earthStud.success;
+  
+  isEditable:boolean=false;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -86,43 +86,50 @@ export class LpsMatstepperComponent implements OnInit {
     this.refresh();
   }
   public doSomething1(next: any): void {
-
+ 
+    this.basic.isEditable=this.isEditable;
     // AirTermination
     this.airTermination.basicLpsId=this.basic.basicDetails.basicLpsId;
     this.airTermination.ClientName=this.basic.basicDetails.clientName;
     this.airTermination.projectName=this.basic.basicDetails.projectName;
     this.airTermination.industryType=this.basic.basicDetails.industryType;
     this.airTermination.buildingType=this.basic.basicDetails.buildingType;
+    this.airTermination.isEditable=this.isEditable;
     // DownConductor
     this.downConductors.basicLpsId=this.basic.basicDetails.basicLpsId;
     this.downConductors.ClientName=this.basic.basicDetails.clientName;
     this.downConductors.projectName=this.basic.basicDetails.projectName;
     this.downConductors.industryType=this.basic.basicDetails.industryType;
     this.downConductors.buildingType=this.basic.basicDetails.buildingType;
+    this.downConductors.isEditable=this.isEditable;
     // Earthing
     this.earthing.basicLpsId=this.basic.basicDetails.basicLpsId;
     this.earthing.ClientName=this.basic.basicDetails.clientName;
     this.earthing.projectName=this.basic.basicDetails.projectName;
     this.earthing.industryType=this.basic.basicDetails.industryType;
     this.earthing.buildingType=this.basic.basicDetails.buildingType;
+    this.earthing.isEditable=this.isEditable;
     // SPD
     this.spd.basicLpsId=this.basic.basicDetails.basicLpsId;
     this.spd.ClientName=this.basic.basicDetails.clientName;
     this.spd.projectName=this.basic.basicDetails.projectName;
     this.spd.industryType=this.basic.basicDetails.industryType;
     this.spd.buildingType=this.basic.basicDetails.buildingType;
+    this.spd.isEditable=this.isEditable;
     // Seperation Distance
     this.seperationDistance.basicLpsId=this.basic.basicDetails.basicLpsId;
     this.seperationDistance.ClientName=this.basic.basicDetails.clientName;
     this.seperationDistance.projectName=this.basic.basicDetails.projectName;
     this.seperationDistance.industryType=this.basic.basicDetails.industryType;
     this.seperationDistance.buildingType=this.basic.basicDetails.buildingType;
+    this.seperationDistance.isEditable=this.isEditable;
     // EarthStud
     this.earthStud.basicLpsId=this.basic.basicDetails.basicLpsId;
     this.earthStud.ClientName=this.basic.basicDetails.clientName;
     this.earthStud.projectName=this.basic.basicDetails.projectName;
     this.earthStud.industryType=this.basic.basicDetails.industryType;
     this.earthStud.buildingType=this.basic.basicDetails.buildingType;
+    this.earthStud.isEditable=this.isEditable;
 
     this.Completed1 = this.basic.success;
     this.saved.ngOnInit();
@@ -151,7 +158,7 @@ export class LpsMatstepperComponent implements OnInit {
   }
 
   public changeTabLpsSavedReport(index: number, basicLpsId: any, userName: any, clientName: any) {
-    
+   
     this.selectedIndex = 1;
     this.basicLpsService.retrieveFinalLps(userName,basicLpsId).subscribe(
       (data) => {
@@ -218,5 +225,24 @@ export class LpsMatstepperComponent implements OnInit {
   refresh() {
     debugger
     this.ChangeDetectorRef.detectChanges();
+  }
+
+  preview(basicLpsId: any,ClientName:any): void {
+    this.ngOnInit();
+    this.isEditable=true;
+    let userName=this.router.snapshot.paramMap.get('email') || '{}';
+    this.changeTabLpsSavedReport(0,basicLpsId,userName,ClientName);
+  }
+
+  // print(){
+
+  // }
+  continue(basicLpsId: any,ClientName:any): void {
+    this.ngOnInit();
+    this.isEditable=false;
+    let userName=this.router.snapshot.paramMap.get('email') || '{}';
+    this.changeTabLpsSavedReport(0,basicLpsId,userName,ClientName);
+    
+    debugger
   }
 }
