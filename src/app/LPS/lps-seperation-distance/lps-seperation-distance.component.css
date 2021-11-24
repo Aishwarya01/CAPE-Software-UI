@@ -34,6 +34,7 @@ label {
 }
 thead {
   text-align: center;
+  font-size: 16px;
 }
 
 /* Text area description */
@@ -66,7 +67,7 @@ thead {
 }
 
 table tr td {
-  font-size: 11px;
+  font-size: 14px;
 }
 
 textarea{
@@ -78,5 +79,5 @@ textarea{
 }
 
 label{
-  font-size: 11px;
+  font-size: 14px;
 }

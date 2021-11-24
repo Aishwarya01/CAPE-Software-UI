@@ -17,7 +17,7 @@
                     </textarea>
                 </div> -->
                 <mat-form-field class="client-description ">
-                    <textarea matInput class="client-box-description"
+                    <textarea matInput class="client-box-description" style="font-size: 14px; font-weight: bold;"
                     maxlength="500" readonly> Client Name: {{ClientName}}, Project Name: {{projectName}}, Type of Industry: {{industryType}}, Type of Building: {{buildingType}} </textarea>
                 </mat-form-field>
 
@@ -38,7 +38,7 @@
                                     termination and electrical
                                     apparatus (lights, Solar PV, AC chillers, cameras…. Etc)(Measurement required in
                                     atleast
-                                    10 locations on roof top):
+                                    10 locations on roof top)
                                 </td>
                             </tr>
                         </tbody>
@@ -72,10 +72,10 @@
                                             </span>
                                         </div>
                                         <textarea type="text" formControlName="seperationDistanceOb"
-                                            class="form-control" placeholder="Please enter Description here"
+                                            class="form-control" placeholder="Please enter Observation here"
                                             [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceOb')?.errors }"></textarea>
                                         <div *ngIf="submitted && f.get('seperationDistanceOb')?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.get('seperationDistanceOb')?.errors?.required"> SeparateDistance Description Observation is required</div>
+                                            <div *ngIf="f.get('seperationDistanceOb')?.errors?.required"> SeparateDistance Observation is required</div>
                                         </div>
                                     </div>
                                 </td>
@@ -87,11 +87,9 @@
                                             </span>
                                         </div>
                                         <textarea type="text" formControlName="seperationDistanceRem"
-                                            class="form-control" placeholder="Please enter Description here"
-                                            [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceRem')?.errors }"></textarea>
-                                        <div *ngIf="submitted && f.get('seperationDistanceRem')?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.get('seperationDistanceRem')?.errors?.required">SeparateDistance Description Remarks is required</div>
-                                        </div>
+                                            class="form-control"
+                                            ></textarea>
+                                        
                                     </div>
                                 </td>
                             </div>

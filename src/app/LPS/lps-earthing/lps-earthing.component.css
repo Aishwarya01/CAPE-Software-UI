@@ -38,6 +38,7 @@ td {
 }
 thead {
   text-align: center;
+  font-size: 16px;
 }
 
 /* Text area description */
@@ -69,32 +70,18 @@ thead {
   color: white;
 }
 
+
 label{
-  font-size: 11px;
+  font-size: 14px;
 }
 
 ::placeholder{
   font-size: 10px;
 }
 
-label{
-  font-size: 11px;
-}
-
-::placeholder{
-  font-size: 10px;
-}
-
-label{
-  font-size: 11px;
-}
-
-::placeholder{
-  font-size: 10px;
-}
 
 table tr td {
-  font-size: 11px;
+  font-size: 14px;
 }
 
 textarea{
