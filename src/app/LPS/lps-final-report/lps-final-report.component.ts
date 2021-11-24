@@ -17,7 +17,7 @@ import { LpsWelcomePageComponent } from '../lps-welcome-page/lps-welcome-page.co
 })
 export class LpsFinalReportComponent implements OnInit {
 
-  finalReportsColumns: string[] = [ 'clientName', 'projectName', 'consultantName', 'contractorName', 'dealerContractorName' , 'address', 'createdDate', 'createdBy', 'preview' , 'download'];
+  finalReportsColumns: string[] = [ 'clientName', 'projectName', 'consultantName', 'contractorName', 'dealerContractorName' , 'address', 'createdDate', 'createdBy', 'preview' , 'download','email'];
   finalReport_dataSource!: MatTableDataSource<BasicDetails[]>;
 
   @ViewChild('finalReportPaginator', { static: true }) finalReportPaginator!: MatPaginator;
