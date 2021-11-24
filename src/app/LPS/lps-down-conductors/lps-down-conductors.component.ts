@@ -59,7 +59,7 @@ export class LpsDownConductorsComponent implements OnInit {
   connectorPushArr: any = [];
   lightPushArr: any = [];
   testjointsPushArr: any = [];
-
+  isEditable!:boolean
   constructor(
     private formBuilder: FormBuilder, lpsDownconductorService: LpsDownconductorService,
     private modalService: NgbModal, private router: ActivatedRoute) {

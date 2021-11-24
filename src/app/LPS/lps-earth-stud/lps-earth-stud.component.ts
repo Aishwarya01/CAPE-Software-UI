@@ -43,7 +43,7 @@ export class LpsEarthStudComponent implements OnInit {
   flag: boolean = false;
   step7List: any = [];
   selectedIndex = 0;
-  
+  isEditable!:boolean
   constructor(
     private formBuilder: FormBuilder,
     private earthStudService: EarthStudService,

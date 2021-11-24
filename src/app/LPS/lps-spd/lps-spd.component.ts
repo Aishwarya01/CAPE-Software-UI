@@ -40,7 +40,7 @@ export class LpsSpdComponent implements OnInit {
   mobilearr: any = [];
   mobilearr2: any = [];
   mobilearr3: any = [];
-  
+  isEditable!:boolean
   constructor(private formBuilder: FormBuilder, lpsSpd_Services: LpsSpd_Service
     ,private modalService: NgbModal, private router: ActivatedRoute) {
     this.lpsSpd_Service = lpsSpd_Services;
