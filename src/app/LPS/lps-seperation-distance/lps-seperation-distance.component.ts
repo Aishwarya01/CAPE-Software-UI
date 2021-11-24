@@ -48,6 +48,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
   flag: boolean = false;
   arr: any  = [];
   separatedistancePushArr:any=[];
+  isEditable!:boolean
   constructor(
 
     private formBuilder: FormBuilder,

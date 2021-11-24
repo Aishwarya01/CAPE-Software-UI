@@ -61,7 +61,7 @@ export class LpsAirTerminationComponent implements OnInit {
   clampPusharr: any = [];
   exPusharr: any = [];
   conPusharr: any = [];
-  
+  isEditable!:boolean
    
   constructor(
     private formBuilder: FormBuilder,private airterminationServices:AirterminationService,

@@ -52,7 +52,7 @@ export class LpsEarthingComponent implements OnInit {
   descriptionPushArr: any = [];
   ClampsPushArr: any = [];
   chamberPushArr: any = [];
-  
+  isEditable!:boolean
   constructor(
     private formBuilder: FormBuilder, private lpsEarthings: LpsEarthing,private modalService: NgbModal, private router: ActivatedRoute
   ) {

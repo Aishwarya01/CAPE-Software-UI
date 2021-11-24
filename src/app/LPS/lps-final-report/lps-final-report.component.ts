@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BasicDetails } from 'src/app/LPS_model/basic-details';
 import { FinalPdfServiceService } from 'src/app/LPS_services/final-pdf-service.service';
 import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.service';
+import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 import { LpsWelcomePageComponent } from '../lps-welcome-page/lps-welcome-page.component';
 
 @Component({
@@ -47,7 +48,8 @@ export class LpsFinalReportComponent implements OnInit {
               private lpsService: LPSBasicDetailsService,
               private ChangeDetectorRef: ChangeDetectorRef,
               private welcome: LpsWelcomePageComponent,
-              private finalpdf: FinalPdfServiceService) { 
+              private finalpdf: FinalPdfServiceService,
+              private matstepper:LpsMatstepperComponent) { 
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
 
@@ -95,9 +97,9 @@ export class LpsFinalReportComponent implements OnInit {
      this.finalpdf.downloadPDF(basicLpsId,this.userName)
    }
 
-    priviewPdf(basicLpsId:any){
-   debugger
-  //   this.verification.changeTabSavedReport(0,siteId,userName,'clientName','departmentName',site);
+    priviewPdf(basicLpsId:any,clientName:any){
+     debugger
+     this.matstepper.preview(basicLpsId,clientName);
     }
 }
 

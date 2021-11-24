@@ -39,7 +39,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control"   [(ngModel)]="spd.mainsIncomingOb"formControlName="mainsIncomingOb"
+                                            <textarea type="text" class="form-control"   [(ngModel)]="spd.mainsIncomingOb"[readonly]="isEditable" formControlName="mainsIncomingOb"
                                                 placeholder="Please enter Observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && f.mainsIncomingOb.errors}"></textarea>
                                             <div *ngIf="submitted && f.mainsIncomingOb.errors" class="invalid-feedback">
@@ -56,7 +56,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="mainsIncomingRem"  [(ngModel)]="spd.mainsIncomingRem"
+                                                [readonly]="isEditable" formControlName="mainsIncomingRem"  [(ngModel)]="spd.mainsIncomingRem"
                                                 ></textarea>
                                         </div>
                                     </td>
@@ -72,7 +72,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="totalMainsIncomingOb"  [(ngModel)]="spd.totalMainsIncomingOb"
+                                                [readonly]="isEditable" formControlName="totalMainsIncomingOb"  [(ngModel)]="spd.totalMainsIncomingOb"
                                                 placeholder="Please enter Observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && f.totalMainsIncomingOb.errors}"></textarea>
                                             <div *ngIf="submitted && f.totalMainsIncomingOb.errors"
@@ -90,7 +90,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="totalMainsIncomingRem"  [(ngModel)]="spd.totalMainsIncomingRem"
+                                                [readonly]="isEditable" formControlName="totalMainsIncomingRem"  [(ngModel)]="spd.totalMainsIncomingRem"
                                                 ></textarea>
                                         </div>
                                     </td>
@@ -107,7 +107,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="noPannelSupplittingOb"  [(ngModel)]="spd.noPannelSupplittingOb"
+                                                [readonly]="isEditable" formControlName="noPannelSupplittingOb"  [(ngModel)]="spd.noPannelSupplittingOb"
                                                 placeholder="Please enter Observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && f.noPannelSupplittingOb.errors}"></textarea>
                                             <div *ngIf="submitted && f.noPannelSupplittingOb.errors"
@@ -125,7 +125,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"  [(ngModel)]="spd.noPannelSupplittingRem"
-                                                formControlName="noPannelSupplittingRem"
+                                                [readonly]="isEditable" formControlName="noPannelSupplittingRem"
                                                 ></textarea>
                                         </div>
                                     </td>
@@ -141,7 +141,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control" [(ngModel)]="spd.totalNoOutDoorRequipmentOb"
-                                                formControlName="totalNoOutDoorRequipmentOb"
+                                                [readonly]="isEditable" formControlName="totalNoOutDoorRequipmentOb"
                                                 placeholder="Please enter Observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && f.totalNoOutDoorRequipmentOb.errors}"></textarea>
                                             <div *ngIf="submitted && f.totalNoOutDoorRequipmentOb.errors"
@@ -159,7 +159,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control" [(ngModel)]="spd.totalNoOutDoorRequipmentRem"
-                                                formControlName="totalNoOutDoorRequipmentRem"
+                                                [readonly]="isEditable" formControlName="totalNoOutDoorRequipmentRem"
                                                 ></textarea>
                                         </div>
                                     </td>
@@ -199,7 +199,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control" formControlName="spdTypeOb" placeholder="Please enter Observation here"
+                                            <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="spdTypeOb" placeholder="Please enter Observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && x.get('spdTypeOb')?.errors}"></textarea>
                                             <div *ngIf="submitted && x.get('spdTypeOb')?.errors" class="invalid-feedback">
                                                 <div *ngIf="x.get('spdTypeOb')?.errors?.required">Type of SPD / Model observation is required</div>
@@ -213,7 +213,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control" formControlName="spdTypeRe"
+                                            <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="spdTypeRe"
                                                 ></textarea>
                                         </div>
                                     </td>
@@ -229,7 +229,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="spdApplicationOb"
+                                                [readonly]="isEditable" formControlName="spdApplicationOb"
                                                 placeholder="Please enter Observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && x.get('spdApplicationOb')?.errors}"></textarea>
                                             <div *ngIf="submitted && x.get('spdApplicationOb')?.errors" class="invalid-feedback">
@@ -245,7 +245,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="spdApplicationRem"
+                                                [readonly]="isEditable" formControlName="spdApplicationRem"
                                                 ></textarea>
                                         </div>
                                     </td>
@@ -260,7 +260,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control" formControlName="panelNameOb"
+                                            <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="panelNameOb"
                                                 placeholder="Please enter Observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && x.get('panelNameOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && x.get('panelNameOb')?.errors" class="invalid-feedback">
@@ -275,7 +275,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control" formControlName="panelNameRem"
+                                            <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="panelNameRem"
                                                 ></textarea>
                                         </div>
                                     </td>
@@ -291,7 +291,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="incomingRatingOb"
+                                                [readonly]="isEditable" formControlName="incomingRatingOb"
                                                 placeholder="Please enter Observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && x.get('incomingRatingOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && x.get('incomingRatingOb')?.errors" class="invalid-feedback">
@@ -307,7 +307,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="incomingRatingRem"
+                                                [readonly]="isEditable" formControlName="incomingRatingRem"
                                                 ></textarea>
                                         </div>
                                     </td>
@@ -323,7 +323,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="backupFuseCheckOb"
+                                                [readonly]="isEditable" formControlName="backupFuseCheckOb"
                                                 placeholder="Please enter Observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && x.get('backupFuseCheckOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && x.get('backupFuseCheckOb')?.errors" class="invalid-feedback">
@@ -339,7 +339,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="backupFuseCheckRem"
+                                                [readonly]="isEditable" formControlName="backupFuseCheckRem"
                                                 ></textarea>
                                         </div>
                                     </td>
@@ -355,7 +355,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="connectingWireLengthOb"
+                                                [readonly]="isEditable" formControlName="connectingWireLengthOb"
                                                 placeholder="Please enter Observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && x.get('connectingWireLengthOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && x.get('connectingWireLengthOb')?.errors" class="invalid-feedback">
@@ -371,7 +371,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="connectingWireLengthRem"
+                                                [readonly]="isEditable" formControlName="connectingWireLengthRem"
                                                 ></textarea>
                                         </div>
                                     </td>
@@ -387,7 +387,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="connectingWireSizeOb"
+                                                [readonly]="isEditable" formControlName="connectingWireSizeOb"
                                                 placeholder="Please enter Observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && x.get('connectingWireSizeOb')?.errors}"></textarea>
                                             <div *ngIf="submitted && x.get('connectingWireSizeOb')?.errors" class="invalid-feedback">
@@ -403,7 +403,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="connectingWireSizeRem"
+                                                [readonly]="isEditable" formControlName="connectingWireSizeRem"
                                                 ></textarea>
                                         </div>
                                     </td>
@@ -437,7 +437,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control" formControlName="spdTypeOb"
+                                            <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="spdTypeOb"
                                                 placeholder="Please enter Observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && x.get('spdTypeOb')?.errors}"></textarea>
                                             <div *ngIf="submitted && x.get('spdTypeOb')?.errors" class="invalid-feedback">
@@ -452,7 +452,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control" formControlName="spdTypeRe"
+                                            <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="spdTypeRe"
                                                 ></textarea>
                                         </div>
                                     </td>
@@ -468,7 +468,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="spdApplicationOb"
+                                                [readonly]="isEditable" formControlName="spdApplicationOb"
                                                 placeholder="Please enter Observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && x.get('spdApplicationOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && x.get('spdApplicationOb')?.errors" class="invalid-feedback">
@@ -484,7 +484,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="spdApplicationRem"
+                                                [readonly]="isEditable" formControlName="spdApplicationRem"
                                                 ></textarea>
                                         </div>
                                     </td>
@@ -499,7 +499,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control" formControlName="panelNameOb"
+                                            <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="panelNameOb"
                                                 placeholder="Please enter Observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && x.get('panelNameOb')?.errors}"></textarea>
                                             <div *ngIf="submitted && x.get('panelNameOb')?.errors" class="invalid-feedback">
@@ -514,7 +514,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control" formControlName="panelNameRem"
+                                            <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="panelNameRem"
                                                 ></textarea>
                                         </div>
                                     </td>
@@ -530,7 +530,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="incomingRatingOb"
+                                                [readonly]="isEditable" formControlName="incomingRatingOb"
                                                 placeholder="Please enter Observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && x.get('incomingRatingOb')?.errors}"></textarea>
                                             <div *ngIf="submitted && x.get('incomingRatingOb')?.errors" class="invalid-feedback">
@@ -546,7 +546,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="incomingRatingRem"
+                                                [readonly]="isEditable" formControlName="incomingRatingRem"
                                                 ></textarea>
                                         </div>
                                     </td>
@@ -562,7 +562,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="backupFuseCheckOb"
+                                                [readonly]="isEditable" formControlName="backupFuseCheckOb"
                                                 placeholder="Please enter Observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && x.get('backupFuseCheckOb')?.errors}"></textarea>
                                             <div *ngIf="submitted && x.get('backupFuseCheckOb')?.errors" class="invalid-feedback">
@@ -578,7 +578,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="backupFuseCheckRem"
+                                                [readonly]="isEditable" formControlName="backupFuseCheckRem"
                                                 ></textarea>
                                         </div>
                                     </td>
@@ -594,7 +594,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="connectingWireLengthOb"
+                                                [readonly]="isEditable" formControlName="connectingWireLengthOb"
                                                 placeholder="Please enter Observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && x.get('connectingWireLengthOb')?.errors}"></textarea>
                                             <div *ngIf="submitted && x.get('connectingWireLengthOb')?.errors" class="invalid-feedback">
@@ -610,7 +610,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="connectingWireLengthRem"
+                                                [readonly]="isEditable" formControlName="connectingWireLengthRem"
                                                 ></textarea>
                                         </div>
                                     </td>
@@ -626,7 +626,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="connectingWireSizeOb"
+                                                [readonly]="isEditable" formControlName="connectingWireSizeOb"
                                                 placeholder="Please enter Observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && x.get('connectingWireSizeOb')?.errors}"></textarea>
                                             <div *ngIf="submitted && x.get('connectingWireSizeOb')?.errors" class="invalid-feedback">
@@ -642,7 +642,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="connectingWireSizeRem"
+                                                [readonly]="isEditable" formControlName="connectingWireSizeRem"
                                                 ></textarea>
                                         </div>
                                     </td>
@@ -676,7 +676,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control" formControlName="spdTypeOb"
+                                            <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="spdTypeOb"
                                                 placeholder="Please enter Observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && x.get('spdTypeOb')?.errors}"></textarea>
                                             <div *ngIf="submitted && x.get('spdTypeOb')?.errors" class="invalid-feedback">
@@ -691,7 +691,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control" formControlName="spdTypeRe"
+                                            <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="spdTypeRe"
                                                 ></textarea>
                                         </div>
                                     </td>
@@ -707,7 +707,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="spdApplicationOb"
+                                                [readonly]="isEditable" formControlName="spdApplicationOb"
                                                 placeholder="Please enter Observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && x.get('spdApplicationOb')?.errors}"></textarea>
                                             <div *ngIf="submitted && x.get('spdApplicationOb')?.errors" class="invalid-feedback">
@@ -723,7 +723,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="spdApplicationRem"
+                                                [readonly]="isEditable" formControlName="spdApplicationRem"
                                                 ></textarea>
                                         </div>
                                     </td>
@@ -738,7 +738,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control" formControlName="panelNameOb"
+                                            <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="panelNameOb"
                                                 placeholder="Please enter Observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && x.get('panelNameOb')?.errors}"></textarea>
                                             <div *ngIf="submitted && x.get('panelNameOb')?.errors" class="invalid-feedback">
@@ -753,7 +753,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control" formControlName="panelNameRem"
+                                            <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="panelNameRem"
                                                 ></textarea>
                                         </div>
                                     </td>
@@ -769,7 +769,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="incomingRatingOb"
+                                                [readonly]="isEditable" formControlName="incomingRatingOb"
                                                 placeholder="Please enter Observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && x.get('incomingRatingOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && x.get('incomingRatingOb')?.errors" class="invalid-feedback">
@@ -785,7 +785,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="incomingRatingRem"
+                                                [readonly]="isEditable" formControlName="incomingRatingRem"
                                                 ></textarea>
                                         </div>
                                     </td>
@@ -801,7 +801,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="backupFuseCheckOb"
+                                                [readonly]="isEditable" formControlName="backupFuseCheckOb"
                                                 placeholder="Please enter Observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && x.get('backupFuseCheckOb')?.errors}"></textarea>
                                             <div *ngIf="submitted && x.get('backupFuseCheckOb')?.errors" class="invalid-feedback">
@@ -817,7 +817,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="backupFuseCheckRem"
+                                                [readonly]="isEditable" formControlName="backupFuseCheckRem"
                                                 ></textarea>
                                         </div>
                                     </td>
@@ -833,7 +833,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="connectingWireLengthOb"
+                                                [readonly]="isEditable" formControlName="connectingWireLengthOb"
                                                 placeholder="Please enter Observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && x.get('connectingWireLengthOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && x.get('connectingWireLengthOb')?.errors" class="invalid-feedback">
@@ -849,7 +849,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="connectingWireLengthRem"
+                                                [readonly]="isEditable" formControlName="connectingWireLengthRem"
                                                 ></textarea>
                                         </div>
                                     </td>
@@ -865,7 +865,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="connectingWireSizeOb"
+                                                [readonly]="isEditable" formControlName="connectingWireSizeOb"
                                                 placeholder="Please enter Observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && x.get('connectingWireSizeOb')?.errors}"></textarea>
                                             <div *ngIf="submitted && x.get('connectingWireSizeOb')?.errors" class="invalid-feedback">
@@ -881,7 +881,7 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                formControlName="connectingWireSizeRem"
+                                                [readonly]="isEditable" formControlName="connectingWireSizeRem"
                                                 ></textarea>
                                         </div>
                                     </td>

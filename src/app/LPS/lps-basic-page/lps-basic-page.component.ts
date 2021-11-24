@@ -28,7 +28,7 @@ export class LpsBasicPageComponent implements OnInit {
   @Output() proceedNext = new EventEmitter<any>();
   step1List: any = [];
   flag: boolean = false;
-  
+  isEditable!:boolean
 
   constructor(private formBuilder: FormBuilder, lPSBasicDetailsService: LPSBasicDetailsService,
     private modalService: NgbModal,private router: ActivatedRoute) {
