@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild,ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild,ChangeDetectorRef,ComponentRef } from '@angular/core';
 import { MatInput } from '@angular/material/input';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -17,7 +17,7 @@ import { LpsWelcomePageComponent } from '../lps-welcome-page/lps-welcome-page.co
 })
 export class LpsFinalReportComponent implements OnInit {
 
-  finalReportsColumns: string[] = [ 'clientName', 'projectName', 'consultantName', 'contractorName', 'dealerContractorName' , 'address', 'createdDate', 'createdBy', 'preview' , 'download','email', 'print'];
+  finalReportsColumns: string[] = [ 'clientName', 'projectName', 'consultantName', 'contractorName', 'dealerContractorName' , 'address', 'createdDate', 'createdBy', 'action'];
   finalReport_dataSource!: MatTableDataSource<BasicDetails[]>;
 
   @ViewChild('finalReportPaginator', { static: true }) finalReportPaginator!: MatPaginator;
@@ -39,6 +39,13 @@ export class LpsFinalReportComponent implements OnInit {
   viewerFilterData:any=[];
   selectedIndex: number=0;
 
+  successMsg: string="";
+  success: boolean=false;
+  Error: boolean=false;
+  errorMsg: string="";
+  errorArr: any=[];
+  disable: boolean=false;
+
   @ViewChild('input') input!: MatInput;
   clientService: any;
   lpsData: any=[];
@@ -59,6 +66,7 @@ export class LpsFinalReportComponent implements OnInit {
     this.currentUser1=JSON.parse(this.currentUser);
     this.retrieveLpsDetails();
   }
+ 
 
   //filter for final reports
   applyFilter(event: Event) {
@@ -102,9 +110,31 @@ export class LpsFinalReportComponent implements OnInit {
      this.matstepper.preview(basicLpsId,clientName);
    }
 
-  // printPdf(){
-  //   debugger
-  //   this.finalpdf.
-  // }
+  emailPDF(basicLpsId:any,userName:any){
+    this.disable=false;
+    this.finalpdf.mailPDF(basicLpsId,userName).subscribe(
+    data => {
+    this.success = true;
+    this.successMsg = data;
+    setTimeout(()=>{
+      this.success=false;
+        }, 3000);
+    },
+    error => {
+      this.Error = true;
+      this.errorArr = [];
+      this.errorArr = JSON.parse(error.error);
+      this.errorMsg = this.errorArr.message;
+      setTimeout(()=>{
+        this.Error = false;
+        }, 3000);
+    });
+  }
+
+  printPDF(basicLpsId:any,userName:any){
+    debugger
+    this.disable=false;
+    this.finalpdf.printPDF(basicLpsId,userName)
+  }
 }
 

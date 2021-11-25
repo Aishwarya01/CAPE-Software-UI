@@ -379,7 +379,7 @@
                                             <i class="bi bi-calendar-week-fill"></i>
                                         </span>
                                     </div>
-                                    <input type="date" class="form-control" [readonly]="isEditable" formControlName="designDateObserv"
+                                    <input type="date" class="form-control" [disabled]="isEditable" formControlName="designDateObserv"
                                         [ngClass]="{ 'is-invalid': submitted && x.get('designDateObserv')?.errors }">
 
                                     <div *ngIf="submitted && x.get('designDateObserv')?.errors"
@@ -444,8 +444,8 @@
                                             <i class="bi bi-calendar-week-fill"></i>
                                         </span>
                                     </div>
-                                    <input type="date" class="form-control" [readonly]="isEditable" formControlName="dateOfApprovalOb"
-                                        [ngClass]="{ 'is-invalid': submitted && x.get('dateOfApprovalOb')?.errors }" />
+                                    <input type="date" class="form-control" [disabled]="isEditable" formControlName="dateOfApprovalOb"
+                                        [ngClass]="{ 'is-invalid': submitted && x.get('dateOfApprovalOb')?.errors }"/>
 
                                     <div *ngIf="submitted && x.get('dateOfApprovalOb')?.errors"
                                         class="invalid-feedback">
@@ -611,7 +611,8 @@
             </div>
         </div>
         <div style="text-align: center;margin-top: 8px;">
-            <button class="next"  [disabled]="disable" (click)="gotoNextModal(content)" mat-button >Next &raquo;</button>
+            <button class="next" (click)="gotoNextModal(content,contents)" mat-button >Next &raquo;</button>
+            <!-- <button class="next" *ngIf="isEditable" mat-button (click)="gotoNextModal(content,contents)">Next &raquo;</button> -->
         </div>
         <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
             <span class="alert alert-danger">{{validationErrorMsg}}</span>
@@ -624,6 +625,11 @@
             <div *ngIf="success" style="text-align: center;">
                 <span class="successshow">{{successMsg}}</span>
             </div>
+
+            <!-- <div *ngIf="success1" style="text-align: center;">
+                <span class="errorshow">{{successMsg1}}</span>
+            </div> -->
+
             <div *ngIf="Error" style="text-align: center;">
                 <span class="errorshow">{{errorMsg}}</span>
             </div>
@@ -637,3 +643,29 @@
 
   </button>
 </ng-template> 
+<ng-template #contents let-modal>
+    <div class="modal-body">
+     <div class="centre-text m-btm30">
+      <div style="text-align: center;">
+        <span class="successshow">Are you sure you want to procced? </span>
+        <br>
+        <span style="font-size: 12px;">Note: Please verify all the details! </span>
+       </div>
+      </div>
+     </div>
+    <br>
+    <div class="row">
+       <button type="button" class="col-md-6" style="text-align:center; width: auto;" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+       aria-label="Close" (click)="closeModalDialog()" matStepperNext>
+       <i class="bi bi-arrow-right-circle"></i>&nbsp;
+        <span aria-hidden="true">Ok</span>
+    </button>
+    <button type="button" class="col-md-6" style="width: auto;" class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn"
+       aria-label="Close" (click)="closeModalDialog()">
+       <i class="bi bi-x icon"></i>
+        <span aria-hidden="true">Cancel</span>
+    </button>
+  </div>
+  
+    </ng-template>
+ 

@@ -96,10 +96,12 @@ export class LpsEarthStudComponent implements OnInit {
     this.earthStud.basicLpsId = this.basicLpsId;
 
       if(flag) {
+        if(this.EarthStudForm.dirty && this.EarthStudForm.touched){ 
         this.earthStudService.updateEarthStud(this.earthStud).subscribe(
           (data) => {
             this.success = true;
             this.successMsg = data;
+            this.EarthStudForm.markAsPristine();
             this.proceedNext.emit(true);
           }, 
           (error) => {
@@ -110,6 +112,17 @@ export class LpsEarthStudComponent implements OnInit {
             this.proceedNext.emit(false);
           }
         )
+      }
+      else{
+        if(this.isEditable){
+          this.success = true;
+          this.proceedNext.emit(true);
+        }else{
+          // this.success = true;
+          // this.successMsg ="Required changes for updating process"
+          this.proceedNext.emit(true);
+        }
+      }
       }
       else {
         this.earthStudService.saveEarthStud(this.earthStud).subscribe(
@@ -147,7 +160,7 @@ export class LpsEarthStudComponent implements OnInit {
     }
   }
 
-  gotoNextModal(content: any) {
+  gotoNextModal(content: any,contents:any) {
      if (this.EarthStudForm.invalid) {
        this.validationError = true;
       
@@ -166,6 +179,13 @@ export class LpsEarthStudComponent implements OnInit {
       }, 3000);
       return;
     }
-    this.modalService.open(content, { centered: true });
+      //  Update and Success msg will be showing
+      if(this.EarthStudForm.dirty && this.EarthStudForm.touched){
+        this.modalService.open(content, { centered: true });
+     }
+    //  For Dirty popup
+     else{
+      this.modalService.open(contents, { centered: true });
+     }
   }
 }

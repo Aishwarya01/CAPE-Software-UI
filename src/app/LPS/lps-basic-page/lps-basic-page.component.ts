@@ -30,6 +30,9 @@ export class LpsBasicPageComponent implements OnInit {
   flag: boolean = false;
   isEditable!:boolean
 
+  success1: boolean =false;
+  successMsg1: string="";
+
   constructor(private formBuilder: FormBuilder, lPSBasicDetailsService: LPSBasicDetailsService,
     private modalService: NgbModal,private router: ActivatedRoute) {
     this.lPSBasicDetailsService = lPSBasicDetailsService;
@@ -133,7 +136,7 @@ export class LpsBasicPageComponent implements OnInit {
     }
   }
 
-  gotoNextModal(content: any) {
+  gotoNextModal(content: any,contents: any) {
     
      if (this.LPSBasicForm.invalid) {
        this.validationError = true;
@@ -144,7 +147,16 @@ export class LpsBasicPageComponent implements OnInit {
        }, 3000);
        return;
      }
-    this.modalService.open(content, { centered: true });
+     debugger
+    //  Update and Success msg will be showing
+     if(this.LPSBasicForm.dirty && this.LPSBasicForm.touched){
+        this.modalService.open(content, { centered: true });
+     }
+    //  For Dirty popup
+     else{
+      this.modalService.open(contents, { centered: true });
+     }
+     
   }
  
   onSubmit(flag: any) {
@@ -159,20 +171,42 @@ export class LpsBasicPageComponent implements OnInit {
     this.basicDetails.basicLpsDescription = this.LPSBasicForm.value.basicLpsDescription;
 
     if(flag) {
+      if(this.LPSBasicForm.dirty && this.LPSBasicForm.touched){ 
       this.lPSBasicDetailsService.updateLpsBasicDetails(this.basicDetails).subscribe(
         data => {
+          // update success msg
+          this.success1 = false;
           this.success = true;
           this.successMsg = data;
+          this.LPSBasicForm.markAsPristine();
           this.proceedNext.emit(true);
         },
+          // update failed msg
         error => {
+          this.success1 = false;
           this.Error = true;
           this.errorArr = [];
           this.errorArr = JSON.parse(error.error);
           this.errorMsg = this.errorArr.message;
           this.proceedNext.emit(false);
         }
-      )
+      )}
+      else{
+        debugger
+        // Preview fields
+        if(this.isEditable){
+          this.success = true;
+          this.proceedNext.emit(true);
+        //  this.closeModalDialog();
+        }
+
+        else{
+          // Dirty checking here
+          this.success = true;
+          this.proceedNext.emit(true);
+        }
+      }
+      
     }
     else {
       this.lPSBasicDetailsService.saveLPSBasicDetails(this.basicDetails).subscribe(

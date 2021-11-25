@@ -37,6 +37,8 @@ export class LpsDownConductorsComponent implements OnInit {
   soilResistivity: String = '';
 
   success: boolean = false;
+  // success1: boolean = false;
+  // successMsg1: string="";
   successMsg: string = "";
   Error: boolean = false;
   errorArr: any = [];
@@ -60,6 +62,7 @@ export class LpsDownConductorsComponent implements OnInit {
   lightPushArr: any = [];
   testjointsPushArr: any = [];
   isEditable!:boolean
+  
   constructor(
     private formBuilder: FormBuilder, lpsDownconductorService: LpsDownconductorService,
     private modalService: NgbModal, private router: ActivatedRoute) {
@@ -637,10 +640,12 @@ export class LpsDownConductorsComponent implements OnInit {
     this.testjointsPushArr = [];
 
       if(flag) {
+        if(this.downConductorForm.dirty && this.downConductorForm.touched){ 
         this.lpsDownconductorService.updateDownConductor(this.downConductorDescription).subscribe(
           (data) => {
             this.success = true;
             this.successMsg = data;
+            this.downConductorForm.markAsPristine();
             this.proceedNext.emit(true);
           },
           (error) => {
@@ -651,6 +656,17 @@ export class LpsDownConductorsComponent implements OnInit {
             this.proceedNext.emit(false);
           }
         )
+      }
+      else{
+        if(this.isEditable){
+          this.success = true;
+          this.proceedNext.emit(true);
+        }
+      else{
+          this.success = true;
+          this.proceedNext.emit(true);
+        }
+      }
       }
       else {
         this.lpsDownconductorService.saveDownConductors(this.downConductorDescription).subscribe(
@@ -681,7 +697,7 @@ export class LpsDownConductorsComponent implements OnInit {
     }
   }
 
-  gotoNextModal(content: any) {
+  gotoNextModal(content: any,contents:any) {
     if (this.downConductorForm.invalid) {
       this.validationError = true;
 
@@ -700,7 +716,14 @@ export class LpsDownConductorsComponent implements OnInit {
       }, 3000);
       return;
     }
-    this.modalService.open(content, { centered: true });
+       //  Update and Success msg will be showing
+       if(this.downConductorForm.dirty && this.downConductorForm.touched){
+        this.modalService.open(content, { centered: true });
+     }
+    //  For Dirty popup
+     else{
+      this.modalService.open(contents, { centered: true });
+     }
   }
 
 }
