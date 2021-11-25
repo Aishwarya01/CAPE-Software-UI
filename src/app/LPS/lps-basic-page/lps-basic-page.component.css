@@ -63,3 +63,7 @@ table tr td {
 textarea{
   font-size: 12px;
 }
+
+.hidedate{
+  pointer-events: none;
+}
