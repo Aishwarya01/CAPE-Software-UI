@@ -85,7 +85,7 @@
                   </mat-label>
                   <textarea matInput class="client-box-description" formControlName="descriptionOfReport" [ngClass]="{'disableForm':service.allFieldsDisable}"
                   maxlength="500" placeholder="Ex. Report description..." [(ngModel)]="reportDetails.descriptionReport"
-                  [ngClass]="{ 'is-invalid': submitted && f.descriptionOfReport.errors }"></textarea>
+                  [ngClass]="{ 'is-invalid': submitted && f.descriptionOfReport.errors }" [readonly]="service.allFieldsDisable"></textarea>
                   <div *ngIf="submitted && f.descriptionOfReport.errors" class="invalid-feedback">
                     <div *ngIf="f.descriptionOfReport?.errors?.required">Description is required</div>
                 </div>
@@ -105,7 +105,8 @@
                  </mat-icon>
                   <mat-label><h3>Reason for the Report</h3></mat-label>
                   <textarea matInput class="client-box-description" formControlName="reasonOfReport" [ngClass]="{'disableForm':service.allFieldsDisable}"
-                  maxlength="500" placeholder="Ex. Report reason..." [(ngModel)]="reportDetails.reasonOfReport" [ngClass]="{ 'is-invalid': submitted && f.reasonOfReport.errors }"></textarea>
+                  maxlength="500" placeholder="Ex. Report reason..." [(ngModel)]="reportDetails.reasonOfReport" 
+                  [ngClass]="{ 'is-invalid': submitted && f.reasonOfReport.errors }" [readonly]="service.allFieldsDisable"></textarea>
                   <div *ngIf="submitted && f.reasonOfReport.errors" class="invalid-feedback">
                     <div *ngIf="f.reasonOfReport?.errors?.required">Reason is required</div>
                 </div>
@@ -124,7 +125,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label>Type of Installation* :</label>
-                  <select class="form-control" formControlName="installationType" (change)="showWiringAge($event)"
+                  <select class="form-control" formControlName="installationType" (change)="showWiringAge($event)" [disabled]="service.allFieldsDisable"
                   [(ngModel)]="reportDetails.installationType" [ngClass]="{ 'is-invalid': submitted && f.installationType.errors }">
                     <option [ngValue]="null">Select Option</option>
                     <option *ngFor="let value of installationList">{{value}}</option>
@@ -146,7 +147,7 @@
                   class="example-button">
                   info_outline
                  </mat-icon>
-                  <select class="form-control" formControlName="descPremise"
+                  <select class="form-control" formControlName="descPremise" [disabled]="service.allFieldsDisable"
                   [(ngModel)]="reportDetails.descriptionPremise" [ngClass]="{ 'is-invalid': submitted && f.descPremise.errors }">
                     <option value="0" selected>Select Option</option>
                     <option *ngFor="let value of premiseList" >{{value}}</option>
@@ -159,7 +160,7 @@
 
               <div class="col-md-4" *ngIf="showField1" style="margin-top: 24px;">
                   <label>Estimated Age of Wiring System Years:</label>
-                    <input type="tel" formControlName="showField1" style="
+                    <input type="tel" formControlName="showField1" [readonly]="service.allFieldsDisable" style="
                     width: 50px;
                     background: transparent;
                     border: none;
@@ -173,7 +174,7 @@
 
               <div class="col-md-4">
                 <label>Evidence of Addition/Alterations* :</label>
-                <select class="form-control" formControlName="evidenceAlterations" (change)="showEstimatedAge($event)"
+                <select class="form-control" formControlName="evidenceAlterations" (change)="showEstimatedAge($event)" [disabled]="service.allFieldsDisable"
                  [(ngModel)]="reportDetails.evidanceAddition" [ngClass]="{ 'is-invalid': submitted && f.evidenceAlterations.errors }">
                   <option value="0" selected>Select Option</option>
                   <option *ngFor="let value of evidenceList" >{{value}}</option>
@@ -185,7 +186,7 @@
 
               <div class="col-md-4" *ngIf="showField2" style="margin-top: 35px;">
                 <label>If Yes Estimated Age Years:</label>
-                  <input type="number" min="0" formControlName="showField2" style="
+                  <input type="number" min="0" formControlName="showField2" [readonly]="service.allFieldsDisable" style="
                   width: 50px;
                   background: transparent;
                   border: none;
@@ -200,7 +201,7 @@
 
               <div class="col-md-4">
                 <label>Previous Records Available* :</label>
-                <select class="form-control" formControlName="previousRecord" (change)="previousRecord($event)"
+                <select class="form-control" formControlName="previousRecord" (change)="previousRecord($event)" [disabled]="service.allFieldsDisable"
                 [(ngModel)]="reportDetails.previousRecords" [ngClass]="{ 'is-invalid': submitted && f.previousRecord.errors }">
                   <option value="0" selected>Select Option</option>
                   <option *ngFor="let value of previousRecordList" >{{value}}</option>
@@ -212,7 +213,7 @@
 
               <div class="col-md-4" *ngIf="lastInspectionDate">
                 <label>Last Date Of Inspection* :</label>
-                <input type="date" class="form-control" formControlName="inspectionLast" placeholder="Enter Date"
+                <input type="date" class="form-control" formControlName="inspectionLast" placeholder="Enter Date" [readonly]="service.allFieldsDisable"
                 [(ngModel)]="reportDetails.lastInspection" [ngClass]="{ 'is-invalid': submitted && f.inspectionLast.errors }">
                 <div *ngIf="submitted && f.inspectionLast.errors" class="invalid-feedback">
                   <div *ngIf="f.inspectionLast?.errors?.required">Inspection last date is required</div>
@@ -233,7 +234,7 @@
                  </mat-icon>
                   <mat-label><h3>Extent of Installation Covered By This Report*</h3> </mat-label>
                   <textarea matInput class="client-box-description" formControlName="extentInstallation"
-                  maxlength="500" placeholder="Ex. Report reason..."
+                  maxlength="500" placeholder="Ex. Report reason..." [readonly]="service.allFieldsDisable"
                   [(ngModel)]="reportDetails.extentInstallation"
                   [ngClass]="{ 'is-invalid': submitted && f.extentInstallation.errors }"></textarea>
                   <div *ngIf="submitted && f.extentInstallation.errors" class="invalid-feedback">
@@ -356,7 +357,9 @@
                   info_outline
                  </mat-icon>
                   <mat-label><h3>Details Of Installation Referred In This Report * (maximum length is 75 )</h3></mat-label>
-                  <textarea matInput class="client-box-description" formControlName="detailsOfInstallation" maxlength="75" [ngClass]="{ 'is-invalid': submitted && f.detailsOfInstallation.errors }" placeholder=" Ex. Occupier ,address details etc.." [(ngModel)]="reportDetails.installationDetails"></textarea>
+                  <textarea matInput class="client-box-description" formControlName="detailsOfInstallation" maxlength="75" 
+                  [ngClass]="{ 'is-invalid': submitted && f.detailsOfInstallation.errors }" [readonly]="service.allFieldsDisable"
+                  placeholder=" Ex. Occupier ,address details etc.." [(ngModel)]="reportDetails.installationDetails"></textarea>
                   <div *ngIf="submitted && f.detailsOfInstallation.errors" class="invalid-feedback">
                     <div *ngIf="f.detailsOfInstallation?.errors?.required">Details Of installation is required</div>
                 </div>
@@ -370,7 +373,7 @@
                   <label>Date of Starting the Verification *</label>
                   <input type="date" class="form-control" formControlName="startingDateVerification"
                   [ngClass]="{ 'is-invalid': submitted && f.startingDateVerification.errors }" placeholder="Enter Date" 
-                  [(ngModel)]="reportDetails.verificationDate">
+                  [(ngModel)]="reportDetails.verificationDate" [readonly]="service.allFieldsDisable">
                   <div *ngIf="submitted && f.startingDateVerification.errors" class="invalid-feedback">
                     <div *ngIf="f.startingDateVerification?.errors?.required">Field Is Required</div>
                 </div>
@@ -378,7 +381,8 @@
                 
                 <div class="col-md-4">
                   <label>Read and Confirmed the Extent and Limitations* :</label>
-                  <select class="form-control" formControlName="limitations" [(ngModel)]="reportDetails.limitations" [ngClass]="{ 'is-invalid': submitted && f.limitations.errors }">
+                  <select class="form-control" formControlName="limitations" [(ngModel)]="reportDetails.limitations" 
+                  [ngClass]="{ 'is-invalid': submitted && f.limitations.errors }" [disabled]="service.allFieldsDisable">
                     <option value="0" selected>Select Option</option>
                     <option *ngFor="let value of previousRecordList" >{{value}}</option>
                   </select>
@@ -443,7 +447,7 @@
                         <label>Name (In block letters) :</label>
                         <input type="text" formControlName="declarationName" class="form-control" placeholder="Enter Designer Name"
                         [ngClass]="{ 'is-invalid': submitted && a.get('declarationName')?.errors }" 
-                        (keyup)="onKeyPersonName($event)" [(ngModel)]="declarationPersonName">
+                        (keyup)="onKeyPersonName($event)" [(ngModel)]="declarationPersonName" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('declarationName')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('declarationName')?.errors?.required">Name (In block letters) is required</div>
                         </div>
@@ -463,13 +467,13 @@
                       </div>
                       <div class="col-md-4">
                         <label>Date:</label>
-                        <input type="date" formControlName="declarationDate" class="form-control" placeholder="Enter Date">
+                        <input type="date" formControlName="declarationDate" class="form-control" placeholder="Enter Date" [readonly]="service.allFieldsDisable">
                       </div>
 
                       <div class="col-md-4">
                         <label>Name (In block letters) :</label>
                         <input type="text" formControlName="declarationName" class="form-control" placeholder="Enter Designer Name"
-                        [(ngModel)]="designer2PersonName" (keyup)="onKeyDesigner2PersonName($event)">
+                        [(ngModel)]="designer2PersonName" (keyup)="onKeyDesigner2PersonName($event)" [readonly]="service.allFieldsDisable">
                       </div>
                     </div>
 
@@ -511,7 +515,7 @@
                         <div class="col-md-4">
                           <label>Date:</label>
                           <input type="date" formControlName="declarationDate" class="form-control" placeholder="Enter Date"
-                          [ngClass]="{ 'is-invalid': submitted && a.get('declarationDate')?.errors }">
+                          [ngClass]="{ 'is-invalid': submitted && a.get('declarationDate')?.errors }" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('declarationDate')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('declarationDate')?.errors?.required">Date is required</div>
                         </div>
@@ -521,7 +525,7 @@
                           <label>Name (In block letters) :</label>
                           <input type="text" formControlName="declarationName" class="form-control" placeholder="Enter Contractor Name"
                           [ngClass]="{ 'is-invalid': submitted && a.get('declarationName')?.errors }" [(ngModel)]="ContractorPersonName"
-                          (keyup)="onKeyContractorPersonName($event)">
+                          (keyup)="onKeyContractorPersonName($event)" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('declarationName')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('declarationName')?.errors?.required">Name (In block letters) is required</div>
                         </div>
@@ -557,7 +561,7 @@
                         <div class="col-md-4">
                           <label>Date:</label>
                           <input type="date" formControlName="declarationDate" class="form-control" placeholder="Enter Date"
-                          [ngClass]="{ 'is-invalid': submitted && a.get('declarationDate')?.errors }">
+                          [ngClass]="{ 'is-invalid': submitted && a.get('declarationDate')?.errors }" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('declarationDate')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('declarationDate')?.errors?.required">Date is required</div>
                         </div>
@@ -587,7 +591,7 @@
             </mat-expansion-panel-header>
             <label>I/We recommend that installation is further inspected and tested after an interval of not more than: </label>
               <input type="number" min="0" [ngClass]="{ 'is-invalid': submitted && f.nextInspection.errors }" 
-              [ngClass]="{'disableForm':service.allFieldsDisable}" style="
+              [ngClass]="{'disableForm':service.allFieldsDisable}" [readonly]="service.allFieldsDisable" style="
               width: 75px;
               background: transparent;
               border: none;
@@ -645,7 +649,7 @@
                         <div class="col-md-4">
                             <label>Email:</label>
                             <input type="email"  formControlName="personMailID" class="form-control"  placeholder="Enter Email Address"
-                            [ngClass]="{ 'is-invalid': submitted && a.get('personMailID')?.errors }">
+                            [ngClass]="{ 'is-invalid': submitted && a.get('personMailID')?.errors }" [readonly]="service.allFieldsDisable">
                             <div *ngIf="submitted && a.get('personMailID')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('personMailID')?.errors?.required">Email is required</div>
                             <div *ngIf="a.get('personMailID')?.errors?.pattern">Enter valid email</div>
@@ -659,7 +663,7 @@
                         <div class="col-md-4">
                             <label>Manager Name:</label>
                             <input type="text"  formControlName="managerName" class="form-control"  placeholder="Enter Manager Name"
-                            [ngClass]="{ 'is-invalid': submitted && a.get('managerName')?.errors }">
+                            [ngClass]="{ 'is-invalid': submitted && a.get('managerName')?.errors }" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('managerName')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('managerName')?.errors?.required">Manager name is required</div>
                         </div>
@@ -680,7 +684,7 @@
                         <div class="col-md-4">
                             <label>Email:</label>
                             <input type="email"  formControlName="managerMailID" class="form-control"  placeholder="Enter Email Address"
-                            [ngClass]="{ 'is-invalid': submitted && a.get('managerMailID')?.errors }">
+                            [ngClass]="{ 'is-invalid': submitted && a.get('managerMailID')?.errors }" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('managerMailID')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('managerMailID')?.errors?.required">Email is required</div>
                             <div *ngIf="a.get('managerMailID')?.errors?.pattern">Enter valid email</div>
@@ -695,7 +699,7 @@
                           <div class="col-md-4">
                               <label>Company Name:</label>
                               <input type="text"  formControlName="companyName" class="form-control"  placeholder="Enter Company Name"
-                              [ngClass]="{ 'is-invalid': submitted && a.get('companyName')?.errors }">
+                              [ngClass]="{ 'is-invalid': submitted && a.get('companyName')?.errors }" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('companyName')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('companyName')?.errors?.required">Company name is required</div>
                         </div>
@@ -704,7 +708,7 @@
                           <div class="col-md-4">
                               <label>Address Line1:</label>
                               <input type="text"  formControlName="addressLine1" class="form-control"  placeholder="Enter Address Line1"
-                              [ngClass]="{ 'is-invalid': submitted && a.get('addressLine1')?.errors}">
+                              [ngClass]="{ 'is-invalid': submitted && a.get('addressLine1')?.errors}" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('addressLine1')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('addressLine1')?.errors?.required">AddressLine1 is required</div>
                         </div>
@@ -713,7 +717,7 @@
                           <div class="col-md-4">
                               <label>Address Line2: (Optional)</label>
                               <input type="text"  formControlName="addressLine2" class="form-control"  placeholder="Enter Address Line2"
-                              [ngClass]="{ 'is-invalid': submitted && a.get('addressLine2')?.errors }">
+                              [ngClass]="{ 'is-invalid': submitted && a.get('addressLine2')?.errors }" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('addressLine2')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('addressLine2')?.errors?.required">AddressLine2 is required</div>
                         </div>
@@ -726,7 +730,7 @@
                         <div class="col-md-4">
                             <label>Site Landmark: (Optional)</label>
                             <input type="text"  formControlName="landMark" class="form-control"  placeholder="Enter Landmark"
-                            [ngClass]="{ 'is-invalid': submitted && a.get('landMark')?.errors }">
+                            [ngClass]="{ 'is-invalid': submitted && a.get('landMark')?.errors }" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('landMark')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('landMark')?.errors?.required">Site Landmark is required</div>
                         </div>
@@ -735,7 +739,7 @@
                         <div class="col-md-4">
                             <label>Country:</label>
                             <select  formControlName="country" class="form-control" (change)="designer1changeCountry($event)"
-                            [ngClass]="{ 'is-invalid': submitted && a.get('country')?.errors }">
+                            [ngClass]="{ 'is-invalid': submitted && a.get('country')?.errors }" [disabled]="service.allFieldsDisable">
 
                                 <option value="0" selected>Select Country Name</option>
                                 <option *ngFor="let country of countryList" [selected]="country.name=== a.get('country')?.value">{{country.name}}</option>
@@ -748,7 +752,7 @@
                         <div class="col-md-4">
                             <label>State:</label>
                             <select  formControlName="state" class="form-control"
-                            [ngClass]="{ 'is-invalid': submitted && a.get('state')?.errors}">
+                            [ngClass]="{ 'is-invalid': submitted && a.get('state')?.errors}" [disabled]="service.allFieldsDisable">
                              <!-- <option value="0" selected>{{state1}}</option> -->
                                 <option value="0" >Select State Name</option>
                                 <option *ngFor="let state of stateList1" [selected]="state.name=== state1">{{state.name}}</option>
@@ -765,7 +769,7 @@
                           <div class="col-md-4">
                               <label>Pincode:</label>
                               <input type="text"  formControlName="pinCode" class="form-control" (keypress)="keyPressNumbers($event)" minlength="6" maxlength="6" placeholder="Enter Pincode"
-                              [ngClass]="{ 'is-invalid': submitted && a.get('pinCode')?.errors }">
+                              [ngClass]="{ 'is-invalid': submitted && a.get('pinCode')?.errors }" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('pinCode')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('pinCode')?.errors?.required">Pincode is required</div>
                             <div *ngIf="a.get('pinCode')?.errors?.maxlength">Enter Six Digit Numbers</div>
@@ -791,7 +795,7 @@
                               <label>Person Name:</label>
                               <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name" readonly
                               [ngClass]="{ 'is-invalid': submitted && a.get('personName')?.errors }"
-                              (focus)="designer2PersonFunction()">
+                              (focus)="designer2PersonFunction()" >
                             <div *ngIf="designer2PersonNameMsg" class="invalid-feedback">
                              Please fill out the details in Liability and Declaration tab!
                             </div>
@@ -816,7 +820,7 @@
                           <div class="col-md-4">
                               <label>Email:</label>
                               <input type="email"  formControlName="personMailID" class="form-control"  placeholder="Enter Email Address"
-                              [ngClass]="{ 'is-invalid': submitted && a.get('personMailID')?.errors }">
+                              [ngClass]="{ 'is-invalid': submitted && a.get('personMailID')?.errors }" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('personMailID')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('personMailID')?.errors?.required">Email is required</div>
                             <div *ngIf="a.get('personMailID')?.errors?.pattern">Enter valid email</div>
@@ -829,7 +833,8 @@
                       <div class="row">
                           <div class="col-md-4">
                               <label>Manager Name:</label>
-                              <input type="text"  formControlName="managerName" class="form-control"  placeholder="Enter Manager Name"
+                              <input type="text"  formControlName="managerName" class="form-control"  
+                              placeholder="Enter Manager Name" [readonly]="service.allFieldsDisable"
                               [ngClass]="{ 'is-invalid': submitted && a.get('managerName')?.errors }">
                           <div *ngIf="submitted && a.get('managerName')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('managerName')?.errors?.required">Manager name is required</div>
@@ -850,7 +855,7 @@
                           <div class="col-md-4">
                               <label>Email:</label>
                               <input type="email"  formControlName="managerMailID" class="form-control"  placeholder="Enter Email Address"
-                              [ngClass]="{ 'is-invalid': submitted && a.get('managerMailID')?.errors }">
+                              [ngClass]="{ 'is-invalid': submitted && a.get('managerMailID')?.errors }" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('managerMailID')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('managerMailID')?.errors?.required">Email is required</div>
                             <div *ngIf="a.get('managerMailID')?.errors?.pattern">Enter valid email</div>
@@ -864,8 +869,9 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <label>Company Name:</label>
-                                <input type="text"  formControlName="companyName" class="form-control"  placeholder="Enter Company Name"
-                                [ngClass]="{ 'is-invalid': submitted && a.get('companyName')?.errors }">
+                                <input type="text"  formControlName="companyName" class="form-control"  
+                                placeholder="Enter Company Name"
+                                [ngClass]="{ 'is-invalid': submitted && a.get('companyName')?.errors }" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('companyName')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('companyName')?.errors?.required">Company name is required</div>
                         </div>
@@ -874,7 +880,7 @@
                             <div class="col-md-4">
                                 <label>Address Line1:</label>
                                 <input type="text"  formControlName="addressLine1" class="form-control"  placeholder="Enter Address Line1"
-                                [ngClass]="{ 'is-invalid': submitted && a.get('addressLine1')?.errors }">
+                                [ngClass]="{ 'is-invalid': submitted && a.get('addressLine1')?.errors }" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('addressLine1')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('addressLine1')?.errors?.required">AddressLine1 is required</div>
                         </div>
@@ -883,7 +889,7 @@
                             <div class="col-md-4">
                                 <label>Address Line2: (Optional)</label>
                                 <input type="text"  formControlName="addressLine2" class="form-control"  placeholder="Enter Address Line2"
-                                [ngClass]="{ 'is-invalid': submitted && a.get('addressLine2')?.errors}">
+                                [ngClass]="{ 'is-invalid': submitted && a.get('addressLine2')?.errors}" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('addressLine2')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('addressLine2')?.errors?.required">AddressLine2 is required</div>
                         </div>
@@ -896,7 +902,7 @@
                             <div class="col-md-4">
                                 <label>Site Landmark: (Optional)</label>
                                 <input type="text"  formControlName="landMark" class="form-control"  placeholder="Enter Landmark"
-                                [ngClass]="{ 'is-invalid': submitted && a.get('landMark')?.errors }">
+                                [ngClass]="{ 'is-invalid': submitted && a.get('landMark')?.errors }" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('landMark')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('landMark')?.errors?.required">Site Landmark is required</div>
                         </div>
@@ -905,7 +911,7 @@
                             <div class="col-md-4">
                                 <label>Country:</label>
                                 <select  formControlName="country" class="form-control" (change)="designer2changeCountry($event)"
-                                [ngClass]="{ 'is-invalid': submitted && a.get('country')?.errors }">
+                                [ngClass]="{ 'is-invalid': submitted && a.get('country')?.errors }" [disabled]="service.allFieldsDisable">
                                 <option value="0" selected>Select Country Name</option>
                                 <option *ngFor="let country of countryList" [selected]="country.name=== a.get('country')?.value">{{country.name}}</option>
                             </select>
@@ -918,7 +924,7 @@
                             <div class="col-md-4">
                                 <label>State:</label>
                                 <select  formControlName="state" class="form-control"
-                                [ngClass]="{ 'is-invalid': submitted && a.get('state')?.errors }">
+                                [ngClass]="{ 'is-invalid': submitted && a.get('state')?.errors }" [disabled]="service.allFieldsDisable">
                                 <option value="0" selected>Select State Name</option>
                                 <option *ngFor="let state of stateList2" [selected]="state.name=== state2">{{state.name}}</option>
                             </select>
@@ -934,7 +940,7 @@
                             <div class="col-md-4">
                                 <label>Pincode:</label>
                                 <input type="text"  formControlName="pinCode" class="form-control" (keypress)="keyPressNumbers($event)" minlength="6" maxlength="6" placeholder="Enter Pincode"
-                                [ngClass]="{ 'is-invalid': submitted && a.get('pinCode')?.errors}">
+                                [ngClass]="{ 'is-invalid': submitted && a.get('pinCode')?.errors}" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('pinCode')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('pinCode')?.errors?.required">Pincode is required</div>
                             <div *ngIf="a.get('pinCode')?.errors?.maxlength">Enter Six Digit Numbers</div>
@@ -989,7 +995,7 @@
                           <div class="col-md-4">
                               <label>Email:</label>
                               <input type="email"  formControlName="personMailID" class="form-control"  placeholder="Enter Email Address"
-                              [ngClass]="{ 'is-invalid': submitted && a.get('personMailID')?.errors }">
+                              [ngClass]="{ 'is-invalid': submitted && a.get('personMailID')?.errors }" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('personMailID')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('personMailID')?.errors?.required">Email is required</div>
                             <div *ngIf="a.get('personMailID')?.errors?.pattern">Enter valid email</div>
@@ -1004,7 +1010,7 @@
                           <div class="col-md-4">
                               <label>Manager Name:</label>
                               <input type="text"  formControlName="managerName" class="form-control"  placeholder="Enter Manager Name"
-                              [ngClass]="{ 'is-invalid': submitted && a.get('managerName')?.errors }">
+                              [ngClass]="{ 'is-invalid': submitted && a.get('managerName')?.errors }" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('managerName')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('managerName')?.errors?.required">Manager name is required</div>
                         </div>
@@ -1025,7 +1031,7 @@
                           <div class="col-md-4">
                               <label>Email:</label>
                               <input type="email"  formControlName="managerMailID" class="form-control"  placeholder="Enter Email Address"
-                              [ngClass]="{ 'is-invalid': submitted && a.get('managerMailID')?.errors }">
+                              [ngClass]="{ 'is-invalid': submitted && a.get('managerMailID')?.errors }" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('managerMailID')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('managerMailID')?.errors?.required">Email is required</div>
                             <div *ngIf="a.get('managerMailID')?.errors?.pattern">Enter valid email</div>
@@ -1040,7 +1046,7 @@
                             <div class="col-md-4">
                                 <label>Company Name:</label>
                                 <input type="text"  formControlName="companyName" class="form-control"  placeholder="Enter Company Name"
-                                [ngClass]="{ 'is-invalid': submitted && a.get('companyName')?.errors }">
+                                [ngClass]="{ 'is-invalid': submitted && a.get('companyName')?.errors }" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('companyName')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('companyName')?.errors?.required">Company name is required</div>
                         </div>
@@ -1049,7 +1055,7 @@
                             <div class="col-md-4">
                                 <label>Address Line1:</label>
                                 <input type="text"  formControlName="addressLine1" class="form-control"  placeholder="Enter Address Line1"
-                                [ngClass]="{ 'is-invalid': submitted && a.get('addressLine1')?.errors }">
+                                [ngClass]="{ 'is-invalid': submitted && a.get('addressLine1')?.errors }" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('addressLine1')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('addressLine1')?.errors?.required">AddressLine1 is required</div>
                         </div>
@@ -1058,7 +1064,7 @@
                             <div class="col-md-4">
                                 <label>Address Line2: (Optional)</label>
                                 <input type="text"  formControlName="addressLine2" class="form-control"  placeholder="Enter Address Line2"
-                                [ngClass]="{ 'is-invalid': submitted && a.get('addressLine2')?.errors }">
+                                [ngClass]="{ 'is-invalid': submitted && a.get('addressLine2')?.errors }" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('addressLine2')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('addressLine2')?.errors?.required">AddressLine2 is required</div>
                         </div>
@@ -1071,7 +1077,7 @@
                             <div class="col-md-4">
                                 <label>Site Landmark: (Optional)</label>
                                 <input type="text"  formControlName="landMark" class="form-control"  placeholder="Enter Landmark"
-                                [ngClass]="{ 'is-invalid': submitted && a.get('landMark')?.errors }">
+                                [ngClass]="{ 'is-invalid': submitted && a.get('landMark')?.errors }" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('landMark')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('landMark')?.errors?.required">Site Landmark is required</div>
                         </div>
@@ -1080,7 +1086,7 @@
                             <div class="col-md-4">
                                 <label>Country:</label>
                                 <select  formControlName="country" class="form-control" (change)="contractorchangeCountry($event)"
-                                [ngClass]="{ 'is-invalid': submitted && a.get('country')?.errors }">
+                                [ngClass]="{ 'is-invalid': submitted && a.get('country')?.errors }" [disabled]="service.allFieldsDisable">
                                 <option value="0" selected>Select Country Name</option>
                                 <option *ngFor="let country of countryList" [selected]="country.name=== a.get('country')?.value">{{country.name}}</option>
                             </select>
@@ -1093,7 +1099,7 @@
                             <div class="col-md-4">
                                 <label>State:</label>
                                 <select  formControlName="state" class="form-control"
-                                [ngClass]="{ 'is-invalid': submitted && a.get('state')?.errors }">
+                                [ngClass]="{ 'is-invalid': submitted && a.get('state')?.errors }" [disabled]="service.allFieldsDisable">
                                     <option value="0" selected>Select State Name</option>
                                     <option *ngFor="let state of stateList3" [selected]="state.name=== state3">{{state.name}}</option>
                                 </select>
@@ -1109,7 +1115,7 @@
                             <div class="col-md-4">
                                 <label>Pincode:</label>
                                 <input type="text"  formControlName="pinCode" class="form-control" (keypress)="keyPressNumbers($event)" minlength="6" maxLength="6" placeholder="Enter Pincode"
-                                [ngClass]="{ 'is-invalid': submitted && a.get('pinCode')?.errors }">
+                                [ngClass]="{ 'is-invalid': submitted && a.get('pinCode')?.errors }" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('pinCode')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('pinCode')?.errors?.required">Pincode is required</div>
                             <div *ngIf="a.get('pinCode')?.errors?.maxlength">Enter Six Digit Numbers</div>
@@ -1138,7 +1144,7 @@
                         <div class="col-md-4">
                             <label>Person Name:</label>
                             <input type="text" formControlName="personName" readonly class="form-control" placeholder="Enter Person Name"
-                            [ngClass]="{ 'is-invalid': submitted && a.get('personName')?.errors }">
+                            [ngClass]="{ 'is-invalid': submitted && a.get('personName')?.errors }" >
                           <div *ngIf="submitted && a.get('personName')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('personName')?.errors?.required">Person name is required</div>
                         </div>
@@ -1172,7 +1178,7 @@
                         <div class="col-md-4">
                             <label>Manager Name:</label>
                             <input type="text"  formControlName="managerName" class="form-control"  placeholder="Enter Manager Name"
-                            [ngClass]="{ 'is-invalid': submitted && a.get('managerName')?.errors }">
+                            [ngClass]="{ 'is-invalid': submitted && a.get('managerName')?.errors }" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('managerName')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('managerName')?.errors?.required">Manager name is required</div>
                         </div>
@@ -1193,7 +1199,7 @@
                         <div class="col-md-4">
                             <label>Email:</label>
                             <input type="email"  formControlName="managerMailID" class="form-control"  placeholder="Enter Email Address"
-                            [ngClass]="{ 'is-invalid': submitted && a.get('managerMailID')?.errors }">
+                            [ngClass]="{ 'is-invalid': submitted && a.get('managerMailID')?.errors }" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('managerMailID')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('managerMailID')?.errors?.required">Email is required</div>
                             <div *ngIf="a.get('managerMailID')?.errors?.pattern">Enter valid email</div>
@@ -1226,7 +1232,7 @@
                           <div class="col-md-4">
                               <label>Address Line2: (Optional)</label>
                               <input type="text"  formControlName="addressLine2" class="form-control"  placeholder="Enter Address Line2"
-                              [ngClass]="{ 'is-invalid': submitted && a.get('addressLine2')?.errors }">
+                              [ngClass]="{ 'is-invalid': submitted && a.get('addressLine2')?.errors }" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('addressLine2')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('addressLine2')?.errors?.required">AddressLine2 is required</div>
                         </div>
@@ -1239,7 +1245,7 @@
                           <div class="col-md-4">
                               <label>Site Landmark: (Optional)</label>
                               <input type="text"  formControlName="landMark" class="form-control"  placeholder="Enter Landmark"
-                              [ngClass]="{ 'is-invalid': submitted && a.get('landMark')?.errors }">
+                              [ngClass]="{ 'is-invalid': submitted && a.get('landMark')?.errors }" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('landMark')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('landMark')?.errors?.required">Site Landmark is required</div>
                         </div>
@@ -1263,7 +1269,7 @@
 
                           <div class="col-md-4">
                               <label>State:</label>
-                              <input type="text"  formControlName="state" readonly class="form-control" readonly placeholder="Enter State"
+                              <input type="text"  formControlName="state" readonly class="form-control" placeholder="Enter State"
                               [ngClass]="{ 'is-invalid': submitted && a.get('state')?.errors }">
                               <!-- <select  formControlName="state" class="form-control"
                               [ngClass]="{ 'is-invalid': submitted && a.get('state')?.errors }">

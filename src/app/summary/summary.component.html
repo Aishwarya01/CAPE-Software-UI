@@ -24,7 +24,7 @@
                        class="example-button"> info_outline
                      </mat-icon>
                       <input type="text" class="form-control" formControlName="extentInstallation"
-                      [(ngModel)]="summary.extentInstallation" 
+                      [(ngModel)]="summary.extentInstallation" [readonly]="service.allFieldsDisable"
                       [ngClass]="{ 'is-invalid': submitted && f.extentInstallation?.errors }">
                       <div *ngIf="submitted && f.extentInstallation?.errors" class="invalid-feedback">
                         <div *ngIf="f.extentInstallation?.errors?.required">Field Is Required</div>
@@ -35,7 +35,7 @@
                     <div class="form-group">
                       <label>Agreed Limitations Including The Reasons:</label>
                       <input type="text" class="form-control" formControlName="agreedLimitations"
-                      [(ngModel)]="summary.agreedLimitations"
+                      [(ngModel)]="summary.agreedLimitations"  [readonly]="service.allFieldsDisable"
                       [ngClass]="{ 'is-invalid': submitted && f.agreedLimitations?.errors }">
                       <div *ngIf="submitted && f.agreedLimitations?.errors" class="invalid-feedback">
                         <div *ngIf="f.agreedLimitations?.errors?.required">Field Is Required</div>
@@ -47,7 +47,7 @@
                     <div class="form-group">
                       <label>Agreed With:</label>
                       <input type="text" class="form-control" formControlName="agreedWith"
-                      [(ngModel)]="summary.agreedWith"
+                      [(ngModel)]="summary.agreedWith" [readonly]="service.allFieldsDisable"
                       [ngClass]="{ 'is-invalid': submitted && f.agreedWith?.errors }">
                       <div *ngIf="submitted && f.agreedWith?.errors" class="invalid-feedback">
                         <div *ngIf="f.agreedWith?.errors?.required">Field Is Required</div>
@@ -59,7 +59,7 @@
                     <div class="form-group">
                       <label>Operational Limitations Including The Reasons:</label>
                       <input type="text" class="form-control" formControlName="operationalLimitations"
-                      [(ngModel)]="summary.operationalLimitations"
+                      [(ngModel)]="summary.operationalLimitations" [readonly]="service.allFieldsDisable"
                       [ngClass]="{ 'is-invalid': submitted && f.operationalLimitations?.errors }">
                       <div *ngIf="submitted && f.operationalLimitations?.errors" class="invalid-feedback">
                         <div *ngIf="f.operationalLimitations?.errors?.required">Field Is Required</div>
@@ -74,7 +74,7 @@
                         under floors and generally within the fabric of the building or underground, have not been 
                         inspected unless specifically agreed between the client and inspector prior to inspection:</label>
                         <input type="text" class="form-control" formControlName="inspectionTestingDetailed"
-                        [(ngModel)]="summary.inspectionTestingDetailed"
+                        [(ngModel)]="summary.inspectionTestingDetailed" [readonly]="service.allFieldsDisable"
                         [ngClass]="{ 'is-invalid': submitted && f.inspectionTestingDetailed?.errors }">
                         <div *ngIf="submitted && f.inspectionTestingDetailed?.errors" class="invalid-feedback">
                           <div *ngIf="f.inspectionTestingDetailed?.errors?.required">Field Is Required</div>
@@ -104,7 +104,7 @@
                      class="example-button"> info_outline
                    </mat-icon>
                   <select class="form-control" formControlName="limitationsInspection" (change)="onChange($event)"
-                  [(ngModel)]="summary.limitationsInspection"
+                  [(ngModel)]="summary.limitationsInspection" [disabled]="service.allFieldsDisable"
                   [ngClass]="{ 'is-invalid': submitted && f.limitationsInspection?.errors }">
                   <option value="0" selected>Select Option</option>
                   <option *ngFor="let a of observationList" [selected]="a === summary.limitationsInspection">{{a}}</option>
@@ -132,7 +132,7 @@
                   </h3>
                   </mat-label>
                   <textarea matInput class="client-box-description" maxlength="500" formControlName="observations"
-                   placeholder="Ex. Report description..." 
+                   placeholder="Ex. Report description..." [readonly]="service.allFieldsDisable"
                    [ngClass]="{ 'is-invalid': submitted && f.observations?.errors }"></textarea>
                    <div *ngIf="submitted && f.observations?.errors" class="invalid-feedback">
                     <div *ngIf="f.observations?.errors?.required">Field Is Required</div>
@@ -143,7 +143,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Reference number in report:</label>
-                  <input type="number" min="0" formControlName="referanceNumberReport" class="form-control"  
+                  <input type="number" min="0" formControlName="referanceNumberReport" class="form-control"  [readonly]="service.allFieldsDisable"
                   placeholder="Enter Reference Number" [ngClass]="{ 'is-invalid': submitted && f.referanceNumberReport?.errors }">
                   <div *ngIf="submitted && f.referanceNumberReport?.errors" class="invalid-feedback">
                     <div *ngIf="f.referanceNumberReport?.errors?.required">Field Is Required</div>
@@ -153,7 +153,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Code classification :</label>
-                  <select class="form-control" formControlName="furtherActions" 
+                  <select class="form-control" formControlName="furtherActions" [disabled]="service.allFieldsDisable"
                   [ngClass]="{ 'is-invalid': submitted && f.furtherActions?.errors }">
                     <option value="0" selected>Select Option</option>
                     <option >C1</option>
@@ -187,7 +187,7 @@
                   <label>
                     Subject to necessary remedial action being taken, I/We recommended that the installation is further inspected and tested by :
                   </label>
-                  <input type="date" class="form-control" placeholder="Enter Date"
+                  <input type="date" class="form-control" placeholder="Enter Date" [readonly]="service.allFieldsDisable"
                   [(ngModel)]="summary.recommendationsDate" formControlName="recommendationsDate"
                   [ngClass]="{ 'is-invalid': submitted && f.recommendationsDate?.errors }">  
                   <div *ngIf="submitted && f.recommendationsDate?.errors" class="invalid-feedback">
@@ -265,7 +265,7 @@
                       <div class="form-group">
                         <label>General condition of the installation in terms of electrical safety:</label>
                         <input type="text" class="form-control" formControlName="generalConditionInstallation" 
-                        [(ngModel)]="summary.generalConditionInstallation" 
+                        [(ngModel)]="summary.generalConditionInstallation" [readonly]="service.allFieldsDisable"
                         [ngClass]="{ 'is-invalid': submitted && f.generalConditionInstallation?.errors }">
                         <div *ngIf="submitted && f.generalConditionInstallation?.errors" class="invalid-feedback">
                           <div *ngIf="f.generalConditionInstallation?.errors?.required">Field Is Required</div>
@@ -277,7 +277,7 @@
                         <label>Overall assessment of the installation in terms of suitability of continuous use:</label>
                         &nbsp;&nbsp;
                         <mat-radio-group class="example-radio-group" (change)="changeComboo($event)"
-                         [(ngModel)]="summary.overallAssessmentInstallation" 
+                         [(ngModel)]="summary.overallAssessmentInstallation" [disabled]="service.allFieldsDisable"
                          [ngClass]="{ 'is-invalid': submitted && f.overallAssessmentInstallation?.errors }"
                          formControlName="overallAssessmentInstallation">
                           <mat-radio-button class="example-radio-button" *ngFor="let installation of installations" 
@@ -317,7 +317,7 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Name:</label>
-                        <input type="text" class="form-control" formControlName="name"
+                        <input type="text" class="form-control" formControlName="name" [readonly]="service.allFieldsDisable"
                         [ngClass]="{ 'is-invalid': submitted && a.get('name')?.errors }">
                         <div *ngIf="submitted && a.get('name')?.errors" class="invalid-feedback">
                           <div *ngIf="a.get('name')?.errors?.required">Person name is required</div>
@@ -338,7 +338,7 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Company:</label>
-                        <input type="text" class="form-control" formControlName="company"
+                        <input type="text" class="form-control" formControlName="company" [readonly]="service.allFieldsDisable"
                         [ngClass]="{ 'is-invalid': submitted && a.get('company')?.errors }">
                         <div *ngIf="submitted && a.get('company')?.errors" class="invalid-feedback">
                           <div *ngIf="a.get('company')?.errors?.required">Company name is required</div>
@@ -349,7 +349,7 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Position:</label>
-                        <input type="text" class="form-control" formControlName="position"
+                        <input type="text" class="form-control" formControlName="position" [readonly]="service.allFieldsDisable"
                         [ngClass]="{ 'is-invalid': submitted && a.get('position')?.errors }">
                         <div *ngIf="submitted && a.get('position')?.errors" class="invalid-feedback">
                           <div *ngIf="a.get('position')?.errors?.required">Position is required</div>
@@ -360,7 +360,7 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Address:</label>
-                        <input type="text" class="form-control" formControlName="address"
+                        <input type="text" class="form-control" formControlName="address" [readonly]="service.allFieldsDisable"
                         [ngClass]="{ 'is-invalid': submitted && a.get('address')?.errors }">
                         <div *ngIf="submitted && a.get('address')?.errors" class="invalid-feedback">
                           <div *ngIf="a.get('address')?.errors?.required"><Address></Address> is required</div>
@@ -371,7 +371,7 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Date:</label>
-                        <input type="date" class="form-control" formControlName="date"
+                        <input type="date" class="form-control" formControlName="date" [readonly]="service.allFieldsDisable"
                         [ngClass]="{ 'is-invalid': submitted && a.get('date')?.errors }">
                         <div *ngIf="submitted && a.get('date')?.errors" class="invalid-feedback">
                           <div *ngIf="a.get('date')?.errors?.required">Date is required</div>
@@ -391,7 +391,7 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label>Name:</label>
-                          <input type="text" class="form-control" formControlName="name"
+                          <input type="text" class="form-control" formControlName="name" [readonly]="service.allFieldsDisable"
                           [ngClass]="{ 'is-invalid': submitted && a.get('name')?.errors }">
                           <div *ngIf="submitted && a.get('name')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('name')?.errors?.required">Person name is required</div>
@@ -412,7 +412,7 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label>Company:</label>
-                          <input type="text" class="form-control" formControlName="company"
+                          <input type="text" class="form-control" formControlName="company" [readonly]="service.allFieldsDisable"
                           [ngClass]="{ 'is-invalid': submitted && a.get('company')?.errors }">
                           <div *ngIf="submitted && a.get('company')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('company')?.errors?.required">Company name is required</div>
@@ -423,7 +423,7 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label>Position:</label>
-                          <input type="text" class="form-control" formControlName="position"
+                          <input type="text" class="form-control" formControlName="position" [readonly]="service.allFieldsDisable"
                           [ngClass]="{ 'is-invalid': submitted && a.get('position')?.errors }">
                           <div *ngIf="submitted && a.get('position')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('position')?.errors?.required">Position is required</div>
@@ -434,7 +434,7 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label>Address:</label>
-                          <input type="text" class="form-control" formControlName="address"
+                          <input type="text" class="form-control" formControlName="address" [readonly]="service.allFieldsDisable"
                           [ngClass]="{ 'is-invalid': submitted && a.get('address')?.errors }">
                           <div *ngIf="submitted && a.get('address')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('address')?.errors?.required">Address is required</div>
@@ -445,7 +445,7 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label>Date:</label>
-                          <input type="date" class="form-control" formControlName="date"
+                          <input type="date" class="form-control" formControlName="date" [readonly]="service.allFieldsDisable"
                           [ngClass]="{ 'is-invalid': submitted && a.get('date')?.errors }">
                           <div *ngIf="submitted && a.get('date')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('date')?.errors?.required">Date is required</div>
