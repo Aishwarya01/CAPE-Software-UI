@@ -413,6 +413,7 @@ export class LpsAirTerminationComponent implements OnInit {
               (data) => {
                 this.success = true;
                 this.successMsg = data;
+                this.airTerminationForm.markAsPristine();
                 this.proceedNext.emit(true);
               },
               (error) => {

@@ -173,6 +173,7 @@ export class LpsBasicPageComponent implements OnInit {
           
           this.success = true;
           this.successMsg = data;
+          this.LPSBasicForm.markAsPristine();
           this.proceedNext.emit(true);
           
         },

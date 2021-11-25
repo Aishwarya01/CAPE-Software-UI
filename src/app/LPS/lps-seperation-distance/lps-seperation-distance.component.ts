@@ -172,6 +172,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
           (data) => {
             this.success = true;
             this.successMsg = data;
+            this.separeteDistanceForm.markAsPristine();
             this.proceedNext.emit(true);
           },
           (error) => {

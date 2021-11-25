@@ -642,6 +642,7 @@ export class LpsDownConductorsComponent implements OnInit {
           (data) => {
             this.success = true;
             this.successMsg = data;
+            this.downConductorForm.markAsPristine();
             this.proceedNext.emit(true);
           },
           (error) => {

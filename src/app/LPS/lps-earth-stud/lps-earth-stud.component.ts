@@ -101,6 +101,7 @@ export class LpsEarthStudComponent implements OnInit {
           (data) => {
             this.success = true;
             this.successMsg = data;
+            this.EarthStudForm.markAsPristine();
             this.proceedNext.emit(true);
           }, 
           (error) => {
