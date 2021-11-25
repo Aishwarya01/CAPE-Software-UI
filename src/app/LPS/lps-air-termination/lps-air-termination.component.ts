@@ -359,13 +359,15 @@ export class LpsAirTerminationComponent implements OnInit {
       }, 3000);
       return;
     }
-    if(this.isEditable){
-      this.modalService.open(contents, { centered: true });
+    //  Update and Success msg will be showing
+    if(this.airTerminationForm.dirty && this.airTerminationForm.touched){
+      this.modalService.open(content, { centered: true });
    }
-   if(!this.isEditable){
-    this.modalService.open(content, { centered: true });
-    this.successMsg ='';
+  //  For Dirty popup
+   else{
+    this.modalService.open(contents, { centered: true });
    }
+   
    
      
   }
@@ -432,11 +434,10 @@ export class LpsAirTerminationComponent implements OnInit {
                   this.success = true;
                   this.proceedNext.emit(true);
                 }
+                // Dirty checking here
                 else{
-                  this.success = false;
-                  this.Error = false; 
-                  this.success1 = true;
-                  this.successMsg1 ="Required changes for updating process"
+                  
+                  this.success = true;
                   this.proceedNext.emit(true);
                 }
               }

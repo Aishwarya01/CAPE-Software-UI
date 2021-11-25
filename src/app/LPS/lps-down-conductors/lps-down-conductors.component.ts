@@ -663,8 +663,7 @@ export class LpsDownConductorsComponent implements OnInit {
           this.proceedNext.emit(true);
         }
       else{
-          this.success1 = true;
-          this.successMsg1 ="Required changes for updating process"
+          this.success = true;
           this.proceedNext.emit(true);
         }
       }
@@ -717,13 +716,14 @@ export class LpsDownConductorsComponent implements OnInit {
       }, 3000);
       return;
     }
-    if(this.isEditable){
+       //  Update and Success msg will be showing
+       if(this.downConductorForm.dirty && this.downConductorForm.touched){
+        this.modalService.open(content, { centered: true });
+     }
+    //  For Dirty popup
+     else{
       this.modalService.open(contents, { centered: true });
-   }
-   if(!this.isEditable){
-    this.modalService.open(content, { centered: true });
-    this.successMsg ='';
-   }
+     }
   }
 
 }

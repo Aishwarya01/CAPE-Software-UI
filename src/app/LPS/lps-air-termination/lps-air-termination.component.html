@@ -2452,8 +2452,9 @@
 
             <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
                 <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
-                <button  class="next"  [disabled]="disable" (click)="gotoNextModal(content,contents)" mat-button >Next &raquo;</button>
-            </div>
+                <button class="next"  [disabled]="disable" (click)="gotoNextModal(content,contents)" *ngIf="!isEditable" mat-button >Next &raquo;</button>
+                <button class="next" *ngIf="isEditable" matStepperNext mat-button >Next &raquo;</button>
+           </div>
             <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
                 <span class="alert alert-danger">{{validationErrorMsg}}</span>
             </div>

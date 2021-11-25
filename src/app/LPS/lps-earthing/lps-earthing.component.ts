@@ -503,7 +503,6 @@ export class LpsEarthingComponent implements OnInit {
           this.proceedNext.emit(true);
         }else{
           this.success = true;
-          this.successMsg ="Required changes for updating process"
           this.proceedNext.emit(true);
         }
       }
@@ -559,11 +558,13 @@ export class LpsEarthingComponent implements OnInit {
         }, 3000);
         return;
       }
-      if(this.isEditable){
-        this.modalService.open(contents, { centered: true });
+      //  Update and Success msg will be showing
+      if(this.earthingForm.dirty && this.earthingForm.touched){
+        this.modalService.open(content, { centered: true });
      }
-     if(!this.isEditable){
-      this.modalService.open(content, { centered: true });
+    //  For Dirty popup
+     else{
+      this.modalService.open(contents, { centered: true });
      }
     }
 }

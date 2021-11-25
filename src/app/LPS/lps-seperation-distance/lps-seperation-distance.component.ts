@@ -76,11 +76,12 @@ export class LpsSeperationDistanceComponent implements OnInit {
       }, 3000);
       return;
     }
-    if(this.isEditable){
-      this.modalService.open(contents, { centered: true });
+    if(this.separeteDistanceForm.dirty && this.separeteDistanceForm.touched){
+      this.modalService.open(content, { centered: true });
    }
-   if(!this.isEditable){
-    this.modalService.open(content, { centered: true });
+  //  For Dirty popup
+   else{
+    this.modalService.open(contents, { centered: true });
    }
   }
 
@@ -190,7 +191,6 @@ export class LpsSeperationDistanceComponent implements OnInit {
           this.proceedNext.emit(true);
         }else{
           this.success = true;
-          this.successMsg ="Required changes for updating process"
           this.proceedNext.emit(true);
         }
       }

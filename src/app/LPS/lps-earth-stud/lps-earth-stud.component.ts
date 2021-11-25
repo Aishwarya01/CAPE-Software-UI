@@ -118,8 +118,8 @@ export class LpsEarthStudComponent implements OnInit {
           this.success = true;
           this.proceedNext.emit(true);
         }else{
-          this.success = true;
-          this.successMsg ="Required changes for updating process"
+          // this.success = true;
+          // this.successMsg ="Required changes for updating process"
           this.proceedNext.emit(true);
         }
       }
@@ -179,11 +179,13 @@ export class LpsEarthStudComponent implements OnInit {
       }, 3000);
       return;
     }
-    if(this.isEditable){
+      //  Update and Success msg will be showing
+      if(this.EarthStudForm.dirty && this.EarthStudForm.touched){
+        this.modalService.open(content, { centered: true });
+     }
+    //  For Dirty popup
+     else{
       this.modalService.open(contents, { centered: true });
-   }
-   if(!this.isEditable){
-    this.modalService.open(content, { centered: true });
-   }
+     }
   }
 }

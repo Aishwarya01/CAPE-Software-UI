@@ -611,7 +611,8 @@
             </div>
         </div>
         <div style="text-align: center;margin-top: 8px;">
-            <button class="next"  [disabled]="disable" (click)="gotoNextModal(content,contents)" mat-button >Next &raquo;</button>
+            <button class="next"  [disabled]="disable" (click)="gotoNextModal(content,contents)" *ngIf="!isEditable" mat-button >Next &raquo;</button>
+            <button class="next" *ngIf="isEditable" matStepperNext mat-button >Next &raquo;</button>
         </div>
         <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
             <span class="alert alert-danger">{{validationErrorMsg}}</span>
@@ -625,9 +626,9 @@
                 <span class="successshow">{{successMsg}}</span>
             </div>
 
-            <div *ngIf="success1" style="text-align: center;">
+            <!-- <div *ngIf="success1" style="text-align: center;">
                 <span class="errorshow">{{successMsg1}}</span>
-            </div>
+            </div> -->
 
             <div *ngIf="Error" style="text-align: center;">
                 <span class="errorshow">{{errorMsg}}</span>

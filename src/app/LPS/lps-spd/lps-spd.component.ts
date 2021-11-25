@@ -247,7 +247,6 @@ export class LpsSpdComponent implements OnInit {
               this.proceedNext.emit(true);
             }else{
               this.success = true;
-              this.successMsg ="Required changes for updating process"
               this.proceedNext.emit(true);
             }
           }
@@ -297,12 +296,13 @@ export class LpsSpdComponent implements OnInit {
           }, 3000);
           return;
         }
-        if(this.isEditable){
-          this.modalService.open(contents, { centered: true });
+        if(this.spdForm.dirty && this.spdForm.touched){
+          this.modalService.open(content, { centered: true });
        }
-       if(!this.isEditable){
-       this.modalService.open(content, { centered: true });
-      }
+      //  For Dirty popup
+       else{
+        this.modalService.open(contents, { centered: true });
+       }
     }
     
 }

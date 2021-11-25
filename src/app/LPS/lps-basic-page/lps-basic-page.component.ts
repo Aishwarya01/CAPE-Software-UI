@@ -149,11 +149,11 @@ export class LpsBasicPageComponent implements OnInit {
      }
      debugger
     //  Update and Success msg will be showing
-     if(!this.isEditable){
+     if(this.LPSBasicForm.dirty && this.LPSBasicForm.touched){
         this.modalService.open(content, { centered: true });
      }
     //  For Dirty popup
-     if(this.isEditable){
+     else{
       this.modalService.open(contents, { centered: true });
      }
      
@@ -192,6 +192,7 @@ export class LpsBasicPageComponent implements OnInit {
         }
       )}
       else{
+        debugger
         // Preview fields
         if(this.isEditable){
           this.success = true;
@@ -201,10 +202,7 @@ export class LpsBasicPageComponent implements OnInit {
 
         else{
           // Dirty checking here
-          this.success = false;
-          this.Error = false;
-          this.success1 = true;
-          this.successMsg1 ="Required changes for updating process"
+          this.success = true;
           this.proceedNext.emit(true);
         }
       }
