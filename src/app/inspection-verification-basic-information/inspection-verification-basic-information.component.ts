@@ -349,9 +349,9 @@ ShowNext: boolean = true;
  
   // Need to check this task
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
-    if(this.service.disableFields==true){
-      this.step1Form.disable();
-     }
+    // if(this.service.disableFields==true){
+    //   this.step1Form.disable();
+    //  }
       this.service.siteCount = siteId;
        this.savedUserName = userName;
        this.siteDetails1 = true;
@@ -1012,9 +1012,9 @@ showHideAccordion(index: number) {
   
   populateData() {
     for (let item of this.step1List.reportDetails.signatorDetails) {
-      if(this.service.disableFields==true){
-        this.disable=true;
-        }
+      // if(this.service.disableFields==true){
+      //   this.disable=true;
+      //   }
       if(item.signatorRole == "designer1") {
       this.mobilearr.push(this.createGroup(item));
       this.step1Form.setControl('designer1Arr', this._formBuilder.array(this.mobilearr || []))

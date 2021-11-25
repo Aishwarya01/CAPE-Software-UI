@@ -2156,6 +2156,7 @@
 </form>
 
 <button class="btn btn-info mousechange" (click)="addItem()" title="Add another location"
+[ngClass]="{'disableForm':service.allFieldsDisable}"
 style="padding: 5px 0px 0px 0px;
 left: 2%;
 top: -100px;
