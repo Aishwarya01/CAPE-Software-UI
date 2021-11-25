@@ -401,9 +401,9 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   }
 
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
-    if(this.service.disableFields==true){
-      this.supplycharesteristicForm.disable();
-     }
+    // if(this.service.disableFields==true){
+    //   this.supplycharesteristicForm.disable();
+    //  }
        this.step2List = JSON.parse(data);
        this.supplycharesteristic.siteId = siteId;
        this.supplycharesteristic.supplyCharacteristicsId = this.step2List.supplyCharacteristics.supplyCharacteristicsId;
@@ -412,7 +412,13 @@ export class InspectionVerificationSupplyCharacteristicsComponent
        this.supplycharesteristic.alternativeSupply=this.step2List.supplyCharacteristics.alternativeSupply;
        this.showAlternateField(this.step2List.supplyCharacteristics.alternativeSupply);
        this.changeSystem(this.step2List.supplyCharacteristics.mainSystemEarthing);
-       this.supplycharesteristic.systemEarthingBNote=this.step2List.supplyCharacteristics.systemEarthingBNote;       this.supplycharesteristic.electrodeMaterial=this.step2List.supplyCharacteristics.electrodeMaterial;
+       this.onKey(this.step2List.supplyCharacteristics.bondingNoOfJoints);
+       this.onKey3(this.step2List.supplyCharacteristics.earthingNoOfJoints);
+
+       this.supplycharesteristic.systemEarthingBNote=this.step2List.supplyCharacteristics.systemEarthingBNote;  
+       this.supplycharesteristic.liveConductorBNote=this.step2List.supplyCharacteristics.liveConductorBNote;       
+     
+       this.supplycharesteristic.electrodeMaterial=this.step2List.supplyCharacteristics.electrodeMaterial;
        this.supplycharesteristic.meansEarthing=this.step2List.supplyCharacteristics.meansEarthing;
        this.supplycharesteristic.electrodeType=this.step2List.supplyCharacteristics.electrodeType;
       if(this.step2List.supplyCharacteristics.noOfLocation!=0){
@@ -443,7 +449,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
        this.DcValue = this.step2List.supplyCharacteristics.liveConductorDC;
        this.step2List.liveConductor= this.step2List.supplyCharacteristics.liveConductor;
        this.flag = true;
-       this.populateData();
+       this.populateData(this.step2List.supplyCharacteristics);
        this.populateDataComments();
        this.supplycharesteristicForm.patchValue({
         clientName1: clientName,
@@ -948,44 +954,43 @@ showHideAccordion(index: number) {
   }
 //comments section ends
 
-     populateData() {
-      if(this.service.disableFields==true){
-        this.disable=true;
-        }
-      for (let item of this.step2List.supplyCharacteristics.boundingLocationReport) {     
-        this.arr2.push(this.createGroup(item));
-      }
-      for (let item of this.step2List.supplyCharacteristics.instalLocationReport) {     
-        this.arr1.push(this.createGroup1(item));
-      }
-      for (let item of this.step2List.supplyCharacteristics.earthingLocationReport) {     
-        this.arr3.push(this.createGroup(item));
-      }
-      for (let item of this.step2List.supplyCharacteristics.supplyParameters) { 
-        this.sources=true;    
-        this.breaker=true;
-        this.alArr.push(this.createGroupAl(item));
-      }
-      for (let item of this.step2List.supplyCharacteristics.supplyParameters) { 
-        this.tableAC=true;    
-        this.alArr2.push(this.createGroupAl2(item));
-      }
-      for (let item of this.step2List.supplyCharacteristics.circuitBreaker) {     
-        this.circuitB.push(this.createGroupCircuitB(item));
-      }
-      this.supplycharesteristicForm.setControl('location2Arr', this.formBuilder.array(this.arr2 || []))
-      this.supplycharesteristicForm.setControl('location1Arr', this.formBuilder.array(this.arr1 || []))
-      this.supplycharesteristicForm.setControl('location3Arr', this.formBuilder.array(this.arr3 || []))
-      this.supplycharesteristicForm.setControl('alternateArr', this.formBuilder.array(this.alArr || []))
-      this.supplycharesteristicForm.setControl('circuitArr', this.formBuilder.array(this.circuitB || []))
-      this.supplycharesteristicForm.setControl('circuitArr', this.formBuilder.array(this.circuitB || []))
-
-      this.arr1 = [];
-      this.arr2 = [];
-      this.arr3 = [];
-      this.alArr = [];
-      this.circuitB = []
-    }
+populateData(value:any) {
+  // if(this.service.disableFields==true){
+  //   this.disable=true;
+  //   }
+  for (let item of value.boundingLocationReport) {     
+    this.arr2.push(this.createGroup(item));
+  }
+  for (let item of value.instalLocationReport) {     
+    this.arr1.push(this.createGroup1(item));
+  }
+  for (let item of value.earthingLocationReport) {     
+    this.arr3.push(this.createGroup(item));
+  }
+  for (let item of value.supplyParameters) { 
+    this.sources=true;    
+    this.breaker=true;
+    this.alArr.push(this.createGroupAl(item));
+  }
+  for (let item of value.supplyParameters) { 
+    this.tableAC=true;    
+    this.alArr2.push(this.createGroupAl2(item));
+  }
+  for (let item of value.circuitBreaker) {     
+    this.circuitB.push(this.createGroupCircuitB(item));
+  }
+  this.supplycharesteristicForm.setControl('location2Arr', this.formBuilder.array(this.arr2 || []))
+  this.supplycharesteristicForm.setControl('location1Arr', this.formBuilder.array(this.arr1 || []))
+  this.supplycharesteristicForm.setControl('location3Arr', this.formBuilder.array(this.arr3 || []))
+  this.supplycharesteristicForm.setControl('alternateArr', this.formBuilder.array(this.alArr || []))
+  this.supplycharesteristicForm.setControl('circuitArr', this.formBuilder.array(this.circuitB || []))
+  this.supplycharesteristicForm.setControl('circuitArr', this.formBuilder.array(this.circuitB || []))
+  this.arr1 = [];
+  this.arr2 = [];
+  this.arr3 = [];
+  this.alArr = [];
+  this.circuitB = []
+}
 
     createGroup(item: any): FormGroup {
       return this.formBuilder.group({
@@ -1014,7 +1019,7 @@ showHideAccordion(index: number) {
         aLLiveConductorAC: new FormControl({disabled: false ,value: item.aLLiveConductorAC}),
         aLLiveConductorDC: new FormControl({disabled: false ,value: item.aLLiveConductorDC}),
         aLSystemEarthingBNote: new FormControl({disabled: false ,value: item.aLSystemEarthingBNote}),
-        aLLiveConductorBNote: new FormControl({disabled: false ,value: item.aLSystemEarthingBNote}),
+        aLLiveConductorBNote: new FormControl({disabled: false ,value: item.aLLiveConductorBNote}),
         currentDissconnection: new FormControl({disabled: false ,value: item.currentDissconnection}),
         protectiveDevice: new FormControl({disabled: false ,value: item.protectiveDevice}),
         ratedCurrent: new FormControl({disabled: false ,value: item.ratedCurrent}),
@@ -1390,8 +1395,15 @@ showHideAccordion(index: number) {
   }
 
   onKey(event: KeyboardEvent) {
-    this.values = (<HTMLInputElement>event.target).value;
-    this.value = this.values;
+    this.values='';
+    if(event.target != undefined) {
+      this.values = (<HTMLInputElement>event.target).value;    
+    }
+    else{
+      this.values =event;
+    }
+    // this.values = (<HTMLInputElement>event.target).value;
+     this.value = this.values;
     this.location2Arr = this.supplycharesteristicForm.get(
       'location2Arr'
     ) as FormArray;
@@ -1554,7 +1566,14 @@ showHideAccordion(index: number) {
     }
   }
   onKey3(event: KeyboardEvent) { //No Of Joints
-    this.values = (<HTMLInputElement>event.target).value;
+    this.values='';
+    if(event.target != undefined) {
+      this.values = (<HTMLInputElement>event.target).value;    
+    }
+    else{
+      this.values =event;
+    }
+    // this.values = (<HTMLInputElement>event.target).value;
     this.service.noOfjoint = this.values;
     this.location3Arr = this.supplycharesteristicForm.get(
       'location3Arr'
@@ -1567,7 +1586,7 @@ showHideAccordion(index: number) {
       this.supplycharesteristicForm.controls['earthingJointsType'].updateValueAndValidity();
     if (this.location3Arr.length == 0) {
       if (this.service.noOfjoint != '') {
-        for (this.i = 0; this.i < this.value; this.i++) {
+        for (this.i = 0; this.i < this.service.noOfjoint; this.i++) {
           this.location3Arr = this.supplycharesteristicForm.get(
             'location3Arr'
           ) as FormArray;
@@ -1621,6 +1640,7 @@ showHideAccordion(index: number) {
 //   this.keyJOintLocationTable=false;
 //  }
   }
+
 
   getLocation1Controls(): AbstractControl[] {
     return (<FormArray>this.supplycharesteristicForm.get('location1Arr'))

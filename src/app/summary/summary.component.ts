@@ -260,10 +260,10 @@ export class SummaryComponent implements OnInit {
     this.addsummary.markAsPristine();
    }
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
-    if(this.service.disableFields==true){
-      this.addsummary.disable();
-      //this.service.allStepsCompleted=true;
-     }
+    // if(this.service.disableFields==true){
+    //   this.addsummary.disable();
+    //   //this.service.allStepsCompleted=true;
+    //  }
        this.summaryList = JSON.parse(data);
        this.summary.siteId = siteId;
        this.summary.summaryId = this.summaryList.summary.summaryId;
@@ -701,10 +701,10 @@ showHideAccordion(index: number) {
 //comments section ends
 
      populateData() {
-      if(this.service.disableFields==true){
-        this.disable=true;
-        //this.service.allStepsCompleted=true;
-        }
+      // if(this.service.disableFields==true){
+      //   this.disable=true;
+      //   //this.service.allStepsCompleted=true;
+      //   }
        this.arr = [];
       for (let item of this.summaryList.summary.summaryObervation) {
         this.arr.push(this.createGroup(item));

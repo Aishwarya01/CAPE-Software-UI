@@ -176,9 +176,9 @@ export class InspectionVerificationIncomingEquipmentComponent
   }
 
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){ 
-    if(this.service.disableFields==true){
-      this.addstep3.disable();
-     }
+    // if(this.service.disableFields==true){
+    //   this.addstep3.disable();
+    //  }
         this.step3List = JSON.parse(data);
         this.inspectionDetails.siteId = siteId;
         this.inspectionDetails.periodicInspectionId = this.step3List.periodicInspection.periodicInspectionId;
@@ -588,9 +588,9 @@ showHideAccordion(index: number) {
 //comments section ends
 
   populateData() {
-    if(this.service.disableFields==true){
-      this.disable=true;
-      }
+    // if(this.service.disableFields==true){
+    //   this.disable=true;
+    //   }
     this.arr = [];
     for (let item of this.step3List.periodicInspection.ipaoInspection) {
       this.arr.push(this.createGroup(item));
