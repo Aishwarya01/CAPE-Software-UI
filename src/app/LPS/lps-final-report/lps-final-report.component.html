@@ -109,7 +109,7 @@
         </th>
         <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
             <!-- Preview -->
-          <button class="btn btn-outline-danger delete" title="View Site" 
+          <button class="btn btn-outline-danger delete" title="View Client Details" 
           (click)="priviewPdf(element.basicLpsId,element.clientName)">
             <mat-icon>visibility</mat-icon>
           </button>
@@ -121,12 +121,12 @@
           </button>
             <!-- Email -->
           <button class="btn btn-outline-danger delete" title="Trigger Email With Final PDF" 
-          style="border-color: #cdcecf;box-shadow: unset;">
+          style="border-color: #cdcecf;box-shadow: unset;" (click)="emailPDF(element.basicLpsId,element.userName)">
             <mat-icon>email</mat-icon>
           </button>
             <!-- Print -->
           <button class="btn btn-outline-danger delete" title="Print Final PDF" 
-          style="border-color: #cdcecf;box-shadow: unset;">
+          style="border-color: #cdcecf;box-shadow: unset;" (click)="printPDF(element.basicLpsId,element.userName)">
             <mat-icon>print</mat-icon>
           </button>
 

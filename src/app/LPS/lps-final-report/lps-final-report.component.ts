@@ -39,6 +39,13 @@ export class LpsFinalReportComponent implements OnInit {
   viewerFilterData:any=[];
   selectedIndex: number=0;
 
+  successMsg: string="";
+  success: boolean=false;
+  Error: boolean=false;
+  errorMsg: string="";
+  errorArr: any=[];
+  disable: boolean=false;
+
   @ViewChild('input') input!: MatInput;
   clientService: any;
   lpsData: any=[];
@@ -102,5 +109,32 @@ export class LpsFinalReportComponent implements OnInit {
      debugger
      this.matstepper.preview(basicLpsId,clientName);
    }
+
+  emailPDF(basicLpsId:any,userName:any){
+    this.disable=false;
+    this.finalpdf.mailPDF(basicLpsId,userName).subscribe(
+    data => {
+    this.success = true;
+    this.successMsg = data;
+    setTimeout(()=>{
+      this.success=false;
+        }, 3000);
+    },
+    error => {
+      this.Error = true;
+      this.errorArr = [];
+      this.errorArr = JSON.parse(error.error);
+      this.errorMsg = this.errorArr.message;
+      setTimeout(()=>{
+        this.Error = false;
+        }, 3000);
+    });
+  }
+
+  printPDF(basicLpsId:any,userName:any){
+    debugger
+    this.disable=false;
+    this.finalpdf.printPDF(basicLpsId,userName)
+  }
 }
 
