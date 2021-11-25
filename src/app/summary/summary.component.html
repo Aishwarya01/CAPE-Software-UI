@@ -19,7 +19,7 @@
                       <mat-icon style="float: right;font-size: 18px;
                       line-height: unset;"
                        matTooltip="Actual area / portion of the building/block/floor details covered in this report"
-                       matTooltipClass="example-tooltip-red."
+                       matTooltipClass="multiline-tooltip"
                        aria-label="Button that shows a red tooltip"
                        class="example-button"> info_outline
                      </mat-icon>
@@ -99,7 +99,7 @@
                     <mat-icon style="float: right;font-size: 18px;
                     line-height: unset;"
                      matTooltip="If no remedial action required is selected, then following table is not necessary"
-                     matTooltipClass="example-tooltip-red."
+                     matTooltipClass="multiline-tooltip"
                      aria-label="Button that shows a red tooltip"
                      class="example-button"> info_outline
                    </mat-icon>
@@ -124,31 +124,21 @@
         <div class="row">
               <div class="col-sm-12">
                 <div class="form-group">
-                  <label>Observations:</label>
-                  <mat-icon class="mousechange" (click)="addObservations()" style="margin-top: 2px;
-                  float: right;">add_box</mat-icon>
+                  <mat-icon class="mousechange" (click)="addObservations()" [ngClass]="{'disableForm':service.allFieldsDisable}"
+                  style="margin-top: 2px;float: right;cursor: pointer;">add_box</mat-icon>
+                <mat-form-field class="client-description">
+                  <mat-label>
+                    <h3>Observations :
+                  </h3>
+                  </mat-label>
                   <textarea matInput class="client-box-description" maxlength="500" formControlName="observations"
                    placeholder="Ex. Report description..." 
                    [ngClass]="{ 'is-invalid': submitted && f.observations?.errors }"></textarea>
                    <div *ngIf="submitted && f.observations?.errors" class="invalid-feedback">
                     <div *ngIf="f.observations?.errors?.required">Field Is Required</div>
                 </div>
-                </div>
+                </mat-form-field>
               </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Further actions:</label>
-                  <select class="form-control" formControlName="furtherActions" 
-                  [ngClass]="{ 'is-invalid': submitted && f.furtherActions?.errors }">
-                    <option value="0" selected>Select Option</option>
-                    <option >C1 – Danger present. Risk of injury. Immediate remedial action required</option>
-                    <option>C2 – Potentially dangerous – urgent remedial action required</option>
-                    <option>C3 – Improvement recommended</option>
-                  </select>
-                  <div *ngIf="submitted && f.furtherActions?.errors" class="invalid-feedback">
-                    <div *ngIf="f.furtherActions?.errors?.required">Field Is Required</div>
-                </div>
-                </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
@@ -160,27 +150,72 @@
                 </div> 
                 </div>
               </div>
-              <div class="col-sm-12">
+              <div class="col-md-6">
                 <div class="form-group">
-                  <label>Comment:</label>
-                  <textarea matInput class="client-box-description" maxlength="500" 
-                  placeholder="Ex. Report description..." formControlName="comment"
-                  [ngClass]="{ 'is-invalid': submitted && f.comment?.errors }"></textarea>
-                  <div *ngIf="submitted && f.comment?.errors" class="invalid-feedback">
-                    <div *ngIf="f.comment?.errors?.required">Field Is Required</div>
+                  <label>Code classification :</label>
+                  <select class="form-control" formControlName="furtherActions" 
+                  [ngClass]="{ 'is-invalid': submitted && f.furtherActions?.errors }">
+                    <option value="0" selected>Select Option</option>
+                    <option >C1</option>
+                    <option>C2</option>
+                    <option>C3</option>
+                    <option>R1</option>
+                  </select>
+                  <div *ngIf="submitted && f.furtherActions?.errors" class="invalid-feedback">
+                    <div *ngIf="f.furtherActions?.errors?.required">Field Is Required</div>
                 </div>
                 </div>
               </div>
+              
+              <div class="col-sm-12">
+                <mat-form-field class="client-description">
+                  <mat-label>
+                    <h3>Remedial action to be taken :
+                  </h3>
+                  </mat-label>
+                  <textarea matInput class="client-box-description" maxlength="500" 
+                    readonly
+                    value=" I/We recommend that any observations classified as:- 
+                    Code C1 “dangers present” or Code C2 “potentially dangerous” are acted upon the matter of urgency and remedial 
+                    action to be taken immediately, 
+                    Code C3 “Improvement recommended” should be given due consideration,
+                    Code R1 “required further investigation” should start investigation without any delay.">
+                  </textarea>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-12">
+                  <label>
+                    Subject to necessary remedial action being taken, I/We recommended that the installation is further inspected and tested by :
+                  </label>
+                  <input type="date" class="form-control" placeholder="Enter Date"
+                  [(ngModel)]="summary.recommendationsDate" formControlName="recommendationsDate"
+                  [ngClass]="{ 'is-invalid': submitted && f.recommendationsDate?.errors }">  
+                  <div *ngIf="submitted && f.recommendationsDate?.errors" class="invalid-feedback">
+                    <div *ngIf="f.recommendationsDate?.errors?.required">Field Is Required</div>
+                </div>            
+              </div>
               <mat-icon class="mousechange" *ngIf="getObservationsControls().length > 1" 
-                (click)="removeObservations(i)" style="margin-top: 2px;float: right;">remove_circle</mat-icon>
+                (click)="removeObservations(i)" style="margin-top: 2px;float: right;cursor: pointer;">remove_circle</mat-icon>
             </div>
+            <!-- <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label>Recommendations:</label>
+                  <mat-icon class="mousechange" (click)="addObservations()" style="margin-top: 2px;
+                  float: right;">add_box</mat-icon>
+                  <textarea matInput class="client-box-description" maxlength="500" formControlName="observations"
+                   placeholder="Ex. Report description..." ></textarea>
+                </div>
+              </div>
+            </div> -->
           </div>
                 </div>
               </div>
             </div>
           </mat-expansion-panel>
 
-          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+
+          <!-- <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 <h3>Recommendations</h3>
@@ -202,12 +237,12 @@
                           [(ngModel)]="summary.recommendationsDate" formControlName="recommendationsDate"
                           [ngClass]="{ 'is-invalid': submitted && f.recommendationsDate?.errors }">  
 
-                          <!-- <input matInput [matDatepicker]="picker" (click)="picker.open()" placeholder="Choose a date"
+                        <input matInput [matDatepicker]="picker" (click)="picker.open()" placeholder="Choose a date"
                           [(ngModel)]="summary.recommendationsDate" formControlName="recommendationsDate" autocomplete="off"
                           [ngClass]="{ 'is-invalid': submitted && f.recommendationsDate?.errors }" 
                           style="border-bottom: 1px solid darkgrey;padding: 10px;" id="summaryDateIcon">
                           <mat-datepicker-toggle matSuffix [for]="picker" style="float: right;position: relative;bottom: 40px;"></mat-datepicker-toggle>
-                          <mat-datepicker #picker></mat-datepicker> -->
+                          <mat-datepicker #picker></mat-datepicker> 
 
                           <div *ngIf="submitted && f.recommendationsDate?.errors" class="invalid-feedback">
                             <div *ngIf="f.recommendationsDate?.errors?.required">Field Is Required</div>
@@ -216,7 +251,7 @@
                   </div>
                 </div>
               </div>
-          </mat-expansion-panel>
+          </mat-expansion-panel> -->
 
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>

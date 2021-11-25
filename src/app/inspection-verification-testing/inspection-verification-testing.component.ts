@@ -60,6 +60,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   incomingVoltage: String = '';
   incomingLoopImpedance: String = '';
   incomingFaultCurrent: String = '';
+  incomingActualLoad: String = '';
   rateArr: any = [];
   locationNumberList: any = [];
   //@Input()
@@ -94,8 +95,11 @@ export class InspectionVerificationTestingComponent implements OnInit {
   fcname: any[] = [
     'circuitNo',
     'circuitDesc',
+    'circuitMake',
     'circuitStandardNo',
     'circuitType',
+    'circuitPoles',
+    'circuitModel',
     'circuitRating',
     'circuitBreakingCapacity',
     'shortCircuitSetting',
@@ -109,6 +113,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
     'continutiyR',
     'continutiyPolarity',
 
+    'rcdType',
     'rcdCurrent',
     'rcdOperatingCurrent',
     'rcdOperatingFiveCurrent',
@@ -209,6 +214,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   mainNominalArr: any = [];
   nominalVoltageArr1:any = [];
   nominalVoltageArr3: any = [];
+  nominalVoltageArr4: any = [];
   nominalVoltageArr2: any = [];
   alternateNominalArr: any = [];
   changedIndex:number=0;
@@ -337,27 +343,28 @@ export class InspectionVerificationTestingComponent implements OnInit {
                   this.service.nominalVoltageArr2=this.supplyValues.supplyParameters;	
                   if(this.supplyValues.liveConductorType == "AC") {	
                     this.SourceList=['Mains Incoming'];	
-                    this.addValues("Mains Incoming", this.supplyValues.mainNominalVoltage,this.supplyValues.mainLoopImpedance, this.supplyValues.mainNominalCurrent);	
+                    this.addValues("Mains Incoming", this.supplyValues.mainNominalVoltage,this.supplyValues.mainLoopImpedance, this.supplyValues.mainNominalCurrent, this.supplyValues.mainActualLoad);	
                     this.mainNominalVoltageArr1 = [];	
                     this.mainNominalVoltageArr2 = [];	
                     this.mainNominalVoltageArr3 = [];	
-                  
+                    this.mainNominalVoltageArr4 = [];	
                     this.mainNominalVoltageArr1 = this.supplyValues.mainNominalVoltage.split(",");	
                     this.mainNominalVoltageArr2 = this.supplyValues.mainLoopImpedance.split(",");	
                     this.mainNominalVoltageArr3 = this.supplyValues.mainNominalCurrent.split(",");	
-                  
+                    this.mainNominalVoltageArr4 = this.supplyValues.mainActualLoad.split(",");
                     this.mainNominalArr = [];	
-                    this.mainNominalArr.push(this.mainNominalVoltageArr1,this.mainNominalVoltageArr2,this.mainNominalVoltageArr3);	
+                    this.mainNominalArr.push(this.mainNominalVoltageArr1,this.mainNominalVoltageArr2,this.mainNominalVoltageArr3,this.mainNominalVoltageArr4);	
                     this.service.retrieveMainNominalVoltage=this.mainNominalArr;	
                     this.service.mainNominalVoltageValue=this.supplyValues.mainNominalVoltage;	
                     this.service.mainLoopImpedanceValue=this.supplyValues.mainLoopImpedance;	
-                    this.service.mainNominalCurrentValue=this.supplyValues.mainNominalCurrent;	
+                    this.service.mainNominalCurrentValue=this.supplyValues.mainNominalCurrent;
+                    this.service.mainActualLoadValue=this.supplyValues.mainActualLoad;		
                   }	
                   this.service.supplyList = this.supplyValues.supplyNumber;	
                   let count =1;	
                   for(let j of this.supplyValues.supplyParameters) {	
                    if(j.aLLiveConductorType == "AC") {	
-                    this.addValues("Alternate Source of Supply-" +count, j.nominalVoltage,j.loopImpedance, j.faultCurrent);	
+                    this.addValues("Alternate Source of Supply-" +count, j.nominalVoltage,j.loopImpedance, j.faultCurrent, j.actualLoad);	
                     count++;	
                    }	
                   }	
@@ -382,27 +389,28 @@ export class InspectionVerificationTestingComponent implements OnInit {
            //for(let i of this.supplyValues) {	
             this.service.nominalVoltageArr2=this.supplyValues.supplyParameters;	
             if(this.supplyValues.liveConductorType == "AC") {	
-              this.addValues("Mains Incoming", this.supplyValues.mainNominalVoltage,this.supplyValues.mainLoopImpedance, this.supplyValues.mainNominalCurrent);	
+              this.addValues("Mains Incoming", this.supplyValues.mainNominalVoltage,this.supplyValues.mainLoopImpedance, this.supplyValues.mainNominalCurrent,this.supplyValues.mainActualLoad);	
               this.mainNominalVoltageArr1 = [];	
               this.mainNominalVoltageArr2 = [];	
               this.mainNominalVoltageArr3 = [];	
-            
+              this.mainNominalVoltageArr4 = [];
               this.mainNominalVoltageArr1 = this.supplyValues.mainNominalVoltage.split(",");	
               this.mainNominalVoltageArr2 = this.supplyValues.mainLoopImpedance.split(",");	
               this.mainNominalVoltageArr3 = this.supplyValues.mainNominalCurrent.split(",");	
-            
+              this.mainNominalVoltageArr4 = this.supplyValues.mainActualLoad.split(",");
               this.mainNominalArr = [];	
-              this.mainNominalArr.push(this.mainNominalVoltageArr1,this.mainNominalVoltageArr2,this.mainNominalVoltageArr3);	
+              this.mainNominalArr.push(this.mainNominalVoltageArr1,this.mainNominalVoltageArr2,this.mainNominalVoltageArr3,this.mainNominalVoltageArr4);	
               this.service.retrieveMainNominalVoltage=this.mainNominalArr;	
               this.service.mainNominalVoltageValue=this.supplyValues.mainNominalVoltage;	
               this.service.mainLoopImpedanceValue=this.supplyValues.mainLoopImpedance;	
-              this.service.mainNominalCurrentValue=this.supplyValues.mainNominalCurrent;	
+              this.service.mainNominalCurrentValue=this.supplyValues.mainNominalCurrent;
+              this.service.mainActualLoadValue=this.supplyValues.mainActualLoad;	
             }	
             this.service.supplyList = this.supplyValues.supplyNumber;	
             let count =1;	
             for(let j of this.supplyValues.supplyParameters) {	
              if(j.aLLiveConductorType == "AC") {	
-              this.addValues("Alternate Source of Supply-" +count, j.nominalVoltage,j.loopImpedance, j.faultCurrent);	
+              this.addValues("Alternate Source of Supply-" +count, j.nominalVoltage,j.loopImpedance, j.faultCurrent, j.actualLoad);	
               count++;	
              }	
             }	
@@ -424,9 +432,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
    }
  }
 
- addValues(sourceFromSupply: any, incomingVoltage: String, incomingLoopImpedance: String, incomingFaultCurrent: String) {
+ addValues(sourceFromSupply: any, incomingVoltage: String, incomingLoopImpedance: String, incomingFaultCurrent: String, incomingActualLoad: String) {
   if(sourceFromSupply != "" ) {
-     this.jsonArray = {"sourceFromSupply": sourceFromSupply, "incomingVoltage": incomingVoltage, "incomingLoopImpedance": incomingLoopImpedance, "incomingFaultCurrent": incomingFaultCurrent}
+     this.jsonArray = {"sourceFromSupply": sourceFromSupply, "incomingVoltage": incomingVoltage, "incomingLoopImpedance": incomingLoopImpedance, "incomingFaultCurrent": incomingFaultCurrent, "incomingActualLoad":incomingActualLoad}
      this.pushJsonArray.push(this.jsonArray);
     }
 }
@@ -881,8 +889,8 @@ export class InspectionVerificationTestingComponent implements OnInit {
       locationName: new FormControl({ disabled: false, value: item.locationName }),
       testEngineerName: new FormControl({ disabled: false, value: item.testEngineerName }),
       date: new FormControl({ disabled: false, value: item.date }),
-      //companyName: new FormControl({ disabled: false, value: item.companyName }),
-      //designation: new FormControl({ disabled: false, value: item.designation }),
+      companyName: new FormControl({ disabled: false, value: item.companyName }),
+      designation: new FormControl({ disabled: false, value: item.designation }),
       // detailsTestInstrument: new FormControl({ disabled: false, value: item.detailsTestInstrument }),
       // continuity: new FormControl({ disabled: false, value: item.continuity }),
       // insulationResisance: new FormControl({ disabled: false, value: item.insulationResisance }),
@@ -935,11 +943,12 @@ export class InspectionVerificationTestingComponent implements OnInit {
       incomingVoltage: new FormControl({ disabled: false, value: testDistributionItem[0].incomingVoltage }),
       incomingLoopImpedance: new FormControl({ disabled: false, value: testDistributionItem[0].incomingLoopImpedance }),
       incomingFaultCurrent: new FormControl({ disabled: false, value: testDistributionItem[0].incomingFaultCurrent }),
+      incomingActualLoad: new FormControl({ disabled: false, value: testDistributionItem[0].incomingActualLoad }),
       distributionIncomingValueArr: this.formBuilder.array([
-        this.populatedistributionIncomingValue(this.tempArr.incomingVoltage,this.tempArr.incomingLoopImpedance,this.tempArr.incomingFaultCurrent),
+        this.populatedistributionIncomingValue(this.tempArr.incomingVoltage,this.tempArr.incomingLoopImpedance,this.tempArr.incomingFaultCurrent,this.tempArr.incomingActualLoad),
       ]),
       distributionIncomingValueArr2: this.formBuilder.array([
-        this.populatedistributionIncomingValue(this.tempArr.incomingVoltage,this.tempArr.incomingLoopImpedance,this.tempArr.incomingFaultCurrent),
+        this.populatedistributionIncomingValue(this.tempArr.incomingVoltage,this.tempArr.incomingLoopImpedance,this.tempArr.incomingFaultCurrent,this.tempArr.incomingActualLoad),
       ]),
     });
   }
@@ -980,7 +989,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
       this.service.testingTable = this.service.retrieveMainNominalVoltage;
     if(this.service.mainNominalVoltageValue!=""){
       this.formList.clear();
-      this.formList.push(this.populatedistributionIncomingValue(this.service.mainNominalVoltageValue, this.service.mainLoopImpedanceValue,this.service.mainNominalCurrentValue));
+      this.formList.push(this.populatedistributionIncomingValue(this.service.mainNominalVoltageValue, this.service.mainLoopImpedanceValue,this.service.mainNominalCurrentValue, this.service.mainActualLoadValue));
       }
     }
     else {
@@ -988,34 +997,37 @@ export class InspectionVerificationTestingComponent implements OnInit {
           this.nominalVoltageArr1 = [];
           this.nominalVoltageArr2 = [];
           this.nominalVoltageArr3 = [];
-      
+          this.nominalVoltageArr4 = [];
+
           this.nominalVoltageArr1 = this.service.nominalVoltageArr2[this.currentIndex-1].nominalVoltage.split(",");
           this.nominalVoltageArr2 = this.service.nominalVoltageArr2[this.currentIndex-1].loopImpedance.split(",");
           this.nominalVoltageArr3 = this.service.nominalVoltageArr2[this.currentIndex-1].faultCurrent.split(",");
-      
+          this.nominalVoltageArr4 = this.service.nominalVoltageArr2[this.currentIndex-1].actualLoad.split(",");
+
           this.alternateNominalArr = [];
-          this.alternateNominalArr.push(this.nominalVoltageArr1,this.nominalVoltageArr2,this.nominalVoltageArr3);
+          this.alternateNominalArr.push(this.nominalVoltageArr1,this.nominalVoltageArr2,this.nominalVoltageArr3, this.nominalVoltageArr4);
           this.formList1.clear();
           this.formList1.push(this.populatedistributionIncomingValue
             (this.service.nominalVoltageArr2[this.currentIndex-1].nominalVoltage, 
               this.service.nominalVoltageArr2[this.currentIndex-1].loopImpedance,
-              this.service.nominalVoltageArr2[this.currentIndex-1].faultCurrent));
+              this.service.nominalVoltageArr2[this.currentIndex-1].faultCurrent,
+              this.service.nominalVoltageArr2[this.currentIndex-1].actualLoad));
         }
       this.service.testingTable2 = this.alternateNominalArr;
     }
   }
 
-  private populatedistributionIncomingValue(incomingVoltage: any, incomingLoopImpedance: any, incomingFaultCurrent: any): FormGroup {
+  private populatedistributionIncomingValue(incomingVoltage: any, incomingLoopImpedance: any, incomingFaultCurrent: any, incomingActualLoad:any): FormGroup {
     let incomingVoltageArray = [];
     let incomingLoopImpedanceArray = [];
     let incomingFaultCurrentArray = [];
-    
+    let incomingActualLoadArray=[];
     incomingVoltageArray = incomingVoltage.split(",");
     incomingLoopImpedanceArray = incomingLoopImpedance.split(",");
     incomingFaultCurrentArray = incomingFaultCurrent.split(",");
-
+    incomingActualLoadArray= incomingActualLoad.split(",");
     let item = [];
-    item.push(incomingVoltageArray, incomingLoopImpedanceArray, incomingFaultCurrentArray);
+    item.push(incomingVoltageArray, incomingLoopImpedanceArray, incomingFaultCurrentArray,incomingActualLoadArray);
     return new FormGroup({
       incomingVoltage1: new FormControl({ disabled: false, value: item[0][0] }),
       incomingVoltage2: new FormControl({ disabled: false, value: item[0][1] }),
@@ -1046,6 +1058,12 @@ export class InspectionVerificationTestingComponent implements OnInit {
       incomingIpf7: new FormControl({ disabled: false, value: item[2][6] }),
       incomingIpf8: new FormControl({ disabled: false, value: item[2][7] }),
       incomingIpf9: new FormControl({ disabled: false, value: item[2][8] }),
+
+      actualLoadAl1: new FormControl({ disabled: false, value: item[3][0] }),
+      actualLoadAl2: new FormControl({ disabled: false, value: item[3][1] }),
+      actualLoadAl3: new FormControl({ disabled: false, value: item[3][2] }),
+      actualLoadAl4: new FormControl({ disabled: false, value: item[3][3] }),
+     
     });
   }
   private populateTestRecordsForm(testRecordsItem: any) {
@@ -1078,8 +1096,11 @@ export class InspectionVerificationTestingComponent implements OnInit {
       testingRecordId: new FormControl({ disabled: false, value: itemTestingValue.testingRecordId }),
       circuitNo: new FormControl({ disabled: false, value: itemTestingValue.circuitNo }),
       circuitDesc: new FormControl({ disabled: false, value: itemTestingValue.circuitDesc }),
+      circuitMake: new FormControl({ disabled: false, value: itemTestingValue.circuitMake }),
       circuitStandardNo: new FormControl({ disabled: false, value: itemTestingValue.circuitStandardNo }),
       circuitType: new FormControl({ disabled: false, value: itemTestingValue.circuitType }),
+      circuitPoles: new FormControl({ disabled: false, value: itemTestingValue.circuitPoles }),
+      circuitModel: new FormControl({ disabled: false, value: itemTestingValue.circuitModel }),
       circuitRating: new FormControl({ disabled: false, value: itemTestingValue.circuitRating }),
       circuitBreakingCapacity: new FormControl({ disabled: false, value: itemTestingValue.circuitBreakingCapacity }),
       shortCircuitSetting: new FormControl({ disabled: false, value: itemTestingValue.shortCircuitSetting }),
@@ -1150,6 +1171,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
       testLoopImpedance: new FormControl({ disabled: false, value: itemTestingValue.testLoopImpedance }),
       testFaultCurrent: new FormControl({ disabled: false, value: itemTestingValue.testFaultCurrent }),
       disconnectionTime: new FormControl({ disabled: false, value: itemTestingValue.disconnectionTime }),
+      rcdType: new FormControl({ disabled: false, value: itemTestingValue.rcdType }),
       rcdCurrent: new FormControl({ disabled: false, value: itemTestingValue.rcdCurrent }),
       rcdOperatingCurrent: new FormControl({ disabled: false, value: itemTestingValue.rcdOperatingCurrent }),
       rcdOperatingFiveCurrent: new FormControl({ disabled: false, value: itemTestingValue.rcdOperatingFiveCurrent }),
@@ -1194,6 +1216,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
       incomingVoltage: new FormControl(''),
       incomingLoopImpedance: new FormControl(''),
       incomingFaultCurrent: new FormControl(''),
+      incomingActualLoad:new FormControl(''),
       distributionIncomingValueArr: this.formBuilder.array([
         this.distributionIncomingValue(),
       ]),
@@ -1209,6 +1232,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
       incomingVoltage: new FormControl('240'),
       incomingLoopImpedance: new FormControl('260'),
       incomingFaultCurrent: new FormControl('100'),
+      incomingActualLoad: new FormControl('100'),
       sourceFromSupply: new FormControl('mains'),
     })
   }
@@ -1244,6 +1268,11 @@ export class InspectionVerificationTestingComponent implements OnInit {
       incomingIpf7: new FormControl(''),
       incomingIpf8: new FormControl(''),
       incomingIpf9: new FormControl(''),
+
+      actualLoadAl1: new FormControl(''),
+      actualLoadAl2: new FormControl(''),
+      actualLoadAl3: new FormControl(''),
+      actualLoadAl4: new FormControl(''),
     });
   }
   ratingAmps(): FormGroup {
@@ -1255,8 +1284,11 @@ export class InspectionVerificationTestingComponent implements OnInit {
     return new FormGroup({
       circuitNo: new FormControl(''),
       circuitDesc: new FormControl(''),
+      circuitMake: new FormControl(''),
       circuitStandardNo: new FormControl(''),
       circuitType: new FormControl(''),
+      circuitPoles: new FormControl(''),
+      circuitModel: new FormControl(''),
       circuitRating: new FormControl(''),
       circuitBreakingCapacity: new FormControl(''),
       shortCircuitSetting: new FormControl(''),
@@ -1321,6 +1353,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
       testLoopImpedance: new FormControl(''),
       testFaultCurrent: new FormControl(''),
       disconnectionTime: new FormControl(''),
+      rcdType: new FormControl(''),
       rcdCurrent: new FormControl(''),
       rcdOperatingCurrent: new FormControl(''),
       rcdOperatingFiveCurrent: new FormControl(''),
@@ -1394,8 +1427,8 @@ export class InspectionVerificationTestingComponent implements OnInit {
       locationName: ['', Validators.required],
       testEngineerName: ['', Validators.required],
       date: ['', Validators.required],
-      //companyName: ['', Validators.required],
-      //designation: ['', Validators.required],
+      companyName: ['', Validators.required],
+      designation: ['', Validators.required],
       // detailsTestInstrument: ['', Validators.required],
       // continuity: ['', Validators.required],
       // insulationResisance: ['', Validators.required],
@@ -1443,7 +1476,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
       incomingVoltage: new FormControl(''),
       incomingLoopImpedance: new FormControl(''),
       incomingFaultCurrent: new FormControl(''),
-
+      incomingActualLoad: new FormControl('')
     });
   }
 
@@ -1622,11 +1655,23 @@ export class InspectionVerificationTestingComponent implements OnInit {
             k.incomingIpf8,
             k.incomingIpf9
           );
+          arr3.push(
+            k.actualLoadAl1,
+            k.actualLoadAl2,
+            k.actualLoadAl3,
+            k.actualLoadAl4,
+            k.actualLoadAl5,
+            k.actualLoadAl6,
+            k.actualLoadAl7,
+            k.actualLoadAl8,
+            k.actualLoadAl9
+          );
         }
 
         let incomingVoltage: String = '';
         let incomingLoopImpedance: String = '';
         let incomingFaultCurrent: String = '';
+        let incomingActualLoad: String = '';
         for (let a of arr) {
           if (a != '') {
             incomingVoltage += a + ',';
@@ -1656,6 +1701,16 @@ export class InspectionVerificationTestingComponent implements OnInit {
         }
         incomingFaultCurrent = incomingFaultCurrent.replace(/,\s*$/, '');
         j.incomingFaultCurrent = incomingFaultCurrent;
+
+        for (let d of arr3) {
+          if (d != '') {
+            incomingActualLoad += d + ',';
+          } else {
+            incomingActualLoad += 'NA,';
+          }
+        }
+        incomingActualLoad = incomingActualLoad.replace(/,\s*$/, '');
+        j.incomingActualLoad = incomingActualLoad;
 
         // rateamps coma saparated value
         for (let k of j.rateArr) {
@@ -1697,8 +1752,17 @@ export class InspectionVerificationTestingComponent implements OnInit {
         if (x.continutiyR == '') {
           x.continutiyR = 'NA';
         }
+        if (x.circuitMake == '') {
+          x.circuitMake = 'NA';
+        }
         if (x.circuitStandardNo == '') {
           x.circuitStandardNo = 'NA';
+        }
+        if (x.circuitPoles == '') {
+          x.circuitPoles = 'NA';
+        }
+        if (x.circuitModel == '') {
+          x.circuitModel = 'NA';
         }
         if (x.conductorInstallation == '') {
           x.conductorInstallation = 'NA';
@@ -1733,6 +1797,10 @@ export class InspectionVerificationTestingComponent implements OnInit {
         if (x.rcdRemarks == '') {
           x.rcdRemarks = 'NA';
         }
+        if (x.rcdType == '') {
+          x.rcdType = 'NA';
+        }
+
         if (x.rcdCurrent == '') {
           x.rcdCurrent = 'NA';
         }

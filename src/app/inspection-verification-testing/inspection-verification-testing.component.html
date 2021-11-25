@@ -74,7 +74,7 @@
          </mat-expansion-panel-header>
 
     <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <label>Test Engineer Name </label>
             <input type="text" formControlName="testEngineerName" class="form-control"    placeholder="Enter Test Engineer Name "
                 [ngClass]="{ 'is-invalid': submitted && a.get('testEngineerName')?.errors }">
@@ -83,15 +83,30 @@
             </div>
         </div>
 
-        <div class="col-md-4">
-            <label>Date</label>
+        <div class="col-md-3">
+          <label>Designation</label>
+           <input type="text" formControlName="designation"   placeholder="Enter Designation " class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('designation')?.errors }"  >
+            <div *ngIf="submitted && a.get('designation')?.errors" class="invalid-feedback">
+              <div *ngIf="a.get('designation')?.errors?.required">Designation value is required</div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <label>Date of testing </label>
             <input type='date' formControlName="date" class="form-control"   placeholder="Enter Date "
                 [ngClass]="{ 'is-invalid': submitted && a.get('date')?.errors }">
             <div *ngIf="submitted && a.get('date')?.errors" class="invalid-feedback">
                 <div *ngIf="a.get('date')?.errors?.required">Date is required</div>
             </div>
         </div>
-
+       
+            <div class="col-md-3">
+            <label> Company Name</label>
+             <input type="text" formControlName="companyName"  placeholder="Enter Company Name " class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('companyName')?.errors }"  >
+           <div *ngIf="submitted && a.get('companyName')?.errors" class="invalid-feedback">
+          <div *ngIf="a.get('companyName')?.errors?.required">Company name is required</div>
+           </div>
+  </div>
                         <!-- <div class="col-md-4">
                             <label>Designation</label>
                             <input type="text" formControlName="designation"   placeholder="Enter Designation " class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('designation')?.errors }"  >
@@ -122,7 +137,7 @@
                       </div> -->
                     <!-- </div> -->
 <br>
-                    <h2>Details Of Test Instrument:</h2>
+                    <h2>Details of testing instruments:</h2>
                     <div class="row">
                       <div class="col-sm-12">
                           <div class="table-responsive">
@@ -134,7 +149,7 @@
                                                   <th>Equipment Name</th>
                                                   <th>Equipment Make</th>
                                                   <th>Equipment Model</th>
-                                                  <th>SL.NO of the Equipment</th>
+                                                  <th>Equipment SL.NO</th>
                                                   <th>Calibration Due Date</th>
                                               </tr>
                                           </thead>
@@ -231,7 +246,7 @@
                               </div>
 
                                 <div class="col-md-4">
-                                    <label>Reference (name)</label>
+                                    <label>Distribution board name</label>
                                     <input type="text" formControlName="referance" placeholder=" Enter Reference Name" class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('referance')?.errors }"  >
                                     <div *ngIf="submitted && c.get('referance')?.errors" class="invalid-feedback">
                                       <div *ngIf="c.get('referance')?.errors?.required">Reference name  is required</div>
@@ -250,6 +265,14 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <label>Correct Supply Polarity </label>
+                                    <mat-icon style="float: right;font-size: 18px;
+                                    line-height: unset;margin-right: 56%;"
+                                    matTooltip="Phase sequence – clockwise or anti-clockwise"
+                                    matTooltipClass="multiline-tooltip"
+                                    aria-label="Button that shows a red tooltip"
+                                    class="example-button">
+                                    info_outline
+                                   </mat-icon>
                                     <select class="form-control" formControlName="correctSupplyPolarity" [ngClass]="{ 'is-invalid': submitted && c.get('correctSupplyPolarity')?.errors }">
                                         <option value="0" selected>Select Option</option>
                                         <option value="Yes" selected>Yes</option>
@@ -261,41 +284,55 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label> Number Of Output Circuits - Spare </label>
+                                    <label>Total number of output circuits including spare </label>
                                     <input type="number" min="0" formControlName="numOutputCircuitsSpare"  placeholder=" Enter Number of output circuits - Spare"class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('numOutputCircuitsSpare')?.errors }"  >
                                     <div *ngIf="submitted && c.get('numOutputCircuitsSpare')?.errors" class="invalid-feedback">
                                       <div *ngIf="c.get('numOutputCircuitsSpare')?.errors?.required">Number of output circuits -spare value is required</div>
                                     </div>
                                 </div>
-
                                 <div class="col-md-4">
-                                    <label> Installed Equipment Vulnarable To Testing </label>
-                                    <input type="number" min="0" formControlName="installedEquipmentVulnarable" placeholder=" Enter Installed Equipment Vulnarable To  Testing Name"
-                                        class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('installedEquipmentVulnarable')?.errors }"  >
-                                        <div *ngIf="submitted && c.get('installedEquipmentVulnarable')?.errors" class="invalid-feedback">
-                                          <div *ngIf="c.get('installedEquipmentVulnarable')?.errors?.required">Installed equipment vulnarable to testing  value is required</div>
-                                        </div>
-                                </div>
+                                  <label>Number Of Output Circuits In Use</label>
+                                  <input type="tel" formControlName="numOutputCircuitsUse"  
+                                  placeholder=" Enter Number of output circuits in use"
+                                  class="form-control"  (keyup)="onKey($event,c,a)" [ngClass]="{ 'is-invalid': submitted && c.get('numOutputCircuitsUse')?.errors }"  >
+                                  <div *ngIf="submitted && c.get('numOutputCircuitsUse')?.errors" class="invalid-feedback">
+                                    <div *ngIf="c.get('numOutputCircuitsUse')?.errors?.required">Number of output circuits in use value is required</div>
+                                    <div *ngIf="c.get('numOutputCircuitsUse')?.errors?.maxLength">Number of output circuits in use value cannot exceed 5</div>
+                                    <div *ngIf="c.get('numOutputCircuitsUse')?.errors?.minLength">Number of output circuits in use value more than 0</div>
+                                  </div>
+                              </div>
                             </div>
 
-
                              <div class="row">
-                                <div class="col-md-4">
-                                    <label>Number Of Output Circuits In Use</label>
-                                    <input type="tel" formControlName="numOutputCircuitsUse"  
-                                    placeholder=" Enter Number of output circuits in use"
-                                    class="form-control"  (keyup)="onKey($event,c,a)" [ngClass]="{ 'is-invalid': submitted && c.get('numOutputCircuitsUse')?.errors }"  >
-                                    <div *ngIf="submitted && c.get('numOutputCircuitsUse')?.errors" class="invalid-feedback">
-                                      <div *ngIf="c.get('numOutputCircuitsUse')?.errors?.required">Number of output circuits in use value is required</div>
-                                      <div *ngIf="c.get('numOutputCircuitsUse')?.errors?.maxLength">Number of output circuits in use value cannot exceed 5</div>
-                                      <div *ngIf="c.get('numOutputCircuitsUse')?.errors?.minLength">Number of output circuits in use value more than 0</div>
+                              <div class="col-md-4">
+                                <label> Installed Equipment Vulnarable To Testing </label>
+                                <mat-icon style="float: right;font-size: 18px;
+                                line-height: unset;margin-right: 27%;"
+                                matTooltip="Live conductors of any equipment exposed at risk / any known susceptible issues in equipment/ flash over/ any incident"
+                                matTooltipClass="multiline-tooltip"
+                                aria-label="Button that shows a red tooltip"
+                                class="example-button">
+                                info_outline
+                               </mat-icon>
+                                <input type="number" min="0" formControlName="installedEquipmentVulnarable" placeholder=" Enter Installed Equipment Vulnarable To  Testing Name"
+                                    class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('installedEquipmentVulnarable')?.errors }"  >
+                                    <div *ngIf="submitted && c.get('installedEquipmentVulnarable')?.errors" class="invalid-feedback">
+                                      <div *ngIf="c.get('installedEquipmentVulnarable')?.errors?.required">Installed equipment vulnarable to testing  value is required</div>
                                     </div>
-                                </div>
+                            </div>
 
                                 <div class="col-md-4" formArrayName="rateArr" 
                                 *ngFor="let d of gettestrateFormControls(c); let j = index">
                                     <div class="form-group" [formGroupName]="j">
-                                        <label>Ratings In Amps </label>
+                                        <label>Rated Current (A) </label>
+                                        <mat-icon style="float: right;font-size: 18px;
+                                        line-height: unset;margin-right: 64%;"
+                                        matTooltip="Note: Based on number of circuits in use this field should be added."
+                                        matTooltipClass="multiline-tooltip"
+                                        aria-label="Button that shows a red tooltip"
+                                        class="example-button">
+                                        info_outline
+                                       </mat-icon>
                                         <input type="number" min="0" formControlName="ratingsAmps" 
                                         class="form-control" placeholder=" Enter Ratings in Amps "
                                           [ngClass]="{ 'is-invalid': submitted && d.get('ratingsAmps')?.errors }">
@@ -307,6 +344,14 @@
 
                                 <div class="col-md-4"> 
                                     <label>Source Of Incoming:</label>
+                                    <mat-icon style="float: right;font-size: 18px;
+                                    line-height: unset;margin-right: 60%;"
+                                    matTooltip="Based on availability of number of supplies as in P2, drop down option to be given"
+                                    matTooltipClass="multiline-tooltip"
+                                    aria-label="Button that shows a red tooltip"
+                                    class="example-button">
+                                    info_outline
+                                   </mat-icon>
                                     <select class="form-control" formControlName="sourceFromSupply" (change)="changeSource($event,c)"
                                     [ngClass]="{ 'is-invalid': submitted && c.get('sourceFromSupply')?.errors }">
                                     <option value="0" selected>Select Option</option>
@@ -330,7 +375,7 @@
                                     <div class="form-group" style="border: 1px solid black;">
                                         <thead>
                                             <tr align="center">
-                                                <th></th>
+                                                <th>Reference</th>
                                                 <th>L1-L2</th>
                                                 <th>L2-L3</th>
                                                 <th>L1-L3</th>
@@ -408,7 +453,17 @@
                                               <td><input type="text" formControlName="incomingIpf9" class="form-control disable"
                                                 ></td>
                                           </tr>
-
+                                          <tr>
+                                            <td>Actual load current connected to this source (A)</td>
+                                            <td colspan="2"><input type="text" formControlName="actualLoadAl1" class="form-control disable"
+                                              ></td>
+                                            <td colspan="2"><input type="text"  formControlName="actualLoadAl2" class="form-control disable"
+                                              ></td>
+                                            <td colspan="3"><input type="text" formControlName="actualLoadAl3" class="form-control disable"
+                                              ></td>
+                                            <td colspan="2"><input type="text" formControlName="actualLoadAl4" class="form-control disable"
+                                              ></td>
+                                        </tr>
 
                                         </tbody>
                                     </div>
@@ -503,6 +558,17 @@
                                             <td><input type="text" formControlName="incomingIpf9" class="form-control disable"
                                               ></td>
                                         </tr>
+                                        <tr>
+                                          <td>Actual load current connected to this source (A)</td>
+                                          <td colspan="2"><input type="text" formControlName="actualLoadAl1" class="form-control disable"
+                                            ></td>
+                                          <td colspan="2"><input type="text"  formControlName="actualLoadAl2" class="form-control disable"
+                                            ></td>
+                                          <td colspan="3"><input type="text" formControlName="actualLoadAl3" class="form-control disable"
+                                            ></td>
+                                          <td colspan="2"><input type="text" formControlName="actualLoadAl4" class="form-control disable"
+                                            ></td>
+                                      </tr>
                                       </tbody>
                                   </div>
                               </div>
@@ -522,43 +588,141 @@
                                 <th colspan="8"> Circuit Details </th>
                                 <th colspan="4"> Conductor Details </th>
                                 <th colspan="3"> Continuity (Ω) </th>
-                                <th colspan="9" rowspan="2">Insulation Resistance</th>
                                 <th rowspan="2"></th>
-                                <th colspan="9" rowspan="2"> Voltage (V)(note)</th>
-                                <th colspan="9" rowspan="2"> Fault Loop Impedance (Ω)(note) </th>
-                                <th colspan="9" rowspan="2"> Actual Short Circuit / Fault Current (Amps) (note)</th>
-                                <th colspan="9" rowspan="2"> Disconnection Time (For a Short Circuit/Fault Of
-                                    Negligible Impedance) (seconds) </th>
+                                <th colspan="9" rowspan="2">Insulation Resistance (MΩ)
+                                  <mat-icon style="float: right;font-size: 18px;
+                                  line-height: unset;"
+                                  matTooltip="If 1-phase, 2-wire (LN) is selected, column L1-N, L1-PE to be filled. 
+                                  If 1-phase, 3-wire (LLM) is selected, column L1-L2, L1-N, L2-N, L1-PE & L2-PE to be filled. 
+                                  If 2-phase, 3-wire (LLN) is selected, column L1-L2, L1-N, L2-N, L1-PE & L2-PE to be filled. 
+                                  If 3-phase, 3-wire (LLL) is selected, column L1-L2, L2-L3, L3-L1, L1-PE, L2-PE & L3-PE to be filled. 
+                                  If 3-phase, 4-wire (LLLN) is selected, all fields to be filled. 
+                                  Fill not applicable for unfilled fields.
+                                  14.24 = 14.22/14.23 * 10-3 (calculation will be automatically done)"
+                                  matTooltipClass="multiline-tooltip"
+                                  aria-label="Button that shows a red tooltip"
+                                  class="example-button">
+                                  info_outline
+                                 </mat-icon>
+
+                                </th>
+                              
+                                <th colspan="9" rowspan="2"> Voltage (V)</th>
+                                <th colspan="9" rowspan="2"> Short circuit / Fault loop impedance (Ω)  </th>
+                                <th colspan="9" rowspan="2"> Actual Short circuit / fault current (kA) </th>
+                                <th colspan="9" rowspan="2"> Disconnection Time(sec) </th>
                                 <th colspan="4">RCD </th>
                                 <th rowspan="2"></th>
                             </tr>
                             <tr  align="center">
                                 <th></th>
                                 <th></th>
-                                <th colspan="6">Over Current Device</th>
+                                <th colspan="6">OCPD</th>
                                 <th></th>
-                                <th colspan="3">CrosssectionalArea(mm2)</th>
-                                <th colspan="3">Required For Final Circuits And Protective Conductor Only</th>
+                                <th colspan="3">Cross sectional area (sq.mm.) </th>
+                                <th colspan="3">Applicable to live and protective conductors in final circuits only </th>
                                 <th></th>
                                 <th colspan="2">Operating Time</th>
                                 <th></th>
                             </tr>
                             <tr align="center">
-                                <th rowspan="2">Circuit No</th>
-                                <th>Description</th>
-                                <th>Standard No</th>
-                                <th>Type</th>
-                                <th>Rating (A)</th>
-                                <th>Breaking Capacity (kA)</th>
-                                <th>Short Circuit Setting</th>
-                                <th>E and F setting</th>
+                            
+                                <th rowspan="2">Circuit No
+                                  <mat-icon style="font-size: 18px;
+                                  line-height: unset;"
+                                  matTooltip="Follow the circuit number of client or Start with 1 if circuit numbers are not available / followed in the installation"
+                                  matTooltipClass="example-tooltip-red."
+                                  aria-label="Button that shows a red tooltip"
+                                  class="example-button">
+                                  info_outline
+                                 </mat-icon>
+                                </th>
+                                <th>Description
+                                  <mat-icon style="float: right;font-size: 18px;
+                                line-height: unset;margin-right: 20%;"
+                                matTooltip="(e.g., lighting / power socket/air conditioner/ motor/ name of any equipment’s connected)."
+                                matTooltipClass="multiline-tooltip"
+                                aria-label="Button that shows a red tooltip"
+                                class="example-button">
+                                info_outline
+                               </mat-icon>
+                                </th>
+                               
+                                <th>Standard No
+                                  <mat-icon style="font-size: 18px;
+                                line-height: unset;"
+                                matTooltip="Manufacturer’s reference standard"
+                                matTooltipClass="example-tooltip-red."
+                                aria-label="Button that shows a red tooltip"
+                                class="example-button">
+                                info_outline
+                               </mat-icon>
+                                </th>
+                               
+                                <th>Make
+                                  <mat-icon style="float: right;font-size: 18px;
+                                  line-height: unset;"
+                                  matTooltip="Manufacturer’s name"
+                                  matTooltipClass="multiline-tooltip"
+                                  aria-label="Button that shows a red tooltip"
+                                  class="example-button">
+                                  info_outline
+                                 </mat-icon>
+                                </th>
+                                
+                                <th>Type
+                                  <mat-icon style="float: right;font-size: 18px;
+                                  line-height: unset;"
+                                  matTooltip="MCB/MCCB/RCBO/MCB with RCD/ACB with micrologic relay/ ACB with numerical protection relay (enter details of relay in case of ACB"
+                                  matTooltipClass="multiline-tooltip"
+                                  aria-label="Button that shows a red tooltip"
+                                  class="example-button">
+                                  info_outline
+                                 </mat-icon>
+                                </th>
+
+                                <th>No of poles
+                                  <mat-icon style="font-size: 18px;
+                                  line-height: unset;"
+                                  matTooltip="1 / 2 / 3 / 4"
+                                  matTooltipClass="example-tooltip-red."
+                                  aria-label="Button that shows a red tooltip"
+                                  class="example-button">
+                                  info_outline
+                                 </mat-icon>
+                                </th>
+                               
+                                <th>Model/ current curve 
+                                  <mat-icon style="float: right;font-size: 18px;
+                                  line-height: unset;"
+                                  matTooltip="MCB Type B / C / D / K / Z & others specify manufacturer’s model"
+                                  matTooltipClass="multiline-tooltip"
+                                  aria-label="Button that shows a red tooltip"
+                                  class="example-button">
+                                  info_outline
+                                 </mat-icon>
+                                </th>
+                                <th>Rating current (A) </th>
+                                <th>Breaking capacity (kA) 
+                                  <mat-icon style="float: right;font-size: 18px;
+                                  line-height: unset;"
+                                  matTooltip="As specified by manufacturer"
+                                  matTooltipClass="multiline-tooltip"
+                                  aria-label="Button that shows a red tooltip"
+                                  class="example-button">
+                                  info_outline
+                                 </mat-icon>
+                                </th>
+                                <th>Short circuit setting (A) </th>
+                                <th>Earth fault setting (A) </th>
                                 <th>Installation Reference Method</th>
                                 <th>Phase</th>
                                 <th>Neutral</th>
-                                <th>PE / CPC</th>
-                                <th>Approximate Length</th>
+                                <th>PE</th>
+                                <th>Length(meter)</th>
                                 <th>R1+R2 (Ω)</th>
                                 <th>R2 (Ω)</th>
+                                <th>Polarity</th>
                                 <th>L1-L2</th>
                                 <th>L2-L3</th>
                                 <th>L1-L3</th>
@@ -568,7 +732,6 @@
                                 <th>L1-PE</th>
                                 <th>L2-PE</th>
                                 <th>L3-PE</th>
-                                <th>Polarity</th>
                                 <th>L1-L2</th>
                                 <th>L2-L3</th>
                                 <th>L1-L3</th>
@@ -605,19 +768,24 @@
                                 <th>L1-PE</th>
                                 <th>L2-PE</th>
                                 <th>L3-PE</th>
-                                <th>Sensitivity</th>
-                                <th>I∆n </th>
-                                <th>5 I∆n</th>
+                                <th>Type (A/B/AC/F)  </th>
+                                <th>Sensitivity I∆n (mA) </th>
+                                <th> I∆n (ms) </th>
+                                <th>5*I∆n (ms)</th>
                                 <th rowspan="2">Test Button Operation</th>
                                 <th>Remarks</th>
                           </tr>
                        </thead>
-                      <tbody formArrayName="testingRecords" >
+                      <tbody formArrayName="testingRecords">
                         <tr *ngFor="let f of gettestValueControls(a); let i = index"  class="form-group"[formGroupName]="i" >
                                 <td><input type="text" formControlName="circuitNo" class="form-control"   style="width:80px"></td>
                                 <td ><textarea  formControlName="circuitDesc"  class="form-control" style="height:40px;width:170px;"  ></textarea> </td>
                                 <td><input type="text" formControlName="circuitStandardNo" class="form-control"   style="width:80px"></td>
+                                <td><input type="text" formControlName="circuitMake" class="form-control"   style="width:80px"></td>
                                 <td><input type="text" formControlName="circuitType" class="form-control" style="width:80px"></td>
+                                <td><input type="text" formControlName="circuitPoles" class="form-control"   style="width:80px"></td>
+                                <td><input type="text" formControlName="circuitModel" class="form-control"   style="width:80px"></td>
+
                                 <td><input type="text" formControlName="circuitRating" class="form-control"   style="width:80px"></td>
                                 <td><input type="text" formControlName="circuitBreakingCapacity" class="form-control"   style="width:80px"></td>
                                 <td><input type="text" formControlName="shortCircuitSetting" class="form-control"   style="width:80px"></td>
@@ -677,6 +845,7 @@
                                 <td><input type="text" formControlName="rpeDisconnect" class="form-control"  style="width:80px"></td>
                                 <td><input type="text" formControlName="ypeDisconnect" class="form-control"  style="width:80px"></td>
                                 <td><input type="text" formControlName="bpeDisconnect" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="rcdType" class="form-control"  style="width:80px"></td>
                                 <td><input type="text" formControlName="rcdCurrent" class="form-control"  style="width:80px"></td>
                                 <td><input type="text" formControlName="rcdOperatingCurrent" class="form-control"  style="width:80px"></td>
                                 <td><input type="text" formControlName="rcdOperatingFiveCurrent" class="form-control"   style="width:80px"></td>
@@ -747,8 +916,6 @@ style="margin-left: 10px;">
          <mat-icon class="mousechange" (click)="ViewerRemoveComment(i)" style="float:right;position: relative;left: 630%;"
          *ngIf="(a.get('inspectorComments')?.value=='' || a.get('viewerComments')?.value=='') && hideDelete" >delete</mat-icon>
          &nbsp;&nbsp;&nbsp;&nbsp;
-
-        
   </div>
 </div>
 

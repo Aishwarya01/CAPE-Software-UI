@@ -379,9 +379,9 @@ ShowNext: boolean = true;
  
   // saved report
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
-    if(this.service.disableFields==true){
-      this.step1Form.disable();
-     }
+    // if(this.service.disableFields==true){
+    //   this.step1Form.disable();
+    //  }
    
       this.service.siteCount = siteId;
        this.savedUserName = userName;
@@ -470,9 +470,9 @@ ShowNext: boolean = true;
 
 // retrieve basic report
 retrieveAllDetailsforBasic(userName: any,siteId: any,site:any,data: any){
-  if(this.service.disableFields==true){
-    this.step1Form.disable();
-   }
+  // if(this.service.disableFields==true){
+  //   this.step1Form.disable();
+  //  }
     this.service.siteCount = siteId;
      this.savedUserName = userName;
      this.siteDetails1 = true;
@@ -1131,9 +1131,9 @@ showHideAccordion(index: number) {
   
   populateData(value:any) {
     for (let item of value) {
-      if(this.service.disableFields==true){
-        this.disable=true;
-        }
+      // if(this.service.disableFields==true){
+      //   this.disable=true;
+      //   }
       if(item.signatorRole == "designer1") {
       this.mobilearr.push(this.createGroup(item));
       this.step1Form.setControl('designer1Arr', this._formBuilder.array(this.mobilearr || []))

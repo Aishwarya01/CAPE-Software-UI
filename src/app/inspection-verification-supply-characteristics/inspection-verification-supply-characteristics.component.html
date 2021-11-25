@@ -17,7 +17,51 @@
           <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
             <div class="row">
               <div class="col-md-4">
+                 <mat-form-field class="client-description">
+                  <mat-icon style="float: right;font-size: 18px;
+                  line-height: unset;margin-right: 85%;
+    margin-top: 0.7%;"
+                  matTooltip="Main’s incoming in case of no alternative supply from state EB.
+                  Main’s incoming in case of alternative supply from state EB act as standby.
+                  EB source incomer-1 in case of alternative supply from state EB share the total load."
+                  matTooltipClass="multiline-tooltip">
+                  info_outline
+                 </mat-icon>
+                  <mat-label>
+                    <h3>Short Name</h3>
+                  </mat-label>
+                  <textarea matInput class="client-box-description" formControlName="shortName" 
+                  [ngClass]="{ 'is-invalid': submitted && f.shortName?.errors }" [(ngModel)]="supplycharesteristic.shortName" 
+                  maxlength="500" 
+                  placeholder="Ex. Short Name ..." ></textarea>
+                  <div *ngIf="submitted && f.shortName?.errors" class="invalid-feedback">
+                    <div *ngIf="f.shortName?.errors?.required">Field Is Required</div>
+                  </div>
+                </mat-form-field>
+              </div>
+            </div>
+            <br>
+              <div class="row">
+              <div class="col-md-3">
                 <label>System Earthing:</label>
+                <mat-icon style="float: right;font-size: 18px;
+                line-height: unset;margin-right: 50%;"
+                matTooltip="TN-C -system which has combined neutral and protective conductor. (i.e. body earthing is connected to the 
+                neutral at or after point of commencement of supply). 
+                TN-C-S – system which has combined neutral and protective conductor from source up to mains incoming panel.
+                After this point separate neutral and protective conductor is used downstream. Minimum insulation resistance between 
+                Neutral and earth is 1 MΩ. 
+                TN-S – system which has separate neutral and protective conductor throughout the installation. 
+                Minimum insulation resistance between Neutral and earth is 1 MΩ. 
+                TT- system neutral of the source is connected to an earth electrode. Downstream installation have separate earth 
+                electrode in soil.
+                IT- system in which Live conductor are isolated from protective conductor (i.e floating neutral).
+                In case of confusion select others."
+                matTooltipClass="multiline-tooltip"
+                aria-label="Button that shows a red tooltip"
+                class="example-button">
+                info_outline
+               </mat-icon>
                 <select class="form-control"  formControlName="systemEarthing" (change)="changeSystem($event)"
                 [(ngModel)]="supplycharesteristic.mainSystemEarthing" [ngClass]="{ 'is-invalid': submitted && f.systemEarthing.errors }">
                   <option value="0" selected>Select Option</option>
@@ -30,8 +74,16 @@
                 </div>
               </div>
 
-              <div class="col-md-4"> 
-                  <label>Number and Type Of Live Conductors: </label>
+              <div class="col-md-3"> 
+                  <label>Type Of Live Conductors: </label>
+                  <mat-icon style="float: right;font-size: 18px;
+                  line-height: unset;margin-right: 35%;"
+                  matTooltip="DC is disabled now, since it is not commonly used."
+                  matTooltipClass="multiline-tooltip"
+                  aria-label="Button that shows a red tooltip"
+                  class="example-button">
+                  info_outline
+                 </mat-icon>
                   <select class="form-control"  formControlName="liveConductor" 
                   [(ngModel)]="supplycharesteristic.liveConductorType" (change)="changeCurrent($event)" [ngClass]="{ 'is-invalid': submitted && f.liveConductor.errors }">
                     <option value="0" selected>Select Option</option>
@@ -43,8 +95,29 @@
                   </div>
               </div>
 
-              <div class="col-md-4" *ngIf="enableAC"> 
-                  <label>AC:</label>
+              <div class="col-md-3" *ngIf="enableAC">
+                <label>Nominal Frequency (HZ):</label>
+                <select class="form-control" formControlName="NF1" [(ngModel)]="supplycharesteristic.mainNominalFrequency"
+                [ngClass]="{ 'is-invalid': submitted && f.NF1.errors }">
+                  <option value="0" selected>Select Option</option>  
+                  <option value="50" [selected]="f.NF1?.value=== '50'">50</option>
+                        <option value="60" [selected]="f.NF1?.value=== '60'">60</option>
+                  </select>
+              <div *ngIf="submitted && f.NF1.errors" class="invalid-feedback">
+                <div *ngIf="f.NF1?.errors?.required">Field Is Required</div>
+              </div>
+            </div>
+
+              <div class="col-md-3" *ngIf="enableAC"> 
+                  <label>Number of conductors:</label>
+                  <mat-icon style="float: right;font-size: 18px;
+                  line-height: unset;margin-right: 38%;"
+                  matTooltip="Single phase / three phase / three phase with neutral etc."
+                  matTooltipClass="multiline-tooltip"
+                  aria-label="Button that shows a red tooltip"
+                  class="example-button">
+                  info_outline
+                 </mat-icon>
                   <select class="form-control" formControlName="AcConductor" 
                   [(ngModel)]="supplycharesteristic.liveConductorAC" 
                   [ngClass]="{ 'is-invalid': submitted && f.AcConductor.errors }">
@@ -61,7 +134,7 @@
                   </div>
               </div>
 
-              <div class="col-md-4" *ngIf="enableDC">
+              <div class="col-md-3" *ngIf="enableDC">
                   <label>DC:</label>
                   <select class="form-control" formControlName="DcConductor" [(ngModel)]="supplycharesteristic.liveConductorDC" 
                   [ngClass]="{ 'is-invalid': submitted && f.DcConductor.errors }">
@@ -76,6 +149,7 @@
                   </div>
               </div>
             </div>
+            
           </div>
 
           <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
@@ -95,6 +169,16 @@
 
             <div class="col-md-4" *ngIf="showRemarks">
               <mat-form-field class="client-description">
+                <mat-icon style="float: right;font-size: 18px;
+                line-height: unset;margin-right: 87%;margin-top: 0.7%;"
+                matTooltip="In case of confusion, provide details of earthing of incoming supply (whether transformer is available at 
+                distribution end) and how the wiring connection are made for live and protective conductors. Especially a description 
+                of earthing."
+                matTooltipClass="tooltip"
+                aria-label="Button that shows a red tooltip"
+                class="example-button">
+                info_outline
+               </mat-icon>
                 <mat-label>
                   <h3>Remarks</h3>
                 </mat-label>
@@ -108,15 +192,30 @@
               </div>
             </div>
           </div>
-
+<br>
           <div class="row" *ngIf="tableAC" [ngClass]="{'disableForm':service.allFieldsDisable}">
             <div class="col-sm-12">
-              <h2>Applicable for AC: (Note: Please mention NA if any column is not applicable)</h2>
+              <mat-icon style="float: right;font-size: 18px;
+              line-height: unset;margin-right: 35%;margin-top: 0.5%;"
+              matTooltip="If 1-phase, 2-wire (LN) is selected, column L1-N, L1-PE to be filled. 
+              If 1-phase, 3-wire (LLM) is selected, column L1-L2, L1-N, L2-N, L1-PE & L2-PE to be filled. 
+              If 2-phase, 3-wire (LLN) is selected, column L1-L2, L1-N, L2-N, L1-PE & L2-PE to be filled. 
+              If 3-phase, 3-wire (LLL) is selected, column L1-L2, L2-L3, L3-L1, L1-PE, L2-PE & L3-PE to be filled. 
+              If 3-phase, 4-wire (LLLN) is selected, all fields to be filled. 
+              Fill not applicable (NA) for unfilled fields. 
+              4.3 = 4.1/4.2 * 10-3 (calculation will be automatically done) 
+              L1 is R phase, L2 is Y phase and L3 is B phase"
+              matTooltipClass="multiline-tooltip"
+              aria-label="Button that shows a red tooltip"
+              class="example-button">
+              info_outline
+             </mat-icon>
+              <h2>Nature of supply parameters: (Note: Please mention NA if any column is not applicable)</h2>
                 <div class="table-responsive" style="border: 1px solid black">
                   <table class="table">
                     <thead>
-                      <tr align="center">
-                        <th>Nature of supply parameters</th>
+                      <tr>
+                        <th>Reference</th>
                         <th>L1-L2</th>
                         <th>L2-L3</th>
                         <th>L1-L3</th>
@@ -150,9 +249,9 @@
                         <td><input  type="text" style="width:50px" formControlName="NV9" [(ngModel)]="NV9"
                           (keyup)="onKeyVoltage($event)"></td>
                       </tr>
-                      <tr>
+                      <!-- <tr>
                         <td nowrap="nowrap">Nominal Frequency f (HZ)</td>
-                        <td colspan="9"><input  type="text" formControlName="NF1" [(ngModel)]="NF1" style="width: 950px"></td>
+                        <td colspan="9"><input  type="text" formControlName="NF1" [(ngModel)]="NF1" style="width: 950px"></td> -->
                         <!-- <td><input  type="text" style="width:50px" formControlName="NF1" [(ngModel)]="NF1"></td>
                         <td><input  type="text" style="width:50px" formControlName="NF2" [(ngModel)]="NF2"></td>
                         <td><input  type="text" style="width:50px" formControlName="NF3" [(ngModel)]="NF3"></td>
@@ -162,7 +261,7 @@
                         <td><input  type="text" style="width:50px" formControlName="NF7" [(ngModel)]="NF7"></td>
                         <td><input  type="text" style="width:50px" formControlName="NF8" [(ngModel)]="NF8"></td>
                         <td><input  type="text" style="width:50px" formControlName="NF9" [(ngModel)]="NF9"></td> -->
-                      </tr>
+                      <!-- </tr> -->
                       <tr>
                         <td nowrap="nowrap">External Loop Impedance Ze (Ω)</td>
                         <td><input  type="text" style="width:50px" formControlName="EL1" [(ngModel)]="EL1"
@@ -196,6 +295,25 @@
                         <td><input  type="text" style="width:50px;pointer-events: none;" formControlName="PF8" readonly [(ngModel)]="PF8"></td>
                         <td><input  type="text" style="width:50px;pointer-events: none;" formControlName="PF9" readonly [(ngModel)]="PF9"></td>
                       </tr>
+                      <tr>
+                        <td>Capacity (kVA)
+                          <mat-icon style="line-height: unset;font-size: 18px;margin-right: 54%;float: right;"
+                          matTooltip="Capacity of DG, if alternative source is from state EB fill as not applicable"
+                          matTooltipClass="multiline-tooltip"
+                          aria-label="Button that shows a red tooltip"
+                          class="example-button">
+                          info_outline
+                         </mat-icon>
+                        </td>
+                        <td colspan="9"><input  type="text" formControlName="NF1" [(ngModel)]="NF1" style="width: 950px"></td>
+                      </tr>
+                      <tr>
+                        <td>Actual load current connected to this source (A)</td>
+                        <td colspan="2"><input  type="text" formControlName="AL1" [(ngModel)]="AL1" style="width:206px"></td>
+                        <td colspan="2"><input  type="text" formControlName="AL2" [(ngModel)]="AL2" style="width:206px"></td>
+                        <td colspan="3"><input  type="text" formControlName="AL3" [(ngModel)]="AL3" style="width:206px"></td>
+                        <td colspan="2"><input  type="text" formControlName="AL4" [(ngModel)]="AL4" style="width:206px"></td>
+                     </tr>
                     </tbody>
                   </table>
                 </div>
@@ -209,7 +327,16 @@
               <div class="table-responsive" style="border: 1px solid black">
               <table  class="table">
                 <tr>
-                  <td nowrap="nowrap">Type Of Over Current Protective Device</td>
+                  <td nowrap="nowrap">Type Of Over Current Protective Device
+                    <mat-icon style="float: right;font-size: 18px;
+                    line-height: unset;margin-right: 60%;"
+                    matTooltip="MCB/MCCB/RCBO/MCB with RCD/ACB with micrologic relay/ ACB with numerical protection relay."
+                    matTooltipClass="multiline-tooltip"
+                    aria-label="Button that shows a red tooltip"
+                    class="example-button">
+                    info_outline
+                   </mat-icon>
+                  </td>
                   <td> 
                   <input type="text"  style="width:200px" formControlName="mainNominalProtectiveDevice" 
                   [(ngModel)]="supplycharesteristic.mainNominalProtectiveDevice" [ngClass]="{ 'is-invalid': submitted && f.mainNominalProtectiveDevice.errors }">
@@ -219,7 +346,16 @@
                 </td>
               </tr>
                 <tr>
-                  <td nowrap="nowrap">Rated current (A)</td>
+                  <td nowrap="nowrap">Rated current (A)
+                    <mat-icon style="float: right;font-size: 18px;
+                    line-height: unset;margin-right:79%;"
+                    matTooltip="Rated current mentioned in over current protective device."
+                    matTooltipClass="multiline-tooltip"
+                    aria-label="Button that shows a red tooltip"
+                    class="example-button">
+                    info_outline
+                   </mat-icon>
+                  </td>
                   <td>
                     <input type="number" min="0" maxlength="4"style="width:200px" formControlName="mainRatedCurrent" 
                     [(ngModel)]="supplycharesteristic.mainRatedCurrent" 
@@ -230,7 +366,22 @@
                   </td>
               </tr>
                 <tr>
-                  <td nowrap="nowrap">Current for Disconnection With in 0.2 seconds (A)</td>
+                  <td nowrap="nowrap">Current for Disconnection With in 0.2 seconds (A)
+                    <mat-icon style="float: right;font-size: 18px;
+                  line-height: unset;margin-right: 51%;"
+                  matTooltip="MCB: B curve 3-5 times rated current (eg. For B6 MCB, 30 A current is needed to trip the MCB. 
+                  C curve 5-10 times rated current 
+                  D curve 10-20 times rated current 
+                  K curve 8-12 times rated current 
+                  Z curve 2-3 times rated current 
+                  MCCB: based on manufacturers curve (OEM data sheets to be referred). 
+                  ACB with relay: w.r.t. current & curve settings time will be calculated based on IEC 60255 (details to be given in remarks)."
+                  matTooltipClass="multiline-tooltip"
+                  aria-label="Button that shows a red tooltip"
+                  class="example-button">
+                  info_outline
+                 </mat-icon>
+                  </td>
                   <td>
                     <div class="input-group">
                       <input type="number"   min="0" maxlength="5" style="width:200px" max="5" formControlName="mainCurrentDisconnection" [(ngModel)]="supplycharesteristic.mainCurrentDisconnection" [ngClass]="{ 'is-invalid': submitted && f.mainCurrentDisconnection.errors }">
@@ -249,7 +400,7 @@
           </div>
 
           <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
-            <div class="col-md-4" *ngIf="showBrief">
+            <!-- <div class="col-md-4" *ngIf="showBrief">
               <mat-form-field class="client-description " >
                 <mat-label>
                   <h3>Brief note (Optional)</h3>
@@ -261,9 +412,9 @@
               <div *ngIf="submitted && f.liveConductorBNote.errors" class="invalid-feedback">
                 <div *ngIf="f.liveConductorBNote?.errors?.required">Field Is Required</div>
               </div>
-            </div>
+            </div> -->
 
-            <div class="col-md-4" *ngIf="showRemarks">
+            <div class="col-md-4">
               <mat-form-field class="client-description">
                 <mat-label>
                   <h3>Remarks</h3>
@@ -293,6 +444,14 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label> Availability of Alternate Supply:</label>
+                  <mat-icon style="float: right;font-size: 18px;
+                  line-height: unset;margin-right: 43%;"
+                  matTooltip="In-case of availability of standby source from EB or/and DG source."
+                  matTooltipClass="multiline-tooltip"
+                  aria-label="Button that shows a red tooltip"
+                  class="example-button">
+                  info_outline
+                 </mat-icon>
                   <select class="form-control" formControlName="alternativeSupply" 
                   (change)="showAlternateField($event)" [ngClass]="{ 'is-invalid': submitted && f.alternativeSupply.errors }" 
                   [(ngModel)]="supplycharesteristic.alternativeSupply">
@@ -308,6 +467,14 @@
 
               <div class="col-md-4" *ngIf="alternativeSupplyNo"> 
                 <label>Number of Alternate Sources of Supply:</label>
+                <mat-icon style="float: right;font-size: 18px;
+                line-height: unset;margin-right: 30%;"
+                matTooltip="Total number of alternative sources from state EB and DG’s."
+                matTooltipClass="multiline-tooltip"
+                aria-label="Button that shows a red tooltip"
+                class="example-button">
+                info_outline
+               </mat-icon>
                 <input type="tel" min="0"  class="form-control" formControlName="supplyNumber"
                 [ngClass]="{ 'is-invalid': submitted && f.supplyNumber.errors }" 
                 [(ngModel)]="supplycharesteristic.supplyNumber"
@@ -340,23 +507,58 @@
                   <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                     <div class="col-md-4">
                       <label>Alternate supply no:</label>
+                      <mat-icon style="float: right;font-size: 18px;
+                      line-height: unset;margin-right: 60%;"
+                      matTooltip="Start with 1 and continue sequentially."
+                      matTooltipClass="multiline-tooltip"
+                      aria-label="Button that shows a red tooltip"
+                      class="example-button">
+                      info_outline
+                     </mat-icon>
                       <input type="number"   min="0" class="form-control"  formControlName="aLSupplyNo" [ngClass]="{ 'is-invalid': submitted && a.get('aLSupplyNo')?.errors }">
                       <div *ngIf="submitted && a.get('aLSupplyNo')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('aLSupplyNo')?.errors?.required">Field Is Required</div>
                       </div>
                     </div>
 
-                    <div class="col-md-4">
-                      <label>Short Name of Alternate Supply:</label>
+                    <!-- <div class="col-md-4">
+                      <label>Short Name:</label>
+                      <mat-icon style="float: right;font-size: 18px;
+                      line-height: unset;margin-right: 71%;"
+                      matTooltip="Main’s incoming (standby) in case of alternative supply from state EB act as standby. 
+                      EB source incomer-2 in case of alternative supply from state EB share the total load. 
+                      DG source in case of alternative supply from DG."
+                      matTooltipClass="multiline-tooltip"
+                      aria-label="Button that shows a red tooltip"
+                      class="example-button">
+                      info_outline
+                     </mat-icon>
                       <input type="text"  maxlength="50" class="form-control"  formControlName="aLSupplyShortName" [ngClass]="{ 'is-invalid': submitted && a.get('aLSupplyShortName')?.errors }">
                       <div *ngIf="submitted && a.get('aLSupplyShortName')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('aLSupplyShortName')?.errors?.required">Field Is Required</div>
                       </div>
-                    </div>
-
+                    </div> -->
+                  
                     <div class="col-md-4">
                       <label>System Earthing:</label>
-                      <select class="form-control" formControlName="aLSystemEarthing" [ngClass]="{ 'is-invalid': submitted && a.get('aLSystemEarthing')?.errors }">
+                      <mat-icon style="float: right;font-size: 18px;
+                      line-height: unset;margin-right: 64%;"
+                      matTooltip="TN-C -system which has combined neutral and protective conductor. (i.e. body earthing is connected to the neutral at or after point of commencement of supply). 
+                      TN-C-S – system which has combined neutral and protective conductor from source up to mains incoming panel. 
+                      After this point separate neutral and protective conductor  is used downstream. 
+                      Minimum insulation resistance between Neutral and earth is 1 MΩ. 
+                      TN-S – system which has separate neutral and protective conductor throughout the installation.   
+                      Minimum insulation resistance between Neutral and earth is 1 MΩ.TT- system neutral of the source is connected to an earth electrode. 
+                      Downstream installation have separate earth electrode in soil.   
+                      IT- system in which Live conductor are isolated from protective conductor (i.e floating neutral). 
+                      In case of confusion select others."
+                      matTooltipClass="multiline-tooltip"
+                      aria-label="Button that shows a red tooltip"
+                      class="example-button">
+                      info_outline
+                     </mat-icon>
+                      <select class="form-control" formControlName="aLSystemEarthing" 
+                      [ngClass]="{ 'is-invalid': submitted && a.get('aLSystemEarthing')?.errors }">
                         <option value="0" selected>Select Option</option>
                         <option *ngFor="let value of systemEarthingList" [selected]="value=== a.get('aLSystemEarthing')?.value"> {{value}}</option>
                       </select>
@@ -364,9 +566,75 @@
                         <div *ngIf="a.get('aLSystemEarthing')?.errors?.required">Field Is Required</div>
                       </div>
                     </div>
-
+                  </div>
+<div class="row">
                     <div class="col-md-4">
-                        <label>Number and Type Of Live Conductors: </label>
+                    <mat-form-field class="client-description">
+                      <mat-icon style="float: right;font-size: 18px;
+                      line-height: unset;margin-right: 84%;margin-top: 0.6%;"
+                      matTooltip="Main’s incoming in case of no alternative supply from state EB.
+                      Main’s incoming in case of alternative supply from state EB act as standby.
+                      EB source incomer-1 in case of alternative supply from state EB share the total load."
+                      matTooltipClass="multiline-tooltip">
+                      info_outline
+                     </mat-icon>
+                      <mat-label>
+                        <h3>Short Name</h3>
+                      </mat-label>
+                      <textarea matInput class="client-box-description" formControlName="aLSupplyShortName" 
+                      [ngClass]="{ 'is-invalid': submitted && a.get('aLSupplyShortName')?.errors }" maxlength="500" 
+                      placeholder="Ex. Remarks ..." ></textarea>
+                      <div *ngIf="submitted && a.get('aLSupplyShortName')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('aLSupplyShortName')?.errors?.required">Field Is Required</div>
+                      </div>
+                    </mat-form-field>
+                    </div>
+</div>
+<br>
+<div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
+  <div class="col-md-4" *ngIf="a.get('aLSystemEarthing')?.value!='Others'">
+    <mat-form-field class="client-description">
+      <mat-label>
+        <h3>Brief Note (in case of confusion)(Optional)</h3>
+      </mat-label>
+      <textarea matInput class="client-box-description" 
+      formControlName="aLSystemEarthingBNote" 
+      [ngClass]="{ 'is-invalid': submitted && a.get('aLSystemEarthingBNote')?.errors }" 
+      maxlength="500" 
+      placeholder="Ex. Brief Note ..." ></textarea>
+    </mat-form-field>
+    <div *ngIf="submitted && a.get('aLSystemEarthingBNote')?.errors" class="invalid-feedback">
+      <div *ngIf="a.get('aLSystemEarthingBNote')?.errors?.required">Field Is Required</div>
+    </div>
+  </div>
+
+  <div class="col-md-4" *ngIf="a.get('aLSystemEarthing')?.value=='Others'">
+    <mat-form-field class="client-description">
+      <mat-icon style="float: right;font-size: 18px;
+      line-height: unset;margin-right: 87%;margin-top: 0.6%;"
+      matTooltip="In case of confusion, provide details of incoming supply (whether transformer is available at distribution end) and how the wiring connection are made for live and protective conductors."
+      matTooltipClass="multiline-tooltip"
+      aria-label="Button that shows a red tooltip"
+      class="example-button">
+      info_outline
+     </mat-icon>
+      <mat-label>
+        <h3>Remarks</h3>
+      </mat-label>
+      <textarea matInput class="client-box-description" formControlName="aLSystemEarthingBNote" 
+      [ngClass]="{ 'is-invalid': submitted && a.get('aLSystemEarthingBNote')?.errors }" 
+      maxlength="500" 
+      placeholder="Ex. Remarks ..." ></textarea>
+    </mat-form-field>
+    <div *ngIf="submitted && a.get('aLSystemEarthingBNote')?.errors" class="invalid-feedback">
+      <div *ngIf="a.get('aLSystemEarthingBNote')?.errors?.required">Field Is Required</div>
+    </div>
+  </div>
+</div>
+<br>
+<div class="row">
+                    <div class="col-md-4">
+                        <label>Type Of Live Conductors: </label>
                         <select class="form-control"  formControlName="aLLiveConductorType" (change)=showValue($event,i) [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorType')?.errors }">
                           <option value="0" selected>Select Option</option>
                           <option value="AC">AC</option>
@@ -378,8 +646,22 @@
                     </div>
 
                     <div class="col-md-4" *ngIf="a.get('aLLiveConductorType')?.value=='AC'">
-                        <label>AC:</label>
-                        <select class="form-control" formControlName="aLLiveConductorAC" [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorAC')?.errors }">
+                      <label>Nominal Frequency (HZ):</label>
+                      <select class="form-control" formControlName="nominalFrequency1"
+                      [ngClass]="{ 'is-invalid': submitted && a.get('nominalFrequency1')?.errors }">
+                        <option value="0" selected>Select Option</option>  
+                        <option value="50" [selected]="a.get('nominalFrequency1')?.value=== '50'">50</option>
+                              <option value="60" [selected]="a.get('nominalFrequency1')?.value=== '60'">60</option>
+                        </select>
+                        <div *ngIf="submitted && a.get('nominalFrequency1')?.errors" class="invalid-feedback">
+                          <div *ngIf="a.get('nominalFrequency1')?.errors?.required">Field Is Required</div>
+                        </div>
+                  </div>
+
+                    <div class="col-md-4" *ngIf="a.get('aLLiveConductorType')?.value=='AC'">
+                        <label>Number of conductors:</label>
+                        <select class="form-control" formControlName="aLLiveConductorAC" 
+                        [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorAC')?.errors }">
                           <option value="0" selected>Select Option</option>
                           <option value="1-phase, 3-wire (LLM)">1-phase, 2-wire (LN)</option>
                           <option value="1-phase, 3-wire (LLM)">1-phase, 3-wire (LLM)</option>
@@ -404,49 +686,31 @@
                         </div>
                     </div>
                   </div>
-
-                  <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
-                    <div class="col-md-4" *ngIf="a.get('aLSystemEarthing')?.value!='Others'">
-                      <mat-form-field class="client-description">
-                        <mat-label>
-                          <h3>Brief Note (in case of confusion)(Optional)</h3>
-                        </mat-label>
-                        <textarea matInput class="client-box-description" 
-                        formControlName="aLSystemEarthingBNote" 
-                        [ngClass]="{ 'is-invalid': submitted && a.get('aLSystemEarthingBNote')?.errors }" 
-                        maxlength="500" 
-                        placeholder="Ex. Brief Note ..." ></textarea>
-                      </mat-form-field>
-                      <div *ngIf="submitted && a.get('aLSystemEarthingBNote')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('aLSystemEarthingBNote')?.errors?.required">Field Is Required</div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-4" *ngIf="a.get('aLSystemEarthing')?.value=='Others'">
-                      <mat-form-field class="client-description">
-                        <mat-label>
-                          <h3>Remarks</h3>
-                        </mat-label>
-                        <textarea matInput class="client-box-description" formControlName="aLSystemEarthingBNote" 
-                        [ngClass]="{ 'is-invalid': submitted && a.get('aLSystemEarthingBNote')?.errors }" 
-                        maxlength="500" 
-                        placeholder="Ex. Remarks ..." ></textarea>
-                      </mat-form-field>
-                      <div *ngIf="submitted && a.get('aLSystemEarthingBNote')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('aLSystemEarthingBNote')?.errors?.required">Field Is Required</div>
-                      </div>
-                    </div>
-                  </div>
-
-
+<br>
+ 
                   <div class="row" *ngIf="a.get('aLLiveConductorType')?.value=='AC'" [ngClass]="{'disableForm':service.allFieldsDisable}">
                     <div class="col-sm-12">
-                      <h2>Applicable for AC: (Note: Please mention NA if any column is not applicable)</h2>
+                      <mat-icon style="float: right;font-size: 18px;
+                      line-height: unset;margin-right: 36%;margin-top: 0.5%;"
+                      matTooltip="If 1-phase, 2-wire (LN) is selected, column L1-N, L1-PE to be filled. 
+                      If 1-phase, 3-wire (LLM) is selected, column L1-L2, L1-N, L2-N, L1-PE & L2-PE to be filled. 
+                      If 2-phase, 3-wire (LLN) is selected, column L1-L2, L1-N, L2-N, L1-PE & L2-PE to be filled. 
+                      If 3-phase, 3-wire (LLL) is selected, column L1-L2, L2-L3, L3-L1, L1-PE, L2-PE & L3-PE to be filled. 
+                      If 3-phase, 4-wire (LLLN) is selected, all fields to be filled. 
+                      Fill not applicable (NA) for unfilled fields. 
+                      54.3 = 54.1/54.2 * 10-3 (calculation will be automatically done).
+                      L1 is R phase, L2 is Y phase and L3 is B phase."
+                      matTooltipClass="multiline-tooltip"
+                      aria-label="Button that shows a red tooltip"
+                      class="example-button">
+                      info_outline
+                     </mat-icon>
+                      <h2>Nature of supply parameters: (Note: Please mention NA if any column is not applicable)</h2>
                       <div class="table-responsive" style="border: 1px solid black">
                         <table  class="table" formArrayName="nominalVoltageArr1" *ngFor="let row of getTableArray(a); let j = index">
                           <thead>
-                              <tr align="center">
-                                <th>Nature of supply parameters</th>
+                              <tr>
+                                <th>Reference</th>
                                 <th>L1-L2</th>
                                 <th>L2-L3</th>
                                 <th>L1-L3</th>
@@ -472,9 +736,9 @@
                                 <td><input  type="text" formControlName="nominalVoltage9" style="width:70px" (keyup)="onKeyVoltage1($event,row)"></td>
 
                               </tr>
-                              <tr> 
+                              <!-- <tr> 
                                 <td nowrap="nowrap">Nominal Frequency f (HZ)</td>
-                                <td colspan="9"><input  type="text" formControlName="nominalFrequency1" style="width: 950px"></td>
+                                <td colspan="9"><input  type="text" formControlName="nominalFrequency1" style="width: 950px"></td> -->
                                 <!-- <td><input  type="text"   formControlName="nominalFrequency1" style="width:70px"></td>
                                 <td><input  type="text" formControlName="nominalFrequency2" style="width:70px"></td>
                                 <td><input  type="text"  formControlName="nominalFrequency3" style="width:70px"></td>
@@ -484,7 +748,7 @@
                                 <td><input  type="text" formControlName="nominalFrequency7" style="width:70px"></td>
                                 <td><input  type="text"  formControlName="nominalFrequency8" style="width:70px"></td>
                                 <td><input  type="text" formControlName="nominalFrequency9" style="width:70px"></td> -->
-                              </tr>
+                              <!-- </tr> -->
                               <tr>
                                 <td nowrap="nowrap">External Loop Impedance Ze (Ω)</td>
                                 <td><input  type="text"  formControlName="impedence1" style="width:70px" (keyup)="onKeyImpedance1($event,row)"></td>
@@ -519,19 +783,25 @@
                                 <td><input  type="text" formControlName="current9" style="width:70px;pointer-events: none;" readonly 
                                   [value]="row.get('current9')?.value"></td>
                               </tr>
-                            
-                                <tr><td >Installed Capacity (kVA)</td>
+                                <tr>
+                                  <td>Capacity (kVA)
+                                    <mat-icon style="line-height: unset;font-size: 18px;margin-right: 53%;float: right;"
+                                    matTooltip="Capacity of DG, if alternative source is from state EB fill as not applicable"
+                                    matTooltipClass="multiline-tooltip"
+                                    aria-label="Button that shows a red tooltip"
+                                    class="example-button">
+                                    info_outline
+                                   </mat-icon>
+                                  </td>
                                   <td colspan="9"><input  type="text" formControlName="capacity" style="width: 950px"></td>
                                 </tr>
                                 <tr>
-                                  <td >Actual Load Current (R,Y,B, N)</td>
+                                  <td>Actual load current connected to this source (A) </td>
                                   <td colspan="2"><input  type="text" formControlName="loadCurrent1" style="width:206px"></td>
                                   <td colspan="2"><input  type="text" formControlName="loadCurrent2" style="width:206px"></td>
                                   <td colspan="3"><input  type="text" formControlName="loadCurrent3" style="width:206px"></td>
                                   <td colspan="2"><input  type="text" formControlName="loadCurrent4"  style="width:206px"></td>
-
                                 </tr>
-
                           </tbody>
                           </table>
                       </div>
@@ -545,7 +815,16 @@
                       <div class="table-responsive" style="border: 1px solid black">
                       <table  class="table">
                           <tr>
-                            <td nowrap="nowrap">Type Of Over Current Protective Device</td>
+                            <td nowrap="nowrap">Type Of Over Current Protective Device
+                              <mat-icon style="float: right;font-size: 18px;
+                              line-height: unset;margin-right: 47%;"
+                              matTooltip="MCB/MCCB/RCBO/MCB with RCD/ACB with micrologic relay/ ACB with numerical protection relay."
+                              matTooltipClass="multiline-tooltip"
+                              aria-label="Button that shows a red tooltip"
+                              class="example-button">
+                              info_outline
+                             </mat-icon>
+                            </td>
                             <td>
                               <input type="text"  style="width:400px" formControlName="protectiveDevice" 
                               [ngClass]="{ 'is-invalid': submitted && a.get('protectiveDevice')?.errors }">
@@ -553,9 +832,19 @@
                                 <div *ngIf="a.get('protectiveDevice')?.errors?.required">Field Is Required</div>
                               </div>
                             </td>
+                        
                           </tr>
                           <tr>
-                              <td nowrap="nowrap">Rated current (A)</td>
+                              <td nowrap="nowrap">Rated current (A)
+                                <mat-icon style="float: right;font-size: 18px;
+                              line-height: unset;margin-right: 73%;"
+                              matTooltip="Rated current mentioned in over current protective device."
+                              matTooltipClass="multiline-tooltip"
+                              aria-label="Button that shows a red tooltip"
+                              class="example-button">
+                              info_outline
+                             </mat-icon>
+                              </td>
                               <td>
                                 <input type="number" min="0" formControlName="ratedCurrent" min="0" 
                                 [ngClass]="{ 'is-invalid': submitted && a.get('ratedCurrent')?.errors }" style="width:400px">
@@ -563,9 +852,25 @@
                                   <div *ngIf="a.get('ratedCurrent')?.errors?.required">Field Is Required</div>
                                 </div>
                               </td>
+                              
                           </tr>
                           <tr>
-                            <td nowrap="nowrap">Current for Disconnection with in 0.2 seconds (A)</td>
+                            <td nowrap="nowrap">Current for Disconnection with in 0.2 seconds (A)
+                              <mat-icon style="float: right;font-size: 18px;
+                              line-height: unset;margin-right: 35%;"
+                              matTooltip="MCB: B curve 3-5 times rated current (eg. For B6 MCB, 30 A current is needed to trip the MCB. 
+                              C curve 5-10 times rated current
+                              D curve 10-20 times rated current 
+                              K curve 8-12 times rated current 
+                              Z curve 2-3 times rated current 
+                              MCCB: based on manufacturers curve (OEM data sheets to be referred). 
+                              ACB with relay: w.r.t. current & curve settings time will be calculated based on IEC 60255 (details to be given in remarks)."
+                              matTooltipClass="multiline-tooltip"
+                              aria-label="Button that shows a red tooltip"
+                              class="example-button">
+                              info_outline
+                             </mat-icon>
+                            </td>
                             <td>
                               <div class="input-group">
                                 <input type="number" min="0" formControlName="currentDissconnection" [ngClass]="{ 'is-invalid': submitted && a.get('currentDissconnection')?.errors }" style="width:400px">
@@ -577,12 +882,13 @@
                                 <div *ngIf="a.get('currentDissconnection')?.errors?.required">Field Is Required</div>
                               </div>
                             </td>
+                           
                           </tr>
                       </table>
                     </div>
                     </div>
                   </div>
-
+<br>
                   <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                     <div class="col-md-4" *ngIf="a.get('aLSystemEarthing')?.value!='Others'">
                       <mat-form-field class="client-description">
@@ -600,6 +906,14 @@
 
                     <div class="col-md-4" *ngIf="a.get('aLSystemEarthing')?.value=='Others'">
                       <mat-form-field class="client-description">
+                        <mat-icon style="float: right;font-size: 18px;
+                        line-height: unset;margin-right: 87%;margin-top: 0.7%;"
+                        matTooltip="If prospective fault current (4.3) obtained is more than current for disconnection within 0.2 sec (5.3) then circuit is said to be safe otherwise unsafe."
+                        matTooltipClass="multiline-tooltip"
+                        aria-label="Button that shows a red tooltip"
+                        class="example-button">
+                        info_outline
+                       </mat-icon>
                         <mat-label>
                           <h3>Remarks</h3>
                         </mat-label>
@@ -652,8 +966,19 @@
 
                 <div class="col-md-4" >
                   <label>Means Of Earthing :</label>
+                  <mat-icon style="float: right;font-size: 18px;
+                  line-height: unset;margin-right: 61%;"
+                  matTooltip="Choose supplier facility in case of TN-S system. 
+                  Choose Installation earth electrode in case of TT system. 
+                  Supplier and installation earth electrode in case of TN-C-S system or TN-S system with PME. 
+                  In case of confusion make it NIL, incase if we select as Others, add section for Remarks."
+                  matTooltipClass="multiline-tooltip"
+                  aria-label="Button that shows a red tooltip"
+                  class="example-button">
+                  info_outline
+                 </mat-icon>
                   <select class="form-control" formControlName="meansEarthing" 
-                  [ngClass]="{ 'is-invalid': submitted && f.meansEarthing.errors }" [(ngModel)]="supplycharesteristic.meansEarthing" >
+                  [ngClass]="{ 'is-invalid': submitted && f.meansEarthing.errors }" [(ngModel)]="supplycharesteristic.meansEarthing">
                     <option value="0" selected>Select Option</option>
                     <option *ngFor="let value of MeansofEarthingList"> {{value}}</option>
                   </select>
@@ -662,11 +987,35 @@
                   </div>
                 </div>
               </div>
+<div class="row">
+  <div class="col-md-4" *ngIf="f.meansEarthing?.value=='Others'">
+    <mat-form-field class="client-description">
+      <mat-icon style="float: right;font-size: 18px;
+      line-height: unset;margin-right: 87%;margin-top: 0.7%;"
+      matTooltip="If prospective fault current (4.3) obtained is more than current for disconnection within 0.2 sec (5.3) then circuit is said to be safe otherwise unsafe."
+      matTooltipClass="multiline-tooltip"
+      aria-label="Button that shows a red tooltip"
+      class="example-button">
+      info_outline
+     </mat-icon>
+      <mat-label>
+        <h3>Remarks</h3>
+      </mat-label>
+      <textarea matInput class="client-box-description" formControlName="meansEarthingRemark" [(ngModel)]="supplycharesteristic.meansEarthingRemark"
+      [ngClass]="{ 'is-invalid': submitted && f.meansEarthingRemark?.errors }" 
+      maxlength="500" 
+      placeholder="Ex. Remarks ..." ></textarea>
+    </mat-form-field>
+    <div *ngIf="submitted && f.meansEarthingRemark?.errors" class="invalid-feedback">
+      <div *ngIf="f.meansEarthingRemark?.errors?.required">Field Is Required</div>
+    </div>
+  </div>
+</div>
 
               <div class="row" style="margin-top: 30px" [ngClass]="{'disableForm':service.allFieldsDisable}">
 
                 <div class="col-md-4">
-                  <label>Type Of Earth Electrode :</label>
+                  <label>Type of earthing  :</label>
                   <select class="form-control" formControlName="electrodeType" 
                   [ngClass]="{ 'is-invalid': submitted && f.electrodeType.errors }" [(ngModel)]="supplycharesteristic.electrodeType">
                     <option value="0" selected>Select Option</option>
@@ -677,7 +1026,8 @@
                   </div>
                 </div>
 
-                <div class="col-md-4">
+                
+                <!-- <div class="col-md-4">
                   <label>Material Of Earth Electrode:</label>
                   <select class="form-control" formControlName="electrodeMaterial" 
                   [ngClass]="{ 'is-invalid': submitted && f.electrodeMaterial.errors }" 
@@ -688,10 +1038,10 @@
                   <div *ngIf="submitted && f.electrodeMaterial.errors" class="invalid-feedback">
                     <div *ngIf="f.electrodeMaterial?.errors?.required">Field Is Required</div>
                   </div>
-                </div>
+                </div> -->
 
                 <div class="col-md-4" style="margin-top: 30px">
-                  <p class="joints">Number Of Locations 
+                  <p class="joints">Number of earth electrodes 
                     <input type="tel" min="0" formControlName="noOfLocation" 
                     [ngClass]="{ 'is-invalid': submitted && f.noOfLocation.errors }" 
                     [(ngModel)]="supplycharesteristic.noOfLocation" style="
@@ -706,63 +1056,76 @@
                 </div>
               </div>
             <br>
-            <div *ngIf="key1LocationTable">
-              <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
-                <div class="col-sm-12">
-                  <h2>Number Of Locations</h2>
-                </div>
-                <!-- <mat-icon class="mousechange" (click)="addLocation1()" style=" padding-top: 5px;">add_box</mat-icon> -->
-              </div>
-
-
-              <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
-                <div class="col-md-3">
-                  <label style="text-align: center;">Location Number</label>
-                </div>
-                <div class="col-md-3">
-                  <label style="text-align: center;">Location Name</label>
-                </div>
-                <div class="col-md-3">
-                  <label style="text-align: center;">Electrode Resistance to Earth in (Ω)</label>
-                </div>
-                <div class="col-md-3">
-                  <label style="text-align: center;">Electrode Resistance to Grid (Ω)</label>
-                </div>
-              </div>
-
-              <div formArrayName="location1Arr" *ngFor="let a of getLocation1Controls(); let i = index">
-                <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
-                  <div class="row">
-                    <div class="col-md-3">
-                      <input type="number" min=1  formControlName="locationNo" class="form-control"  
-                      [ngClass]="{ 'is-invalid': submitted && a.get('locationNo')?.errors }" placeholder="Enter location number" >
-                      <div *ngIf="submitted && a.get('locationNo')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('locationNo')?.errors?.required">Location number is required</div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-3">
-                      <input type="text"  formControlName="locationName" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('locationName')?.errors }" placeholder="Enter location name" >
-                      <div *ngIf="submitted && a.get('locationName')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('locationName')?.errors?.required">Location name is required</div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-3">
-                      <input type="number" min="0"  formControlName="electrodeResistanceEarth" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('electrodeResistanceEarth')?.errors }" placeholder="Enter electrode resistance" >
-                      <div *ngIf="submitted && a.get('electrodeResistanceEarth')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('electrodeResistanceEarth')?.errors?.required">Field Is Required</div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-3">
-                      <input type="tel" min="0"  formControlName="electrodeResistanceGird" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('electrodeResistanceGird')?.errors }" placeholder="Enter electrode resistance" >
-                      <div *ngIf="submitted && a.get('electrodeResistanceGird')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('electrodeResistanceGird')?.errors?.required">Field Is Required</div>
-                      </div>
-                    </div>
+            <div class="row" *ngIf="key1LocationTable" [ngClass]="{'disableForm':service.allFieldsDisable}">
+              <div class="col-sm-12">
+                <h2>Earth electrode details</h2>
+                  <div class="table-responsive" style="border: 1px solid black">
+                    <table class="table">
+                      <thead>
+                        <tr align="center">
+                          <th>Location No</th>
+                          <th>Location Name</th>
+                          <th>Type of earth electrode (rod / pipe / flat / chemical pipe) </th>
+                          <th>Material of earth electrode (copper/ copper bonded steel/ galvanised steel/ galvanised iron/ cast iron)</th>
+                          <th>Size(diameter) of earth electrode (mm) </th>
+                          <th>Depth/ length of earth electrode (m) </th>
+                          <th>Electrode resistance to earth (Ω) </th>
+                          <th>Electrode resistance to grid (Ω) </th>
+                        </tr>
+                      </thead>
+                      <tbody formArrayName="location1Arr" *ngFor="let a of getLocation1Controls(); let i = index">
+                        <tr [formGroupName]="i">
+                          <td><input type="number" min=1  formControlName="locationNo" class="form-control"  
+                            [ngClass]="{ 'is-invalid': submitted && a.get('locationNo')?.errors }" placeholder="Enter location number">
+                            <div *ngIf="submitted && a.get('locationNo')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('locationNo')?.errors?.required">Location number is required</div>
+                            </div></td>
+                          <td><input type="text" formControlName="locationName" class="form-control" 
+                            [ngClass]="{ 'is-invalid': submitted && a.get('locationName')?.errors }" placeholder="Enter location name" >
+                            <div *ngIf="submitted && a.get('locationName')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('locationName')?.errors?.required">Location name is required</div>
+                            </div></td>
+                            <td> <input type="tel" min="0"  formControlName="electrodeEarthType" class="form-control"  
+                              [ngClass]="{ 'is-invalid': submitted && a.get('electrodeEarthType')?.errors }" 
+                              placeholder="Enter electrode earth type">
+                              <div *ngIf="submitted && a.get('electrodeEarthType')?.errors" class="invalid-feedback">
+                                <div *ngIf="a.get('electrodeEarthType')?.errors?.required">Field Is Required</div>
+                              </div></td>
+                          <td> <input type="tel" min="0"  formControlName="electrodeEarthMaterial" class="form-control"  
+                            [ngClass]="{ 'is-invalid': submitted && a.get('electrodeEarthMaterial')?.errors }" 
+                            placeholder="Enter electrode earth material" >
+                            <div *ngIf="submitted && a.get('electrodeEarthMaterial')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('electrodeEarthMaterial')?.errors?.required">Field Is Required</div>
+                            </div></td>
+                          <td> <input type="tel" min="0"  formControlName="electrodeEarthSize" class="form-control"  
+                            [ngClass]="{ 'is-invalid': submitted && a.get('electrodeEarthSize')?.errors }" 
+                            placeholder="Enter electrode earth size" >
+                            <div *ngIf="submitted && a.get('electrodeEarthSize')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('electrodeEarthSize')?.errors?.required">Field Is Required</div>
+                            </div></td>
+                          <td> <input type="tel" min="0"  formControlName="electrodeEarthDepth" class="form-control"  
+                            [ngClass]="{ 'is-invalid': submitted && a.get('electrodeEarthDepth')?.errors }" 
+                            placeholder="Enter electrode earth depth">
+                            <div *ngIf="submitted && a.get('electrodeEarthDepth')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('electrodeEarthDepth')?.errors?.required">Field Is Required</div>
+                            </div></td>
+                            <td><input type="number" min="0"  formControlName="electrodeResistanceEarth" class="form-control" 
+                              [ngClass]="{ 'is-invalid': submitted && a.get('electrodeResistanceEarth')?.errors }" 
+                              placeholder="Enter electrode resistance" >
+                              <div *ngIf="submitted && a.get('electrodeResistanceEarth')?.errors" class="invalid-feedback">
+                                <div *ngIf="a.get('electrodeResistanceEarth')?.errors?.required">Field Is Required</div>
+                              </div></td>
+                            <td><input type="tel" min="0" formControlName="electrodeResistanceGird" class="form-control" 
+                              [ngClass]="{ 'is-invalid': submitted && a.get('electrodeResistanceGird')?.errors }" 
+                              placeholder="Enter electrode resistance" >
+                              <div *ngIf="submitted && a.get('electrodeResistanceGird')?.errors" class="invalid-feedback">
+                                <div *ngIf="a.get('electrodeResistanceGird')?.errors?.required">Field Is Required</div>
+                              </div></td>
+                        </tr>
+                        
+                      </tbody>
+                    </table>
                   </div>
-                </div>
               </div>
             </div>
             </mat-expansion-panel>
@@ -777,8 +1140,17 @@
               <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 57px">
+                    <mat-icon style="float: right;font-size: 18px;
+                    line-height: unset;margin-right: 25%;"
+                    matTooltip="Earthing conductor is used for connection from MET to means of earthing (earth electrode or towards source neutral)."
+                    matTooltipClass="multiline-tooltip"
+                    aria-label="Button that shows a red tooltip"
+                    class="example-button">
+                    info_outline
+                   </mat-icon>
                     <p>Size of Earthing Conductor <input type="number" min="0" formControlName="conductorSize" 
-                    [ngClass]="{ 'is-invalid': submitted && f.conductorSize.errors }" [(ngModel)]="supplycharesteristic.conductorSize" style="
+                    [ngClass]="{ 'is-invalid': submitted && f.conductorSize.errors }" [(ngModel)]="supplycharesteristic.conductorSize" 
+                    style="
                       width: 50px;
                       background: transparent;
                       border: none;
@@ -790,6 +1162,14 @@
 
                   <div class="col-md-4">
                     <label>Material Of Earthing Conductor:</label>
+                    <mat-icon style="float: right;font-size: 18px;
+                    line-height: unset;margin-right: 42%;"
+                    matTooltip="Copper / aluminium / galvanised iron"
+                    matTooltipClass="multiline-tooltip"
+                    aria-label="Button that shows a red tooltip"
+                    class="example-button">
+                    info_outline
+                   </mat-icon>
                     <input type="text"  class="form-control" formControlName="conductormaterial" 
                     [ngClass]="{ 'is-invalid': submitted && f.conductormaterial.errors }" [(ngModel)]="supplycharesteristic.conductormaterial">
                     <div *ngIf="submitted && f.conductormaterial.errors" class="invalid-feedback">
@@ -798,8 +1178,15 @@
                   </div>
 
                   <div class="col-md-4">
-                    <label>Earthing Conductor Continuity and Connection Verified:</label>
-
+                    <label>Continuity and connection of earthing conductor is verified:</label>
+                    <mat-icon style="float: right;font-size: 18px;
+                    line-height: unset;"
+                    matTooltip="Physical check up. If the wires are not traceable and a test can not be conducted during initial inspection select NO."
+                    matTooltipClass="multiline-tooltip"
+                    aria-label="Button that shows a red tooltip"
+                    class="example-button">
+                    info_outline
+                   </mat-icon>
                     <select class="form-control" formControlName="conductorVerify" [ngClass]="{ 'is-invalid': submitted && f.conductorVerify.errors }" [(ngModel)]="supplycharesteristic.conductorVerify">
                       <option value="0" selected>Select Option</option>
                       <option *ngFor="let value of  earthingConductorVerifyList"> {{value}}</option>
@@ -814,6 +1201,16 @@
               <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 30px">
+                    <mat-icon style="float: right;font-size: 18px;
+                    line-height: unset;"
+                    matTooltip="Main protective bonding conductor is used to bond between MET and extraneous conductive parts 
+                    entering the building (eg. Metal water pipes, gas pipes, steel structure, lightning protection etc.). 
+                    If there is no such bonding available, make the answer “0”."
+                    matTooltipClass="multiline-tooltip"
+                    aria-label="Button that shows a red tooltip"
+                    class="example-button">
+                    info_outline
+                   </mat-icon>
                     <p>Size of Main Protective Bonding Conductor <input type="number" min="0" formControlName="bondingConductorSize" 
                     [ngClass]="{ 'is-invalid': submitted && f.bondingConductorSize.errors }" [(ngModel)]="supplycharesteristic.bondingConductorSize" style="
                       width: 50px;
@@ -827,6 +1224,14 @@
 
                   <div class="col-md-4">
                     <label>Material Of Main Protective Bonding Conductor:</label>
+                    <mat-icon style="float: right;font-size: 18px;
+                    line-height: unset;margin-right: 17%;"
+                    matTooltip="Copper / aluminium"
+                    matTooltipClass="multiline-tooltip"
+                    aria-label="Button that shows a red tooltip"
+                    class="example-button">
+                    info_outline
+                   </mat-icon>
                     <input type="text"  class="form-control" formControlName="bondingConductorMaterial" 
                     [ngClass]="{ 'is-invalid': submitted && f.bondingConductorMaterial.errors }" 
                     [(ngModel)]="supplycharesteristic.bondingConductorMaterial">
@@ -852,7 +1257,15 @@
               <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 30px">
-                    <p  class="joints">No Of Joints
+                    <mat-icon style="float: right;font-size: 18px;
+                    line-height: unset;margin-right: 49%;"
+                    matTooltip="If number of joints is given, then point 8 & 9 should come."
+                    matTooltipClass="multiline-tooltip"
+                    aria-label="Button that shows a red tooltip"
+                    class="example-button">
+                    info_outline
+                   </mat-icon>
+                    <p  class="joints">Number Of Joints
                       <input type="tel" formControlName="bondingNoOfJoints" 
                       [(ngModel)]="supplycharesteristic.bondingNoOfJoints" 
                       [ngClass]="{ 'is-invalid': submitted && f.bondingNoOfJoints.errors }" style="
@@ -867,7 +1280,15 @@
                       </div>
                   </div>
                   <div class="col-md-4" style="margin-top: 30px" *ngIf="JointLocationTable">
-                    <label>Type Of Joints (Impairing Safety):</label>
+                    <label>Type Of Joint:</label>
+                    <mat-icon style="float: right;font-size: 18px;
+                    line-height: unset;margin-right: 70%;"
+                    matTooltip="Exothermic / connectors / bolt / ferrule / hand tight"
+                    matTooltipClass="multiline-tooltip"
+                    aria-label="Button that shows a red tooltip"
+                    class="example-button">
+                    info_outline
+                   </mat-icon>
                     <input type="text"  class="form-control" formControlName="bondingJointsType" 
                     [ngClass]="{ 'is-invalid': submitted && f.bondingJointsType.errors }" 
                     [(ngModel)]="supplycharesteristic.bondingJointsType">
@@ -890,19 +1311,22 @@
                <div *ngIf="JointLocationTable"> 
               <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="col-sm-12">
-                <h2>Location Table</h2>
+                <h2>Joint resistance details</h2>
                 <!-- <mat-icon class="mousechange" (click)="addLocation2()" style=" padding-top: 5px;">add_box</mat-icon> -->
               </div>
               </div>
 
               <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <label style="text-align: center;">Location</label>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <label style="text-align: center;">Joint No</label>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
+                  <label style="text-align: center;">Joint Reference</label>
+                </div>
+                <div class="col-md-3">
                   <label style="text-align: center;">Joint Resistance (Ω)</label>
                 </div>
               </div>
@@ -910,7 +1334,7 @@
               <div formArrayName="location2Arr" *ngFor="let a of getLocation2Controls(); let i = index">
                 <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
                   <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                       <input type="text"  formControlName="location" class="form-control"  
                       [ngClass]="{ 'is-invalid': submitted && a.get('location')?.errors }" placeholder="Enter location" >
                       <div *ngIf="submitted && a.get('location')?.errors" class="invalid-feedback">
@@ -918,15 +1342,23 @@
                       </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                       <input type="number" min="0"  formControlName="jointNo" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('jointNo')?.errors }" placeholder="Enter Joint No" >
                       <div *ngIf="submitted && a.get('jointNo')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('jointNo')?.errors?.required">Joint number is required</div>
                       </div>
                     </div>
 
-                    <div class="col-md-4">
-                      <input type="number" min="0"  formControlName="jointResistance" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('jointResistance')?.errors }" placeholder="Enter Joint resistance" >
+                    <div class="col-md-3">
+                      <input type="number" min="0"  formControlName="jointReference" class="form-control"  
+                      [ngClass]="{ 'is-invalid': submitted && a.get('jointReference')?.errors }" placeholder="Enter Joint Reference" >
+                      <div *ngIf="submitted && a.get('jointReference')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('jointReference')?.errors?.required">Joint reference is required</div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3">
+                      <input type="number" min="0" formControlName="jointResistance" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('jointResistance')?.errors }" placeholder="Enter Joint resistance" >
                       <div *ngIf="submitted && a.get('jointResistance')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('jointResistance')?.errors?.required">Joint resistance is required</div>
                       </div>
@@ -938,6 +1370,14 @@
               <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 30px">
+                    <mat-icon style="float: right;font-size: 18px;
+                    line-height: unset;"
+                    matTooltip="Main protective earthing conductor is used for connection MET to downstream sub DB’s equipment."
+                    matTooltipClass="multiline-tooltip"
+                    aria-label="Button that shows a red tooltip"
+                    class="example-button">
+                    info_outline
+                   </mat-icon>
                     <p>Size of Main Protective Earthing Conductor<input type="number" min="0" formControlName="earthingConductorSize" 
                     [ngClass]="{ 'is-invalid': submitted && f.earthingConductorSize.errors }" [(ngModel)]="supplycharesteristic.earthingConductorSize" style="
                       width: 50px;
@@ -951,6 +1391,14 @@
 
                   <div class="col-md-4">
                     <label>Material of Main Protective Earthing Conductor:</label>
+                    <mat-icon style="float: right;font-size: 18px;
+                    line-height: unset;margin-right: 17%;"
+                    matTooltip="Copper / aluminium"
+                    matTooltipClass="multiline-tooltip"
+                    aria-label="Button that shows a red tooltip"
+                    class="example-button">
+                    info_outline
+                   </mat-icon>
                     <input type="text"  class="form-control" formControlName="earthingConductorMaterial"  
                     [ngClass]="{ 'is-invalid': submitted && f.earthingConductorMaterial.errors }" [(ngModel)]="supplycharesteristic.earthingConductorMaterial">
                     <div *ngIf="submitted && f.earthingConductorMaterial.errors" class="invalid-feedback">
@@ -975,6 +1423,14 @@
               <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 30px">
+                    <mat-icon style="float: right;font-size: 18px;
+                    line-height: unset;margin-right: 57%;"
+                    matTooltip="If number of joints is given, then point 14 & 15 should come."
+                    matTooltipClass="multiline-tooltip"
+                    aria-label="Button that shows a red tooltip"
+                    class="example-button">
+                    info_outline
+                   </mat-icon>
                     <p class="joints">No Of Joints <input type="tel" min="0" formControlName="earthingNoOfJoints" 
                     [ngClass]="{ 'is-invalid': submitted && f.earthingNoOfJoints.errors }" 
                     [(ngModel)]="supplycharesteristic.earthingNoOfJoints" style="
@@ -988,7 +1444,15 @@
                       </div>
                   </div>
                   <div class="col-md-4" style="margin-top: 30px" *ngIf=keyJOintLocationTable>
-                    <label>Type Of Joints:</label>
+                    <label>Type Of Joint:</label>
+                    <mat-icon style="float: right;font-size: 18px;
+                    line-height: unset;margin-right: 70%;"
+                    matTooltip="Exothermic / connectors / bolt / ferrule / hand tight"
+                    matTooltipClass="multiline-tooltip"
+                    aria-label="Button that shows a red tooltip"
+                    class="example-button">
+                    info_outline
+                   </mat-icon>
                     <input type="text"  class="form-control" formControlName="earthingJointsType" 
                     [ngClass]="{ 'is-invalid': submitted && f.earthingJointsType.errors }" 
                     [(ngModel)]="supplycharesteristic.earthingJointsType">
@@ -1016,13 +1480,16 @@
                 </div>
   
                 <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <label style="text-align: center;">Location</label>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <label style="text-align: center;">Joint No</label>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-3">
+                    <label style="text-align: center;">Joint Reference</label>
+                  </div>
+                  <div class="col-md-3">
                     <label style="text-align: center;">Joint Resistance (Ω)</label>
                   </div>
                 </div>
@@ -1030,21 +1497,30 @@
                 <div formArrayName="location3Arr" *ngFor="let a of getLocation3Controls(); let i = index">
                   <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
                     <div class="row">
-                      <div class="col-md-4">
+                      <div class="col-md-3">
                         <input type="text"  formControlName="location" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('location')?.errors }" placeholder="Enter location" >
                         <div *ngIf="submitted && a.get('location')?.errors" class="invalid-feedback">
                           <div *ngIf="a.get('location')?.errors?.required">Location is required</div>
                         </div>
                       </div>
   
-                      <div class="col-md-4">
+                      <div class="col-md-3">
                         <input type="number" min="0"  formControlName="jointNo" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('jointNo')?.errors }" placeholder="Enter Joint No" >
                         <div *ngIf="submitted && a.get('jointNo')?.errors" class="invalid-feedback">
                           <div *ngIf="a.get('jointNo')?.errors?.required">Joint number is required</div>
                         </div>
                       </div>
   
-                      <div class="col-md-4">
+                      <div class="col-md-3">
+                        <input type="number" min="0"  formControlName="jointReference" class="form-control"  
+                        [ngClass]="{ 'is-invalid': submitted && a.get('jointReference')?.errors }" placeholder="Enter Joint Reference" >
+                        <div *ngIf="submitted && a.get('jointReference')?.errors" class="invalid-feedback">
+                          <div *ngIf="a.get('jointReference')?.errors?.required">Joint reference is required</div>
+                        </div>
+                      </div>
+
+                      
+                      <div class="col-md-3">
                         <input type="number" min="0"  formControlName="jointResistance" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('jointResistance')?.errors }" placeholder="Enter Joint resistance" >
                         <div *ngIf="submitted && a.get('jointResistance')?.errors" class="invalid-feedback">
                           <div *ngIf="a.get('jointResistance')?.errors?.required">Field Is Required</div>
@@ -1056,7 +1532,7 @@
               </div>
             </mat-expansion-panel>
 
-                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngIf="breaker">
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                   <mat-expansion-panel-header>
                     <mat-panel-title>
                       <h3>Details Of Main Switch or Circuit Breaker</h3>
@@ -1076,6 +1552,14 @@
 
                         <div class="col-md-4">
                           <label>Type:</label>
+                          <mat-icon style="float: right;font-size: 18px;
+                          line-height: unset;margin-right: 82%;"
+                          matTooltip="MCB/MCCB/RCBO/MCB with RCD/ACB with micrologic relay/ ACB with numerical protection relay (enter details of relay in case of ACB)."
+                          matTooltipClass="multiline-tooltip"
+                          aria-label="Button that shows a red tooltip"
+                          class="example-button">
+                          info_outline
+                         </mat-icon>
                           <select class="form-control" formControlName="type" [ngClass]="{ 'is-invalid': submitted && a.get('type')?.errors }">
                             <option value="0" selected>Select Option</option>
                             <option value="MCB">MCB</option>
@@ -1090,6 +1574,14 @@
 
                         <div class="col-md-4">
                           <label>No Of Poles:</label>
+                          <mat-icon style="float: right;font-size: 18px;
+                          line-height: unset;margin-right: 71%;"
+                          matTooltip="1/ 2/ 3/ 4"
+                          matTooltipClass="multiline-tooltip"
+                          aria-label="Button that shows a red tooltip"
+                          class="example-button">
+                          info_outline
+                         </mat-icon>
                           <input type="number" min="0" class="form-control" formControlName="noPoles" [ngClass]="{ 'is-invalid': submitted && a.get('noPoles')?.errors }"  placeholder="Enter poles" >
                           <div *ngIf="submitted && a.get('noPoles')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('noPoles')?.errors?.required">Field Is Required</div>
@@ -1111,6 +1603,14 @@
 
                         <div class="col-md-4">
                           <label>Voltage Rating:</label>
+                          <mat-icon style="float: right;font-size: 18px;
+                          line-height: unset;margin-right: 68%;"
+                          matTooltip="Rated voltage of the protective device."
+                          matTooltipClass="multiline-tooltip"
+                          aria-label="Button that shows a red tooltip"
+                          class="example-button">
+                          info_outline
+                         </mat-icon>
                           <div class="input-group">
                             <input type="number" min="0"   class="form-control" formControlName="voltage" [ngClass]="{ 'is-invalid': submitted && a.get('voltage')?.errors }" placeholder="Enter voltage" >
                             <div class="input-group-prepend">
@@ -1124,6 +1624,14 @@
 
                         <div class="col-md-4">
                           <label>Fuse Rating or Settings:</label>
+                          <mat-icon style="float: right;font-size: 18px;
+                          line-height: unset;margin-right: 54%;"
+                          matTooltip="Over current / Short circuit or earth fault setting."
+                          matTooltipClass="multiline-tooltip"
+                          aria-label="Button that shows a red tooltip"
+                          class="example-button">
+                          info_outline
+                         </mat-icon>
                           <div class="input-group">
                             <input type="number" min="0"   class="form-control" formControlName="fuse" [ngClass]="{ 'is-invalid': submitted && a.get('fuse')?.errors }" placeholder="Enter rating" >
                             <div class="input-group-prepend">
@@ -1136,7 +1644,15 @@
                         </div>
 
                         <div class="col-md-4" *ngIf="true">
-                          <label>Rated Residual Operating Current I∆n:</label>
+                          <label>Rated residual operating current I∆n (mA):</label>
+                          <mat-icon style="float: right;font-size: 18px;
+                          line-height: unset;margin-right: 27%;"
+                          matTooltip="30/100/300/500"
+                          matTooltipClass="multiline-tooltip"
+                          aria-label="Button that shows a red tooltip"
+                          class="example-button">
+                          info_outline
+                         </mat-icon>
                           <div class="input-group">
                             <input type="number" min="0"   class="form-control" formControlName="residualCurrent" [ngClass]="{ 'is-invalid': submitted && a.get('residualCurrent')?.errors }" placeholder="Enter value" >
                             <div class="input-group-prepend">
@@ -1149,7 +1665,7 @@
                         </div>
 
                         <div class="col-md-4" *ngIf="true">
-                          <label>Rated Residual Operating Time @I∆n T∆n	:</label>
+                          <label>Measured operating time @I∆n (ms):</label>
                           <div class="input-group">
                             <input type="number" min="0"   class="form-control" formControlName="residualTime" 
                             

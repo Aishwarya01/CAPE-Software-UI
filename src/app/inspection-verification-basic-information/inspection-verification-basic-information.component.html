@@ -22,7 +22,15 @@
                   <input type="text" class="form-control"  formControlName="departmentName" [(ngModel)]="departmentNameSite" readonly/>
             </div> -->
             <div class="col-md-6">
-                  <label>Site Name*</label>
+                  <label>Site Name</label>
+                  <mat-icon style="float: right;font-size: 18px;
+                  line-height: unset;margin-right: 80%;"
+                  matTooltip="Respective site / end customer / user (client and site name can be same)."
+                  matTooltipClass="multiline-tooltip"
+                  aria-label="Button that shows a red tooltip"
+                  class="example-button">
+                  info_outline
+          </mat-icon>
                   <input type="text" class="form-control"  formControlName="siteName" [(ngModel)]="siteValue" readonly/>
             </div>
           </div>
@@ -39,6 +47,14 @@
             </div> -->
             <div class="col-md-6">
                   <label>Site Name</label>
+                  <mat-icon style="float: right;font-size: 18px;
+                  line-height: unset;margin-right: 80%;"
+                  matTooltip="Respective site / end customer / user (client and site name can be same)."
+                  matTooltipClass="multiline-tooltip"
+                  aria-label="Button that shows a red tooltip"
+                  class="example-button">
+                  info_outline
+          </mat-icon>
                   <input type="text" class="form-control"  formControlName="site1" readonly/>
             </div>
           </div>
@@ -55,7 +71,18 @@
             <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
               <div class="col-md-4">
                 <mat-form-field class="client-description">
-                  <mat-label><h3>Description of Report*</h3></mat-label>
+                  <mat-icon style="float: right;font-size: 18px;
+                  line-height: unset;margin-right: 76%;"
+                  matTooltip="Electrical safety audit / Periodic safety audit / root cause analysis after an accident or failure."
+                  matTooltipClass="multiline-tooltip"
+                  aria-label="Button that shows a red tooltip"
+                  class="example-button">
+                  info_outline
+                 </mat-icon>
+                  <mat-label>
+                    <h3>Description of Report
+                  </h3>
+                  </mat-label>
                   <textarea matInput class="client-box-description" formControlName="descriptionOfReport" [ngClass]="{'disableForm':service.allFieldsDisable}"
                   maxlength="500" placeholder="Ex. Report description..." [(ngModel)]="reportDetails.descriptionReport"
                   [ngClass]="{ 'is-invalid': submitted && f.descriptionOfReport.errors }"></textarea>
@@ -67,8 +94,16 @@
             </div>
               <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
               <div class="col-md-4">
-                <mat-form-field class="client-description ">
-                  <mat-label><h3>Reason for the Report*</h3></mat-label>
+                <mat-form-field class="client-description">
+                  <mat-icon style="float: right;font-size: 18px;
+                  line-height: unset;margin-right: 76%;"
+                  matTooltip="General inspection/ periodic inspection/ incident (in detail)/ proposal for renovation or alteration or addition."
+                  matTooltipClass="multiline-tooltip"
+                  aria-label="Button that shows a red tooltip"
+                  class="example-button">
+                  info_outline
+                 </mat-icon>
+                  <mat-label><h3>Reason for the Report</h3></mat-label>
                   <textarea matInput class="client-box-description" formControlName="reasonOfReport" [ngClass]="{'disableForm':service.allFieldsDisable}"
                   maxlength="500" placeholder="Ex. Report reason..." [(ngModel)]="reportDetails.reasonOfReport" [ngClass]="{ 'is-invalid': submitted && f.reasonOfReport.errors }"></textarea>
                   <div *ngIf="submitted && f.reasonOfReport.errors" class="invalid-feedback">
@@ -103,6 +138,14 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label>Description of the Premise* :</label>
+                  <mat-icon style="float: right;font-size: 18px;
+                  line-height: unset;margin-right: 45%;"
+                  matTooltip="Type of premise"
+                  matTooltipClass="multiline-tooltip"
+                  aria-label="Button that shows a red tooltip"
+                  class="example-button">
+                  info_outline
+                 </mat-icon>
                   <select class="form-control" formControlName="descPremise"
                   [(ngModel)]="reportDetails.descriptionPremise" [ngClass]="{ 'is-invalid': submitted && f.descPremise.errors }">
                     <option value="0" selected>Select Option</option>
@@ -180,6 +223,14 @@
             <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
               <div class="col-md-4">
                 <mat-form-field class="client-description ">
+                  <mat-icon style="float: right;font-size: 18px;
+                  line-height: unset;margin-right: 55%;margin-top: 0.7%;"
+                  matTooltip="Building/block/floor details covered in this report."
+                  matTooltipClass="multiline-tooltip"
+                  aria-label="Button that shows a red tooltip"
+                  class="example-button">
+                  info_outline
+                 </mat-icon>
                   <mat-label><h3>Extent of Installation Covered By This Report*</h3> </mat-label>
                   <textarea matInput class="client-box-description" formControlName="extentInstallation"
                   maxlength="500" placeholder="Ex. Report reason..."
@@ -198,6 +249,14 @@
             <mat-expansion-panel-header>
               <mat-panel-title>
                 <h3>Details Of Client / Person Ordering This Report </h3>
+                <!-- <mat-icon style="float: right;font-size: 18px;
+                line-height: unset;margin-left: 1%;"
+                matTooltip="Viewer assigned during site creation"
+                matTooltipClass="example-tooltip-red"
+                aria-label="Button that shows a red tooltip"
+                class="example-button">
+                info_outline
+               </mat-icon> -->
               </mat-panel-title>
 
             </mat-expansion-panel-header>
@@ -205,6 +264,14 @@
             <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
               <div class="col-md-4">
                 <mat-form-field class="client-description ">
+                  <mat-icon style="float: right;font-size: 18px;
+                  line-height: unset;margin-right: 65%;margin-top: -2%;"
+                  matTooltip="Viewer assigned during site creation."
+                  matTooltipClass="multiline-tooltip"
+                  aria-label="Button that shows a red tooltip"
+                  class="example-button">
+                  info_outline
+                 </mat-icon>
                   <mat-label><h3>Details Of Client / Person Ordering This Report</h3></mat-label>
                   <textarea matInput class="client-box-description" formControlName="detailsOfClient"
                   [ngClass]="{ 'is-invalid': submitted && f.detailsOfClient.errors }" readonly style="background-color: #e9ecef;"
@@ -280,6 +347,14 @@
             <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
               <div class="col-md-4">
                 <mat-form-field class="client-description ">
+                  <mat-icon style="float: right;font-size: 18px;
+                  line-height: unset;margin-right: 32%;"
+                  matTooltip="Distribution board details covered in this report."
+                  matTooltipClass="multiline-tooltip"
+                  aria-label="Button that shows a red tooltip"
+                  class="example-button">
+                  info_outline
+                 </mat-icon>
                   <mat-label><h3>Details Of Installation Referred In This Report * (maximum length is 75 )</h3></mat-label>
                   <textarea matInput class="client-box-description" formControlName="detailsOfInstallation" maxlength="75" [ngClass]="{ 'is-invalid': submitted && f.detailsOfInstallation.errors }" placeholder=" Ex. Occupier ,address details etc.." [(ngModel)]="reportDetails.installationDetails"></textarea>
                   <div *ngIf="submitted && f.detailsOfInstallation.errors" class="invalid-feedback">
@@ -288,10 +363,9 @@
                 </mat-form-field>
               </div>
             </div>
-
+<br>
             <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
               <div class="row">
-
                 <div class="col-md-4">
                   <label>Date of Starting the Verification *</label>
                   <input type="date" class="form-control" formControlName="startingDateVerification"
@@ -324,8 +398,15 @@
               <mat-panel-title>
                 <h3>Liability and Declaration</h3>
               </mat-panel-title>
-
             </mat-expansion-panel-header>
+            <mat-icon style="float: right;font-size: 18px;
+            line-height: unset;margin-right: 68%;margin-top: 0.4%;"
+            matTooltip="Person/organisation who designed the installation, if don’t know fill the details as unknown."
+            matTooltipClass="multiline-tooltip"
+            aria-label="Button that shows a red tooltip"
+            class="example-button">
+            info_outline
+    </mat-icon>
             <h3><b>Declaration of Designer of the Electrical Installation:</b></h3>
             <div class="form-group">
                 <p>
@@ -352,7 +433,7 @@
                       <div class="col-md-4">
                         <label>Date:</label>
                         <input type="date" formControlName="declarationDate" class="form-control" placeholder="Enter Date"
-                        [ngClass]="{ 'is-invalid': submitted && a.get('declarationDate')?.errors }">
+                        [ngClass]="{ 'is-invalid': submitted && a.get('declarationDate')?.errors }" [readonly]="service.allFieldsDisable">
                           <div *ngIf="submitted && a.get('declarationDate')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('declarationDate')?.errors?.required">Date is required</div>
                         </div>
@@ -397,7 +478,16 @@
             </div>
 
             <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
+             
                 <h3><b>Declaration of Contractor of Installation:</b></h3>
+                <mat-icon style="float: right;font-size: 18px;
+                line-height: unset;margin-right: 74%;margin-top: -3%;"
+                matTooltip="Person/organisation who will do the installation, if don’t know fill the details as unknown."
+                matTooltipClass="multiline-tooltip"
+                aria-label="Button that shows a red tooltip"
+                class="example-button">
+                info_outline
+        </mat-icon>
                   <p>
                     I/we being the person responsible for the construction of the electrical installation (as indicated by my/our signatures below), particulars of which are described above, having exercised reasonable skill and care when carrying out the design hereby declare that the design work for which I/We have been responsible is to the best of my/our knowledge and belief in accordance with IEC 60364
                   </p>
@@ -516,7 +606,8 @@
             </mat-expansion-panel-header>
             <h2>Designer Details</h2>
 
-            <mat-icon *ngIf="showAddButton" class="mousechange" (click)="addDesigner()" style="float:right; padding-right: 37px; padding-top: 10px;">add_box</mat-icon>
+            <mat-icon *ngIf="showAddButton" class="mousechange" (click)="addDesigner()" [ngClass]="{'disableForm':service.allFieldsDisable}"
+            style="float:right; padding-right: 37px; padding-top: 10px;">add_box</mat-icon>
 
               <div formArrayName="designer1Arr" *ngFor="let a of getDesigner1Controls(); let i = index">
                 <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
