@@ -181,7 +181,7 @@ export class LpsBasicPageComponent implements OnInit {
           this.LPSBasicForm.markAsPristine();
           this.proceedNext.emit(true);
         },
-        // update failed msg
+          // update failed msg
         error => {
           this.success1 = false;
           this.Error = true;

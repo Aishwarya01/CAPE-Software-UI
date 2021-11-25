@@ -33,7 +33,7 @@ export class LpsAirTerminationComponent implements OnInit {
   i: any;
   j: any;
   success1 = false;
-  successMsg1: String="";
+  // successMsg1: String="";
 
   @Output() proceedNext = new EventEmitter<any>();
   basicLpsId: number = 0;

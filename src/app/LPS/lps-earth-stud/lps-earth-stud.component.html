@@ -10,15 +10,14 @@
                 <div style="font-weight: bold;">
                     <label for="Basicdetails">Basic Details:</label>
                 </div>
-                <!-- <div class="container">
-                    <textarea  class="form-control" style="height: 60px; overflow:hidden;padding: 20px;" readonly>
-                    Client Name: {{ClientName}}, Project Name: {{projectName}}, Type of Industry: {{industryType}}, Type of Building: {{buildingType}}
-                    </textarea>
-                </div> -->
-                <mat-form-field class="client-description ">
-                    <textarea matInput class="client-box-description" style="font-size: 14px; font-weight: bold;"
-                    maxlength="500" readonly> Client Name: {{ClientName}}, Project Name: {{projectName}}, Type of Industry: {{industryType}}, Type of Building: {{buildingType}} </textarea>
-                </mat-form-field>
+
+                <div class="d-flex" style="margin-bottom: 4rem;margin-inline: 6rem;">  
+                    <div class="pr-2" > <u><b>Client Name:</b></u> <span> &nbsp; {{ClientName}}</span></div> &nbsp;&nbsp;
+                    <div class="pr-2"> <u><b>Project Name:</b></u>  <span> &nbsp; {{projectName}}</span></div> &nbsp;&nbsp;
+                    <div class="pr-2"> <u><b>Type of Industry:</b></u>  <span> &nbsp; {{industryType}}</span> </div> &nbsp;&nbsp;
+                    <div class="pr-2"> <u><b>Type of Building:</b></u>  <span> &nbsp; {{buildingType}}</span> </div> &nbsp;&nbsp;
+                </div>
+
             </div>
     
     <!-- tables -->
@@ -173,7 +172,7 @@
     <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
         <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
 
-        <button  class="next" [disabled]="disable" (click)="gotoNextModal(content,contents)" mat-button [hidden]="isEditable">Submit &raquo;</button>
+        <button class="next" (click)="gotoNextModal(content,contents)" mat-button [disabled]="isEditable">Submit &raquo;</button>
 
     </div>
     <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">

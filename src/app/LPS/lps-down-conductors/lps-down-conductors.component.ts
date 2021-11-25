@@ -37,8 +37,8 @@ export class LpsDownConductorsComponent implements OnInit {
   soilResistivity: String = '';
 
   success: boolean = false;
-  success1: boolean = false;
-  successMsg1: string="";
+  // success1: boolean = false;
+  // successMsg1: string="";
   successMsg: string = "";
   Error: boolean = false;
   errorArr: any = [];
