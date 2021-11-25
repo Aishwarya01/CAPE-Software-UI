@@ -28,7 +28,7 @@ export class FinalPdfServiceService {
     return   this.http.get(this.apiUrl + '/printFinalPDF'+'/'+userName+ '/' +basicLpsId, { responseType: 'blob' }).subscribe(
          data =>{
            debugger
-           const fileName = 'finalreport.pdf';
+           const fileName = 'Lpsfinalreport.pdf';
            FileSaver.saveAs(data, fileName);
          }, 
          err=>{

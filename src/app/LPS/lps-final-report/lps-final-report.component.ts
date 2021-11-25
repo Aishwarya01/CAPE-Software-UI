@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild,ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild,ChangeDetectorRef,ComponentRef } from '@angular/core';
 import { MatInput } from '@angular/material/input';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -17,7 +17,7 @@ import { LpsWelcomePageComponent } from '../lps-welcome-page/lps-welcome-page.co
 })
 export class LpsFinalReportComponent implements OnInit {
 
-  finalReportsColumns: string[] = [ 'clientName', 'projectName', 'consultantName', 'contractorName', 'dealerContractorName' , 'address', 'createdDate', 'createdBy', 'preview' , 'download','email', 'print'];
+  finalReportsColumns: string[] = [ 'clientName', 'projectName', 'consultantName', 'contractorName', 'dealerContractorName' , 'address', 'createdDate', 'createdBy', 'action'];
   finalReport_dataSource!: MatTableDataSource<BasicDetails[]>;
 
   @ViewChild('finalReportPaginator', { static: true }) finalReportPaginator!: MatPaginator;
@@ -59,6 +59,7 @@ export class LpsFinalReportComponent implements OnInit {
     this.currentUser1=JSON.parse(this.currentUser);
     this.retrieveLpsDetails();
   }
+ 
 
   //filter for final reports
   applyFilter(event: Event) {
@@ -101,10 +102,5 @@ export class LpsFinalReportComponent implements OnInit {
      debugger
      this.matstepper.preview(basicLpsId,clientName);
    }
-
-  // printPdf(){
-  //   debugger
-  //   this.finalpdf.
-  // }
 }
 

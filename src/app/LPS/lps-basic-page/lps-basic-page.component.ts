@@ -30,6 +30,9 @@ export class LpsBasicPageComponent implements OnInit {
   flag: boolean = false;
   isEditable!:boolean
 
+  success1: boolean =false;
+  successMsg1: string="";
+
   constructor(private formBuilder: FormBuilder, lPSBasicDetailsService: LPSBasicDetailsService,
     private modalService: NgbModal,private router: ActivatedRoute) {
     this.lPSBasicDetailsService = lPSBasicDetailsService;
@@ -145,12 +148,13 @@ export class LpsBasicPageComponent implements OnInit {
        return;
      }
      debugger
-      if(this.isEditable){
-        this.modalService.open(contents, { centered: true });
-     }
+    //  Update and Success msg will be showing
      if(!this.isEditable){
-      this.modalService.open(content, { centered: true });
-      
+        this.modalService.open(content, { centered: true });
+     }
+    //  For Dirty popup
+     if(this.isEditable){
+      this.modalService.open(contents, { centered: true });
      }
      
   }
@@ -170,14 +174,16 @@ export class LpsBasicPageComponent implements OnInit {
       if(this.LPSBasicForm.dirty && this.LPSBasicForm.touched){ 
       this.lPSBasicDetailsService.updateLpsBasicDetails(this.basicDetails).subscribe(
         data => {
-          
+          // update success msg
+          this.success1 = false;
           this.success = true;
           this.successMsg = data;
           this.LPSBasicForm.markAsPristine();
           this.proceedNext.emit(true);
-          
         },
+        // update failed msg
         error => {
+          this.success1 = false;
           this.Error = true;
           this.errorArr = [];
           this.errorArr = JSON.parse(error.error);
@@ -186,14 +192,19 @@ export class LpsBasicPageComponent implements OnInit {
         }
       )}
       else{
+        // Preview fields
         if(this.isEditable){
           this.success = true;
           this.proceedNext.emit(true);
         //  this.closeModalDialog();
-        }else{
-          
-          this.success = true;
-          this.successMsg ="Required changes for updating process"
+        }
+
+        else{
+          // Dirty checking here
+          this.success = false;
+          this.Error = false;
+          this.success1 = true;
+          this.successMsg1 ="Required changes for updating process"
           this.proceedNext.emit(true);
         }
       }

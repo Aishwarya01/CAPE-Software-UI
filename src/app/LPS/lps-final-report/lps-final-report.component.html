@@ -56,7 +56,7 @@
             <td mat-cell *matCellDef="let element">{{element.createdBy}}</td>
           </ng-container>
 
-        <ng-container matColumnDef="preview">
+        <!-- <ng-container matColumnDef="preview">
           <th mat-header-cell *matHeaderCellDef>Preview</th>        
           <td mat-cell *matCellDef="let element"> 
               <button class="btn btn-info" style="width: auto;display: inline-flex;padding: 0.35rem 0.5rem;
@@ -66,10 +66,10 @@
                    <span style="padding-top: 2px;">Preview</span>
             </button>
           </td>
-      </ng-container>
+      </ng-container> -->
 
       <!-- Print Button -->
-      <ng-container matColumnDef="print">
+      <!-- <ng-container matColumnDef="print">
         <th mat-header-cell *matHeaderCellDef>Print</th>        
         <td mat-cell *matCellDef="let element"> 
           <button class="btn btn-info" ngxPrint style="width: auto;display: inline-flex;padding: 0.35rem 0.5rem;
@@ -78,10 +78,10 @@
             <span style="padding-top: 2px;">Print</span> 
         </button>
         </td>
-      </ng-container>
+      </ng-container> -->
 
     <!-- Email button -->
-      <ng-container matColumnDef="email">
+      <!-- <ng-container matColumnDef="email">
         <th mat-header-cell *matHeaderCellDef>E-mail</th>        
         <td mat-cell *matCellDef="let element"> 
           <button class="btn btn-info"  style="width: auto;display: inline-flex;padding: 0.35rem 0.5rem;
@@ -90,9 +90,9 @@
             <span style="padding-top: 2px;">E-mail</span> 
         </button>
         </td>
-    </ng-container>
+    </ng-container> -->
       <!-- Dowmload button -->
-      <ng-container matColumnDef="download">
+      <!-- <ng-container matColumnDef="download">
           <th mat-header-cell *matHeaderCellDef>Download</th>        
           <td mat-cell *matCellDef="let element" class="downloadtd"> 
             <button class="btn btn-info" style="width: auto;display: inline-flex;padding: 0.35rem 0.5rem;
@@ -101,8 +101,37 @@
               <span style="padding-top: 2px;">Download</span>
           </button>
           </td>
-      </ng-container>
+      </ng-container> -->
 
+      <!-- Final Report Buttons -->
+      <ng-container matColumnDef="action">
+        <th style="width: auto; text-align: justify; padding: auto;" mat-header-cell *matHeaderCellDef> Action
+        </th>
+        <td style="width: auto; text-align: justify; padding: auto;" mat-cell *matCellDef="let element">
+            <!-- Preview -->
+          <button class="btn btn-outline-danger delete" title="View Site" 
+          (click)="priviewPdf(element.basicLpsId,element.clientName)">
+            <mat-icon>visibility</mat-icon>
+          </button>
+            <!-- Download -->
+          <button class="btn btn-outline-danger delete" title="Download Final PDF" 
+          (click)="downloadPdf(element.basicLpsId)" 
+          style="border-color: #cdcecf;box-shadow: unset;">
+            <mat-icon>download</mat-icon>
+          </button>
+            <!-- Email -->
+          <button class="btn btn-outline-danger delete" title="Trigger Email With Final PDF" 
+          style="border-color: #cdcecf;box-shadow: unset;">
+            <mat-icon>email</mat-icon>
+          </button>
+            <!-- Print -->
+          <button class="btn btn-outline-danger delete" title="Print Final PDF" 
+          style="border-color: #cdcecf;box-shadow: unset;">
+            <mat-icon>print</mat-icon>
+          </button>
+
+        </td>
+      </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="finalReportsColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: finalReportsColumns;"

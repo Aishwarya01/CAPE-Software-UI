@@ -32,6 +32,8 @@ export class LpsAirTerminationComponent implements OnInit {
   disable: boolean = false;
   i: any;
   j: any;
+  success1 = false;
+  successMsg1: String="";
 
   @Output() proceedNext = new EventEmitter<any>();
   basicLpsId: number = 0;
@@ -411,12 +413,14 @@ export class LpsAirTerminationComponent implements OnInit {
             if(this.airTerminationForm.dirty && this.airTerminationForm.touched){ 
             this.airterminationService.updateAirtermination(this.airtermination).subscribe(
               (data) => {
+                this.success1 = false;
                 this.success = true;
                 this.successMsg = data;
                 this.airTerminationForm.markAsPristine();
                 this.proceedNext.emit(true);
               },
               (error) => {
+                this.success1 = false;
                 this.Error = true;
                 this.errorArr = [];
                 this.errorArr = JSON.parse(error.error);
@@ -427,9 +431,12 @@ export class LpsAirTerminationComponent implements OnInit {
                 if(this.isEditable){
                   this.success = true;
                   this.proceedNext.emit(true);
-                }else{
-                  this.success = true;
-                  this.successMsg ="Required changes for updating process"
+                }
+                else{
+                  this.success = false;
+                  this.Error = false; 
+                  this.success1 = true;
+                  this.successMsg1 ="Required changes for updating process"
                   this.proceedNext.emit(true);
                 }
               }

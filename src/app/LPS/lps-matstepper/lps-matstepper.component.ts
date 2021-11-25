@@ -241,12 +241,13 @@ export class LpsMatstepperComponent implements OnInit {
   // print(){
 
   // }
+
   continue(basicLpsId: any,ClientName:any): void {
+    this.refresh();
     this.ngOnInit();
     this.isEditable=false;
     let userName=this.router.snapshot.paramMap.get('email') || '{}';
-    this.changeTabLpsSavedReport(0,basicLpsId,userName,ClientName);
-    
     debugger
+    this.changeTabLpsSavedReport(0,basicLpsId,userName,ClientName);
   }
 }

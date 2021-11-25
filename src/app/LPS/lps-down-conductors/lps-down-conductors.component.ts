@@ -37,6 +37,8 @@ export class LpsDownConductorsComponent implements OnInit {
   soilResistivity: String = '';
 
   success: boolean = false;
+  success1: boolean = false;
+  successMsg1: string="";
   successMsg: string = "";
   Error: boolean = false;
   errorArr: any = [];
@@ -60,6 +62,7 @@ export class LpsDownConductorsComponent implements OnInit {
   lightPushArr: any = [];
   testjointsPushArr: any = [];
   isEditable!:boolean
+  
   constructor(
     private formBuilder: FormBuilder, lpsDownconductorService: LpsDownconductorService,
     private modalService: NgbModal, private router: ActivatedRoute) {
@@ -658,9 +661,10 @@ export class LpsDownConductorsComponent implements OnInit {
         if(this.isEditable){
           this.success = true;
           this.proceedNext.emit(true);
-        }else{
-          this.success = true;
-          this.successMsg ="Required changes for updating process"
+        }
+      else{
+          this.success1 = true;
+          this.successMsg1 ="Required changes for updating process"
           this.proceedNext.emit(true);
         }
       }
