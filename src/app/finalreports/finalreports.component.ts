@@ -18,7 +18,7 @@ import { VerificationlvComponent } from '../verificationlv/verificationlv.compon
   styleUrls: ['./finalreports.component.css']
 })
 export class FinalreportsComponent implements OnInit {
-  finalReportsColumns: string[] = [ 'siteCD', 'siteName', 'personIncharge', 'contactNumber', 'contactDetails', 'state', 'country', 'preview' , 'download','email'];
+  finalReportsColumns: string[] = [ 'siteCD', 'siteName', 'personIncharge', 'contactNumber', 'contactDetails', 'state', 'country', 'action'];
   finalReport_dataSource!: MatTableDataSource<Site[]>;
   @ViewChild('finalReportPaginator', { static: true }) finalReportPaginator!: MatPaginator;
   @ViewChild('finalReportSort', {static: true}) finalReportSort!: MatSort;
@@ -33,12 +33,19 @@ export class FinalreportsComponent implements OnInit {
   noDetailsRec: boolean=false;
   noDetailsRecMsg:String="";
   inspectorData: any = [];
+  disable: boolean=false;
  //ongoingFilterData:any=[];
   completedFilterData:any=[];
   allData: any = [];
   superAdminFlag: boolean = false;
   filteredData: any;
   superAdminArr: any = [];
+  value: boolean = false;
+  successMsg: string="";
+  success: boolean=false;
+  Error: boolean=false;
+  errorMsg: string="";
+  errorArr: any=[];
   constructor(private router: ActivatedRoute,
               private clientService: ClientService,
               private departmentService: DepartmentService,
@@ -175,4 +182,32 @@ applyFilter(event: Event) {
    // this.disable=false;
     this.inspectionService.downloadPDF(siteId,userName)
   }
+
+  pdfModal(siteId: any,userName: any){
+    this.disable=false;
+    this.inspectionService.printPDF(siteId,userName)
+  }
+
+  emailPDF(siteId: any,userName: any){
+    this.disable=false;
+    this.inspectionService.mailPDF(siteId,userName).subscribe(
+    data => {
+    this.success = true;
+    this.successMsg = data;
+    setTimeout(()=>{
+      this.success=false;
+  }, 3000);
+    },
+    error => {
+      this.Error = true;
+      this.errorArr = [];
+      this.errorArr = JSON.parse(error.error);
+      this.errorMsg = this.errorArr.message;
+      setTimeout(()=>{
+        this.Error = false;
+    }, 3000);
+    }
+      );
+  }
+
 }
