@@ -323,7 +323,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       AcConductor: ['', Validators.required],
       DcConductor: ['', Validators.required],
       briefNote: [''],
-      liveConductorBNote: [''],
+      liveConductorBNote: ['', Validators.required],
       mainNominalProtectiveDevice: ['', Validators.required],
       mainRatedCurrent: ['', Validators.required],
       mainCurrentDisconnection: ['', Validators.required],
@@ -1152,7 +1152,7 @@ populateData(value:any) {
       aLLiveConductorAC: new FormControl(''),
       aLLiveConductorDC: new FormControl(''),
       aLSystemEarthingBNote: new FormControl(''),
-      aLLiveConductorBNote: new FormControl(''),
+      aLLiveConductorBNote: new FormControl('', [Validators.required]),
       nominalVoltage: new FormControl(''),
       nominalFrequency: new FormControl(''),
       faultCurrent: new FormControl(''),
@@ -1667,6 +1667,25 @@ populateData(value:any) {
   }
   getTableArray(form: any) {
     return form.controls.nominalVoltageArr1.controls;
+  }
+
+  enableBriefNote(e: any, a: any) {
+    debugger
+    let changedValue
+    if(e.target != undefined) {
+      changedValue = e.target.value;
+    }
+    else{
+      changedValue = e;
+    }
+    if(changedValue == 'Others') {
+      a.controls.aLSystemEarthingBNote.setValidators(Validators.required);
+      a.controls.aLSystemEarthingBNote.updateValueAndValidity();
+    }
+    else {
+      a.controls.aLSystemEarthingBNote.clearValidators();
+      a.controls.aLSystemEarthingBNote.updateValueAndValidity();
+    }
   }
 
   showValue(e: any, a: any) {
