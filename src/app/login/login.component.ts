@@ -62,8 +62,11 @@ export class LoginComponent implements OnInit {
       error => {
         if(error.error.error == 'Unauthorized'){
           error.error.error = 'Invalid Credentials';
+          this.showErrorMessage=error.error.error;
+        } else{
+          this.showErrorMessage=error.error.message;
         }
-        this.showErrorMessage=error.error.error;
+        
         this.loading=false;
       }
     )
