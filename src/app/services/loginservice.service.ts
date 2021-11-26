@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map } from 'rxjs/operators';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../model/user';
 import { environment } from 'src/environments/environment';
 
@@ -28,12 +28,7 @@ export class LoginserviceService {
           sessionStorage.setItem('token', JSON.stringify(this.token));
 
           return userData;
-        }),
-        catchError(this.handleError));
-  }
-
-  handleError(err: any){
-    return throwError(err.error || "Internal Server Error")
+        }));
   }
 
   logout() {
