@@ -253,9 +253,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
   }
 
  retrieveDetailsFromIncoming() {
-  if(this.service.disableFields==true){
-    this.testingForm.disable();
-   }
+  // if(this.service.disableFields==true){
+  //   this.testingForm.disable();
+  //  }
   if(this.service.siteCount !=0 && this.service.siteCount!=undefined) {
     if(this.currentUser1.role == 'Inspector') {
       this.inspectionDetailsService.retrieveInspectionDetails(this.email, this.service.siteCount).subscribe(
@@ -319,9 +319,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
 }
 
  retrieveDetailsFromSupply(){
-  if(this.service.disableFields==true){
-    this.testingForm.disable();
-   }
+  // if(this.service.disableFields==true){
+  //   this.testingForm.disable();
+  //  }
   this.pushJsonArray=[];
    if(this.service.siteCount !=0 && this.service.siteCount!=undefined){
      if(this.currentUser1.role == 'Inspector') {
@@ -427,9 +427,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
 }
 
   retrieveDetailsfromSavedReports(userName: any, siteId: any, clientName: any, departmentName: any, site: any, data: any) {
-    if(this.service.disableFields==true){
-      this.testingForm.disable();
-     }
+    // if(this.service.disableFields==true){
+    //   this.testingForm.disable();
+    //  }
     this.testingRetrieve = true;
     this.inspectionRetrieve = false;
     this.testList = JSON.parse(data);
@@ -842,9 +842,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
     this.testingForm.markAsPristine();
    }
    populateData(value:any) {	
-    if(this.service.disableFields==true){	
-      this.disable=true;	
-      }	
+    // if(this.service.disableFields==true){	
+    //   this.disable=true;	
+    //   }	
     this.arr = [];	
     for (let item of value.testing) {	
       this.arr.push(this.createGroup(item));	

@@ -133,17 +133,21 @@ export class LpsMatstepperComponent implements OnInit {
 
     this.Completed1 = this.basic.success;
     this.saved.ngOnInit();
+    this.refresh();
   }
   public doSomething2(next: any): void {
     this.Completed2 = this.airTermination.success;
+    this.refresh();
   }
 
   public doSomething3(next: any): void {
     this.Completed3 = this.downConductors.success;
+    this.refresh();
   }
 
   public doSomething4(next: any): void {
     this.Completed4 = this.earthing.success;
+    this.refresh();
   }
 
   public doSomething5(next: any): void {
@@ -220,10 +224,10 @@ export class LpsMatstepperComponent implements OnInit {
     let userName=this.router.snapshot.paramMap.get('email') || '{}';
     this.changeTabLpsSavedReport(index,this.earthStud.basicLpsId,userName,this.earthStud.ClientName);
     this.selectedIndex = index;
-    debugger
+    
   }
   refresh() {
-    debugger
+    
     this.ChangeDetectorRef.detectChanges();
   }
 
@@ -237,12 +241,12 @@ export class LpsMatstepperComponent implements OnInit {
   // print(){
 
   // }
+
   continue(basicLpsId: any,ClientName:any): void {
+    this.refresh();
     this.ngOnInit();
     this.isEditable=false;
     let userName=this.router.snapshot.paramMap.get('email') || '{}';
     this.changeTabLpsSavedReport(0,basicLpsId,userName,ClientName);
-    
-    debugger
   }
 }

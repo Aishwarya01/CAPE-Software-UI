@@ -32,6 +32,8 @@ export class LpsAirTerminationComponent implements OnInit {
   disable: boolean = false;
   i: any;
   j: any;
+  success1 = false;
+  // successMsg1: String="";
 
   @Output() proceedNext = new EventEmitter<any>();
   basicLpsId: number = 0;
@@ -338,7 +340,7 @@ export class LpsAirTerminationComponent implements OnInit {
       });
     }
 
-  gotoNextModal(content: any) {
+  gotoNextModal(content: any,contents:any) {
     
      if (this.airTerminationForm.invalid) {
        this.validationError = true;
@@ -357,7 +359,17 @@ export class LpsAirTerminationComponent implements OnInit {
       }, 3000);
       return;
     }
-    this.modalService.open(content, { centered: true });
+    //  Update and Success msg will be showing
+    if(this.airTerminationForm.dirty && this.airTerminationForm.touched){
+      this.modalService.open(content, { centered: true });
+   }
+  //  For Dirty popup
+   else{
+    this.modalService.open(contents, { centered: true });
+   }
+   
+   
+     
   }
 
   closeModalDialog() {
@@ -400,19 +412,35 @@ export class LpsAirTerminationComponent implements OnInit {
         this.conPusharr=[];
 
           if(flag) {
+            if(this.airTerminationForm.dirty && this.airTerminationForm.touched){ 
             this.airterminationService.updateAirtermination(this.airtermination).subscribe(
               (data) => {
+                this.success1 = false;
                 this.success = true;
                 this.successMsg = data;
+                this.airTerminationForm.markAsPristine();
                 this.proceedNext.emit(true);
               },
               (error) => {
+                this.success1 = false;
                 this.Error = true;
                 this.errorArr = [];
                 this.errorArr = JSON.parse(error.error);
                 this.errorMsg = this.errorArr.message;
                 this.proceedNext.emit(false);
-              });
+              });}
+              else{
+                if(this.isEditable){
+                  this.success = true;
+                  this.proceedNext.emit(true);
+                }
+                // Dirty checking here
+                else{
+                  
+                  this.success = true;
+                  this.proceedNext.emit(true);
+                }
+              }
           }
           else {
               this.airterminationService.saveAirtermination(this.airtermination).subscribe(

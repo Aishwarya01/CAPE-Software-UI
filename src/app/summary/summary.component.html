@@ -108,7 +108,7 @@
               <div class="col-sm-12">
                 <div class="form-group">
                   <label>Observations:</label>
-                  <mat-icon class="mousechange" (click)="addObservations()" style="margin-top: 2px;
+                  <mat-icon class="mousechange" (click)="addObservations()" [ngClass]="{'disableForm':service.allFieldsDisable}" style="margin-top: 2px;
                   float: right;">add_box</mat-icon>
                   <textarea matInput class="client-box-description" maxlength="500" formControlName="observations"
                    placeholder="Ex. Report description..." 
@@ -169,10 +169,9 @@
                 <h3>Recommendations</h3>
               </mat-panel-title>
             </mat-expansion-panel-header>
-              <div [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="row">
                   <div class="col-sm-12">
-                    <div class="form-group">
+                    <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
                       <label>Where the overall assessment of the suitability of the installation for 
                         continuous use above is stated as unsatisfactory, I/We recommend that any observations 
                         classified as “danger present” (Code C1) or “potentially dangerous” (Code C2) are acted 
@@ -198,7 +197,6 @@
                     </div> 
                   </div>
                 </div>
-              </div>
           </mat-expansion-panel>
 
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">

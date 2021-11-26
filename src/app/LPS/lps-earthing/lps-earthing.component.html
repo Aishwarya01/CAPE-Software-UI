@@ -6,15 +6,13 @@
             <mat-accordion>
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Basic Details</mat-expansion-panel-header>
-                        <!-- <div class="container">
-                            <textarea  class="form-control" style="height: 60px; overflow:hidden;padding: 20px;" readonly>
-                            Client Name: {{ClientName}}, Project Name: {{projectName}}, Type of Industry: {{industryType}}, Type of Building: {{buildingType}}
-                            </textarea>
-                        </div> -->
-                        <mat-form-field class="client-description ">
-                            <textarea matInput class="client-box-description" style="font-size: 14px; font-weight: bold;"
-                            maxlength="500" readonly> Client Name: {{ClientName}}, Project Name: {{projectName}}, Type of Industry: {{industryType}}, Type of Building: {{buildingType}} </textarea>
-                        </mat-form-field>
+                        
+                    <div class="d-flex" style="margin-bottom: 4rem;margin-inline: 6rem;">  
+                        <div class="pr-2" > <u><b>Client Name:</b></u> <span> &nbsp; {{ClientName}}</span></div> &nbsp;&nbsp;
+                        <div class="pr-2"> <u><b>Project Name:</b></u>  <span> &nbsp; {{projectName}}</span></div> &nbsp;&nbsp;
+                        <div class="pr-2"> <u><b>Type of Industry:</b></u>  <span> &nbsp; {{industryType}}</span> </div> &nbsp;&nbsp;
+                        <div class="pr-2"> <u><b>Type of Building:</b></u>  <span> &nbsp; {{buildingType}}</span> </div> &nbsp;&nbsp;
+                      </div>
 
                     <div style="margin-top: 0px;">
                         <table class="table">
@@ -766,12 +764,12 @@
                                         </td>
                                     </tr>
                                 </div>
-                                <mat-icon class="mousechange" class="add" type="button" (click)="submit1()" *ngIf="earthingDescriptionarr().length == j+1"
-                                    style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section"
+                                <mat-icon class="mousechange" class="add" type="button"  (click)="submit1()" *ngIf="earthingDescriptionarr().length == j+1"
+                                    style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section" [hidden]="isEditable"
                                   >add_box</mat-icon>
-                                <mat-icon class="mousechange" class="dlt" type="button" title="delete" *ngIf="earthingDescriptionarr().length > 1"
+                                <mat-icon class="mousechange" class="dlt" type="button" title="delete"  *ngIf="earthingDescriptionarr().length > 1"
                                     (click)="removeItem1(a,j)"
-                                    style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
+                                    style="margin-inline: 0rem;float: right;position: relative;" [hidden]="isEditable">delete</mat-icon>
                             </tbody>
                         </table>
                     </div>
@@ -1112,10 +1110,10 @@
                                             </td>
                                         </tr>
                                     </div>
-                                    <mat-icon class="mousechange" class="add" type="button" (click)="submit2()" *ngIf="earthingClampsarr().length == j+1"
+                                    <mat-icon class="mousechange" class="add" type="button" [hidden]="isEditable" (click)="submit2()" *ngIf="earthingClampsarr().length == j+1"
                                     style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section"
                                   >add_box</mat-icon>
-                                <mat-icon class="mousechange" class="dlt" type="button" title="delete" *ngIf="earthingClampsarr().length > 1"
+                                <mat-icon class="mousechange" class="dlt" type="button" [hidden]="isEditable" title="delete" *ngIf="earthingClampsarr().length > 1"
                                     (click)="removeItem2(a,j)"
                                     style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
                                 </tbody>
@@ -1453,10 +1451,10 @@
                                         </td>
                                     </tr>
                                 </div>
-                                <mat-icon class="mousechange" class="add" type="button" (click)="submit3()" *ngIf="earthElectrodeChambearr().length == j+1"
+                                <mat-icon class="mousechange" class="add" type="button" [hidden]="isEditable" (click)="submit3()" *ngIf="earthElectrodeChambearr().length == j+1"
                                     style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section"
                                   >add_box</mat-icon>
-                                <mat-icon class="mousechange" class="dlt" type="button" title="delete" *ngIf="earthElectrodeChambearr().length > 1"
+                                <mat-icon class="mousechange" class="dlt" type="button" [hidden]="isEditable" title="delete" *ngIf="earthElectrodeChambearr().length > 1"
                                     (click)="removeItem3(a,j)"
                                     style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
                             </tbody>
@@ -2004,8 +2002,8 @@
             </mat-accordion>
             <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
                 <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
-                <button  class="next"  [disabled]="disable" (click)="gotoNextModal(content)" mat-button >Next &raquo;</button>
-            </div>
+                <button class="next" (click)="gotoNextModal(content,contents)" mat-button >Next &raquo;</button>
+           </div>
             <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
                 <span class="alert alert-danger">{{validationErrorMsg}}</span>
             </div>
@@ -2032,3 +2030,28 @@
 
   </button>
 </ng-template> 
+<ng-template #contents let-modal>
+    <div class="modal-body">
+     <div class="centre-text m-btm30">
+      <div style="text-align: center;">
+        <span class="successshow">Are you sure you want to procced? </span>
+        <br>
+        <span style="font-size: 12px;">Note: Please verify all the details! </span>
+       </div>
+      </div>
+     </div>
+    <br>
+    <div class="row">
+       <button type="button" class="col-md-6" style="text-align:center; width: auto;" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+       aria-label="Close" (click)="closeModalDialog()" matStepperNext>
+       <i class="bi bi-arrow-right-circle"></i>&nbsp;
+        <span aria-hidden="true">Ok</span>
+    </button>
+    <button type="button" class="col-md-6" style="width: auto;" class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn"
+       aria-label="Close" (click)="closeModalDialog()">
+       <i class="bi bi-x icon"></i>
+        <span aria-hidden="true">Cancel</span>
+    </button>
+  </div>
+  
+    </ng-template>     

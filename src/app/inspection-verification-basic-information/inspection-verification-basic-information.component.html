@@ -363,7 +363,8 @@
 
                       <div class="col-md-4">
                         <label>Date:</label>
-                        <input type="date" formControlName="declarationDate" class="form-control" placeholder="Enter Date"
+                        <input type="date" formControlName="declarationDate" class="form-control" 
+                        placeholder="Enter Date"
                         [ngClass]="{ 'is-invalid': submitted && a.get('declarationDate')?.errors }">
                           <div *ngIf="submitted && a.get('declarationDate')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('declarationDate')?.errors?.required">Date is required</div>
@@ -527,7 +528,8 @@
             </mat-expansion-panel-header>
             <h2>Designer Details</h2>
 
-            <mat-icon *ngIf="showAddButton" class="mousechange" (click)="addDesigner()" style="float:right; padding-right: 37px; padding-top: 10px;">add_box</mat-icon>
+            <mat-icon *ngIf="showAddButton" class="mousechange" (click)="addDesigner()" [ngClass]="{'disableForm':service.allFieldsDisable}"
+            style="float:right; padding-right: 37px; padding-top: 10px;">add_box</mat-icon>
 
               <div formArrayName="designer1Arr" *ngFor="let a of getDesigner1Controls(); let i = index">
                 <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">

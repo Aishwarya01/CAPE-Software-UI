@@ -480,10 +480,12 @@ export class LpsEarthingComponent implements OnInit {
     this.chamberPushArr = [];
 
       if(flag) {
+        if(this.earthingForm.dirty && this.earthingForm.touched){ 
         this.lpsEarthingService.updateEarthingLps(this.earthingLpsDescription).subscribe(
           (data) => {
             this.success = true;
             this.successMsg = data;
+            this.earthingForm.markAsPristine();
             this.proceedNext.emit(true);
           },
           (error) => {
@@ -494,6 +496,16 @@ export class LpsEarthingComponent implements OnInit {
             this.proceedNext.emit(false);
           }
         )
+      }
+      else{
+        if(this.isEditable){
+          this.success = true;
+          this.proceedNext.emit(true);
+        }else{
+          this.success = true;
+          this.proceedNext.emit(true);
+        }
+      }
       }
       else {
         this.lpsEarthingService.saveEarthingDetails(this.earthingLpsDescription).subscribe(
@@ -526,7 +538,7 @@ export class LpsEarthingComponent implements OnInit {
       }
     }
   
-    gotoNextModal(content: any) {
+    gotoNextModal(content: any,contents:any) {
       (this.earthingForm.value);
        if (this.earthingForm.invalid) {
          this.validationError = true;
@@ -546,6 +558,13 @@ export class LpsEarthingComponent implements OnInit {
         }, 3000);
         return;
       }
-      this.modalService.open(content, { centered: true });
+      //  Update and Success msg will be showing
+      if(this.earthingForm.dirty && this.earthingForm.touched){
+        this.modalService.open(content, { centered: true });
+     }
+    //  For Dirty popup
+     else{
+      this.modalService.open(contents, { centered: true });
+     }
     }
 }
