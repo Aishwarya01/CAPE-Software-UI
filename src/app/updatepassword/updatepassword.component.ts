@@ -51,7 +51,7 @@ export class UpdatepasswordComponent implements OnInit {
 
   onSubmit(){
     this.submitted=true;
-
+    debugger;
     //Breaks if form is invalid
     if(this.updatepassform.invalid) {
       return;
@@ -59,7 +59,7 @@ export class UpdatepasswordComponent implements OnInit {
 
     this.loading=true;
 
-    this.updatepasswordservice.updatePassword(this.user.email, this.user.password, this.user.otp).subscribe(
+    this.updatepasswordservice.updatePassword(this.user.email, this.user.password).subscribe(
       data=> {
         this.successMsg = data;
         setTimeout(() => {
