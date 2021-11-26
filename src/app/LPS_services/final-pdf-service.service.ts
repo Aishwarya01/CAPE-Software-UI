@@ -14,10 +14,10 @@ export class FinalPdfServiceService {
   constructor(private http: HttpClient) { }
 
   public downloadPDF(basicLpsId: any,userName: any,) {
-    debugger
+    
     return   this.http.get(this.apiUrl + '/printFinalPDF'+'/'+userName+ '/' +basicLpsId, { responseType: 'blob' }).subscribe(
          data =>{
-           debugger
+           
            const fileName = 'Lpsfinalreport.pdf';
            FileSaver.saveAs(data, fileName);
          }, 
@@ -43,7 +43,7 @@ export class FinalPdfServiceService {
     }
 
     public mailPDF(basicLpsId: any,userName: any): Observable<any> {
-      debugger
+      
       return this.http.get(this.apiUrl + '/sendPDFinMail'+'/'+userName+ '/' +basicLpsId, { responseType: 'text' as 'json' })
     }
 }

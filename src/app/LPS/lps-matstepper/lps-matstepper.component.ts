@@ -224,10 +224,10 @@ export class LpsMatstepperComponent implements OnInit {
     let userName=this.router.snapshot.paramMap.get('email') || '{}';
     this.changeTabLpsSavedReport(index,this.earthStud.basicLpsId,userName,this.earthStud.ClientName);
     this.selectedIndex = index;
-    debugger
+    
   }
   refresh() {
-    debugger
+    
     this.ChangeDetectorRef.detectChanges();
   }
 
@@ -247,7 +247,6 @@ export class LpsMatstepperComponent implements OnInit {
     this.ngOnInit();
     this.isEditable=false;
     let userName=this.router.snapshot.paramMap.get('email') || '{}';
-    debugger
     this.changeTabLpsSavedReport(0,basicLpsId,userName,ClientName);
   }
 }

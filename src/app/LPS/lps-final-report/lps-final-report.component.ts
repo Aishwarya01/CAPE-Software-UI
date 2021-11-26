@@ -94,19 +94,17 @@ export class LpsFinalReportComponent implements OnInit {
   }
 
   refresh() {
-    debugger
     this.ChangeDetectorRef.detectChanges();
   }
 
   userName=this.router.snapshot.paramMap.get('email') || '{}';
 
   downloadPdf(basicLpsId: any): any {
-    debugger
      this.finalpdf.downloadPDF(basicLpsId,this.userName)
    }
 
   priviewPdf(basicLpsId:any,clientName:any){
-     debugger
+     
      this.matstepper.preview(basicLpsId,clientName);
    }
 
@@ -132,7 +130,7 @@ export class LpsFinalReportComponent implements OnInit {
   }
 
   printPDF(basicLpsId:any,userName:any){
-    debugger
+    
     this.disable=false;
     this.finalpdf.printPDF(basicLpsId,userName)
   }
