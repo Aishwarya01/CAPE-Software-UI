@@ -145,7 +145,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="lnumber">Location Number</label>
-                                    <input class="form-control" [readonly]="isEditable" formControlName="locationNumber" type="number" placeholder="Location Number"
+                                    <input class="form-control" (keypress)="keyPressNumbers($event)" [readonly]="isEditable" formControlName="locationNumber" placeholder="Location Number"
                                         [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors}">
                                     <div *ngIf="submitted && a.get('locationNumber')?.errors"
                                         class="invalid-feedback">
@@ -794,7 +794,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="lnumber">Location Number</label>
-                                                <input class="form-control" [readonly]="isEditable" formControlName="locationNumber" type="number" placeholder="Location Number"
+                                                <input class="form-control" (keypress)="keyPressNumbers($event)" [readonly]="isEditable" formControlName="locationNumber" placeholder="Location Number"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors}">
                                                 <div *ngIf="submitted && a.get('locationNumber')?.errors"
                                                     class="invalid-feedback">
@@ -1141,7 +1141,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label for="lnumber">Location Number</label>
-                                            <input class="form-control" [readonly]="isEditable" formControlName="locationNumber" type="number" placeholder="Location Number"
+                                            <input class="form-control" (keypress)="keyPressNumbers($event)" [readonly]="isEditable" formControlName="locationNumber" placeholder="Location Number"
                                                 [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors}">
                                             <div *ngIf="submitted && a.get('locationNumber')?.errors"
                                                 class="invalid-feedback">

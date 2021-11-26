@@ -64,6 +64,18 @@ export class LpsBasicPageComponent implements OnInit {
 
   }
 
+    // Only Accept numbers
+    keyPressNumbers(event:any) {
+      var charCode = (event.which) ? event.which : event.keyCode;
+      // Only Numbers 0-9
+      if ((charCode < 48 || charCode > 57)) {
+        event.preventDefault();
+        return false;
+      } else {
+        return true;
+      }
+    }
+
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
      this.step1List = data.basicLps;
     //  if(this.step1List.clientName != null){

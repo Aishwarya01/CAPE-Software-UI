@@ -59,7 +59,7 @@
                                 [ngClass]="{ 'is-invalid': submitted && f.contactNumber.errors}" />
                                 <div *ngIf="submitted && f.contactNumber.errors" class="invalid-feedback">
                                     <div *ngIf="f.contactNumber?.errors?.required">Mobile Number Is Required</div>
-                                    <!-- <div *ngIf="f.mobileNumber?.errors?.minlength">Enter 10 Digit Number</div> -->
+                                    <div *ngIf="f.contactNumber?.errors?.minlength">Enter 10 Digit Number</div> 
                                     <div *ngIf="f.contactNumber?.errors?.maxlength">Enter 10 Digit Number</div>
                                 </div>
                     </div>
