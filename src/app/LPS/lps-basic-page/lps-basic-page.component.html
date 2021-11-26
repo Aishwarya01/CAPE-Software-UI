@@ -212,7 +212,7 @@
                                 <i class="bi bi-align-start"></i>
                             </span>
                         </div>
-                        <input type="number" class="form-control" placeholder="Enter length in meter"
+                        <input (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Enter length in meter"
                             [readonly]="isEditable" formControlName="buildingLength"  [(ngModel)]="basicDetails.buildingLength"
                             [ngClass]="{ 'is-invalid': submitted && f.buildingLength.errors}" />
                         <div *ngIf="submitted && f.buildingLength.errors" class="invalid-feedback">
@@ -229,7 +229,7 @@
                                 <i class="bi bi-border-width"></i>
                             </span>
                         </div>
-                        <input type="number" class="form-control" placeholder="Enter width in meter"
+                        <input (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Enter width in meter"
                             [readonly]="isEditable" formControlName="buildingWidth"  [(ngModel)]="basicDetails.buildingWidth"
                             [ngClass]="{ 'is-invalid': submitted && f.buildingWidth.errors}" />
                         <div *ngIf="submitted && f.buildingWidth.errors" class="invalid-feedback">
@@ -246,7 +246,7 @@
                                 <i class="bi bi-distribute-horizontal"></i>
                             </span>
                         </div>
-                        <input type="number" class="form-control" placeholder="Enter height in meter"
+                        <input (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Enter height in meter"
                             [readonly]="isEditable" formControlName="buildingHeight" [(ngModel)]="basicDetails.buildingHeight"
                             [ngClass]="{ 'is-invalid': submitted && f.buildingHeight.errors}" />
                         <div *ngIf="submitted && f.buildingHeight.errors" class="invalid-feedback">
@@ -283,7 +283,7 @@
                                 <i class="bi bi-shield-fill-x"></i>
                             </span>
                         </div>
-                        <input type="number" class="form-control" placeholder="Enter Soil Resistivity"
+                        <input (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Enter Soil Resistivity"
                             [readonly]="isEditable" formControlName="soilResistivity" [(ngModel)]="basicDetails.soilResistivity"
                             />
                     </div>
@@ -625,11 +625,6 @@
             <div *ngIf="success" style="text-align: center;">
                 <span class="successshow">{{successMsg}}</span>
             </div>
-
-            <!-- <div *ngIf="success1" style="text-align: center;">
-                <span class="errorshow">{{successMsg1}}</span>
-            </div> -->
-
             <div *ngIf="Error" style="text-align: center;">
                 <span class="errorshow">{{errorMsg}}</span>
             </div>

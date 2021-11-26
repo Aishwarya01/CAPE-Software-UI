@@ -134,7 +134,7 @@ export class LpsEarthStudComponent implements OnInit {
             this.proceedNext.emit(true);
             setTimeout(() => {
               this.lpsMatstepper.changeTab1(2);
-             }, 5000);
+             }, 3000);
           },
           (error) => {
             this.Error = true;

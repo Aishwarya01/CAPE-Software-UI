@@ -120,7 +120,7 @@
             <mat-icon>download</mat-icon>
           </button>
             <!-- Email -->
-          <button class="btn btn-outline-danger delete" title="Trigger Email With Final PDF" 
+          <button class="btn btn-outline-danger delete" title="Trigger Email With Final PDF"
           style="border-color: #cdcecf;box-shadow: unset;" (click)="emailPDF(element.basicLpsId,element.userName)">
             <mat-icon>email</mat-icon>
           </button>
@@ -144,7 +144,33 @@
         </tr>
       </table>
 
+      <!-- <ng-template #content let-modal>
+        <div class="modal-body">
+            <div class="centre-text m-btm30">
+                <div *ngIf="success" style="text-align: center;">
+                    <span class="successshow">{{successMsg}}</span>
+                </div>
+                <div *ngIf="Error" style="text-align: center;">
+                    <span class="errorshow">{{errorMsg}}</span>
+                </div>
+            </div>
+        </div>
+        <br>
+         <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+         aria-label="Close"  (click)="closeModalDialog()" style="margin-left: 195px;width: 16%;" matStepperNext>
+          <span aria-hidden="true">Ok</span>
+      </button>
+    </ng-template>  -->
       <mat-paginator #finalReportPaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-    </div>
 
+      <div class="centre-text m-btm30">
+        <div *ngIf="success" style="text-align: center;">
+          <span class="successshow">{{successMsg}}</span>
+         </div>
+         <div *ngIf="Error" style="text-align: center;">
+           <span class="errorshow">{{errorMsg}}</span>
+         </div>
+      </div>
+    </div>
   </div>
+
