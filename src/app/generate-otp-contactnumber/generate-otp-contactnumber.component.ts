@@ -37,7 +37,7 @@ export class GenerateOtpContactnumberComponent implements OnInit {
   ngOnInit(): void {
     this.countryCode = '91';
     this.generateContactNumberOtpForm = this.formBuilder.group({
-      mobileNumber: ['',[Validators.maxLength(10),Validators.required]]
+      mobileNumber: ['',[Validators.minLength(10),Validators.maxLength(10),Validators.required]]
   });
   }
 

@@ -21,7 +21,7 @@
                                     <input type="tel" ng2TelInput id="changeContactPadding" [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" (countryChange)="countryChange($event)" formControlName="mobileNumber" class="form-control"   placeholder="Enter Number" [ngClass]="{ 'is-invalid': submitted && f.mobileNumber?.errors }">
                                     <div *ngIf="submitted && f.mobileNumber?.errors" class="invalid-feedback">
                                         <div *ngIf="f.mobileNumber?.errors?.required">Mobile Number Is Required</div>
-                                        <!-- <div *ngIf="f.mobileNumber?.errors?.minlength">Enter 10 Digit Number</div> -->
+                                         <div *ngIf="f.mobileNumber?.errors?.minlength">Enter 10 Digit Number</div>
                                         <div *ngIf="f.mobileNumber?.errors?.maxlength">Enter 10 Digit Number</div>
                                     </div>                                        
                             </div>

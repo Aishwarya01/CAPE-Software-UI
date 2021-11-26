@@ -59,7 +59,6 @@
                                         </mat-icon>
                                         <div *ngIf="submitted && a.get('contactNumber')?.errors" class="invalid-feedback">
                                             <div *ngIf="a.get('contactNumber')?.errors?.required">Mobile Number Is Required</div>
-                                            <!-- <div *ngIf="a.get('personName')?.errors?.minlength">Enter 10 Digit Number</div> -->
                                             <div *ngIf="a.get('contactNumber')?.errors?.maxlength">Enter 10 Digit Number</div>
                                         </div>
                             </div>
@@ -340,7 +339,7 @@
                                 <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" (countryChange)="countryChange($event)" formControlName="mobileNumber" class="form-control"   placeholder="Enter Number" [ngClass]="{ 'is-invalid': mobileSubmitted && g.mobileNumber?.errors }">
                                 <div *ngIf="mobileSubmitted && g.mobileNumber?.errors" class="invalid-feedback">
                                     <div *ngIf="g.mobileNumber?.errors?.required">Mobile Number Is Required</div>
-                                    <!-- <div *ngIf="f.mobileNumber?.errors?.minlength">Enter 10 Digit Number</div> -->
+                                    <div *ngIf="g.mobileNumber?.errors?.minlength">Enter 10 Digit Number</div>
                                     <div *ngIf="g.mobileNumber?.errors?.maxlength">Enter 10 Digit Number</div>
                                 </div>                                        
                         </div>
