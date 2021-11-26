@@ -60,8 +60,10 @@ export class LoginComponent implements OnInit {
         }
       },
       error => {
-        //console.log(error);
-        this.showErrorMessage=error.error.message;
+        if(error.error.error == 'Unauthorized'){
+          error.error.error = 'Invalid Credentials';
+        }
+        this.showErrorMessage=error.error.error;
         this.loading=false;
       }
     )
