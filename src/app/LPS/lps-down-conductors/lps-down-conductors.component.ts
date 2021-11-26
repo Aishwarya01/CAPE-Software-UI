@@ -93,6 +93,18 @@ export class LpsDownConductorsComponent implements OnInit {
       testjointsArr: this.formBuilder.array([this.createTestJointsArrForm()])
     });
   }
+  
+  // Only Accept numbers
+  keyPressNumbers(event:any) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
       this.step3List = data.downConductorDesc;

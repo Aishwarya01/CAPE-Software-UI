@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BasicDetails } from 'src/app/LPS_model/basic-details';
 import { FinalPdfServiceService } from 'src/app/LPS_services/final-pdf-service.service';
 import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.service';
@@ -56,7 +57,8 @@ export class LpsFinalReportComponent implements OnInit {
               private ChangeDetectorRef: ChangeDetectorRef,
               private welcome: LpsWelcomePageComponent,
               private finalpdf: FinalPdfServiceService,
-              private matstepper:LpsMatstepperComponent) { 
+              private matstepper:LpsMatstepperComponent,
+              private modalService: NgbModal) { 
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
   }
 
@@ -93,6 +95,17 @@ export class LpsFinalReportComponent implements OnInit {
         });
   }
 
+  closeModalDialog() {
+    
+    if (this.errorMsg != '') {
+      this.Error = false;
+      this.modalService.dismissAll((this.errorMsg = ''));
+    } else {
+      this.success = false;
+      this.modalService.dismissAll((this.successMsg = ''));
+    }
+  }
+
   refresh() {
     this.ChangeDetectorRef.detectChanges();
   }
@@ -108,7 +121,12 @@ export class LpsFinalReportComponent implements OnInit {
      this.matstepper.preview(basicLpsId,clientName);
    }
 
+  // emailMsg(content: any){
+  //   this.modalService.open(content, { centered: true });
+  // }
+
   emailPDF(basicLpsId:any,userName:any){
+    debugger
     this.disable=false;
     this.finalpdf.mailPDF(basicLpsId,userName).subscribe(
     data => {
@@ -116,16 +134,17 @@ export class LpsFinalReportComponent implements OnInit {
     this.successMsg = data;
     setTimeout(()=>{
       this.success=false;
-        }, 3000);
+        },5000);
     },
     error => {
+      debugger
       this.Error = true;
       this.errorArr = [];
       this.errorArr = JSON.parse(error.error);
       this.errorMsg = this.errorArr.message;
       setTimeout(()=>{
         this.Error = false;
-        }, 3000);
+        },5000);
     });
   }
 
