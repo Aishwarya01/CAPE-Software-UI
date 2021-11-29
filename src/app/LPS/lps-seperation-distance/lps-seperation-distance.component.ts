@@ -127,7 +127,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
     seperationDistanceDescId: new FormControl({disabled: false, value: item.seperationDistanceDescId}),
     seperationDistanceDesc: new FormControl({disabled: false, value: item.seperationDistanceDesc}, Validators.required),
     seperationDistanceOb: new FormControl({disabled: false, value: item.seperationDistanceOb}, Validators.required),
-    seperationDistanceRem: new FormControl({disabled: false, value: item.seperationDistanceRem}, Validators.required),
+    seperationDistanceRem: new FormControl({disabled: false, value: item.seperationDistanceRem}),
     flag: new FormControl({disabled: false, value: item.flag}),
        
     });
