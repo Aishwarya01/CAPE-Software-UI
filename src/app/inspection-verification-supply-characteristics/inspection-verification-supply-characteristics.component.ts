@@ -346,9 +346,9 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       maximumDemand: ['', Validators.required],
       maximumLoad: ['', Validators.required],
       meansEarthing: ['', Validators.required],
-      meansEarthingRemark:['', Validators.required],
+      meansEarthingRemark:[''],
       electrodeType: ['', Validators.required],
-      electrodeMaterial: ['', Validators.required],
+      electrodeMaterial: [''],
       noOfLocation: ['', [Validators.required, Validators.min(0)]],
       conductorSize: ['', Validators.required],
       conductormaterial: ['', Validators.required],
@@ -2303,6 +2303,25 @@ showHideAccordion(index: number) {
     return form.controls.nominalVoltageArr1.controls;
   }
 
+  enableBriefNote(e: any, a: any) {
+    debugger
+    let changedValue
+    if(e.target != undefined) {
+      changedValue = e.target.value;
+    }
+    else{
+      changedValue = e;
+    }
+    if(changedValue == 'Others') {
+      a.controls.aLSystemEarthingBNote.setValidators(Validators.required);
+      a.controls.aLSystemEarthingBNote.updateValueAndValidity();
+    }
+    else {
+      a.controls.aLSystemEarthingBNote.clearValidators();
+      a.controls.aLSystemEarthingBNote.updateValueAndValidity();
+    }
+  }
+  
   showValue(e: any, a: any) {
     let changedValue = e.target.value;
     if (changedValue == 'AC') {

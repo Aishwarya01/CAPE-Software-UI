@@ -152,46 +152,35 @@
             
           </div>
 
-          <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
-            <div class="col-md-4" *ngIf="showBrief">
-              <mat-form-field class="client-description " >
-                <mat-label>
-                  <h3>Brief Note (in case of confusion)(Optional)</h3>
-                </mat-label>
-                <textarea matInput class="client-box-description" formControlName="briefNote" 
-                [ngClass]="{ 'is-invalid': submitted && f.briefNote.errors }" [readonly]="service.allFieldsDisable"
-                [(ngModel)]="supplycharesteristic.systemEarthingBNote" maxlength="500" placeholder="Ex. Brief Note ..." ></textarea>
-              </mat-form-field>
-              <div *ngIf="submitted && f.briefNote.errors" class="invalid-feedback">
-                <div *ngIf="f.briefNote?.errors?.required">Field Is Required</div>
-              </div>
-            </div>
-
-            <div class="col-md-4" *ngIf="showRemarks">
-              <mat-form-field class="client-description">
-                <mat-icon style="float: right;font-size: 18px;
-                line-height: unset;margin-right: 87%;margin-top: 0.7%;"
-                matTooltip="In case of confusion, provide details of earthing of incoming supply (whether transformer is available at 
-                distribution end) and how the wiring connection are made for live and protective conductors. Especially a description 
-                of earthing."
-                matTooltipClass="tooltip"
-                aria-label="Button that shows a red tooltip"
-                class="example-button">
-                info_outline
-               </mat-icon>
-                <mat-label>
-                  <h3>Remarks</h3>
-                </mat-label>
-                <textarea matInput class="client-box-description" formControlName="briefNote" 
-                [ngClass]="{ 'is-invalid': submitted && f.briefNote.errors }" 
-                [(ngModel)]="supplycharesteristic.systemEarthingBNote" maxlength="500" 
-                placeholder="Ex. Remarks ..." [readonly]="service.allFieldsDisable"></textarea>
-              </mat-form-field>
-              <div *ngIf="submitted && f.briefNote.errors" class="invalid-feedback">
-                <div *ngIf="f.briefNote?.errors?.required">Field Is Required</div>
-              </div>
-            </div>
-          </div>
+          <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">	
+            <div class="col-md-4">	
+              <mat-form-field class="client-description " >	
+                <mat-label>	
+                  <h3>Brief Note (in case of confusion)</h3>	
+                </mat-label>	
+                <textarea matInput class="client-box-description" formControlName="briefNote" 	
+                [ngClass]="{ 'is-invalid': submitted && f.briefNote.errors }" 	
+                [(ngModel)]="supplycharesteristic.systemEarthingBNote" maxlength="500" placeholder="Ex. Brief Note ..." ></textarea>	
+              </mat-form-field>	
+              <div *ngIf="submitted && f.briefNote.errors" class="invalid-feedback">	
+                <div *ngIf="f.briefNote?.errors?.required">Field Is Required</div>	
+              </div>	
+            </div>	
+            <!-- <div class="col-md-4" *ngIf="showRemarks">	
+              <mat-form-field class="client-description">	
+                <mat-label>	
+                  <h3>Remarks</h3>	
+                </mat-label>	
+                <textarea matInput class="client-box-description" formControlName="briefNote" 	
+                [ngClass]="{ 'is-invalid': submitted && f.briefNote.errors }" 	
+                [(ngModel)]="supplycharesteristic.systemEarthingBNote" maxlength="500" 	
+                placeholder="Ex. Remarks ..." ></textarea>	
+              </mat-form-field>	
+              <div *ngIf="submitted && f.briefNote.errors" class="invalid-feedback">	
+                <div *ngIf="f.briefNote?.errors?.required">Field Is Required</div>	
+              </div>	
+            </div> -->	
+          </div>	
 <br>
           <div class="row" *ngIf="tableAC" [ngClass]="{'disableForm':service.allFieldsDisable}">
             <div class="col-sm-12">
@@ -557,8 +546,7 @@
                       class="example-button">
                       info_outline
                      </mat-icon>
-                      <select class="form-control" formControlName="aLSystemEarthing" [disabled]="service.allFieldsDisable"
-                      [ngClass]="{ 'is-invalid': submitted && a.get('aLSystemEarthing')?.errors }">
+                     <select class="form-control" formControlName="aLSystemEarthing" (change)="enableBriefNote($event,a)" [ngClass]="{ 'is-invalid': submitted && a.get('aLSystemEarthing')?.errors }">
                         <option value="0" selected>Select Option</option>
                         <option *ngFor="let value of systemEarthingList" [selected]="value=== a.get('aLSystemEarthing')?.value"> {{value}}</option>
                       </select>
@@ -591,45 +579,36 @@
                     </div>
 </div>
 <br>
-<div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
-  <div class="col-md-4" *ngIf="a.get('aLSystemEarthing')?.value!='Others'">
-    <mat-form-field class="client-description">
-      <mat-label>
-        <h3>Brief Note (in case of confusion)(Optional)</h3>
-      </mat-label>
-      <textarea matInput class="client-box-description" 
-      formControlName="aLSystemEarthingBNote" 
-      [ngClass]="{ 'is-invalid': submitted && a.get('aLSystemEarthingBNote')?.errors }" 
-      maxlength="500" 
-      placeholder="Ex. Brief Note ..." [readonly]="service.allFieldsDisable"></textarea>
-    </mat-form-field>
-    <div *ngIf="submitted && a.get('aLSystemEarthingBNote')?.errors" class="invalid-feedback">
-      <div *ngIf="a.get('aLSystemEarthingBNote')?.errors?.required">Field Is Required</div>
-    </div>
-  </div>
-
-  <div class="col-md-4" *ngIf="a.get('aLSystemEarthing')?.value=='Others'">
-    <mat-form-field class="client-description">
-      <mat-icon style="float: right;font-size: 18px;
-      line-height: unset;margin-right: 87%;margin-top: 0.6%;"
-      matTooltip="In case of confusion, provide details of incoming supply (whether transformer is available at distribution end) and how the wiring connection are made for live and protective conductors."
-      matTooltipClass="multiline-tooltip"
-      aria-label="Button that shows a red tooltip"
-      class="example-button">
-      info_outline
-     </mat-icon>
-      <mat-label>
-        <h3>Remarks</h3>
-      </mat-label>
-      <textarea matInput class="client-box-description" formControlName="aLSystemEarthingBNote" 
-      [ngClass]="{ 'is-invalid': submitted && a.get('aLSystemEarthingBNote')?.errors }" 
-      maxlength="500" 
-      placeholder="Ex. Remarks ..." [readonly]="service.allFieldsDisable"></textarea>
-    </mat-form-field>
-    <div *ngIf="submitted && a.get('aLSystemEarthingBNote')?.errors" class="invalid-feedback">
-      <div *ngIf="a.get('aLSystemEarthingBNote')?.errors?.required">Field Is Required</div>
-    </div>
-  </div>
+<div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">	
+  <div class="col-md-4">	
+    <mat-form-field class="client-description">	
+      <mat-label>	
+        <h3>Brief Note (in case of confusion)</h3>	
+      </mat-label>	
+      <textarea matInput class="client-box-description" 	
+      formControlName="aLSystemEarthingBNote" 	
+      [ngClass]="{ 'is-invalid': submitted && a.get('aLSystemEarthingBNote')?.errors }" 	
+      maxlength="500" 	
+      placeholder="Ex. Brief Note ..." ></textarea>	
+    </mat-form-field>	
+    <div *ngIf="submitted && a.get('aLSystemEarthingBNote')?.errors" class="invalid-feedback">	
+      <div *ngIf="a.get('aLSystemEarthingBNote')?.errors?.required">Field Is Required</div>	
+    </div>	
+  </div>	
+  <!-- <div class="col-md-4" *ngIf="a.get('aLSystemEarthing')?.value=='Others'">	
+    <mat-form-field class="client-description">	
+      <mat-label>	
+        <h3>Remarks</h3>	
+      </mat-label>	
+      <textarea matInput class="client-box-description" formControlName="aLSystemEarthingBNote" 	
+      [ngClass]="{ 'is-invalid': submitted && a.get('aLSystemEarthingBNote')?.errors }" 	
+      maxlength="500" 	
+      placeholder="Ex. Remarks ..." ></textarea>	
+    </mat-form-field>	
+    <div *ngIf="submitted && a.get('aLSystemEarthingBNote')?.errors" class="invalid-feedback">	
+      <div *ngIf="a.get('aLSystemEarthingBNote')?.errors?.required">Field Is Required</div>	
+    </div>	
+  </div> -->	
 </div>
 <br>
 <div class="row">
@@ -889,48 +868,38 @@
                     </div>
                   </div>
 <br>
-                  <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
-                    <div class="col-md-4" *ngIf="a.get('aLSystemEarthing')?.value!='Others'">
-                      <mat-form-field class="client-description">
-                        <mat-label>
-                          <h3>Brief Note (in case of confusion)(Optional)</h3>
-                        </mat-label>
-                        <textarea matInput class="client-box-description" [readonly]="service.allFieldsDisable" formControlName="aLLiveConductorBNote" 
-                        [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorBNote')?.errors }" maxlength="500" 
-                        placeholder="Ex. Brief Note ..." ></textarea>
-                        <div *ngIf="submitted && a.get('aLLiveConductorBNote')?.errors" class="invalid-feedback">
-                          <div *ngIf="a.get('aLLiveConductorBNote')?.errors?.required">Field Is Required</div>
-                        </div>
-                      </mat-form-field>
-                    </div>
-
-                    <div class="col-md-4" *ngIf="a.get('aLSystemEarthing')?.value=='Others'">
-                      <mat-form-field class="client-description">
-                        <mat-icon style="float: right;font-size: 18px;
-                        line-height: unset;margin-right: 87%;margin-top: 0.7%;"
-                        matTooltip="If prospective fault current (4.3) obtained is more than current for disconnection within 0.2 sec (5.3) then circuit is said to be safe otherwise unsafe."
-                        matTooltipClass="multiline-tooltip"
-                        aria-label="Button that shows a red tooltip"
-                        class="example-button">
-                        info_outline
-                       </mat-icon>
-                        <mat-label>
-                          <h3>Remarks</h3>
-                        </mat-label>
-                        <textarea matInput class="client-box-description" [readonly]="service.allFieldsDisable" formControlName="aLLiveConductorBNote" 
-                        [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorBNote')?.errors }" 
-                        maxlength="500" 
-                        placeholder="Ex. Remarks ..." ></textarea>
-                      </mat-form-field>
-                      <div *ngIf="submitted && a.get('aLLiveConductorBNote')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('aLLiveConductorBNote')?.errors?.required">Field Is Required</div>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
+        <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">	
+          <!-- <div class="col-md-4" *ngIf="a.get('aLSystemEarthing')?.value!='Others'">	
+            <mat-form-field class="client-description">	
+              <mat-label>	
+                <h3>Brief Note (in case of confusion)(Optional)</h3>	
+              </mat-label>	
+              <textarea matInput class="client-box-description" formControlName="aLLiveConductorBNote" 	
+              [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorBNote')?.errors }" maxlength="500" 	
+              placeholder="Ex. Brief Note ..." ></textarea>	
+              <div *ngIf="submitted && a.get('aLLiveConductorBNote')?.errors" class="invalid-feedback">	
+                <div *ngIf="a.get('aLLiveConductorBNote')?.errors?.required">Field Is Required</div>	
+              </div>	
+            </mat-form-field>	
+          </div> -->	
+          <div class="col-md-4">	
+            <mat-form-field class="client-description">	
+              <mat-label>	
+                <h3>Remarks</h3>	
+              </mat-label>	
+              <textarea matInput class="client-box-description" formControlName="aLLiveConductorBNote" 	
+              [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorBNote')?.errors }" 	
+              maxlength="500" 	
+              placeholder="Ex. Remarks ..." ></textarea>	
+            </mat-form-field>	
+            <div *ngIf="submitted && a.get('aLLiveConductorBNote')?.errors" class="invalid-feedback">	
+              <div *ngIf="a.get('aLLiveConductorBNote')?.errors?.required">Field Is Required</div>	
+            </div>	
+          </div>	
+        </div>	
+        </div>	
+        </div>	
+        </div>
 
         </mat-expansion-panel>
             <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
