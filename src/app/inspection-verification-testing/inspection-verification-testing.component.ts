@@ -1194,6 +1194,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
   gettestValueControls(form: any) {
     return form.controls.testingRecords?.controls;
   }
+  gettestAlternateValueControls(form: any) {
+    return form.controls.testingAlternateRecords?.controls;
+  }
   gettestrateFormControls(form: any) {
     return form.controls.rateArr?.controls;
   }
@@ -1281,6 +1284,92 @@ export class InspectionVerificationTestingComponent implements OnInit {
     });
   }
   private createtestValueForm(): FormGroup {
+    return new FormGroup({
+      circuitNo: new FormControl(''),
+      circuitDesc: new FormControl(''),
+      circuitMake: new FormControl(''),
+      circuitStandardNo: new FormControl(''),
+      circuitType: new FormControl(''),
+      circuitPoles: new FormControl(''),
+      circuitModel: new FormControl(''),
+      circuitRating: new FormControl(''),
+      circuitBreakingCapacity: new FormControl(''),
+      shortCircuitSetting: new FormControl(''),
+      eFSetting: new FormControl(''),
+      conductorInstallation: new FormControl(''),
+      conductorPhase: new FormControl(''),
+      conductorNeutral: new FormControl(''),
+      conductorPecpc: new FormControl(''),
+      continutiyApproximateLength: new FormControl(''),
+      continutiyRR: new FormControl(''),
+      continutiyR: new FormControl(''),
+      // continutiyLL: new FormControl(''),
+      // continutiyLE: new FormControl(''),
+      continutiyPolarity: new FormControl(''),
+      rycontinutiy: new FormControl(''),
+      rbcontinutiy: new FormControl(''),
+      ybcontinutiy: new FormControl(''),
+      rncontinutiy: new FormControl(''),
+      yncontinutiy: new FormControl(''),
+      bncontinutiy: new FormControl(''),
+      rpecontinutiy: new FormControl(''),
+      ypecontinutiy: new FormControl(''),
+      bpecontinutiy: new FormControl(''),
+      ryVoltage: new FormControl(''),
+      rbVoltage: new FormControl(''),
+      ybVoltage: new FormControl(''),
+      rnVoltage: new FormControl(''),
+      ynVoltage: new FormControl(''),
+      bnVoltage: new FormControl(''),
+      rpeVoltage: new FormControl(''),
+      ypeVoltage: new FormControl(''),
+      bpeVoltage: new FormControl(''),
+      ryLoopImpedance: new FormControl(''),
+      rbLoopImpedance: new FormControl(''),
+      ybLoopImpedance: new FormControl(''),
+      rnLoopImpedance: new FormControl(''),
+      ynLoopImpedance: new FormControl(''),
+      bnLoopImpedance: new FormControl(''),
+      rpeLoopImpedance: new FormControl(''),
+      ypeLoopImpedance: new FormControl(''),
+      bpeLoopImpedance: new FormControl(''),
+      ryFaultCurrent: new FormControl(''),
+      rbFaultCurrent: new FormControl(''),
+      ybFaultCurrent: new FormControl(''),
+      rnFaultCurrent: new FormControl(''),
+      ynFaultCurrent: new FormControl(''),
+      bnFaultCurrent: new FormControl(''),
+      rpeFaultCurrent: new FormControl(''),
+      ypeFaultCurrent: new FormControl(''),
+      bpeFaultCurrent: new FormControl(''),
+      ryDisconnect: new FormControl(''),
+      rbDisconnect: new FormControl(''),
+      ybDisconnect: new FormControl(''),
+      rnDisconnect: new FormControl(''),
+      ynDisconnect: new FormControl(''),
+      bnDisconnect: new FormControl(''),
+      rpeDisconnect: new FormControl(''),
+      ypeDisconnect: new FormControl(''),
+      bpeDisconnect: new FormControl(''),
+      testVoltage: new FormControl(''),
+      insulationResistance: new FormControl(''),
+      testLoopImpedance: new FormControl(''),
+      testFaultCurrent: new FormControl(''),
+      disconnectionTime: new FormControl(''),
+      rcdType: new FormControl(''),
+      rcdCurrent: new FormControl(''),
+      rcdOperatingCurrent: new FormControl(''),
+      rcdOperatingFiveCurrent: new FormControl(''),
+      rcdTestButtonOperation: new FormControl(''),
+      rcdRemarks: new FormControl(''),
+      testingAlternateRecords: this.formBuilder.array([
+        this.createValue(),
+      ]),
+    });
+  }
+
+  
+  private createValue(): FormGroup {
     return new FormGroup({
       circuitNo: new FormControl(''),
       circuitDesc: new FormControl(''),
