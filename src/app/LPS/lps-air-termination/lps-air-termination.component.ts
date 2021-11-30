@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Airtermination } from 'src/app/LPS_model/airtermination';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
+import { LpsBasicPageComponent } from '../lps-basic-page/lps-basic-page.component';
+import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 
 @Component({
   selector: 'app-lps-air-termination',
@@ -64,11 +66,16 @@ export class LpsAirTerminationComponent implements OnInit {
   exPusharr: any = [];
   conPusharr: any = [];
   isEditable!:boolean
+  stepBack:any;
+  lpsBasic: any;
    
   constructor(
     private formBuilder: FormBuilder,private airterminationServices:AirterminationService,
-    private modalService: NgbModal,private router: ActivatedRoute
+    private modalService: NgbModal,private router: ActivatedRoute,
+    //private lpsBasicPage: LpsBasicPageComponent
+    private matstepper: LpsMatstepperComponent
   ) { 
+    //this.lpsBasic=lpsBasicPage;
     this.airterminationService=airterminationServices;
   }
 
@@ -132,6 +139,32 @@ export class LpsAirTerminationComponent implements OnInit {
       this.flag=true;
     }
 
+    retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
+      debugger
+        this.airTerminationForm.markAsPristine();
+        this.stepBack=JSON.parse(data);
+        this.flag = true;
+        this.step2List= this.stepBack;
+        this.airtermination.basicLpsId = basicLpsId;
+        this.airtermination.lpsAirDescId = this.step2List[0].lpsAirDescId;
+        this.airtermination.connectionMadeBraOb = this.step2List[0].connectionMadeBraOb;
+        this.airtermination.connectionMadeBraRe = this.step2List[0].connectionMadeBraRe;
+        this.airtermination.electricalEquipPlacedOb = this.step2List[0].electricalEquipPlacedOb;
+        this.airtermination.electricalEquipPlacedRe = this.step2List[0].electricalEquipPlacedRe;
+        this.airtermination.combustablePartOb = this.step2List[0].combustablePartOb;
+        this.airtermination.combustablePartRe = this.step2List[0].combustablePartRe;
+        this.airtermination.terminationMeshConductorOb = this.step2List[0].terminationMeshConductorOb;
+        this.airtermination.terminationMeshConductorRe = this.step2List[0].terminationMeshConductorRe;
+        this.airtermination.bondingEquipotentialOb = this.step2List[0].bondingEquipotentialOb;
+        this.airtermination.bondingEquipotentialRe = this.step2List[0].bondingEquipotentialRe;
+        this.airtermination.createdBy = this.step2List[0].createdBy;
+        this.airtermination.createdDate = this.step2List[0].createdDate;     
+        this.airtermination.userName = this.step2List[0].userName;
+   
+        this.populateData1();
+        this.flag=true;
+      }
+
     populateData() {
       for (let item of this.step2List.lpsVerticalAirTermination) {
         if(item.flag) {this.arr1.push(this.createGroup(item));}    
@@ -150,6 +183,41 @@ export class LpsAirTerminationComponent implements OnInit {
         if(item.flag) {this.arr5.push(this.createGroup4(item));}
       }
       for (let item of this.step2List.airConnectors) {     
+        if(item.flag) {this.arr6.push(this.createGroup5(item));}
+      }
+      this.airTerminationForm.setControl('vatArr', this.formBuilder.array(this.arr1 || []))
+      this.airTerminationForm.setControl('meshArr', this.formBuilder.array(this.arr2 || []))
+      this.airTerminationForm.setControl('holderArr', this.formBuilder.array(this.arr3 || []))
+      this.airTerminationForm.setControl('clampArr', this.formBuilder.array(this.arr4 || []))
+      this.airTerminationForm.setControl('expArr', this.formBuilder.array(this.arr5 || []))
+      this.airTerminationForm.setControl('conArr', this.formBuilder.array(this.arr6 || []))
+
+      this.arr1 = [];
+      this.arr2 = [];
+      this.arr3 = [];
+      this.arr4 = [];
+      this.arr5 = [];
+      this.arr6 = [];
+    }
+
+    populateData1() {
+      for (let item of this.step2List[0].lpsVerticalAirTermination) {
+        if(item.flag) {this.arr1.push(this.createGroup(item));}    
+        
+      }
+      for (let item of this.step2List[0].airMeshDescription) {     
+        if(item.flag) {this.arr2.push(this.createGroup1(item));}
+      }
+      for (let item of this.step2List[0].airHolderDescription) {     
+        if(item.flag) {this.arr3.push(this.createGroup2(item));}
+      }
+      for (let item of this.step2List[0].airClamps) { 
+        if(item.flag) {this.arr4.push(this.createGroup3(item));}
+      }
+      for (let item of this.step2List[0].airExpansion) { 
+        if(item.flag) {this.arr5.push(this.createGroup4(item));}
+      }
+      for (let item of this.step2List[0].airConnectors) {     
         if(item.flag) {this.arr6.push(this.createGroup5(item));}
       }
       this.airTerminationForm.setControl('vatArr', this.formBuilder.array(this.arr1 || []))
@@ -399,7 +467,7 @@ export class LpsAirTerminationComponent implements OnInit {
           if(this.airTerminationForm.invalid){
             return
           }
-      this.airtermination.userName=this.router.snapshot.paramMap.get('email') || '{}';;
+      this.airtermination.userName=this.router.snapshot.paramMap.get('email') || '{}';
       this.airtermination.basicLpsId=this.basicLpsId; 
      
         this.airtermination.airClamps=this.airTerminationForm.value.clampArr;
@@ -777,5 +845,9 @@ export class LpsAirTerminationComponent implements OnInit {
    }else
     {(this.airTerminationForm.get('conArr') as FormArray).removeAt(index);}
     }
+
+  retriveLpsDetails1(){
+    this.matstepper.retriveLpsDetails1(this.router.snapshot.paramMap.get('email') || '{}', this.basicLpsId, this.ClientName);
+  }
 
 }

@@ -21,6 +21,7 @@ import { LpsSpdComponent } from '../lps-spd/lps-spd.component';
 import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.service';
 import { LpsSavedReportComponent } from '../lps-saved-report/lps-saved-report.component';
 import { LpsFinalReportComponent } from '../lps-final-report/lps-final-report.component';
+import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 
 @Component({
   selector: 'app-lps-matstepper',
@@ -48,8 +49,6 @@ export class LpsMatstepperComponent implements OnInit {
   Completed6: boolean=true;
   Completed7: boolean=true;
   
-  
-
   @ViewChild(LpsBasicPageComponent)
   basic!: LpsBasicPageComponent;
   @ViewChild(LpsAirTerminationComponent)
@@ -73,16 +72,13 @@ export class LpsMatstepperComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private basicLpsService: LPSBasicDetailsService,
+    private airTerminationService: AirterminationService,
     private router: ActivatedRoute,
-    private ChangeDetectorRef: ChangeDetectorRef) { }
+    private ChangeDetectorRef: ChangeDetectorRef,) { 
+      
+    }
 
   ngOnInit(): void {
-    // this.firstFormGroup = this._formBuilder.group({
-    //   firstCtrl: ['', Validators.required],
-    // });
-    // this.secondFormGroup = this._formBuilder.group({
-    //   secondCtrl: ['', Validators.required],
-    // });
     this.refresh();
   }
   public doSomething1(next: any): void {
@@ -249,4 +245,29 @@ export class LpsMatstepperComponent implements OnInit {
     let userName=this.router.snapshot.paramMap.get('email') || '{}';
     this.changeTabLpsSavedReport(0,basicLpsId,userName,ClientName);
   }
+  // Retrive Details for Air Termination Back Button
+  retriveLpsDetails1(userName: any,basicLpsId: any,clientName: any){
+    this.basicLpsService.retriveLpsbasicDetails(userName,basicLpsId).subscribe(
+      data => {
+        debugger
+        this.basic.retrieveDetailsfromSavedReports1(userName,basicLpsId,clientName,data);
+      }, 
+      error=>{
+
+      }
+    );
+  }
+  // Retrive Details for DownConductor Back Button
+  retriveAirTermination(userName: any,basicLpsId: any,clientName: any){
+    this.airTerminationService.retriveLpsbasicDetails(userName,basicLpsId).subscribe(
+      data => {
+        debugger
+        this.airTermination.retrieveDetailsfromSavedReports1(userName,basicLpsId,clientName,data);
+      }, 
+      error=>{
+
+      }
+    );  
+  }
+
 }

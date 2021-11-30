@@ -19,4 +19,9 @@ export class AirterminationService {
   public updateAirtermination(airTermination: Airtermination): Observable<any> {
     return this.http.put<any>(this.apiUrl + '/updateAirTerminationLps', airTermination, { responseType: 'text' as 'json' })
   }
+
+  public retriveLpsbasicDetails(userName: String,basicLpsId: any): Observable<any>{
+    return this.http.get<any>(this.apiUrl + '/retrieveAirTerminationLps' + '/' +userName+ '/' +basicLpsId, { responseType: 'text' as 'json' })
+  }
+  
 }
