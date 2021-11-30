@@ -104,7 +104,7 @@
                      class="example-button"> info_outline
                    </mat-icon>
                   <select class="form-control" formControlName="limitationsInspection" (change)="onChange($event)"
-                  [(ngModel)]="summary.limitationsInspection" [disabled]="service.allFieldsDisable"
+                  [(ngModel)]="summary.limitationsInspection" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
                   [ngClass]="{ 'is-invalid': submitted && f.limitationsInspection?.errors }">
                   <option value="0" selected>Select Option</option>
                   <option *ngFor="let a of observationList" [selected]="a === summary.limitationsInspection">{{a}}</option>
@@ -153,7 +153,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Code classification :</label>
-                  <select class="form-control" formControlName="furtherActions" [disabled]="service.allFieldsDisable"
+                  <select class="form-control" formControlName="furtherActions" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
                   [ngClass]="{ 'is-invalid': submitted && f.furtherActions?.errors }">
                     <option value="0" selected>Select Option</option>
                     <option >C1</option>
@@ -446,7 +446,7 @@
                         <div class="form-group">
                           <label>Date:</label>
                           <input type="date" class="form-control" formControlName="date" [readonly]="service.allFieldsDisable"
-                          [ngClass]="{ 'is-invalid': submitted && a.get('date')?.errors }">
+                     [ngClass]="{ 'is-invalid': submitted && a.get('date')?.errors }">
                           <div *ngIf="submitted && a.get('date')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('date')?.errors?.required">Date is required</div>
                         </div>

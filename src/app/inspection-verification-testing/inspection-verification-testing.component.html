@@ -279,9 +279,9 @@
                                     class="example-button">
                                     info_outline
                                    </mat-icon>
-                                    <select class="form-control" formControlName="correctSupplyPolarity" [disabled]="service.allFieldsDisable"
+                                    <select class="form-control" formControlName="correctSupplyPolarity" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
                                     [ngClass]="{ 'is-invalid': submitted && c.get('correctSupplyPolarity')?.errors }">
-                                        <option value="0" selected>Select Option</option>
+                                       <option value="0" selected>Select Option</option>
                                         <option value="Yes" selected>Yes</option>
                                         <option value="No" selected>No</option>
                                     </select>
@@ -359,9 +359,9 @@
                                     class="example-button">
                                     info_outline
                                    </mat-icon>
-                                    <select class="form-control" formControlName="sourceFromSupply" (change)="changeSource($event,c)"
+                                    <select class="form-control" formControlName="sourceFromSupply" (change)="changeSource($event,c)" [tabindex]="service.allFieldsDisable ? -1 : 0"
                                     [ngClass]="{ 'is-invalid': submitted && c.get('sourceFromSupply')?.errors }" [disabled]="service.allFieldsDisable">
-                                    <option value="0" selected>Select Option</option>
+                                   <option value="0" selected>Select Option</option>
                                     <option *ngFor="let value of SourceList" [selected]="value=== c.get('sourceFromSupply')?.value">
                                       {{value}}</option>
                                   </select>
@@ -586,9 +586,9 @@
             </div>
           </div>
 
-          <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
+          <div class="row">
             <div class="col">
-                <div class="table-responsive" id="style-1">
+                <div class="table-responsive" id="style-1" [ngClass]="{'disableForm':service.allFieldsDisable}">
                   <table class="table" border="1" id="table2" style="margin-bottom: unset;">
                       <thead>
                             <tr align="center">
@@ -736,6 +736,7 @@
                                 <th>L1-N</th>
                                 <th>L2-N</th>
                                 <th>L3-N</th>
+
                                 <th>L1-PE</th>
                                 <th>L2-PE</th>
                                 <th>L3-PE</th>
@@ -745,6 +746,7 @@
                                 <th>L1-N</th>
                                 <th>L2-N</th>
                                 <th>L3-N</th>
+
                                 <th>L1-PE</th>
                                 <th>L2-PE</th>
                                 <th>L3-PE</th>
@@ -814,26 +816,29 @@
                                 <td><input type="text" formControlName="rpecontinutiy" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="ypecontinutiy" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="bpecontinutiy" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
-
+                                
                                 <td><input type="text" formControlName="continutiyPolarity" class="form-control"  style="width:80px"></td>
+                              <!-- voltage -->
                                 <td><input type="text" formControlName="ryVoltage" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="rbVoltage" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="rbVoltage" class="form-control" style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="ybVoltage" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="rnVoltage" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="ynVoltage" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="bnVoltage" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="rpeVoltage" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="bnVoltage" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="rpeVoltage" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="ypeVoltage" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="bpeVoltage" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="ryLoopImpedance" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <!-- impedance -->
+                                <td><input type="text" formControlName="ryLoopImpedance" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="rbLoopImpedance" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="ybLoopImpedance" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="rnLoopImpedance" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="ynLoopImpedance" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="ynLoopImpedance" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="bnLoopImpedance" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="rpeLoopImpedance" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="ypeLoopImpedance" class="form-control"  style="width:70px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="bpeLoopImpedance" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                             <!-- mains calculation -->
                                 <td> <input type="text" formControlName="ryFaultCurrent" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="rbFaultCurrent" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="ybFaultCurrent" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
@@ -843,6 +848,7 @@
                                 <td><input type="text" formControlName="rpeFaultCurrent" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="ypeFaultCurrent" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="bpeFaultCurrent" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                               <!-- mains calculation -->
                                 <td><input type="text" formControlName="ryDisconnect" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="rbDisconnect" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="ybDisconnect" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
@@ -859,7 +865,9 @@
                                 <td><textarea  formControlName="rcdTestButtonOperation"  class="form-control" style="height:40px;width:170px;" [readonly]="service.allFieldsDisable"></textarea>
                                 <td><textarea  formControlName="rcdRemarks"  class="form-control" style="height:40px;width:170px;" [readonly]="service.allFieldsDisable"></textarea>
                                </tr>
-                        <tr  class="form-group" formArrayName="testingAlternateRecords" *ngFor="let g of gettestAlternateValueControls(f); let j = index" [formGroupName]="j" >
+                             
+                        <tr  class="form-group" formArrayName="testingAlternateRecords" *ngFor="let g of gettestAlternateValueControls(f); let j = index" [formGroupName]="j"
+                        [hidden]="isHidden">
                                 <td ><input type="text"  *ngIf="false" formControlName="circuitNo" class="form-control"   style="width:80px" readonly></td>
                                 <td ><textarea *ngIf="false" formControlName="circuitDesc"  class="form-control" style="height:40px;width:170px;"  readonly></textarea> </td>
                                 <td><input type="text" *ngIf="false" formControlName="circuitStandardNo" class="form-control"   style="width:80px" readonly></td>
@@ -934,6 +942,7 @@
                                 <td><textarea  *ngIf="false"  formControlName="rcdTestButtonOperation"  class="form-control" style="height:40px;width:170px;" readonly></textarea>
                                 <td><textarea  *ngIf="false"  formControlName="rcdRemarks"  class="form-control" style="height:40px;width:170px;" readonly></textarea>
                                </tr>
+                             
                         </tbody>
                      </table>
                     </div>

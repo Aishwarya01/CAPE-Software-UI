@@ -54,7 +54,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   testaccordianArr!: FormArray;
   panelOpenState = false;
   // email: String = '';
-
+  isHidden=true;
   @Output() proceedNext = new EventEmitter<any>();
   testingDetails = new TestingDetails();
   incomingVoltage: String = '';
@@ -229,6 +229,35 @@ export class InspectionVerificationTestingComponent implements OnInit {
   showAdd: boolean = true;
   validationErrorTab: boolean = false;
   validationErrorMsgTab: string="";
+  // ryVoltage: any;
+  //     rbVoltage: any;
+  //     ybVoltage: any;
+  //     rnVoltage:any;
+  //     ynVoltage: any;
+  //     bnVoltage: any;
+  //     rpeVoltage: any;
+  //     ypeVoltage: any;
+  //     bpeVoltage:any;
+
+  //     ryLoopImpedance:any;
+  //     rbLoopImpedance: any;
+  //     ybLoopImpedance: any;
+  //     rnLoopImpedance: any;
+  //     ynLoopImpedance: any;
+  //     bnLoopImpedance: any;
+  //     rpeLoopImpedance: any;
+  //     ypeLoopImpedance: any;
+  //     bpeLoopImpedance: any;
+
+  //     ryFaultCurrent: any;
+  //     rbFaultCurrent: any;
+  //     ybFaultCurrent: any;
+  //     rnFaultCurrent: any;
+  //     ynFaultCurrent: any;
+  //     bnFaultCurrent: any;
+  //     rpeFaultCurrent: any;
+  //     ypeFaultCurrent:any;
+  //     bpeFaultCurrent: any;
   constructor(
     private testingService: TestingService,
     private supplyCharacteristicsService: SupplyCharacteristicsService,
@@ -986,6 +1015,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
       }
     }
     if ( this.changedValue == 'Mains Incoming') {
+      this.isHidden=true;
       this.service.testingTable = this.service.retrieveMainNominalVoltage;
     if(this.service.mainNominalVoltageValue!=""){
       this.formList.clear();
@@ -993,6 +1023,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
       }
     }
     else {
+      this.isHidden=false;
       if(this.changedValue == 'Alternate Source of Supply-' + this.currentIndex){
           this.nominalVoltageArr1 = [];
           this.nominalVoltageArr2 = [];
@@ -1585,6 +1616,173 @@ export class InspectionVerificationTestingComponent implements OnInit {
   // clickAcc(){
   //   this.gotoNextTab();
   // }
+  // onKeyVoltage(event:KeyboardEvent){
+  //   if(this.ryVoltage!='' && this.ryLoopImpedance!='' && this.ryLoopImpedance!=undefined && this.ryVoltage!=undefined && this.ryVoltage!='NA' && this.ryLoopImpedance!='NA'){
+  //   this.ryFaultCurrent= this.ryVoltage/this.ryLoopImpedance; 
+  //  }
+  //  else if((this.ryVoltage=='NA' && this.ryLoopImpedance=='NA') || (this.ryVoltage=='NA' || this.ryLoopImpedance=='NA')){
+  //    this.ryFaultCurrent='NA';
+  //   }
+  //  else{
+  //    this.ryFaultCurrent='';
+  //  }
+  //  if(this.rbVoltage!='' && this.rbLoopImpedance!='' && this.rbLoopImpedance!=undefined && this.rbVoltage!=undefined && this.rbVoltage!='NA' && this.rbLoopImpedance!='NA'){
+  //    this.rbFaultCurrent= this.rbVoltage/this.rbLoopImpedance;
+  //   }
+  //   else if((this.rbVoltage=='NA' && this.rbLoopImpedance=='NA') || (this.rbVoltage=='NA' || this.rbLoopImpedance=='NA')){
+  //    this.rbFaultCurrent='NA';
+  //   }
+  //   else{
+  //     this.rbFaultCurrent='';
+  //   }
+  //   if(this.ybVoltage!='' && this.ybLoopImpedance!='' && this.ybLoopImpedance!=undefined && this.ybVoltage!=undefined && this.ybVoltage!='NA' && this.ybLoopImpedance!='NA'){
+  //    this.ybFaultCurrent= this.ybVoltage/this.ybLoopImpedance;
+  //   }
+  //   else if((this.ybVoltage=='NA' && this.ybLoopImpedance=='NA') || (this.ybVoltage=='NA' || this.ybLoopImpedance=='NA')){
+  //    this.ybFaultCurrent='NA';
+  //   }
+  //   else{
+  //     this.ybFaultCurrent='';
+  //   }
+  //   if(this.rnVoltage!='' && this.rnLoopImpedance!='' && this.rnLoopImpedance!=undefined && this.rnVoltage!=undefined && this.rnVoltage!='NA' && this.rnLoopImpedance!='NA'){
+  //    this.rnFaultCurrent= this.rnVoltage/this.rnLoopImpedance;
+  //   }
+  //   else if((this.rnVoltage=='NA' && this.rnLoopImpedance=='NA') || (this.rnVoltage=='NA' || this.rnLoopImpedance=='NA')){
+  //    this.rnFaultCurrent='NA';
+  //   }
+  //   else{
+  //     this.rnFaultCurrent='';
+  //   }
+  //   if(this.ynVoltage!='' && this.ynLoopImpedance!='' && this.ynLoopImpedance!=undefined && this.ynVoltage!=undefined && this.ynVoltage!='NA' && this.ynLoopImpedance!='NA'){
+  //    this.ynFaultCurrent= this.ynVoltage/this.ynLoopImpedance;
+  //   }
+  //   else if((this.ynVoltage=='NA' && this.ynLoopImpedance=='NA') || (this.ynVoltage=='NA' || this.ynLoopImpedance=='NA')){
+  //    this.ynFaultCurrent='NA';
+  //   }
+  //   else{
+  //     this.ynFaultCurrent='';
+  //   }
+  //   if(this.bnVoltage!='' && this.bnLoopImpedance!='' && this.bnLoopImpedance!=undefined && this.bnVoltage!=undefined && this.bnVoltage!='NA' && this.bnLoopImpedance!='NA'){
+  //    this.bnFaultCurrent= this.bnVoltage/this.bnLoopImpedance;
+  //   }
+  //   else if((this.bnVoltage=='NA' && this.bnLoopImpedance=='NA') || (this.bnVoltage=='NA' || this.bnLoopImpedance=='NA')){
+  //    this.bnFaultCurrent='NA';
+  //   }
+  //   else{
+  //     this.bnFaultCurrent='';
+  //   }
+  //   if(this.rpeVoltage!='' && this.rpeLoopImpedance!='' && this.rpeLoopImpedance!=undefined && this.rpeVoltage!=undefined && this.rpeVoltage!='NA' && this.rpeLoopImpedance!='NA'){
+  //    this.rpeFaultCurrent= this.rpeVoltage/this.rpeLoopImpedance;
+  //   }
+  //   else if((this.rpeVoltage=='NA' && this.rpeLoopImpedance=='NA') || (this.rpeVoltage=='NA' || this.rpeLoopImpedance=='NA')){
+  //    this.rpeFaultCurrent='NA';
+  //   }
+  //   else{
+  //     this.rpeFaultCurrent='';
+  //   }
+  //   if(this.ypeVoltage!='' && this.ypeLoopImpedance!='' && this.ypeVoltage!=undefined && this.ypeVoltage!=undefined && this.ypeVoltage!='NA' && this.ypeLoopImpedance!='NA'){
+  //    this.ypeFaultCurrent= this.ypeVoltage/this.ypeLoopImpedance;
+  //   }
+  //   else if((this.ypeVoltage=='NA' && this.ypeLoopImpedance=='NA') || (this.ypeVoltage=='NA' || this.ypeLoopImpedance=='NA')){
+  //    this.ypeFaultCurrent='NA';
+  //   }
+  //   else{
+  //     this.ypeFaultCurrent='';
+  //   }
+  //   if(this.bpeVoltage!='' && this.bpeLoopImpedance!='' && this.bpeLoopImpedance!=undefined && this.bpeVoltage!=undefined && this.bpeVoltage!='NA' && this.bpeLoopImpedance!='NA'){
+  //    this.bpeFaultCurrent= this.bpeVoltage/this.bpeLoopImpedance;
+  //   }
+  //   else if((this.bpeVoltage=='NA' && this.bpeLoopImpedance=='NA') || (this.bpeVoltage=='NA' || this.bpeLoopImpedance=='NA')){
+  //    this.bpeFaultCurrent='NA';
+  //   }
+  //   else{
+  //     this.bpeFaultCurrent='';
+  //   }
+  //   }
+  //   onKeyImpedance(event:KeyboardEvent){
+  //     if(this.ryVoltage!='' && this.ryLoopImpedance!='' && this.ryLoopImpedance!=undefined && this.ryVoltage!=undefined && this.ryVoltage!='NA' && this.ryLoopImpedance!='NA'){
+  //       this.ryFaultCurrent= this.ryVoltage/this.ryLoopImpedance; 
+  //      }
+  //      else if((this.ryVoltage=='NA' && this.ryLoopImpedance=='NA') || (this.ryVoltage=='NA' || this.ryLoopImpedance=='NA')){
+  //        this.ryFaultCurrent='NA';
+  //       }
+  //      else{
+  //        this.ryFaultCurrent='';
+  //      }
+  //      if(this.rbVoltage!='' && this.rbLoopImpedance!='' && this.rbLoopImpedance!=undefined && this.rbVoltage!=undefined && this.rbVoltage!='NA' && this.rbLoopImpedance!='NA'){
+  //        this.rbFaultCurrent= this.rbVoltage/this.rbLoopImpedance;
+  //       }
+  //       else if((this.rbVoltage=='NA' && this.rbLoopImpedance=='NA') || (this.rbVoltage=='NA' || this.rbLoopImpedance=='NA')){
+  //        this.rbFaultCurrent='NA';
+  //       }
+  //       else{
+  //         this.rbFaultCurrent='';
+  //       }
+  //       if(this.ybVoltage!='' && this.ybLoopImpedance!='' && this.ybLoopImpedance!=undefined && this.ybVoltage!=undefined && this.ybVoltage!='NA' && this.ybLoopImpedance!='NA'){
+  //        this.ybFaultCurrent= this.ybVoltage/this.ybLoopImpedance;
+  //       }
+  //       else if((this.ybVoltage=='NA' && this.ybLoopImpedance=='NA') || (this.ybVoltage=='NA' || this.ybLoopImpedance=='NA')){
+  //        this.ybFaultCurrent='NA';
+  //       }
+  //       else{
+  //         this.ybFaultCurrent='';
+  //       }
+  //       if(this.rnVoltage!='' && this.rnLoopImpedance!='' && this.rnLoopImpedance!=undefined && this.rnVoltage!=undefined && this.rnVoltage!='NA' && this.rnLoopImpedance!='NA'){
+  //        this.rnFaultCurrent= this.rnVoltage/this.rnLoopImpedance;
+  //       }
+  //       else if((this.rnVoltage=='NA' && this.rnLoopImpedance=='NA') || (this.rnVoltage=='NA' || this.rnLoopImpedance=='NA')){
+  //        this.rnFaultCurrent='NA';
+  //       }
+  //       else{
+  //         this.rnFaultCurrent='';
+  //       }
+  //       if(this.ynVoltage!='' && this.ynLoopImpedance!='' && this.ynLoopImpedance!=undefined && this.ynVoltage!=undefined && this.ynVoltage!='NA' && this.ynLoopImpedance!='NA'){
+  //        this.ynFaultCurrent= this.ynVoltage/this.ynLoopImpedance;
+  //       }
+  //       else if((this.ynVoltage=='NA' && this.ynLoopImpedance=='NA') || (this.ynVoltage=='NA' || this.ynLoopImpedance=='NA')){
+  //        this.ynFaultCurrent='NA';
+  //       }
+  //       else{
+  //         this.ynFaultCurrent='';
+  //       }
+  //       if(this.bnVoltage!='' && this.bnLoopImpedance!='' && this.bnLoopImpedance!=undefined && this.bnVoltage!=undefined && this.bnVoltage!='NA' && this.bnLoopImpedance!='NA'){
+  //        this.bnFaultCurrent= this.bnVoltage/this.bnLoopImpedance;
+  //       }
+  //       else if((this.bnVoltage=='NA' && this.bnLoopImpedance=='NA') || (this.bnVoltage=='NA' || this.bnLoopImpedance=='NA')){
+  //        this.bnFaultCurrent='NA';
+  //       }
+  //       else{
+  //         this.bnFaultCurrent='';
+  //       }
+  //       if(this.rpeVoltage!='' && this.rpeLoopImpedance!='' && this.rpeLoopImpedance!=undefined && this.rpeVoltage!=undefined && this.rpeVoltage!='NA' && this.rpeLoopImpedance!='NA'){
+  //        this.rpeFaultCurrent= this.rpeVoltage/this.rpeLoopImpedance;
+  //       }
+  //       else if((this.rpeVoltage=='NA' && this.rpeLoopImpedance=='NA') || (this.rpeVoltage=='NA' || this.rpeLoopImpedance=='NA')){
+  //        this.rpeFaultCurrent='NA';
+  //       }
+  //       else{
+  //         this.rpeFaultCurrent='';
+  //       }
+  //       if(this.ypeVoltage!='' && this.ypeLoopImpedance!='' && this.ypeVoltage!=undefined && this.ypeVoltage!=undefined && this.ypeVoltage!='NA' && this.ypeLoopImpedance!='NA'){
+  //        this.ypeFaultCurrent= this.ypeVoltage/this.ypeLoopImpedance;
+  //       }
+  //       else if((this.ypeVoltage=='NA' && this.ypeLoopImpedance=='NA') || (this.ypeVoltage=='NA' || this.ypeLoopImpedance=='NA')){
+  //        this.ypeFaultCurrent='NA';
+  //       }
+  //       else{
+  //         this.ypeFaultCurrent='';
+  //       }
+  //       if(this.bpeVoltage!='' && this.bpeLoopImpedance!='' && this.bpeLoopImpedance!=undefined && this.bpeVoltage!=undefined && this.bpeVoltage!='NA' && this.bpeLoopImpedance!='NA'){
+  //        this.bpeFaultCurrent= this.bpeVoltage/this.bpeLoopImpedance;
+  //       }
+  //       else if((this.bpeVoltage=='NA' && this.bpeLoopImpedance=='NA') || (this.bpeVoltage=='NA' || this.bpeLoopImpedance=='NA')){
+  //        this.bpeFaultCurrent='NA';
+  //       }
+  //       else{
+  //         this.bpeFaultCurrent='';
+  //       }
+  //   }
+
   reloadFromBack(){
     if(this.testingForm.invalid){
      this.service.isCompleted4= false;
