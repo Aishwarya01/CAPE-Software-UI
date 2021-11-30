@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DownConductorDescription } from 'src/app/LPS_model/down-conductor';
 import { LpsDownconductorService } from 'src/app/LPS_services/lps-downconductor.service';
+import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 
 @Component({
   selector: 'app-lps-down-conductors',
@@ -62,10 +63,13 @@ export class LpsDownConductorsComponent implements OnInit {
   lightPushArr: any = [];
   testjointsPushArr: any = [];
   isEditable!:boolean
+
+  stepBack:any;
   
   constructor(
     private formBuilder: FormBuilder, lpsDownconductorService: LpsDownconductorService,
-    private modalService: NgbModal, private router: ActivatedRoute) {
+    private modalService: NgbModal, private router: ActivatedRoute,
+    private matstepper: LpsMatstepperComponent) {
     this.lpsDownconductorService = lpsDownconductorService
   }
 
@@ -736,6 +740,10 @@ export class LpsDownConductorsComponent implements OnInit {
      else{
       this.modalService.open(contents, { centered: true });
      }
+  }
+
+  retriveAirTermination(){
+    this.matstepper.retriveAirTermination(this.router.snapshot.paramMap.get('email') || '{}', this.basicLpsId, this.ClientName);
   }
 
 }

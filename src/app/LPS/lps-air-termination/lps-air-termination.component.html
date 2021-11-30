@@ -2451,7 +2451,7 @@
             </mat-accordion>
 
             <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
-                <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
+                <button class="previous" mat-button matStepperPrevious (click)="retriveLpsDetails1()">&laquo; Back</button>
                 <button class="next" (click)="gotoNextModal(content,contents)" mat-button >Next &raquo;</button>
            </div>
             <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">

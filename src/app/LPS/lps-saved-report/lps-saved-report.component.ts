@@ -105,7 +105,6 @@ completedFilterData: any=[];
   }
 
   continue(basicLpsId: any,clientName: any) {
-    
     this.lpsParent.continue(basicLpsId,clientName);
   } 
 }
