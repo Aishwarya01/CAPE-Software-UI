@@ -378,7 +378,8 @@
                     <div class="col-sm-12">
                         <div class="table-responsive" >
                             <table  class="table testingTable" id="table1">
-                                <div formArrayName="distributionIncomingValueArr" *ngFor="let e of getdistributionIncomingValueControls(c); let j= index">
+                                <div formArrayName="distributionIncomingValueArr" 
+                                *ngFor="let e of getdistributionIncomingValueControls(c); let j= index">
                                     <div class="form-group" style="border: 1px solid black;">
                                         <thead>
                                             <tr align="center">
@@ -819,35 +820,35 @@
                                 
                                 <td><input type="text" formControlName="continutiyPolarity" class="form-control"  style="width:80px"></td>
                               <!-- voltage -->
-                                <td><input type="text" formControlName="ryVoltage" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="rbVoltage" class="form-control" style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="ybVoltage" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="rnVoltage" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="ynVoltage" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="bnVoltage" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="rpeVoltage" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="ypeVoltage" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="bpeVoltage" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <!-- impedance -->
-                                <td><input type="text" formControlName="ryLoopImpedance" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="rbLoopImpedance" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="ybLoopImpedance" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="rnLoopImpedance" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="ynLoopImpedance" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="bnLoopImpedance" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="rpeLoopImpedance" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="ypeLoopImpedance" class="form-control"  style="width:70px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="bpeLoopImpedance" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                             <!-- mains calculation -->
-                                <td> <input type="text" formControlName="ryFaultCurrent" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="rbFaultCurrent" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="ybFaultCurrent" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="rnFaultCurrent" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="ynFaultCurrent" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="bnFaultCurrent" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="rpeFaultCurrent" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="ypeFaultCurrent" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="bpeFaultCurrent" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="ryVoltage" class="form-control"  (keyup)="onKeyVoltage1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="rbVoltage" class="form-control"  (keyup)="onKeyVoltage1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="ybVoltage" class="form-control"  (keyup)="onKeyVoltage1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="rnVoltage" class="form-control"  (keyup)="onKeyVoltage1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="ynVoltage" class="form-control"  (keyup)="onKeyVoltage1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="bnVoltage" class="form-control"   (keyup)="onKeyVoltage1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="rpeVoltage" class="form-control" (keyup)="onKeyVoltage1($event,f)"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="ypeVoltage" class="form-control"  (keyup)="onKeyVoltage1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="bpeVoltage" class="form-control"  (keyup)="onKeyVoltage1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <!-- impedance -->
+                              <td><input type="text" formControlName="ryLoopImpedance" class="form-control"   (keyup)="onKeyImpedance1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="rbLoopImpedance" class="form-control"  (keyup)="onKeyImpedance1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="ybLoopImpedance" class="form-control"  (keyup)="onKeyImpedance1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="rnLoopImpedance" class="form-control"  (keyup)="onKeyImpedance1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="ynLoopImpedance" class="form-control" (keyup)="onKeyImpedance1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="bnLoopImpedance" class="form-control" (keyup)="onKeyImpedance1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="rpeLoopImpedance" class="form-control" (keyup)="onKeyImpedance1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="ypeLoopImpedance" class="form-control"  (keyup)="onKeyImpedance1($event,f)" style="width:70px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="bpeLoopImpedance" class="form-control"  (keyup)="onKeyImpedance1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                           <!-- mains calculation -->
+                                <td> <input type="text" formControlName="ryFaultCurrent" class="form-control" [value]="f.get('ryFaultCurrent')?.value" style="width:85px;pointer-events: none;" readonly ></td>
+                                <td><input type="text" formControlName="rbFaultCurrent" class="form-control" [value]="f.get('rbFaultCurrent')?.value" style="width:85px;pointer-events: none;" readonly ></td>
+                                <td><input type="text" formControlName="ybFaultCurrent" class="form-control" [value]="f.get('ybFaultCurrent')?.value" style="width:85px;pointer-events: none;" readonly ></td>
+                                <td><input type="text" formControlName="rnFaultCurrent" class="form-control" [value]="f.get('rnFaultCurrent')?.value" style="width:85px;pointer-events: none;" readonly ></td>
+                                <td><input type="text" formControlName="ynFaultCurrent" class="form-control" [value]="f.get('ynFaultCurrent')?.value" style="width:85px;pointer-events: none;" readonly ></td>
+                                <td><input type="text" formControlName="bnFaultCurrent" class="form-control" [value]="f.get('bnFaultCurrent')?.value" style="width:85px;pointer-events: none;" readonly ></td>
+                                <td><input type="text" formControlName="rpeFaultCurrent" class="form-control" [value]="f.get('rpeFaultCurrent')?.value" style="width:85px;pointer-events: none;" readonly ></td>
+                                <td><input type="text" formControlName="ypeFaultCurrent"  class="form-control" [value]="f.get('ypeFaultCurrent')?.value" style="width:85px;pointer-events: none;" readonly ></td>
+                                <td><input type="text" formControlName="bpeFaultCurrent"  class="form-control" [value]="f.get('bpeFaultCurrent')?.value" style="width:85px;pointer-events: none;" readonly ></td>
                                <!-- mains calculation -->
                                 <td><input type="text" formControlName="ryDisconnect" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="rbDisconnect" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
