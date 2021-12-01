@@ -178,6 +178,7 @@ export class SavedreportsComponent implements OnInit {
     //this.service.commentScrollToBottom=1;
     this.verification.changeTabSavedReport(0,siteId,userName,'clientName','departmentName',site);
     this.service.allFieldsDisable = false;
+    this.service.disableSubmitSummary=false;
   }
   savedContinue()
   {
