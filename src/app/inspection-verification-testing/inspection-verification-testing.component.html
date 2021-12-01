@@ -462,10 +462,10 @@
             </div>
           </div>
 
-          <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
+          <div class="row">
             <div class="col">
                 <div class="table-responsive" id="style-1">
-                  <table class="table" border="1" id="table2" style="margin-bottom: unset;">
+                  <table class="table" border="1" id="table2" style="margin-bottom: unset;" [ngClass]="{'disableForm':service.allFieldsDisable}">
                       <thead>
                             <tr align="center">
                                 <th colspan="8"> Circuit Details </th>
