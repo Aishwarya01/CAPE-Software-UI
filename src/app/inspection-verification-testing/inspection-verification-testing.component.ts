@@ -75,7 +75,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   distributionIncomingValueArr2: any = [];
 
   testingRecords: any = [];
-
+  testingAlternateRecords: any = [];
   ratingAmps1: any;
   testDistribution!: FormArray;
   testingDistribution!: FormArray;
@@ -342,6 +342,11 @@ export class InspectionVerificationTestingComponent implements OnInit {
         this.supplyValues = JSON.parse(data);
        	        //for(let i of this.supplyValues) {	
                   this.service.nominalVoltageArr2=this.supplyValues.supplyParameters;	
+                  debugger
+                  this.testingAlternateRecords = [];
+                  let testaccordianValueArr = this.testingForm.get(
+                    'testaccordianArr'
+                  ) as FormArray;
                   if(this.supplyValues.liveConductorType == "AC") {	
                     this.SourceList=['Mains Incoming'];	
                     this.addValues("Mains Incoming", this.supplyValues.mainNominalVoltage,this.supplyValues.mainLoopImpedance, this.supplyValues.mainNominalCurrent, this.supplyValues.mainActualLoad);	
@@ -367,6 +372,13 @@ export class InspectionVerificationTestingComponent implements OnInit {
                    if(j.aLLiveConductorType == "AC") {	
                     this.addValues("Alternate Source of Supply-" +count, j.nominalVoltage,j.loopImpedance, j.faultCurrent, j.actualLoad);	
                     count++;	
+                    for(let x of testaccordianValueArr.controls) {
+                      let testingRecordsArr = x.get('testingRecords') as FormArray;
+                      for(let y of testingRecordsArr.controls) {
+                        this.testingAlternateRecords = y.get('testingAlternateRecords') as FormArray;
+                        this.testingAlternateRecords.push(this.createValue(this.supplyValues.mainLoopImpedance,j.nominalVoltage,j.loopImpedance));
+                      }
+                    }
                    }	
                   }	
                // }
@@ -438,6 +450,12 @@ export class InspectionVerificationTestingComponent implements OnInit {
      this.jsonArray = {"sourceFromSupply": sourceFromSupply, "incomingVoltage": incomingVoltage, "incomingLoopImpedance": incomingLoopImpedance, "incomingFaultCurrent": incomingFaultCurrent, "incomingActualLoad":incomingActualLoad}
      this.pushJsonArray.push(this.jsonArray);
     }
+}
+
+
+callValue(e: any) {
+  debugger
+  console.log(e);
 }
 
   retrieveDetailsforTesting(userName: any, siteId: any,data: any) {
@@ -1372,53 +1390,52 @@ export class InspectionVerificationTestingComponent implements OnInit {
       rcdTestButtonOperation: new FormControl(''),
       rcdRemarks: new FormControl(''),
       testingAlternateRecords: this.formBuilder.array([
-        this.createValue(),
+        // this.createValue(),
       ]),
     });
   }
 
   
-  private createValue(): FormGroup {
+  private createValue(mainsLoopImpedance: any,voltage: any,loopImpedance: any): FormGroup {
+    let mainsLoopImpedanceArr = [];
+    let nominalVoltage = [];	
+    let loopImpedanceArr = [];
+    debugger
+    mainsLoopImpedanceArr = mainsLoopImpedance.split(",");
+    nominalVoltage = voltage.split(",");	
+    loopImpedanceArr = loopImpedance.split(",")
     return new FormGroup({
-      circuitNo: new FormControl(''),
-      circuitDesc: new FormControl(''),
-      circuitMake: new FormControl(''),
-      circuitStandardNo: new FormControl(''),
-      circuitType: new FormControl(''),
-      circuitPoles: new FormControl(''),
-      circuitModel: new FormControl(''),
-      circuitRating: new FormControl(''),
-      circuitBreakingCapacity: new FormControl(''),
-      shortCircuitSetting: new FormControl(''),
-      eFSetting: new FormControl(''),
-      conductorInstallation: new FormControl(''),
-      conductorPhase: new FormControl(''),
-      conductorNeutral: new FormControl(''),
-      conductorPecpc: new FormControl(''),
-      continutiyApproximateLength: new FormControl(''),
-      continutiyRR: new FormControl(''),
-      continutiyR: new FormControl(''),
-      // continutiyLL: new FormControl(''),
-      // continutiyLE: new FormControl(''),
-      continutiyPolarity: new FormControl(''),
-      rycontinutiy: new FormControl(''),
-      rbcontinutiy: new FormControl(''),
-      ybcontinutiy: new FormControl(''),
-      rncontinutiy: new FormControl(''),
-      yncontinutiy: new FormControl(''),
-      bncontinutiy: new FormControl(''),
-      rpecontinutiy: new FormControl(''),
-      ypecontinutiy: new FormControl(''),
-      bpecontinutiy: new FormControl(''),
-      ryVoltage: new FormControl(''),
-      rbVoltage: new FormControl(''),
-      ybVoltage: new FormControl(''),
-      rnVoltage: new FormControl(''),
-      ynVoltage: new FormControl(''),
-      bnVoltage: new FormControl(''),
-      rpeVoltage: new FormControl(''),
-      ypeVoltage: new FormControl(''),
-      bpeVoltage: new FormControl(''),
+      
+      ryVoltage: new FormControl(nominalVoltage[0]),
+      rbVoltage: new FormControl(nominalVoltage[1]),
+      ybVoltage: new FormControl(nominalVoltage[2]),
+      rnVoltage: new FormControl(nominalVoltage[3]),
+      ynVoltage: new FormControl(nominalVoltage[4]),
+      bnVoltage: new FormControl(nominalVoltage[5]),
+      rpeVoltage: new FormControl(nominalVoltage[6]),
+      ypeVoltage: new FormControl(nominalVoltage[7]),
+      bpeVoltage: new FormControl(nominalVoltage[8]),
+
+      ryLoopImpedanceMains: new FormControl(mainsLoopImpedanceArr[0]),
+      rbLoopImpedanceMains: new FormControl(mainsLoopImpedanceArr[1]),
+      ybLoopImpedanceMains: new FormControl(mainsLoopImpedanceArr[2]),
+      rnLoopImpedanceMains: new FormControl(mainsLoopImpedanceArr[3]),
+      ynLoopImpedanceMains: new FormControl(mainsLoopImpedanceArr[4]),
+      bnLoopImpedanceMains: new FormControl(mainsLoopImpedanceArr[5]),
+      rpeLoopImpedanceMains: new FormControl(mainsLoopImpedanceArr[6]),
+      ypeLoopImpedanceMains: new FormControl(mainsLoopImpedanceArr[7]),
+      bpeLoopImpedanceMains: new FormControl(mainsLoopImpedanceArr[8]),
+
+      ryLoopImpedanceExternal: new FormControl(loopImpedanceArr[0]),
+      rbLoopImpedanceExternal: new FormControl(loopImpedanceArr[1]),
+      ybLoopImpedanceExternal: new FormControl(loopImpedanceArr[2]),
+      rnLoopImpedanceExternal: new FormControl(loopImpedanceArr[3]),
+      ynLoopImpedanceExternal: new FormControl(loopImpedanceArr[4]),
+      bnLoopImpedanceExternal: new FormControl(loopImpedanceArr[5]),
+      rpeLoopImpedanceExternal: new FormControl(loopImpedanceArr[6]),
+      ypeLoopImpedanceExternal: new FormControl(loopImpedanceArr[7]),
+      bpeLoopImpedanceExternal: new FormControl(loopImpedanceArr[8]),
+
       ryLoopImpedance: new FormControl(''),
       rbLoopImpedance: new FormControl(''),
       ybLoopImpedance: new FormControl(''),
@@ -1428,6 +1445,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
       rpeLoopImpedance: new FormControl(''),
       ypeLoopImpedance: new FormControl(''),
       bpeLoopImpedance: new FormControl(''),
+
       ryFaultCurrent: new FormControl(''),
       rbFaultCurrent: new FormControl(''),
       ybFaultCurrent: new FormControl(''),
@@ -1437,6 +1455,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
       rpeFaultCurrent: new FormControl(''),
       ypeFaultCurrent: new FormControl(''),
       bpeFaultCurrent: new FormControl(''),
+
       ryDisconnect: new FormControl(''),
       rbDisconnect: new FormControl(''),
       ybDisconnect: new FormControl(''),
@@ -1446,17 +1465,11 @@ export class InspectionVerificationTestingComponent implements OnInit {
       rpeDisconnect: new FormControl(''),
       ypeDisconnect: new FormControl(''),
       bpeDisconnect: new FormControl(''),
+
       testVoltage: new FormControl(''),
-      insulationResistance: new FormControl(''),
       testLoopImpedance: new FormControl(''),
       testFaultCurrent: new FormControl(''),
       disconnectionTime: new FormControl(''),
-      rcdType: new FormControl(''),
-      rcdCurrent: new FormControl(''),
-      rcdOperatingCurrent: new FormControl(''),
-      rcdOperatingFiveCurrent: new FormControl(''),
-      rcdTestButtonOperation: new FormControl(''),
-      rcdRemarks: new FormControl(''),
     });
   }
   onChangeForm(event:any){
@@ -1696,10 +1709,18 @@ export class InspectionVerificationTestingComponent implements OnInit {
     }
     }
     onKeyImpedance1(event:KeyboardEvent,f:any){
+      debugger
+      if(f.controls.ryLoopImpedance.value!='' && f.controls.ryLoopImpedance.value!=undefined && f.controls.ryLoopImpedance.value!= 'NA') {
+        for(let i of f.controls.testingAlternateRecords.controls) {
+          i.controls.ryLoopImpedance.value = (f.controls.ryLoopImpedance.value - i.controls.ryLoopImpedanceMains.value);
+          i.controls.ryLoopImpedance.value = (i.controls.ryLoopImpedance.value + i.controls.ryLoopImpedanceExternal.value);
+        }
+      }
       if(f.controls.ryVoltage.value!='' && f.controls.ryLoopImpedance.value!='' && f.controls.ryLoopImpedance.value!=undefined && f.controls.ryVoltage.value!=undefined && f.controls.ryVoltage.value!='NA' && f.controls.ryLoopImpedance.value!='NA'){
         //f.controls.ryFaultCurrent.value= f.controls.ryVoltage.value/f.controls.ryLoopImpedance.value; 
         var ryFaultCurrent= f.controls.ryVoltage.value/f.controls.ryLoopImpedance.value;	
         f.controls.ryFaultCurrent.value=ryFaultCurrent.toFixed(3);	
+        
        }
        else if((f.controls.ryVoltage.value=='NA' && f.controls.ryLoopImpedance.value=='NA') || (f.controls.ryVoltage.value=='NA' || f.controls.ryLoopImpedance.value=='NA')){
          f.controls.ryFaultCurrent.value='NA';

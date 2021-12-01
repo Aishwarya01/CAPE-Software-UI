@@ -787,7 +787,8 @@
                           </tr>
                        </thead>
                       <tbody formArrayName="testingRecords" *ngFor="let f of gettestValueControls(a); let i = index">
-                        <tr  class="form-group"[formGroupName]="i" >
+                        <ng-container [formGroupName]="i">
+                        <tr  class="form-group" >
                                 <td><input type="text" formControlName="circuitNo" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td ><textarea  formControlName="circuitDesc"  class="form-control" style="height:40px;width:170px;"  [readonly]="service.allFieldsDisable"></textarea> </td>
                                 <td><input type="text" formControlName="circuitStandardNo" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
@@ -866,41 +867,43 @@
                                 <td><textarea  formControlName="rcdTestButtonOperation"  class="form-control" style="height:40px;width:170px;" [readonly]="service.allFieldsDisable"></textarea>
                                 <td><textarea  formControlName="rcdRemarks"  class="form-control" style="height:40px;width:170px;" [readonly]="service.allFieldsDisable"></textarea>
                                </tr>
-                             
-                        <tr  class="form-group" formArrayName="testingAlternateRecords" *ngFor="let g of gettestAlternateValueControls(f); let j = index" [formGroupName]="j"
-                        [hidden]="isHidden">
-                                <td ><input type="text"  *ngIf="false" formControlName="circuitNo" class="form-control"   style="width:80px" readonly></td>
-                                <td ><textarea *ngIf="false" formControlName="circuitDesc"  class="form-control" style="height:40px;width:170px;"  readonly></textarea> </td>
-                                <td><input type="text" *ngIf="false" formControlName="circuitStandardNo" class="form-control"   style="width:80px" readonly></td>
-                                <td><input type="text" *ngIf="false" formControlName="circuitMake" class="form-control"   style="width:80px" readonly></td>
-                                <td><input type="text" *ngIf="false" formControlName="circuitType" class="form-control" style="width:80px" readonly></td>
-                                <td><input type="text" *ngIf="false" formControlName="circuitPoles" class="form-control"   style="width:80px" readonly></td>
-                                <td><input type="text" *ngIf="false" formControlName="circuitModel" class="form-control"   style="width:80px" readonly></td>
-
-                                <td><input type="text" *ngIf="false" formControlName="circuitRating" class="form-control"   style="width:80px" readonly></td>
-                                <td><input type="text" *ngIf="false"  formControlName="circuitBreakingCapacity" class="form-control"   style="width:80px" readonly></td>
-                                <td><input type="text" *ngIf="false"  formControlName="shortCircuitSetting" class="form-control"   style="width:80px" readonly></td>
-                                <td><input type="text" *ngIf="false"  formControlName="eFSetting" class="form-control"   style="width:80px" readonly></td>
-                                <td><textarea  *ngIf="false"  formControlName="conductorInstallation"  class="form-control"  style="height:40px;width:170px;" readonly></textarea>
-                                <td><input type="text" *ngIf="false"  formControlName="conductorPhase" class="form-control"   style="width:80px" readonly></td>
-                                <td><input type="text" *ngIf="false"  formControlName="conductorNeutral" class="form-control"   style="width:80px" readonly></td>
-                                <td><input type="text" *ngIf="false"  formControlName="conductorPecpc" class="form-control"  style="width:80px" readonly></td>
-                                <td><input type="text" *ngIf="false"  formControlName="continutiyApproximateLength" class="form-control"   style="width:80px" readonly></td>
-                                <td><input type="text" *ngIf="false"  formControlName="continutiyRR" class="form-control"   style="width:80px" readonly></td>
-                                <td><input type="text" *ngIf="false"  formControlName="continutiyR" class="form-control"   style="width:80px" readonly></td>
+                        <ng-container formArrayName="testingAlternateRecords" *ngFor="let g of gettestAlternateValueControls(f); let j = index">
+                        <tr  class="form-group"  [formGroupName]="j">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 
-                                <td><input type="text" *ngIf="false"  formControlName="rycontinutiy" class="form-control"  style="width:80px" readonly></td>
-                                <td><input type="text" *ngIf="false"  formControlName="rbcontinutiy" class="form-control"  style="width:80px" readonly></td>
-                                <td><input type="text" *ngIf="false"  formControlName="ybcontinutiy" class="form-control"  style="width:80px" readonly></td>
-                                <td><input type="text" *ngIf="false"  formControlName="rncontinutiy" class="form-control"  style="width:80px" readonly></td>
-                                <td><input type="text" *ngIf="false"  formControlName="yncontinutiy" class="form-control"  style="width:80px" readonly></td>
-                                <td><input type="text" *ngIf="false"  formControlName="bncontinutiy" class="form-control"   style="width:80px" readonly></td>
-                                <td><input type="text" *ngIf="false"  formControlName="rpecontinutiy" class="form-control"  style="width:80px" readonly></td>
-                                <td><input type="text" *ngIf="false"  formControlName="ypecontinutiy" class="form-control"  style="width:80px" readonly></td>
-                                <td><input type="text" *ngIf="false"  formControlName="bpecontinutiy" class="form-control"  style="width:80px" readonly></td>
 
-                                <td><input type="text" *ngIf="false"  formControlName="continutiyPolarity" class="form-control" readonly style="width:80px"></td>
-                                <td><input type="text" formControlName="ryVoltage" class="form-control"  style="width:80px" readonly></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                              
+                                
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                
+
+                                <td></td>
+                                <td><input type="text" formControlName="ryVoltage" class="form-control" (change)="callValue($event)" style="width:80px" readonly></td>
                                 <td><input type="text" formControlName="rbVoltage" class="form-control"  style="width:80px" readonly></td>
                                 <td><input type="text" formControlName="ybVoltage" class="form-control"  style="width:80px" readonly></td>
                                 <td><input type="text" formControlName="rnVoltage" class="form-control"  style="width:80px" readonly></td>
@@ -909,15 +912,15 @@
                                 <td><input type="text" formControlName="rpeVoltage" class="form-control"  style="width:80px" readonly></td>
                                 <td><input type="text" formControlName="ypeVoltage" class="form-control"  style="width:80px" readonly></td>
                                 <td><input type="text" formControlName="bpeVoltage" class="form-control"  style="width:80px" readonly></td>
-                                <td><input type="text" formControlName="ryLoopImpedance" class="form-control"   style="width:80px" readonly></td>
-                                <td><input type="text" formControlName="rbLoopImpedance" class="form-control"  style="width:80px" readonly></td>
-                                <td><input type="text" formControlName="ybLoopImpedance" class="form-control"  style="width:80px" readonly></td>
-                                <td><input type="text" formControlName="rnLoopImpedance" class="form-control"  style="width:80px" readonly></td>
-                                <td><input type="text" formControlName="ynLoopImpedance" class="form-control"   style="width:80px" readonly></td>
-                                <td><input type="text" formControlName="bnLoopImpedance" class="form-control"  style="width:80px" readonly></td>
-                                <td><input type="text" formControlName="rpeLoopImpedance" class="form-control"  style="width:80px" readonly></td>
-                                <td><input type="text" formControlName="ypeLoopImpedance" class="form-control"  style="width:70px" readonly></td>
-                                <td><input type="text" formControlName="bpeLoopImpedance" class="form-control"  style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="ryLoopImpedance" [value]="g.get('ryLoopImpedance')?.value"  class="form-control"    style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="rbLoopImpedance" [value]="f.get('rbLoopImpedance')?.value" class="form-control"   style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="ybLoopImpedance" [value]="f.get('ybLoopImpedance')?.value" class="form-control"   style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="rnLoopImpedance" [value]="f.get('rnLoopImpedance')?.value" class="form-control"   style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="ynLoopImpedance" [value]="f.get('ynLoopImpedance')?.value" class="form-control"    style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="bnLoopImpedance" [value]="f.get('bnLoopImpedance')?.value" class="form-control"   style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="rpeLoopImpedance" [value]="f.get('rpeLoopImpedance')?.value" class="form-control"   style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="ypeLoopImpedance" [value]="f.get('ypeLoopImpedance')?.value" class="form-control"   style="width:70px" readonly></td>
+                                <td><input type="text" formControlName="bpeLoopImpedance" [value]="f.get('bpeLoopImpedance')?.value" class="form-control"   style="width:80px" readonly></td>
                                 <td> <input type="text" formControlName="ryFaultCurrent" class="form-control"  style="width:80px" readonly></td>
                                 <td><input type="text" formControlName="rbFaultCurrent" class="form-control"  style="width:80px" readonly></td>
                                 <td><input type="text" formControlName="ybFaultCurrent" class="form-control"  style="width:80px" readonly></td>
@@ -936,14 +939,17 @@
                                 <td><input type="text" formControlName="rpeDisconnect" class="form-control"  style="width:80px" readonly></td>
                                 <td><input type="text" formControlName="ypeDisconnect" class="form-control"  style="width:80px" readonly></td>
                                 <td><input type="text" formControlName="bpeDisconnect" class="form-control"  style="width:80px" readonly></td>
-                                <td><input type="text" *ngIf="false"  formControlName="rcdType" class="form-control"  style="width:80px" readonly></td>
-                                <td><input type="text" *ngIf="false"  formControlName="rcdCurrent" class="form-control"  style="width:80px" readonly></td>
-                                <td><input type="text" *ngIf="false"  formControlName="rcdOperatingCurrent" class="form-control"  style="width:80px" readonly></td>
-                                <td><input type="text" *ngIf="false"  formControlName="rcdOperatingFiveCurrent" class="form-control"   style="width:80px" readonly></td>
-                                <td><textarea  *ngIf="false"  formControlName="rcdTestButtonOperation"  class="form-control" style="height:40px;width:170px;" readonly></textarea>
-                                <td><textarea  *ngIf="false"  formControlName="rcdRemarks"  class="form-control" style="height:40px;width:170px;" readonly></textarea>
+
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                
                                </tr>
-                             
+                              </ng-container>    
+                          </ng-container>                        
                         </tbody>
                      </table>
                     </div>
