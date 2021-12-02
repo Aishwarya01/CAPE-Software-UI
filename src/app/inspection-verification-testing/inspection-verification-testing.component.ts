@@ -229,6 +229,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   showAdd: boolean = true;
   validationErrorTab: boolean = false;
   validationErrorMsgTab: string="";
+  testingCalculation: any=[];
   
   constructor(
     private testingService: TestingService,
@@ -2516,6 +2517,105 @@ callValue(e: any) {
         }
         disconnectionTime = disconnectionTime.replace(/,\s*$/, '');
         n.disconnectionTime = disconnectionTime;
+      }
+
+      for(let n of this.testingRecords.controls){
+        this.testingCalculation = n.get('testingAlternateRecords') as FormArray;
+        for(let o of this.testingCalculation.controls) {
+          let arr1: any = [];
+          let arr2: any = [];
+          let arr3: any = [];
+          let arr4: any = [];
+
+          arr1.push(
+           o.controls.ryVoltage.value,
+           o.controls.rbVoltage.value,
+           o.controls.ybVoltage.value,
+           o.controls.rnVoltage.value,
+           o.controls.ynVoltage.value,
+           o.controls.bnVoltage.value,
+           o.controls.rpeVoltage.value,
+           o.controls.ypeVoltage.value,
+           o.controls.bpeVoltage.value
+          );
+          arr2.push(
+           o.controls.ryLoopImpedance.value,
+           o.controls.rbLoopImpedance.value,
+           o.controls.ybLoopImpedance.value,
+           o.controls.rnLoopImpedance.value,
+           o.controls.ynLoopImpedance.value,
+           o.controls.bnLoopImpedance.value,
+           o.controls.rpeLoopImpedance.value,
+           o.controls.ypeLoopImpedance.value,
+           o.controls.bpeLoopImpedance.value
+          );
+          arr3.push(
+           o.controls.ryFaultCurrent.value,
+           o.controls.rbFaultCurrent.value,
+           o.controls.ybFaultCurrent.value,
+           o.controls.rnFaultCurrent.value,
+           o.controls.ynFaultCurrent.value,
+           o.controls.bnFaultCurrent.value,
+           o.controls.rpeFaultCurrent.value,
+           o.controls.ypeFaultCurrent.value,
+           o.controls.bpeFaultCurrent.value
+          );
+          arr4.push(
+           o.controls.ryDisconnect.value,
+           o.controls.rbDisconnect.value,
+           o.controls.ybDisconnect.value,
+           o.controls.rnDisconnect.value,
+           o.controls.ynDisconnect.value,
+           o.controls.bnDisconnect.value,
+           o.controls.rpeDisconnect.value,
+           o.controls.ypeDisconnect.value,
+           o.controls.bpeDisconnect.value
+          );
+
+        let testVoltage1: String = '';
+        let testLoopImpedance1: String = '';
+        let testFaultCurrent1: String = '';
+        let disconnectionTime1: String = '';
+        for (let p of arr1) {
+          if (p != '') {
+            testVoltage1 += p + ',';
+          } else {
+            testVoltage1 += 'NA,';
+          }
+        }
+        testVoltage1 = testVoltage1.replace(/,\s*$/, '');
+       o.controls.testVoltage.value = testVoltage1;
+
+        for (let q of arr2) {
+          if (q != '') {
+            testLoopImpedance1 += q + ',';
+          } else {
+            testLoopImpedance1 += 'NA,';
+          }
+        }
+        testLoopImpedance1 = testLoopImpedance1.replace(/,\s*$/, '');
+       o.controls.testLoopImpedance.value = testLoopImpedance1;
+
+        for (let r of arr3) {
+          if (r != '') {
+            testFaultCurrent1 += r + ',';
+          } else {
+            testFaultCurrent1 += 'NA,';
+          }
+        }
+        testFaultCurrent1 = testFaultCurrent1.replace(/,\s*$/, '');
+       o.controls.testFaultCurrent.value = testFaultCurrent1;
+
+        for (let s of arr3) {
+          if (s != '') {
+            disconnectionTime1 += s + ',';
+          } else {
+            disconnectionTime1 += 'NA,';
+          }
+        }
+        disconnectionTime1 = disconnectionTime1.replace(/,\s*$/, '');
+       o.controls.disconnectionTime.value = disconnectionTime1;
+        }
       }
     }
     this.testingDetails.testIncomingDistribution=this.pushJsonArray;
