@@ -49,4 +49,6 @@
     color: black;
     cursor: not-allowed !important;
   }
- 
+  ::ng-deep .multiline-tooltip{
+    white-space: pre-line;
+    }

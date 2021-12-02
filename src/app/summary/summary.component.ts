@@ -7,7 +7,8 @@ import {
   ViewChild,
   ChangeDetectorRef,
   VERSION,
-  ElementRef
+  ElementRef,
+  ViewContainerRef
 } from '@angular/core';
 import {
   AbstractControl,
@@ -34,6 +35,10 @@ import { SiteService } from '../services/site.service';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
 import { MainNavComponent } from '../main-nav/main-nav.component';
 import { CommentsSection } from '../model/comments-section';
+import { FinalreportsComponent } from '../finalreports/finalreports.component';
+import { ComponentFactoryResolver } from '@angular/core';
+import { LvInspectionDetailsComponent } from '../lv-inspection-details/lv-inspection-details.component';
+import { LicenselistComponent } from '../licenselist/licenselist.component';
 
 @Component({
   selector: 'app-summary',
@@ -51,12 +56,12 @@ export class SummaryComponent implements OnInit {
     agreedLimitations: new FormControl(''),
     agreedWith: new FormControl(''),
     operationalLimitations: new FormControl(''),
-    recommendationsDate: new FormControl(''),
+    //recommendationsDate: new FormControl(''),
     inspectionTestingDetailed: new FormControl(''),
     generalConditionInstallation: new FormControl(''),
     overallAssessmentInstallation: new FormControl(''),
   });
-
+ 
   selectedIndex = 0;
 
   ObservationsArr!: FormArray;
@@ -101,16 +106,20 @@ export class SummaryComponent implements OnInit {
   limitationsValue!: String;
   observationList: String[] = ['No remedial action required', 'The following observations are made'];
   // @ViewChild (FinalreportsComponent) final!: FinalreportsComponent;
-  //@ViewChild (VerificationlvComponent) final!: VerificationlvComponent;
+  //@ViewChild (VerificationlvComponent) verification!: VerificationlvComponent;
+  // @ViewChild('verify')
+  // verification: any; 
 
   @Output() proceedNext = new EventEmitter<any>();
   fcname: string[] = [
-    'comment',
+   // 'comment',
     'furtherActions',
     'observations',
     'referanceNumberReport',
+    'recommendationsDate'
   ];
   errorArr: any=[];
+  value: boolean= false;
 
   //comments starts
   successMsg: string="";
@@ -185,7 +194,8 @@ export class SummaryComponent implements OnInit {
   completedCommentArr3: any = [];
   hideShowComment: boolean=false;
   //comments end
-
+  validationErrorTab: boolean = false;
+  validationErrorMsgTab: string="";
   finalFlag: boolean = false;
   confirmMsg: string="";
   SubmitDisable: boolean = false;
@@ -200,7 +210,9 @@ export class SummaryComponent implements OnInit {
   ConfirmSuccess: boolean= false;
 
   //@ViewChild('picker',{static:false}) picker!: ElementRef;
-
+  @ViewChild('ref', { read: ViewContainerRef })
+  viewContainerRef!: ViewContainerRef;
+  
   constructor(
     private _formBuilder: FormBuilder,
     private modalService: NgbModal,
@@ -210,7 +222,8 @@ export class SummaryComponent implements OnInit {
     public service: GlobalsService,
     public siteService: SiteService,
     private ChangeDetectorRef: ChangeDetectorRef,
-    private final: VerificationlvComponent,
+    private componentFactoryResolver: ComponentFactoryResolver,
+    //private final: VerificationlvComponent,
     private UpateInspectionService: InspectionVerificationService,
     private basic: MainNavComponent,
   ) {
@@ -236,7 +249,7 @@ export class SummaryComponent implements OnInit {
       agreedLimitations: ['', Validators.required],
       agreedWith: ['', Validators.required],
       operationalLimitations: ['', Validators.required],
-      recommendationsDate: ['', Validators.required],
+      //recommendationsDate: ['', Validators.required],
       inspectionTestingDetailed: ['', Validators.required],
       generalConditionInstallation: ['', Validators.required],
       overallAssessmentInstallation: ['', Validators.required],
@@ -256,9 +269,27 @@ export class SummaryComponent implements OnInit {
   refresh() {
     this.ChangeDetectorRef.detectChanges();
   }
-  reloadFromBack(){
-    this.addsummary.markAsPristine();
-   }
+ 
+   reloadFromBack(){
+    if(this.addsummary.invalid){
+     this.service.isCompleted5= false;
+     this.service.isLinear=true;
+     this.service.editable=false;
+     this.validationErrorTab = true;
+     this.validationErrorMsgTab= 'Please check all the fields in summary';
+     setTimeout(() => {
+       this.validationErrorTab = false;
+     }, 3000);
+     return false;
+    }
+    else{
+      this.service.isCompleted= true;
+      this.service.isLinear=false;
+      this.service.editable=true;
+   this.addsummary.markAsPristine();
+   return true;
+    }
+  }
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
     // if(this.service.disableFields==true){
     //   this.addsummary.disable();
@@ -279,7 +310,6 @@ export class SummaryComponent implements OnInit {
             Declaration1Arr: [i]
           })
          }
-
          else{
           this.addsummary.patchValue({
             Declaration2Arr: [i]
@@ -296,7 +326,7 @@ export class SummaryComponent implements OnInit {
         agreedLimitations: this.summaryList.summary.agreedLimitations,
         agreedWith: this.summaryList.summary.agreedWith,
         operationalLimitations: this.summaryList.summary.operationalLimitations,
-        recommendationsDate: this.summaryList.summary.recommendationsDate,
+        //recommendationsDate: this.summaryList.summary.recommendationsDate,
         inspectionTestingDetailed: this.summaryList.summary.inspectionTestingDetailed,
         generalConditionInstallation: this.summaryList.summary.generalConditionInstallation,
         overallAssessmentInstallation: this.summaryList.summary.overallAssessmentInstallation,
@@ -719,7 +749,8 @@ showHideAccordion(index: number) {
         observations: new FormControl({disabled: false,value: item.observations}),
         furtherActions: new FormControl({disabled: false,value: item.furtherActions}),
         referanceNumberReport: new FormControl({disabled: false,value: item.referanceNumberReport}),
-        comment: new FormControl({disabled: false,value: item.comment}),
+        recommendationsDate: new FormControl({disabled: false,value: item.recommendationsDate}),
+        //comment: new FormControl({disabled: false,value: item.comment}),
       });
     }
   
@@ -754,7 +785,8 @@ showHideAccordion(index: number) {
       observations: new FormControl('', Validators.required),
       furtherActions: new FormControl('', Validators.required),
       referanceNumberReport: new FormControl('', Validators.required),
-      comment: new FormControl('', Validators.required),
+      recommendationsDate: new FormControl('', Validators.required),
+      //comment: new FormControl('', Validators.required),
     });
   }
 
@@ -864,14 +896,23 @@ showHideAccordion(index: number) {
       this.service.editable=true;
     }
   }
-  
+  onChangeForm(event:any){
+    if(!this.addsummary.invalid){
+      this.validationError=false;
+     }
+  }
+  onKeyForm(event: KeyboardEvent) { 
+    if(!this.addsummary.invalid){
+     this.validationError=false;
+    }
+   }
   gotoNextModal() {
     if (this.addsummary.invalid) {
       this.validationError = true;
       this.validationErrorMsg = 'Please check all the fields';
-      setTimeout(() => {
-        this.validationError = false;
-      }, 3000);
+      // setTimeout(() => {
+      //   this.validationError = false;
+      // }, 3000);
       return;
     }
     // if(this.addsummary.touched || this.addsummary.untouched){
@@ -887,6 +928,7 @@ showHideAccordion(index: number) {
     if(this.addsummary.dirty && this.addsummary.touched){ //update msg
       this.modalService.open(content5, { centered: true});
      }
+  
   }
   openModalDialog(content2: any){
     this.modalService.open(content2, {
@@ -901,14 +943,14 @@ showHideAccordion(index: number) {
       this.service.isCompleted5= false;
       this.service.isLinear=true;
       this.modalService.dismissAll((this.errorMsg = ''));
+      this.proceedNext.emit(false);
     } 
     else {
       this.success = false;
       this.service.isCompleted5= true;
       this.service.isLinear=false;
       this.modalService.dismissAll((this.successMsg = ''));
-      //this.disable = false;
-     // this.disableSubmit=false;
+      this.proceedNext.emit(true);
     }
 
     // if(this.finalFlag) {
@@ -917,6 +959,12 @@ showHideAccordion(index: number) {
 
     // }
   }
+//  triggerToFinal(siteId:any){
+//   //this.service.mainNavToSaved=2;
+//   //this.verification.changeTab(0,siteId,userName,companyName,departmentName,site);
+
+//  }
+
   SubmitTab5(flag: any,content5:any) {
     if(!flag) {
       this.summary.siteId = this.service.siteCount;
@@ -926,20 +974,19 @@ showHideAccordion(index: number) {
     if (this.addsummary.invalid) {
       this.validationError = true;
       this.validationErrorMsg = 'Please check all the fields';
-      setTimeout(() => {
-        this.validationError = false;
-      }, 3000);
+      // setTimeout(() => {
+      //   this.validationError = false;
+      // }, 3000);
       return;
     }
-    if(!confirm("Are you sure you want to procced? Note: Once saved, details can't be edited!")){
+    if(!confirm("Are you sure you want to procced? Note: Once saved, details can't be modified!")){
      return;
     }
   else{
-    //if((this.addsummary.dirty && this.addsummary.touched)){
       this.modalService.open(content5, { centered: true});
-    // }
-     this.service.disableSubmitSummary=true;
+       
   }
+    //this.verification.callFinalSavedMethod();
     this.summary.summaryObervation = this.addsummary.value.ObservationsArr;
     this.summary.summaryDeclaration = this.addsummary.value.Declaration1Arr;
     this.summary.summaryDeclaration = this.summary.summaryDeclaration.concat(
@@ -965,11 +1012,12 @@ showHideAccordion(index: number) {
     else {
       this.summarydetailsService.addSummary(this.summary).subscribe(
         (data) => {
-          this.proceedNext.emit(true);
+          //this.proceedNext.emit(true);
           this.ConfirmSuccess=true;
           this.success = true;
           this.successMsg = 'Summary Information Successfully Submitted';
-          this.service.allFieldsDisable = true;
+          this.service.allFieldsDisable = true; 
+          this.service.disableSubmitSummary=true;
           this.finalFlag = true;
         },
         (error) => {
@@ -978,6 +1026,7 @@ showHideAccordion(index: number) {
           this.errorArr = JSON.parse(error.error);
           this.errorMsg = this.errorArr.message;
           this.proceedNext.emit(false);
+          this.service.disableSubmitSummary=false;
           //this.addsummary.markAsPristine();
         });
     }

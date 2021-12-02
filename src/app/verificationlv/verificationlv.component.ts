@@ -45,6 +45,7 @@ import { SavedreportsComponent } from '../savedreports/savedreports.component';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { map } from 'rxjs/operators';
 import { readJsonConfigFile } from 'typescript';
+import { FinalreportsComponent } from '../finalreports/finalreports.component';
 
 @Component({
   selector: 'app-verificationlv',
@@ -151,7 +152,8 @@ export class VerificationlvComponent implements OnInit {
 
   @ViewChild(SavedreportsComponent)
   saved!: SavedreportsComponent;
-
+  @ViewChild(FinalreportsComponent)
+  final!: FinalreportsComponent;
   @Input()
   siteId: any;
   
@@ -252,13 +254,15 @@ export class VerificationlvComponent implements OnInit {
     });
    if(this.service.mainNavToSaved==1){
    this.selectedIndex=1;
-  // this.service.mainNavToSaved=0;
    }
+  
     this.refresh();
     // this.retrieveClientDetails();
     // this.retrieveSiteDetails();
   }
-
+  // callMethodFinal(){
+  //   this.ngOnInit();
+  // }
   retrieveIsActiveData() {
     this.retrieveClientDetails();
   }
@@ -408,7 +412,7 @@ export class VerificationlvComponent implements OnInit {
       this.retrieveDepartmentDetails();
     });
   }
-
+ 
   deleteDepartment(departmentId: number,deptdelete: any) {
     this.modalService.open(deptdelete, { centered: true });
     this.departmentService
@@ -581,9 +585,15 @@ export class VerificationlvComponent implements OnInit {
     this.service.isCompleted4= next;
   }
   public NextStep5(next: any): void {
+      this.saved.ngOnInit();
+      this.final.ngOnInit();
     this.service.isLinear=false;
     //this.service.addsummary = next;
     this.service.isCompleted5 = next;
+    if(next){
+    this.service.allStepsCompleted=false;
+    this.selectedIndex=2;
+    }
   }
 
 //for ongoing & completed
@@ -594,7 +604,8 @@ export class VerificationlvComponent implements OnInit {
         //this.selectedIndex = index;
         this.dataJSON = JSON.parse(data);
         if(this.dataJSON.reportDetails != null) {
-          this.selectedIndex = index;            
+          this.selectedIndex = index;    
+          this.service.msgForStep1Flag=false;
           this.basic.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
            if(this.dataJSON.supplyCharacteristics != null) {
              this.supply.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
@@ -607,9 +618,20 @@ export class VerificationlvComponent implements OnInit {
                  if(this.dataJSON.summary != null) {
                    this.summary.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
                  }
+                //  else{
+                //    this.summary.ngOnInit();
+                //  }
               // }
              }
+            //  else{
+            //    this.incoming.ngOnInit();
+            //    this.testing.ngOnInit();
+            //  }
            }
+          //  else{
+          //    this.supply.ngOnInit();
+          //    this.testing.ngOnInit();
+          //  }
            if(this.service.commentScrollToBottom==1){
             this.service.triggerScrollTo();
           }
@@ -617,6 +639,7 @@ export class VerificationlvComponent implements OnInit {
           }   
         else{
           this.noDetails=true;
+          this.service.msgForStep1Flag=true;
           this.retrieveSite(companyName,departmentName,site);
           setTimeout(() => {
             this.noDetails=false;
@@ -637,7 +660,8 @@ export class VerificationlvComponent implements OnInit {
         //this.selectedIndex = index;
         this.dataJSON = JSON.parse(data);
         if(this.dataJSON.reportDetails != null) {
-          this.selectedIndex = index;            
+          this.selectedIndex = index;       
+          this.service.msgForStep1Flag=false;
           this.basic.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
           this.service.siteCount = sitedId;
            if(this.dataJSON.supplyCharacteristics != null) {
@@ -657,6 +681,7 @@ export class VerificationlvComponent implements OnInit {
           }   
         else{
           this.noDetails=true;
+          this.service.msgForStep1Flag=true;
           this.saved.savedContinue();
           setTimeout(() => {
             this.noDetails=false;
@@ -719,14 +744,29 @@ export class VerificationlvComponent implements OnInit {
   //   }
     
   // }
-  goBack(stepper: MatStepper) {
-    stepper.previous();
-    this.basic.reloadFromBack();
-    this.supply.reloadFromBack();
-    this.incoming.reloadFromBack();
-    this.testing.reloadFromBack();
-    this.summary.reloadFromBack();
-    this.service.goBacktoprevious=true;
+  goBack2(stepper: MatStepper) {
+    if(this.supply.reloadFromBack()){
+      stepper.previous();
+      //this.service.goBacktoprevious=true;
+    }
+  }
+  goBack3(stepper: MatStepper) {
+    if(this.incoming.reloadFromBack()){
+      stepper.previous();
+      //this.service.goBacktoprevious=true;
+    }
+  }
+  goBack4(stepper: MatStepper) {
+    if(this.testing.reloadFromBack()){
+      stepper.previous();
+      //this.service.goBacktoprevious=true;
+    }
+  }
+  goBack5(stepper: MatStepper) {
+    if(this.summary.reloadFromBack()){
+      stepper.previous();
+      //this.service.goBacktoprevious=true;
+    }
   }
 
 }

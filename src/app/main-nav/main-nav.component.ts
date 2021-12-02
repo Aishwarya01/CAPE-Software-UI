@@ -606,6 +606,7 @@ triggerNavigateTo(siteName:any){
  editSite(siteId: any,userName: any,site: any) {
   this.service.allStepsCompleted=true;
   this.service.disableSubmitSummary=false;
+  this.service.allFieldsDisable = false;
 
   if (confirm("Are you sure you want to edit site details?"))
   {
@@ -630,6 +631,9 @@ triggerNavigateTo(siteName:any){
  viewSite(siteId: any,userName: any,site: any){
   this.service.allStepsCompleted=false;
   this.service.disableSubmitSummary=true;
+  this.service.disableFields=true;
+  this.service.allFieldsDisable = true;
+
 
   if (confirm("Are you sure you want to view site details?"))
   {
@@ -641,7 +645,7 @@ triggerNavigateTo(siteName:any){
     setTimeout(()=>{
       this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
     }, 1000);
-    this.service.disableFields=true;
+   // this.service.disableFields=true;
   } 
   else {
     this.value= false;

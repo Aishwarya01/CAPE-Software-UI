@@ -120,3 +120,6 @@ mat-header-cell.mat-header-cell {
     border-color: hsl(101deg 45% 100%);
     border-radius: 0.25rem;
   }
+.modal-xl{
+  height: 1px;
+}

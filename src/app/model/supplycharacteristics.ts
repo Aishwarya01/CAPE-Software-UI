@@ -2,6 +2,7 @@ export class Supplycharacteristics {
   userName:String;
   siteId:number;
   supplyCharacteristicsId:number;
+  shortName:String;
   mainSystemEarthing:String;
   systemEarthingBNote:String;
   liveConductorType:String;
@@ -12,6 +13,7 @@ export class Supplycharacteristics {
   mainNominalFrequency:String;
   mainNominalCurrent:String;
   mainLoopImpedance:String;
+  mainActualLoad:String;
   mainNominalProtectiveDevice:String;
   mainRatedCurrent:String;
   mainCurrentDisconnection:String;
@@ -20,6 +22,7 @@ export class Supplycharacteristics {
   maximumDemand:String;
   maximumLoad:String;
   meansEarthing:String;
+  meansEarthingRemark:String;
   electrodeType:String;
   electrodeMaterial:String;
   noOfLocation:number;
@@ -91,6 +94,7 @@ export class Supplycharacteristics {
     locationReportId: number;
     location:String;
     jointNo:String;
+    jointReference:String;
     jointResistance:String;
   }
 
@@ -98,5 +102,6 @@ export class Supplycharacteristics {
     locationReportId: number;
     location:String;
     jointNo:String;
+    jointReference:String;
     jointResistance:String;
   }

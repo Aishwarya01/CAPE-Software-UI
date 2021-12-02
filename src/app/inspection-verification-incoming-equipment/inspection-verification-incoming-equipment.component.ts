@@ -69,7 +69,8 @@ export class InspectionVerificationIncomingEquipmentComponent
   step3List: any = [];
   flag: boolean=false;
   @Output() testing = new EventEmitter<any>();
-
+  validationErrorTab: boolean = false;
+  validationErrorMsgTab: string="";
   //comments starts
   successMsg: string="";
   commentSuccess: boolean=false;
@@ -185,12 +186,24 @@ export class InspectionVerificationIncomingEquipmentComponent
         this.inspectionDetails.createdBy = this.step3List.periodicInspection.createdBy;
         this.inspectionDetails.createdDate  = this.step3List.periodicInspection.createdDate;
         this.flag = true;
-        this.populateData();
+        this.populateData(this.step3List.periodicInspection);
         this.populateDataComments();
   }
-  reloadFromBack(){
-    this.addstep3.markAsPristine();
-   }
+
+  retrieveAllDetailsforIncoming(userName: any,siteId: any,data: any){ 
+    // if(this.service.disableFields==true){
+    //   this.addstep3.disable();
+    //  }
+        this.step3List = JSON.parse(data);
+        this.inspectionDetails.siteId = siteId;
+        this.inspectionDetails.periodicInspectionId = this.step3List.periodicInspectionId;
+        this.inspectionDetails.createdBy = this.step3List.createdBy;
+        this.inspectionDetails.createdDate  = this.step3List.createdDate;
+        this.flag = true;
+        this.populateData(this.step3List);
+  }
+
+ 
 //comments section starts
 
 populateDataComments() {
@@ -587,12 +600,11 @@ showHideAccordion(index: number) {
   }
 //comments section ends
 
-  populateData() {
-    // if(this.service.disableFields==true){
-    //   this.disable=true;
-    //   }
+
+  populateData(value:any) {
+ 
     this.arr = [];
-    for (let item of this.step3List.periodicInspection.ipaoInspection) {
+    for (let item of value.ipaoInspection) {
       this.arr.push(this.createGroup(item));
       
     }
@@ -633,7 +645,7 @@ showHideAccordion(index: number) {
       doubleInsulation: new FormControl({disabled: false,value: item.doubleInsulation}),
       reinforcedInsulation: new FormControl({disabled: false,value: item.reinforcedInsulation}),
       basicElectricalSepartion: new FormControl({disabled: false,value: item.basicElectricalSepartion}),
-      isolatePublicSupply: new FormControl({disabled: false,value: item.isolatePublicSupply}),
+      //isolatePublicSupply: new FormControl({disabled: false,value: item.isolatePublicSupply}),
       insulationLiveParts: new FormControl({disabled: false,value: item.insulationLiveParts}),
       barriersEnclosers: new FormControl({disabled: false,value: item.barriersEnclosers}),
       obstacles: new FormControl({disabled: false,value: item.obstacles}),
@@ -947,7 +959,7 @@ showHideAccordion(index: number) {
       doubleInsulation: new FormControl('', [Validators.required]),
       reinforcedInsulation: new FormControl('', [Validators.required]),
       basicElectricalSepartion: new FormControl('', [Validators.required]),
-      isolatePublicSupply: new FormControl('', [Validators.required]),
+      //isolatePublicSupply: new FormControl('', [Validators.required]),
       insulationLiveParts: new FormControl('', [Validators.required]),
       barriersEnclosers: new FormControl('', [Validators.required]),
       obstacles: new FormControl('', [Validators.required]),
@@ -973,18 +985,56 @@ showHideAccordion(index: number) {
   removeItem(index: any) {
     (this.addstep3.get('incomingArr') as FormArray).removeAt(index);
   }
-  // clickAcc(){
-  //   this.gotoNextTab();
-  // }
+  onChangeForm(event:any){
+    if(!this.addstep3.invalid){
+      this.validationError=false;
+     }
+  }
+  onKeyForm(event: KeyboardEvent) { 
+    if(!this.addstep3.invalid){
+     this.validationError=false;
+    }
+   }
+   reloadFromBack(){
+    if(this.addstep3.invalid){
+     this.service.isCompleted3= false;
+     this.service.isLinear=true;
+     this.service.editable=false;
+     this.validationErrorTab = true;
+     this.validationErrorMsgTab= 'Please check all the fields in inspection';
+     setTimeout(() => {
+       this.validationErrorTab = false;
+     }, 3000);
+     return false;
+    }
+    else if(this.addstep3.dirty && this.addstep3.touched){
+      this.service.isCompleted3= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+      return false;
+    }
+    else{
+   this.service.isCompleted3= true;
+   this.service.isLinear=false;
+   this.service.editable=true;
+   this.addstep3.markAsPristine();
+   return true;
+    }
+  }
   gotoNextTab() {
     if ((this.addstep3.dirty && this.addstep3.invalid) || this.service.isCompleted2==false) {
       this.service.isCompleted3= false;
       this.service.isLinear=true;      
       this.service.editable=false;
-      this.validationError = true;
-      this.validationErrorMsg = 'Please check all the fields';
+      this.validationErrorTab = true;
+      this.validationErrorMsgTab= 'Please check all the fields in inspection';
       setTimeout(() => {
-        this.validationError = false;
+        this.validationErrorTab = false;
       }, 3000);
       return;
     }
@@ -1002,16 +1052,15 @@ showHideAccordion(index: number) {
       this.service.isCompleted3= true;
       this.service.isLinear=false;
       this.service.editable=true;
-
     }
   }
   gotoNextModal(content3: any,content2:any) {
     if (this.addstep3.invalid) {
       this.validationError = true;
       this.validationErrorMsg = 'Please check all the fields';
-      setTimeout(() => {
-        this.validationError = false;
-      }, 3000);
+      // setTimeout(() => {
+      //   this.validationError = false;
+      // }, 3000);
       return;
     }
     if(this.addstep3.touched || this.addstep3.untouched){
@@ -1081,6 +1130,11 @@ showHideAccordion(index: number) {
           this.proceedNext.emit(true);
           this.success = true;
           this.successMsg = 'Incoming Equipment Successfully Saved';
+          this.inspectionDetailsService.retrieveInspectionDetails(this.inspectionDetails.userName,this.inspectionDetails.siteId).subscribe(
+            data=>{
+             this.retrieveAllDetailsforIncoming(this.inspectionDetails.userName,this.inspectionDetails.siteId,data);
+            }
+          )
           //this.disable = true;
           //this.service.allFieldsDisable = true;
         },

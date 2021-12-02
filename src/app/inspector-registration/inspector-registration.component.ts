@@ -55,6 +55,7 @@ export class InspectorRegistrationComponent implements OnInit {
   isChecked: boolean = false;
   countryCode: String = '';
   contactNumber: string = '';
+  modalReference: any;
 
 
   constructor(private formBuilder: FormBuilder, private modalService: NgbModal,
@@ -131,11 +132,11 @@ export class InspectorRegistrationComponent implements OnInit {
     return this.InspectorRegisterForm.controls;
   }
   termsCondition(termsContent:any){
-    this.modalService.open(termsContent,{size: 'xl'})
+    this.modalReference = this.modalService.open(termsContent,{size: 'xl'})
   }
-  closeModalDialogTerms(termsContent:any){
-    this.modalService.dismissAll(termsContent)
-   }
+  onCancel() {
+    this.modalReference.close();
+  }
   selectCountry(e: any) {
     let changedValue = e.target.value;
     this.stateList = [];

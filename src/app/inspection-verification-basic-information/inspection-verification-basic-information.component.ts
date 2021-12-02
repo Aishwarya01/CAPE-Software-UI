@@ -19,6 +19,7 @@ import { DatePipe } from '@angular/common';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { ignoreElements } from 'rxjs/operators';
 import { MainNavComponent } from '../main-nav/main-nav.component';
+import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
 //import { SignaturePad } from 'angular2-signaturepad';
 
 //import { ErrorHandlerService } from './../../shared/services/error-handler.service';
@@ -199,6 +200,10 @@ ShowNext: boolean = true;
   values: any;
   designer2PersonName: string="";
   designer2PersonNameMsg: boolean = false;
+  validationErrorTab: boolean = false;
+  validationErrorMsgTab: string="";
+  ContractorPersonNameMsg: boolean = false;
+  ContractorPersonName: string="";
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -210,7 +215,7 @@ ShowNext: boolean = true;
     private UpateBasicService: InspectionVerificationService,
     public service: GlobalsService,
     private modalService: NgbModal,
-    private basic: MainNavComponent,
+    private basic: MainNavComponent,private verification: VerificationlvComponent,
     private registerService: InspectorregisterService,
     private ChangeDetectorRef: ChangeDetectorRef,public datepipe: DatePipe) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}'
@@ -222,9 +227,16 @@ ShowNext: boolean = true;
   ngOnDestroy(): void {
     this.service.viewerData = [];
     this.service.inspectorData = [];
+    this.service.msgForStep1Flag=false;
   }
 
   ngOnInit(): void {
+    if(this.service.msgForStep1Flag){
+      this.service.msgForStep1=true;
+      setTimeout(() => {
+       this.service.msgForStep1 = false;
+     }, 5000);
+    }
     this.currentUser=sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
@@ -279,7 +291,7 @@ ShowNext: boolean = true;
       designer1AcknowledgeArr: this._formBuilder.array([this.createDesigner1AcknowledgeForm()]),
       designer2AcknowledgeArr: this._formBuilder.array([this.createDesigner2AcknowledgeForm()]),
       contractorAcknowledgeArr: this._formBuilder.array([this.createContractorAcknowledgeForm()]),
-      inspectorAcknowledgeArr: this._formBuilder.array([this.createInspectorAcknowledgeForm()]),
+      inspectorAcknowledgeArr: this._formBuilder.array([this.createInspectorAcknowledgeForm(this.service.inspectorData)]),
       designer1Arr: this._formBuilder.array([this.createDesigner1Form()]),
       designer2Arr: this._formBuilder.array([this.createDesigner2Form()]),
       contractorArr: this._formBuilder.array([this.createContractorForm()]),
@@ -316,6 +328,14 @@ ShowNext: boolean = true;
       this.designer2PersonNameMsg=false;
     }
   }
+  ContractorPersonFunction(){
+    if(this.ContractorPersonName==''){
+      this.ContractorPersonNameMsg=true;
+    }
+    else{
+      this.ContractorPersonNameMsg=false;
+    }
+  }
   onKeyPersonName(event: KeyboardEvent) { 
     this.values = (<HTMLInputElement>event.target).value;
    if(this.values==''){
@@ -329,9 +349,19 @@ ShowNext: boolean = true;
     this.values = (<HTMLInputElement>event.target).value;
     if(this.values==''){
      this.designer2PersonNameMsg=true;
+     this.removeDesigner();
     }
     else{
      this.designer2PersonNameMsg=false;
+   }
+  }
+  onKeyContractorPersonName(event: KeyboardEvent){
+    this.values = (<HTMLInputElement>event.target).value;
+    if(this.values==''){
+     this.ContractorPersonNameMsg=true;
+    }
+    else{
+     this.ContractorPersonNameMsg=false;
    }
   }
 //for company site detail continue
@@ -347,12 +377,9 @@ ShowNext: boolean = true;
     this.reportDetails.siteId = sitedId;
   }
  
-  // Need to check this task
+  // saved report
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
-    // if(this.service.disableFields==true){
-    //   this.step1Form.disable();
-    //  }
-      this.service.siteCount = siteId;
+       this.service.siteCount = siteId;
        this.savedUserName = userName;
        this.siteDetails1 = true;
        this.siteDetails = false;
@@ -376,7 +403,7 @@ ShowNext: boolean = true;
        //this.showField2= this.step1List.reportDetails.evidanceWireAge,
        this.step1List.state=this.step1List.reportDetails.state;
        this.setReadOnly = true;
-       this.populateData();
+       this.populateData(this.step1List.reportDetails.signatorDetails);
        this.populateDataComments();
        //this.notification();
 
@@ -434,8 +461,96 @@ ShowNext: boolean = true;
         limitations: this.step1List.reportDetails.limitations
     })
     this.flag=true;
-   // this.disable=true;
+   
+    }
+
+// retrieve basic report
+retrieveAllDetailsforBasic(userName: any,siteId: any,site:any,data: any){
+  // if(this.service.disableFields==true){
+  //   this.step1Form.disable();
+  //  }
+    this.service.siteCount = siteId;
+     this.savedUserName = userName;
+     this.siteDetails1 = true;
+     this.siteDetails = false;
+     this.clearSiteValidator();
+     this.step1List = JSON.parse(data);
+     this.reportDetails.siteId = siteId;
+     this.reportDetails.reportId = this.step1List.reportId;
+     this.reportDetails.installationType=this.step1List.installationType;
+     this.showWiringAge(this.step1List.installationType);
+     this.reportDetails.descriptionPremise=this.step1List.descriptionPremise;
+     this.reportDetails.evidanceAddition=this.step1List.evidanceAddition;
+     this.showEstimatedAge(this.step1List.evidanceAddition);
+     this.reportDetails.previousRecords=this.step1List.previousRecords;
+     this.previousRecord(this.step1List.previousRecords);
+     this.reportDetails.lastInspection=this.step1List.lastInspection;
+     this.step1List.evidenceAlterations=this.step1List.evidenceAlterations;
+     this.reportDetails.limitations= this.step1List.limitations;
+     this.reportDetails.createdBy = this.step1List.createdBy;
+     this.reportDetails.createdDate = this.step1List.createdDate;
+     this.reportDetails.estimatedWireAge = this.step1List.estimatedWireAge;
+     //this.showField2= this.step1List.evidanceWireAge,
+     this.step1List.state=this.step1List.state;
+     this.setReadOnly = true;
+     this.populateData(this.step1List.signatorDetails);
+
+    for( let i of this.step1List.signatorDetails) {
+      if(i.signatorRole == "designer1"){
+        this.step1Form.patchValue({
+          designer1AcknowledgeArr: [i]
+        })
+        this.designer1changeCountry(i.country);
+      this.state1 = i.state;
+      }
+        else if(i.signatorRole == "designer2"){
+        this.step1Form.patchValue({
+          designer2AcknowledgeArr: [i]
+        })
+        this.showDesigner2 = true;
+        this.state2 = i.state;
+        this.designer2changeCountry(i.country);
+       }
+     else if(i.signatorRole == "contractor"){
+      this.step1Form.patchValue({
+        contractorAcknowledgeArr: [i]
+       })
+      this.state3 = i.state;
+      this.contractorchangeCountry(i.country);
      }
+     else if(i.signatorRole == "inspector"){
+        this.step1Form.patchValue({
+          inspectorAcknowledgeArr: [i]
+        })
+        this.state4 = i.state;
+        this.inspectorchangeCountry(i.country);
+      }
+    }
+     this.step1Form.patchValue({
+      site1: site,
+      descriptionOfReport: this.step1List.descriptionReport,
+      reasonOfReport: this.step1List.reasonOfReport,
+      showField1: this.step1List.estimatedWireAge,
+     // evidenceAlterations: [this.step1List.evidenceAlterations],
+      showField2: this.step1List.evidanceWireAge,
+      inspectionLast: this.step1List.lastInspection,
+      nextInspection: this.step1List.nextInspection,
+      extentInstallation: this.step1List.extentInstallation,
+      detailsOfClient:this.step1List.clientDetails,
+      detailsOfInstallation: this.step1List.installationDetails,
+      startingDateVerification: this.step1List.verificationDate,
+      engineerName: this.step1List.verifiedEngineer,
+      designation: this.step1List.designation,
+      companyName: this.step1List.company,
+      inspectorDesignation: this.step1List.inspectorDesignation,
+      inspectorCompanyName: this.step1List.inspectorCompanyName,
+      limitations: this.step1List.limitations
+  })
+  this.flag=true;
+ // this.disable=true;
+   }
+
+
    reloadFromBack(){
     this.step1Form.markAsPristine();
   }
@@ -989,11 +1104,11 @@ showHideAccordion(index: number) {
         declarationName: new FormControl('',[Validators.required])
       })
     }
-  private createInspectorAcknowledgeForm(): FormGroup {
+  private createInspectorAcknowledgeForm(inspectorValue:any): FormGroup {
       return new FormGroup({
         declarationSignature: new FormControl(''),
         declarationDate: new FormControl('',[Validators.required]),
-        declarationName: new FormControl('',[Validators.required])
+        declarationName: new FormControl(inspectorValue.name,[Validators.required])
       })
     }
 
@@ -1010,8 +1125,9 @@ showHideAccordion(index: number) {
     return (<FormArray> this.step1Form.get('inspectorAcknowledgeArr')).controls
   }
   
-  populateData() {
-    for (let item of this.step1List.reportDetails.signatorDetails) {
+  populateData(value:any) {
+    for (let item of value) {
+
       // if(this.service.disableFields==true){
       //   this.disable=true;
       //   }
@@ -1038,7 +1154,7 @@ showHideAccordion(index: number) {
       }
     }
   }
-
+ 
   createGroup(item: any): FormGroup {
     return this._formBuilder.group({
       signatorId: new FormControl({disabled: false ,value: item.signatorId}),
@@ -1265,6 +1381,10 @@ showHideAccordion(index: number) {
   addDesigner() {
     this.showDesigner2= true;
     this.showAddButton= false;
+    if(this.designer2PersonName!=''){
+      this.f.designer2Arr.controls[0].controls['personName'].setValue(this.designer2PersonName);
+      this.designer2PersonNameMsg=false;
+    }
     this.f.designer2Arr.controls[0].controls['personName'].setValidators(Validators.required);
     this.f.designer2Arr.controls[0].controls['personName'].updateValueAndValidity();
     this.f.designer2Arr.controls[0].controls['personContactNo'].setValidators([Validators.required, Validators.maxLength(10)]);
@@ -1423,10 +1543,11 @@ showHideAccordion(index: number) {
       this.service.isCompleted= false;
       this.service.isLinear=true;
       this.service.editable=false;
-      this.validationError = true;
-      this.validationErrorMsg = 'Please check all the fields';
+      //this.validationError=false;
+      this.validationErrorTab = true;
+      this.validationErrorMsgTab = 'Please check all the fields in basic information';
       setTimeout(() => {
-        this.validationError = false;
+        this.validationErrorTab = false;
       }, 3000);
       return;
     }
@@ -1447,14 +1568,29 @@ showHideAccordion(index: number) {
       this.service.editable=true;
     }
   }
+  onChangeForm(event:any){
+    if(!this.step1Form.invalid){
+      this.validationError=false;
+     }
+  }
+  onKeyForm(event: KeyboardEvent) { 
+   if(!this.step1Form.invalid){
+    this.validationError=false;
+   }
+  //  else if(!this.step1Form.dirty && !this.step1Form.touched){
+  //   this.tabError = false;
+  //  }
+  }
+
 //modal popup
   gotoNextModal(content1: any,content2:any) {
       if(this.step1Form.invalid) {
+        //this.validationErrorTab = false;
         this.validationError=true;
         this.validationErrorMsg="Please check all the fields";
-        setTimeout(()=>{
-          this.validationError=false;
-     }, 3000);
+    //     setTimeout(()=>{
+    //       this.validationError=false;
+    //  }, 3000);
         return;
       }
      if(this.step1Form.touched || this.step1Form.untouched){
@@ -1708,6 +1844,13 @@ showHideAccordion(index: number) {
        this.proceedNext.emit(true);
        this.success = true;
        this.successMsg = data;
+       this.reportDetailsService.retrieveBasic(this.reportDetails.siteId,this.reportDetails.userName).subscribe(
+         data=>{
+          this.retrieveAllDetailsforBasic(this.reportDetails.userName,this.reportDetails.siteId,this.siteValue,data);
+         }
+       )
+       //this.step1Form.reset();
+       //this.flag=true;
        //this.service.allFieldsDisable = true;
        //this.disable = true;
      },
