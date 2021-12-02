@@ -21,6 +21,7 @@ import { LpsSpdComponent } from '../lps-spd/lps-spd.component';
 import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.service';
 import { LpsSavedReportComponent } from '../lps-saved-report/lps-saved-report.component';
 import { LpsFinalReportComponent } from '../lps-final-report/lps-final-report.component';
+import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 
 @Component({
   selector: 'app-lps-matstepper',
@@ -48,8 +49,6 @@ export class LpsMatstepperComponent implements OnInit {
   Completed6: boolean=true;
   Completed7: boolean=true;
   
-  
-
   @ViewChild(LpsBasicPageComponent)
   basic!: LpsBasicPageComponent;
   @ViewChild(LpsAirTerminationComponent)
@@ -67,76 +66,84 @@ export class LpsMatstepperComponent implements OnInit {
   dataJSON: any = [];
   @ViewChild(LpsSavedReportComponent)saved!: LpsSavedReportComponent;
   @ViewChild(LpsFinalReportComponent)final!: LpsFinalReportComponent;
-  //ChangeDetectorRef: any;
-  //Completed8: boolean=this.earthStud.success;
+  
+  isEditable:boolean=false;
 
   constructor(
     private _formBuilder: FormBuilder,
     private basicLpsService: LPSBasicDetailsService,
+    private airTerminationService: AirterminationService,
     private router: ActivatedRoute,
-    private ChangeDetectorRef: ChangeDetectorRef) { }
+    private ChangeDetectorRef: ChangeDetectorRef,) { 
+      
+    }
 
   ngOnInit(): void {
-    // this.firstFormGroup = this._formBuilder.group({
-    //   firstCtrl: ['', Validators.required],
-    // });
-    // this.secondFormGroup = this._formBuilder.group({
-    //   secondCtrl: ['', Validators.required],
-    // });
     this.refresh();
   }
   public doSomething1(next: any): void {
-
+ 
+    this.basic.isEditable=this.isEditable;
     // AirTermination
     this.airTermination.basicLpsId=this.basic.basicDetails.basicLpsId;
     this.airTermination.ClientName=this.basic.basicDetails.clientName;
     this.airTermination.projectName=this.basic.basicDetails.projectName;
     this.airTermination.industryType=this.basic.basicDetails.industryType;
     this.airTermination.buildingType=this.basic.basicDetails.buildingType;
+    this.airTermination.isEditable=this.isEditable;
     // DownConductor
     this.downConductors.basicLpsId=this.basic.basicDetails.basicLpsId;
     this.downConductors.ClientName=this.basic.basicDetails.clientName;
     this.downConductors.projectName=this.basic.basicDetails.projectName;
     this.downConductors.industryType=this.basic.basicDetails.industryType;
     this.downConductors.buildingType=this.basic.basicDetails.buildingType;
+    this.downConductors.isEditable=this.isEditable;
     // Earthing
     this.earthing.basicLpsId=this.basic.basicDetails.basicLpsId;
     this.earthing.ClientName=this.basic.basicDetails.clientName;
     this.earthing.projectName=this.basic.basicDetails.projectName;
     this.earthing.industryType=this.basic.basicDetails.industryType;
     this.earthing.buildingType=this.basic.basicDetails.buildingType;
+    this.earthing.isEditable=this.isEditable;
     // SPD
     this.spd.basicLpsId=this.basic.basicDetails.basicLpsId;
     this.spd.ClientName=this.basic.basicDetails.clientName;
     this.spd.projectName=this.basic.basicDetails.projectName;
     this.spd.industryType=this.basic.basicDetails.industryType;
     this.spd.buildingType=this.basic.basicDetails.buildingType;
+    this.spd.isEditable=this.isEditable;
     // Seperation Distance
     this.seperationDistance.basicLpsId=this.basic.basicDetails.basicLpsId;
     this.seperationDistance.ClientName=this.basic.basicDetails.clientName;
     this.seperationDistance.projectName=this.basic.basicDetails.projectName;
     this.seperationDistance.industryType=this.basic.basicDetails.industryType;
     this.seperationDistance.buildingType=this.basic.basicDetails.buildingType;
+    this.seperationDistance.isEditable=this.isEditable;
     // EarthStud
     this.earthStud.basicLpsId=this.basic.basicDetails.basicLpsId;
     this.earthStud.ClientName=this.basic.basicDetails.clientName;
     this.earthStud.projectName=this.basic.basicDetails.projectName;
     this.earthStud.industryType=this.basic.basicDetails.industryType;
     this.earthStud.buildingType=this.basic.basicDetails.buildingType;
+    this.earthStud.isEditable=this.isEditable;
 
     this.Completed1 = this.basic.success;
     this.saved.ngOnInit();
+    this.refresh();
   }
   public doSomething2(next: any): void {
     this.Completed2 = this.airTermination.success;
+    this.refresh();
   }
 
   public doSomething3(next: any): void {
     this.Completed3 = this.downConductors.success;
+    this.refresh();
   }
 
   public doSomething4(next: any): void {
     this.Completed4 = this.earthing.success;
+    this.refresh();
   }
 
   public doSomething5(next: any): void {
@@ -151,7 +158,7 @@ export class LpsMatstepperComponent implements OnInit {
   }
 
   public changeTabLpsSavedReport(index: number, basicLpsId: any, userName: any, clientName: any) {
-    
+   
     this.selectedIndex = 1;
     this.basicLpsService.retrieveFinalLps(userName,basicLpsId).subscribe(
       (data) => {
@@ -213,10 +220,54 @@ export class LpsMatstepperComponent implements OnInit {
     let userName=this.router.snapshot.paramMap.get('email') || '{}';
     this.changeTabLpsSavedReport(index,this.earthStud.basicLpsId,userName,this.earthStud.ClientName);
     this.selectedIndex = index;
-    debugger
+    
   }
   refresh() {
-    debugger
+    
     this.ChangeDetectorRef.detectChanges();
   }
+
+  preview(basicLpsId: any,ClientName:any): void {
+    this.ngOnInit();
+    this.isEditable=true;
+    let userName=this.router.snapshot.paramMap.get('email') || '{}';
+    this.changeTabLpsSavedReport(0,basicLpsId,userName,ClientName);
+  }
+
+  // print(){
+
+  // }
+
+  continue(basicLpsId: any,ClientName:any): void {
+    this.refresh();
+    this.ngOnInit();
+    this.isEditable=false;
+    let userName=this.router.snapshot.paramMap.get('email') || '{}';
+    this.changeTabLpsSavedReport(0,basicLpsId,userName,ClientName);
+  }
+  // Retrive Details for Air Termination Back Button
+  retriveLpsDetails1(userName: any,basicLpsId: any,clientName: any){
+    this.basicLpsService.retriveLpsbasicDetails(userName,basicLpsId).subscribe(
+      data => {
+        debugger
+        this.basic.retrieveDetailsfromSavedReports1(userName,basicLpsId,clientName,data);
+      }, 
+      error=>{
+
+      }
+    );
+  }
+  // Retrive Details for DownConductor Back Button
+  retriveAirTermination(userName: any,basicLpsId: any,clientName: any){
+    this.airTerminationService.retriveLpsbasicDetails(userName,basicLpsId).subscribe(
+      data => {
+        debugger
+        this.airTermination.retrieveDetailsfromSavedReports1(userName,basicLpsId,clientName,data);
+      }, 
+      error=>{
+
+      }
+    );  
+  }
+
 }

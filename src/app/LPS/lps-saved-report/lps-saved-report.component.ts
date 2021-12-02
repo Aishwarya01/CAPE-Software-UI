@@ -104,8 +104,7 @@ completedFilterData: any=[];
         
   }
 
-  continue(basicLpsId: any,userName :any,clientName: any) {
-    
-    this.lpsParent.changeTabLpsSavedReport(0,basicLpsId,userName,clientName);
+  continue(basicLpsId: any,clientName: any) {
+    this.lpsParent.continue(basicLpsId,clientName);
   } 
 }

@@ -40,7 +40,7 @@ export class LpsSpdComponent implements OnInit {
   mobilearr: any = [];
   mobilearr2: any = [];
   mobilearr3: any = [];
-  
+  isEditable!:boolean
   constructor(private formBuilder: FormBuilder, lpsSpd_Services: LpsSpd_Service
     ,private modalService: NgbModal, private router: ActivatedRoute) {
     this.lpsSpd_Service = lpsSpd_Services;
@@ -224,10 +224,12 @@ export class LpsSpdComponent implements OnInit {
       
 
           if(flag) {
+            if(this.spdForm.dirty && this.spdForm.touched){ 
             this.lpsSpd_Service.updateSpdDetails(this.spd).subscribe(
               (data) => {
                 this.success = true;
                 this.successMsg = data;
+                this.spdForm.markAsPristine();
                 this.proceedNext.emit(true);
               },
               (error) => {
@@ -238,6 +240,16 @@ export class LpsSpdComponent implements OnInit {
                 this.proceedNext.emit(false);
               }
             )
+          }
+          else{
+            if(this.isEditable){
+              this.success = true;
+              this.proceedNext.emit(true);
+            }else{
+              this.success = true;
+              this.proceedNext.emit(true);
+            }
+          }
           }
           else {
             this.lpsSpd_Service.saveSPDDetails(this.spd).subscribe(       
@@ -266,7 +278,7 @@ export class LpsSpdComponent implements OnInit {
         }
       }
     
-      gotoNextModal(content: any) {
+      gotoNextModal(content: any,contents:any) {
          if (this.spdForm.invalid) {
            this.validationError = true;
           
@@ -284,7 +296,13 @@ export class LpsSpdComponent implements OnInit {
           }, 3000);
           return;
         }
-        this.modalService.open(content, { centered: true });
-      }
+        if(this.spdForm.dirty && this.spdForm.touched){
+          this.modalService.open(content, { centered: true });
+       }
+      //  For Dirty popup
+       else{
+        this.modalService.open(contents, { centered: true });
+       }
+    }
     
 }

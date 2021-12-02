@@ -7,11 +7,11 @@
     <form [formGroup]="LPSBasicForm" (ngSubmit)="onSubmit(flag)">
         <div class="card-body">
             <div style="font-weight: bold;">
-                <label for="Basicdetails">Basic Details:</label>
+                <label for="Basicdetails">Basic Details</label>
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <label for="clientname">Client Name:</label>
+                    <label for="clientname">Client Name</label>
                     <!-- icon code -->
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -20,7 +20,7 @@
                             </span>
                         </div>
                         <input tpe="text" class="form-control" placeholder="Enter clientname"
-                            formControlName="clientName"[(ngModel)]="basicDetails.clientName"
+                            [readonly]="isEditable" formControlName="clientName"[(ngModel)]="basicDetails.clientName"
                             [ngClass]="{ 'is-invalid': submitted && f.clientName.errors}" />
                         <div *ngIf="submitted && f.clientName.errors" class="invalid-feedback">
                             <div *ngIf="f.clientName.errors.required">ClientName is required</div>
@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="col-md-4">
-                    <label for="projectname">Project Name:</label>
+                    <label for="projectname">Project Name</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -37,7 +37,7 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter project name"
-                            formControlName="projectName" [(ngModel)]="basicDetails.projectName"
+                            [readonly]="isEditable" formControlName="projectName" [(ngModel)]="basicDetails.projectName"
                             [ngClass]="{ 'is-invalid': submitted && f.projectName.errors}" />
                         <div *ngIf="submitted && f.projectName.errors" class="invalid-feedback">
                             <div *ngIf="f.projectName.errors.required">ProjectName is required</div>
@@ -53,7 +53,7 @@
                                 <i class="bi bi-person-lines-fill"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Enter PMC name" formControlName="pmcName" [(ngModel)]="basicDetails.pmcName"
+                        <input type="text" class="form-control" placeholder="Enter PMC name" [readonly]="isEditable" formControlName="pmcName" [(ngModel)]="basicDetails.pmcName"
                             [ngClass]="{ 'is-invalid': submitted && f.pmcName.errors}" />
                         <div *ngIf="submitted && f.pmcName.errors" class="invalid-feedback">
                             <div *ngIf="f.pmcName.errors.required">PMC Name is required</div>
@@ -70,7 +70,7 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter consultant name"
-                            formControlName="consultantName" [(ngModel)]="basicDetails.consultantName"
+                            [readonly]="isEditable" formControlName="consultantName" [(ngModel)]="basicDetails.consultantName"
                             [ngClass]="{ 'is-invalid': submitted && f.consultantName.errors}" />
                         <div *ngIf="submitted && f.consultantName.errors" class="invalid-feedback">
                             <div *ngIf="f.consultantName.errors.required">Consultant Name is required</div>
@@ -87,7 +87,7 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter contractor name"
-                            formControlName="contractorName" [(ngModel)]="basicDetails.contractorName"
+                            [readonly]="isEditable" formControlName="contractorName" [(ngModel)]="basicDetails.contractorName"
                             [ngClass]="{ 'is-invalid': submitted && f.contractorName.errors}" />
                         <div *ngIf="submitted && f.contractorName.errors" class="invalid-feedback">
                             <div *ngIf="f.contractorName.errors.required">Contractor Name is required</div>
@@ -104,7 +104,7 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter dealer/sub-contractor name"
-                            formControlName="dealerContractorName"  [(ngModel)]="basicDetails.dealerContractorName"
+                            [readonly]="isEditable" formControlName="dealerContractorName"  [(ngModel)]="basicDetails.dealerContractorName"
                             [ngClass]="{ 'is-invalid': submitted && f.dealerContractorName.errors}" />
                         <div *ngIf="submitted && f.dealerContractorName.errors" class="invalid-feedback">
                             <div *ngIf="f.dealerContractorName.errors.required">Dealer/Sub-contractor is required</div>
@@ -121,7 +121,7 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter address name"  [(ngModel)]="basicDetails.address"
-                            formControlName="address" [ngClass]="{ 'is-invalid': submitted && f.address.errors}" />
+                            [readonly]="isEditable" formControlName="address" [ngClass]="{ 'is-invalid': submitted && f.address.errors}" />
                         <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
                             <div *ngIf="f.address.errors.required">Address is required</div>
                         </div>
@@ -137,7 +137,7 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter Location/Region/Branch name" [(ngModel)]="basicDetails.location"
-                            formControlName="location" [ngClass]="{ 'is-invalid': submitted && f.location.errors}" />
+                            [readonly]="isEditable" formControlName="location" [ngClass]="{ 'is-invalid': submitted && f.location.errors}" />
                         <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
                             <div *ngIf="f.location.errors.required">location is required</div>
                         </div>
@@ -155,7 +155,7 @@
                         </div>
                         <input type="text" class="form-control"
                             placeholder="Enter Installation by CAPE / Contractor/Dealer name"
-                            formControlName="installationContractor" [(ngModel)]="basicDetails.installationContractor"
+                            [readonly]="isEditable" formControlName="installationContractor" [(ngModel)]="basicDetails.installationContractor"
                             [ngClass]="{ 'is-invalid': submitted && f.installationContractor.errors}" />
                         <div *ngIf="submitted && f.installationContractor.errors" class="invalid-feedback">
                             <div *ngIf="f.installationContractor.errors.required">Installation by CAPE /
@@ -173,7 +173,7 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter Type of Industry name"
-                            formControlName="industryType" [(ngModel)]="basicDetails.industryType"
+                            [readonly]="isEditable" formControlName="industryType" [(ngModel)]="basicDetails.industryType"
                             [ngClass]="{ 'is-invalid': submitted && f.industryType.errors}" />
                         <div *ngIf="submitted && f.industryType.errors" class="invalid-feedback">
                             <div *ngIf="f.industryType.errors.required">Type of Industry is required</div>
@@ -190,7 +190,7 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter Type of Building name"
-                            formControlName="buildingType" [(ngModel)]="basicDetails.buildingType"
+                            [readonly]="isEditable" formControlName="buildingType" [(ngModel)]="basicDetails.buildingType"
                             [ngClass]="{ 'is-invalid': submitted && f.buildingType.errors}" />
                         <div *ngIf="submitted && f.buildingType.errors" class="invalid-feedback">
                             <div *ngIf="f.buildingType.errors.required">Type of Building is required</div>
@@ -212,8 +212,8 @@
                                 <i class="bi bi-align-start"></i>
                             </span>
                         </div>
-                        <input type="number" class="form-control" placeholder="Enter length in meter"
-                            formControlName="buildingLength"  [(ngModel)]="basicDetails.buildingLength"
+                        <input (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Enter length in meter"
+                            [readonly]="isEditable" formControlName="buildingLength"  [(ngModel)]="basicDetails.buildingLength"
                             [ngClass]="{ 'is-invalid': submitted && f.buildingLength.errors}" />
                         <div *ngIf="submitted && f.buildingLength.errors" class="invalid-feedback">
                             <div *ngIf="f.buildingLength.errors.required">Length(m) is required</div>
@@ -229,8 +229,8 @@
                                 <i class="bi bi-border-width"></i>
                             </span>
                         </div>
-                        <input type="number" class="form-control" placeholder="Enter width in meter"
-                            formControlName="buildingWidth"  [(ngModel)]="basicDetails.buildingWidth"
+                        <input (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Enter width in meter"
+                            [readonly]="isEditable" formControlName="buildingWidth"  [(ngModel)]="basicDetails.buildingWidth"
                             [ngClass]="{ 'is-invalid': submitted && f.buildingWidth.errors}" />
                         <div *ngIf="submitted && f.buildingWidth.errors" class="invalid-feedback">
                             <div *ngIf="f.buildingWidth.errors.required">Width(m) is required</div>
@@ -246,8 +246,8 @@
                                 <i class="bi bi-distribute-horizontal"></i>
                             </span>
                         </div>
-                        <input type="number" class="form-control" placeholder="Enter height in meter"
-                            formControlName="buildingHeight" [(ngModel)]="basicDetails.buildingHeight"
+                        <input (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Enter height in meter"
+                            [readonly]="isEditable" formControlName="buildingHeight" [(ngModel)]="basicDetails.buildingHeight"
                             [ngClass]="{ 'is-invalid': submitted && f.buildingHeight.errors}" />
                         <div *ngIf="submitted && f.buildingHeight.errors" class="invalid-feedback">
                             <div *ngIf="f.buildingHeight.errors.required">Height(m) is required</div>
@@ -267,7 +267,7 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Enter Level of protection name"
-                            formControlName="levelOfProtection" [(ngModel)]="basicDetails.levelOfProtection"
+                            [readonly]="isEditable" formControlName="levelOfProtection" [(ngModel)]="basicDetails.levelOfProtection"
                             [ngClass]="{ 'is-invalid': submitted && f.levelOfProtection.errors}" />
                         <div *ngIf="submitted && f.levelOfProtection.errors" class="invalid-feedback">
                             <div *ngIf="f.levelOfProtection.errors.required">Lovel of protection is required</div>
@@ -283,8 +283,8 @@
                                 <i class="bi bi-shield-fill-x"></i>
                             </span>
                         </div>
-                        <input type="number" class="form-control" placeholder="Enter Soil Resistivity"
-                            formControlName="soilResistivity" [(ngModel)]="basicDetails.soilResistivity"
+                        <input (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Enter Soil Resistivity"
+                            [readonly]="isEditable" formControlName="soilResistivity" [(ngModel)]="basicDetails.soilResistivity"
                             />
                     </div>
                 </div>
@@ -302,7 +302,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td style="width: 1rem; text-align: center;">1.</td>
+                            <td style="width: 1rem; text-align: center;">1</td>
                             <td style="width: 24rem;">Collect approved copy of drawing from the site </td>
                             <td style="width: 35rem;">
                                 <div class="input-group">
@@ -311,8 +311,8 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea class="form-control" cols="30" rows="1" placeholder="Ex.."
-                                        formControlName="approvedDrawingObserv"
+                                    <textarea class="form-control" cols="30" rows="1" placeholder="Please enter Observation here"
+                                        [readonly]="isEditable" formControlName="approvedDrawingObserv"
                                         [ngClass]="{ 'is-invalid': submitted && x.get('approvedDrawingObserv')?.errors }"
                                         required></textarea>
 
@@ -330,14 +330,14 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" cols="30" rows="1" placeholder="Ex.."
-                                        formControlName="approvedDrawingRemarks"></textarea>
+                                    <textarea type="text" class="form-control" cols="30" rows="1" 
+                                        [readonly]="isEditable" formControlName="approvedDrawingRemarks"></textarea>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td style="text-align: center;">1(a).</td>
-                            <td>Architect Name </td>
+                            <td style="text-align: center;">1(a)</td>
+                            <td >Architect Name </td>
                             <td>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -345,8 +345,8 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" cols="30" rows="1" placeholder="Ex.."
-                                        formControlName="architectNameObserv"
+                                    <textarea type="text" class="form-control" cols="30" rows="1" placeholder="Please enter Observation here"
+                                        [readonly]="isEditable" formControlName="architectNameObserv"
                                         [ngClass]="{ 'is-invalid': submitted && x.get('architectNameObserv')?.errors }"
                                         required></textarea>
 
@@ -364,14 +364,14 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" class="form-control" cols="30" rows="1" placeholder="Ex.."
-                                        formControlName="architectNameRemarks"></textarea>
+                                    <textarea type="text" class="form-control" cols="30" rows="1" 
+                                        [readonly]="isEditable" formControlName="architectNameRemarks"></textarea>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td style="text-align: center;">1(b).</td>
-                            <td>Date of Design</td>
+                            <td style="text-align: center;">1(b)</td>
+                            <td >Date of Design</td>
                             <td>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -379,7 +379,7 @@
                                             <i class="bi bi-calendar-week-fill"></i>
                                         </span>
                                     </div>
-                                    <input type="date" class="form-control" formControlName="designDateObserv"
+                                    <input type="date" class="form-control" [ngClass]="{'hidedate':isEditable}" formControlName="designDateObserv"
                                         [ngClass]="{ 'is-invalid': submitted && x.get('designDateObserv')?.errors }">
 
                                     <div *ngIf="submitted && x.get('designDateObserv')?.errors"
@@ -395,14 +395,14 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
-                                        formControlName="designDateRemarks"></textarea>
+                                    <textarea type="text" cols="30" rows="1" class="form-control" 
+                                        [readonly]="isEditable" formControlName="designDateRemarks"></textarea>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td style="text-align: center;">1(c).</td>
-                            <td>Approved by</td>
+                            <td style="text-align: center;">1(c)</td>
+                            <td >Approved by</td>
                             <td>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -410,8 +410,8 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
-                                        formControlName="approvedByObserv"
+                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Please enter Observation here"
+                                        [readonly]="isEditable" formControlName="approvedByObserv"
                                         [ngClass]="{ 'is-invalid': submitted && x.get('approvedByObserv')?.errors }"
                                         required></textarea>
 
@@ -429,14 +429,14 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
-                                        formControlName="approvedByRemarks"></textarea>
+                                    <textarea type="text" cols="30" rows="1" class="form-control" 
+                                        [readonly]="isEditable" formControlName="approvedByRemarks"></textarea>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td style="text-align: center;">1(d).</td>
-                            <td>Date of approval </td>
+                            <td style="text-align: center;">1(d)</td>
+                            <td >Date of approval </td>
                             <td>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -444,8 +444,8 @@
                                             <i class="bi bi-calendar-week-fill"></i>
                                         </span>
                                     </div>
-                                    <input type="date" class="form-control" formControlName="dateOfApprovalOb"
-                                        [ngClass]="{ 'is-invalid': submitted && x.get('dateOfApprovalOb')?.errors }" />
+                                    <input type="date" class="form-control" [ngClass]="{'hidedate':isEditable}" formControlName="dateOfApprovalOb"
+                                        [ngClass]="{ 'is-invalid': submitted && x.get('dateOfApprovalOb')?.errors }"/>
 
                                     <div *ngIf="submitted && x.get('dateOfApprovalOb')?.errors"
                                         class="invalid-feedback">
@@ -461,14 +461,14 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
-                                        formControlName="dateOfApprovalRem"></textarea>
+                                    <textarea type="text" cols="30" rows="1" class="form-control" 
+                                        [readonly]="isEditable" formControlName="dateOfApprovalRem"></textarea>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td style="text-align: center;">1(e).</td>
-                            <td>Drawing number </td>
+                            <td style="text-align: center;">1(e)</td>
+                            <td >Drawing number </td>
                             <td>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -476,8 +476,8 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
-                                        formControlName="drawingObserv"
+                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Please enter Observation here"
+                                        [readonly]="isEditable" formControlName="drawingObserv"
                                         [ngClass]="{ 'is-invalid': submitted && x.get('drawingObserv')?.errors }"
                                         required></textarea>
 
@@ -494,14 +494,14 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
-                                        formControlName="drawingRemarks"></textarea>
+                                    <textarea type="text" cols="30" rows="1" class="form-control" 
+                                        [readonly]="isEditable" formControlName="drawingRemarks"></textarea>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td style="text-align: center;">1(f).</td>
-                            <td>Revision number </td>
+                            <td style="text-align: center;font-size: 11px;">1(f)</td>
+                            <td >Revision number </td>
                             <td>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -509,8 +509,8 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
-                                        formControlName="revisionNoObserv"
+                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Please enter Observation here"
+                                        [readonly]="isEditable" formControlName="revisionNoObserv"
                                         [ngClass]="{ 'is-invalid': submitted && x.get('revisionNoObserv')?.errors }"
                                         required></textarea>
 
@@ -528,8 +528,8 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
-                                        formControlName="revisionNoRemarks"></textarea>
+                                    <textarea type="text" cols="30" rows="1" class="form-control" 
+                                        [readonly]="isEditable" formControlName="revisionNoRemarks"></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -537,8 +537,8 @@
 
                     <tbody>
                         <tr>
-                            <td style="text-align: center;">2.</td>
-                            <td>Check for any deviation of design with standard </td>
+                            <td style="text-align: center;">2</td>
+                            <td >Check for any deviation of design with standard </td>
                             <td>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -546,8 +546,8 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
-                                        formControlName="deviationObserv"
+                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Please enter Observation here"
+                                        [readonly]="isEditable" formControlName="deviationObserv"
                                         [ngClass]="{ 'is-invalid': submitted && x.get('deviationObserv')?.errors }"
                                         required></textarea>
 
@@ -564,8 +564,8 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
-                                        formControlName="deviationRemarks"></textarea>
+                                    <textarea type="text" cols="30" rows="1" class="form-control" 
+                                        [readonly]="isEditable" formControlName="deviationRemarks"></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -573,8 +573,8 @@
 
                     <tbody>
                         <tr>
-                            <td style="text-align: center;">3.</td>
-                            <td>Quality of installation </td>
+                            <td style="text-align: center;">3</td>
+                            <td >Quality of installation </td>
                             <td>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -582,8 +582,8 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
-                                        formControlName="installationQualityObserv"
+                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Please enter Observation here"
+                                        [readonly]="isEditable" formControlName="installationQualityObserv"
                                         [ngClass]="{ 'is-invalid': submitted && x.get('installationQualityObserv')?.errors }"
                                         required></textarea>
 
@@ -601,8 +601,8 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" cols="30" rows="1" class="form-control" placeholder="Ex.."
-                                        formControlName="installationQualityRemarks"></textarea>
+                                    <textarea type="text" cols="30" rows="1" class="form-control" 
+                                        [readonly]="isEditable" formControlName="installationQualityRemarks"></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -611,7 +611,8 @@
             </div>
         </div>
         <div style="text-align: center;margin-top: 8px;">
-            <button class="next"  [disabled]="disable" (click)="gotoNextModal(content)" mat-button >Next &raquo;</button>
+            <button class="next" (click)="gotoNextModal(content,contents)" mat-button >Next &raquo;</button>
+            <!-- <button class="next" *ngIf="isEditable" mat-button (click)="gotoNextModal(content,contents)">Next &raquo;</button> -->
         </div>
         <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
             <span class="alert alert-danger">{{validationErrorMsg}}</span>
@@ -637,3 +638,29 @@
 
   </button>
 </ng-template> 
+<ng-template #contents let-modal>
+    <div class="modal-body">
+     <div class="centre-text m-btm30">
+      <div style="text-align: center;">
+        <span class="successshow">Are you sure you want to procced? </span>
+        <br>
+        <span style="font-size: 12px;">Note: Please verify all the details! </span>
+       </div>
+      </div>
+     </div>
+    <br>
+    <div class="row">
+       <button type="button" class="col-md-6" style="text-align:center; width: auto;" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+       aria-label="Close" (click)="closeModalDialog()" matStepperNext>
+       <i class="bi bi-arrow-right-circle"></i>&nbsp;
+        <span aria-hidden="true">Ok</span>
+    </button>
+    <button type="button" class="col-md-6" style="width: auto;" class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn"
+       aria-label="Close" (click)="closeModalDialog()">
+       <i class="bi bi-x icon"></i>
+        <span aria-hidden="true">Cancel</span>
+    </button>
+  </div>
+  
+    </ng-template>
+ 

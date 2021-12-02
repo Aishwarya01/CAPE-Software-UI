@@ -163,7 +163,7 @@ export class ProfileComponent implements OnInit {
       // });     
 
     this.generateContactNumberOtpForm = this.formBuilder.group({
-      mobileNumber: ['',[Validators.maxLength(10),Validators.required]]
+      mobileNumber: ['',[Validators.maxLength(10),Validators.minLength(10),Validators.required]]
     });
 
   this.changeContactNumberForm = this.formBuilder.group({
@@ -204,7 +204,7 @@ export class ProfileComponent implements OnInit {
   }
 
   getProfileControls(): AbstractControl[] {
-    return (<FormArray> this.profileForm.get('profileArr')).controls 
+    return (<FormArray> this.profileForm.get('profileArr'))?.controls 
   }
 
   keyUpEvent(event:any, index:any) {

@@ -74,7 +74,7 @@ export class InspectorRegistrationComponent implements OnInit {
       email: ['', [
         Validators.required,
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-      contactNumber: ['', [Validators.required,Validators.maxLength(10)]],
+      contactNumber: ['', [Validators.required,Validators.maxLength(10),Validators.minLength(10)]],
       applicationType: ['', Validators.required],
       department: ['', Validators.required],
       designation: ['', Validators.required],

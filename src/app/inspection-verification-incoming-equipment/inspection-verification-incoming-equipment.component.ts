@@ -600,10 +600,9 @@ showHideAccordion(index: number) {
   }
 //comments section ends
 
+
   populateData(value:any) {
-    // if(this.service.disableFields==true){
-    //   this.disable=true;
-    //   }
+ 
     this.arr = [];
     for (let item of value.ipaoInspection) {
       this.arr.push(this.createGroup(item));

@@ -379,11 +379,7 @@ ShowNext: boolean = true;
  
   // saved report
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
-    // if(this.service.disableFields==true){
-    //   this.step1Form.disable();
-    //  }
-   
-      this.service.siteCount = siteId;
+       this.service.siteCount = siteId;
        this.savedUserName = userName;
        this.siteDetails1 = true;
        this.siteDetails = false;
@@ -1131,6 +1127,7 @@ showHideAccordion(index: number) {
   
   populateData(value:any) {
     for (let item of value) {
+
       // if(this.service.disableFields==true){
       //   this.disable=true;
       //   }
@@ -1185,10 +1182,10 @@ showHideAccordion(index: number) {
   private createDesigner1Form(): FormGroup {
     return new FormGroup({
       personName: new FormControl(''),
-      personContactNo: new FormControl('',[Validators.maxLength(10),Validators.required]),
+      personContactNo: new FormControl('',[Validators.maxLength(10),Validators.minLength(10),Validators.required]),
       personMailID: new FormControl('',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       managerName: new FormControl('',[Validators.required]),
-      managerContactNo: new FormControl('',[Validators.maxLength(10)]),
+      managerContactNo: new FormControl('',[Validators.maxLength(10),Validators.minLength(10)]),
       managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       companyName: new FormControl('',[Validators.required]),
       addressLine1: new FormControl('',[Validators.required]),
@@ -1272,10 +1269,10 @@ showHideAccordion(index: number) {
   private createContractorForm(): FormGroup {
   return new FormGroup({
     personName: new FormControl('',[Validators.required]),
-    personContactNo: new FormControl('',[Validators.maxLength(10),Validators.required]),
+    personContactNo: new FormControl('',[Validators.maxLength(10),Validators.minLength(10),Validators.required]),
     personMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
     managerName: new FormControl('',[Validators.required]),
-    managerContactNo: new FormControl('',[Validators.maxLength(10)]),
+    managerContactNo: new FormControl('',[Validators.maxLength(10),Validators.minLength(10)]),
     managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
     companyName: new FormControl('',[Validators.required]),
     addressLine1: new FormControl('',[Validators.required]),
@@ -1322,7 +1319,7 @@ showHideAccordion(index: number) {
       personContactNo: new FormControl(value.contactNumber,[Validators.required]),
       personMailID: new FormControl(value.username,[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       managerName: new FormControl('',[Validators.required]),
-      managerContactNo: new FormControl('',[Validators.maxLength(10)]),
+      managerContactNo: new FormControl('',[Validators.maxLength(10),Validators.minLength(10)]),
       managerMailID: new FormControl('',[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       companyName: new FormControl(value.companyName,[Validators.required]),
       addressLine1: new FormControl(value.address,[Validators.required]),

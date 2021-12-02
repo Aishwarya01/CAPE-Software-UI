@@ -468,7 +468,6 @@ createNewGroup(item: any): FormGroup{
     )  
   }
   else{
-    debugger
     this.register.contactNumber = this.viewerRegisterForm.controls.viewerArr.value[0].contactNumber
     this.inspectorRegisterService.updateRegister(this.register).subscribe(
       data=> {

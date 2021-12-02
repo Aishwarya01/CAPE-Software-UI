@@ -1528,6 +1528,7 @@ showHideAccordion(index: number) {
   }
 //comments section ends
 
+
      populateData(value:any) {
       // if(this.service.disableFields==true){
       //   this.disable=true;
@@ -1566,6 +1567,7 @@ showHideAccordion(index: number) {
       this.alArr = [];
       this.circuitB = []
     }
+
 
     createGroup(item: any): FormGroup {
       return this.formBuilder.group({
@@ -1740,7 +1742,7 @@ showHideAccordion(index: number) {
       nominalFrequency: new FormControl(''),
       aLLiveConductorDC: new FormControl(''),
       aLSystemEarthingBNote: new FormControl(''),
-      aLLiveConductorBNote: new FormControl(''),
+      aLLiveConductorBNote: new FormControl('', [Validators.required]),
       nominalVoltage: new FormControl(''),
       //nominalFrequency: new FormControl(''),
       faultCurrent: new FormControl(''),
@@ -2227,6 +2229,7 @@ showHideAccordion(index: number) {
     else{
       this.values =event;
     }
+
     // this.values = (<HTMLInputElement>event.target).value;
     this.service.noOfjoint = this.values;
     this.location3Arr = this.supplycharesteristicForm.get(
@@ -2294,7 +2297,7 @@ showHideAccordion(index: number) {
 //   this.keyJOintLocationTable=false;
 //  }
   }
- 
+
   getLocation1Controls(): AbstractControl[] {
     return (<FormArray>this.supplycharesteristicForm.get('location1Arr'))
       .controls;
@@ -2340,7 +2343,7 @@ showHideAccordion(index: number) {
       a.controls.aLSystemEarthingBNote.updateValueAndValidity();
     }
   }
-  
+
   showValue(e: any, a: any) {
     let changedValue = e.target.value;
     if (changedValue == 'AC') {

@@ -45,4 +45,25 @@ button {
 
 thead {
   text-align: center;
+  font-size: 16px;
+}
+
+label{
+  font-size: 14px;
+}
+
+::placeholder{
+  font-size: 10px;
+}
+
+table tr td {
+  font-size: 14px;
+}
+
+textarea{
+  font-size: 12px;
+}
+
+.hidedate{
+  pointer-events: none;
 }

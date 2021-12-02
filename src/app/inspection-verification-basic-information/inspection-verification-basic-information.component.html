@@ -440,8 +440,10 @@
 
                       <div class="col-md-4">
                         <label>Date:</label>
+
                         <input type="date" formControlName="declarationDate" class="form-control" placeholder="Enter Date"
                         [ngClass]="{ 'is-invalid': submitted && a.get('declarationDate')?.errors }" [readonly]="service.allFieldsDisable">
+
                           <div *ngIf="submitted && a.get('declarationDate')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('declarationDate')?.errors?.required">Date is required</div>
                         </div>
@@ -645,7 +647,7 @@
                             [ngClass]="{ 'is-invalid': submitted && a.get('personContactNo')?.errors }">
                             <div *ngIf="submitted && a.get('personContactNo')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('personContactNo')?.errors?.required">Mobile Number is Required</div>
-                              <!-- <div *ngIf="a.get('personContactNo')?.errors?.minlength">Please Enter 10 Digit Number</div> -->
+                              <div *ngIf="a.get('personContactNo')?.errors?.minlength">Please Enter 10 Digit Number</div> 
                               <div *ngIf="a.get('personContactNo')?.errors?.maxlength">Please Enter 10 Digit Number</div>
                           </div>
                         </div>
@@ -680,6 +682,7 @@
                           formControlName="managerContactNo" class="form-control" placeholder="Enter Mobile Number"
                           [ngClass]="{ 'is-invalid': submitted && a.get('managerContactNo')?.errors }">
                           <div *ngIf="submitted && a.get('managerContactNo')?.errors" class="invalid-feedback">
+                            <div *ngIf="a.get('managerContactNo')?.errors?.minlength">Please Enter 10 Digit Number</div> 
                             <div *ngIf="a.get('managerContactNo')?.errors?.required">Mobile Number is Required</div>
                             <div *ngIf="a.get('managerContactNo')?.errors?.maxlength">Please Enter 10 Digit Number</div>
                         </div>
@@ -818,7 +821,7 @@
                             [ngClass]="{ 'is-invalid': submitted && a.get('personContactNo')?.errors }">
                             <div *ngIf="submitted && a.get('personContactNo')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('personContactNo')?.errors?.required">Mobile Number is Required</div>
-                              <!-- <div *ngIf="a.get('personContactNo')?.errors?.minlength">Please Enter 10 Digit Number</div> -->
+                              <div *ngIf="a.get('personContactNo')?.errors?.minlength">Please Enter 10 Digit Number</div> 
                               <div *ngIf="a.get('personContactNo')?.errors?.maxlength">Please Enter 10 Digit Number</div>
                           </div>
                           </div>
@@ -854,6 +857,7 @@
                             [readonly]="setReadOnly1" [ngClass]="{ 'is-invalid': submitted && a.get('managerContactNo')?.errors }">
                             <div *ngIf="submitted && a.get('managerContactNo')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('managerContactNo')?.errors?.required">Mobile Number is Required</div>
+                              <div *ngIf="a.get('managerContactNo')?.errors?.minlength">Please Enter 10 Digit Number</div> 
                               <div *ngIf="a.get('managerContactNo')?.errors?.maxlength">Please Enter 10 Digit Number</div>
                           </div>
                           </div>
@@ -991,11 +995,11 @@
                           <div class="col-md-4">
                               <label>* Mobile Number:</label>
                               <input type="tel" ng2TelInput [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
-                              (keypress)="keyPressNumbers($event)" (countryChange)="countryChange4($event)" [readonly]="setReadOnly" formControlName="personContactNo" class="form-control" placeholder="Enter Mobile Number"
+                              (keypress)="keyPressNumbers($event)" (countryChange)="countryChange4($event)"  [readonly]="setReadOnly" formControlName="personContactNo" class="form-control" placeholder="Enter Mobile Number"
                               [ngClass]="{ 'is-invalid': submitted && a.get('personContactNo')?.errors }">
                               <div *ngIf="submitted && a.get('personContactNo')?.errors" class="invalid-feedback">
                                 <div *ngIf="a.get('personContactNo')?.errors?.required">Mobile Number is Required</div>
-                                <!-- <div *ngIf="a.get('personContactNo')?.errors?.minlength">Please Enter 10 Digit Number</div> -->
+                                 <div *ngIf="a.get('personContactNo')?.errors?.minlength">Please Enter 10 Digit Number</div>
                                 <div *ngIf="a.get('personContactNo')?.errors?.maxlength">Please Enter 10 Digit Number</div>
                         </div>
                           </div>
@@ -1031,7 +1035,7 @@
                             [ngClass]="{ 'is-invalid': submitted && a.get('managerContactNo')?.errors }">
                           <div *ngIf="submitted && a.get('managerContactNo')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('managerContactNo')?.errors?.required">Mobile Number is Required</div>
-                              <!-- <div *ngIf="a.get('managerContactNo')?.errors?.minlength">Please Enter 10 Digit Number</div> -->
+                              <div *ngIf="a.get('managerContactNo')?.errors?.minlength">Please Enter 10 Digit Number</div> 
                               <div *ngIf="a.get('managerContactNo')?.errors?.maxlength">Please Enter 10 Digit Number</div>
                         </div>
                           </div>
@@ -1165,9 +1169,8 @@
                             (keypress)="keyPressNumbers($event)" (countryChange)="countryChange6($event)" readonly formControlName="personContactNo" class="form-control" placeholder="Enter Mobile Number"
                             [ngClass]="{ 'is-invalid': submitted && a.get('personContactNo')?.errors }">
                            <div *ngIf="submitted && a.get('personContactNo')?.errors" class="invalid-feedback">
-                              <div *ngIf="a.get('personContactNo')?.errors?.required">Mobile Number is Required</div>
-                              <!-- <div *ngIf="a.get('personContactNo')?.errors?.minlength">Please Enter 10 Digit Number</div> -->
-                              <!-- <div *ngIf="a.get('personContactNo')?.errors?.maxlength">Please Enter 10 Digit Number</div> -->
+                              <div *ngIf="a.get('personContactNo')?.errors?.required">Mobile Number is Required</div> 
+                              <div *ngIf="a.get('personContactNo')?.errors?.maxlength">Please Enter 10 Digit Number</div> 
                            </div>
                         </div>
 
@@ -1201,7 +1204,7 @@
                           [readonly]="setReadOnly" [ngClass]="{ 'is-invalid': submitted && a.get('managerContactNo')?.errors}">
                           <div *ngIf="submitted && a.get('managerContactNo')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('managerContactNo')?.errors?.required">Mobile Number is Required</div>
-                            <!-- <div *ngIf="a.get('managerContactNo')?.errors?.minlength">Please Enter 10 Digit Number</div> -->
+                            <div *ngIf="a.get('managerContactNo')?.errors?.minlength">Please Enter 10 Digit Number</div> 
                             <div *ngIf="a.get('managerContactNo')?.errors?.maxlength">Please Enter 10 Digit Number</div>
                         </div>
                         </div>

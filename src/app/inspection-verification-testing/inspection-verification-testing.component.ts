@@ -890,15 +890,16 @@ callValue(e: any) {
   }
   //comments section ends
 
-  populateData(value:any) {
-    // if(this.service.disableFields==true){
-    //   this.disable=true;
-    //   }
-    this.arr = [];
-    for (let item of value.testing) {
-      this.arr.push(this.createGroup(item));
-    }
-    this.testingForm.setControl('testaccordianArr', this.formBuilder.array(this.arr || []))
+   populateData(value:any) {	
+    // if(this.service.disableFields==true){	
+    //   this.disable=true;	
+    //   }	
+    this.arr = [];	
+    for (let item of value.testing) {	
+      this.arr.push(this.createGroup(item));	
+    }	
+    this.testingForm.setControl('testaccordianArr', this.formBuilder.array(this.arr || []))	
+
   }
 
   createGroup(item: any): FormGroup {

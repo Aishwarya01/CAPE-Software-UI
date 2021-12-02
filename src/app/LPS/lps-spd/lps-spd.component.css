@@ -4,13 +4,6 @@ h3 {
     text-align: center;
 }
 
-label {
-    font-size: smaller;
-}
-
-td {
-    font-size: smaller;
-}
 /* textarea.form-control{height: 30px !important} */
 .previous {
     background-color: #f1f1f1;
@@ -37,6 +30,7 @@ td {
 }
 thead {
   text-align: center;
+  font-size: 16px;
 }
 
 /* Text area description */
@@ -47,4 +41,20 @@ thead {
 .client-description {
   width: 800px;
   height: 150px;
+}
+
+table tr td {
+  font-size: 14px;
+}
+
+textarea{
+  font-size: 12px;
+}
+
+label{
+  font-size: 14px;
+}
+
+::placeholder{
+  font-size: 10px;
 }

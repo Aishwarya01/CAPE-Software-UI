@@ -48,6 +48,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
   flag: boolean = false;
   arr: any  = [];
   separatedistancePushArr:any=[];
+  isEditable!:boolean
   constructor(
 
     private formBuilder: FormBuilder,
@@ -56,7 +57,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
   ) {
   }
 
-  gotoNextModal(content: any) {
+  gotoNextModal(content: any,contents:any) {
     
     if (this.separeteDistanceForm.invalid) {
       this.validationError = true;
@@ -75,7 +76,13 @@ export class LpsSeperationDistanceComponent implements OnInit {
       }, 3000);
       return;
     }
-    this.modalService.open(content, { centered: true });
+    if(this.separeteDistanceForm.dirty && this.separeteDistanceForm.touched){
+      this.modalService.open(content, { centered: true });
+   }
+  //  For Dirty popup
+   else{
+    this.modalService.open(contents, { centered: true });
+   }
   }
 
   ngOnInit(): void {
@@ -100,7 +107,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
     return new FormGroup({
       seperationDistanceDesc: new FormControl('',Validators.required),
       seperationDistanceOb: new FormControl('',Validators.required),
-      seperationDistanceRem: new FormControl('',Validators.required),
+      seperationDistanceRem: new FormControl(''),
       flag: new FormControl('true'),
 
     })
@@ -120,7 +127,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
     seperationDistanceDescId: new FormControl({disabled: false, value: item.seperationDistanceDescId}),
     seperationDistanceDesc: new FormControl({disabled: false, value: item.seperationDistanceDesc}, Validators.required),
     seperationDistanceOb: new FormControl({disabled: false, value: item.seperationDistanceOb}, Validators.required),
-    seperationDistanceRem: new FormControl({disabled: false, value: item.seperationDistanceRem}, Validators.required),
+    seperationDistanceRem: new FormControl({disabled: false, value: item.seperationDistanceRem}),
     flag: new FormControl({disabled: false, value: item.flag}),
        
     });
@@ -161,10 +168,12 @@ export class LpsSeperationDistanceComponent implements OnInit {
     this.separatedistance.separateDistanceDescription=this.separatedistance.separateDistanceDescription.concat(this.separatedistancePushArr);
     this.separatedistancePushArr=[];
       if(flag) {
+        if(this.separeteDistanceForm.dirty && this.separeteDistanceForm.touched){ 
         this.separatedistanceService.updateSeparateDistance(this.separatedistance).subscribe(
           (data) => {
             this.success = true;
             this.successMsg = data;
+            this.separeteDistanceForm.markAsPristine();
             this.proceedNext.emit(true);
           },
           (error) => {
@@ -175,6 +184,16 @@ export class LpsSeperationDistanceComponent implements OnInit {
             this.proceedNext.emit(false);
           }
         )
+      }
+      else{
+        if(this.isEditable){
+          this.success = true;
+          this.proceedNext.emit(true);
+        }else{
+          this.success = true;
+          this.proceedNext.emit(true);
+        }
+      }
       }
       else {
         this.separatedistanceService.saveSeparateDistance(this.separatedistance).subscribe(

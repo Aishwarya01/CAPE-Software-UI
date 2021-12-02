@@ -20,6 +20,7 @@ export class BasicDetails {
     createdDate: Date;
     createdBy: String;
     basicLpsDescription:BasicLpsDescription[];
+    allStepsCompleted: String;
 }
 
 export class BasicLpsDescription 
@@ -35,7 +36,6 @@ export class BasicLpsDescription
      approvedByRemarks : String;
      dateOfApprovalOb : String;
      dateOfApprovalRem : String;
-
      drawingObserv :  String;
      drawingRemarks : String;
      revisionNoObserv : String;

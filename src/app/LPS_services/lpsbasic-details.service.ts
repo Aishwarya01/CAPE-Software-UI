@@ -27,4 +27,8 @@ export class LPSBasicDetailsService {
   public retrieveFinalLps(userName: String,basicLpsId: any): Observable<any> {
     return this.http.get<any>(this.apiUrl + '/retrieveLpsReport' + '/' +userName+ '/' +basicLpsId, { responseType: 'text' as 'json' })
   } 
+
+  public retriveLpsbasicDetails(userName: String,basicLpsId: any): Observable<any>{
+    return this.http.get<any>(this.apiUrl + '/retrieveBasicLps' + '/' +userName+ '/' +basicLpsId, { responseType: 'text' as 'json' })
+  }
 }
