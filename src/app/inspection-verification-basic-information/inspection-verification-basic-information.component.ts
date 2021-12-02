@@ -1789,17 +1789,80 @@ showHideAccordion(index: number) {
     //country code
   
     if(!flag) {
-      this.step1Form.value.designer1Arr[0].personContactNo= "+" + this.countryCode + "-" + this.step1Form.value.designer1Arr[0].personContactNo;
-      this.step1Form.value.designer1Arr[0].managerContactNo= "+" + this.countryCode1 + "-" + this.step1Form.value.designer1Arr[0].managerContactNo;
+      if((this.step1Form.value.designer1Arr[0].personContactNo).includes("+"))
+      {
+       let arr1=[];
+       arr1= this.step1Form.value.designer1Arr[0].personContactNo.split('-');
+       this.step1Form.value.designer1Arr[0].personContactNo = arr1[1];
+       this.step1Form.value.designer1Arr[0].personContactNo= "+" + this.countryCode + "-" +  this.step1Form.value.designer1Arr[0].personContactNo;
+      }
+      else{
+        this.step1Form.value.designer1Arr[0].personContactNo= "+" + this.countryCode + "-" + this.step1Form.value.designer1Arr[0].personContactNo;
+      }
+      if((this.step1Form.value.designer1Arr[0].personContactNo).includes("+"))
+      {
+       let arr2=[];
+       arr2= this.step1Form.value.designer1Arr[0].personContactNo.split('-');
+       this.step1Form.value.designer1Arr[0].managerContactNo = arr2[1];
+       this.step1Form.value.designer1Arr[0].managerContactNo= "+" + this.countryCode1 + "-" + this.step1Form.value.designer1Arr[0].managerContactNo;
+      }
+      else{
+        this.step1Form.value.designer1Arr[0].managerContactNo= "+" + this.countryCode1 + "-" + this.step1Form.value.designer1Arr[0].managerContactNo;
+      }      
   
-      this.step1Form.value.designer2Arr[0].personContactNo= "+" + this.countryCode2 + "-" + this.step1Form.value.designer2Arr[0].personContactNo;
-      this.step1Form.value.designer2Arr[0].managerContactNo= "+" + this.countryCode3 + "-" + this.step1Form.value.designer2Arr[0].managerContactNo;
+      if((this.step1Form.value.designer1Arr[0].personContactNo).includes("+"))
+      {
+       let arr3=[];
+       arr3= this.step1Form.value.designer1Arr[0].personContactNo.split('-');
+       this.step1Form.value.designer1Arr[0].personContactNo = arr3[1];
+       this.step1Form.value.designer2Arr[0].personContactNo= "+" + this.countryCode2 + "-" + this.step1Form.value.designer2Arr[0].personContactNo;
+      }
+      else{
+        this.step1Form.value.designer2Arr[0].personContactNo= "+" + this.countryCode2 + "-" + this.step1Form.value.designer2Arr[0].personContactNo;
+      }      
+      if((this.step1Form.value.designer1Arr[0].personContactNo).includes("+"))
+      {
+       let arr4=[];
+       arr4= this.step1Form.value.designer1Arr[0].personContactNo.split('-');
+       this.step1Form.value.designer1Arr[0].managerContactNo = arr4[1];
+       this.step1Form.value.designer2Arr[0].managerContactNo= "+" + this.countryCode3 + "-" + this.step1Form.value.designer2Arr[0].managerContactNo;
+      }
+      else{
+        this.step1Form.value.designer2Arr[0].managerContactNo= "+" + this.countryCode3 + "-" + this.step1Form.value.designer2Arr[0].managerContactNo;
+      }      
   
-      this.step1Form.value.contractorArr[0].personContactNo = "+" + this.countryCode4 + "-" + this.step1Form.value.contractorArr[0].personContactNo;
-      this.step1Form.value.contractorArr[0].managerContactNo = "+" + this.countryCode5 + "-" + this.step1Form.value.contractorArr[0].managerContactNo;
+      if((this.step1Form.value.designer1Arr[0].personContactNo).includes("+"))
+      {
+       let arr5=[];
+       arr5= this.step1Form.value.designer1Arr[0].personContactNo.split('-');
+       this.step1Form.value.designer1Arr[0].personContactNo = arr5[1];
+       this.step1Form.value.contractorArr[0].personContactNo = "+" + this.countryCode4 + "-" + this.step1Form.value.contractorArr[0].personContactNo;
+      }
+      else{
+        this.step1Form.value.contractorArr[0].personContactNo = "+" + this.countryCode4 + "-" + this.step1Form.value.contractorArr[0].personContactNo;
+      }      
+      if((this.step1Form.value.designer1Arr[0].personContactNo).includes("+"))
+      {
+       let arr6=[];
+       arr6= this.step1Form.value.designer1Arr[0].personContactNo.split('-');
+       this.step1Form.value.designer1Arr[0].managerContactNo = arr6[1];
+       this.step1Form.value.contractorArr[0].managerContactNo = "+" + this.countryCode5 + "-" + this.step1Form.value.contractorArr[0].managerContactNo;
+      }
+      else{
+        this.step1Form.value.contractorArr[0].managerContactNo = "+" + this.countryCode5 + "-" + this.step1Form.value.contractorArr[0].managerContactNo;
+      }      
   
       // this.step1Form.value.inspectorArr[0].personContactNo = "+" + this.countryCode6 + "-" + this.step1Form.value.inspectorArr[0].personContactNo;
-      this.step1Form.value.inspectorArr[0].managerContactNo = "+" + this.countryCode7 + "-" + this.step1Form.value.inspectorArr[0].managerContactNo;  
+      if((this.step1Form.value.designer1Arr[0].personContactNo).includes("+"))
+      {
+       let arr7=[];
+       arr7= this.step1Form.value.designer1Arr[0].personContactNo.split('-');
+       this.step1Form.value.designer1Arr[0].managerContactNo = arr7[1];
+       this.step1Form.value.inspectorArr[0].managerContactNo = "+" + this.countryCode7 + "-" + this.step1Form.value.inspectorArr[0].managerContactNo;  
+      }
+      else{
+        this.step1Form.value.inspectorArr[0].managerContactNo = "+" + this.countryCode7 + "-" + this.step1Form.value.inspectorArr[0].managerContactNo;  
+      }      
       
       this.reportDetails.signatorDetails = this.step1Form.value.designer1Arr;
       if(this.step1Form.value.designer2Arr[0].personName != "" && this.step1Form.value.designer2Arr[0].personName != null) {
