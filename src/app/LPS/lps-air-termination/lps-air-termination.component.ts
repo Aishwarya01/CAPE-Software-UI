@@ -70,12 +70,11 @@ export class LpsAirTerminationComponent implements OnInit {
   lpsBasic: any;
    
   constructor(
-    private formBuilder: FormBuilder,private airterminationServices:AirterminationService,
+    private formBuilder: FormBuilder,
+    private airterminationServices:AirterminationService,
     private modalService: NgbModal,private router: ActivatedRoute,
-    //private lpsBasicPage: LpsBasicPageComponent
     private matstepper: LpsMatstepperComponent
   ) { 
-    //this.lpsBasic=lpsBasicPage;
     this.airterminationService=airterminationServices;
   }
 
@@ -114,9 +113,7 @@ export class LpsAirTerminationComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
-    // if(this.step2List.lpsAirDescId != null){
-
-    // }
+    
       this.step2List = data.lpsAirDiscription;
       this.airtermination.basicLpsId = basicLpsId;
       this.airtermination.lpsAirDescId = this.step2List.lpsAirDescId;
@@ -140,11 +137,8 @@ export class LpsAirTerminationComponent implements OnInit {
     }
 
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
-      debugger
-        this.airTerminationForm.markAsPristine();
-        this.stepBack=JSON.parse(data);
-        this.flag = true;
-        this.step2List= this.stepBack;
+       
+        this.step2List=JSON.parse(data);
         this.airtermination.basicLpsId = basicLpsId;
         this.airtermination.lpsAirDescId = this.step2List[0].lpsAirDescId;
         this.airtermination.connectionMadeBraOb = this.step2List[0].connectionMadeBraOb;
@@ -160,7 +154,6 @@ export class LpsAirTerminationComponent implements OnInit {
         this.airtermination.createdBy = this.step2List[0].createdBy;
         this.airtermination.createdDate = this.step2List[0].createdDate;     
         this.airtermination.userName = this.step2List[0].userName;
-   
         this.populateData1();
         this.flag=true;
       }
@@ -203,7 +196,6 @@ export class LpsAirTerminationComponent implements OnInit {
     populateData1() {
       for (let item of this.step2List[0].lpsVerticalAirTermination) {
         if(item.flag) {this.arr1.push(this.createGroup(item));}    
-        
       }
       for (let item of this.step2List[0].airMeshDescription) {     
         if(item.flag) {this.arr2.push(this.createGroup1(item));}
@@ -233,6 +225,7 @@ export class LpsAirTerminationComponent implements OnInit {
       this.arr4 = [];
       this.arr5 = [];
       this.arr6 = [];
+      this.airTerminationForm.markAsPristine();
     }
 
     createGroup(item: any): FormGroup {
@@ -447,9 +440,6 @@ export class LpsAirTerminationComponent implements OnInit {
    else{
     this.modalService.open(contents, { centered: true });
    }
-   
-   
-     
   }
 
   closeModalDialog() {
@@ -528,6 +518,7 @@ export class LpsAirTerminationComponent implements OnInit {
                   this.success = true;
                   this.successMsg = data;
                   this.disable = true;
+                  this.retriveAirTermination();
                   this.proceedNext.emit(true);
                 },
                 (error) => {
@@ -698,8 +689,6 @@ export class LpsAirTerminationComponent implements OnInit {
       inspectionFailedReOb: new FormControl('', Validators.required),
       inspectionFailedReRe: new FormControl(''),
       flag: new FormControl('true')
-      //clampobs9: new FormControl('', Validators.required),
-     // clamprem9: new FormControl('')
     })
   }
 
@@ -846,8 +835,14 @@ export class LpsAirTerminationComponent implements OnInit {
     {(this.airTerminationForm.get('conArr') as FormArray).removeAt(index);}
     }
 
-  retriveLpsDetails1(){
-    this.matstepper.retriveLpsDetails1(this.router.snapshot.paramMap.get('email') || '{}', this.basicLpsId, this.ClientName);
+  retriveAirTermination(){
+    this.airterminationServices.retriveAirTerminationDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
+      data => {
+        this.retrieveDetailsfromSavedReports1(this.airtermination.userName,this.basicLpsId,this.ClientName,data);
+      },
+      error=>{
+      }
+    );  
   }
 
 }

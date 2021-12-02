@@ -16,8 +16,6 @@ export class LpsSeperationDistanceComponent implements OnInit {
   i: any;
   separatedistance = new Separatedistance();
   separeteDistanceForm!: FormGroup;
-  // separeteDistanceForm = new FormGroup({
-  // });
 
   separateDistanceDescriptionArr!: FormArray;
   submitted!: boolean;
@@ -113,6 +111,26 @@ export class LpsSeperationDistanceComponent implements OnInit {
     })
   }
 
+  retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
+    this.step6List = JSON.parse(data);
+    this.separatedistance.basicLpsId = basicLpsId;   
+    this.separatedistance.seperationDistanceId = this.step6List[0].seperationDistanceId  
+    this.separatedistance.createdBy = this.step6List[0].createdBy;
+    this.separatedistance.createdDate = this.step6List[0].createdDate;   
+    this.separatedistance.userName = this.step6List[0].userName;   
+    this.populateData1();     
+    this.flag=true;
+  }
+
+  populateData1() {
+    for (let item of this.step6List[0].separateDistanceDescription) {     
+      if(item.flag) {this.arr.push(this.createGroup(item));}
+    }
+    this.separeteDistanceForm.setControl('separateDistanceDescriptionArr', this.formBuilder.array(this.arr || []))
+    this.arr = [];
+    this.separeteDistanceForm.markAsPristine();
+  }
+
   populateData() {
     for (let item of this.step6List.separateDistanceDescription) {     
       if(item.flag) {this.arr.push(this.createGroup(item));}
@@ -201,7 +219,11 @@ export class LpsSeperationDistanceComponent implements OnInit {
             this.success = true;
             this.successMsg = data;
             this.disable = true;
+            this.retriveSeperationDistance();
             this.proceedNext.emit(true);
+            // setTimeout(() => {
+            //   this.separeteDistanceForm.markAsPristine;
+            // }, 3000);
           },
           (error) => {
             this.Error = true;
@@ -221,7 +243,17 @@ export class LpsSeperationDistanceComponent implements OnInit {
    
    }
 
-  else  {(this.separeteDistanceForm.get('separateDistanceDescriptionArr') as FormArray).removeAt(index);}
-    
+  else
+  {(this.separeteDistanceForm.get('separateDistanceDescriptionArr') as FormArray).removeAt(index);}
+  }
+
+  retriveSeperationDistance(){
+    this.separatedistanceService.retriveSeperationDistance(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
+      data => {
+        this.retrieveDetailsfromSavedReports1(this.separatedistance.userName,this.basicLpsId,this.ClientName,data);
+      },
+      error=>{
+      }
+    );  
   }
 }

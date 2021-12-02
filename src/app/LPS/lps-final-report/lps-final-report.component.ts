@@ -121,12 +121,7 @@ export class LpsFinalReportComponent implements OnInit {
      this.matstepper.preview(basicLpsId,clientName);
    }
 
-  // emailMsg(content: any){
-  //   this.modalService.open(content, { centered: true });
-  // }
-
   emailPDF(basicLpsId:any,userName:any){
-    debugger
     this.disable=false;
     this.finalpdf.mailPDF(basicLpsId,userName).subscribe(
     data => {
@@ -137,7 +132,6 @@ export class LpsFinalReportComponent implements OnInit {
         },5000);
     },
     error => {
-      debugger
       this.Error = true;
       this.errorArr = [];
       this.errorArr = JSON.parse(error.error);

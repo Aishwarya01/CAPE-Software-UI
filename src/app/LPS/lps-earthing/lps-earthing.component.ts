@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EarthingLpsDescription } from 'src/app/LPS_model/earthing';
 import { LpsEarthing } from 'src/app/LPS_services/lps-earthing';
+import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 
 @Component({
   selector: 'app-lps-earthing',
@@ -54,7 +55,10 @@ export class LpsEarthingComponent implements OnInit {
   chamberPushArr: any = [];
   isEditable!:boolean
   constructor(
-    private formBuilder: FormBuilder, private lpsEarthings: LpsEarthing,private modalService: NgbModal, private router: ActivatedRoute
+    private formBuilder: FormBuilder, 
+    private lpsEarthings: LpsEarthing,
+    private modalService: NgbModal, 
+    private router: ActivatedRoute
   ) {
     this.lpsEarthingService = lpsEarthings;
   }
@@ -62,17 +66,13 @@ export class LpsEarthingComponent implements OnInit {
   ngOnInit(): void {
     this.earthingForm = this.formBuilder.group({
 
-      // earthingId!: number;
-      //userName!:  new FormControl('', Validators.required),
-      //basicLpsId!:  new FormControl('', Validators.required),
+      
       earthingTypeInOb: new FormControl('', Validators.required),
       earthingTypeInRem: new FormControl(''),
       bimetallicIssueInOb: new FormControl('', Validators.required),
       bimetallicIssueInRem: new FormControl(''),
       brazingConnectInOb: new FormControl('', Validators.required),
       brazingConnectInRem: new FormControl(''),
-      // locationNumber: new FormControl('', Validators.required),
-      // locationName: new FormControl('', Validators.required),
 
       descriptionArr: this.formBuilder.array([this.earthingDescription()]),
       ClampsArr: this.formBuilder.array([this.earthingClamps()]),
@@ -103,8 +103,6 @@ export class LpsEarthingComponent implements OnInit {
       this.earthingLpsDescription.bimetallicIssueInRem = this.step4List.bimetallicIssueInRem;
       this.earthingLpsDescription.brazingConnectInOb = this.step4List.brazingConnectInOb;
       this.earthingLpsDescription.brazingConnectInRem = this.step4List.brazingConnectInRem;
-      //this.earthingLpsDescription.locationNumber = this.step4List.locationNumber;
-     // this.earthingLpsDescription.locationName = this.step4List.locationName;
       this.earthingLpsDescription.createdBy = this.step4List.createdBy;
       this.earthingLpsDescription.createdDate = this.step4List.createdDate;
       this.earthingLpsDescription.userName = this.step4List.userName;
@@ -138,6 +136,49 @@ export class LpsEarthingComponent implements OnInit {
       this.arr3 = [];
       this.arr4 = [];
       
+    }
+
+    retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
+      this.step4List = JSON.parse(data);
+      this.earthingLpsDescription.basicLpsId = basicLpsId;
+      this.earthingLpsDescription.earthingId = this.step4List[0].earthingId;
+      this.earthingLpsDescription.earthingTypeInOb = this.step4List[0].earthingTypeInOb;
+      this.earthingLpsDescription.earthingTypeInRem = this.step4List[0].earthingTypeInRem;
+      this.earthingLpsDescription.bimetallicIssueInOb = this.step4List[0].bimetallicIssueInOb;
+      this.earthingLpsDescription.bimetallicIssueInRem = this.step4List[0].bimetallicIssueInRem;
+      this.earthingLpsDescription.brazingConnectInOb = this.step4List[0].brazingConnectInOb;
+      this.earthingLpsDescription.brazingConnectInRem = this.step4List[0].brazingConnectInRem;
+      this.earthingLpsDescription.createdBy = this.step4List[0].createdBy;
+      this.earthingLpsDescription.createdDate = this.step4List[0].createdDate;
+      this.earthingLpsDescription.userName = this.step4List[0].userName;
+      this.populateData1();
+      this.flag=true;
+    }
+
+    populateData1() {
+      for (let item of this.step4List[0].earthingDescription) {     
+        if(item.flag) {this.arr1.push(this.createGroup(item));}
+      }
+      for (let item of this.step4List[0].earthingClamps) {     
+        if(item.flag) { this.arr2.push(this.createGroup1(item));}
+      }
+      for (let item of this.step4List[0].earthingElectrodeChamber) {     
+        if(item.flag)  {this.arr3.push(this.createGroup2(item));}
+      }
+      for (let item of this.step4List[0].earthingSystem) { 
+        this.arr4.push(this.createGroup3(item));
+      }
+      
+      this.earthingForm.setControl('descriptionArr', this.formBuilder.array(this.arr1 || []))
+      this.earthingForm.setControl('ClampsArr', this.formBuilder.array(this.arr2 || []))
+      this.earthingForm.setControl('chamberArr', this.formBuilder.array(this.arr3 || []))
+      this.earthingForm.setControl('earthingArr', this.formBuilder.array(this.arr4 || []))
+      this.arr1 = [];
+      this.arr2 = [];
+      this.arr3 = [];
+      this.arr4 = [];
+      this.step4List=[];
+      this.earthingForm.markAsPristine();
     }
 
     createGroup(item: any): FormGroup {
@@ -525,6 +566,7 @@ export class LpsEarthingComponent implements OnInit {
             this.success = true;
             this.successMsg = data;
             this.disable = true;
+            this.retriveEarthingDetails();
             this.proceedNext.emit(true);
           },
           (error) => {
@@ -578,5 +620,15 @@ export class LpsEarthingComponent implements OnInit {
      else{
       this.modalService.open(contents, { centered: true });
      }
+    }
+
+    retriveEarthingDetails(){
+      this.lpsEarthings.retrieveEarthingLps(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
+        data => {
+          this.retrieveDetailsfromSavedReports1(this.earthingLpsDescription.userName,this.basicLpsId,this.ClientName,data);
+        },
+        error=>{
+        }
+      );  
     }
 }

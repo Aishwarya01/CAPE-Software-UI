@@ -129,7 +129,6 @@ import { LpsFinalReportComponent } from './LPS/lps-final-report/lps-final-report
     DateAgoPipe,
     GenerateOtpContactnumberComponent,
     ChangeContactnumberComponent,
-    LpsEarthingComponent,
     LpsSpdComponent,
     LpsSeperationDistanceComponent,
     LpsMatstepperComponent,
@@ -175,6 +174,6 @@ import { LpsFinalReportComponent } from './LPS/lps-final-report/lps-final-report
  // exports: [WebStorageCodec, WebStorageCodec, SessionStorage],
   providers: [GlobalsService, { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }, BnNgIdleService,DatePipe],
   bootstrap: [AppComponent],
-  entryComponents: [ AddApplicationTypesComponent, UpdateApplicationTypesComponent, VerificationlvComponent ]
+  entryComponents: [ AddApplicationTypesComponent, UpdateApplicationTypesComponent, VerificationlvComponent, LpsMatstepperComponent ]
 })
 export class AppModule { }
