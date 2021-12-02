@@ -118,8 +118,6 @@ export class LpsEarthStudComponent implements OnInit {
           this.success = true;
           this.proceedNext.emit(true);
         }else{
-          // this.success = true;
-          // this.successMsg ="Required changes for updating process"
           this.proceedNext.emit(true);
         }
       }

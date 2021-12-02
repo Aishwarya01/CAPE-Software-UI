@@ -1,36 +1,16 @@
 <div class="card-body">
-    <!-- Heading tag -->
-    <!-- <div style="margin-top: 2rem;">
-        <h3>CHECKLIST FOR AIR TERMINATION SYSTEM OF LPS
-            AS PER IS/IEC 62305</h3>
-    </div> -->
-    <!-- Basic information tags are given by... -->
+
     <div class="card-body">
         <form [formGroup]="airTerminationForm" (ngSubmit)="onSubmit(flag)">
             <mat-accordion>
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Basic Details</mat-expansion-panel-header>
-
-
                       <div class="d-flex" style="margin-bottom: 4rem;margin-inline: 6rem;">  
                         <div class="pr-2" > <u><b>Client Name:</b></u> <span> &nbsp; {{ClientName}}</span></div> &nbsp;&nbsp;
                         <div class="pr-2"> <u><b>Project Name:</b></u>  <span> &nbsp; {{projectName}}</span></div> &nbsp;&nbsp;
                         <div class="pr-2"> <u><b>Type of Industry:</b></u>  <span> &nbsp; {{industryType}}</span> </div> &nbsp;&nbsp;
                         <div class="pr-2"> <u><b>Type of Building:</b></u>  <span> &nbsp; {{buildingType}}</span> </div> &nbsp;&nbsp;
                       </div>
-
-                      <!-- <div class="container">
-                        <textarea  class="form-control" style="height: 60px; overflow:hidden;padding: 20px;" readonly>
-                        Client Name: {{ClientName}}, Project Name: {{projectName}}, Type of Industry: {{industryType}}, Type of Building: {{buildingType}}
-                        </textarea>
-                    </div> -->
-
-                    <!-- <mat-form-field class="client-description ">
-                        <textarea matInput class="client-box-description" style="font-size: 14px; font-weight: bold;"
-                        maxlength="500" readonly>Client Name: {{ClientName}}, Project Name: {{projectName}}, Type of Industry: {{industryType}}, Type of Building: {{buildingType}} </textarea>
-                    </mat-form-field> -->
-
-                    <!-- tables -->
                     <div style="margin-top: 0px;">
                         <table class="table">
                             <thead style="text-align: center;">
@@ -2451,7 +2431,7 @@
             </mat-accordion>
 
             <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
-                <button class="previous" mat-button matStepperPrevious (click)="retriveLpsDetails1()">&laquo; Back</button>
+                <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
                 <button class="next" (click)="gotoNextModal(content,contents)" mat-button >Next &raquo;</button>
            </div>
             <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
@@ -2466,10 +2446,6 @@
             <div *ngIf="success" style="text-align: center;">
                 <span class="successshow">{{successMsg}}</span>
             </div>
-
-            <!-- <div *ngIf="success1" style="text-align: center;">
-                <span class="errorshow">{{successMsg1}}</span>
-            </div> -->
             
             <div *ngIf="Error" style="text-align: center;">
                 <span class="errorshow">{{errorMsg}}</span>

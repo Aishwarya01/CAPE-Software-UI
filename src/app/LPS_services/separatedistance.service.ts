@@ -18,4 +18,8 @@ export class SeparatedistanceService {
   public updateSeparateDistance(separatedistance: Separatedistance): Observable<any> {
     return this.http.put<any>(this.apiUrl + '/updateSeperationDistance', separatedistance, { responseType: 'text' as 'json' })
   }
+
+  public retriveSeperationDistance(userName: String, basicLpsId: number): Observable<any> {
+    return this.http.get<Separatedistance>(this.apiUrl + '/retrieveSeperationDistance' + '/' + userName + '/' + basicLpsId, { responseType: 'text' as 'json' })
+}
 }

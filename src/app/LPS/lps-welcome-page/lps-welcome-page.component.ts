@@ -30,7 +30,6 @@ export class LpsWelcomePageComponent implements OnInit {
     this.viewContainerRef.clear();
     this.destroy = true;
     this.showHome = true;
-    //this.showLicence = true;
   }
 
   displayIconsBasedOnEmail(){
