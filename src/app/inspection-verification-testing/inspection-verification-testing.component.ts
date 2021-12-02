@@ -1964,12 +1964,12 @@ callValue(e: any) {
         for(let i of f.controls.testingAlternateRecords.controls) {
          
         if(f.controls.rpeLoopImpedance.value!='' && f.controls.rpeLoopImpedance.value!=undefined && f.controls.rpeLoopImpedance.value!= 'NA'
-        && i.controls.controlsrpeLoopImpedanceMains.value!='NA' && i.controls.rpeLoopImpedanceExternal.value!='NA') {
+        && i.controls.rpeLoopImpedanceMains.value!='NA' && i.controls.rpeLoopImpedanceExternal.value!='NA') {
           i.controls.rpeLoopImpedance.value =(f.controls.rpeLoopImpedance.value - i.controls.rpeLoopImpedanceMains.value);
           i.controls.rpeLoopImpedance.value = +i.controls.rpeLoopImpedance.value + +i.controls.rpeLoopImpedanceExternal.value;
           i.controls.rpeLoopImpedance.value= i.controls.rpeLoopImpedance.value.toFixed(3);
         }
-        else if(f.controls.rpeLoopImpedance.value=='NA' || i.controls.controlsrpeLoopImpedanceMains.value=='NA' || i.controls.rpeLoopImpedanceExternal.value=='NA'){
+        else if(f.controls.rpeLoopImpedance.value=='NA' || i.controls.rpeLoopImpedanceMains.value=='NA' || i.controls.rpeLoopImpedanceExternal.value=='NA'){
          i.controls.rpeLoopImpedance.value='NA';
          }
         else{
