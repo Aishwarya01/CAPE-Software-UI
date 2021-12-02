@@ -832,14 +832,14 @@
                               <td><input type="text" formControlName="bpeVoltage" class="form-control"  (keyup)="onKeyVoltage1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
                               <!-- impedance -->
                               <td><input type="text" formControlName="ryLoopImpedance" class="form-control"   (keyup)="onKeyImpedance1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                              <td><input type="text" formControlName="rbLoopImpedance" class="form-control"  (keyup)="onKeyImpedance1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                              <td><input type="text" formControlName="ybLoopImpedance" class="form-control"  (keyup)="onKeyImpedance1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                              <td><input type="text" formControlName="rnLoopImpedance" class="form-control"  (keyup)="onKeyImpedance1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                              <td><input type="text" formControlName="ynLoopImpedance" class="form-control" (keyup)="onKeyImpedance1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                              <td><input type="text" formControlName="bnLoopImpedance" class="form-control" (keyup)="onKeyImpedance1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                              <td><input type="text" formControlName="rpeLoopImpedance" class="form-control" (keyup)="onKeyImpedance1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                              <td><input type="text" formControlName="ypeLoopImpedance" class="form-control"  (keyup)="onKeyImpedance1($event,f)" style="width:70px" [readonly]="service.allFieldsDisable"></td>
-                              <td><input type="text" formControlName="bpeLoopImpedance" class="form-control"  (keyup)="onKeyImpedance1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="rbLoopImpedance" class="form-control"  (keyup)="onKeyImpedance2($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="ybLoopImpedance" class="form-control"  (keyup)="onKeyImpedance3($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="rnLoopImpedance" class="form-control"  (keyup)="onKeyImpedance4($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="ynLoopImpedance" class="form-control" (keyup)="onKeyImpedance5($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="bnLoopImpedance" class="form-control" (keyup)="onKeyImpedance6($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="rpeLoopImpedance" class="form-control" (keyup)="onKeyImpedance7($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="ypeLoopImpedance" class="form-control"  (keyup)="onKeyImpedance8($event,f)" style="width:70px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="bpeLoopImpedance" class="form-control"  (keyup)="onKeyImpedance9($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
                            <!-- mains calculation -->
                                 <td> <input type="text" formControlName="ryFaultCurrent" class="form-control" [value]="f.get('ryFaultCurrent')?.value" style="width:85px;pointer-events: none;" readonly ></td>
                                 <td><input type="text" formControlName="rbFaultCurrent" class="form-control" [value]="f.get('rbFaultCurrent')?.value" style="width:85px;pointer-events: none;" readonly ></td>
@@ -913,23 +913,23 @@
                                 <td><input type="text" formControlName="ypeVoltage" class="form-control"  style="width:80px" readonly></td>
                                 <td><input type="text" formControlName="bpeVoltage" class="form-control"  style="width:80px" readonly></td>
                                 <td><input type="text" formControlName="ryLoopImpedance" [value]="g.get('ryLoopImpedance')?.value"  class="form-control"    style="width:80px" readonly></td>
-                                <td><input type="text" formControlName="rbLoopImpedance" [value]="f.get('rbLoopImpedance')?.value" class="form-control"   style="width:80px" readonly></td>
-                                <td><input type="text" formControlName="ybLoopImpedance" [value]="f.get('ybLoopImpedance')?.value" class="form-control"   style="width:80px" readonly></td>
-                                <td><input type="text" formControlName="rnLoopImpedance" [value]="f.get('rnLoopImpedance')?.value" class="form-control"   style="width:80px" readonly></td>
-                                <td><input type="text" formControlName="ynLoopImpedance" [value]="f.get('ynLoopImpedance')?.value" class="form-control"    style="width:80px" readonly></td>
-                                <td><input type="text" formControlName="bnLoopImpedance" [value]="f.get('bnLoopImpedance')?.value" class="form-control"   style="width:80px" readonly></td>
-                                <td><input type="text" formControlName="rpeLoopImpedance" [value]="f.get('rpeLoopImpedance')?.value" class="form-control"   style="width:80px" readonly></td>
-                                <td><input type="text" formControlName="ypeLoopImpedance" [value]="f.get('ypeLoopImpedance')?.value" class="form-control"   style="width:70px" readonly></td>
-                                <td><input type="text" formControlName="bpeLoopImpedance" [value]="f.get('bpeLoopImpedance')?.value" class="form-control"   style="width:80px" readonly></td>
-                                <td> <input type="text" formControlName="ryFaultCurrent" class="form-control"  style="width:80px" readonly></td>
-                                <td><input type="text" formControlName="rbFaultCurrent" class="form-control"  style="width:80px" readonly></td>
-                                <td><input type="text" formControlName="ybFaultCurrent" class="form-control"  style="width:80px" readonly></td>
-                                <td><input type="text" formControlName="rnFaultCurrent" class="form-control"  style="width:80px" readonly></td>
-                                <td><input type="text" formControlName="ynFaultCurrent" class="form-control"  style="width:80px" readonly></td>
-                                <td><input type="text" formControlName="bnFaultCurrent" class="form-control"  style="width:80px" readonly></td>
-                                <td><input type="text" formControlName="rpeFaultCurrent" class="form-control"   style="width:80px" readonly></td>
-                                <td><input type="text" formControlName="ypeFaultCurrent" class="form-control"   style="width:80px" readonly></td>
-                                <td><input type="text" formControlName="bpeFaultCurrent" class="form-control"   style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="rbLoopImpedance" [value]="g.get('rbLoopImpedance')?.value" class="form-control"   style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="ybLoopImpedance" [value]="g.get('ybLoopImpedance')?.value" class="form-control"   style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="rnLoopImpedance" [value]="g.get('rnLoopImpedance')?.value" class="form-control"   style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="ynLoopImpedance" [value]="g.get('ynLoopImpedance')?.value" class="form-control"    style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="bnLoopImpedance" [value]="g.get('bnLoopImpedance')?.value" class="form-control"   style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="rpeLoopImpedance" [value]="g.get('rpeLoopImpedance')?.value" class="form-control"   style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="ypeLoopImpedance" [value]="g.get('ypeLoopImpedance')?.value" class="form-control"   style="width:70px" readonly></td>
+                                <td><input type="text" formControlName="bpeLoopImpedance" [value]="g.get('bpeLoopImpedance')?.value" class="form-control"   style="width:80px" readonly></td>
+                                <td> <input type="text" formControlName="ryFaultCurrent" [value]="g.get('ryFaultCurrent')?.value" class="form-control"  style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="rbFaultCurrent" [value]="g.get('rbFaultCurrent')?.value" class="form-control"  style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="ybFaultCurrent" [value]="g.get('ybFaultCurrent')?.value" class="form-control"  style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="rnFaultCurrent" [value]="g.get('rnFaultCurrent')?.value" class="form-control"  style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="ynFaultCurrent" [value]="g.get('ynFaultCurrent')?.value" class="form-control"  style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="bnFaultCurrent" [value]="g.get('bnFaultCurrent')?.value" class="form-control"  style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="rpeFaultCurrent" [value]="g.get('rpeFaultCurrent')?.value" class="form-control"   style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="ypeFaultCurrent" [value]="g.get('ypeFaultCurrent')?.value" class="form-control"   style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="bpeFaultCurrent" [value]="g.get('bpeFaultCurrent')?.value" class="form-control"   style="width:80px" readonly></td>
                                 <td><input type="text" formControlName="ryDisconnect" class="form-control"  style="width:80px" readonly></td>
                                 <td><input type="text" formControlName="rbDisconnect" class="form-control"  style="width:80px" readonly></td>
                                 <td><input type="text" formControlName="ybDisconnect" class="form-control"  style="width:80px" readonly></td>
