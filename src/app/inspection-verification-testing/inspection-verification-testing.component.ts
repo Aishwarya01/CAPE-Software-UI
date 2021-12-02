@@ -342,7 +342,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
         this.supplyValues = JSON.parse(data);
        	        //for(let i of this.supplyValues) {	
                   this.service.nominalVoltageArr2=this.supplyValues.supplyParameters;	
-                  debugger
                   this.testingAlternateRecords = [];
                   let testaccordianValueArr = this.testingForm.get(
                     'testaccordianArr'
