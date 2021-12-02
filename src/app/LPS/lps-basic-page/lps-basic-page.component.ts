@@ -15,7 +15,6 @@ export class LpsBasicPageComponent implements OnInit {
   
   basicDetails = new BasicDetails;
   LPSBasicForm!: FormGroup;
-  // lPSBasicDetailsService;
   submitted!: boolean;
   success: boolean=false;
   successMsg: string="";
@@ -117,10 +116,8 @@ export class LpsBasicPageComponent implements OnInit {
     }
 
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
-       this.LPSBasicForm.markAsPristine();
+      
        this.stepBack=JSON.parse(data);
-       this.flag = true;
-       this.success = true;
        this.basicDetails.basicLpsId = basicLpsId;
        this.basicDetails.clientName = this.stepBack[0].clientName;
        this.basicDetails.projectName = this.stepBack[0].projectName;
@@ -147,9 +144,8 @@ export class LpsBasicPageComponent implements OnInit {
           basicLpsDescription: [i],
          })
         }
-     //  }
-      
      this.flag=true;
+     this.LPSBasicForm.markAsPristine();
      }
  
 
@@ -213,7 +209,6 @@ export class LpsBasicPageComponent implements OnInit {
   }
  
   onSubmit(flag: any) {
-    debugger
     this.submitted=true;
      if (this.LPSBasicForm.invalid) {
        return;
@@ -250,7 +245,6 @@ export class LpsBasicPageComponent implements OnInit {
         if(this.isEditable){
           this.success = true;
           this.proceedNext.emit(true);
-        //  this.closeModalDialog();
         }
 
         else{
@@ -271,6 +265,7 @@ export class LpsBasicPageComponent implements OnInit {
           this.success = true;
           this.successMsg = "Basic Information sucessfully Saved";
           //this.disable = true;
+          this.retriveBasicDetails();
           this.proceedNext.emit(true);
         },
         error => {
@@ -293,6 +288,14 @@ export class LpsBasicPageComponent implements OnInit {
     return this.LPSBasicForm.controls;
   }
 
-  
+  retriveBasicDetails(){
+    this.lPSBasicDetailsService.retriveLpsbasicDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicDetails.basicLpsId).subscribe(
+      data => {
+        this.retrieveDetailsfromSavedReports1(this.basicDetails.userName,this.basicDetails.basicLpsId,this.basicDetails.clientName,data);
+      },
+      error=>{
+      }
+    );  
+  }
   
 }

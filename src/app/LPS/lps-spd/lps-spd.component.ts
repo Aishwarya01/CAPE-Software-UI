@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Spd } from 'src/app/LPS_model/spd';
 import { LpsSpd_Service } from 'src/app/LPS_services/lps-spd.service';
+import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 
 @Component({
   selector: 'app-lps-spd',
@@ -41,8 +42,11 @@ export class LpsSpdComponent implements OnInit {
   mobilearr2: any = [];
   mobilearr3: any = [];
   isEditable!:boolean
-  constructor(private formBuilder: FormBuilder, lpsSpd_Services: LpsSpd_Service
-    ,private modalService: NgbModal, private router: ActivatedRoute) {
+  constructor(
+    private formBuilder: FormBuilder, 
+    private lpsSpd_Services: LpsSpd_Service,
+    private modalService: NgbModal, 
+    private router: ActivatedRoute) {
     this.lpsSpd_Service = lpsSpd_Services;
   }
 
@@ -107,6 +111,46 @@ export class LpsSpdComponent implements OnInit {
           this.mobilearr3 = [];
         }
       }
+    }
+
+    retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
+      this.step5List = JSON.parse(data);
+      this.spd.basicLpsId = basicLpsId;
+      this.spd.spdId = this.step5List[0].spdId
+      this.spd.mainsIncomingOb = this.step5List[0].mainsIncomingOb;
+      this.spd.mainsIncomingRem = this.step5List[0].mainsIncomingRem;
+      this.spd.totalMainsIncomingOb = this.step5List[0].totalMainsIncomingOb;
+      this.spd.totalMainsIncomingRem = this.step5List[0].totalMainsIncomingRem;
+      this.spd.noPannelSupplittingOb = this.step5List[0].noPannelSupplittingOb;
+      this.spd.noPannelSupplittingRem = this.step5List[0].noPannelSupplittingRem;
+      this.spd.totalNoOutDoorRequipmentOb = this.step5List[0].totalNoOutDoorRequipmentOb;
+      this.spd.totalNoOutDoorRequipmentRem = this.step5List[0].totalNoOutDoorRequipmentRem;
+      this.spd.createdBy = this.step5List[0].createdBy;
+      this.spd.createdDate = this.step5List[0].createdDate;      
+      this.spd.userName = this.step5List[0].userName;
+      this.populateData1();
+      this.flag=true;
+    }
+
+    populateData1() {
+      for (let item of this.step5List[0].spdDescription) {
+        if(item.spdDescriptionRole == "Mains_SPD") {
+        this.mobilearr.push(this.createGroup(item));
+        this.spdForm.setControl('spdarr', this.formBuilder.array(this.mobilearr || []))
+        this.mobilearr = [];
+        }
+        else if(item.spdDescriptionRole == "Street_SPD") {
+          this.mobilearr2.push(this.createGroup(item))
+          this.spdForm.setControl('panelarr', this.formBuilder.array(this.mobilearr2 || []))  
+          this.mobilearr2 = [];
+        }
+        else if(item.spdDescriptionRole == "Other_SPD") {
+          this.mobilearr3.push(this.createGroup(item))
+          this.spdForm.setControl('powerarr', this.formBuilder.array(this.mobilearr3 || []))
+          this.mobilearr3 = [];
+        }
+      }
+      this.spdForm.markAsPristine();
     }
 
     createGroup(item: any): FormGroup {
@@ -257,6 +301,7 @@ export class LpsSpdComponent implements OnInit {
                 this.success = true;
                 this.successMsg = data;
                 this.disable = true;
+                this.retriveSPD();
                 this.proceedNext.emit(true);
               },
               (error) => {
@@ -303,6 +348,16 @@ export class LpsSpdComponent implements OnInit {
        else{
         this.modalService.open(contents, { centered: true });
        }
+    }
+  
+    retriveSPD(){
+      this.lpsSpd_Services.retrieveSPDDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
+        data => {
+          this.retrieveDetailsfromSavedReports1(this.spd.userName,this.basicLpsId,this.ClientName,data);
+        },
+        error=>{
+        }
+      );  
     }
     
 }

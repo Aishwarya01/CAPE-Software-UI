@@ -1,9 +1,4 @@
 <div class="card-body">
-    <!-- Heading tag -->
-    <!-- <div style="margin-top: 2rem;">
-        <h3>CHECK LIST FOR LIGHTNING PROTECTION SYSTEM BASIC DETAILS</h3>
-    </div> -->
-    <!-- Basic information tags are given by... -->
     <form [formGroup]="LPSBasicForm" (ngSubmit)="onSubmit(flag)">
         <div class="card-body">
             <div style="font-weight: bold;">
@@ -612,7 +607,6 @@
         </div>
         <div style="text-align: center;margin-top: 8px;">
             <button class="next" (click)="gotoNextModal(content,contents)" mat-button >Next &raquo;</button>
-            <!-- <button class="next" *ngIf="isEditable" mat-button (click)="gotoNextModal(content,contents)">Next &raquo;</button> -->
         </div>
         <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
             <span class="alert alert-danger">{{validationErrorMsg}}</span>
