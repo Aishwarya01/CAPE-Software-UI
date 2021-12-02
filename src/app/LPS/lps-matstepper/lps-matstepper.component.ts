@@ -22,6 +22,7 @@ import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.se
 import { LpsSavedReportComponent } from '../lps-saved-report/lps-saved-report.component';
 import { LpsFinalReportComponent } from '../lps-final-report/lps-final-report.component';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
+import { SeparatedistanceService } from 'src/app/LPS_services/separatedistance.service';
 
 @Component({
   selector: 'app-lps-matstepper',
@@ -72,7 +73,6 @@ export class LpsMatstepperComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private basicLpsService: LPSBasicDetailsService,
-    private airTerminationService: AirterminationService,
     private router: ActivatedRoute,
     private ChangeDetectorRef: ChangeDetectorRef,) { 
       
@@ -138,7 +138,6 @@ export class LpsMatstepperComponent implements OnInit {
 
   public doSomething3(next: any): void {
     this.Completed3 = this.downConductors.success;
-    this.refresh();
   }
 
   public doSomething4(next: any): void {
@@ -234,10 +233,6 @@ export class LpsMatstepperComponent implements OnInit {
     this.changeTabLpsSavedReport(0,basicLpsId,userName,ClientName);
   }
 
-  // print(){
-
-  // }
-
   continue(basicLpsId: any,ClientName:any): void {
     this.refresh();
     this.ngOnInit();
@@ -245,29 +240,4 @@ export class LpsMatstepperComponent implements OnInit {
     let userName=this.router.snapshot.paramMap.get('email') || '{}';
     this.changeTabLpsSavedReport(0,basicLpsId,userName,ClientName);
   }
-  // Retrive Details for Air Termination Back Button
-  retriveLpsDetails1(userName: any,basicLpsId: any,clientName: any){
-    this.basicLpsService.retriveLpsbasicDetails(userName,basicLpsId).subscribe(
-      data => {
-        debugger
-        this.basic.retrieveDetailsfromSavedReports1(userName,basicLpsId,clientName,data);
-      }, 
-      error=>{
-
-      }
-    );
-  }
-  // Retrive Details for DownConductor Back Button
-  retriveAirTermination(userName: any,basicLpsId: any,clientName: any){
-    this.airTerminationService.retriveLpsbasicDetails(userName,basicLpsId).subscribe(
-      data => {
-        debugger
-        this.airTermination.retrieveDetailsfromSavedReports1(userName,basicLpsId,clientName,data);
-      }, 
-      error=>{
-
-      }
-    );  
-  }
-
 }

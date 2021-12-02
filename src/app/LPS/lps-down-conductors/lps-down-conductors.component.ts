@@ -169,6 +169,67 @@ export class LpsDownConductorsComponent implements OnInit {
       this.arr6 = [];
     }
 
+    retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
+      
+      this.step3List = JSON.parse(data);
+      this.downConductorDescription.basicLpsId = basicLpsId;
+      this.downConductorDescription.downConduDescId = this.step3List[0].downConduDescId;
+      this.downConductorDescription.biMetallicIssueOb = this.step3List[0].biMetallicIssueOb;
+      this.downConductorDescription.biMetallicIssueRem = this.step3List[0].biMetallicIssueRem;
+      this.downConductorDescription.warningNoticeGroundLevelOb = this.step3List[0].warningNoticeGroundLevelOb;
+      this.downConductorDescription.warningNoticeGroundLevelRem = this.step3List[0].warningNoticeGroundLevelRem;
+      this.downConductorDescription.noPowerDownConductorOb = this.step3List[0].noPowerDownConductorOb;
+      this.downConductorDescription.noPowerDownConductorRem = this.step3List[0].noPowerDownConductorRem;
+      this.downConductorDescription.connectMadeBrazingOb = this.step3List[0].connectMadeBrazingOb;
+      this.downConductorDescription.connectMadeBrazingRem = this.step3List[0].connectMadeBrazingRem;
+      this.downConductorDescription.chemicalSprinklerOb = this.step3List[0].chemicalSprinklerOb;
+      this.downConductorDescription.chemicalSprinklerRem = this.step3List[0].chemicalSprinklerRem;
+      this.downConductorDescription.cobustMaterialWallOB = this.step3List[0].cobustMaterialWallOB;
+      this.downConductorDescription.cobustMaterialWallRem = this.step3List[0].cobustMaterialWallRem;
+      this.downConductorDescription.createdBy = this.step3List[0].createdBy;
+      this.downConductorDescription.createdDate = this.step3List[0].createdDate;
+      this.downConductorDescription.userName = this.step3List[0].userName;
+
+      this.populateData1();
+      this.flag=true;
+    }
+
+    populateData1() {
+      for (let item of this.step3List[0].downConductor) {     
+        if(item.flag) {this.arr1.push(this.createGroup(item));}
+      }
+      for (let item of this.step3List[0].bridgingDescription) {     
+        if(item.flag)  {this.arr2.push(this.createGroup1(item));}
+      }
+      for (let item of this.step3List[0].holder) {     
+        if(item.flag)  {this.arr3.push(this.createGroup2(item));}
+      }
+      for (let item of this.step3List[0].connectors) { 
+        if(item.flag) {this.arr4.push(this.createGroup3(item));}
+      }
+      for (let item of this.step3List[0].lightningCounter) { 
+        if(item.flag)  {this.arr5.push(this.createGroup4(item));}
+      }
+      for (let item of this.step3List[0].testingJoint) {     
+        this.arr6.push(this.createGroup5(item));
+      }
+      this.downConductorForm.setControl('downArr', this.formBuilder.array(this.arr1 || []))
+      this.downConductorForm.setControl('bridgingArr', this.formBuilder.array(this.arr2 || []))
+      this.downConductorForm.setControl('holderArr', this.formBuilder.array(this.arr3 || []))
+      this.downConductorForm.setControl('connectorArr', this.formBuilder.array(this.arr4 || []))
+      this.downConductorForm.setControl('lightArr', this.formBuilder.array(this.arr5 || []))
+      this.downConductorForm.setControl('testjointsArr', this.formBuilder.array(this.arr6 || []))
+
+      this.arr1 = [];
+      this.arr2 = [];
+      this.arr3 = [];
+      this.arr4 = [];
+      this.arr5 = [];
+      this.arr6 = [];
+      this.step3List=[];
+      this.downConductorForm.markAsPristine();
+    }
+
     createGroup(item: any): FormGroup {
       return this.formBuilder.group({
         downConductorId: new FormControl({disabled: false, value: item.downConductorId}),
@@ -659,6 +720,7 @@ export class LpsDownConductorsComponent implements OnInit {
         if(this.downConductorForm.dirty && this.downConductorForm.touched){ 
         this.lpsDownconductorService.updateDownConductor(this.downConductorDescription).subscribe(
           (data) => {
+            
             this.success = true;
             this.successMsg = data;
             this.downConductorForm.markAsPristine();
@@ -690,6 +752,7 @@ export class LpsDownConductorsComponent implements OnInit {
             this.success = true;
             this.successMsg = data;
             this.disable = true;
+            this.retriveDownConductor();
             this.proceedNext.emit(true);
           },
           (error) => {
@@ -700,9 +763,9 @@ export class LpsDownConductorsComponent implements OnInit {
             this.proceedNext.emit(false);
           });
       } 
-
     }
   }
+
   closeModalDialog() {
     if (this.errorMsg != '') {
       this.Error = false;
@@ -742,9 +805,14 @@ export class LpsDownConductorsComponent implements OnInit {
      }
   }
 
-  retriveAirTermination(){
-    this.matstepper.retriveAirTermination(this.router.snapshot.paramMap.get('email') || '{}', this.basicLpsId, this.ClientName);
+  retriveDownConductor(){
+    this.lpsDownconductorService.retrieveDownConductor(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
+      data => {
+        this.retrieveDetailsfromSavedReports1(this.downConductorDescription.userName,this.basicLpsId,this.ClientName,data);
+      },
+      error=>{
+      }
+    );  
   }
-
 }
 
