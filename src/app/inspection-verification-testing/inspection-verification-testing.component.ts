@@ -35,6 +35,7 @@ import { MainNavComponent } from '../main-nav/main-nav.component';
 import { SupplyCharacteristicsService } from '../services/supply-characteristics.service';
 import { concat } from 'rxjs';
 import { DatePipe } from '@angular/common'
+import { ValueTransformer } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-inspection-verification-testing',
@@ -98,8 +99,8 @@ export class InspectionVerificationTestingComponent implements OnInit {
     'circuitMake',
     'circuitStandardNo',
     'circuitType',
-    'circuitPoles',
-    'circuitModel',
+    'numberOfPoles',
+    'circuitCurrentCurve',
     'circuitRating',
     'circuitBreakingCapacity',
     'shortCircuitSetting',
@@ -231,6 +232,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   validationErrorMsgTab: string="";
   testingCalculation: any=[];
   testingRecordTableArr1: any=[];
+  testingAlternateRecords1: any = [];
   
   constructor(
     private testingService: TestingService,
@@ -1123,8 +1125,8 @@ callValue(e: any) {
       circuitMake: new FormControl({ disabled: false, value: itemTestingValue.circuitMake }),
       circuitStandardNo: new FormControl({ disabled: false, value: itemTestingValue.circuitStandardNo }),
       circuitType: new FormControl({ disabled: false, value: itemTestingValue.circuitType }),
-      circuitPoles: new FormControl({ disabled: false, value: itemTestingValue.circuitPoles }),
-      circuitModel: new FormControl({ disabled: false, value: itemTestingValue.circuitModel }),
+      numberOfPoles: new FormControl({ disabled: false, value: itemTestingValue.numberOfPoles }),
+      circuitCurrentCurve: new FormControl({ disabled: false, value: itemTestingValue.circuitCurrentCurve }),
       circuitRating: new FormControl({ disabled: false, value: itemTestingValue.circuitRating }),
       circuitBreakingCapacity: new FormControl({ disabled: false, value: itemTestingValue.circuitBreakingCapacity }),
       shortCircuitSetting: new FormControl({ disabled: false, value: itemTestingValue.shortCircuitSetting }),
@@ -1263,6 +1265,11 @@ callValue(e: any) {
       rpeDisconnect: new FormControl({ disabled: false, value: disconnectionTimeArr[6] }),
       ypeDisconnect: new FormControl({ disabled: false, value: disconnectionTimeArr[7] }),
       bpeDisconnect: new FormControl({ disabled: false, value: disconnectionTimeArr[8] }),
+
+      testVoltage: new FormControl({ disabled: false, value: itemTestingValue.testVoltage }),
+      testLoopImpedance: new FormControl({ disabled: false, value: itemTestingValue.testLoopImpedance }),
+      testFaultCurrent: new FormControl({ disabled: false, value: itemTestingValue.testFaultCurrent }),
+      disconnectionTime: new FormControl({ disabled: false, value: itemTestingValue.disconnectionTime })
      });
   }
   gettestInstrumentControls(form: any) {
@@ -1379,8 +1386,8 @@ callValue(e: any) {
       circuitMake: new FormControl(''),
       circuitStandardNo: new FormControl(''),
       circuitType: new FormControl(''),
-      circuitPoles: new FormControl(''),
-      circuitModel: new FormControl(''),
+      numberOfPoles: new FormControl(''),
+      circuitCurrentCurve: new FormControl(''),
       circuitRating: new FormControl(''),
       circuitBreakingCapacity: new FormControl(''),
       shortCircuitSetting: new FormControl(''),
@@ -1455,6 +1462,103 @@ callValue(e: any) {
         // this.createValue(),
       ]),
     });
+  }
+
+  private createtestValuePushForm(value: any): FormGroup {
+
+    return new FormGroup({
+      circuitNo: new FormControl(''),
+      circuitDesc: new FormControl(''),
+      circuitMake: new FormControl(''),
+      circuitStandardNo: new FormControl(''),
+      circuitType: new FormControl(''),
+      numberOfPoles: new FormControl(''),
+      circuitCurrentCurve: new FormControl(''),
+      circuitRating: new FormControl(''),
+      circuitBreakingCapacity: new FormControl(''),
+      shortCircuitSetting: new FormControl(''),
+      eFSetting: new FormControl(''),
+      conductorInstallation: new FormControl(''),
+      conductorPhase: new FormControl(''),
+      conductorNeutral: new FormControl(''),
+      conductorPecpc: new FormControl(''),
+      continutiyApproximateLength: new FormControl(''),
+      continutiyRR: new FormControl(''),
+      continutiyR: new FormControl(''),
+      // continutiyLL: new FormControl(''),
+      // continutiyLE: new FormControl(''),
+      continutiyPolarity: new FormControl(''),
+      rycontinutiy: new FormControl(''),
+      rbcontinutiy: new FormControl(''),
+      ybcontinutiy: new FormControl(''),
+      rncontinutiy: new FormControl(''),
+      yncontinutiy: new FormControl(''),
+      bncontinutiy: new FormControl(''),
+      rpecontinutiy: new FormControl(''),
+      ypecontinutiy: new FormControl(''),
+      bpecontinutiy: new FormControl(''),
+      ryVoltage: new FormControl(''),
+      rbVoltage: new FormControl(''),
+      ybVoltage: new FormControl(''),
+      rnVoltage: new FormControl(''),
+      ynVoltage: new FormControl(''),
+      bnVoltage: new FormControl(''),
+      rpeVoltage: new FormControl(''),
+      ypeVoltage: new FormControl(''),
+      bpeVoltage: new FormControl(''),
+      ryLoopImpedance: new FormControl(''),
+      rbLoopImpedance: new FormControl(''),
+      ybLoopImpedance: new FormControl(''),
+      rnLoopImpedance: new FormControl(''),
+      ynLoopImpedance: new FormControl(''),
+      bnLoopImpedance: new FormControl(''),
+      rpeLoopImpedance: new FormControl(''),
+      ypeLoopImpedance: new FormControl(''),
+      bpeLoopImpedance: new FormControl(''),
+      ryFaultCurrent: new FormControl(''),
+      rbFaultCurrent: new FormControl(''),
+      ybFaultCurrent: new FormControl(''),
+      rnFaultCurrent: new FormControl(''),
+      ynFaultCurrent: new FormControl(''),
+      bnFaultCurrent: new FormControl(''),
+      rpeFaultCurrent: new FormControl(''),
+      ypeFaultCurrent: new FormControl(''),
+      bpeFaultCurrent: new FormControl(''),
+      ryDisconnect: new FormControl(''),
+      rbDisconnect: new FormControl(''),
+      ybDisconnect: new FormControl(''),
+      rnDisconnect: new FormControl(''),
+      ynDisconnect: new FormControl(''),
+      bnDisconnect: new FormControl(''),
+      rpeDisconnect: new FormControl(''),
+      ypeDisconnect: new FormControl(''),
+      bpeDisconnect: new FormControl(''),
+      testVoltage: new FormControl(''),
+      insulationResistance: new FormControl(''),
+      testLoopImpedance: new FormControl(''),
+      testFaultCurrent: new FormControl(''),
+      disconnectionTime: new FormControl(''),
+      rcdType: new FormControl(''),
+      rcdCurrent: new FormControl(''),
+      rcdOperatingCurrent: new FormControl(''),
+      rcdOperatingFiveCurrent: new FormControl(''),
+      rcdTestButtonOperation: new FormControl(''),
+      rcdRemarks: new FormControl(''),
+      testingRecordsSourceSupply: this.formBuilder.array(this.pushData(value)),
+    });
+  }
+
+
+  private pushData(value: any) {
+    
+    this.testingAlternateRecords1 = [];
+      for(let j of this.supplyValues.supplyParameters) {	
+        if(j.aLLiveConductorType == "AC") {	  
+          this.testingAlternateRecords1.push(this.createValue(this.supplyValues.mainLoopImpedance,j.nominalVoltage,j.loopImpedance));
+        }
+      }
+  
+    return this.testingAlternateRecords1;
   }
 
   
@@ -1553,7 +1657,7 @@ callValue(e: any) {
     if (this.testingRecords.length == 0 && this.rateArr.length == 0) {
       if (this.value != '') {
         for (this.i = 1; this.i < this.value; this.i++) {
-          this.testingRecords.push(this.createtestValueForm());
+          this.testingRecords.push(this.createtestValuePushForm(this.testingRecords));
           this.rateArr.push(this.ratingAmps());
         }
       }
@@ -1574,7 +1678,7 @@ callValue(e: any) {
         this.delarr = this.value - this.rateArr.length;
 
         for (this.i = 0; this.i < this.delarr; this.i++) {
-          this.testingRecords.push(this.createtestValueForm());
+          this.testingRecords.push(this.createtestValuePushForm(this.testingRecords));
           this.rateArr.push(this.ratingAmps());
         }
       }
@@ -2457,7 +2561,7 @@ callValue(e: any) {
         testFaultCurrent1 = testFaultCurrent1.replace(/,\s*$/, '');
        o.controls.testFaultCurrent.setValue(testFaultCurrent1);
 
-        for (let s of arr3) {
+        for (let s of arr4) {
           if (s != '') {
             disconnectionTime1 += s + ',';
           } else {
@@ -2499,11 +2603,8 @@ callValue(e: any) {
         if (x.circuitStandardNo == '') {
           x.circuitStandardNo = 'NA';
         }
-        if (x.circuitPoles == '') {
-          x.circuitPoles = 'NA';
-        }
-        if (x.circuitModel == '') {
-          x.circuitModel = 'NA';
+        if (x.numberOfPoles == '') {
+          x.numberOfPoles = 'NA';
         }
         if (x.conductorInstallation == '') {
           x.conductorInstallation = 'NA';
@@ -2511,6 +2612,12 @@ callValue(e: any) {
         if (x.circuitType == '') {
           x.circuitType = 'NA';
         }
+        if (x.circuitCurrentCurve == '') {
+          x.circuitCurrentCurve = 'NA';
+        }
+        // if (x.circuitType == '') {
+        //   x.circuitType = 'NA';
+        // }
         if (x.circuitRating == '') {
           x.circuitRating = 'NA';
         }
