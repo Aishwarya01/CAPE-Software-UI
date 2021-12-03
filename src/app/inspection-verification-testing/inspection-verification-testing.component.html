@@ -867,7 +867,7 @@
                                 <td><textarea  formControlName="rcdTestButtonOperation"  class="form-control" style="height:40px;width:170px;" [readonly]="service.allFieldsDisable"></textarea>
                                 <td><textarea  formControlName="rcdRemarks"  class="form-control" style="height:40px;width:170px;" [readonly]="service.allFieldsDisable"></textarea>
                                </tr>
-                        <ng-container formArrayName="testingAlternateRecords" *ngFor="let g of gettestAlternateValueControls(f); let j = index">
+                        <ng-container formArrayName="testingRecordsSourceSupply" *ngFor="let g of gettestAlternateValueControls(f); let j = index">
                         <tr  class="form-group"  [formGroupName]="j">
                                 <td></td>
                                 <td></td>

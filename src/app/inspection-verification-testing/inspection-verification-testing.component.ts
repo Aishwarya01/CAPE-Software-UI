@@ -230,6 +230,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   validationErrorTab: boolean = false;
   validationErrorMsgTab: string="";
   testingCalculation: any=[];
+  testingRecordTableArr1: any=[];
   
   constructor(
     private testingService: TestingService,
@@ -375,7 +376,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
                     for(let x of testaccordianValueArr.controls) {
                       let testingRecordsArr = x.get('testingRecords') as FormArray;
                       for(let y of testingRecordsArr.controls) {
-                        this.testingAlternateRecords = y.get('testingAlternateRecords') as FormArray;
+                        this.testingAlternateRecords = y.get('testingRecordsSourceSupply') as FormArray;
                         this.testingAlternateRecords.push(this.createValue(this.supplyValues.mainLoopImpedance,j.nominalVoltage,j.loopImpedance));
                       }
                     }
@@ -899,7 +900,6 @@ callValue(e: any) {
       this.arr.push(this.createGroup(item));	
     }	
     this.testingForm.setControl('testaccordianArr', this.formBuilder.array(this.arr || []))	
-
   }
 
   createGroup(item: any): FormGroup {
@@ -1100,7 +1100,6 @@ callValue(e: any) {
     let insulationResistanceArr = [];
     this.testingRecordTableArr = [];
 
-
     for (let item of testRecordsItem) {
       disconnectionTimeArr = item.disconnectionTime.split(",");
       testFaultCurrentArr = item.testFaultCurrent.split(",");
@@ -1202,7 +1201,69 @@ callValue(e: any) {
       rcdOperatingFiveCurrent: new FormControl({ disabled: false, value: itemTestingValue.rcdOperatingFiveCurrent }),
       rcdTestButtonOperation: new FormControl({ disabled: false, value: itemTestingValue.rcdTestButtonOperation }),
       rcdRemarks: new FormControl({ disabled: false, value: itemTestingValue.rcdRemarks }),
+      testingRecordsSourceSupply: this.formBuilder.array(this.populateTestSourceSupplyForm(itemTestingValue)),
     });
+  }
+  populateTestSourceSupplyForm(itemTestingValue: any) {
+    let disconnectionTimeArr1 = [];
+    let testFaultCurrentArr1 = [];
+    let testLoopImpedanceArr1 = [];
+    let testVoltageArr1 = [];
+   this.testingRecordTableArr1= [];
+   
+    for(let w of itemTestingValue.testingRecordsSourceSupply){
+      disconnectionTimeArr1 = w.disconnectionTime.split(",");
+      testFaultCurrentArr1 = w.testFaultCurrent.split(",");
+      testLoopImpedanceArr1 = w.testLoopImpedance.split(",");
+      testVoltageArr1 = w.testVoltage.split(",");
+
+      this.testingRecordTableArr1.push(this.pushTestingSourceSupplyTable(w, disconnectionTimeArr1, testFaultCurrentArr1, testLoopImpedanceArr1, testVoltageArr1));
+    }
+    return this.testingRecordTableArr1;
+  }
+  pushTestingSourceSupplyTable(itemTestingValue: any, disconnectionTimeArr: any, testFaultCurrentArr: any, testLoopImpedanceArr: any, testVoltageArr: any): FormGroup {
+    return new FormGroup({
+      testingRecordId: new FormControl({ disabled: false, value: itemTestingValue.sourceSupplyId }),
+      ryVoltage: new FormControl({ disabled: false, value: testVoltageArr[0] }),
+      rbVoltage: new FormControl({ disabled: false, value: testVoltageArr[1] }),
+      ybVoltage: new FormControl({ disabled: false, value: testVoltageArr[2] }),
+      rnVoltage: new FormControl({ disabled: false, value: testVoltageArr[3] }),
+      ynVoltage: new FormControl({ disabled: false, value: testVoltageArr[4] }),
+      bnVoltage: new FormControl({ disabled: false, value: testVoltageArr[5] }),
+      rpeVoltage: new FormControl({ disabled: false, value: testVoltageArr[6] }),
+      ypeVoltage: new FormControl({ disabled: false, value: testVoltageArr[7] }),
+      bpeVoltage: new FormControl({ disabled: false, value: testVoltageArr[8] }),
+
+      ryLoopImpedance: new FormControl({ disabled: false, value: testLoopImpedanceArr[0] }),
+      rbLoopImpedance: new FormControl({ disabled: false, value: testLoopImpedanceArr[1] }),
+      ybLoopImpedance: new FormControl({ disabled: false, value: testLoopImpedanceArr[2] }),
+      rnLoopImpedance: new FormControl({ disabled: false, value: testLoopImpedanceArr[3] }),
+      ynLoopImpedance: new FormControl({ disabled: false, value: testLoopImpedanceArr[4] }),
+      bnLoopImpedance: new FormControl({ disabled: false, value: testLoopImpedanceArr[5] }),
+      rpeLoopImpedance: new FormControl({ disabled: false, value: testLoopImpedanceArr[6] }),
+      ypeLoopImpedance: new FormControl({ disabled: false, value: testLoopImpedanceArr[7] }),
+      bpeLoopImpedance: new FormControl({ disabled: false, value: testLoopImpedanceArr[8] }),
+
+      ryFaultCurrent: new FormControl({ disabled: false, value: testFaultCurrentArr[0] }),
+      rbFaultCurrent: new FormControl({ disabled: false, value: testFaultCurrentArr[1] }),
+      ybFaultCurrent: new FormControl({ disabled: false, value: testFaultCurrentArr[2] }),
+      rnFaultCurrent: new FormControl({ disabled: false, value: testFaultCurrentArr[3] }),
+      ynFaultCurrent: new FormControl({ disabled: false, value: testFaultCurrentArr[4] }),
+      bnFaultCurrent: new FormControl({ disabled: false, value: testFaultCurrentArr[5] }),
+      rpeFaultCurrent: new FormControl({ disabled: false, value: testFaultCurrentArr[6] }),
+      ypeFaultCurrent: new FormControl({ disabled: false, value: testFaultCurrentArr[7] }),
+      bpeFaultCurrent: new FormControl({ disabled: false, value: testFaultCurrentArr[8] }),
+
+      ryDisconnect: new FormControl({ disabled: false, value: disconnectionTimeArr[0] }),
+      rbDisconnect: new FormControl({ disabled: false, value: disconnectionTimeArr[1] }),
+      ybDisconnect: new FormControl({ disabled: false, value: disconnectionTimeArr[2] }),
+      rnDisconnect: new FormControl({ disabled: false, value: disconnectionTimeArr[3] }),
+      ynDisconnect: new FormControl({ disabled: false, value: disconnectionTimeArr[4] }),
+      bnDisconnect: new FormControl({ disabled: false, value: disconnectionTimeArr[5] }),
+      rpeDisconnect: new FormControl({ disabled: false, value: disconnectionTimeArr[6] }),
+      ypeDisconnect: new FormControl({ disabled: false, value: disconnectionTimeArr[7] }),
+      bpeDisconnect: new FormControl({ disabled: false, value: disconnectionTimeArr[8] }),
+     });
   }
   gettestInstrumentControls(form: any) {
     return form.controls.testingEquipment?.controls;
@@ -1220,7 +1281,7 @@ callValue(e: any) {
     return form.controls.testingRecords?.controls;
   }
   gettestAlternateValueControls(form: any) {
-    return form.controls.testingAlternateRecords?.controls;
+    return form.controls.testingRecordsSourceSupply?.controls;
   }
   gettestrateFormControls(form: any) {
     return form.controls.rateArr?.controls;
@@ -1390,7 +1451,7 @@ callValue(e: any) {
       rcdOperatingFiveCurrent: new FormControl(''),
       rcdTestButtonOperation: new FormControl(''),
       rcdRemarks: new FormControl(''),
-      testingAlternateRecords: this.formBuilder.array([
+      testingRecordsSourceSupply: this.formBuilder.array([
         // this.createValue(),
       ]),
     });
@@ -1711,7 +1772,7 @@ callValue(e: any) {
     }
     onKeyImpedance1(event:KeyboardEvent,f:any){
       debugger
-        for(let i of f.controls.testingAlternateRecords.controls) {
+        for(let i of f.controls.testingRecordsSourceSupply.controls) {
           if(f.controls.ryLoopImpedance.value!='' && f.controls.ryLoopImpedance.value!=undefined && f.controls.ryLoopImpedance.value!= 'NA'
           && i.controls.ryLoopImpedanceMains.value!='NA' && i.controls.ryLoopImpedanceExternal.value!='NA') {
           i.controls.ryLoopImpedance.value =(f.controls.ryLoopImpedance.value - i.controls.ryLoopImpedanceMains.value);
@@ -1752,7 +1813,7 @@ callValue(e: any) {
     }
     onKeyImpedance2(event:KeyboardEvent,f:any){
       debugger
-        for(let i of f.controls.testingAlternateRecords.controls) {
+        for(let i of f.controls.testingRecordsSourceSupply.controls) {
          
         if(f.controls.rbLoopImpedance.value!='' && f.controls.rbLoopImpedance.value!=undefined && f.controls.rbLoopImpedance.value!= 'NA'
         && i.controls.rbLoopImpedanceMains.value!='NA' && i.controls.rbLoopImpedanceExternal.value!='NA') {
@@ -1793,7 +1854,7 @@ callValue(e: any) {
     }
     onKeyImpedance3(event:KeyboardEvent,f:any){
       debugger
-        for(let i of f.controls.testingAlternateRecords.controls) {
+        for(let i of f.controls.testingRecordsSourceSupply.controls) {
          
         if(f.controls.ybLoopImpedance.value!='' && f.controls.ybLoopImpedance.value!=undefined && f.controls.ybLoopImpedance.value!= 'NA'
         && i.controls.ybLoopImpedanceMains.value!='NA' && i.controls.ybLoopImpedanceExternal.value!='NA') {
@@ -1835,7 +1896,7 @@ callValue(e: any) {
     }
     onKeyImpedance4(event:KeyboardEvent,f:any){
       debugger
-        for(let i of f.controls.testingAlternateRecords.controls) {
+        for(let i of f.controls.testingRecordsSourceSupply.controls) {
          
         if(f.controls.rnLoopImpedance.value!='' && f.controls.rnLoopImpedance.value!=undefined && f.controls.rnLoopImpedance.value!= 'NA'
         && i.controls.rnLoopImpedanceMains.value!='NA' && i.controls.rnLoopImpedanceExternal.value!='NA') {
@@ -1876,7 +1937,7 @@ callValue(e: any) {
     }
     onKeyImpedance5(event:KeyboardEvent,f:any){
       debugger
-        for(let i of f.controls.testingAlternateRecords.controls) {
+        for(let i of f.controls.testingRecordsSourceSupply.controls) {
          
         if(f.controls.ynLoopImpedance.value!='' && f.controls.ynLoopImpedance.value!=undefined && f.controls.ynLoopImpedance.value!= 'NA'
         && i.controls.ynLoopImpedanceMains.value!='NA' && i.controls.ynLoopImpedanceExternal.value!='NA') {
@@ -1918,7 +1979,7 @@ callValue(e: any) {
     }
     onKeyImpedance6(event:KeyboardEvent,f:any){
       debugger
-        for(let i of f.controls.testingAlternateRecords.controls) {
+        for(let i of f.controls.testingRecordsSourceSupply.controls) {
          
         if(f.controls.bnLoopImpedance.value!='' && f.controls.bnLoopImpedance.value!=undefined && f.controls.bnLoopImpedance.value!= 'NA'
         && i.controls.bnLoopImpedanceMains.value!='NA' && i.controls.bnLoopImpedanceExternal.value!='NA') {
@@ -1962,7 +2023,7 @@ callValue(e: any) {
     }
     onKeyImpedance7(event:KeyboardEvent,f:any){
       debugger
-        for(let i of f.controls.testingAlternateRecords.controls) {
+        for(let i of f.controls.testingRecordsSourceSupply.controls) {
          
         if(f.controls.rpeLoopImpedance.value!='' && f.controls.rpeLoopImpedance.value!=undefined && f.controls.rpeLoopImpedance.value!= 'NA'
         && i.controls.rpeLoopImpedanceMains.value!='NA' && i.controls.rpeLoopImpedanceExternal.value!='NA') {
@@ -2003,7 +2064,7 @@ callValue(e: any) {
     }
     onKeyImpedance8(event:KeyboardEvent,f:any){
       debugger
-        for(let i of f.controls.testingAlternateRecords.controls) {
+        for(let i of f.controls.testingRecordsSourceSupply.controls) {
          
         if(f.controls.ypeLoopImpedance.value!='' && f.controls.ypeLoopImpedance.value!=undefined && f.controls.ypeLoopImpedance.value!= 'NA'
         && i.controls.ypeLoopImpedanceMains.value!='NA' && i.controls.ypeLoopImpedanceExternal.value!='NA') {
@@ -2045,7 +2106,7 @@ callValue(e: any) {
     }
     onKeyImpedance9(event:KeyboardEvent,f:any){
       debugger
-        for(let i of f.controls.testingAlternateRecords.controls) {
+        for(let i of f.controls.testingRecordsSourceSupply.controls) {
          
         if(f.controls.bpeLoopImpedance.value!='' && f.controls.bpeLoopImpedance.value!=undefined && f.controls.bpeLoopImpedance.value!= 'NA'
         && i.controls.bpeLoopImpedanceMains.value!='NA' && i.controls.bpeLoopImpedanceExternal.value!='NA') {
@@ -2207,7 +2268,7 @@ callValue(e: any) {
         let arr1: any = [];
         let arr2: any = [];
         let arr3: any = [];
-
+        let arr4: any = [];
         for (let k of j.distributionIncomingValueArr) {
           arr.push(
             k.incomingVoltage1,
@@ -2242,16 +2303,11 @@ callValue(e: any) {
             k.incomingIpf8,
             k.incomingIpf9
           );
-          arr3.push(
+          arr4.push(
             k.actualLoadAl1,
             k.actualLoadAl2,
             k.actualLoadAl3,
             k.actualLoadAl4,
-            k.actualLoadAl5,
-            k.actualLoadAl6,
-            k.actualLoadAl7,
-            k.actualLoadAl8,
-            k.actualLoadAl9
           );
         }
 
@@ -2289,7 +2345,7 @@ callValue(e: any) {
         incomingFaultCurrent = incomingFaultCurrent.replace(/,\s*$/, '');
         j.incomingFaultCurrent = incomingFaultCurrent;
 
-        for (let d of arr3) {
+        for (let d of arr4) {
           if (d != '') {
             incomingActualLoad += d + ',';
           } else {
@@ -2313,6 +2369,104 @@ callValue(e: any) {
         }
         //delete j.rateArr;
         //delete j.distributionIncomingValueArr;
+      }
+      for(let n of this.testingRecords.controls){
+        this.testingCalculation = n.get('testingRecordsSourceSupply') as FormArray;
+        for(let o of this.testingCalculation.controls) {
+          let arr1: any = [];
+          let arr2: any = [];
+          let arr3: any = [];
+          let arr4: any = [];
+
+          arr1.push(
+           o.controls.ryVoltage.value,
+           o.controls.rbVoltage.value,
+           o.controls.ybVoltage.value,
+           o.controls.rnVoltage.value,
+           o.controls.ynVoltage.value,
+           o.controls.bnVoltage.value,
+           o.controls.rpeVoltage.value,
+           o.controls.ypeVoltage.value,
+           o.controls.bpeVoltage.value
+          );
+          arr2.push(
+           o.controls.ryLoopImpedance.value,
+           o.controls.rbLoopImpedance.value,
+           o.controls.ybLoopImpedance.value,
+           o.controls.rnLoopImpedance.value,
+           o.controls.ynLoopImpedance.value,
+           o.controls.bnLoopImpedance.value,
+           o.controls.rpeLoopImpedance.value,
+           o.controls.ypeLoopImpedance.value,
+           o.controls.bpeLoopImpedance.value
+          );
+          arr3.push(
+           o.controls.ryFaultCurrent.value,
+           o.controls.rbFaultCurrent.value,
+           o.controls.ybFaultCurrent.value,
+           o.controls.rnFaultCurrent.value,
+           o.controls.ynFaultCurrent.value,
+           o.controls.bnFaultCurrent.value,
+           o.controls.rpeFaultCurrent.value,
+           o.controls.ypeFaultCurrent.value,
+           o.controls.bpeFaultCurrent.value
+          );
+          arr4.push(
+           o.controls.ryDisconnect.value,
+           o.controls.rbDisconnect.value,
+           o.controls.ybDisconnect.value,
+           o.controls.rnDisconnect.value,
+           o.controls.ynDisconnect.value,
+           o.controls.bnDisconnect.value,
+           o.controls.rpeDisconnect.value,
+           o.controls.ypeDisconnect.value,
+           o.controls.bpeDisconnect.value
+          );
+
+        let testVoltage1: String = '';
+        let testLoopImpedance1: String = '';
+        let testFaultCurrent1: String = '';
+        let disconnectionTime1: String = '';
+        for (let p of arr1) {
+          if (p != '') {
+            testVoltage1 += p + ',';
+          } else {
+            testVoltage1 += 'NA,';
+          }
+        }
+        testVoltage1 = testVoltage1.replace(/,\s*$/, '');
+       o.controls.testVoltage.setValue(testVoltage1);
+
+        for (let q of arr2) {
+          if (q != '') {
+            testLoopImpedance1 += q + ',';
+          } else {
+            testLoopImpedance1 += 'NA,';
+          }
+        }
+        testLoopImpedance1 = testLoopImpedance1.replace(/,\s*$/, '');
+       o.controls.testLoopImpedance.setValue(testLoopImpedance1);
+
+        for (let r of arr3) {
+          if (r != '') {
+            testFaultCurrent1 += r + ',';
+          } else {
+            testFaultCurrent1 += 'NA,';
+          }
+        }
+        testFaultCurrent1 = testFaultCurrent1.replace(/,\s*$/, '');
+       o.controls.testFaultCurrent.setValue(testFaultCurrent1);
+
+        for (let s of arr3) {
+          if (s != '') {
+            disconnectionTime1 += s + ',';
+          } else {
+            disconnectionTime1 += 'NA,';
+          }
+        }
+        disconnectionTime1 = disconnectionTime1.replace(/,\s*$/, '');
+       o.controls.disconnectionTime.setValue(disconnectionTime1);
+        }
       }
       for (let x of this.testingRecords.value) {
         if (x.circuitNo == '') {
@@ -2485,7 +2639,7 @@ callValue(e: any) {
           }
         }
         testVoltage = testVoltage.replace(/,\s*$/, '');
-        n.testVoltage = testVoltage;
+        n.testVoltage=testVoltage;
 
         for (let b of arr1) {
           if (b != '') {
@@ -2517,105 +2671,6 @@ callValue(e: any) {
         }
         disconnectionTime = disconnectionTime.replace(/,\s*$/, '');
         n.disconnectionTime = disconnectionTime;
-      }
-
-      for(let n of this.testingRecords.controls){
-        this.testingCalculation = n.get('testingAlternateRecords') as FormArray;
-        for(let o of this.testingCalculation.controls) {
-          let arr1: any = [];
-          let arr2: any = [];
-          let arr3: any = [];
-          let arr4: any = [];
-
-          arr1.push(
-           o.controls.ryVoltage.value,
-           o.controls.rbVoltage.value,
-           o.controls.ybVoltage.value,
-           o.controls.rnVoltage.value,
-           o.controls.ynVoltage.value,
-           o.controls.bnVoltage.value,
-           o.controls.rpeVoltage.value,
-           o.controls.ypeVoltage.value,
-           o.controls.bpeVoltage.value
-          );
-          arr2.push(
-           o.controls.ryLoopImpedance.value,
-           o.controls.rbLoopImpedance.value,
-           o.controls.ybLoopImpedance.value,
-           o.controls.rnLoopImpedance.value,
-           o.controls.ynLoopImpedance.value,
-           o.controls.bnLoopImpedance.value,
-           o.controls.rpeLoopImpedance.value,
-           o.controls.ypeLoopImpedance.value,
-           o.controls.bpeLoopImpedance.value
-          );
-          arr3.push(
-           o.controls.ryFaultCurrent.value,
-           o.controls.rbFaultCurrent.value,
-           o.controls.ybFaultCurrent.value,
-           o.controls.rnFaultCurrent.value,
-           o.controls.ynFaultCurrent.value,
-           o.controls.bnFaultCurrent.value,
-           o.controls.rpeFaultCurrent.value,
-           o.controls.ypeFaultCurrent.value,
-           o.controls.bpeFaultCurrent.value
-          );
-          arr4.push(
-           o.controls.ryDisconnect.value,
-           o.controls.rbDisconnect.value,
-           o.controls.ybDisconnect.value,
-           o.controls.rnDisconnect.value,
-           o.controls.ynDisconnect.value,
-           o.controls.bnDisconnect.value,
-           o.controls.rpeDisconnect.value,
-           o.controls.ypeDisconnect.value,
-           o.controls.bpeDisconnect.value
-          );
-
-        let testVoltage1: String = '';
-        let testLoopImpedance1: String = '';
-        let testFaultCurrent1: String = '';
-        let disconnectionTime1: String = '';
-        for (let p of arr1) {
-          if (p != '') {
-            testVoltage1 += p + ',';
-          } else {
-            testVoltage1 += 'NA,';
-          }
-        }
-        testVoltage1 = testVoltage1.replace(/,\s*$/, '');
-       o.controls.testVoltage.value = testVoltage1;
-
-        for (let q of arr2) {
-          if (q != '') {
-            testLoopImpedance1 += q + ',';
-          } else {
-            testLoopImpedance1 += 'NA,';
-          }
-        }
-        testLoopImpedance1 = testLoopImpedance1.replace(/,\s*$/, '');
-       o.controls.testLoopImpedance.value = testLoopImpedance1;
-
-        for (let r of arr3) {
-          if (r != '') {
-            testFaultCurrent1 += r + ',';
-          } else {
-            testFaultCurrent1 += 'NA,';
-          }
-        }
-        testFaultCurrent1 = testFaultCurrent1.replace(/,\s*$/, '');
-       o.controls.testFaultCurrent.value = testFaultCurrent1;
-
-        for (let s of arr3) {
-          if (s != '') {
-            disconnectionTime1 += s + ',';
-          } else {
-            disconnectionTime1 += 'NA,';
-          }
-        }
-        disconnectionTime1 = disconnectionTime1.replace(/,\s*$/, '');
-       o.controls.disconnectionTime.value = disconnectionTime1;
-        }
       }
     }
     this.testingDetails.testIncomingDistribution=this.pushJsonArray;
