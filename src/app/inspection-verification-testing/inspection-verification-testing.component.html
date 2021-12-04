@@ -794,8 +794,8 @@
                                 <td><input type="text" formControlName="circuitStandardNo" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="circuitMake" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="circuitType" class="form-control" style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="circuitPoles" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="circuitModel" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="numberOfPoles" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="circuitCurrentCurve" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
 
                                 <td><input type="text" formControlName="circuitRating" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="circuitBreakingCapacity" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
@@ -867,7 +867,7 @@
                                 <td><textarea  formControlName="rcdTestButtonOperation"  class="form-control" style="height:40px;width:170px;" [readonly]="service.allFieldsDisable"></textarea>
                                 <td><textarea  formControlName="rcdRemarks"  class="form-control" style="height:40px;width:170px;" [readonly]="service.allFieldsDisable"></textarea>
                                </tr>
-                        <ng-container formArrayName="testingAlternateRecords" *ngFor="let g of gettestAlternateValueControls(f); let j = index">
+                        <ng-container formArrayName="testingRecordsSourceSupply" *ngFor="let g of gettestAlternateValueControls(f); let j = index">
                         <tr  class="form-group"  [formGroupName]="j">
                                 <td></td>
                                 <td></td>

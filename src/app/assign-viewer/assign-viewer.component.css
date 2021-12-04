@@ -46,7 +46,7 @@ mat-header-cell.mat-header-cell {
   height: 100px;
 }
 .auth-form-btn {
-  margin-top: 40px;
+  /* margin-top: 40px; */
   width: 25%;
 }
 
