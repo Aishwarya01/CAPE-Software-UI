@@ -233,6 +233,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   testingCalculation: any=[];
   testingRecordTableArr1: any=[];
   testingAlternateRecords1: any = [];
+  testList1: any = [];
   
   constructor(
     private testingService: TestingService,
@@ -346,6 +347,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
         this.supplyValues = JSON.parse(data);
        	        //for(let i of this.supplyValues) {	
                   this.service.nominalVoltageArr2=this.supplyValues.supplyParameters;	
+                  this.pushJsonArray=[];
                   this.testingAlternateRecords = [];
                   let testaccordianValueArr = this.testingForm.get(
                     'testaccordianArr'
@@ -375,6 +377,10 @@ export class InspectionVerificationTestingComponent implements OnInit {
                    if(j.aLLiveConductorType == "AC") {	
                     this.addValues("Alternate Source of Supply-" +count, j.nominalVoltage,j.loopImpedance, j.faultCurrent, j.actualLoad);	
                     count++;	
+                   }	
+                  }	
+
+                  for(let j of this.supplyValues.supplyParameters) {
                     for(let x of testaccordianValueArr.controls) {
                       let testingRecordsArr = x.get('testingRecords') as FormArray;
                       for(let y of testingRecordsArr.controls) {
@@ -382,8 +388,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
                         this.testingAlternateRecords.push(this.createValue(this.supplyValues.mainLoopImpedance,j.nominalVoltage,j.loopImpedance));
                       }
                     }
-                   }	
-                  }	
+                  }
                // }
         //retrieve selected source dd from supply to testing
       if (this.service.supplyList != '' && this.service.supplyList != undefined) {
@@ -450,7 +455,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
 
  addValues(sourceFromSupply: any, incomingVoltage: String, incomingLoopImpedance: String, incomingFaultCurrent: String, incomingActualLoad: String) {
   if(sourceFromSupply != "" ) {
-     this.jsonArray = {"sourceFromSupply": sourceFromSupply, "incomingVoltage": incomingVoltage, "incomingLoopImpedance": incomingLoopImpedance, "incomingFaultCurrent": incomingFaultCurrent, "incomingActualLoad":incomingActualLoad}
+     this.jsonArray = {"incomingDistributionId": '',"sourceFromSupply": sourceFromSupply, "incomingVoltage": incomingVoltage, "incomingLoopImpedance": incomingLoopImpedance, "incomingFaultCurrent": incomingFaultCurrent, "incomingActualLoad":incomingActualLoad}
      this.pushJsonArray.push(this.jsonArray);
     }
 }
@@ -467,16 +472,16 @@ callValue(e: any) {
     //  }
     this.testingRetrieve = true;
     this.inspectionRetrieve = false;
-    this.testList = JSON.parse(data);
+    this.testList1 = JSON.parse(data);
     this.testingDetails.siteId = siteId;
     this.retrieveDetailsFromIncoming();
     this.retrieveDetailsFromSupply();
-    if(this.testList != null) {
-    this.testingDetails.testingReportId = this.testList.testingReportId;
-    this.testingDetails.createdBy = this.testList.createdBy;
-    this.testingDetails.createdDate = this.testList.createdDate;
+    if(this.testList1 != null) {
+    this.testingDetails.testingReportId = this.testList1.testingReportId;
+    this.testingDetails.createdBy = this.testList1.createdBy;
+    this.testingDetails.createdDate = this.testList1.createdDate;
     setTimeout(() => {
-      this.populateData(this.testList);
+      this.populateData(this.testList1);
     }, 1000);
     this.flag = true;
     }    
@@ -1225,7 +1230,7 @@ callValue(e: any) {
   }
   pushTestingSourceSupplyTable(itemTestingValue: any, disconnectionTimeArr: any, testFaultCurrentArr: any, testLoopImpedanceArr: any, testVoltageArr: any): FormGroup {
     return new FormGroup({
-      testingRecordId: new FormControl({ disabled: false, value: itemTestingValue.sourceSupplyId }),
+      sourceSupplyId: new FormControl({ disabled: false, value: itemTestingValue.sourceSupplyId }),
       ryVoltage: new FormControl({ disabled: false, value: testVoltageArr[0] }),
       rbVoltage: new FormControl({ disabled: false, value: testVoltageArr[1] }),
       ybVoltage: new FormControl({ disabled: false, value: testVoltageArr[2] }),
@@ -1881,38 +1886,38 @@ callValue(e: any) {
           && i.controls.ryLoopImpedanceMains.value!='NA' && i.controls.ryLoopImpedanceExternal.value!='NA') {
           i.controls.ryLoopImpedance.value =(f.controls.ryLoopImpedance.value - i.controls.ryLoopImpedanceMains.value);
           i.controls.ryLoopImpedance.value = +i.controls.ryLoopImpedance.value + +i.controls.ryLoopImpedanceExternal.value;
-          i.controls.ryLoopImpedance.value= i.controls.ryLoopImpedance.value.toFixed(3);
+          i.controls.ryLoopImpedance.setValue(i.controls.ryLoopImpedance.value.toFixed(3));
         }
         else if(f.controls.ryLoopImpedance.value=='NA' || i.controls.ryLoopImpedanceMains.value=='NA' || i.controls.ryLoopImpedanceExternal.value=='NA'){
-         i.controls.ryLoopImpedance.value='NA';
+         i.controls.ryLoopImpedance.setValue('NA');
          }
         else{
-          i.controls.ryLoopImpedance.value='';
+          i.controls.ryLoopImpedance.setValue('');
         }
         //fault current division for alternate
         if(i.controls.ryLoopImpedance.value!='' && i.controls.ryLoopImpedance.value!='NA' && i.controls.ryVoltage.value!= 'NA') {
           i.controls.ryFaultCurrent.value =(i.controls.ryVoltage.value/i.controls.ryLoopImpedance.value);
-          i.controls.ryFaultCurrent.value= i.controls.ryFaultCurrent.value.toFixed(3);
+          i.controls.ryFaultCurrent.setValue(i.controls.ryFaultCurrent.value.toFixed(3));
         }
         else if(i.controls.ryLoopImpedance.value=='NA' || i.controls.ryVoltage.value=='NA'){
-         i.controls.ryFaultCurrent.value='NA';
+         i.controls.ryFaultCurrent.setValue('NA');
          }
         else{
-          i.controls.ryFaultCurrent.value='';
+          i.controls.ryFaultCurrent.setValue('');
         }
       }
       //for mains division
       if(f.controls.ryVoltage.value!='' && f.controls.ryLoopImpedance.value!='' && f.controls.ryLoopImpedance.value!=undefined && f.controls.ryVoltage.value!=undefined && f.controls.ryVoltage.value!='NA' && f.controls.ryLoopImpedance.value!='NA'){
         //f.controls.ryFaultCurrent.value= f.controls.ryVoltage.value/f.controls.ryLoopImpedance.value; 
         var ryFaultCurrent= f.controls.ryVoltage.value/f.controls.ryLoopImpedance.value;	
-        f.controls.ryFaultCurrent.value=ryFaultCurrent.toFixed(3);	
+        f.controls.ryFaultCurrent.setValue(ryFaultCurrent.toFixed(3));	
         
        }
        else if((f.controls.ryVoltage.value=='NA' && f.controls.ryLoopImpedance.value=='NA') || (f.controls.ryVoltage.value=='NA' || f.controls.ryLoopImpedance.value=='NA')){
-         f.controls.ryFaultCurrent.value='NA';
+         f.controls.ryFaultCurrent.setValue('NA');
         }
        else{
-         f.controls.ryFaultCurrent.value='';
+         f.controls.ryFaultCurrent.setValue('');
        }
     }
     onKeyImpedance2(event:KeyboardEvent,f:any){
@@ -1923,37 +1928,37 @@ callValue(e: any) {
         && i.controls.rbLoopImpedanceMains.value!='NA' && i.controls.rbLoopImpedanceExternal.value!='NA') {
           i.controls.rbLoopImpedance.value =(f.controls.rbLoopImpedance.value - i.controls.rbLoopImpedanceMains.value);
           i.controls.rbLoopImpedance.value = +i.controls.rbLoopImpedance.value + +i.controls.rbLoopImpedanceExternal.value;
-          i.controls.rbLoopImpedance.value= i.controls.rbLoopImpedance.value.toFixed(3);
+          i.controls.rbLoopImpedance.setValue(i.controls.rbLoopImpedance.value.toFixed(3));
         }
         else if(f.controls.rbLoopImpedance.value=='NA' || i.controls.rbLoopImpedanceMains.value=='NA' || i.controls.rbLoopImpedanceExternal.value=='NA'){
-         i.controls.rbLoopImpedance.value='NA';
+         i.controls.rbLoopImpedance.setValue('NA');
          }
         else{
-          i.controls.rbLoopImpedance.value='';
+          i.controls.rbLoopImpedance.setValue('');
         }
           //fault current division for alternate
           if(i.controls.rbLoopImpedance.value!='' && i.controls.rbLoopImpedance.value!='NA' && i.controls.rbVoltage.value!= 'NA') {
             i.controls.rbFaultCurrent.value =(i.controls.rbVoltage.value/i.controls.rbLoopImpedance.value);
-            i.controls.rbFaultCurrent.value= i.controls.rbFaultCurrent.value.toFixed(3);
+            i.controls.rbFaultCurrent.setValue(i.controls.rbFaultCurrent.value.toFixed(3));
           }
           else if(i.controls.rbLoopImpedance.value=='NA' || i.controls.rbVoltage.value=='NA'){
-           i.controls.rbFaultCurrent.value='NA';
+           i.controls.rbFaultCurrent.setValue('NA');
            }
           else{
-            i.controls.rbFaultCurrent.value='';
+            i.controls.rbFaultCurrent.setValue('');
           }
       }
       
        if(f.controls.rbVoltage.value!='' && f.controls.rbLoopImpedance.value!='' && f.controls.rbLoopImpedance.value!=undefined && f.controls.rbVoltage.value!=undefined && f.controls.rbVoltage.value!='NA' && f.controls.rbLoopImpedance.value!='NA'){
          //f.controls.rbFaultCurrent.value= f.controls.rbVoltage.value/f.controls.rbLoopImpedance.value;
          var rbFaultCurrent= f.controls.rbVoltage.value/f.controls.rbLoopImpedance.value;	
-            f.controls.rbFaultCurrent.value=rbFaultCurrent.toFixed(3);	
+            f.controls.rbFaultCurrent.setValue(rbFaultCurrent.toFixed(3));	
         }
         else if((f.controls.rbVoltage.value=='NA' && f.controls.rbLoopImpedance.value=='NA') || (f.controls.rbVoltage.value=='NA' || f.controls.rbLoopImpedance.value=='NA')){
-         f.controls.rbFaultCurrent.value='NA';
+         f.controls.rbFaultCurrent.setValue('NA');
         }
         else{
-          f.controls.rbFaultCurrent.value='';
+          f.controls.rbFaultCurrent.setValue('');
         }
     }
     onKeyImpedance3(event:KeyboardEvent,f:any){
@@ -1964,37 +1969,37 @@ callValue(e: any) {
         && i.controls.ybLoopImpedanceMains.value!='NA' && i.controls.ybLoopImpedanceExternal.value!='NA') {
           i.controls.ybLoopImpedance.value =(f.controls.ybLoopImpedance.value - i.controls.ybLoopImpedanceMains.value);
           i.controls.ybLoopImpedance.value = +i.controls.ybLoopImpedance.value + +i.controls.ybLoopImpedanceExternal.value;
-          i.controls.ybLoopImpedance.value= i.controls.ybLoopImpedance.value.toFixed(3);
+          i.controls.ybLoopImpedance.setValue(i.controls.ybLoopImpedance.value.toFixed(3));
         }
         else if(f.controls.ybLoopImpedance.value=='NA' || i.controls.ybLoopImpedanceMains.value=='NA' || i.controls.ybLoopImpedanceExternal.value=='NA'){
-         i.controls.ybLoopImpedance.value='NA';
+         i.controls.ybLoopImpedance.setValue('NA');
          }
         else{
-          i.controls.ybLoopImpedance.value='';
+          i.controls.ybLoopImpedance.setValue('');
         }
           //fault current division for alternate
           if(i.controls.ybLoopImpedance.value!='' && i.controls.ybLoopImpedance.value!='NA' && i.controls.ybVoltage.value!= 'NA') {
             i.controls.ybFaultCurrent.value =(i.controls.ybVoltage.value/i.controls.ybLoopImpedance.value);
-            i.controls.ybFaultCurrent.value= i.controls.ybFaultCurrent.value.toFixed(3);
+            i.controls.ybFaultCurrent.setValue( i.controls.ybFaultCurrent.value.toFixed(3));
           }
           else if(i.controls.ybLoopImpedance.value=='NA' || i.controls.ybVoltage.value=='NA'){
-           i.controls.ybFaultCurrent.value='NA';
+           i.controls.ybFaultCurrent.setValue('NA');
            }
           else{
-            i.controls.ybFaultCurrent.value='';
+            i.controls.ybFaultCurrent.setValue('');
           }
       }
      
         if(f.controls.ybVoltage.value!='' && f.controls.ybLoopImpedance.value!='' && f.controls.ybLoopImpedance.value!=undefined && f.controls.ybVoltage.value!=undefined && f.controls.ybVoltage.value!='NA' && f.controls.ybLoopImpedance.value!='NA'){
          //f.controls.ybFaultCurrent.value= f.controls.ybVoltage.value/f.controls.ybLoopImpedance.value;
          var ybFaultCurrent= f.controls.ybVoltage.value/f.controls.ybLoopImpedance.value;	
-            f.controls.ybFaultCurrent.value=ybFaultCurrent.toFixed(3);	
+            f.controls.ybFaultCurrent.setValue(ybFaultCurrent.toFixed(3));	
         }
         else if((f.controls.ybVoltage.value=='NA' && f.controls.ybLoopImpedance.value=='NA') || (f.controls.ybVoltage.value=='NA' || f.controls.ybLoopImpedance.value=='NA')){
-         f.controls.ybFaultCurrent.value='NA';
+         f.controls.ybFaultCurrent.setValue('NA');
         }
         else{
-          f.controls.ybFaultCurrent.value='';
+          f.controls.ybFaultCurrent.setValue('');
         }
        
     }
@@ -2006,37 +2011,37 @@ callValue(e: any) {
         && i.controls.rnLoopImpedanceMains.value!='NA' && i.controls.rnLoopImpedanceExternal.value!='NA') {
           i.controls.rnLoopImpedance.value =(f.controls.rnLoopImpedance.value - i.controls.rnLoopImpedanceMains.value);
           i.controls.rnLoopImpedance.value = +i.controls.rnLoopImpedance.value + +i.controls.rnLoopImpedanceExternal.value;
-          i.controls.rnLoopImpedance.value= i.controls.rnLoopImpedance.value.toFixed(3);
+          i.controls.rnLoopImpedance.setValue(i.controls.rnLoopImpedance.value.toFixed(3));
         }
         else if(f.controls.rnLoopImpedance.value=='NA' || i.controls.rnLoopImpedanceMains.value=='NA' || i.controls.rnLoopImpedanceExternal.value=='NA'){
-         i.controls.rnLoopImpedance.value='NA';
+         i.controls.rnLoopImpedance.setValue('NA');
          }
         else{
-          i.controls.rnLoopImpedance.value='';
+          i.controls.rnLoopImpedance.setValue('');
         }
         //fault current division for alternate
         if(i.controls.rnLoopImpedance.value!='' && i.controls.rnLoopImpedance.value!='NA' && i.controls.rnVoltage.value!= 'NA') {
           i.controls.rnFaultCurrent.value =(i.controls.rnVoltage.value/i.controls.rnLoopImpedance.value);
-          i.controls.rnFaultCurrent.value= i.controls.rnFaultCurrent.value.toFixed(3);
+          i.controls.rnFaultCurrent.setValue(i.controls.rnFaultCurrent.value.toFixed(3));
         }
         else if(i.controls.rnLoopImpedance.value=='NA' || i.controls.rnVoltage.value=='NA'){
-         i.controls.rnFaultCurrent.value='NA';
+         i.controls.rnFaultCurrent.setValue('NA');
          }
         else{
-          i.controls.rnFaultCurrent.value='';
+          i.controls.rnFaultCurrent.setValue('');
         }
       }
       
         if(f.controls.rnVoltage.value!='' && f.controls.rnLoopImpedance.value!='' && f.controls.rnLoopImpedance.value!=undefined && f.controls.rnVoltage.value!=undefined && f.controls.rnVoltage.value!='NA' && f.controls.rnLoopImpedance.value!='NA'){
          //f.controls.rnFaultCurrent.value= f.controls.rnVoltage.value/f.controls.rnLoopImpedance.value;
          var rnFaultCurrent= f.controls.rnVoltage.value/f.controls.rnLoopImpedance.value;	
-            f.controls.rnFaultCurrent.value=rnFaultCurrent.toFixed(3);	
+            f.controls.rnFaultCurrent.setValue(rnFaultCurrent.toFixed(3));	
         }
         else if((f.controls.rnVoltage.value=='NA' && f.controls.rnLoopImpedance.value=='NA') || (f.controls.rnVoltage.value=='NA' || f.controls.rnLoopImpedance.value=='NA')){
-         f.controls.rnFaultCurrent.value='NA';
+         f.controls.rnFaultCurrent.setValue('NA');
         }
         else{
-          f.controls.rnFaultCurrent.value='';
+          f.controls.rnFaultCurrent.setValue('');
         }
     }
     onKeyImpedance5(event:KeyboardEvent,f:any){
@@ -2047,37 +2052,37 @@ callValue(e: any) {
         && i.controls.ynLoopImpedanceMains.value!='NA' && i.controls.ynLoopImpedanceExternal.value!='NA') {
           i.controls.ynLoopImpedance.value =(f.controls.ynLoopImpedance.value - i.controls.ynLoopImpedanceMains.value);
           i.controls.ynLoopImpedance.value = +i.controls.ynLoopImpedance.value + +i.controls.ynLoopImpedanceExternal.value;
-          i.controls.ynLoopImpedance.value= i.controls.ynLoopImpedance.value.toFixed(3);
+          i.controls.ynLoopImpedance.setValue(i.controls.ynLoopImpedance.value.toFixed(3));
         }
         else if(f.controls.ynLoopImpedance.value=='NA' || i.controls.ynLoopImpedanceMains.value=='NA' || i.controls.ynLoopImpedanceExternal.value=='NA'){
-         i.controls.ynLoopImpedance.value='NA';
+         i.controls.ynLoopImpedance.setValue('NA');
          }
         else{
-          i.controls.ynLoopImpedance.value='';
+          i.controls.ynLoopImpedance.setValue('');
         }
           //fault current division for alternate
           if(i.controls.ynLoopImpedance.value!='' && i.controls.ynLoopImpedance.value!='NA' && i.controls.ynVoltage.value!= 'NA') {
             i.controls.ynFaultCurrent.value =(i.controls.ynVoltage.value/i.controls.ynLoopImpedance.value);
-            i.controls.ynFaultCurrent.value= i.controls.ynFaultCurrent.value.toFixed(3);
+            i.controls.ynFaultCurrent.setValue(i.controls.ynFaultCurrent.value.toFixed(3));
           }
           else if(i.controls.ynLoopImpedance.value=='NA' || i.controls.ynVoltage.value=='NA'){
-           i.controls.ynFaultCurrent.value='NA';
+           i.controls.ynFaultCurrent.setValue('NA');
            }
           else{
-            i.controls.ryFaultCurrent.value='';
+            i.controls.ryFaultCurrent.setValue('');
           }
       }
      
         if(f.controls.ynVoltage.value!='' && f.controls.ynLoopImpedance.value!='' && f.controls.ynLoopImpedance.value!=undefined && f.controls.ynVoltage.value!=undefined && f.controls.ynVoltage.value!='NA' && f.controls.ynLoopImpedance.value!='NA'){
          //f.controls.ynFaultCurrent.value= f.controls.ynVoltage.value/f.controls.ynLoopImpedance.value;
          var ynFaultCurrent= f.controls.ynVoltage.value/f.controls.ynLoopImpedance.value;	
-            f.controls.ynFaultCurrent.value=ynFaultCurrent.toFixed(3);	
+            f.controls.ynFaultCurrent.setValue(ynFaultCurrent.toFixed(3));	
         }
         else if((f.controls.ynVoltage.value=='NA' && f.controls.ynLoopImpedance.value=='NA') || (f.controls.ynVoltage.value=='NA' || f.controls.ynLoopImpedance.value=='NA')){
-         f.controls.ynFaultCurrent.value='NA';
+         f.controls.ynFaultCurrent.setValue('NA');
         }
         else{
-          f.controls.ynFaultCurrent.value='';
+          f.controls.ynFaultCurrent.setValue('');
         }
        
     }
@@ -2089,24 +2094,24 @@ callValue(e: any) {
         && i.controls.bnLoopImpedanceMains.value!='NA' && i.controls.bnLoopImpedanceExternal.value!='NA') {
           i.controls.bnLoopImpedance.value =(f.controls.bnLoopImpedance.value - i.controls.bnLoopImpedanceMains.value);
           i.controls.bnLoopImpedance.value = +i.controls.bnLoopImpedance.value + +i.controls.bnLoopImpedanceExternal.value;
-          i.controls.bnLoopImpedance.value= i.controls.bnLoopImpedance.value.toFixed(3);
+          i.controls.bnLoopImpedance.setValue( i.controls.bnLoopImpedance.value.toFixed(3));
         }
         else if(f.controls.bnLoopImpedance.value=='NA' || i.controls.bnLoopImpedanceMains.value=='NA' || i.controls.bnLoopImpedanceExternal.value=='NA'){
-         i.controls.bnLoopImpedance.value='NA';
+         i.controls.bnLoopImpedance.setValue('NA');
          }
         else{
-          i.controls.bnLoopImpedance.value='';
+          i.controls.bnLoopImpedance.setValue('');
         }
          //fault current division for alternate
          if(i.controls.bnLoopImpedance.value!='' && i.controls.bnLoopImpedance.value!='NA' && i.controls.bnVoltage.value!= 'NA') {
           i.controls.bnFaultCurrent.value =(i.controls.bnVoltage.value/i.controls.bnLoopImpedance.value);
-          i.controls.bnFaultCurrent.value= i.controls.bnFaultCurrent.value.toFixed(3);
+          i.controls.bnFaultCurrent.setValue(i.controls.bnFaultCurrent.value.toFixed(3));
         }
         else if(i.controls.bnLoopImpedance.value=='NA' || i.controls.bnVoltage.value=='NA'){
-         i.controls.bnFaultCurrent.value='NA';
+         i.controls.bnFaultCurrent.setValue('NA');
          }
         else{
-          i.controls.bnFaultCurrent.value='';
+          i.controls.bnFaultCurrent.setValue('');
         }
       }
      
@@ -2115,13 +2120,13 @@ callValue(e: any) {
         if(f.controls.bnVoltage.value!='' && f.controls.bnLoopImpedance.value!='' && f.controls.bnLoopImpedance.value!=undefined && f.controls.bnVoltage.value!=undefined && f.controls.bnVoltage.value!='NA' && f.controls.bnLoopImpedance.value!='NA'){
          //f.controls.bnFaultCurrent.value= f.controls.bnVoltage.value/f.controls.bnLoopImpedance.value;
          var bnFaultCurrent= f.controls.bnVoltage.value/f.controls.bnLoopImpedance.value;	
-            f.controls.bnFaultCurrent.value=bnFaultCurrent.toFixed(3);	
+            f.controls.bnFaultCurrent.setValue(bnFaultCurrent.toFixed(3));	
         }
         else if((f.controls.bnVoltage.value=='NA' && f.controls.bnLoopImpedance.value=='NA') || (f.controls.bnVoltage.value=='NA' || f.controls.bnLoopImpedance.value=='NA')){
-         f.controls.bnFaultCurrent.value='NA';
+         f.controls.bnFaultCurrent.setValue('NA');
         }
         else{
-          f.controls.bnFaultCurrent.value='';
+          f.controls.bnFaultCurrent.setValue('');
         }
       
     }
@@ -2133,36 +2138,36 @@ callValue(e: any) {
         && i.controls.rpeLoopImpedanceMains.value!='NA' && i.controls.rpeLoopImpedanceExternal.value!='NA') {
           i.controls.rpeLoopImpedance.value =(f.controls.rpeLoopImpedance.value - i.controls.rpeLoopImpedanceMains.value);
           i.controls.rpeLoopImpedance.value = +i.controls.rpeLoopImpedance.value + +i.controls.rpeLoopImpedanceExternal.value;
-          i.controls.rpeLoopImpedance.value= i.controls.rpeLoopImpedance.value.toFixed(3);
+          i.controls.rpeLoopImpedance.setValue( i.controls.rpeLoopImpedance.value.toFixed(3));
         }
         else if(f.controls.rpeLoopImpedance.value=='NA' || i.controls.rpeLoopImpedanceMains.value=='NA' || i.controls.rpeLoopImpedanceExternal.value=='NA'){
-         i.controls.rpeLoopImpedance.value='NA';
+         i.controls.rpeLoopImpedance.setValue('NA');
          }
         else{
-          i.controls.rpeLoopImpedance.value='';
+          i.controls.rpeLoopImpedance.setValue('');
         }
          //fault current division for alternate
          if(i.controls.rpeLoopImpedance.value!='' && i.controls.rpeLoopImpedance.value!='NA' && i.controls.rpeVoltage.value!= 'NA') {
           i.controls.rpeFaultCurrent.value =(i.controls.rpeVoltage.value/i.controls.rpeLoopImpedance.value);
-          i.controls.rpeFaultCurrent.value= i.controls.rpeFaultCurrent.value.toFixed(3);
+          i.controls.rpeFaultCurrent.setValue(i.controls.rpeFaultCurrent.value.toFixed(3));
         }
         else if(i.controls.rpeLoopImpedance.value=='NA' || i.controls.rpeVoltage.value=='NA'){
-         i.controls.rpeFaultCurrent.value='NA';
+         i.controls.rpeFaultCurrent.setValue('NA');
          }
         else{
-          i.controls.rpeFaultCurrent.value='';
+          i.controls.rpeFaultCurrent.setValue('');
         }
       }
         if(f.controls.rpeVoltage.value!='' && f.controls.rpeLoopImpedance.value!='' && f.controls.rpeLoopImpedance.value!=undefined && f.controls.rpeVoltage.value!=undefined && f.controls.rpeVoltage.value!='NA' && f.controls.rpeLoopImpedance.value!='NA'){
          //f.controls.rpeFaultCurrent.value= f.controls.rpeVoltage.value/f.controls.rpeLoopImpedance.value;
          var rpeFaultCurrent= f.controls.rpeVoltage.value/f.controls.rpeLoopImpedance.value;	
-            f.controls.rpeFaultCurrent.value=rpeFaultCurrent.toFixed(3);	
+            f.controls.rpeFaultCurrent.setValue(rpeFaultCurrent.toFixed(3));	
         }
         else if((f.controls.rpeVoltage.value=='NA' && f.controls.rpeLoopImpedance.value=='NA') || (f.controls.rpeVoltage.value=='NA' || f.controls.rpeLoopImpedance.value=='NA')){
-         f.controls.rpeFaultCurrent.value='NA';
+         f.controls.rpeFaultCurrent.setValue('NA');
         }
         else{
-          f.controls.rpeFaultCurrent.value='';
+          f.controls.rpeFaultCurrent.setValue('');
         }
         
     }
@@ -2174,37 +2179,37 @@ callValue(e: any) {
         && i.controls.ypeLoopImpedanceMains.value!='NA' && i.controls.ypeLoopImpedanceExternal.value!='NA') {
           i.controls.ypeLoopImpedance.value =(f.controls.ypeLoopImpedance.value - i.controls.ypeLoopImpedanceMains.value);
           i.controls.ypeLoopImpedance.value = +i.controls.ypeLoopImpedance.value + +i.controls.ypeLoopImpedanceExternal.value;
-          i.controls.ypeLoopImpedance.value= i.controls.ypeLoopImpedance.value.toFixed(3);
+          i.controls.ypeLoopImpedance.setValue( i.controls.ypeLoopImpedance.value.toFixed(3));
         }
         else if(f.controls.ypeLoopImpedance.value=='NA' || i.controls.ypeLoopImpedanceMains.value=='NA' || i.controls.ypeLoopImpedanceExternal.value=='NA'){
-         i.controls.ypeLoopImpedance.value='NA';
+         i.controls.ypeLoopImpedance.setValue('NA');
          }
         else{
-          i.controls.ypeLoopImpedance.value='';
+          i.controls.ypeLoopImpedance.setValue('');
         }
          //fault current division for alternate
          if(i.controls.ypeLoopImpedance.value!='' && i.controls.ypeLoopImpedance.value!='NA' && i.controls.ypeVoltage.value!= 'NA') {
           i.controls.ypeFaultCurrent.value =(i.controls.ypeVoltage.value/i.controls.ypeLoopImpedance.value);
-          i.controls.ypeFaultCurrent.value= i.controls.ypeFaultCurrent.value.toFixed(3);
+          i.controls.ypeFaultCurrent.setValue(i.controls.ypeFaultCurrent.value.toFixed(3));
         }
         else if(i.controls.ypeLoopImpedance.value=='NA' || i.controls.ypeVoltage.value=='NA'){
-         i.controls.ypeFaultCurrent.value='NA';
+         i.controls.ypeFaultCurrent.setValue('NA');
          }
         else{
-          i.controls.ypeFaultCurrent.value='';
+          i.controls.ypeFaultCurrent.setValue('');
         }
       }
        
         if(f.controls.ypeVoltage.value!='' && f.controls.ypeLoopImpedance.value!='' && f.controls.ypeVoltage.value!=undefined && f.controls.ypeVoltage.value!=undefined && f.controls.ypeVoltage.value!='NA' && f.controls.ypeLoopImpedance.value!='NA'){
          //f.controls.ypeFaultCurrent.value= f.controls.ypeVoltage.value/f.controls.ypeLoopImpedance.value;
          var ypeFaultCurrent= f.controls.ypeVoltage.value/f.controls.ypeLoopImpedance.value;	
-            f.controls.ypeFaultCurrent.value=ypeFaultCurrent.toFixed(3);	
+            f.controls.ypeFaultCurrent.setValue(ypeFaultCurrent.toFixed(3));	
         }
         else if((f.controls.ypeVoltage.value=='NA' && f.controls.ypeLoopImpedance.value=='NA') || (f.controls.ypeVoltage.value=='NA' || f.controls.ypeLoopImpedance.value=='NA')){
-         f.controls.ypeFaultCurrent.value='NA';
+         f.controls.ypeFaultCurrent.setValue('NA');
         }
         else{
-          f.controls.ypeFaultCurrent.value='';
+          f.controls.ypeFaultCurrent.setValue('');
         }
         
     }
@@ -2216,36 +2221,36 @@ callValue(e: any) {
         && i.controls.bpeLoopImpedanceMains.value!='NA' && i.controls.bpeLoopImpedanceExternal.value!='NA') {
           i.controls.bpeLoopImpedance.value =(f.controls.bpeLoopImpedance.value - i.controls.bpeLoopImpedanceMains.value);
           i.controls.bpeLoopImpedance.value = +i.controls.bpeLoopImpedance.value + +i.controls.bpeLoopImpedanceExternal.value;
-          i.controls.bpeLoopImpedance.value= i.controls.bpeLoopImpedance.value.toFixed(3);
+          i.controls.bpeLoopImpedance.setValue(i.controls.bpeLoopImpedance.value.toFixed(3));
         }
         else if(f.controls.bpeLoopImpedance.value=='NA' || i.controls.bpeLoopImpedanceMains.value=='NA' || i.controls.bpeLoopImpedanceExternal.value=='NA'){
-         i.controls.bpeLoopImpedance.value='NA';
+         i.controls.bpeLoopImpedance.setValue('NA');
          }
         else{
-          i.controls.bpeLoopImpedance.value='';
+          i.controls.bpeLoopImpedance.setValue('');
         }
           //fault current division for alternate
           if(i.controls.bpeLoopImpedance.value!='' && i.controls.bpeLoopImpedance.value!='NA' && i.controls.bpeVoltage.value!= 'NA') {
             i.controls.bpeFaultCurrent.value =(i.controls.bpeVoltage.value/i.controls.bpeLoopImpedance.value);
-            i.controls.bpeFaultCurrent.value= i.controls.bpeFaultCurrent.value.toFixed(3);
+            i.controls.bpeFaultCurrent.setValue(i.controls.bpeFaultCurrent.value.toFixed(3));
           }
           else if(i.controls.bpeLoopImpedance.value=='NA' || i.controls.bpeVoltage.value=='NA'){
-           i.controls.bpeFaultCurrent.value='NA';
+           i.controls.bpeFaultCurrent.setValue('NA');
            }
           else{
-            i.controls.bpeFaultCurrent.value='';
+            i.controls.bpeFaultCurrent.setValue('');
           }
       }
         if(f.controls.bpeVoltage.value!='' && f.controls.bpeLoopImpedance.value!='' && f.controls.bpeLoopImpedance.value!=undefined && f.controls.bpeVoltage.value!=undefined && f.controls.bpeVoltage.value!='NA' && f.controls.bpeLoopImpedance.value!='NA'){
         // f.controls.bpeFaultCurrent.value= f.controls.bpeVoltage.value/f.controls.bpeLoopImpedance.value;
         var bpeFaultCurrent= f.controls.bpeVoltage.value/f.controls.bpeLoopImpedance.value;	
-            f.controls.bpeFaultCurrent.value=bpeFaultCurrent.toFixed(3);	
+            f.controls.bpeFaultCurrent.setValue(bpeFaultCurrent.toFixed(3));	
         }
         else if((f.controls.bpeVoltage.value=='NA' && f.controls.bpeLoopImpedance.value=='NA') || (f.controls.bpeVoltage.value=='NA' || f.controls.bpeLoopImpedance.value=='NA')){
-         f.controls.bpeFaultCurrent.value='NA';
+         f.controls.bpeFaultCurrent.setValue('NA');
         }
         else{
-          f.controls.bpeFaultCurrent.value='';
+          f.controls.bpeFaultCurrent.setValue('');
         }
     }
   reloadFromBack(){
@@ -2778,6 +2783,28 @@ callValue(e: any) {
         }
         disconnectionTime = disconnectionTime.replace(/,\s*$/, '');
         n.disconnectionTime = disconnectionTime;
+      }
+    }
+
+    //from saved report update
+    for(let i of this.pushJsonArray) {
+      if(this.testList.testingReport != null && this.testList.testingReport != undefined ) {
+        for(let j of this.testList.testingReport.testIncomingDistribution) {
+          if(j.sourceFromSupply == i.sourceFromSupply){
+            i.incomingDistributionId = j.incomingDistributionId;
+          }
+        }
+      }
+    }
+
+    //Not from saved report update
+    for(let i of this.pushJsonArray) {
+      if(this.testList1 != null  && this.testList1.testIncomingDistribution != undefined) {
+        for(let j of this.testList1.testIncomingDistribution) {
+          if(j.sourceFromSupply == i.sourceFromSupply){
+            i.incomingDistributionId = j.incomingDistributionId;
+          }
+        }
       }
     }
     this.testingDetails.testIncomingDistribution=this.pushJsonArray;

@@ -609,7 +609,8 @@ export class VerificationlvComponent implements OnInit {
           this.basic.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
            if(this.dataJSON.supplyCharacteristics != null) {
              this.supply.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
-             this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
+             //commented by Arun on 04/12/2021
+             //this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
              if(this.dataJSON.periodicInspection != null) {
                this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
                this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
