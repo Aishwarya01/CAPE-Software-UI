@@ -1064,7 +1064,7 @@
 
                 <div class="col-md-4" style="margin-top: 30px">
                   <p class="joints">Number of earth electrodes 
-                    <input type="tel" min="0" formControlName="noOfLocation" [readonly]="service.allFieldsDisable"
+                    <input type="number" min="0" formControlName="noOfLocation" [readonly]="service.allFieldsDisable"
                     [ngClass]="{ 'is-invalid': submitted && f.noOfLocation.errors }" 
                     [(ngModel)]="supplycharesteristic.noOfLocation" style="
                     width: 50px;
@@ -1078,7 +1078,7 @@
                 </div>
               </div>
             <br>
-            <div class="row" *ngIf="key1LocationTable" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <div class="row" *ngIf="key1LocationTable && 0 < supplycharesteristic.noOfLocation" [ngClass]="{'disableForm':service.allFieldsDisable}">
               <div class="col-sm-12">
                 <h2>Earth electrode details</h2>
                   <div class="table-responsive" style="border: 1px solid black">
@@ -1093,6 +1093,7 @@
                           <th>Depth/ length of earth electrode (m) </th>
                           <th>Electrode resistance to earth (Ω) </th>
                           <th>Electrode resistance to grid (Ω) </th>
+                          
                         </tr>
                       </thead>
                       <tbody formArrayName="location1Arr" *ngFor="let a of getLocation1Controls(); let i = index">
@@ -1142,10 +1143,11 @@
                               placeholder="Enter electrode resistance" >
                               <div *ngIf="submitted && a.get('electrodeResistanceGird')?.errors" class="invalid-feedback">
                                 <div *ngIf="a.get('electrodeResistanceGird')?.errors?.required">Field Is Required</div>
-                              </div></td>
+                              </div>
+                            </td>
+                            <mat-icon class="mousechange" class="dlt" type="button" title="Delete" (click)="removeItem(a,i)" title="Delete" style="margin-top: 15px;font-size: x-large;height: auto;width: auto;">remove_circle_outline</mat-icon>
                         </tr>
-                        
-                      </tbody>
+                      </tbody>  
                     </table>
                   </div>
               </div>
@@ -1289,7 +1291,7 @@
                     info_outline
                    </mat-icon>
                     <p  class="joints">Number Of Joints
-                      <input type="tel" formControlName="bondingNoOfJoints" [readonly]="service.allFieldsDisable"
+                      <input type="number" formControlName="bondingNoOfJoints" [readonly]="service.allFieldsDisable"
                       [(ngModel)]="supplycharesteristic.bondingNoOfJoints" 
                       [ngClass]="{ 'is-invalid': submitted && f.bondingNoOfJoints.errors }" style="
                       width: 50px;
@@ -1302,7 +1304,7 @@
                         <!-- <div *ngIf="f.bondingNoOfJoints?.errors?.min">Please enter value above 0</div> -->
                       </div>
                   </div>
-                  <div class="col-md-4" style="margin-top: 30px" *ngIf="JointLocationTable">
+                  <div class="col-md-4" style="margin-top: 30px" *ngIf="JointLocationTable && 0 < supplycharesteristic.bondingNoOfJoints">
                     <label>Type Of Joint:</label>
                     <mat-icon style="float: right;font-size: 18px;
                     line-height: unset;margin-right: 70%;"
@@ -1331,7 +1333,7 @@
                   <!-- (blur)="update(box.value)" (keyup)="onKey($event)"-->
                 </div>
               </div>
-               <div *ngIf="JointLocationTable"> 
+               <div *ngIf="JointLocationTable && 0 < supplycharesteristic.bondingNoOfJoints"> 
               <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="col-sm-12">
                 <h2>Joint resistance details</h2>
@@ -1386,6 +1388,9 @@
                         <div *ngIf="a.get('jointResistance')?.errors?.required">Joint resistance is required</div>
                       </div>
                     </div>
+            
+                      <mat-icon class="mousechange" class="dlt" type="button" title="Delete" (click)="removeItem1(a,i)" title="Delete" style="font-size: x-large;margin-left: 99%;margin-top: -24px; width: 10%;">remove_circle_outline</mat-icon>
+                   
                   </div>
                 </div>
               </div>
@@ -1454,7 +1459,7 @@
                     class="example-button">
                     info_outline
                    </mat-icon>
-                    <p class="joints">No Of Joints <input type="tel" min="0" formControlName="earthingNoOfJoints" 
+                    <p class="joints">No Of Joints <input type="number" min="0" formControlName="earthingNoOfJoints" 
                     [ngClass]="{ 'is-invalid': submitted && f.earthingNoOfJoints.errors }" [readonly]="service.allFieldsDisable"
                     [(ngModel)]="supplycharesteristic.earthingNoOfJoints" style="
                       width: 50px;
@@ -1466,7 +1471,7 @@
                         <!-- <div *ngIf="f.earthingNoOfJoints?.errors?.min">Please enter value above 0</div> -->
                       </div>
                   </div>
-                  <div class="col-md-4" style="margin-top: 30px" *ngIf=keyJOintLocationTable>
+                  <div class="col-md-4" style="margin-top: 30px" *ngIf="keyJOintLocationTable && 0 < supplycharesteristic.earthingNoOfJoints" >
                     <label>Type Of Joint:</label>
                     <mat-icon style="float: right;font-size: 18px;
                     line-height: unset;margin-right: 70%;"
@@ -1494,7 +1499,7 @@
                   <!-- (keyup)="keyUpJoint($event)" -->
                 </div>
               </div>
-              <div *ngIf=keyJOintLocationTable>
+              <div *ngIf="keyJOintLocationTable && 0 < supplycharesteristic.earthingNoOfJoints">
                 <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                   <div class="col-sm-12">
                   <h2>Location Table</h2>
@@ -1549,6 +1554,9 @@
                           <div *ngIf="a.get('jointResistance')?.errors?.required">Field Is Required</div>
                         </div>
                       </div>
+
+                        <mat-icon class="mousechange" class="dlt" type="button" title="Delete" (click)="removeItem2(a,i)" title="Delete" style="margin-top: -24px;margin-left: 99%;font-size: x-large; width: 10%;">remove_circle_outline</mat-icon>
+
                     </div>
                   </div>
                 </div>

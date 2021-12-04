@@ -1,11 +1,9 @@
-import {ChangeDetectorRef,Component,EventEmitter,OnInit,Output,ElementRef,ViewChild, Input} from '@angular/core';
+import {Component,EventEmitter,OnInit,Output,ElementRef,ViewChild} from '@angular/core';
 import {AbstractControl,FormArray,FormBuilder,FormControl,FormGroup,Validators,} from '@angular/forms';
-import { from } from 'rxjs';
 import {Supplycharacteristics,Supplyparameters,} from '../model/supplycharacteristics';
 import { SupplyCharacteristicsService } from '../services/supply-characteristics.service';
 import { GlobalsService } from '../globals.service';
 import { ActivatedRoute } from '@angular/router';
-import { MatStepper } from '@angular/material/stepper';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SiteService } from '../services/site.service';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
@@ -22,6 +20,7 @@ import { InspectionVerificationBasicInformationComponent } from '../inspection-v
 export class InspectionVerificationSupplyCharacteristicsComponent
   implements OnInit
 {
+
   a: any;
   supplyparameters = new Supplyparameters();
   supplycharesteristic = new Supplycharacteristics();
@@ -42,6 +41,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   location3Arr!: FormArray;
   alternateArr!: FormArray;
   circuitArr!: FormArray;
+  conPusharr: any = [];
   i: any;
   j: any;
   k: any;
@@ -1918,15 +1918,19 @@ showHideAccordion(index: number) {
   // }
 
   onKey1(event: KeyboardEvent) {
+    debugger
     this.values = (<HTMLInputElement>event.target).value;
     this.value = this.values;
     this.location1Arr = this.supplycharesteristicForm.get(
       'location1Arr'
     ) as FormArray;
     if(this.value!=0){
+      debugger
       this.key1LocationTable=true;
     if (this.location1Arr.length == 0) {
+      debugger
       if (this.value != '') {
+        debugger
         for (this.i = 0; this.i < this.value; this.i++) {
           this.location1Arr = this.supplycharesteristicForm.get(
             'location1Arr'
@@ -1936,13 +1940,16 @@ showHideAccordion(index: number) {
       }
     } 
     else if (this.value == '') {
+      debugger
       this.loclength = this.location1Arr.length;
       for (this.i = 1; this.i < this.loclength; this.i++) {
         this.location1Arr.removeAt(this.location1Arr.length - 1);
       }
     } 
     else if (this.location1Arr.length < this.value) {
+      debugger
       if (this.value != '') {
+        debugger
         this.delarr = this.value - this.location1Arr.length;
         for (this.i = 0; this.i < this.delarr; this.i++) {
           this.location1Arr = this.supplycharesteristicForm.get(
@@ -1953,7 +1960,9 @@ showHideAccordion(index: number) {
       }
     } 
     else if (this.location1Arr.length > this.value && this.value != 0) {
+      debugger
       if (this.value != '') {
+        debugger
         this.delarr = this.location1Arr.length - this.value;
         for (this.i = 0; this.i < this.delarr; this.i++) {
           this.location1Arr = this.supplycharesteristicForm.get(
@@ -1964,10 +1973,7 @@ showHideAccordion(index: number) {
       }
     }
   }
-  else{
-    this.key1LocationTable=false;
-    let arr:any=[];
-    this.supplycharesteristicForm.setControl('location1Arr', this.formBuilder.array(arr || []))
+}
 
     // this.f.location1Arr.controls[i].controls['locationNo'].clearValidators();
     //   this.f.location1Arr.controls[i].controls[
@@ -1981,8 +1987,7 @@ showHideAccordion(index: number) {
     //   this.f.location1Arr.controls[i].controls[
     //     'electrodeResistanceEarth'
     //   ].updateValueAndValidity();
-  }
-  }
+    
 
   // jointSafetyRecord(e: any, a: any) {
   //   let changedValue
@@ -3189,4 +3194,22 @@ else{
       );
   }
   }
+
+  removeItem(a:any,index: any) {
+    debugger
+    (this.supplycharesteristicForm.get('location1Arr') as FormArray).removeAt(index);
+    this.supplycharesteristic.noOfLocation = this.supplycharesteristicForm.value.noOfLocation -1;
+   }
+
+   removeItem1(a:any,index: any) {
+    debugger
+    (this.supplycharesteristicForm.get('location2Arr') as FormArray).removeAt(index);
+    this.supplycharesteristic.bondingNoOfJoints = this.supplycharesteristicForm.value.bondingNoOfJoints -1;
+   }
+
+   removeItem2(a:any,index: any) {
+    debugger
+    (this.supplycharesteristicForm.get('location3Arr') as FormArray).removeAt(index);
+    this.supplycharesteristic.earthingNoOfJoints = this.supplycharesteristicForm.value.earthingNoOfJoints -1;
+   }
 }
