@@ -32,6 +32,9 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   table2AC: boolean = false;
   showAlternate: boolean = false;
   location1Arr!: FormArray;
+  locationArr: any = [];
+  boundingArr: any = [];
+  earthingArr: any = [];
   location2Arr!: FormArray;
   arr1: any = [];
   arr2: any = [];
@@ -471,6 +474,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
        this.DcValue = this.step2List.supplyCharacteristics.liveConductorDC;
        this.step2List.liveConductor= this.step2List.supplyCharacteristics.liveConductor;
        this.flag = true;
+       debugger
        this.populateData(this.step2List.supplyCharacteristics);
        this.populateDataComments();
        this.supplycharesteristicForm.patchValue({
@@ -1311,6 +1315,7 @@ populateDataComments() {
       }
        this.supplycharesteristicForm.setControl('viewerCommentArr', this.formBuilder.array(this.arrViewer || []))
        this.supplycharesteristicForm.setControl('completedCommentArr1', this.formBuilder.array(this.completedCommentArr4 || []));
+       this.supplycharesteristicForm.markAsPristine();
 }
 getViewerFirstMessage(x: any) {
   return x.controls.completedCommentArr.controls[0].controls.viewerComments.value;
@@ -1565,7 +1570,7 @@ showHideAccordion(index: number) {
       this.arr2 = [];
       this.arr3 = [];
       this.alArr = [];
-      this.circuitB = []
+      this.circuitB = [];
     }
 
 
@@ -1576,6 +1581,8 @@ showHideAccordion(index: number) {
         jointNo: new FormControl({disabled: false, value: item.jointNo}),
         jointReference: new FormControl({disabled: false ,value: item.jointReference}),
         jointResistance: new FormControl({disabled: false ,value: item.jointResistance}),
+        instalLocationReportStatus: new FormControl({disabled: false ,value: item.instalLocationReportStatus}),
+        
       });
     }
     createGroup1(item: any): FormGroup {
@@ -1589,6 +1596,7 @@ showHideAccordion(index: number) {
         electrodeEarthDepth: new FormControl({disabled: false, value: item.electrodeEarthDepth}),
         electrodeResistanceEarth: new FormControl({disabled: false ,value: item.electrodeResistanceEarth}),
         electrodeResistanceGird: new FormControl({disabled: false ,value: item.electrodeResistanceGird}),
+        instalLocationReportStatus: new FormControl({disabled: false ,value: item.instalLocationReportStatus})
       });
     }
     createGroupAl(item: any): FormGroup {
@@ -1607,6 +1615,7 @@ showHideAccordion(index: number) {
         protectiveDevice: new FormControl({disabled: false ,value: item.protectiveDevice}),
         ratedCurrent: new FormControl({disabled: false ,value: item.ratedCurrent}),
         nominalVoltageArr1: this.formBuilder.array([this.createNominalForm(item.nominalVoltage,item.nominalFrequency,item.faultCurrent,item.loopImpedance,item.installedCapacity,item.actualLoad)]),
+        
       });
     }
     createGroupAl2(item: any): FormGroup {
@@ -1707,6 +1716,7 @@ showHideAccordion(index: number) {
         jointNo: new FormControl('', [Validators.required]),
         jointReference: new FormControl('', [Validators.required]),
         jointResistance: new FormControl('', [Validators.required]),
+        instalLocationReportStatus: new FormControl('A')
       });
     }
 
@@ -1720,6 +1730,7 @@ showHideAccordion(index: number) {
       electrodeEarthDepth: new FormControl('', [Validators.required]),
       electrodeResistanceEarth: new FormControl('', [Validators.required]),
       electrodeResistanceGird: new FormControl(''),
+      instalLocationReportStatus: new FormControl('A')
     });
   }
 
@@ -1729,6 +1740,7 @@ showHideAccordion(index: number) {
       jointNo: new FormControl('', [Validators.required]),
       jointReference: new FormControl('', [Validators.required]),
       jointResistance: new FormControl('', [Validators.required]),
+      instalLocationReportStatus: new FormControl('A')
     });
   }
 
@@ -2808,6 +2820,7 @@ showHideAccordion(index: number) {
     this.nominalCurrentArr = [];
     this.loopImpedenceArr = [];
     this.actualLoadArr = [];
+    //this.locationArr = [];
 
     this.nominalVoltage = '';
     this.nominalFrequency = '';
@@ -3126,16 +3139,25 @@ showHideAccordion(index: number) {
       x.electrodeResistanceGird= 'NA';
     }
   }
+  debugger
     this.supplycharesteristic.instalLocationReport =this.supplycharesteristicForm.value.location1Arr;
-    this.supplycharesteristic.boundingLocationReport =this.supplycharesteristicForm.value.location2Arr;
-    this.supplycharesteristic.earthingLocationReport =this.supplycharesteristicForm.value.location3Arr;
-  
+    this.supplycharesteristic.instalLocationReport = this.supplycharesteristic.instalLocationReport.concat(this.locationArr);
     
+    this.supplycharesteristic.boundingLocationReport =this.supplycharesteristicForm.value.location2Arr;
+    this.supplycharesteristic.boundingLocationReport = this.supplycharesteristic.boundingLocationReport.concat(this.boundingArr);
+
+    this.supplycharesteristic.earthingLocationReport =this.supplycharesteristicForm.value.location3Arr;
+    this.supplycharesteristic.earthingLocationReport = this.supplycharesteristic.earthingLocationReport.concat(this.earthingArr);
+
+    this.locationArr = [];
+    this.boundingArr = [];  
+    this.earthingArr = [];
 
     if(flag) { 
-      if(this.supplycharesteristicForm.dirty){
+      debugger
+      if(this.supplycharesteristicForm.dirty && this.supplycharesteristicForm.touched){
       this.UpateInspectionService.updateSupply(this.supplycharesteristic).subscribe(
-        data=> {
+        (data)=> {
           this.success = true;
           this.service.isCompleted2= true;
           this.service.isLinear=false;
@@ -3145,6 +3167,7 @@ showHideAccordion(index: number) {
           this.service.retrieveMainNominalVoltage=this.retrieveMainNominalVoltage;
           this.service.nominalVoltageArr2=this.supplycharesteristic.supplyParameters;
           this.supplycharesteristicForm.markAsPristine();
+          this.proceedNext.emit(true);
          },
          (error) => {
           this.Error = true;
@@ -3197,19 +3220,52 @@ else{
 
   removeItem(a:any,index: any) {
     debugger
-    (this.supplycharesteristicForm.get('location1Arr') as FormArray).removeAt(index);
-    this.supplycharesteristic.noOfLocation = this.supplycharesteristicForm.value.noOfLocation -1;
+    if(a.value.locationReportId !=0 && a.value.locationReportId !=undefined)
+    {
+      this.supplycharesteristic.noOfLocation = this.supplycharesteristicForm.value.noOfLocation -1;
+      (this.supplycharesteristicForm.get('location1Arr') as FormArray).removeAt(index);
+      a.value.instalLocationReportStatus='R';
+      this.locationArr= this.locationArr.concat(a.value);
+    }
+    else
+    {
+      debugger
+      this.supplycharesteristic.noOfLocation = this.supplycharesteristicForm.value.noOfLocation -1;
+      (this.supplycharesteristicForm.get('location1Arr') as FormArray).removeAt(index);
+    }
    }
-
+   
    removeItem1(a:any,index: any) {
     debugger
-    (this.supplycharesteristicForm.get('location2Arr') as FormArray).removeAt(index);
-    this.supplycharesteristic.bondingNoOfJoints = this.supplycharesteristicForm.value.bondingNoOfJoints -1;
+    if(a.value.locationReportId !=0 && a.value.locationReportId !=undefined)
+    {
+      this.supplycharesteristic.bondingNoOfJoints = this.supplycharesteristicForm.value.bondingNoOfJoints -1;
+      (this.supplycharesteristicForm.get('location2Arr') as FormArray).removeAt(index);
+      a.value.instalLocationReportStatus='R';
+      this.boundingArr= this.boundingArr.concat(a.value);
+    }
+    else
+    {
+      debugger
+      this.supplycharesteristic.bondingNoOfJoints = this.supplycharesteristicForm.value.bondingNoOfJoints -1;
+      (this.supplycharesteristicForm.get('location2Arr') as FormArray).removeAt(index);
+    }
    }
 
    removeItem2(a:any,index: any) {
     debugger
-    (this.supplycharesteristicForm.get('location3Arr') as FormArray).removeAt(index);
-    this.supplycharesteristic.earthingNoOfJoints = this.supplycharesteristicForm.value.earthingNoOfJoints -1;
+    if(a.value.locationReportId !=0 && a.value.locationReportId !=undefined)
+    {
+      this.supplycharesteristic.earthingNoOfJoints = this.supplycharesteristicForm.value.earthingNoOfJoints -1;
+      (this.supplycharesteristicForm.get('location3Arr') as FormArray).removeAt(index);
+      a.value.instalLocationReportStatus='R';
+      this.earthingArr= this.earthingArr.concat(a.value);
+    }
+    else
+    {
+      debugger
+      this.supplycharesteristic.earthingNoOfJoints = this.supplycharesteristicForm.value.earthingNoOfJoints -1;
+      (this.supplycharesteristicForm.get('location3Arr') as FormArray).removeAt(index);
+    }
    }
 }

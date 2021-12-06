@@ -84,6 +84,7 @@ export class Supplycharacteristics {
 
   export class InstallLocationReport{
     locationReportId: number;
+    instalLocationReportStatus: String;
     locationNo:String;
     locationName:String;
     electrodeResistanceEarth:String;
@@ -92,6 +93,7 @@ export class Supplycharacteristics {
 
   export class BoundingLocationReport{
     locationReportId: number;
+    instalLocationReportStatus: String;
     location:String;
     jointNo:String;
     jointReference:String;
@@ -100,6 +102,7 @@ export class Supplycharacteristics {
 
   export class EarthingLocationReport{  
     locationReportId: number;
+    instalLocationReportStatus: String;
     location:String;
     jointNo:String;
     jointReference:String;
