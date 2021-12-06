@@ -3226,12 +3226,15 @@ else{
       (this.supplycharesteristicForm.get('location1Arr') as FormArray).removeAt(index);
       a.value.instalLocationReportStatus='R';
       this.locationArr= this.locationArr.concat(a.value);
+      this.supplycharesteristicForm.markAsDirty();
     }
     else
     {
       debugger
       this.supplycharesteristic.noOfLocation = this.supplycharesteristicForm.value.noOfLocation -1;
       (this.supplycharesteristicForm.get('location1Arr') as FormArray).removeAt(index);
+      debugger
+      this.supplycharesteristicForm.markAsDirty();
     }
    }
    
@@ -3243,12 +3246,14 @@ else{
       (this.supplycharesteristicForm.get('location2Arr') as FormArray).removeAt(index);
       a.value.instalLocationReportStatus='R';
       this.boundingArr= this.boundingArr.concat(a.value);
+      this.supplycharesteristicForm.markAsDirty();
     }
     else
     {
       debugger
       this.supplycharesteristic.bondingNoOfJoints = this.supplycharesteristicForm.value.bondingNoOfJoints -1;
       (this.supplycharesteristicForm.get('location2Arr') as FormArray).removeAt(index);
+      this.supplycharesteristicForm.markAsDirty();
     }
    }
 
@@ -3260,12 +3265,14 @@ else{
       (this.supplycharesteristicForm.get('location3Arr') as FormArray).removeAt(index);
       a.value.instalLocationReportStatus='R';
       this.earthingArr= this.earthingArr.concat(a.value);
+      this.supplycharesteristicForm.markAsDirty();
     }
     else
     {
       debugger
       this.supplycharesteristic.earthingNoOfJoints = this.supplycharesteristicForm.value.earthingNoOfJoints -1;
       (this.supplycharesteristicForm.get('location3Arr') as FormArray).removeAt(index);
+      this.supplycharesteristicForm.markAsDirty();
     }
    }
 }
