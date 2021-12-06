@@ -146,6 +146,7 @@ export class InspectionVerificationIncomingEquipmentComponent
   modalReference: any;
   tabErrorMsg: string="";
   tabError: boolean = false;
+  deletedArr: any = [];
   //comments end
 
   constructor(
@@ -182,6 +183,7 @@ export class InspectionVerificationIncomingEquipmentComponent
     //  }
         this.step3List = JSON.parse(data);
         this.inspectionDetails.siteId = siteId;
+        this.deletedArr = [];
         this.inspectionDetails.periodicInspectionId = this.step3List.periodicInspection.periodicInspectionId;
         this.inspectionDetails.createdBy = this.step3List.periodicInspection.createdBy;
         this.inspectionDetails.createdDate  = this.step3List.periodicInspection.createdDate;
@@ -196,6 +198,7 @@ export class InspectionVerificationIncomingEquipmentComponent
     //  }
         this.step3List = JSON.parse(data);
         this.inspectionDetails.siteId = siteId;
+        this.deletedArr = [];
         this.inspectionDetails.periodicInspectionId = this.step3List.periodicInspectionId;
         this.inspectionDetails.createdBy = this.step3List.createdBy;
         this.inspectionDetails.createdDate  = this.step3List.createdDate;
@@ -660,6 +663,7 @@ showHideAccordion(index: number) {
       isolationCurrent: this._formBuilder.array([
         this.populateIsolationCurrentForm(item.isolationCurrent),
       ]),
+      inspectionFlag: new FormControl(item.inspectionFlag),
     });
   }
 
@@ -975,7 +979,7 @@ showHideAccordion(index: number) {
       isolationCurrent: this._formBuilder.array([
         this.createisolationCurrentForm(),
       ]),
-     
+      inspectionFlag: new FormControl('A'),
     });
   }
 
@@ -983,6 +987,14 @@ showHideAccordion(index: number) {
     this.ChangeDetectorRef.detectChanges();
   }
   removeItem(index: any) {
+    if(this.flag) {
+      if(this.addstep3.value.incomingArr[index].ipaoInspectionId != 0 
+        && this.addstep3.value.incomingArr[index].ipaoInspectionId != '' 
+         && this.addstep3.value.incomingArr[index].ipaoInspectionId != undefined ) {
+          this.addstep3.value.incomingArr[index].inspectionFlag = 'R';
+          this.deletedArr.push(this.addstep3.value.incomingArr[index]);
+         }
+    }
     (this.addstep3.get('incomingArr') as FormArray).removeAt(index);
   }
   onChangeForm(event:any){
@@ -1106,6 +1118,11 @@ showHideAccordion(index: number) {
 
     if(flag) {
       if(this.addstep3.dirty){
+      if(this.deletedArr.length != 0) {
+        for(let i of this.deletedArr) {
+          this.inspectionDetails.ipaoInspection.push(i);
+        }
+      }
       this.UpateInspectionService.updateIncoming(this.inspectionDetails).subscribe(
         data=> {
           this.success = true;

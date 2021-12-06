@@ -2130,6 +2130,8 @@
 </mat-accordion>
 </div>
  
+<mat-icon class="mousechange" *ngIf="getIncomingControls().length > 1" (click)="removeItem(i)"
+  style="float:right;margin: 0px 15px 0px 15px;">delete</mat-icon>
 </div>
 
 <mat-accordion>
@@ -2308,8 +2310,8 @@
  </mat-expansion-panel>
  <!-- completed comments end-->
  </mat-accordion>
- <mat-icon class="mousechange" *ngIf="getIncomingControls().length > 1" (click)="removeItem(i)"
-  style="float:right;margin: 0px 15px 0px 15px;">delete</mat-icon>
+ <!-- <mat-icon class="mousechange" *ngIf="getIncomingControls().length > 1" (click)="removeItem(i)"
+  style="float:right;margin: 0px 15px 0px 15px;">delete</mat-icon> -->
 <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
   <span class="alert alert-danger">{{validationErrorMsg}}</span>
 </div>
