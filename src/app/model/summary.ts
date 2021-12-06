@@ -26,6 +26,7 @@ export class summaryObervation {
     observations!: String;
     referanceNumberReport!: String;
     furtherActions!: number;
+    obervationStatus!: String;
     comment!: String;
 }
 export class  summaryDeclaration{

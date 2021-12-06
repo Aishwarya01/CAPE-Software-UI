@@ -212,6 +212,7 @@ export class SummaryComponent implements OnInit {
   //@ViewChild('picker',{static:false}) picker!: ElementRef;
   @ViewChild('ref', { read: ViewContainerRef })
   viewContainerRef!: ViewContainerRef;
+  deletedArr: any = [];
   
   constructor(
     private _formBuilder: FormBuilder,
@@ -750,6 +751,7 @@ showHideAccordion(index: number) {
         furtherActions: new FormControl({disabled: false,value: item.furtherActions}),
         referanceNumberReport: new FormControl({disabled: false,value: item.referanceNumberReport}),
         recommendationsDate: new FormControl({disabled: false,value: item.recommendationsDate}),
+        obervationStatus: new FormControl({disabled: false,value: item.obervationStatus}),
         //comment: new FormControl({disabled: false,value: item.comment}),
       });
     }
@@ -786,6 +788,7 @@ showHideAccordion(index: number) {
       furtherActions: new FormControl('', Validators.required),
       referanceNumberReport: new FormControl('', Validators.required),
       recommendationsDate: new FormControl('', Validators.required),
+      obervationStatus: new FormControl('A'),
       //comment: new FormControl('', Validators.required),
     });
   }
@@ -842,6 +845,14 @@ showHideAccordion(index: number) {
   }
 
   removeObservations(index: any) {
+    if(this.flag) {
+      if(this.addsummary.value.ObservationsArr[index].observationsId!= 0 
+        && this.addsummary.value.ObservationsArr[index].observationsId != '' 
+         && this.addsummary.value.ObservationsArr[index].observationsId != undefined ) {
+          this.addsummary.value.ObservationsArr[index].obervationStatus = 'R';
+          this.deletedArr.push(this.addsummary.value.ObservationsArr[index]);
+         }
+    }
     (this.addsummary.get('ObservationsArr') as FormArray).removeAt(index);
   }
 
@@ -995,6 +1006,11 @@ showHideAccordion(index: number) {
 
     if(flag) {
       if(this.addsummary.dirty){
+        if(this.deletedArr.length != 0) {
+          for(let i of this.deletedArr) {
+            this.summary.summaryObervation.push(i);
+          }
+        }
       this.UpateInspectionService.updateSummary(this.summary).subscribe(
         data=> {
           this.success = true;
