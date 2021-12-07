@@ -1315,7 +1315,7 @@ populateDataComments() {
       }
        this.supplycharesteristicForm.setControl('viewerCommentArr', this.formBuilder.array(this.arrViewer || []))
        this.supplycharesteristicForm.setControl('completedCommentArr1', this.formBuilder.array(this.completedCommentArr4 || []));
-       this.supplycharesteristicForm.markAsPristine();
+       //this.supplycharesteristicForm.markAsPristine();
 }
 getViewerFirstMessage(x: any) {
   return x.controls.completedCommentArr.controls[0].controls.viewerComments.value;
@@ -1581,7 +1581,7 @@ showHideAccordion(index: number) {
         jointNo: new FormControl({disabled: false, value: item.jointNo}),
         jointReference: new FormControl({disabled: false ,value: item.jointReference}),
         jointResistance: new FormControl({disabled: false ,value: item.jointResistance}),
-        instalLocationReportStatus: new FormControl({disabled: false ,value: item.instalLocationReportStatus}),
+        instalLocationReportStatus: new FormControl({disabled: false,value: item.instalLocationReportStatus}),
         
       });
     }
@@ -3153,9 +3153,16 @@ showHideAccordion(index: number) {
     this.boundingArr = [];  
     this.earthingArr = [];
 
+    // if(this.locationArr.length != 0) {
+    //   debugger
+    //   for(let i of this.locationArr) {
+    //     this.supplycharesteristic.instalLocationReport.push(i);
+    //   }
+    // }
+
     if(flag) { 
       debugger
-      if(this.supplycharesteristicForm.dirty && this.supplycharesteristicForm.touched){
+      if(this.supplycharesteristicForm.dirty){
       this.UpateInspectionService.updateSupply(this.supplycharesteristic).subscribe(
         (data)=> {
           this.success = true;
@@ -3167,7 +3174,7 @@ showHideAccordion(index: number) {
           this.service.retrieveMainNominalVoltage=this.retrieveMainNominalVoltage;
           this.service.nominalVoltageArr2=this.supplycharesteristic.supplyParameters;
           this.supplycharesteristicForm.markAsPristine();
-          this.proceedNext.emit(true);
+          //this.proceedNext.emit(true);
          },
          (error) => {
           this.Error = true;
@@ -3220,6 +3227,7 @@ else{
 
   removeItem(a:any,index: any) {
     debugger
+    this.supplycharesteristicForm.markAsTouched();
     if(a.value.locationReportId !=0 && a.value.locationReportId !=undefined)
     {
       this.supplycharesteristic.noOfLocation = this.supplycharesteristicForm.value.noOfLocation -1;
@@ -3227,19 +3235,21 @@ else{
       a.value.instalLocationReportStatus='R';
       this.locationArr= this.locationArr.concat(a.value);
       this.supplycharesteristicForm.markAsDirty();
+      
     }
     else
     {
       debugger
+      this.supplycharesteristicForm.markAsTouched();
       this.supplycharesteristic.noOfLocation = this.supplycharesteristicForm.value.noOfLocation -1;
       (this.supplycharesteristicForm.get('location1Arr') as FormArray).removeAt(index);
-      debugger
       this.supplycharesteristicForm.markAsDirty();
     }
    }
    
    removeItem1(a:any,index: any) {
     debugger
+    this.supplycharesteristicForm.markAsTouched();
     if(a.value.locationReportId !=0 && a.value.locationReportId !=undefined)
     {
       this.supplycharesteristic.bondingNoOfJoints = this.supplycharesteristicForm.value.bondingNoOfJoints -1;
@@ -3250,6 +3260,7 @@ else{
     }
     else
     {
+      this.supplycharesteristicForm.markAsTouched();
       debugger
       this.supplycharesteristic.bondingNoOfJoints = this.supplycharesteristicForm.value.bondingNoOfJoints -1;
       (this.supplycharesteristicForm.get('location2Arr') as FormArray).removeAt(index);
@@ -3259,6 +3270,7 @@ else{
 
    removeItem2(a:any,index: any) {
     debugger
+    this.supplycharesteristicForm.markAsTouched();
     if(a.value.locationReportId !=0 && a.value.locationReportId !=undefined)
     {
       this.supplycharesteristic.earthingNoOfJoints = this.supplycharesteristicForm.value.earthingNoOfJoints -1;
@@ -3269,6 +3281,7 @@ else{
     }
     else
     {
+      this.supplycharesteristicForm.markAsTouched();
       debugger
       this.supplycharesteristic.earthingNoOfJoints = this.supplycharesteristicForm.value.earthingNoOfJoints -1;
       (this.supplycharesteristicForm.get('location3Arr') as FormArray).removeAt(index);
