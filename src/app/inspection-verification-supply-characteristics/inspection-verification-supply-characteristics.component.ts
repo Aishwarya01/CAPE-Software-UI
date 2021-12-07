@@ -3193,6 +3193,9 @@ else{
           this.successMsg = data;
           //this.disable = true;
           //this.service.allFieldsDisable = true;
+          this.service.isCompleted2= true;
+          this.service.isLinear=false;
+          this.supplycharesteristicForm.markAsPristine();
           this.service.supplyList= this.supplycharesteristic.supplyNumber;
           this.service.retrieveMainNominalVoltage=this.mainNominalArr;
           this.service.retrieveMainNominalVoltage=this.retrieveMainNominalVoltage;

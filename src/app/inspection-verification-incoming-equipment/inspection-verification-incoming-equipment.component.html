@@ -30,6 +30,9 @@
                 <div *ngIf="a.get('locationName')?.errors?.required">Location name is required</div>
             </div> 
         </div>
+
+        <mat-icon class="mousechange" class="dlt" type="button" title="Delete" *ngIf="getIncomingControls().length > 1" (click)="removeItem(i)"title="Delete" style="position: relative; top: 34px; left: 27%;">remove_circle_outline</mat-icon>
+
       </div>
   </div>
 </div>
@@ -2130,8 +2133,10 @@
 </mat-accordion>
 </div>
  
-<mat-icon class="mousechange" *ngIf="getIncomingControls().length > 1" (click)="removeItem(i)"
-  style="float:right;margin: 0px 15px 0px 15px;">delete</mat-icon>
+<!-- <mat-icon class="mousechange" *ngIf="getIncomingControls().length > 1" (click)="removeItem(i)"
+  style="float:right;margin: 0px 15px 0px 15px;">delete</mat-icon> -->
+
+
 </div>
 
 <mat-accordion>

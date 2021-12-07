@@ -1424,7 +1424,7 @@ showHideAccordion(index: number) {
   }
 
   removeDesigner() {
-    this.step1Form.markAsDirty();
+    this.step1Form.markAsTouched();
     this.showDesigner2= false;
     this.showAddButton= true;
     this.f.designer2Arr.controls[0].controls['personName'].clearValidators();
@@ -1474,6 +1474,7 @@ showHideAccordion(index: number) {
       }
       
     }
+    this.step1Form.markAsDirty();
 
     return (<FormArray> this.step1Form.get('designer2Arr')).reset();
   }
@@ -1848,29 +1849,32 @@ showHideAccordion(index: number) {
   
 
       // designer 2
-      if((this.step1Form.value.designer2Arr[0].personContactNo).includes("+"))
-      {
-       let arr3=[];
-       arr3= this.step1Form.value.designer2Arr[0].personContactNo.split('-');
-       this.step1Form.value.designer2Arr[0].personContactNo = arr3[1];
-       this.step1Form.value.designer2Arr[0].personContactNo= "+" + this.countryCode2 + "-" + this.step1Form.value.designer2Arr[0].personContactNo;
-      }
-      else{
-        this.step1Form.value.designer2Arr[0].personContactNo= "+" + this.countryCode2 + "-" + this.step1Form.value.designer2Arr[0].personContactNo;
+      if(this.step1Form.value.designer2Arr[0].personContactNo != "" && this.step1Form.value.designer2Arr[0].personContactNo != null) {
+        if((this.step1Form.value.designer2Arr[0].personContactNo).includes("+"))
+        {
+          let arr3=[];
+          arr3= this.step1Form.value.designer2Arr[0].personContactNo.split('-');
+          this.step1Form.value.designer2Arr[0].personContactNo = arr3[1];
+          this.step1Form.value.designer2Arr[0].personContactNo= "+" + this.countryCode2 + "-" + this.step1Form.value.designer2Arr[0].personContactNo;
+        }
+          else{
+            this.step1Form.value.designer2Arr[0].personContactNo= "+" + this.countryCode2 + "-" + this.step1Form.value.designer2Arr[0].personContactNo;
+          }
       }      
-
-      if((this.step1Form.value.designer2Arr[0].managerContactNo).includes("+"))
-      {
-       let arr4=[];
-       arr4= this.step1Form.value.designer2Arr[0].managerContactNo.split('-');
-       this.step1Form.value.designer2Arr[0].managerContactNo = arr4[1];
-       this.step1Form.value.designer2Arr[0].managerContactNo= "+" + this.countryCode3 + "-" + this.step1Form.value.designer2Arr[0].managerContactNo;
+      
+      if(this.step1Form.value.designer2Arr[0].managerContactNo != "" && this.step1Form.value.designer2Arr[0].managerContactNo != null) {
+        if((this.step1Form.value.designer2Arr[0].managerContactNo).includes("+"))
+        {
+          let arr4=[];
+          arr4= this.step1Form.value.designer2Arr[0].managerContactNo.split('-');
+          this.step1Form.value.designer2Arr[0].managerContactNo = arr4[1];
+          this.step1Form.value.designer2Arr[0].managerContactNo= "+" + this.countryCode3 + "-" + this.step1Form.value.designer2Arr[0].managerContactNo;
+        }
+          else{
+            this.step1Form.value.designer2Arr[0].managerContactNo= "+" + this.countryCode3 + "-" + this.step1Form.value.designer2Arr[0].managerContactNo;
+          }   
       }
-      else{
-        this.step1Form.value.designer2Arr[0].managerContactNo= "+" + this.countryCode3 + "-" + this.step1Form.value.designer2Arr[0].managerContactNo;
-      }      
-  
-
+         
       //contractor
       if((this.step1Form.value.contractorArr[0].personContactNo).includes("+"))
       {
@@ -1916,7 +1920,7 @@ showHideAccordion(index: number) {
       this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.value.contractorArr,this.step1Form.value.inspectorArr);
     }
     else {
-      if(this.step1Form.value.designer2Arr[0].signatorId == null && this.step1Form.value.designer2Arr[0].personContactNo != '') {
+      if(this.step1Form.value.designer2Arr[0].signatorId == null && this.step1Form.value.designer2Arr[0].personContactNo != '' && this.step1Form.value.designer2Arr[0].personContactNo != null) {
         // designer 2
         if((this.step1Form.value.designer2Arr[0].personContactNo).includes("+"))
         {
@@ -1954,7 +1958,7 @@ showHideAccordion(index: number) {
     }
   
     if(flag){
-      if(this.step1Form.dirty){
+      if(this.step1Form.dirty || this.step1Form.touched){
         if(this.deletedArr.length != 0) {
           for(let i of this.deletedArr) {
             this.reportDetails.signatorDetails.push(i);
@@ -1986,6 +1990,9 @@ showHideAccordion(index: number) {
        this.proceedNext.emit(true);
        this.success = true;
        this.successMsg = data;
+       this.service.isCompleted= true;
+       this.service.isLinear=false;
+       this.step1Form.markAsPristine();
        this.reportDetailsService.retrieveBasic(this.reportDetails.siteId,this.reportDetails.userName).subscribe(
          data=>{
           this.retrieveAllDetailsforBasic(this.reportDetails.userName,this.reportDetails.siteId,this.siteValue,data);

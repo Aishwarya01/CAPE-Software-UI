@@ -791,8 +791,9 @@
               </div>
 
               <div *ngIf="showDesigner2">
+                <mat-icon class="mousechange" class="dlt" type="button" title="Delete" (click)="removeDesigner()" title="Delete" style="float:right; padding-right: 37px; padding-top: 10px;">remove_circle_outline</mat-icon>
 
-                <mat-icon class="mousechange"  (click)="removeDesigner()" style="float:right; padding-right: 37px; padding-top: 10px;">delete</mat-icon>
+                <!-- <mat-icon class="mousechange"  (click)="removeDesigner()" style="">delete</mat-icon> -->
 
                 <div formArrayName="designer2Arr" *ngFor="let a of getDesigner2Controls(); let i = index">
                   <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">

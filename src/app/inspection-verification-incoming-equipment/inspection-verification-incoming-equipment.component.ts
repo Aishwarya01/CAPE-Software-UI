@@ -1146,6 +1146,9 @@ showHideAccordion(index: number) {
         (data: any) => {
           this.proceedNext.emit(true);
           this.success = true;
+          this.service.isCompleted3= true;
+          this.service.isLinear=false;
+          this.addstep3.markAsPristine();
           this.successMsg = 'Incoming Equipment Successfully Saved';
           this.inspectionDetailsService.retrieveInspectionDetails(this.inspectionDetails.userName,this.inspectionDetails.siteId).subscribe(
             data=>{
