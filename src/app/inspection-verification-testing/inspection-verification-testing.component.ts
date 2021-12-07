@@ -927,7 +927,7 @@ callValue(e: any) {
       // earthElectrodeResistance: new FormControl({ disabled: false, value: item.earthElectrodeResistance }),
       testingEquipment: this.formBuilder.array(this.populateTestInstrumentForm(item.testingEquipment)),
       testDistribution: this.formBuilder.array([this.populateTestDistributionForm(item.testDistribution)]),
-      testingRecords: this.formBuilder.array(this.populateTestRecordsForm(item.testingRecords)),
+      testingRecords: this.formBuilder.array(this.populateTestRecordsForm(item.testingRecords,item.testingId)),
       testingStatus: new FormControl(item.testingStatus),
     });
   }
@@ -1100,7 +1100,7 @@ callValue(e: any) {
      
     });
   }
-  private populateTestRecordsForm(testRecordsItem: any) {
+  private populateTestRecordsForm(testRecordsItem: any,testingId: any) {
 
     let disconnectionTimeArr = [];
     let testFaultCurrentArr = [];
@@ -1116,7 +1116,7 @@ callValue(e: any) {
       testVoltageArr = item.testVoltage.split(",");
       insulationResistanceArr = item.insulationResistance.split(",");
 
-      this.testingRecordTableArr.push(this.pushTestingTable(item, disconnectionTimeArr, testFaultCurrentArr, testLoopImpedanceArr, testVoltageArr, insulationResistanceArr))
+      this.testingRecordTableArr.push(this.pushTestingTable(item, disconnectionTimeArr, testFaultCurrentArr, testLoopImpedanceArr, testVoltageArr, insulationResistanceArr,testingId))
     }
 
     // let item = [];
@@ -1124,8 +1124,9 @@ callValue(e: any) {
     return this.testingRecordTableArr
   }
 
-  pushTestingTable(itemTestingValue: any, disconnectionTimeArr: any, testFaultCurrentArr: any, testLoopImpedanceArr: any, testVoltageArr: any, insulationResistanceArr: any): FormGroup {
+  pushTestingTable(itemTestingValue: any, disconnectionTimeArr: any, testFaultCurrentArr: any, testLoopImpedanceArr: any, testVoltageArr: any, insulationResistanceArr: any, testingId: any): FormGroup {
     return new FormGroup({
+      testingId: new FormControl({ disabled: false, value: testingId }),
       testingRecordId: new FormControl({ disabled: false, value: itemTestingValue.testingRecordId }),
       circuitNo: new FormControl({ disabled: false, value: itemTestingValue.circuitNo }),
       circuitDesc: new FormControl({ disabled: false, value: itemTestingValue.circuitDesc }),
