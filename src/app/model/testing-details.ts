@@ -25,6 +25,7 @@ export class Testing{
   testingEquipment!:TestingEquipment[];
   testDistribution!:TestDistribution[];
   testingRecords!: TestingRecords[];
+  testingStatus!: String;
 }
 
 export class TestingEquipment {
@@ -88,7 +89,7 @@ export class TestingRecords {
   rcdOperatingFiveCurrent!: String;
   testButtonOperation!: String;
   rcdRemarks!: String;
-
+  testingRecordStatus!: String;
 }
 
 export class TestIncomingDistribution {
@@ -100,4 +101,3 @@ export class TestIncomingDistribution {
   sourceFromSupply!: String;
  
 }
-  
