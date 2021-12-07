@@ -1478,6 +1478,7 @@ callValue(e: any) {
   private createtestValuePushForm(value: any): FormGroup {
 
     return new FormGroup({
+      testingId: new FormControl(''),
       testingRecordId: new FormControl(''),
       circuitNo: new FormControl(''),
       circuitDesc: new FormControl(''),
