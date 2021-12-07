@@ -234,6 +234,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   testingRecordTableArr1: any=[];
   testingAlternateRecords1: any = [];
   testList1: any = [];
+  deletedTestingRecord: any = [];
   
   constructor(
     private testingService: TestingService,
@@ -927,6 +928,7 @@ callValue(e: any) {
       testingEquipment: this.formBuilder.array(this.populateTestInstrumentForm(item.testingEquipment)),
       testDistribution: this.formBuilder.array([this.populateTestDistributionForm(item.testDistribution)]),
       testingRecords: this.formBuilder.array(this.populateTestRecordsForm(item.testingRecords)),
+      testingStatus: new FormControl(item.testingStatus),
     });
   }
   private populateTestInstrumentForm(testEquipmentItem: any) {
@@ -1209,6 +1211,8 @@ callValue(e: any) {
       rcdTestButtonOperation: new FormControl({ disabled: false, value: itemTestingValue.rcdTestButtonOperation }),
       rcdRemarks: new FormControl({ disabled: false, value: itemTestingValue.rcdRemarks }),
       testingRecordsSourceSupply: this.formBuilder.array(this.populateTestSourceSupplyForm(itemTestingValue)),
+      testingRecordStatus: new FormControl(itemTestingValue.testingRecordStatus),
+
     });
   }
   populateTestSourceSupplyForm(itemTestingValue: any) {
@@ -1466,12 +1470,14 @@ callValue(e: any) {
       testingRecordsSourceSupply: this.formBuilder.array([
         // this.createValue(),
       ]),
+      testingRecordStatus: new FormControl('A'),
     });
   }
 
   private createtestValuePushForm(value: any): FormGroup {
 
     return new FormGroup({
+      testingRecordId: new FormControl(''),
       circuitNo: new FormControl(''),
       circuitDesc: new FormControl(''),
       circuitMake: new FormControl(''),
@@ -1550,6 +1556,7 @@ callValue(e: any) {
       rcdTestButtonOperation: new FormControl(''),
       rcdRemarks: new FormControl(''),
       testingRecordsSourceSupply: this.formBuilder.array(this.pushData(value)),
+      testingRecordStatus: new FormControl('A'),
     });
   }
 
@@ -1666,15 +1673,17 @@ callValue(e: any) {
           this.rateArr.push(this.ratingAmps());
         }
       }
-    } else if (this.value == '') {
-      this.loclength = this.testingRecords.length;
-      this.loclength = this.rateArr.length;
+    } 
+    // else if (this.value == '') {
+    //   this.loclength = this.testingRecords.length;
+    //   this.loclength = this.rateArr.length;
 
-      for (this.i = 1; this.i < this.loclength; this.i++) {
-        this.testingRecords.removeAt(this.testingRecords.length - 1);
-        this.rateArr.removeAt(this.rateArr.length - 1);
-      }
-    } else if (
+    //   for (this.i = 1; this.i < this.loclength; this.i++) {
+    //     this.testingRecords.removeAt(this.testingRecords.length - 1);
+    //     this.rateArr.removeAt(this.rateArr.length - 1);
+    //   }
+    // } 
+    else if (
       this.testingRecords.length < this.value &&
       this.rateArr.length < this.value
     ) {
@@ -1696,6 +1705,12 @@ callValue(e: any) {
         this.delarr = this.rateArr.length - this.value;
 
         for (this.i = 0; this.i < this.delarr; this.i++) {
+          if(this.flag && this.testingRecords.value[this.testingRecords.length - 1].testingRecordId != 0 
+              && this.testingRecords.value[this.testingRecords.length - 1] != '' 
+               && this.testingRecords.value[this.testingRecords.length - 1] != undefined) {
+                 this.testingRecords.value[this.testingRecords.length - 1].testingRecordStatus = 'R';
+                 this.deletedTestingRecord.push(this.testingRecords.value[this.testingRecords.length - 1]);
+               }         
           this.testingRecords.removeAt(this.testingRecords.length - 1);
           this.rateArr.removeAt(this.rateArr.length - 1);
         }
@@ -1724,6 +1739,7 @@ callValue(e: any) {
         this.createtestDistributionForm(),
       ]),
       testingRecords: this.formBuilder.array([this.createtestValueForm()]),
+      testingStatus: ['A'],
     });
   }
   addDesigner(a:any) {
@@ -2836,6 +2852,9 @@ callValue(e: any) {
           // show success message ofter click button
           this.success = true;
           this.successMsg = data;
+          this.service.isCompleted4= true;
+          this.service.isLinear=false;
+          this.testingForm.markAsPristine();
           this.testingService.retrieveTesting(this.testingDetails.siteId,this.testingDetails.userName).subscribe(
             data=>{
              this.retrieveDetailsforTesting(this.testingDetails.userName,this.testingDetails.siteId,data);
