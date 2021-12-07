@@ -845,13 +845,16 @@ showHideAccordion(index: number) {
   }
 
   removeObservations(index: any) {
+    this.addsummary.markAsDirty();
     if(this.flag) {
+      this.addsummary.markAsTouched();
       if(this.addsummary.value.ObservationsArr[index].observationsId!= 0 
         && this.addsummary.value.ObservationsArr[index].observationsId != '' 
          && this.addsummary.value.ObservationsArr[index].observationsId != undefined ) {
           this.addsummary.value.ObservationsArr[index].obervationStatus = 'R';
           this.deletedArr.push(this.addsummary.value.ObservationsArr[index]);
          }
+  
     }
     (this.addsummary.get('ObservationsArr') as FormArray).removeAt(index);
   }
