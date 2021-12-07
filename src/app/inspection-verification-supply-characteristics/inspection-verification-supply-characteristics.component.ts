@@ -3109,16 +3109,11 @@ showHideAccordion(index: number) {
         this.supplycharesteristic.supplyParameters =this.supplycharesteristicForm.value.alternateArr;
       }
 
-      if (
-        this.circuitArr.value[0].location != null &&
-        this.circuitArr.length != 0
-      ) {
-        this.supplycharesteristic.circuitBreaker =
-          this.supplycharesteristicForm.value.circuitArr;
-      }
+      
 
     
     }
+    this.supplycharesteristic.circuitBreaker = this.supplycharesteristicForm.value.circuitArr;
     
     if (this.supplycharesteristic.liveConductorType != 'DC') {
       this.supplycharesteristic.mainNominalVoltage = this.nominalVoltage;
