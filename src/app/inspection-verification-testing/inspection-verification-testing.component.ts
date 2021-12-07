@@ -235,6 +235,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   testingAlternateRecords1: any = [];
   testList1: any = [];
   deletedTestingRecord: any = [];
+  deletedTestingEquipment: any= [];
   
   constructor(
     private testingService: TestingService,
@@ -301,6 +302,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
           for (let j = 0; j < this.testaccordianArr.controls.length; j++) {
             this.testaccordianArr.value[j].locationNumber = this.service.iterationList[j].locationNumber;
             this.testaccordianArr.value[j].locationName = this.service.iterationList[j].locationName;
+            this.testaccordianArr.value[j].locationCount = this.service.iterationList[j].locationCount;
           }
           this.location.locationArr = this.service.iterationList;
           this.service.iterationList = [];
@@ -327,6 +329,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
           for (let j = 0; j < this.testaccordianArr.controls.length; j++) {
             this.testaccordianArr.value[j].locationNumber = this.service.iterationList[j].locationNumber;
             this.testaccordianArr.value[j].locationName = this.service.iterationList[j].locationName;
+            this.testaccordianArr.value[j].locationCount = this.service.iterationList[j].locationCount;
           }
           this.location.locationArr = this.service.iterationList;
           this.service.iterationList = [];
@@ -915,6 +918,7 @@ callValue(e: any) {
       testingId: new FormControl({ disabled: false, value: item.testingId }),
       locationNumber: new FormControl({ disabled: false, value: item.locationNumber }),
       locationName: new FormControl({ disabled: false, value: item.locationName }),
+      locationCount: new FormControl({ disabled: false, value: item.locationCount }),
       testEngineerName: new FormControl({ disabled: false, value: item.testEngineerName }),
       date: new FormControl({ disabled: false, value: item.date }),
       companyName: new FormControl({ disabled: false, value: item.companyName }),
@@ -947,6 +951,7 @@ callValue(e: any) {
       equipmentModel: new FormControl({ disabled: false, value: testingEquipmentItem.equipmentModel }),
       equipmentSerialNo: new FormControl({ disabled: false, value: testingEquipmentItem.equipmentSerialNo }),
       equipmentCalibrationDueDate: new FormControl({ disabled: false, value: latest_date }),
+      testingEquipmentStatus: new FormControl(testingEquipmentItem.testingEquipmentStatus),
     });
   }
 
@@ -1724,6 +1729,7 @@ callValue(e: any) {
     return this.formBuilder.group({
       locationNumber: ['', Validators.required],
       locationName: ['', Validators.required],
+      locationCount: [''],
       testEngineerName: ['', Validators.required],
       date: ['', Validators.required],
       companyName: ['', Validators.required],
@@ -1750,16 +1756,22 @@ callValue(e: any) {
   }
   removeItem(a: any,j:any) {
     this.testingEquipment = a.controls.testingEquipment as FormArray;
+    if(this.flag && this.testingEquipment.value[j].equipmentId!=null && this.testingEquipment.value[j].equipmentId!='' && this.testingEquipment.value[j].equipmentId!=undefined){
+      this.testingEquipment.value[j].testingEquipmentStatus='R';
+      this.deletedTestingEquipment.push(this.testingEquipment.value[j]);
+    }
     this.testingEquipment.removeAt(j);
   }
 
   createTestInstrumentForm(): FormGroup {
     return new FormGroup({
       equipmentName: new FormControl('',[Validators.required]),
+      equipmentId: new FormControl(''),
       equipmentMake: new FormControl('',[Validators.required]),
       equipmentModel: new FormControl('',[Validators.required]),
       equipmentSerialNo: new FormControl('',[Validators.required]),
       equipmentCalibrationDueDate: new FormControl('',[Validators.required]),
+      testingEquipmentStatus: new FormControl('A'),
     });
   }
   createtestDistribution(): FormGroup {
