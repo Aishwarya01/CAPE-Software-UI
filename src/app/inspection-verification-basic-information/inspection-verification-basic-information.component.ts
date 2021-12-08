@@ -1424,7 +1424,7 @@ showHideAccordion(index: number) {
   }
 
   removeDesigner() {
-    this.step1Form.markAsTouched();
+    this.step1Form.markAsDirty();
     this.showDesigner2= false;
     this.showAddButton= true;
     this.f.designer2Arr.controls[0].controls['personName'].clearValidators();
@@ -1455,6 +1455,7 @@ showHideAccordion(index: number) {
     this.f.designer2Arr.controls[0].controls['pinCode'].updateValueAndValidity();
 
     if(this.flag) {
+      this.step1List.markAsTouched();
       this.deletedArr = [];
       if(this.step1List.reportDetails != undefined) {
         for( let i of this.step1List.reportDetails.signatorDetails) {      
