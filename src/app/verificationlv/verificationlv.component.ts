@@ -738,7 +738,7 @@ export class VerificationlvComponent implements OnInit {
   }
   // onTabChanged(e: any) {
   //   if(!this.conFlag) {
-  //     debugger
+  //     
   //     console.log(e);
   //     this.selectedIndex = e.index;
   //     //console.log(this.tabGroup.selectedIndex);

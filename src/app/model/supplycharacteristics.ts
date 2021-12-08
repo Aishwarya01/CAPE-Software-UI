@@ -75,10 +75,14 @@ export class Supplycharacteristics {
     circuitBreakerId: number;
     location:String;
     type:String;
+    sourceName: String;
+    make: String;
+    currentCurve: String;
     noPoles:String;
     current:String;
     voltage:String;
     fuse:String;
+    typeOfResidualCurrent: String;
     residualCurrent:String;
     residualTime:String;
     circuitStatus: String;

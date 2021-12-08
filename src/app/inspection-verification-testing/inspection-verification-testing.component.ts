@@ -471,7 +471,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
 
 
 callValue(e: any) {
-  debugger
+  
   console.log(e);
 }
 
@@ -1591,7 +1591,7 @@ callValue(e: any) {
     let mainsLoopImpedanceArr = [];
     let nominalVoltage = [];	
     let loopImpedanceArr = [];
-    debugger
+    
     mainsLoopImpedanceArr = mainsLoopImpedance.split(",");
     nominalVoltage = voltage.split(",");	
     loopImpedanceArr = loopImpedance.split(",")
@@ -1731,7 +1731,7 @@ callValue(e: any) {
     }
   }
   removeItemRecords(a:any,i:any,f:any) {
-    debugger
+    
     this.testingForm.markAsTouched();
     if(f.value.testingRecordId !=0  
        && f.value.testingRecordId !=undefined 
@@ -1748,7 +1748,7 @@ callValue(e: any) {
     }
     else
     {
-      debugger
+      
       this.testingForm.markAsTouched();
       a.controls.testingRecords.removeAt(i);
      // a.controls.testDistribution.value[0].numOutputCircuitsUse.value=a.controls.testDistribution.value[0].numOutputCircuitsUse.value - 1;
@@ -1944,7 +1944,7 @@ callValue(e: any) {
     }
     }
     onKeyImpedance1(event:KeyboardEvent,f:any){
-      debugger
+      
         for(let i of f.controls.testingRecordsSourceSupply.controls) {
           if(f.controls.ryLoopImpedance.value!='' && f.controls.ryLoopImpedance.value!=undefined && f.controls.ryLoopImpedance.value!= 'NA'
           && i.controls.ryLoopImpedanceMains.value!='NA' && i.controls.ryLoopImpedanceExternal.value!='NA') {
@@ -1985,7 +1985,7 @@ callValue(e: any) {
        }
     }
     onKeyImpedance2(event:KeyboardEvent,f:any){
-      debugger
+      
         for(let i of f.controls.testingRecordsSourceSupply.controls) {
          
         if(f.controls.rbLoopImpedance.value!='' && f.controls.rbLoopImpedance.value!=undefined && f.controls.rbLoopImpedance.value!= 'NA'
@@ -2026,7 +2026,7 @@ callValue(e: any) {
         }
     }
     onKeyImpedance3(event:KeyboardEvent,f:any){
-      debugger
+      
         for(let i of f.controls.testingRecordsSourceSupply.controls) {
          
         if(f.controls.ybLoopImpedance.value!='' && f.controls.ybLoopImpedance.value!=undefined && f.controls.ybLoopImpedance.value!= 'NA'
@@ -2068,7 +2068,7 @@ callValue(e: any) {
        
     }
     onKeyImpedance4(event:KeyboardEvent,f:any){
-      debugger
+      
         for(let i of f.controls.testingRecordsSourceSupply.controls) {
          
         if(f.controls.rnLoopImpedance.value!='' && f.controls.rnLoopImpedance.value!=undefined && f.controls.rnLoopImpedance.value!= 'NA'
@@ -2109,7 +2109,7 @@ callValue(e: any) {
         }
     }
     onKeyImpedance5(event:KeyboardEvent,f:any){
-      debugger
+      
         for(let i of f.controls.testingRecordsSourceSupply.controls) {
          
         if(f.controls.ynLoopImpedance.value!='' && f.controls.ynLoopImpedance.value!=undefined && f.controls.ynLoopImpedance.value!= 'NA'
@@ -2151,7 +2151,7 @@ callValue(e: any) {
        
     }
     onKeyImpedance6(event:KeyboardEvent,f:any){
-      debugger
+      
         for(let i of f.controls.testingRecordsSourceSupply.controls) {
          
         if(f.controls.bnLoopImpedance.value!='' && f.controls.bnLoopImpedance.value!=undefined && f.controls.bnLoopImpedance.value!= 'NA'
@@ -2195,7 +2195,7 @@ callValue(e: any) {
       
     }
     onKeyImpedance7(event:KeyboardEvent,f:any){
-      debugger
+      
         for(let i of f.controls.testingRecordsSourceSupply.controls) {
          
         if(f.controls.rpeLoopImpedance.value!='' && f.controls.rpeLoopImpedance.value!=undefined && f.controls.rpeLoopImpedance.value!= 'NA'
@@ -2236,7 +2236,7 @@ callValue(e: any) {
         
     }
     onKeyImpedance8(event:KeyboardEvent,f:any){
-      debugger
+      
         for(let i of f.controls.testingRecordsSourceSupply.controls) {
          
         if(f.controls.ypeLoopImpedance.value!='' && f.controls.ypeLoopImpedance.value!=undefined && f.controls.ypeLoopImpedance.value!= 'NA'
@@ -2278,7 +2278,7 @@ callValue(e: any) {
         
     }
     onKeyImpedance9(event:KeyboardEvent,f:any){
-      debugger
+      
         for(let i of f.controls.testingRecordsSourceSupply.controls) {
          
         if(f.controls.bpeLoopImpedance.value!='' && f.controls.bpeLoopImpedance.value!=undefined && f.controls.bpeLoopImpedance.value!= 'NA'
