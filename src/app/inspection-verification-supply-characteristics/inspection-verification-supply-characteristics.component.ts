@@ -3298,7 +3298,7 @@ else{
    }
 
     //  Allternative power supply
-    removeItem3(a:any,index: any,circuit: any) {
+    removeItem3(a:any,index: any) {
 
       this.supplycharesteristicForm.markAsTouched();
       if(a.value.supplyparametersId !=0 && a.value.supplyparametersId !=undefined)
@@ -3317,10 +3317,11 @@ else{
           for (let i = 0; i < items.length; i++) {
               
           if(i==index){
-            let d = items.value[i];
+            debugger
+            let d = items.value[i+1];
             d.circuitStatus ='R';
             this.circuitArr1 = this.circuitArr1.concat(d);
-            (this.supplycharesteristicForm.get('circuitArr') as FormArray).removeAt(index);
+            (this.supplycharesteristicForm.get('circuitArr') as FormArray).removeAt(i+1);
           }
         }
         this.supplycharesteristicForm.markAsDirty();
