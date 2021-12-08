@@ -33,6 +33,13 @@
                                         [(ngModel)]="location.locationArr[i].locationName" [readonly]="true"
                                         style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
                                 </div>
+
+                                <div class="col-md-6" *ngIf="false">
+                                  <input type="text" class="form-control" formControlName="locationCount"
+                                      placeholder="Enter Location Name"
+                                      value="{{location.locationArr[i]?.locationCount}}"
+                                      [(ngModel)]="location.locationArr[i].locationCount" >
+                                 </div>
                             </div>
 
 
@@ -62,6 +69,11 @@
                                             <div *ngIf="a.get('locationName')?.errors?.required">Please fill out the details in Inspection form!</div>
                                         </div>
                                 </div>
+
+                                <div class="col-md-6" *ngIf="false">
+                                  <input type="text" class="form-control" formControlName="locationCount"
+                                      placeholder="Enter Location Name" >
+                                 </div>
                             </div>
                         </div>
                     </div>

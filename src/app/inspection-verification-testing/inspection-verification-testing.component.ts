@@ -52,7 +52,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   loc1length: any;
   testingForm!: FormGroup;
   submitted = false;
-  testaccordianArr!: FormArray;
+  testaccordianArr : any  = [];
   panelOpenState = false;
   // email: String = '';
   isHidden=true;
@@ -236,6 +236,8 @@ export class InspectionVerificationTestingComponent implements OnInit {
   testList1: any = [];
   deletedTestingRecord: any = [];
   deletedTestingEquipment: any= [];
+  deleteDataFlag: boolean = false;
+  deleteRecordDataFlag: boolean = false;
   
   constructor(
     private testingService: TestingService,
@@ -302,7 +304,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
           for (let j = 0; j < this.testaccordianArr.controls.length; j++) {
             this.testaccordianArr.value[j].locationNumber = this.service.iterationList[j].locationNumber;
             this.testaccordianArr.value[j].locationName = this.service.iterationList[j].locationName;
-            this.testaccordianArr.value[j].locationCount = this.service.iterationList[j].locationCount;
+            // this.testaccordianArr.value[j].locationCount = this.service.iterationList[j].locationCount;
+            this.testaccordianArr.controls[j].controls.locationCount.setValue(this.service.iterationList[j].locationCount);
+
           }
           this.location.locationArr = this.service.iterationList;
           this.service.iterationList = [];
@@ -329,7 +333,8 @@ export class InspectionVerificationTestingComponent implements OnInit {
           for (let j = 0; j < this.testaccordianArr.controls.length; j++) {
             this.testaccordianArr.value[j].locationNumber = this.service.iterationList[j].locationNumber;
             this.testaccordianArr.value[j].locationName = this.service.iterationList[j].locationName;
-            this.testaccordianArr.value[j].locationCount = this.service.iterationList[j].locationCount;
+            // this.testaccordianArr.controls[j].locationCount.setValue(this.service.iterationList[j].locationCount);
+            this.testaccordianArr.controls[j].controls.locationCount.setValue(this.service.iterationList[j].locationCount);
           }
           this.location.locationArr = this.service.iterationList;
           this.service.iterationList = [];
@@ -929,22 +934,23 @@ callValue(e: any) {
       // impedance: new FormControl({ disabled: false, value: item.impedance }),
       // rcd: new FormControl({ disabled: false, value: item.rcd }),
       // earthElectrodeResistance: new FormControl({ disabled: false, value: item.earthElectrodeResistance }),
-      testingEquipment: this.formBuilder.array(this.populateTestInstrumentForm(item.testingEquipment)),
+      testingEquipment: this.formBuilder.array(this.populateTestInstrumentForm(item.testingEquipment,item.testingId)),
       testDistribution: this.formBuilder.array([this.populateTestDistributionForm(item.testDistribution)]),
       testingRecords: this.formBuilder.array(this.populateTestRecordsForm(item.testingRecords,item.testingId)),
       testingStatus: new FormControl(item.testingStatus),
     });
   }
-  private populateTestInstrumentForm(testEquipmentItem: any) {
+  private populateTestInstrumentForm(testEquipmentItem: any,testingId: any) {
     let testingEquipmentArr = [];
     for (let item of testEquipmentItem) {
-      testingEquipmentArr.push(this.pushTestEquipmentTable(item))
+      testingEquipmentArr.push(this.pushTestEquipmentTable(item,testingId))
     }
     return testingEquipmentArr;
   }
-  pushTestEquipmentTable(testingEquipmentItem: any): FormGroup {
+  pushTestEquipmentTable(testingEquipmentItem: any,testingId: any): FormGroup {
     let latest_date =this.datepipe.transform(testingEquipmentItem.equipmentCalibrationDueDate, 'yyyy-MM-dd');
     return new FormGroup({
+      testingId: new FormControl({ disabled: false, value: testingId }),
       equipmentId: new FormControl({ disabled: false, value: testingEquipmentItem.equipmentId }),
       equipmentName: new FormControl({ disabled: false, value: testingEquipmentItem.equipmentName }),
       equipmentMake: new FormControl({ disabled: false, value: testingEquipmentItem.equipmentMake }),
@@ -1765,6 +1771,7 @@ callValue(e: any) {
 
   createTestInstrumentForm(): FormGroup {
     return new FormGroup({
+      testingId: new FormControl(''),
       equipmentName: new FormControl('',[Validators.required]),
       equipmentId: new FormControl(''),
       equipmentMake: new FormControl('',[Validators.required]),
@@ -2841,6 +2848,59 @@ callValue(e: any) {
     this.testingDetails.testing = this.testingForm.value.testaccordianArr;
     if (flag) {
       if(this.testingForm.dirty){
+        // for(let i of this.testingDetails.testing) {
+        //   for(let j of i.testingEquipment) {
+        //     if(j.equipmentId != null && j.equipmentId != 0 && j.equipmentId !=undefined) {
+        //       for(let k of this.deletedTestingEquipment) {
+        //         if((j.testingId == k.testingId) 
+        //             && (j.testingEquipmentStatus != k.testingEquipmentStatus)
+        //              && (j.equipmentId != k.equipmentId) ) {
+        //           i.testingEquipment.push(k);
+        //         }
+        //       }
+        //     }
+        //   }
+        // }
+
+        //Testing Equipment 
+        for(let i of this.deletedTestingEquipment) {
+          for(let j of this.testingDetails.testing) {
+            for(let k of j.testingEquipment) {
+              if(k.testingId == i.testingId) {
+                if(k.equipmentId != i.equipmentId) {
+                  this.deleteDataFlag = true;
+                }
+                else {
+                  this.deleteDataFlag = false;
+                }
+              }
+            }
+            if(this.deleteDataFlag) {
+              j.testingEquipment.push(i);
+              this.deleteDataFlag = false;
+            }
+          }
+        }
+
+        //Testing Records
+        for(let i of this.deletedTestingRecord) {
+          for(let j of this.testingDetails.testing) {
+            for(let k of j.testingRecords) {
+              if(k.testingId == i.testingId) {
+                if(k.testingRecordId != i.testingRecordId) {
+                  this.deleteRecordDataFlag = true;
+                }
+                else {
+                  this.deleteRecordDataFlag = false;
+                }
+              }
+            }
+            if(this.deleteRecordDataFlag) {
+              j.testingRecords.push(i);
+              this.deleteRecordDataFlag = false;
+            }
+          }
+        }
       this.UpateInspectionService.updateTesting(this.testingDetails).subscribe(
         data => {
           this.success = true;
