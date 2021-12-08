@@ -316,13 +316,13 @@
                                 </div>
                                 <div class="col-md-4">
                                   <label>Number Of Output Circuits In Use</label>
-                                  <input type="tel" formControlName="numOutputCircuitsUse"  [readonly]="service.allFieldsDisable"
+                                  <input type="tel" min="1" formControlName="numOutputCircuitsUse"  [readonly]="service.allFieldsDisable"
                                   placeholder=" Enter Number of output circuits in use"
                                   class="form-control"  (keyup)="onKey($event,c,a)" [ngClass]="{ 'is-invalid': submitted && c.get('numOutputCircuitsUse')?.errors }"  >
                                   <div *ngIf="submitted && c.get('numOutputCircuitsUse')?.errors" class="invalid-feedback">
                                     <div *ngIf="c.get('numOutputCircuitsUse')?.errors?.required">Number of output circuits in use value is required</div>
-                                    <div *ngIf="c.get('numOutputCircuitsUse')?.errors?.maxLength">Number of output circuits in use value cannot exceed 5</div>
-                                    <div *ngIf="c.get('numOutputCircuitsUse')?.errors?.minLength">Number of output circuits in use value more than 0</div>
+                                    <div *ngIf="c.get('numOutputCircuitsUse')?.errors?.max">Number of output circuits in use value cannot exceed 5</div>
+                                    <div *ngIf="c.get('numOutputCircuitsUse')?.errors?.min">Number of output circuits in use value more than 0</div>
                                   </div>
                               </div>
                             </div>

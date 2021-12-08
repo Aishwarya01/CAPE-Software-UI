@@ -924,10 +924,10 @@ callValue(e: any) {
       locationNumber: new FormControl({ disabled: false, value: item.locationNumber }),
       locationName: new FormControl({ disabled: false, value: item.locationName }),
       locationCount: new FormControl({ disabled: false, value: item.locationCount }),
-      testEngineerName: new FormControl({ disabled: false, value: item.testEngineerName }),
-      date: new FormControl({ disabled: false, value: item.date }),
-      companyName: new FormControl({ disabled: false, value: item.companyName }),
-      designation: new FormControl({ disabled: false, value: item.designation }),
+      testEngineerName: new FormControl({ disabled: false, value: item.testEngineerName },[Validators.required]),
+      date: new FormControl({ disabled: false, value: item.date },[Validators.required]),
+      companyName: new FormControl({ disabled: false, value: item.companyName },[Validators.required]),
+      designation: new FormControl({ disabled: false, value: item.designation },[Validators.required]),
       // detailsTestInstrument: new FormControl({ disabled: false, value: item.detailsTestInstrument }),
       // continuity: new FormControl({ disabled: false, value: item.continuity }),
       // insulationResisance: new FormControl({ disabled: false, value: item.insulationResisance }),
@@ -952,11 +952,11 @@ callValue(e: any) {
     return new FormGroup({
       testingId: new FormControl({ disabled: false, value: testingId }),
       equipmentId: new FormControl({ disabled: false, value: testingEquipmentItem.equipmentId }),
-      equipmentName: new FormControl({ disabled: false, value: testingEquipmentItem.equipmentName }),
-      equipmentMake: new FormControl({ disabled: false, value: testingEquipmentItem.equipmentMake }),
-      equipmentModel: new FormControl({ disabled: false, value: testingEquipmentItem.equipmentModel }),
-      equipmentSerialNo: new FormControl({ disabled: false, value: testingEquipmentItem.equipmentSerialNo }),
-      equipmentCalibrationDueDate: new FormControl({ disabled: false, value: latest_date }),
+      equipmentName: new FormControl({ disabled: false, value: testingEquipmentItem.equipmentName },[Validators.required]),
+      equipmentMake: new FormControl({ disabled: false, value: testingEquipmentItem.equipmentMake },[Validators.required]),
+      equipmentModel: new FormControl({ disabled: false, value: testingEquipmentItem.equipmentModel },[Validators.required]),
+      equipmentSerialNo: new FormControl({ disabled: false, value: testingEquipmentItem.equipmentSerialNo },[Validators.required]),
+      equipmentCalibrationDueDate: new FormControl({ disabled: false, value: latest_date },[Validators.required]),
       testingEquipmentStatus: new FormControl(testingEquipmentItem.testingEquipmentStatus),
     });
   }
@@ -970,16 +970,16 @@ callValue(e: any) {
     }
     return new FormGroup({
       distributionId: new FormControl({ disabled: false, value: testDistributionItem[0].distributionId }),
-      distributionBoardDetails: new FormControl({ disabled: false, value: testDistributionItem[0].distributionBoardDetails }),
-      referance: new FormControl({ disabled: false, value: testDistributionItem[0].referance }),
-      location: new FormControl({ disabled: false, value: testDistributionItem[0].location }),
-      correctSupplyPolarity: new FormControl({ disabled: false, value: testDistributionItem[0].correctSupplyPolarity }),
-      numOutputCircuitsUse: new FormControl({ disabled: false, value: testDistributionItem[0].numOutputCircuitsUse }),
-      ratingsAmps: new FormControl({ disabled: false, value: testDistributionItem[0].ratingsAmps }),
-      sourceFromSupply: new FormControl({ disabled: false, value: testDistributionItem[0].sourceFromSupply }),
+      distributionBoardDetails: new FormControl({ disabled: false, value: testDistributionItem[0].distributionBoardDetails },[Validators.required]),
+      referance: new FormControl({ disabled: false, value: testDistributionItem[0].referance },[Validators.required]),
+      location: new FormControl({ disabled: false, value: testDistributionItem[0].location },[Validators.required]),
+      correctSupplyPolarity: new FormControl({ disabled: false, value: testDistributionItem[0].correctSupplyPolarity },[Validators.required]),
+      numOutputCircuitsUse: new FormControl({ disabled: false, value: testDistributionItem[0].numOutputCircuitsUse },[Validators.required,Validators.min(1)]),
+      ratingsAmps: new FormControl({ disabled: false, value: testDistributionItem[0].ratingsAmps },[Validators.required]),
+      sourceFromSupply: new FormControl({ disabled: false, value: testDistributionItem[0].sourceFromSupply },[Validators.required]),
       rateArr: this.formBuilder.array(this.populateRating(testDistributionItem[0].ratingsAmps)),
-      numOutputCircuitsSpare: new FormControl({ disabled: false, value: testDistributionItem[0].numOutputCircuitsSpare }),
-      installedEquipmentVulnarable: new FormControl({ disabled: false, value: testDistributionItem[0].installedEquipmentVulnarable }),
+      numOutputCircuitsSpare: new FormControl({ disabled: false, value: testDistributionItem[0].numOutputCircuitsSpare },[Validators.required]),
+      installedEquipmentVulnarable: new FormControl({ disabled: false, value: testDistributionItem[0].installedEquipmentVulnarable },[Validators.required]),
       incomingVoltage: new FormControl({ disabled: false, value: testDistributionItem[0].incomingVoltage }),
       incomingLoopImpedance: new FormControl({ disabled: false, value: testDistributionItem[0].incomingLoopImpedance }),
       incomingFaultCurrent: new FormControl({ disabled: false, value: testDistributionItem[0].incomingFaultCurrent }),
@@ -1008,7 +1008,7 @@ callValue(e: any) {
   }
   private populateratingAmps(ratingsAmps: any): FormGroup {
     return new FormGroup({
-      ratingsAmps: new FormControl({ disabled: false, value: ratingsAmps }),
+      ratingsAmps: new FormControl({ disabled: false, value: ratingsAmps },[Validators.required]),
     });
   }
 
@@ -1325,7 +1325,7 @@ callValue(e: any) {
       location: new FormControl('', [Validators.required]),
       sourceFromSupply: new FormControl('', [Validators.required]),
       correctSupplyPolarity: new FormControl('', [Validators.required]),
-      numOutputCircuitsUse: new FormControl('', [Validators.required,Validators.minLength(1),Validators.maxLength(5)]),
+      numOutputCircuitsUse: new FormControl('', [Validators.required,Validators.min(1)]),
       ratingsAmps: new FormControl(''),
       rateArr: this.formBuilder.array([this.ratingAmps()]),
       numOutputCircuitsSpare: new FormControl('', [Validators.required]),
@@ -1680,7 +1680,7 @@ callValue(e: any) {
     this.testingRecords = a.controls.testingRecords as FormArray;
     this.rateArr = c.controls.rateArr as FormArray;
     if (this.testingRecords.length == 0 && this.rateArr.length == 0) {
-      if (this.value != '') {
+      if (this.value != '' && this.value != 0) {
         for (this.i = 1; this.i < this.value; this.i++) {
           this.testingRecords.push(this.createtestValuePushForm(this.testingRecords));
           this.rateArr.push(this.ratingAmps());
@@ -1700,7 +1700,7 @@ callValue(e: any) {
       this.testingRecords.length < this.value &&
       this.rateArr.length < this.value
     ) {
-      if (this.value != '') {
+      if (this.value != '' && this.value != 0) {
         this.delarr = this.value - this.testingRecords.length;
         this.delarr = this.value - this.rateArr.length;
 
@@ -1713,7 +1713,7 @@ callValue(e: any) {
       this.testingRecords.length > this.value &&
         this.rateArr.length > this.value;
     {
-      if (this.value != '') {
+      if (this.value != '' && this.value != 0) {
         this.delarr = this.testingRecords.length - this.value;
         this.delarr = this.rateArr.length - this.value;
 

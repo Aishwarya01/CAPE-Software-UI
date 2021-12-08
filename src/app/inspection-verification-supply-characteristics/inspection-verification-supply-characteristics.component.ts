@@ -347,7 +347,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       mainRatedCurrent: ['', Validators.required],
       mainCurrentDisconnection: ['', Validators.required],
       alternativeSupply: ['', Validators.required],
-      supplyNumber: ['', Validators.required],
+      supplyNumber: ['', [Validators.required,Validators.min(1)]],
       maximumDemand: ['', Validators.required],
       maximumLoad: ['', Validators.required],
       meansEarthing: ['', Validators.required],
@@ -2512,9 +2512,8 @@ showHideAccordion(index: number) {
     }
      else {
       this.alternativeSupplyNo=true;
-      this.supplycharesteristicForm.controls['supplyNumber'].setValidators(
-        Validators.required
-      );
+      this.supplycharesteristicForm.controls['supplyNumber'].setValidators([
+        Validators.required,Validators.min(1)]);
       this.supplycharesteristicForm.controls[
         'supplyNumber'
       ].updateValueAndValidity();

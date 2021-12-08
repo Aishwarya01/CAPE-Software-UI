@@ -112,13 +112,12 @@ export class SavedreportsComponent implements OnInit {
   }
 
   retrieveSiteDetails() {
-
+    this.filteredData = [];
     for(let i of this.superAdminArr) {
       if(this.email == i) {
         this.superAdminFlag = true;
       }
     }
-
     if(this.superAdminFlag) {
       this.siteService.retrieveAllSite(this.email).subscribe(
         data => {
@@ -132,7 +131,6 @@ export class SavedreportsComponent implements OnInit {
           this.savedReport_dataSource.paginator = this.savedReportPaginator;
           this.savedReport_dataSource.sort = this.savedReportSort;
         });
-
       this.superAdminFlag = false;
     }
     else {
