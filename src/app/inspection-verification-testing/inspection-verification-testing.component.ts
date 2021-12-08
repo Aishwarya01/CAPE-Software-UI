@@ -1730,7 +1730,34 @@ callValue(e: any) {
       }
     }
   }
- 
+  removeItemRecords(a:any,i:any,f:any) {
+    debugger
+    this.testingForm.markAsTouched();
+    if(f.value.testingRecordId !=0  
+       && f.value.testingRecordId !=undefined 
+        && f.value.testingRecordId !='' 
+         && f.value.testingRecordId !=null)
+    {
+      f.value.testingRecordStatus='R';
+      this.deletedTestingRecord.push( a.controls.testingRecords.value[i]);
+      a.controls.testingRecords.removeAt(i);
+     // a.controls.testDistribution.value[0].numOutputCircuitsUse.value=a.controls.testDistribution.value[0].numOutputCircuitsUse.value - 1;
+      a.controls.testDistribution.controls[0].controls.numOutputCircuitsUse.setValue(a.controls.testDistribution.controls[0].controls.numOutputCircuitsUse.value - 1);
+      a.controls.testDistribution.controls[0].controls.rateArr.removeAt(i);
+      this.testingForm.markAsDirty();
+    }
+    else
+    {
+      debugger
+      this.testingForm.markAsTouched();
+      a.controls.testingRecords.removeAt(i);
+     // a.controls.testDistribution.value[0].numOutputCircuitsUse.value=a.controls.testDistribution.value[0].numOutputCircuitsUse.value - 1;
+     a.controls.testDistribution.controls[0].controls.numOutputCircuitsUse.setValue(a.controls.testDistribution.controls[0].controls.numOutputCircuitsUse.value - 1);
+     a.controls.testDistribution.controls[0].controls.rateArr.removeAt(i);
+     this.testingForm.markAsDirty();
+    }
+   }
+   
   createItem() {
     return this.formBuilder.group({
       locationNumber: ['', Validators.required],
@@ -2415,48 +2442,92 @@ callValue(e: any) {
         let arr2: any = [];
         let arr3: any = [];
         let arr4: any = [];
-        for (let k of j.distributionIncomingValueArr) {
-          arr.push(
-            k.incomingVoltage1,
-            k.incomingVoltage2,
-            k.incomingVoltage3,
-            k.incomingVoltage4,
-            k.incomingVoltage5,
-            k.incomingVoltage6,
-            k.incomingVoltage7,
-            k.incomingVoltage8,
-            k.incomingVoltage9
-          );
-          arr1.push(
-            k.incomingZs1,
-            k.incomingZs2,
-            k.incomingZs3,
-            k.incomingZs4,
-            k.incomingZs5,
-            k.incomingZs6,
-            k.incomingZs7,
-            k.incomingZs8,
-            k.incomingZs9
-          );
-          arr2.push(
-            k.incomingIpf1,
-            k.incomingIpf2,
-            k.incomingIpf3,
-            k.incomingIpf4,
-            k.incomingIpf5,
-            k.incomingIpf6,
-            k.incomingIpf7,
-            k.incomingIpf8,
-            k.incomingIpf9
-          );
-          arr4.push(
-            k.actualLoadAl1,
-            k.actualLoadAl2,
-            k.actualLoadAl3,
-            k.actualLoadAl4,
-          );
+        if(j.sourceFromSupply=='Mains Incoming'){
+          for (let k of j.distributionIncomingValueArr) {
+            arr.push(
+              k.incomingVoltage1,
+              k.incomingVoltage2,
+              k.incomingVoltage3,
+              k.incomingVoltage4,
+              k.incomingVoltage5,
+              k.incomingVoltage6,
+              k.incomingVoltage7,
+              k.incomingVoltage8,
+              k.incomingVoltage9
+            );
+            arr1.push(
+              k.incomingZs1,
+              k.incomingZs2,
+              k.incomingZs3,
+              k.incomingZs4,
+              k.incomingZs5,
+              k.incomingZs6,
+              k.incomingZs7,
+              k.incomingZs8,
+              k.incomingZs9
+            );
+            arr2.push(
+              k.incomingIpf1,
+              k.incomingIpf2,
+              k.incomingIpf3,
+              k.incomingIpf4,
+              k.incomingIpf5,
+              k.incomingIpf6,
+              k.incomingIpf7,
+              k.incomingIpf8,
+              k.incomingIpf9
+            );
+            arr4.push(
+              k.actualLoadAl1,
+              k.actualLoadAl2,
+              k.actualLoadAl3,
+              k.actualLoadAl4,
+            );
+          }
         }
-
+        else{
+          for (let k of j.distributionIncomingValueArr2) {
+            arr.push(
+              k.incomingVoltage1,
+              k.incomingVoltage2,
+              k.incomingVoltage3,
+              k.incomingVoltage4,
+              k.incomingVoltage5,
+              k.incomingVoltage6,
+              k.incomingVoltage7,
+              k.incomingVoltage8,
+              k.incomingVoltage9
+            );
+            arr1.push(
+              k.incomingZs1,
+              k.incomingZs2,
+              k.incomingZs3,
+              k.incomingZs4,
+              k.incomingZs5,
+              k.incomingZs6,
+              k.incomingZs7,
+              k.incomingZs8,
+              k.incomingZs9
+            );
+            arr2.push(
+              k.incomingIpf1,
+              k.incomingIpf2,
+              k.incomingIpf3,
+              k.incomingIpf4,
+              k.incomingIpf5,
+              k.incomingIpf6,
+              k.incomingIpf7,
+              k.incomingIpf8,
+              k.incomingIpf9
+            );
+            arr4.push(
+              k.actualLoadAl1,
+              k.actualLoadAl2,
+              k.actualLoadAl3,
+              k.actualLoadAl4,
+            );
+          }
+        }
         let incomingVoltage: String = '';
         let incomingLoopImpedance: String = '';
         let incomingFaultCurrent: String = '';
