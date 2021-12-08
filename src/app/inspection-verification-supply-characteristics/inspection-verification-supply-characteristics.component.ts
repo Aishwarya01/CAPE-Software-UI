@@ -206,6 +206,10 @@ export class InspectionVerificationSupplyCharacteristicsComponent
     'voltage',
     'fuse',
     'residualCurrent',
+    'sourceName',
+    'make',
+    'currentCurve',
+    'typeOfResidualCurrent',
     'residualTime',
   ];
 
@@ -317,6 +321,9 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   keyJOintLocationTable: boolean= false;
   showRemarks: boolean= false;
   showBrief: boolean= false;
+  shortName: string="";
+  circuitSourceArr: any=[];
+  circuitSourceArr1: any=[];
 
   constructor(
     private supplyCharacteristicsService: SupplyCharacteristicsService,
@@ -332,6 +339,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   }
 
   ngOnInit(): void {
+    this.shortName = "";
     this.currentUser=sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
@@ -347,7 +355,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       mainRatedCurrent: ['', Validators.required],
       mainCurrentDisconnection: ['', Validators.required],
       alternativeSupply: ['', Validators.required],
-      supplyNumber: ['', [Validators.required,Validators.min(1)]],
+      supplyNumber: ['', Validators.required],
       maximumDemand: ['', Validators.required],
       maximumLoad: ['', Validators.required],
       meansEarthing: ['', Validators.required],
@@ -423,6 +431,29 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       completedCommentArr1: this.formBuilder.array([]),
     });
    this.expandedIndex = -1 ;
+  }
+
+  onKeyMainShortName(e: any){
+    let values = e.target.value;
+    // this.alternateArr = this.supplycharesteristicForm.get(
+    //   'alternateArr'
+    // ) as FormArray;
+    this.circuitSourceArr = this.supplycharesteristicForm.get(
+      'circuitArr'
+    ) as FormArray;
+    this.circuitSourceArr.controls[0].controls.sourceName.setValue(values)
+    
+  }
+
+  onKeyAlternateShortName(e: any, i: any){
+    let values = e.target.value;
+    // this.alternateArr = this.supplycharesteristicForm.get(
+    //   'alternateArr'
+    // ) as FormArray;
+    this.circuitSourceArr1 = this.supplycharesteristicForm.get(
+      'circuitArr'
+    ) as FormArray;
+    this.circuitSourceArr1.controls[i+1].controls.sourceName.setValue(values)
   }
 
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
@@ -590,6 +621,10 @@ export class InspectionVerificationSupplyCharacteristicsComponent
           this.AL4 = this.retrieveMainNominalVoltage[4][3];
       }
      }
+  
+  onKeyPress(){
+
+  }
 
   retrieveAllDetailsforSupply(userName: any,siteId: any,data: any){
     // if(this.service.disableFields==true){
@@ -1642,7 +1677,12 @@ showHideAccordion(index: number) {
       current: new FormControl({disabled: false ,value: item.current}),
       voltage: new FormControl({disabled: false ,value: item.voltage}),
       fuse: new FormControl({disabled: false ,value: item.fuse}),
+      sourceName: new FormControl({disabled: false ,value: item.sourceName}),
+      make: new FormControl({disabled: false ,value: item.make}),
+      currentCurve: new FormControl({disabled: false ,value: item.currentCurve}),
+      typeOfResidualCurrent: new FormControl({disabled: false ,value: item.typeOfResidualCurrent}),
       residualCurrent: new FormControl({disabled: false ,value: item.residualCurrent}),
+
       residualTime: new FormControl({disabled: false ,value: item.residualTime}),
       circuitStatus: new FormControl({disabled: false ,value: item.circuitStatus})
       });
@@ -1826,12 +1866,17 @@ showHideAccordion(index: number) {
 
   private createCircuitForm(): FormGroup {
     return new FormGroup({
+      
       location: new FormControl('', [Validators.required]),
+      sourceName: new FormControl('',Validators.required),
+      make: new FormControl('', Validators.required),
+      currentCurve: new FormControl('', Validators.required),
       type: new FormControl('', [Validators.required]),
       noPoles: new FormControl('', [Validators.required]),
       current: new FormControl('', [Validators.required]),
       voltage: new FormControl('', [Validators.required]),
       fuse: new FormControl('', [Validators.required]),
+      typeOfResidualCurrent: new FormControl('', Validators.required),
       residualCurrent: new FormControl('', [Validators.required]),
       residualTime: new FormControl('', [Validators.required]),
       circuitStatus: new FormControl('A')
@@ -2512,8 +2557,9 @@ showHideAccordion(index: number) {
     }
      else {
       this.alternativeSupplyNo=true;
-      this.supplycharesteristicForm.controls['supplyNumber'].setValidators([
-        Validators.required,Validators.min(1)]);
+      this.supplycharesteristicForm.controls['supplyNumber'].setValidators(
+        Validators.required
+      );
       this.supplycharesteristicForm.controls[
         'supplyNumber'
       ].updateValueAndValidity();
@@ -3316,7 +3362,7 @@ else{
           for (let i = 0; i < items.length; i++) {
               
           if(i==index){
-            debugger
+            
             let d = items.value[i+1];
             d.circuitStatus ='R';
             this.circuitArr1 = this.circuitArr1.concat(d);

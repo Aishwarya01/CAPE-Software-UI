@@ -30,8 +30,8 @@
                     <h3>Short Name</h3>
                   </mat-label>
                   <textarea matInput class="client-box-description" formControlName="shortName" 
-                  [ngClass]="{ 'is-invalid': submitted && f.shortName?.errors }" [(ngModel)]="supplycharesteristic.shortName" 
-                  maxlength="500" [readonly]="service.allFieldsDisable"
+                  [ngClass]="{ 'is-invalid': submitted && f.shortName?.errors }" [(ngModel)]="supplycharesteristic.shortName"  
+                  maxlength="500" [readonly]="service.allFieldsDisable" (keyup)="onKeyMainShortName($event)"
                   placeholder="Ex. Short Name ..." ></textarea>
                   <div *ngIf="submitted && f.shortName?.errors" class="invalid-feedback">
                     <div *ngIf="f.shortName?.errors?.required">Field Is Required</div>
@@ -465,7 +465,7 @@
                 class="example-button">
                 info_outline
                </mat-icon>
-                <input type="number" min="1" class="form-control" formControlName="supplyNumber" [readonly]="service.allFieldsDisable"
+                <input type="number" min="0"  class="form-control" formControlName="supplyNumber" [readonly]="service.allFieldsDisable"
                 [ngClass]="{ 'is-invalid': submitted && f.supplyNumber.errors }" 
                 [(ngModel)]="supplycharesteristic.supplyNumber"
                 (keyup)="onKeyAlernate($event)">
@@ -480,7 +480,6 @@
                   border-bottom: 1px solid #000000;" (keyup)="onKeyAlernate($event)"></p> -->
                 <div *ngIf="submitted && f.supplyNumber.errors" class="invalid-feedback">
                   <div *ngIf="f.supplyNumber?.errors?.required">Supply number is required</div>
-                  <div *ngIf="f.supplyNumber?.errors?.min">Field value should be more than 0 or change Availability of Alternate Supply</div>
                 </div>
               </div>
             </div>
@@ -581,7 +580,7 @@
                       </mat-label>
                       <textarea matInput class="client-box-description" formControlName="aLSupplyShortName" 
                       [ngClass]="{ 'is-invalid': submitted && a.get('aLSupplyShortName')?.errors }" maxlength="500" 
-                      placeholder="Ex. Remarks ..." [readonly]="service.allFieldsDisable"></textarea>
+                      placeholder="Ex. Remarks ..." [readonly]="service.allFieldsDisable" (keyup)="onKeyAlternateShortName($event,i)"></textarea>
                       <div *ngIf="submitted && a.get('aLSupplyShortName')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('aLSupplyShortName')?.errors?.required">Field Is Required</div>
                       </div>
@@ -1542,14 +1541,53 @@
                   <div formArrayName="circuitArr" *ngFor="let a of getCircuitControls(); let i = index">
                     <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
                       <h2>Details Of Circuit Breaker</h2>
+
                       <div class="row">
                         <div class="col-md-4">
                           <label>Location:</label>
-                          <input type="text" [readonly]="service.allFieldsDisable"  formControlName="location" class="form-control"  [ngClass]="{ 'is-invalid': submitted && a.get('location')?.errors }" placeholder="Enter Location" >
+                          <input type="text" [readonly]="service.allFieldsDisable"  formControlName="location" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('location')?.errors }" placeholder="Enter Location" >
                           <div *ngIf="submitted && a.get('location')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('location')?.errors?.required">Location is required</div>
                           </div>
                         </div>
+
+                     
+                          <div class="col-md-4">
+                            <label>Source Name:</label>
+
+                            <mat-icon style="float: right; font-size: 18px; margin-right: 69%; padding: 1px;" matTooltip="Mains Incoming shortname value from Supply Characteristics" matTooltipClass="multiline-tooltip"> info_outline </mat-icon>
+
+                            <!-- <input type="text" [readonly]="service.allFieldsDisable" formControlName="sourceName" class="form-control" [(ngModel)]="supplycharesteristic.shortName" [ngClass]="{ 'is-invalid': submitted && a.get('sourceName')?.errors }" > -->
+
+                            <textarea style="height: 28.99px;" type="text" formControlName="sourceName" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('sourceName')?.errors }" readonly></textarea>
+
+                            <div *ngIf="submitted && a.get('sourceName')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('sourceName')?.errors?.required">Source Name is required</div>
+                            </div>
+                          </div>
+                 
+
+                 
+                          <div class="col-md-4">
+                            <label>Make:</label>
+                            <mat-icon style="float: right; font-size: 18px; margin-right: 83%; padding: 1px;" matTooltip="Manufacturer’s name" matTooltipClass="multiline-tooltip"> info_outline </mat-icon>
+                            <input type="text" [readonly]="service.allFieldsDisable" formControlName="make" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('make')?.errors }" >
+                            <div *ngIf="submitted && a.get('make')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('make')?.errors?.required">Make is required</div>
+                            </div>
+                          </div>
+               
+
+                     
+                          <div class="col-md-4">
+                            <label>Model / Current curve:</label>
+                            <mat-icon style="float: right; font-size: 18px; margin-right: 56%; padding: 1px;" matTooltip="MCB Type B / C / D / K / Z & others specify manufacturer’s model" matTooltipClass="multiline-tooltip"> info_outline </mat-icon>
+                            <input type="text" [readonly]="service.allFieldsDisable" formControlName="currentCurve" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('currentCurve')?.errors }" placeholder="Enter Model / Current curve" >
+                            <div *ngIf="submitted && a.get('currentCurve')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('currentCurve')?.errors?.required">Model / Current curve is required</div>
+                            </div>
+                          </div>
+                   
 
                         <div class="col-md-4">
                           <label>Type:</label>
@@ -1645,10 +1683,19 @@
                           </div>
                         </div>
 
+                 
+                          <div class="col-md-4">
+                            <label>Type of residual current device:</label>
+                            <mat-icon style="float: right; font-size: 18px; margin-right: 41%; padding: 1px;" matTooltip="Type A / Type AC / Type F / Type B" matTooltipClass="multiline-tooltip"> info_outline </mat-icon>
+                            <input type="text" [readonly]="service.allFieldsDisable" formControlName="typeOfResidualCurrent" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('typeOfResidualCurrent')?.errors }" placeholder="Enter Type of residual current device" >
+                            <div *ngIf="submitted && a.get('typeOfResidualCurrent')?.errors" class="invalid-feedback">
+                              <div *ngIf="a.get('typeOfResidualCurrent')?.errors?.required">Model / Current curve is required</div>
+                            </div>
+                          </div>
+
                         <div class="col-md-4" *ngIf="true">
                           <label>Rated residual operating current I∆n (mA):</label>
-                          <mat-icon style="float: right;font-size: 18px;
-                          line-height: unset;margin-right: 27%;"
+                          <mat-icon style="float: right;font-size: 18px; margin-right: 23%;"
                           matTooltip="30/100/300/500"
                           matTooltipClass="multiline-tooltip"
                           aria-label="Button that shows a red tooltip"
