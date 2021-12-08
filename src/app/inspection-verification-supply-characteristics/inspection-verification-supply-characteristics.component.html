@@ -19,8 +19,7 @@
               <div class="col-md-4">
                  <mat-form-field class="client-description">
                   <mat-icon style="float: right;font-size: 18px;
-                  line-height: unset;margin-right: 85%;
-    margin-top: 0.7%;"
+                  line-height: unset;margin-right: 85%; margin-top: 0.7%;"
                   matTooltip="Main’s incoming in case of no alternative supply from state EB.
                   Main’s incoming in case of alternative supply from state EB act as standby.
                   EB source incomer-1 in case of alternative supply from state EB share the total load."
@@ -423,9 +422,6 @@
               </div>
             </div>
           </div>
-
-
-
         </mat-expansion-panel>
 
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -469,7 +465,7 @@
                 class="example-button">
                 info_outline
                </mat-icon>
-                <input type="tel" min="0"  class="form-control" formControlName="supplyNumber" [readonly]="service.allFieldsDisable"
+                <input type="number" min="0"  class="form-control" formControlName="supplyNumber" [readonly]="service.allFieldsDisable"
                 [ngClass]="{ 'is-invalid': submitted && f.supplyNumber.errors }" 
                 [(ngModel)]="supplycharesteristic.supplyNumber"
                 (keyup)="onKeyAlernate($event)">
@@ -490,7 +486,13 @@
 
             <div *ngIf="sources">
               <div formArrayName="alternateArr" *ngFor="let a of getLocation4Controls(); let i = index">
-                <h2>Alternate Form :</h2>
+
+
+                    <h2>Alternate Form :</h2>
+                
+                    <mat-icon class="mousechange" class="dlt" type="button" title="Delete" (click)="removeItem3(a,i,circuitB)" title="Delete" style="margin-inline: 4rem;float: right;position: relative;margin-top: -4rem;">remove_circle_outline</mat-icon>
+            
+
                 <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
                   <!-- <div class="row">
                     <div class="col-md-4">

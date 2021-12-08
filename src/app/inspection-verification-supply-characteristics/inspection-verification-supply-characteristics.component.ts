@@ -45,6 +45,8 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   alternateArr!: FormArray;
   circuitArr!: FormArray;
   conPusharr: any = [];
+  alternateArr1: any = [];
+  circuitArr1: any = [];
   i: any;
   j: any;
   k: any;
@@ -474,7 +476,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
        this.DcValue = this.step2List.supplyCharacteristics.liveConductorDC;
        this.step2List.liveConductor= this.step2List.supplyCharacteristics.liveConductor;
        this.flag = true;
-       debugger
+      
        this.populateData(this.step2List.supplyCharacteristics);
        this.populateDataComments();
        this.supplycharesteristicForm.patchValue({
@@ -1614,8 +1616,8 @@ showHideAccordion(index: number) {
         currentDissconnection: new FormControl({disabled: false ,value: item.currentDissconnection}),
         protectiveDevice: new FormControl({disabled: false ,value: item.protectiveDevice}),
         ratedCurrent: new FormControl({disabled: false ,value: item.ratedCurrent}),
+        supplyParameterStatus: new FormControl({disabled: false, value: item.supplyParameterStatus}),
         nominalVoltageArr1: this.formBuilder.array([this.createNominalForm(item.nominalVoltage,item.nominalFrequency,item.faultCurrent,item.loopImpedance,item.installedCapacity,item.actualLoad)]),
-        
       });
     }
     createGroupAl2(item: any): FormGroup {
@@ -1642,6 +1644,7 @@ showHideAccordion(index: number) {
       fuse: new FormControl({disabled: false ,value: item.fuse}),
       residualCurrent: new FormControl({disabled: false ,value: item.residualCurrent}),
       residualTime: new FormControl({disabled: false ,value: item.residualTime}),
+      circuitStatus: new FormControl({disabled: false ,value: item.circuitStatus})
       });
     }
     createNominalForm(nominalVoltage: any, nominalFrequency: any, faultCurrent: any,loopImpedance: any,installedCapacity: any,actualLoad: any): FormGroup {
@@ -1765,7 +1768,8 @@ showHideAccordion(index: number) {
       protectiveDevice: new FormControl('', [Validators.required]),
       ratedCurrent: new FormControl('', [Validators.required]),
       currentDissconnection: new FormControl('', [Validators.required]),
-      alternateArrFormValue: new FormControl('')
+      alternateArrFormValue: new FormControl(''),
+      supplyParameterStatus: new FormControl('A')
     });
   } 
 
@@ -1830,6 +1834,7 @@ showHideAccordion(index: number) {
       fuse: new FormControl('', [Validators.required]),
       residualCurrent: new FormControl('', [Validators.required]),
       residualTime: new FormControl('', [Validators.required]),
+      circuitStatus: new FormControl('A')
     });
   }
   
@@ -1930,19 +1935,19 @@ showHideAccordion(index: number) {
   // }
 
   onKey1(event: KeyboardEvent) {
-    debugger
+   
     this.values = (<HTMLInputElement>event.target).value;
     this.value = this.values;
     this.location1Arr = this.supplycharesteristicForm.get(
       'location1Arr'
     ) as FormArray;
     if(this.value!=0){
-      debugger
+     
       this.key1LocationTable=true;
     if (this.location1Arr.length == 0) {
-      debugger
+     
       if (this.value != '') {
-        debugger
+       
         for (this.i = 0; this.i < this.value; this.i++) {
           this.location1Arr = this.supplycharesteristicForm.get(
             'location1Arr'
@@ -1952,16 +1957,16 @@ showHideAccordion(index: number) {
       }
     } 
     else if (this.value == '') {
-      debugger
+     
       this.loclength = this.location1Arr.length;
       for (this.i = 1; this.i < this.loclength; this.i++) {
         this.location1Arr.removeAt(this.location1Arr.length - 1);
       }
     } 
     else if (this.location1Arr.length < this.value) {
-      debugger
+     
       if (this.value != '') {
-        debugger
+       
         this.delarr = this.value - this.location1Arr.length;
         for (this.i = 0; this.i < this.delarr; this.i++) {
           this.location1Arr = this.supplycharesteristicForm.get(
@@ -1972,9 +1977,9 @@ showHideAccordion(index: number) {
       }
     } 
     else if (this.location1Arr.length > this.value && this.value != 0) {
-      debugger
+     
       if (this.value != '') {
-        debugger
+       
         this.delarr = this.location1Arr.length - this.value;
         for (this.i = 0; this.i < this.delarr; this.i++) {
           this.location1Arr = this.supplycharesteristicForm.get(
@@ -2343,7 +2348,7 @@ showHideAccordion(index: number) {
   }
 
   enableBriefNote(e: any, a: any) {
-    debugger
+   
     let changedValue
     if(e.target != undefined) {
       changedValue = e.target.value;
@@ -3108,9 +3113,6 @@ showHideAccordion(index: number) {
       ) {
         this.supplycharesteristic.supplyParameters =this.supplycharesteristicForm.value.alternateArr;
       }
-
-      
-
     
     }
     this.supplycharesteristic.circuitBreaker = this.supplycharesteristicForm.value.circuitArr;
@@ -3134,7 +3136,7 @@ showHideAccordion(index: number) {
       x.electrodeResistanceGird= 'NA';
     }
   }
-  debugger
+ 
     this.supplycharesteristic.instalLocationReport =this.supplycharesteristicForm.value.location1Arr;
     this.supplycharesteristic.instalLocationReport = this.supplycharesteristic.instalLocationReport.concat(this.locationArr);
     
@@ -3144,19 +3146,27 @@ showHideAccordion(index: number) {
     this.supplycharesteristic.earthingLocationReport =this.supplycharesteristicForm.value.location3Arr;
     this.supplycharesteristic.earthingLocationReport = this.supplycharesteristic.earthingLocationReport.concat(this.earthingArr);
 
+    // Alternate Form
+    this.supplycharesteristic.supplyParameters =this.supplycharesteristicForm.value.alternateArr;
+   
+    if(this.alternateArr1 != null){
+      this.supplycharesteristic.supplyParameters = this.supplycharesteristic.supplyParameters.concat(this.alternateArr1);
+    }
+   
+    this.supplycharesteristic.circuitBreaker =this.supplycharesteristicForm.value.circuitArr;
+    if(this.circuitArr1 != null){
+      this.supplycharesteristic.circuitBreaker = this.supplycharesteristic.circuitBreaker.concat(this.circuitArr1);
+    }
+
     this.locationArr = [];
     this.boundingArr = [];  
     this.earthingArr = [];
 
-    // if(this.locationArr.length != 0) {
-    //   debugger
-    //   for(let i of this.locationArr) {
-    //     this.supplycharesteristic.instalLocationReport.push(i);
-    //   }
-    // }
+    this.alternateArr1 = [];
+    this.circuitArr1 = [];
 
     if(flag) { 
-      debugger
+     
       if(this.supplycharesteristicForm.dirty){
       this.UpateInspectionService.updateSupply(this.supplycharesteristic).subscribe(
         (data)=> {
@@ -3224,7 +3234,7 @@ else{
   }
 
   removeItem(a:any,index: any) {
-    debugger
+   
     this.supplycharesteristicForm.markAsTouched();
     if(a.value.locationReportId !=0 && a.value.locationReportId !=undefined)
     {
@@ -3237,7 +3247,7 @@ else{
     }
     else
     {
-      debugger
+     
       this.supplycharesteristicForm.markAsTouched();
       this.supplycharesteristic.noOfLocation = this.supplycharesteristicForm.value.noOfLocation -1;
       (this.supplycharesteristicForm.get('location1Arr') as FormArray).removeAt(index);
@@ -3246,7 +3256,7 @@ else{
    }
    
    removeItem1(a:any,index: any) {
-    debugger
+   
     this.supplycharesteristicForm.markAsTouched();
     if(a.value.locationReportId !=0 && a.value.locationReportId !=undefined)
     {
@@ -3259,7 +3269,7 @@ else{
     else
     {
       this.supplycharesteristicForm.markAsTouched();
-      debugger
+     
       this.supplycharesteristic.bondingNoOfJoints = this.supplycharesteristicForm.value.bondingNoOfJoints -1;
       (this.supplycharesteristicForm.get('location2Arr') as FormArray).removeAt(index);
       this.supplycharesteristicForm.markAsDirty();
@@ -3267,7 +3277,7 @@ else{
    }
 
    removeItem2(a:any,index: any) {
-    debugger
+   
     this.supplycharesteristicForm.markAsTouched();
     if(a.value.locationReportId !=0 && a.value.locationReportId !=undefined)
     {
@@ -3280,10 +3290,53 @@ else{
     else
     {
       this.supplycharesteristicForm.markAsTouched();
-      debugger
+     
       this.supplycharesteristic.earthingNoOfJoints = this.supplycharesteristicForm.value.earthingNoOfJoints -1;
       (this.supplycharesteristicForm.get('location3Arr') as FormArray).removeAt(index);
       this.supplycharesteristicForm.markAsDirty();
     }
    }
+
+    //  Allternative power supply
+    removeItem3(a:any,index: any,circuit: any) {
+
+      this.supplycharesteristicForm.markAsTouched();
+      if(a.value.supplyparametersId !=0 && a.value.supplyparametersId !=undefined)
+      {
+       
+        let b = parseInt(this.supplycharesteristicForm.value.supplyNumber) -1;
+        this.supplycharesteristic.supplyNumber = b.toString();
+        (this.supplycharesteristicForm.get('alternateArr') as FormArray).removeAt(index);
+        
+
+        a.value.supplyParameterStatus='R';
+        this.alternateArr1 = this.alternateArr1.concat(a.value)
+  
+        const items = (<FormArray>this.supplycharesteristicForm.get('circuitArr'));
+          
+          for (let i = 0; i < items.length; i++) {
+              
+          if(i==index){
+            let d = items.value[i];
+            d.circuitStatus ='R';
+            this.circuitArr1 = this.circuitArr1.concat(d);
+            (this.supplycharesteristicForm.get('circuitArr') as FormArray).removeAt(index);
+          }
+        }
+        this.supplycharesteristicForm.markAsDirty();
+      }
+      else
+      {
+       
+        this.supplycharesteristicForm.markAsTouched();
+        let b = parseInt(this.supplycharesteristicForm.value.supplyNumber) -1;
+        this.supplycharesteristic.supplyNumber = b.toString();
+        (this.supplycharesteristicForm.get('circuitArr') as FormArray).removeAt(index);
+        (this.supplycharesteristicForm.get('alternateArr') as FormArray).removeAt(index);
+        this.supplycharesteristicForm.markAsDirty();
+      }
+     }
+
+
+  
 }

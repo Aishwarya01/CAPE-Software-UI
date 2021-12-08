@@ -68,6 +68,7 @@ export class Supplycharacteristics {
     protectiveDevice: String;
     ratedCurrent:String;
     currentDissconnection:String;
+    supplyParameterStatus: String;
   }
 
   export class CircuitBreaker{
@@ -80,6 +81,7 @@ export class Supplycharacteristics {
     fuse:String;
     residualCurrent:String;
     residualTime:String;
+    circuitStatus: String;
   }
 
   export class InstallLocationReport{
