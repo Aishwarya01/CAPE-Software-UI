@@ -50,5 +50,6 @@ export class SignatorDetails {
     declarationSignature: String;
     declarationName: String;
     declarationDate: Date;
+    signatorStatus: String;
 }
 

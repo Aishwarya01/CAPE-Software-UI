@@ -25,9 +25,11 @@ export class GlobalsService {
   mainNominalVoltage :any=[];
   mainNominalFrequency :any=[];
   mainNominalCurrent:any=[];
+  mainActualLoad:any=[];
   mainNominalVoltageValue:String="";
   mainLoopImpedanceValue:String="";
   mainNominalCurrentValue:String="";
+  mainActualLoadValue:String="";
 //viewer inspector details
   viewerName!: String;
   inspectorName!: String;
@@ -62,6 +64,8 @@ export class GlobalsService {
  editable: boolean = true;
 jointType: any;
 noOfjoint: any; 
+msgForStep1:boolean=false;
+msgForStep1Flag:boolean=false;
 // clientList: any = [];
 // reportDetails =new Reportdetails;
 

@@ -69,3 +69,6 @@
       .disableForm{
         pointer-events: none;
       }
+      ::ng-deep .multiline-tooltip{
+        white-space: pre-line;
+        }

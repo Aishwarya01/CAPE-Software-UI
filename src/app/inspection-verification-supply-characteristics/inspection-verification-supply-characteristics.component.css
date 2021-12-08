@@ -43,3 +43,16 @@
   .disableForm{
     pointer-events: none;
   }
+  ::ng-deep .multiline-tooltip{
+  white-space: pre-line;
+  }
+
+  /* .dlt{
+    background-color: #f1f1f1;
+    color: black;
+  } */
+  .dlt:hover{
+    background-color: #df0000;
+    color: white;
+    size-adjust: calc();
+  }

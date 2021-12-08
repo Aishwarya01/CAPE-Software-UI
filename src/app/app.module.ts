@@ -44,6 +44,7 @@ import { InspectionVerificationIncomingEquipmentComponent } from './inspection-v
 import { InspectionVerificationSupplyCharacteristicsComponent } from './inspection-verification-supply-characteristics/inspection-verification-supply-characteristics.component';
 import {  InspectionVerificationTestingComponent} from './inspection-verification-testing/inspection-verification-testing.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+//import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SavedreportsComponent } from './savedreports/savedreports.component';
 import { FinalreportsComponent } from './finalreports/finalreports.component';
 import {Ng2TelInputModule} from 'ng2-tel-input';
@@ -51,7 +52,7 @@ import { BnNgIdleService } from 'bn-ng-idle';
 //import { Ng9PasswordStrengthBarModule } from 'ng9-password-strength-bar/projects/ng9-password-strength-bar/src/public-api';
 import { InspectorRegistrationComponent } from './inspector-registration/inspector-registration.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-
+import {MatTooltipModule} from '@angular/material/tooltip';
 import { UserUpdateComponent } from './user-update/user-update.component';
 import { InspectorUpdatePasswordComponent } from './inspector-update-password/inspector-update-password.component';
 import { AngularWebStorageModule } from 'angular-web-storage';
@@ -166,7 +167,9 @@ import { LpsFinalReportComponent } from './LPS/lps-final-report/lps-final-report
     ScrollToModule.forRoot(),
     NgOtpInputModule,
     MatBadgeModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTooltipModule
+    //NgbActiveModal, NgbModal 
   ],
  // exports: [WebStorageCodec, WebStorageCodec, SessionStorage],
   providers: [GlobalsService, { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }, BnNgIdleService,DatePipe],

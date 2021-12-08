@@ -47,6 +47,7 @@ export class IpaInsection {
   faultElectricalSepartion!: String;
   faultNonConductLocation!: String;
   operatingCurrent!: String;
+  inspectionFlag!: String;
 
   consumerUnit!: consumerUnit[];
   circuit!: circuit[];

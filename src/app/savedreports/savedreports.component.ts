@@ -112,13 +112,12 @@ export class SavedreportsComponent implements OnInit {
   }
 
   retrieveSiteDetails() {
-
+    this.filteredData = [];
     for(let i of this.superAdminArr) {
       if(this.email == i) {
         this.superAdminFlag = true;
       }
     }
-
     if(this.superAdminFlag) {
       this.siteService.retrieveAllSite(this.email).subscribe(
         data => {
@@ -132,7 +131,6 @@ export class SavedreportsComponent implements OnInit {
           this.savedReport_dataSource.paginator = this.savedReportPaginator;
           this.savedReport_dataSource.sort = this.savedReportSort;
         });
-
       this.superAdminFlag = false;
     }
     else {
@@ -177,6 +175,8 @@ export class SavedreportsComponent implements OnInit {
   continue(siteId: any,userName :any,site: any) {
     //this.service.commentScrollToBottom=1;
     this.verification.changeTabSavedReport(0,siteId,userName,'clientName','departmentName',site);
+    this.service.allFieldsDisable = false;
+    this.service.disableSubmitSummary=false;
   }
   savedContinue()
   {

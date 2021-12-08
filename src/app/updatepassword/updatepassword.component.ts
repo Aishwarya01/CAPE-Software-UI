@@ -51,7 +51,7 @@ export class UpdatepasswordComponent implements OnInit {
 
   onSubmit(){
     this.submitted=true;
-    debugger;
+    ;
     //Breaks if form is invalid
     if(this.updatepassform.invalid) {
       return;

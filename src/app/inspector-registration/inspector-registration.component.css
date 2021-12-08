@@ -35,7 +35,7 @@
     font-size: 1.5rem;
 }
 .auth-form-btn {
-    margin-top: 40px;
+    /* margin-top: 40px; */
     width: 25%;
 }
 
@@ -45,13 +45,13 @@
 }
 
 .cancel {
-    margin-top: 40px;
+    /* margin-top: 40px; */
     width: 25%; 
     /* height: 47px; */
 }
 
 .auth-form-btn {
-    margin-top: 40px;
+    /* margin-top: 40px; */
     width: auto;
 }
 
@@ -61,7 +61,7 @@
 } */
 
 .cancel {
-    margin-top: 40px;
+    /* margin-top: 40px; */
     width: auto;
     /* height: 47px; */
 }

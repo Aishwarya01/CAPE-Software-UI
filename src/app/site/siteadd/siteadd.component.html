@@ -215,7 +215,7 @@
             <br>
             <div class="row">
                 <div class="col-md-6" style="text-align: right;">
-                    <button (click)="onSubmit()" type="submit"
+                    <button (click)="onSubmit()" type="submit" [disabled] = "loading"
                         class="btn btn-primary btn-rounded btn-md font-weight-medium"
                         id="login-btn">
                         <i class="bi bi-person-plus-fill icon"></i> Save

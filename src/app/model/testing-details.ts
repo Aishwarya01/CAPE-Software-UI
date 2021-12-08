@@ -22,11 +22,22 @@ export class Testing{
   designation!: String;
   companyName!: String;
   Impedance!: String;
+  testingEquipment!:TestingEquipment[];
   testDistribution!:TestDistribution[];
   testingRecords!: TestingRecords[];
+  testingStatus!: String;
 }
 
- 
+export class TestingEquipment {
+  testingId: number;
+  equipmentId!: number;
+  equipmentName!: String;
+  equipmentMake!: String;
+  equipmentModel!: String;
+  equipmentSerialNo!: String;
+  equipmentCalibrationDueDate!: String;
+  testingEquipmentStatus: String;
+}
 
 export class TestDistribution {
 
@@ -49,6 +60,8 @@ export class TestDistribution {
 
 
 export class TestingRecords {
+  testingId: number;
+  testingRecordId: number;
   circuitNo!: String;
   circuitDesc!: String;
   circuitStandardNo!: String;
@@ -79,7 +92,7 @@ export class TestingRecords {
   rcdOperatingFiveCurrent!: String;
   testButtonOperation!: String;
   rcdRemarks!: String;
-
+  testingRecordStatus!: String;
 }
 
 export class TestIncomingDistribution {
@@ -91,4 +104,3 @@ export class TestIncomingDistribution {
   sourceFromSupply!: String;
  
 }
-  
