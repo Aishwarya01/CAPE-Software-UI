@@ -987,7 +987,9 @@ showHideAccordion(index: number) {
     this.ChangeDetectorRef.detectChanges();
   }
   removeItem(index: any) {
+    this.addstep3.markAsDirty();
     if(this.flag) {
+      this.addstep3.markAsTouched();
       if(this.addstep3.value.incomingArr[index].ipaoInspectionId != 0 
         && this.addstep3.value.incomingArr[index].ipaoInspectionId != '' 
          && this.addstep3.value.incomingArr[index].ipaoInspectionId != undefined ) {
