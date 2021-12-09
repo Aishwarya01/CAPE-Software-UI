@@ -219,6 +219,7 @@ export class SiteaddComponent implements OnInit {
         this.success = true
         this.successMsg =data;
         this.service.allFieldsDisable = false;
+        this.service.allStepsCompleted=true;
         setTimeout(() => {
           this.success = false;
         }, 3000);
