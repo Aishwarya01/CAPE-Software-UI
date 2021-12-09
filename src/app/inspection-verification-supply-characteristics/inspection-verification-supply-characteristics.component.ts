@@ -347,6 +347,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       shortName: ['', Validators.required],
       systemEarthing: ['', Validators.required],
       liveConductor: ['', Validators.required],
+      mainNominalFrequency: ['', Validators.required],
       AcConductor: ['', Validators.required],
       DcConductor: ['', Validators.required],
       briefNote: [''],
@@ -1614,10 +1615,10 @@ showHideAccordion(index: number) {
     createGroup(item: any): FormGroup {
       return this.formBuilder.group({
         locationReportId: new FormControl({disabled: false, value: item.locationReportId}),
-        location: new FormControl({disabled: false ,value: item.location}),
-        jointNo: new FormControl({disabled: false, value: item.jointNo}),
-        jointReference: new FormControl({disabled: false ,value: item.jointReference}),
-        jointResistance: new FormControl({disabled: false ,value: item.jointResistance}),
+        location: new FormControl({disabled: false ,value: item.location}, [Validators.required]),
+        jointNo: new FormControl({disabled: false, value: item.jointNo}, [Validators.required]),
+        jointReference: new FormControl({disabled: false ,value: item.jointReference}, [Validators.required]),
+        jointResistance: new FormControl({disabled: false ,value: item.jointResistance}, [Validators.required]),
         instalLocationReportStatus: new FormControl({disabled: false,value: item.instalLocationReportStatus}),
         
       });
@@ -1625,13 +1626,13 @@ showHideAccordion(index: number) {
     createGroup1(item: any): FormGroup {
       return this.formBuilder.group({
         locationReportId: new FormControl({disabled: false, value: item.locationReportId}),
-        locationNo: new FormControl({disabled: false ,value: item.locationNo}),
-        locationName: new FormControl({disabled: false, value: item.locationName}),
-        electrodeEarthType: new FormControl({disabled: false, value: item.electrodeEarthType}),
-        electrodeEarthMaterial: new FormControl({disabled: false, value: item.electrodeEarthMaterial}),
-        electrodeEarthSize: new FormControl({disabled: false, value: item.electrodeEarthSize}),
-        electrodeEarthDepth: new FormControl({disabled: false, value: item.electrodeEarthDepth}),
-        electrodeResistanceEarth: new FormControl({disabled: false ,value: item.electrodeResistanceEarth}),
+        locationNo: new FormControl({disabled: false ,value: item.locationNo}, [Validators.required]),
+        locationName: new FormControl({disabled: false, value: item.locationName}, [Validators.required]),
+        electrodeEarthType: new FormControl({disabled: false, value: item.electrodeEarthType}, [Validators.required]),
+        electrodeEarthMaterial: new FormControl({disabled: false, value: item.electrodeEarthMaterial}, [Validators.required]),
+        electrodeEarthSize: new FormControl({disabled: false, value: item.electrodeEarthSize}, [Validators.required]),
+        electrodeEarthDepth: new FormControl({disabled: false, value: item.electrodeEarthDepth}, [Validators.required]),
+        electrodeResistanceEarth: new FormControl({disabled: false ,value: item.electrodeResistanceEarth}, [Validators.required]),
         electrodeResistanceGird: new FormControl({disabled: false ,value: item.electrodeResistanceGird}),
         instalLocationReportStatus: new FormControl({disabled: false ,value: item.instalLocationReportStatus})
       });
@@ -1639,18 +1640,18 @@ showHideAccordion(index: number) {
     createGroupAl(item: any): FormGroup {
       return this.formBuilder.group({
         supplyparametersId: new FormControl({disabled: false, value: item.supplyparametersId}),
-        aLSupplyNo: new FormControl({disabled: false ,value: item.aLSupplyNo}),
-        aLSupplyShortName: new FormControl({disabled: false, value: item.aLSupplyShortName}),
-        aLSystemEarthing: new FormControl({disabled: false ,value: item.aLSystemEarthing}),
-        aLLiveConductorType: new FormControl({disabled: false ,value: item.aLLiveConductorType}),
-        aLLiveConductorAC: new FormControl({disabled: false ,value: item.aLLiveConductorAC}),
-        nominalFrequency: new FormControl({disabled: false ,value: item.nominalFrequency}),
+        aLSupplyNo: new FormControl({disabled: false ,value: item.aLSupplyNo}, [Validators.required]),
+        aLSupplyShortName: new FormControl({disabled: false, value: item.aLSupplyShortName}, [Validators.required]),
+        aLSystemEarthing: new FormControl({disabled: false ,value: item.aLSystemEarthing}, [Validators.required]),
+        aLLiveConductorType: new FormControl({disabled: false ,value: item.aLLiveConductorType}, [Validators.required]),
+        aLLiveConductorAC: new FormControl({disabled: false ,value: item.aLLiveConductorAC}, [Validators.required]),
+        nominalFrequency: new FormControl({disabled: false ,value: item.nominalFrequency}, [Validators.required]),
         aLLiveConductorDC: new FormControl({disabled: false ,value: item.aLLiveConductorDC}),
-        aLSystemEarthingBNote: new FormControl({disabled: false ,value: item.aLSystemEarthingBNote}),
-        aLLiveConductorBNote: new FormControl({disabled: false ,value: item.aLLiveConductorBNote}),
-        currentDissconnection: new FormControl({disabled: false ,value: item.currentDissconnection}),
-        protectiveDevice: new FormControl({disabled: false ,value: item.protectiveDevice}),
-        ratedCurrent: new FormControl({disabled: false ,value: item.ratedCurrent}),
+        aLSystemEarthingBNote: new FormControl({disabled: false ,value: item.aLSystemEarthingBNote}, [Validators.required]),
+        aLLiveConductorBNote: new FormControl({disabled: false ,value: item.aLLiveConductorBNote}, [Validators.required]),
+        currentDissconnection: new FormControl({disabled: false ,value: item.currentDissconnection}, [Validators.required]),
+        protectiveDevice: new FormControl({disabled: false ,value: item.protectiveDevice}, [Validators.required]),
+        ratedCurrent: new FormControl({disabled: false ,value: item.ratedCurrent}, [Validators.required]),
         supplyParameterStatus: new FormControl({disabled: false, value: item.supplyParameterStatus}),
         nominalVoltageArr1: this.formBuilder.array([this.createNominalForm(item.nominalVoltage,item.nominalFrequency,item.faultCurrent,item.loopImpedance,item.installedCapacity,item.actualLoad)]),
       });
@@ -1671,19 +1672,19 @@ showHideAccordion(index: number) {
     createGroupCircuitB(item: any): FormGroup {
       return this.formBuilder.group({
         circuitBreakerId: new FormControl({disabled: false, value: item.circuitBreakerId}),
-      location: new FormControl({disabled: false ,value: item.location}),
-      type: new FormControl({disabled: false ,value: item.type}),
-      noPoles: new FormControl({disabled: false ,value: item.noPoles}),
-      current: new FormControl({disabled: false ,value: item.current}),
-      voltage: new FormControl({disabled: false ,value: item.voltage}),
-      fuse: new FormControl({disabled: false ,value: item.fuse}),
-      sourceName: new FormControl({disabled: false ,value: item.sourceName}),
-      make: new FormControl({disabled: false ,value: item.make}),
-      currentCurve: new FormControl({disabled: false ,value: item.currentCurve}),
-      typeOfResidualCurrent: new FormControl({disabled: false ,value: item.typeOfResidualCurrent}),
-      residualCurrent: new FormControl({disabled: false ,value: item.residualCurrent}),
+      location: new FormControl({disabled: false ,value: item.location}, [Validators.required]),
+      type: new FormControl({disabled: false ,value: item.type}, [Validators.required]),
+      noPoles: new FormControl({disabled: false ,value: item.noPoles}, [Validators.required]),
+      current: new FormControl({disabled: false ,value: item.current}, [Validators.required]),
+      voltage: new FormControl({disabled: false ,value: item.voltage}, [Validators.required]),
+      fuse: new FormControl({disabled: false ,value: item.fuse}, [Validators.required]),
+      sourceName: new FormControl({disabled: false ,value: item.sourceName}, [Validators.required]),
+      make: new FormControl({disabled: false ,value: item.make}, [Validators.required]),
+      currentCurve: new FormControl({disabled: false ,value: item.currentCurve}, [Validators.required]),
+      typeOfResidualCurrent: new FormControl({disabled: false ,value: item.typeOfResidualCurrent}, [Validators.required]),
+      residualCurrent: new FormControl({disabled: false ,value: item.residualCurrent}, [Validators.required]),
 
-      residualTime: new FormControl({disabled: false ,value: item.residualTime}),
+      residualTime: new FormControl({disabled: false ,value: item.residualTime}, [Validators.required]),
       circuitStatus: new FormControl({disabled: false ,value: item.circuitStatus})
       });
     }

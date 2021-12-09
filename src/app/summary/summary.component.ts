@@ -747,12 +747,12 @@ showHideAccordion(index: number) {
     createGroup(item: any): FormGroup {
       return this._formBuilder.group({
         observationsId: new FormControl({disabled: false,value: item.observationsId}),
-        observations: new FormControl({disabled: false,value: item.observations}),
-        furtherActions: new FormControl({disabled: false,value: item.furtherActions}),
-        referanceNumberReport: new FormControl({disabled: false,value: item.referanceNumberReport}),
-        recommendationsDate: new FormControl({disabled: false,value: item.recommendationsDate}),
-        obervationStatus: new FormControl({disabled: false,value: item.obervationStatus}),
-        //comment: new FormControl({disabled: false,value: item.comment}),
+        observations: new FormControl({disabled: false,value: item.observations}, [Validators.required]),
+        furtherActions: new FormControl({disabled: false,value: item.furtherActions}, [Validators.required]),
+        referanceNumberReport: new FormControl({disabled: false,value: item.referanceNumberReport}, [Validators.required]),
+        recommendationsDate: new FormControl({disabled: false,value: item.recommendationsDate}, [Validators.required]),
+        obervationStatus: new FormControl(item.obervationStatus),
+        //comment: new FormControl({disabled: false,value: item.comment}, [Validators.required]),
       });
     }
   

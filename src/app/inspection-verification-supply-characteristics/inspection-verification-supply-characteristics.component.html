@@ -97,14 +97,14 @@
 
               <div class="col-md-3" *ngIf="enableAC">
                 <label>Nominal Frequency (HZ):</label>
-                <select class="form-control" formControlName="NF1" [(ngModel)]="supplycharesteristic.mainNominalFrequency"
-                [ngClass]="{ 'is-invalid': submitted && f.NF1.errors }" [disabled]="service.allFieldsDisable">
+                <select class="form-control" formControlName="mainNominalFrequency" [(ngModel)]="supplycharesteristic.mainNominalFrequency"
+                [ngClass]="{ 'is-invalid': submitted && f.mainNominalFrequency.errors }" [disabled]="service.allFieldsDisable">
                   <option value="" selected>Select Option</option>  
-                  <option value="50" [selected]="f.NF1?.value=== '50'">50</option>
-                        <option value="60" [selected]="f.NF1?.value=== '60'">60</option>
+                  <option value="50" [selected]="f.mainNominalFrequency?.value=== '50'">50</option>
+                        <option value="60" [selected]="f.mainNominalFrequency?.value=== '60'">60</option>
                   </select>
-              <div *ngIf="submitted && f.NF1.errors" class="invalid-feedback">
-                <div *ngIf="f.NF1?.errors?.required">Field Is Required</div>
+              <div *ngIf="submitted && f.mainNominalFrequency.errors" class="invalid-feedback">
+                <div *ngIf="f.mainNominalFrequency?.errors?.required">Field Is Required</div>
               </div>
             </div>
 
