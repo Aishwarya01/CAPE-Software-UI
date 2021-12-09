@@ -806,7 +806,7 @@
                       <tbody formArrayName="testingRecords" *ngFor="let f of gettestValueControls(a); let i = index">
                         <ng-container [formGroupName]="i">
                           <mat-icon class="mousechange" class="dlt" type="button" title="Delete" 
-                            (click)="removeItemRecords(a,i,f)" style="cursor: pointer;margin: 20px 5px 20px 5px;">remove_circle_outline</mat-icon>
+                            (click)="removeItemRecords(a,i,f)" *ngIf="gettestValueControls(a).length > 1" style="cursor: pointer;margin: 20px 5px 20px 5px;">remove_circle_outline</mat-icon>
                         <tr  class="form-group" >
                                 <td><input type="text" formControlName="circuitNo" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td ><textarea  formControlName="circuitDesc"  class="form-control" style="height:40px;width:170px;"  [readonly]="service.allFieldsDisable"></textarea> </td>

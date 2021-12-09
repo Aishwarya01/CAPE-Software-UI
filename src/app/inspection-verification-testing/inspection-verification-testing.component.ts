@@ -1791,12 +1791,15 @@ callValue(e: any) {
     this.testingEquipment.push(this.createTestInstrumentForm());
   }
   removeItem(a: any,j:any) {
+    this.testingForm.markAsTouched();
+
     this.testingEquipment = a.controls.testingEquipment as FormArray;
     if(this.flag && this.testingEquipment.value[j].equipmentId!=null && this.testingEquipment.value[j].equipmentId!='' && this.testingEquipment.value[j].equipmentId!=undefined){
       this.testingEquipment.value[j].testingEquipmentStatus='R';
       this.deletedTestingEquipment.push(this.testingEquipment.value[j]);
     }
     this.testingEquipment.removeAt(j);
+    this.testingForm.markAsDirty();
   }
 
   createTestInstrumentForm(): FormGroup {
