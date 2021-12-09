@@ -351,6 +351,7 @@ ShowNext: boolean = true;
     if(this.values==''){
      this.designer2PersonNameMsg=true;
      this.removeDesigner();
+     this.step1Form.markAsDirty();
     }
     else{
      this.designer2PersonNameMsg=false;
@@ -1424,7 +1425,6 @@ showHideAccordion(index: number) {
   }
 
   removeDesigner() {
-    this.step1Form.markAsDirty();
     this.showDesigner2= false;
     this.showAddButton= true;
     this.f.designer2Arr.controls[0].controls['personName'].clearValidators();
@@ -1455,7 +1455,6 @@ showHideAccordion(index: number) {
     this.f.designer2Arr.controls[0].controls['pinCode'].updateValueAndValidity();
 
     if(this.flag) {
-      this.step1List.markAsTouched();
       this.deletedArr = [];
       if(this.step1List.reportDetails != undefined) {
         for( let i of this.step1List.reportDetails.signatorDetails) {      
@@ -1475,9 +1474,13 @@ showHideAccordion(index: number) {
       }
       
     }
-    this.step1Form.markAsDirty();
+   (<FormArray> this.step1Form.get('designer2Arr')).reset();
 
-    return (<FormArray> this.step1Form.get('designer2Arr')).reset();
+   if(this.deletedArr.length != 0) {
+    this.step1Form.markAsDirty();
+    this.step1Form.markAsTouched();
+    this.step1Form.updateValueAndValidity();
+   }
   }
 
   get f():any {
@@ -1959,7 +1962,7 @@ showHideAccordion(index: number) {
     }
   
     if(flag){
-      if(this.step1Form.dirty || this.step1Form.touched){
+      if(this.step1Form.dirty){
         if(this.deletedArr.length != 0) {
           for(let i of this.deletedArr) {
             this.reportDetails.signatorDetails.push(i);
