@@ -168,43 +168,43 @@ export class LpsMatstepperComponent implements OnInit {
           this.basic.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
           this.doSomething1(false);
           this.Completed1 = true;
-          if(this.dataJSON.lpsAirDiscription != null) {
+        }
+        if(this.dataJSON.lpsAirDiscription != null) {
             
             this.airTermination.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
             this.doSomething2(false);
             this.Completed2 = true;
-            if(this.dataJSON.downConductorDesc != null) {
+        }
+        if(this.dataJSON.downConductorDesc != null) {
               
               this.downConductors.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
               this.doSomething3(false);
               this.Completed3 = true;
-              if(this.dataJSON.earthingLpsDescription != null) {
+        }
+        if(this.dataJSON.earthingLpsDescription != null) {
                 
                 this.earthing.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
                 this.doSomething4(false);
                 this.Completed4 = true;
-                if(this.dataJSON.spddesc != null) {
+        }
+        if(this.dataJSON.spddesc != null) {
                   
                   this.spd.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
                   this.doSomething5(false);
                   this.Completed5 = true;
-                  if(this.dataJSON.seperationDistanceDesc != null) {
+        }
+        if(this.dataJSON.seperationDistanceDesc != null) {
                     
                     this.seperationDistance.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
                     this.doSomething6(false);
                     this.Completed6 = true;
-                    if(this.dataJSON.earthStudDescription != null) {
+        }
+        if(this.dataJSON.earthStudDescription != null) {
                       
                       this.earthStud.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
                       this.doSomething7(false);
                       this.Completed7 = true;
                       
-                    }
-                  }
-                }
-              }
-            }
-          }
         }
       },
       (error) => {
