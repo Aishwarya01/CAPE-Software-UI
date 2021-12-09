@@ -491,7 +491,10 @@
 
                     <h2>Alternate Form :</h2>
                 
-                    <mat-icon class="mousechange" class="dlt" type="button" title="Delete" (click)="removeItem3(a,i)"  style="margin-inline: 4rem;float: right;position: relative;margin-top: -4rem;" [hidden]="service.allFieldsDisable">remove_circle_outline</mat-icon>
+              
+                  <mat-icon  class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" (click)="removeItem3(a,i)"  style="margin-inline: 4rem;float: right;position: relative;margin-top: -4rem;" >remove_circle_outline</mat-icon>
+      
+                    
             
 
                 <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
@@ -1114,7 +1117,7 @@
                               </div>
                             </td>
 
-                            <mat-icon class="mousechange" class="dlt" type="button" title="Delete" (click)="removeItem(a,i)" style="margin-top: 15px;font-size: x-large;height: auto;width: auto;" [hidden]="service.allFieldsDisable">remove_circle_outline</mat-icon>
+                            <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" (click)="removeItem(a,i)" style="margin-top: 15px;font-size: x-large;height: auto;width: auto;" >remove_circle_outline</mat-icon>
                             
                         </tr>
                       </tbody>  
@@ -1359,7 +1362,7 @@
                       </div>
                     </div>
             
-                      <mat-icon class="mousechange" class="dlt" type="button" title="Delete" (click)="removeItem1(a,i)" style="font-size: x-large;margin-left: 99%;margin-top: -24px; width: 10%;" [hidden]="service.allFieldsDisable">remove_circle_outline</mat-icon>
+                      <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" (click)="removeItem1(a,i)" style="font-size: x-large;margin-left: 99%;margin-top: -24px; width: 10%;">remove_circle_outline</mat-icon>
                    
                   </div>
                 </div>
@@ -1525,7 +1528,7 @@
                         </div>
                       </div>
 
-                        <mat-icon class="mousechange" class="dlt" type="button" title="Delete" (click)="removeItem2(a,i)" style="margin-top: -24px;margin-left: 99%;font-size: x-large; width: 10%;" [hidden]="service.allFieldsDisable">remove_circle_outline</mat-icon>
+                        <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" (click)="removeItem2(a,i)" style="margin-top: -24px;margin-left: 99%;font-size: x-large; width: 10%;">remove_circle_outline</mat-icon>
 
                     </div>
                   </div>
