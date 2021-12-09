@@ -151,7 +151,7 @@
                  </mat-icon>
                   <select class="form-control" formControlName="descPremise" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
                   [(ngModel)]="reportDetails.descriptionPremise" [ngClass]="{ 'is-invalid': submitted && f.descPremise.errors }">
-                   <option value="0" selected>Select Option</option>
+                   <option value="" selected>Select Option</option>
                     <option *ngFor="let value of premiseList" >{{value}}</option>
                   </select>
                   <div *ngIf="submitted && f.descPremise.errors" class="invalid-feedback">
@@ -179,7 +179,7 @@
                 <select class="form-control" formControlName="evidenceAlterations" (change)="showEstimatedAge($event)" 
                 [tabindex]="service.allFieldsDisable ? -1 : 0" [disabled]="service.allFieldsDisable"
                  [(ngModel)]="reportDetails.evidanceAddition" [ngClass]="{ 'is-invalid': submitted && f.evidenceAlterations.errors }">
-                 <option value="0" selected>Select Option</option>
+                 <option value="" selected>Select Option</option>
                   <option *ngFor="let value of evidenceList" >{{value}}</option>
                 </select>
                 <div *ngIf="submitted && f.evidenceAlterations.errors" class="invalid-feedback">
@@ -207,7 +207,7 @@
                 <select class="form-control" formControlName="previousRecord" (change)="previousRecord($event)" 
                 [tabindex]="service.allFieldsDisable ? -1 : 0" [disabled]="service.allFieldsDisable"
                 [(ngModel)]="reportDetails.previousRecords" [ngClass]="{ 'is-invalid': submitted && f.previousRecord.errors }">
-                 <option value="0" selected>Select Option</option>
+                 <option value="" selected>Select Option</option>
                   <option *ngFor="let value of previousRecordList" >{{value}}</option>
                 </select>
                 <div *ngIf="submitted && f.previousRecord.errors" class="invalid-feedback">
@@ -387,7 +387,7 @@
                   <label>Read and Confirmed the Extent and Limitations* :</label>
                   <select class="form-control" formControlName="limitations" [(ngModel)]="reportDetails.limitations" 
                   [ngClass]="{ 'is-invalid': submitted && f.limitations.errors }" [tabindex]="service.allFieldsDisable ? -1 : 0" [disabled]="service.allFieldsDisable">
-                   <option value="0" selected>Select Option</option>
+                   <option value="" selected>Select Option</option>
                     <option *ngFor="let value of previousRecordList" >{{value}}</option>
                   </select>
                   <div *ngIf="submitted && f.limitations.errors" class="invalid-feedback">
@@ -749,7 +749,7 @@
                             [ngClass]="{ 'is-invalid': submitted && a.get('country')?.errors }" 
                             [tabindex]="service.allFieldsDisable ? -1 : 0" [disabled]="service.allFieldsDisable">
 
-                               <option value="0" selected>Select Country Name</option>
+                               <option value="" selected>Select Country Name</option>
                                 <option *ngFor="let country of countryList" [selected]="country.name=== a.get('country')?.value">{{country.name}}</option>
                             </select>
                             <div *ngIf="submitted && a.get('country')?.errors" class="invalid-feedback">
@@ -762,8 +762,8 @@
                             <select  formControlName="state" class="form-control"
                             [ngClass]="{ 'is-invalid': submitted && a.get('state')?.errors}" 
                             [tabindex]="service.allFieldsDisable ? -1 : 0" [disabled]="service.allFieldsDisable">
-                             <!--<option value="0" selected>{{state1}}</option> -->
-                                <option value="0" >Select State Name</option>
+                             <!--<option value="" selected>{{state1}}</option> -->
+                                <option value="" >Select State Name</option>
                                 <option *ngFor="let state of stateList1" [selected]="state.name=== state1">{{state.name}}</option>
                             </select>
                             <div *ngIf="submitted && a.get('state')?.errors" class="invalid-feedback">
@@ -791,7 +791,7 @@
               </div>
 
               <div *ngIf="showDesigner2">
-                <mat-icon class="mousechange" class="dlt" type="button" title="Delete" (click)="removeDesigner()" title="Delete" style="float:right; padding-right: 37px; padding-top: 10px;">remove_circle_outline</mat-icon>
+                <mat-icon class="mousechange" class="dlt" type="button" [ngClass]="{'disableForm':service.allFieldsDisable}" (click)="removeDesigner()" title="Delete" style="float:right; padding-right: 37px; padding-top: 10px;">remove_circle_outline</mat-icon>
 
                 <!-- <mat-icon class="mousechange"  (click)="removeDesigner()" style="">delete</mat-icon> -->
 
@@ -924,7 +924,7 @@
                                 <select  formControlName="country" class="form-control" (change)="designer2changeCountry($event)"
                                 [ngClass]="{ 'is-invalid': submitted && a.get('country')?.errors }" 
                                 [tabindex]="service.allFieldsDisable ? -1 : 0" [disabled]="service.allFieldsDisable">
-                               <option value="0" selected>Select Country Name</option>
+                               <option value="" selected>Select Country Name</option>
                                 <option *ngFor="let country of countryList" [selected]="country.name=== a.get('country')?.value">{{country.name}}</option>
                             </select>
                                 <div *ngIf="submitted && a.get('country')?.errors" class="invalid-feedback">
@@ -938,7 +938,7 @@
                                 <select  formControlName="state" class="form-control"
                                 [ngClass]="{ 'is-invalid': submitted && a.get('state')?.errors }" 
                                 [tabindex]="service.allFieldsDisable ? -1 : 0" [disabled]="service.allFieldsDisable">
-                               <option value="0" selected>Select State Name</option>
+                               <option value="" selected>Select State Name</option>
                                 <option *ngFor="let state of stateList2" [selected]="state.name=== state2">{{state.name}}</option>
                             </select>
                                 <div *ngIf="submitted && a.get('state')?.errors" class="invalid-feedback">
@@ -1101,7 +1101,7 @@
                                 <select  formControlName="country" class="form-control" (change)="contractorchangeCountry($event)"
                                 [ngClass]="{ 'is-invalid': submitted && a.get('country')?.errors }" 
                                 [tabindex]="service.allFieldsDisable ? -1 : 0" [disabled]="service.allFieldsDisable">
-                               <option value="0" selected>Select Country Name</option>
+                               <option value="" selected>Select Country Name</option>
                                 <option *ngFor="let country of countryList" [selected]="country.name=== a.get('country')?.value">{{country.name}}</option>
                             </select>
                                 <div *ngIf="submitted && a.get('country')?.errors" class="invalid-feedback">
@@ -1115,7 +1115,7 @@
                                 <select  formControlName="state" class="form-control"
                                 [ngClass]="{ 'is-invalid': submitted && a.get('state')?.errors }" 
                                 [tabindex]="service.allFieldsDisable ? -1 : 0" [disabled]="service.allFieldsDisable">
-                                   <option value="0" selected>Select State Name</option>
+                                   <option value="" selected>Select State Name</option>
                                     <option *ngFor="let state of stateList3" [selected]="state.name=== state3">{{state.name}}</option>
                                 </select>
                                 <div *ngIf="submitted && a.get('state')?.errors" class="invalid-feedback">
@@ -1272,7 +1272,7 @@
                               <!-- <select  formControlName="country" class="form-control"
                               (change)="inspectorchangeCountry($event)"
                               [ngClass]="{ 'is-invalid': submitted && a.get('country')?.errors }">
-                             <option value="0" selected>Select Country Name</option>
+                             <option value="" selected>Select Country Name</option>
                               <option *ngFor="let country of countryList" [selected]="country.name=== a.get('country')?.value">{{country.name}}</option>
                           </select> -->
                               <div *ngIf="submitted && a.get('country')?.errors" class="invalid-feedback">
@@ -1287,7 +1287,7 @@
                               [ngClass]="{ 'is-invalid': submitted && a.get('state')?.errors }">
                               <!-- <select  formControlName="state" class="form-control"
                               [ngClass]="{ 'is-invalid': submitted && a.get('state')?.errors }">
-                                 <option value="0" selected>Select State Name</option>
+                                 <option value="" selected>Select State Name</option>
                                   <option *ngFor="let state of stateList4" [selected]="state.name=== state4">{{state.name}}</option>
                               </select> -->
                               <div *ngIf="submitted && a.get('state')?.errors" class="invalid-feedback">

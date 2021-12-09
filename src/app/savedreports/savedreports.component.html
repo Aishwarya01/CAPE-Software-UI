@@ -9,7 +9,7 @@
             <span class="col-md-5" style="display: table-cell; width: 1000px;
               padding: 0 4px 0 4px;"><select class="form-control" (change)="changeClient($event)"
                 [(ngModel)]="site.clientName">
-                <option value="0" selected>Select Company Name</option>
+                <option value="" selected>Select Company Name</option>
                 <option *ngFor="let client of clientList">{{client.clientName}}</option>
               </select></span>
             <label style="display: table-cell;
@@ -18,7 +18,7 @@
             <span class="col-md-5" style="display: table-cell; width: 1000px;
               padding: 0 4px 0 4px;"><select class="form-control" [(ngModel)]="site.departmentName"
                 (change)="retrieveSiteDetails()">
-                <option value="0" selected>Select Department Name</option>
+                <option value="" selected>Select Department Name</option>
                 <option *ngFor="let department of departmentList">{{department.departmentName}}</option>
               </select></span>
           </div>

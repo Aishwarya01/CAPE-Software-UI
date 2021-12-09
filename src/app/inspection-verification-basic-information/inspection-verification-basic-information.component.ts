@@ -351,6 +351,7 @@ ShowNext: boolean = true;
     if(this.values==''){
      this.designer2PersonNameMsg=true;
      this.removeDesigner();
+     this.step1Form.markAsDirty();
     }
     else{
      this.designer2PersonNameMsg=false;
@@ -1162,18 +1163,18 @@ showHideAccordion(index: number) {
     return this._formBuilder.group({
       signatorId: new FormControl({disabled: false ,value: item.signatorId}),
       personName: new FormControl({disabled: false ,value: item.personName}),
-      personMailID: new FormControl({disabled: false, value: item.personMailID}),
+      personMailID: new FormControl({disabled: false, value: item.personMailID},[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       personContactNo: new FormControl({disabled : false, value: item.personContactNo}),
-      managerName: new FormControl({disabled: false ,value: item.managerName}),
+      managerName: new FormControl({disabled: false ,value: item.managerName},[Validators.required]),
       managerContactNo: new FormControl({disabled: false,value: item.managerContactNo}),
-      managerMailID: new FormControl({disabled: false ,value: item.managerMailID}),
-      companyName: new FormControl({disabled: false, value:item.companyName}),
-      addressLine1: new FormControl({disabled: false ,value: item.addressLine1}),
+      managerMailID: new FormControl({disabled: false ,value: item.managerMailID},[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+      companyName: new FormControl({disabled: false, value:item.companyName},[Validators.required]),
+      addressLine1: new FormControl({disabled: false ,value: item.addressLine1},[Validators.required]),
       addressLine2: new FormControl({disabled: false, value: item.addressLine2}),
       landMark: new FormControl({disabled: false ,value: item.landMark}),
-      country: new FormControl({disabled: false,value: item.country}),
-      state: new FormControl({disabled: false ,value: item.state}),
-      pinCode: new FormControl({disabled: false, value:item.pinCode}),
+      country: new FormControl({disabled: false,value: item.country},[Validators.required]),
+      state: new FormControl({disabled: false ,value: item.state},[Validators.required]),
+      pinCode: new FormControl({disabled: false, value:item.pinCode},[Validators.required]),
       signatorRole: new FormControl({disabled: false ,value: item.signatorRole}),
       declarationSignature: new FormControl({disabled: false, value: item.declarationSignature}),
       declarationDate: new FormControl({disabled: false ,value: item.declarationDate}),
@@ -1424,7 +1425,6 @@ showHideAccordion(index: number) {
   }
 
   removeDesigner() {
-    this.step1Form.markAsDirty();
     this.showDesigner2= false;
     this.showAddButton= true;
     this.f.designer2Arr.controls[0].controls['personName'].clearValidators();
@@ -1455,7 +1455,6 @@ showHideAccordion(index: number) {
     this.f.designer2Arr.controls[0].controls['pinCode'].updateValueAndValidity();
 
     if(this.flag) {
-      this.step1List.markAsTouched();
       this.deletedArr = [];
       if(this.step1List.reportDetails != undefined) {
         for( let i of this.step1List.reportDetails.signatorDetails) {      
@@ -1475,9 +1474,13 @@ showHideAccordion(index: number) {
       }
       
     }
-    this.step1Form.markAsDirty();
+   (<FormArray> this.step1Form.get('designer2Arr')).reset();
 
-    return (<FormArray> this.step1Form.get('designer2Arr')).reset();
+   if(this.deletedArr.length != 0) {
+    this.step1Form.markAsDirty();
+    this.step1Form.markAsTouched();
+    this.step1Form.updateValueAndValidity();
+   }
   }
 
   get f():any {
@@ -1959,7 +1962,7 @@ showHideAccordion(index: number) {
     }
   
     if(flag){
-      if(this.step1Form.dirty || this.step1Form.touched){
+      if(this.step1Form.dirty){
         if(this.deletedArr.length != 0) {
           for(let i of this.deletedArr) {
             this.reportDetails.signatorDetails.push(i);

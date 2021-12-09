@@ -94,7 +94,7 @@ export class LpsEarthStudComponent implements OnInit {
     if(this.EarthStudForm.invalid){return}
     this.earthStud.userName = this.router.snapshot.paramMap.get('email') || '{}';;
     this.earthStud.basicLpsId = this.basicLpsId;
-
+    if (!this.validationError) {
       if(flag) {
         if(this.EarthStudForm.dirty && this.EarthStudForm.touched){ 
         this.earthStudService.updateEarthStud(this.earthStud).subscribe(
@@ -142,6 +142,7 @@ export class LpsEarthStudComponent implements OnInit {
             this.proceedNext.emit(false);
           });
       }
+    }
   }
   
   get f() {

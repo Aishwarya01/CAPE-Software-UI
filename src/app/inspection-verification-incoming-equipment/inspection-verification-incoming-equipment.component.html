@@ -31,7 +31,7 @@
             </div> 
         </div>
 
-        <mat-icon class="mousechange" class="dlt" type="button" title="Delete" *ngIf="getIncomingControls().length > 1" (click)="removeItem(i)"title="Delete" style="position: relative; top: 34px; left: 27%;">remove_circle_outline</mat-icon>
+        <mat-icon class="mousechange" class="dlt" type="button" [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="getIncomingControls().length > 1" (click)="removeItem(i)"title="Delete" style="position: relative; top: 34px; left: 27%;">remove_circle_outline</mat-icon>
 
       </div>
   </div>
@@ -58,7 +58,7 @@
             <select class="form-control" formControlName="serviceCable"
             [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('serviceCable')?.errors }">
-           <option value="0" selected>Select Option</option>
+           <option value="" selected>Select Option</option>
             <option *ngFor="let value of InspectionList" [selected]="value=== a.get('serviceCable')?.value">{{value}}</option>
           </select>
             <div *ngIf="submitted && a.get('serviceCable')?.errors" class="invalid-feedback">
@@ -81,7 +81,7 @@
             <select class="form-control" formControlName="serviceFuse" 
             [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('serviceFuse')?.errors }">
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('serviceFuse')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('serviceFuse')?.errors" class="invalid-feedback">
@@ -103,7 +103,7 @@
             <select class="form-control" formControlName="meterDistributor" 
             [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('meterDistributor')?.errors }">
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('meterDistributor')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('meterDistributor')?.errors" class="invalid-feedback">
@@ -125,7 +125,7 @@
             <select class="form-control" formControlName="meterConsumer" 
             [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('meterConsumer')?.errors }">
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('meterConsumer')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('meterConsumer')?.errors" class="invalid-feedback">
@@ -146,7 +146,7 @@
             </mat-icon>
             <select class="form-control" formControlName="meterEqu" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('meterEqu')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('meterEqu')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('meterEqu')?.errors" class="invalid-feedback">
@@ -167,7 +167,7 @@
         </mat-icon>
             <select class="form-control" formControlName="isolator" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('isolator')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('isolator')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('isolator')?.errors" class="invalid-feedback">
@@ -199,7 +199,7 @@
             </mat-icon>
             <select class="form-control" formControlName="earthingArrangement" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('earthingArrangement')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('earthingArrangement')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('earthingArrangement')?.errors" class="invalid-feedback">
@@ -214,7 +214,7 @@
               Supply:</label>
             <select class="form-control" formControlName="adequateArrangement" 
             [ngClass]="{ 'is-invalid': submitted && a.get('adequateArrangement')?.errors }" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0">
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('adequateArrangement')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('adequateArrangement')?.errors" class="invalid-feedback">
@@ -229,7 +229,7 @@
               Currents):</label>
             <select class="form-control" formControlName="connectionGenerator" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('connectionGenerator')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('connectionGenerator')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('connectionGenerator')?.errors" class="invalid-feedback">
@@ -243,7 +243,7 @@
             <label>Compatibility of Characteristics Of Generator (V,I,Hz):</label>
             <select class="form-control" formControlName="compatibilityCharacteristics" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('compatibilityCharacteristics')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('compatibilityCharacteristics')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('compatibilityCharacteristics')?.errors" class="invalid-feedback">
@@ -258,7 +258,7 @@
               Loss Of Incoming Utility Supply Or Voltage Or Frequency Deviation Beyond Declared Values:</label>
             <select class="form-control" formControlName="automaticDisconnectGenerator" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('automaticDisconnectGenerator')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('automaticDisconnectGenerator')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('automaticDisconnectGenerator')?.errors" class="invalid-feedback">
@@ -273,7 +273,7 @@
               is Normally Available:</label>
             <select class="form-control" formControlName="preventConnectGenerator" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('preventConnectGenerator')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('preventConnectGenerator')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('preventConnectGenerator')?.errors" class="invalid-feedback">
@@ -287,7 +287,7 @@
             <label>Means to Isolate Generator From The Public Supply System :</label>
             <select class="form-control" formControlName="isolateGenerator" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('isolateGenerator')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('isolateGenerator')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('isolateGenerator')?.errors" class="invalid-feedback">
@@ -318,7 +318,7 @@
                 </mat-icon>
             <select class="form-control" formControlName="mainEarting" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('mainEarting')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('mainEarting')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('mainEarting')?.errors" class="invalid-feedback">
@@ -341,7 +341,7 @@
                 </mat-icon>
             <select class="form-control" formControlName="earthElectordeArrangement" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('earthElectordeArrangement')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('earthElectordeArrangement')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('earthElectordeArrangement')?.errors" class="invalid-feedback">
@@ -355,7 +355,7 @@
             <label>Presence And Adequacy Of Earthing Conductor And Connections:</label>
             <select class="form-control" formControlName="earthConductorConnection" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('earthConductorConnection')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('earthConductorConnection')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('earthConductorConnection')?.errors" class="invalid-feedback">
@@ -369,7 +369,7 @@
             <label>Accessibility Of Earthing Conductor Connections:</label>
             <select class="form-control" formControlName="accessibility" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('accessibility')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('accessibility')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('accessibility')?.errors" class="invalid-feedback">
@@ -391,7 +391,7 @@
                 </mat-icon>
             <select class="form-control" formControlName="aainProtectBonding" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('aainProtectBonding')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('aainProtectBonding')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('aainProtectBonding')?.errors" class="invalid-feedback">
@@ -413,7 +413,7 @@
             <select class="form-control" formControlName="allProtectBonding" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('allProtectBonding')?.errors }" 
             >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('allProtectBonding')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('allProtectBonding')?.errors" class="invalid-feedback">
@@ -428,7 +428,7 @@
               Locations:</label>
             <select class="form-control" formControlName="allAppropriateLocation" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('allAppropriateLocation')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('allAppropriateLocation')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('allAppropriateLocation')?.errors" class="invalid-feedback">
@@ -442,7 +442,7 @@
             <label>Accessibility Of FELV Requirements Satisfied:</label>
             <select class="form-control" formControlName="felvRequirement" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('felvRequirement')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('felvRequirement')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('felvRequirement')?.errors" class="invalid-feedback">
@@ -475,7 +475,7 @@
            </mat-icon>
             <select class="form-control" formControlName="selvSystem" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('selvSystem')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('selvSystem')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('selvSystem')?.errors" class="invalid-feedback">
@@ -495,7 +495,7 @@
            </mat-icon>
             <select class="form-control" formControlName="pelvSystem" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('pelvSystem')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('pelvSystem')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('pelvSystem')?.errors" class="invalid-feedback">
@@ -515,7 +515,7 @@
            </mat-icon>
             <select class="form-control" formControlName="doubleInsulation" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('doubleInsulation')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('doubleInsulation')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('doubleInsulation')?.errors" class="invalid-feedback">
@@ -538,7 +538,7 @@
            </mat-icon>
             <select class="form-control" formControlName="reinforcedInsulation" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('reinforcedInsulation')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('reinforcedInsulation')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('reinforcedInsulation')?.errors" class="invalid-feedback">
@@ -558,7 +558,7 @@
            </mat-icon>
             <select class="form-control" formControlName="basicElectricalSepartion" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('basicElectricalSepartion')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('basicElectricalSepartion')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('basicElectricalSepartion')?.errors" class="invalid-feedback">
@@ -571,7 +571,7 @@
             <label>Isolator(Means to isolate the public supply system) :</label>
             <select class="form-control" formControlName="isolatePublicSupply" 
             [ngClass]="{ 'is-invalid': submitted && a.get('isolatePublicSupply')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('isolatePublicSupply')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('isolatePublicSupply')?.errors" class="invalid-feedback">
@@ -596,7 +596,7 @@
              </mat-icon>
             <select class="form-control" formControlName="insulationLiveParts" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('insulationLiveParts')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('insulationLiveParts')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('insulationLiveParts')?.errors" class="invalid-feedback">
@@ -617,7 +617,7 @@
            </mat-icon>
             <select class="form-control" formControlName="barriersEnclosers" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('barriersEnclosers')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('barriersEnclosers')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('barriersEnclosers')?.errors" class="invalid-feedback">
@@ -637,7 +637,7 @@
            </mat-icon>
             <select class="form-control" formControlName="obstacles" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('obstacles')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('obstacles')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('obstacles')?.errors" class="invalid-feedback">
@@ -657,7 +657,7 @@
            </mat-icon>
             <select class="form-control" formControlName="placingOutReach" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('placingOutReach')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('placingOutReach')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('placingOutReach')?.errors" class="invalid-feedback">
@@ -679,13 +679,13 @@
              aria-label="Button that shows a red tooltip"
              class="example-button"> info_outline
            </mat-icon>
-            <select class="form-control" formControlName="nonConductLocation" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-            [ngClass]="{ 'is-invalid': submitted && a.get('nonConductLocation')?.errors }" >
-             <option value="0" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== a.get('nonConductLocation')?.value">{{value}}</option>
+            <select class="form-control" formControlName="faultNonConductLocation" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && a.get('faultNonConductLocation')?.errors }" >
+             <option value="" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== a.get('faultNonConductLocation')?.value">{{value}}</option>
             </select>
-            <div *ngIf="submitted && a.get('nonConductLocation')?.errors" class="invalid-feedback">
-              <div *ngIf="a.get('nonConductLocation')?.errors?.required">Field Is Required</div>
+            <div *ngIf="submitted && a.get('faultNonConductLocation')?.errors" class="invalid-feedback">
+              <div *ngIf="a.get('faultNonConductLocation')?.errors?.required">Field Is Required</div>
           </div>
           </div>
         </div>
@@ -702,7 +702,7 @@
            </mat-icon>
             <select class="form-control" formControlName="faultElectricalSepartion" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('faultElectricalSepartion')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('faultElectricalSepartion')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('faultElectricalSepartion')?.errors" class="invalid-feedback">
@@ -726,7 +726,7 @@
            </mat-icon>
             <select class="form-control" formControlName="operatingCurrent" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('operatingCurrent')?.errors }">
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('operatingCurrent')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('operatingCurrent')?.errors" class="invalid-feedback">
@@ -747,7 +747,7 @@
            </mat-icon>
             <select class="form-control" formControlName="supplementaryBonding" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('supplementaryBonding')?.errors }">
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== a.get('supplementaryBonding')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && a.get('supplementaryBonding')?.errors" class="invalid-feedback">
@@ -782,7 +782,7 @@
              </mat-icon>
             <select class="form-control" formControlName="accessWorking" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('accessWorking')?.errors }">
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('accessWorking')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('accessWorking')?.errors" class="invalid-feedback">
@@ -803,7 +803,7 @@
            </mat-icon>
             <select class="form-control" formControlName="securityFixing" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('securityFixing')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('securityFixing')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('securityFixing')?.errors" class="invalid-feedback">
@@ -817,7 +817,7 @@
             <label>Insulation Of Live Parts Not Damaged During Erection:</label>
             <select class="form-control" formControlName="livePartsDamage" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('livePartsDamage')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('livePartsDamage')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('livePartsDamage')?.errors" class="invalid-feedback">
@@ -830,7 +830,7 @@
             <label>Adequacy / Security Of Barriers:</label>
             <select class="form-control" formControlName="securityBarriers" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('securityBarriers')?.errors }">
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('securityBarriers')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('securityBarriers')?.errors" class="invalid-feedback">
@@ -844,7 +844,7 @@
             <label>Suitability Of Enclosure(s) For IP And Fire Ratings:</label>
             <select class="form-control" formControlName="suitabilityEnclosure" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('suitabilityEnclosure')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('suitabilityEnclosure')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('suitabilityEnclosure')?.errors" class="invalid-feedback">
@@ -858,7 +858,7 @@
             <label>Enclosure Not Damaged During Installation:</label>
             <select class="form-control" formControlName="enclosureDamaged" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('enclosureDamaged')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('enclosureDamaged')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('enclosureDamaged')?.errors" class="invalid-feedback">
@@ -872,7 +872,7 @@
             <label>Presence And Effectiveness Of Obstacles:</label>
             <select class="form-control" formControlName="presenceObstacles" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('presenceObstacles')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('presenceObstacles')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('presenceObstacles')?.errors" class="invalid-feedback">
@@ -885,7 +885,7 @@
             <label>Placing Out Of Reach:</label>
             <select class="form-control" formControlName="placingOutOfConsumer" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('placingOutOfConsumer')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('placingOutOfConsumer')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('placingOutOfConsumer')?.errors" class="invalid-feedback">
@@ -899,7 +899,7 @@
             <label>Presence Of Main Switches Linked Where Required:</label>
             <select class="form-control" formControlName="presenceMainSwitches" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('presenceMainSwitches')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('presenceMainSwitches')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('presenceMainSwitches')?.errors" class="invalid-feedback">
@@ -913,7 +913,7 @@
             <label>Operation Of Main Switches (Functional Checks):</label>
             <select class="form-control" formControlName="operationMainSwitches" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('operationMainSwitches')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('operationMainSwitches')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('operationMainSwitches')?.errors" class="invalid-feedback">
@@ -927,7 +927,7 @@
             <label>Manual Operation Of Circuit Breakers And RCD’s To Prove Functionally:</label>
             <select class="form-control" formControlName="manualCircuitBreakers" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('manualCircuitBreakers')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('manualCircuitBreakers')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('manualCircuitBreakers')?.errors" class="invalid-feedback">
@@ -941,7 +941,7 @@
               (Functional Check):</label>
             <select class="form-control" formControlName="switchCausesRcd" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('switchCausesRcd')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('switchCausesRcd')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('switchCausesRcd')?.errors" class="invalid-feedback">
@@ -955,7 +955,7 @@
             <label>RCD’s Provided For Fault Protection, Where Specified:</label>
             <select class="form-control" formControlName="rcdFaultProtection" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('rcdFaultProtection')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('rcdFaultProtection')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('rcdFaultProtection')?.errors" class="invalid-feedback">
@@ -969,7 +969,7 @@
             <label>RCD’s Provided For Additional Protection, Where Specified:</label>
             <select class="form-control" formControlName="rcdAdditionalProtection" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('rcdAdditionalProtection')?.errors }">
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('rcdAdditionalProtection')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('rcdAdditionalProtection')?.errors" class="invalid-feedback">
@@ -983,7 +983,7 @@
             <label>Confirmation Of Over Voltage Protection (SPD’s) Provided Where Specified:</label>
             <select class="form-control" formControlName="overVoltageProtection" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('overVoltageProtection')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('overVoltageProtection')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('overVoltageProtection')?.errors" class="invalid-feedback">
@@ -996,7 +996,7 @@
             <label>Confirmation Of Indication That SPD Is Functional:</label>
             <select class="form-control" formControlName="indicationOfSpd" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('indicationOfSpd')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('indicationOfSpd')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('indicationOfSpd')?.errors" class="invalid-feedback">
@@ -1010,7 +1010,7 @@
             <label>Presence Of RCD Quarterly Test Notice:</label>
             <select class="form-control" formControlName="rcdQuarterlyTest" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('rcdQuarterlyTest')?.errors }">
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('rcdQuarterlyTest')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('rcdQuarterlyTest')?.errors" class="invalid-feedback">
@@ -1025,7 +1025,7 @@
               Required:</label>
             <select class="form-control" formControlName="diagramsCharts" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('diagramsCharts')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('diagramsCharts')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('diagramsCharts')?.errors" class="invalid-feedback">
@@ -1040,7 +1040,7 @@
               Board, As Required:</label>
             <select class="form-control" formControlName="nonstandardCableColour" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('nonstandardCableColour')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('nonstandardCableColour')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('nonstandardCableColour')?.errors" class="invalid-feedback">
@@ -1053,7 +1053,7 @@
             <label>Presence Of Alternative Supply - Warning Notice At Or Near The Origin:</label>
             <select class="form-control" formControlName="alSupplyOfOrign" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('alSupplyOfOrign')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('alSupplyOfOrign')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('alSupplyOfOrign')?.errors" class="invalid-feedback">
@@ -1068,7 +1068,7 @@
               From Origin:</label>
             <select class="form-control" formControlName="alSupplyOfMeter" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('alSupplyOfMeter')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('alSupplyOfMeter')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('alSupplyOfMeter')?.errors" class="invalid-feedback">
@@ -1083,7 +1083,7 @@
               Alternative Sources Are Connected:</label>
             <select class="form-control" formControlName="alSupplyDistribution" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('alSupplyDistribution')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('alSupplyDistribution')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('alSupplyDistribution')?.errors" class="invalid-feedback">
@@ -1098,7 +1098,7 @@
               Sources Of Supply:</label>
             <select class="form-control" formControlName="allPointsIsolation" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('allPointsIsolation')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('allPointsIsolation')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('allPointsIsolation')?.errors" class="invalid-feedback">
@@ -1111,7 +1111,7 @@
             <label>Presence Of Next Inspection Recommendation Label:</label>
             <select class="form-control" formControlName="nextInspection" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('nextInspection')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('nextInspection')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('nextInspection')?.errors" class="invalid-feedback">
@@ -1125,7 +1125,7 @@
             <label>Presence Of Other Required Labelling:</label>
             <select class="form-control" formControlName="otherRequiredLabelling" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('otherRequiredLabelling')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('otherRequiredLabelling')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('otherRequiredLabelling')?.errors" class="invalid-feedback">
@@ -1140,7 +1140,7 @@
               Thermal Damage, Arcing Or Overheating):</label>
             <select class="form-control" formControlName="basesCorrectType" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('basesCorrectType')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('basesCorrectType')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('basesCorrectType')?.errors" class="invalid-feedback">
@@ -1154,7 +1154,7 @@
             <label>Single Pole Protective Devices In Line Conductor Only:</label>
             <select class="form-control" formControlName="singlePole" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('singlePole')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('singlePole')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('singlePole')?.errors" class="invalid-feedback">
@@ -1167,7 +1167,7 @@
             <label>Protection Against Mechanical Damage Where Cables Enter Equipment:</label>
             <select class="form-control" formControlName="mechanicalDamage" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('mechanicalDamage')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('mechanicalDamage')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('mechanicalDamage')?.errors" class="invalid-feedback">
@@ -1182,7 +1182,7 @@
               Enclosures:</label>
             <select class="form-control" formControlName="electromagnetic" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('electromagnetic')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('electromagnetic')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('electromagnetic')?.errors" class="invalid-feedback">
@@ -1197,7 +1197,7 @@
               Located In Terminals And Are Tight And Secure:</label>
             <select class="form-control" formControlName="allConductorCon" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('allConductorCon')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== b.get('allConductorCon')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && b.get('allConductorCon')?.errors" class="invalid-feedback">
@@ -1226,7 +1226,7 @@
             <label>Identification Of Conductors Including Main Earthing / Bonding Arrangements:</label>
             <select class="form-control" formControlName="identificationConductors" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('identificationConductors')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('identificationConductors')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('identificationConductors')?.errors" class="invalid-feedback">
@@ -1241,7 +1241,7 @@
               Influences (Cables Correctly Supported Throughout):</label>
             <select class="form-control" formControlName="cableInstallation" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('cableInstallation')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('cableInstallation')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('cableInstallation')?.errors" class="invalid-feedback">
@@ -1255,7 +1255,7 @@
             <label>Examination Of Cables For Signs Of Mechanical Damage During Installation:</label>
             <select class="form-control" formControlName="examinationCables" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('examinationCables')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('examinationCables')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('examinationCables')?.errors" class="invalid-feedback">
@@ -1268,7 +1268,7 @@
             <label>Examination Of Insulation Of Live Parts Not Damaged During Erection:</label>
             <select class="form-control" formControlName="examinationInsulation" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('examinationInsulation')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('examinationInsulation')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('examinationInsulation')?.errors" class="invalid-feedback">
@@ -1282,7 +1282,7 @@
             <label>Non-Sheathed Cables Protected By Enclosure In Conduit, Ducting Or Trucking:</label>
             <select class="form-control" formControlName="nonSheathedCables" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('nonSheathedCables')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('nonSheathedCables')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('nonSheathedCables')?.errors" class="invalid-feedback">
@@ -1296,7 +1296,7 @@
             <label>Suitability Of Containment Systems Including Flexible Conduit:</label>
             <select class="form-control" formControlName="containmentSystems" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('containmentSystems')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('containmentSystems')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('containmentSystems')?.errors" class="invalid-feedback">
@@ -1311,7 +1311,7 @@
             <select class="form-control" formControlName="temperatureRating" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('temperatureRating')?.errors }" 
            >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('temperatureRating')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('temperatureRating')?.errors" class="invalid-feedback">
@@ -1324,7 +1324,7 @@
             <label>Cables Correctly Terminated In Enclosures:</label>
             <select class="form-control" formControlName="cablesTerminated" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('cablesTerminated')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('cablesTerminated')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('cablesTerminated')?.errors" class="invalid-feedback">
@@ -1339,7 +1339,7 @@
               Installation:</label>
             <select class="form-control" formControlName="currentCarryCapacity" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('currentCarryCapacity')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('currentCarryCapacity')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('currentCarryCapacity')?.errors" class="invalid-feedback">
@@ -1352,7 +1352,7 @@
             <label>Adequacy Of Protective Devices, Type And Fault Current Rating For Fault Protection:</label>
             <select class="form-control" formControlName="adequacyProtectDevices" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('adequacyProtectDevices')?.errors }">
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('adequacyProtectDevices')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('adequacyProtectDevices')?.errors" class="invalid-feedback">
@@ -1365,7 +1365,7 @@
             <label>Presence, Adequacy, And Correct Termination Of Protective Conductors:</label>
             <select class="form-control" formControlName="presenceProtectConductors" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('presenceProtectConductors')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('presenceProtectConductors')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('presenceProtectConductors')?.errors" class="invalid-feedback">
@@ -1378,7 +1378,7 @@
             <label>Co-ordination Between Conductors And Overload Protective Devices:</label>
             <select class="form-control" formControlName="coOrdination" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('coOrdination')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('coOrdination')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('coOrdination')?.errors" class="invalid-feedback">
@@ -1392,7 +1392,7 @@
               Of Installation And External Influences:</label>
             <select class="form-control" formControlName="wiringSystems" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('wiringSystems')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('wiringSystems')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('wiringSystems')?.errors" class="invalid-feedback">
@@ -1407,7 +1407,7 @@
               By Contact With Fixings:</label>
             <select class="form-control" formControlName="cablesConcealUnderFloors" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('cablesConcealUnderFloors')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('cablesConcealUnderFloors')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('cablesConcealUnderFloors')?.errors" class="invalid-feedback">
@@ -1422,7 +1422,7 @@
               Cases:</label>
             <select class="form-control" formControlName="operatingCurrentCircuits" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('operatingCurrentCircuits')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('operatingCurrentCircuits')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('operatingCurrentCircuits')?.errors" class="invalid-feedback">
@@ -1437,7 +1437,7 @@
               Exempt:</label>
             <select class="form-control" formControlName="operatingCurrentSocket" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('operatingCurrentSocket')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('operatingCurrentSocket')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('operatingCurrentSocket')?.errors" class="invalid-feedback">
@@ -1451,7 +1451,7 @@
               For Cables Concealed In Walls At a Depth Of Less Than 50mm:</label>
             <select class="form-control" formControlName="cablesConcDepth" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('cablesConcDepth')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('cablesConcDepth')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('cablesConcDepth')?.errors" class="invalid-feedback">
@@ -1465,7 +1465,7 @@
               For Cables Concealed In Walls / Sections Containing Metal Sections Regardless Of Depth:</label>
             <select class="form-control" formControlName="sectionsRegardlessDepth" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('sectionsRegardlessDepth')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('sectionsRegardlessDepth')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('sectionsRegardlessDepth')?.errors" class="invalid-feedback">
@@ -1479,7 +1479,7 @@
               Fire:</label>
             <select class="form-control" formControlName="provisionFireBarriers" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('provisionFireBarriers')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('provisionFireBarriers')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('provisionFireBarriers')?.errors" class="invalid-feedback">
@@ -1492,7 +1492,7 @@
             <label>Segregation/Separation Of Band I (ELV) And Band II (LV) Circuits:</label>
             <select class="form-control" formControlName="separationBand" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('separationBand')?.errors }">
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('separationBand')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('separationBand')?.errors" class="invalid-feedback">
@@ -1505,7 +1505,7 @@
             <label>Segregation/separation Of Electrical And Non-Electrical Services:</label>
             <select class="form-control" formControlName="separationElectrical" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('separationElectrical')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('separationElectrical')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('separationElectrical')?.errors" class="invalid-feedback">
@@ -1518,7 +1518,7 @@
             <label>Condition Of Circuit Accessories:</label>
             <select class="form-control" formControlName="conditionCircuitAccessories" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('conditionCircuitAccessories')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('conditionCircuitAccessories')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('conditionCircuitAccessories')?.errors" class="invalid-feedback">
@@ -1532,7 +1532,7 @@
               Strain:</label>
             <select class="form-control" formControlName="conductorCorrectTerminated" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('conductorCorrectTerminated')?.errors }">
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('conductorCorrectTerminated')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('conductorCorrectTerminated')?.errors" class="invalid-feedback">
@@ -1545,7 +1545,7 @@
             <label>No Basic Insulation Of A Conductor Visible Outside Enclosure:</label>
             <select class="form-control" formControlName="conductorVisibleOutside" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('conductorVisibleOutside')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('conductorVisibleOutside')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('conductorVisibleOutside')?.errors" class="invalid-feedback">
@@ -1559,7 +1559,7 @@
             <label>Connections Of Live Conductors Adequately Enclosed:</label>
             <select class="form-control" formControlName="connLiveConductors" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('connLiveConductors')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('connLiveConductors')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('connLiveConductors')?.errors" class="invalid-feedback">
@@ -1573,7 +1573,7 @@
             <label>Adequately Connected At The Point Of Entry To Enclosure (Glands, Bushes etc.):</label>
             <select class="form-control" formControlName="adequatelyConnectedEnclosure" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('adequatelyConnectedEnclosure')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('adequatelyConnectedEnclosure')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('adequatelyConnectedEnclosure')?.errors" class="invalid-feedback">
@@ -1586,7 +1586,7 @@
             <label>Suitability Of Circuit Accessories For External Influences:</label>
             <select class="form-control" formControlName="suitabilityCircuitAccessories" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('suitabilityCircuitAccessories')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('suitabilityCircuitAccessories')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('suitabilityCircuitAccessories')?.errors" class="invalid-feedback">
@@ -1602,7 +1602,7 @@
               Influences):</label>
             <select class="form-control" formControlName="conditionAccessories" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('conditionAccessories')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('conditionAccessories')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('conditionAccessories')?.errors" class="invalid-feedback">
@@ -1615,7 +1615,7 @@
             <label>Single-Pole Devices For Switching Or Protection In Line Conductors Only:</label>
             <select class="form-control" formControlName="singlePoleDevices" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('singlePoleDevices')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('singlePoleDevices')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('singlePoleDevices')?.errors" class="invalid-feedback">
@@ -1629,7 +1629,7 @@
             <label>Adequacy Of Connections, Including Protective Conductors, Within Accessories And Fixed And Stationary Equipment:</label>
             <select class="form-control" formControlName="adequacyConnections" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('adequacyConnections')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('adequacyConnections')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('adequacyConnections')?.errors" class="invalid-feedback">
@@ -1643,7 +1643,7 @@
             <label>Presence, operation, And Correct Location of Appropriate Devices For Isolation And Switching:</label>
             <select class="form-control" formControlName="isolationSwitching" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && c.get('isolationSwitching')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== c.get('isolationSwitching')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && c.get('isolationSwitching')?.errors" class="invalid-feedback">
@@ -1673,7 +1673,7 @@
           <label>Isolators - Presence of Appropriate Devices :</label>
           <select class="form-control" formControlName="presenceDevices" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
           [ngClass]="{ 'is-invalid': submitted && d.get('presenceDevices')?.errors }" >
-           <option value="0" selected>Select Option</option>
+           <option value="" selected>Select Option</option>
             <option *ngFor="let value of InspectionList" [selected]="value=== d.get('presenceDevices')?.value">{{value}}</option>
           </select>
           <div *ngIf="submitted && d.get('presenceDevices')?.errors" class="invalid-feedback">
@@ -1687,7 +1687,7 @@
           <label>Isolators – Condition Of Appropriate Devices :</label>
           <select class="form-control" formControlName="conditionDevices" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
           [ngClass]="{ 'is-invalid': submitted && d.get('conditionDevices')?.errors }" >
-           <option value="0" selected>Select Option</option>
+           <option value="" selected>Select Option</option>
             <option *ngFor="let value of InspectionList" [selected]="value=== d.get('conditionDevices')?.value">{{value}}</option>
           </select>
           <div *ngIf="submitted && d.get('conditionDevices')?.errors" class="invalid-feedback">
@@ -1701,7 +1701,7 @@
           <label>Isolators - Location Of Appropriate Devices (State If Local Or Remote From Equipment In Question):</label>
           <select class="form-control" formControlName="locationDevices" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
           [ngClass]="{ 'is-invalid': submitted && d.get('locationDevices')?.errors }" >
-           <option value="0" selected>Select Option</option>
+           <option value="" selected>Select Option</option>
             <option *ngFor="let value of InspectionList" [selected]="value=== d.get('locationDevices')?.value">{{value}}</option>
           </select>
           <div *ngIf="submitted && d.get('locationDevices')?.errors" class="invalid-feedback">
@@ -1714,7 +1714,7 @@
           <label>Isolators - Capable Of Being Secured In OFF Position:</label>
           <select class="form-control" formControlName="capableSecured" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
           [ngClass]="{ 'is-invalid': submitted && d.get('capableSecured')?.errors }" >
-           <option value="0" selected>Select Option</option>
+           <option value="" selected>Select Option</option>
             <option *ngFor="let value of InspectionList" [selected]="value=== d.get('capableSecured')?.value">{{value}}</option>
           </select>
           <div *ngIf="submitted && d.get('capableSecured')?.errors" class="invalid-feedback">
@@ -1728,7 +1728,7 @@
           <label>Isolators - Correct Operation Verified (Functional Checks):</label>
           <select class="form-control" formControlName="operationVerify" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
           [ngClass]="{ 'is-invalid': submitted && d.get('operationVerify')?.errors }" >
-           <option value="0" selected>Select Option</option>
+           <option value="" selected>Select Option</option>
             <option *ngFor="let value of InspectionList" [selected]="value=== d.get('operationVerify')?.value">{{value}}</option>
           </select>
           <div *ngIf="submitted && d.get('operationVerify')?.errors" class="invalid-feedback">
@@ -1742,7 +1742,7 @@
           <label>Isolators - The installation, Circuit Or Section There of That Will Be Isolated Is Clearly Identified By Location And/Or Durable Marking:</label>
           <select class="form-control" formControlName="installCircuit" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
           [ngClass]="{ 'is-invalid': submitted && d.get('installCircuit')?.errors }" >
-           <option value="0" selected>Select Option</option>
+           <option value="" selected>Select Option</option>
             <option *ngFor="let value of InspectionList" [selected]="value=== d.get('installCircuit')?.value">{{value}}</option>
           </select>
           <div *ngIf="submitted && d.get('installCircuit')?.errors" class="invalid-feedback">
@@ -1757,7 +1757,7 @@
           <select class="form-control" formControlName="warningLabel" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
           [ngClass]="{ 'is-invalid': submitted && d.get('warningLabel')?.errors }" 
          >
-           <option value="0" selected>Select Option</option>
+           <option value="" selected>Select Option</option>
             <option *ngFor="let value of InspectionList" [selected]="value=== d.get('warningLabel')?.value">{{value}}</option>
           </select>
           <div *ngIf="submitted && d.get('warningLabel')?.errors" class="invalid-feedback">
@@ -1770,7 +1770,7 @@
           <label>Switching Off For Mechanical Maintenance - Presence Of Appropriate Devices:</label>
           <select class="form-control" formControlName="swPresenceDevices" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
           [ngClass]="{ 'is-invalid': submitted && d.get('swPresenceDevices')?.errors }" >
-           <option value="0" selected>Select Option</option>
+           <option value="" selected>Select Option</option>
             <option *ngFor="let value of InspectionList" [selected]="value=== d.get('swPresenceDevices')?.value">{{value}}</option>
           </select>
           <div *ngIf="submitted && d.get('swPresenceDevices')?.errors" class="invalid-feedback">
@@ -1784,7 +1784,7 @@
           <label>Switching Off For Mechanical Maintenance - Condition Of Appropriate Devices:</label>
           <select class="form-control" formControlName="swConditionDevices" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
           [ngClass]="{ 'is-invalid': submitted && d.get('swConditionDevices')?.errors }" >
-           <option value="0" selected>Select Option</option>
+           <option value="" selected>Select Option</option>
             <option *ngFor="let value of InspectionList" [selected]="value=== d.get('swConditionDevices')?.value">{{value}}</option>
           </select>
           <div *ngIf="submitted && d.get('swConditionDevices')?.errors" class="invalid-feedback">
@@ -1798,7 +1798,7 @@
           <label>Switching Off For Mechanical Maintenance - Acceptable Location (State If Local Or Remote From Equipment In Question):</label>
           <select class="form-control" formControlName="swAcceptableLocation" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
           [ngClass]="{ 'is-invalid': submitted && d.get('swAcceptableLocation')?.errors }" >
-           <option value="0" selected>Select Option</option>
+           <option value="" selected>Select Option</option>
             <option *ngFor="let value of InspectionList" [selected]="value=== d.get('swAcceptableLocation')?.value">{{value}}</option>
           </select>
           <div *ngIf="submitted && d.get('swAcceptableLocation')?.errors" class="invalid-feedback">
@@ -1812,7 +1812,7 @@
           <label>Switching Off For Mechanical Maintenance - Capable Of Being Secured In OFF Position:</label>
           <select class="form-control" formControlName="swCapableOffPosition" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
           [ngClass]="{ 'is-invalid': submitted && d.get('swCapableOffPosition')?.errors }" >
-           <option value="0" selected>Select Option</option>
+           <option value="" selected>Select Option</option>
             <option *ngFor="let value of InspectionList" [selected]="value=== d.get('swCapableOffPosition')?.value">{{value}}</option>
           </select>
           <div *ngIf="submitted && d.get('swCapableOffPosition')?.errors" class="invalid-feedback">
@@ -1825,7 +1825,7 @@
           <label>Switching Off For Mechanical Maintenance - Correct Operation Verified (Functional Check):</label>
           <select class="form-control" formControlName="swCorrectOperation" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
           [ngClass]="{ 'is-invalid': submitted && d.get('swCorrectOperation')?.errors }" >
-           <option value="0" selected>Select Option</option>
+           <option value="" selected>Select Option</option>
             <option *ngFor="let value of InspectionList" [selected]="value=== d.get('swCorrectOperation')?.value">{{value}}</option>
           </select>
           <div *ngIf="submitted && d.get('swCorrectOperation')?.errors" class="invalid-feedback">
@@ -1839,7 +1839,7 @@
           <label>Switching Off For Mechanical Maintenance - The Circuit Or Section There Of That Will Be Disconnected Clearly Identified By Location And / Or Durable Marking:</label>
           <select class="form-control" formControlName="swCircuit" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
           [ngClass]="{ 'is-invalid': submitted && d.get('swCircuit')?.errors }">
-           <option value="0" selected>Select Option</option>
+           <option value="" selected>Select Option</option>
             <option *ngFor="let value of InspectionList" [selected]="value=== d.get('swCircuit')?.value">{{value}}</option>
           </select>
           <div *ngIf="submitted && d.get('swCircuit')?.errors" class="invalid-feedback">
@@ -1853,7 +1853,7 @@
           <label>Switching Off For Mechanical Maintenance - Warning Label Posted In Situations Where Live Parts Cannot Be Isolated By The Operation Of A Single Device:</label>
           <select class="form-control" formControlName="swWarningLabel" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
           [ngClass]="{ 'is-invalid': submitted && d.get('swWarningLabel')?.errors }" >
-           <option value="0" selected>Select Option</option>
+           <option value="" selected>Select Option</option>
             <option *ngFor="let value of InspectionList" [selected]="value=== d.get('swWarningLabel')?.value">{{value}}</option>
           </select>
           <div *ngIf="submitted && d.get('swWarningLabel')?.errors" class="invalid-feedback">
@@ -1867,7 +1867,7 @@
           <label>Emergency Switching / Stopping - Presence Of Appropriate Devices:</label>
           <select class="form-control" formControlName="emSwitPresenceDevices" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
           [ngClass]="{ 'is-invalid': submitted && d.get('emSwitPresenceDevices')?.errors }" >
-           <option value="0" selected>Select Option</option>
+           <option value="" selected>Select Option</option>
             <option *ngFor="let value of InspectionList" [selected]="value=== d.get('emSwitPresenceDevices')?.value">{{value}}</option>
           </select>
           <div *ngIf="submitted && d.get('emSwitPresenceDevices')?.errors" class="invalid-feedback">
@@ -1880,7 +1880,7 @@
           <label>Emergency Switching / Stopping – Condition of appropriate devices:</label>
           <select class="form-control" formControlName="emSwitConditionDevices" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
           [ngClass]="{ 'is-invalid': submitted && d.get('emSwitConditionDevices')?.errors }" >
-           <option value="0" selected>Select Option</option>
+           <option value="" selected>Select Option</option>
             <option *ngFor="let value of InspectionList" [selected]="value=== d.get('emSwitConditionDevices')?.value">{{value}}</option>
           </select>
           <div *ngIf="submitted && d.get('emSwitConditionDevices')?.errors" class="invalid-feedback">
@@ -1894,7 +1894,7 @@
           <label>Emergency switching / stopping - Location Of Appropriate Devices (Readily Accessible For Operation Where Danger Might Occur):</label>
           <select class="form-control" formControlName="emSwitLocationDevices" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
           [ngClass]="{ 'is-invalid': submitted && d.get('emSwitLocationDevices')?.errors }" >
-           <option value="0" selected>Select Option</option>
+           <option value="" selected>Select Option</option>
             <option *ngFor="let value of InspectionList" [selected]="value=== d.get('emSwitLocationDevices')?.value">{{value}}</option>
           </select>
           <div *ngIf="submitted && d.get('emSwitLocationDevices')?.errors" class="invalid-feedback">
@@ -1908,7 +1908,7 @@
           <label>Emergency Switching / Stopping - Correct Operation Verified (Functional Check):</label>
           <select class="form-control" formControlName="emSwitOperationVerify" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
           [ngClass]="{ 'is-invalid': submitted && d.get('emSwitOperationVerify')?.errors }" >
-           <option value="0" selected>Select Option</option>
+           <option value="" selected>Select Option</option>
             <option *ngFor="let value of InspectionList" [selected]="value=== d.get('emSwitOperationVerify')?.value">{{value}}</option>
           </select>
           <div *ngIf="submitted && d.get('emSwitOperationVerify')?.errors" class="invalid-feedback">
@@ -1922,7 +1922,7 @@
           <label>Emergency Switching / Stopping - The Installation Circuit Or Section There Of That Will Be Disconnected Clearly Identified By Location And / Or Durable Marking:</label>
           <select class="form-control" formControlName="emSwitInstallCircuit" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
           [ngClass]="{ 'is-invalid': submitted && d.get('emSwitInstallCircuit')?.errors }" >
-           <option value="0" selected>Select Option</option>
+           <option value="" selected>Select Option</option>
             <option *ngFor="let value of InspectionList" [selected]="value=== d.get('emSwitInstallCircuit')?.value">{{value}}</option>
           </select>
           <div *ngIf="submitted && d.get('emSwitInstallCircuit')?.errors" class="invalid-feedback">
@@ -1935,7 +1935,7 @@
           <label>Functional Switching - Presence Of Appropriate Devices:</label>
           <select class="form-control" formControlName="fuSwitPresenceDevices" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
           [ngClass]="{ 'is-invalid': submitted && d.get('fuSwitPresenceDevices')?.errors }" >
-           <option value="0" selected>Select Option</option>
+           <option value="" selected>Select Option</option>
             <option *ngFor="let value of InspectionList" [selected]="value=== d.get('fuSwitPresenceDevices')?.value">{{value}}</option>
           </select>
           <div *ngIf="submitted && d.get('fuSwitPresenceDevices')?.errors" class="invalid-feedback">
@@ -1949,7 +1949,7 @@
           <label>Functional Switching - Location Of Appropriate Devices:</label>
           <select class="form-control" formControlName="fuSwitLocationDevices" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
           [ngClass]="{ 'is-invalid': submitted && d.get('fuSwitLocationDevices')?.errors }" >
-           <option value="0" selected>Select Option</option>
+           <option value="" selected>Select Option</option>
             <option *ngFor="let value of InspectionList" [selected]="value=== d.get('fuSwitLocationDevices')?.value">{{value}}</option>
           </select>
           <div *ngIf="submitted && d.get('fuSwitLocationDevices')?.errors" class="invalid-feedback">
@@ -1963,7 +1963,7 @@
           <label>Functional Switching - Correct Operation Verified (Functional Check):</label>
           <select class="form-control" formControlName="fuSwitOperationVerify" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
           [ngClass]="{ 'is-invalid': submitted && d.get('fuSwitOperationVerify')?.errors }" >
-           <option value="0" selected>Select Option</option>
+           <option value="" selected>Select Option</option>
             <option *ngFor="let value of InspectionList" [selected]="value=== d.get('fuSwitOperationVerify')?.value">{{value}}</option>
           </select>
           <div *ngIf="submitted && d.get('fuSwitOperationVerify')?.errors" class="invalid-feedback">
@@ -1979,7 +1979,7 @@
             <label>Suitability Of The Equipment In Terms Of IP And Fire Ratings :</label>
             <select class="form-control" formControlName="suitabilityEquipment" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && d.get('suitabilityEquipment')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== d.get('suitabilityEquipment')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && d.get('suitabilityEquipment')?.errors" class="invalid-feedback">
@@ -1993,7 +1993,7 @@
             <label>Enclosure Not Damaged / Deteriorated During Installation So As To Impair Safety :</label>
             <select class="form-control" formControlName="enclosureNotDamaged" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && d.get('enclosureNotDamaged')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== d.get('enclosureNotDamaged')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && d.get('enclosureNotDamaged')?.errors" class="invalid-feedback">
@@ -2007,7 +2007,7 @@
             <label>Suitability For The Environment And External Influences:</label>
             <select class="form-control" formControlName="suitabilityEnvironment" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && d.get('suitabilityEnvironment')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== d.get('suitabilityEnvironment')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && d.get('suitabilityEnvironment')?.errors" class="invalid-feedback">
@@ -2020,7 +2020,7 @@
             <label>Security Of Fixing:</label>
             <select class="form-control" formControlName="securityFixing" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && d.get('securityFixing')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== d.get('securityFixing')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && d.get('securityFixing')?.errors" class="invalid-feedback">
@@ -2034,7 +2034,7 @@
             <label>Cable Entry Holes In Ceilings Above Luminaries, Seized Or Sealed So As To Restrict The Spread Of Fire.:</label>
             <select class="form-control" formControlName="cableEntryHoles" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && d.get('cableEntryHoles')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== d.get('cableEntryHoles')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && d.get('cableEntryHoles')?.errors" class="invalid-feedback">
@@ -2048,7 +2048,7 @@
             <label>Provision (Condition) Of Under Voltage Protection, Where Specified.:</label>
             <select class="form-control" formControlName="provisionVoltage" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && d.get('provisionVoltage')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== d.get('provisionVoltage')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && d.get('provisionVoltage')?.errors" class="invalid-feedback">
@@ -2062,7 +2062,7 @@
             <label>Provision (Condition) Of Overload Protection, Where Specified.:</label>
             <select class="form-control" formControlName="provisionOverload" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && d.get('provisionOverload')?.errors }">
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== d.get('provisionOverload')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && d.get('provisionOverload')?.errors" class="invalid-feedback">
@@ -2075,7 +2075,7 @@
             <label>Recessed Luminaires (Downlighters) - Correct Type Of Lamps Fitted :</label>
             <select class="form-control" formControlName="correctTypeLamps" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && d.get('correctTypeLamps')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== d.get('correctTypeLamps')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && d.get('correctTypeLamps')?.errors" class="invalid-feedback">
@@ -2089,7 +2089,7 @@
             <label>Recessed Luminaires (Downlighters) - Installed To Minimise Build-Up Of Heat By Use Of “Fire Rated” Fittings, Insulation Displacement Box Or Similar :</label>
             <select class="form-control" formControlName="insulaDisplacementBox" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && d.get('insulaDisplacementBox')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== d.get('insulaDisplacementBox')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && d.get('insulaDisplacementBox')?.errors" class="invalid-feedback">
@@ -2103,7 +2103,7 @@
             <label>No Signs Of Overheating To Surrounding Building Fabric (Applicable For Periodic Inspection):</label>
             <select class="form-control" formControlName="overheatSurrounding" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && d.get('overheatSurrounding')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== d.get('overheatSurrounding')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && d.get('overheatSurrounding')?.errors" class="invalid-feedback">
@@ -2117,7 +2117,7 @@
             <label>No Signs Of Overheating To Conductors / Terminations (Applicable For Periodic Inspection):</label>
             <select class="form-control" formControlName="overheatConductors" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && d.get('overheatConductors')?.errors }" >
-             <option value="0" selected>Select Option</option>
+             <option value="" selected>Select Option</option>
               <option *ngFor="let value of InspectionList" [selected]="value=== d.get('overheatConductors')?.value">{{value}}</option>
             </select>
             <div *ngIf="submitted && d.get('overheatConductors')?.errors" class="invalid-feedback">
@@ -2345,7 +2345,7 @@ top: -100px;
 width: 3%;
 height: 35px;
 position: relative;">
-<mat-icon aria-hidden="false" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>
+<mat-icon aria-hidden="false" aria-label="Example home icon" [ngClass]="{'disableForm':service.allFieldsDisable}" mat-list-icon>add_box</mat-icon>
 </button>
 </div>
 

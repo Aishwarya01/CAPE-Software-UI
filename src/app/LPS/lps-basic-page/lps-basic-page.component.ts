@@ -217,7 +217,7 @@ export class LpsBasicPageComponent implements OnInit {
 
     this.basicDetails.userName=this.router.snapshot.paramMap.get('email') || '{}';
     this.basicDetails.basicLpsDescription = this.LPSBasicForm.value.basicLpsDescription;
-
+    if (!this.validationError) {
     if(flag) {
       if(this.LPSBasicForm.dirty && this.LPSBasicForm.touched){ 
       this.lPSBasicDetailsService.updateLpsBasicDetails(this.basicDetails).subscribe(
@@ -277,7 +277,8 @@ export class LpsBasicPageComponent implements OnInit {
         }
       )
     }
-    (this.basicDetails);
+  }
+    //(this.basicDetails);
   }
 
 
