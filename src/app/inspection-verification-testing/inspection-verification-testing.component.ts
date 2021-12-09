@@ -517,6 +517,9 @@ callValue(e: any) {
     }    
   }
 
+  updateMethod(){
+    this.ngOnInit();
+  }
   //comments section starts
 
   populateDataComments() {

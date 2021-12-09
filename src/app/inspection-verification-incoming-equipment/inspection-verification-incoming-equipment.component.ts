@@ -147,6 +147,7 @@ export class InspectionVerificationIncomingEquipmentComponent
   tabErrorMsg: string="";
   tabError: boolean = false;
   deletedArr: any = [];
+  step3List1: any= [];
   //comments end
 
   constructor(
@@ -196,14 +197,14 @@ export class InspectionVerificationIncomingEquipmentComponent
     // if(this.service.disableFields==true){
     //   this.addstep3.disable();
     //  }
-        this.step3List = JSON.parse(data);
+        this.step3List1 = JSON.parse(data);
         this.inspectionDetails.siteId = siteId;
         this.deletedArr = [];
-        this.inspectionDetails.periodicInspectionId = this.step3List.periodicInspectionId;
-        this.inspectionDetails.createdBy = this.step3List.createdBy;
-        this.inspectionDetails.createdDate  = this.step3List.createdDate;
+        this.inspectionDetails.periodicInspectionId = this.step3List1.periodicInspectionId;
+        this.inspectionDetails.createdBy = this.step3List1.createdBy;
+        this.inspectionDetails.createdDate  = this.step3List1.createdDate;
         this.flag = true;
-        this.populateData(this.step3List);
+        this.populateData(this.step3List1);
   }
 
  
@@ -1128,6 +1129,15 @@ showHideAccordion(index: number) {
       }
       this.UpateInspectionService.updateIncoming(this.inspectionDetails).subscribe(
         data=> {
+          if(this.step3List.length!=undefined && this.step3List.length!=0){
+            this.proceedNext.emit(false);
+          }
+          else if(this.step3List.testingReport != null){
+            this.proceedNext.emit(false);
+          }
+          else{
+            this.proceedNext.emit(true);
+          }
           this.success = true;
           this.service.isCompleted3= true;
           this.service.isLinear=false;

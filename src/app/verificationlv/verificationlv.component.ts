@@ -574,7 +574,12 @@ export class VerificationlvComponent implements OnInit {
     this.service.isCompleted2= next;
   }
   public NextStep3(next: any): void {
-    this.testing.callMethod();
+    if(next){
+      this.testing.callMethod();
+    }
+    else{
+      this.testing.updateMethod();
+    }
     //this.service.addstep3 = next;
     this.service.isLinear=false;
     this.service.isCompleted3= next;
