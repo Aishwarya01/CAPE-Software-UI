@@ -83,3 +83,7 @@ table tr td {
 textarea{
   font-size: 12px;
 }
+
+.disableForm{
+  pointer-events: none;
+}

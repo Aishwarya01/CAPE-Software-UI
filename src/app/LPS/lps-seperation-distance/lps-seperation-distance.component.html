@@ -88,11 +88,11 @@
                             <div>
                                 <mat-icon class="mousechange" class="add" (click)="add()" type="button"
                                 style="margin-inline: 1rem;float: right;position: relative;"
-                                *ngIf="getseparateDistanceDescriptionControls().length == i+1" title="add another Section" [hidden]="isEditable">add_box</mat-icon>
+                                *ngIf="getseparateDistanceDescriptionControls().length == i+1" title="add another Section" [ngClass]="{'disableForm':isEditable}">add_box</mat-icon>
 
                                 <mat-icon class="mousechange" class="dlt" type="button" title="delete" 
                                     *ngIf="getseparateDistanceDescriptionControls().length > 1" (click)="removeItem(f,i)"
-                                    style="margin-inline: 0rem;float: right;position: relative;" title="delete" [hidden]="isEditable">delete</mat-icon>
+                                    style="margin-inline: 0rem;float: right;position: relative;" title="delete" [ngClass]="{'disableForm':isEditable}">delete</mat-icon>
                             </div>
                         </tbody>
                     </table>

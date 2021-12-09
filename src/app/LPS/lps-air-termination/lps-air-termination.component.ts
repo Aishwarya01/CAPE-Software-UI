@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GlobalsService } from 'src/app/globals.service';
 import { Airtermination } from 'src/app/LPS_model/airtermination';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { LpsBasicPageComponent } from '../lps-basic-page/lps-basic-page.component';
@@ -65,7 +66,7 @@ export class LpsAirTerminationComponent implements OnInit {
   clampPusharr: any = [];
   exPusharr: any = [];
   conPusharr: any = [];
-  isEditable!:boolean
+  isEditable:boolean;
   stepBack:any;
   lpsBasic: any;
    
@@ -73,7 +74,9 @@ export class LpsAirTerminationComponent implements OnInit {
     private formBuilder: FormBuilder,
     private airterminationServices:AirterminationService,
     private modalService: NgbModal,private router: ActivatedRoute,
-    private matstepper: LpsMatstepperComponent
+    private matstepper: LpsMatstepperComponent,
+    
+
   ) { 
     this.airterminationService=airterminationServices;
   }
