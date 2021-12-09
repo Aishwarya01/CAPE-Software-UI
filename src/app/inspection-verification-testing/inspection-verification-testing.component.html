@@ -298,7 +298,7 @@
                                    </mat-icon>
                                     <select class="form-control" formControlName="correctSupplyPolarity" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
                                     [ngClass]="{ 'is-invalid': submitted && c.get('correctSupplyPolarity')?.errors }">
-                                       <option value="0" selected>Select Option</option>
+                                       <option value="" selected>Select Option</option>
                                         <option value="Yes" selected>Yes</option>
                                         <option value="No" selected>No</option>
                                     </select>
@@ -378,7 +378,7 @@
                                    </mat-icon>
                                     <select class="form-control" formControlName="sourceFromSupply" (change)="changeSource($event,c)" [tabindex]="service.allFieldsDisable ? -1 : 0"
                                     [ngClass]="{ 'is-invalid': submitted && c.get('sourceFromSupply')?.errors }" [disabled]="service.allFieldsDisable">
-                                   <option value="0" selected>Select Option</option>
+                                   <option value="" selected>Select Option</option>
                                     <option *ngFor="let value of SourceList" [selected]="value=== c.get('sourceFromSupply')?.value">
                                       {{value}}</option>
                                   </select>

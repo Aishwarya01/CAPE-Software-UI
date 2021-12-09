@@ -63,7 +63,7 @@
                </mat-icon>
                 <select class="form-control"  formControlName="systemEarthing" (change)="changeSystem($event)" [tabindex]="service.allFieldsDisable ? -1 : 0"
                 [(ngModel)]="supplycharesteristic.mainSystemEarthing" [disabled]="service.allFieldsDisable"  [ngClass]="{ 'is-invalid': submitted && f.systemEarthing.errors }">
-                  <option value="0" selected>Select Option</option>
+                  <option value="" selected>Select Option</option>
                   <option *ngFor="let value of systemEarthingList">
                     {{value}}
                   </option>
@@ -86,7 +86,7 @@
                   <select class="form-control"  formControlName="liveConductor"  [tabindex]="service.allFieldsDisable ? -1 : 0"
                   [(ngModel)]="supplycharesteristic.liveConductorType"  [disabled]="service.allFieldsDisable" 
                   (change)="changeCurrent($event)" [ngClass]="{ 'is-invalid': submitted && f.liveConductor.errors }">
-                    <option value="0" selected>Select Option</option>
+                    <option value="" selected>Select Option</option>
                     <option value="AC">AC</option>
                     <option value="DC" disabled style="cursor: not-allowed;">DC</option>
                   </select>
@@ -99,7 +99,7 @@
                 <label>Nominal Frequency (HZ):</label>
                 <select class="form-control" formControlName="NF1" [(ngModel)]="supplycharesteristic.mainNominalFrequency"
                 [ngClass]="{ 'is-invalid': submitted && f.NF1.errors }" [disabled]="service.allFieldsDisable">
-                  <option value="0" selected>Select Option</option>  
+                  <option value="" selected>Select Option</option>  
                   <option value="50" [selected]="f.NF1?.value=== '50'">50</option>
                         <option value="60" [selected]="f.NF1?.value=== '60'">60</option>
                   </select>
@@ -121,7 +121,7 @@
                   <select class="form-control" formControlName="AcConductor" [tabindex]="service.allFieldsDisable ? -1 : 0"
                   [(ngModel)]="supplycharesteristic.liveConductorAC" 
                   [ngClass]="{ 'is-invalid': submitted && f.AcConductor.errors }" [disabled]="service.allFieldsDisable">
-                   <option value="0" selected>Select Option</option>  
+                   <option value="" selected>Select Option</option>  
                     <option value="1-phase, 3-wire (LLM)" [selected]="f.AcConductor?.value=== AcValue">1-phase, 2-wire (LN)</option>
                           <option value="1-phase, 3-wire (LLM)" [selected]="f.AcConductor?.value=== AcValue">1-phase, 3-wire (LLM)</option>
                           <option value="2-phase, 3-wire (LLN)" [selected]="f.AcConductor?.value=== AcValue">2-phase, 3-wire (LLN)</option>
@@ -139,7 +139,7 @@
                   <select class="form-control" formControlName="DcConductor" 
                   [tabindex]="service.allFieldsDisable ? -1 : 0" [(ngModel)]="supplycharesteristic.liveConductorDC" 
                   [ngClass]="{ 'is-invalid': submitted && f.DcConductor.errors }" [disabled]="service.allFieldsDisable">
-                   <option value="0" selected>Select Option</option>
+                   <option value="" selected>Select Option</option>
                     <!-- <option *ngFor="let value of liveConductorDCList" [selected]="value=== DcValue"> {{value}}</option> -->
                     <option value="2-pole" [selected]="f.DcConductor?.value=== DcValue" >2-pole</option>
                     <option value="3-pole" [selected]="f.DcConductor?.value=== DcValue" >3-pole</option>
@@ -445,7 +445,7 @@
                   <select class="form-control" formControlName="alternativeSupply" [tabindex]="service.allFieldsDisable ? -1 : 0" [disabled]="service.allFieldsDisable"
                   (change)="showAlternateField($event)" [ngClass]="{ 'is-invalid': submitted && f.alternativeSupply.errors }" 
                   [(ngModel)]="supplycharesteristic.alternativeSupply">
-                 <option value="0" disabled selected>Select Option</option>
+                 <option value="" disabled selected>Select Option</option>
                   <option value="Yes">Yes</option>
                   <option value="No">No</option>
                   </select>
@@ -556,7 +556,7 @@
                      </mat-icon>
                      <select class="form-control" formControlName="aLSystemEarthing" (change)="enableBriefNote($event,a)" 
                      [tabindex]="service.allFieldsDisable ? -1 : 0" [ngClass]="{ 'is-invalid': submitted && a.get('aLSystemEarthing')?.errors }">
-                       <option value="0" selected>Select Option</option>
+                       <option value="" selected>Select Option</option>
                         <option *ngFor="let value of systemEarthingList" [selected]="value=== a.get('aLSystemEarthing')?.value"> {{value}}</option>
                       </select>
                       <div *ngIf="submitted && a.get('aLSystemEarthing')?.errors" class="invalid-feedback">
@@ -626,7 +626,7 @@
                         <select class="form-control"  formControlName="aLLiveConductorType" 
                         [tabindex]="service.allFieldsDisable ? -1 : 0" [disabled]="service.allFieldsDisable" 
                         (change)=showValue($event,i) [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorType')?.errors }">
-                         <option value="0" selected>Select Option</option>
+                         <option value="" selected>Select Option</option>
                           <option value="AC">AC</option>
                           <option value="DC" disabled style="cursor: not-allowed;">DC</option>
                         </select>
@@ -640,7 +640,7 @@
                       <select class="form-control" formControlName="nominalFrequency" 
                       [tabindex]="service.allFieldsDisable ? -1 : 0" [disabled]="service.allFieldsDisable"
                       [ngClass]="{ 'is-invalid': submitted && a.get('nominalFrequency')?.errors }">
-                       <option value="0" selected>Select Option</option>  
+                       <option value="" selected>Select Option</option>  
                         <option value="50">50</option>
                         <option value="60">60</option>
                         </select>
@@ -654,7 +654,7 @@
                         <select class="form-control" formControlName="aLLiveConductorAC" 
                         [tabindex]="service.allFieldsDisable ? -1 : 0" [disabled]="service.allFieldsDisable"
                         [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorAC')?.errors }">
-                         <option value="0" selected>Select Option</option>
+                         <option value="" selected>Select Option</option>
                           <option value="1-phase, 3-wire (LLM)">1-phase, 2-wire (LN)</option>
                           <option value="1-phase, 3-wire (LLM)">1-phase, 3-wire (LLM)</option>
                           <option value="2-phase, 3-wire (LLN)">2-phase, 3-wire (LLN)</option>
@@ -968,7 +968,7 @@
                  </mat-icon>
                   <select class="form-control" formControlName="meansEarthing" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
                   [ngClass]="{ 'is-invalid': submitted && f.meansEarthing.errors }" [(ngModel)]="supplycharesteristic.meansEarthing">
-                   <option value="0" selected>Select Option</option>
+                   <option value="" selected>Select Option</option>
                     <option *ngFor="let value of MeansofEarthingList"> {{value}}</option>
                   </select>
                   <div *ngIf="submitted && f.meansEarthing.errors" class="invalid-feedback">
@@ -1007,7 +1007,7 @@
                   <label>Type of earthing  :</label>
                   <select class="form-control" formControlName="electrodeType" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
                   [ngClass]="{ 'is-invalid': submitted && f.electrodeType.errors }" [(ngModel)]="supplycharesteristic.electrodeType">
-                   <option value="0" selected>Select Option</option>
+                   <option value="" selected>Select Option</option>
                     <option *ngFor="let value of  electrodeTypeList"> {{value}}</option>
                   </select>
                   <div *ngIf="submitted && f.electrodeType.errors" class="invalid-feedback">
@@ -1021,7 +1021,7 @@
                   <select class="form-control" formControlName="electrodeMaterial" 
                   [ngClass]="{ 'is-invalid': submitted && f.electrodeMaterial.errors }" 
                   [(ngModel)]="supplycharesteristic.electrodeMaterial">
-                   <option value="0" selected>Select Option</option>
+                   <option value="" selected>Select Option</option>
                     <option *ngFor="let value of  electrodeMaterialList"> {{value}}</option>
                   </select>
                   <div *ngIf="submitted && f.electrodeMaterial.errors" class="invalid-feedback">
@@ -1182,7 +1182,7 @@
                    </mat-icon>
                     <select class="form-control" formControlName="conductorVerify" [disabled]="service.allFieldsDisable" 
                     [tabindex]="service.allFieldsDisable ? -1 : 0" [ngClass]="{ 'is-invalid': submitted && f.conductorVerify.errors }" [(ngModel)]="supplycharesteristic.conductorVerify">
-                     <option value="0" selected>Select Option</option>
+                     <option value="" selected>Select Option</option>
                       <option *ngFor="let value of  earthingConductorVerifyList"> {{value}}</option>
                     </select>
                     <div *ngIf="submitted && f.conductorVerify.errors" class="invalid-feedback">
@@ -1238,7 +1238,7 @@
                     <label>Main Protective Bonding Conductor Continuity And Connection Verified:</label>
                     <select class="form-control" formControlName="bondingConductorVerify" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
                     [ngClass]="{ 'is-invalid': submitted && f.bondingConductorVerify.errors }" [(ngModel)]="supplycharesteristic.bondingConductorVerify">
-                     <option value="0" selected>Select Option</option>
+                     <option value="" selected>Select Option</option>
                       <option *ngFor="let value of bondingConductorVerifyList"> {{value}}</option>
                     </select>
                     <div *ngIf="submitted && f.bondingConductorVerify.errors" class="invalid-feedback">
@@ -1407,7 +1407,7 @@
                     <label>Main Protective Conductor Continuity and Connection Verified:</label>
                     <select class="form-control" formControlName="earthingConductorVerify" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
                     [ngClass]="{ 'is-invalid': submitted && f.earthingConductorVerify.errors }" [(ngModel)]="supplycharesteristic.earthingConductorVerify">
-                     <option value="0" selected>Select Option</option>
+                     <option value="" selected>Select Option</option>
                       <option *ngFor="let value of conductorVerifyList"> {{value}}</option>
                     </select>
                     <div *ngIf="submitted && f.earthingConductorVerify.errors" class="invalid-feedback">
@@ -1601,7 +1601,7 @@
                          </mat-icon>
                           <select class="form-control" [disabled]="service.allFieldsDisable" formControlName="type" 
                           [tabindex]="service.allFieldsDisable ? -1 : 0" [ngClass]="{ 'is-invalid': submitted && a.get('type')?.errors }">
-                           <option value="0" selected>Select Option</option>
+                           <option value="" selected>Select Option</option>
                             <option value="MCB">MCB</option>
                             <option value=" ACB"> ACB</option>
                             <option value="MCCB">MCCB</option>
