@@ -731,10 +731,10 @@
                                         </td>
                                     </tr>
                                 </div>
-                                <mat-icon class="mousechange" class="add" type="button" [hidden]="isEditable" (click)="submit()" *ngIf="downConductorControls().length == j+1" 
+                                <mat-icon class="mousechange" class="add" type="button" [ngClass]="{'disableForm':isEditable}" (click)="submit()" *ngIf="downConductorControls().length == j+1" 
                                     style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section" 
                                   >add_box</mat-icon>
-                                <mat-icon class="mousechange" class="dlt" type="button" title="delete" [hidden]="isEditable" *ngIf="downConductorControls().length > 1"
+                                <mat-icon class="mousechange" class="dlt" type="button" title="delete" [ngClass]="{'disableForm':isEditable}" *ngIf="downConductorControls().length > 1"
                                     (click)="removeItem(a,j)"
                                     style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
                             </tbody>
@@ -1007,9 +1007,9 @@
                                         </td>
                                     </tr>
                                 </div>
-                                <mat-icon class="mousechange" class="add" type="button" [hidden]="isEditable" (click)="submit1()" *ngIf="bridgingCablesControls().length == f+1"
+                                <mat-icon class="mousechange" class="add" type="button" [ngClass]="{'disableForm':isEditable}" (click)="submit1()" *ngIf="bridgingCablesControls().length == f+1"
                                 style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section" >add_box</mat-icon>
-                            <mat-icon class="mousechange" class="dlt" type="button" [hidden]="isEditable" title="delete" *ngIf="bridgingCablesControls().length > 1"
+                            <mat-icon class="mousechange" class="dlt" type="button" [ngClass]="{'disableForm':isEditable}" title="delete" *ngIf="bridgingCablesControls().length > 1"
                                     (click)="removeItem1(a,f)"
                                     style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
 
@@ -1309,9 +1309,9 @@
                                         </td>
                                     </tr>
                                 </div>
-                                <mat-icon class="mousechange" class="add" type="button" [hidden]="isEditable" (click)="submit2()" *ngIf="holdersControls().length == k+1"
+                                <mat-icon class="mousechange" class="add" type="button" [ngClass]="{'disableForm':isEditable}" (click)="submit2()" *ngIf="holdersControls().length == k+1"
                                 style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section" >add_box</mat-icon>
-                            <mat-icon class="mousechange" class="dlt" type="button" [hidden]="isEditable" title="delete" *ngIf="holdersControls().length > 1"
+                            <mat-icon class="mousechange" class="dlt" type="button" [ngClass]="{'disableForm':isEditable}" title="delete" *ngIf="holdersControls().length > 1"
                                     (click)="removeItem2(a,k)"
                                     style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
 
@@ -1615,9 +1615,9 @@
                                         </td>
                                     </tr>
                                 </div>
-                                <mat-icon class="mousechange" class="add" type="button" [hidden]="isEditable" (click)="submit3()" *ngIf="connectorsControls().length == z+1"
+                                <mat-icon class="mousechange" class="add" type="button" [ngClass]="{'disableForm':isEditable}" (click)="submit3()" *ngIf="connectorsControls().length == z+1"
                                 style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section" >add_box</mat-icon>
-                            <mat-icon class="mousechange" class="dlt" type="button" title="delete"  [hidden]="isEditable" *ngIf="connectorsControls().length > 1"
+                            <mat-icon class="mousechange" class="dlt" type="button" title="delete"  [ngClass]="{'disableForm':isEditable}" *ngIf="connectorsControls().length > 1"
                                     (click)="removeItem3(a,z)"
                                     style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
 
@@ -2020,9 +2020,9 @@
                                         </td>
                                     </tr>
                                 </div>
-                                <mat-icon class="mousechange" class="add" type="button" [hidden]="isEditable" (click)="submit4()" *ngIf="lightControls().length == f+1"
+                                <mat-icon class="mousechange" class="add" type="button" [ngClass]="{'disableForm':isEditable}" (click)="submit4()" *ngIf="lightControls().length == f+1"
                                 style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section" >add_box</mat-icon>
-                            <mat-icon class="mousechange" class="dlt" type="button" [hidden]="isEditable" title="delete" *ngIf="lightControls().length > 1"
+                            <mat-icon class="mousechange" class="dlt" type="button" [ngClass]="{'disableForm':isEditable}" title="delete" *ngIf="lightControls().length > 1"
                                     (click)="removeItem4(a,f)"
                                     style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
 
@@ -2409,9 +2409,9 @@
                                         </td>
                                     </tr>
                                 </div>
-                                <mat-icon class="mousechange" class="add" type="button" [hidden]="isEditable" (click)="submit5()" *ngIf="jointControls().length == x+1"
+                                <mat-icon class="mousechange" class="add" type="button" [ngClass]="{'disableForm':isEditable}" (click)="submit5()" *ngIf="jointControls().length == x+1"
                                 style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section" >add_box</mat-icon>
-                            <mat-icon class="mousechange" class="dlt" type="button" [hidden]="isEditable" title="delete" *ngIf="jointControls().length > 1"
+                            <mat-icon class="mousechange" class="dlt" type="button" [ngClass]="{'disableForm':isEditable}" title="delete" *ngIf="jointControls().length > 1"
                                     (click)="removeItem5(a,x)"
                                     style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
 

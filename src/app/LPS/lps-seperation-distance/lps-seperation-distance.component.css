@@ -81,3 +81,7 @@ textarea{
 label{
   font-size: 14px;
 }
+
+.disableForm{
+  pointer-events: none;
+}
