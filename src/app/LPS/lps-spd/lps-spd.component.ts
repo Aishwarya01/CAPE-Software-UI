@@ -257,7 +257,7 @@ export class LpsSpdComponent implements OnInit {
 
   onSubmit(flag: any){
         
-        this.submitted=true;
+      this.submitted=true;
       if(this.spdForm.invalid){return}
         this.spd.userName = this.router.snapshot.paramMap.get('email') || '{}';;
         this.spd.basicLpsId = this.basicLpsId;
@@ -266,7 +266,7 @@ export class LpsSpdComponent implements OnInit {
         this.spd.spdDescription=this.spd.spdDescription.concat(this.spdForm.getRawValue().panelarr);
         this.spd.spdDescription=this.spd.spdDescription.concat(this.spdForm.getRawValue().powerarr);
       
-
+        if (!this.validationError) {
           if(flag) {
             if(this.spdForm.dirty && this.spdForm.touched){ 
             this.lpsSpd_Service.updateSpdDetails(this.spd).subscribe(
@@ -312,6 +312,7 @@ export class LpsSpdComponent implements OnInit {
                 this.proceedNext.emit(false);
               });
           }
+        }
       }
       closeModalDialog() {
         if (this.errorMsg != '') {

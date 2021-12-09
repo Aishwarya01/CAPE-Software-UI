@@ -715,7 +715,7 @@ export class LpsDownConductorsComponent implements OnInit {
     this.connectorPushArr = [];
     this.lightPushArr = [];
     this.testjointsPushArr = [];
-
+    if (!this.validationError) {
       if(flag) {
         if(this.downConductorForm.dirty && this.downConductorForm.touched){ 
         this.lpsDownconductorService.updateDownConductor(this.downConductorDescription).subscribe(
@@ -764,6 +764,7 @@ export class LpsDownConductorsComponent implements OnInit {
           });
       } 
     }
+  }
   }
 
   closeModalDialog() {

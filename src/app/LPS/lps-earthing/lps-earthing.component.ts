@@ -531,7 +531,7 @@ export class LpsEarthingComponent implements OnInit {
     this.descriptionPushArr = [];
     this.ClampsPushArr = [];
     this.chamberPushArr = [];
-
+    if (!this.validationError) {
       if(flag) {
         if(this.earthingForm.dirty && this.earthingForm.touched){ 
         this.lpsEarthingService.updateEarthingLps(this.earthingLpsDescription).subscribe(
@@ -576,7 +576,8 @@ export class LpsEarthingComponent implements OnInit {
             this.errorMsg = this.errorArr.message;
             this.proceedNext.emit(false);
           });
-      } 
+      }
+    } 
   }
 
   get f() {

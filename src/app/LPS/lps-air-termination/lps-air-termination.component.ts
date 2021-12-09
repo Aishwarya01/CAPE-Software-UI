@@ -480,7 +480,7 @@ export class LpsAirTerminationComponent implements OnInit {
         this.clampPusharr= [];
         this.exPusharr= [];
         this.conPusharr=[];
-
+        if (!this.validationError) {
           if(flag) {
             if(this.airTerminationForm.dirty && this.airTerminationForm.touched){ 
             this.airterminationService.updateAirtermination(this.airtermination).subscribe(
@@ -529,7 +529,7 @@ export class LpsAirTerminationComponent implements OnInit {
                   this.proceedNext.emit(false);
                 });
           }
-     
+        }
     }
   
 
