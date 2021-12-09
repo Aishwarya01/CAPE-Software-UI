@@ -356,7 +356,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       mainRatedCurrent: ['', Validators.required],
       mainCurrentDisconnection: ['', Validators.required],
       alternativeSupply: ['', Validators.required],
-      supplyNumber: ['', Validators.required],
+      supplyNumber: ['', [Validators.required,Validators.min(1)]],
       maximumDemand: ['', Validators.required],
       maximumLoad: ['', Validators.required],
       meansEarthing: ['', Validators.required],
@@ -1672,19 +1672,19 @@ showHideAccordion(index: number) {
     createGroupCircuitB(item: any): FormGroup {
       return this.formBuilder.group({
         circuitBreakerId: new FormControl({disabled: false, value: item.circuitBreakerId}),
-      location: new FormControl({disabled: false ,value: item.location}, [Validators.required]),
-      type: new FormControl({disabled: false ,value: item.type}, [Validators.required]),
-      noPoles: new FormControl({disabled: false ,value: item.noPoles}, [Validators.required]),
-      current: new FormControl({disabled: false ,value: item.current}, [Validators.required]),
-      voltage: new FormControl({disabled: false ,value: item.voltage}, [Validators.required]),
-      fuse: new FormControl({disabled: false ,value: item.fuse}, [Validators.required]),
-      sourceName: new FormControl({disabled: false ,value: item.sourceName}, [Validators.required]),
-      make: new FormControl({disabled: false ,value: item.make}, [Validators.required]),
-      currentCurve: new FormControl({disabled: false ,value: item.currentCurve}, [Validators.required]),
-      typeOfResidualCurrent: new FormControl({disabled: false ,value: item.typeOfResidualCurrent}, [Validators.required]),
-      residualCurrent: new FormControl({disabled: false ,value: item.residualCurrent}, [Validators.required]),
-
-      residualTime: new FormControl({disabled: false ,value: item.residualTime}, [Validators.required]),
+        location: new FormControl({disabled: false ,value: item.location}, [Validators.required]),
+        type: new FormControl({disabled: false ,value: item.type}, [Validators.required]),
+        noPoles: new FormControl({disabled: false ,value: item.noPoles}, [Validators.required]),
+        current: new FormControl({disabled: false ,value: item.current}, [Validators.required]),
+        voltage: new FormControl({disabled: false ,value: item.voltage}, [Validators.required]),
+        fuse: new FormControl({disabled: false ,value: item.fuse}, [Validators.required]),
+        sourceName: new FormControl({disabled: false ,value: item.sourceName}, [Validators.required]),
+        make: new FormControl({disabled: false ,value: item.make}, [Validators.required]),
+        currentCurve: new FormControl({disabled: false ,value: item.currentCurve}, [Validators.required]),
+        typeOfResidualCurrent: new FormControl({disabled: false ,value: item.typeOfResidualCurrent}, [Validators.required]),
+        residualCurrent: new FormControl({disabled: false ,value: item.residualCurrent}, [Validators.required]),
+  
+        residualTime: new FormControl({disabled: false ,value: item.residualTime}, [Validators.required]),
       circuitStatus: new FormControl({disabled: false ,value: item.circuitStatus})
       });
     }
@@ -2558,9 +2558,8 @@ showHideAccordion(index: number) {
     }
      else {
       this.alternativeSupplyNo=true;
-      this.supplycharesteristicForm.controls['supplyNumber'].setValidators(
-        Validators.required
-      );
+      this.supplycharesteristicForm.controls['supplyNumber'].setValidators([
+        Validators.required,Validators.min(1)]);
       this.supplycharesteristicForm.controls[
         'supplyNumber'
       ].updateValueAndValidity();

@@ -465,7 +465,7 @@
                 class="example-button">
                 info_outline
                </mat-icon>
-                <input type="number" min="0"  class="form-control" formControlName="supplyNumber" [readonly]="service.allFieldsDisable"
+                <input type="number" min="1" class="form-control" formControlName="supplyNumber" [readonly]="service.allFieldsDisable"
                 [ngClass]="{ 'is-invalid': submitted && f.supplyNumber.errors }" 
                 [(ngModel)]="supplycharesteristic.supplyNumber"
                 (keyup)="onKeyAlernate($event)">
@@ -480,6 +480,7 @@
                   border-bottom: 1px solid #000000;" (keyup)="onKeyAlernate($event)"></p> -->
                 <div *ngIf="submitted && f.supplyNumber.errors" class="invalid-feedback">
                   <div *ngIf="f.supplyNumber?.errors?.required">Supply number is required</div>
+                  <div *ngIf="f.supplyNumber?.errors?.min">Field value should be more than 0 or change Availability of Alternate Supply</div>
                 </div>
               </div>
             </div>
