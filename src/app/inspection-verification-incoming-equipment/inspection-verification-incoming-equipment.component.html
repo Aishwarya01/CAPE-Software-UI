@@ -679,13 +679,13 @@
              aria-label="Button that shows a red tooltip"
              class="example-button"> info_outline
            </mat-icon>
-            <select class="form-control" formControlName="nonConductLocation" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-            [ngClass]="{ 'is-invalid': submitted && a.get('nonConductLocation')?.errors }" >
+            <select class="form-control" formControlName="faultNonConductLocation" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && a.get('faultNonConductLocation')?.errors }" >
              <option value="" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== a.get('nonConductLocation')?.value">{{value}}</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== a.get('faultNonConductLocation')?.value">{{value}}</option>
             </select>
-            <div *ngIf="submitted && a.get('nonConductLocation')?.errors" class="invalid-feedback">
-              <div *ngIf="a.get('nonConductLocation')?.errors?.required">Field Is Required</div>
+            <div *ngIf="submitted && a.get('faultNonConductLocation')?.errors" class="invalid-feedback">
+              <div *ngIf="a.get('faultNonConductLocation')?.errors?.required">Field Is Required</div>
           </div>
           </div>
         </div>
