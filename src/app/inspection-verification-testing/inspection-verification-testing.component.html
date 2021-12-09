@@ -179,7 +179,7 @@
                                                  ></td>
                                                 <td><input type="date" class="form-control" readonly
                                                   ></td>
-                                                  <mat-icon style="cursor: pointer;margin: 20px 5px 20px 5px;" (click)="addDesigner(a)">add_box</mat-icon>
+                                                  <mat-icon style="cursor: pointer;margin: 20px 5px 20px 5px;" [ngClass]="{'disableForm':service.allFieldsDisable}" (click)="addDesigner(a)">add_box</mat-icon>
                                             </tr>
 
                                           </tbody>
@@ -199,7 +199,7 @@
                                                   (click)="removeItem(a,j)">
                                                   delete</mat-icon>         -->
                                                   
-                                                  <mat-icon class="mousechange" class="dlt" type="button" title="Delete" *ngIf="gettestInstrumentControls(a).length > 1" 
+                                                  <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="gettestInstrumentControls(a).length > 1" 
                                                     (click)="removeItem(a,j)" style="cursor: pointer;margin: 20px 5px 20px 5px;">remove_circle_outline</mat-icon>
 
                                                 </tr>
@@ -805,8 +805,10 @@
                        </thead>
                       <tbody formArrayName="testingRecords" *ngFor="let f of gettestValueControls(a); let i = index">
                         <ng-container [formGroupName]="i">
-                          <mat-icon class="mousechange" class="dlt" type="button" title="Delete" 
+                         
+                          <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}"
                             (click)="removeItemRecords(a,i,f)" *ngIf="gettestValueControls(a).length > 1" style="cursor: pointer;margin: 20px 5px 20px 5px;">remove_circle_outline</mat-icon>
+
                         <tr  class="form-group" >
                                 <td><input type="text" formControlName="circuitNo" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td ><textarea  formControlName="circuitDesc"  class="form-control" style="height:40px;width:170px;"  [readonly]="service.allFieldsDisable"></textarea> </td>
