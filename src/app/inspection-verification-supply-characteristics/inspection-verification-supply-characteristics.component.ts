@@ -2348,7 +2348,7 @@ showHideAccordion(index: number) {
 //   this.keyJOintLocationTable=false;
 //  }
   }
-
+ 
   getLocation1Controls(): AbstractControl[] {
     return (<FormArray>this.supplycharesteristicForm.get('location1Arr'))
       .controls;
@@ -3181,6 +3181,20 @@ showHideAccordion(index: number) {
       this.supplycharesteristic.supplyParameters = this.supplycharesteristic.supplyParameters.concat(this.alternateArr1);
     }
    
+    for(let i of this.supplycharesteristicForm.value.circuitArr){
+      if (i.residualCurrent != '') {
+        i.residualCurrent=i.residualCurrent;
+      } 
+      else {
+        i.residualCurrent = 'NA';
+      }
+      if (i.residualTime != '') {
+        i.residualCurrent=i.residualCurrent;
+      } 
+      else {
+        i.residualTime = 'NA';
+      }
+    }
     this.supplycharesteristic.circuitBreaker =this.supplycharesteristicForm.value.circuitArr;
     if(this.circuitArr1 != null){
       this.supplycharesteristic.circuitBreaker = this.supplycharesteristic.circuitBreaker.concat(this.circuitArr1);

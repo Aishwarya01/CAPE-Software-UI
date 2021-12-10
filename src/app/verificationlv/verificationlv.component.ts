@@ -87,7 +87,7 @@ export class VerificationlvComponent implements OnInit {
   @ViewChild('departmentPaginator', { static: true })
   departmentPaginator!: MatPaginator;
   @ViewChild('departmentSort', { static: true }) departmentSort!: MatSort;
-
+  siteN:any="";
   siteColumns: string[] = [
     'action',
     'siteCd',
@@ -247,7 +247,6 @@ export class VerificationlvComponent implements OnInit {
       secondCtrl: ['', Validators.required],
       clientname: ['', Validators.required],
     });
-
     this.testing;
     this.siteService.retrieveCountry().subscribe((data) => {
       this.countryList = JSON.parse(data);
@@ -255,7 +254,13 @@ export class VerificationlvComponent implements OnInit {
    if(this.service.mainNavToSaved==1){
    this.selectedIndex=1;
    }
-  
+
+  if(this.service.viewerData.siteName!='' && this.service.viewerData.siteName!=undefined){
+    this.siteN=this.service.viewerData.siteName;
+  }
+  else{
+    this.siteN="";
+  }
     this.refresh();
     // this.retrieveClientDetails();
     // this.retrieveSiteDetails();
@@ -609,6 +614,7 @@ export class VerificationlvComponent implements OnInit {
         //this.selectedIndex = index;
         this.dataJSON = JSON.parse(data);
         if(this.dataJSON.reportDetails != null) {
+          this.siteN=site;
           this.selectedIndex = index;    
           this.service.msgForStep1Flag=false;
           this.basic.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
@@ -644,6 +650,7 @@ export class VerificationlvComponent implements OnInit {
           this.service.commentScrollToBottom=0;
           }   
         else{
+          this.siteN=site;
           this.noDetails=true;
           this.service.msgForStep1Flag=true;
           this.retrieveSite(companyName,departmentName,site);
@@ -666,6 +673,7 @@ export class VerificationlvComponent implements OnInit {
         //this.selectedIndex = index;
         this.dataJSON = JSON.parse(data);
         if(this.dataJSON.reportDetails != null) {
+          this.siteN=site;
           this.selectedIndex = index;       
           this.service.msgForStep1Flag=false;
           this.basic.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
@@ -686,6 +694,7 @@ export class VerificationlvComponent implements OnInit {
           this.service.commentScrollToBottom=0;
           }   
         else{
+          this.siteN=site;
           this.noDetails=true;
           this.service.msgForStep1Flag=true;
           this.saved.savedContinue();
