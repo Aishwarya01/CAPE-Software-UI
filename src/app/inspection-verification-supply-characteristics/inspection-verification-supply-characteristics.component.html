@@ -1103,15 +1103,16 @@
                             <div *ngIf="submitted && a.get('electrodeEarthDepth')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('electrodeEarthDepth')?.errors?.required">Field Is Required</div>
                             </div></td>
-                            <td><input type="number" min="0"  formControlName="electrodeResistanceEarth" class="form-control" [readonly]="service.allFieldsDisable"
+                            <td><input type="number" min="0"  formControlName="electrodeResistanceEarth" class="form-control" 
+                              [readonly]="service.allFieldsDisable" 
                               [ngClass]="{ 'is-invalid': submitted && a.get('electrodeResistanceEarth')?.errors }" 
-                              placeholder="Enter electrode resistance" >
+                              placeholder="Enter electrode resistance" [value]="a.get('electrodeResistanceEarth')?.value">
                               <div *ngIf="submitted && a.get('electrodeResistanceEarth')?.errors" class="invalid-feedback">
                                 <div *ngIf="a.get('electrodeResistanceEarth')?.errors?.required">Field Is Required</div>
                               </div></td>
                             <td><input type="tel" min="0" formControlName="electrodeResistanceGird" class="form-control" [readonly]="service.allFieldsDisable"
-                              [ngClass]="{ 'is-invalid': submitted && a.get('electrodeResistanceGird')?.errors }" 
-                              placeholder="Enter electrode resistance" >
+                              [ngClass]="{ 'is-invalid': submitted && a.get('electrodeResistanceGird')?.errors }" [value]="a.get('electrodeResistanceGird')?.value"
+                              placeholder="Enter electrode resistance">
                               <div *ngIf="submitted && a.get('electrodeResistanceGird')?.errors" class="invalid-feedback">
                                 <div *ngIf="a.get('electrodeResistanceGird')?.errors?.required">Field Is Required</div>
                               </div>
@@ -1432,7 +1433,7 @@
                     class="example-button">
                     info_outline
                    </mat-icon>
-                    <p class="joints">No Of Joints <input type="number" min="0" formControlName="earthingNoOfJoints" 
+                    <p class="joints">Number Of Joints <input type="number" min="0" formControlName="earthingNoOfJoints" 
                     [ngClass]="{ 'is-invalid': submitted && f.earthingNoOfJoints.errors }" [readonly]="service.allFieldsDisable"
                     [(ngModel)]="supplycharesteristic.earthingNoOfJoints" style="
                       width: 50px;
@@ -1563,7 +1564,7 @@
 
                             <!-- <input type="text" [readonly]="service.allFieldsDisable" formControlName="sourceName" class="form-control" [(ngModel)]="supplycharesteristic.shortName" [ngClass]="{ 'is-invalid': submitted && a.get('sourceName')?.errors }" > -->
 
-                            <textarea style="height: 28.99px;" type="text" formControlName="sourceName" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('sourceName')?.errors }" readonly></textarea>
+                            <textarea cols="60" rows="1" type="text" formControlName="sourceName" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('sourceName')?.errors }" readonly></textarea>
 
                             <div *ngIf="submitted && a.get('sourceName')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('sourceName')?.errors?.required">Source Name is required</div>
@@ -1603,16 +1604,19 @@
                           class="example-button">
                           info_outline
                          </mat-icon>
-                          <select class="form-control" [disabled]="service.allFieldsDisable" formControlName="type" 
+                         <input type="text" [readonly]="service.allFieldsDisable" formControlName="type"
+                         class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('type')?.errors }" 
+                         placeholder="Enter Type" >
+                          <!-- <select class="form-control" [disabled]="service.allFieldsDisable" formControlName="type" 
                           [tabindex]="service.allFieldsDisable ? -1 : 0" [ngClass]="{ 'is-invalid': submitted && a.get('type')?.errors }">
                            <option value="" selected>Select Option</option>
                             <option value="MCB">MCB</option>
                             <option value=" ACB"> ACB</option>
-                            <option value="MCCB">MCCB</option>
+                            <option value="MCCB">MCCB</option> 
                             <option value="RCBO">RCBO</option>
-                          </select>
+                          </select> -->
                           <div *ngIf="submitted && a.get('type')?.errors" class="invalid-feedback">
-                            <div *ngIf="a.get('type')?.errors?.required">Field Is Required</div>
+                            <div *ngIf="a.get('type')?.errors?.required">If no value, then fill as NA</div>
                           </div>
                         </div>
 
@@ -1707,20 +1711,20 @@
                           info_outline
                          </mat-icon>
                           <div class="input-group">
-                            <input type="number" min="0" [readonly]="service.allFieldsDisable"  class="form-control" formControlName="residualCurrent" [ngClass]="{ 'is-invalid': submitted && a.get('residualCurrent')?.errors }" placeholder="Enter value" >
+                            <input type="text" min="0" [readonly]="service.allFieldsDisable"  class="form-control" formControlName="residualCurrent" [ngClass]="{ 'is-invalid': submitted && a.get('residualCurrent')?.errors }" placeholder="Enter value" >
                             <div class="input-group-prepend">
                               <span class="input-group-text">mA</span>
                             </div>
                           </div>
                           <div *ngIf="submitted && a.get('residualCurrent')?.errors" class="invalid-feedback">
-                            <div *ngIf="a.get('residualCurrent')?.errors?.required">Field Is Required</div>
+                            <div *ngIf="a.get('residualCurrent')?.errors?.required">If no value, then fill as NA</div>
                           </div>
                         </div>
 
                         <div class="col-md-4" *ngIf="true">
                           <label>Measured operating time @I∆n (ms):</label>
                           <div class="input-group">
-                            <input type="number" min="0" [readonly]="service.allFieldsDisable"  class="form-control" formControlName="residualTime" 
+                            <input type="text" min="0" [readonly]="service.allFieldsDisable"  class="form-control" formControlName="residualTime" 
                             
                             [ngClass]="{ 'is-invalid': submitted && a.get('residualTime')?.errors }" placeholder="Enter value" >
                             <div class="input-group-prepend">
@@ -1728,7 +1732,7 @@
                             </div>
                           </div>
                           <div *ngIf="submitted && a.get('residualTime')?.errors" class="invalid-feedback">
-                            <div *ngIf="a.get('residualTime')?.errors?.required">Field Is Required</div>
+                            <div *ngIf="a.get('residualTime')?.errors?.required">If no value, then fill as NA</div>
                           </div>
                         </div>
 

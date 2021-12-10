@@ -57,7 +57,7 @@ export class SummaryComponent implements OnInit {
     agreedWith: new FormControl(''),
     operationalLimitations: new FormControl(''),
     //recommendationsDate: new FormControl(''),
-    inspectionTestingDetailed: new FormControl(''),
+    //inspectionTestingDetailed: new FormControl(''),
     generalConditionInstallation: new FormControl(''),
     overallAssessmentInstallation: new FormControl(''),
   });
@@ -112,7 +112,7 @@ export class SummaryComponent implements OnInit {
 
   @Output() proceedNext = new EventEmitter<any>();
   fcname: string[] = [
-   // 'comment',
+    'comment',
     'furtherActions',
     'observations',
     'referanceNumberReport',
@@ -251,7 +251,7 @@ export class SummaryComponent implements OnInit {
       agreedWith: ['', Validators.required],
       operationalLimitations: ['', Validators.required],
       //recommendationsDate: ['', Validators.required],
-      inspectionTestingDetailed: ['', Validators.required],
+     // inspectionTestingDetailed: ['', Validators.required],
       generalConditionInstallation: ['', Validators.required],
       overallAssessmentInstallation: ['', Validators.required],
       Declaration1Arr: this._formBuilder.array([this.Declaration1Form()]),
@@ -328,7 +328,7 @@ export class SummaryComponent implements OnInit {
         agreedWith: this.summaryList.summary.agreedWith,
         operationalLimitations: this.summaryList.summary.operationalLimitations,
         //recommendationsDate: this.summaryList.summary.recommendationsDate,
-        inspectionTestingDetailed: this.summaryList.summary.inspectionTestingDetailed,
+        //inspectionTestingDetailed: this.summaryList.summary.inspectionTestingDetailed,
         generalConditionInstallation: this.summaryList.summary.generalConditionInstallation,
         overallAssessmentInstallation: this.summaryList.summary.overallAssessmentInstallation,
     })
@@ -752,7 +752,7 @@ showHideAccordion(index: number) {
         referanceNumberReport: new FormControl({disabled: false,value: item.referanceNumberReport}, [Validators.required]),
         recommendationsDate: new FormControl({disabled: false,value: item.recommendationsDate}, [Validators.required]),
         obervationStatus: new FormControl(item.obervationStatus),
-        //comment: new FormControl({disabled: false,value: item.comment}, [Validators.required]),
+        comment: new FormControl({disabled: false,value: item.comment}, [Validators.required]),
       });
     }
   
@@ -789,7 +789,7 @@ showHideAccordion(index: number) {
       referanceNumberReport: new FormControl('', Validators.required),
       recommendationsDate: new FormControl('', Validators.required),
       obervationStatus: new FormControl('A'),
-      //comment: new FormControl('', Validators.required),
+      comment: new FormControl('', Validators.required),
     });
   }
 

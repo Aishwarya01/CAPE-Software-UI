@@ -325,6 +325,8 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   circuitSourceArr: any=[];
   circuitSourceArr1: any=[];
 
+  storeDelData: any=[];
+
   constructor(
     private supplyCharacteristicsService: SupplyCharacteristicsService,
     public service: GlobalsService,
@@ -1981,7 +1983,7 @@ showHideAccordion(index: number) {
   // }
 
   onKey1(event: KeyboardEvent) {
-   
+   debugger
     this.values = (<HTMLInputElement>event.target).value;
     this.value = this.values;
     this.location1Arr = this.supplycharesteristicForm.get(
@@ -2114,43 +2116,43 @@ showHideAccordion(index: number) {
   //   }
   // }
 
+  // savingArr(){
+  //   this.location2Arr.push(this.createLocation1Form());
+  // }
+
   onKey(event: KeyboardEvent) {
-    this.values='';
-    if(event.target != undefined) {
-      this.values = (<HTMLInputElement>event.target).value;    
-    }
-    else{
-      this.values =event;
-    }
-    // this.values = (<HTMLInputElement>event.target).value;
-     this.value = this.values;
+    debugger
+    this.values = (<HTMLInputElement>event.target).value;
+    this.value = this.values;
     this.location2Arr = this.supplycharesteristicForm.get(
       'location2Arr'
     ) as FormArray;
-  if(this.value!=0){
-    this.JointLocationTable=true;
-    this.supplycharesteristicForm.controls['bondingJointsType'].setValidators(
-      Validators.required
-    );
-    this.supplycharesteristicForm.controls['bondingJointsType'].updateValueAndValidity();
+    if(this.value!=0){
+     
+      this.JointLocationTable=true;
     if (this.location2Arr.length == 0) {
+     
       if (this.value != '') {
+       
         for (this.i = 0; this.i < this.value; this.i++) {
           this.location2Arr = this.supplycharesteristicForm.get(
             'location2Arr'
           ) as FormArray;
-          this.location2Arr.push(this.createLocation2Form());
+          this.location2Arr.push(this.createLocation1Form());
         }
       }
     } 
     else if (this.value == '') {
+     
       this.loclength = this.location2Arr.length;
       for (this.i = 1; this.i < this.loclength; this.i++) {
         this.location2Arr.removeAt(this.location2Arr.length - 1);
       }
     } 
     else if (this.location2Arr.length < this.value) {
+     
       if (this.value != '') {
+       
         this.delarr = this.value - this.location2Arr.length;
         for (this.i = 0; this.i < this.delarr; this.i++) {
           this.location2Arr = this.supplycharesteristicForm.get(
@@ -2161,7 +2163,9 @@ showHideAccordion(index: number) {
       }
     } 
     else if (this.location2Arr.length > this.value && this.value != 0) {
+     debugger
       if (this.value != '') {
+       
         this.delarr = this.location2Arr.length - this.value;
         for (this.i = 0; this.i < this.delarr; this.i++) {
           this.location2Arr = this.supplycharesteristicForm.get(
@@ -2171,15 +2175,6 @@ showHideAccordion(index: number) {
         }
       }
     }
-  }
-  else{
-    this.JointLocationTable=false;
-    let arr:any=[];
-    this.supplycharesteristicForm.setControl('location2Arr', this.formBuilder.array(arr || []))
-    this.supplycharesteristicForm.controls['bondingJointsType'].clearValidators();
-    this.supplycharesteristicForm.controls[
-      'bondingJointsType'
-    ].updateValueAndValidity();
   }
   // else{
   //   this.JointLocationTable=false;
@@ -2290,44 +2285,39 @@ showHideAccordion(index: number) {
   //   }
   // }
   onKey3(event: KeyboardEvent) { //No Of Joints
-    this.values='';
-    if(event.target != undefined) {
-      this.values = (<HTMLInputElement>event.target).value;    
-    }
-    else{
-      this.values =event;
-    }
-
-    // this.values = (<HTMLInputElement>event.target).value;
-    this.service.noOfjoint = this.values;
+    debugger
+    this.values = (<HTMLInputElement>event.target).value;
+    this.value = this.values;
     this.location3Arr = this.supplycharesteristicForm.get(
       'location3Arr'
     ) as FormArray;
-    if(this.service.noOfjoint!=0){
+    if(this.value!=0){
+     
       this.keyJOintLocationTable=true;
-      this.supplycharesteristicForm.controls['earthingJointsType'].setValidators(
-        Validators.required
-      );
-      this.supplycharesteristicForm.controls['earthingJointsType'].updateValueAndValidity();
     if (this.location3Arr.length == 0) {
-      if (this.service.noOfjoint != '') {
-        for (this.i = 0; this.i < this.service.noOfjoint; this.i++) {
+     
+      if (this.value != '') {
+       
+        for (this.i = 0; this.i < this.value; this.i++) {
           this.location3Arr = this.supplycharesteristicForm.get(
             'location3Arr'
           ) as FormArray;
-          this.location3Arr.push(this.createLocation3Form());
+          this.location3Arr.push(this.createLocation1Form());
         }
       }
-    }  
-     if (this.service.noOfjoint == '') {
+    } 
+    else if (this.value == '') {
+     
       this.loclength = this.location3Arr.length;
       for (this.i = 1; this.i < this.loclength; this.i++) {
         this.location3Arr.removeAt(this.location3Arr.length - 1);
       }
     } 
-    else if (this.location3Arr.length < this.service.noOfjoint) {
-      if (this.service.noOfjoint != '') {
-        this.delarr = this.service.noOfjoint - this.location3Arr.length;
+    else if (this.location3Arr.length < this.value) {
+     
+      if (this.value != '') {
+       
+        this.delarr = this.value - this.location3Arr.length;
         for (this.i = 0; this.i < this.delarr; this.i++) {
           this.location3Arr = this.supplycharesteristicForm.get(
             'location3Arr'
@@ -2336,9 +2326,11 @@ showHideAccordion(index: number) {
         }
       }
     } 
-    else if (this.location3Arr.length > this.service.noOfjoint && this.service.noOfjoint != 0) {
-      if (this.service.noOfjoint != '') {
-        this.delarr = this.location3Arr.length - this.service.noOfjoint;
+    else if (this.location3Arr.length > this.value && this.value != 0) {
+     
+      if (this.value != '') {
+       
+        this.delarr = this.location3Arr.length - this.value;
         for (this.i = 0; this.i < this.delarr; this.i++) {
           this.location3Arr = this.supplycharesteristicForm.get(
             'location3Arr'
@@ -2348,15 +2340,6 @@ showHideAccordion(index: number) {
       }
     }
   }
-  else{
-    this.keyJOintLocationTable=false;
-    let arr:any=[];
-    this.supplycharesteristicForm.setControl('location3Arr', this.formBuilder.array(arr || []))
-    this.supplycharesteristicForm.controls['earthingJointsType'].clearValidators();
-    this.supplycharesteristicForm.controls[
-      'earthingJointsType'
-    ].updateValueAndValidity();
-  }
 //     else if((this.service.jointType==1 && this.service.noOfjoint==0) || (this.service.jointType=='' && this.service.noOfjoint==0))
 //     {
 //       this.keyJOintLocationTable=true;
@@ -2365,7 +2348,7 @@ showHideAccordion(index: number) {
 //   this.keyJOintLocationTable=false;
 //  }
   }
-
+ 
   getLocation1Controls(): AbstractControl[] {
     return (<FormArray>this.supplycharesteristicForm.get('location1Arr'))
       .controls;
@@ -3198,6 +3181,20 @@ showHideAccordion(index: number) {
       this.supplycharesteristic.supplyParameters = this.supplycharesteristic.supplyParameters.concat(this.alternateArr1);
     }
    
+    for(let i of this.supplycharesteristicForm.value.circuitArr){
+      if (i.residualCurrent != '') {
+        i.residualCurrent=i.residualCurrent;
+      } 
+      else {
+        i.residualCurrent = 'NA';
+      }
+      if (i.residualTime != '') {
+        i.residualCurrent=i.residualCurrent;
+      } 
+      else {
+        i.residualTime = 'NA';
+      }
+    }
     this.supplycharesteristic.circuitBreaker =this.supplycharesteristicForm.value.circuitArr;
     if(this.circuitArr1 != null){
       this.supplycharesteristic.circuitBreaker = this.supplycharesteristic.circuitBreaker.concat(this.circuitArr1);

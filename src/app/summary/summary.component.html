@@ -67,7 +67,7 @@
                     </div>
                   </div>
     
-                  <div class="col-sm-12">
+                  <!-- <div class="col-sm-12">
                     <div class="form-group">
                       <label>The inspection and testing detailed in this report have been carried out in accordance 
                         with IEC60364. It should be note that cables concealed within trunk/trench and conduits, 
@@ -80,7 +80,7 @@
                           <div *ngIf="f.inspectionTestingDetailed?.errors?.required">Field Is Required</div>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
             </div>
           </mat-expansion-panel>
@@ -177,19 +177,24 @@
                   </h3>
                   </mat-label>
                   <textarea matInput class="client-box-description" maxlength="500" 
-                    readonly
-                    value=" I/We recommend that any observations classified as:- 
-                    Code C1 “dangers present” or Code C2 “potentially dangerous” are acted upon the matter of urgency and remedial 
-                    action to be taken immediately, 
-                    Code C3 “Improvement recommended” should be given due consideration,
-                    Code R1 “required further investigation” should start investigation without any delay.">
+                  placeholder="Enter comment" [readonly]="service.allFieldsDisable"
+                  formControlName="comment"
+                  [ngClass]="{ 'is-invalid': submitted && a.get('comment')?.errors }">  
+                  <div *ngIf="submitted && a.get('comment')?.errors" class="invalid-feedback">
+                    <div *ngIf="a.get('comment')?.errors?.required">Field Is Required</div>
+                </div>     
                   </textarea>
                 </mat-form-field>
               </div>
               <div class="col-sm-12">
-                  <label>
-                    Subject to necessary remedial action being taken, I/We recommended that the installation is further inspected and tested by :
-                  </label>
+                  <p>
+                    I/We recommend that any Observations classified as:-  </p>
+                    <p>Code C1 “dangers present” or Code C2 “potentially dangerous” are acted upon the matter of urgency and remedial 
+                    action to be taken immediately,</p> 
+                    <p>Code C3 “Improvement recommended” should be given due consideration,</p>
+                  <p>Code R1 “required further investigation” should start investigation without any delay.</p> 
+                    <p>Subject to necessary remedial action being taken, I/We recommended that the installation is further inspected and tested by :</p>
+                   
                   <input type="date" class="form-control" placeholder="Enter Date" [readonly]="service.allFieldsDisable"
                   formControlName="recommendationsDate"
                   [ngClass]="{ 'is-invalid': submitted && a.get('recommendationsDate')?.errors }">  

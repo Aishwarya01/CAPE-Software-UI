@@ -1,3 +1,9 @@
+<div style="position: relative;left: 70%;top: 33px;" title="{{siteN}}"> 
+  <label style="color: lightslategrey;
+  font-weight: 500;position: absolute;
+    top: -20px;">Working for Site Name:
+  <input type="text" maxlength="50" [value]="siteN" style="border: none;"></label>
+</div>
 <mat-tab-group [selectedIndex]="selectedIndex" style="background-color:white;">
   <!-- <mat-tab label="Site Details">
     <mat-horizontal-stepper #stepper>
@@ -217,7 +223,11 @@
     <app-finalreports></app-finalreports>
   </mat-tab>
 
+  <!-- <mat-tab label="Site Name:" class="disableTab"></mat-tab>
+  <mat-tab [label]="siteN" class="disableTab"></mat-tab> -->
+
 </mat-tab-group>
+
 
 <!-- Exeption Messages For Client -->
 <ng-template #clientdelete let-modal>
