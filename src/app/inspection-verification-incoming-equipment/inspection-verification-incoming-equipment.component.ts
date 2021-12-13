@@ -27,6 +27,9 @@ import { InspectionVerificationService } from '../services/inspection-verificati
 import { CommentsSection } from '../model/comments-section';
 import { MainNavComponent } from '../main-nav/main-nav.component';
 import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
+import { MatDialog } from '@angular/material/dialog';
+import { Observation } from '../model/observation';
+import { ObservationService } from '../services/observation.service';
 
 @Component({
   selector: 'app-inspection-verification-incoming-equipment',
@@ -52,6 +55,7 @@ export class InspectionVerificationIncomingEquipmentComponent
   email: String = '';
   showField1: boolean = true;
   showField2: boolean = false;
+  errorArr: any=[];
 
   inspectionDetails = new InspectionDetails();
   validationError: boolean = false;
@@ -150,13 +154,20 @@ export class InspectionVerificationIncomingEquipmentComponent
   step3List1: any= [];
   //comments end
 
+  ObservationsForm = new FormGroup({
+    observations: new FormControl(''),
+   
+  });
+
   constructor(
     private _formBuilder: FormBuilder,
     private router: ActivatedRoute,
     private modalService: NgbModal,
     private inspectionDetailsService: InspectiondetailsService,
     public service: GlobalsService,
+    private dialog: MatDialog,
     private ChangeDetectorRef: ChangeDetectorRef,
+    private observationService: ObservationService,
     private siteService: SiteService,
     private UpateInspectionService: InspectionVerificationService,
     private basic: MainNavComponent,
@@ -176,6 +187,10 @@ export class InspectionVerificationIncomingEquipmentComponent
     });
     this.refresh();
     this.expandedIndex = -1 ;
+
+    this.ObservationsForm = this.formBuilder.group({
+      observations: ['', Validators.required],
+     })
   }
 
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){ 
@@ -386,6 +401,61 @@ populateDataComments() {
        this.addstep3.setControl('viewerCommentArr', this._formBuilder.array(this.arrViewer || []))
        this.addstep3.setControl('completedCommentArr1', this._formBuilder.array(this.completedCommentArr4 || []));
 }
+
+submit(flag:any){
+
+  if (!flag) {
+    this.observation.siteId = this.service.siteCount;
+  }
+  this.observation.siteId = this.service.siteCount;
+  this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
+  this.observation.observationComponent ="Inspection-Componet";
+  this.observation.observations =this.ObservationsForm.value.observations;
+  this.submitted = true;
+  if (this.ObservationsForm.invalid) {
+    return;
+  }
+  // if(this.ObservationsForm.dirty && this.ObservationsForm.touched){ 
+  //   this.observationService.updateObservation(this.observation).subscribe(
+  //     data => {
+      
+  //     },
+     
+  //     error => {
+       
+  //     }
+  //   )}
+  //   else {
+
+  
+    console.log(this.observation);
+      this.observationService.addObservation(this.observation).subscribe(
+    
+        (_data: any) => {
+          this.success = true;
+          this.successMsg = "Observation Information sucessfully Saved";
+        },
+        ( error: { error: string; }) => {
+          this.Error = true;
+          this.errorArr = [];
+          this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.errorArr.message;
+        }
+      )
+    }
+
+  addObservation(observationIter:any){
+    if(this.ObservationsForm.touched || this.ObservationsForm.untouched){
+      this.modalReference = this.modalService.open(observationIter, {
+         centered: true, 
+         size: 'md'
+        })
+     }
+
+ 
+   }
+
+
 
 showHideAccordion(index: number) {  
   //console.log(x);

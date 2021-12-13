@@ -6,17 +6,19 @@
 </div>
 <div class="card">
     <div class="card-body">
-    <!-- <button class="btn btn-info mousechange"
-        style="padding: 7px 10px 0px 10px;left: 93%;top: 10px;width: 4%;position: relative;">
-            <mat-icon aria-hidden="false" (click)="addItem()" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>
-    </button> -->
+      <div class="row">
+        <div class="col-sm-12">
+          <a (click)="addObservation(observationIter)"
+          style="margin-top: 2px;float: right;cursor: pointer;text-decoration: underline;">Observations</a>
+        </div>
+        </div>
      <form [formGroup]="testingForm" (ngSubmit)="nextTab(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
        <div formArrayName="testaccordianArr" *ngFor="let a of getTestControls(); let i = index;" >
             <div [formGroupName]="i">
                     <div class="search-bar">
                         <div class="form-group">
                             <div class="row" *ngIf="inspectionRetrieve">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label>Location Number*</label>
                                     <input type="number" class="form-control" formControlName="locationNumber"
                                         placeholder="Enter Location Number"
@@ -25,7 +27,7 @@
                                         style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label>Location Name*</label>
                                     <input type="text" class="form-control" formControlName="locationName"
                                         placeholder="Enter Location Name"
@@ -34,12 +36,14 @@
                                         style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
                                 </div>
 
-                                <div class="col-md-6" *ngIf="false">
+                                <div class="col-md-4" *ngIf="false">
                                   <input type="text" class="form-control" formControlName="locationCount"
                                       placeholder="Enter Location Name"
                                       value="{{location.locationArr[i]?.locationCount}}"
                                       [(ngModel)]="location.locationArr[i].locationCount" >
                                  </div>
+
+                                
                             </div>
 
 
@@ -1224,4 +1228,37 @@ style="margin-left: 10px;" >
       </button>
     </div>
     
+      </ng-template>
+
+      <ng-template #observationIter let-modal>
+        <form [formGroup]="ObservationsForm">
+          <div class="modal-header" style="text-align: center; display: block">
+            <h2 class="modal-title" style="display: contents">Observations:</h2>
+          </div>
+          <div class="modal-body">
+                <textarea col=60 row=1
+                class="form-control"  
+                formControlName="observations"  placeholder="Ex. Observations ..." >
+                </textarea>
+                <br>
+                <div style="text-align: center">
+                  <button class="btn btn-primary" (click)="submit(flag)" style="font-size: 14px;">
+                    Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <button type="button" aria-label="Close" class="btn btn-danger" (click)="closeModalDialog()"
+                    style="font-size: 14px;">
+                    <i class="bi bi-x icon"></i>
+                    <span aria-hidden="true">Cancel</span>
+                  </button>
+                </div>
+      
+            
+          </div>
+          <div *ngIf="success" style="text-align: center;">
+            <span class="successshow">{{successMsg}}</span>
+          </div>
+          <div *ngIf="Error" style="text-align: center;">
+            <span class="errorshow">{{errorMsg}}</span>
+          </div>
+        </form>
+      
       </ng-template>

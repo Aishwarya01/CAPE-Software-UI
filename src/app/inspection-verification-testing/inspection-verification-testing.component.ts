@@ -36,6 +36,8 @@ import { SupplyCharacteristicsService } from '../services/supply-characteristics
 import { concat } from 'rxjs';
 import { DatePipe } from '@angular/common'
 import { ValueTransformer } from '@angular/compiler/src/util';
+import { ObservationService } from '../services/observation.service';
+import { Observation } from '../model/observation';
 
 @Component({
   selector: 'app-inspection-verification-testing',
@@ -85,7 +87,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   // success: boolean = false;
   // Error: boolean = false;
   // errorMsg: string = '';
-  email: string;
+ // email: string;
   validationError: boolean = false;
   validationErrorMsg: String = '';
   location = new Location();
@@ -128,6 +130,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   testingRetrieve: boolean = true;
   inspectionRetrieve: boolean = false;
   SourceList: any = [];
+  observation= new Observation;
   //disableSource:boolean=true;
   //comments starts
   completedCommentArr3: any = [];
@@ -238,14 +241,22 @@ export class InspectionVerificationTestingComponent implements OnInit {
   deletedTestingEquipment: any= [];
   deleteDataFlag: boolean = false;
   deleteRecordDataFlag: boolean = false;
+
+  ObservationsForm = new FormGroup({
+    observations: new FormControl(''),
+   
+  });
+  email: string;
   
   constructor(
     private testingService: TestingService,
     private supplyCharacteristicsService: SupplyCharacteristicsService,
     private formBuilder: FormBuilder,
     public service: GlobalsService,
+    private dialog: MatDialog,
     private modalService: NgbModal,
     private router: ActivatedRoute,
+    private observationService: ObservationService,
     private inspectionDetailsService: InspectiondetailsService,
     private siteService: SiteService,
     private basic: MainNavComponent,public datepipe: DatePipe,
@@ -270,6 +281,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
     this.retrieveDetailsFromIncoming();
     this.expandedIndex = -1;
     this.retrieveDetailsFromSupply();
+    this.ObservationsForm = this.formBuilder.group({
+      observations: ['', Validators.required],
+     })
   }
 
  retrieveDetailsFromIncoming() {
@@ -1832,6 +1846,59 @@ callValue(e: any) {
     });
   }
 
+  
+  submit(flag:any){
+
+    if (!flag) {
+      this.observation.siteId = this.service.siteCount;
+    }
+    this.observation.siteId = this.service.siteCount;
+    this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
+    this.observation.observations =this.ObservationsForm.value.observations;
+    this.submitted = true;
+    if (this.ObservationsForm.invalid) {
+      return;
+    }
+    // if(this.ObservationsForm.dirty && this.ObservationsForm.touched){ 
+    //   this.observationService.updateObservation(this.observation).subscribe(
+    //     data => {
+        
+    //     },
+       
+    //     error => {
+         
+    //     }
+    //   )}
+    //   else {
+
+    
+     
+        this.observationService.addObservation(this.observation).subscribe(
+      
+          (_data: any) => {
+            this.success = true;
+            this.successMsg = "Observation Information sucessfully Saved";
+          },
+          ( error: { error: string; }) => {
+            this.Error = true;
+            this.errorArr = [];
+            this.errorArr = JSON.parse(error.error);
+            this.errorMsg = this.errorArr.message;
+          }
+        )
+      }
+ 
+
+  addObservation(observationIter:any){
+    if(this.ObservationsForm.touched || this.ObservationsForm.untouched){
+      this.modalReference = this.modalService.open(observationIter, {
+         centered: true, 
+         size: 'md'
+        })
+     }
+
+  }
+
   addItem() {
     this.testaccordianArr = this.testingForm.get(
       'testaccordianArr'
@@ -2323,6 +2390,8 @@ callValue(e: any) {
           f.controls.bpeFaultCurrent.setValue('');
         }
     }
+
+    
   reloadFromBack(){
     if(this.testingForm.invalid){
      this.service.isCompleted4= false;
@@ -2420,7 +2489,12 @@ callValue(e: any) {
       this.service.isLinear=false;
       this.modalService.dismissAll((this.successMsg = ''));
     }
+
+
+    
   }
+
+  
 
   nextTab(flag: any) {
     if (!flag) {

@@ -10,6 +10,9 @@ import { InspectionVerificationService } from '../services/inspection-verificati
 import { MainNavComponent } from '../main-nav/main-nav.component';
 import { CommentsSection } from '../model/comments-section';
 import { InspectionVerificationBasicInformationComponent } from '../inspection-verification-basic-information/inspection-verification-basic-information.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ObservationService } from '../services/observation.service';
+import { Observation } from '../model/observation';
 
 @Component({
   selector: 'app-inspection-verification-supply-characteristics',
@@ -23,6 +26,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
 
   a: any;
   supplyparameters = new Supplyparameters();
+  observation= new Observation;
   supplycharesteristic = new Supplycharacteristics();
   enableAC: boolean = false;
   enableDC: boolean = false;
@@ -325,6 +329,10 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   circuitSourceArr: any=[];
   circuitSourceArr1: any=[];
 
+  ObservationsForm = new FormGroup({
+    observations: new FormControl(''),
+   
+  });
   storeDelData: any=[];
 
   constructor(
@@ -333,6 +341,8 @@ export class InspectionVerificationSupplyCharacteristicsComponent
     private formBuilder: FormBuilder,
     private router: ActivatedRoute,
     private basic: MainNavComponent,
+    private dialog: MatDialog,
+    private observationService: ObservationService,
     //private step1: InspectionVerificationBasicInformationComponent,
     private modalService: NgbModal,private siteService: SiteService,
     private UpateInspectionService: InspectionVerificationService,
@@ -345,6 +355,10 @@ export class InspectionVerificationSupplyCharacteristicsComponent
     this.currentUser=sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
+
+    this.ObservationsForm = this.formBuilder.group({
+      observations: ['', Validators.required],
+     })
     this.supplycharesteristicForm = this.formBuilder.group({
       shortName: ['', Validators.required],
       systemEarthing: ['', Validators.required],
@@ -1548,6 +1562,59 @@ showHideAccordion(index: number) {
       })
     }
 
+    submit(flag:any){
+
+      if (!flag) {
+        this.observation.siteId = this.service.siteCount;
+      }
+      this.observation.siteId = this.service.siteCount;
+      this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
+      this.observation.observationComponent ="Supply-Componet";
+      this.observation.observations =this.ObservationsForm.value.observations;
+      this.submitted = true;
+      if (this.ObservationsForm.invalid) {
+        return;
+      }
+      // if(this.ObservationsForm.dirty && this.ObservationsForm.touched){ 
+      //   this.observationService.updateObservation(this.observation).subscribe(
+      //     data => {
+          
+      //     },
+         
+      //     error => {
+           
+      //     }
+      //   )}
+      //   else {
+  
+      
+       
+          this.observationService.addObservation(this.observation).subscribe(
+        
+            (_data: any) => {
+              this.success = true;
+              this.successMsg = "Observation Information sucessfully Saved";
+            },
+            ( error: { error: string; }) => {
+              this.Error = true;
+              this.errorArr = [];
+              this.errorArr = JSON.parse(error.error);
+              this.errorMsg = this.errorArr.message;
+            }
+          )
+        }
+   
+
+    addObservation(observationIter:any){
+      if(this.supplycharesteristicForm.touched || this.supplycharesteristicForm.untouched){
+        this.modalReference = this.modalService.open(observationIter, {
+           centered: true, 
+           size: 'md'
+          })
+       }
+  
+    }
+
   addItem1(item: any) : FormGroup {
     return this.formBuilder.group({
       completedCommentArr: this.formBuilder.array(this.completedComm(item)),
@@ -2121,15 +2188,9 @@ showHideAccordion(index: number) {
   // }
 
   onKey(event: KeyboardEvent) {
-    this.values='';
-    if(event.target != undefined) {
-      this.values = (<HTMLInputElement>event.target).value;    
-    }
-    else{
-      this.values =event;
-    }
-    // this.values = (<HTMLInputElement>event.target).value;
-     this.value = this.values;
+    debugger
+    this.values = (<HTMLInputElement>event.target).value;
+    this.value = this.values;
     this.location2Arr = this.supplycharesteristicForm.get(
       'location2Arr'
     ) as FormArray;
@@ -2302,6 +2363,9 @@ showHideAccordion(index: number) {
     // this.values = (<HTMLInputElement>event.target).value;
     this.service.noOfjoint = this.values;
     this.value= this.values;
+    debugger
+    this.values = (<HTMLInputElement>event.target).value;
+    this.value = this.values;
     this.location3Arr = this.supplycharesteristicForm.get(
       'location3Arr'
     ) as FormArray;

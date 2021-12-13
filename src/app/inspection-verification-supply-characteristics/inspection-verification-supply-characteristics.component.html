@@ -6,6 +6,12 @@
 </div>
 <div class="card">
   <div class="card-body">
+    <div class="row">
+      <div class="col-sm-12">
+        <a (click)="addObservation(observationIter)"
+        style="margin-top: 2px;float: right;cursor: pointer;text-decoration: underline;">Observations</a>
+      </div>
+      </div>
     <form [formGroup]="supplycharesteristicForm" (ngSubmit)="nextTab2(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
       <mat-accordion>
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -1987,3 +1993,33 @@ style="margin-left: 10px;" >
 </div>
 
   </ng-template>
+
+  
+<ng-template #observationIter let-modal>
+  <form [formGroup]="ObservationsForm">
+    <div class="modal-header" style="text-align: center; display: block">
+      <h2 class="modal-title" style="display: contents">Observations:</h2>
+    </div>
+    <div class="modal-body">
+      <textarea col=60 row=1
+      class="form-control"  
+      formControlName="observations"  placeholder="Ex. Observations ..." >
+      </textarea>
+      <br>
+      <div style="text-align: center">
+        <button class="btn btn-primary" (click)="submit(flag)" style="font-size: 14px;">
+          Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button" aria-label="Close" class="btn btn-danger" (click)="closeModalDialog()"
+          style="font-size: 14px;">
+          <i class="bi bi-x icon"></i>
+          <span aria-hidden="true">Cancel</span>
+        </button>
+      </div>
+</div>
+    <div *ngIf="success" style="text-align: center;">
+      <span class="successshow">{{successMsg}}</span>
+    </div>
+    <div *ngIf="Error" style="text-align: center;">
+      <span class="errorshow">{{errorMsg}}</span>
+    </div>
+  </form>

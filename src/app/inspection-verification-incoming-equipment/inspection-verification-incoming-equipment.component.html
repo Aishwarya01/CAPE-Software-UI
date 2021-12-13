@@ -5,10 +5,19 @@
 <div *ngIf="validationErrorTab" style="text-align: center;">
   <span class="alert alert-danger">{{validationErrorMsgTab}}</span>
 </div>
+
+
 <div class="card">
+
   <form [formGroup]="addstep3" (ngSubmit)="nextTab3(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
 <div class="card-body" formArrayName="incomingArr" *ngFor="let a of getIncomingControls(); let i = index" >
   <div [formGroupName]="i" >
+    <div class="row">
+      <div class="col-sm-12">
+        <a (click)="addObservation(observationIter)"
+        style="margin-top: 2px;float: right;cursor: pointer;text-decoration: underline;">Observations</a>
+      </div>
+      </div>
   <div class="search-bar">
     <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
       <div class="row">
@@ -30,6 +39,10 @@
                 <div *ngIf="a.get('locationName')?.errors?.required">Location name is required</div>
             </div> 
         </div>
+
+        <mat-icon class="mousechange" class="dlt" type="button" [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="getIncomingControls().length > 1" (click)="removeItem(i)"title="Delete" style="position: relative; top: 34px; left: 27%;">remove_circle_outline</mat-icon>
+       
+        <mat-icon class="mousechange" class="dlt" type="button" title="Delete" *ngIf="getIncomingControls().length > 1" (click)="removeItem(i)"title="Delete" style="position: relative; top: 34px; left: 27%;">remove_circle_outline</mat-icon>
 
         <mat-icon class="mousechange" class="dlt" type="button" [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="getIncomingControls().length > 1" (click)="removeItem(i)"title="Delete" style="position: relative; top: 34px; left: 27%;">remove_circle_outline</mat-icon>
 
@@ -2392,4 +2405,35 @@ position: relative;">
   </button>
 </div>
 
+  </ng-template>
+
+  <ng-template #observationIter let-modal>
+    <form [formGroup]="ObservationsForm">
+      <div class="modal-header" style="text-align: center; display: block">
+        <h2 class="modal-title" style="display: contents">Observations:</h2>
+      </div>
+      <div class="modal-body">
+        <textarea col=60 row=1
+        class="form-control"  
+        formControlName="observations"  placeholder="Ex. Observations ..." >
+        </textarea>
+        <br>
+        <div style="text-align: center">
+          <button class="btn btn-primary" (click)="submit(flag)" style="font-size: 14px;">
+            Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button type="button" aria-label="Close" class="btn btn-danger" (click)="closeModalDialog()"
+            style="font-size: 14px;">
+            <i class="bi bi-x icon"></i>
+            <span aria-hidden="true">Cancel</span>
+          </button>
+        </div>
+  </div>
+      <div *ngIf="success" style="text-align: center;">
+        <span class="successshow">{{successMsg}}</span>
+      </div>
+      <div *ngIf="Error" style="text-align: center;">
+        <span class="errorshow">{{errorMsg}}</span>
+      </div>
+    </form>
+  
   </ng-template>
