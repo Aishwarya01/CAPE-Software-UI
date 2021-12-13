@@ -2208,7 +2208,7 @@ callValue(e: any) {
            i.controls.ynFaultCurrent.setValue('NA');
            }
           else{
-            i.controls.ryFaultCurrent.setValue('');
+            i.controls.ynFaultCurrent.setValue('');
           }
       }
      
