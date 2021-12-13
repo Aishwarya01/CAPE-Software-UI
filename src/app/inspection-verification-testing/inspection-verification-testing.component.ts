@@ -36,6 +36,7 @@ import { SupplyCharacteristicsService } from '../services/supply-characteristics
 import { concat } from 'rxjs';
 import { DatePipe } from '@angular/common'
 import { ValueTransformer } from '@angular/compiler/src/util';
+import { MatDialog } from '@angular/material/dialog';
 import { ObservationService } from '../services/observation.service';
 import { Observation } from '../model/observation';
 
@@ -1854,6 +1855,7 @@ callValue(e: any) {
     }
     this.observation.siteId = this.service.siteCount;
     this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
+    this.observation.observationComponent ="Testing-Componet";
     this.observation.observations =this.ObservationsForm.value.observations;
     this.submitted = true;
     if (this.ObservationsForm.invalid) {

@@ -56,6 +56,7 @@ export class InspectionVerificationIncomingEquipmentComponent
   showField1: boolean = true;
   showField2: boolean = false;
   errorArr: any=[];
+  observation= new Observation;
 
   inspectionDetails = new InspectionDetails();
   validationError: boolean = false;
