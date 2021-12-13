@@ -2121,9 +2121,15 @@ showHideAccordion(index: number) {
   // }
 
   onKey(event: KeyboardEvent) {
-    debugger
-    this.values = (<HTMLInputElement>event.target).value;
-    this.value = this.values;
+    this.values='';
+    if(event.target != undefined) {
+      this.values = (<HTMLInputElement>event.target).value;    
+    }
+    else{
+      this.values =event;
+    }
+    // this.values = (<HTMLInputElement>event.target).value;
+     this.value = this.values;
     this.location2Arr = this.supplycharesteristicForm.get(
       'location2Arr'
     ) as FormArray;
@@ -2285,9 +2291,17 @@ showHideAccordion(index: number) {
   //   }
   // }
   onKey3(event: KeyboardEvent) { //No Of Joints
-    debugger
-    this.values = (<HTMLInputElement>event.target).value;
-    this.value = this.values;
+    this.values='';
+    if(event.target != undefined) {
+      this.values = (<HTMLInputElement>event.target).value;    
+    }
+    else{
+      this.values =event;
+    }
+
+    // this.values = (<HTMLInputElement>event.target).value;
+    this.service.noOfjoint = this.values;
+    this.value= this.values;
     this.location3Arr = this.supplycharesteristicForm.get(
       'location3Arr'
     ) as FormArray;
