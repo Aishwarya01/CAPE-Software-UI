@@ -1552,7 +1552,6 @@ showHideAccordion(index: number) {
           this.spinner=false;
          this.cardBodyComments=true;
      }, 2000);
-        
          this.showReplyBox=false;
          this.disableReply = false;
          this.disableSend = false;
@@ -1563,8 +1562,10 @@ showHideAccordion(index: number) {
     }
 
     submit(flag:any){
-
-      if (!flag) {
+      if(this.ObservationsForm.invalid) {
+        return;
+      }
+      if(!flag) {
         this.observation.siteId = this.service.siteCount;
       }
       this.observation.siteId = this.service.siteCount;
@@ -1572,47 +1573,37 @@ showHideAccordion(index: number) {
       this.observation.observationComponent ="Supply-Componet";
       this.observation.observations =this.ObservationsForm.value.observations;
       this.submitted = true;
-      if (this.ObservationsForm.invalid) {
-        return;
-      }
+     
       // if(this.ObservationsForm.dirty && this.ObservationsForm.touched){ 
       //   this.observationService.updateObservation(this.observation).subscribe(
       //     data => {
-          
       //     },
-         
       //     error => {
-           
       //     }
       //   )}
       //   else {
-  
-      
-       
           this.observationService.addObservation(this.observation).subscribe(
-        
-            (_data: any) => {
+            (data: any) => {
               this.success = true;
               this.successMsg = "Observation Information sucessfully Saved";
-            },
-            ( error: { error: string; }) => {
-              this.Error = true;
+              this.proceedNext.emit(true);
+                        },
+            (error:any) => {
               this.errorArr = [];
+              this.Error = true;
               this.errorArr = JSON.parse(error.error);
               this.errorMsg = this.errorArr.message;
             }
           )
         }
-   
 
-    addObservation(observationIter:any){
+    addObservationSupply(observationIter:any){
       if(this.supplycharesteristicForm.touched || this.supplycharesteristicForm.untouched){
         this.modalReference = this.modalService.open(observationIter, {
            centered: true, 
            size: 'md'
           })
        }
-  
     }
 
   addItem1(item: any) : FormGroup {
@@ -2188,8 +2179,14 @@ showHideAccordion(index: number) {
   // }
 
   onKey(event: KeyboardEvent) {
-    debugger
-    this.values = (<HTMLInputElement>event.target).value;
+    this.values='';
+    if(event.target != undefined) {
+      this.values = (<HTMLInputElement>event.target).value;    
+    }
+    else{
+      this.values =event;
+    }
+    // this.values = (<HTMLInputElement>event.target).value;
     this.value = this.values;
     this.location2Arr = this.supplycharesteristicForm.get(
       'location2Arr'
@@ -2363,9 +2360,6 @@ showHideAccordion(index: number) {
     // this.values = (<HTMLInputElement>event.target).value;
     this.service.noOfjoint = this.values;
     this.value= this.values;
-    debugger
-    this.values = (<HTMLInputElement>event.target).value;
-    this.value = this.values;
     this.location3Arr = this.supplycharesteristicForm.get(
       'location3Arr'
     ) as FormArray;
