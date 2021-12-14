@@ -8,8 +8,8 @@
   <div class="card-body">
     <div class="row">
       <div class="col-sm-12">
-        <a (click)="addObservation(observationIter)"
-        style="margin-top: 2px;float: right;cursor: pointer;text-decoration: underline;">Observations</a>
+        <a (click)="addObservationSupply(observationIter)"
+        style="margin-top: -10px;margin-bottom: 5px;float: right;cursor: pointer;text-decoration: underline;">Observations</a>
       </div>
       </div>
     <form [formGroup]="supplycharesteristicForm" (ngSubmit)="nextTab2(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
@@ -2001,7 +2001,7 @@ style="margin-left: 10px;" >
       <h2 class="modal-title" style="display: contents">Observations:</h2>
     </div>
     <div class="modal-body">
-      <textarea col=60 row=1
+      <textarea cols="60" rows="1"
       class="form-control"  
       formControlName="observations"  placeholder="Ex. Observations ..." >
       </textarea>
