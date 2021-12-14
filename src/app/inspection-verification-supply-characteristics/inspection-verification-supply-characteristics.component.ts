@@ -12,7 +12,7 @@ import { CommentsSection } from '../model/comments-section';
 import { InspectionVerificationBasicInformationComponent } from '../inspection-verification-basic-information/inspection-verification-basic-information.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ObservationService } from '../services/observation.service';
-import { Observation } from '../model/observation';
+import { ObservationSupply } from '../model/observation-supply';
 
 @Component({
   selector: 'app-inspection-verification-supply-characteristics',
@@ -26,7 +26,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
 
   a: any;
   supplyparameters = new Supplyparameters();
-  observation= new Observation;
+  observation= new ObservationSupply;
   supplycharesteristic = new Supplycharacteristics();
   enableAC: boolean = false;
   enableDC: boolean = false;
@@ -328,12 +328,15 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   shortName: string="";
   circuitSourceArr: any=[];
   circuitSourceArr1: any=[];
+  observationUpdateFlag: boolean= false;
 
   ObservationsForm = new FormGroup({
     observations: new FormControl(''),
-   
   });
   storeDelData: any=[];
+  observationFlag: boolean= false;
+  errorArrObservation: any=[];
+  observationValues: any="";
 
   constructor(
     private supplyCharacteristicsService: SupplyCharacteristicsService,
@@ -357,7 +360,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
     this.currentUser1=JSON.parse(this.currentUser);
 
     this.ObservationsForm = this.formBuilder.group({
-      observations: ['', Validators.required],
+      observations: [''],
      })
     this.supplycharesteristicForm = this.formBuilder.group({
       shortName: ['', Validators.required],
@@ -639,9 +642,21 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       }
      }
   
-  onKeyPress(){
-
-  }
+    //  retreiveFromObservation(){
+    //   if(this.service.siteCount!=0 && this.service.siteCount!=undefined){
+    //   this.observationService.retrieveObservationSummary(this.service.siteCount, this.email).subscribe(
+    //     (data) => {
+         
+    //     },
+    //     (error) => {
+    //       this.errorArr = [];
+    //       this.Error = true;
+    //       this.errorArr = JSON.parse(error.error);
+    //       this.errorMsg = this.errorArr.message;
+    //     }
+    //   )
+    // }
+    // }
 
   retrieveAllDetailsforSupply(userName: any,siteId: any,data: any){
     // if(this.service.disableFields==true){
@@ -1560,7 +1575,11 @@ showHideAccordion(index: number) {
    
       })
     }
-
+   retrieveFromObservationSupply(data:any){
+    this.observation=JSON.parse(data);
+    this.observationValues=this.observation.observations;
+    this.observationUpdateFlag=true;
+    }
     submit(flag:any){
       if(this.ObservationsForm.invalid) {
         return;
@@ -1570,29 +1589,22 @@ showHideAccordion(index: number) {
       }
       this.observation.siteId = this.service.siteCount;
       this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
-      this.observation.observationComponent ="Supply-Componet";
+      this.observation.observationComponent ="Supply-Component";
       this.observation.observations =this.ObservationsForm.value.observations;
       this.submitted = true;
-     
-      // if(this.ObservationsForm.dirty && this.ObservationsForm.touched){ 
-      //   this.observationService.updateObservation(this.observation).subscribe(
-      //     data => {
-      //     },
-      //     error => {
-      //     }
-      //   )}
-      //   else {
-          this.observationService.addObservation(this.observation).subscribe(
-            (data: any) => {
+      this.observationService.addObservation(this.observation).subscribe(
+            (data) => {
               this.success = true;
               this.successMsg = "Observation Information sucessfully Saved";
               this.proceedNext.emit(true);
-                        },
-            (error:any) => {
-              this.errorArr = [];
+              this.observationFlag=true;
+          },
+            (error) => {
+              this.errorArrObservation = [];
               this.Error = true;
-              this.errorArr = JSON.parse(error.error);
-              this.errorMsg = this.errorArr.message;
+              this.errorArrObservation = JSON.parse(error.error);
+              this.errorMsg = this.errorArrObservation.message;
+              this.observationFlag=false;
             }
           )
         }
@@ -3329,6 +3341,20 @@ else{
              this.retrieveAllDetailsforSupply(this.supplycharesteristic.userName,this.supplycharesteristic.siteId,data);
             }
           )
+          if(this.observationFlag){
+            this.observation.observations="No observation recorded"
+            this.observationService.addObservation(this.observation).subscribe(
+              (data) => {
+               
+            },
+              (error:any) => {
+                this.errorArrObservation = [];
+                this.Error = true;
+                this.errorArrObservation = JSON.parse(error.error);
+                this.errorMsg = this.errorArrObservation.message;
+              }
+            )
+          }
         },
         (error) => {
           this.Error = true;

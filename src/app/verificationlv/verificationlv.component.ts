@@ -46,6 +46,7 @@ import { InspectorregisterService } from '../services/inspectorregister.service'
 import { map } from 'rxjs/operators';
 import { readJsonConfigFile } from 'typescript';
 import { FinalreportsComponent } from '../finalreports/finalreports.component';
+import { ObservationService } from '../services/observation.service';
 
 @Component({
   selector: 'app-verificationlv',
@@ -224,6 +225,7 @@ export class VerificationlvComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private modalService: NgbModal,
+    private observationService: ObservationService,
     private dialog: MatDialog,
     private router: ActivatedRoute,
     private clientService: ClientService,
@@ -577,6 +579,7 @@ export class VerificationlvComponent implements OnInit {
     this.service.isLinear=false;
     //this.service.supplycharesteristicForm = next;
     this.service.isCompleted2= next;
+    this.summary.ngOnInit();
   }
   public NextStep3(next: any): void {
     if(next){
@@ -595,8 +598,8 @@ export class VerificationlvComponent implements OnInit {
     this.service.isCompleted4= next;
   }
   public NextStep5(next: any): void {
-      this.saved.ngOnInit();
-      this.final.ngOnInit();
+    this.saved.ngOnInit();
+    this.final.ngOnInit();
     this.service.isLinear=false;
     //this.service.addsummary = next;
     this.service.isCompleted5 = next;
@@ -606,6 +609,48 @@ export class VerificationlvComponent implements OnInit {
     }
   }
 
+  retreiveFromObservationSupply(siteId:any,observationComponent:any,userName:any){
+    this.observationService.retrieveObservation(siteId,observationComponent,userName).subscribe(
+      (data) => {
+      let observationArr=JSON.parse(data);
+      this.supply.retrieveFromObservationSupply(data);
+      },
+      (error) => {
+        this.errorArr = [];
+        this.Error = true;
+        this.errorArr = JSON.parse(error.error);
+        this.errorMsg = this.errorArr.message;
+      }
+    )
+  }
+  retreiveFromObservationInspection(siteId:any,observationComponent:any,userName:any){
+    this.observationService.retrieveObservation(siteId,observationComponent,userName).subscribe(
+      (data) => {
+      let observationArr=JSON.parse(data);
+      this.incoming.retrieveFromObservationInspection(data);
+      },
+      (error) => {
+        this.errorArr = [];
+        this.Error = true;
+        this.errorArr = JSON.parse(error.error);
+        this.errorMsg = this.errorArr.message;
+      }
+    )
+  }
+  retreiveFromObservationTesting(siteId:any,observationComponent:any,userName:any){
+    this.observationService.retrieveObservation(siteId,observationComponent,userName).subscribe(
+      (data) => {
+      let observationArr=JSON.parse(data);
+      this.testing.retrieveFromObservationTesting(data);
+      },
+      (error) => {
+        this.errorArr = [];
+        this.Error = true;
+        this.errorArr = JSON.parse(error.error);
+        this.errorMsg = this.errorArr.message;
+      }
+    )
+  }
 //for ongoing & completed
   changeTab(index: number, sitedId: any, userName: any, companyName: any, departmentName: any, site: any): void {
     // this.selectedIndex=1;
@@ -615,7 +660,10 @@ export class VerificationlvComponent implements OnInit {
         this.dataJSON = JSON.parse(data);
         if(this.dataJSON.reportDetails != null) {
           this.siteN=site;
-          this.selectedIndex = index;    
+          this.selectedIndex = index;
+          this.retreiveFromObservationSupply(sitedId,'Supply-Component',userName);
+          this.retreiveFromObservationInspection(sitedId,'Inspection-Component',userName);
+          this.retreiveFromObservationTesting(sitedId,'Testing-Component',userName);
           this.service.msgForStep1Flag=false;
           this.basic.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
            if(this.dataJSON.supplyCharacteristics != null) {

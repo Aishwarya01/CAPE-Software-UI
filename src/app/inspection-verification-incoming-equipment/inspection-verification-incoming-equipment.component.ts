@@ -28,7 +28,7 @@ import { CommentsSection } from '../model/comments-section';
 import { MainNavComponent } from '../main-nav/main-nav.component';
 import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
 import { MatDialog } from '@angular/material/dialog';
-import { Observation } from '../model/observation';
+import { ObservationInspection } from '../model/observation-inspection';
 import { ObservationService } from '../services/observation.service';
 
 @Component({
@@ -46,7 +46,8 @@ export class InspectionVerificationIncomingEquipmentComponent
   @Output() callTesting = new EventEmitter<any>();
 
   addstep3!: FormGroup;
-
+  observationFlag: boolean= false;
+  errorArrObservation: any=[];
   i: any;
   j: any;
   loclength: any;
@@ -56,7 +57,7 @@ export class InspectionVerificationIncomingEquipmentComponent
   showField1: boolean = true;
   showField2: boolean = false;
   errorArr: any=[];
-  observation= new Observation;
+  observation= new ObservationInspection();
 
   inspectionDetails = new InspectionDetails();
   validationError: boolean = false;
@@ -161,11 +162,12 @@ export class InspectionVerificationIncomingEquipmentComponent
   deleteDataFlag1: boolean = false;
 
   //comments end
+  observationUpdateFlag: boolean= false;
 
   ObservationsForm = new FormGroup({
     observations: new FormControl(''),
-   
   });
+  observationValuesI: any="";
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -196,8 +198,8 @@ export class InspectionVerificationIncomingEquipmentComponent
     this.refresh();
     this.expandedIndex = -1 ;
 
-    this.ObservationsForm = this.formBuilder.group({
-      observations: ['', Validators.required],
+    this.ObservationsForm = this._formBuilder.group({
+      observations: [''],
      })
   }
 
@@ -409,45 +411,37 @@ populateDataComments() {
        this.addstep3.setControl('viewerCommentArr', this._formBuilder.array(this.arrViewer || []))
        this.addstep3.setControl('completedCommentArr1', this._formBuilder.array(this.completedCommentArr4 || []));
 }
-
+retrieveFromObservationInspection(data:any){
+  this.observation=JSON.parse(data);
+  this.observationValuesI=this.observation.observations;
+  this.observationUpdateFlag=true;
+  }
 submit(flag:any){
-
+   if (this.ObservationsForm.invalid) {
+    return;
+  }
   if (!flag) {
     this.observation.siteId = this.service.siteCount;
   }
   this.observation.siteId = this.service.siteCount;
   this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
-  this.observation.observationComponent ="Inspection-Componet";
+  this.observation.observationComponent ="Inspection-Component";
   this.observation.observations =this.ObservationsForm.value.observations;
   this.submitted = true;
-  if (this.ObservationsForm.invalid) {
-    return;
-  }
-  // if(this.ObservationsForm.dirty && this.ObservationsForm.touched){ 
-  //   this.observationService.updateObservation(this.observation).subscribe(
-  //     data => {
-      
-  //     },
-     
-  //     error => {
-       
-  //     }
-  //   )}
-  //   else {
-
-  
-    console.log(this.observation);
-      this.observationService.addObservation(this.observation).subscribe(
+  this.observationService.addObservation(this.observation).subscribe(
     
-        (_data: any) => {
+        (data) => {
           this.success = true;
           this.successMsg = "Observation Information sucessfully Saved";
-        },
-        ( error: { error: string; }) => {
+          this.proceedNext.emit(true);
+          this.observationFlag=true;
+      },
+        (error) => {
+          this.errorArrObservation = [];
           this.Error = true;
-          this.errorArr = [];
-          this.errorArr = JSON.parse(error.error);
-          this.errorMsg = this.errorArr.message;
+          this.errorArrObservation = JSON.parse(error.error);
+          this.errorMsg = this.errorArrObservation.message;
+          this.observationFlag=false;
         }
       )
     }
@@ -1370,8 +1364,20 @@ showHideAccordion(index: number) {
              this.retrieveAllDetailsforIncoming(this.inspectionDetails.userName,this.inspectionDetails.siteId,data);
             }
           )
-          //this.disable = true;
-          //this.service.allFieldsDisable = true;
+          if(this.observationFlag){
+            this.observation.observations="No observation recorded"
+            this.observationService.addObservation(this.observation).subscribe(
+              (data) => {
+               
+            },
+              (error:any) => {
+                this.errorArrObservation = [];
+                this.Error = true;
+                this.errorArrObservation = JSON.parse(error.error);
+                this.errorMsg = this.errorArrObservation.message;
+              }
+            )
+          }
         },
         (error: any) => {
           this.proceedNext.emit(false);

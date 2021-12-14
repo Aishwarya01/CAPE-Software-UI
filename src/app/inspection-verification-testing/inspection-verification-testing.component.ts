@@ -38,7 +38,7 @@ import { DatePipe } from '@angular/common'
 import { ValueTransformer } from '@angular/compiler/src/util';
 import { MatDialog } from '@angular/material/dialog';
 import { ObservationService } from '../services/observation.service';
-import { Observation } from '../model/observation';
+import { ObservationTesting } from '../model/observation-testing';
 
 @Component({
   selector: 'app-inspection-verification-testing',
@@ -131,7 +131,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   testingRetrieve: boolean = true;
   inspectionRetrieve: boolean = false;
   SourceList: any = [];
-  observation= new Observation;
+  observation= new ObservationTesting();
   //disableSource:boolean=true;
   //comments starts
   completedCommentArr3: any = [];
@@ -242,12 +242,16 @@ export class InspectionVerificationTestingComponent implements OnInit {
   deletedTestingEquipment: any= [];
   deleteDataFlag: boolean = false;
   deleteRecordDataFlag: boolean = false;
+  observationFlag: boolean= false;
+  errorArrObservation: any=[];
 
   ObservationsForm = new FormGroup({
     observations: new FormControl(''),
    
   });
   email: string;
+  observationUpdateFlag: boolean= false;
+  observationValuesT: any="";
   
   constructor(
     private testingService: TestingService,
@@ -283,7 +287,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
     this.expandedIndex = -1;
     this.retrieveDetailsFromSupply();
     this.ObservationsForm = this.formBuilder.group({
-      observations: ['', Validators.required],
+      observations: [''],
      })
   }
 
@@ -1847,45 +1851,37 @@ callValue(e: any) {
     });
   }
 
-  
-  submit(flag:any){
+  retrieveFromObservationTesting(data:any){
+    this.observation=JSON.parse(data);
+    this.observationValuesT=this.observation.observations;
+    this.observationUpdateFlag=true;
+    }
 
+  submit(flag:any){
     if (!flag) {
       this.observation.siteId = this.service.siteCount;
     }
     this.observation.siteId = this.service.siteCount;
     this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
-    this.observation.observationComponent ="Testing-Componet";
+    this.observation.observationComponent ="Testing-Component";
     this.observation.observations =this.ObservationsForm.value.observations;
     this.submitted = true;
     if (this.ObservationsForm.invalid) {
       return;
     }
-    // if(this.ObservationsForm.dirty && this.ObservationsForm.touched){ 
-    //   this.observationService.updateObservation(this.observation).subscribe(
-    //     data => {
-        
-    //     },
-       
-    //     error => {
-         
-    //     }
-    //   )}
-    //   else {
-
-    
-     
-        this.observationService.addObservation(this.observation).subscribe(
-      
-          (_data: any) => {
+    this.observationService.addObservation(this.observation).subscribe(
+          (data) => {
             this.success = true;
             this.successMsg = "Observation Information sucessfully Saved";
-          },
-          ( error: { error: string; }) => {
+            this.proceedNext.emit(true);
+            this.observationFlag=true;
+        },
+          (error) => {
+            this.errorArrObservation = [];
             this.Error = true;
-            this.errorArr = [];
-            this.errorArr = JSON.parse(error.error);
-            this.errorMsg = this.errorArr.message;
+            this.errorArrObservation = JSON.parse(error.error);
+            this.errorMsg = this.errorArrObservation.message;
+            this.observationFlag=false;
           }
         )
       }
@@ -3087,8 +3083,20 @@ callValue(e: any) {
              this.retrieveDetailsforTesting(this.testingDetails.userName,this.testingDetails.siteId,data);
             }
           )
-          //this.disable = true;
-          //this.service.allFieldsDisable = true;
+           if(this.observationFlag){
+            this.observation.observations="No observation recorded"
+            this.observationService.addObservation(this.observation).subscribe(
+              (data) => {
+               
+            },
+              (error:any) => {
+                this.errorArrObservation = [];
+                this.Error = true;
+                this.errorArrObservation = JSON.parse(error.error);
+                this.errorMsg = this.errorArrObservation.message;
+              }
+            )
+          }
         },
         (error) => {
           this.Error = true;      

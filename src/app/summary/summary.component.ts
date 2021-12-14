@@ -39,6 +39,8 @@ import { FinalreportsComponent } from '../finalreports/finalreports.component';
 import { ComponentFactoryResolver } from '@angular/core';
 import { LvInspectionDetailsComponent } from '../lv-inspection-details/lv-inspection-details.component';
 import { LicenselistComponent } from '../licenselist/licenselist.component';
+import { ObservationService } from '../services/observation.service';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 @Component({
   selector: 'app-summary',
@@ -213,6 +215,7 @@ export class SummaryComponent implements OnInit {
   @ViewChild('ref', { read: ViewContainerRef })
   viewContainerRef!: ViewContainerRef;
   deletedArr: any = [];
+  ObservationsSumaryArr: any=[];
   
   constructor(
     private _formBuilder: FormBuilder,
@@ -223,6 +226,7 @@ export class SummaryComponent implements OnInit {
     public service: GlobalsService,
     public siteService: SiteService,
     private ChangeDetectorRef: ChangeDetectorRef,
+    private observationService: ObservationService,
     private componentFactoryResolver: ComponentFactoryResolver,
     //private final: VerificationlvComponent,
     private UpateInspectionService: InspectionVerificationService,
@@ -262,6 +266,7 @@ export class SummaryComponent implements OnInit {
     });
     this.refresh();
     this.expandedIndex = -1 ;
+    this.retreiveFromObservation();
     // this.Declaration2Arr = this.addsummary.get('Declaration2Arr') as FormArray;
   }
   // ngAfterViewInit(){
@@ -271,6 +276,39 @@ export class SummaryComponent implements OnInit {
     this.ChangeDetectorRef.detectChanges();
   }
  
+  retreiveFromObservation(){
+    if(this.service.siteCount!=0 && this.service.siteCount!=undefined){
+    this.observationService.retrieveObservationSummary(this.service.siteCount, this.email).subscribe(
+      (data) => {
+       this.ObservationsSumaryArr=JSON.parse(data);
+       let ObservationsSumaryValueArr:any=[];
+        ObservationsSumaryValueArr = this.addsummary.get(
+        'ObservationsArr'
+      ) as FormArray;
+       for(let i of ObservationsSumaryValueArr.controls){
+        for(let j of this.ObservationsSumaryArr){
+          if(j.observationComponent=='Supply-Component'){
+            i.controls.observationsSupply.setValue(j.observations);
+          }
+          else if(j.observationComponent=='Inspection-Component'){
+            i.controls.observationsInspection.setValue(j.observations);
+          }
+          else if(j.observationComponent=='Testing-Component'){
+            i.controls.observationsTesting.setValue(j.observations);
+          }
+         }
+       }
+      },
+      (error) => {
+        this.errorArr = [];
+        this.Error = true;
+        this.errorArr = JSON.parse(error.error);
+        this.errorMsg = this.errorArr.message;
+      }
+    )
+  }
+  }
+
    reloadFromBack(){
     if(this.addsummary.invalid){
      this.service.isCompleted5= false;
@@ -747,7 +785,9 @@ showHideAccordion(index: number) {
     createGroup(item: any): FormGroup {
       return this._formBuilder.group({
         observationsId: new FormControl({disabled: false,value: item.observationsId}),
-        observations: new FormControl({disabled: false,value: item.observations}, [Validators.required]),
+        observationsSupply: new FormControl({disabled: false,value: item.observationsSupply}),
+        observationsInspection: new FormControl({disabled: false,value: item.observationsInspection}),
+        observationsTesting: new FormControl({disabled: false,value: item.observationsTesting}),
         furtherActions: new FormControl({disabled: false,value: item.furtherActions}, [Validators.required]),
         referanceNumberReport: new FormControl({disabled: false,value: item.referanceNumberReport}, [Validators.required]),
         recommendationsDate: new FormControl({disabled: false,value: item.recommendationsDate}, [Validators.required]),
@@ -784,7 +824,9 @@ showHideAccordion(index: number) {
   }
   private ObservationsForm(): FormGroup {
     return new FormGroup({
-      observations: new FormControl('', Validators.required),
+      observationsSupply: new FormControl(''),
+      observationsInspection: new FormControl(''),
+      observationsTesting: new FormControl(''),
       furtherActions: new FormControl('', Validators.required),
       referanceNumberReport: new FormControl('', Validators.required),
       recommendationsDate: new FormControl('', Validators.required),
@@ -809,7 +851,6 @@ showHideAccordion(index: number) {
   onChange(event: any) {
     // this.selectedType = event.target.value;
     let changedValue;
-
     if(event.target != undefined) {
       changedValue = event.target.value;
     }
