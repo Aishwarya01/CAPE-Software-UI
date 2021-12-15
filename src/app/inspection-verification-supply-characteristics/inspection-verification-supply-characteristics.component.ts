@@ -2060,9 +2060,12 @@ showHideAccordion(index: number) {
       'location1Arr'
     ) as FormArray;
     if(this.value!=0){
-    this.key1LocationTable=true;
+     
+      this.key1LocationTable=true;
     if (this.location1Arr.length == 0) {
+     
       if (this.value != '') {
+       
         for (this.i = 0; this.i < this.value; this.i++) {
           this.location1Arr = this.supplycharesteristicForm.get(
             'location1Arr'
@@ -2071,16 +2074,17 @@ showHideAccordion(index: number) {
         }
       }
     } 
-
     else if (this.value == '') {
+     
       this.loclength = this.location1Arr.length;
       for (this.i = 1; this.i < this.loclength; this.i++) {
         this.location1Arr.removeAt(this.location1Arr.length - 1);
       }
     } 
-
     else if (this.location1Arr.length < this.value) {
+     
       if (this.value != '') {
+       
         this.delarr = this.value - this.location1Arr.length;
         for (this.i = 0; this.i < this.delarr; this.i++) {
           this.location1Arr = this.supplycharesteristicForm.get(
@@ -2090,9 +2094,10 @@ showHideAccordion(index: number) {
         }
       }
     } 
-
     else if (this.location1Arr.length > this.value && this.value != 0) {
-      if (this.value != '') { 
+     
+      if (this.value != '') {
+       
         this.delarr = this.location1Arr.length - this.value;
         for (this.i = 0; this.i < this.delarr; this.i++) {
           this.location1Arr = this.supplycharesteristicForm.get(
@@ -2103,9 +2108,6 @@ showHideAccordion(index: number) {
       }
     }
   }
-  // if(this.location1Arr.value.length == this.value){
-  //   this.key1LocationTable = false;
-  // }
 }
 
     // this.f.location1Arr.controls[i].controls['locationNo'].clearValidators();
@@ -2189,7 +2191,6 @@ showHideAccordion(index: number) {
   // }
 
   onKey(event: KeyboardEvent) {
-    debugger
     this.values='';
     if(event.target != undefined) {
       this.values = (<HTMLInputElement>event.target).value;    
@@ -2218,16 +2219,14 @@ showHideAccordion(index: number) {
       }
     } 
     else if (this.value == '') {
-     debugger
+     
       this.loclength = this.location2Arr.length;
       for (this.i = 1; this.i < this.loclength; this.i++) {
         this.location2Arr.removeAt(this.location2Arr.length - 1);
-        this.sources = true;
-        this.breaker = true;
       }
     } 
     else if (this.location2Arr.length < this.value) {
-     debugger
+     
       if (this.value != '') {
        
         this.delarr = this.value - this.location2Arr.length;
@@ -2249,8 +2248,6 @@ showHideAccordion(index: number) {
             'location2Arr'
           ) as FormArray;
           this.location2Arr.removeAt(this.location2Arr.length - 1);
-          this.sources = true;
-          this.breaker = true;
         }
       }
     }
@@ -2364,7 +2361,6 @@ showHideAccordion(index: number) {
   //   }
   // }
   onKey3(event: KeyboardEvent) { //No Of Joints
-    debugger
     this.values='';
     if(event.target != undefined) {
       this.values = (<HTMLInputElement>event.target).value;    
@@ -2399,8 +2395,6 @@ showHideAccordion(index: number) {
       this.loclength = this.location3Arr.length;
       for (this.i = 1; this.i < this.loclength; this.i++) {
         this.location3Arr.removeAt(this.location3Arr.length - 1);
-        this.sources = true;
-        this.breaker = true;
       }
     } 
     else if (this.location3Arr.length < this.value) {
@@ -2426,8 +2420,6 @@ showHideAccordion(index: number) {
             'location3Arr'
           ) as FormArray;
           this.location3Arr.removeAt(this.location3Arr.length - 1);
-          this.sources = true;
-        this.breaker = true;
         }
       }
     }
@@ -2608,7 +2600,6 @@ showHideAccordion(index: number) {
       this.table2AC = false;
     }
   }
-
   showAlternateField(event: any) {
     this.alternateArr = this.supplycharesteristicForm.get(
       'alternateArr'
@@ -2635,16 +2626,14 @@ showHideAccordion(index: number) {
      else {
       this.alternativeSupplyNo=true;
       this.supplycharesteristicForm.controls['supplyNumber'].setValidators([
-        Validators.required,Validators.min(0)]);
+        Validators.required,Validators.min(1)]);
       this.supplycharesteristicForm.controls[
         'supplyNumber'
       ].updateValueAndValidity();
-      
     }
   }
 
   onKeyAlernate(event: KeyboardEvent) {
-    debugger
     this.values = (<HTMLInputElement>event.target).value;
     this.value = this.values;
     this.alternateArr = this.supplycharesteristicForm.get(
@@ -2709,29 +2698,26 @@ showHideAccordion(index: number) {
         }
       }
       else {
-        if(!this.alternateArr.length == this.value){
-          for (this.i = 0; this.i < this.value; this.i++) {
-            this.alternateArr.push(this.SupplyparametersForm());
-            this.circuitArr.push(this.createCircuitForm());
-          }
-          this.sources = true;
-          this.breaker = true;
+        for (this.i = 0; this.i < this.value; this.i++) {
+          this.alternateArr.push(this.SupplyparametersForm());
+          this.circuitArr.push(this.createCircuitForm());
         }
-        
+        this.sources = true;
+        this.breaker = true;
       }
     } 
-    // else if (this.value == '') {
-    //   this.loclength = this.alternateArr.length;
-    //   this.loc1length = this.circuitArr.length-1;
+    else if (this.value == '') {
+      this.loclength = this.alternateArr.length;
+      this.loc1length = this.circuitArr.length-1;
 
-    //   for (this.i = 0; this.i < this.loclength; this.i++) {
-    //     this.alternateArr.removeAt(this.alternateArr.length - 1);
-    //   }
-    //   for (this.i = 0; this.i < this.loc1length; this.i++) {
-    //     this.circuitArr.removeAt(this.circuitArr.length - 1);
-    //   }
-    //   this.breaker = false;
-    // } 
+      for (this.i = 0; this.i < this.loclength; this.i++) {
+        this.alternateArr.removeAt(this.alternateArr.length - 1);
+      }
+      for (this.i = 0; this.i < this.loc1length; this.i++) {
+        this.circuitArr.removeAt(this.circuitArr.length - 1);
+      }
+      this.breaker = false;
+    } 
     // else if (this.alternateArr.length < this.value) {
     //   if (this.value != '') {
     //     this.delarr = this.value - this.alternateArr.length;
@@ -3397,22 +3383,15 @@ else{
       a.value.instalLocationReportStatus='R';
       this.locationArr= this.locationArr.concat(a.value);
       this.supplycharesteristicForm.markAsDirty();
-      if(this.supplycharesteristic.noOfLocation == 0){
-        this.key1LocationTable = false;
-      }
+      
     }
     else
     {
-    //  if(this.location1Arr.length == this.){
-
-    //  }
+     
       this.supplycharesteristicForm.markAsTouched();
       this.supplycharesteristic.noOfLocation = this.supplycharesteristicForm.value.noOfLocation -1;
       (this.supplycharesteristicForm.get('location1Arr') as FormArray).removeAt(index);
       this.supplycharesteristicForm.markAsDirty();
-      if(this.supplycharesteristic.noOfLocation == 0){
-        this.key1LocationTable = false;
-      }
     }
    }
    
@@ -3426,9 +3405,6 @@ else{
       a.value.instalLocationReportStatus='R';
       this.boundingArr= this.boundingArr.concat(a.value);
       this.supplycharesteristicForm.markAsDirty();
-      if(this.supplycharesteristic.bondingNoOfJoints == 0){
-        this.JointLocationTable = false;
-      }
     }
     else
     {
@@ -3437,9 +3413,6 @@ else{
       this.supplycharesteristic.bondingNoOfJoints = this.supplycharesteristicForm.value.bondingNoOfJoints -1;
       (this.supplycharesteristicForm.get('location2Arr') as FormArray).removeAt(index);
       this.supplycharesteristicForm.markAsDirty();
-      if(this.supplycharesteristic.bondingNoOfJoints == 0){
-        this.JointLocationTable = false;
-      }
     }
    }
 
@@ -3453,9 +3426,6 @@ else{
       a.value.instalLocationReportStatus='R';
       this.earthingArr= this.earthingArr.concat(a.value);
       this.supplycharesteristicForm.markAsDirty();
-      if(this.supplycharesteristic.earthingNoOfJoints == 0){
-        this.keyJOintLocationTable = false;
-      }
     }
     else
     {
@@ -3464,9 +3434,6 @@ else{
       this.supplycharesteristic.earthingNoOfJoints = this.supplycharesteristicForm.value.earthingNoOfJoints -1;
       (this.supplycharesteristicForm.get('location3Arr') as FormArray).removeAt(index);
       this.supplycharesteristicForm.markAsDirty();
-      if(this.supplycharesteristic.earthingNoOfJoints == 0){
-        this.keyJOintLocationTable = false;
-      }
     }
    }
 

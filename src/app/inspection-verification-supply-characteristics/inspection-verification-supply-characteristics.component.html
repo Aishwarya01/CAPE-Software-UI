@@ -471,7 +471,7 @@
                 class="example-button">
                 info_outline
                </mat-icon>
-                <input type="number" min="0" class="form-control" formControlName="supplyNumber" [readonly]="service.allFieldsDisable"
+                <input type="number" min="1" class="form-control" formControlName="supplyNumber" [readonly]="service.allFieldsDisable"
                 [ngClass]="{ 'is-invalid': submitted && f.supplyNumber.errors }" 
                 [(ngModel)]="supplycharesteristic.supplyNumber"
                 (keyup)="onKeyAlernate($event)">
@@ -1055,7 +1055,7 @@
                 </div>
               </div>
             <br>
-            <div class="row" *ngIf="key1LocationTable" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <div class="row" *ngIf="key1LocationTable && 0 < supplycharesteristic.noOfLocation" [ngClass]="{'disableForm':service.allFieldsDisable}">
               <div class="col-sm-12">
                 <h2>Earth electrode details</h2>
                   <div class="table-responsive" style="border: 1px solid black">
@@ -1284,7 +1284,7 @@
                         <!-- <div *ngIf="f.bondingNoOfJoints?.errors?.min">Please enter value above 0</div> -->
                       </div>
                   </div>
-                  <div class="col-md-4" style="margin-top: 30px" *ngIf="JointLocationTable">
+                  <div class="col-md-4" style="margin-top: 30px" *ngIf="JointLocationTable && 0 < supplycharesteristic.bondingNoOfJoints">
                     <label>Type Of Joint:</label>
                     <mat-icon style="float: right;font-size: 18px;
                     line-height: unset;margin-right: 70%;"
@@ -1313,7 +1313,7 @@
                   <!-- (blur)="update(box.value)" (keyup)="onKey($event)"-->
                 </div>
               </div>
-               <div *ngIf="JointLocationTable"> 
+               <div *ngIf="JointLocationTable && 0 < supplycharesteristic.bondingNoOfJoints"> 
               <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="col-sm-12">
                 <h2>Joint resistance details</h2>
@@ -1451,7 +1451,7 @@
                         <!-- <div *ngIf="f.earthingNoOfJoints?.errors?.min">Please enter value above 0</div> -->
                       </div>
                   </div>
-                  <div class="col-md-4" style="margin-top: 30px" *ngIf="keyJOintLocationTable" >
+                  <div class="col-md-4" style="margin-top: 30px" *ngIf="keyJOintLocationTable && 0 < supplycharesteristic.earthingNoOfJoints" >
                     <label>Type Of Joint:</label>
                     <mat-icon style="float: right;font-size: 18px;
                     line-height: unset;margin-right: 70%;"
@@ -1479,7 +1479,7 @@
                   <!-- (keyup)="keyUpJoint($event)" -->
                 </div>
               </div>
-              <div *ngIf="keyJOintLocationTable">
+              <div *ngIf="keyJOintLocationTable && 0 < supplycharesteristic.earthingNoOfJoints">
                 <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                   <div class="col-sm-12">
                   <h2>Location Table</h2>
