@@ -106,7 +106,7 @@ export class SummaryComponent implements OnInit {
   summaryList: any = [];
   arr: any = [];
   limitationsValue!: String;
-  observationList: String[] = ['No remedial action required', 'The following observations are made'];
+  //observationList: String[] = ['No remedial action required', 'The following observations are made'];
   // @ViewChild (FinalreportsComponent) final!: FinalreportsComponent;
   //@ViewChild (VerificationlvComponent) verification!: VerificationlvComponent;
   // @ViewChild('verify')
@@ -216,6 +216,8 @@ export class SummaryComponent implements OnInit {
   viewContainerRef!: ViewContainerRef;
   deletedArr: any = [];
   ObservationsSumaryArr: any=[];
+  observationsMade: boolean= false;
+  NoRemedial: boolean= false;
   
   constructor(
     private _formBuilder: FormBuilder,
@@ -281,6 +283,20 @@ export class SummaryComponent implements OnInit {
     this.observationService.retrieveObservationSummary(this.service.siteCount, this.email).subscribe(
       (data) => {
        this.ObservationsSumaryArr=JSON.parse(data);
+       let count=0;
+       for(let i of this.ObservationsSumaryArr){
+        if(i.observations=='No observation recorded'){
+         count++;
+        }
+       }
+       if(count==3){
+      this.observationsMade=true;
+      this.NoRemedial=false;
+       }
+       else{
+        this.observationsMade=false;
+        this.NoRemedial=true;
+       }
        let ObservationsSumaryValueArr:any=[];
         ObservationsSumaryValueArr = this.addsummary.get(
         'ObservationsArr'
@@ -309,6 +325,48 @@ export class SummaryComponent implements OnInit {
   }
   }
 
+  retrieveFromOngoingForObservation(siteId:any){
+    if(siteId!=0 && siteId!=undefined){
+      this.observationService.retrieveObservationSummary(siteId, this.email).subscribe(
+        (data) => {
+         this.ObservationsSumaryArr=JSON.parse(data);
+         let count=0;
+         for(let i of this.ObservationsSumaryArr){
+          if(i.observations=='No observation recorded'){
+           count++;
+          }
+         }
+         if(count==3){
+        this.observationsMade=true;
+        this.NoRemedial=false;
+         }
+         else{
+          this.observationsMade=false;
+          this.NoRemedial=true;
+         }
+         let ObservationsSumaryValueArr:any=[];
+          ObservationsSumaryValueArr = this.addsummary.get(
+          'ObservationsArr'
+        ) as FormArray;
+         for(let i of ObservationsSumaryValueArr.controls){
+          for(let j of this.ObservationsSumaryArr){
+            if(j.observationComponent=='Supply-Component'){
+              i.controls.observationsSupply.setValue(j.observations);
+            }
+            else if(j.observationComponent=='Inspection-Component'){
+              i.controls.observationsInspection.setValue(j.observations);
+            }
+            else if(j.observationComponent=='Testing-Component'){
+              i.controls.observationsTesting.setValue(j.observations);
+            }
+           }
+         }
+        },
+        (error) => {
+        }
+      )
+    }
+  }
    reloadFromBack(){
     if(this.addsummary.invalid){
      this.service.isCompleted5= false;
@@ -330,10 +388,6 @@ export class SummaryComponent implements OnInit {
     }
   }
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
-    // if(this.service.disableFields==true){
-    //   this.addsummary.disable();
-    //   //this.service.allStepsCompleted=true;
-    //  }
        this.summaryList = JSON.parse(data);
        this.summary.siteId = siteId;
        this.summary.summaryId = this.summaryList.summary.summaryId;
@@ -355,7 +409,6 @@ export class SummaryComponent implements OnInit {
           })
          }
        }
-
        this.populateData();
        this.populateDataComments();
        this.flag = true;

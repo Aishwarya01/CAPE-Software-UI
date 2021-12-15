@@ -575,27 +575,47 @@ export class VerificationlvComponent implements OnInit {
     this.service.isCompleted= next;
   }
   public NextStep2(next: any): void {
-    this.testing.callMethod();
     this.service.isLinear=false;
     //this.service.supplycharesteristicForm = next;
     this.service.isCompleted2= next;
+
+    if(next) {
+      this.callTestingNgOnInit();
+      this.callSummaryNgOnInit();
+    }
+    else {
+      this.callSummaryNgOnInit();
+    }
+  }
+
+  callTestingNgOnInit() {
+    this.testing.callMethod();
+  }
+  callSummaryNgOnInit() {
     this.summary.ngOnInit();
   }
+
   public NextStep3(next: any): void {
     if(next){
-      this.testing.callMethod();
+      this.callTestingNgOnInit();
+      this.callSummaryNgOnInit();
     }
     else{
-      this.testing.updateMethod();
+      // need to uncoment for testing update issue
+      //this.testing.updateMethod();
+      this.callSummaryNgOnInit();
     }
     //this.service.addstep3 = next;
     this.service.isLinear=false;
     this.service.isCompleted3= next;
+
   }
   public NextStep4(next: any): void {
     this.service.isLinear=false;
     //this.service.testingForm = next;
     this.service.isCompleted4= next;
+    this.summary.ngOnInit();
+
   }
   public NextStep5(next: any): void {
     this.saved.ngOnInit();
@@ -668,30 +688,21 @@ export class VerificationlvComponent implements OnInit {
           this.basic.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
            if(this.dataJSON.supplyCharacteristics != null) {
              this.supply.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
+             this.summary.retrieveFromOngoingForObservation(sitedId);
              //commented by Arun on 04/12/2021
              //this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
              if(this.dataJSON.periodicInspection != null) {
                this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
+               this.summary.retrieveFromOngoingForObservation(sitedId);
                this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
+               this.summary.retrieveFromOngoingForObservation(sitedId);
               //  if(this.dataJSON.testingReport != null) {
               //    this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
                  if(this.dataJSON.summary != null) {
                    this.summary.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
                  }
-                //  else{
-                //    this.summary.ngOnInit();
-                //  }
-              // }
              }
-            //  else{
-            //    this.incoming.ngOnInit();
-            //    this.testing.ngOnInit();
-            //  }
            }
-          //  else{
-          //    this.supply.ngOnInit();
-          //    this.testing.ngOnInit();
-          //  }
            if(this.service.commentScrollToBottom==1){
             this.service.triggerScrollTo();
           }
@@ -728,9 +739,12 @@ export class VerificationlvComponent implements OnInit {
           this.service.siteCount = sitedId;
            if(this.dataJSON.supplyCharacteristics != null) {
              this.supply.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+             this.summary.retrieveFromOngoingForObservation(sitedId);
              if(this.dataJSON.periodicInspection != null) {
                this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+               this.summary.retrieveFromOngoingForObservation(sitedId);
                this.testing.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+               this.summary.retrieveFromOngoingForObservation(sitedId);
                  if(this.dataJSON.summary != null) {
                    this.summary.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
                  }             

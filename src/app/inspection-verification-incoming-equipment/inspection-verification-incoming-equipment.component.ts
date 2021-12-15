@@ -168,6 +168,8 @@ export class InspectionVerificationIncomingEquipmentComponent
     observations: new FormControl(''),
   });
   observationValuesI: any="";
+  observationModalReference: any;
+  disableObservation: boolean=true;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -415,40 +417,13 @@ retrieveFromObservationInspection(data:any){
   this.observation=JSON.parse(data);
   this.observationValuesI=this.observation.observations;
   this.observationUpdateFlag=true;
+  this.ObservationsForm.markAsPristine();
   }
-submit(flag:any){
-   if (this.ObservationsForm.invalid) {
-    return;
-  }
-  if (!flag) {
-    this.observation.siteId = this.service.siteCount;
-  }
-  this.observation.siteId = this.service.siteCount;
-  this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
-  this.observation.observationComponent ="Inspection-Component";
-  this.observation.observations =this.ObservationsForm.value.observations;
-  this.submitted = true;
-  this.observationService.addObservation(this.observation).subscribe(
-    
-        (data) => {
-          this.success = true;
-          this.successMsg = "Observation Information sucessfully Saved";
-          this.proceedNext.emit(true);
-          this.observationFlag=true;
-      },
-        (error) => {
-          this.errorArrObservation = [];
-          this.Error = true;
-          this.errorArrObservation = JSON.parse(error.error);
-          this.errorMsg = this.errorArrObservation.message;
-          this.observationFlag=false;
-        }
-      )
-    }
+
 
   addObservation(observationIter:any){
     if(this.ObservationsForm.touched || this.ObservationsForm.untouched){
-      this.modalReference = this.modalService.open(observationIter, {
+      this.observationModalReference = this.modalService.open(observationIter, {
          centered: true, 
          size: 'md'
         })
@@ -1262,8 +1237,78 @@ showHideAccordion(index: number) {
       this.disable = false;
     }
   }
+  onKeyObservation(event:any){
+    if(this.ObservationsForm.dirty){
+      this.disableObservation=false;
+    }
+    else{
+      this.disableObservation=true;
+    }
+  }
+  submit(observeFlag:any){
+    if (this.ObservationsForm.invalid) {
+     return;
+   }
+   this.observation.siteId = this.service.siteCount;
+   this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
+   this.observation.observationComponent ="Inspection-Component";
+   this.observation.observations =this.ObservationsForm.value.observations;
+   this.submitted = true;
+   if(!observeFlag) {
+    this.observationService.addObservation(this.observation).subscribe(
+      (data) => {
+        this.success = true;
+        this.successMsg = "Observation Information sucessfully Saved";
+        this.proceedNext.emit(true);
+        this.disableObservation=true;
+        this.observationFlag=true;
+        this.observationService.retrieveObservation(this.observation.siteId,this.observation.observationComponent,this.observation.userName).subscribe(
+          (data) => {
+          this.retrieveFromObservationInspection(data);
+          },
+          (error) => {
+            this.errorArr = [];
+            this.errorArr = JSON.parse(error.error);
+            console.log(this.errorArr.message);
+          }
+        )
+        setTimeout(() => {
+          this.success = false;
+          this.observationModalReference.close();
+        }, 3000);
+    },
+      (error) => {
+        this.errorArrObservation = [];
+        this.Error = true;
+        this.errorArrObservation = JSON.parse(error.error);
+        this.errorMsg = this.errorArrObservation.message;
+        this.observationFlag=false;
+      }
+    )
+  }
+  else {
+    this.observationService.updateObservation(this.observation).subscribe(
+      (data) => {
+        this.success = true;
+        this.successMsg = "Observation Information sucessfully updated";
+        this.proceedNext.emit(false);
+        this.disableObservation=true;
+        setTimeout(() => {
+          this.success = false;
+          this.observationModalReference.close();
+        }, 3000);
+    },
+      (error) => {
+        this.errorArrObservation = [];
+        this.Error = true;
+        this.errorArrObservation = JSON.parse(error.error);
+        this.errorMsg = this.errorArrObservation.message;
+      }
+    )
+  }   
+     }
+     
   nextTab3(flag: any) {
-    
     if(!flag) {
       this.inspectionDetails.siteId = this.service.siteCount;
     }
@@ -1364,22 +1409,35 @@ showHideAccordion(index: number) {
              this.retrieveAllDetailsforIncoming(this.inspectionDetails.userName,this.inspectionDetails.siteId,data);
             }
           )
-          if(this.observationFlag){
+          if(!this.observationFlag){
+            this.observation.siteId = this.service.siteCount;
+            this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
+            this.observation.observationComponent ="Inspection-Component";
             this.observation.observations="No observation recorded"
-            this.observationService.addObservation(this.observation).subscribe(
-              (data) => {
-               
-            },
-              (error:any) => {
-                this.errorArrObservation = [];
-                this.Error = true;
-                this.errorArrObservation = JSON.parse(error.error);
-                this.errorMsg = this.errorArrObservation.message;
-              }
-            )
+              this.observationService.addObservation(this.observation).subscribe(
+                (data) => {
+                  this.proceedNext.emit(true);
+                        this.observationService.retrieveObservation(this.observation.siteId,this.observation.observationComponent,this.observation.userName).subscribe(
+                          (data) => {
+                          this.retrieveFromObservationInspection(data);
+                          },
+                          (error) => {
+                            this.errorArr = [];
+                            this.errorArr = JSON.parse(error.error);
+                          console.log(this.errorArr.message);
+                          }
+                        )
+                  
+              },
+                (error) => {
+                  this.errorArrObservation = [];
+                  this.errorArrObservation = JSON.parse(error.error);
+                  console.log(this.errorArrObservation.message);
+                }
+              )
           }
         },
-        (error: any) => {
+        (error) => {
           this.proceedNext.emit(false);
           this.Error = true;
           this.errorMsg = 'Something went wrong, kindly check all the fields';

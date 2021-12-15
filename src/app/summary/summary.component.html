@@ -107,7 +107,11 @@
                   [(ngModel)]="summary.limitationsInspection" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
                   [ngClass]="{ 'is-invalid': submitted && f.limitationsInspection?.errors }">
                   <option value="" selected>Select Option</option>
-                  <option *ngFor="let a of observationList" [selected]="a === summary.limitationsInspection">{{a}}</option>
+                  <option value="No remedial action required" [selected]="f.limitationsInspection?.value === 'No remedial action required'"
+                  [disabled]="NoRemedial">No remedial action required</option>
+                  <option value="The following observations are made" [selected]="f.limitationsInspection?.value === 'The following observations are made'"
+                  [disabled]="observationsMade">The following observations are made</option>
+                  <!-- <option *ngFor="let a of observationList" [selected]="a === summary.limitationsInspection">{{a}}</option> -->
                   <!-- <option value="No remedial action required" [selected]="f.limitationsInspection?.value === summary.limitationsInspection">No remedial action required</option>
                   <option value="The following observations are made" [selected]="f.limitationsInspection?.value === summary.limitationsInspection">The following observations are made</option> -->
                 </select>

@@ -2001,13 +2001,14 @@ style="margin-left: 10px;" >
       <h2 class="modal-title" style="display: contents">Observations:</h2>
     </div>
     <div class="modal-body">
-      <textarea cols="60" rows="1"
+      <textarea col=60 row=1 (keyup)="onKeyObservation($event);" 
       class="form-control"  [(ngModel)]="observationValues"
       formControlName="observations"  placeholder="Ex. Observations ..." >
       </textarea>
       <br>
       <div style="text-align: center">
-        <button class="btn btn-primary" (click)="submit(flag)" style="font-size: 14px;">
+        <button class="btn btn-primary" (click)="submit(observationUpdateFlag)" [disabled]="disableObservation" 
+        style="font-size: 14px;">
           Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <button type="button" aria-label="Close" class="btn btn-danger" (click)="closeModalDialog()"
           style="font-size: 14px;">
