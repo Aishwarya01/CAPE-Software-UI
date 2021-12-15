@@ -252,6 +252,8 @@ export class InspectionVerificationTestingComponent implements OnInit {
   email: string;
   observationUpdateFlag: boolean= false;
   observationValuesT: any="";
+  observationModalReference: any;
+  disableObservation: boolean= true;
   
   constructor(
     private testingService: TestingService,
@@ -1855,41 +1857,15 @@ callValue(e: any) {
     this.observation=JSON.parse(data);
     this.observationValuesT=this.observation.observations;
     this.observationUpdateFlag=true;
+    this.ObservationsForm.markAsPristine();
     }
 
-  submit(flag:any){
-    if (!flag) {
-      this.observation.siteId = this.service.siteCount;
-    }
-    this.observation.siteId = this.service.siteCount;
-    this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
-    this.observation.observationComponent ="Testing-Component";
-    this.observation.observations =this.ObservationsForm.value.observations;
-    this.submitted = true;
-    if (this.ObservationsForm.invalid) {
-      return;
-    }
-    this.observationService.addObservation(this.observation).subscribe(
-          (data) => {
-            this.success = true;
-            this.successMsg = "Observation Information sucessfully Saved";
-            this.proceedNext.emit(true);
-            this.observationFlag=true;
-        },
-          (error) => {
-            this.errorArrObservation = [];
-            this.Error = true;
-            this.errorArrObservation = JSON.parse(error.error);
-            this.errorMsg = this.errorArrObservation.message;
-            this.observationFlag=false;
-          }
-        )
-      }
+  
  
 
   addObservation(observationIter:any){
     if(this.ObservationsForm.touched || this.ObservationsForm.untouched){
-      this.modalReference = this.modalService.open(observationIter, {
+      this.observationModalReference = this.modalService.open(observationIter, {
          centered: true, 
          size: 'md'
         })
@@ -2307,9 +2283,7 @@ callValue(e: any) {
         
     }
     onKeyImpedance8(event:KeyboardEvent,f:any){
-      
         for(let i of f.controls.testingRecordsSourceSupply.controls) {
-         
         if(f.controls.ypeLoopImpedance.value!='' && f.controls.ypeLoopImpedance.value!=undefined && f.controls.ypeLoopImpedance.value!= 'NA'
         && i.controls.ypeLoopImpedanceMains.value!='NA' && i.controls.ypeLoopImpedanceExternal.value!='NA') {
           i.controls.ypeLoopImpedance.value =(f.controls.ypeLoopImpedance.value - i.controls.ypeLoopImpedanceMains.value);
@@ -2346,12 +2320,9 @@ callValue(e: any) {
         else{
           f.controls.ypeFaultCurrent.setValue('');
         }
-        
     }
     onKeyImpedance9(event:KeyboardEvent,f:any){
-      
         for(let i of f.controls.testingRecordsSourceSupply.controls) {
-         
         if(f.controls.bpeLoopImpedance.value!='' && f.controls.bpeLoopImpedance.value!=undefined && f.controls.bpeLoopImpedance.value!= 'NA'
         && i.controls.bpeLoopImpedanceMains.value!='NA' && i.controls.bpeLoopImpedanceExternal.value!='NA') {
           i.controls.bpeLoopImpedance.value =(f.controls.bpeLoopImpedance.value - i.controls.bpeLoopImpedanceMains.value);
@@ -2388,7 +2359,6 @@ callValue(e: any) {
           f.controls.bpeFaultCurrent.setValue('');
         }
     }
-
     
   reloadFromBack(){
     if(this.testingForm.invalid){
@@ -2487,12 +2457,79 @@ callValue(e: any) {
       this.service.isLinear=false;
       this.modalService.dismissAll((this.successMsg = ''));
     }
-
-
-    
   }
-
-  
+  onKeyObservation(event:any){
+    if(this.ObservationsForm.dirty){
+      this.disableObservation=false;
+    }
+    else{
+      this.disableObservation=true;
+    }
+  }
+  submit(observeFlag:any){
+    if(this.ObservationsForm.invalid) {
+      return;
+    }
+    this.observation.siteId = this.service.siteCount;
+    this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
+    this.observation.observationComponent ="Testing-Component";
+    this.observation.observations =this.ObservationsForm.value.observations;
+    this.submitted = true;
+    if(!observeFlag) {
+      this.observationService.addObservation(this.observation).subscribe(
+        (data) => {
+          this.success = true;
+          this.successMsg = "Observation Information sucessfully Saved";
+          this.disableObservation=true;
+          this.proceedNext.emit(true);
+          this.observationFlag=true;
+          this.observationService.retrieveObservation(this.observation.siteId,this.observation.observationComponent,this.observation.userName).subscribe(
+            (data) => {
+            this.retrieveFromObservationTesting(data);
+            },
+            (error) => {
+              this.errorArr = [];
+              this.errorArr = JSON.parse(error.error);
+              console.log(this.errorArr.message);
+            }
+          )
+          setTimeout(() => {
+            this.success = false;
+            this.observationModalReference.close();
+          }, 3000);
+      },
+        (error) => {
+          this.errorArrObservation = [];
+          this.Error = true;
+          this.errorArrObservation = JSON.parse(error.error);
+          this.errorMsg = this.errorArrObservation.message;
+          this.observationFlag=false;
+        }
+      )
+    }
+    else {
+      if(this.ObservationsForm.dirty){
+        this.observationService.updateObservation(this.observation).subscribe(
+          (data) => {
+            this.success = true;
+            this.successMsg = "Observation Information sucessfully updated";
+            this.proceedNext.emit(false);
+            this.disableObservation=true;
+            setTimeout(() => {
+              this.success = false;
+              this.observationModalReference.close();
+            }, 3000);
+        },
+          (error) => {
+            this.errorArrObservation = [];
+            this.Error = true;
+            this.errorArrObservation = JSON.parse(error.error);
+            this.errorMsg = this.errorArrObservation.message;
+          }
+        )
+      }
+    }   
+      }
 
   nextTab(flag: any) {
     if (!flag) {
@@ -3083,17 +3120,30 @@ callValue(e: any) {
              this.retrieveDetailsforTesting(this.testingDetails.userName,this.testingDetails.siteId,data);
             }
           )
-           if(this.observationFlag){
+           if(!this.observationFlag){
+            this.observation.siteId = this.service.siteCount;
+            this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
+            this.observation.observationComponent ="Testing-Component";
             this.observation.observations="No observation recorded"
             this.observationService.addObservation(this.observation).subscribe(
               (data) => {
+                this.proceedNext.emit(true);
+                this.observationService.retrieveObservation(this.observation.siteId,this.observation.observationComponent,this.observation.userName).subscribe(
+                  (data) => {
+                  this.retrieveFromObservationTesting(data);
+                  },
+                  (error) => {
+                    this.errorArr = [];
+                    this.errorArr = JSON.parse(error.error);
+                  console.log(this.errorArr.message);
+                  }
+                )
                
             },
               (error:any) => {
                 this.errorArrObservation = [];
-                this.Error = true;
                 this.errorArrObservation = JSON.parse(error.error);
-                this.errorMsg = this.errorArrObservation.message;
+                console.log(this.errorArrObservation.message);
               }
             )
           }
