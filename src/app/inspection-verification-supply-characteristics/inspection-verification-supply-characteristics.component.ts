@@ -2223,6 +2223,7 @@ showHideAccordion(index: number) {
       this.loclength = this.location2Arr.length;
       for (this.i = 1; this.i < this.loclength; this.i++) {
         this.location2Arr.removeAt(this.location2Arr.length - 1);
+        
       }
     } 
     else if (this.location2Arr.length < this.value) {
@@ -2698,6 +2699,7 @@ showHideAccordion(index: number) {
         }
       }
       else {
+        if(!this.alternateArr.length == this.value){
         for (this.i = 0; this.i < this.value; this.i++) {
           this.alternateArr.push(this.SupplyparametersForm());
           this.circuitArr.push(this.createCircuitForm());
@@ -2705,19 +2707,20 @@ showHideAccordion(index: number) {
         this.sources = true;
         this.breaker = true;
       }
+    }
     } 
-    else if (this.value == '') {
-      this.loclength = this.alternateArr.length;
-      this.loc1length = this.circuitArr.length-1;
+    // else if (this.value == '') {
+    //   this.loclength = this.alternateArr.length;
+    //   this.loc1length = this.circuitArr.length-1;
 
-      for (this.i = 0; this.i < this.loclength; this.i++) {
-        this.alternateArr.removeAt(this.alternateArr.length - 1);
-      }
-      for (this.i = 0; this.i < this.loc1length; this.i++) {
-        this.circuitArr.removeAt(this.circuitArr.length - 1);
-      }
-      this.breaker = false;
-    } 
+    //   for (this.i = 0; this.i < this.loclength; this.i++) {
+    //     this.alternateArr.removeAt(this.alternateArr.length - 1);
+    //   }
+    //   for (this.i = 0; this.i < this.loc1length; this.i++) {
+    //     this.circuitArr.removeAt(this.circuitArr.length - 1);
+    //   }
+    //   this.breaker = false;
+    // } 
     // else if (this.alternateArr.length < this.value) {
     //   if (this.value != '') {
     //     this.delarr = this.value - this.alternateArr.length;
@@ -3383,7 +3386,9 @@ else{
       a.value.instalLocationReportStatus='R';
       this.locationArr= this.locationArr.concat(a.value);
       this.supplycharesteristicForm.markAsDirty();
-      
+      if(this.supplycharesteristic.noOfLocation == 0){
+        this.key1LocationTable = false;
+      }
     }
     else
     {
@@ -3392,6 +3397,9 @@ else{
       this.supplycharesteristic.noOfLocation = this.supplycharesteristicForm.value.noOfLocation -1;
       (this.supplycharesteristicForm.get('location1Arr') as FormArray).removeAt(index);
       this.supplycharesteristicForm.markAsDirty();
+      if(this.supplycharesteristic.noOfLocation == 0){
+        this.key1LocationTable = false;
+      }
     }
    }
    
@@ -3405,6 +3413,9 @@ else{
       a.value.instalLocationReportStatus='R';
       this.boundingArr= this.boundingArr.concat(a.value);
       this.supplycharesteristicForm.markAsDirty();
+      if(this.supplycharesteristic.bondingNoOfJoints == 0){
+        this.JointLocationTable = false;
+      }
     }
     else
     {
@@ -3413,6 +3424,9 @@ else{
       this.supplycharesteristic.bondingNoOfJoints = this.supplycharesteristicForm.value.bondingNoOfJoints -1;
       (this.supplycharesteristicForm.get('location2Arr') as FormArray).removeAt(index);
       this.supplycharesteristicForm.markAsDirty();
+      if(this.supplycharesteristic.bondingNoOfJoints == 0){
+        this.JointLocationTable = false;
+      }
     }
    }
 
@@ -3426,6 +3440,9 @@ else{
       a.value.instalLocationReportStatus='R';
       this.earthingArr= this.earthingArr.concat(a.value);
       this.supplycharesteristicForm.markAsDirty();
+      if(this.supplycharesteristic.earthingNoOfJoints == 0){
+        this.keyJOintLocationTable = false;
+      }
     }
     else
     {
@@ -3434,6 +3451,9 @@ else{
       this.supplycharesteristic.earthingNoOfJoints = this.supplycharesteristicForm.value.earthingNoOfJoints -1;
       (this.supplycharesteristicForm.get('location3Arr') as FormArray).removeAt(index);
       this.supplycharesteristicForm.markAsDirty();
+      if(this.supplycharesteristic.earthingNoOfJoints == 0){
+        this.keyJOintLocationTable = false;
+      }
     }
    }
 
