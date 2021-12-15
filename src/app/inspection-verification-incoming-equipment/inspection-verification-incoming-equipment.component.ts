@@ -420,7 +420,6 @@ retrieveFromObservationInspection(data:any){
   this.ObservationsForm.markAsPristine();
   }
 
-
   addObservation(observationIter:any){
     if(this.ObservationsForm.touched || this.ObservationsForm.untouched){
       this.observationModalReference = this.modalService.open(observationIter, {

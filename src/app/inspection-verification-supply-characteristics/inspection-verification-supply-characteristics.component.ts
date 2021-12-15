@@ -1566,7 +1566,7 @@ showHideAccordion(index: number) {
     this.observation=JSON.parse(data);
     this.observationValues=this.observation.observations;
     this.observationUpdateFlag=true;
-     this.ObservationsForm.markAsPristine();
+    this.ObservationsForm.markAsPristine();
     }
     
 
