@@ -472,7 +472,11 @@
                 class="example-button">
                 info_outline
                </mat-icon>
+<<<<<<< Updated upstream
+                <input type="number" min="1" class="form-control" formControlName="supplyNumber" [readonly]="service.allFieldsDisable"
+=======
                 <input (keypress)="keyPressNumbers($event)" type="number" min="0" class="form-control" formControlName="supplyNumber" [readonly]="service.allFieldsDisable"
+>>>>>>> Stashed changes
                 [ngClass]="{ 'is-invalid': submitted && f.supplyNumber.errors }" 
                 [(ngModel)]="supplycharesteristic.supplyNumber"
                 (keyup)="onKeyAlernate($event)">
