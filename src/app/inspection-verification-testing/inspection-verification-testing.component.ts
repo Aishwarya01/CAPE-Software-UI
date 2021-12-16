@@ -341,6 +341,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
             this.testaccordianArr.controls[j].controls.locationCount.setValue(this.service.iterationList[j].locationCount);
             let v= this.service.iterationList[j].consumerUnit.length;
             for(let k = 0; k < v; k++){
+            this.testaccordianArr.controls[j].controls.testDistRecords.controls[k].
+            controls.locationCount.setValue(this.service.iterationList[j].consumerUnit[k].locationCount);
+
             this.testaccordianArr.controls[j].controls.testDistRecords.controls[k].controls.testDistribution.controls[0].
             controls.distributionBoardDetails.setValue(this.service.iterationList[j].consumerUnit[k].distributionBoardDetails);
            
@@ -360,29 +363,67 @@ export class InspectionVerificationTestingComponent implements OnInit {
     else {
       this.inspectionDetailsService.retrieveInspectionDetails(this.currentUser1.assignedBy, this.service.siteCount).subscribe(
         data=>{
-        this.incomingValues = JSON.parse(data);
-         //for(let i of this.incomingValues) {	
-          this.service.iterationList = this.incomingValues.ipaoInspection;	
-        //}
-        //location iteration
-        if (this.service.iterationList != '' && this.service.iterationList != undefined && this.service.iterationList.length != 0) {
-          this.testingRetrieve = false;
-          this.inspectionRetrieve = true;
-          
-          let a = this.service.iterationList.length;
-          for (let i = 0; i < a; i++) {
-            this.addItem();
+          this.incomingValues = JSON.parse(data);
+          this.testingForm = this.formBuilder.group({
+            testIncomingDistribution: this.formBuilder.array([
+             this.IncomingValue(),
+           ]),
+           testaccordianArr: this.formBuilder.array([]),
+           viewerCommentArr: this.formBuilder.array([this.addCommentViewer()]),
+           completedCommentArr1: this.formBuilder.array([]),
+         });
+          //for(let i of this.incomingValues) {	
+            this.service.iterationList=this.incomingValues.ipaoInspection;	
+          // }
+          //location iteration
+          if (this.service.iterationList != '' && this.service.iterationList != undefined && this.service.iterationList.length != 0) {
+            this.testingRetrieve = false;
+            this.inspectionRetrieve = true;
+            let a = this.service.iterationList.length;
+            for (let i = 0; i < a; i++) {
+              this.addItem();
+            }
+            // for (let j = 0; j < this.testaccordianArr.controls.length; j++) {
+            //   let v= this.service.iterationList[j].consumerUnit.length;
+            //   for(let k = 0; k < v; k++){
+            //    this.testaccordianArr.value[j].testDistRecords.value[k].distributionBoardDetails= this.service.iterationList[j].consumerUnit[k].distributionBoardDetails;
+            //    this.testaccordianArr.value[j].testDistRecords.value[k].referance= this.service.iterationList[j].consumerUnit[k].referance;
+            //    this.testaccordianArr.value[j].testDistRecords.value[k].location= this.service.iterationList[j].consumerUnit[k].location;
+            //   }
+            // }
+            for(let r = 0; r < this.testaccordianArr.controls.length; r++){
+            let testDistRecords:any=[];
+            testDistRecords= this.testaccordianArr.controls[r].controls.testDistRecords as FormArray;
+            let d= this.service.iterationList[r].consumerUnit.length-1;
+            for(let k = 0; k < d; k++){
+              testDistRecords.push(this.createtestDistRecordsForm());
+             }
+            }
+            for (let j = 0; j < this.testaccordianArr.controls.length; j++) {
+              this.testaccordianArr.value[j].locationNumber = this.service.iterationList[j].locationNumber;
+              this.testaccordianArr.value[j].locationName = this.service.iterationList[j].locationName;
+              // this.testaccordianArr.value[j].locationCount = this.service.iterationList[j].locationCount;
+              this.testaccordianArr.controls[j].controls.locationCount.setValue(this.service.iterationList[j].locationCount);
+              let v= this.service.iterationList[j].consumerUnit.length;
+              for(let k = 0; k < v; k++){
+              this.testaccordianArr.controls[j].controls.testDistRecords.controls[k].
+              controls.locationCount.setValue(this.service.iterationList[j].consumerUnit[k].locationCount);
+  
+              this.testaccordianArr.controls[j].controls.testDistRecords.controls[k].controls.testDistribution.controls[0].
+              controls.distributionBoardDetails.setValue(this.service.iterationList[j].consumerUnit[k].distributionBoardDetails);
+             
+              this.testaccordianArr.controls[j].controls.testDistRecords.controls[k].controls.testDistribution.controls[0].
+              controls.referance.setValue(this.service.iterationList[j].consumerUnit[k].referance);
+  
+              this.testaccordianArr.controls[j].controls.testDistRecords.controls[k].controls.testDistribution.controls[0].
+              controls.location.setValue(this.service.iterationList[j].consumerUnit[k].location);
+              }
+            }
+            this.location.locationArr = this.service.iterationList;
+            this.service.iterationList = [];
           }
-          for (let j = 0; j < this.testaccordianArr.controls.length; j++) {
-            this.testaccordianArr.value[j].locationNumber = this.service.iterationList[j].locationNumber;
-            this.testaccordianArr.value[j].locationName = this.service.iterationList[j].locationName;
-            // this.testaccordianArr.controls[j].locationCount.setValue(this.service.iterationList[j].locationCount);
-            this.testaccordianArr.controls[j].controls.locationCount.setValue(this.service.iterationList[j].locationCount);
-          }
-          this.location.locationArr = this.service.iterationList;
-          this.service.iterationList = [];
-        }
-      });
+          this.testingForm.markAsPristine();
+        });
     }
   }
 }
@@ -457,44 +498,62 @@ export class InspectionVerificationTestingComponent implements OnInit {
      else {
       this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.currentUser1.assignedBy, this.service.siteCount).subscribe(
         data=>{
-        this.supplyValues = JSON.parse(data);
-           //for(let i of this.supplyValues) {	
-            this.service.nominalVoltageArr2=this.supplyValues.supplyParameters;	
-            if(this.supplyValues.liveConductorType == "AC") {	
-              this.addValues("Mains Incoming", this.supplyValues.mainNominalVoltage,this.supplyValues.mainLoopImpedance, this.supplyValues.mainNominalCurrent,this.supplyValues.mainActualLoad);	
-              this.mainNominalVoltageArr1 = [];	
-              this.mainNominalVoltageArr2 = [];	
-              this.mainNominalVoltageArr3 = [];	
-              this.mainNominalVoltageArr4 = [];
-              this.mainNominalVoltageArr1 = this.supplyValues.mainNominalVoltage.split(",");	
-              this.mainNominalVoltageArr2 = this.supplyValues.mainLoopImpedance.split(",");	
-              this.mainNominalVoltageArr3 = this.supplyValues.mainNominalCurrent.split(",");	
-              this.mainNominalVoltageArr4 = this.supplyValues.mainActualLoad.split(",");
-              this.mainNominalArr = [];	
-              this.mainNominalArr.push(this.mainNominalVoltageArr1,this.mainNominalVoltageArr2,this.mainNominalVoltageArr3,this.mainNominalVoltageArr4);	
-              this.service.retrieveMainNominalVoltage=this.mainNominalArr;	
-              this.service.mainNominalVoltageValue=this.supplyValues.mainNominalVoltage;	
-              this.service.mainLoopImpedanceValue=this.supplyValues.mainLoopImpedance;	
-              this.service.mainNominalCurrentValue=this.supplyValues.mainNominalCurrent;
-              this.service.mainActualLoadValue=this.supplyValues.mainActualLoad;	
-            }	
-            this.service.supplyList = this.supplyValues.supplyNumber;	
-            let count =1;	
-            for(let j of this.supplyValues.supplyParameters) {	
-             if(j.aLLiveConductorType == "AC") {	
-              this.addValues("Alternate Source of Supply-" +count, j.nominalVoltage,j.loopImpedance, j.faultCurrent, j.actualLoad);	
-              count++;	
-             }	
-            }	
-          //}
-        //retrieve selected source dd from supply to testing
-      if (this.service.supplyList != '' && this.service.supplyList != undefined) {
-        this.SourceList=['Mains Incoming'];
-        for (let i = 1; i <= this.service.supplyList; i++) {
-          this.SourceList.push('Alternate Source of Supply-' + i);
+          this.supplyValues = JSON.parse(data);
+                   //for(let i of this.supplyValues) {	
+                    this.service.nominalVoltageArr2=this.supplyValues.supplyParameters;	
+                    this.pushJsonArray=[];
+                    this.testingAlternateRecords = [];
+                    let testaccordianValueArr = this.testingForm.get(
+                      'testaccordianArr'
+                    ) as FormArray;
+                    if(this.supplyValues.liveConductorType == "AC") {	
+                      this.SourceList=['Mains Incoming'];	
+                      this.addValues("Mains Incoming", this.supplyValues.mainNominalVoltage,this.supplyValues.mainLoopImpedance, this.supplyValues.mainNominalCurrent, this.supplyValues.mainActualLoad);	
+                      this.mainNominalVoltageArr1 = [];	
+                      this.mainNominalVoltageArr2 = [];	
+                      this.mainNominalVoltageArr3 = [];	
+                      this.mainNominalVoltageArr4 = [];	
+                      this.mainNominalVoltageArr1 = this.supplyValues.mainNominalVoltage.split(",");	
+                      this.mainNominalVoltageArr2 = this.supplyValues.mainLoopImpedance.split(",");	
+                      this.mainNominalVoltageArr3 = this.supplyValues.mainNominalCurrent.split(",");	
+                      this.mainNominalVoltageArr4 = this.supplyValues.mainActualLoad.split(",");
+                      this.mainNominalArr = [];	
+                      this.mainNominalArr.push(this.mainNominalVoltageArr1,this.mainNominalVoltageArr2,this.mainNominalVoltageArr3,this.mainNominalVoltageArr4);	
+                      this.service.retrieveMainNominalVoltage=this.mainNominalArr;	
+                      this.service.mainNominalVoltageValue=this.supplyValues.mainNominalVoltage;	
+                      this.service.mainLoopImpedanceValue=this.supplyValues.mainLoopImpedance;	
+                      this.service.mainNominalCurrentValue=this.supplyValues.mainNominalCurrent;
+                      this.service.mainActualLoadValue=this.supplyValues.mainActualLoad;		
+                    }	
+                    this.service.supplyList = this.supplyValues.supplyNumber;	
+                    let count =1;	
+                    for(let j of this.supplyValues.supplyParameters) {	
+                     if(j.aLLiveConductorType == "AC") {	
+                      this.addValues("Alternate Source of Supply-" +count, j.nominalVoltage,j.loopImpedance, j.faultCurrent, j.actualLoad);	
+                      count++;	
+                     }	
+                    }	
+                    for(let j of this.supplyValues.supplyParameters) { 
+                      for(let x of testaccordianValueArr.controls) {
+                        let testingDistRecordArr= x.get('testDistRecords') as FormArray;
+                        for(let w of testingDistRecordArr.controls){
+                          let testingRecordsArr = w.get('testingRecords') as FormArray;
+                        for(let y of testingRecordsArr.controls) {
+                          this.testingAlternateRecords = y.get('testingRecordsSourceSupply') as FormArray;
+                          this.testingAlternateRecords.push(this.createValue(this.supplyValues.mainLoopImpedance,j.nominalVoltage,j.loopImpedance));
+                        }
+                        }
+                      }
+                    }
+                 // }
+          //retrieve selected source dd from supply to testing
+        if (this.service.supplyList != '' && this.service.supplyList != undefined) {
+          this.SourceList=['Mains Incoming'];
+          for (let i = 1; i <= this.service.supplyList; i++) {
+            this.SourceList.push('Alternate Source of Supply-' + i);
+          }
         }
-      }
-        },
+          },
         error=>{
   
         }
@@ -1405,6 +1464,7 @@ callValue(e: any) {
   }
   private createtestDistRecordsForm(): FormGroup {
     return new FormGroup({
+      locationCount: new FormControl(''),
       testDistribution: this.formBuilder.array([
         this.createtestDistributionForm(),
       ]),

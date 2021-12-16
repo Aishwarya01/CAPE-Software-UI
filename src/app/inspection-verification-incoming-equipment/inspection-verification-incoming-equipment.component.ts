@@ -736,6 +736,7 @@ showHideAccordion(index: number) {
     return new FormGroup({
       consumerId: new FormControl({disabled: false,value: itemvalue.consumerId}),
       ipaoInspectionId: new FormControl({disabled: false,value: ipaoInspectionId}),
+      locationCount: new FormControl({disabled: false,value: itemvalue.locationCount}),
       distributionBoardDetails: new FormControl({ disabled: false, value: itemvalue.distributionBoardDetails },[Validators.required]),
       referance: new FormControl({ disabled: false, value: itemvalue.referance },[Validators.required]),
       location: new FormControl({ disabled: false, value: itemvalue.location },[Validators.required]),
@@ -1083,7 +1084,7 @@ showHideAccordion(index: number) {
     this.circuitArr = a.controls.circuit as FormArray;
 
     if(this.flag && this.consumerArr.value[j].consumerId!=null && this.consumerArr.value[j].consumerId!='' && this.consumerArr.value[j].consumerId!=undefined){
-      this.consumerArr.value[j].ConsumerStatus='R';
+      this.consumerArr.value[j].consumerStatus='R';
       this.deletedConsumer.push(this.consumerArr.value[j]);
     }
 
