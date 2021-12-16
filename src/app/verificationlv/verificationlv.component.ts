@@ -340,7 +340,7 @@ export class VerificationlvComponent implements OnInit {
 
   siteNameMethod(){
     if(this.siteN.length > 15){
-      alert("Full Site Name:" + this.siteN);
+      alert("<b>Full Site Name:</b>\r\n" + this.siteN);
     }
   }
 

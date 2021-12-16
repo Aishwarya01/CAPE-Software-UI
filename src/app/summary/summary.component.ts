@@ -1087,7 +1087,7 @@ showHideAccordion(index: number) {
       // }, 3000);
       return;
     }
-    if(!confirm("Are you sure you want to procced? Note: Once saved, details can't be modified!")){
+    if(!confirm("Are you sure you want to procced?\r\nNote: Once saved, details can't be modified!")){
      return;
     }
   else{
