@@ -1,13 +1,10 @@
 <div style="position: relative;left: 80%;top: 33px;"> 
   <h3 style="color: lightslategrey;
   font-weight: 500;position: absolute;
-    top: -20px;" >Showing Site Name:
-  <!-- <input type="text" maxlength="10" [value]="siteN" style="border: none;width: 30%;" > -->
-  <div class="tooltip">{{siteN | truncate : 10 : "..."}}
-    <span class="tooltiptext">{{siteN}}</span>
-  </div>
-  <!-- <a maxlength="50" style="border: none;" title="{{siteN}}">{{siteN}}</a>--> 
-</h3>  
+    top: -20px;" > Showing Site Name: 
+    <a style="cursor: pointer; text-decoration: underline;color: black;" (click)="siteNameMethod();">{{siteN | truncate : 10 : "..."}}</a>
+  <div class="horizontalLine"></div>
+ </h3> 
 </div>
 <mat-tab-group [selectedIndex]="selectedIndex" style="background-color:white;">
   <!-- <mat-tab label="Site Details">
@@ -239,8 +236,11 @@
 		</ng-template>
 	</mat-tab> -->
 
-  <!-- <mat-tab label="Working for Site Name:" class="disableTab siteA" [disabled]="true"></mat-tab>
-  <mat-tab [label]="siteN" class="disableTab" [disabled]="true" title="{{siteN}}"></mat-tab> -->
+  <!-- <mat-tab label="Working for Site Name:" class="disableTab" [disabled]="true"></mat-tab>
+  <mat-tab [label]="siteN | truncate  : 10" class="disableTab" title="Click here!"
+  (click)="tabClick($event)"></mat-tab> -->
+
+   
 
 </mat-tab-group>
 

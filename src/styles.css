@@ -561,3 +561,18 @@ input::-webkit-inner-spin-button {
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
+
+.horizontalLine {
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: rgba(0, 0, 0, 0.12);
+  flex: auto;
+  height: 0;
+  margin: 7px -92px 0 142px;
+  min-width: 32px;
+  position: fixed;
+  width: 142px;
+}
+.mat-tab-header {
+  width: 90% !important;
+}

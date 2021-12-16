@@ -47,6 +47,8 @@ import { map } from 'rxjs/operators';
 import { readJsonConfigFile } from 'typescript';
 import { FinalreportsComponent } from '../finalreports/finalreports.component';
 import { ObservationService } from '../services/observation.service';
+import {Pipe, PipeTransform } from '@angular/core';
+
 
 @Component({
   selector: 'app-verificationlv',
@@ -74,6 +76,9 @@ export class VerificationlvComponent implements OnInit {
   @ViewChild('companyPaginator', { static: true })
   companyPaginator!: MatPaginator;
   @ViewChild('companySort', { static: true }) companySort!: MatSort;
+  @Pipe({
+    name: 'truncate'
+})
 
   departmentColumns: string[] = [
     'action',
@@ -331,6 +336,11 @@ export class VerificationlvComponent implements OnInit {
       this.success = false;
       this.modalService.dismissAll((this.successMsg = ''));
     }
+  }
+
+  siteNameMethod(){
+    alert("Full Site Name:" + this.siteN);
+    //this.modalService.open(fullSite, { centered: true });
   }
 
   deleteClient(clientname: String,clientdelete: any) {
@@ -628,7 +638,7 @@ export class VerificationlvComponent implements OnInit {
     this.selectedIndex=2;
     }
   }
-
+ 
   retreiveFromObservationSupply(siteId:any,observationComponent:any,userName:any){
     this.observationService.retrieveObservation(siteId,observationComponent,userName).subscribe(
       (data) => {
