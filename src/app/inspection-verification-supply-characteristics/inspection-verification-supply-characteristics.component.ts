@@ -77,7 +77,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   validationError: boolean = false;
   validationErrorMsg: String = '';
   disable: boolean = false;
-  alternativeSupplyNo: boolean =true;
+  alternativeSupplyNo: boolean =false;
 
   NV1: any;
   NV2: any;
