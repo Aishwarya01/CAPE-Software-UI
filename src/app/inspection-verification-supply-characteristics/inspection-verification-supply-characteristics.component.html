@@ -448,7 +448,8 @@
                   class="example-button">
                   info_outline
                  </mat-icon>
-                  <select class="form-control" formControlName="alternativeSupply" [tabindex]="service.allFieldsDisable ? -1 : 0" [disabled]="service.allFieldsDisable"
+                  <select class="form-control" formControlName="alternativeSupply" [tabindex]="service.allFieldsDisable ? -1 : 0" 
+                  [disabled]="service.allFieldsDisable"
                   (change)="showAlternateField($event)" [ngClass]="{ 'is-invalid': submitted && f.alternativeSupply.errors }" 
                   [(ngModel)]="supplycharesteristic.alternativeSupply">
                  <option value="" disabled selected>Select Option</option>
@@ -471,7 +472,7 @@
                 class="example-button">
                 info_outline
                </mat-icon>
-                <input type="number" min="0" class="form-control" formControlName="supplyNumber" [readonly]="service.allFieldsDisable"
+                <input type="number" min="1" class="form-control" formControlName="supplyNumber" [readonly]="service.allFieldsDisable"
                 [ngClass]="{ 'is-invalid': submitted && f.supplyNumber.errors }" 
                 [(ngModel)]="supplycharesteristic.supplyNumber"
                 (keyup)="onKeyAlernate($event)">

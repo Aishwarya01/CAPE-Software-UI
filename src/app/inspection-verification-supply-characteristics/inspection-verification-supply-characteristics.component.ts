@@ -529,6 +529,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
        this.AcValue = this.step2List.supplyCharacteristics.liveConductorAC;
        this.DcValue = this.step2List.supplyCharacteristics.liveConductorDC;
        this.step2List.liveConductor= this.step2List.supplyCharacteristics.liveConductor;
+       this.supplycharesteristic.supplyNumber = this.step2List.supplyCharacteristics.supplyNumber;
        this.flag = true;
       
        this.populateData(this.step2List.supplyCharacteristics);
