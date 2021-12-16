@@ -456,6 +456,18 @@ export class InspectionVerificationSupplyCharacteristicsComponent
    this.expandedIndex = -1 ;
   }
 
+  // Only Accept numbers
+  keyPressNumbers(event:any) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+      if ((charCode < 48 || charCode > 57)) {
+        event.preventDefault();
+        return false;
+      } else {
+        return true;
+      }
+  }
+
   onKeyMainShortName(e: any){
     let values = e.target.value;
     // this.alternateArr = this.supplycharesteristicForm.get(
@@ -2015,7 +2027,7 @@ showHideAccordion(index: number) {
   // }
 
   onKey1(event: KeyboardEvent) {
-   debugger
+   
     this.values = (<HTMLInputElement>event.target).value;
     this.value = this.values;
     this.location1Arr = this.supplycharesteristicForm.get(
@@ -2202,7 +2214,7 @@ showHideAccordion(index: number) {
       }
     } 
     else if (this.location2Arr.length > this.value && this.value != 0) {
-     debugger
+     
       if (this.value != '') {
        
         this.delarr = this.location2Arr.length - this.value;
@@ -2597,6 +2609,7 @@ showHideAccordion(index: number) {
   }
 
   onKeyAlernate(event: KeyboardEvent) {
+    
     this.values = (<HTMLInputElement>event.target).value;
     this.value = this.values;
     this.alternateArr = this.supplycharesteristicForm.get(
@@ -2613,8 +2626,8 @@ showHideAccordion(index: number) {
       this.circuitArr = this.supplycharesteristicForm.get(
         'circuitArr'
       ) as FormArray;
-      if (this.alternateArr.length == 1) {
-        for (this.i = 1; this.i < this.value; this.i++) {
+      if (this.alternateArr.length == 1 || this.alternateArr.length < this.value) {
+        for (this.i = 1; this.i <= this.value; this.i++) {
           this.alternateArr.push(this.SupplyparametersForm());
           this.circuitArr.push(this.createCircuitForm());
         }
@@ -2661,14 +2674,14 @@ showHideAccordion(index: number) {
         }
       }
       else {
-      //  if(!this.alternateArr.length == this.value){ removed from elango's yesterday commit by Aish
+        if(!this.alternateArr.length == this.value){ //removed from elango's yesterday commit by Aish
         for (this.i = 0; this.i < this.value; this.i++) {
           this.alternateArr.push(this.SupplyparametersForm());
           this.circuitArr.push(this.createCircuitForm());
         }
         this.sources = true;
         this.breaker = true;
-     // }
+       }
     }
     } 
     // else if (this.value == '') {
@@ -3423,28 +3436,28 @@ else{
   }
 
   removeItem(a:any,index: any) {
-   
     this.supplycharesteristicForm.markAsTouched();
-    if(a.value.locationReportId !=0 && a.value.locationReportId !=undefined)
-    {
-      this.supplycharesteristic.noOfLocation = this.supplycharesteristicForm.value.noOfLocation -1;
-      (this.supplycharesteristicForm.get('location1Arr') as FormArray).removeAt(index);
-      a.value.instalLocationReportStatus='R';
-      this.locationArr= this.locationArr.concat(a.value);
-      this.supplycharesteristicForm.markAsDirty();
-      if(this.supplycharesteristic.noOfLocation == 0){
-        this.key1LocationTable = false;
+    if(this.supplycharesteristic.noOfLocation != 0){
+      if(a.value.locationReportId !=0 && a.value.locationReportId !=undefined)
+      {
+        this.supplycharesteristic.noOfLocation = this.supplycharesteristicForm.value.noOfLocation -1;
+        (this.supplycharesteristicForm.get('location1Arr') as FormArray).removeAt(index);
+        a.value.instalLocationReportStatus='R';
+        this.locationArr= this.locationArr.concat(a.value);
+        this.supplycharesteristicForm.markAsDirty();
+        if(this.supplycharesteristic.noOfLocation == 0){
+          this.key1LocationTable = false;
+        }
       }
-    }
-    else
-    {
-     
-      this.supplycharesteristicForm.markAsTouched();
-      this.supplycharesteristic.noOfLocation = this.supplycharesteristicForm.value.noOfLocation -1;
-      (this.supplycharesteristicForm.get('location1Arr') as FormArray).removeAt(index);
-      this.supplycharesteristicForm.markAsDirty();
-      if(this.supplycharesteristic.noOfLocation == 0){
-        this.key1LocationTable = false;
+      else
+      {
+        this.supplycharesteristicForm.markAsTouched();
+        this.supplycharesteristic.noOfLocation = this.supplycharesteristicForm.value.noOfLocation -1;
+        (this.supplycharesteristicForm.get('location1Arr') as FormArray).removeAt(index);
+        this.supplycharesteristicForm.markAsDirty();
+        if(this.supplycharesteristic.noOfLocation == 0){
+          this.key1LocationTable = false;
+        }
       }
     }
    }
@@ -3452,26 +3465,28 @@ else{
    removeItem1(a:any,index: any) {
    
     this.supplycharesteristicForm.markAsTouched();
-    if(a.value.locationReportId !=0 && a.value.locationReportId !=undefined)
-    {
-      this.supplycharesteristic.bondingNoOfJoints = this.supplycharesteristicForm.value.bondingNoOfJoints -1;
-      (this.supplycharesteristicForm.get('location2Arr') as FormArray).removeAt(index);
-      a.value.instalLocationReportStatus='R';
-      this.boundingArr= this.boundingArr.concat(a.value);
-      this.supplycharesteristicForm.markAsDirty();
-      if(this.supplycharesteristic.bondingNoOfJoints == 0){
-        this.JointLocationTable = false;
+    if(this.supplycharesteristic.bondingNoOfJoints != 0){
+      if(a.value.locationReportId !=0 && a.value.locationReportId !=undefined)
+      {
+        this.supplycharesteristic.bondingNoOfJoints = this.supplycharesteristicForm.value.bondingNoOfJoints -1;
+        (this.supplycharesteristicForm.get('location2Arr') as FormArray).removeAt(index);
+        a.value.instalLocationReportStatus='R';
+        this.boundingArr= this.boundingArr.concat(a.value);
+        this.supplycharesteristicForm.markAsDirty();
+        if(this.supplycharesteristic.bondingNoOfJoints == 0){
+          this.JointLocationTable = false;
+        }
       }
-    }
-    else
-    {
-      this.supplycharesteristicForm.markAsTouched();
-     
-      this.supplycharesteristic.bondingNoOfJoints = this.supplycharesteristicForm.value.bondingNoOfJoints -1;
-      (this.supplycharesteristicForm.get('location2Arr') as FormArray).removeAt(index);
-      this.supplycharesteristicForm.markAsDirty();
-      if(this.supplycharesteristic.bondingNoOfJoints == 0){
-        this.JointLocationTable = false;
+      else
+      {
+        this.supplycharesteristicForm.markAsTouched();
+       
+        this.supplycharesteristic.bondingNoOfJoints = this.supplycharesteristicForm.value.bondingNoOfJoints -1;
+        (this.supplycharesteristicForm.get('location2Arr') as FormArray).removeAt(index);
+        this.supplycharesteristicForm.markAsDirty();
+        if(this.supplycharesteristic.bondingNoOfJoints == 0){
+          this.JointLocationTable = false;
+        }
       }
     }
    }
@@ -3479,7 +3494,8 @@ else{
    removeItem2(a:any,index: any) {
    
     this.supplycharesteristicForm.markAsTouched();
-    if(a.value.locationReportId !=0 && a.value.locationReportId !=undefined)
+    if(this.supplycharesteristic.earthingNoOfJoints != 0){
+      if(a.value.locationReportId !=0 && a.value.locationReportId !=undefined)
     {
       this.supplycharesteristic.earthingNoOfJoints = this.supplycharesteristicForm.value.earthingNoOfJoints -1;
       (this.supplycharesteristicForm.get('location3Arr') as FormArray).removeAt(index);
@@ -3493,7 +3509,6 @@ else{
     else
     {
       this.supplycharesteristicForm.markAsTouched();
-     
       this.supplycharesteristic.earthingNoOfJoints = this.supplycharesteristicForm.value.earthingNoOfJoints -1;
       (this.supplycharesteristicForm.get('location3Arr') as FormArray).removeAt(index);
       this.supplycharesteristicForm.markAsDirty();
@@ -3501,11 +3516,11 @@ else{
         this.keyJOintLocationTable = false;
       }
     }
+    }
    }
-
     //  Allternative power supply
     removeItem3(a:any,index: any) {
-
+      
       this.supplycharesteristicForm.markAsTouched();
       if(a.value.supplyparametersId !=0 && a.value.supplyparametersId !=undefined)
       {
@@ -3522,14 +3537,14 @@ else{
           
           for (let i = 0; i < items.length; i++) {
               
-          if(i==index){
-            
-            let d = items.value[i+1];
-            d.circuitStatus ='R';
-            this.circuitArr1 = this.circuitArr1.concat(d);
-            (this.supplycharesteristicForm.get('circuitArr') as FormArray).removeAt(i+1);
+            let d = items.value[i];
+            if(a.value.aLSupplyShortName == d.sourceName){
+              d.circuitStatus ='R';
+              this.circuitArr1 = this.circuitArr1.concat(d);
+              (this.supplycharesteristicForm.get('circuitArr') as FormArray).removeAt(i);
+            }
           }
-        }
+        
         this.supplycharesteristicForm.markAsDirty();
       }
       else
@@ -3538,12 +3553,9 @@ else{
         this.supplycharesteristicForm.markAsTouched();
         let b = parseInt(this.supplycharesteristicForm.value.supplyNumber) -1;
         this.supplycharesteristic.supplyNumber = b.toString();
-        (this.supplycharesteristicForm.get('circuitArr') as FormArray).removeAt(index);
+        (this.supplycharesteristicForm.get('circuitArr') as FormArray).removeAt(index+1);
         (this.supplycharesteristicForm.get('alternateArr') as FormArray).removeAt(index);
         this.supplycharesteristicForm.markAsDirty();
       }
      }
-
-
-  
 }
