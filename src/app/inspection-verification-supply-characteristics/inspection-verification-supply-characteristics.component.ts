@@ -2571,7 +2571,7 @@ showHideAccordion(index: number) {
     if(event.target != undefined) {
       changedValue = event.target.value;
     }
-    else{
+    else{ 
       changedValue = event;
     }
 
@@ -2660,14 +2660,14 @@ showHideAccordion(index: number) {
         }
       }
       else {
-        if(!this.alternateArr.length == this.value){
+      //  if(!this.alternateArr.length == this.value){ removed from elango's yesterday commit by Aish
         for (this.i = 0; this.i < this.value; this.i++) {
           this.alternateArr.push(this.SupplyparametersForm());
           this.circuitArr.push(this.createCircuitForm());
         }
         this.sources = true;
         this.breaker = true;
-      }
+     // }
     }
     } 
     // else if (this.value == '') {
