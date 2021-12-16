@@ -128,7 +128,7 @@
                   [(ngModel)]="supplycharesteristic.liveConductorAC" 
                   [ngClass]="{ 'is-invalid': submitted && f.AcConductor.errors }" [disabled]="service.allFieldsDisable">
                    <option value="" selected>Select Option</option>  
-                    <option value="1-phase, 3-wire (LLM)" [selected]="f.AcConductor?.value=== AcValue">1-phase, 2-wire (LN)</option>
+                    <option value="1-phase, 2-wire (LLM)" [selected]="f.AcConductor?.value=== AcValue">1-phase, 2-wire (LN)</option>
                           <option value="1-phase, 3-wire (LLM)" [selected]="f.AcConductor?.value=== AcValue">1-phase, 3-wire (LLM)</option>
                           <option value="2-phase, 3-wire (LLN)" [selected]="f.AcConductor?.value=== AcValue">2-phase, 3-wire (LLN)</option>
                           <option value="3-phase, 3-wire (LLL)" [selected]="f.AcConductor?.value=== AcValue">3-phase, 3-wire (LLL)</option>
@@ -665,7 +665,7 @@
                         [tabindex]="service.allFieldsDisable ? -1 : 0" [disabled]="service.allFieldsDisable"
                         [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorAC')?.errors }">
                          <option value="" selected>Select Option</option>
-                          <option value="1-phase, 3-wire (LLM)">1-phase, 2-wire (LN)</option>
+                          <option value="1-phase, 2-wire (LLM)">1-phase, 2-wire (LN)</option>
                           <option value="1-phase, 3-wire (LLM)">1-phase, 3-wire (LLM)</option>
                           <option value="2-phase, 3-wire (LLN)">2-phase, 3-wire (LLN)</option>
                           <option value="3-phase, 3-wire (LLL)">3-phase, 3-wire (LLL)</option>
