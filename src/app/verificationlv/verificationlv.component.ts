@@ -339,8 +339,9 @@ export class VerificationlvComponent implements OnInit {
   }
 
   siteNameMethod(){
-    alert("Full Site Name:" + this.siteN);
-    //this.modalService.open(fullSite, { centered: true });
+    if(this.siteN.length > 15){
+      alert("Full Site Name:" + this.siteN);
+    }
   }
 
   deleteClient(clientname: String,clientdelete: any) {
