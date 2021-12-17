@@ -613,7 +613,7 @@ export class VerificationlvComponent implements OnInit {
     }
     else{
       // need to uncoment for testing update issue
-      //this.testing.updateMethod();
+      this.testing.updateMethod();
       this.callSummaryNgOnInit();
     }
     //this.service.addstep3 = next;

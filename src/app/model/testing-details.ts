@@ -23,8 +23,7 @@ export class Testing{
   companyName!: String;
   Impedance!: String;
   testingEquipment!:TestingEquipment[];
-  testDistribution!:TestDistribution[];
-  testingRecords!: TestingRecords[];
+  testDistRecords!: TestingDistRecords[];
   testingStatus!: String;
 }
 
@@ -37,6 +36,14 @@ export class TestingEquipment {
   equipmentSerialNo!: String;
   equipmentCalibrationDueDate!: String;
   testingEquipmentStatus: String;
+}
+
+export class TestingDistRecords {
+  testDistRecordId: number;
+  testingId: number;
+  testDistribution!:TestDistribution[];
+  testingRecords!: TestingRecords[];
+  testDistRecordStatus!: String;
 }
 
 export class TestDistribution {
