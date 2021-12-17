@@ -805,7 +805,7 @@
                               <label>Person Name:</label>
                               <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name" readonly
                               [ngClass]="{ 'is-invalid': submitted && a.get('personName')?.errors }"
-                              (focus)="designer2PersonFunction()" >
+                              (focus)="designer2PersonFunction()" [(ngModel)]="designer2PersonName">
                             <div *ngIf="designer2PersonNameMsg" class="invalid-feedback">
                              Please fill out the details in Liability and Declaration tab!
                             </div>

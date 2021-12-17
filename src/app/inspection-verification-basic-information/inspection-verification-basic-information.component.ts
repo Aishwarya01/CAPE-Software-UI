@@ -1954,16 +1954,16 @@ showHideAccordion(index: number) {
         }   
       }
       
-      this.reportDetails.signatorDetails = this.step1Form.getRawValue().designer1Arr;
+      this.reportDetails.signatorDetails = this.step1Form.value.designer1Arr;
       if(this.step1Form.value.designer2Arr[0].personName != "" && this.step1Form.value.designer2Arr[0].personName != null) {
         if(this.step1Form.value.designer2Arr[0].signatorId != null && this.step1Form.value.designer2Arr[0].signatorId != undefined) {
-          this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.getRawValue().designer2Arr);
+          this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.value.designer2Arr);
         }
         else {
           this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.value.designer2Arr);
         }
       }
-      this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.getRawValue().contractorArr,this.step1Form.getRawValue().inspectorArr);
+      this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.value.contractorArr,this.step1Form.value.inspectorArr);
     }
   
     if(flag){
