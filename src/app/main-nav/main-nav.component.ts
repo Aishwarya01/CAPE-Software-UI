@@ -194,7 +194,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
   showREP: boolean = false;
   currentUser: any = [];
   currentUser1: any = [];
- 
+  modalReference: any;
+
   mainApplications: any =   [{'name': 'Introduction', 'code': 'IN'},
                             {'name': 'TIC', 'code': 'TIC'},
                             {'name': 'RENT Meter', 'code': 'RM'},
@@ -607,7 +608,7 @@ triggerNavigateTo(siteName:any){
   this.service.allStepsCompleted=true;
   this.service.disableSubmitSummary=false;
   this.service.allFieldsDisable = false;
-
+  
   if (confirm("Are you sure you want to edit site details?"))
   {
     this.value= true;
@@ -710,6 +711,9 @@ emailPDF(siteId: any,userName: any){
   this.selectedRowIndexType = type;
   this.selectedRowIndexSub ="";
  }
+ 
+
+
   changePassword(email: String) {
     this.route.navigate(['changePassword', { email: email }])
   }
@@ -725,40 +729,85 @@ emailPDF(siteId: any,userName: any){
       }
     });
   }
+ 
+
   showLinkDescription(id: any) {
     this.welcome= false;
-    switch (id) {
-      case 'LV Systems':
-        this.viewContainerRef.clear();
-        const lvInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LvInspectionDetailsComponent);
-        const lvInspectionRef = this.viewContainerRef.createComponent(lvInspectionFactory);
-        lvInspectionRef.changeDetectorRef.detectChanges();
-        break;
-      case 'HV Systems':
-        this.viewContainerRef.clear();
-        break;
-      case 'Risk Assessment':
-        this.viewContainerRef.clear();
-        const riskAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(RiskAssessmentInspectionMaintenanceComponent);
-        const riskAssessmentInspectionRef = this.viewContainerRef.createComponent(riskAssessmentInspectionFactory);
-        riskAssessmentInspectionRef.changeDetectorRef.detectChanges();
-        break;
-      case 'EMC Assessment':
-        this.viewContainerRef.clear();
-        const emcAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(EmcAssessmentInstallationComponent);
-        const emcAssessmentInspectionRef = this.viewContainerRef.createComponent(emcAssessmentInspectionFactory);
-        emcAssessmentInspectionRef.changeDetectorRef.detectChanges();
-        break;
-      case 'LPS Systems':
-        this.viewContainerRef.clear();
-        const LpsInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LpsWelcomePageComponent);
-        const LpsInspectionRef = this.viewContainerRef.createComponent(LpsInspectionFactory);
-        LpsInspectionRef.changeDetectorRef.detectChanges();
-        break;
-      case 6:
-        this.viewContainerRef.clear();
-        break;
+    if((this.service.lvClick==1)){
+      if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To save the details, kindly fill all fields & click on next button!")){
+        this.service.lvClick=0;
+        switch (id) {
+          case 'LV Systems':
+            this.viewContainerRef.clear();
+            const lvInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LvInspectionDetailsComponent);
+            const lvInspectionRef = this.viewContainerRef.createComponent(lvInspectionFactory);
+            lvInspectionRef.changeDetectorRef.detectChanges();
+            break;
+          case 'HV Systems':
+            this.viewContainerRef.clear();
+            break;
+          case 'Risk Assessment':
+            this.viewContainerRef.clear();
+            const riskAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(RiskAssessmentInspectionMaintenanceComponent);
+            const riskAssessmentInspectionRef = this.viewContainerRef.createComponent(riskAssessmentInspectionFactory);
+            riskAssessmentInspectionRef.changeDetectorRef.detectChanges();
+            break;
+          case 'EMC Assessment':
+            this.viewContainerRef.clear();
+            const emcAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(EmcAssessmentInstallationComponent);
+            const emcAssessmentInspectionRef = this.viewContainerRef.createComponent(emcAssessmentInspectionFactory);
+            emcAssessmentInspectionRef.changeDetectorRef.detectChanges();
+            break;
+          case 'LPS Systems':
+            this.viewContainerRef.clear();
+            const LpsInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LpsWelcomePageComponent);
+            const LpsInspectionRef = this.viewContainerRef.createComponent(LpsInspectionFactory);
+            LpsInspectionRef.changeDetectorRef.detectChanges();
+            break;
+          case 6:
+            this.viewContainerRef.clear();
+            break;
+        }
+      }
+      else{
+        return;
+      }
+     }
+     else if(this.service.lvClick==0){
+      switch (id) {
+        case 'LV Systems':
+          this.viewContainerRef.clear();
+          const lvInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LvInspectionDetailsComponent);
+          const lvInspectionRef = this.viewContainerRef.createComponent(lvInspectionFactory);
+          lvInspectionRef.changeDetectorRef.detectChanges();
+          break;
+        case 'HV Systems':
+          this.viewContainerRef.clear();
+          break;
+        case 'Risk Assessment':
+          this.viewContainerRef.clear();
+          const riskAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(RiskAssessmentInspectionMaintenanceComponent);
+          const riskAssessmentInspectionRef = this.viewContainerRef.createComponent(riskAssessmentInspectionFactory);
+          riskAssessmentInspectionRef.changeDetectorRef.detectChanges();
+          break;
+        case 'EMC Assessment':
+          this.viewContainerRef.clear();
+          const emcAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(EmcAssessmentInstallationComponent);
+          const emcAssessmentInspectionRef = this.viewContainerRef.createComponent(emcAssessmentInspectionFactory);
+          emcAssessmentInspectionRef.changeDetectorRef.detectChanges();
+          break;
+        case 'LPS Systems':
+          this.viewContainerRef.clear();
+          const LpsInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LpsWelcomePageComponent);
+          const LpsInspectionRef = this.viewContainerRef.createComponent(LpsInspectionFactory);
+          LpsInspectionRef.changeDetectorRef.detectChanges();
+          break;
+        case 6:
+          this.viewContainerRef.clear();
+          break;
+      }
     }
+  
   }
 
   editApplicationType(id: any, type: String, code: String) {

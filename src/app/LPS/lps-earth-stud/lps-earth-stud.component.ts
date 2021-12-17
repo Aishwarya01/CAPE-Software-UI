@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GlobalsService } from 'src/app/globals.service';
 import { EarthStud } from 'src/app/LPS_model/earth-stud';
 import { EarthStudService } from 'src/app/LPS_services/earth-stud.service';
 import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.service';
@@ -50,7 +51,9 @@ export class LpsEarthStudComponent implements OnInit {
     private modalService: NgbModal, 
     private router: ActivatedRoute,
     private lpsMatstepper: LpsMatstepperComponent,
-    private welcome: LpsWelcomePageComponent
+    private welcome: LpsWelcomePageComponent,
+    public service: GlobalsService,
+
     ) { }
 
   ngOnInit(): void {
@@ -148,7 +151,24 @@ export class LpsEarthStudComponent implements OnInit {
   get f() {
     return this.EarthStudForm.controls;
   }
-
+  onChangeForm(event:any){
+    if(!this.EarthStudForm.invalid){
+      this.validationError=false;
+      this.service.lvClick=0;
+   }
+   else {
+    this.service.lvClick=1;
+   }
+  }
+  onKeyForm(event: KeyboardEvent) { 
+    if(!this.EarthStudForm.invalid){
+     this.validationError=false;
+     this.service.lvClick=0;
+   }
+   else {
+    this.service.lvClick=1;
+   }
+   }
   closeModalDialog() {
     if (this.errorMsg != '') {
       this.Error = false;

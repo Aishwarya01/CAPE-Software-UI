@@ -9,3 +9,10 @@ body { margin: 20px; font-family: Roboto, "Helvetica Neue", sans-serif; }
 ol.d {
     list-style-type: lower-alpha;
 }
+
+.auth-form-btn-continue{
+    margin-top: 15px;
+    width: 87px;
+    right: inherit;
+    margin: -1.85% 0%;
+}

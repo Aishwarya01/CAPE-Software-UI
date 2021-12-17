@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GlobalsService } from 'src/app/globals.service';
 import { EarthingLpsDescription } from 'src/app/LPS_model/earthing';
 import { LpsEarthing } from 'src/app/LPS_services/lps-earthing';
 import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
@@ -58,7 +59,9 @@ export class LpsEarthingComponent implements OnInit {
     private formBuilder: FormBuilder, 
     private lpsEarthings: LpsEarthing,
     private modalService: NgbModal, 
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+    public service: GlobalsService,
+
   ) {
     this.lpsEarthingService = lpsEarthings;
   }
@@ -583,6 +586,24 @@ export class LpsEarthingComponent implements OnInit {
   get f() {
     return this.earthingForm.controls;
   }
+  onChangeForm(event:any){
+    if(!this.earthingForm.invalid){
+      this.validationError=false;
+      this.service.lvClick=0;
+   }
+   else {
+    this.service.lvClick=1;
+   }
+  }
+  onKeyForm(event: KeyboardEvent) { 
+    if(!this.earthingForm.invalid){
+     this.validationError=false;
+     this.service.lvClick=0;
+   }
+   else {
+    this.service.lvClick=1;
+   }
+   }
  closeModalDialog() {
       if (this.errorMsg != '') {
         this.Error = false;

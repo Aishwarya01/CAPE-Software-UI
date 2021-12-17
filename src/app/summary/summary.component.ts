@@ -1007,12 +1007,20 @@ showHideAccordion(index: number) {
   onChangeForm(event:any){
     if(!this.addsummary.invalid){
       this.validationError=false;
-     }
+      this.service.lvClick=0;
+   }
+   else {
+    this.service.lvClick=1;
+   }
   }
   onKeyForm(event: KeyboardEvent) { 
     if(!this.addsummary.invalid){
      this.validationError=false;
-    }
+     this.service.lvClick=0;
+   }
+   else {
+    this.service.lvClick=1;
+   }
    }
   gotoNextModal() {
     if (this.addsummary.invalid) {
@@ -1087,7 +1095,7 @@ showHideAccordion(index: number) {
       // }, 3000);
       return;
     }
-    if(!confirm("Are you sure you want to procced?\r\nNote: Once saved, details can't be modified!")){
+    if(!confirm("Are you sure you want to procced?\r\n\r\nNote: Once saved, details can't be modified!")){
      return;
     }
   else{

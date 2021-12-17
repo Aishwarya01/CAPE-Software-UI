@@ -66,7 +66,7 @@ export class LpsAirTerminationComponent implements OnInit {
   clampPusharr: any = [];
   exPusharr: any = [];
   conPusharr: any = [];
-  isEditable:boolean;
+  isEditable:boolean=false;
   stepBack:any;
   lpsBasic: any;
    
@@ -75,7 +75,7 @@ export class LpsAirTerminationComponent implements OnInit {
     private airterminationServices:AirterminationService,
     private modalService: NgbModal,private router: ActivatedRoute,
     private matstepper: LpsMatstepperComponent,
-    
+    public service: GlobalsService,
 
   ) { 
     this.airterminationService=airterminationServices;
@@ -415,7 +415,24 @@ export class LpsAirTerminationComponent implements OnInit {
         inspectionFailedRe: new FormControl({disabled: false, value: item.inspectionFailedRe})      
       });
     }
-
+    onChangeForm(event:any){
+      if(!this.airTerminationForm.invalid){
+        this.validationError=false;
+        this.service.lvClick=0;
+     }
+     else {
+      this.service.lvClick=1;
+     }
+    }
+    onKeyForm(event: KeyboardEvent) { 
+      if(!this.airTerminationForm.invalid){
+       this.validationError=false;
+       this.service.lvClick=0;
+     }
+     else {
+      this.service.lvClick=1;
+     }
+     }
   gotoNextModal(content: any,contents:any) {
     
      if (this.airTerminationForm.invalid) {

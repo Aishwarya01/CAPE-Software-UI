@@ -1,6 +1,6 @@
-<div class="card-body">
+<div class="card">
     <div class="card-body">
-        <form [formGroup]="spdForm" (ngSubmit)="onSubmit(flag)">
+        <form [formGroup]="spdForm" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
             <mat-accordion>
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Basic Details</mat-expansion-panel-header>

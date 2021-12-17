@@ -570,9 +570,9 @@ input::-webkit-inner-spin-button {
   height: 0;
   margin: 7px -92px 0 142px;
   min-width: 32px;
-  position: fixed;
+  position: static;
   width: 213px;
 }
-.mat-tab-header {
+.globalSite .mat-tab-header {
   width: 90% !important;
 }

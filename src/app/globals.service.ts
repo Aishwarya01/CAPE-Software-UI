@@ -66,6 +66,7 @@ jointType: any;
 noOfjoint: any; 
 msgForStep1:boolean=false;
 msgForStep1Flag:boolean=false;
+lvClick: number=0;  
 // clientList: any = [];
 // reportDetails =new Reportdetails;
 

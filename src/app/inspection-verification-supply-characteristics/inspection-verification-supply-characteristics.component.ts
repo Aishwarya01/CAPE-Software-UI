@@ -2844,13 +2844,21 @@ showHideAccordion(index: number) {
   onChangeForm(event:any){
     if(!this.supplycharesteristicForm.invalid){
       this.validationError=false;
-     }
+      this.service.lvClick=0;
+   }
+   else {
+    this.service.lvClick=1;
+   }
   }
   onKeyForm(event: KeyboardEvent) { 
     if(!this.supplycharesteristicForm.invalid){
      this.validationError=false;
-    }
+    this.service.lvClick=0;
    }
+   else {
+    this.service.lvClick=1;
+   }   
+  }
   gotoNextModal(content1: any,content2:any) {
     if (this.supplycharesteristicForm.invalid) {
       this.validationError = true;

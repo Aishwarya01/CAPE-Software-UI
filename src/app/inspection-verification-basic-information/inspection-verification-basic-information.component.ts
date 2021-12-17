@@ -1609,15 +1609,20 @@ showHideAccordion(index: number) {
   onChangeForm(event:any){
     if(!this.step1Form.invalid){
       this.validationError=false;
-     }
+      this.service.lvClick=0;
+    }
+    else {
+     this.service.lvClick=1;
+    }  
   }
   onKeyForm(event: KeyboardEvent) { 
    if(!this.step1Form.invalid){
     this.validationError=false;
+    this.service.lvClick=0;
    }
-  //  else if(!this.step1Form.dirty && !this.step1Form.touched){
-  //   this.tabError = false;
-  //  }
+   else {
+    this.service.lvClick=1;
+   }
   }
 
 //modal popup

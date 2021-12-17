@@ -1788,13 +1788,21 @@ callValue(e: any) {
   onChangeForm(event:any){
     if(!this.testingForm.invalid){
       this.validationError=false;
-     }
+      this.service.lvClick=0;
+   }
+   else {
+    this.service.lvClick=1;
+   }
   }
   onKeyForm(event: KeyboardEvent) { 
     if(!this.testingForm.invalid){
      this.validationError=false;
-    }
+     this.service.lvClick=0;
    }
+   else {
+    this.service.lvClick=1;
+   }   
+  }
   // Dynamically iterate some fields
   onKey(event: KeyboardEvent, c: any, a: any) {
     this.values = (<HTMLInputElement>event.target).value;

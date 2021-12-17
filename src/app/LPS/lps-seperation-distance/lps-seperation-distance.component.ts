@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GlobalsService } from 'src/app/globals.service';
 import { Separatedistance } from 'src/app/LPS_model/separatedistance';
 import { SeparatedistanceService } from 'src/app/LPS_services/separatedistance.service';
 
@@ -51,7 +52,9 @@ export class LpsSeperationDistanceComponent implements OnInit {
 
     private formBuilder: FormBuilder,
     private separatedistanceService: SeparatedistanceService,
-    private modalService: NgbModal, private router: ActivatedRoute
+    private modalService: NgbModal, private router: ActivatedRoute,
+    public service: GlobalsService,
+
   ) {
   }
 
@@ -160,7 +163,24 @@ export class LpsSeperationDistanceComponent implements OnInit {
     this.separateDistanceDescriptionArr.push(this.separateDistanceArrForm());
 
   }
-
+  onChangeForm(event:any){
+    if(!this.separeteDistanceForm.invalid){
+      this.validationError=false;
+      this.service.lvClick=0;
+   }
+   else {
+    this.service.lvClick=1;
+   }
+  }
+  onKeyForm(event: KeyboardEvent) { 
+    if(!this.separeteDistanceForm.invalid){
+     this.validationError=false;
+     this.service.lvClick=0;
+   }
+   else {
+    this.service.lvClick=1;
+   }
+   }
 
   closeModalDialog() {
     if (this.errorMsg != '') {

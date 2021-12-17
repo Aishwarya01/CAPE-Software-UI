@@ -1135,13 +1135,21 @@ showHideAccordion(index: number) {
   onChangeForm(event:any){
     if(!this.addstep3.invalid){
       this.validationError=false;
-     }
+      this.service.lvClick=0;
+    }
+    else {
+     this.service.lvClick=1;
+    }
   }
   onKeyForm(event: KeyboardEvent) { 
     if(!this.addstep3.invalid){
      this.validationError=false;
+     this.service.lvClick=0;
     }
-   }
+    else {
+     this.service.lvClick=1;
+    }   
+  }
    reloadFromBack(){
     if(this.addstep3.invalid){
      this.service.isCompleted3= false;
