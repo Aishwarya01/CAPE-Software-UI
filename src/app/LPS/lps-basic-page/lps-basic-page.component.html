@@ -1,6 +1,6 @@
 <div class="card">
 <div class="card-body">
-    <form [formGroup]="LPSBasicForm" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
+    <form [formGroup]="LPSBasicForm" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)" (window:beforeunload)="doBeforeUnload()">
             <div class="row" style="font-weight: bold;">
                 <label for="Basicdetails" style="font-weight: bold;margin: 10px;
                 font-size: 16px;">Basic Details</label>

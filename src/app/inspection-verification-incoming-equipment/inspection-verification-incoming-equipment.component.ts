@@ -209,6 +209,8 @@ export class InspectionVerificationIncomingEquipmentComponent
     // if(this.service.disableFields==true){
     //   this.addstep3.disable();
     //  }
+    this.service.lvClick=1;
+
         this.step3List = JSON.parse(data);
         this.inspectionDetails.siteId = siteId;
         this.deletedArr = [];
@@ -1134,22 +1136,40 @@ showHideAccordion(index: number) {
   }
   onChangeForm(event:any){
     if(!this.addstep3.invalid){
-      this.validationError=false;
-      this.service.lvClick=0;
-    }
+      if(this.addstep3.dirty){
+        this.service.lvClick=1;
+        this.service.logoutClick=1;
+         this.service.windowTabClick=1;
+      }
+      else{
+        this.validationError=false;
+        this.service.lvClick=0;
+        this.service.logoutClick=0;
+      }
+     }
     else {
      this.service.lvClick=1;
-    }
+     this.service.logoutClick=1;
+    }  
   }
   onKeyForm(event: KeyboardEvent) { 
-    if(!this.addstep3.invalid){
-     this.validationError=false;
-     this.service.lvClick=0;
+   if(!this.addstep3.invalid){ 
+    if(this.addstep3.dirty){
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
     }
-    else {
-     this.service.lvClick=1;
-    }   
-  }
+    else{
+      this.validationError=false;
+      this.service.lvClick=0;
+      this.service.logoutClick=0;
+    }
+   }
+   else {
+    this.service.lvClick=1;
+    this.service.logoutClick=1;
+   }
+  } 
    reloadFromBack(){
     if(this.addstep3.invalid){
      this.service.isCompleted3= false;

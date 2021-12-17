@@ -1,5 +1,5 @@
 import { SignatorDetails } from './../model/reportdetails';
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup,Validators,ValidatorFn } from '@angular/forms';
 import {​​​ NgbModal }​​​ from'@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
@@ -29,6 +29,7 @@ import { VerificationlvComponent } from '../verificationlv/verificationlv.compon
   styleUrls: ['./inspection-verification-basic-information.component.css']
 })
 export class InspectionVerificationBasicInformationComponent implements OnInit,OnDestroy {
+ 
 //e-siganture in progress
   // signatureImg: string="";
   // @ViewChild(SignaturePad) signaturePad!: SignaturePad;
@@ -205,6 +206,7 @@ ShowNext: boolean = true;
   ContractorPersonNameMsg: boolean = false;
   ContractorPersonName: string="";
   deletedArr: any = [];
+ 
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -381,6 +383,7 @@ ShowNext: boolean = true;
  
   // saved report
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
+      this.service.lvClick=1;
        this.service.siteCount = siteId;
        this.savedUserName = userName;
        this.deletedArr = [];
@@ -1608,23 +1611,56 @@ showHideAccordion(index: number) {
   }
   onChangeForm(event:any){
     if(!this.step1Form.invalid){
-      this.validationError=false;
-      this.service.lvClick=0;
-    }
+      if(this.step1Form.dirty){
+        this.service.lvClick=1;
+        this.service.logoutClick=1;
+         this.service.windowTabClick=1;
+      }
+      else{
+        this.validationError=false;
+        this.service.lvClick=0;
+        this.service.logoutClick=0;
+      }
+     }
     else {
      this.service.lvClick=1;
+     this.service.logoutClick=1;
     }  
   }
   onKeyForm(event: KeyboardEvent) { 
-   if(!this.step1Form.invalid){
-    this.validationError=false;
-    this.service.lvClick=0;
+   if(!this.step1Form.invalid){ 
+    if(this.step1Form.dirty){
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+    }
+    else{
+      this.validationError=false;
+      this.service.lvClick=0;
+      this.service.logoutClick=0;
+    }
    }
    else {
     this.service.lvClick=1;
+    this.service.logoutClick=1;
    }
-  }
-
+  } 
+  
+  doBeforeUnload() {
+  // if(this.step1Form.dirty){
+    if(this.service.logoutClick==1 && this.service.windowTabClick==0) {
+      return true;
+     }
+     else{
+      window.location.reload(); 
+      // Alert the user window is closing 
+      return false;
+     }
+   //}
+    // else{
+    //   return true;
+    // }
+}
 //modal popup
   gotoNextModal(content1: any,content2:any) {
       if(this.step1Form.invalid) {

@@ -77,6 +77,8 @@ export class LpsSpdComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
+    this.service.lvClick=1;
+
       this.step5List = data.spddesc;
       this.spd.basicLpsId = basicLpsId;
       this.spd.spdId = this.step5List.spdId
@@ -117,6 +119,8 @@ export class LpsSpdComponent implements OnInit {
     }
 
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
+      this.service.lvClick=1;
+
       this.step5List = JSON.parse(data);
       this.spd.basicLpsId = basicLpsId;
       this.spd.spdId = this.step5List[0].spdId
@@ -319,22 +323,40 @@ export class LpsSpdComponent implements OnInit {
       }
       onChangeForm(event:any){
         if(!this.spdForm.invalid){
-          this.validationError=false;
-          this.service.lvClick=0;
-       }
-       else {
-        this.service.lvClick=1;
-       }
+          if(this.spdForm.dirty){
+            this.service.lvClick=1;
+            this.service.logoutClick=1;
+            this.service.windowTabClick=1;
+          }
+          else{
+            this.validationError=false;
+            this.service.lvClick=0;
+            this.service.logoutClick=0;
+          }
+         }
+        else {
+         this.service.lvClick=1;
+         this.service.logoutClick=1;
+        }  
       }
       onKeyForm(event: KeyboardEvent) { 
-        if(!this.spdForm.invalid){
-         this.validationError=false;
-         this.service.lvClick=0;
+       if(!this.spdForm.invalid){ 
+        if(this.spdForm.dirty){
+          this.service.lvClick=1;
+          this.service.logoutClick=1;
+          this.service.windowTabClick=1;
+        }
+        else{
+          this.validationError=false;
+          this.service.lvClick=0;
+          this.service.logoutClick=0;
+        }
        }
        else {
         this.service.lvClick=1;
+        this.service.logoutClick=1;
        }
-       }
+      } 
       closeModalDialog() {
         if (this.errorMsg != '') {
           this.Error = false;

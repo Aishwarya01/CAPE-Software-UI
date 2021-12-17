@@ -33,7 +33,7 @@ import { Register } from '../model/register';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
-
+import { InspectionVerificationBasicInformationComponent } from '../inspection-verification-basic-information/inspection-verification-basic-information.component';
 import { SavedreportsComponent } from '../savedreports/savedreports.component';
 import { LpsMatstepperComponent } from '../LPS/lps-matstepper/lps-matstepper.component';
 import { LpsWelcomePageComponent } from '../LPS/lps-welcome-page/lps-welcome-page.component';
@@ -150,6 +150,9 @@ export class MainNavComponent implements OnInit, OnDestroy {
   @ViewChild('verify')
   verification: any; 
   
+  @ViewChild(InspectionVerificationBasicInformationComponent)
+  basic!: InspectionVerificationBasicInformationComponent;
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -574,13 +577,27 @@ triggerNavigateTo(siteName:any){
       }
     );
   }
-
+ 
   logout() {
-    this.loginservice.logout();
-    this.route.navigate(['login']);
-    window.location.reload();
+    if((this.service.logoutClick==1)){
+      if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
+        this.loginservice.logout();
+        this.service.windowTabClick=0;
+        this.route.navigate(['login']);
+        window.location.reload();
+        this.service.logoutClick=0;  
+    }
+    else{
+      return;
+    }
   }
-
+    else if(this.service.logoutClick==0){
+      this.loginservice.logout();
+      this.route.navigate(['login']);
+      window.location.reload();
+    }
+  }
+ 
   displayUserFullName(email: String) {
     this.inspectorService.retrieveInspector(email).subscribe(
       data => {

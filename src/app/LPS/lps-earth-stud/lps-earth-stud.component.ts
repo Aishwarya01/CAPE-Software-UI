@@ -72,6 +72,8 @@ export class LpsEarthStudComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
+    this.service.lvClick=1;
+
       this.step7List = data.earthStudDescription;
       this.earthStud.basicLpsId = basicLpsId;
       this.earthStud.earthStudDescId = this.step7List.earthStudDescId;
@@ -153,22 +155,40 @@ export class LpsEarthStudComponent implements OnInit {
   }
   onChangeForm(event:any){
     if(!this.EarthStudForm.invalid){
-      this.validationError=false;
-      this.service.lvClick=0;
-   }
-   else {
-    this.service.lvClick=1;
-   }
+      if(this.EarthStudForm.dirty){
+        this.service.lvClick=1;
+        this.service.logoutClick=1;
+        this.service.windowTabClick=1;
+      }
+      else{
+        this.validationError=false;
+        this.service.lvClick=0;
+        this.service.logoutClick=0;
+      }
+     }
+    else {
+     this.service.lvClick=1;
+     this.service.logoutClick=1;
+    }  
   }
   onKeyForm(event: KeyboardEvent) { 
-    if(!this.EarthStudForm.invalid){
-     this.validationError=false;
-     this.service.lvClick=0;
+   if(!this.EarthStudForm.invalid){ 
+    if(this.EarthStudForm.dirty){
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+    }
+    else{
+      this.validationError=false;
+      this.service.lvClick=0;
+      this.service.logoutClick=0;
+    }
    }
    else {
     this.service.lvClick=1;
+    this.service.logoutClick=1;
    }
-   }
+  } 
   closeModalDialog() {
     if (this.errorMsg != '') {
       this.Error = false;

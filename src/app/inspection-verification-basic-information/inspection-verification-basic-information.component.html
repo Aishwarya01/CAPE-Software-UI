@@ -9,7 +9,7 @@
 </div>
 <div class="card">
     <div class="card-body">
-      <form [formGroup]="step1Form" (ngSubmit)="nextTab(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
+      <form [formGroup]="step1Form" (ngSubmit)="nextTab(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)" (window:beforeunload)="doBeforeUnload()">
       <div class="search-bar">
         <div class="form-group" *ngIf="siteDetails" [ngClass]="{'disableForm':service.allFieldsDisable}">
           <div class="row">

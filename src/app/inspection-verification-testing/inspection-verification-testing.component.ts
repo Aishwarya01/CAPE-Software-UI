@@ -598,6 +598,8 @@ callValue(e: any) {
     }    
   }
   retrieveDetailsfromSavedReports(userName: any, siteId: any, clientName: any, departmentName: any, site: any, data: any) {
+    this.service.lvClick=1;
+
     this.testingRetrieve = true;
     this.inspectionRetrieve = false;
     this.testList = JSON.parse(data);
@@ -1858,22 +1860,40 @@ callValue(e: any) {
   }
   onChangeForm(event:any){
     if(!this.testingForm.invalid){
-      this.validationError=false;
-      this.service.lvClick=0;
-   }
-   else {
-    this.service.lvClick=1;
-   }
+      if(this.testingForm.dirty){
+        this.service.lvClick=1;
+        this.service.logoutClick=1;
+         this.service.windowTabClick=1;
+      }
+      else{
+        this.validationError=false;
+        this.service.lvClick=0;
+        this.service.logoutClick=0;
+      }
+     }
+    else {
+     this.service.lvClick=1;
+     this.service.logoutClick=1;
+    }  
   }
   onKeyForm(event: KeyboardEvent) { 
-    if(!this.testingForm.invalid){
-     this.validationError=false;
-     this.service.lvClick=0;
+   if(!this.testingForm.invalid){ 
+    if(this.testingForm.dirty){
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+    }
+    else{
+      this.validationError=false;
+      this.service.lvClick=0;
+      this.service.logoutClick=0;
+    }
    }
    else {
     this.service.lvClick=1;
-   }   
-  }
+    this.service.logoutClick=1;
+   }
+  } 
   // Dynamically iterate some fields
   onKey(event: KeyboardEvent, c: any, a: any) {
     this.values = (<HTMLInputElement>event.target).value;

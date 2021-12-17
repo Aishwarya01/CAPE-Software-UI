@@ -483,6 +483,8 @@ export class InspectionVerificationSupplyCharacteristicsComponent
     // if(this.service.disableFields==true){
     //   this.supplycharesteristicForm.disable();
     //  }
+    this.service.lvClick=1;
+
        this.step2List = JSON.parse(data);
        this.supplycharesteristic.siteId = siteId;
        this.supplycharesteristic.supplyCharacteristicsId = this.step2List.supplyCharacteristics.supplyCharacteristicsId;
@@ -2843,22 +2845,40 @@ showHideAccordion(index: number) {
   }
   onChangeForm(event:any){
     if(!this.supplycharesteristicForm.invalid){
-      this.validationError=false;
-      this.service.lvClick=0;
-   }
-   else {
-    this.service.lvClick=1;
-   }
+      if(this.supplycharesteristicForm.dirty){
+        this.service.lvClick=1;
+        this.service.logoutClick=1;
+         this.service.windowTabClick=1;
+      }
+      else{
+        this.validationError=false;
+        this.service.lvClick=0;
+        this.service.logoutClick=0;
+      }
+     }
+    else {
+     this.service.lvClick=1;
+     this.service.logoutClick=1;
+    }  
   }
   onKeyForm(event: KeyboardEvent) { 
-    if(!this.supplycharesteristicForm.invalid){
-     this.validationError=false;
-    this.service.lvClick=0;
+   if(!this.supplycharesteristicForm.invalid){ 
+    if(this.supplycharesteristicForm.dirty){
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+    }
+    else{
+      this.validationError=false;
+      this.service.lvClick=0;
+      this.service.logoutClick=0;
+    }
    }
    else {
     this.service.lvClick=1;
-   }   
-  }
+    this.service.logoutClick=1;
+   }
+  } 
   gotoNextModal(content1: any,content2:any) {
     if (this.supplycharesteristicForm.invalid) {
       this.validationError = true;

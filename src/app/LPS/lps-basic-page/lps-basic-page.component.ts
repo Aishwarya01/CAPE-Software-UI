@@ -84,6 +84,8 @@ export class LpsBasicPageComponent implements OnInit {
     }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
+    this.service.lvClick=1;
+
      this.step1List = data.basicLps;
     //  if(this.step1List.clientName != null){
       this.success = true;
@@ -119,7 +121,8 @@ export class LpsBasicPageComponent implements OnInit {
     }
 
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
-      
+      this.service.lvClick=1;
+
        this.stepBack=JSON.parse(data);
        this.basicDetails.basicLpsId = basicLpsId;
        this.basicDetails.clientName = this.stepBack[0].clientName;
@@ -178,22 +181,55 @@ export class LpsBasicPageComponent implements OnInit {
   }
   onChangeForm(event:any){
     if(!this.LPSBasicForm.invalid){
-      this.validationError=false;
-      this.service.lvClick=0;
-   }
-   else {
-    this.service.lvClick=1;
-   }
+      if(this.LPSBasicForm.dirty){
+        this.service.lvClick=1;
+        this.service.logoutClick=1;
+        this.service.windowTabClick=1;
+      }
+      else{
+        this.validationError=false;
+        this.service.lvClick=0;
+        this.service.logoutClick=0;
+      }
+     }
+    else {
+     this.service.lvClick=1;
+     this.service.logoutClick=1;
+    }  
   }
   onKeyForm(event: KeyboardEvent) { 
-    if(!this.LPSBasicForm.invalid){
-     this.validationError=false;
-     this.service.lvClick=0;
+   if(!this.LPSBasicForm.invalid){ 
+    if(this.LPSBasicForm.dirty){
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+    }
+    else{
+      this.validationError=false;
+      this.service.lvClick=0;
+      this.service.logoutClick=0;
+    }
    }
    else {
     this.service.lvClick=1;
+    this.service.logoutClick=1;
    }
-   }
+  } 
+  doBeforeUnload() {
+    // if(this.step1Form.dirty){
+      if(this.service.logoutClick==1 && this.service.windowTabClick==0) {
+        return true;
+       }
+       else{
+        window.location.reload(); 
+        // Alert the user window is closing 
+        return false;
+       }
+     //}
+      // else{
+      //   return true;
+      // }
+  }
   closeModalDialog() {
     
     if (this.errorMsg != '') {

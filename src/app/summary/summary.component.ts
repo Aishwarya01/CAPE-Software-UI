@@ -1006,22 +1006,39 @@ showHideAccordion(index: number) {
   }
   onChangeForm(event:any){
     if(!this.addsummary.invalid){
-      this.validationError=false;
-      this.service.lvClick=0;
-   }
-   else {
-    this.service.lvClick=1;
-   }
+      if(this.addsummary.dirty){
+        this.service.lvClick=1;
+        this.service.logoutClick=1;
+      }
+      else{
+        this.validationError=false;
+        this.service.lvClick=0;
+        this.service.logoutClick=0;
+      }
+     }
+    else {
+     this.service.lvClick=1;
+     this.service.logoutClick=1;
+    }  
   }
   onKeyForm(event: KeyboardEvent) { 
-    if(!this.addsummary.invalid){
-     this.validationError=false;
-     this.service.lvClick=0;
+   if(!this.addsummary.invalid){ 
+    if(this.addsummary.dirty){
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+    }
+    else{
+      this.validationError=false;
+      this.service.lvClick=0;
+      this.service.logoutClick=0;
+    }
    }
    else {
     this.service.lvClick=1;
+    this.service.logoutClick=1;
    }
-   }
+  } 
   gotoNextModal() {
     if (this.addsummary.invalid) {
       this.validationError = true;

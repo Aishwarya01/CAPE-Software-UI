@@ -97,6 +97,8 @@ export class LpsEarthingComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
+    this.service.lvClick=1;
+
       this.step4List = data.earthingLpsDescription;
       this.earthingLpsDescription.basicLpsId = basicLpsId;
       this.earthingLpsDescription.earthingId = this.step4List.earthingId;
@@ -142,6 +144,8 @@ export class LpsEarthingComponent implements OnInit {
     }
 
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
+      this.service.lvClick=1;
+
       this.step4List = JSON.parse(data);
       this.earthingLpsDescription.basicLpsId = basicLpsId;
       this.earthingLpsDescription.earthingId = this.step4List[0].earthingId;
@@ -586,24 +590,42 @@ export class LpsEarthingComponent implements OnInit {
   get f() {
     return this.earthingForm.controls;
   }
-  onChangeForm(event:any){
+ onChangeForm(event:any){
     if(!this.earthingForm.invalid){
-      this.validationError=false;
-      this.service.lvClick=0;
-   }
-   else {
-    this.service.lvClick=1;
-   }
+      if(this.earthingForm.dirty){
+        this.service.lvClick=1;
+        this.service.logoutClick=1;
+        this.service.windowTabClick=1;
+      }
+      else{
+        this.validationError=false;
+        this.service.lvClick=0;
+        this.service.logoutClick=0;
+      }
+     }
+    else {
+     this.service.lvClick=1;
+     this.service.logoutClick=1;
+    }  
   }
   onKeyForm(event: KeyboardEvent) { 
-    if(!this.earthingForm.invalid){
-     this.validationError=false;
-     this.service.lvClick=0;
+   if(!this.earthingForm.invalid){ 
+    if(this.earthingForm.dirty){
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+    }
+    else{
+      this.validationError=false;
+      this.service.lvClick=0;
+      this.service.logoutClick=0;
+    }
    }
    else {
     this.service.lvClick=1;
+    this.service.logoutClick=1;
    }
-   }
+  } 
  closeModalDialog() {
       if (this.errorMsg != '') {
         this.Error = false;

@@ -94,6 +94,8 @@ export class LpsSeperationDistanceComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
+    this.service.lvClick=1;
+
       this.step6List = data.seperationDistanceDesc;
       this.separatedistance.basicLpsId = basicLpsId;   
       this.separatedistance.seperationDistanceId = this.step6List.seperationDistanceId  
@@ -115,6 +117,8 @@ export class LpsSeperationDistanceComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
+    this.service.lvClick=1;
+
     this.step6List = JSON.parse(data);
     this.separatedistance.basicLpsId = basicLpsId;   
     this.separatedistance.seperationDistanceId = this.step6List[0].seperationDistanceId  
@@ -165,22 +169,40 @@ export class LpsSeperationDistanceComponent implements OnInit {
   }
   onChangeForm(event:any){
     if(!this.separeteDistanceForm.invalid){
-      this.validationError=false;
-      this.service.lvClick=0;
-   }
-   else {
-    this.service.lvClick=1;
-   }
+      if(this.separeteDistanceForm.dirty){
+        this.service.lvClick=1;
+        this.service.logoutClick=1;
+        this.service.windowTabClick=1;
+      }
+      else{
+        this.validationError=false;
+        this.service.lvClick=0;
+        this.service.logoutClick=0;
+      }
+     }
+    else {
+     this.service.lvClick=1;
+     this.service.logoutClick=1;
+    }  
   }
   onKeyForm(event: KeyboardEvent) { 
-    if(!this.separeteDistanceForm.invalid){
-     this.validationError=false;
-     this.service.lvClick=0;
+   if(!this.separeteDistanceForm.invalid){ 
+    if(this.separeteDistanceForm.dirty){
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+    }
+    else{
+      this.validationError=false;
+      this.service.lvClick=0;
+      this.service.logoutClick=0;
+    }
    }
    else {
     this.service.lvClick=1;
+    this.service.logoutClick=1;
    }
-   }
+  } 
 
   closeModalDialog() {
     if (this.errorMsg != '') {

@@ -116,7 +116,8 @@ export class LpsAirTerminationComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
-    
+    this.service.lvClick=1;
+
       this.step2List = data.lpsAirDiscription;
       this.airtermination.basicLpsId = basicLpsId;
       this.airtermination.lpsAirDescId = this.step2List.lpsAirDescId;
@@ -140,7 +141,8 @@ export class LpsAirTerminationComponent implements OnInit {
     }
 
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
-       
+      this.service.lvClick=1;
+
         this.step2List=JSON.parse(data);
         this.airtermination.basicLpsId = basicLpsId;
         this.airtermination.lpsAirDescId = this.step2List[0].lpsAirDescId;
@@ -417,22 +419,40 @@ export class LpsAirTerminationComponent implements OnInit {
     }
     onChangeForm(event:any){
       if(!this.airTerminationForm.invalid){
-        this.validationError=false;
-        this.service.lvClick=0;
-     }
-     else {
-      this.service.lvClick=1;
-     }
+        if(this.airTerminationForm.dirty){
+          this.service.lvClick=1;
+          this.service.logoutClick=1;
+          this.service.windowTabClick=1;
+        }
+        else{
+          this.validationError=false;
+          this.service.lvClick=0;
+          this.service.logoutClick=0;
+        }
+       }
+      else {
+       this.service.lvClick=1;
+       this.service.logoutClick=1;
+      }  
     }
     onKeyForm(event: KeyboardEvent) { 
-      if(!this.airTerminationForm.invalid){
-       this.validationError=false;
-       this.service.lvClick=0;
+     if(!this.airTerminationForm.invalid){ 
+      if(this.airTerminationForm.dirty){
+        this.service.lvClick=1;
+        this.service.logoutClick=1;
+        this.service.windowTabClick=1;
+      }
+      else{
+        this.validationError=false;
+        this.service.lvClick=0;
+        this.service.logoutClick=0;
+      }
      }
      else {
       this.service.lvClick=1;
+      this.service.logoutClick=1;
      }
-     }
+    } 
   gotoNextModal(content: any,contents:any) {
     
      if (this.airTerminationForm.invalid) {
