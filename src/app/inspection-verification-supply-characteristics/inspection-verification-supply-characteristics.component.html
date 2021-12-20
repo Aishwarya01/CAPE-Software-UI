@@ -1117,7 +1117,7 @@
                               <div *ngIf="submitted && a.get('electrodeResistanceEarth')?.errors" class="invalid-feedback">
                                 <div *ngIf="a.get('electrodeResistanceEarth')?.errors?.required">Field Is Required</div>
                               </div></td>
-                            <td><input type="tel" min="0" formControlName="electrodeResistanceGird" class="form-control" [readonly]="service.allFieldsDisable"
+                            <td><input type="number" min="0" formControlName="electrodeResistanceGird" class="form-control" [readonly]="service.allFieldsDisable"
                               [ngClass]="{ 'is-invalid': submitted && a.get('electrodeResistanceGird')?.errors }" [value]="a.get('electrodeResistanceGird')?.value"
                               placeholder="Enter electrode resistance">
                               <div *ngIf="submitted && a.get('electrodeResistanceGird')?.errors" class="invalid-feedback">
