@@ -832,7 +832,7 @@
             <label>Distribution Board Details </label>
             <input type="text" formControlName="distributionBoardDetails"  
             (keyup)="ChangeBoardDetails($event,a,i)"
-            placeholder=" Enter Distribution board details"  class="form-control" 
+            placeholder="Enter Distribution board details"  class="form-control" 
             [ngClass]="{ 'is-invalid': submitted && b.get('distributionBoardDetails')?.errors }" [readonly]="service.allFieldsDisable" >
             <div *ngIf="submitted && b.get('distributionBoardDetails')?.errors" class="invalid-feedback">
               <div *ngIf="b.get('distributionBoardDetails')?.errors?.required">Distribution board details  value is required</div>
@@ -841,7 +841,7 @@
 
         <div class="col-md-4">
             <label>Distribution board name</label>
-            <input type="text" formControlName="referance" placeholder=" Enter Reference Name" 
+            <input type="text" formControlName="referance" placeholder="Enter Distribution board name" 
             (keyup)="ChangeBoardName($event,a,i)"
             class="form-control"[ngClass]="{ 'is-invalid': submitted && b.get('referance')?.errors }" [readonly]="service.allFieldsDisable" >
             <div *ngIf="submitted && b.get('referance')?.errors" class="invalid-feedback">
@@ -1342,7 +1342,7 @@
                 <label>Distribution Board Details </label>
                 <input type="text" formControlName="distributionBoardDetails"  
                 readonly
-                placeholder=" Enter Distribution board details"  class="form-control" 
+                placeholder="Enter Distribution board details"  class="form-control" 
                 [ngClass]="{ 'is-invalid': submitted && c.get('distributionBoardDetails')?.errors }" >
                 <div *ngIf="submitted && c.get('distributionBoardDetails')?.errors" class="invalid-feedback">
                   <div *ngIf="c.get('distributionBoardDetails')?.errors?.required">Distribution board details  value is required</div>
