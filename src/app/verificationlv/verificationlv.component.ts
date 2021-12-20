@@ -226,6 +226,7 @@ export class VerificationlvComponent implements OnInit {
   validationError: boolean=false;
   validationErrorMsg: string="";
   disableTab: boolean=false;
+  noDetailsFlag: any = false;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -713,105 +714,139 @@ export class VerificationlvComponent implements OnInit {
     )
   }
 //for ongoing & completed
-  changeTab(index: number, sitedId: any, userName: any, companyName: any, departmentName: any, site: any): void {
-    // this.selectedIndex=1;
-    this.siteService.retrieveFinal(userName,sitedId).subscribe(
-      data=> {
-        //this.selectedIndex = index;
-        this.dataJSON = JSON.parse(data);
-        if(this.dataJSON.reportDetails != null) {
-          this.siteN=site;
-          this.selectedIndex = index;
-          this.retreiveFromObservationSupply(sitedId,'Supply-Component',userName);
-          this.retreiveFromObservationInspection(sitedId,'Inspection-Component',userName);
-          this.retreiveFromObservationTesting(sitedId,'Testing-Component',userName);
-          this.service.msgForStep1Flag=false;
-          this.basic.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
-           if(this.dataJSON.supplyCharacteristics != null) {
-             this.supply.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
-             this.summary.retrieveFromOngoingForObservation(sitedId);
-             //commented by Arun on 04/12/2021
-             //this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
-             if(this.dataJSON.periodicInspection != null) {
-               this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
-               this.summary.retrieveFromOngoingForObservation(sitedId);
-               this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
-               this.summary.retrieveFromOngoingForObservation(sitedId);
-              //  if(this.dataJSON.testingReport != null) {
-              //    this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
-                 if(this.dataJSON.summary != null) {
-                   this.summary.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
-                 }
-             }
-           }
-           if(this.service.commentScrollToBottom==1){
-            this.service.triggerScrollTo();
-          }
-          this.service.commentScrollToBottom=0;
-          }   
-        else{
-          this.siteN=site;
-          this.noDetails=true;
-          this.service.msgForStep1Flag=true;
-          this.retrieveSite(companyName,departmentName,site);
-          setTimeout(() => {
-            this.noDetails=false;
-            this.selectedIndex=0;
-          }, 3000);
-        }   
-      },
-      error=> {
+changeTab(index: number, sitedId: any, userName: any, companyName: any, departmentName: any, site: any): void {
+  // this.selectedIndex=1;
+  this.siteService.retrieveFinal(userName,sitedId).subscribe(
+    data=> {
+      //this.selectedIndex = index;
+      this.dataJSON = JSON.parse(data);
+      if(this.dataJSON.reportDetails != null) {
+        this.siteN=site;
+        this.noDetailsFlag = true;
+        this.selectedIndex = index;
+        this.retreiveFromObservationSupply(sitedId,'Supply-Component',userName);
+        this.retreiveFromObservationInspection(sitedId,'Inspection-Component',userName);
+        this.retreiveFromObservationTesting(sitedId,'Testing-Component',userName);
+        this.service.msgForStep1Flag=false;
+        this.basic.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
+      }
+      else{
+        this.siteN=site;
+        this.service.msgForStep1Flag=true;
+        this.retrieveSite(companyName,departmentName,site);
+        setTimeout(() => {
+          //this.selectedIndex=0;
+        }, 3000);
+      }
+      if(this.dataJSON.supplyCharacteristics != null) {
+        this.noDetailsFlag = true;
+        this.supply.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
+        this.summary.retrieveFromOngoingForObservation(sitedId);
+        //commented by Arun on 04/12/2021
+        //this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
 
       }
-    )
-  }
+
+      if(this.dataJSON.periodicInspection != null) {
+        this.noDetailsFlag = true;
+        this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
+        this.summary.retrieveFromOngoingForObservation(sitedId);
+        this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
+        this.summary.retrieveFromOngoingForObservation(sitedId);
+      //  if(this.dataJSON.testingReport != null) {
+      //    this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
+          if(this.dataJSON.summary != null) {
+            this.noDetailsFlag = true;
+            this.summary.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
+          }
+      }
+    
+      if(this.service.commentScrollToBottom==1){
+      this.service.triggerScrollTo();
+      }
+      this.service.commentScrollToBottom=0;
+        
+        
+      if(this.noDetailsFlag) {
+        this.siteN=site;
+      }  
+      else{
+        this.siteN=site;
+        this.noDetails=true;
+        this.service.msgForStep1Flag=true;
+        //this.retrieveSite(companyName,departmentName,site);
+        setTimeout(() => {
+          this.noDetails=false;
+          this.selectedIndex=0;
+        }, 3000);
+      }   
+    },
+    error=> {
+
+    }
+  )
+}
 //for continue button in saved reports
-  changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any) {
-    this.selectedIndex = 1;
-    this.siteService.retrieveFinal(userName,sitedId).subscribe(
-      data=> {
-        //this.selectedIndex = index;
-        this.dataJSON = JSON.parse(data);
-        if(this.dataJSON.reportDetails != null) {
-          this.siteN=site;
-          this.selectedIndex = index;       
-          this.service.msgForStep1Flag=false;
-          this.basic.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
-          this.service.siteCount = sitedId;
-           if(this.dataJSON.supplyCharacteristics != null) {
-             this.supply.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
-             this.summary.retrieveFromOngoingForObservation(sitedId);
-             if(this.dataJSON.periodicInspection != null) {
-               this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
-               this.summary.retrieveFromOngoingForObservation(sitedId);
-               this.testing.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
-               this.summary.retrieveFromOngoingForObservation(sitedId);
-                 if(this.dataJSON.summary != null) {
-                   this.summary.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
-                 }             
-             }
-           }
-           if(this.service.commentScrollToBottom==1){
-            this.service.triggerScrollTo();
-          }
-          this.service.commentScrollToBottom=0;
-          }   
-        else{
-          this.siteN=site;
-          this.noDetails=true;
-          this.service.msgForStep1Flag=true;
-          this.saved.savedContinue();
-          setTimeout(() => {
-            this.noDetails=false;
-            this.selectedIndex=0;
-          }, 3000);
-        }   
-      },
-      error=> {
+changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any) {
+  this.selectedIndex = 1;
+  this.siteService.retrieveFinal(userName,sitedId).subscribe(
+    data=> {
+      //this.selectedIndex = index;
+      this.dataJSON = JSON.parse(data);
+      if(this.dataJSON.reportDetails != null) {
+        this.siteN=site;
+        this.noDetailsFlag= true;
+        this.selectedIndex = index;       
+        this.service.msgForStep1Flag=false;
+        this.basic.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+        this.service.siteCount = sitedId;
 
       }
-    )
-  }
+      else {
+        this.siteN=site;
+      }
+
+      if(this.dataJSON.supplyCharacteristics != null) {
+        this.noDetailsFlag= true;
+        this.supply.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+        this.summary.retrieveFromOngoingForObservation(sitedId);
+      }
+      
+      if(this.dataJSON.periodicInspection != null) {
+        this.noDetailsFlag= true;
+        this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+        this.summary.retrieveFromOngoingForObservation(sitedId);
+        this.testing.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+        this.summary.retrieveFromOngoingForObservation(sitedId);
+          if(this.dataJSON.summary != null) {
+            this.summary.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+          }             
+      }
+         
+      if(this.service.commentScrollToBottom==1){
+        this.service.triggerScrollTo();
+      }
+      this.service.commentScrollToBottom=0;
+      
+      if(this.noDetailsFlag) {
+        this.siteN=site;
+      }  
+      else{
+        this.siteN=site;
+        this.noDetails=true;
+        this.service.msgForStep1Flag=true;
+        this.saved.savedContinue();
+        setTimeout(() => {
+          this.noDetails=false;
+          this.selectedIndex=0;
+        }, 3000);
+      }   
+    },
+    error=> {
+
+    }
+  )
+}
 
 //retrieve site after adding new site in modal
   retrieveSite(companyName:any,departmentName:any,site:any){
