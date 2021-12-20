@@ -261,7 +261,7 @@
                                 <div class="col-md-4">
                                     <label>Distribution Board Details </label>
                                     <input type="text" formControlName="distributionBoardDetails"  
-                                    placeholder=" Enter Distribution board details"  class="form-control" 
+                                    placeholder="Enter Distribution board details"  class="form-control" 
                                    [value]="c.get('distributionBoardDetails')?.value"
                                     [ngClass]="{ 'is-invalid': submitted && c.get('distributionBoardDetails')?.errors }" readonly>
                                     <div *ngIf="submitted && c.get('distributionBoardDetails')?.errors" class="invalid-feedback">
@@ -271,7 +271,7 @@
 
                                 <div class="col-md-4">
                                     <label>Distribution board name</label>
-                                    <input type="text" formControlName="referance" placeholder=" Enter Reference Name" 
+                                    <input type="text" formControlName="referance" placeholder="Enter Distribution board name" 
                                     [value]="c.get('referance')?.value"
                                     class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('referance')?.errors }" readonly>
                                     <div *ngIf="submitted && c.get('referance')?.errors" class="invalid-feedback">
@@ -281,7 +281,7 @@
 
                                 <div class="col-md-4">
                                     <label>Location</label>
-                                    <input type="text" formControlName="location"  placeholder=" Enter Location Name" 
+                                    <input type="text" formControlName="location"  placeholder="Enter Location Name" 
                                     [value]="c.get('location')?.value"
                                     class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('location')?.errors }" readonly>
                                     <div *ngIf="submitted && c.get('location')?.errors" class="invalid-feedback">
