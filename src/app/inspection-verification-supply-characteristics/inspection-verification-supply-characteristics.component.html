@@ -472,7 +472,7 @@
                 class="example-button">
                 info_outline
                </mat-icon>
-                <input type="number" min="1" class="form-control" formControlName="supplyNumber" [readonly]="service.allFieldsDisable"
+                <input (keypress)="keyPressNumbers($event)" type="number" min="0" class="form-control" formControlName="supplyNumber" [readonly]="service.allFieldsDisable"
                 [ngClass]="{ 'is-invalid': submitted && f.supplyNumber.errors }" 
                 [(ngModel)]="supplycharesteristic.supplyNumber"
                 (keyup)="onKeyAlernate($event)">
@@ -1042,7 +1042,7 @@
 
                 <div class="col-md-4" style="margin-top: 30px">
                   <p class="joints">Number of earth electrodes 
-                    <input type="number" min="0" formControlName="noOfLocation" [readonly]="service.allFieldsDisable"
+                    <input (keypress)="keyPressNumbers($event)" type="number" min="0" formControlName="noOfLocation" [readonly]="service.allFieldsDisable"
                     [ngClass]="{ 'is-invalid': submitted && f.noOfLocation.errors }" 
                     [(ngModel)]="supplycharesteristic.noOfLocation" style="
                     width: 50px;
@@ -1272,7 +1272,7 @@
                     info_outline
                    </mat-icon>
                     <p  class="joints">Number Of Joints
-                      <input type="number" formControlName="bondingNoOfJoints" [readonly]="service.allFieldsDisable"
+                      <input (keypress)="keyPressNumbers($event)" type="number" formControlName="bondingNoOfJoints" [readonly]="service.allFieldsDisable"
                       [(ngModel)]="supplycharesteristic.bondingNoOfJoints" 
                       [ngClass]="{ 'is-invalid': submitted && f.bondingNoOfJoints.errors }" style="
                       width: 50px;
@@ -1440,7 +1440,7 @@
                     class="example-button">
                     info_outline
                    </mat-icon>
-                    <p class="joints">Number Of Joints <input type="number" min="0" formControlName="earthingNoOfJoints" 
+                    <p class="joints">Number Of Joints <input (keypress)="keyPressNumbers($event)" type="number" min="0" formControlName="earthingNoOfJoints" 
                     [ngClass]="{ 'is-invalid': submitted && f.earthingNoOfJoints.errors }" [readonly]="service.allFieldsDisable"
                     [(ngModel)]="supplycharesteristic.earthingNoOfJoints" style="
                       width: 50px;
