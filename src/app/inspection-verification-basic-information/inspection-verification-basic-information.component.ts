@@ -1707,6 +1707,7 @@ showHideAccordion(index: number) {
 //next button--final submit
 	nextTab(flag: any) {
       //this.dirty=true;
+     
       this.loading = true;
       this.submitted = true
       if(this.step1Form.invalid) {
@@ -2021,6 +2022,9 @@ showHideAccordion(index: number) {
            this.service.isCompleted= true;
            this.service.isLinear=false;
            this.step1Form.markAsPristine();
+           this.service.windowTabClick=0;
+           this.service.logoutClick=0; 
+           this.service.lvClick=0; 
           },
           (error) => {
             this.Error = true;
@@ -2043,6 +2047,9 @@ showHideAccordion(index: number) {
        this.service.isCompleted= true;
        this.service.isLinear=false;
        this.step1Form.markAsPristine();
+       this.service.windowTabClick=0;
+       this.service.logoutClick=0; 
+       this.service.lvClick=0; 
        this.reportDetailsService.retrieveBasic(this.reportDetails.siteId,this.reportDetails.userName).subscribe(
          data=>{
           this.retrieveAllDetailsforBasic(this.reportDetails.userName,this.reportDetails.siteId,this.siteValue,data);

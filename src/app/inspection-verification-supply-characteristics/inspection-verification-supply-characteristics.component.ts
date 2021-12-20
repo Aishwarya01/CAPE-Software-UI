@@ -3391,6 +3391,9 @@ showHideAccordion(index: number) {
           this.service.retrieveMainNominalVoltage=this.retrieveMainNominalVoltage;
           this.service.nominalVoltageArr2=this.supplycharesteristic.supplyParameters;
           this.supplycharesteristicForm.markAsPristine();
+          this.service.windowTabClick=0;
+       this.service.logoutClick=0; 
+       this.service.lvClick=0; 
           //this.proceedNext.emit(true);
          },
          (error) => {
@@ -3418,6 +3421,9 @@ else{
           this.service.isCompleted2= true;
           this.service.isLinear=false;
           this.supplycharesteristicForm.markAsPristine();
+          this.service.windowTabClick=0;
+       this.service.logoutClick=0; 
+       this.service.lvClick=0; 
           this.service.supplyList= this.supplycharesteristic.supplyNumber;
           this.service.retrieveMainNominalVoltage=this.mainNominalArr;
           this.service.retrieveMainNominalVoltage=this.retrieveMainNominalVoltage;

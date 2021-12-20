@@ -3291,6 +3291,9 @@ callValue(e: any) {
           this.service.isLinear=false;
           this.successMsg = data;
           this.testingForm.markAsPristine();
+          this.service.windowTabClick=0;
+       this.service.logoutClick=0; 
+       this.service.lvClick=0; 
         },
         (error) => {
           this.Error = true;
@@ -3312,6 +3315,9 @@ callValue(e: any) {
           this.service.isCompleted4= true;
           this.service.isLinear=false;
           this.testingForm.markAsPristine();
+          this.service.windowTabClick=0;
+       this.service.logoutClick=0; 
+       this.service.lvClick=0; 
           this.testingService.retrieveTesting(this.testingDetails.siteId,this.testingDetails.userName).subscribe(
             data=>{
              this.retrieveDetailsforTesting(this.testingDetails.userName,this.testingDetails.siteId,data);

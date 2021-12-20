@@ -1405,6 +1405,9 @@ showHideAccordion(index: number) {
           this.service.isLinear=false;
           this.successMsg = 'Incoming Equipment Successfully Updated';
           this.addstep3.markAsPristine();
+          this.service.windowTabClick=0;
+       this.service.logoutClick=0; 
+       this.service.lvClick=0; 
          },
          (error) => {
           this.Error = true;
@@ -1424,6 +1427,9 @@ showHideAccordion(index: number) {
           this.service.isCompleted3= true;
           this.service.isLinear=false;
           this.addstep3.markAsPristine();
+          this.service.windowTabClick=0;
+       this.service.logoutClick=0; 
+       this.service.lvClick=0; 
           this.successMsg = 'Incoming Equipment Successfully Saved';
           this.inspectionDetailsService.retrieveInspectionDetails(this.inspectionDetails.userName,this.inspectionDetails.siteId).subscribe(
             data=>{

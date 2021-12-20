@@ -1139,6 +1139,9 @@ showHideAccordion(index: number) {
           this.successMsg = 'Summary Information Successfully Updated';
           this.finalFlag = true;
           this.addsummary.markAsPristine();
+          this.service.windowTabClick=0;
+       this.service.logoutClick=0; 
+       this.service.lvClick=0; 
          },
          (error) => {
           this.Error = true;
@@ -1158,6 +1161,9 @@ showHideAccordion(index: number) {
           this.service.allFieldsDisable = true; 
           this.service.disableSubmitSummary=true;
           this.finalFlag = true;
+          this.service.windowTabClick=0;
+       this.service.logoutClick=0; 
+       this.service.lvClick=0; 
         },
         (error) => {
           this.Error = true;
