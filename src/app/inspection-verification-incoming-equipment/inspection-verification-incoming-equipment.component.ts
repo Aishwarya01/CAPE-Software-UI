@@ -206,11 +206,7 @@ export class InspectionVerificationIncomingEquipmentComponent
   }
 
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){ 
-    // if(this.service.disableFields==true){
-    //   this.addstep3.disable();
-    //  }
-    this.service.lvClick=1;
-
+    //this.service.lvClick=1;
         this.step3List = JSON.parse(data);
         this.inspectionDetails.siteId = siteId;
         this.deletedArr = [];

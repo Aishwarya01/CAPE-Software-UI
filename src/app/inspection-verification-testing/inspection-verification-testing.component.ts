@@ -598,7 +598,7 @@ callValue(e: any) {
     }    
   }
   retrieveDetailsfromSavedReports(userName: any, siteId: any, clientName: any, departmentName: any, site: any, data: any) {
-    this.service.lvClick=1;
+    //this.service.lvClick=1;
 
     this.testingRetrieve = true;
     this.inspectionRetrieve = false;

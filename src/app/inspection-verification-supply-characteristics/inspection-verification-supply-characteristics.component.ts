@@ -495,7 +495,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
     // if(this.service.disableFields==true){
     //   this.supplycharesteristicForm.disable();
     //  }
-    this.service.lvClick=1;
+    //this.service.lvClick=1;
 
        this.step2List = JSON.parse(data);
        this.supplycharesteristic.siteId = siteId;

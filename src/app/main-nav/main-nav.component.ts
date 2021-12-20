@@ -84,6 +84,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
   private ongoingSiteSort!: MatSort;
   superAdminFlag: boolean = false;
   allData: any = [];
+  selectedIndex: any;
  
 
   @ViewChild('ongoingSiteSort') set matSortOn(ms: MatSort) {
@@ -448,7 +449,10 @@ notification(number: any,viewerName: any,inspectorName: any,viewerDate: any,insp
 }
 
 triggerNavigateTo(siteName:any){
-  //this.service.triggerScrollTo();
+  if((this.service.lvClick==1) && (this.service.allStepsCompleted==true))
+  {
+   if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
+     //this.service.triggerScrollTo();
   this.welcome= false;  
   this.ongoingSite=false;
   this.completedSite=false;
@@ -461,6 +465,29 @@ triggerNavigateTo(siteName:any){
   const VerificationlvFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
   const lvInspectionRef = this.viewContainerRef.createComponent(VerificationlvFactory);
   lvInspectionRef.changeDetectorRef.detectChanges();
+  this.service.windowTabClick=0;
+  this.service.logoutClick=0; 
+ }
+ else{
+   return;
+ }
+   }
+   else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
+    this.welcome= false;  
+    this.ongoingSite=false;
+    this.completedSite=false;
+    this.value= false;
+    this.service.mainNavToSaved=1;
+    this.service.commentScrollToBottom=1;
+    this.service.filterSiteName=siteName;
+    this.service.highlightText=true;
+    this.viewContainerRef.clear();
+    const VerificationlvFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
+    const lvInspectionRef = this.viewContainerRef.createComponent(VerificationlvFactory);
+    lvInspectionRef.changeDetectorRef.detectChanges();
+   this.service.windowTabClick=0;
+   this.service.logoutClick=0;
+   }
 }
   retrieveSiteDetails() {
     this.completedFilterData = [];
@@ -579,7 +606,7 @@ triggerNavigateTo(siteName:any){
   }
  
   logout() {
-    if((this.service.logoutClick==1)){
+    if((this.service.logoutClick==1) && (this.service.allStepsCompleted==true)){
       if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
         this.loginservice.logout();
         this.service.windowTabClick=0;
@@ -591,7 +618,7 @@ triggerNavigateTo(siteName:any){
       return;
     }
   }
-    else if(this.service.logoutClick==0){
+    else if((this.service.logoutClick==0) || (this.service.allStepsCompleted==false)){
       this.loginservice.logout();
       this.route.navigate(['login']);
       window.location.reload();
@@ -651,7 +678,6 @@ triggerNavigateTo(siteName:any){
   this.service.disableSubmitSummary=true;
   this.service.disableFields=true;
   this.service.allFieldsDisable = true;
-
 
   if (confirm("Are you sure you want to view site details?"))
   {
@@ -729,14 +755,40 @@ emailPDF(siteId: any,userName: any){
   this.selectedRowIndexSub ="";
  }
  
-
-
-  changePassword(email: String) {
+ changePassword(email: String) {
+  if((this.service.lvClick==1) && (this.service.allStepsCompleted==true)){
+    if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
+      this.service.windowTabClick=0;
+      this.route.navigate(['changePassword', { email: email }])
+      this.service.logoutClick=0;  
+      this.service.lvClick=0; 
+  }
+  else{
+    return;
+  }
+}
+  else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
     this.route.navigate(['changePassword', { email: email }])
   }
-  profileUpdate(email: String) {
+}
+ 
+profileUpdate(email: String) {
+  if((this.service.lvClick==1) && (this.service.allStepsCompleted==true)){
+    if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
+      this.service.windowTabClick=0;
+      this.route.navigate(['profile', { email: email }])
+      this.service.logoutClick=0;
+      this.service.lvClick=0; 
+  }
+  else{
+    return;
+  }
+}
+  else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
     this.route.navigate(['profile', { email: email }])
   }
+}
+ 
   openModal() {
     const modalRef = this.modalService.open(AddApplicationTypesComponent);
     modalRef.componentInstance.email = this.email;
@@ -750,7 +802,7 @@ emailPDF(siteId: any,userName: any){
 
   showLinkDescription(id: any) {
     this.welcome= false;
-    if((this.service.lvClick==1)){
+    if((this.service.lvClick==1) && (this.service.allStepsCompleted==true)){
       if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To save the details, kindly fill all fields & click on next button!")){
         this.service.lvClick=0;
         switch (id) {
@@ -790,7 +842,7 @@ emailPDF(siteId: any,userName: any){
         return;
       }
      }
-     else if(this.service.lvClick==0){
+     else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
       switch (id) {
         case 'LV Systems':
           this.viewContainerRef.clear();

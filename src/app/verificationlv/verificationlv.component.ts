@@ -40,7 +40,7 @@ import { InspectionVerificationTestingComponent } from '../inspection-verificati
 import { InspectionVerificationIncomingEquipmentComponent } from '../inspection-verification-incoming-equipment/inspection-verification-incoming-equipment.component';
 import { SummaryComponent } from '../summary/summary.component';
 import { InspectionVerificationSupplyCharacteristicsComponent } from '../inspection-verification-supply-characteristics/inspection-verification-supply-characteristics.component';
-import { MatTabGroup } from '@angular/material/tabs';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 import { SavedreportsComponent } from '../savedreports/savedreports.component';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { map } from 'rxjs/operators';
@@ -48,7 +48,7 @@ import { readJsonConfigFile } from 'typescript';
 import { FinalreportsComponent } from '../finalreports/finalreports.component';
 import { ObservationService } from '../services/observation.service';
 import {Pipe, PipeTransform } from '@angular/core';
-
+import { MatTabGroup, MatTabHeader, MatTab } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-verificationlv',
@@ -79,7 +79,7 @@ export class VerificationlvComponent implements OnInit {
   @Pipe({
     name: 'truncate'
 })
-
+@ViewChild('tabs') tabs!: MatTabGroup;
   departmentColumns: string[] = [
     'action',
     'departmentCd',
@@ -271,6 +271,7 @@ export class VerificationlvComponent implements OnInit {
     this.refresh();
     // this.retrieveClientDetails();
     // this.retrieveSiteDetails();
+    this.tabs._handleClick = this.interceptTabChange.bind(this);
   }
   // callMethodFinal(){
   //   this.ngOnInit();
@@ -505,8 +506,37 @@ export class VerificationlvComponent implements OnInit {
       this.retrieveSiteDetails();
     });
   }
-
-
+  
+  interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
+    if((this.service.lvClick==1) && (this.service.allStepsCompleted==true))
+       {
+        if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
+          this.selectedIndex=1; 
+          this.service.windowTabClick=0;
+          this.service.logoutClick=0; 
+          this.service.lvClick=0; 
+      }
+      else{
+        return;
+      }
+        }
+        else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
+        this.service.windowTabClick=0;
+        this.service.logoutClick=0;
+        this.service.lvClick=0; 
+        const tabs = tab.textLabel;
+        if((tabs==="Inspection Verification & Testing of Installation"))
+           {
+              this.selectedIndex=0; 
+          }
+          else if((tabs==="Saved Reports")){
+            this.selectedIndex=1; 
+          }    
+          else{
+            this.selectedIndex=2; 
+          }        
+        }
+  }
 
   deleteSite(siteId: number,sitedelete : any) {
     this.modalService.open(sitedelete, { centered: true });

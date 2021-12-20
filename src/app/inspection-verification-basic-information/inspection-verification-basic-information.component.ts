@@ -383,7 +383,9 @@ ShowNext: boolean = true;
  
   // saved report
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
-      this.service.lvClick=1;
+    // if(this.step1Form.dirty){
+    //   this.service.lvClick=1;
+    // }
        this.service.siteCount = siteId;
        this.savedUserName = userName;
        this.deletedArr = [];
@@ -1647,8 +1649,11 @@ showHideAccordion(index: number) {
   } 
   
   doBeforeUnload() {
-  // if(this.step1Form.dirty){
+    if(this.service.allStepsCompleted==true){
     if(this.service.logoutClick==1 && this.service.windowTabClick==0) {
+      return true;
+     }
+     else if(this.service.logoutClick==0 && this.service.windowTabClick==0){
       return true;
      }
      else{
@@ -1656,10 +1661,10 @@ showHideAccordion(index: number) {
       // Alert the user window is closing 
       return false;
      }
-   //}
-    // else{
-    //   return true;
-    // }
+    }
+    else{
+      return true;
+    }
 }
 //modal popup
   gotoNextModal(content1: any,content2:any) {
