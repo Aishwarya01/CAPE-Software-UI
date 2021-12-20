@@ -615,7 +615,10 @@ callValue(e: any) {
       this.populateDataComments();
     }, 1000);
     this.flag = true;
-    }    
+    } 
+    if(this.testList.testingReport != null) {
+      this.updateMethod();   
+    }
   }
 
   updateMethod(){
