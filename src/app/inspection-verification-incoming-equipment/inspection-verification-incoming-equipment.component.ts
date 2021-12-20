@@ -1398,10 +1398,7 @@ showHideAccordion(index: number) {
       }
       this.UpateInspectionService.updateIncoming(this.inspectionDetails).subscribe(
         data=> {
-          if(this.step3List.length!=undefined && this.step3List.length!=0){
-            this.proceedNext.emit(false);
-          }
-          else if(this.step3List.testingReport != null){
+          if(this.step3List.testingReport != null){
             this.proceedNext.emit(false);
           }
           else{
