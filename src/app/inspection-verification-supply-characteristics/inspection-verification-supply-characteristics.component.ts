@@ -340,6 +340,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   errorArrObservation: any=[];
   observationValues: any="";
   disableObservation: boolean=true;
+  observationArr: any=[];
 
   constructor(
     private supplyCharacteristicsService: SupplyCharacteristicsService,
@@ -385,6 +386,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       meansEarthingRemark:[''],
       electrodeType: ['', Validators.required],
       electrodeMaterial: [''],
+      earthElectrodeObservation: ['',Validators.required],
       noOfLocation: ['', [Validators.required, Validators.min(0)]],
       conductorSize: ['', Validators.required],
       conductormaterial: ['', Validators.required],
@@ -394,11 +396,13 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       bondingConductorVerify: ['', Validators.required],
       bondingJointsType: ['', Validators.required],
       bondingNoOfJoints: ['', [Validators.required, Validators.min(0)]],
+      bondingConductorObservation: ['',Validators.required],
       earthingConductorSize: ['', Validators.required],
       earthingConductorMaterial: ['', Validators.required],
       earthingConductorVerify: ['', Validators.required],
       earthingJointsType: ['', Validators.required],
       earthingNoOfJoints: ['', [Validators.required, Validators.min(0)]],
+      earthingConductorObservation: ['',Validators.required],
       NV1: '',
       NV2: '',
       NV3: '',
@@ -452,6 +456,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       circuitArr: this.formBuilder.array([this.createCircuitForm()]),
       viewerCommentArr: this.formBuilder.array([this.addCommentViewer()]),
       completedCommentArr1: this.formBuilder.array([]),
+      observationArr: this.formBuilder.array([])
     });
    this.expandedIndex = -1 ;
   }
@@ -468,6 +473,24 @@ export class InspectionVerificationSupplyCharacteristicsComponent
         }
     }
 
+    private generateForm(): FormGroup {
+      return new FormGroup({
+        supplyOuterObservationId: new FormControl(''),
+        observationComponentDetails: new FormControl(''),
+        observationDescription: new FormControl(''),
+        supplyOuterObservationStatus: new FormControl('A'),
+        alternativeInnerObservation: this.formBuilder.array([]),
+      });
+    }
+
+    private generateAlternativeForm(): FormGroup {
+      return new FormGroup({
+        supplyInnerObervationsId: new FormControl(''),
+        observationComponentDetails: new FormControl(''),
+        observationDescription: new FormControl(''),
+        alternativeInnerObservationStatus: new FormControl('A'),
+      });
+    }
   onKeyMainShortName(e: any){
     let values = e.target.value;
     // this.alternateArr = this.supplycharesteristicForm.get(
@@ -3376,6 +3399,63 @@ showHideAccordion(index: number) {
 
     this.alternateArr1 = [];
     this.circuitArr1 = [];
+
+    this.observationArr = this.supplycharesteristicForm.get(
+      'observationArr'
+    ) as FormArray;
+    
+    for(let i=0; i<5; i++){
+      this.observationArr.push(this.generateForm());
+      for(let j=0;j<this.alternateArr.length;j++){
+        this.observationArr.controls[i].controls.alternativeInnerObservation.push(this.generateAlternativeForm());
+      }
+    }
+    this.supplycharesteristic.supplyOuterObservation = this.supplycharesteristicForm.value.observationArr
+
+    this.supplycharesteristic.supplyOuterObservation[0].observationComponentDetails='mains';
+    this.supplycharesteristic.supplyOuterObservation[1].observationComponentDetails='earthingNoOfJointsOb';
+    this.supplycharesteristic.supplyOuterObservation[2].observationComponentDetails='bondingNoOfJointsOb';
+    this.supplycharesteristic.supplyOuterObservation[3].observationComponentDetails='instalLocationReportOb';
+    this.supplycharesteristic.supplyOuterObservation[4].observationComponentDetails='alternate';
+
+
+    for(let i of this.supplycharesteristic.supplyOuterObservation) {
+      if(i.observationComponentDetails == 'mains') {
+        i.observationDescription=this.supplycharesteristicForm.value.liveConductorBNote;
+        i.supplyOuterObservationStatus = 'A';
+        i.alternativeInnerObservation = [];
+      }
+      if(i.observationComponentDetails == 'earthingNoOfJointsOb') {
+        i.observationDescription=this.supplycharesteristicForm.value.earthingConductorObservation;
+        i.supplyOuterObservationStatus = 'A';
+        i.alternativeInnerObservation = [];
+
+      }
+      if(i.observationComponentDetails == 'bondingNoOfJointsOb') {
+        i.observationDescription=this.supplycharesteristicForm.value.bondingConductorObservation;
+        i.supplyOuterObservationStatus = 'A';
+        i.alternativeInnerObservation = [];
+
+      }
+      if(i.observationComponentDetails == 'instalLocationReportOb') {
+        i.observationDescription=this.supplycharesteristicForm.value.earthElectrodeObservation;
+        i.supplyOuterObservationStatus = 'A';
+        i.alternativeInnerObservation = [];
+
+      }
+      if(i.observationComponentDetails == 'alternate') {
+        this.alternateArr = this.supplycharesteristicForm.get(
+          'alternateArr'
+        ) as FormArray;
+
+        for(let j=0; j<this.alternateArr.length; j++) {
+          i.alternativeInnerObservation[j].observationDescription = this.alternateArr.value[j].aLLiveConductorBNote;
+          i.alternativeInnerObservation[j].observationComponentDetails = 'alternate '+j;
+          i.alternativeInnerObservation[j].alternativeInnerObservationStatus = 'A';
+        }
+        i.supplyOuterObservationStatus = 'N';
+      }
+    }
 
     if(flag) { 
      

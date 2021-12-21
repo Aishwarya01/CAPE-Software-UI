@@ -416,12 +416,12 @@
             <div class="col-md-4">
               <mat-form-field class="client-description">
                 <mat-label>
-                  <h3>Remarks</h3>
+                  <h3>Observations</h3>
                 </mat-label>
                 <textarea matInput class="client-box-description" formControlName="liveConductorBNote" 
                 [ngClass]="{ 'is-invalid': submitted && f.liveConductorBNote.errors }"  [readonly]="service.allFieldsDisable"
                 [(ngModel)]="supplycharesteristic.liveConductorBNote" maxlength="500" 
-                placeholder="Ex. Remarks ..." ></textarea>
+                placeholder="Ex. Observations ..." ></textarea>
               </mat-form-field>
               <div *ngIf="submitted && f.liveConductorBNote.errors" class="invalid-feedback">
                 <div *ngIf="f.liveConductorBNote?.errors?.required">Field Is Required</div>
@@ -915,12 +915,12 @@
           <div class="col-md-4">	
             <mat-form-field class="client-description">	
               <mat-label>	
-                <h3>Remarks</h3>	
+                <h3>Observations</h3>	
               </mat-label>	
               <textarea matInput class="client-box-description" formControlName="aLLiveConductorBNote" 	
               [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorBNote')?.errors }" 	
               maxlength="500" 	
-              placeholder="Ex. Remarks ..." ></textarea>	
+              placeholder="Ex. Observations ..." ></textarea>	
             </mat-form-field>	
             <div *ngIf="submitted && a.get('aLLiveConductorBNote')?.errors" class="invalid-feedback">	
               <div *ngIf="a.get('aLLiveConductorBNote')?.errors?.required">Field Is Required</div>	
@@ -1131,6 +1131,22 @@
                       </tbody>  
                     </table>
                   </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">	
+                <mat-form-field class="client-description">	
+                  <mat-label>	
+                    <h3>Earth Electrode - Observations</h3>	
+                  </mat-label>	
+                  <textarea matInput class="client-box-description" formControlName="earthElectrodeObservation" 	
+                  [ngClass]="{ 'is-invalid': submitted && f.earthElectrodeObservation?.errors }" 	
+                  maxlength="500" 	
+                  placeholder="Ex. Observations ..." ></textarea>	
+                </mat-form-field>	
+                <div *ngIf="submitted && f.earthElectrodeObservation?.errors" class="invalid-feedback">	
+                  <div *ngIf="f.earthElectrodeObservation?.errors?.required">Field Is Required</div>	
+                </div>	
               </div>
             </div>
             </mat-expansion-panel>
@@ -1376,6 +1392,22 @@
                 </div>
               </div>
               </div>
+              <div class="row">
+                <div class="col-md-4">	
+                  <mat-form-field class="client-description">	
+                    <mat-label>	
+                      <h3>Bonding Conductor - Observations</h3>	
+                    </mat-label>	
+                    <textarea matInput class="client-box-description" formControlName="bondingConductorObservation" 	
+                    [ngClass]="{ 'is-invalid': submitted && f.bondingConductorObservation?.errors }" 	
+                    maxlength="500" 	
+                    placeholder="Ex. Observations ..." ></textarea>	
+                  </mat-form-field>	
+                  <div *ngIf="submitted && f.bondingConductorObservation?.errors" class="invalid-feedback">	
+                    <div *ngIf="f.bondingConductorObservation?.errors?.required">Field Is Required</div>	
+                  </div>	
+                </div>
+              </div>
               <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 30px">
@@ -1540,6 +1572,23 @@
 
                     </div>
                   </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">	
+                  <mat-form-field class="client-description">	
+                    <mat-label>	
+                      <h3>Earthing Conductor - Observations</h3>	
+                    </mat-label>	
+                    <textarea matInput class="client-box-description" formControlName="earthingConductorObservation" 	
+                    [ngClass]="{ 'is-invalid': submitted && f.earthingConductorObservation?.errors }" 	
+                    maxlength="500" 	
+                    placeholder="Ex. Observations ..." ></textarea>	
+                  </mat-form-field>	
+                  <div *ngIf="submitted && f.earthingConductorObservation?.errors" class="invalid-feedback">	
+                    <div *ngIf="f.earthingConductorObservation?.errors?.required">Field Is Required</div>	
+                  </div>	
                 </div>
               </div>
             </mat-expansion-panel>
