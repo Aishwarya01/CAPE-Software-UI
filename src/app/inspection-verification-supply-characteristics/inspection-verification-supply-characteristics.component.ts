@@ -2052,7 +2052,6 @@ showHideAccordion(index: number) {
   // }
 
   onKey1(event: KeyboardEvent) {
-   debugger
     this.values = (<HTMLInputElement>event.target).value;
     this.value = this.values;
     this.location1Arr = this.supplycharesteristicForm.get(
@@ -2634,7 +2633,6 @@ showHideAccordion(index: number) {
   }
 
   onKeyAlernate(event: KeyboardEvent) {
-    debugger
     this.values = (<HTMLInputElement>event.target).value;
     this.value = this.values;
     this.alternateArr = this.supplycharesteristicForm.get(
@@ -2666,7 +2664,6 @@ showHideAccordion(index: number) {
         this.breaker = true;
       } 
       else if ((this.alternateArr.length < this.value) && this.alternateArr.length!=0)  {
-        debugger
         if (this.value != '') {
           this.delarr = this.value - this.alternateArr.length;
           this.delarr1 = this.delarr;
@@ -2687,7 +2684,7 @@ showHideAccordion(index: number) {
       } 
       else if((this.alternateArr.length > this.value))
       {
-        debugger
+        
         if (this.value != '') {
           this.delarr = this.alternateArr.length - this.value;
           this.delarr1 = this.delarr;
@@ -2707,7 +2704,6 @@ showHideAccordion(index: number) {
         }
       }
       else {
-        debugger
         if(!this.alternateArr.length == this.value){ //removed from elango's yesterday commit by Aish
         for (this.i = 0; this.i < this.value; this.i++) {
           this.alternateArr.push(this.SupplyparametersForm());

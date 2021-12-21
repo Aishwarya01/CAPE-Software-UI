@@ -227,6 +227,10 @@ export class VerificationlvComponent implements OnInit {
   validationErrorMsg: string="";
   disableTab: boolean=false;
   noDetailsFlag: any = false;
+  siteData1: any = [];
+  currentUser: any = [];
+  currentUser1: any = [];
+  //counter: number=0;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -247,6 +251,9 @@ export class VerificationlvComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.currentUser=sessionStorage.getItem('authenticatedUser');
+    this.currentUser1 = [];
+    this.currentUser1=JSON.parse(this.currentUser);
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required],
       retrieveIsActive: ['', Validators.required],
@@ -528,7 +535,47 @@ export class VerificationlvComponent implements OnInit {
         const tabs = tab.textLabel;
         if((tabs==="Inspection Verification & Testing of Installation"))
            {
-              this.selectedIndex=0; 
+             
+            this.selectedIndex=0; 
+             // this.changeTab(0, 2343, 'aishwarya547541@gmail.com', 'dvd', 'vdv', 'queen');
+              if(this.currentUser1.role == 'Inspector'){
+                this.siteService.retrieveListOfSite(this.email).subscribe(
+                  data => {
+                    this.siteData1 = JSON.parse(data);
+                    for(let i of this.siteData1){
+                      if(i.siteId == this.service.siteCount){
+                        //this.counter++;
+                        // this.basic.ngOnInit();
+                        // this.supply.ngOnInit();
+                        // this.incoming.ngOnInit();
+                        // this.testing.ngOnInit();
+                        // this.summary.ngOnInit();
+                        this.changeTab(0, i.siteId, this.email, i.companyName, i.departmentName, i.site);
+                        //this.changeTab(0, 2343, 'aishwarya547541@gmail.com', 'dvd', 'vdv', 'queen');
+                      }
+                    }
+                  }
+                )
+              }
+              else {
+                if(this.currentUser1.assignedBy != null){
+                  this.siteService.retrieveListOfSite(this.currentUser1.assignedBy).subscribe(
+                    data => {
+                      this.siteData1 = JSON.parse(data);
+                      for(let i of this.siteData1){
+                        if(i.siteId == this.service.siteCount){
+                          // this.basic.ngOnInit();
+                          // this.supply.ngOnInit();
+                          // this.incoming.ngOnInit();
+                          // this.testing.ngOnInit();
+                          // this.summary.ngOnInit();
+                          this.changeTab(0, i.siteId, this.currentUser1.assignedBy, i.companyName, i.departmentName, i.site);
+                        }
+                      }
+                    }
+                  )
+                }
+              }
           }
           else if((tabs==="Saved Reports")){
             this.selectedIndex=1; 
@@ -817,7 +864,7 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
         this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
         this.summary.retrieveFromOngoingForObservation(sitedId);
         this.testing.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
-        this.summary.retrieveFromOngoingForObservation(sitedId);
+       this.summary.retrieveFromOngoingForObservation(sitedId);
           if(this.dataJSON.summary != null) {
             this.summary.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
           }             

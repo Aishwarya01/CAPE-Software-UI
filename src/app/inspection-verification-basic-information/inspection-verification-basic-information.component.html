@@ -129,8 +129,18 @@
                   [tabindex]="service.allFieldsDisable ? -1 : 0" 
                   [disabled]="service.allFieldsDisable"
                   [(ngModel)]="reportDetails.installationType" [ngClass]="{ 'is-invalid': submitted && f.installationType.errors }">
-                    <option [ngValue]="null">Select Option</option>
+                    <option value="" selected>Select Option</option>
                     <option *ngFor="let value of installationList">{{value}}</option>
+                    <!-- <option value="New Installation" [selected]="f.installationType?.value === 'New Installation'"
+                   >New Installation</option>
+                    <option value="First Verification Of An Existing Installation" [selected]="f.installationType?.value === 'First Verification Of An Existing Installation'"
+                    >First Verification Of An Existing Installation</option>
+                    <option value="Addition Of An Existing Installation" [selected]="f.installationType?.value === 'Addition Of An Existing Installation'"
+                    >Addition Of An Existing Installation</option>
+                    <option value="Alteration In An Existing Installation" [selected]="f.installationType?.value === 'Alteration In An Existing Installation'"
+                    >Alteration In An Existing Installation</option>
+                    <option value="Periodic Verification" [selected]="f.installationType?.value === 'Periodic Verification'"
+                    >Periodic Verification</option> -->
                   </select>
                   <div *ngIf="submitted && f.installationType.errors" class="invalid-feedback">
                     <div *ngIf="f.installationType?.errors?.required">Installation type is required</div>
@@ -386,9 +396,10 @@
                 <div class="col-md-4">
                   <label>Read and Confirmed the Extent and Limitations* :</label>
                   <select class="form-control" formControlName="limitations" [(ngModel)]="reportDetails.limitations" 
-                  [ngClass]="{ 'is-invalid': submitted && f.limitations.errors }" [tabindex]="service.allFieldsDisable ? -1 : 0" [disabled]="service.allFieldsDisable">
+                  [ngClass]="{ 'is-invalid': submitted && f.limitations.errors }" [tabindex]="service.allFieldsDisable ? -1 : 0" 
+                  [disabled]="service.allFieldsDisable">
                    <option value="" selected>Select Option</option>
-                    <option *ngFor="let value of previousRecordList" >{{value}}</option>
+                    <option *ngFor="let value of previousRecordList">{{value}}</option>
                   </select>
                   <div *ngIf="submitted && f.limitations.errors" class="invalid-feedback">
                     <div *ngIf="f.limitations?.errors?.required">Field Is Required</div>
