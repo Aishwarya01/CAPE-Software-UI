@@ -13,6 +13,7 @@
                       </div>
 
                     <div style="margin-top: 0px;">
+                        <div class="table-responsive" style="border: 1px solid black;">
                         <table class="table">
                             <thead>
                                 <th>SI.No</th>
@@ -121,12 +122,13 @@
 
                             </tbody>
                         </table>
+                        </div>
                     </div>
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Type-A earthing system</mat-expansion-panel-header>
-                    <div>
+                    <div class="table-responsive">
                     <table class="table">
                         <tbody formArrayName="descriptionArr" *ngFor="let a of earthingDescriptionarr(); let j = index">
                          <div class="form-group" [formGroupName]="j">
@@ -775,7 +777,7 @@
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Clamps</mat-expansion-panel-header>
-                        <div>
+                    <div class="table-responsive">
                             <table class="table">
                                 <tbody formArrayName="ClampsArr" *ngFor="let a of earthingClampsarr(); let j = index">
                                     <div class="form-group" [formGroupName]="j">
@@ -1121,7 +1123,7 @@
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Earth electrode chambers</mat-expansion-panel-header>
-                    <div>
+                    <div class="table-responsive">
                         <table class="table">
                             <tbody formArrayName="chamberArr"
                                 *ngFor="let a of earthElectrodeChambearr(); let j = index">
@@ -1462,7 +1464,7 @@
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Type-B earthing system</mat-expansion-panel-header>
-                    <div>
+                    <div class="table-responsive" style="border: 1px solid black;">
                         <table class="table">
                             <tbody formArrayName="earthingArr" *ngFor="let a of earthingSystemarr(); let j = index">
                                 <div class="form-group" [formGroupName]="j">

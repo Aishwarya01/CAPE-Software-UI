@@ -1872,12 +1872,14 @@ callValue(e: any) {
         this.validationError=false;
         this.service.lvClick=0;
         this.service.logoutClick=0;
+        this.service.windowTabClick=0;
       }
      }
-    else {
-     this.service.lvClick=1;
-     this.service.logoutClick=1;
-    }  
+     else {
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+     }
   }
   onKeyForm(event: KeyboardEvent) { 
    if(!this.testingForm.invalid){ 
@@ -1890,11 +1892,13 @@ callValue(e: any) {
       this.validationError=false;
       this.service.lvClick=0;
       this.service.logoutClick=0;
+      this.service.windowTabClick=0;
     }
    }
    else {
     this.service.lvClick=1;
     this.service.logoutClick=1;
+    this.service.windowTabClick=1;
    }
   } 
   // Dynamically iterate some fields

@@ -20,6 +20,7 @@ import { InspectorregisterService } from '../services/inspectorregister.service'
 import { ignoreElements } from 'rxjs/operators';
 import { MainNavComponent } from '../main-nav/main-nav.component';
 import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
+import { ReturnTypeTransform } from '@angular/compiler-cli/src/ngtsc/transform';
 //import { SignaturePad } from 'angular2-signaturepad';
 
 //import { ErrorHandlerService } from './../../shared/services/error-handler.service';
@@ -1622,12 +1623,14 @@ showHideAccordion(index: number) {
         this.validationError=false;
         this.service.lvClick=0;
         this.service.logoutClick=0;
+        this.service.windowTabClick=0;
       }
      }
-    else {
-     this.service.lvClick=1;
-     this.service.logoutClick=1;
-    }  
+     else {
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+     }
   }
   onKeyForm(event: KeyboardEvent) { 
    if(!this.step1Form.invalid){ 
@@ -1640,11 +1643,13 @@ showHideAccordion(index: number) {
       this.validationError=false;
       this.service.lvClick=0;
       this.service.logoutClick=0;
+      this.service.windowTabClick=0;
     }
    }
    else {
     this.service.lvClick=1;
     this.service.logoutClick=1;
+    this.service.windowTabClick=1;
    }
   } 
   
@@ -1665,6 +1670,33 @@ showHideAccordion(index: number) {
     else{
       return true;
     }
+}
+onPopState(event:any) {
+  if(this.service.allStepsCompleted==true){
+  if(this.service.lvClick==1){
+    alert("Changes won't be saved!");
+  //   if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!"))
+  //   {
+  //   this.service.windowTabClick=0;
+  //   this.service.logoutClick=0; 
+  //   this.service.lvClick=0;
+     window.location.reload(); 
+  //    }
+  //  else{
+  //   history.pushState({page: 2}, "title 2", "?page=2");
+  //   //history.pushState({page: 1}, "title 1", "?page=1");
+  //   history.go(1) // alerts "location: http://example.com/example.html, state: null"
+  //  }
+    }
+    else{
+      window.location.reload();
+      return;
+    }
+  }
+  else{
+    window.location.reload();
+    return;
+  }
 }
 //modal popup
   gotoNextModal(content1: any,content2:any) {

@@ -97,7 +97,7 @@ export class LpsEarthingComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
-    this.service.lvClick=1;
+      // this.service.lvClick=1;
 
       this.step4List = data.earthingLpsDescription;
       this.earthingLpsDescription.basicLpsId = basicLpsId;
@@ -144,7 +144,7 @@ export class LpsEarthingComponent implements OnInit {
     }
 
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
-      this.service.lvClick=1;
+      // this.service.lvClick=1;
 
       this.step4List = JSON.parse(data);
       this.earthingLpsDescription.basicLpsId = basicLpsId;
@@ -546,6 +546,9 @@ export class LpsEarthingComponent implements OnInit {
             this.success = true;
             this.successMsg = data;
             this.earthingForm.markAsPristine();
+            this.service.lvClick=0;
+            this.service.logoutClick=0;
+            this.service.windowTabClick=0;
             this.proceedNext.emit(true);
           },
           (error) => {
@@ -575,6 +578,9 @@ export class LpsEarthingComponent implements OnInit {
             this.disable = true;
             this.retriveEarthingDetails();
             this.proceedNext.emit(true);
+            this.service.lvClick=0;
+            this.service.logoutClick=0;
+            this.service.windowTabClick=0;
           },
           (error) => {
             this.Error = true;
@@ -601,12 +607,14 @@ export class LpsEarthingComponent implements OnInit {
         this.validationError=false;
         this.service.lvClick=0;
         this.service.logoutClick=0;
+        this.service.windowTabClick=0;
       }
      }
-    else {
-     this.service.lvClick=1;
-     this.service.logoutClick=1;
-    }  
+     else {
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+     }
   }
   onKeyForm(event: KeyboardEvent) { 
    if(!this.earthingForm.invalid){ 
@@ -619,11 +627,13 @@ export class LpsEarthingComponent implements OnInit {
       this.validationError=false;
       this.service.lvClick=0;
       this.service.logoutClick=0;
+      this.service.windowTabClick=0;
     }
    }
    else {
     this.service.lvClick=1;
     this.service.logoutClick=1;
+    this.service.windowTabClick=1;
    }
   } 
  closeModalDialog() {

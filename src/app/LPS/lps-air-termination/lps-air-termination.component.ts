@@ -116,7 +116,7 @@ export class LpsAirTerminationComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
-    this.service.lvClick=1;
+      // this.service.lvClick=1;
 
       this.step2List = data.lpsAirDiscription;
       this.airtermination.basicLpsId = basicLpsId;
@@ -141,7 +141,7 @@ export class LpsAirTerminationComponent implements OnInit {
     }
 
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
-      this.service.lvClick=1;
+      //this.service.lvClick=1;
 
         this.step2List=JSON.parse(data);
         this.airtermination.basicLpsId = basicLpsId;
@@ -529,6 +529,9 @@ export class LpsAirTerminationComponent implements OnInit {
                 this.success = true;
                 this.successMsg = data;
                 this.airTerminationForm.markAsPristine();
+                this.service.lvClick=0;
+                this.service.logoutClick=0;
+                this.service.windowTabClick=0;
                 this.proceedNext.emit(true);
               },
               (error) => {
@@ -560,6 +563,9 @@ export class LpsAirTerminationComponent implements OnInit {
                   this.disable = true;
                   this.retriveAirTermination();
                   this.proceedNext.emit(true);
+                  this.service.lvClick=0;
+                  this.service.logoutClick=0;
+                  this.service.windowTabClick=0;
                 },
                 (error) => {
                   this.Error = true;

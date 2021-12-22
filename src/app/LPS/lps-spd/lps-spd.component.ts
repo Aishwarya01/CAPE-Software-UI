@@ -77,7 +77,7 @@ export class LpsSpdComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
-    this.service.lvClick=1;
+    // this.service.lvClick=1;
 
       this.step5List = data.spddesc;
       this.spd.basicLpsId = basicLpsId;
@@ -119,7 +119,7 @@ export class LpsSpdComponent implements OnInit {
     }
 
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
-      this.service.lvClick=1;
+      // this.service.lvClick=1;
 
       this.step5List = JSON.parse(data);
       this.spd.basicLpsId = basicLpsId;
@@ -282,6 +282,9 @@ export class LpsSpdComponent implements OnInit {
                 this.successMsg = data;
                 this.spdForm.markAsPristine();
                 this.proceedNext.emit(true);
+                this.service.lvClick=0;
+                this.service.logoutClick=0;
+                this.service.windowTabClick=0;
               },
               (error) => {
                 this.Error = true;
@@ -310,6 +313,9 @@ export class LpsSpdComponent implements OnInit {
                 this.disable = true;
                 this.retriveSPD();
                 this.proceedNext.emit(true);
+                this.service.lvClick=0;
+                this.service.logoutClick=0;
+                this.service.windowTabClick=0;
               },
               (error) => {
                 this.Error = true;
@@ -332,12 +338,14 @@ export class LpsSpdComponent implements OnInit {
             this.validationError=false;
             this.service.lvClick=0;
             this.service.logoutClick=0;
+            this.service.windowTabClick=0;
           }
          }
-        else {
-         this.service.lvClick=1;
-         this.service.logoutClick=1;
-        }  
+         else {
+          this.service.lvClick=1;
+          this.service.logoutClick=1;
+          this.service.windowTabClick=1;
+         }
       }
       onKeyForm(event: KeyboardEvent) { 
        if(!this.spdForm.invalid){ 
@@ -350,11 +358,13 @@ export class LpsSpdComponent implements OnInit {
           this.validationError=false;
           this.service.lvClick=0;
           this.service.logoutClick=0;
+          this.service.windowTabClick=0;
         }
        }
        else {
         this.service.lvClick=1;
         this.service.logoutClick=1;
+        this.service.windowTabClick=1;
        }
       } 
       closeModalDialog() {

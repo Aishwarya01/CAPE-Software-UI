@@ -94,7 +94,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
-    this.service.lvClick=1;
+      // this.service.lvClick=1;
 
       this.step6List = data.seperationDistanceDesc;
       this.separatedistance.basicLpsId = basicLpsId;   
@@ -117,7 +117,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
-    this.service.lvClick=1;
+    // this.service.lvClick=1;
 
     this.step6List = JSON.parse(data);
     this.separatedistance.basicLpsId = basicLpsId;   
@@ -178,12 +178,14 @@ export class LpsSeperationDistanceComponent implements OnInit {
         this.validationError=false;
         this.service.lvClick=0;
         this.service.logoutClick=0;
+        this.service.windowTabClick=0;
       }
      }
-    else {
-     this.service.lvClick=1;
-     this.service.logoutClick=1;
-    }  
+     else {
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+     }
   }
   onKeyForm(event: KeyboardEvent) { 
    if(!this.separeteDistanceForm.invalid){ 
@@ -196,11 +198,13 @@ export class LpsSeperationDistanceComponent implements OnInit {
       this.validationError=false;
       this.service.lvClick=0;
       this.service.logoutClick=0;
+      this.service.windowTabClick=0;
     }
    }
    else {
     this.service.lvClick=1;
     this.service.logoutClick=1;
+    this.service.windowTabClick=1;
    }
   } 
 
@@ -235,6 +239,9 @@ export class LpsSeperationDistanceComponent implements OnInit {
             this.success = true;
             this.successMsg = data;
             this.separeteDistanceForm.markAsPristine();
+            this.service.lvClick=0;
+            this.service.logoutClick=0;
+            this.service.windowTabClick=0;
             this.proceedNext.emit(true);
           },
           (error) => {
@@ -264,6 +271,9 @@ export class LpsSeperationDistanceComponent implements OnInit {
             this.disable = true;
             this.retriveSeperationDistance();
             this.proceedNext.emit(true);
+            this.service.lvClick=0;
+            this.service.logoutClick=0;
+            this.service.windowTabClick=0;
             // setTimeout(() => {
             //   this.separeteDistanceForm.markAsPristine;
             // }, 3000);

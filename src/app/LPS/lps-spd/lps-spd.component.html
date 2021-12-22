@@ -14,6 +14,7 @@
 
                     <!-- tables -->
                     <div style="margin-top: 0px;">
+                        <div class="table-responsive" style="border: 1px solid black;">
                         <table class="table">
                             <thead>
                                 <th>SI.No</th>
@@ -159,6 +160,7 @@
                                 </tr>
                             </tbody>
                         </table>
+                        </div>
                     </div>
 
                 </mat-expansion-panel>
@@ -174,6 +176,7 @@
                     <!-- tables -->
                     <div style="margin-top: 40px;" formArrayName="spdarr"
                         *ngFor="let x of spdarrControls(); let j = index">
+                        <div class="table-responsive" style="border: 1px solid black;">
                         <table class="table" [formGroupName]="j">
                             <thead>
                                 <th>SI.No</th>
@@ -403,6 +406,7 @@
                                 </tr>
                             </tbody>
                         </table>
+                        </div>
                     </div>
                 </mat-expansion-panel>
 
@@ -412,6 +416,7 @@
                     <!-- tables -->
                     <div style="margin-top: 40px;" formArrayName="panelarr"
                         *ngFor="let x of panelarrControls(); let j = index">
+                        <div class="table-responsive" style="border: 1px solid black;">
                         <table class="table" [formGroupName]="j">
                             <thead>
                                 <th>SI.No</th>
@@ -642,6 +647,7 @@
                                 </tr>
                             </tbody>
                         </table>
+                        </div>
                     </div>
                 </mat-expansion-panel>
 
@@ -651,6 +657,7 @@
                     <!-- tables -->
                     <div style="margin-top: 40px;" formArrayName="powerarr"
                         *ngFor="let x of powerarrControls(); let j = index">
+                        <div class="table-responsive" style="border: 1px solid black;">
                         <table class="table" [formGroupName]="j">
                             <thead>
                                 <th>SI.No</th>
@@ -881,6 +888,7 @@
                                 </tr>
                             </tbody>
                         </table>
+                        </div>
                     </div>
                 </mat-expansion-panel>
             </mat-accordion>

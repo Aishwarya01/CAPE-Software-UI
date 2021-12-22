@@ -113,7 +113,7 @@ export class LpsDownConductorsComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
-    this.service.lvClick=1;
+      //this.service.lvClick=1;
 
       this.step3List = data.downConductorDesc;
       this.downConductorDescription.basicLpsId = basicLpsId;
@@ -174,7 +174,7 @@ export class LpsDownConductorsComponent implements OnInit {
     }
 
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
-      this.service.lvClick=1;
+      //this.service.lvClick=1;
 
       this.step3List = JSON.parse(data);
       this.downConductorDescription.basicLpsId = basicLpsId;
@@ -729,6 +729,9 @@ export class LpsDownConductorsComponent implements OnInit {
             this.success = true;
             this.successMsg = data;
             this.downConductorForm.markAsPristine();
+            this.service.lvClick=0;
+            this.service.logoutClick=0;
+            this.service.windowTabClick=0;
             this.proceedNext.emit(true);
           },
           (error) => {
@@ -759,6 +762,9 @@ export class LpsDownConductorsComponent implements OnInit {
             this.disable = true;
             this.retriveDownConductor();
             this.proceedNext.emit(true);
+            this.service.lvClick=0;
+            this.service.logoutClick=0;
+            this.service.windowTabClick=0;
           },
           (error) => {
             this.Error = true;
@@ -782,12 +788,14 @@ export class LpsDownConductorsComponent implements OnInit {
         this.validationError=false;
         this.service.lvClick=0;
         this.service.logoutClick=0;
+        this.service.windowTabClick=0;
       }
      }
-    else {
-     this.service.lvClick=1;
-     this.service.logoutClick=1;
-    }  
+     else {
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+     }
   }
   onKeyForm(event: KeyboardEvent) { 
    if(!this.downConductorForm.invalid){ 
@@ -800,11 +808,13 @@ export class LpsDownConductorsComponent implements OnInit {
       this.validationError=false;
       this.service.lvClick=0;
       this.service.logoutClick=0;
+      this.service.windowTabClick=0;
     }
    }
    else {
     this.service.lvClick=1;
     this.service.logoutClick=1;
+    this.service.windowTabClick=1;
    }
   } 
   closeModalDialog() {

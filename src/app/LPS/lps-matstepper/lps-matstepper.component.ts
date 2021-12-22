@@ -8,7 +8,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { MatTabGroup } from '@angular/material/tabs';
 
 import { LpsBasicPageComponent } from '../lps-basic-page/lps-basic-page.component';
 import { LpsAirTerminationComponent } from '../lps-air-termination/lps-air-termination.component';
@@ -23,6 +22,8 @@ import { LpsSavedReportComponent } from '../lps-saved-report/lps-saved-report.co
 import { LpsFinalReportComponent } from '../lps-final-report/lps-final-report.component';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
 import { SeparatedistanceService } from 'src/app/LPS_services/separatedistance.service';
+import { MatTabGroup, MatTabHeader, MatTab } from '@angular/material/tabs';
+import { GlobalsService } from 'src/app/globals.service';
 
 @Component({
   selector: 'app-lps-matstepper',
@@ -67,19 +68,20 @@ export class LpsMatstepperComponent implements OnInit {
   dataJSON: any = [];
   @ViewChild(LpsSavedReportComponent)saved!: LpsSavedReportComponent;
   @ViewChild(LpsFinalReportComponent)final!: LpsFinalReportComponent;
-  
+  @ViewChild('tabs') tabs!: MatTabGroup;
+
   isEditable:boolean=false;
 
   constructor(
     private _formBuilder: FormBuilder,
     private basicLpsService: LPSBasicDetailsService,
-    private router: ActivatedRoute,
+    private router: ActivatedRoute, public service: GlobalsService,
     private ChangeDetectorRef: ChangeDetectorRef,) { 
-      
     }
 
   ngOnInit(): void {
     this.refresh();
+    this.tabs._handleClick = this.interceptTabChange.bind(this);
   }
   public doSomething1(next: any): void {
  
@@ -224,6 +226,36 @@ export class LpsMatstepperComponent implements OnInit {
   refresh() {
     
     this.ChangeDetectorRef.detectChanges();
+  }
+  interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
+    if((this.service.lvClick==1) && (this.service.allStepsCompleted==true))
+       {
+        if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
+          this.selectedIndex=1; 
+          this.service.windowTabClick=0;
+          this.service.logoutClick=0; 
+          this.service.lvClick=0; 
+      }
+      else{
+        return;
+      }
+        }
+        else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
+        this.service.windowTabClick=0;
+        this.service.logoutClick=0;
+        this.service.lvClick=0; 
+        const tabs = tab.textLabel;
+        if((tabs==="Lightning Protection System"))
+           {
+              this.selectedIndex=0; 
+          }
+          else if((tabs==="Saved Reports")){
+            this.selectedIndex=1; 
+          }    
+          else{
+            this.selectedIndex=2; 
+          }        
+        }
   }
 
   preview(basicLpsId: any,ClientName:any): void {

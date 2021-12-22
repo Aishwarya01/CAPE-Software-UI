@@ -84,7 +84,7 @@ export class LpsBasicPageComponent implements OnInit {
     }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
-    this.service.lvClick=1;
+    //this.service.lvClick=1;
 
      this.step1List = data.basicLps;
     //  if(this.step1List.clientName != null){
@@ -121,7 +121,7 @@ export class LpsBasicPageComponent implements OnInit {
     }
 
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
-      this.service.lvClick=1;
+      //this.service.lvClick=1;
 
        this.stepBack=JSON.parse(data);
        this.basicDetails.basicLpsId = basicLpsId;
@@ -184,18 +184,20 @@ export class LpsBasicPageComponent implements OnInit {
       if(this.LPSBasicForm.dirty){
         this.service.lvClick=1;
         this.service.logoutClick=1;
-        this.service.windowTabClick=1;
+         this.service.windowTabClick=1;
       }
       else{
         this.validationError=false;
         this.service.lvClick=0;
         this.service.logoutClick=0;
+        this.service.windowTabClick=0;
       }
      }
-    else {
-     this.service.lvClick=1;
-     this.service.logoutClick=1;
-    }  
+     else {
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+     }
   }
   onKeyForm(event: KeyboardEvent) { 
    if(!this.LPSBasicForm.invalid){ 
@@ -208,16 +210,21 @@ export class LpsBasicPageComponent implements OnInit {
       this.validationError=false;
       this.service.lvClick=0;
       this.service.logoutClick=0;
+      this.service.windowTabClick=0;
     }
    }
    else {
     this.service.lvClick=1;
     this.service.logoutClick=1;
+    this.service.windowTabClick=1;
    }
   } 
   doBeforeUnload() {
-    // if(this.step1Form.dirty){
+    if(this.service.allStepsCompleted==true){
       if(this.service.logoutClick==1 && this.service.windowTabClick==0) {
+        return true;
+       }
+       else if(this.service.logoutClick==0 && this.service.windowTabClick==0){
         return true;
        }
        else{
@@ -225,10 +232,10 @@ export class LpsBasicPageComponent implements OnInit {
         // Alert the user window is closing 
         return false;
        }
-     //}
-      // else{
-      //   return true;
-      // }
+      }
+      else{
+        return true;
+      }
   }
   closeModalDialog() {
     
@@ -284,6 +291,9 @@ export class LpsBasicPageComponent implements OnInit {
           this.successMsg = data;
           this.LPSBasicForm.markAsPristine();
           this.proceedNext.emit(true);
+          this.service.lvClick=0;
+          this.service.logoutClick=0;
+          this.service.windowTabClick=0;
         },
           // update failed msg
         error => {
@@ -322,7 +332,11 @@ export class LpsBasicPageComponent implements OnInit {
           this.successMsg = "Basic Information sucessfully Saved";
           //this.disable = true;
           this.retriveBasicDetails();
+          this.LPSBasicForm.markAsPristine();
           this.proceedNext.emit(true);
+          this.service.lvClick=0;
+          this.service.logoutClick=0;
+          this.service.windowTabClick=0;
         },
         error => {
           this.Error = true;

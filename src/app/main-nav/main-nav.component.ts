@@ -866,6 +866,7 @@ profileUpdate(email: String) {
           emcAssessmentInspectionRef.changeDetectorRef.detectChanges();
           break;
         case 'LPS Systems':
+          this.service.allStepsCompleted=true;
           this.viewContainerRef.clear();
           const LpsInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LpsWelcomePageComponent);
           const LpsInspectionRef = this.viewContainerRef.createComponent(LpsInspectionFactory);
