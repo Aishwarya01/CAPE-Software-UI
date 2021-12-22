@@ -49,9 +49,29 @@ export class IpaInsection {
   operatingCurrent!: String;
   inspectionFlag!: String;
 
+
+  inspectionOuterObervation!:InspectionOuterObervation[];
   consumerUnit!: consumerUnit[];
   circuit!: circuit[];
   isolationCurrent!:isolationCurrent[];
+}
+
+export class InspectionOuterObervation{
+  
+  inspectionOuterObservationId!:number;
+  observationComponentDetails!: String;
+  observationDescription!: String;
+  inspectionOuterObservationStatus!: String;
+
+  inspectionInnerObervations!:InspectionInnerObervations[];
+}
+export class InspectionInnerObervations{
+  
+  inspectionInnerObervationsId!: number;
+  observationComponentDetails!: String;
+  observationDescription!: String;
+  inspectionInnerObervationStatus!: String;
+
 }
 export class consumerUnit { 
   consumerId: number;

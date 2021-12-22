@@ -858,6 +858,29 @@ showHideAccordion(index: number) {
   getearthingControls(form: any) {
     return form.controls.consumerUnit.controls;
   }
+
+  getObservationControls(form: any) {
+    return form.controls.inspectionOuterObervation?.controls;
+  }
+  getInnerObservationControls(form: any) {
+    return form.controls.inspectionInnerObervations?.controls;
+  }
+  
+  private createObservationForm(): FormGroup {
+    return new FormGroup({
+      observationComponentDetails:  new FormControl('inspectionComponent'),
+      observationDescription:  new FormControl(''),
+      inspectionOuterObservationStatus:  new FormControl('A'),
+      inspectionInnerObervations: this._formBuilder.array([]),
+
+
+    });}
+    private createInnerObservationForm(): FormGroup {
+      return new FormGroup({
+        observationComponentDetails:  new FormControl('inspectionComponent-consumerIter'),
+        observationDescription:  new FormControl(''),
+        inspectionInnerObervationStatus:  new FormControl('A'),
+      });}
   private createEarthingForm(): FormGroup {
     return new FormGroup({
       distributionBoardDetails:  new FormControl('', [Validators.required]),
@@ -894,6 +917,7 @@ showHideAccordion(index: number) {
       electromagnetic: new FormControl('', [Validators.required]),
       allConductorCon: new FormControl('', [Validators.required]),
       consumerStatus: new FormControl('A'),
+      inspectionInnerObervations: this._formBuilder.array([this.createInnerObservationForm()]),
     });
   }
   getcircuitControls(form: any) {
@@ -1057,7 +1081,7 @@ showHideAccordion(index: number) {
       supplementaryBonding: new FormControl('', [Validators.required]),
       specificInspectionRe: new FormControl(''),
 
-
+      inspectionOuterObervation: this._formBuilder.array([this.createObservationForm()]),
       consumerUnit: this._formBuilder.array([this.createEarthingForm()]),
       circuit: this._formBuilder.array([this.createcircuitForm()]),
       isolationCurrent: this._formBuilder.array([
@@ -1338,13 +1362,22 @@ showHideAccordion(index: number) {
     }
     this.incomingArr = this.addstep3.get('incomingArr') as FormArray;
     this.inspectionDetails.userName = this.email;
-    this.submitted = true;
+   this.submitted = true;
     if (this.addstep3.invalid) {
       return;
     }
+for(let h of this.incomingArr.value){
+  for(let t of h.consumerUnit){
+  for(let g of h.inspectionOuterObervation){
+      g.inspectionInnerObervations=g.inspectionInnerObervations.concat(t.inspectionInnerObervations);
+     } 
+   }
+  }
+ 
     this.service.iterationList = this.incomingArr.value;
     this.inspectionDetails.ipaoInspection = this.addstep3.value.incomingArr;
 
+   
     if(flag) {
       if(this.addstep3.dirty){
         if(this.deletedArr.length != 0) {

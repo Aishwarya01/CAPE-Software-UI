@@ -14,7 +14,7 @@
       margin-bottom: -10px;float: right;cursor: pointer;text-decoration: underline;">Observations</a>
     </div>
     </div>
-  <form [formGroup]="addstep3" (ngSubmit)="nextTab3(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
+  <form [formGroup]="addstep3" (ngSubmit)="nextTab3(flag)"  (keyup)="onKeyForm($event)" (change)="onChangeForm($event)" >
 <div class="card-body" formArrayName="incomingArr" *ngFor="let a of getIncomingControls(); let i = index" >
   <div [formGroupName]="i" >
   <div class="search-bar">
@@ -40,10 +40,26 @@
                 <div *ngIf="a.get('locationName')?.errors?.required">Location name is required</div>
             </div> 
         </div>
+
         <mat-icon class="mousechange" class="dlt" type="button" [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="getIncomingControls().length > 1" (click)="removeItem(i)" title="Delete" style="position: relative; top: 34px; left: 27%;">remove_circle_outline</mat-icon>
       </div>
   </div>
 </div>
+
+<br>
+<div class="row" formArrayName="inspectionOuterObervation" *ngFor="let b of getObservationControls(a); let i = index">	
+  <div class="col-md-6" [formGroupName]="i">	
+    <mat-form-field  class="client-description " >	
+      <mat-label>	
+        <h3>Observations</h3>	
+      </mat-label>	
+      <textarea matInput  class="client-description "	formControlName="observationDescription"
+     maxlength="2000" placeholder="Ex. Observations  ..."></textarea>	
+    </mat-form-field>	
+  </div>
+  </div>	
+
+  <br>
   <mat-accordion>
     <!-- IpaInsection starts-->
     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -1311,6 +1327,20 @@
         </div>
 
       
+        <div class="row" formArrayName="inspectionInnerObervations" *ngFor="let g of getInnerObservationControls(b); let i = index">	
+          <div class="col-md-6" [formGroupName]="i">	
+            <mat-form-field  class="client-description " >	
+              <mat-label>	
+                <h3>Observations</h3>	
+              </mat-label>	
+              <textarea matInput  class="client-description "	formControlName="observationDescription"
+             maxlength="2000" placeholder="Ex. Observations  ..."></textarea>	
+            </mat-form-field>	
+          </div>
+          </div>	
+
+
+
         
       </div>
         </div>
