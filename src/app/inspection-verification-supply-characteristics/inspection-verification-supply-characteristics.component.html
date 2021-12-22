@@ -1140,7 +1140,7 @@
                     <h3>Earth Electrode - Observations</h3>	
                   </mat-label>	
                   <textarea matInput class="client-box-description" formControlName="earthElectrodeObservation" 	
-                  [ngClass]="{ 'is-invalid': submitted && f.earthElectrodeObservation?.errors }" 	
+                  [ngClass]="{ 'is-invalid': submitted && f.earthElectrodeObservation?.errors }" 	[(ngModel)]="earthElectrodeObservation"
                   maxlength="500" 	
                   placeholder="Ex. Observations ..." ></textarea>	
                 </mat-form-field>	
@@ -1399,7 +1399,7 @@
                       <h3>Bonding Conductor - Observations</h3>	
                     </mat-label>	
                     <textarea matInput class="client-box-description" formControlName="bondingConductorObservation" 	
-                    [ngClass]="{ 'is-invalid': submitted && f.bondingConductorObservation?.errors }" 	
+                    [ngClass]="{ 'is-invalid': submitted && f.bondingConductorObservation?.errors }" 	[(ngModel)]="bondingConductorObservation"
                     maxlength="500" 	
                     placeholder="Ex. Observations ..." ></textarea>	
                   </mat-form-field>	
@@ -1582,7 +1582,7 @@
                       <h3>Earthing Conductor - Observations</h3>	
                     </mat-label>	
                     <textarea matInput class="client-box-description" formControlName="earthingConductorObservation" 	
-                    [ngClass]="{ 'is-invalid': submitted && f.earthingConductorObservation?.errors }" 	
+                    [ngClass]="{ 'is-invalid': submitted && f.earthingConductorObservation?.errors }" 	[(ngModel)]="earthingConductorObservation"
                     maxlength="500" 	
                     placeholder="Ex. Observations ..." ></textarea>	
                   </mat-form-field>	

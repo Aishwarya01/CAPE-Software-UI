@@ -341,6 +341,13 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   observationValues: any="";
   disableObservation: boolean=true;
   observationArr: any=[];
+  earthElectrodeObservation: String= '';
+  bondingConductorObservation: String= '';
+  earthingConductorObservation: String= '';
+  observArr: any = [];
+  observeMainArr: any = [];
+  deletedObservation: any = [];
+  observationAlternateArr: any= [];
 
   constructor(
     private supplyCharacteristicsService: SupplyCharacteristicsService,
@@ -567,6 +574,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
        this.DcValue = this.step2List.supplyCharacteristics.liveConductorDC;
        this.step2List.liveConductor= this.step2List.supplyCharacteristics.liveConductor;
        this.supplycharesteristic.supplyNumber = this.step2List.supplyCharacteristics.supplyNumber;
+       this.supplycharesteristic.supplyOuterObservation = this.step2List.supplyCharacteristics.supplyOuterObservation;
        this.flag = true;
       
        this.populateData(this.step2List.supplyCharacteristics);
@@ -730,6 +738,8 @@ export class InspectionVerificationSupplyCharacteristicsComponent
          this.AcValue = this.step2List.liveConductorAC;
          this.DcValue = this.step2List.liveConductorDC;
          this.step2List.liveConductor= this.step2List.liveConductor;
+         this.supplycharesteristic.supplyOuterObservation = this.step2List.supplyOuterObservation;
+
          this.flag = true;
          this.populateData(this.step2List);
          this.supplycharesteristicForm.patchValue({
@@ -1647,6 +1657,7 @@ showHideAccordion(index: number) {
       // if(this.service.disableFields==true){
       //   this.disable=true;
       //   }
+      
       for (let item of value.boundingLocationReport) {     
         this.arr2.push(this.createGroup(item));
       }
@@ -1665,23 +1676,76 @@ showHideAccordion(index: number) {
         this.tableAC=true;    
         this.alArr2.push(this.createGroupAl2(item));
       }
+      
       for (let item of value.circuitBreaker) {     
         this.circuitB.push(this.createGroupCircuitB(item));
+      }
+
+      for(let item of value.supplyOuterObservation) {
+        if(item.observationComponentDetails == 'mains') {
+          this.observeMainArr.push(this.createMainObserveForm(item))
+          this.supplycharesteristic.liveConductorBNote = item.observationDescription;
+        }
+        else if(item.observationComponentDetails == 'instalLocationReportOb') {
+          this.observeMainArr.push(this.createMainObserveForm(item))
+          this.earthElectrodeObservation = item.observationDescription;
+        }
+        else if(item.observationComponentDetails == 'bondingNoOfJointsOb') {
+          this.observeMainArr.push(this.createMainObserveForm(item))
+          this.bondingConductorObservation = item.observationDescription;
+        }
+        else if(item.observationComponentDetails == 'earthingNoOfJointsOb') {
+          this.observeMainArr.push(this.createMainObserveForm(item))
+          this.earthingConductorObservation = item.observationDescription;
+        }
+        else if(item.observationComponentDetails == 'alternate') {
+          this.observeMainArr.push(this.createMainObserveForm(item))
+          for(let i=0;i<this.alArr.length; i++){
+            this.alArr[i].controls.supplyInnerObervationsId.setValue(item.alternativeInnerObservation[i].supplyInnerObervationsId) ;
+            this.alArr[i].controls.aLLiveConductorBNote.setValue(item.alternativeInnerObservation[i].observationDescription);
+          }
+        }
       }
       this.supplycharesteristicForm.setControl('location2Arr', this.formBuilder.array(this.arr2 || []))
       this.supplycharesteristicForm.setControl('location1Arr', this.formBuilder.array(this.arr1 || []))
       this.supplycharesteristicForm.setControl('location3Arr', this.formBuilder.array(this.arr3 || []))
       this.supplycharesteristicForm.setControl('alternateArr', this.formBuilder.array(this.alArr || []))
       this.supplycharesteristicForm.setControl('circuitArr', this.formBuilder.array(this.circuitB || []))
-      this.supplycharesteristicForm.setControl('circuitArr', this.formBuilder.array(this.circuitB || []))
+      this.supplycharesteristicForm.setControl('observationArr', this.formBuilder.array(this.observeMainArr || []))
+
 
       this.arr1 = [];
       this.arr2 = [];
       this.arr3 = [];
       this.alArr = [];
       this.circuitB = [];
+      this.observeMainArr = [];
     }
 
+    private createMainObserveForm(item: any): FormGroup {
+      return new FormGroup({
+        supplyOuterObservationId: new FormControl({disabled: false, value: item.supplyOuterObservationId}),
+        observationComponentDetails: new FormControl({disabled: false, value: item.observationComponentDetails}),
+        observationDescription: new FormControl({disabled: false, value: item.observationDescription}),
+        supplyOuterObservationStatus: new FormControl(item.supplyOuterObservationStatus),
+        alternativeInnerObservation: this.formBuilder.array(this.createObserveArr(item.alternativeInnerObservation)),
+      });
+    }
+
+    private createObserveArr(item: any){
+      for(let i of item) {
+        this.observArr.push(this.createObserveArr1(i));
+      }
+      return this.observArr
+    }
+    private createObserveArr1(item: any): FormGroup {
+      return new FormGroup({
+        supplyInnerObervationsId: new FormControl({disabled: false, value: item.supplyInnerObervationsId}),
+        observationComponentDetails: new FormControl({disabled: false, value: item.observationComponentDetails}),
+        observationDescription: new FormControl({disabled: false, value: item.observationDescription}),
+        alternativeInnerObservationStatus: new FormControl({disabled: false, value: item.alternativeInnerObservationStatus}),
+      });
+    }
 
     createGroup(item: any): FormGroup {
       return this.formBuilder.group({
@@ -1711,6 +1775,7 @@ showHideAccordion(index: number) {
     createGroupAl(item: any): FormGroup {
       return this.formBuilder.group({
         supplyparametersId: new FormControl({disabled: false, value: item.supplyparametersId}),
+        supplyInnerObervationsId: new FormControl(''),
         aLSupplyNo: new FormControl({disabled: false ,value: item.aLSupplyNo}, [Validators.required]),
         aLSupplyShortName: new FormControl({disabled: false, value: item.aLSupplyShortName}, [Validators.required]),
         aLSystemEarthing: new FormControl({disabled: false ,value: item.aLSystemEarthing}, [Validators.required]),
@@ -2649,7 +2714,9 @@ showHideAccordion(index: number) {
       this.circuitArr = this.supplycharesteristicForm.get(
         'circuitArr'
       ) as FormArray;
+      this.observationArr = this.supplycharesteristicForm.get('observationArr') as FormArray;
       //if (this.alternateArr.length == 1 || this.alternateArr.length < this.value) {
+        this.observationAlternateArr = this.observationArr.controls[4].controls.alternativeInnerObservation as FormArray;
         let c = 0;
         if(this.alternateArr.length < this.value){
           if(this.alternateArr.length != 0){
@@ -2659,8 +2726,9 @@ showHideAccordion(index: number) {
 
           this.alternateArr.push(this.SupplyparametersForm());
           this.circuitArr.push(this.createCircuitForm());
+          this.observationAlternateArr.push(this.generateAlternativeForm());
         }
-        this.sources = true;
+        this.sources = true;    
         this.breaker = true;
       } 
       else if ((this.alternateArr.length < this.value) && this.alternateArr.length!=0)  {
@@ -2672,6 +2740,8 @@ showHideAccordion(index: number) {
               'alternateArr'
             ) as FormArray;
             this.alternateArr.push(this.SupplyparametersForm());
+            this.observationAlternateArr.push(this.generateAlternativeForm());
+
           }
   
           for (this.i = 0; this.i < this.delarr1; this.i++) {
@@ -2693,6 +2763,8 @@ showHideAccordion(index: number) {
             this.alternateArr = this.supplycharesteristicForm.get(
               'alternateArr'
             ) as FormArray;
+            this.observationAlternateArr.removeAt(this.observationAlternateArr.length - 1);
+
             this.alternateArr.removeAt(this.alternateArr.length - 1);
           }
           for (this.i = 0; this.i < this.delarr1; this.i++) {
@@ -2707,6 +2779,8 @@ showHideAccordion(index: number) {
         if(!this.alternateArr.length == this.value){ //removed from elango's yesterday commit by Aish
         for (this.i = 0; this.i < this.value; this.i++) {
           this.alternateArr.push(this.SupplyparametersForm());
+          this.observationAlternateArr.push(this.generateAlternativeForm());
+
           this.circuitArr.push(this.createCircuitForm());
         }
         this.sources = true;
@@ -3400,12 +3474,15 @@ showHideAccordion(index: number) {
       'observationArr'
     ) as FormArray;
     
-    for(let i=0; i<5; i++){
-      this.observationArr.push(this.generateForm());
-      for(let j=0;j<this.alternateArr.length;j++){
-        this.observationArr.controls[i].controls.alternativeInnerObservation.push(this.generateAlternativeForm());
+    
+    if(!flag) {
+      for(let i=0; i<5; i++){
+        this.observationArr.push(this.generateForm());
+        for(let j=0;j<this.alternateArr.length;j++){
+          this.observationArr.controls[i].controls.alternativeInnerObservation.push(this.generateAlternativeForm());
+        }
       }
-    }
+
     this.supplycharesteristic.supplyOuterObservation = this.supplycharesteristicForm.value.observationArr
 
     this.supplycharesteristic.supplyOuterObservation[0].observationComponentDetails='mains';
@@ -3452,10 +3529,60 @@ showHideAccordion(index: number) {
         i.supplyOuterObservationStatus = 'N';
       }
     }
+    }
+    
+    console.log(this.supplycharesteristic)
 
     if(flag) { 
      
       if(this.supplycharesteristicForm.dirty){
+        for(let i of this.supplycharesteristic.supplyOuterObservation){
+          if(i.observationComponentDetails == 'mains') {
+            i.observationDescription=this.supplycharesteristicForm.value.liveConductorBNote;
+            i.alternativeInnerObservation = [];
+          }
+          else if(i.observationComponentDetails == 'earthingNoOfJointsOb') {
+            i.observationDescription=this.supplycharesteristicForm.value.earthingConductorObservation;
+            i.alternativeInnerObservation = [];
+    
+          }
+          else if(i.observationComponentDetails == 'bondingNoOfJointsOb') {
+            i.observationDescription=this.supplycharesteristicForm.value.bondingConductorObservation;
+            i.alternativeInnerObservation = [];
+    
+          }
+          else if(i.observationComponentDetails == 'instalLocationReportOb') {
+            i.observationDescription=this.supplycharesteristicForm.value.earthElectrodeObservation;
+            i.alternativeInnerObservation = [];
+    
+          }
+          else if(i.observationComponentDetails == 'alternate') {
+            this.alternateArr = this.supplycharesteristicForm.get(
+              'alternateArr'
+            ) as FormArray;
+            i.alternativeInnerObservation = [];
+            
+            //updated observation
+            this.observationAlternateArr = this.observationArr.controls[4].controls.alternativeInnerObservation as FormArray;
+            for(let item of this.observationAlternateArr.controls) {
+              i.alternativeInnerObservation.push(item.value)
+            }
+
+            //new observation
+            for(let j=0; j<this.alternateArr.length; j++) {
+                  i.alternativeInnerObservation[j].observationDescription = this.alternateArr.value[j].aLLiveConductorBNote;
+                  i.alternativeInnerObservation[j].observationComponentDetails = 'alternate '+j;
+                  i.alternativeInnerObservation[j].alternativeInnerObservationStatus = 'A';
+            }
+            i.supplyOuterObservationStatus = 'N';
+
+            //deleted observation
+            for(let value of this.deletedObservation) {
+              i.alternativeInnerObservation.push(value);
+            }
+          }
+        }
+        console.log(this.supplycharesteristic);
       this.UpateInspectionService.updateSupply(this.supplycharesteristic).subscribe(
         (data)=> {
           this.success = true;
@@ -3649,6 +3776,16 @@ else{
         
 
         a.value.supplyParameterStatus='R';
+        // code done by Arun for observation
+        this.observationArr = this.supplycharesteristicForm.get('observationArr') as FormArray;
+
+        for(let j of this.observationArr.controls[4].controls.alternativeInnerObservation.controls) {         
+              if(a.value.supplyInnerObervationsId == j.controls.supplyInnerObervationsId.value) {
+                j.controls.alternativeInnerObservationStatus.setValue('R');
+                this.deletedObservation.push(j.value);
+                this.observationArr.controls[4].controls.alternativeInnerObservation.removeAt(index);
+              }               
+        }
         this.alternateArr1 = this.alternateArr1.concat(a.value)
   
         const items = (<FormArray>this.supplycharesteristicForm.get('circuitArr'));
