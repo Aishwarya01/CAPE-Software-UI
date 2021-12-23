@@ -116,7 +116,11 @@ export class SummaryComponent implements OnInit {
   fcname: string[] = [
     'comment',
     'furtherActions',
-    'observations',
+    'obervationStatus',
+    'observationsInspection',
+    'observationsSupply',
+    'observationsTesting',
+    //'observations',
     'referanceNumberReport',
     'recommendationsDate'
   ];
