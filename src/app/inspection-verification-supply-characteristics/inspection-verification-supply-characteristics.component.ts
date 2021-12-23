@@ -2117,6 +2117,7 @@ showHideAccordion(index: number) {
   // }
 
   onKey1(event: KeyboardEvent) {
+    debugger
     this.values = (<HTMLInputElement>event.target).value;
     this.value = this.values;
     this.location1Arr = this.supplycharesteristicForm.get(
@@ -2163,6 +2164,14 @@ showHideAccordion(index: number) {
        
         this.delarr = this.location1Arr.length - this.value;
         for (this.i = 0; this.i < this.delarr; this.i++) {
+
+          let a = this.location1Arr.value[this.i];
+          if(a.locationReportId != 0){
+            a.instalLocationReportStatus = 'R';
+            this.locationArr = this.locationArr.concat(a);
+          }
+          
+
           this.location1Arr = this.supplycharesteristicForm.get(
             'location1Arr'
           ) as FormArray;
@@ -2254,6 +2263,7 @@ showHideAccordion(index: number) {
   // }
 
   onKey(event: KeyboardEvent) {
+    debugger
     this.values='';
     if(event.target != undefined) {
       this.values = (<HTMLInputElement>event.target).value;    
@@ -2308,6 +2318,11 @@ showHideAccordion(index: number) {
        
         this.delarr = this.location2Arr.length - this.value;
         for (this.i = 0; this.i < this.delarr; this.i++) {
+
+          let a = this.location2Arr.value[this.i];
+          a.instalLocationReportStatus = 'R';
+          this.boundingArr = this.boundingArr.concat(a);
+
           this.location2Arr = this.supplycharesteristicForm.get(
             'location2Arr'
           ) as FormArray;
@@ -2425,6 +2440,7 @@ showHideAccordion(index: number) {
   //   }
   // }
   onKey3(event: KeyboardEvent) { //No Of Joints
+    debugger
     this.values='';
     if(event.target != undefined) {
       this.values = (<HTMLInputElement>event.target).value;    
@@ -2480,6 +2496,9 @@ showHideAccordion(index: number) {
        
         this.delarr = this.location3Arr.length - this.value;
         for (this.i = 0; this.i < this.delarr; this.i++) {
+          let a = this.location3Arr.value[this.i];
+          a.instalLocationReportStatus = 'R';
+          this.earthingArr = this.earthingArr.concat(a);
           this.location3Arr = this.supplycharesteristicForm.get(
             'location3Arr'
           ) as FormArray;
@@ -2664,7 +2683,11 @@ showHideAccordion(index: number) {
       this.table2AC = false;
     }
   }
+
   showAlternateField(event: any) {
+    debugger
+    const items = (<FormArray>this.supplycharesteristicForm.get('circuitArr'));
+          let g = items.length;
     this.alternateArr = this.supplycharesteristicForm.get(
       'alternateArr'
     ) as FormArray;
@@ -2682,10 +2705,45 @@ showHideAccordion(index: number) {
       this.breaker = false;
       this.alternativeSupplyNo=false;
       if (this.alternateArr.length != 0) {
-        this.alternateArr.reset();
-        this.circuitArr.reset();
-      }
-      this.disableValidators();
+        let b = parseInt(this.supplycharesteristicForm.value.supplyNumber);
+        for (this.i = 0; this.i <= b; this.i++) {
+          let d = this.alternateArr.value[0];
+
+          if(d!=undefined){
+
+            if(d.supplyparametersId !=0){
+              d.supplyParameterStatus = 'R';
+              this.alternateArr1 = this.alternateArr1.concat(d);
+            }
+            this.alternateArr = this.supplycharesteristicForm.get(
+              'alternateArr'
+            ) as FormArray;
+
+            for (let i = 0; i <= g; i++) {
+              let e = items.value[i];
+              console.log(e); 
+              if(d.aLSupplyShortName == e.sourceName){
+
+                if(e.circuitBreakerId != 0){
+                  e.circuitStatus = 'R';
+                  this.circuitArr1 = this.circuitArr1.concat(e);
+                }
+                
+                this.circuitArr = this.supplycharesteristicForm.get(
+                  'circuitArr'
+                ) as FormArray;
+                this.circuitArr.removeAt(i);
+                this.alternateArr.removeAt(0);
+                break
+                }
+           }
+        }
+    }
+    this.supplycharesteristic.alternativeSupply= 'No';
+    this.supplycharesteristicForm.markAsPristine();
+    this.supplycharesteristic.supplyNumber = '0';
+  }
+      //this.disableValidators();
     }
      else {
       this.alternativeSupplyNo=true;
@@ -2695,9 +2753,11 @@ showHideAccordion(index: number) {
         'supplyNumber'
       ].updateValueAndValidity();
     }
+    
   }
 
   onKeyAlernate(event: KeyboardEvent) {
+    debugger
     this.values = (<HTMLInputElement>event.target).value;
     this.value = this.values;
     this.alternateArr = this.supplycharesteristicForm.get(
@@ -2714,9 +2774,7 @@ showHideAccordion(index: number) {
       this.circuitArr = this.supplycharesteristicForm.get(
         'circuitArr'
       ) as FormArray;
-      this.observationArr = this.supplycharesteristicForm.get('observationArr') as FormArray;
       //if (this.alternateArr.length == 1 || this.alternateArr.length < this.value) {
-        this.observationAlternateArr = this.observationArr.controls[4].controls.alternativeInnerObservation as FormArray;
         let c = 0;
         if(this.alternateArr.length < this.value){
           if(this.alternateArr.length != 0){
@@ -2726,9 +2784,8 @@ showHideAccordion(index: number) {
 
           this.alternateArr.push(this.SupplyparametersForm());
           this.circuitArr.push(this.createCircuitForm());
-          this.observationAlternateArr.push(this.generateAlternativeForm());
         }
-        this.sources = true;    
+        this.sources = true;
         this.breaker = true;
       } 
       else if ((this.alternateArr.length < this.value) && this.alternateArr.length!=0)  {
@@ -2740,8 +2797,6 @@ showHideAccordion(index: number) {
               'alternateArr'
             ) as FormArray;
             this.alternateArr.push(this.SupplyparametersForm());
-            this.observationAlternateArr.push(this.generateAlternativeForm());
-
           }
   
           for (this.i = 0; this.i < this.delarr1; this.i++) {
@@ -2758,29 +2813,40 @@ showHideAccordion(index: number) {
         if (this.value != '') {
           this.delarr = this.alternateArr.length - this.value;
           this.delarr1 = this.delarr;
-  
+
           for (this.i = 0; this.i < this.delarr; this.i++) {
+
+            let z = this.alternateArr.length -1;
+            let d = this.alternateArr.value[z];
+            d.supplyParameterStatus = 'R';
+            this.alternateArr1 = this.alternateArr1.concat(d);
             this.alternateArr = this.supplycharesteristicForm.get(
               'alternateArr'
             ) as FormArray;
-            this.observationAlternateArr.removeAt(this.observationAlternateArr.length - 1);
-
             this.alternateArr.removeAt(this.alternateArr.length - 1);
+
+            for (this.j = 0; this.j <= this.circuitArr.length; this.j++) {
+              debugger
+              let e = this.circuitArr.value[this.j];
+              if(d.aLSupplyShortName == e.sourceName){
+                e.circuitStatus = 'R';
+                this.circuitArr1 = this.circuitArr1.concat(e);
+                this.circuitArr = this.supplycharesteristicForm.get(
+                  'circuitArr'
+                ) as FormArray;
+                this.circuitArr.removeAt(this.j);
+              }
+              
+              //(this.supplycharesteristicForm.get('circuitArr') as FormArray).removeAt(index+1);
+            }
           }
-          for (this.i = 0; this.i < this.delarr1; this.i++) {
-            this.circuitArr = this.supplycharesteristicForm.get(
-              'circuitArr'
-            ) as FormArray;
-            this.circuitArr.removeAt(this.circuitArr.length - 1);
-          }
+          
         }
       }
       else {
         if(!this.alternateArr.length == this.value){ //removed from elango's yesterday commit by Aish
         for (this.i = 0; this.i < this.value; this.i++) {
           this.alternateArr.push(this.SupplyparametersForm());
-          this.observationAlternateArr.push(this.generateAlternativeForm());
-
           this.circuitArr.push(this.createCircuitForm());
         }
         this.sources = true;
@@ -3685,7 +3751,7 @@ else{
   }
   }
   
-   removeItem(a:any,index: any) {
+  removeItem(a:any,index: any) {
     this.supplycharesteristicForm.markAsTouched();
     if(this.supplycharesteristic.noOfLocation != 0){
       if(a.value.locationReportId !=0 && a.value.locationReportId !=undefined)
@@ -3780,16 +3846,6 @@ else{
         
 
         a.value.supplyParameterStatus='R';
-        // code done by Arun for observation
-        this.observationArr = this.supplycharesteristicForm.get('observationArr') as FormArray;
-
-        for(let j of this.observationArr.controls[4].controls.alternativeInnerObservation.controls) {         
-              if(a.value.supplyInnerObervationsId == j.controls.supplyInnerObervationsId.value) {
-                j.controls.alternativeInnerObservationStatus.setValue('R');
-                this.deletedObservation.push(j.value);
-                this.observationArr.controls[4].controls.alternativeInnerObservation.removeAt(index);
-              }               
-        }
         this.alternateArr1 = this.alternateArr1.concat(a.value)
   
         const items = (<FormArray>this.supplycharesteristicForm.get('circuitArr'));
