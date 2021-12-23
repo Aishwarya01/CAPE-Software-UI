@@ -2774,7 +2774,9 @@ showHideAccordion(index: number) {
       this.circuitArr = this.supplycharesteristicForm.get(
         'circuitArr'
       ) as FormArray;
+      this.observationArr = this.supplycharesteristicForm.get('observationArr') as FormArray;
       //if (this.alternateArr.length == 1 || this.alternateArr.length < this.value) {
+        this.observationAlternateArr = this.observationArr.controls[4].controls.alternativeInnerObservation as FormArray;
         let c = 0;
         if(this.alternateArr.length < this.value){
           if(this.alternateArr.length != 0){
@@ -2784,6 +2786,7 @@ showHideAccordion(index: number) {
 
           this.alternateArr.push(this.SupplyparametersForm());
           this.circuitArr.push(this.createCircuitForm());
+          this.observationAlternateArr.push(this.generateAlternativeForm());
         }
         this.sources = true;
         this.breaker = true;
@@ -2797,6 +2800,7 @@ showHideAccordion(index: number) {
               'alternateArr'
             ) as FormArray;
             this.alternateArr.push(this.SupplyparametersForm());
+            this.observationAlternateArr.push(this.generateAlternativeForm());
           }
   
           for (this.i = 0; this.i < this.delarr1; this.i++) {
@@ -2823,9 +2827,10 @@ showHideAccordion(index: number) {
             this.alternateArr = this.supplycharesteristicForm.get(
               'alternateArr'
             ) as FormArray;
+            this.observationAlternateArr.removeAt(this.observationAlternateArr.length - 1);
             this.alternateArr.removeAt(this.alternateArr.length - 1);
 
-            for (this.j = 0; this.j <= this.circuitArr.length; this.j++) {
+            for (this.j = 0; this.j < this.circuitArr.length; this.j++) {
               debugger
               let e = this.circuitArr.value[this.j];
               if(d.aLSupplyShortName == e.sourceName){
@@ -2848,6 +2853,7 @@ showHideAccordion(index: number) {
         for (this.i = 0; this.i < this.value; this.i++) {
           this.alternateArr.push(this.SupplyparametersForm());
           this.circuitArr.push(this.createCircuitForm());
+          this.observationAlternateArr.push(this.generateAlternativeForm());
         }
         this.sources = true;
         this.breaker = true;
@@ -3846,6 +3852,17 @@ else{
         
 
         a.value.supplyParameterStatus='R';
+
+        // code added by Arun for observation
+        this.observationArr = this.supplycharesteristicForm.get('observationArr') as FormArray;
+        for(let j of this.observationArr.controls[4].controls.alternativeInnerObservation.controls) {         
+              if(a.value.supplyInnerObervationsId == j.controls.supplyInnerObervationsId.value) {
+                j.controls.alternativeInnerObservationStatus.setValue('R');
+                this.deletedObservation.push(j.value);
+                this.observationArr.controls[4].controls.alternativeInnerObservation.removeAt(index);
+              }               
+        }
+
         this.alternateArr1 = this.alternateArr1.concat(a.value)
   
         const items = (<FormArray>this.supplycharesteristicForm.get('circuitArr'));
