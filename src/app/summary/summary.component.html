@@ -125,19 +125,25 @@
               <div formArrayName="ObservationsArr" *ngFor="let a of getObservationsControls(); let i = index">
               <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
             <div class="form-group">
-        <div class="row">
+            <!-- <div class="row">
               <div class="col-sm-12">
                 <div class="form-group">
-                  <!-- <mat-icon class="mousechange" (click)="addObservations()" [ngClass]="{'disableForm':service.allFieldsDisable}"
-                  style="margin-top: 2px;float: right;cursor: pointer;">add_box</mat-icon> -->
-                <!-- <mat-form-field class="client-description"> -->
+
+                  always need to commented
+                  <mat-icon class="mousechange" (click)="addObservations()" [ngClass]="{'disableForm':service.allFieldsDisable}"
+                  style="margin-top: 2px;float: right;cursor: pointer;">add_box</mat-icon>
+                <mat-form-field class="client-description">
+
                   <label>
                     <h3>Observations :
                   </h3>
                   </label>
-                  <!-- <textarea matInput class="client-box-description" maxlength="500" formControlName="observations"
+
+                  always need to commented
+                  <textarea matInput class="client-box-description" maxlength="500" formControlName="observations"
                    placeholder="Ex. Report description..." [readonly]="service.allFieldsDisable"
-                   [ngClass]="{ 'is-invalid': submitted &&  a.get('observations')?.errors }"></textarea> -->
+                   [ngClass]="{ 'is-invalid': submitted &&  a.get('observations')?.errors }"></textarea>
+
                 <ul style="list-style: none;
                 margin-top: -15px;
                 margin-left: -35px;">
@@ -171,11 +177,111 @@
                     </div>
                     </li>
                   </ul>
-                <!-- </mat-form-field> -->
+
+                always need to commented
+                </mat-form-field>
+                
               </div>
               </div>
-            </div>
+            </div> -->
+
+              <!-- Observation starts here -->
+              <label>
+                <h3><b>Observations :</b></h3>
+              </label>
               <br>
+              <label>
+                <h3>Supply Characteristics Observations :
+              </h3>
+              </label>
+
+              <div class="row" style="margin-left: 10px;">
+                <div>
+                  <label>Mains Observation: </label>
+                </div>
+                <div class="col-md-9">
+                  <textarea matInput cols="30" rows="1"
+                  formControlName="mainsObservations"
+                  placeholder="Ex. Supply Observations..." readonly style="background-color: #e9ecef;border-bottom: 1px solid black;"
+                  [ngClass]="{ 'is-invalid': submitted &&  a.get('mainsObservations')?.errors }"></textarea> 
+                  <div *ngIf="submitted && a.get('mainsObservations')?.errors" class="invalid-feedback">
+                    <div *ngIf="a.get('mainsObservations')?.errors?.required">Field Is Required</div>
+                </div>          
+                </div>
+              </div>
+              <br>
+
+              <div class="row" style="margin-left: 10px;" formArrayName="alternateArr" *ngFor="let b of getAlternateControls(a); let j = index">
+                <div>
+                  <label>Alternate Observations-{{j+1}} :</label>
+                </div>
+                  <div class="col-md-9" [formGroupName]="j">
+                  <div class="form-group" >
+                    <textarea matInput cols="30" rows="1"
+                    formControlName="alternateObservations"
+                    placeholder="Ex. Supply Observations..." readonly style="background-color: #e9ecef;border-bottom: 1px solid black;"
+                    [ngClass]="{ 'is-invalid': submitted &&  a.get('alternateObservations')?.errors }"></textarea>
+  
+                    <div *ngIf="submitted && a.get('alternateObservations')?.errors" class="invalid-feedback">
+                      <div *ngIf="a.get('alternateObservations')?.errors?.required">Field Is Required</div>
+                    </div>          
+                  </div>
+                </div>
+                
+              </div>
+              <br>
+
+              <div class="row" style="margin-left: 10px;">
+                <div>
+                  <label>Earth Electrode Observation: </label>
+                </div>
+                <div class="col-md-9">
+                  <textarea matInput cols="30" rows="1"
+                  formControlName="earthElectrodeObservations"
+                  placeholder="Ex. Supply Observations..." readonly style="background-color: #e9ecef;border-bottom: 1px solid black;"
+                  [ngClass]="{ 'is-invalid': submitted &&  a.get('earthElectrodeObservations')?.errors }"></textarea> 
+                  <div *ngIf="submitted && a.get('earthElectrodeObservations')?.errors" class="invalid-feedback">
+                    <div *ngIf="a.get('earthElectrodeObservations')?.errors?.required">Field Is Required</div>
+                </div>          
+                </div>
+              </div>
+              <br>
+
+              <div class="row" style="margin-left: 10px;">
+                <div>
+                  <label>Bonding Conductor Observation: </label>
+                </div>
+                <div class="col-md-9">
+                  <textarea matInput cols="30" rows="1"
+                  formControlName="bondingConductorObservations"
+                  placeholder="Ex. Supply Observations..." readonly style="background-color: #e9ecef;border-bottom: 1px solid black;"
+                  [ngClass]="{ 'is-invalid': submitted &&  a.get('bondingConductorObservations')?.errors }"></textarea> 
+                  <div *ngIf="submitted && a.get('bondingConductorObservations')?.errors" class="invalid-feedback">
+                    <div *ngIf="a.get('bondingConductorObservations')?.errors?.required">Field Is Required</div>
+                </div>          
+                </div>
+              </div>
+              <br>
+
+              <div class="row" style="margin-left: 10px;">
+                <div>
+                  <label>Earthing Conductor Observation: </label>
+                </div>
+                <div class="col-md-9">
+                  <textarea matInput cols="30" rows="1"
+                  formControlName="earthingConductorObservations"
+                  placeholder="Ex. Supply Observations..." readonly style="background-color: #e9ecef;border-bottom: 1px solid black;"
+                  [ngClass]="{ 'is-invalid': submitted &&  a.get('earthingConductorObservations')?.errors }"></textarea> 
+                  <div *ngIf="submitted && a.get('earthingConductorObservations')?.errors" class="invalid-feedback">
+                    <div *ngIf="a.get('earthingConductorObservations')?.errors?.required">Field Is Required</div>
+                  </div>          
+                </div>
+              </div>
+              <br>
+
+              <!-- observation ends here -->
+
+
               <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
