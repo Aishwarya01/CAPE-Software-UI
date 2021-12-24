@@ -220,10 +220,10 @@
                     <textarea matInput cols="30" rows="1"
                     formControlName="alternateObservations"
                     placeholder="Ex. Supply Observations..." readonly style="background-color: #e9ecef;border-bottom: 1px solid black;"
-                    [ngClass]="{ 'is-invalid': submitted &&  a.get('alternateObservations')?.errors }"></textarea>
+                    [ngClass]="{ 'is-invalid': submitted &&  b.get('alternateObservations')?.errors }"></textarea>
   
-                    <div *ngIf="submitted && a.get('alternateObservations')?.errors" class="invalid-feedback">
-                      <div *ngIf="a.get('alternateObservations')?.errors?.required">Field Is Required</div>
+                    <div *ngIf="submitted && b.get('alternateObservations')?.errors" class="invalid-feedback">
+                      <div *ngIf="b.get('alternateObservations')?.errors?.required">Field Is Required</div>
                     </div>          
                   </div>
                 </div>
@@ -279,6 +279,30 @@
               </div>
               <br>
 
+              <label>
+                <h3>Inspection Observations :
+              </h3>
+              </label>
+
+              <div class="row" style="margin-left: 10px;" formArrayName="inspectionArr" *ngFor="let c of getInspectionControls(a); let j = index">
+                <div>
+                  <label>Inspection Observations-{{j+1}} :</label>
+                </div>
+                  <div class="col-md-9" [formGroupName]="j">
+                  <div class="form-group" >
+                    <textarea matInput cols="30" rows="1"
+                    formControlName="outerObservations"
+                    placeholder="Ex. Supply Observations..." readonly style="background-color: #e9ecef;border-bottom: 1px solid black;"
+                    [ngClass]="{ 'is-invalid': submitted &&  c.get('outerObservations')?.errors }"></textarea>
+  
+                    <div *ngIf="submitted && c.get('outerObservations')?.errors" class="invalid-feedback">
+                      <div *ngIf="c.get('outerObservations')?.errors?.required">Field Is Required</div>
+                    </div>          
+                  </div>
+                </div>
+                
+              </div>
+              <br>
               <!-- observation ends here -->
 
 

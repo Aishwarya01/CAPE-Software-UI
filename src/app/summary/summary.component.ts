@@ -222,6 +222,7 @@ export class SummaryComponent implements OnInit {
   ObservationsSumaryArr: any=[];
   observationsMade: boolean= false;
   NoRemedial: boolean= false;
+  inspectionArr: any = [];
   
   constructor(
     private _formBuilder: FormBuilder,
@@ -372,6 +373,13 @@ export class SummaryComponent implements OnInit {
               }
             }
            }  
+
+           if(this.ObservationsSumaryArr.inspectionOuterObservation != null) {
+            this.inspectionArr = i.controls.inspectionArr as FormArray;
+             for(let j of this.ObservationsSumaryArr.inspectionOuterObservation) {
+               this.inspectionArr.push(this.inspectionOuterObservationsForm(j))
+             }
+           }
          } 
          //old code
         //  let count=0;
@@ -927,6 +935,7 @@ showHideAccordion(index: number) {
       bondingConductorObservations: new FormControl(''),
       earthingConductorObservations: new FormControl(''),
       alternateArr: this._formBuilder.array([]),
+      inspectionArr: this._formBuilder.array([]),
       observationsInspection: new FormControl(''),
       observationsTesting: new FormControl(''),
       furtherActions: new FormControl('', Validators.required),
@@ -943,6 +952,27 @@ showHideAccordion(index: number) {
     });
   }
 
+  private inspectionOuterObservationsForm(item: any): FormGroup {
+    return new FormGroup({
+      outerObservations: new FormControl({ disabled: false, value: item.observationDescription}),
+      outerObservationsArr: this._formBuilder.array(this.populateInnerObserv(item.inspectionInnerObervations)),
+    });
+  }
+
+  private populateInnerObserv(item: any) {
+    let innerArr: any= []
+    for(let i of item) {
+      innerArr.push(this.inspectionInnerObservationsForm(i));
+    }
+    return innerArr;
+  }
+
+  private inspectionInnerObservationsForm(item: any): FormGroup {
+    return new FormGroup({
+      innerObservations: new FormControl({ disabled: false, value: item.observationDescription}),
+    });
+  }
+
   getDeclaration1Controls(): AbstractControl[] {
     return (<FormArray>this.addsummary.get('Declaration1Arr')).controls;
   }
@@ -955,6 +985,10 @@ showHideAccordion(index: number) {
   getAlternateControls(form: any): AbstractControl[] {
     return form.controls.alternateArr?.controls;
   }
+  getInspectionControls(form: any): AbstractControl[] {
+    return form.controls.inspectionArr?.controls;
+  }
+
   get f(): any {
     return this.addsummary.controls;
   }
