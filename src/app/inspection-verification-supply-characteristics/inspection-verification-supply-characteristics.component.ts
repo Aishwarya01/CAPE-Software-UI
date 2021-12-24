@@ -1708,8 +1708,8 @@ showHideAccordion(index: number) {
           this.earthingConductorObservation = item.observationDescription;
         }
         else if(item.observationComponentDetails == 'alternate') {
+          this.observeMainArr.push(this.createMainObserveForm(item))
           if(item.alternativeInnerObservation.length != 0) {
-            this.observeMainArr.push(this.createMainObserveForm(item))
           for(let i=0;i<this.alArr.length; i++){
             this.alArr[i].controls.supplyInnerObervationsId.setValue(item.alternativeInnerObservation[i].supplyInnerObervationsId) ;
             this.alArr[i].controls.aLLiveConductorBNote.setValue(item.alternativeInnerObservation[i].observationDescription);
