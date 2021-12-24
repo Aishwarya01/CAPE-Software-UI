@@ -466,6 +466,15 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       observationArr: this.formBuilder.array([])
     });
    this.expandedIndex = -1 ;
+   this.observationArr = this.supplycharesteristicForm.get(
+    'observationArr'
+  ) as FormArray;
+   for(let i=0; i<5; i++){
+    this.observationArr.push(this.generateForm());
+    // for(let j=0;j<this.alternateArr.length;j++){
+    //   this.observationArr.controls[i].controls.alternativeInnerObservation.push(this.generateAlternativeForm());
+    // }
+  }
   }
 
     // Only Accept numbers
@@ -1699,10 +1708,12 @@ showHideAccordion(index: number) {
           this.earthingConductorObservation = item.observationDescription;
         }
         else if(item.observationComponentDetails == 'alternate') {
-          this.observeMainArr.push(this.createMainObserveForm(item))
+          if(item.alternativeInnerObservation.length != 0) {
+            this.observeMainArr.push(this.createMainObserveForm(item))
           for(let i=0;i<this.alArr.length; i++){
             this.alArr[i].controls.supplyInnerObervationsId.setValue(item.alternativeInnerObservation[i].supplyInnerObervationsId) ;
             this.alArr[i].controls.aLLiveConductorBNote.setValue(item.alternativeInnerObservation[i].observationDescription);
+          }
           }
         }
       }
@@ -2704,10 +2715,14 @@ showHideAccordion(index: number) {
       this.sources = false;
       this.breaker = false;
       this.alternativeSupplyNo=false;
+      this.observationArr = this.supplycharesteristicForm.get('observationArr') as FormArray;
+      //if (this.alternateArr.length == 1 || this.alternateArr.length < this.value) {
+      this.observationAlternateArr = this.observationArr.controls[4].controls.alternativeInnerObservation as FormArray;
       if (this.alternateArr.length != 0) {
         let b = parseInt(this.supplycharesteristicForm.value.supplyNumber);
-        for (this.i = 0; this.i <= b; this.i++) {
+        for (this.i = 0; this.i < b; this.i++) {
           let d = this.alternateArr.value[0];
+          let x= this.observationAlternateArr.value[0]
 
           if(d!=undefined){
 
@@ -2715,10 +2730,14 @@ showHideAccordion(index: number) {
               d.supplyParameterStatus = 'R';
               this.alternateArr1 = this.alternateArr1.concat(d);
             }
+            if(x.supplyInnerObervationsId !=0 && x.supplyInnerObervationsId !=undefined) {
+              x.alternativeInnerObservationStatus= 'R';
+              this.deletedObservation.push(x);
+            }
             this.alternateArr = this.supplycharesteristicForm.get(
               'alternateArr'
             ) as FormArray;
-
+            
             for (let i = 0; i <= g; i++) {
               let e = items.value[i];
               console.log(e); 
@@ -2734,8 +2753,11 @@ showHideAccordion(index: number) {
                 ) as FormArray;
                 this.circuitArr.removeAt(i);
                 this.alternateArr.removeAt(0);
-                break
+                this.observationAlternateArr.removeAt(i);
+
+                break 
                 }
+
            }
         }
     }
@@ -2817,12 +2839,16 @@ showHideAccordion(index: number) {
         if (this.value != '') {
           this.delarr = this.alternateArr.length - this.value;
           this.delarr1 = this.delarr;
+          this.observationAlternateArr = this.observationArr.controls[4].controls.alternativeInnerObservation as FormArray;
 
           for (this.i = 0; this.i < this.delarr; this.i++) {
 
             let z = this.alternateArr.length -1;
             let d = this.alternateArr.value[z];
             d.supplyParameterStatus = 'R';
+            let f = this.observationAlternateArr.value[z];
+            f.alternativeInnerObservationStatus = 'R';
+            this.deletedObservation.push(f);
             this.alternateArr1 = this.alternateArr1.concat(d);
             this.alternateArr = this.supplycharesteristicForm.get(
               'alternateArr'
@@ -2830,20 +2856,30 @@ showHideAccordion(index: number) {
             this.observationAlternateArr.removeAt(this.observationAlternateArr.length - 1);
             this.alternateArr.removeAt(this.alternateArr.length - 1);
 
-            for (this.j = 0; this.j < this.circuitArr.length; this.j++) {
-              debugger
-              let e = this.circuitArr.value[this.j];
-              if(d.aLSupplyShortName == e.sourceName){
+            // for (this.j = 0; this.j < this.circuitArr.length; this.j++) {
+            //   debugger
+            //   let e = this.circuitArr.value[this.j];
+            //   if(d.aLSupplyShortName == e.sourceName){
+            //     e.circuitStatus = 'R';
+            //     this.circuitArr1 = this.circuitArr1.concat(e);
+            //     this.circuitArr = this.supplycharesteristicForm.get(
+            //       'circuitArr'
+            //     ) as FormArray;
+            //     this.circuitArr.removeAt(this.j);
+            //   }
+              
+            //   //(this.supplycharesteristicForm.get('circuitArr') as FormArray).removeAt(index+1);
+            // }
+
+              let e = this.circuitArr.value[z+1];
                 e.circuitStatus = 'R';
                 this.circuitArr1 = this.circuitArr1.concat(e);
                 this.circuitArr = this.supplycharesteristicForm.get(
                   'circuitArr'
                 ) as FormArray;
-                this.circuitArr.removeAt(this.j);
-              }
-              
+                this.circuitArr.removeAt(z+1);
+               
               //(this.supplycharesteristicForm.get('circuitArr') as FormArray).removeAt(index+1);
-            }
           }
           
         }
@@ -3552,13 +3588,6 @@ showHideAccordion(index: number) {
     
     
     if(!flag) {
-      for(let i=0; i<5; i++){
-        this.observationArr.push(this.generateForm());
-        for(let j=0;j<this.alternateArr.length;j++){
-          this.observationArr.controls[i].controls.alternativeInnerObservation.push(this.generateAlternativeForm());
-        }
-      }
-
     this.supplycharesteristic.supplyOuterObservation = this.supplycharesteristicForm.value.observationArr
 
     this.supplycharesteristic.supplyOuterObservation[0].observationComponentDetails='mains';
