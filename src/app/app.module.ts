@@ -86,6 +86,7 @@ import { LpsEarthStudComponent } from './LPS/lps-earth-stud/lps-earth-stud.compo
 import { LpsSavedReportComponent } from './LPS/lps-saved-report/lps-saved-report.component';
 import { LpsWelcomePageComponent } from './LPS/lps-welcome-page/lps-welcome-page.component';
 import { LpsFinalReportComponent } from './LPS/lps-final-report/lps-final-report.component';
+import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 
 @NgModule({
   declarations: [
@@ -170,7 +171,10 @@ import { LpsFinalReportComponent } from './LPS/lps-final-report/lps-final-report
     NgOtpInputModule,
     MatBadgeModule,
     MatProgressSpinnerModule,
-    MatTooltipModule
+    MatTooltipModule,
+    BackButtonDisableModule.forRoot({
+      preserveScrollPosition: true
+    })
     //NgbActiveModal, NgbModal 
   ],
  // exports: [WebStorageCodec, WebStorageCodec, SessionStorage],
