@@ -1,5 +1,5 @@
 <div *ngIf="tabError" style="text-align: center;">
-  <span class="alert alert-danger">{{tabErrorMsg}}</span>
+  <span class="alert alert-danger">{{tabErrorMsg}}</span> 
 </div>
 <div *ngIf="validationErrorTab" style="text-align: center;">
   <span class="alert alert-danger">{{validationErrorMsgTab}}</span>
@@ -156,7 +156,7 @@
                           <div class="table-responsive">
                               <table  class="table testingTable">
                                   <div style="width: 94%;">
-                                      <div class="form-group" style="border: 1px solid black;">
+                                      <div class="form-group" style="border:1px solid #dee2e6;">
                                           <thead>
                                               <tr align="center">
                                                   <th>Equipment Name</th>
@@ -406,7 +406,7 @@
                             <table  class="table testingTable" id="table1">
                                 <div formArrayName="distributionIncomingValueArr" 
                                 *ngFor="let e of getdistributionIncomingValueControls(c); let j= index">
-                                    <div class="form-group" style="border: 1px solid black;">
+                                    <div class="form-group" style="border:1px solid #dee2e6;">
                                         <thead>
                                             <tr align="center">
                                                 <th>Reference</th>
@@ -512,7 +512,7 @@
                       <div class="table-responsive" >
                           <table  class="table testingTable" id="table1">
                               <div formArrayName="distributionIncomingValueArr2" *ngFor="let e of getdistributionIncomingValueControls2(c); let j= index">
-                                  <div class="form-group" style="border: 1px solid black;">
+                                  <div class="form-group" style="border:1px solid #dee2e6;">
                                       <thead>
                                           <tr align="center">
                                               <th></th>
@@ -809,7 +809,7 @@
                                 <th> I∆n (ms) </th>
                                 <th>5*I∆n (ms)</th>
                                 <th rowspan="2">Test Button Operation</th>
-                                <th>Remarks</th>
+                                <th>Observations</th>
                           </tr>
                        </thead>
                       <tbody formArrayName="testingRecords" *ngFor="let f of gettestValueControls(z); let i = index">
@@ -893,7 +893,8 @@
                                 <td><input type="text" formControlName="rcdOperatingCurrent" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="rcdOperatingFiveCurrent" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><textarea  formControlName="rcdTestButtonOperation"  class="form-control" style="height:40px;width:170px;" [readonly]="service.allFieldsDisable"></textarea>
-                                <td><textarea  formControlName="rcdRemarks"  class="form-control" style="height:40px;width:170px;" [readonly]="service.allFieldsDisable"></textarea>
+                                <td><textarea  formControlName="rcdRemarks"  class="form-control" style="height:40px;width:170px;" 
+                                 [readonly]="service.allFieldsDisable"></textarea>
                                </tr>
                         <ng-container formArrayName="testingRecordsSourceSupply" *ngFor="let g of gettestAlternateValueControls(f); let j = index">
                         <tr  class="form-group"  [formGroupName]="j">
