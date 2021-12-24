@@ -1,5 +1,5 @@
 import {
-  Component,
+  Component, 
   EventEmitter,
   Input,
   OnInit,
@@ -77,7 +77,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   locationNameList: any = [];
   distributionIncomingValueArr: any = [];
   distributionIncomingValueArr2: any = [];
-
+  testDistRecords: any=[];
   testingRecords: any = [];
   testingAlternateRecords: any = [];
   ratingAmps1: any;
@@ -242,19 +242,30 @@ export class InspectionVerificationTestingComponent implements OnInit {
   deletedTestingEquipment: any= [];
   deleteDataFlag: boolean = false;
   deleteRecordDataFlag: boolean = false;
-  observationFlag: boolean= false;
-  errorArrObservation: any=[];
-  testDistRecords: any=[];  
+  observationUpdateFlag: boolean= false;
+  alArr: any = [];
+
   ObservationsForm = new FormGroup({
     observations: new FormControl(''),
-   
   });
+  observationFlag: boolean= false;
+  errorArrObservation: any=[];
+  observationValues: any="";
+  disableObservation: boolean=true;
+  observationArr: any=[];
+ 
+  observArr: any = [];
+  deletedObservation: any = [];
+  observationCircuitArr: any= [];
+
   email: string;
-  observationUpdateFlag: boolean= false;
   observationValuesT: any="";
   observationModalReference: any;
-  disableObservation: boolean= true;
   tempArray: any = [];
+  observeMainArr: any = [];
+  deletedObservationArr: any = [];
+  testDistRecords1: any = [];
+  deleteObRecordDataFlag: boolean=false;
   
   constructor(
     private testingService: TestingService,
@@ -277,6 +288,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
     this.currentUser = sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
     this.currentUser1 = JSON.parse(this.currentUser);
+    
     this.testingForm = this.formBuilder.group({
        testIncomingDistribution: this.formBuilder.array([
         this.IncomingValue(),
@@ -571,9 +583,70 @@ export class InspectionVerificationTestingComponent implements OnInit {
     }
 }
 
+retrieveFromObservationTesting(data:any){
+  this.observation=JSON.parse(data);
+  this.observationValues=this.observation.observations;
+  this.observationUpdateFlag=true;
+  this.ObservationsForm.markAsPristine();
+  }
+
+  addObservationTesting(observationIter:any){
+    if(this.testingForm.touched || this.testingForm.untouched){
+      this.observationModalReference = this.modalService.open(observationIter, {
+         centered: true, 
+         size: 'md'
+        })
+     }
+  }
+
+
+  // onKeyCirtcuit(event: KeyboardEvent) {
+  //   this.values = (<HTMLInputElement>event.target).value;
+  //   this.value = this.values;
+    
+  //   if (this.value != '' && this.value != undefined) {
+  //     this.observationArr = this.testingForm.get('observationArr') as FormArray;
+  //       this.observationCircuitArr = this.observationArr.controls.circuitInnerObservation as FormArray;
+  //       let c = 0;
+  //       if(this.testingRecordTableArr.length < this.value){
+  //       for (this.i = c; this.i < this.value; this.i++) {
+  //         this.observationCircuitArr.push(this.generateCircuitForm());
+  //       }
+  //     } 
+  //     else if ((this.testingRecordTableArr.length < this.value) && this.testingRecordTableArr.length!=0)  {
+  //       if (this.value != '') {
+  //         this.delarr = this.value - this.testingRecordTableArr.length;
+  //         this.delarr1 = this.delarr;
+  //         for (this.i = 0; this.i < this.delarr; this.i++) {
+  //           this.observationCircuitArr.push(this.generateCircuitForm());
+  //         }
+  //       }
+  //     } 
+  //     else if((this.testingRecordTableArr.length > this.value))
+  //     {
+  //       if (this.value != '') {
+  //         this.delarr = this.testingRecordTableArr.length - this.value;
+  //         this.delarr1 = this.delarr;
+  
+  //         for (this.i = 0; this.i < this.delarr; this.i++) {
+  //           this.testingRecordTableArr = this.testingForm.get(
+  //             'testDistRecords'
+  //           ) as FormArray;
+  //           this.observationCircuitArr.removeAt(this.observationCircuitArr.length - 1);
+  //         }
+  //       }
+  //     }
+  //     else {
+  //       if(!this.testingRecordTableArr.length == this.value){ //removed from elango's yesterday commit by Aish
+  //       for (this.i = 0; this.i < this.value; this.i++) {
+  //         this.observationCircuitArr.push(this.generateCircuitForm());
+  //       }
+  //      }
+  //   }
+  //   } 
+  // }
 
 callValue(e: any) {
-  
   console.log(e);
 }
 
@@ -599,15 +672,15 @@ callValue(e: any) {
   }
   retrieveDetailsfromSavedReports(userName: any, siteId: any, clientName: any, departmentName: any, site: any, data: any) {
     //this.service.lvClick=1;
-
     this.testingRetrieve = true;
     this.inspectionRetrieve = false;
     this.testList = JSON.parse(data);
     this.testingDetails.siteId = siteId;
-      this.retrieveDetailsFromIncoming();
+    //this.testingDetails.testingOuterObservation = this.testList.testingReport.testingOuterObservation;
+    this.retrieveDetailsFromIncoming();
     this.retrieveDetailsFromSupply();
     if(this.testList.testingReport != null) {
-    this.testingDetails.testingReportId = this.testList.testingReport.testingReportId;
+    this.testingDetails.testingReportId = this.testList.testingReport.testingReportId; 
     this.testingDetails.createdBy = this.testList.testingReport.createdBy;
     this.testingDetails.createdDate = this.testList.testingReport.createdDate;
     setTimeout(() => {
@@ -1089,9 +1162,9 @@ callValue(e: any) {
     for (let item of value.testing) {	
       this.arr.push(this.createGroup(item));	
     }	
-    this.testingForm.setControl('testaccordianArr', this.formBuilder.array(this.arr || []))	
+    this.testingForm.setControl('testaccordianArr', this.formBuilder.array(this.arr || []))
   }
-
+ 
   createGroup(item: any): FormGroup {
     return this.formBuilder.group({
       testingId: new FormControl({ disabled: false, value: item.testingId }),
@@ -1125,11 +1198,11 @@ callValue(e: any) {
   private populateTestDistRecordsForm(testDistRecordsItem: any,testingId: any) {
     let testDistRecordsItemArr = [];
     for (let item of testDistRecordsItem) {
-      testDistRecordsItemArr.push(this.pushTestDistRecordsTable(item,testingId))
+      testDistRecordsItemArr.push(this.pushTestDistRecordsTable(item))
     }
     return testDistRecordsItemArr;
   }
-
+  
   pushTestEquipmentTable(testingEquipmentItem: any,testingId: any): FormGroup {
     let latest_date =this.datepipe.transform(testingEquipmentItem.equipmentCalibrationDueDate, 'yyyy-MM-dd');
     return new FormGroup({
@@ -1144,14 +1217,33 @@ callValue(e: any) {
     });
   }
 
-  pushTestDistRecordsTable(testDistRecordsItem: any,testingId: any): FormGroup {
+  pushTestDistRecordsTable(testDistRecordsItem: any): FormGroup {
     return new FormGroup({
       testDistRecordId: new FormControl({disabled: false, value: testDistRecordsItem.testDistRecordId }),
       testDistribution: this.formBuilder.array([this.populateTestDistributionForm(testDistRecordsItem.testDistribution)]),
-      testingRecords: this.formBuilder.array(this.populateTestRecordsForm(testDistRecordsItem.testingRecords,testingId)),
+      testingRecords: this.formBuilder.array(this.populateTestRecordsForm(testDistRecordsItem.testingRecords,testDistRecordsItem.testDistRecordId)),
+      testingInnerObservation: this.formBuilder.array(this.pushTestObservationRecord(testDistRecordsItem.testingInnerObservation,testDistRecordsItem.testDistRecordId)),
+
       testDistRecordStatus: new FormControl(testDistRecordsItem.testDistRecordStatus),
     });
   }
+  
+pushTestObservationRecord(testInnerObservationItem: any,testingId: any) {
+  let testingInnerObservation = [];
+  for (let item of testInnerObservationItem) {
+    testingInnerObservation.push(this.pushTestingInnerObservationTable(item,testingId))
+  }
+  return testingInnerObservation;
+}
+private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormGroup {
+  return new FormGroup({
+    testDistRecordId: new FormControl({ disabled: false, value: testDistRecordId }),
+    testingInnerObervationsId: new FormControl({disabled: false, value: item.testingInnerObervationsId}),
+    observationComponentDetails: new FormControl({disabled: false, value: item.observationComponentDetails}),
+    observationDescription: new FormControl({disabled: false, value: item.observationDescription}),
+    testingInnerObservationStatus: new FormControl(item.testingInnerObservationStatus),
+  });
+}
 
   private populateTestDistributionForm(testDistributionItem: any): FormGroup {
     //this.changeSource(testDistributionItem[0].sourceFromSupply,c);
@@ -1303,7 +1395,7 @@ callValue(e: any) {
      
     });
   }
-  private populateTestRecordsForm(testRecordsItem: any,testingId: any) {
+  private populateTestRecordsForm(testRecordsItem: any,testDistRecordId: any) {
     let disconnectionTimeArr = [];
     let testFaultCurrentArr = [];
     let testLoopImpedanceArr = [];
@@ -1318,16 +1410,16 @@ callValue(e: any) {
       testVoltageArr = item.testVoltage.split(",");
       insulationResistanceArr = item.insulationResistance.split(",");
 
-      this.testingRecordTableArr.push(this.pushTestingTable(item, disconnectionTimeArr, testFaultCurrentArr, testLoopImpedanceArr, testVoltageArr, insulationResistanceArr,testingId))
+      this.testingRecordTableArr.push(this.pushTestingTable(item, disconnectionTimeArr, testFaultCurrentArr, testLoopImpedanceArr, testVoltageArr, insulationResistanceArr,testDistRecordId))
     }
     // let item = [];
     // item.push(nominalVoltageAL,nominalFrequencyAL,faultCurrentAL,loopImpedanceAL,installedCapacityAL,actualLoadAL);
     return this.testingRecordTableArr
   }
 
-  pushTestingTable(itemTestingValue: any, disconnectionTimeArr: any, testFaultCurrentArr: any, testLoopImpedanceArr: any, testVoltageArr: any, insulationResistanceArr: any, testingId: any): FormGroup {
+  pushTestingTable(itemTestingValue: any, disconnectionTimeArr: any, testFaultCurrentArr: any, testLoopImpedanceArr: any, testVoltageArr: any, insulationResistanceArr: any, testDistRecordId: any): FormGroup {
     return new FormGroup({
-      testingId: new FormControl({ disabled: false, value: testingId }),
+      testDistRecordId: new FormControl({ disabled: false, value: testDistRecordId }),
       testingRecordId: new FormControl({ disabled: false, value: itemTestingValue.testingRecordId }),
       circuitNo: new FormControl({ disabled: false, value: itemTestingValue.circuitNo }),
       circuitDesc: new FormControl({ disabled: false, value: itemTestingValue.circuitDesc }),
@@ -1544,10 +1636,21 @@ callValue(e: any) {
       testDistribution: this.formBuilder.array([
         this.createtestDistributionForm(),
       ]),
+      testingInnerObservation: this.formBuilder.array([this.createObservationForm()]),
       testingRecords: this.formBuilder.array([this.createtestValueForm()]),
       testDistRecordStatus: new FormControl('A'),
     });
   }
+
+  createObservationForm(): FormGroup {
+    return new FormGroup({
+      testingInnerObervationsId: new FormControl(),
+      observationComponentDetails: new FormControl(),
+      observationDescription: new FormControl(),
+      testingInnerObservationStatus: new FormControl('A'),
+    })
+  }
+
   IncomingValue(): FormGroup {
     return new FormGroup({
       incomingDistributionId: new FormControl('1'),
@@ -1684,13 +1787,14 @@ callValue(e: any) {
       testingRecordsSourceSupply: this.formBuilder.array([
         // this.createValue(),
       ]),
+      //observationArr: this.formBuilder.array([]),
       testingRecordStatus: new FormControl('A'),
     });
   }
 
   private createtestValuePushForm(value: any): FormGroup {
     return new FormGroup({
-      testingId: new FormControl(''),
+      testDistRecordId: new FormControl(''),
       testingRecordId: new FormControl(''),
       circuitNo: new FormControl(''),
       circuitDesc: new FormControl(''),
@@ -1906,11 +2010,13 @@ callValue(e: any) {
     this.values = (<HTMLInputElement>event.target).value;
     this.value = this.values;
     this.testingRecords = a.controls.testingRecords as FormArray;
+    this.observationArr = a.controls.testingInnerObservation as FormArray;
     this.rateArr = c.controls.rateArr as FormArray;
     if (this.testingRecords.length == 0 && this.rateArr.length == 0) {
       if (this.value != '' && this.value != 0) {
         for (this.i = 1; this.i < this.value; this.i++) {
           this.testingRecords.push(this.createtestValuePushForm(this.testingRecords));
+          this.observationArr.push(this.createObservationForm());
           this.rateArr.push(this.ratingAmps());
         }
       }
@@ -1934,6 +2040,7 @@ callValue(e: any) {
 
         for (this.i = 0; this.i < this.delarr; this.i++) {
           this.testingRecords.push(this.createtestValuePushForm(this.testingRecords));
+          this.observationArr.push(this.createObservationForm());
           this.rateArr.push(this.ratingAmps());
         }
       }
@@ -1947,19 +2054,25 @@ callValue(e: any) {
 
         for (this.i = 0; this.i < this.delarr; this.i++) {
           if(this.flag && this.testingRecords.value[this.testingRecords.length - 1].testingRecordId != 0 
-              && this.testingRecords.value[this.testingRecords.length - 1] != '' 
-               && this.testingRecords.value[this.testingRecords.length - 1] != undefined) {
+              && this.testingRecords.value[this.testingRecords.length - 1].testingRecordId != '' 
+               && this.testingRecords.value[this.testingRecords.length - 1].testingRecordId != undefined) {
                  this.testingRecords.value[this.testingRecords.length - 1].testingRecordStatus = 'R';
                  this.deletedTestingRecord.push(this.testingRecords.value[this.testingRecords.length - 1]);
-               }         
+               }
+               if(this.flag && this.observationArr.value[this.observationArr.length - 1].testingInnerObervationsId != 0 
+                && this.observationArr.value[this.observationArr.length - 1].testingInnerObervationsId != '' 
+                 && this.observationArr.value[this.observationArr.length - 1].testingInnerObervationsId != undefined) {
+                   this.observationArr.value[this.observationArr.length - 1].testingInnerObservationStatus = 'R';
+                   this.deletedObservationArr.push(this.observationArr.value[this.observationArr.length - 1]);
+                 }
           this.testingRecords.removeAt(this.testingRecords.length - 1);
           this.rateArr.removeAt(this.rateArr.length - 1);
+          this.observationArr.removeAt(this.testingRecords.length - 1);
         }
       }
     }
   }
   removeItemRecords(a:any,i:any,f:any) {
-    
     this.testingForm.markAsTouched();
     if(f.value.testingRecordId !=0  
        && f.value.testingRecordId !=undefined 
@@ -1974,9 +2087,9 @@ callValue(e: any) {
       a.controls.testDistribution.controls[0].controls.rateArr.removeAt(i);
       this.testingForm.markAsDirty();
     }
+    
     else
     {
-      
       this.testingForm.markAsTouched();
       a.controls.testingRecords.removeAt(i);
      // a.controls.testDistribution.value[0].numOutputCircuitsUse.value=a.controls.testDistribution.value[0].numOutputCircuitsUse.value - 1;
@@ -1984,6 +2097,24 @@ callValue(e: any) {
      a.controls.testDistribution.controls[0].controls.rateArr.removeAt(i);
      this.testingForm.markAsDirty();
     }
+//for observation
+    if(a.controls.testingInnerObservation.value[i].testingInnerObervationsId !=0  
+      && a.controls.testingInnerObservation.value[i].testingInnerObervationsId !=undefined 
+       && a.controls.testingInnerObservation.value[i].testingInnerObervationsId !='' 
+        && a.controls.testingInnerObservation.value[i].testingInnerObervationsId !=null)
+   {
+    a.controls.testingInnerObservation.value[i].testingInnerObservationStatus='R';
+     this.deletedObservationArr.push( a.controls.testingInnerObservation.value[i]);
+     a.controls.testingInnerObservation.removeAt(i);
+     this.testingForm.markAsDirty();
+   }
+   
+   else
+   {
+     this.testingForm.markAsTouched();
+     a.controls.testingInnerObservation.removeAt(i);
+    this.testingForm.markAsDirty();
+   }
    }
    
   createItem() {
@@ -2054,14 +2185,7 @@ callValue(e: any) {
       incomingActualLoad: new FormControl('')
     });
   }
-
-  retrieveFromObservationTesting(data:any){
-    this.observation=JSON.parse(data);
-    this.observationValuesT=this.observation.observations;
-    this.observationUpdateFlag=true;
-    this.ObservationsForm.markAsPristine();
-    }
-
+  
   addObservation(observationIter:any){
     if(this.ObservationsForm.touched || this.ObservationsForm.untouched){
       this.observationModalReference = this.modalService.open(observationIter, {
@@ -2679,8 +2803,8 @@ callValue(e: any) {
         (data) => {
           this.success = true;
           this.successMsg = "Observation Information sucessfully Saved";
-          this.disableObservation=true;
           this.proceedNext.emit(true);
+          this.disableObservation=true;
           this.observationFlag=true;
           this.observationService.retrieveObservation(this.observation.siteId,this.observation.observationComponent,this.observation.userName).subscribe(
             (data) => {
@@ -2707,28 +2831,27 @@ callValue(e: any) {
       )
     }
     else {
-      if(this.ObservationsForm.dirty){
-        this.observationService.updateObservation(this.observation).subscribe(
-          (data) => {
-            this.success = true;
-            this.successMsg = "Observation Information sucessfully updated";
-            this.proceedNext.emit(false);
-            this.disableObservation=true;
-            setTimeout(() => {
-              this.success = false;
-              this.observationModalReference.close();
-            }, 3000);
-        },
-          (error) => {
-            this.errorArrObservation = [];
-            this.Error = true;
-            this.errorArrObservation = JSON.parse(error.error);
-            this.errorMsg = this.errorArrObservation.message;
-          }
-        )
-      }
+      this.observationService.updateObservation(this.observation).subscribe(
+        (data) => {
+          this.success = true;
+          this.successMsg = "Observation Information sucessfully updated";
+          this.proceedNext.emit(false);
+          this.disableObservation=true;
+          setTimeout(() => {
+            this.success = false;
+            this.observationModalReference.close();
+          }, 3000);
+      },
+        (error) => {
+          this.errorArrObservation = [];
+          this.Error = true;
+          this.errorArrObservation = JSON.parse(error.error);
+          this.errorMsg = this.errorArrObservation.message;
+        }
+      )
     }   
-      }
+    }
+
 
   nextTab(flag: any) {
     if (!flag) {
@@ -2744,8 +2867,8 @@ callValue(e: any) {
     ) as FormArray;
 
     for (let i of this.testaccordianArr.controls) {
-      this.testDistRecords = i.get('testDistRecords') as FormArray;
-      for(let v of this.testDistRecords.controls){
+      this.testingRecords = i.get('testDistRecords') as FormArray;
+      for(let v of this.testingRecords.controls){
         this.testDistribution = v.get('testDistribution') as FormArray;
         this.testingRecords = v.get('testingRecords') as FormArray;
          // coma separated value for first table
@@ -3207,7 +3330,19 @@ callValue(e: any) {
       }
       }
     }
-
+ //if(!flag){
+    for (let i of this.testaccordianArr.controls) {
+      this.testDistRecords1 = i.get('testDistRecords') as FormArray;
+      for(let v of this.testDistRecords1.controls){
+        this.observationArr = v.get('testingInnerObservation') as FormArray;
+        this.testingRecords = v.get('testingRecords') as FormArray;
+        for(let z=0; z < this.testingRecords.length; z++){
+         this.observationArr.controls[z].controls.observationComponentDetails.setValue('circuit');
+         this.observationArr.controls[z].controls.observationDescription.setValue(this.testingRecords.controls[z].controls.rcdRemarks.value);
+        }
+      }
+    }
+  //}
     //from saved report update
     for(let i of this.pushJsonArray) {
       if(this.testList.testingReport != null && this.testList.testingReport != undefined ) {
@@ -3231,22 +3366,9 @@ callValue(e: any) {
     }
     this.testingDetails.testIncomingDistribution=this.pushJsonArray;
     this.testingDetails.testing = this.testingForm.value.testaccordianArr;
+
     if (flag) {
       if(this.testingForm.dirty){
-        // for(let i of this.testingDetails.testing) {
-        //   for(let j of i.testingEquipment) {
-        //     if(j.equipmentId != null && j.equipmentId != 0 && j.equipmentId !=undefined) {
-        //       for(let k of this.deletedTestingEquipment) {
-        //         if((j.testingId == k.testingId) 
-        //             && (j.testingEquipmentStatus != k.testingEquipmentStatus)
-        //              && (j.equipmentId != k.equipmentId) ) {
-        //           i.testingEquipment.push(k);
-        //         }
-        //       }
-        //     }
-        //   }
-        // }
-
         //Testing Equipment 
         for(let i of this.deletedTestingEquipment) {
           for(let j of this.testingDetails.testing) {
@@ -3266,13 +3388,12 @@ callValue(e: any) {
             }
           }
         }
-
         //Testing Records
         for(let i of this.deletedTestingRecord) {
           for(let j of this.testingDetails.testing) {
             for(let l of j.testDistRecords) {
               for(let k of l.testingRecords) {
-                if(k.testingId == i.testingId) {
+                if(k.testDistRecordId == i.testDistRecordId) {
                   if(k.testingRecordId != i.testingRecordId) {
                     this.deleteRecordDataFlag = true;
                   }
@@ -3284,6 +3405,27 @@ callValue(e: any) {
               if(this.deleteRecordDataFlag) {
                 l.testingRecords.push(i);
                 this.deleteRecordDataFlag = false;
+              }
+            }
+          }
+        }
+//observation
+        for(let i of this.deletedObservationArr) {
+          for(let j of this.testingDetails.testing) {
+            for(let l of j.testDistRecords) {
+              for(let k of l.testingInnerObservation) {
+                if(k.testDistRecordId == i.testDistRecordId) {
+                  if(k.testingInnerObervationsId != i.testingInnerObervationsId) {
+                    this.deleteObRecordDataFlag = true;
+                  }
+                  else {
+                    this.deleteObRecordDataFlag = false;
+                  }
+                }
+              }
+              if(this.deleteObRecordDataFlag) {
+                l.testingInnerObservation.push(i);
+                this.deleteObRecordDataFlag = false;
               }
             }
           }
@@ -3327,6 +3469,8 @@ callValue(e: any) {
              this.retrieveDetailsforTesting(this.testingDetails.userName,this.testingDetails.siteId,data);
             }
           )
+         
+
            if(!this.observationFlag){
             this.observation.siteId = this.service.siteCount;
             this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';

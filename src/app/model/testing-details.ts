@@ -44,6 +44,7 @@ export class TestingDistRecords {
   testDistribution!:TestDistribution[];
   testingRecords!: TestingRecords[];
   testDistRecordStatus!: String;
+  testingInnerObservation!: TestingInnerObservation[];
 }
 
 export class TestDistribution {
@@ -67,8 +68,8 @@ export class TestDistribution {
 
 
 export class TestingRecords {
-  testingId: number;
   testingRecordId: number;
+  testDistRecordId: number;
   circuitNo!: String;
   circuitDesc!: String;
   circuitStandardNo!: String;
@@ -103,11 +104,17 @@ export class TestingRecords {
 }
 
 export class TestIncomingDistribution {
-
   incomingDistributionId!: String;
   incomingVoltage!: String;
   incomingLoopImpedance!: String;
   incomingFaultCurrent!: String;
   sourceFromSupply!: String;
- 
+}
+
+export class TestingInnerObservation{  
+  testDistRecordId: number;
+  testingInnerObervationsId: number;
+  observationComponentDetails: String;
+  observationDescription:String;    
+  testingInnerObservationStatus: String;
 }
