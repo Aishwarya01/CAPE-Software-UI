@@ -26,6 +26,7 @@
     "@angular/router": "^11.2.2",
     "@ng-bootstrap/ng-bootstrap": "^9.0.2",
     "@nicky-lenaers/ngx-scroll-to": "^9.0.0",
+    "angular-disable-browser-back-button": "^1.0.2",
     "angular-notification-icons": "^1.0.0",
     "angular-web-storage": "^10.0.0",
     "bn-ng-idle": "^1.0.1",
