@@ -285,10 +285,10 @@
               </label>
 
               <div class="row" style="margin-left: 10px;" formArrayName="inspectionArr" *ngFor="let c of getInspectionControls(a); let j = index">
-                <div>
+                <div class="col-sm-12">
                   <label>Inspection Observations-{{j+1}} :</label>
                 </div>
-                  <div class="col-md-9" [formGroupName]="j">
+                  <div class="col-sm-12" [formGroupName]="j">
                   <div class="form-group" >
                     <textarea matInput cols="30" rows="1"
                     formControlName="outerObservations"
@@ -299,8 +299,37 @@
                       <div *ngIf="c.get('outerObservations')?.errors?.required">Field Is Required</div>
                     </div>          
                   </div>
+                  <div class="row" style="margin-left: 10px;" formArrayName="outerObservationsArr" *ngFor="let d of getOuterObservationControls(c); let k = index">
+                    <div class="col-sm-12" [formGroupName]="k">
+                      <textarea matInput cols="30" rows="1"
+                      formControlName="innerObservations"
+                      placeholder="Ex. Inspection Observations..." readonly style="background-color: #e9ecef;border-bottom: 1px solid black;"
+                      [ngClass]="{ 'is-invalid': submitted &&  c.get('innerObservations')?.errors }"></textarea>
+                      </div>
+                  </div>
                 </div>
                 
+              </div>
+              <br>
+
+              <label>
+                <h3>Testing Observation :
+              </h3>
+              </label>
+
+              <div class="row" style="margin-left: 10px;" formArrayName="testingArr" *ngFor="let c of getTestingControls(a); let j = index">
+                <div>
+                  <label>Circuit Observation-{{j+1}} : </label>
+                </div>
+                <div class="col-md-9">
+                  <textarea matInput cols="30" rows="1"
+                  formControlName="circuitObservation"
+                  placeholder="Ex. Supply Observations..." readonly style="background-color: #e9ecef;border-bottom: 1px solid black;"
+                  [ngClass]="{ 'is-invalid': submitted &&  a.get('circuitObservation')?.errors }"></textarea> 
+                  <div *ngIf="submitted && a.get('circuitObservation')?.errors" class="invalid-feedback">
+                    <div *ngIf="a.get('circuitObservation')?.errors?.required">Field Is Required</div>
+                </div>          
+                </div>
               </div>
               <br>
               <!-- observation ends here -->

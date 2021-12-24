@@ -63,15 +63,14 @@ export class InspectionOuterObervation{
   observationDescription!: String;
   inspectionOuterObservationStatus!: String;
 
-  inspectionInnerObervations!:InspectionInnerObervations[];
+  inspectionInnerObservations!:InspectionInnerObervations[];
 }
 export class InspectionInnerObervations{
-  
-  inspectionInnerObervationsId!: number;
+  inspectionOuterObservationId!: number;
+  inspectionInnerObservationsId!: number;
   observationComponentDetails!: String;
   observationDescription!: String;
   inspectionInnerObervationStatus!: String;
-
 }
 export class consumerUnit { 
   consumerId: number;

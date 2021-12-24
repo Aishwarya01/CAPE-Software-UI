@@ -223,6 +223,7 @@ export class SummaryComponent implements OnInit {
   observationsMade: boolean= false;
   NoRemedial: boolean= false;
   inspectionArr: any = [];
+  testingArr: any = [];
   
   constructor(
     private _formBuilder: FormBuilder,
@@ -289,10 +290,6 @@ export class SummaryComponent implements OnInit {
       (data) => {
        this.ObservationsSumaryArr=JSON.parse(data);
        console.log(this.ObservationsSumaryArr);
-
-
-
-
        // old observation
       //  let count=0;
       //  for(let i of this.ObservationsSumaryArr){
@@ -378,6 +375,13 @@ export class SummaryComponent implements OnInit {
             this.inspectionArr = i.controls.inspectionArr as FormArray;
              for(let j of this.ObservationsSumaryArr.inspectionOuterObservation) {
                this.inspectionArr.push(this.inspectionOuterObservationsForm(j))
+             }
+           }
+
+           if(this.ObservationsSumaryArr.testingInnerObservation != null) {
+            this.testingArr = i.controls.testingArr as FormArray;
+             for(let j of this.ObservationsSumaryArr.testingInnerObservation) {
+               this.testingArr.push(this.testingObservationsForm(j))
              }
            }
          } 
@@ -936,10 +940,11 @@ showHideAccordion(index: number) {
       earthingConductorObservations: new FormControl(''),
       alternateArr: this._formBuilder.array([]),
       inspectionArr: this._formBuilder.array([]),
+      testingArr: this._formBuilder.array([]),
       observationsInspection: new FormControl(''),
       observationsTesting: new FormControl(''),
       furtherActions: new FormControl('', Validators.required),
-      referanceNumberReport: new FormControl('', Validators.required),
+      referanceNumberReport: new FormControl(''),
       recommendationsDate: new FormControl('', Validators.required),
       obervationStatus: new FormControl('A'),
       comment: new FormControl('', Validators.required),
@@ -951,11 +956,15 @@ showHideAccordion(index: number) {
       alternateObservations: new FormControl(''),
     });
   }
-
+  private testingObservationsForm(item:any): FormGroup {
+    return new FormGroup({
+      circuitObservation: new FormControl({ disabled: false, value: item.observationDescription}),
+    });
+  }
   private inspectionOuterObservationsForm(item: any): FormGroup {
     return new FormGroup({
       outerObservations: new FormControl({ disabled: false, value: item.observationDescription}),
-      outerObservationsArr: this._formBuilder.array(this.populateInnerObserv(item.inspectionInnerObervations)),
+      outerObservationsArr: this._formBuilder.array(this.populateInnerObserv(item.inspectionInnerObservations)),
     });
   }
 
@@ -988,7 +997,12 @@ showHideAccordion(index: number) {
   getInspectionControls(form: any): AbstractControl[] {
     return form.controls.inspectionArr?.controls;
   }
-
+  getOuterObservationControls(form: any): AbstractControl[] {
+    return form.controls.outerObservationsArr?.controls;
+  }
+  getTestingControls(form: any): AbstractControl[] {
+    return form.controls.outerObservationsArr?.controls;
+  }
   get f(): any {
     return this.addsummary.controls;
   }

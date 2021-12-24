@@ -14,6 +14,7 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
+  NgControlStatus,
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -30,6 +31,7 @@ import { VerificationlvComponent } from '../verificationlv/verificationlv.compon
 import { MatDialog } from '@angular/material/dialog';
 import { ObservationInspection } from '../model/observation-inspection';
 import { ObservationService } from '../services/observation.service';
+import { flatten } from '@angular/compiler';
 
 @Component({
   selector: 'app-inspection-verification-incoming-equipment',
@@ -170,6 +172,11 @@ export class InspectionVerificationIncomingEquipmentComponent
   observationValuesI: any="";
   observationModalReference: any;
   disableObservation: boolean=true;
+   innerObservationArr: any =  [];
+  inspectionOuterObservation: any=[];
+  inspectionInnerObservation: any=[];
+  deletedInnerObservation: any=[];
+  deleteObDataFlag: boolean= false;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -653,13 +660,12 @@ showHideAccordion(index: number) {
  
     this.arr = [];
     for (let item of value.ipaoInspection) {
-      this.arr.push(this.createGroup(item));
+      this.arr.push(this.createGroup(item,item.inspectionOuterObervation[0]));
       
     }
     this.addstep3.setControl('incomingArr', this._formBuilder.array(this.arr || []))
   }
-
-  createGroup(item: any): FormGroup {
+  createGroup(item: any,H:any): FormGroup {
     return this._formBuilder.group({
       ipaoInspectionId: new FormControl({disabled: false,value: item.ipaoInspectionId}),
       locationName: new FormControl({disabled: false,value: item.locationName}, [Validators.required]),
@@ -705,7 +711,8 @@ showHideAccordion(index: number) {
       operatingCurrent: new FormControl({disabled: false,value: item.operatingCurrent}, [Validators.required]),
       supplementaryBonding: new FormControl({disabled: false,value: item.supplementaryBonding}, [Validators.required]),
       specificInspectionRe: new FormControl({disabled: false,value: item.specificInspectionRe}),
-      consumerUnit: this._formBuilder.array(this.populateEarthing(item.consumerUnit,item.ipaoInspectionId)),
+      inspectionOuterObervation: this._formBuilder.array(this.populateInspectionOuterObervation(item.inspectionOuterObervation,item.ipaoInspectionId)),
+      consumerUnit: this._formBuilder.array(this.populateEarthing(item.consumerUnit,item.ipaoInspectionId,H.inspectionInnerObservations)),
       circuit: this._formBuilder.array(this.populateCircuit(item.circuit,item.ipaoInspectionId)),
       isolationCurrent: this._formBuilder.array([
         this.populateIsolationCurrentForm(item.isolationCurrent),
@@ -714,10 +721,55 @@ showHideAccordion(index: number) {
     });
   }
 
-  private populateEarthing(itemValue: any,ipaoInspectionId: any) {
+  private populateInspectionOuterObervation(itemValue: any,ipaoInspectionId: any) {
+    let outerObservationArr: any =  [];
+    for(let i of itemValue) {
+      outerObservationArr.push(this.populateOuterObservationForm(i,ipaoInspectionId));
+    }
+    return outerObservationArr;
+  }
+
+  populateOuterObservationForm(itemvalue: any,ipaoInspectionId: any): FormGroup {
+    return new FormGroup({
+      ipaoInspectionId: new FormControl({disabled: false,value: ipaoInspectionId}),
+      inspectionOuterObservationId: new FormControl({disabled: false,value: itemvalue.inspectionOuterObservationId}),
+      observationComponentDetails: new FormControl({disabled: false,value: itemvalue.observationComponentDetails}),
+      observationDescription: new FormControl({disabled: false,value: itemvalue.observationDescription}),
+      inspectionOuterObservationStatus:new FormControl({disabled: false,value: itemvalue.inspectionOuterObservationStatus}),
+      inspectionInnerObservations: this._formBuilder.array(this.populateInspectionInnerObervation(itemvalue.inspectionInnerObservations,itemvalue.inspectionOuterObservationId)),
+    });
+  }
+
+
+  private populateInspectionInnerObervation(itemValue: any,inspectionOuterObservationId: any) {
+    let innerObservationArr: any =  [];
+    for(let i of itemValue) {
+      innerObservationArr.push(this.populateInnerObservationForm(i,inspectionOuterObservationId));
+    }
+    return innerObservationArr;
+  }
+
+  populateInnerObservationForm(itemvalue: any,inspectionOuterObservationId: any): FormGroup {
+    return new FormGroup({
+      inspectionOuterObservationId: new FormControl({disabled: false,value: inspectionOuterObservationId}),
+      inspectionInnerObservationsId: new FormControl({disabled: false,value: itemvalue.inspectionInnerObservationsId}),
+      observationComponentDetails: new FormControl({disabled: false,value: itemvalue.observationComponentDetails}),
+      observationDescription: new FormControl({disabled: false,value: itemvalue.observationDescription}),
+      inspectionInnerObservationStatus:new FormControl({disabled: false,value: itemvalue.inspectionInnerObservationStatus}),
+    });
+  }
+
+
+
+  private populateEarthing(itemValue: any,ipaoInspectionId: any,inspectionInnerObservations:any) {
     let earthingArr: any =  [];
     for(let i of itemValue) {
       earthingArr.push(this.populateEarthingForm(i,ipaoInspectionId));
+
+  }
+  
+    for(let h=0;h<earthingArr.length; h++) {
+      earthingArr[h].controls.observationDescription.setValue(inspectionInnerObservations[h].observationDescription);
     }
     return earthingArr;
   }
@@ -725,8 +777,10 @@ showHideAccordion(index: number) {
   private populateCircuit(itemValue: any,ipaoInspectionId: any) {
     let earthingArr1: any =  [];
     for(let i of itemValue) {
+    
       earthingArr1.push(this.populateCircuitForm(i,ipaoInspectionId));
     }
+  
     return earthingArr1;
   }
 
@@ -768,6 +822,7 @@ showHideAccordion(index: number) {
       mechanicalDamage: new FormControl({disabled: false,value: itemvalue.mechanicalDamage}, [Validators.required]),
       electromagnetic: new FormControl({disabled: false,value: itemvalue.electromagnetic}, [Validators.required]),
       allConductorCon: new FormControl({disabled: false,value: itemvalue.allConductorCon}, [Validators.required]),
+      observationDescription: new FormControl(),
       consumerStatus: new FormControl(itemvalue.consumerStatus),
     });
   }
@@ -862,25 +917,25 @@ showHideAccordion(index: number) {
   getObservationControls(form: any) {
     return form.controls.inspectionOuterObervation?.controls;
   }
-  getInnerObservationControls(form: any) {
-    return form.controls.inspectionInnerObervations?.controls;
-  }
-  
+
   private createObservationForm(): FormGroup {
     return new FormGroup({
       observationComponentDetails:  new FormControl('inspectionComponent'),
-      observationDescription:  new FormControl(''),
+      observationDescription:  new FormControl('',[Validators.required]),
       inspectionOuterObservationStatus:  new FormControl('A'),
-      inspectionInnerObervations: this._formBuilder.array([]),
+      inspectionInnerObservations: this._formBuilder.array([this.createInnerObservationForm()]),
+    });
+  }
 
-
-    });}
-    private createInnerObservationForm(): FormGroup {
-      return new FormGroup({
-        observationComponentDetails:  new FormControl('inspectionComponent-consumerIter'),
-        observationDescription:  new FormControl(''),
-        inspectionInnerObervationStatus:  new FormControl('A'),
-      });}
+  private createInnerObservationForm(): FormGroup {
+    return new FormGroup({
+      inspectionInnerObservationsId:new FormControl(),
+      observationComponentDetails:  new FormControl('consumer-unit'),
+      observationDescription:  new FormControl('',[Validators.required]),
+      inspectionInnerObservationStatus:  new FormControl('A'),
+    
+    });
+  }
   private createEarthingForm(): FormGroup {
     return new FormGroup({
       distributionBoardDetails:  new FormControl('', [Validators.required]),
@@ -916,8 +971,9 @@ showHideAccordion(index: number) {
       mechanicalDamage: new FormControl('', [Validators.required]),
       electromagnetic: new FormControl('', [Validators.required]),
       allConductorCon: new FormControl('', [Validators.required]),
+      observationDescription: new FormControl('', [Validators.required]),
       consumerStatus: new FormControl('A'),
-      inspectionInnerObervations: this._formBuilder.array([this.createInnerObservationForm()]),
+   
     });
   }
   getcircuitControls(form: any) {
@@ -1093,7 +1149,12 @@ showHideAccordion(index: number) {
 
   addIncoming(a: any) {
     this.consumerArr = a.controls.consumerUnit as FormArray;
+    debugger
     this.circuitArr = a.controls.circuit as FormArray;
+    this.inspectionOuterObservation=a.controls.inspectionOuterObervation as FormArray;
+    this.inspectionInnerObservation=this.inspectionOuterObservation.controls[0].controls.inspectionInnerObservations as FormArray;
+
+    this.inspectionInnerObservation.push(this.createInnerObservationForm());
     
     this.consumerArr.push(this.createEarthingForm());
     this.circuitArr.push(this.createcircuitForm());
@@ -1101,20 +1162,26 @@ showHideAccordion(index: number) {
 
   removeConsumerCircuit(a: any,j: any) {
     this.addstep3.markAsTouched();
-
     this.consumerArr = a.controls.consumerUnit as FormArray;
     this.circuitArr = a.controls.circuit as FormArray;
-
+    this.inspectionOuterObservation=a.controls.inspectionOuterObervation as FormArray;
+   this.inspectionInnerObservation=this.inspectionOuterObservation.controls[0].controls.inspectionInnerObservations as FormArray;
     if(this.flag && this.consumerArr.value[j].consumerId!=null && this.consumerArr.value[j].consumerId!='' && this.consumerArr.value[j].consumerId!=undefined){
       this.consumerArr.value[j].consumerStatus='R';
       this.deletedConsumer.push(this.consumerArr.value[j]);
     }
 
-    if(this.flag && this.circuitArr.value[j].circuitId!=null && this.circuitArr.value[j].circuitId!='' && this.circuitArr.value[j].circuitId!=undefined){
-      this.circuitArr.value[j].circuitStatus='R';
-      this.deletedCircuit.push(this.circuitArr.value[j]);
+    if(this.flag && this.inspectionInnerObservation.value[j].inspectionInnerObservationsId!=null && this.inspectionInnerObservation.value[j].inspectionInnerObservationsId!='' && this.inspectionInnerObservation.value[j].inspectionInnerObservationsId!=undefined){
+      this.inspectionInnerObservation.value[j].inspectionInnerObservationStatus='R';
+      this.deletedInnerObservation.push(this.inspectionInnerObservation.value[j]);
     }
 
+    if(this.flag && this.circuitArr.value[j].circuitId!=null && this.circuitArr.value[j].circuitId!='' && this.circuitArr.value[j].circuitId!=undefined){
+      this.circuitArr.value[j].circuitStatus='R';
+
+      this.deletedCircuit.push(this.circuitArr.value[j]);
+    }
+    this.inspectionInnerObservation.removeAt(j);
     this.consumerArr.removeAt(j);
     this.circuitArr.removeAt(j);
     this.addstep3.markAsDirty();
@@ -1366,21 +1433,59 @@ showHideAccordion(index: number) {
     }
     this.incomingArr = this.addstep3.get('incomingArr') as FormArray;
     this.inspectionDetails.userName = this.email;
-   this.submitted = true;
-    if (this.addstep3.invalid) {
-      return;
-    }
-for(let h of this.incomingArr.value){
-  for(let t of h.consumerUnit){
-  for(let g of h.inspectionOuterObervation){
-      g.inspectionInnerObervations=g.inspectionInnerObervations.concat(t.inspectionInnerObervations);
-     } 
-   }
-  }
+  //  this.submitted = true;
+  //   if (this.addstep3.invalid) {
+  //     return;
+  //   }
+
+      for(let h of this.incomingArr.value){
+          for(let g of h.inspectionOuterObervation){
+            for(let i=0;i<h.consumerUnit.length; i++){ 
+             // h.inspectionOuterObervation[0].inspectionInnerObservations[i].inspectionInnerObservationsId
+                 g.inspectionInnerObservations[i].observationDescription = h.consumerUnit[i].observationDescription;
+                 g.inspectionInnerObservations[i].observationComponentDetails="consumer-UnitIter";
+                 if(g.inspectionInnerObservations[i].inspectionInnerObservationStatus!='R'){
+                  g.inspectionInnerObservations[i].inspectionInnerObservationStatus='A';
+                 }
+          }
+        }
+        }
+
+
+  // for(let h of this.incomingArr.value){
+  //   for(let g of h.inspectionOuterObervation){
+  //     for(let i=0;i<h.consumerUnit.length; i++){ 
+  //       if (g.inspectionInnerObservations[i].inspectionInnerObservationsId!=0&&
+  //       g.inspectionInnerObservations[i].inspectionInnerObservationsId!=undefined) {
+       
+  //       g.inspectionInnerObservations[i].observationDescription = h.consumerUnit[i].observationDescription;
+  //       g.inspectionInnerObservations[i].observationComponentDetails="consumer-UnitIter";
+  //       g.inspectionInnerObservations[i].inspectionInnerObservationStatus="A";
+         
+  //        for(let k of this.deletedConsumer)
+  //        if(h.consumerUnit[i].consumerId== k.consumerId){
+  //         g.inspectionInnerObservations[i].observationDescription = h.consumerUnit[i].observationDescription;
+  //         g.inspectionInnerObservations[i].inspectionInnerObservationStatus="R";
+  //         h.consumerUnit[i].consumerStatus="R";
+  //         }
+  //       }
+  //   else{
+  //     g.inspectionInnerObservations[i]={};
+  //     g.inspectionInnerObservations[i].observationDescription = h.consumerUnit[i].observationDescription;
+  //     g.inspectionInnerObservations[i].observationComponentDetails="consumer-UnitIter";
+  //     g.inspectionInnerObservations[i].inspectionInnerObservationStatus="A";
+
+  //   } 
+  //   }
+
+  //   }
+
+  // }
  
+
+console.log(this.inspectionDetails);
     this.service.iterationList = this.incomingArr.value;
     this.inspectionDetails.ipaoInspection = this.addstep3.value.incomingArr;
-
    
     if(flag) {
       if(this.addstep3.dirty){
@@ -1389,7 +1494,6 @@ for(let h of this.incomingArr.value){
             this.inspectionDetails.ipaoInspection.push(i);
           }
         }
-
        //Consumer
        for(let i of this.deletedConsumer) {
           for(let j of this.inspectionDetails.ipaoInspection) {
@@ -1409,7 +1513,6 @@ for(let h of this.incomingArr.value){
             }
           }
         }
-
         //Circuit
        for(let i of this.deletedCircuit) {
         for(let j of this.inspectionDetails.ipaoInspection) {
@@ -1424,11 +1527,32 @@ for(let h of this.incomingArr.value){
             }
           }
           if(this.deleteDataFlag1) {
+     
             j.circuit.push(i);
             this.deleteDataFlag1 = false;
           }
         }
       }
+//observation
+for(let i of this.deletedInnerObservation) {
+  for(let j of this.inspectionDetails.ipaoInspection) {
+    for(let k of j.inspectionOuterObervation[0].inspectionInnerObservations) {
+      if(k.inspectionOuterObservationId == i.inspectionOuterObservationId) {
+        if(k.inspectionInnerObservationsId != i.inspectionInnerObservationsId) {
+          this.deleteObDataFlag = true;
+        }
+        else {
+          this.deleteObDataFlag = false;
+        }
+      }
+    }
+    if(this.deleteObDataFlag) {
+      j.inspectionOuterObervation[0].inspectionInnerObservations.push(i);
+      this.deleteObDataFlag = false;
+    }
+  }
+}
+      console.log(this.inspectionDetails);
       this.UpateInspectionService.updateIncoming(this.inspectionDetails).subscribe(
         data=> {
           if(this.step3List.testingReport != null){
