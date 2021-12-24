@@ -2128,7 +2128,6 @@ showHideAccordion(index: number) {
   // }
 
   onKey1(event: KeyboardEvent) {
-    debugger
     this.values = (<HTMLInputElement>event.target).value;
     this.value = this.values;
     this.location1Arr = this.supplycharesteristicForm.get(
@@ -2274,7 +2273,7 @@ showHideAccordion(index: number) {
   // }
 
   onKey(event: KeyboardEvent) {
-    debugger
+    
     this.values='';
     if(event.target != undefined) {
       this.values = (<HTMLInputElement>event.target).value;    
@@ -2451,7 +2450,7 @@ showHideAccordion(index: number) {
   //   }
   // }
   onKey3(event: KeyboardEvent) { //No Of Joints
-    debugger
+    
     this.values='';
     if(event.target != undefined) {
       this.values = (<HTMLInputElement>event.target).value;    
@@ -2696,7 +2695,7 @@ showHideAccordion(index: number) {
   }
 
   showAlternateField(event: any) {
-    debugger
+    
     const items = (<FormArray>this.supplycharesteristicForm.get('circuitArr'));
           let g = items.length;
     this.alternateArr = this.supplycharesteristicForm.get(
@@ -2779,7 +2778,7 @@ showHideAccordion(index: number) {
   }
 
   onKeyAlernate(event: KeyboardEvent) {
-    debugger
+    
     this.values = (<HTMLInputElement>event.target).value;
     this.value = this.values;
     this.alternateArr = this.supplycharesteristicForm.get(
@@ -2852,7 +2851,7 @@ showHideAccordion(index: number) {
             this.deletedObservation.push(f);
 
             if(d.supplyparametersId != undefined && d.supplyparametersId!=0){
-              debugger
+              
               this.alternateArr1 = this.alternateArr1.concat(d);
             }
             
@@ -2881,7 +2880,7 @@ showHideAccordion(index: number) {
               e.circuitStatus = 'R';
               
               if(e.circuitBreakerId != undefined && e.circuitBreakerId!=0){
-                debugger
+                
                 this.circuitArr1 = this.circuitArr1.concat(e);
               }
                 this.circuitArr = this.supplycharesteristicForm.get(
