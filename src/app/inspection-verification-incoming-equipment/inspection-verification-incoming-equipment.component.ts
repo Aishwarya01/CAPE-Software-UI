@@ -921,7 +921,7 @@ showHideAccordion(index: number) {
   private createObservationForm(): FormGroup {
     return new FormGroup({
       observationComponentDetails:  new FormControl('inspectionComponent'),
-      observationDescription:  new FormControl('',[Validators.required]),
+      observationDescription:  new FormControl(''),
       inspectionOuterObservationStatus:  new FormControl('A'),
       inspectionInnerObservations: this._formBuilder.array([this.createInnerObservationForm()]),
     });
@@ -931,7 +931,7 @@ showHideAccordion(index: number) {
     return new FormGroup({
       inspectionInnerObservationsId:new FormControl(),
       observationComponentDetails:  new FormControl('consumer-unit'),
-      observationDescription:  new FormControl('',[Validators.required]),
+      observationDescription:  new FormControl(''),
       inspectionInnerObservationStatus:  new FormControl('A'),
     
     });
