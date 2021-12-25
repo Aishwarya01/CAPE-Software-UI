@@ -1433,10 +1433,10 @@ showHideAccordion(index: number) {
     }
     this.incomingArr = this.addstep3.get('incomingArr') as FormArray;
     this.inspectionDetails.userName = this.email;
-  //  this.submitted = true;
-  //   if (this.addstep3.invalid) {
-  //     return;
-  //   }
+    this.submitted = true;
+    if (this.addstep3.invalid) {
+      return;
+    }
 
       for(let h of this.incomingArr.value){
           for(let g of h.inspectionOuterObervation){
