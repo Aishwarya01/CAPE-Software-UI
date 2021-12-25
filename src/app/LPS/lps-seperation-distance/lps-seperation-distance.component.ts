@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GlobalsService } from 'src/app/globals.service';
 import { Separatedistance } from 'src/app/LPS_model/separatedistance';
 import { SeparatedistanceService } from 'src/app/LPS_services/separatedistance.service';
 
@@ -51,7 +52,9 @@ export class LpsSeperationDistanceComponent implements OnInit {
 
     private formBuilder: FormBuilder,
     private separatedistanceService: SeparatedistanceService,
-    private modalService: NgbModal, private router: ActivatedRoute
+    private modalService: NgbModal, private router: ActivatedRoute,
+    public service: GlobalsService,
+
   ) {
   }
 
@@ -91,6 +94,8 @@ export class LpsSeperationDistanceComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
+      // this.service.lvClick=1;
+
       this.step6List = data.seperationDistanceDesc;
       this.separatedistance.basicLpsId = basicLpsId;   
       this.separatedistance.seperationDistanceId = this.step6List.seperationDistanceId  
@@ -112,6 +117,8 @@ export class LpsSeperationDistanceComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
+    // this.service.lvClick=1;
+
     this.step6List = JSON.parse(data);
     this.separatedistance.basicLpsId = basicLpsId;   
     this.separatedistance.seperationDistanceId = this.step6List[0].seperationDistanceId  
@@ -160,7 +167,46 @@ export class LpsSeperationDistanceComponent implements OnInit {
     this.separateDistanceDescriptionArr.push(this.separateDistanceArrForm());
 
   }
-
+  onChangeForm(event:any){
+    if(!this.separeteDistanceForm.invalid){
+      if(this.separeteDistanceForm.dirty){
+        this.service.lvClick=1;
+        this.service.logoutClick=1;
+        this.service.windowTabClick=1;
+      }
+      else{
+        this.validationError=false;
+        this.service.lvClick=0;
+        this.service.logoutClick=0;
+        this.service.windowTabClick=0;
+      }
+     }
+     else {
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+     }
+  }
+  onKeyForm(event: KeyboardEvent) { 
+   if(!this.separeteDistanceForm.invalid){ 
+    if(this.separeteDistanceForm.dirty){
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+    }
+    else{
+      this.validationError=false;
+      this.service.lvClick=0;
+      this.service.logoutClick=0;
+      this.service.windowTabClick=0;
+    }
+   }
+   else {
+    this.service.lvClick=1;
+    this.service.logoutClick=1;
+    this.service.windowTabClick=1;
+   }
+  } 
 
   closeModalDialog() {
     if (this.errorMsg != '') {
@@ -193,6 +239,9 @@ export class LpsSeperationDistanceComponent implements OnInit {
             this.success = true;
             this.successMsg = data;
             this.separeteDistanceForm.markAsPristine();
+            this.service.lvClick=0;
+            this.service.logoutClick=0;
+            this.service.windowTabClick=0;
             this.proceedNext.emit(true);
           },
           (error) => {
@@ -222,6 +271,9 @@ export class LpsSeperationDistanceComponent implements OnInit {
             this.disable = true;
             this.retriveSeperationDistance();
             this.proceedNext.emit(true);
+            this.service.lvClick=0;
+            this.service.logoutClick=0;
+            this.service.windowTabClick=0;
             // setTimeout(() => {
             //   this.separeteDistanceForm.markAsPristine;
             // }, 3000);

@@ -9,7 +9,9 @@
 </div>
 <div class="card">
     <div class="card-body">
-      <form [formGroup]="step1Form" (ngSubmit)="nextTab(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
+      <form [formGroup]="step1Form" (ngSubmit)="nextTab(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)" 
+      (window:beforeunload)="doBeforeUnload()"
+      (window:popstate)="onPopState($event)">
       <div class="search-bar">
         <div class="form-group" *ngIf="siteDetails" [ngClass]="{'disableForm':service.allFieldsDisable}">
           <div class="row">
@@ -129,8 +131,18 @@
                   [tabindex]="service.allFieldsDisable ? -1 : 0" 
                   [disabled]="service.allFieldsDisable"
                   [(ngModel)]="reportDetails.installationType" [ngClass]="{ 'is-invalid': submitted && f.installationType.errors }">
-                    <option [ngValue]="null">Select Option</option>
+                    <option value="" selected>Select Option</option>
                     <option *ngFor="let value of installationList">{{value}}</option>
+                    <!-- <option value="New Installation" [selected]="f.installationType?.value === 'New Installation'"
+                   >New Installation</option>
+                    <option value="First Verification Of An Existing Installation" [selected]="f.installationType?.value === 'First Verification Of An Existing Installation'"
+                    >First Verification Of An Existing Installation</option>
+                    <option value="Addition Of An Existing Installation" [selected]="f.installationType?.value === 'Addition Of An Existing Installation'"
+                    >Addition Of An Existing Installation</option>
+                    <option value="Alteration In An Existing Installation" [selected]="f.installationType?.value === 'Alteration In An Existing Installation'"
+                    >Alteration In An Existing Installation</option>
+                    <option value="Periodic Verification" [selected]="f.installationType?.value === 'Periodic Verification'"
+                    >Periodic Verification</option> -->
                   </select>
                   <div *ngIf="submitted && f.installationType.errors" class="invalid-feedback">
                     <div *ngIf="f.installationType?.errors?.required">Installation type is required</div>
@@ -386,9 +398,10 @@
                 <div class="col-md-4">
                   <label>Read and Confirmed the Extent and Limitations* :</label>
                   <select class="form-control" formControlName="limitations" [(ngModel)]="reportDetails.limitations" 
-                  [ngClass]="{ 'is-invalid': submitted && f.limitations.errors }" [tabindex]="service.allFieldsDisable ? -1 : 0" [disabled]="service.allFieldsDisable">
+                  [ngClass]="{ 'is-invalid': submitted && f.limitations.errors }" [tabindex]="service.allFieldsDisable ? -1 : 0" 
+                  [disabled]="service.allFieldsDisable">
                    <option value="" selected>Select Option</option>
-                    <option *ngFor="let value of previousRecordList" >{{value}}</option>
+                    <option *ngFor="let value of previousRecordList">{{value}}</option>
                   </select>
                   <div *ngIf="submitted && f.limitations.errors" class="invalid-feedback">
                     <div *ngIf="f.limitations?.errors?.required">Field Is Required</div>
@@ -418,7 +431,7 @@
             <h3><b>Declaration of Designer of the Electrical Installation:</b></h3>
             <div class="form-group">
                 <p>
-                  I/we being the person responsible for the design of the electrical installation (as indicated by my/our signatures below), particulars of which are described above, having exercised reasonable skill and care when carrying out the design hereby declare that design work for which I/We have been responsible is to the best of my/our knowledge and belief in accordance with IEC 60364
+                  I/we being the person responsible for the design of the electrical installation (as indicated by my/our signatures below), particulars of which are described above, having exercised reasonable skill and care when carrying out the design hereby <b>declare</b> that design work for which I/We have been responsible is to the best of my/our knowledge and belief in accordance with IEC 60364
                 </p>
                 <p>
                   The extent of liability of the signatory or signatories is limited to the work described above as the subject of this report.
@@ -499,7 +512,7 @@
                 info_outline
         </mat-icon>
                   <p>
-                    I/we being the person responsible for the construction of the electrical installation (as indicated by my/our signatures below), particulars of which are described above, having exercised reasonable skill and care when carrying out the design hereby declare that the design work for which I/We have been responsible is to the best of my/our knowledge and belief in accordance with IEC 60364
+                    I/we being the person responsible for the construction of the electrical installation (as indicated by my/our signatures below), particulars of which are described above, having exercised reasonable skill and care when carrying out the design hereby <b>declare</b> that the design work for which I/We have been responsible is to the best of my/our knowledge and belief in accordance with IEC 60364
                   </p>
                   <p>
                     The extent of liability of the signatory is limited to the work described above as the subject of this report.
@@ -545,7 +558,7 @@
             <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <h3><b>Declaration of Safety Engineer (Inspector):</b></h3>
                   <p>
-                    I/we being the person responsible for the inspection & testing  of the electrical installation (as indicated by my/our signatures below), particulars of which are described above, having exercised reasonable skill and care when carrying out the design hereby declare that the design work for which I/We have been responsible is to the best of my/our knowledge and belief in accordance with IEC 60364
+                    I/we being the person responsible for the inspection & testing  of the electrical installation (as indicated by my/our signatures below), particulars of which are described above, having exercised reasonable skill and care when carrying out the design hereby <b>declare</b> that the design work for which I/We have been responsible is to the best of my/our knowledge and belief in accordance with IEC 60364
                   </p>
                   <p>
                     The extent of liability of the signatory is limited to the work described above as the subject of this report.
@@ -805,7 +818,7 @@
                               <label>Person Name:</label>
                               <input type="text"  formControlName="personName" class="form-control"  placeholder="Enter Person Name" readonly
                               [ngClass]="{ 'is-invalid': submitted && a.get('personName')?.errors }"
-                              (focus)="designer2PersonFunction()" >
+                              (focus)="designer2PersonFunction()" [(ngModel)]="designer2PersonName">
                             <div *ngIf="designer2PersonNameMsg" class="invalid-feedback">
                              Please fill out the details in Liability and Declaration tab!
                             </div>

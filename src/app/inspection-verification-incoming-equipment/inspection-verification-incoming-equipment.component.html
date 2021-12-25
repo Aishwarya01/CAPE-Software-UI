@@ -5,12 +5,21 @@
 <div *ngIf="validationErrorTab" style="text-align: center;">
   <span class="alert alert-danger">{{validationErrorMsgTab}}</span>
 </div>
+
 <div class="card">
+  <div class="row">
+    <div class="col-sm-12">
+      <a style="margin-top: 10px;margin-right: 20px;
+      margin-bottom: -10px;float: right;cursor: pointer;text-decoration: underline;">Observations</a>
+    </div>
+    </div>
   <form [formGroup]="addstep3" (ngSubmit)="nextTab3(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
 <div class="card-body" formArrayName="incomingArr" *ngFor="let a of getIncomingControls(); let i = index" >
   <div [formGroupName]="i" >
   <div class="search-bar">
     <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
+      <h4 *ngIf="i==0"><b>Note:</b> For periodic inspection, a visual inspection should be made to find out the external condition of all electrical equipment which is not concealed. Further detailed inspection, including partial dismantling of equipment (as required), should be carried out as agreed with the customer.</h4>
+      <br>
       <div class="row">
         <div class="col-md-4">
               <label>Location Number*</label>
@@ -31,11 +40,28 @@
             </div> 
         </div>
 
-        <mat-icon class="mousechange" class="dlt" type="button" [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="getIncomingControls().length > 1" (click)="removeItem(i)"title="Delete" style="position: relative; top: 34px; left: 27%;">remove_circle_outline</mat-icon>
-
+        <mat-icon class="mousechange" class="dlt" type="button" [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="getIncomingControls().length > 1" (click)="removeItem(i)" title="Delete" style="position: relative; top: 34px; left: 27%;">remove_circle_outline</mat-icon>
       </div>
   </div>
 </div>
+
+<br>
+<div class="row" formArrayName="inspectionOuterObervation" *ngFor="let b of getObservationControls(a); let i = index">	
+  <div class="col-md-6" [formGroupName]="i">	
+    <mat-form-field  class="client-description " >	
+      <mat-label>	
+        <h3>Observations</h3>	
+      </mat-label>	
+      <textarea matInput  class="client-description "	formControlName="observationDescription"
+     maxlength="2000" placeholder="Ex. Observations  ..."  [ngClass]="{ 'is-invalid': submitted && b.get('observationDescription')?.errors }"></textarea>	
+     <div *ngIf="submitted && b.get('observationDescription')?.errors" class="invalid-feedback">
+      <div *ngIf="b.get('observationDescription')?.errors?.required">Observation is required</div>
+  </div> 
+    </mat-form-field>	
+  </div>
+  </div>	
+
+  <br>
   <mat-accordion>
     <!-- IpaInsection starts-->
     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -59,7 +85,7 @@
             [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('serviceCable')?.errors }">
            <option value="" selected>Select Option</option>
-            <option *ngFor="let value of InspectionList" [selected]="value=== a.get('serviceCable')?.value">{{value}}</option>
+            <option *ngFor="let value of cableBusBarList" [selected]="value=== a.get('serviceCable')?.value">{{value}}</option>
           </select>
             <div *ngIf="submitted && a.get('serviceCable')?.errors" class="invalid-feedback">
               <div *ngIf="a.get('serviceCable')?.errors?.required">Service Cable is required</div>
@@ -136,7 +162,7 @@
 
         <div class="col-sm-12">
           <div class="form-group equipment">
-            <label>Over Voltage Protection:</label>
+            <label>Over Voltage Protection (overvoltage category maintained):</label>
             <mat-icon style="float: right;font-size: 18px;
                 line-height: unset;"
                 matTooltip="Availability status to be included."
@@ -151,6 +177,27 @@
             </select>
             <div *ngIf="submitted && a.get('meterEqu')?.errors" class="invalid-feedback">
               <div *ngIf="a.get('meterEqu')?.errors?.required">Metering Equipment is required</div>
+          </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>TOV Control Measures On LV Side Due To HV Fault:</label>
+            <mat-icon style="float: right;font-size: 18px;
+                line-height: unset;"
+                matTooltip="Availability status to be included."
+                matTooltipClass="multiline-tooltip"
+                aria-label="Button that shows a red tooltip"
+                class="example-button"> info_outline
+            </mat-icon>
+            <select class="form-control" formControlName="tovMeasuresLVHV" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && a.get('meterEqu')?.errors }" >
+             <option value="" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== a.get('tovMeasuresLVHV')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && a.get('tovMeasuresLVHV')?.errors" class="invalid-feedback">
+              <div *ngIf="a.get('tovMeasuresLVHV')?.errors?.required">TOV Control Measures required</div>
           </div>
           </div>
         </div>
@@ -175,6 +222,10 @@
           </div>
           </div>
         </div>
+        
+        <div class="col-sm-12">
+          <p><b>Note:</b> Where inadequacies in distributor’s equipment are encountered, it is recommended that the user informs this to the appropriate authority.</p>
+        </div>
       </div>
         <!-- </div>
       </div> -->
@@ -189,7 +240,7 @@
       <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
         <div class="col-sm-12">
           <div class="form-group equipment">
-            <label>Dedicated Earthing Arrangement Independent To That Of Incoming Utility Supply:</label>
+            <label>Dedicated Earthing Arrangement Independent To That Of Public Supply:</label>
             <mat-icon style="float: right;font-size: 18px;
                 line-height: unset;"
                 matTooltip="Arrangement of earthing downstream point of commencement of supply."
@@ -210,8 +261,8 @@
 
         <div class="col-sm-12">
           <div class="form-group equipment">
-            <label>Presence of Adequate Arrangements Where Generator To Operate in Parallel With The Incoming Utility
-              Supply:</label>
+            <label>Presence of Adequate Arrangements Where Generator To Operate in Parallel With The Public
+              Supply System:</label>
             <select class="form-control" formControlName="adequateArrangement" 
             [ngClass]="{ 'is-invalid': submitted && a.get('adequateArrangement')?.errors }" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0">
              <option value="" selected>Select Option</option>
@@ -225,7 +276,7 @@
 
         <div class="col-sm-12">
           <div class="form-group equipment">
-            <label>Correct Connections Of Generator In Parallel. (Note: Special Attention To Neutral Circulating
+            <label>Correct Connections Of Generator In Parallel. (Note: Special Attention To Circulating
               Currents):</label>
             <select class="form-control" formControlName="connectionGenerator" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('connectionGenerator')?.errors }" >
@@ -240,7 +291,7 @@
 
         <div class="col-sm-12">
           <div class="form-group equipment">
-            <label>Compatibility of Characteristics Of Generator (V,I,Hz):</label>
+            <label>Compatibility of Characteristics Of Means of Generation :</label>
             <select class="form-control" formControlName="compatibilityCharacteristics" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('compatibilityCharacteristics')?.errors }" >
              <option value="" selected>Select Option</option>
@@ -254,8 +305,8 @@
 
         <div class="col-sm-12">
           <div class="form-group equipment">
-            <label>Means To Provide Automatic Change Over Of Generator In The Event Of
-              Loss Of Incoming Utility Supply Or Voltage Or Frequency Deviation Beyond Declared Values:</label>
+            <label>Means To Provide Automatic Disconnection Of Generator In The Event Of
+              Loss Of Public Supply System Or Voltage Or Frequency Deviation Beyond Declared Values:</label>
             <select class="form-control" formControlName="automaticDisconnectGenerator" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('automaticDisconnectGenerator')?.errors }" >
              <option value="" selected>Select Option</option>
@@ -269,8 +320,7 @@
 
         <div class="col-sm-12">
           <div class="form-group equipment">
-            <label>Means to Automatically Change Over to Incoming Utility Supply and ShotDown of Generator when the Utility Supply
-              is Normally Available:</label>
+            <label>Means to prevent connection of generator in the event of loss of public supply system or voltage or frequency deviation beyond declared values:</label>
             <select class="form-control" formControlName="preventConnectGenerator" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('preventConnectGenerator')?.errors }" >
              <option value="" selected>Select Option</option>
@@ -292,7 +342,7 @@
             </select>
             <div *ngIf="submitted && a.get('isolateGenerator')?.errors" class="invalid-feedback">
               <div *ngIf="a.get('isolateGenerator')?.errors?.required">Field Is Required</div>
-          </div>
+            </div>
           </div>
         </div>
       </div>
@@ -308,7 +358,7 @@
       <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
         <div class="col-sm-12">
           <div class="form-group equipment">
-            <label>Main Earthing and Main Protective Bonding arrangements:</label>
+            <label>Main Earthing/Bonding arrangements:</label>
                <mat-icon style="float: right;font-size: 18px;
                  line-height: unset;"
                   matTooltip="If the earth busbar of mains incoming panel and nearby metal installations such as metal pipes, metal handrails and lightning protection down conductors are not connected, select NO"
@@ -329,8 +379,7 @@
 
         <div class="col-sm-12">
           <div class="form-group equipment">
-            <label>Presence and Adequacy Of Earthing Arrangement to Source Or Installation Earth
-              Electrode Arrangement:</label>
+            <label>Presence and adequacy of energy suppliers earthing arrangement or installation earth electrode arrangement:</label>
               <mat-icon style="float: right;font-size: 18px;
                  line-height: unset;"
                   matTooltip="For TN system, protective conductor to source neutral is applicable. 
@@ -457,11 +506,16 @@
     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <h3>Other Methods Of Protection Applicable To Locations Where Automatic Disconnection Of Supply Is
-            Not Employed.</h3>
+          <h3>Other Methods Of Protection</h3>
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <h3><b>Basic and Fault Protection</b></h3>
+      <div class="row">
+        <div class="col-sm-12">
+          <p><b>Note:</b>(applicable to locations where automatic disconnection of supply is not employed). If any of the methods listed below are employed details should be provided on separate page.</p>
+        </div>
+      </div>
+      
+      <h3><b><u>Basic and Fault Protection</u></b></h3>
       <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
         <div class="col-sm-12">
           <div class="form-group equipment">
@@ -548,7 +602,7 @@
         </div>
         <div class="col-sm-12">
           <div class="form-group equipment">
-            <label>Electrical Separation:</label>
+            <label>Electrical separation for one item of equipment (shaver supply unit):</label>
             <mat-icon style="float: right;font-size: 18px;
             line-height: unset;"
              matTooltip="YES - If this protective measure is applied in the installation"
@@ -581,7 +635,7 @@
         </div> -->
       </div>
 
-      <h3><b>Basic Protection (Prevention Of Contact With Live Parts)</b></h3>
+      <h3><b><u>Basic Protection (Prevention Of Contact With Live Parts)</u></b></h3>
       <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
         <div class="col-sm-12">
           <div class="form-group equipment">
@@ -667,7 +721,7 @@
         </div>
       </div>
 
-      <h3><b>Fault protection</b></h3>
+      <h3><b><u>Fault protection</u></b></h3>
       <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
         <div class="col-sm-12">
           <div class="form-group equipment">
@@ -712,7 +766,7 @@
         </div>
       </div>
 
-      <h3><b>Additional Protection</b></h3>
+      <h3><b><u>Additional Protection</u></b></h3>
       <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
         <div class="col-sm-12">
           <div class="form-group equipment">
@@ -756,6 +810,31 @@
           </div>
         </div>
       </div>
+
+        <div class="row">
+          <div class="col-md-4">
+             <mat-form-field class="client-description">
+              <!-- <mat-icon style="float: right;font-size: 18px;
+              line-height: unset;margin-right: 85%; margin-top: 0.7%;"
+              matTooltip="Main’s incoming in case of no alternative supply from state EB.
+              Main’s incoming in case of alternative supply from state EB act as standby.
+              EB source incomer-1 in case of alternative supply from state EB share the total load."
+              matTooltipClass="multiline-tooltip">
+              info_outline
+             </mat-icon> -->
+              <mat-label>
+                <h3>SPECIFIC INSPECTION EXAMPLES to be included in the report as appropriate to the installation</h3>
+              </mat-label>
+              <textarea matInput class="client-box-description" formControlName="specificInspectionRe" 
+              [ngClass]="{ 'is-invalid': submitted && a.get('specificInspectionRe')?.errors }"   
+              maxlength="500" [readonly]="service.allFieldsDisable" 
+              placeholder="Ex. Note ..." ></textarea>
+              <div *ngIf="submitted && a.get('specificInspectionRe')?.errors" class="invalid-feedback">
+                <div *ngIf="a.get('specificInspectionRe')?.errors?.required">Field Is Required</div>
+              </div>
+            </mat-form-field>
+          </div>
+        </div>
     </mat-expansion-panel>
     <!-- IpaInsection ends-->
 
@@ -766,8 +845,63 @@
           <h3>Consumer Unit(s) / Distribution Board(s) / Distribution Equipment</h3>
         </mat-panel-title>
       </mat-expansion-panel-header>
+      <div class="row">
+        <div class="col">
+          <mat-icon  class="mousechange" (click)="addIncoming(a)" [ngClass]="{'disableForm':service.allFieldsDisable}"
+        style="float:right; padding-right: 37px; padding-top: 10px;">add_box</mat-icon>
+        </div>
+      </div>
+
+      <br>
+      <br>
+
       <div formArrayName="consumerUnit" *ngFor="let b of getearthingControls(a); let i = index">
         <div class="form-group" [formGroupName]="i"  [ngClass]="{'disableForm':service.allFieldsDisable}">
+      <div class="row">
+        <div class="col">
+          <h3><b>Consumer Unit(s) / Distribution Board(s) / Distribution Equipment - {{1+i}}</b> </h3> 
+        </div>
+        <div class="col">
+          <mat-icon class="mousechange" class="dlt" type="button" [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="getearthingControls(a).length > 1" (click)="removeConsumerCircuit(a,i)"title="Delete" style="position: relative;  float: right; right: 2%;">remove_circle_outline</mat-icon>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+            <label>Distribution Board Details </label>
+            <input type="text" formControlName="distributionBoardDetails"  
+            (keyup)="ChangeBoardDetails($event,a,i)"
+            placeholder="Enter Distribution board details"  class="form-control" 
+            [ngClass]="{ 'is-invalid': submitted && b.get('distributionBoardDetails')?.errors }" [readonly]="service.allFieldsDisable" >
+            <div *ngIf="submitted && b.get('distributionBoardDetails')?.errors" class="invalid-feedback">
+              <div *ngIf="b.get('distributionBoardDetails')?.errors?.required">Distribution board details  value is required</div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <label>Distribution board name</label>
+            <input type="text" formControlName="referance" placeholder="Enter Distribution board name" 
+            (keyup)="ChangeBoardName($event,a,i)"
+            class="form-control"[ngClass]="{ 'is-invalid': submitted && b.get('referance')?.errors }" [readonly]="service.allFieldsDisable" >
+            <div *ngIf="submitted && b.get('referance')?.errors" class="invalid-feedback">
+              <div *ngIf="b.get('referance')?.errors?.required">Reference name  is required</div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <label>Location</label>
+            <input type="text" formControlName="location"  placeholder=" Enter Location Name" 
+            (keyup)="ChangeLocation($event,a,i)"
+            class="form-control"[ngClass]="{ 'is-invalid': submitted && b.get('location')?.errors }" [readonly]="service.allFieldsDisable" >
+            <div *ngIf="submitted && b.get('location')?.errors" class="invalid-feedback">
+              <div *ngIf="b.get('location')?.errors?.required">Location  name  is required</div>
+            </div>
+        </div>
+      </div>
+
+      <br>
+      <h3><b><u> Section 1: Consumer unit's / Distribution board's: </u></b></h3>
+
       <div class="row">
         <div class="col-sm-12">
           <div class="form-group equipment">
@@ -896,6 +1030,69 @@
 
         <div class="col-sm-12">
           <div class="form-group equipment">
+            <label>Protection Against Mechanical Damage Where Cables Enter Equipment:</label>
+            <select class="form-control" formControlName="mechanicalDamage" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && b.get('mechanicalDamage')?.errors }" >
+             <option value="" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== b.get('mechanicalDamage')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && b.get('mechanicalDamage')?.errors" class="invalid-feedback">
+              <div *ngIf="b.get('mechanicalDamage')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>Protection Against Electromagnetic/Heating Effects Where Cables Enter Ferromagnetic
+              Enclosures:</label>
+            <select class="form-control" formControlName="electromagnetic" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && b.get('electromagnetic')?.errors }" >
+             <option value="" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== b.get('electromagnetic')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && b.get('electromagnetic')?.errors" class="invalid-feedback">
+              <div *ngIf="b.get('electromagnetic')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>Confirmation That All Conductor Connections Including Connections To Busbars Are Correctly
+              Located In Terminals And Are Tight And Secure:</label>
+            <select class="form-control" formControlName="allConductorCon" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && b.get('allConductorCon')?.errors }" >
+             <option value="" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== b.get('allConductorCon')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && b.get('allConductorCon')?.errors" class="invalid-feedback">
+              <div *ngIf="b.get('allConductorCon')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+      </div>
+
+
+        <h3><b><u>Section 2: Distribution Equipment’s: </u></b></h3>
+        <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>Selection Of Protective Devices And Bases Correct Type And Rating (No Signs Of Unacceptable
+              Thermal Damage, Arcing Or Overheating):</label>
+            <select class="form-control" formControlName="basesCorrectType" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && b.get('basesCorrectType')?.errors }" >
+             <option value="" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== b.get('basesCorrectType')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && b.get('basesCorrectType')?.errors" class="invalid-feedback">
+              <div *ngIf="b.get('basesCorrectType')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <div class="form-group equipment">
             <label>Presence Of Main Switches Linked Where Required:</label>
             <select class="form-control" formControlName="presenceMainSwitches" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('presenceMainSwitches')?.errors }" >
@@ -991,6 +1188,7 @@
           </div>
           </div>
         </div>
+
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Confirmation Of Indication That SPD Is Functional:</label>
@@ -1005,6 +1203,23 @@
           </div>
         </div>
 
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>Single Pole Protective Devices In Line Conductor Only:</label>
+            <select class="form-control" formControlName="singlePole" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && b.get('singlePole')?.errors }" >
+             <option value="" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== b.get('singlePole')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && b.get('singlePole')?.errors" class="invalid-feedback">
+              <div *ngIf="b.get('singlePole')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+      </div>
+
+        <h3><b><u>Section 3: Warning Notices: </u></b></h3>
+        <div class="row">
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Presence Of RCD Quarterly Test Notice:</label>
@@ -1134,77 +1349,18 @@
           </div>
         </div>
 
-        <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Selection Of Protective Devices And Bases Correct Type And Rating (No Signs Of Unacceptable
-              Thermal Damage, Arcing Or Overheating):</label>
-            <select class="form-control" formControlName="basesCorrectType" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-            [ngClass]="{ 'is-invalid': submitted && b.get('basesCorrectType')?.errors }" >
-             <option value="" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== b.get('basesCorrectType')?.value">{{value}}</option>
-            </select>
-            <div *ngIf="submitted && b.get('basesCorrectType')?.errors" class="invalid-feedback">
-              <div *ngIf="b.get('basesCorrectType')?.errors?.required">Field Is Required</div>
-          </div>
-          </div>
+        <div class="row">
+          <div class="col-sm-6">
+             <mat-form-field  class="client-description " >	
+              <mat-label>	
+                <h3>Observations</h3>	
+              </mat-label>	
+              <textarea matInput  class="client-description "	formControlName="observationDescription"
+             maxlength="2000" placeholder="Ex. Observations  ..."></textarea>	
+            </mat-form-field>	
+           </div>
         </div>
-
-        <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Single Pole Protective Devices In Line Conductor Only:</label>
-            <select class="form-control" formControlName="singlePole" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-            [ngClass]="{ 'is-invalid': submitted && b.get('singlePole')?.errors }" >
-             <option value="" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== b.get('singlePole')?.value">{{value}}</option>
-            </select>
-            <div *ngIf="submitted && b.get('singlePole')?.errors" class="invalid-feedback">
-              <div *ngIf="b.get('singlePole')?.errors?.required">Field Is Required</div>
-          </div>
-          </div>
-        </div>
-        <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Protection Against Mechanical Damage Where Cables Enter Equipment:</label>
-            <select class="form-control" formControlName="mechanicalDamage" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-            [ngClass]="{ 'is-invalid': submitted && b.get('mechanicalDamage')?.errors }" >
-             <option value="" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== b.get('mechanicalDamage')?.value">{{value}}</option>
-            </select>
-            <div *ngIf="submitted && b.get('mechanicalDamage')?.errors" class="invalid-feedback">
-              <div *ngIf="b.get('mechanicalDamage')?.errors?.required">Field Is Required</div>
-          </div>
-          </div>
-        </div>
-
-        <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Protection Against Electromagnetic/Heating Effects Where Cables Enter Ferromagnetic
-              Enclosures:</label>
-            <select class="form-control" formControlName="electromagnetic" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-            [ngClass]="{ 'is-invalid': submitted && b.get('electromagnetic')?.errors }" >
-             <option value="" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== b.get('electromagnetic')?.value">{{value}}</option>
-            </select>
-            <div *ngIf="submitted && b.get('electromagnetic')?.errors" class="invalid-feedback">
-              <div *ngIf="b.get('electromagnetic')?.errors?.required">Field Is Required</div>
-          </div>
-          </div>
-        </div>
-
-        <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Confirmation That All Conductor Connections Including Connections To Busbars Are Correctly
-              Located In Terminals And Are Tight And Secure:</label>
-            <select class="form-control" formControlName="allConductorCon" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-            [ngClass]="{ 'is-invalid': submitted && b.get('allConductorCon')?.errors }" >
-             <option value="" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== b.get('allConductorCon')?.value">{{value}}</option>
-            </select>
-            <div *ngIf="submitted && b.get('allConductorCon')?.errors" class="invalid-feedback">
-              <div *ngIf="b.get('allConductorCon')?.errors?.required">Field Is Required</div>
-          </div>
-          </div>
-        </div>
+        
       </div>
         </div>
         </div>
@@ -1220,6 +1376,57 @@
       </mat-expansion-panel-header>
       <div formArrayName="circuit" *ngFor="let c of getcircuitControls(a); let i = index">
         <div class="form-group" [formGroupName]="i"  [ngClass]="{'disableForm':service.allFieldsDisable}">
+          <div class="row">
+            <div class="col">
+              <h3><b>Circuits - {{1+i}}</b> </h3> 
+            </div>
+            <div class="col">
+              <mat-icon class="mousechange" class="dlt" type="button" [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="getcircuitControls(a).length > 1" (click)="removeConsumerCircuit(a,i)"title="Delete" style="position: relative;  float: right; right: 2%;">remove_circle_outline</mat-icon>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-4">
+                <label>Distribution Board Details </label>
+                <input type="text" formControlName="distributionBoardDetails"  
+                readonly
+                placeholder="Enter Distribution board details"  class="form-control" 
+                [ngClass]="{ 'is-invalid': submitted && c.get('distributionBoardDetails')?.errors }" >
+                <div *ngIf="submitted && c.get('distributionBoardDetails')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('distributionBoardDetails')?.errors?.required">Distribution board details  value is required</div>
+                </div>
+            </div>
+    
+            <div class="col-md-4">
+                <label>Distribution board name</label>
+                <input type="text" formControlName="referance" placeholder="Enter Distribution board name" 
+                readonly
+                class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('referance')?.errors }" >
+                <div *ngIf="submitted && c.get('referance')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('referance')?.errors?.required">Reference name  is required</div>
+                </div>
+            </div>
+    
+            <div class="col-md-4">
+                <label>Location</label>
+                <input type="text" formControlName="location"  placeholder=" Enter Location Name" 
+                readonly
+                class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('location')?.errors }" >
+                <div *ngIf="submitted && c.get('location')?.errors" class="invalid-feedback">
+                  <div *ngIf="c.get('location')?.errors?.required">Location  name  is required</div>
+                </div>
+            </div>
+          </div>
+
+          <br>
+
+          <div class="row">
+            <div class="col-md-4"> 
+               <h3><b><u>Section 1: Circuit conductors and its insulation:</u></b></h3>
+            </div>
+          </div>
+
       <div class="row">
         <div class="col-sm-12">
           <div class="form-group equipment">
@@ -1235,6 +1442,309 @@
           </div>
         </div>
 
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>Examination Of Insulation Of Live Parts Not Damaged During Erection:</label>
+            <select class="form-control" formControlName="examinationInsulation" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && c.get('examinationInsulation')?.errors }" >
+             <option value="" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('examinationInsulation')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && c.get('examinationInsulation')?.errors" class="invalid-feedback">
+              <div *ngIf="c.get('examinationInsulation')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>Adequacy Of Conductors For Current-Carrying Capacity With Respect To Type And Nature Of The
+              Installation:</label>
+            <select class="form-control" formControlName="currentCarryCapacity" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && c.get('currentCarryCapacity')?.errors }" >
+             <option value="" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('currentCarryCapacity')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && c.get('currentCarryCapacity')?.errors" class="invalid-feedback">
+              <div *ngIf="c.get('currentCarryCapacity')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>Presence, Adequacy, And Correct Termination Of Protective Conductors:</label>
+            <select class="form-control" formControlName="presenceProtectConductors" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && c.get('presenceProtectConductors')?.errors }" >
+             <option value="" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('presenceProtectConductors')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && c.get('presenceProtectConductors')?.errors" class="invalid-feedback">
+              <div *ngIf="c.get('presenceProtectConductors')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>Provision Of Fire Barriers, Sealing Arrangements So As To Minimize The Spread Of
+              Fire:</label>
+            <select class="form-control" formControlName="provisionFireBarriers" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && c.get('provisionFireBarriers')?.errors }" >
+             <option value="" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('provisionFireBarriers')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && c.get('provisionFireBarriers')?.errors" class="invalid-feedback">
+              <div *ngIf="c.get('provisionFireBarriers')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>Segregation/Separation Of Band I (ELV) And Band II (LV) Circuits:</label>
+            <select class="form-control" formControlName="separationBand" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && c.get('separationBand')?.errors }">
+             <option value="" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('separationBand')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && c.get('separationBand')?.errors" class="invalid-feedback">
+              <div *ngIf="c.get('separationBand')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>Segregation/separation Of Electrical And Non-Electrical Services:</label>
+            <select class="form-control" formControlName="separationElectrical" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && c.get('separationElectrical')?.errors }" >
+             <option value="" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('separationElectrical')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && c.get('separationElectrical')?.errors" class="invalid-feedback">
+              <div *ngIf="c.get('separationElectrical')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>No Basic Insulation Of A Conductor Visible Outside Enclosure:</label>
+            <select class="form-control" formControlName="conductorVisibleOutside" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && c.get('conductorVisibleOutside')?.errors }" >
+             <option value="" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('conductorVisibleOutside')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && c.get('conductorVisibleOutside')?.errors" class="invalid-feedback">
+              <div *ngIf="c.get('conductorVisibleOutside')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>Connections Of Live Conductors Adequately Enclosed:</label>
+            <select class="form-control" formControlName="connLiveConductors" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && c.get('connLiveConductors')?.errors }" >
+             <option value="" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('connLiveConductors')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && c.get('connLiveConductors')?.errors" class="invalid-feedback">
+              <div *ngIf="c.get('connLiveConductors')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>Adequately Connected At The Point Of Entry To Enclosure (Glands, Bushes etc.):</label>
+            <select class="form-control" formControlName="adequatelyConnectedEnclosure" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && c.get('adequatelyConnectedEnclosure')?.errors }" >
+             <option value="" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('adequatelyConnectedEnclosure')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && c.get('adequatelyConnectedEnclosure')?.errors" class="invalid-feedback">
+              <div *ngIf="c.get('adequatelyConnectedEnclosure')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>Adequacy Of Connections, Including Protective Conductors, Within Accessories And Fixed And Stationary Equipment:</label>
+            <select class="form-control" formControlName="adequacyConnections" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && c.get('adequacyConnections')?.errors }" >
+             <option value="" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('adequacyConnections')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && c.get('adequacyConnections')?.errors" class="invalid-feedback">
+              <div *ngIf="c.get('adequacyConnections')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+        </div>
+
+        <h3><b><u>Section 2: Circuit Equipment’s: </u></b></h3>
+
+        <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>Adequacy Of Protective Devices, Type And Fault Current Rating For Fault Protection:</label>
+            <select class="form-control" formControlName="adequacyProtectDevices" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && c.get('adequacyProtectDevices')?.errors }">
+             <option value="" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('adequacyProtectDevices')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && c.get('adequacyProtectDevices')?.errors" class="invalid-feedback">
+              <div *ngIf="c.get('adequacyProtectDevices')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+        
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>Co-ordination Between Conductors And Overload Protective Devices:</label>
+            <select class="form-control" formControlName="coOrdination" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && c.get('coOrdination')?.errors }" >
+             <option value="" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('coOrdination')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && c.get('coOrdination')?.errors" class="invalid-feedback">
+              <div *ngIf="c.get('coOrdination')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>Additional Protection By RCD’s Having Residual Operating Current (I∆n) Not Exceeding 30mA
+              For Circuits Used To Supply Mobile Equipment Not Exceeding 32A Rating For Use Outdoors In All
+              Cases:</label>
+            <select class="form-control" formControlName="operatingCurrentCircuits" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && c.get('operatingCurrentCircuits')?.errors }" >
+             <option value="" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('operatingCurrentCircuits')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && c.get('operatingCurrentCircuits')?.errors" class="invalid-feedback">
+              <div *ngIf="c.get('operatingCurrentCircuits')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>Additional protection By RCD’s Having Residual Operating Current (I∆n) Not Exceeding 30mA
+              For All Socket Outlets Of Rating 20A Or Less Provided For Use By Ordinary Persons Unless
+              Exempt:</label>
+            <select class="form-control" formControlName="operatingCurrentSocket" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && c.get('operatingCurrentSocket')?.errors }" >
+             <option value="" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('operatingCurrentSocket')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && c.get('operatingCurrentSocket')?.errors" class="invalid-feedback">
+              <div *ngIf="c.get('operatingCurrentSocket')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>Additional Protection By RCD’s Having Residual Operating Current (I∆n) Not Exceeding 30mA
+              For Cables Concealed In Walls At a Depth Of Less Than 50mm:</label>
+            <select class="form-control" formControlName="cablesConcDepth" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && c.get('cablesConcDepth')?.errors }" >
+             <option value="" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('cablesConcDepth')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && c.get('cablesConcDepth')?.errors" class="invalid-feedback">
+              <div *ngIf="c.get('cablesConcDepth')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>Additional Protection By RCD’s Having Residual Operating Current (I∆n) Not Exceeding 30mA
+              For Cables Concealed In Walls / Sections Containing Metal Sections Regardless Of Depth:</label>
+            <select class="form-control" formControlName="sectionsRegardlessDepth" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && c.get('sectionsRegardlessDepth')?.errors }" >
+             <option value="" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('sectionsRegardlessDepth')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && c.get('sectionsRegardlessDepth')?.errors" class="invalid-feedback">
+              <div *ngIf="c.get('sectionsRegardlessDepth')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+        
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>Condition Of Circuit Accessories:</label>
+            <select class="form-control" formControlName="conditionCircuitAccessories" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && c.get('conditionCircuitAccessories')?.errors }" >
+             <option value="" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('conditionCircuitAccessories')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && c.get('conditionCircuitAccessories')?.errors" class="invalid-feedback">
+              <div *ngIf="c.get('conditionCircuitAccessories')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>Suitability Of Circuit Accessories For External Influences:</label>
+            <select class="form-control" formControlName="suitabilityCircuitAccessories" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && c.get('suitabilityCircuitAccessories')?.errors }" >
+             <option value="" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('suitabilityCircuitAccessories')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && c.get('suitabilityCircuitAccessories')?.errors" class="invalid-feedback">
+              <div *ngIf="c.get('suitabilityCircuitAccessories')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>Condition Of Accessories Including Socket-Outlets, Switches And Joint Boxes (Circuit
+              Accessories Not Damaged, Securely Fixed, Correctly Connected, Suitable For External
+              Influences):</label>
+            <select class="form-control" formControlName="conditionAccessories" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && c.get('conditionAccessories')?.errors }" >
+             <option value="" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('conditionAccessories')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && c.get('conditionAccessories')?.errors" class="invalid-feedback">
+              <div *ngIf="c.get('conditionAccessories')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>Single-Pole Devices For Switching Or Protection In Line Conductors Only:</label>
+            <select class="form-control" formControlName="singlePoleDevices" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && c.get('singlePoleDevices')?.errors }" >
+             <option value="" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('singlePoleDevices')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && c.get('singlePoleDevices')?.errors" class="invalid-feedback">
+              <div *ngIf="c.get('singlePoleDevices')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>Presence, operation, And Correct Location of Appropriate Devices For Isolation And Switching:</label>
+            <select class="form-control" formControlName="isolationSwitching" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && c.get('isolationSwitching')?.errors }" >
+             <option value="" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('isolationSwitching')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && c.get('isolationSwitching')?.errors" class="invalid-feedback">
+              <div *ngIf="c.get('isolationSwitching')?.errors?.required">Field Is Required</div>
+          </div>
+          </div>
+        </div>
+        </div>
+
+        <h3><b><u>Section 3: Cables: </u></b></h3>
+        <div class="row">
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Cable Installation Methods (Including Support) Suitable For The Location(s) And External
@@ -1260,19 +1770,6 @@
             </select>
             <div *ngIf="submitted && c.get('examinationCables')?.errors" class="invalid-feedback">
               <div *ngIf="c.get('examinationCables')?.errors?.required">Field Is Required</div>
-          </div>
-          </div>
-        </div>
-        <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Examination Of Insulation Of Live Parts Not Damaged During Erection:</label>
-            <select class="form-control" formControlName="examinationInsulation" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-            [ngClass]="{ 'is-invalid': submitted && c.get('examinationInsulation')?.errors }" >
-             <option value="" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('examinationInsulation')?.value">{{value}}</option>
-            </select>
-            <div *ngIf="submitted && c.get('examinationInsulation')?.errors" class="invalid-feedback">
-              <div *ngIf="c.get('examinationInsulation')?.errors?.required">Field Is Required</div>
           </div>
           </div>
         </div>
@@ -1332,60 +1829,7 @@
           </div>
           </div>
         </div>
-
-        <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Adequacy Of Conductors For Current-Carrying Capacity With Respect To Type And Nature Of The
-              Installation:</label>
-            <select class="form-control" formControlName="currentCarryCapacity" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-            [ngClass]="{ 'is-invalid': submitted && c.get('currentCarryCapacity')?.errors }" >
-             <option value="" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('currentCarryCapacity')?.value">{{value}}</option>
-            </select>
-            <div *ngIf="submitted && c.get('currentCarryCapacity')?.errors" class="invalid-feedback">
-              <div *ngIf="c.get('currentCarryCapacity')?.errors?.required">Field Is Required</div>
-          </div>
-          </div>
-        </div>
-        <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Adequacy Of Protective Devices, Type And Fault Current Rating For Fault Protection:</label>
-            <select class="form-control" formControlName="adequacyProtectDevices" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-            [ngClass]="{ 'is-invalid': submitted && c.get('adequacyProtectDevices')?.errors }">
-             <option value="" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('adequacyProtectDevices')?.value">{{value}}</option>
-            </select>
-            <div *ngIf="submitted && c.get('adequacyProtectDevices')?.errors" class="invalid-feedback">
-              <div *ngIf="c.get('adequacyProtectDevices')?.errors?.required">Field Is Required</div>
-          </div>
-          </div>
-        </div>
-        <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Presence, Adequacy, And Correct Termination Of Protective Conductors:</label>
-            <select class="form-control" formControlName="presenceProtectConductors" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-            [ngClass]="{ 'is-invalid': submitted && c.get('presenceProtectConductors')?.errors }" >
-             <option value="" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('presenceProtectConductors')?.value">{{value}}</option>
-            </select>
-            <div *ngIf="submitted && c.get('presenceProtectConductors')?.errors" class="invalid-feedback">
-              <div *ngIf="c.get('presenceProtectConductors')?.errors?.required">Field Is Required</div>
-          </div>
-          </div>
-        </div>
-        <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Co-ordination Between Conductors And Overload Protective Devices:</label>
-            <select class="form-control" formControlName="coOrdination" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-            [ngClass]="{ 'is-invalid': submitted && c.get('coOrdination')?.errors }" >
-             <option value="" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('coOrdination')?.value">{{value}}</option>
-            </select>
-            <div *ngIf="submitted && c.get('coOrdination')?.errors" class="invalid-feedback">
-              <div *ngIf="c.get('coOrdination')?.errors?.required">Field Is Required</div>
-          </div>
-          </div>
-        </div>
+      
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Wiring Systems And Cable Installation Methods/ Practices With Regard To The Type And Nature
@@ -1415,117 +1859,7 @@
           </div>
           </div>
         </div>
-        <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Additional Protection By RCD’s Having Residual Operating Current (I∆n) Not Exceeding 30mA
-              For Circuits Used To Supply Mobile Equipment Not Exceeding 32A Rating For Use Outdoors In All
-              Cases:</label>
-            <select class="form-control" formControlName="operatingCurrentCircuits" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-            [ngClass]="{ 'is-invalid': submitted && c.get('operatingCurrentCircuits')?.errors }" >
-             <option value="" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('operatingCurrentCircuits')?.value">{{value}}</option>
-            </select>
-            <div *ngIf="submitted && c.get('operatingCurrentCircuits')?.errors" class="invalid-feedback">
-              <div *ngIf="c.get('operatingCurrentCircuits')?.errors?.required">Field Is Required</div>
-          </div>
-          </div>
-        </div>
-        <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Additional protection By RCD’s Having Residual Operating Current (I∆n) Not Exceeding 30mA
-              For All Socket Outlets Of Rating 20A Or Less Provided For Use By Ordinary Persons Unless
-              Exempt:</label>
-            <select class="form-control" formControlName="operatingCurrentSocket" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-            [ngClass]="{ 'is-invalid': submitted && c.get('operatingCurrentSocket')?.errors }" >
-             <option value="" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('operatingCurrentSocket')?.value">{{value}}</option>
-            </select>
-            <div *ngIf="submitted && c.get('operatingCurrentSocket')?.errors" class="invalid-feedback">
-              <div *ngIf="c.get('operatingCurrentSocket')?.errors?.required">Field Is Required</div>
-          </div>
-          </div>
-        </div>
-        <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Additional Protection By RCD’s Having Residual Operating Current (I∆n) Not Exceeding 30mA
-              For Cables Concealed In Walls At a Depth Of Less Than 50mm:</label>
-            <select class="form-control" formControlName="cablesConcDepth" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-            [ngClass]="{ 'is-invalid': submitted && c.get('cablesConcDepth')?.errors }" >
-             <option value="" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('cablesConcDepth')?.value">{{value}}</option>
-            </select>
-            <div *ngIf="submitted && c.get('cablesConcDepth')?.errors" class="invalid-feedback">
-              <div *ngIf="c.get('cablesConcDepth')?.errors?.required">Field Is Required</div>
-          </div>
-          </div>
-        </div>
-        <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Additional Protection By RCD’s Having Residual Operating Current (I∆n) Not Exceeding 30mA
-              For Cables Concealed In Walls / Sections Containing Metal Sections Regardless Of Depth:</label>
-            <select class="form-control" formControlName="sectionsRegardlessDepth" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-            [ngClass]="{ 'is-invalid': submitted && c.get('sectionsRegardlessDepth')?.errors }" >
-             <option value="" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('sectionsRegardlessDepth')?.value">{{value}}</option>
-            </select>
-            <div *ngIf="submitted && c.get('sectionsRegardlessDepth')?.errors" class="invalid-feedback">
-              <div *ngIf="c.get('sectionsRegardlessDepth')?.errors?.required">Field Is Required</div>
-          </div>
-          </div>
-        </div>
-        <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Provision Of Fire Barriers, Sealing Arrangements So As To Minimize The Spread Of
-              Fire:</label>
-            <select class="form-control" formControlName="provisionFireBarriers" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-            [ngClass]="{ 'is-invalid': submitted && c.get('provisionFireBarriers')?.errors }" >
-             <option value="" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('provisionFireBarriers')?.value">{{value}}</option>
-            </select>
-            <div *ngIf="submitted && c.get('provisionFireBarriers')?.errors" class="invalid-feedback">
-              <div *ngIf="c.get('provisionFireBarriers')?.errors?.required">Field Is Required</div>
-          </div>
-          </div>
-        </div>
-        <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Segregation/Separation Of Band I (ELV) And Band II (LV) Circuits:</label>
-            <select class="form-control" formControlName="separationBand" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-            [ngClass]="{ 'is-invalid': submitted && c.get('separationBand')?.errors }">
-             <option value="" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('separationBand')?.value">{{value}}</option>
-            </select>
-            <div *ngIf="submitted && c.get('separationBand')?.errors" class="invalid-feedback">
-              <div *ngIf="c.get('separationBand')?.errors?.required">Field Is Required</div>
-          </div>
-          </div>
-        </div>
-        <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Segregation/separation Of Electrical And Non-Electrical Services:</label>
-            <select class="form-control" formControlName="separationElectrical" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-            [ngClass]="{ 'is-invalid': submitted && c.get('separationElectrical')?.errors }" >
-             <option value="" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('separationElectrical')?.value">{{value}}</option>
-            </select>
-            <div *ngIf="submitted && c.get('separationElectrical')?.errors" class="invalid-feedback">
-              <div *ngIf="c.get('separationElectrical')?.errors?.required">Field Is Required</div>
-          </div>
-          </div>
-        </div>
-        <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Condition Of Circuit Accessories:</label>
-            <select class="form-control" formControlName="conditionCircuitAccessories" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-            [ngClass]="{ 'is-invalid': submitted && c.get('conditionCircuitAccessories')?.errors }" >
-             <option value="" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('conditionCircuitAccessories')?.value">{{value}}</option>
-            </select>
-            <div *ngIf="submitted && c.get('conditionCircuitAccessories')?.errors" class="invalid-feedback">
-              <div *ngIf="c.get('conditionCircuitAccessories')?.errors?.required">Field Is Required</div>
-          </div>
-          </div>
-        </div>
+        
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Cables And Conductors Correctly Terminated, Enclosed And With No UnDue Mechanical
@@ -1540,117 +1874,7 @@
           </div>
           </div>
         </div>
-        <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>No Basic Insulation Of A Conductor Visible Outside Enclosure:</label>
-            <select class="form-control" formControlName="conductorVisibleOutside" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-            [ngClass]="{ 'is-invalid': submitted && c.get('conductorVisibleOutside')?.errors }" >
-             <option value="" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('conductorVisibleOutside')?.value">{{value}}</option>
-            </select>
-            <div *ngIf="submitted && c.get('conductorVisibleOutside')?.errors" class="invalid-feedback">
-              <div *ngIf="c.get('conductorVisibleOutside')?.errors?.required">Field Is Required</div>
-          </div>
-          </div>
-        </div>
-
-        <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Connections Of Live Conductors Adequately Enclosed:</label>
-            <select class="form-control" formControlName="connLiveConductors" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-            [ngClass]="{ 'is-invalid': submitted && c.get('connLiveConductors')?.errors }" >
-             <option value="" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('connLiveConductors')?.value">{{value}}</option>
-            </select>
-            <div *ngIf="submitted && c.get('connLiveConductors')?.errors" class="invalid-feedback">
-              <div *ngIf="c.get('connLiveConductors')?.errors?.required">Field Is Required</div>
-          </div>
-          </div>
-        </div>
-
-        <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Adequately Connected At The Point Of Entry To Enclosure (Glands, Bushes etc.):</label>
-            <select class="form-control" formControlName="adequatelyConnectedEnclosure" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-            [ngClass]="{ 'is-invalid': submitted && c.get('adequatelyConnectedEnclosure')?.errors }" >
-             <option value="" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('adequatelyConnectedEnclosure')?.value">{{value}}</option>
-            </select>
-            <div *ngIf="submitted && c.get('adequatelyConnectedEnclosure')?.errors" class="invalid-feedback">
-              <div *ngIf="c.get('adequatelyConnectedEnclosure')?.errors?.required">Field Is Required</div>
-          </div>
-          </div>
-        </div>
-        <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Suitability Of Circuit Accessories For External Influences:</label>
-            <select class="form-control" formControlName="suitabilityCircuitAccessories" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-            [ngClass]="{ 'is-invalid': submitted && c.get('suitabilityCircuitAccessories')?.errors }" >
-             <option value="" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('suitabilityCircuitAccessories')?.value">{{value}}</option>
-            </select>
-            <div *ngIf="submitted && c.get('suitabilityCircuitAccessories')?.errors" class="invalid-feedback">
-              <div *ngIf="c.get('suitabilityCircuitAccessories')?.errors?.required">Field Is Required</div>
-          </div>
-          </div>
-        </div>
-
-        <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Condition Of Accessories Including Socket-Outlets, Switches And Joint Boxes (Circuit
-              Accessories Not Damaged, Securely Fixed, Correctly Connected, Suitable For External
-              Influences):</label>
-            <select class="form-control" formControlName="conditionAccessories" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-            [ngClass]="{ 'is-invalid': submitted && c.get('conditionAccessories')?.errors }" >
-             <option value="" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('conditionAccessories')?.value">{{value}}</option>
-            </select>
-            <div *ngIf="submitted && c.get('conditionAccessories')?.errors" class="invalid-feedback">
-              <div *ngIf="c.get('conditionAccessories')?.errors?.required">Field Is Required</div>
-          </div>
-          </div>
-        </div>
-        <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Single-Pole Devices For Switching Or Protection In Line Conductors Only:</label>
-            <select class="form-control" formControlName="singlePoleDevices" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-            [ngClass]="{ 'is-invalid': submitted && c.get('singlePoleDevices')?.errors }" >
-             <option value="" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('singlePoleDevices')?.value">{{value}}</option>
-            </select>
-            <div *ngIf="submitted && c.get('singlePoleDevices')?.errors" class="invalid-feedback">
-              <div *ngIf="c.get('singlePoleDevices')?.errors?.required">Field Is Required</div>
-          </div>
-          </div>
-        </div>
-
-        <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Adequacy Of Connections, Including Protective Conductors, Within Accessories And Fixed And Stationary Equipment:</label>
-            <select class="form-control" formControlName="adequacyConnections" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-            [ngClass]="{ 'is-invalid': submitted && c.get('adequacyConnections')?.errors }" >
-             <option value="" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('adequacyConnections')?.value">{{value}}</option>
-            </select>
-            <div *ngIf="submitted && c.get('adequacyConnections')?.errors" class="invalid-feedback">
-              <div *ngIf="c.get('adequacyConnections')?.errors?.required">Field Is Required</div>
-          </div>
-          </div>
-        </div>
-     
-        <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Presence, operation, And Correct Location of Appropriate Devices For Isolation And Switching:</label>
-            <select class="form-control" formControlName="isolationSwitching" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-            [ngClass]="{ 'is-invalid': submitted && c.get('isolationSwitching')?.errors }" >
-             <option value="" selected>Select Option</option>
-              <option *ngFor="let value of InspectionList" [selected]="value=== c.get('isolationSwitching')?.value">{{value}}</option>
-            </select>
-            <div *ngIf="submitted && c.get('isolationSwitching')?.errors" class="invalid-feedback">
-              <div *ngIf="c.get('isolationSwitching')?.errors?.required">Field Is Required</div>
-          </div>
-          </div>
-        </div>
+              
 
       </div>
         </div>
@@ -1665,9 +1889,12 @@
         <h3>Isolation And Switching</h3>
       </mat-panel-title>
     </mat-expansion-panel-header>
+
     <div formArrayName="isolationCurrent" *ngFor="let d of getisolationCurrentControls(a); let i = index">
       <div class="form-group" [formGroupName]="i"  [ngClass]="{'disableForm':service.allFieldsDisable}">
-    <div class="row">
+        <h3><b><u>Section 1: Isolator: </u></b></h3>
+
+      <div class="row">
       <div class="col-sm-12">
         <div class="form-group equipment">
           <label>Isolators - Presence of Appropriate Devices :</label>
@@ -1765,6 +1992,11 @@
         </div>
         </div>
       </div>
+      </div>
+
+      <h3><b><u>Section 2: Switching: </u></b></h3>
+      <div class="row">
+
       <div class="col-sm-12">
         <div class="form-group equipment">
           <label>Switching Off For Mechanical Maintenance - Presence Of Appropriate Devices:</label>
@@ -1972,7 +2204,7 @@
         </div>
       </div>
     </div>
-    <h3><b>Current – Using Equipment (Permanently Connected)</b></h3>
+    <h3><b><u>Section 3: Permanently Connected Loads: </u></b></h3>
       <div class="row">
         <div class="col-sm-12">
           <div class="form-group equipment">
@@ -2392,4 +2624,36 @@ position: relative;">
   </button>
 </div>
 
+  </ng-template>
+
+  <ng-template #observationIter let-modal>
+    <form [formGroup]="ObservationsForm">
+      <div class="modal-header" style="text-align: center; display: block">
+        <h2 class="modal-title" style="display: contents">Observations:</h2>
+      </div>
+      <div class="modal-body">
+        <textarea col=60 row=1 (keyup)="onKeyObservation($event);" 
+        class="form-control"  [(ngModel)]="observationValuesI"
+        formControlName="observations"  placeholder="Ex. Observations ..." >
+        </textarea>
+        <br>
+        <div style="text-align: center">
+          <button class="btn btn-primary" (click)="submit(observationUpdateFlag)" [disabled]="disableObservation" 
+          style="font-size: 14px;">
+            Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button type="button" aria-label="Close" class="btn btn-danger" (click)="closeModalDialog()"
+            style="font-size: 14px;">
+            <i class="bi bi-x icon"></i>
+            <span aria-hidden="true">Cancel</span>
+          </button>
+        </div>
+  </div>
+      <div *ngIf="success" style="text-align: center;">
+        <span class="successshow">{{successMsg}}</span>
+      </div>
+      <div *ngIf="Error" style="text-align: center;">
+        <span class="errorshow">{{errorMsg}}</span>
+      </div>
+    </form>
+  
   </ng-template>

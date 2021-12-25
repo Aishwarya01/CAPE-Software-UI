@@ -10,6 +10,9 @@ import { InspectionVerificationService } from '../services/inspection-verificati
 import { MainNavComponent } from '../main-nav/main-nav.component';
 import { CommentsSection } from '../model/comments-section';
 import { InspectionVerificationBasicInformationComponent } from '../inspection-verification-basic-information/inspection-verification-basic-information.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ObservationService } from '../services/observation.service';
+import { ObservationSupply } from '../model/observation-supply';
 
 @Component({
   selector: 'app-inspection-verification-supply-characteristics',
@@ -23,6 +26,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
 
   a: any;
   supplyparameters = new Supplyparameters();
+  observation= new ObservationSupply;
   supplycharesteristic = new Supplycharacteristics();
   enableAC: boolean = false;
   enableDC: boolean = false;
@@ -73,7 +77,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   validationError: boolean = false;
   validationErrorMsg: String = '';
   disable: boolean = false;
-  alternativeSupplyNo: boolean =true;
+  alternativeSupplyNo: boolean =false;
 
   NV1: any;
   NV2: any;
@@ -307,6 +311,8 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   mainNominalVoltageArr4: any=[];
   mainNominalVoltageArr5: any=[];
   modalReference: any;
+  observationModalReference: any;
+
   validationErrorTab: boolean = false;
   validationErrorMsgTab: string="";
    //comments end
@@ -324,8 +330,24 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   shortName: string="";
   circuitSourceArr: any=[];
   circuitSourceArr1: any=[];
+  observationUpdateFlag: boolean= false;
 
+  ObservationsForm = new FormGroup({
+    observations: new FormControl(''),
+  });
   storeDelData: any=[];
+  observationFlag: boolean= false;
+  errorArrObservation: any=[];
+  observationValues: any="";
+  disableObservation: boolean=true;
+  observationArr: any=[];
+  earthElectrodeObservation: String= '';
+  bondingConductorObservation: String= '';
+  earthingConductorObservation: String= '';
+  observArr: any = [];
+  observeMainArr: any = [];
+  deletedObservation: any = [];
+  observationAlternateArr: any= [];
 
   constructor(
     private supplyCharacteristicsService: SupplyCharacteristicsService,
@@ -333,6 +355,8 @@ export class InspectionVerificationSupplyCharacteristicsComponent
     private formBuilder: FormBuilder,
     private router: ActivatedRoute,
     private basic: MainNavComponent,
+    private dialog: MatDialog,
+    private observationService: ObservationService,
     //private step1: InspectionVerificationBasicInformationComponent,
     private modalService: NgbModal,private siteService: SiteService,
     private UpateInspectionService: InspectionVerificationService,
@@ -345,6 +369,10 @@ export class InspectionVerificationSupplyCharacteristicsComponent
     this.currentUser=sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
+
+    this.ObservationsForm = this.formBuilder.group({
+      observations: [''],
+     })
     this.supplycharesteristicForm = this.formBuilder.group({
       shortName: ['', Validators.required],
       systemEarthing: ['', Validators.required],
@@ -365,6 +393,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       meansEarthingRemark:[''],
       electrodeType: ['', Validators.required],
       electrodeMaterial: [''],
+      earthElectrodeObservation: ['',Validators.required],
       noOfLocation: ['', [Validators.required, Validators.min(0)]],
       conductorSize: ['', Validators.required],
       conductormaterial: ['', Validators.required],
@@ -374,11 +403,13 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       bondingConductorVerify: ['', Validators.required],
       bondingJointsType: ['', Validators.required],
       bondingNoOfJoints: ['', [Validators.required, Validators.min(0)]],
+      bondingConductorObservation: ['',Validators.required],
       earthingConductorSize: ['', Validators.required],
       earthingConductorMaterial: ['', Validators.required],
       earthingConductorVerify: ['', Validators.required],
       earthingJointsType: ['', Validators.required],
       earthingNoOfJoints: ['', [Validators.required, Validators.min(0)]],
+      earthingConductorObservation: ['',Validators.required],
       NV1: '',
       NV2: '',
       NV3: '',
@@ -432,10 +463,50 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       circuitArr: this.formBuilder.array([this.createCircuitForm()]),
       viewerCommentArr: this.formBuilder.array([this.addCommentViewer()]),
       completedCommentArr1: this.formBuilder.array([]),
+      observationArr: this.formBuilder.array([])
     });
    this.expandedIndex = -1 ;
+   this.observationArr = this.supplycharesteristicForm.get(
+    'observationArr'
+  ) as FormArray;
+   for(let i=0; i<5; i++){
+    this.observationArr.push(this.generateForm());
+    // for(let j=0;j<this.alternateArr.length;j++){
+    //   this.observationArr.controls[i].controls.alternativeInnerObservation.push(this.generateAlternativeForm());
+    // }
+  }
   }
 
+    // Only Accept numbers
+    keyPressNumbers(event:any) {
+      var charCode = (event.which) ? event.which : event.keyCode;
+      // Only Numbers 0-9
+        if ((charCode < 48 || charCode > 57)) {
+          event.preventDefault();
+          return false;
+        } else {
+          return true;
+        }
+    }
+
+    private generateForm(): FormGroup {
+      return new FormGroup({
+        supplyOuterObservationId: new FormControl(''),
+        observationComponentDetails: new FormControl(''),
+        observationDescription: new FormControl(''),
+        supplyOuterObservationStatus: new FormControl('A'),
+        alternativeInnerObservation: this.formBuilder.array([]),
+      });
+    }
+
+    private generateAlternativeForm(): FormGroup {
+      return new FormGroup({
+        supplyInnerObervationsId: new FormControl(''),
+        observationComponentDetails: new FormControl(''),
+        observationDescription: new FormControl(''),
+        alternativeInnerObservationStatus: new FormControl('A'),
+      });
+    }
   onKeyMainShortName(e: any){
     let values = e.target.value;
     // this.alternateArr = this.supplycharesteristicForm.get(
@@ -463,6 +534,8 @@ export class InspectionVerificationSupplyCharacteristicsComponent
     // if(this.service.disableFields==true){
     //   this.supplycharesteristicForm.disable();
     //  }
+    //this.service.lvClick=1;
+
        this.step2List = JSON.parse(data);
        this.supplycharesteristic.siteId = siteId;
        this.supplycharesteristic.supplyCharacteristicsId = this.step2List.supplyCharacteristics.supplyCharacteristicsId;
@@ -509,6 +582,8 @@ export class InspectionVerificationSupplyCharacteristicsComponent
        this.AcValue = this.step2List.supplyCharacteristics.liveConductorAC;
        this.DcValue = this.step2List.supplyCharacteristics.liveConductorDC;
        this.step2List.liveConductor= this.step2List.supplyCharacteristics.liveConductor;
+       this.supplycharesteristic.supplyNumber = this.step2List.supplyCharacteristics.supplyNumber;
+       this.supplycharesteristic.supplyOuterObservation = this.step2List.supplyCharacteristics.supplyOuterObservation;
        this.flag = true;
       
        this.populateData(this.step2List.supplyCharacteristics);
@@ -625,10 +700,6 @@ export class InspectionVerificationSupplyCharacteristicsComponent
       }
      }
   
-  onKeyPress(){
-
-  }
-
   retrieveAllDetailsforSupply(userName: any,siteId: any,data: any){
     // if(this.service.disableFields==true){
     //     this.supplycharesteristicForm.disable();
@@ -676,6 +747,8 @@ export class InspectionVerificationSupplyCharacteristicsComponent
          this.AcValue = this.step2List.liveConductorAC;
          this.DcValue = this.step2List.liveConductorDC;
          this.step2List.liveConductor= this.step2List.liveConductor;
+         this.supplycharesteristic.supplyOuterObservation = this.step2List.supplyOuterObservation;
+
          this.flag = true;
          this.populateData(this.step2List);
          this.supplycharesteristicForm.patchValue({
@@ -1538,7 +1611,6 @@ showHideAccordion(index: number) {
           this.spinner=false;
          this.cardBodyComments=true;
      }, 2000);
-        
          this.showReplyBox=false;
          this.disableReply = false;
          this.disableSend = false;
@@ -1546,6 +1618,22 @@ showHideAccordion(index: number) {
       (error) => {
    
       })
+    }
+   retrieveFromObservationSupply(data:any){
+    this.observation=JSON.parse(data);
+    this.observationValues=this.observation.observations;
+    this.observationUpdateFlag=true;
+    this.ObservationsForm.markAsPristine();
+    }
+    
+
+    addObservationSupply(observationIter:any){
+      if(this.supplycharesteristicForm.touched || this.supplycharesteristicForm.untouched){
+        this.observationModalReference = this.modalService.open(observationIter, {
+           centered: true, 
+           size: 'md'
+          })
+       }
     }
 
   addItem1(item: any) : FormGroup {
@@ -1578,6 +1666,7 @@ showHideAccordion(index: number) {
       // if(this.service.disableFields==true){
       //   this.disable=true;
       //   }
+      
       for (let item of value.boundingLocationReport) {     
         this.arr2.push(this.createGroup(item));
       }
@@ -1596,23 +1685,78 @@ showHideAccordion(index: number) {
         this.tableAC=true;    
         this.alArr2.push(this.createGroupAl2(item));
       }
+
       for (let item of value.circuitBreaker) {     
         this.circuitB.push(this.createGroupCircuitB(item));
+      }
+
+      for(let item of value.supplyOuterObservation) {
+        if(item.observationComponentDetails == 'mains') {
+          this.observeMainArr.push(this.createMainObserveForm(item))
+          this.supplycharesteristic.liveConductorBNote = item.observationDescription;
+        }
+        else if(item.observationComponentDetails == 'instalLocationReportOb') {
+          this.observeMainArr.push(this.createMainObserveForm(item))
+          this.earthElectrodeObservation = item.observationDescription;
+        }
+        else if(item.observationComponentDetails == 'bondingNoOfJointsOb') {
+          this.observeMainArr.push(this.createMainObserveForm(item))
+          this.bondingConductorObservation = item.observationDescription;
+        }
+        else if(item.observationComponentDetails == 'earthingNoOfJointsOb') {
+          this.observeMainArr.push(this.createMainObserveForm(item))
+          this.earthingConductorObservation = item.observationDescription;
+        }
+        else if(item.observationComponentDetails == 'alternate') {
+          this.observeMainArr.push(this.createMainObserveForm(item))
+          if(item.alternativeInnerObservation.length != 0) {
+          for(let i=0;i<this.alArr.length; i++){
+            this.alArr[i].controls.supplyInnerObervationsId.setValue(item.alternativeInnerObservation[i].supplyInnerObervationsId) ;
+            this.alArr[i].controls.aLLiveConductorBNote.setValue(item.alternativeInnerObservation[i].observationDescription);
+          }
+          }
+        }
       }
       this.supplycharesteristicForm.setControl('location2Arr', this.formBuilder.array(this.arr2 || []))
       this.supplycharesteristicForm.setControl('location1Arr', this.formBuilder.array(this.arr1 || []))
       this.supplycharesteristicForm.setControl('location3Arr', this.formBuilder.array(this.arr3 || []))
       this.supplycharesteristicForm.setControl('alternateArr', this.formBuilder.array(this.alArr || []))
       this.supplycharesteristicForm.setControl('circuitArr', this.formBuilder.array(this.circuitB || []))
-      this.supplycharesteristicForm.setControl('circuitArr', this.formBuilder.array(this.circuitB || []))
+      this.supplycharesteristicForm.setControl('observationArr', this.formBuilder.array(this.observeMainArr || []))
+
 
       this.arr1 = [];
       this.arr2 = [];
       this.arr3 = [];
       this.alArr = [];
       this.circuitB = [];
+      this.observeMainArr = [];
     }
 
+    private createMainObserveForm(item: any): FormGroup {
+      return new FormGroup({
+        supplyOuterObservationId: new FormControl({disabled: false, value: item.supplyOuterObservationId}),
+        observationComponentDetails: new FormControl({disabled: false, value: item.observationComponentDetails}),
+        observationDescription: new FormControl({disabled: false, value: item.observationDescription}),
+        supplyOuterObservationStatus: new FormControl(item.supplyOuterObservationStatus),
+        alternativeInnerObservation: this.formBuilder.array(this.createObserveArr(item.alternativeInnerObservation)),
+      });
+    }
+
+    private createObserveArr(item: any){
+      for(let i of item) {
+        this.observArr.push(this.createObserveArr1(i));
+      }
+      return this.observArr
+    }
+    private createObserveArr1(item: any): FormGroup {
+      return new FormGroup({
+        supplyInnerObervationsId: new FormControl({disabled: false, value: item.supplyInnerObervationsId}),
+        observationComponentDetails: new FormControl({disabled: false, value: item.observationComponentDetails}),
+        observationDescription: new FormControl({disabled: false, value: item.observationDescription}),
+        alternativeInnerObservationStatus: new FormControl({disabled: false, value: item.alternativeInnerObservationStatus}),
+      });
+    }
 
     createGroup(item: any): FormGroup {
       return this.formBuilder.group({
@@ -1642,6 +1786,7 @@ showHideAccordion(index: number) {
     createGroupAl(item: any): FormGroup {
       return this.formBuilder.group({
         supplyparametersId: new FormControl({disabled: false, value: item.supplyparametersId}),
+        supplyInnerObervationsId: new FormControl(''),
         aLSupplyNo: new FormControl({disabled: false ,value: item.aLSupplyNo}, [Validators.required]),
         aLSupplyShortName: new FormControl({disabled: false, value: item.aLSupplyShortName}, [Validators.required]),
         aLSystemEarthing: new FormControl({disabled: false ,value: item.aLSystemEarthing}, [Validators.required]),
@@ -1983,7 +2128,6 @@ showHideAccordion(index: number) {
   // }
 
   onKey1(event: KeyboardEvent) {
-   debugger
     this.values = (<HTMLInputElement>event.target).value;
     this.value = this.values;
     this.location1Arr = this.supplycharesteristicForm.get(
@@ -2030,6 +2174,14 @@ showHideAccordion(index: number) {
        
         this.delarr = this.location1Arr.length - this.value;
         for (this.i = 0; this.i < this.delarr; this.i++) {
+
+          let a = this.location1Arr.value[this.i];
+          if(a.locationReportId != 0){
+            a.instalLocationReportStatus = 'R';
+            this.locationArr = this.locationArr.concat(a);
+          }
+          
+
           this.location1Arr = this.supplycharesteristicForm.get(
             'location1Arr'
           ) as FormArray;
@@ -2121,6 +2273,7 @@ showHideAccordion(index: number) {
   // }
 
   onKey(event: KeyboardEvent) {
+    
     this.values='';
     if(event.target != undefined) {
       this.values = (<HTMLInputElement>event.target).value;    
@@ -2129,7 +2282,7 @@ showHideAccordion(index: number) {
       this.values =event;
     }
     // this.values = (<HTMLInputElement>event.target).value;
-     this.value = this.values;
+    this.value = this.values;
     this.location2Arr = this.supplycharesteristicForm.get(
       'location2Arr'
     ) as FormArray;
@@ -2153,6 +2306,7 @@ showHideAccordion(index: number) {
       this.loclength = this.location2Arr.length;
       for (this.i = 1; this.i < this.loclength; this.i++) {
         this.location2Arr.removeAt(this.location2Arr.length - 1);
+        
       }
     } 
     else if (this.location2Arr.length < this.value) {
@@ -2169,11 +2323,16 @@ showHideAccordion(index: number) {
       }
     } 
     else if (this.location2Arr.length > this.value && this.value != 0) {
-     debugger
+     
       if (this.value != '') {
        
         this.delarr = this.location2Arr.length - this.value;
         for (this.i = 0; this.i < this.delarr; this.i++) {
+
+          let a = this.location2Arr.value[this.i];
+          a.instalLocationReportStatus = 'R';
+          this.boundingArr = this.boundingArr.concat(a);
+
           this.location2Arr = this.supplycharesteristicForm.get(
             'location2Arr'
           ) as FormArray;
@@ -2291,6 +2450,7 @@ showHideAccordion(index: number) {
   //   }
   // }
   onKey3(event: KeyboardEvent) { //No Of Joints
+    
     this.values='';
     if(event.target != undefined) {
       this.values = (<HTMLInputElement>event.target).value;    
@@ -2346,6 +2506,9 @@ showHideAccordion(index: number) {
        
         this.delarr = this.location3Arr.length - this.value;
         for (this.i = 0; this.i < this.delarr; this.i++) {
+          let a = this.location3Arr.value[this.i];
+          a.instalLocationReportStatus = 'R';
+          this.earthingArr = this.earthingArr.concat(a);
           this.location3Arr = this.supplycharesteristicForm.get(
             'location3Arr'
           ) as FormArray;
@@ -2530,7 +2693,11 @@ showHideAccordion(index: number) {
       this.table2AC = false;
     }
   }
+
   showAlternateField(event: any) {
+    
+    const items = (<FormArray>this.supplycharesteristicForm.get('circuitArr'));
+          let g = items.length;
     this.alternateArr = this.supplycharesteristicForm.get(
       'alternateArr'
     ) as FormArray;
@@ -2539,7 +2706,7 @@ showHideAccordion(index: number) {
     if(event.target != undefined) {
       changedValue = event.target.value;
     }
-    else{
+    else{ 
       changedValue = event;
     }
 
@@ -2547,11 +2714,57 @@ showHideAccordion(index: number) {
       this.sources = false;
       this.breaker = false;
       this.alternativeSupplyNo=false;
+      this.observationArr = this.supplycharesteristicForm.get('observationArr') as FormArray;
+      //if (this.alternateArr.length == 1 || this.alternateArr.length < this.value) {
+      this.observationAlternateArr = this.observationArr.controls[4].controls.alternativeInnerObservation as FormArray;
       if (this.alternateArr.length != 0) {
-        this.alternateArr.reset();
-        this.circuitArr.reset();
-      }
-      this.disableValidators();
+        let b = parseInt(this.supplycharesteristicForm.value.supplyNumber);
+        for (this.i = 0; this.i < b; this.i++) {
+          let d = this.alternateArr.value[0];
+          let x= this.observationAlternateArr.value[0]
+
+          if(d!=undefined){
+
+            if(d.supplyparametersId !=0){
+              d.supplyParameterStatus = 'R';
+              this.alternateArr1 = this.alternateArr1.concat(d);
+            }
+            if(x.supplyInnerObervationsId !=0 && x.supplyInnerObervationsId !=undefined) {
+              x.alternativeInnerObservationStatus= 'R';
+              this.deletedObservation.push(x);
+            }
+            this.alternateArr = this.supplycharesteristicForm.get(
+              'alternateArr'
+            ) as FormArray;
+            
+            for (let i = 0; i <= g; i++) {
+              let e = items.value[i];
+              console.log(e); 
+              if(d.aLSupplyShortName == e.sourceName){
+
+                if(e.circuitBreakerId != 0){
+                  e.circuitStatus = 'R';
+                  this.circuitArr1 = this.circuitArr1.concat(e);
+                }
+                
+                this.circuitArr = this.supplycharesteristicForm.get(
+                  'circuitArr'
+                ) as FormArray;
+                this.circuitArr.removeAt(i);
+                this.alternateArr.removeAt(0);
+                this.observationAlternateArr.removeAt(i);
+
+                break 
+                }
+
+           }
+        }
+    }
+    this.supplycharesteristic.alternativeSupply= 'No';
+    this.supplycharesteristicForm.markAsPristine();
+    this.supplycharesteristic.supplyNumber = '0';
+  }
+      //this.disableValidators();
     }
      else {
       this.alternativeSupplyNo=true;
@@ -2561,9 +2774,11 @@ showHideAccordion(index: number) {
         'supplyNumber'
       ].updateValueAndValidity();
     }
+    
   }
 
   onKeyAlernate(event: KeyboardEvent) {
+    
     this.values = (<HTMLInputElement>event.target).value;
     this.value = this.values;
     this.alternateArr = this.supplycharesteristicForm.get(
@@ -2580,10 +2795,19 @@ showHideAccordion(index: number) {
       this.circuitArr = this.supplycharesteristicForm.get(
         'circuitArr'
       ) as FormArray;
-      if (this.alternateArr.length == 1) {
-        for (this.i = 1; this.i < this.value; this.i++) {
+      this.observationArr = this.supplycharesteristicForm.get('observationArr') as FormArray;
+      //if (this.alternateArr.length == 1 || this.alternateArr.length < this.value) {
+        this.observationAlternateArr = this.observationArr.controls[4].controls.alternativeInnerObservation as FormArray;
+        let c = 0;
+        if(this.alternateArr.length < this.value){
+          if(this.alternateArr.length != 0){
+            c =this.alternateArr.length;
+          }
+        for (this.i = c; this.i < this.value; this.i++) {
+
           this.alternateArr.push(this.SupplyparametersForm());
           this.circuitArr.push(this.createCircuitForm());
+          this.observationAlternateArr.push(this.generateAlternativeForm());
         }
         this.sources = true;
         this.breaker = true;
@@ -2597,6 +2821,7 @@ showHideAccordion(index: number) {
               'alternateArr'
             ) as FormArray;
             this.alternateArr.push(this.SupplyparametersForm());
+            this.observationAlternateArr.push(this.generateAlternativeForm());
           }
   
           for (this.i = 0; this.i < this.delarr1; this.i++) {
@@ -2609,45 +2834,89 @@ showHideAccordion(index: number) {
       } 
       else if((this.alternateArr.length > this.value))
       {
+        
         if (this.value != '') {
+          
           this.delarr = this.alternateArr.length - this.value;
           this.delarr1 = this.delarr;
-  
+          this.observationAlternateArr = this.observationArr.controls[4].controls.alternativeInnerObservation as FormArray;
+
           for (this.i = 0; this.i < this.delarr; this.i++) {
+
+            let z = this.alternateArr.length -1;
+            let d = this.alternateArr.value[z];
+            d.supplyParameterStatus = 'R';
+            let f = this.observationAlternateArr.value[z];
+            f.alternativeInnerObservationStatus = 'R';
+            this.deletedObservation.push(f);
+
+            if(d.supplyparametersId != undefined && d.supplyparametersId!=0){
+              
+              this.alternateArr1 = this.alternateArr1.concat(d);
+            }
+            
             this.alternateArr = this.supplycharesteristicForm.get(
               'alternateArr'
             ) as FormArray;
+            this.observationAlternateArr.removeAt(this.observationAlternateArr.length - 1);
             this.alternateArr.removeAt(this.alternateArr.length - 1);
+
+            // for (this.j = 0; this.j < this.circuitArr.length; this.j++) {
+            //   
+            //   let e = this.circuitArr.value[this.j];
+            //   if(d.aLSupplyShortName == e.sourceName){
+            //     e.circuitStatus = 'R';
+            //     this.circuitArr1 = this.circuitArr1.concat(e);
+            //     this.circuitArr = this.supplycharesteristicForm.get(
+            //       'circuitArr'
+            //     ) as FormArray;
+            //     this.circuitArr.removeAt(this.j);
+            //   }
+              
+            //   //(this.supplycharesteristicForm.get('circuitArr') as FormArray).removeAt(index+1);
+            // }
+
+              let e = this.circuitArr.value[z+1];
+              e.circuitStatus = 'R';
+              
+              if(e.circuitBreakerId != undefined && e.circuitBreakerId!=0){
+                
+                this.circuitArr1 = this.circuitArr1.concat(e);
+              }
+                this.circuitArr = this.supplycharesteristicForm.get(
+                  'circuitArr'
+                ) as FormArray;
+                this.circuitArr.removeAt(z+1);
+               
+              //(this.supplycharesteristicForm.get('circuitArr') as FormArray).removeAt(index+1);
           }
-          for (this.i = 0; this.i < this.delarr1; this.i++) {
-            this.circuitArr = this.supplycharesteristicForm.get(
-              'circuitArr'
-            ) as FormArray;
-            this.circuitArr.removeAt(this.circuitArr.length - 1);
-          }
+          
         }
       }
       else {
+        if(!this.alternateArr.length == this.value){ //removed from elango's yesterday commit by Aish
         for (this.i = 0; this.i < this.value; this.i++) {
           this.alternateArr.push(this.SupplyparametersForm());
           this.circuitArr.push(this.createCircuitForm());
+          this.observationAlternateArr.push(this.generateAlternativeForm());
         }
         this.sources = true;
         this.breaker = true;
-      }
+       }
+    }
     } 
-    else if (this.value == '') {
-      this.loclength = this.alternateArr.length;
-      this.loc1length = this.circuitArr.length-1;
+    // else if (this.value == '') {
+    //   this.loclength = this.alternateArr.length;
+    //   this.loc1length = this.circuitArr.length-1;
 
-      for (this.i = 0; this.i < this.loclength; this.i++) {
-        this.alternateArr.removeAt(this.alternateArr.length - 1);
-      }
-      for (this.i = 0; this.i < this.loc1length; this.i++) {
-        this.circuitArr.removeAt(this.circuitArr.length - 1);
-      }
-      this.breaker = false;
-    } 
+    //   for (this.i = 0; this.i < this.loclength; this.i++) {
+    //     this.alternateArr.removeAt(this.alternateArr.length - 1);
+    //   }
+    //   for (this.i = 0; this.i < this.loc1length; this.i++) {
+    //     this.circuitArr.removeAt(this.circuitArr.length - 1);
+    //   }
+    //   this.breaker = false;
+    // } 
     // else if (this.alternateArr.length < this.value) {
     //   if (this.value != '') {
     //     this.delarr = this.value - this.alternateArr.length;
@@ -2808,14 +3077,44 @@ showHideAccordion(index: number) {
   }
   onChangeForm(event:any){
     if(!this.supplycharesteristicForm.invalid){
-      this.validationError=false;
+      if(this.supplycharesteristicForm.dirty){
+        this.service.lvClick=1;
+        this.service.logoutClick=1;
+         this.service.windowTabClick=1;
+      }
+      else{
+        this.validationError=false;
+        this.service.lvClick=0;
+        this.service.logoutClick=0;
+        this.service.windowTabClick=0;
+      }
+     }
+     else {
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
      }
   }
   onKeyForm(event: KeyboardEvent) { 
-    if(!this.supplycharesteristicForm.invalid){
-     this.validationError=false;
+   if(!this.supplycharesteristicForm.invalid){ 
+    if(this.supplycharesteristicForm.dirty){
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+    }
+    else{
+      this.validationError=false;
+      this.service.lvClick=0;
+      this.service.logoutClick=0;
+      this.service.windowTabClick=0;
     }
    }
+   else {
+    this.service.lvClick=1;
+    this.service.logoutClick=1;
+    this.service.windowTabClick=1;
+   }
+  } 
   gotoNextModal(content1: any,content2:any) {
     if (this.supplycharesteristicForm.invalid) {
       this.validationError = true;
@@ -2852,6 +3151,77 @@ showHideAccordion(index: number) {
       this.modalService.dismissAll((this.successMsg = ''));
     }
   }
+  onKeyObservation(event:any){
+    if(this.ObservationsForm.dirty){
+      this.disableObservation=false;
+    }
+    else{
+      this.disableObservation=true;
+    }
+  }
+  submit(observeFlag:any){
+    if(this.ObservationsForm.invalid) {
+      return;
+    }
+    this.observation.siteId = this.service.siteCount;
+    this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
+    this.observation.observationComponent ="Supply-Component";
+    this.observation.observations =this.ObservationsForm.value.observations;
+    this.submitted = true;
+    if(!observeFlag) {
+      this.observationService.addObservation(this.observation).subscribe(
+        (data) => {
+          this.success = true;
+          this.successMsg = "Observation Information sucessfully Saved";
+          this.proceedNext.emit(true);
+          this.disableObservation=true;
+          this.observationFlag=true;
+          this.observationService.retrieveObservation(this.observation.siteId,this.observation.observationComponent,this.observation.userName).subscribe(
+            (data) => {
+            this.retrieveFromObservationSupply(data);
+            },
+            (error) => {
+              this.errorArr = [];
+              this.errorArr = JSON.parse(error.error);
+              console.log(this.errorArr.message);
+            }
+          )
+          setTimeout(() => {
+            this.success = false;
+            this.observationModalReference.close();
+          }, 3000);
+      },
+        (error) => {
+          this.errorArrObservation = [];
+          this.Error = true;
+          this.errorArrObservation = JSON.parse(error.error);
+          this.errorMsg = this.errorArrObservation.message;
+          this.observationFlag=false;
+        }
+      )
+    }
+    else {
+      this.observationService.updateObservation(this.observation).subscribe(
+        (data) => {
+          this.success = true;
+          this.successMsg = "Observation Information sucessfully updated";
+          this.proceedNext.emit(false);
+          this.disableObservation=true;
+          setTimeout(() => {
+            this.success = false;
+            this.observationModalReference.close();
+          }, 3000);
+      },
+        (error) => {
+          this.errorArrObservation = [];
+          this.Error = true;
+          this.errorArrObservation = JSON.parse(error.error);
+          this.errorMsg = this.errorArrObservation.message;
+        }
+      )
+    }   
+    }
+
   nextTab2(flag: any) {
     if(!flag) {
       this.supplycharesteristic.siteId = this.service.siteCount;
@@ -3221,9 +3591,112 @@ showHideAccordion(index: number) {
     this.alternateArr1 = [];
     this.circuitArr1 = [];
 
+    this.observationArr = this.supplycharesteristicForm.get(
+      'observationArr'
+    ) as FormArray;
+    
+    
+    if(!flag) {
+    this.supplycharesteristic.supplyOuterObservation = this.supplycharesteristicForm.value.observationArr
+
+    this.supplycharesteristic.supplyOuterObservation[0].observationComponentDetails='mains';
+    this.supplycharesteristic.supplyOuterObservation[1].observationComponentDetails='earthingNoOfJointsOb';
+    this.supplycharesteristic.supplyOuterObservation[2].observationComponentDetails='bondingNoOfJointsOb';
+    this.supplycharesteristic.supplyOuterObservation[3].observationComponentDetails='instalLocationReportOb';
+    this.supplycharesteristic.supplyOuterObservation[4].observationComponentDetails='alternate';
+
+
+    for(let i of this.supplycharesteristic.supplyOuterObservation) {
+      if(i.observationComponentDetails == 'mains') {
+        i.observationDescription=this.supplycharesteristicForm.value.liveConductorBNote;
+        i.supplyOuterObservationStatus = 'A';
+        i.alternativeInnerObservation = [];
+      }
+      if(i.observationComponentDetails == 'earthingNoOfJointsOb') {
+        i.observationDescription=this.supplycharesteristicForm.value.earthingConductorObservation;
+        i.supplyOuterObservationStatus = 'A';
+        i.alternativeInnerObservation = [];
+
+      }
+      if(i.observationComponentDetails == 'bondingNoOfJointsOb') {
+        i.observationDescription=this.supplycharesteristicForm.value.bondingConductorObservation;
+        i.supplyOuterObservationStatus = 'A';
+        i.alternativeInnerObservation = [];
+
+      }
+      if(i.observationComponentDetails == 'instalLocationReportOb') {
+        i.observationDescription=this.supplycharesteristicForm.value.earthElectrodeObservation;
+        i.supplyOuterObservationStatus = 'A';
+        i.alternativeInnerObservation = [];
+
+      }
+      if(i.observationComponentDetails == 'alternate') {
+        this.alternateArr = this.supplycharesteristicForm.get(
+          'alternateArr'
+        ) as FormArray;
+
+        for(let j=0; j<this.alternateArr.length; j++) {
+          i.alternativeInnerObservation[j].observationDescription = this.alternateArr.value[j].aLLiveConductorBNote;
+          i.alternativeInnerObservation[j].observationComponentDetails = 'alternate '+j;
+          i.alternativeInnerObservation[j].alternativeInnerObservationStatus = 'A';
+        }
+        i.supplyOuterObservationStatus = 'N';
+      }
+    }
+    }
+    
+    console.log(this.supplycharesteristic)
+
     if(flag) { 
      
       if(this.supplycharesteristicForm.dirty){
+        for(let i of this.supplycharesteristic.supplyOuterObservation){
+          if(i.observationComponentDetails == 'mains') {
+            i.observationDescription=this.supplycharesteristicForm.value.liveConductorBNote;
+            i.alternativeInnerObservation = [];
+          }
+          else if(i.observationComponentDetails == 'earthingNoOfJointsOb') {
+            i.observationDescription=this.supplycharesteristicForm.value.earthingConductorObservation;
+            i.alternativeInnerObservation = [];
+    
+          }
+          else if(i.observationComponentDetails == 'bondingNoOfJointsOb') {
+            i.observationDescription=this.supplycharesteristicForm.value.bondingConductorObservation;
+            i.alternativeInnerObservation = [];
+    
+          }
+          else if(i.observationComponentDetails == 'instalLocationReportOb') {
+            i.observationDescription=this.supplycharesteristicForm.value.earthElectrodeObservation;
+            i.alternativeInnerObservation = [];
+    
+          }
+          else if(i.observationComponentDetails == 'alternate') {
+            this.alternateArr = this.supplycharesteristicForm.get(
+              'alternateArr'
+            ) as FormArray;
+            i.alternativeInnerObservation = [];
+            
+            //updated observation
+            this.observationAlternateArr = this.observationArr.controls[4].controls.alternativeInnerObservation as FormArray;
+            for(let item of this.observationAlternateArr.controls) {
+              i.alternativeInnerObservation.push(item.value)
+            }
+
+            //new observation
+            for(let j=0; j<this.alternateArr.length; j++) {
+                  i.alternativeInnerObservation[j].observationDescription = this.alternateArr.value[j].aLLiveConductorBNote;
+                  i.alternativeInnerObservation[j].observationComponentDetails = 'alternate '+j;
+                  i.alternativeInnerObservation[j].alternativeInnerObservationStatus = 'A';
+            }
+            i.supplyOuterObservationStatus = 'N';
+
+            //deleted observation
+            for(let value of this.deletedObservation) {
+              i.alternativeInnerObservation.push(value);
+            }
+          }
+        }
+        console.log(this.supplycharesteristic);
       this.UpateInspectionService.updateSupply(this.supplycharesteristic).subscribe(
         (data)=> {
           this.success = true;
@@ -3235,6 +3708,9 @@ showHideAccordion(index: number) {
           this.service.retrieveMainNominalVoltage=this.retrieveMainNominalVoltage;
           this.service.nominalVoltageArr2=this.supplycharesteristic.supplyParameters;
           this.supplycharesteristicForm.markAsPristine();
+          this.service.windowTabClick=0;
+       this.service.logoutClick=0; 
+       this.service.lvClick=0; 
           //this.proceedNext.emit(true);
          },
          (error) => {
@@ -3262,6 +3738,9 @@ else{
           this.service.isCompleted2= true;
           this.service.isLinear=false;
           this.supplycharesteristicForm.markAsPristine();
+          this.service.windowTabClick=0;
+       this.service.logoutClick=0; 
+       this.service.lvClick=0; 
           this.service.supplyList= this.supplycharesteristic.supplyNumber;
           this.service.retrieveMainNominalVoltage=this.mainNominalArr;
           this.service.retrieveMainNominalVoltage=this.retrieveMainNominalVoltage;
@@ -3271,6 +3750,33 @@ else{
              this.retrieveAllDetailsforSupply(this.supplycharesteristic.userName,this.supplycharesteristic.siteId,data);
             }
           )
+
+          if(!this.observationFlag){
+            this.observation.siteId = this.service.siteCount;
+            this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
+            this.observation.observationComponent ="Supply-Component";
+            this.observation.observations="No observation recorded"
+            this.observationService.addObservation(this.observation).subscribe(
+              (data) => {
+                this.proceedNext.emit(true);
+                this.observationService.retrieveObservation(this.observation.siteId,this.observation.observationComponent,this.observation.userName).subscribe(
+                  (data) => {
+                  this.retrieveFromObservationSupply(data);
+                  },
+                  (error) => {
+                    this.errorArr = [];
+                    this.errorArr = JSON.parse(error.error);
+                  console.log(this.errorArr.message);
+                  }
+                )
+            },
+              (error:any) => {
+                this.errorArrObservation = [];
+                this.errorArrObservation = JSON.parse(error.error);
+                console.log(this.errorArrObservation.message);
+              }
+            )
+          }
         },
         (error) => {
           this.Error = true;
@@ -3288,74 +3794,92 @@ else{
       );
   }
   }
-
+  
   removeItem(a:any,index: any) {
-   
     this.supplycharesteristicForm.markAsTouched();
-    if(a.value.locationReportId !=0 && a.value.locationReportId !=undefined)
-    {
-      this.supplycharesteristic.noOfLocation = this.supplycharesteristicForm.value.noOfLocation -1;
-      (this.supplycharesteristicForm.get('location1Arr') as FormArray).removeAt(index);
-      a.value.instalLocationReportStatus='R';
-      this.locationArr= this.locationArr.concat(a.value);
-      this.supplycharesteristicForm.markAsDirty();
-      
-    }
-    else
-    {
-     
-      this.supplycharesteristicForm.markAsTouched();
-      this.supplycharesteristic.noOfLocation = this.supplycharesteristicForm.value.noOfLocation -1;
-      (this.supplycharesteristicForm.get('location1Arr') as FormArray).removeAt(index);
-      this.supplycharesteristicForm.markAsDirty();
+    if(this.supplycharesteristic.noOfLocation != 0){
+      if(a.value.locationReportId !=0 && a.value.locationReportId !=undefined)
+      {
+        this.supplycharesteristic.noOfLocation = this.supplycharesteristicForm.value.noOfLocation -1;
+        (this.supplycharesteristicForm.get('location1Arr') as FormArray).removeAt(index);
+        a.value.instalLocationReportStatus='R';
+        this.locationArr= this.locationArr.concat(a.value);
+        this.supplycharesteristicForm.markAsDirty();
+        if(this.supplycharesteristic.noOfLocation == 0){
+          this.key1LocationTable = false;
+        }
+      }
+      else
+      {
+        this.supplycharesteristicForm.markAsTouched();
+        this.supplycharesteristic.noOfLocation = this.supplycharesteristicForm.value.noOfLocation -1;
+        (this.supplycharesteristicForm.get('location1Arr') as FormArray).removeAt(index);
+        this.supplycharesteristicForm.markAsDirty();
+        if(this.supplycharesteristic.noOfLocation == 0){
+          this.key1LocationTable = false;
+        }
+      }
     }
    }
    
    removeItem1(a:any,index: any) {
    
     this.supplycharesteristicForm.markAsTouched();
-    if(a.value.locationReportId !=0 && a.value.locationReportId !=undefined)
-    {
-      this.supplycharesteristic.bondingNoOfJoints = this.supplycharesteristicForm.value.bondingNoOfJoints -1;
-      (this.supplycharesteristicForm.get('location2Arr') as FormArray).removeAt(index);
-      a.value.instalLocationReportStatus='R';
-      this.boundingArr= this.boundingArr.concat(a.value);
-      this.supplycharesteristicForm.markAsDirty();
-    }
-    else
-    {
-      this.supplycharesteristicForm.markAsTouched();
-     
-      this.supplycharesteristic.bondingNoOfJoints = this.supplycharesteristicForm.value.bondingNoOfJoints -1;
-      (this.supplycharesteristicForm.get('location2Arr') as FormArray).removeAt(index);
-      this.supplycharesteristicForm.markAsDirty();
+    if(this.supplycharesteristic.bondingNoOfJoints != 0){
+      if(a.value.locationReportId !=0 && a.value.locationReportId !=undefined)
+      {
+        this.supplycharesteristic.bondingNoOfJoints = this.supplycharesteristicForm.value.bondingNoOfJoints -1;
+        (this.supplycharesteristicForm.get('location2Arr') as FormArray).removeAt(index);
+        a.value.instalLocationReportStatus='R';
+        this.boundingArr= this.boundingArr.concat(a.value);
+        this.supplycharesteristicForm.markAsDirty();
+        if(this.supplycharesteristic.bondingNoOfJoints == 0){
+          this.JointLocationTable = false;
+        }
+      }
+      else
+      {
+        this.supplycharesteristicForm.markAsTouched();
+       
+        this.supplycharesteristic.bondingNoOfJoints = this.supplycharesteristicForm.value.bondingNoOfJoints -1;
+        (this.supplycharesteristicForm.get('location2Arr') as FormArray).removeAt(index);
+        this.supplycharesteristicForm.markAsDirty();
+        if(this.supplycharesteristic.bondingNoOfJoints == 0){
+          this.JointLocationTable = false;
+        }
+      }
     }
    }
 
    removeItem2(a:any,index: any) {
    
     this.supplycharesteristicForm.markAsTouched();
-    if(a.value.locationReportId !=0 && a.value.locationReportId !=undefined)
+    if(this.supplycharesteristic.earthingNoOfJoints != 0){
+      if(a.value.locationReportId !=0 && a.value.locationReportId !=undefined)
     {
       this.supplycharesteristic.earthingNoOfJoints = this.supplycharesteristicForm.value.earthingNoOfJoints -1;
       (this.supplycharesteristicForm.get('location3Arr') as FormArray).removeAt(index);
       a.value.instalLocationReportStatus='R';
       this.earthingArr= this.earthingArr.concat(a.value);
       this.supplycharesteristicForm.markAsDirty();
+      if(this.supplycharesteristic.earthingNoOfJoints == 0){
+        this.keyJOintLocationTable = false;
+      }
     }
     else
     {
       this.supplycharesteristicForm.markAsTouched();
-     
       this.supplycharesteristic.earthingNoOfJoints = this.supplycharesteristicForm.value.earthingNoOfJoints -1;
       (this.supplycharesteristicForm.get('location3Arr') as FormArray).removeAt(index);
       this.supplycharesteristicForm.markAsDirty();
+      if(this.supplycharesteristic.earthingNoOfJoints == 0){
+        this.keyJOintLocationTable = false;
+      }
+    }
     }
    }
-
     //  Allternative power supply
     removeItem3(a:any,index: any) {
-
       this.supplycharesteristicForm.markAsTouched();
       if(a.value.supplyparametersId !=0 && a.value.supplyparametersId !=undefined)
       {
@@ -3366,20 +3890,31 @@ else{
         
 
         a.value.supplyParameterStatus='R';
+
+        // code added by Arun for observation
+        this.observationArr = this.supplycharesteristicForm.get('observationArr') as FormArray;
+        for(let j of this.observationArr.controls[4].controls.alternativeInnerObservation.controls) {         
+              if(a.value.supplyInnerObervationsId == j.controls.supplyInnerObervationsId.value) {
+                j.controls.alternativeInnerObservationStatus.setValue('R');
+                this.deletedObservation.push(j.value);
+                this.observationArr.controls[4].controls.alternativeInnerObservation.removeAt(index);
+              }               
+        }
+
         this.alternateArr1 = this.alternateArr1.concat(a.value)
   
         const items = (<FormArray>this.supplycharesteristicForm.get('circuitArr'));
           
           for (let i = 0; i < items.length; i++) {
               
-          if(i==index){
-            
-            let d = items.value[i+1];
-            d.circuitStatus ='R';
-            this.circuitArr1 = this.circuitArr1.concat(d);
-            (this.supplycharesteristicForm.get('circuitArr') as FormArray).removeAt(i+1);
+            let d = items.value[i];
+            if(a.value.aLSupplyShortName == d.sourceName){
+              d.circuitStatus ='R';
+              this.circuitArr1 = this.circuitArr1.concat(d);
+              (this.supplycharesteristicForm.get('circuitArr') as FormArray).removeAt(i);
+            }
           }
-        }
+        
         this.supplycharesteristicForm.markAsDirty();
       }
       else
@@ -3388,12 +3923,10 @@ else{
         this.supplycharesteristicForm.markAsTouched();
         let b = parseInt(this.supplycharesteristicForm.value.supplyNumber) -1;
         this.supplycharesteristic.supplyNumber = b.toString();
-        (this.supplycharesteristicForm.get('circuitArr') as FormArray).removeAt(index);
+        (this.supplycharesteristicForm.get('circuitArr') as FormArray).removeAt(index+1);
         (this.supplycharesteristicForm.get('alternateArr') as FormArray).removeAt(index);
         this.supplycharesteristicForm.markAsDirty();
       }
      }
-
-
   
 }

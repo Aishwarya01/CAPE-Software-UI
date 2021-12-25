@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GlobalsService } from 'src/app/globals.service';
 import { DownConductorDescription } from 'src/app/LPS_model/down-conductor';
 import { LpsDownconductorService } from 'src/app/LPS_services/lps-downconductor.service';
 import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
@@ -69,6 +70,7 @@ export class LpsDownConductorsComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder, lpsDownconductorService: LpsDownconductorService,
     private modalService: NgbModal, private router: ActivatedRoute,
+    public service: GlobalsService,
     private matstepper: LpsMatstepperComponent) {
     this.lpsDownconductorService = lpsDownconductorService
   }
@@ -111,6 +113,8 @@ export class LpsDownConductorsComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
+      //this.service.lvClick=1;
+
       this.step3List = data.downConductorDesc;
       this.downConductorDescription.basicLpsId = basicLpsId;
       this.downConductorDescription.downConduDescId = this.step3List.downConduDescId;
@@ -170,7 +174,8 @@ export class LpsDownConductorsComponent implements OnInit {
     }
 
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
-      
+      //this.service.lvClick=1;
+
       this.step3List = JSON.parse(data);
       this.downConductorDescription.basicLpsId = basicLpsId;
       this.downConductorDescription.downConduDescId = this.step3List[0].downConduDescId;
@@ -724,6 +729,9 @@ export class LpsDownConductorsComponent implements OnInit {
             this.success = true;
             this.successMsg = data;
             this.downConductorForm.markAsPristine();
+            this.service.lvClick=0;
+            this.service.logoutClick=0;
+            this.service.windowTabClick=0;
             this.proceedNext.emit(true);
           },
           (error) => {
@@ -754,6 +762,9 @@ export class LpsDownConductorsComponent implements OnInit {
             this.disable = true;
             this.retriveDownConductor();
             this.proceedNext.emit(true);
+            this.service.lvClick=0;
+            this.service.logoutClick=0;
+            this.service.windowTabClick=0;
           },
           (error) => {
             this.Error = true;
@@ -766,7 +777,46 @@ export class LpsDownConductorsComponent implements OnInit {
     }
   }
   }
-
+ onChangeForm(event:any){
+    if(!this.downConductorForm.invalid){
+      if(this.downConductorForm.dirty){
+        this.service.lvClick=1;
+        this.service.logoutClick=1;
+         this.service.windowTabClick=1;
+      }
+      else{
+        this.validationError=false;
+        this.service.lvClick=0;
+        this.service.logoutClick=0;
+        this.service.windowTabClick=0;
+      }
+     }
+     else {
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+     }
+  }
+  onKeyForm(event: KeyboardEvent) { 
+   if(!this.downConductorForm.invalid){ 
+    if(this.downConductorForm.dirty){
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+    }
+    else{
+      this.validationError=false;
+      this.service.lvClick=0;
+      this.service.logoutClick=0;
+      this.service.windowTabClick=0;
+    }
+   }
+   else {
+    this.service.lvClick=1;
+    this.service.logoutClick=1;
+    this.service.windowTabClick=1;
+   }
+  } 
   closeModalDialog() {
     if (this.errorMsg != '') {
       this.Error = false;

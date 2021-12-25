@@ -66,7 +66,7 @@ export class LpsAirTerminationComponent implements OnInit {
   clampPusharr: any = [];
   exPusharr: any = [];
   conPusharr: any = [];
-  isEditable:boolean;
+  isEditable:boolean=false;
   stepBack:any;
   lpsBasic: any;
    
@@ -75,7 +75,7 @@ export class LpsAirTerminationComponent implements OnInit {
     private airterminationServices:AirterminationService,
     private modalService: NgbModal,private router: ActivatedRoute,
     private matstepper: LpsMatstepperComponent,
-    
+    public service: GlobalsService,
 
   ) { 
     this.airterminationService=airterminationServices;
@@ -116,7 +116,8 @@ export class LpsAirTerminationComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
-    
+      // this.service.lvClick=1;
+
       this.step2List = data.lpsAirDiscription;
       this.airtermination.basicLpsId = basicLpsId;
       this.airtermination.lpsAirDescId = this.step2List.lpsAirDescId;
@@ -140,7 +141,8 @@ export class LpsAirTerminationComponent implements OnInit {
     }
 
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
-       
+      //this.service.lvClick=1;
+
         this.step2List=JSON.parse(data);
         this.airtermination.basicLpsId = basicLpsId;
         this.airtermination.lpsAirDescId = this.step2List[0].lpsAirDescId;
@@ -415,7 +417,42 @@ export class LpsAirTerminationComponent implements OnInit {
         inspectionFailedRe: new FormControl({disabled: false, value: item.inspectionFailedRe})      
       });
     }
-
+    onChangeForm(event:any){
+      if(!this.airTerminationForm.invalid){
+        if(this.airTerminationForm.dirty){
+          this.service.lvClick=1;
+          this.service.logoutClick=1;
+          this.service.windowTabClick=1;
+        }
+        else{
+          this.validationError=false;
+          this.service.lvClick=0;
+          this.service.logoutClick=0;
+        }
+       }
+      else {
+       this.service.lvClick=1;
+       this.service.logoutClick=1;
+      }  
+    }
+    onKeyForm(event: KeyboardEvent) { 
+     if(!this.airTerminationForm.invalid){ 
+      if(this.airTerminationForm.dirty){
+        this.service.lvClick=1;
+        this.service.logoutClick=1;
+        this.service.windowTabClick=1;
+      }
+      else{
+        this.validationError=false;
+        this.service.lvClick=0;
+        this.service.logoutClick=0;
+      }
+     }
+     else {
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+     }
+    } 
   gotoNextModal(content: any,contents:any) {
     
      if (this.airTerminationForm.invalid) {
@@ -492,6 +529,9 @@ export class LpsAirTerminationComponent implements OnInit {
                 this.success = true;
                 this.successMsg = data;
                 this.airTerminationForm.markAsPristine();
+                this.service.lvClick=0;
+                this.service.logoutClick=0;
+                this.service.windowTabClick=0;
                 this.proceedNext.emit(true);
               },
               (error) => {
@@ -523,6 +563,9 @@ export class LpsAirTerminationComponent implements OnInit {
                   this.disable = true;
                   this.retriveAirTermination();
                   this.proceedNext.emit(true);
+                  this.service.lvClick=0;
+                  this.service.logoutClick=0;
+                  this.service.windowTabClick=0;
                 },
                 (error) => {
                   this.Error = true;

@@ -1,22 +1,23 @@
 <div *ngIf="tabError" style="text-align: center;">
-  <span class="alert alert-danger">{{tabErrorMsg}}</span>
+  <span class="alert alert-danger">{{tabErrorMsg}}</span> 
 </div>
 <div *ngIf="validationErrorTab" style="text-align: center;">
   <span class="alert alert-danger">{{validationErrorMsgTab}}</span>
 </div>
 <div class="card">
     <div class="card-body">
-    <!-- <button class="btn btn-info mousechange"
-        style="padding: 7px 10px 0px 10px;left: 93%;top: 10px;width: 4%;position: relative;">
-            <mat-icon aria-hidden="false" (click)="addItem()" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>
-    </button> -->
+      <div class="row">
+        <div class="col-sm-12">
+          <a style="margin-top: 2px;float: right;cursor: pointer;text-decoration: underline;">Observations</a>
+        </div>
+        </div>
      <form [formGroup]="testingForm" (ngSubmit)="nextTab(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
        <div formArrayName="testaccordianArr" *ngFor="let a of getTestControls(); let i = index;" >
             <div [formGroupName]="i">
                     <div class="search-bar">
                         <div class="form-group">
                             <div class="row" *ngIf="inspectionRetrieve">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label>Location Number*</label>
                                     <input type="number" class="form-control" formControlName="locationNumber"
                                         placeholder="Enter Location Number"
@@ -25,7 +26,7 @@
                                         style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label>Location Name*</label>
                                     <input type="text" class="form-control" formControlName="locationName"
                                         placeholder="Enter Location Name"
@@ -34,15 +35,13 @@
                                         style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
                                 </div>
 
-                                <div class="col-md-6" *ngIf="false">
+                                <div class="col-md-4" *ngIf="false">
                                   <input type="text" class="form-control" formControlName="locationCount"
                                       placeholder="Enter Location Name"
                                       value="{{location.locationArr[i]?.locationCount}}"
                                       [(ngModel)]="location.locationArr[i].locationCount" >
                                  </div>
                             </div>
-
-
                             <div class="row" *ngIf="testingRetrieve">
                                 <div class="col-md-6">
                                     <label>Location Number*</label>
@@ -157,7 +156,7 @@
                           <div class="table-responsive">
                               <table  class="table testingTable">
                                   <div style="width: 94%;">
-                                      <div class="form-group" style="border: 1px solid black;">
+                                      <div class="form-group" style="border:1px solid #dee2e6;">
                                           <thead>
                                               <tr align="center">
                                                   <th>Equipment Name</th>
@@ -252,15 +251,18 @@
                                 <h3>Detailed Testing</h3>
                             </mat-panel-title>
                         </mat-expansion-panel-header>
-
-                   <div formArrayName="testDistribution" *ngFor="let c of gettestDistributionFormControls(a); let i = index">
+                      
+                 <div formArrayName="testDistRecords" *ngFor="let z of gettestDistRecordsFormControls(a); let w = index">
+                   <div [formGroupName]="w" [ngClass]="{'disableForm':service.allFieldsDisable}">
+                   <div formArrayName="testDistribution" *ngFor="let c of gettestDistributionFormControls(z); let i = index">
                         <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
                             <div class="row">
                                 <div class="col-md-4">
                                     <label>Distribution Board Details </label>
                                     <input type="text" formControlName="distributionBoardDetails"  
-                                    placeholder=" Enter Distribution board details"  class="form-control" 
-                                    [ngClass]="{ 'is-invalid': submitted && c.get('distributionBoardDetails')?.errors }" [readonly]="service.allFieldsDisable" >
+                                    placeholder="Enter Distribution board details"  class="form-control" 
+                                   [value]="c.get('distributionBoardDetails')?.value"
+                                    [ngClass]="{ 'is-invalid': submitted && c.get('distributionBoardDetails')?.errors }" readonly>
                                     <div *ngIf="submitted && c.get('distributionBoardDetails')?.errors" class="invalid-feedback">
                                       <div *ngIf="c.get('distributionBoardDetails')?.errors?.required">Distribution board details  value is required</div>
                                     </div>
@@ -268,8 +270,9 @@
 
                                 <div class="col-md-4">
                                     <label>Distribution board name</label>
-                                    <input type="text" formControlName="referance" placeholder=" Enter Reference Name" 
-                                    class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('referance')?.errors }" [readonly]="service.allFieldsDisable" >
+                                    <input type="text" formControlName="referance" placeholder="Enter Distribution board name" 
+                                    [value]="c.get('referance')?.value"
+                                    class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('referance')?.errors }" readonly>
                                     <div *ngIf="submitted && c.get('referance')?.errors" class="invalid-feedback">
                                       <div *ngIf="c.get('referance')?.errors?.required">Reference name  is required</div>
                                     </div>
@@ -277,8 +280,9 @@
 
                                 <div class="col-md-4">
                                     <label>Location</label>
-                                    <input type="text" formControlName="location"  placeholder=" Enter Location Name" 
-                                    class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('location')?.errors }" [readonly]="service.allFieldsDisable" >
+                                    <input type="text" formControlName="location"  placeholder="Enter Location Name" 
+                                    [value]="c.get('location')?.value"
+                                    class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('location')?.errors }" readonly>
                                     <div *ngIf="submitted && c.get('location')?.errors" class="invalid-feedback">
                                       <div *ngIf="c.get('location')?.errors?.required">Location  name  is required</div>
                                     </div>
@@ -318,7 +322,7 @@
                                   <label>Number Of Output Circuits Tested</label>
                                   <input type="tel" min="1" formControlName="numOutputCircuitsUse"  [readonly]="service.allFieldsDisable"
                                   placeholder=" Enter Number of output circuits in use"
-                                  class="form-control"  (keyup)="onKey($event,c,a)" [ngClass]="{ 'is-invalid': submitted && c.get('numOutputCircuitsUse')?.errors }"  >
+                                  class="form-control"  (keyup)="onKey($event,c,z)" [ngClass]="{ 'is-invalid': submitted && c.get('numOutputCircuitsUse')?.errors }"  >
                                   <div *ngIf="submitted && c.get('numOutputCircuitsUse')?.errors" class="invalid-feedback">
                                     <div *ngIf="c.get('numOutputCircuitsUse')?.errors?.required">Number of output circuits in use value is required</div>
                                     <div *ngIf="c.get('numOutputCircuitsUse')?.errors?.max">Number of output circuits in use value cannot exceed 5</div>
@@ -338,7 +342,9 @@
                                 class="example-button">
                                 info_outline
                                </mat-icon>
-                                <input type="number" min="0" [readonly]="service.allFieldsDisable" formControlName="installedEquipmentVulnarable" placeholder=" Enter Installed Equipment Vulnarable To  Testing Name"
+                                <input type="number" min="0" [readonly]="service.allFieldsDisable" 
+                                formControlName="installedEquipmentVulnarable" 
+                                placeholder=" Enter Installed Equipment Vulnarable To  Testing Name"
                                     class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('installedEquipmentVulnarable')?.errors }"  >
                                     <div *ngIf="submitted && c.get('installedEquipmentVulnarable')?.errors" class="invalid-feedback">
                                       <div *ngIf="c.get('installedEquipmentVulnarable')?.errors?.required">Installed equipment vulnarable to testing  value is required</div>
@@ -357,7 +363,8 @@
                                         class="example-button">
                                         info_outline
                                        </mat-icon>
-                                        <input type="number" min="0" [readonly]="service.allFieldsDisable" formControlName="ratingsAmps" 
+                                        <input type="number" min="0" [readonly]="service.allFieldsDisable" 
+                                        formControlName="ratingsAmps" 
                                         class="form-control" placeholder=" Enter Ratings in Amps "
                                           [ngClass]="{ 'is-invalid': submitted && d.get('ratingsAmps')?.errors }">
                                         <div *ngIf="submitted && d.get('ratingsAmps')?.errors" class="invalid-feedback">
@@ -376,8 +383,10 @@
                                     class="example-button">
                                     info_outline
                                    </mat-icon>
-                                    <select class="form-control" formControlName="sourceFromSupply" (change)="changeSource($event,c)" [tabindex]="service.allFieldsDisable ? -1 : 0"
-                                    [ngClass]="{ 'is-invalid': submitted && c.get('sourceFromSupply')?.errors }" [disabled]="service.allFieldsDisable">
+                                    <select class="form-control" formControlName="sourceFromSupply" (change)="changeSource($event,c)" 
+                                    [tabindex]="service.allFieldsDisable ? -1 : 0"
+                                    [ngClass]="{ 'is-invalid': submitted && c.get('sourceFromSupply')?.errors }" 
+                                    [disabled]="service.allFieldsDisable">
                                    <option value="" selected>Select Option</option>
                                     <option *ngFor="let value of SourceList" [selected]="value=== c.get('sourceFromSupply')?.value">
                                       {{value}}</option>
@@ -397,7 +406,7 @@
                             <table  class="table testingTable" id="table1">
                                 <div formArrayName="distributionIncomingValueArr" 
                                 *ngFor="let e of getdistributionIncomingValueControls(c); let j= index">
-                                    <div class="form-group" style="border: 1px solid black;">
+                                    <div class="form-group" style="border:1px solid #dee2e6;">
                                         <thead>
                                             <tr align="center">
                                                 <th>Reference</th>
@@ -503,7 +512,7 @@
                       <div class="table-responsive" >
                           <table  class="table testingTable" id="table1">
                               <div formArrayName="distributionIncomingValueArr2" *ngFor="let e of getdistributionIncomingValueControls2(c); let j= index">
-                                  <div class="form-group" style="border: 1px solid black;">
+                                  <div class="form-group" style="border:1px solid #dee2e6;">
                                       <thead>
                                           <tr align="center">
                                               <th></th>
@@ -603,7 +612,7 @@
               </div>
             </div>
           </div>
-
+       
           <div class="row">
             <div class="col">
                 <div class="table-responsive" id="style-1">
@@ -800,16 +809,14 @@
                                 <th> I∆n (ms) </th>
                                 <th>5*I∆n (ms)</th>
                                 <th rowspan="2">Test Button Operation</th>
-                                <th>Remarks</th>
+                                <th>Observations</th>
                           </tr>
                        </thead>
-                      <tbody formArrayName="testingRecords" *ngFor="let f of gettestValueControls(a); let i = index">
+                      <tbody formArrayName="testingRecords" *ngFor="let f of gettestValueControls(z); let i = index">
                         <ng-container [formGroupName]="i">
-                         
                           <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}"
-                            (click)="removeItemRecords(a,i,f)" *ngIf="gettestValueControls(a).length > 1" style="cursor: pointer;margin: 20px 5px 20px 5px;">remove_circle_outline</mat-icon>
-
-                        <tr  class="form-group" >
+                            (click)="removeItemRecords(z,i,f)" *ngIf="gettestValueControls(z).length > 1" style="cursor: pointer;margin: 20px 5px 20px 5px;">remove_circle_outline</mat-icon>
+                        <tr  class="form-group">
                                 <td><input type="text" formControlName="circuitNo" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td ><textarea  formControlName="circuitDesc"  class="form-control" style="height:40px;width:170px;"  [readonly]="service.allFieldsDisable"></textarea> </td>
                                 <td><input type="text" formControlName="circuitStandardNo" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
@@ -822,14 +829,16 @@
                                 <td><input type="text" formControlName="circuitBreakingCapacity" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="shortCircuitSetting" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="eFSetting" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><textarea  formControlName="conductorInstallation"  class="form-control"  style="height:40px;width:170px;" [readonly]="service.allFieldsDisable"></textarea>
+                                <td><textarea formControlName="conductorInstallation"  class="form-control"  style="height:40px;width:170px;" [readonly]="service.allFieldsDisable"></textarea>
                                 <td><input type="text" formControlName="conductorPhase" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="conductorNeutral" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="conductorPecpc" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="continutiyApproximateLength" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="continutiyRR" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="continutiyR" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                
+
+                                <td><input type="text" formControlName="continutiyPolarity" class="form-control"  style="width:80px"></td>
+
                                 <td><input type="text" formControlName="rycontinutiy" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="rbcontinutiy" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="ybcontinutiy" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
@@ -839,8 +848,6 @@
                                 <td><input type="text" formControlName="rpecontinutiy" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="ypecontinutiy" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="bpecontinutiy" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                
-                                <td><input type="text" formControlName="continutiyPolarity" class="form-control"  style="width:80px"></td>
                               <!-- voltage -->
                               <td><input type="text" formControlName="ryVoltage" class="form-control"  (keyup)="onKeyVoltage1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
                               <td><input type="text" formControlName="rbVoltage" class="form-control"  (keyup)="onKeyVoltage1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
@@ -886,7 +893,8 @@
                                 <td><input type="text" formControlName="rcdOperatingCurrent" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="rcdOperatingFiveCurrent" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><textarea  formControlName="rcdTestButtonOperation"  class="form-control" style="height:40px;width:170px;" [readonly]="service.allFieldsDisable"></textarea>
-                                <td><textarea  formControlName="rcdRemarks"  class="form-control" style="height:40px;width:170px;" [readonly]="service.allFieldsDisable"></textarea>
+                                <td><textarea  formControlName="rcdRemarks"  class="form-control" style="height:40px;width:170px;" 
+                                 [readonly]="service.allFieldsDisable"></textarea>
                                </tr>
                         <ng-container formArrayName="testingRecordsSourceSupply" *ngFor="let g of gettestAlternateValueControls(f); let j = index">
                         <tr  class="form-group"  [formGroupName]="j">
@@ -976,6 +984,11 @@
                     </div>
                   </div>
                 </div>
+               
+              </div>
+              <br>
+              <br>
+              </div>
             </mat-expansion-panel>
 </mat-accordion>
 </div>
@@ -1224,4 +1237,38 @@ style="margin-left: 10px;" >
       </button>
     </div>
     
+      </ng-template>
+
+      <ng-template #observationIter let-modal>
+        <form [formGroup]="ObservationsForm">
+          <div class="modal-header" style="text-align: center; display: block">
+            <h2 class="modal-title" style="display: contents">Observations:</h2>
+          </div>
+          <div class="modal-body">
+                <textarea col=60 row=1 (keyup)="onKeyObservation($event);" 
+                class="form-control"  [(ngModel)]="observationValuesT"
+                formControlName="observations"  placeholder="Ex. Observations ..." >
+                </textarea>
+                <br>
+                <div style="text-align: center">
+                  <button class="btn btn-primary" (click)="submit(observationUpdateFlag)" [disabled]="disableObservation" 
+                  style="font-size: 14px;">
+                    Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <button type="button" aria-label="Close" class="btn btn-danger" (click)="closeModalDialog()"
+                    style="font-size: 14px;">
+                    <i class="bi bi-x icon"></i>
+                    <span aria-hidden="true">Cancel</span>
+                  </button>
+                </div>
+      
+            
+          </div>
+          <div *ngIf="success" style="text-align: center;">
+            <span class="successshow">{{successMsg}}</span>
+          </div>
+          <div *ngIf="Error" style="text-align: center;">
+            <span class="errorshow">{{errorMsg}}</span>
+          </div>
+        </form>
+      
       </ng-template>

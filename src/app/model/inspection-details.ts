@@ -49,11 +49,32 @@ export class IpaInsection {
   operatingCurrent!: String;
   inspectionFlag!: String;
 
+
+  inspectionOuterObervation!:InspectionOuterObervation[];
   consumerUnit!: consumerUnit[];
   circuit!: circuit[];
   isolationCurrent!:isolationCurrent[];
 }
+
+export class InspectionOuterObervation{
+  
+  inspectionOuterObservationId!:number;
+  observationComponentDetails!: String;
+  observationDescription!: String;
+  inspectionOuterObservationStatus!: String;
+
+  inspectionInnerObservations!:InspectionInnerObervations[];
+}
+export class InspectionInnerObervations{
+  inspectionOuterObservationId!: number;
+  inspectionInnerObservationsId!: number;
+  observationComponentDetails!: String;
+  observationDescription!: String;
+  inspectionInnerObervationStatus!: String;
+}
 export class consumerUnit { 
+  consumerId: number;
+  ipaoInspectionId: number;
   accessWorking!: String;
   securityFixing!: String;
   livePartsDamage!: String;
@@ -84,9 +105,12 @@ export class consumerUnit {
   mechanicalDamage!: String;
   electromagnetic!: String;
   allConductorCon!: String;
+  consumerStatus!: String;
 }
 
 export class circuit{
+  circuitId: number;
+  ipaoInspectionId: number;
   identificationConductors!: String;
   cableInstallation!: String;
   examinationCables!: String;
@@ -122,6 +146,7 @@ export class circuit{
   singlePoleDevices!: String;
   adequacyConnections!: String;
   isolationSwitching!: String;
+  circuitStatus!: String;
 }
 export class isolationCurrent{
   presenceDevices!: String;

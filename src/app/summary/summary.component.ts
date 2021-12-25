@@ -39,6 +39,8 @@ import { FinalreportsComponent } from '../finalreports/finalreports.component';
 import { ComponentFactoryResolver } from '@angular/core';
 import { LvInspectionDetailsComponent } from '../lv-inspection-details/lv-inspection-details.component';
 import { LicenselistComponent } from '../licenselist/licenselist.component';
+import { ObservationService } from '../services/observation.service';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 @Component({
   selector: 'app-summary',
@@ -56,6 +58,10 @@ export class SummaryComponent implements OnInit {
     agreedLimitations: new FormControl(''),
     agreedWith: new FormControl(''),
     operationalLimitations: new FormControl(''),
+    furtherActions: new FormControl(''),
+    referanceNumberReport: new FormControl(''),
+    recommendationsDate: new FormControl(''),
+    comment: new FormControl(''),
     //recommendationsDate: new FormControl(''),
     //inspectionTestingDetailed: new FormControl(''),
     generalConditionInstallation: new FormControl(''),
@@ -104,7 +110,7 @@ export class SummaryComponent implements OnInit {
   summaryList: any = [];
   arr: any = [];
   limitationsValue!: String;
-  observationList: String[] = ['No remedial action required', 'The following observations are made'];
+  //observationList: String[] = ['No remedial action required', 'The following observations are made'];
   // @ViewChild (FinalreportsComponent) final!: FinalreportsComponent;
   //@ViewChild (VerificationlvComponent) verification!: VerificationlvComponent;
   // @ViewChild('verify')
@@ -112,11 +118,11 @@ export class SummaryComponent implements OnInit {
 
   @Output() proceedNext = new EventEmitter<any>();
   fcname: string[] = [
-    'comment',
-    'furtherActions',
-    'observations',
-    'referanceNumberReport',
-    'recommendationsDate'
+    'obervationStatus',
+    'observationsInspection',
+    'observationsSupply',
+    'observationsTesting',
+    //'observations',
   ];
   errorArr: any=[];
   value: boolean= false;
@@ -213,6 +219,11 @@ export class SummaryComponent implements OnInit {
   @ViewChild('ref', { read: ViewContainerRef })
   viewContainerRef!: ViewContainerRef;
   deletedArr: any = [];
+  ObservationsSumaryArr: any=[];
+  observationsMade: boolean= false;
+  NoRemedial: boolean= false;
+  inspectionArr: any = [];
+  testingArr: any = [];
   
   constructor(
     private _formBuilder: FormBuilder,
@@ -223,6 +234,7 @@ export class SummaryComponent implements OnInit {
     public service: GlobalsService,
     public siteService: SiteService,
     private ChangeDetectorRef: ChangeDetectorRef,
+    private observationService: ObservationService,
     private componentFactoryResolver: ComponentFactoryResolver,
     //private final: VerificationlvComponent,
     private UpateInspectionService: InspectionVerificationService,
@@ -254,6 +266,10 @@ export class SummaryComponent implements OnInit {
      // inspectionTestingDetailed: ['', Validators.required],
       generalConditionInstallation: ['', Validators.required],
       overallAssessmentInstallation: ['', Validators.required],
+      furtherActions: ['', Validators.required],
+      referanceNumberReport: [''],
+      recommendationsDate: ['', Validators.required],
+      comment: ['', Validators.required],
       Declaration1Arr: this._formBuilder.array([this.Declaration1Form()]),
       Declaration2Arr: this._formBuilder.array([this.Declaration2Form()]),
       ObservationsArr: this._formBuilder.array([this.ObservationsForm()]),
@@ -262,6 +278,7 @@ export class SummaryComponent implements OnInit {
     });
     this.refresh();
     this.expandedIndex = -1 ;
+    this.retreiveFromObservation();
     // this.Declaration2Arr = this.addsummary.get('Declaration2Arr') as FormArray;
   }
   // ngAfterViewInit(){
@@ -271,6 +288,227 @@ export class SummaryComponent implements OnInit {
     this.ChangeDetectorRef.detectChanges();
   }
  
+  retreiveFromObservation(){
+    if(this.service.siteCount!=0 && this.service.siteCount!=undefined){
+    this.observationService.retrieveObservationSummary(this.service.siteCount, this.email).subscribe(
+      (data) => {
+        this.ObservationsSumaryArr=JSON.parse(data);
+        let ObservationsSumaryValueArr:any=[];
+        ObservationsSumaryValueArr = this.addsummary.get('ObservationsArr') as FormArray;
+        for(let i of ObservationsSumaryValueArr.controls){
+          let alternateArr: any = [];
+          alternateArr = i.controls.alternateArr as FormArray
+          alternateArr.controls = [];
+          alternateArr.value = [];
+
+          this.inspectionArr = [];
+          this.inspectionArr = i.controls.inspectionArr as FormArray;
+          this.inspectionArr.controls = [];
+          this.inspectionArr.value = [];
+
+          this.testingArr = [];
+           this.testingArr = i.controls.testingArr as FormArray;
+           this.testingArr.controls = [];
+          this.testingArr.value = [];
+
+         if(this.ObservationsSumaryArr.supplyOuterObservation != null) {
+           for(let j of this.ObservationsSumaryArr.supplyOuterObservation) {
+             if(j.observationComponentDetails == 'mains') {
+               i.controls.mainsObservations.setValue(j.observationDescription);
+             }
+             else if(j.observationComponentDetails == 'instalLocationReportOb') {
+               i.controls.earthElectrodeObservations.setValue(j.observationDescription);
+             }
+             else if(j.observationComponentDetails == 'bondingNoOfJointsOb') {
+               i.controls.bondingConductorObservations.setValue(j.observationDescription);
+             }
+             else if(j.observationComponentDetails == 'earthingNoOfJointsOb') {
+               i.controls.earthingConductorObservations.setValue(j.observationDescription);
+             }
+             else if(j.observationComponentDetails == 'alternate') {
+               //i.controls.observationsSupply.setValue(j.observationDescription);
+               if(j.alternativeInnerObservation.lengt != 0) {
+                 let alternateArr: any = [];
+                 for(let k=0;k<j.alternativeInnerObservation.length; k++) {
+                   alternateArr = i.controls.alternateArr;
+                   alternateArr.push(this.alternateObservationsForm());
+                 }
+                 for(let k=0;k<j.alternativeInnerObservation.length; k++) {
+                   let alternateArr = i.controls.alternateArr;
+                   alternateArr.controls[k].controls.alternateObservations.setValue(j.alternativeInnerObservation[k].observationDescription);
+                 }
+               }
+             }
+           }
+          }  
+
+          if(this.ObservationsSumaryArr.inspectionOuterObservation != null) {
+           this.inspectionArr = [];
+           this.inspectionArr = i.controls.inspectionArr as FormArray;
+            for(let j of this.ObservationsSumaryArr.inspectionOuterObservation) {
+              this.inspectionArr.push(this.inspectionOuterObservationsForm(j))
+            }
+          }
+
+          if(this.ObservationsSumaryArr.testingInnerObservation != null) {
+           this.testingArr = [];
+           this.testingArr = i.controls.testingArr as FormArray;
+            for(let j of this.ObservationsSumaryArr.testingInnerObservation) {
+              this.testingArr.push(this.testingObservationsForm(j))
+            }
+          }
+        } 
+        //old code
+       //  let count=0;
+       //  for(let i of this.ObservationsSumaryArr){
+       //   if(i.observations=='No observation recorded'){
+       //    count++;
+       //   }
+       //  }
+       //  if(count==3){
+       // this.observationsMade=true;
+       // this.NoRemedial=false;
+       //  }
+       //  else{
+       //   this.observationsMade=false;
+       //   this.NoRemedial=true;
+       //  }
+       //  let ObservationsSumaryValueArr:any=[];
+       //   ObservationsSumaryValueArr = this.addsummary.get(
+       //   'ObservationsArr'
+       // ) as FormArray;
+       //  for(let i of ObservationsSumaryValueArr.controls){
+       //   for(let j of this.ObservationsSumaryArr){
+       //     if(j.observationComponent=='Supply-Component'){
+       //       i.controls.observationsSupply.setValue(j.observations);
+       //     }
+       //     else if(j.observationComponent=='Inspection-Component'){
+       //       i.controls.observationsInspection.setValue(j.observations);
+       //     }
+       //     else if(j.observationComponent=='Testing-Component'){
+       //       i.controls.observationsTesting.setValue(j.observations);
+       //     }
+       //    }
+       //  }
+       },
+      (error) => {
+        this.errorArr = [];
+        this.Error = true;
+        this.errorArr = JSON.parse(error.error);
+        this.errorMsg = this.errorArr.message;
+      }
+    )
+  }
+  }
+
+  retrieveFromOngoingForObservation(siteId:any){
+    if(siteId!=0 && siteId!=undefined){
+      this.observationService.retrieveObservationSummary(siteId, this.email).subscribe(
+        (data) => {
+         this.ObservationsSumaryArr=JSON.parse(data);
+         let ObservationsSumaryValueArr:any=[];
+         ObservationsSumaryValueArr = this.addsummary.get('ObservationsArr') as FormArray;
+         for(let i of ObservationsSumaryValueArr.controls){
+           let alternateArr: any = [];
+           alternateArr = i.controls.alternateArr as FormArray
+           alternateArr.controls = [];
+           alternateArr.value = [];
+
+           this.inspectionArr = [];
+           this.inspectionArr = i.controls.inspectionArr as FormArray;
+           this.inspectionArr.controls = [];
+           this.inspectionArr.value = [];
+
+           this.testingArr = [];
+            this.testingArr = i.controls.testingArr as FormArray;
+            this.testingArr.controls = [];
+           this.testingArr.value = [];
+
+          if(this.ObservationsSumaryArr.supplyOuterObservation != null) {
+            for(let j of this.ObservationsSumaryArr.supplyOuterObservation) {
+              if(j.observationComponentDetails == 'mains') {
+                i.controls.mainsObservations.setValue(j.observationDescription);
+              }
+              else if(j.observationComponentDetails == 'instalLocationReportOb') {
+                i.controls.earthElectrodeObservations.setValue(j.observationDescription);
+              }
+              else if(j.observationComponentDetails == 'bondingNoOfJointsOb') {
+                i.controls.bondingConductorObservations.setValue(j.observationDescription);
+              }
+              else if(j.observationComponentDetails == 'earthingNoOfJointsOb') {
+                i.controls.earthingConductorObservations.setValue(j.observationDescription);
+              }
+              else if(j.observationComponentDetails == 'alternate') {
+                //i.controls.observationsSupply.setValue(j.observationDescription);
+                if(j.alternativeInnerObservation.lengt != 0) {
+                  let alternateArr: any = [];
+                  for(let k=0;k<j.alternativeInnerObservation.length; k++) {
+                    alternateArr = i.controls.alternateArr;
+                    alternateArr.push(this.alternateObservationsForm());
+                  }
+                  for(let k=0;k<j.alternativeInnerObservation.length; k++) {
+                    let alternateArr = i.controls.alternateArr;
+                    alternateArr.controls[k].controls.alternateObservations.setValue(j.alternativeInnerObservation[k].observationDescription);
+                  }
+                }
+              }
+            }
+           }  
+
+           if(this.ObservationsSumaryArr.inspectionOuterObservation != null) {
+            this.inspectionArr = [];
+            this.inspectionArr = i.controls.inspectionArr as FormArray;
+             for(let j of this.ObservationsSumaryArr.inspectionOuterObservation) {
+               this.inspectionArr.push(this.inspectionOuterObservationsForm(j))
+             }
+           }
+
+           if(this.ObservationsSumaryArr.testingInnerObservation != null) {
+            this.testingArr = [];
+            this.testingArr = i.controls.testingArr as FormArray;
+             for(let j of this.ObservationsSumaryArr.testingInnerObservation) {
+               this.testingArr.push(this.testingObservationsForm(j))
+             }
+           }
+         } 
+         //old code
+        //  let count=0;
+        //  for(let i of this.ObservationsSumaryArr){
+        //   if(i.observations=='No observation recorded'){
+        //    count++;
+        //   }
+        //  }
+        //  if(count==3){
+        // this.observationsMade=true;
+        // this.NoRemedial=false;
+        //  }
+        //  else{
+        //   this.observationsMade=false;
+        //   this.NoRemedial=true;
+        //  }
+        //  let ObservationsSumaryValueArr:any=[];
+        //   ObservationsSumaryValueArr = this.addsummary.get(
+        //   'ObservationsArr'
+        // ) as FormArray;
+        //  for(let i of ObservationsSumaryValueArr.controls){
+        //   for(let j of this.ObservationsSumaryArr){
+        //     if(j.observationComponent=='Supply-Component'){
+        //       i.controls.observationsSupply.setValue(j.observations);
+        //     }
+        //     else if(j.observationComponent=='Inspection-Component'){
+        //       i.controls.observationsInspection.setValue(j.observations);
+        //     }
+        //     else if(j.observationComponent=='Testing-Component'){
+        //       i.controls.observationsTesting.setValue(j.observations);
+        //     }
+        //    }
+        //  }
+        },
+        (error) => {
+        }
+      )
+    }
+  }
    reloadFromBack(){
     if(this.addsummary.invalid){
      this.service.isCompleted5= false;
@@ -292,10 +530,6 @@ export class SummaryComponent implements OnInit {
     }
   }
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
-    // if(this.service.disableFields==true){
-    //   this.addsummary.disable();
-    //   //this.service.allStepsCompleted=true;
-    //  }
        this.summaryList = JSON.parse(data);
        this.summary.siteId = siteId;
        this.summary.summaryId = this.summaryList.summary.summaryId;
@@ -304,6 +538,10 @@ export class SummaryComponent implements OnInit {
 
        this.summary.limitationsInspection = this.summaryList.summary.limitationsInspection;
        this.limitationsValue = this.summaryList.summary.limitationsInspection;
+       this.summary.furtherActions = this.summaryList.summary.furtherActions,
+       this.summary.referanceNumberReport = this.summaryList.summary.referanceNumberReport,
+       this.summary.recommendationsDate = this.summaryList.summary.recommendationsDate,
+       this.summary.comment = this.summaryList.summary.comment,
        this.onChange(this.limitationsValue);
        for(let i of this.summaryList.summary.summaryDeclaration) {
          if(i.declarationRole == "Inspector") {
@@ -317,8 +555,7 @@ export class SummaryComponent implements OnInit {
           })
          }
        }
-
-       this.populateData();
+       this.populateData(siteId);
        this.populateDataComments();
        this.flag = true;
 
@@ -327,6 +564,11 @@ export class SummaryComponent implements OnInit {
         agreedLimitations: this.summaryList.summary.agreedLimitations,
         agreedWith: this.summaryList.summary.agreedWith,
         operationalLimitations: this.summaryList.summary.operationalLimitations,
+        furtherActions: this.summaryList.summary.furtherActions,
+        referanceNumberReport: this.summaryList.summary.referanceNumberReport,
+        recommendationsDate: this.summaryList.summary.recommendationsDate,
+        comment: this.summaryList.summary.comment,
+        
         //recommendationsDate: this.summaryList.summary.recommendationsDate,
         //inspectionTestingDetailed: this.summaryList.summary.inspectionTestingDetailed,
         generalConditionInstallation: this.summaryList.summary.generalConditionInstallation,
@@ -731,30 +973,34 @@ showHideAccordion(index: number) {
   }
 //comments section ends
 
-     populateData() {
+     populateData(siteId: any) {
       // if(this.service.disableFields==true){
       //   this.disable=true;
       //   //this.service.allStepsCompleted=true;
       //   }
-       this.arr = [];
-      for (let item of this.summaryList.summary.summaryObervation) {
-        this.arr.push(this.createGroup(item));
+      //  this.arr = [];
+      // for (let item of this.summaryList.summary.summaryObervation) {
+      //   this.arr.push(this.createGroup(item));
         
-      }
-      this.addsummary.setControl('ObservationsArr', this._formBuilder.array(this.arr || []))
+      // }
+      // this.addsummary.setControl('ObservationsArr', this._formBuilder.array(this.arr || []))
+
+      this.retrieveFromOngoingForObservation(siteId);
     }
 
-    createGroup(item: any): FormGroup {
-      return this._formBuilder.group({
-        observationsId: new FormControl({disabled: false,value: item.observationsId}),
-        observations: new FormControl({disabled: false,value: item.observations}, [Validators.required]),
-        furtherActions: new FormControl({disabled: false,value: item.furtherActions}, [Validators.required]),
-        referanceNumberReport: new FormControl({disabled: false,value: item.referanceNumberReport}, [Validators.required]),
-        recommendationsDate: new FormControl({disabled: false,value: item.recommendationsDate}, [Validators.required]),
-        obervationStatus: new FormControl(item.obervationStatus),
-        comment: new FormControl({disabled: false,value: item.comment}, [Validators.required]),
-      });
-    }
+    // createGroup(item: any): FormGroup {
+    //   return this._formBuilder.group({
+    //     observationsId: new FormControl({disabled: false,value: item.observationsId}),
+    //     observationsSupply: new FormControl({disabled: false,value: item.observationsSupply}),
+    //     observationsInspection: new FormControl({disabled: false,value: item.observationsInspection}),
+    //     observationsTesting: new FormControl({disabled: false,value: item.observationsTesting}),
+    //     furtherActions: new FormControl({disabled: false,value: item.furtherActions}, [Validators.required]),
+    //     referanceNumberReport: new FormControl({disabled: false,value: item.referanceNumberReport}, [Validators.required]),
+    //     recommendationsDate: new FormControl({disabled: false,value: item.recommendationsDate}, [Validators.required]),
+    //     obervationStatus: new FormControl(item.obervationStatus),
+    //     comment: new FormControl({disabled: false,value: item.comment}, [Validators.required]),
+    //   });
+    // }
   
 
   private Declaration1Form(): FormGroup {
@@ -784,12 +1030,47 @@ showHideAccordion(index: number) {
   }
   private ObservationsForm(): FormGroup {
     return new FormGroup({
-      observations: new FormControl('', Validators.required),
-      furtherActions: new FormControl('', Validators.required),
-      referanceNumberReport: new FormControl('', Validators.required),
-      recommendationsDate: new FormControl('', Validators.required),
-      obervationStatus: new FormControl('A'),
-      comment: new FormControl('', Validators.required),
+      observationsSupply: new FormControl(''),
+      mainsObservations: new FormControl(''),
+      earthElectrodeObservations: new FormControl(''),
+      bondingConductorObservations: new FormControl(''),
+      earthingConductorObservations: new FormControl(''),
+      alternateArr: this._formBuilder.array([]),
+      inspectionArr: this._formBuilder.array([]),
+      testingArr: this._formBuilder.array([]),
+      observationsInspection: new FormControl(''),
+      observationsTesting: new FormControl(''),
+    });
+  }
+
+  private alternateObservationsForm(): FormGroup {
+    return new FormGroup({
+      alternateObservations: new FormControl(''),
+    });
+  }
+  private testingObservationsForm(item:any): FormGroup {
+    return new FormGroup({
+      circuitObservation: new FormControl({ disabled: false, value: item.observationDescription}),
+    });
+  }
+  private inspectionOuterObservationsForm(item: any): FormGroup {
+    return new FormGroup({
+      outerObservations: new FormControl({ disabled: false, value: item.observationDescription}),
+      outerObservationsArr: this._formBuilder.array(this.populateInnerObserv(item.inspectionInnerObservations)),
+    });
+  }
+
+  private populateInnerObserv(item: any) {
+    let innerArr: any= []
+    for(let i of item) {
+      innerArr.push(this.inspectionInnerObservationsForm(i));
+    }
+    return innerArr;
+  }
+
+  private inspectionInnerObservationsForm(item: any): FormGroup {
+    return new FormGroup({
+      innerObservations: new FormControl({ disabled: false, value: item.observationDescription}),
     });
   }
 
@@ -802,6 +1083,18 @@ showHideAccordion(index: number) {
   getObservationsControls(): AbstractControl[] {
     return (<FormArray>this.addsummary.get('ObservationsArr')).controls;
   }
+  getAlternateControls(form: any): AbstractControl[] {
+    return form.controls.alternateArr?.controls;
+  }
+  getInspectionControls(form: any): AbstractControl[] {
+    return form.controls.inspectionArr?.controls;
+  }
+  getOuterObservationControls(form: any): AbstractControl[] {
+    return form.controls.outerObservationsArr?.controls;
+  }
+  getTestingControls(form: any): AbstractControl[] {
+    return form.controls.testingArr?.controls;
+  }
   get f(): any {
     return this.addsummary.controls;
   }
@@ -809,7 +1102,6 @@ showHideAccordion(index: number) {
   onChange(event: any) {
     // this.selectedType = event.target.value;
     let changedValue;
-
     if(event.target != undefined) {
       changedValue = event.target.value;
     }
@@ -818,6 +1110,14 @@ showHideAccordion(index: number) {
     }
     if (changedValue == 'The following observations are made') {
       this.selectedType = true;
+      this.addsummary.controls['furtherActions'].setValidators([Validators.required]);
+      this.addsummary.controls['furtherActions'].updateValueAndValidity();
+
+      this.addsummary.controls['recommendationsDate'].setValidators([Validators.required]);
+      this.addsummary.controls['recommendationsDate'].updateValueAndValidity();
+
+      this.addsummary.controls['comment'].setValidators([Validators.required]);
+      this.addsummary.controls['comment'].updateValueAndValidity();
     }
     else{
       this.selectedType = false;
@@ -825,18 +1125,27 @@ showHideAccordion(index: number) {
     }
   }
   disableValidators() {
-    this.ObservationsArr = this.addsummary.get('ObservationsArr') as FormArray;
-    this.loclength = this.ObservationsArr.length;
-    for (this.i = 0; this.i < this.loclength; this.i++) {
-      for (this.j = 0; this.j < this.fcname.length; this.j++) {
-        this.f.ObservationsArr.controls[this.i].controls[
-          this.fcname[this.j]
-        ].clearValidators();
-        this.f.ObservationsArr.controls[this.i].controls[
-          this.fcname[this.j]
-        ].updateValueAndValidity();
-      }
-    }
+    // this.ObservationsArr = this.addsummary.get('ObservationsArr') as FormArray;
+    // this.loclength = this.ObservationsArr.length;
+    // for (this.i = 0; this.i < this.loclength; this.i++) {
+    //   for (this.j = 0; this.j < this.fcname.length; this.j++) {
+    //     this.f.ObservationsArr.controls[this.i].controls[
+    //       this.fcname[this.j]
+    //     ].clearValidators();
+    //     this.f.ObservationsArr.controls[this.i].controls[
+    //       this.fcname[this.j]
+    //     ].updateValueAndValidity();
+    //   }
+    // }
+  
+    this.addsummary.controls['furtherActions'].clearValidators();
+    this.addsummary.controls['furtherActions'].updateValueAndValidity();
+
+    this.addsummary.controls['recommendationsDate'].clearValidators();
+    this.addsummary.controls['recommendationsDate'].updateValueAndValidity();
+
+    this.addsummary.controls['comment'].clearValidators();
+    this.addsummary.controls['comment'].updateValueAndValidity();
   }
 
   addObservations() {
@@ -912,14 +1221,43 @@ showHideAccordion(index: number) {
   }
   onChangeForm(event:any){
     if(!this.addsummary.invalid){
-      this.validationError=false;
+      if(this.addsummary.dirty){
+        this.service.lvClick=1;
+        this.service.logoutClick=1;
+      }
+      else{
+        this.validationError=false;
+        this.service.lvClick=0;
+        this.service.logoutClick=0;
+        this.service.windowTabClick=0;
+      }
+     }
+     else {
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
      }
   }
   onKeyForm(event: KeyboardEvent) { 
-    if(!this.addsummary.invalid){
-     this.validationError=false;
+   if(!this.addsummary.invalid){ 
+    if(this.addsummary.dirty){
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+    }
+    else{
+      this.validationError=false;
+      this.service.lvClick=0;
+      this.service.logoutClick=0;
+      this.service.windowTabClick=0;
     }
    }
+   else {
+    this.service.lvClick=1;
+    this.service.logoutClick=1;
+    this.service.windowTabClick=1;
+   }
+  } 
   gotoNextModal() {
     if (this.addsummary.invalid) {
       this.validationError = true;
@@ -993,7 +1331,7 @@ showHideAccordion(index: number) {
       // }, 3000);
       return;
     }
-    if(!confirm("Are you sure you want to procced? Note: Once saved, details can't be modified!")){
+    if(!confirm("Are you sure you want to procced?\r\n\r\nNote: Once saved, details can't be modified!")){
      return;
     }
   else{
@@ -1020,6 +1358,9 @@ showHideAccordion(index: number) {
           this.successMsg = 'Summary Information Successfully Updated';
           this.finalFlag = true;
           this.addsummary.markAsPristine();
+          this.service.windowTabClick=0;
+       this.service.logoutClick=0; 
+       this.service.lvClick=0; 
          },
          (error) => {
           this.Error = true;
@@ -1039,6 +1380,9 @@ showHideAccordion(index: number) {
           this.service.allFieldsDisable = true; 
           this.service.disableSubmitSummary=true;
           this.finalFlag = true;
+          this.service.windowTabClick=0;
+       this.service.logoutClick=0; 
+       this.service.lvClick=0; 
         },
         (error) => {
           this.Error = true;

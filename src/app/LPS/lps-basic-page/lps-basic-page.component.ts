@@ -2,6 +2,7 @@ import { Component, OnInit, Output,EventEmitter } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GlobalsService } from 'src/app/globals.service';
 
 import { BasicDetails} from 'src/app/LPS_model/basic-details';
 import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.service';
@@ -37,7 +38,9 @@ export class LpsBasicPageComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, 
     private lPSBasicDetailsService: LPSBasicDetailsService,
     private modalService: NgbModal,
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+    public service: GlobalsService,
+
     ) {
     // this.lPSBasicDetailsService = lPSBasicDetailsService;
   }
@@ -81,6 +84,8 @@ export class LpsBasicPageComponent implements OnInit {
     }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
+    //this.service.lvClick=1;
+
      this.step1List = data.basicLps;
     //  if(this.step1List.clientName != null){
       this.success = true;
@@ -116,7 +121,8 @@ export class LpsBasicPageComponent implements OnInit {
     }
 
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
-      
+      //this.service.lvClick=1;
+
        this.stepBack=JSON.parse(data);
        this.basicDetails.basicLpsId = basicLpsId;
        this.basicDetails.clientName = this.stepBack[0].clientName;
@@ -173,7 +179,64 @@ export class LpsBasicPageComponent implements OnInit {
       installationQualityRemarks: ['']
     });
   }
-
+  onChangeForm(event:any){
+    if(!this.LPSBasicForm.invalid){
+      if(this.LPSBasicForm.dirty){
+        this.service.lvClick=1;
+        this.service.logoutClick=1;
+         this.service.windowTabClick=1;
+      }
+      else{
+        this.validationError=false;
+        this.service.lvClick=0;
+        this.service.logoutClick=0;
+        this.service.windowTabClick=0;
+      }
+     }
+     else {
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+     }
+  }
+  onKeyForm(event: KeyboardEvent) { 
+   if(!this.LPSBasicForm.invalid){ 
+    if(this.LPSBasicForm.dirty){
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+    }
+    else{
+      this.validationError=false;
+      this.service.lvClick=0;
+      this.service.logoutClick=0;
+      this.service.windowTabClick=0;
+    }
+   }
+   else {
+    this.service.lvClick=1;
+    this.service.logoutClick=1;
+    this.service.windowTabClick=1;
+   }
+  } 
+  doBeforeUnload() {
+    if(this.service.allStepsCompleted==true){
+      if(this.service.logoutClick==1 && this.service.windowTabClick==0) {
+        return true;
+       }
+       else if(this.service.logoutClick==0 && this.service.windowTabClick==0){
+        return true;
+       }
+       else{
+        window.location.reload(); 
+        // Alert the user window is closing 
+        return false;
+       }
+      }
+      else{
+        return true;
+      }
+  }
   closeModalDialog() {
     
     if (this.errorMsg != '') {
@@ -228,6 +291,9 @@ export class LpsBasicPageComponent implements OnInit {
           this.successMsg = data;
           this.LPSBasicForm.markAsPristine();
           this.proceedNext.emit(true);
+          this.service.lvClick=0;
+          this.service.logoutClick=0;
+          this.service.windowTabClick=0;
         },
           // update failed msg
         error => {
@@ -266,7 +332,11 @@ export class LpsBasicPageComponent implements OnInit {
           this.successMsg = "Basic Information sucessfully Saved";
           //this.disable = true;
           this.retriveBasicDetails();
+          this.LPSBasicForm.markAsPristine();
           this.proceedNext.emit(true);
+          this.service.lvClick=0;
+          this.service.logoutClick=0;
+          this.service.windowTabClick=0;
         },
         error => {
           this.Error = true;

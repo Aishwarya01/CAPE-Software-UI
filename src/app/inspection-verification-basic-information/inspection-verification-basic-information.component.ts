@@ -1,5 +1,5 @@
 import { SignatorDetails } from './../model/reportdetails';
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup,Validators,ValidatorFn } from '@angular/forms';
 import {​​​ NgbModal }​​​ from'@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
@@ -20,6 +20,7 @@ import { InspectorregisterService } from '../services/inspectorregister.service'
 import { ignoreElements } from 'rxjs/operators';
 import { MainNavComponent } from '../main-nav/main-nav.component';
 import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
+import { ReturnTypeTransform } from '@angular/compiler-cli/src/ngtsc/transform';
 //import { SignaturePad } from 'angular2-signaturepad';
 
 //import { ErrorHandlerService } from './../../shared/services/error-handler.service';
@@ -29,6 +30,7 @@ import { VerificationlvComponent } from '../verificationlv/verificationlv.compon
   styleUrls: ['./inspection-verification-basic-information.component.css']
 })
 export class InspectionVerificationBasicInformationComponent implements OnInit,OnDestroy {
+ 
 //e-siganture in progress
   // signatureImg: string="";
   // @ViewChild(SignaturePad) signaturePad!: SignaturePad;
@@ -205,6 +207,7 @@ ShowNext: boolean = true;
   ContractorPersonNameMsg: boolean = false;
   ContractorPersonName: string="";
   deletedArr: any = [];
+ 
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -381,6 +384,9 @@ ShowNext: boolean = true;
  
   // saved report
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){
+    // if(this.step1Form.dirty){
+    //   this.service.lvClick=1;
+    // }
        this.service.siteCount = siteId;
        this.savedUserName = userName;
        this.deletedArr = [];
@@ -1608,18 +1614,90 @@ showHideAccordion(index: number) {
   }
   onChangeForm(event:any){
     if(!this.step1Form.invalid){
-      this.validationError=false;
+      if(this.step1Form.dirty){
+        this.service.lvClick=1;
+        this.service.logoutClick=1;
+         this.service.windowTabClick=1;
+      }
+      else{
+        this.validationError=false;
+        this.service.lvClick=0;
+        this.service.logoutClick=0;
+        this.service.windowTabClick=0;
+      }
+     }
+     else {
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
      }
   }
   onKeyForm(event: KeyboardEvent) { 
-   if(!this.step1Form.invalid){
-    this.validationError=false;
+   if(!this.step1Form.invalid){ 
+    if(this.step1Form.dirty){
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+    }
+    else{
+      this.validationError=false;
+      this.service.lvClick=0;
+      this.service.logoutClick=0;
+      this.service.windowTabClick=0;
+    }
    }
-  //  else if(!this.step1Form.dirty && !this.step1Form.touched){
-  //   this.tabError = false;
+   else {
+    this.service.lvClick=1;
+    this.service.logoutClick=1;
+    this.service.windowTabClick=1;
+   }
+  } 
+  
+  doBeforeUnload() {
+    if(this.service.allStepsCompleted==true){
+    if(this.service.logoutClick==1 && this.service.windowTabClick==0) {
+      return true;
+     }
+     else if(this.service.logoutClick==0 && this.service.windowTabClick==0){
+      return true;
+     }
+     else{
+      window.location.reload(); 
+      // Alert the user window is closing 
+      return false;
+     }
+    }
+    else{
+      return true;
+    }
+}
+onPopState(event:any) {
+  if(this.service.allStepsCompleted==true){
+  if(this.service.lvClick==1){
+    alert("Changes won't be saved!");
+  //   if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!"))
+  //   {
+  //   this.service.windowTabClick=0;
+  //   this.service.logoutClick=0; 
+  //   this.service.lvClick=0;
+     window.location.reload(); 
+  //    }
+  //  else{
+  //   history.pushState({page: 2}, "title 2", "?page=2");
+  //   //history.pushState({page: 1}, "title 1", "?page=1");
+  //   history.go(1) // alerts "location: http://example.com/example.html, state: null"
   //  }
+    }
+    else{
+      window.location.reload();
+      return;
+    }
   }
-
+  else{
+    window.location.reload();
+    return;
+  }
+}
 //modal popup
   gotoNextModal(content1: any,content2:any) {
       if(this.step1Form.invalid) {
@@ -1661,6 +1739,7 @@ showHideAccordion(index: number) {
 //next button--final submit
 	nextTab(flag: any) {
       //this.dirty=true;
+     
       this.loading = true;
       this.submitted = true
       if(this.step1Form.invalid) {
@@ -1949,16 +2028,16 @@ showHideAccordion(index: number) {
         }   
       }
       
-      this.reportDetails.signatorDetails = this.step1Form.getRawValue().designer1Arr;
+      this.reportDetails.signatorDetails = this.step1Form.value.designer1Arr;
       if(this.step1Form.value.designer2Arr[0].personName != "" && this.step1Form.value.designer2Arr[0].personName != null) {
         if(this.step1Form.value.designer2Arr[0].signatorId != null && this.step1Form.value.designer2Arr[0].signatorId != undefined) {
-          this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.getRawValue().designer2Arr);
+          this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.value.designer2Arr);
         }
         else {
           this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.value.designer2Arr);
         }
       }
-      this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.getRawValue().contractorArr,this.step1Form.getRawValue().inspectorArr);
+      this.reportDetails.signatorDetails=this.reportDetails.signatorDetails.concat(this.step1Form.value.contractorArr,this.step1Form.value.inspectorArr);
     }
   
     if(flag){
@@ -1975,6 +2054,9 @@ showHideAccordion(index: number) {
            this.service.isCompleted= true;
            this.service.isLinear=false;
            this.step1Form.markAsPristine();
+           this.service.windowTabClick=0;
+           this.service.logoutClick=0; 
+           this.service.lvClick=0; 
           },
           (error) => {
             this.Error = true;
@@ -1997,6 +2079,9 @@ showHideAccordion(index: number) {
        this.service.isCompleted= true;
        this.service.isLinear=false;
        this.step1Form.markAsPristine();
+       this.service.windowTabClick=0;
+       this.service.logoutClick=0; 
+       this.service.lvClick=0; 
        this.reportDetailsService.retrieveBasic(this.reportDetails.siteId,this.reportDetails.userName).subscribe(
          data=>{
           this.retrieveAllDetailsforBasic(this.reportDetails.userName,this.reportDetails.siteId,this.siteValue,data);

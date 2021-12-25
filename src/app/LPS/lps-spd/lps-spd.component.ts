@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GlobalsService } from 'src/app/globals.service';
 import { Spd } from 'src/app/LPS_model/spd';
 import { LpsSpd_Service } from 'src/app/LPS_services/lps-spd.service';
 import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
@@ -46,6 +47,8 @@ export class LpsSpdComponent implements OnInit {
     private formBuilder: FormBuilder, 
     private lpsSpd_Services: LpsSpd_Service,
     private modalService: NgbModal, 
+    public service: GlobalsService,
+
     private router: ActivatedRoute) {
     this.lpsSpd_Service = lpsSpd_Services;
   }
@@ -74,6 +77,8 @@ export class LpsSpdComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
+    // this.service.lvClick=1;
+
       this.step5List = data.spddesc;
       this.spd.basicLpsId = basicLpsId;
       this.spd.spdId = this.step5List.spdId
@@ -114,6 +119,8 @@ export class LpsSpdComponent implements OnInit {
     }
 
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
+      // this.service.lvClick=1;
+
       this.step5List = JSON.parse(data);
       this.spd.basicLpsId = basicLpsId;
       this.spd.spdId = this.step5List[0].spdId
@@ -275,6 +282,9 @@ export class LpsSpdComponent implements OnInit {
                 this.successMsg = data;
                 this.spdForm.markAsPristine();
                 this.proceedNext.emit(true);
+                this.service.lvClick=0;
+                this.service.logoutClick=0;
+                this.service.windowTabClick=0;
               },
               (error) => {
                 this.Error = true;
@@ -303,6 +313,9 @@ export class LpsSpdComponent implements OnInit {
                 this.disable = true;
                 this.retriveSPD();
                 this.proceedNext.emit(true);
+                this.service.lvClick=0;
+                this.service.logoutClick=0;
+                this.service.windowTabClick=0;
               },
               (error) => {
                 this.Error = true;
@@ -314,6 +327,46 @@ export class LpsSpdComponent implements OnInit {
           }
         }
       }
+      onChangeForm(event:any){
+        if(!this.spdForm.invalid){
+          if(this.spdForm.dirty){
+            this.service.lvClick=1;
+            this.service.logoutClick=1;
+            this.service.windowTabClick=1;
+          }
+          else{
+            this.validationError=false;
+            this.service.lvClick=0;
+            this.service.logoutClick=0;
+            this.service.windowTabClick=0;
+          }
+         }
+         else {
+          this.service.lvClick=1;
+          this.service.logoutClick=1;
+          this.service.windowTabClick=1;
+         }
+      }
+      onKeyForm(event: KeyboardEvent) { 
+       if(!this.spdForm.invalid){ 
+        if(this.spdForm.dirty){
+          this.service.lvClick=1;
+          this.service.logoutClick=1;
+          this.service.windowTabClick=1;
+        }
+        else{
+          this.validationError=false;
+          this.service.lvClick=0;
+          this.service.logoutClick=0;
+          this.service.windowTabClick=0;
+        }
+       }
+       else {
+        this.service.lvClick=1;
+        this.service.logoutClick=1;
+        this.service.windowTabClick=1;
+       }
+      } 
       closeModalDialog() {
         if (this.errorMsg != '') {
           this.Error = false;

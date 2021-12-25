@@ -1,8 +1,9 @@
+<div class="card">
 <div class="card-body">
-    <form [formGroup]="LPSBasicForm" (ngSubmit)="onSubmit(flag)">
-        <div class="card-body">
-            <div style="font-weight: bold;">
-                <label for="Basicdetails">Basic Details</label>
+    <form [formGroup]="LPSBasicForm" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)" (window:beforeunload)="doBeforeUnload()">
+            <div class="row" style="font-weight: bold;">
+                <label for="Basicdetails" style="font-weight: bold;margin: 10px;
+                font-size: 16px;">Basic Details</label>
             </div>
             <div class="row">
                 <div class="col-md-4">
@@ -10,7 +11,7 @@
                     <!-- icon code -->
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">
+                            <span class="input-group-text"> 
                                 <i class="bi bi-person-lines-fill"></i>
                             </span>
                         </div>
@@ -193,9 +194,10 @@
                     </div>
                 </div>
             </div>
-
-            <div style="margin-top: 10px; font-weight: bold;">
-                <label for="buildingdimension">Building Dimension </label>
+<br>
+            <div class="row" style="font-weight: bold;">
+                <label for="buildingdimension" style="font-weight: bold;margin: 10px;
+                font-size: 16px;">Building Dimension </label>
             </div>
 
             <div class="row">
@@ -284,10 +286,10 @@
                     </div>
                 </div>
             </div>
-
+<br>
             <!-- Table -->
-            <div style="margin-top: 40px;" formArrayName="basicLpsDescription"
-                *ngFor="let x of getDescriptionControl(); let j = index">
+            <div class="row" formArrayName="basicLpsDescription" *ngFor="let x of getDescriptionControl(); let j = index">
+                <div class="table-responsive" style="border: 1px solid black;margin: 15px;">
                 <table class="table" [formGroupName]="j">
                     <thead style="text-align: center;">
                         <th>SI.No</th>
@@ -603,15 +605,17 @@
                         </tr>
                     </tbody>
                 </table>
+                </div>
             </div>
-        </div>
-        <div style="text-align: center;margin-top: 8px;">
-            <button class="next" (click)="gotoNextModal(content,contents)" mat-button >Next &raquo;</button>
-        </div>
+            <div style="text-align: center;margin-top: 40px;margin-left: 80px;">
+                <button class="next" (click)="gotoNextModal(content,contents)" mat-button >Next &raquo;</button>
+            </div>
+       
         <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
             <span class="alert alert-danger">{{validationErrorMsg}}</span>
         </div>
     </form>
+</div>
 </div>
 <ng-template #content let-modal>
     <div class="modal-body">

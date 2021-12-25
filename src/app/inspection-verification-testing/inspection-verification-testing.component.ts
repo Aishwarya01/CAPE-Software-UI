@@ -1,5 +1,5 @@
 import {
-  Component,
+  Component, 
   EventEmitter,
   Input,
   OnInit,
@@ -36,6 +36,9 @@ import { SupplyCharacteristicsService } from '../services/supply-characteristics
 import { concat } from 'rxjs';
 import { DatePipe } from '@angular/common'
 import { ValueTransformer } from '@angular/compiler/src/util';
+import { MatDialog } from '@angular/material/dialog';
+import { ObservationService } from '../services/observation.service';
+import { ObservationTesting } from '../model/observation-testing';
 
 @Component({
   selector: 'app-inspection-verification-testing',
@@ -74,7 +77,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   locationNameList: any = [];
   distributionIncomingValueArr: any = [];
   distributionIncomingValueArr2: any = [];
-
+  testDistRecords: any=[];
   testingRecords: any = [];
   testingAlternateRecords: any = [];
   ratingAmps1: any;
@@ -85,7 +88,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   // success: boolean = false;
   // Error: boolean = false;
   // errorMsg: string = '';
-  email: string;
+ // email: string;
   validationError: boolean = false;
   validationErrorMsg: String = '';
   location = new Location();
@@ -128,6 +131,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   testingRetrieve: boolean = true;
   inspectionRetrieve: boolean = false;
   SourceList: any = [];
+  observation= new ObservationTesting();
   //disableSource:boolean=true;
   //comments starts
   completedCommentArr3: any = [];
@@ -238,14 +242,40 @@ export class InspectionVerificationTestingComponent implements OnInit {
   deletedTestingEquipment: any= [];
   deleteDataFlag: boolean = false;
   deleteRecordDataFlag: boolean = false;
+  observationUpdateFlag: boolean= false;
+  alArr: any = [];
+
+  ObservationsForm = new FormGroup({
+    observations: new FormControl(''),
+  });
+  observationFlag: boolean= false;
+  errorArrObservation: any=[];
+  observationValues: any="";
+  disableObservation: boolean=true;
+  observationArr: any=[];
+ 
+  observArr: any = [];
+  deletedObservation: any = [];
+  observationCircuitArr: any= [];
+
+  email: string;
+  observationValuesT: any="";
+  observationModalReference: any;
+  tempArray: any = [];
+  observeMainArr: any = [];
+  deletedObservationArr: any = [];
+  testDistRecords1: any = [];
+  deleteObRecordDataFlag: boolean=false;
   
   constructor(
     private testingService: TestingService,
     private supplyCharacteristicsService: SupplyCharacteristicsService,
     private formBuilder: FormBuilder,
     public service: GlobalsService,
+    private dialog: MatDialog,
     private modalService: NgbModal,
     private router: ActivatedRoute,
+    private observationService: ObservationService,
     private inspectionDetailsService: InspectiondetailsService,
     private siteService: SiteService,
     private basic: MainNavComponent,public datepipe: DatePipe,
@@ -258,6 +288,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
     this.currentUser = sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
     this.currentUser1 = JSON.parse(this.currentUser);
+    
     this.testingForm = this.formBuilder.group({
        testIncomingDistribution: this.formBuilder.array([
         this.IncomingValue(),
@@ -270,12 +301,12 @@ export class InspectionVerificationTestingComponent implements OnInit {
     this.retrieveDetailsFromIncoming();
     this.expandedIndex = -1;
     this.retrieveDetailsFromSupply();
+    this.ObservationsForm = this.formBuilder.group({
+      observations: [''],
+     })
   }
 
  retrieveDetailsFromIncoming() {
-  // if(this.service.disableFields==true){
-  //   this.testingForm.disable();
-  //  }
   if(this.service.siteCount !=0 && this.service.siteCount!=undefined) {
     if(this.currentUser1.role == 'Inspector') {
       this.inspectionDetailsService.retrieveInspectionDetails(this.email, this.service.siteCount).subscribe(
@@ -289,24 +320,52 @@ export class InspectionVerificationTestingComponent implements OnInit {
          viewerCommentArr: this.formBuilder.array([this.addCommentViewer()]),
          completedCommentArr1: this.formBuilder.array([]),
        });
-            //for(let i of this.incomingValues) {	
-              this.service.iterationList=this.incomingValues.ipaoInspection;	
-              // }
+        //for(let i of this.incomingValues) {	
+          this.service.iterationList=this.incomingValues.ipaoInspection;	
+        // }
         //location iteration
         if (this.service.iterationList != '' && this.service.iterationList != undefined && this.service.iterationList.length != 0) {
           this.testingRetrieve = false;
           this.inspectionRetrieve = true;
-          
           let a = this.service.iterationList.length;
           for (let i = 0; i < a; i++) {
             this.addItem();
+          }
+          // for (let j = 0; j < this.testaccordianArr.controls.length; j++) {
+          //   let v= this.service.iterationList[j].consumerUnit.length;
+          //   for(let k = 0; k < v; k++){
+          //    this.testaccordianArr.value[j].testDistRecords.value[k].distributionBoardDetails= this.service.iterationList[j].consumerUnit[k].distributionBoardDetails;
+          //    this.testaccordianArr.value[j].testDistRecords.value[k].referance= this.service.iterationList[j].consumerUnit[k].referance;
+          //    this.testaccordianArr.value[j].testDistRecords.value[k].location= this.service.iterationList[j].consumerUnit[k].location;
+          //   }
+          // }
+          for(let r = 0; r < this.testaccordianArr.controls.length; r++){
+          let testDistRecords:any=[];
+          testDistRecords= this.testaccordianArr.controls[r].controls.testDistRecords as FormArray;
+          let d= this.service.iterationList[r].consumerUnit.length-1;
+          for(let k = 0; k < d; k++){
+            testDistRecords.push(this.createtestDistRecordsForm());
+           }
           }
           for (let j = 0; j < this.testaccordianArr.controls.length; j++) {
             this.testaccordianArr.value[j].locationNumber = this.service.iterationList[j].locationNumber;
             this.testaccordianArr.value[j].locationName = this.service.iterationList[j].locationName;
             // this.testaccordianArr.value[j].locationCount = this.service.iterationList[j].locationCount;
             this.testaccordianArr.controls[j].controls.locationCount.setValue(this.service.iterationList[j].locationCount);
+            let v= this.service.iterationList[j].consumerUnit.length;
+            for(let k = 0; k < v; k++){
+            this.testaccordianArr.controls[j].controls.testDistRecords.controls[k].
+            controls.locationCount.setValue(this.service.iterationList[j].consumerUnit[k].locationCount);
 
+            this.testaccordianArr.controls[j].controls.testDistRecords.controls[k].controls.testDistribution.controls[0].
+            controls.distributionBoardDetails.setValue(this.service.iterationList[j].consumerUnit[k].distributionBoardDetails);
+           
+            this.testaccordianArr.controls[j].controls.testDistRecords.controls[k].controls.testDistribution.controls[0].
+            controls.referance.setValue(this.service.iterationList[j].consumerUnit[k].referance);
+
+            this.testaccordianArr.controls[j].controls.testDistRecords.controls[k].controls.testDistribution.controls[0].
+            controls.location.setValue(this.service.iterationList[j].consumerUnit[k].location);
+            }
           }
           this.location.locationArr = this.service.iterationList;
           this.service.iterationList = [];
@@ -317,37 +376,72 @@ export class InspectionVerificationTestingComponent implements OnInit {
     else {
       this.inspectionDetailsService.retrieveInspectionDetails(this.currentUser1.assignedBy, this.service.siteCount).subscribe(
         data=>{
-        this.incomingValues = JSON.parse(data);
-         //for(let i of this.incomingValues) {	
-          this.service.iterationList = this.incomingValues.ipaoInspection;	
-        //}
-        //location iteration
-        if (this.service.iterationList != '' && this.service.iterationList != undefined && this.service.iterationList.length != 0) {
-          this.testingRetrieve = false;
-          this.inspectionRetrieve = true;
-          
-          let a = this.service.iterationList.length;
-          for (let i = 0; i < a; i++) {
-            this.addItem();
+          this.incomingValues = JSON.parse(data);
+          this.testingForm = this.formBuilder.group({
+            testIncomingDistribution: this.formBuilder.array([
+             this.IncomingValue(),
+           ]),
+           testaccordianArr: this.formBuilder.array([]),
+           viewerCommentArr: this.formBuilder.array([this.addCommentViewer()]),
+           completedCommentArr1: this.formBuilder.array([]),
+         });
+          //for(let i of this.incomingValues) {	
+            this.service.iterationList=this.incomingValues.ipaoInspection;	
+          // }
+          //location iteration
+          if (this.service.iterationList != '' && this.service.iterationList != undefined && this.service.iterationList.length != 0) {
+            this.testingRetrieve = false;
+            this.inspectionRetrieve = true;
+            let a = this.service.iterationList.length;
+            for (let i = 0; i < a; i++) {
+              this.addItem();
+            }
+            // for (let j = 0; j < this.testaccordianArr.controls.length; j++) {
+            //   let v= this.service.iterationList[j].consumerUnit.length;
+            //   for(let k = 0; k < v; k++){
+            //    this.testaccordianArr.value[j].testDistRecords.value[k].distributionBoardDetails= this.service.iterationList[j].consumerUnit[k].distributionBoardDetails;
+            //    this.testaccordianArr.value[j].testDistRecords.value[k].referance= this.service.iterationList[j].consumerUnit[k].referance;
+            //    this.testaccordianArr.value[j].testDistRecords.value[k].location= this.service.iterationList[j].consumerUnit[k].location;
+            //   }
+            // }
+            for(let r = 0; r < this.testaccordianArr.controls.length; r++){
+            let testDistRecords:any=[];
+            testDistRecords= this.testaccordianArr.controls[r].controls.testDistRecords as FormArray;
+            let d= this.service.iterationList[r].consumerUnit.length-1;
+            for(let k = 0; k < d; k++){
+              testDistRecords.push(this.createtestDistRecordsForm());
+             }
+            }
+            for (let j = 0; j < this.testaccordianArr.controls.length; j++) {
+              this.testaccordianArr.value[j].locationNumber = this.service.iterationList[j].locationNumber;
+              this.testaccordianArr.value[j].locationName = this.service.iterationList[j].locationName;
+              // this.testaccordianArr.value[j].locationCount = this.service.iterationList[j].locationCount;
+              this.testaccordianArr.controls[j].controls.locationCount.setValue(this.service.iterationList[j].locationCount);
+              let v= this.service.iterationList[j].consumerUnit.length;
+              for(let k = 0; k < v; k++){
+              this.testaccordianArr.controls[j].controls.testDistRecords.controls[k].
+              controls.locationCount.setValue(this.service.iterationList[j].consumerUnit[k].locationCount);
+  
+              this.testaccordianArr.controls[j].controls.testDistRecords.controls[k].controls.testDistribution.controls[0].
+              controls.distributionBoardDetails.setValue(this.service.iterationList[j].consumerUnit[k].distributionBoardDetails);
+             
+              this.testaccordianArr.controls[j].controls.testDistRecords.controls[k].controls.testDistribution.controls[0].
+              controls.referance.setValue(this.service.iterationList[j].consumerUnit[k].referance);
+  
+              this.testaccordianArr.controls[j].controls.testDistRecords.controls[k].controls.testDistribution.controls[0].
+              controls.location.setValue(this.service.iterationList[j].consumerUnit[k].location);
+              }
+            }
+            this.location.locationArr = this.service.iterationList;
+            this.service.iterationList = [];
           }
-          for (let j = 0; j < this.testaccordianArr.controls.length; j++) {
-            this.testaccordianArr.value[j].locationNumber = this.service.iterationList[j].locationNumber;
-            this.testaccordianArr.value[j].locationName = this.service.iterationList[j].locationName;
-            // this.testaccordianArr.controls[j].locationCount.setValue(this.service.iterationList[j].locationCount);
-            this.testaccordianArr.controls[j].controls.locationCount.setValue(this.service.iterationList[j].locationCount);
-          }
-          this.location.locationArr = this.service.iterationList;
-          this.service.iterationList = [];
-        }
-      });
+          this.testingForm.markAsPristine();
+        });
     }
   }
 }
 
  retrieveDetailsFromSupply(){
-  // if(this.service.disableFields==true){
-  //   this.testingForm.disable();
-  //  }
   this.pushJsonArray=[];
    if(this.service.siteCount !=0 && this.service.siteCount!=undefined){
      if(this.currentUser1.role == 'Inspector') {
@@ -388,13 +482,15 @@ export class InspectionVerificationTestingComponent implements OnInit {
                     count++;	
                    }	
                   }	
-
-                  for(let j of this.supplyValues.supplyParameters) {
+                  for(let j of this.supplyValues.supplyParameters) { 
                     for(let x of testaccordianValueArr.controls) {
-                      let testingRecordsArr = x.get('testingRecords') as FormArray;
+                      let testingDistRecordArr= x.get('testDistRecords') as FormArray;
+                      for(let w of testingDistRecordArr.controls){
+                        let testingRecordsArr = w.get('testingRecords') as FormArray;
                       for(let y of testingRecordsArr.controls) {
                         this.testingAlternateRecords = y.get('testingRecordsSourceSupply') as FormArray;
                         this.testingAlternateRecords.push(this.createValue(this.supplyValues.mainLoopImpedance,j.nominalVoltage,j.loopImpedance));
+                      }
                       }
                     }
                   }
@@ -415,44 +511,62 @@ export class InspectionVerificationTestingComponent implements OnInit {
      else {
       this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.currentUser1.assignedBy, this.service.siteCount).subscribe(
         data=>{
-        this.supplyValues = JSON.parse(data);
-           //for(let i of this.supplyValues) {	
-            this.service.nominalVoltageArr2=this.supplyValues.supplyParameters;	
-            if(this.supplyValues.liveConductorType == "AC") {	
-              this.addValues("Mains Incoming", this.supplyValues.mainNominalVoltage,this.supplyValues.mainLoopImpedance, this.supplyValues.mainNominalCurrent,this.supplyValues.mainActualLoad);	
-              this.mainNominalVoltageArr1 = [];	
-              this.mainNominalVoltageArr2 = [];	
-              this.mainNominalVoltageArr3 = [];	
-              this.mainNominalVoltageArr4 = [];
-              this.mainNominalVoltageArr1 = this.supplyValues.mainNominalVoltage.split(",");	
-              this.mainNominalVoltageArr2 = this.supplyValues.mainLoopImpedance.split(",");	
-              this.mainNominalVoltageArr3 = this.supplyValues.mainNominalCurrent.split(",");	
-              this.mainNominalVoltageArr4 = this.supplyValues.mainActualLoad.split(",");
-              this.mainNominalArr = [];	
-              this.mainNominalArr.push(this.mainNominalVoltageArr1,this.mainNominalVoltageArr2,this.mainNominalVoltageArr3,this.mainNominalVoltageArr4);	
-              this.service.retrieveMainNominalVoltage=this.mainNominalArr;	
-              this.service.mainNominalVoltageValue=this.supplyValues.mainNominalVoltage;	
-              this.service.mainLoopImpedanceValue=this.supplyValues.mainLoopImpedance;	
-              this.service.mainNominalCurrentValue=this.supplyValues.mainNominalCurrent;
-              this.service.mainActualLoadValue=this.supplyValues.mainActualLoad;	
-            }	
-            this.service.supplyList = this.supplyValues.supplyNumber;	
-            let count =1;	
-            for(let j of this.supplyValues.supplyParameters) {	
-             if(j.aLLiveConductorType == "AC") {	
-              this.addValues("Alternate Source of Supply-" +count, j.nominalVoltage,j.loopImpedance, j.faultCurrent, j.actualLoad);	
-              count++;	
-             }	
-            }	
-          //}
-        //retrieve selected source dd from supply to testing
-      if (this.service.supplyList != '' && this.service.supplyList != undefined) {
-        this.SourceList=['Mains Incoming'];
-        for (let i = 1; i <= this.service.supplyList; i++) {
-          this.SourceList.push('Alternate Source of Supply-' + i);
+          this.supplyValues = JSON.parse(data);
+                   //for(let i of this.supplyValues) {	
+                    this.service.nominalVoltageArr2=this.supplyValues.supplyParameters;	
+                    this.pushJsonArray=[];
+                    this.testingAlternateRecords = [];
+                    let testaccordianValueArr = this.testingForm.get(
+                      'testaccordianArr'
+                    ) as FormArray;
+                    if(this.supplyValues.liveConductorType == "AC") {	
+                      this.SourceList=['Mains Incoming'];	
+                      this.addValues("Mains Incoming", this.supplyValues.mainNominalVoltage,this.supplyValues.mainLoopImpedance, this.supplyValues.mainNominalCurrent, this.supplyValues.mainActualLoad);	
+                      this.mainNominalVoltageArr1 = [];	
+                      this.mainNominalVoltageArr2 = [];	
+                      this.mainNominalVoltageArr3 = [];	
+                      this.mainNominalVoltageArr4 = [];	
+                      this.mainNominalVoltageArr1 = this.supplyValues.mainNominalVoltage.split(",");	
+                      this.mainNominalVoltageArr2 = this.supplyValues.mainLoopImpedance.split(",");	
+                      this.mainNominalVoltageArr3 = this.supplyValues.mainNominalCurrent.split(",");	
+                      this.mainNominalVoltageArr4 = this.supplyValues.mainActualLoad.split(",");
+                      this.mainNominalArr = [];	
+                      this.mainNominalArr.push(this.mainNominalVoltageArr1,this.mainNominalVoltageArr2,this.mainNominalVoltageArr3,this.mainNominalVoltageArr4);	
+                      this.service.retrieveMainNominalVoltage=this.mainNominalArr;	
+                      this.service.mainNominalVoltageValue=this.supplyValues.mainNominalVoltage;	
+                      this.service.mainLoopImpedanceValue=this.supplyValues.mainLoopImpedance;	
+                      this.service.mainNominalCurrentValue=this.supplyValues.mainNominalCurrent;
+                      this.service.mainActualLoadValue=this.supplyValues.mainActualLoad;		
+                    }	
+                    this.service.supplyList = this.supplyValues.supplyNumber;	
+                    let count =1;	
+                    for(let j of this.supplyValues.supplyParameters) {	
+                     if(j.aLLiveConductorType == "AC") {	
+                      this.addValues("Alternate Source of Supply-" +count, j.nominalVoltage,j.loopImpedance, j.faultCurrent, j.actualLoad);	
+                      count++;	
+                     }	
+                    }	
+                    for(let j of this.supplyValues.supplyParameters) { 
+                      for(let x of testaccordianValueArr.controls) {
+                        let testingDistRecordArr= x.get('testDistRecords') as FormArray;
+                        for(let w of testingDistRecordArr.controls){
+                          let testingRecordsArr = w.get('testingRecords') as FormArray;
+                        for(let y of testingRecordsArr.controls) {
+                          this.testingAlternateRecords = y.get('testingRecordsSourceSupply') as FormArray;
+                          this.testingAlternateRecords.push(this.createValue(this.supplyValues.mainLoopImpedance,j.nominalVoltage,j.loopImpedance));
+                        }
+                        }
+                      }
+                    }
+                 // }
+          //retrieve selected source dd from supply to testing
+        if (this.service.supplyList != '' && this.service.supplyList != undefined) {
+          this.SourceList=['Mains Incoming'];
+          for (let i = 1; i <= this.service.supplyList; i++) {
+            this.SourceList.push('Alternate Source of Supply-' + i);
+          }
         }
-      }
-        },
+          },
         error=>{
   
         }
@@ -469,9 +583,70 @@ export class InspectionVerificationTestingComponent implements OnInit {
     }
 }
 
+retrieveFromObservationTesting(data:any){
+  this.observation=JSON.parse(data);
+  this.observationValues=this.observation.observations;
+  this.observationUpdateFlag=true;
+  this.ObservationsForm.markAsPristine();
+  }
+
+  addObservationTesting(observationIter:any){
+    if(this.testingForm.touched || this.testingForm.untouched){
+      this.observationModalReference = this.modalService.open(observationIter, {
+         centered: true, 
+         size: 'md'
+        })
+     }
+  }
+
+
+  // onKeyCirtcuit(event: KeyboardEvent) {
+  //   this.values = (<HTMLInputElement>event.target).value;
+  //   this.value = this.values;
+    
+  //   if (this.value != '' && this.value != undefined) {
+  //     this.observationArr = this.testingForm.get('observationArr') as FormArray;
+  //       this.observationCircuitArr = this.observationArr.controls.circuitInnerObservation as FormArray;
+  //       let c = 0;
+  //       if(this.testingRecordTableArr.length < this.value){
+  //       for (this.i = c; this.i < this.value; this.i++) {
+  //         this.observationCircuitArr.push(this.generateCircuitForm());
+  //       }
+  //     } 
+  //     else if ((this.testingRecordTableArr.length < this.value) && this.testingRecordTableArr.length!=0)  {
+  //       if (this.value != '') {
+  //         this.delarr = this.value - this.testingRecordTableArr.length;
+  //         this.delarr1 = this.delarr;
+  //         for (this.i = 0; this.i < this.delarr; this.i++) {
+  //           this.observationCircuitArr.push(this.generateCircuitForm());
+  //         }
+  //       }
+  //     } 
+  //     else if((this.testingRecordTableArr.length > this.value))
+  //     {
+  //       if (this.value != '') {
+  //         this.delarr = this.testingRecordTableArr.length - this.value;
+  //         this.delarr1 = this.delarr;
+  
+  //         for (this.i = 0; this.i < this.delarr; this.i++) {
+  //           this.testingRecordTableArr = this.testingForm.get(
+  //             'testDistRecords'
+  //           ) as FormArray;
+  //           this.observationCircuitArr.removeAt(this.observationCircuitArr.length - 1);
+  //         }
+  //       }
+  //     }
+  //     else {
+  //       if(!this.testingRecordTableArr.length == this.value){ //removed from elango's yesterday commit by Aish
+  //       for (this.i = 0; this.i < this.value; this.i++) {
+  //         this.observationCircuitArr.push(this.generateCircuitForm());
+  //       }
+  //      }
+  //   }
+  //   } 
+  // }
 
 callValue(e: any) {
-  
   console.log(e);
 }
 
@@ -496,17 +671,16 @@ callValue(e: any) {
     }    
   }
   retrieveDetailsfromSavedReports(userName: any, siteId: any, clientName: any, departmentName: any, site: any, data: any) {
-    // if(this.service.disableFields==true){
-    //   this.testingForm.disable();
-    //  }
+    //this.service.lvClick=1;
     this.testingRetrieve = true;
     this.inspectionRetrieve = false;
     this.testList = JSON.parse(data);
     this.testingDetails.siteId = siteId;
+    //this.testingDetails.testingOuterObservation = this.testList.testingReport.testingOuterObservation;
     this.retrieveDetailsFromIncoming();
     this.retrieveDetailsFromSupply();
     if(this.testList.testingReport != null) {
-    this.testingDetails.testingReportId = this.testList.testingReport.testingReportId;
+    this.testingDetails.testingReportId = this.testList.testingReport.testingReportId; 
     this.testingDetails.createdBy = this.testList.testingReport.createdBy;
     this.testingDetails.createdDate = this.testList.testingReport.createdDate;
     setTimeout(() => {
@@ -514,11 +688,84 @@ callValue(e: any) {
       this.populateDataComments();
     }, 1000);
     this.flag = true;
-    }    
+    } 
+    if(this.testList.testingReport != null) {
+      this.updateMethod();   
+    }
   }
 
   updateMethod(){
     this.ngOnInit();
+    this.testingService.retrieveTesting(this.testingDetails.siteId,this.email).subscribe(
+      data=>{
+       this.retrieveDetailsforTesting(this.email,this.testingDetails.siteId,data);    
+       console.log(this.incomingValues.ipaoInspection);
+       
+       setTimeout(() => {
+        if(this.incomingValues.ipaoInspection.length != this.testList1.testing.length) {
+          this.tempArray = [];
+          for(let i=0;  i<this.testList1.testing.length; i++) {
+            for(let j=0;  j<this.incomingValues.ipaoInspection.length; j++) {
+              if(this.incomingValues.ipaoInspection[j].locationCount != this.testList1.testing[i].locationCount) {
+               this.tempArray.push(this.incomingValues.ipaoInspection[j]);
+              } 
+              else {
+               this.tempArray = [];
+              }
+            }
+          }
+ 
+          if(this.tempArray.length != 0) {
+            for(let k=0; k<this.tempArray.length; k++) {
+             this.addItem();
+            }
+
+            for(let r = this.testList1.testing.length; r < this.testaccordianArr.controls.length; r++){
+              let testDistRecords:any=[];
+              testDistRecords= this.testaccordianArr.controls[r].controls.testDistRecords as FormArray;
+              let d= this.incomingValues.ipaoInspection[r].consumerUnit.length-1;
+              for(let k = 0; k < d; k++){
+                testDistRecords.push(this.createtestDistRecordsForm());              
+              }
+
+              for(let l=0;l<this.incomingValues.ipaoInspection[r].consumerUnit.length; l++) {
+
+                this.testaccordianArr.controls[r].controls.testDistRecords.controls[l].
+                controls.locationCount.setValue(this.incomingValues.ipaoInspection[r].consumerUnit[l].locationCount);
+    
+                this.testaccordianArr.controls[r].controls.testDistRecords.controls[l].controls.testDistribution.controls[0].
+                controls.distributionBoardDetails.setValue(this.incomingValues.ipaoInspection[r].consumerUnit[l].distributionBoardDetails);
+               
+                this.testaccordianArr.controls[r].controls.testDistRecords.controls[l].controls.testDistribution.controls[0].
+                controls.referance.setValue(this.incomingValues.ipaoInspection[r].consumerUnit[l].referance);
+    
+                this.testaccordianArr.controls[r].controls.testDistRecords.controls[l].controls.testDistribution.controls[0].
+                controls.location.setValue(this.incomingValues.ipaoInspection[r].consumerUnit[l].location);
+              }
+
+               this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.email, this.service.siteCount).subscribe(
+                data=>{
+                this.supplyValues = JSON.parse(data);
+                for(let j of this.supplyValues.supplyParameters) {                  
+                    for(let w of testDistRecords.controls){
+                      let testingRecordsArr = w.get('testingRecords') as FormArray;
+                    for(let y of testingRecordsArr.controls) {
+                      this.testingAlternateRecords = y.get('testingRecordsSourceSupply') as FormArray;
+                      this.testingAlternateRecords.push(this.createValue(this.supplyValues.mainLoopImpedance,j.nominalVoltage,j.loopImpedance));
+                    }
+                    }                 
+                }
+                });
+
+                this.testaccordianArr.controls[r].controls.locationNumber.setValue(this.incomingValues.ipaoInspection[r].locationNumber);
+                this.testaccordianArr.controls[r].controls.locationName.setValue(this.incomingValues.ipaoInspection[r].locationName);
+                this.testaccordianArr.controls[r].controls.locationCount.setValue(this.incomingValues.ipaoInspection[r].locationCount);
+              }
+          } 
+        }
+      }, 3000);	
+      }
+    )
   }
   //comments section starts
 
@@ -911,16 +1158,13 @@ callValue(e: any) {
   //comments section ends
 
    populateData(value:any) {	
-    // if(this.service.disableFields==true){	
-    //   this.disable=true;	
-    //   }	
     this.arr = [];	
     for (let item of value.testing) {	
       this.arr.push(this.createGroup(item));	
     }	
-    this.testingForm.setControl('testaccordianArr', this.formBuilder.array(this.arr || []))	
+    this.testingForm.setControl('testaccordianArr', this.formBuilder.array(this.arr || []))
   }
-
+ 
   createGroup(item: any): FormGroup {
     return this.formBuilder.group({
       testingId: new FormControl({ disabled: false, value: item.testingId }),
@@ -938,8 +1182,8 @@ callValue(e: any) {
       // rcd: new FormControl({ disabled: false, value: item.rcd }),
       // earthElectrodeResistance: new FormControl({ disabled: false, value: item.earthElectrodeResistance }),
       testingEquipment: this.formBuilder.array(this.populateTestInstrumentForm(item.testingEquipment,item.testingId)),
-      testDistribution: this.formBuilder.array([this.populateTestDistributionForm(item.testDistribution)]),
-      testingRecords: this.formBuilder.array(this.populateTestRecordsForm(item.testingRecords,item.testingId)),
+      testDistRecords: this.formBuilder.array(this.populateTestDistRecordsForm(item.testDistRecords,item.testingId)),
+    
       testingStatus: new FormControl(item.testingStatus),
     });
   }
@@ -950,6 +1194,15 @@ callValue(e: any) {
     }
     return testingEquipmentArr;
   }
+
+  private populateTestDistRecordsForm(testDistRecordsItem: any,testingId: any) {
+    let testDistRecordsItemArr = [];
+    for (let item of testDistRecordsItem) {
+      testDistRecordsItemArr.push(this.pushTestDistRecordsTable(item))
+    }
+    return testDistRecordsItemArr;
+  }
+  
   pushTestEquipmentTable(testingEquipmentItem: any,testingId: any): FormGroup {
     let latest_date =this.datepipe.transform(testingEquipmentItem.equipmentCalibrationDueDate, 'yyyy-MM-dd');
     return new FormGroup({
@@ -964,6 +1217,34 @@ callValue(e: any) {
     });
   }
 
+  pushTestDistRecordsTable(testDistRecordsItem: any): FormGroup {
+    return new FormGroup({
+      testDistRecordId: new FormControl({disabled: false, value: testDistRecordsItem.testDistRecordId }),
+      testDistribution: this.formBuilder.array([this.populateTestDistributionForm(testDistRecordsItem.testDistribution)]),
+      testingRecords: this.formBuilder.array(this.populateTestRecordsForm(testDistRecordsItem.testingRecords,testDistRecordsItem.testDistRecordId)),
+      testingInnerObservation: this.formBuilder.array(this.pushTestObservationRecord(testDistRecordsItem.testingInnerObservation,testDistRecordsItem.testDistRecordId)),
+
+      testDistRecordStatus: new FormControl(testDistRecordsItem.testDistRecordStatus),
+    });
+  }
+  
+pushTestObservationRecord(testInnerObservationItem: any,testingId: any) {
+  let testingInnerObservation = [];
+  for (let item of testInnerObservationItem) {
+    testingInnerObservation.push(this.pushTestingInnerObservationTable(item,testingId))
+  }
+  return testingInnerObservation;
+}
+private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormGroup {
+  return new FormGroup({
+    testDistRecordId: new FormControl({ disabled: false, value: testDistRecordId }),
+    testingInnerObervationsId: new FormControl({disabled: false, value: item.testingInnerObervationsId}),
+    observationComponentDetails: new FormControl({disabled: false, value: item.observationComponentDetails}),
+    observationDescription: new FormControl({disabled: false, value: item.observationDescription}),
+    testingInnerObservationStatus: new FormControl(item.testingInnerObservationStatus),
+  });
+}
+
   private populateTestDistributionForm(testDistributionItem: any): FormGroup {
     //this.changeSource(testDistributionItem[0].sourceFromSupply,c);
     for(let p of this.pushJsonArray){
@@ -973,9 +1254,9 @@ callValue(e: any) {
     }
     return new FormGroup({
       distributionId: new FormControl({ disabled: false, value: testDistributionItem[0].distributionId }),
-      distributionBoardDetails: new FormControl({ disabled: false, value: testDistributionItem[0].distributionBoardDetails },[Validators.required]),
-      referance: new FormControl({ disabled: false, value: testDistributionItem[0].referance },[Validators.required]),
-      location: new FormControl({ disabled: false, value: testDistributionItem[0].location },[Validators.required]),
+      distributionBoardDetails: new FormControl({ disabled: false, value: testDistributionItem[0].distributionBoardDetails }),
+      referance: new FormControl({ disabled: false, value: testDistributionItem[0].referance }),
+      location: new FormControl({ disabled: false, value: testDistributionItem[0].location }),
       correctSupplyPolarity: new FormControl({ disabled: false, value: testDistributionItem[0].correctSupplyPolarity },[Validators.required]),
       numOutputCircuitsUse: new FormControl({ disabled: false, value: testDistributionItem[0].numOutputCircuitsUse },[Validators.required,Validators.min(1)]),
       ratingsAmps: new FormControl({ disabled: false, value: testDistributionItem[0].ratingsAmps },[Validators.required]),
@@ -1114,8 +1395,7 @@ callValue(e: any) {
      
     });
   }
-  private populateTestRecordsForm(testRecordsItem: any,testingId: any) {
-
+  private populateTestRecordsForm(testRecordsItem: any,testDistRecordId: any) {
     let disconnectionTimeArr = [];
     let testFaultCurrentArr = [];
     let testLoopImpedanceArr = [];
@@ -1130,17 +1410,16 @@ callValue(e: any) {
       testVoltageArr = item.testVoltage.split(",");
       insulationResistanceArr = item.insulationResistance.split(",");
 
-      this.testingRecordTableArr.push(this.pushTestingTable(item, disconnectionTimeArr, testFaultCurrentArr, testLoopImpedanceArr, testVoltageArr, insulationResistanceArr,testingId))
+      this.testingRecordTableArr.push(this.pushTestingTable(item, disconnectionTimeArr, testFaultCurrentArr, testLoopImpedanceArr, testVoltageArr, insulationResistanceArr,testDistRecordId))
     }
-
     // let item = [];
     // item.push(nominalVoltageAL,nominalFrequencyAL,faultCurrentAL,loopImpedanceAL,installedCapacityAL,actualLoadAL);
     return this.testingRecordTableArr
   }
 
-  pushTestingTable(itemTestingValue: any, disconnectionTimeArr: any, testFaultCurrentArr: any, testLoopImpedanceArr: any, testVoltageArr: any, insulationResistanceArr: any, testingId: any): FormGroup {
+  pushTestingTable(itemTestingValue: any, disconnectionTimeArr: any, testFaultCurrentArr: any, testLoopImpedanceArr: any, testVoltageArr: any, insulationResistanceArr: any, testDistRecordId: any): FormGroup {
     return new FormGroup({
-      testingId: new FormControl({ disabled: false, value: testingId }),
+      testDistRecordId: new FormControl({ disabled: false, value: testDistRecordId }),
       testingRecordId: new FormControl({ disabled: false, value: itemTestingValue.testingRecordId }),
       circuitNo: new FormControl({ disabled: false, value: itemTestingValue.circuitNo }),
       circuitDesc: new FormControl({ disabled: false, value: itemTestingValue.circuitDesc }),
@@ -1308,6 +1587,9 @@ callValue(e: any) {
   gettestDistributionFormControls(form: any) {
     return form.controls.testDistribution?.controls;
   }
+  gettestDistRecordsFormControls(form: any) {
+    return form.controls.testDistRecords?.controls;
+  }
   gettestValueControls(form: any) {
     return form.controls.testingRecords?.controls;
   }
@@ -1323,9 +1605,9 @@ callValue(e: any) {
 
   private createtestDistributionForm(): FormGroup {
     return new FormGroup({
-      distributionBoardDetails: new FormControl('', [Validators.required]),
-      referance: new FormControl('', [Validators.required]),
-      location: new FormControl('', [Validators.required]),
+      distributionBoardDetails: new FormControl(''),
+      referance: new FormControl(''),
+      location: new FormControl(''),
       sourceFromSupply: new FormControl('', [Validators.required]),
       correctSupplyPolarity: new FormControl('', [Validators.required]),
       numOutputCircuitsUse: new FormControl('', [Validators.required,Validators.min(1)]),
@@ -1347,6 +1629,26 @@ callValue(e: any) {
       //   this.distributionIncomingValue(),
       // ]),
     });
+  }
+  private createtestDistRecordsForm(): FormGroup {
+    return new FormGroup({
+      locationCount: new FormControl(''),
+      testDistribution: this.formBuilder.array([
+        this.createtestDistributionForm(),
+      ]),
+      testingInnerObservation: this.formBuilder.array([this.createObservationForm()]),
+      testingRecords: this.formBuilder.array([this.createtestValueForm()]),
+      testDistRecordStatus: new FormControl('A'),
+    });
+  }
+
+  createObservationForm(): FormGroup {
+    return new FormGroup({
+      testingInnerObervationsId: new FormControl(),
+      observationComponentDetails: new FormControl(),
+      observationDescription: new FormControl(),
+      testingInnerObservationStatus: new FormControl('A'),
+    })
   }
 
   IncomingValue(): FormGroup {
@@ -1485,14 +1787,14 @@ callValue(e: any) {
       testingRecordsSourceSupply: this.formBuilder.array([
         // this.createValue(),
       ]),
+      //observationArr: this.formBuilder.array([]),
       testingRecordStatus: new FormControl('A'),
     });
   }
 
   private createtestValuePushForm(value: any): FormGroup {
-
     return new FormGroup({
-      testingId: new FormControl(''),
+      testDistRecordId: new FormControl(''),
       testingRecordId: new FormControl(''),
       circuitNo: new FormControl(''),
       circuitDesc: new FormControl(''),
@@ -1576,9 +1878,7 @@ callValue(e: any) {
     });
   }
 
-
   private pushData(value: any) {
-    
     this.testingAlternateRecords1 = [];
       for(let j of this.supplyValues.supplyParameters) {	
         if(j.aLLiveConductorType == "AC") {	  
@@ -1588,7 +1888,6 @@ callValue(e: any) {
   
     return this.testingAlternateRecords1;
   }
-
   
   private createValue(mainsLoopImpedance: any,voltage: any,loopImpedance: any): FormGroup {
     let mainsLoopImpedanceArr = [];
@@ -1668,24 +1967,56 @@ callValue(e: any) {
   }
   onChangeForm(event:any){
     if(!this.testingForm.invalid){
-      this.validationError=false;
+      if(this.testingForm.dirty){
+        this.service.lvClick=1;
+        this.service.logoutClick=1;
+         this.service.windowTabClick=1;
+      }
+      else{
+        this.validationError=false;
+        this.service.lvClick=0;
+        this.service.logoutClick=0;
+        this.service.windowTabClick=0;
+      }
+     }
+     else {
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
      }
   }
   onKeyForm(event: KeyboardEvent) { 
-    if(!this.testingForm.invalid){
-     this.validationError=false;
+   if(!this.testingForm.invalid){ 
+    if(this.testingForm.dirty){
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+    }
+    else{
+      this.validationError=false;
+      this.service.lvClick=0;
+      this.service.logoutClick=0;
+      this.service.windowTabClick=0;
     }
    }
+   else {
+    this.service.lvClick=1;
+    this.service.logoutClick=1;
+    this.service.windowTabClick=1;
+   }
+  } 
   // Dynamically iterate some fields
   onKey(event: KeyboardEvent, c: any, a: any) {
     this.values = (<HTMLInputElement>event.target).value;
     this.value = this.values;
     this.testingRecords = a.controls.testingRecords as FormArray;
+    this.observationArr = a.controls.testingInnerObservation as FormArray;
     this.rateArr = c.controls.rateArr as FormArray;
     if (this.testingRecords.length == 0 && this.rateArr.length == 0) {
       if (this.value != '' && this.value != 0) {
         for (this.i = 1; this.i < this.value; this.i++) {
           this.testingRecords.push(this.createtestValuePushForm(this.testingRecords));
+          this.observationArr.push(this.createObservationForm());
           this.rateArr.push(this.ratingAmps());
         }
       }
@@ -1709,6 +2040,7 @@ callValue(e: any) {
 
         for (this.i = 0; this.i < this.delarr; this.i++) {
           this.testingRecords.push(this.createtestValuePushForm(this.testingRecords));
+          this.observationArr.push(this.createObservationForm());
           this.rateArr.push(this.ratingAmps());
         }
       }
@@ -1722,19 +2054,25 @@ callValue(e: any) {
 
         for (this.i = 0; this.i < this.delarr; this.i++) {
           if(this.flag && this.testingRecords.value[this.testingRecords.length - 1].testingRecordId != 0 
-              && this.testingRecords.value[this.testingRecords.length - 1] != '' 
-               && this.testingRecords.value[this.testingRecords.length - 1] != undefined) {
+              && this.testingRecords.value[this.testingRecords.length - 1].testingRecordId != '' 
+               && this.testingRecords.value[this.testingRecords.length - 1].testingRecordId != undefined) {
                  this.testingRecords.value[this.testingRecords.length - 1].testingRecordStatus = 'R';
                  this.deletedTestingRecord.push(this.testingRecords.value[this.testingRecords.length - 1]);
-               }         
+               }
+               if(this.flag && this.observationArr.value[this.observationArr.length - 1].testingInnerObervationsId != 0 
+                && this.observationArr.value[this.observationArr.length - 1].testingInnerObervationsId != '' 
+                 && this.observationArr.value[this.observationArr.length - 1].testingInnerObervationsId != undefined) {
+                   this.observationArr.value[this.observationArr.length - 1].testingInnerObservationStatus = 'R';
+                   this.deletedObservationArr.push(this.observationArr.value[this.observationArr.length - 1]);
+                 }
           this.testingRecords.removeAt(this.testingRecords.length - 1);
           this.rateArr.removeAt(this.rateArr.length - 1);
+          this.observationArr.removeAt(this.testingRecords.length - 1);
         }
       }
     }
   }
   removeItemRecords(a:any,i:any,f:any) {
-    
     this.testingForm.markAsTouched();
     if(f.value.testingRecordId !=0  
        && f.value.testingRecordId !=undefined 
@@ -1749,9 +2087,9 @@ callValue(e: any) {
       a.controls.testDistribution.controls[0].controls.rateArr.removeAt(i);
       this.testingForm.markAsDirty();
     }
+    
     else
     {
-      
       this.testingForm.markAsTouched();
       a.controls.testingRecords.removeAt(i);
      // a.controls.testDistribution.value[0].numOutputCircuitsUse.value=a.controls.testDistribution.value[0].numOutputCircuitsUse.value - 1;
@@ -1759,6 +2097,24 @@ callValue(e: any) {
      a.controls.testDistribution.controls[0].controls.rateArr.removeAt(i);
      this.testingForm.markAsDirty();
     }
+//for observation
+    if(a.controls.testingInnerObservation.value[i].testingInnerObervationsId !=0  
+      && a.controls.testingInnerObservation.value[i].testingInnerObervationsId !=undefined 
+       && a.controls.testingInnerObservation.value[i].testingInnerObervationsId !='' 
+        && a.controls.testingInnerObservation.value[i].testingInnerObervationsId !=null)
+   {
+    a.controls.testingInnerObservation.value[i].testingInnerObservationStatus='R';
+     this.deletedObservationArr.push( a.controls.testingInnerObservation.value[i]);
+     a.controls.testingInnerObservation.removeAt(i);
+     this.testingForm.markAsDirty();
+   }
+   
+   else
+   {
+     this.testingForm.markAsTouched();
+     a.controls.testingInnerObservation.removeAt(i);
+    this.testingForm.markAsDirty();
+   }
    }
    
   createItem() {
@@ -1779,10 +2135,9 @@ callValue(e: any) {
       testingEquipment:this.formBuilder.array([
         this.createTestInstrumentForm(),
       ]),
-      testDistribution: this.formBuilder.array([
-        this.createtestDistributionForm(),
+      testDistRecords: this.formBuilder.array([
+        this.createtestDistRecordsForm(),
       ]),
-      testingRecords: this.formBuilder.array([this.createtestValueForm()]),
       testingStatus: ['A'],
     });
   }
@@ -1792,7 +2147,6 @@ callValue(e: any) {
   }
   removeItem(a: any,j:any) {
     this.testingForm.markAsTouched();
-
     this.testingEquipment = a.controls.testingEquipment as FormArray;
     if(this.flag && this.testingEquipment.value[j].equipmentId!=null && this.testingEquipment.value[j].equipmentId!='' && this.testingEquipment.value[j].equipmentId!=undefined){
       this.testingEquipment.value[j].testingEquipmentStatus='R';
@@ -1830,6 +2184,16 @@ callValue(e: any) {
       incomingFaultCurrent: new FormControl(''),
       incomingActualLoad: new FormControl('')
     });
+  }
+  
+  addObservation(observationIter:any){
+    if(this.ObservationsForm.touched || this.ObservationsForm.untouched){
+      this.observationModalReference = this.modalService.open(observationIter, {
+         centered: true, 
+         size: 'md'
+        })
+     }
+
   }
 
   addItem() {
@@ -2139,7 +2503,7 @@ callValue(e: any) {
            i.controls.ynFaultCurrent.setValue('NA');
            }
           else{
-            i.controls.ryFaultCurrent.setValue('');
+            i.controls.ynFaultCurrent.setValue('');
           }
       }
      
@@ -2242,9 +2606,7 @@ callValue(e: any) {
         
     }
     onKeyImpedance8(event:KeyboardEvent,f:any){
-      
         for(let i of f.controls.testingRecordsSourceSupply.controls) {
-         
         if(f.controls.ypeLoopImpedance.value!='' && f.controls.ypeLoopImpedance.value!=undefined && f.controls.ypeLoopImpedance.value!= 'NA'
         && i.controls.ypeLoopImpedanceMains.value!='NA' && i.controls.ypeLoopImpedanceExternal.value!='NA') {
           i.controls.ypeLoopImpedance.value =(f.controls.ypeLoopImpedance.value - i.controls.ypeLoopImpedanceMains.value);
@@ -2281,12 +2643,9 @@ callValue(e: any) {
         else{
           f.controls.ypeFaultCurrent.setValue('');
         }
-        
     }
     onKeyImpedance9(event:KeyboardEvent,f:any){
-      
         for(let i of f.controls.testingRecordsSourceSupply.controls) {
-         
         if(f.controls.bpeLoopImpedance.value!='' && f.controls.bpeLoopImpedance.value!=undefined && f.controls.bpeLoopImpedance.value!= 'NA'
         && i.controls.bpeLoopImpedanceMains.value!='NA' && i.controls.bpeLoopImpedanceExternal.value!='NA') {
           i.controls.bpeLoopImpedance.value =(f.controls.bpeLoopImpedance.value - i.controls.bpeLoopImpedanceMains.value);
@@ -2323,6 +2682,7 @@ callValue(e: any) {
           f.controls.bpeFaultCurrent.setValue('');
         }
     }
+    
   reloadFromBack(){
     if(this.testingForm.invalid){
      this.service.isCompleted4= false;
@@ -2421,6 +2781,77 @@ callValue(e: any) {
       this.modalService.dismissAll((this.successMsg = ''));
     }
   }
+  onKeyObservation(event:any){
+    if(this.ObservationsForm.dirty){
+      this.disableObservation=false;
+    }
+    else{
+      this.disableObservation=true;
+    }
+  }
+  submit(observeFlag:any){
+    if(this.ObservationsForm.invalid) {
+      return;
+    }
+    this.observation.siteId = this.service.siteCount;
+    this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
+    this.observation.observationComponent ="Testing-Component";
+    this.observation.observations =this.ObservationsForm.value.observations;
+    this.submitted = true;
+    if(!observeFlag) {
+      this.observationService.addObservation(this.observation).subscribe(
+        (data) => {
+          this.success = true;
+          this.successMsg = "Observation Information sucessfully Saved";
+          this.proceedNext.emit(true);
+          this.disableObservation=true;
+          this.observationFlag=true;
+          this.observationService.retrieveObservation(this.observation.siteId,this.observation.observationComponent,this.observation.userName).subscribe(
+            (data) => {
+            this.retrieveFromObservationTesting(data);
+            },
+            (error) => {
+              this.errorArr = [];
+              this.errorArr = JSON.parse(error.error);
+              console.log(this.errorArr.message);
+            }
+          )
+          setTimeout(() => {
+            this.success = false;
+            this.observationModalReference.close();
+          }, 3000);
+      },
+        (error) => {
+          this.errorArrObservation = [];
+          this.Error = true;
+          this.errorArrObservation = JSON.parse(error.error);
+          this.errorMsg = this.errorArrObservation.message;
+          this.observationFlag=false;
+        }
+      )
+    }
+    else {
+      this.observationService.updateObservation(this.observation).subscribe(
+        (data) => {
+          this.success = true;
+          this.successMsg = "Observation Information sucessfully updated";
+          this.proceedNext.emit(false);
+          this.disableObservation=true;
+          setTimeout(() => {
+            this.success = false;
+            this.observationModalReference.close();
+          }, 3000);
+      },
+        (error) => {
+          this.errorArrObservation = [];
+          this.Error = true;
+          this.errorArrObservation = JSON.parse(error.error);
+          this.errorMsg = this.errorArrObservation.message;
+        }
+      )
+    }   
+    }
+
 
   nextTab(flag: any) {
     if (!flag) {
@@ -2436,12 +2867,11 @@ callValue(e: any) {
     ) as FormArray;
 
     for (let i of this.testaccordianArr.controls) {
-      //this.testingEquipment = i.get('testingEquipment') as FormArray;
-
-      this.testDistribution = i.get('testDistribution') as FormArray;
-      this.testingRecords = i.get('testingRecords') as FormArray;
-
-      // coma separated value for first table
+      this.testingRecords = i.get('testDistRecords') as FormArray;
+      for(let v of this.testingRecords.controls){
+        this.testDistribution = v.get('testDistribution') as FormArray;
+        this.testingRecords = v.get('testingRecords') as FormArray;
+         // coma separated value for first table
       for (let j of this.testDistribution.value) {
         let arr: any = [];
         let arr1: any = [];
@@ -2898,8 +3328,26 @@ callValue(e: any) {
         disconnectionTime = disconnectionTime.replace(/,\s*$/, '');
         n.disconnectionTime = disconnectionTime;
       }
+      }
     }
-
+ //if(!flag){
+    for (let i of this.testaccordianArr.controls) {
+      this.testDistRecords1 = i.get('testDistRecords') as FormArray;
+      for(let v of this.testDistRecords1.controls){
+        this.observationArr = v.get('testingInnerObservation') as FormArray;
+        this.testingRecords = v.get('testingRecords') as FormArray;
+        for(let z=0; z < this.testingRecords.length; z++){
+         this.observationArr.controls[z].controls.observationComponentDetails.setValue('circuit');
+         if(this.testingRecords.controls[z].controls.rcdRemarks.value == '' 
+         || this.testingRecords.controls[z].controls.rcdRemarks.value == undefined 
+          || this.testingRecords.controls[z].controls.rcdRemarks.value == null) {
+          this.testingRecords.controls[z].controls.rcdRemarks.setValue('NA');
+         }
+         this.observationArr.controls[z].controls.observationDescription.setValue(this.testingRecords.controls[z].controls.rcdRemarks.value);
+        }
+      }
+    }
+  //}
     //from saved report update
     for(let i of this.pushJsonArray) {
       if(this.testList.testingReport != null && this.testList.testingReport != undefined ) {
@@ -2923,22 +3371,9 @@ callValue(e: any) {
     }
     this.testingDetails.testIncomingDistribution=this.pushJsonArray;
     this.testingDetails.testing = this.testingForm.value.testaccordianArr;
+
     if (flag) {
       if(this.testingForm.dirty){
-        // for(let i of this.testingDetails.testing) {
-        //   for(let j of i.testingEquipment) {
-        //     if(j.equipmentId != null && j.equipmentId != 0 && j.equipmentId !=undefined) {
-        //       for(let k of this.deletedTestingEquipment) {
-        //         if((j.testingId == k.testingId) 
-        //             && (j.testingEquipmentStatus != k.testingEquipmentStatus)
-        //              && (j.equipmentId != k.equipmentId) ) {
-        //           i.testingEquipment.push(k);
-        //         }
-        //       }
-        //     }
-        //   }
-        // }
-
         //Testing Equipment 
         for(let i of this.deletedTestingEquipment) {
           for(let j of this.testingDetails.testing) {
@@ -2958,23 +3393,45 @@ callValue(e: any) {
             }
           }
         }
-
         //Testing Records
         for(let i of this.deletedTestingRecord) {
           for(let j of this.testingDetails.testing) {
-            for(let k of j.testingRecords) {
-              if(k.testingId == i.testingId) {
-                if(k.testingRecordId != i.testingRecordId) {
-                  this.deleteRecordDataFlag = true;
-                }
-                else {
-                  this.deleteRecordDataFlag = false;
+            for(let l of j.testDistRecords) {
+              for(let k of l.testingRecords) {
+                if(k.testDistRecordId == i.testDistRecordId) {
+                  if(k.testingRecordId != i.testingRecordId) {
+                    this.deleteRecordDataFlag = true;
+                  }
+                  else {
+                    this.deleteRecordDataFlag = false;
+                  }
                 }
               }
+              if(this.deleteRecordDataFlag) {
+                l.testingRecords.push(i);
+                this.deleteRecordDataFlag = false;
+              }
             }
-            if(this.deleteRecordDataFlag) {
-              j.testingRecords.push(i);
-              this.deleteRecordDataFlag = false;
+          }
+        }
+//observation
+        for(let i of this.deletedObservationArr) {
+          for(let j of this.testingDetails.testing) {
+            for(let l of j.testDistRecords) {
+              for(let k of l.testingInnerObservation) {
+                if(k.testDistRecordId == i.testDistRecordId) {
+                  if(k.testingInnerObervationsId != i.testingInnerObervationsId) {
+                    this.deleteObRecordDataFlag = true;
+                  }
+                  else {
+                    this.deleteObRecordDataFlag = false;
+                  }
+                }
+              }
+              if(this.deleteObRecordDataFlag) {
+                l.testingInnerObservation.push(i);
+                this.deleteObRecordDataFlag = false;
+              }
             }
           }
         }
@@ -2985,6 +3442,9 @@ callValue(e: any) {
           this.service.isLinear=false;
           this.successMsg = data;
           this.testingForm.markAsPristine();
+          this.service.windowTabClick=0;
+       this.service.logoutClick=0; 
+       this.service.lvClick=0; 
         },
         (error) => {
           this.Error = true;
@@ -3006,13 +3466,43 @@ callValue(e: any) {
           this.service.isCompleted4= true;
           this.service.isLinear=false;
           this.testingForm.markAsPristine();
+          this.service.windowTabClick=0;
+       this.service.logoutClick=0; 
+       this.service.lvClick=0; 
           this.testingService.retrieveTesting(this.testingDetails.siteId,this.testingDetails.userName).subscribe(
             data=>{
              this.retrieveDetailsforTesting(this.testingDetails.userName,this.testingDetails.siteId,data);
             }
           )
-          //this.disable = true;
-          //this.service.allFieldsDisable = true;
+         
+
+           if(!this.observationFlag){
+            this.observation.siteId = this.service.siteCount;
+            this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
+            this.observation.observationComponent ="Testing-Component";
+            this.observation.observations="No observation recorded"
+            this.observationService.addObservation(this.observation).subscribe(
+              (data) => {
+                this.proceedNext.emit(true);
+                this.observationService.retrieveObservation(this.observation.siteId,this.observation.observationComponent,this.observation.userName).subscribe(
+                  (data) => {
+                  this.retrieveFromObservationTesting(data);
+                  },
+                  (error) => {
+                    this.errorArr = [];
+                    this.errorArr = JSON.parse(error.error);
+                  console.log(this.errorArr.message);
+                  }
+                )
+               
+            },
+              (error:any) => {
+                this.errorArrObservation = [];
+                this.errorArrObservation = JSON.parse(error.error);
+                console.log(this.errorArrObservation.message);
+              }
+            )
+          }
         },
         (error) => {
           this.Error = true;      

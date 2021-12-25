@@ -6,6 +6,11 @@
 </div>
 <div class="card">
   <div class="card-body">
+    <div class="row">
+      <div class="col-sm-12">
+        <a style="margin-top: -10px;margin-bottom: 5px;float: right;cursor: pointer;text-decoration: underline;">Observations</a>
+      </div>
+      </div>
     <form [formGroup]="supplycharesteristicForm" (ngSubmit)="nextTab2(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
       <mat-accordion>
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -122,7 +127,7 @@
                   [(ngModel)]="supplycharesteristic.liveConductorAC" 
                   [ngClass]="{ 'is-invalid': submitted && f.AcConductor.errors }" [disabled]="service.allFieldsDisable">
                    <option value="" selected>Select Option</option>  
-                    <option value="1-phase, 3-wire (LLM)" [selected]="f.AcConductor?.value=== AcValue">1-phase, 2-wire (LN)</option>
+                    <option value="1-phase, 2-wire (LLM)" [selected]="f.AcConductor?.value=== AcValue">1-phase, 2-wire (LN)</option>
                           <option value="1-phase, 3-wire (LLM)" [selected]="f.AcConductor?.value=== AcValue">1-phase, 3-wire (LLM)</option>
                           <option value="2-phase, 3-wire (LLN)" [selected]="f.AcConductor?.value=== AcValue">2-phase, 3-wire (LLN)</option>
                           <option value="3-phase, 3-wire (LLL)" [selected]="f.AcConductor?.value=== AcValue">3-phase, 3-wire (LLL)</option>
@@ -410,12 +415,12 @@
             <div class="col-md-4">
               <mat-form-field class="client-description">
                 <mat-label>
-                  <h3>Remarks</h3>
+                  <h3>Observations</h3>
                 </mat-label>
                 <textarea matInput class="client-box-description" formControlName="liveConductorBNote" 
                 [ngClass]="{ 'is-invalid': submitted && f.liveConductorBNote.errors }"  [readonly]="service.allFieldsDisable"
                 [(ngModel)]="supplycharesteristic.liveConductorBNote" maxlength="500" 
-                placeholder="Ex. Remarks ..." ></textarea>
+                placeholder="Ex. Observations ..." ></textarea>
               </mat-form-field>
               <div *ngIf="submitted && f.liveConductorBNote.errors" class="invalid-feedback">
                 <div *ngIf="f.liveConductorBNote?.errors?.required">Field Is Required</div>
@@ -442,7 +447,8 @@
                   class="example-button">
                   info_outline
                  </mat-icon>
-                  <select class="form-control" formControlName="alternativeSupply" [tabindex]="service.allFieldsDisable ? -1 : 0" [disabled]="service.allFieldsDisable"
+                  <select class="form-control" formControlName="alternativeSupply" [tabindex]="service.allFieldsDisable ? -1 : 0" 
+                  [disabled]="service.allFieldsDisable"
                   (change)="showAlternateField($event)" [ngClass]="{ 'is-invalid': submitted && f.alternativeSupply.errors }" 
                   [(ngModel)]="supplycharesteristic.alternativeSupply">
                  <option value="" disabled selected>Select Option</option>
@@ -465,7 +471,7 @@
                 class="example-button">
                 info_outline
                </mat-icon>
-                <input type="number" min="1" class="form-control" formControlName="supplyNumber" [readonly]="service.allFieldsDisable"
+                <input (keypress)="keyPressNumbers($event)" type="number" min="0" class="form-control" formControlName="supplyNumber" [readonly]="service.allFieldsDisable"
                 [ngClass]="{ 'is-invalid': submitted && f.supplyNumber.errors }" 
                 [(ngModel)]="supplycharesteristic.supplyNumber"
                 (keyup)="onKeyAlernate($event)">
@@ -659,7 +665,7 @@
                         [tabindex]="service.allFieldsDisable ? -1 : 0" [disabled]="service.allFieldsDisable"
                         [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorAC')?.errors }">
                          <option value="" selected>Select Option</option>
-                          <option value="1-phase, 3-wire (LLM)">1-phase, 2-wire (LN)</option>
+                          <option value="1-phase, 2-wire (LLM)">1-phase, 2-wire (LN)</option>
                           <option value="1-phase, 3-wire (LLM)">1-phase, 3-wire (LLM)</option>
                           <option value="2-phase, 3-wire (LLN)">2-phase, 3-wire (LLN)</option>
                           <option value="3-phase, 3-wire (LLL)">3-phase, 3-wire (LLL)</option>
@@ -908,12 +914,12 @@
           <div class="col-md-4">	
             <mat-form-field class="client-description">	
               <mat-label>	
-                <h3>Remarks</h3>	
+                <h3>Observations</h3>	
               </mat-label>	
               <textarea matInput class="client-box-description" formControlName="aLLiveConductorBNote" 	
               [ngClass]="{ 'is-invalid': submitted && a.get('aLLiveConductorBNote')?.errors }" 	
               maxlength="500" 	
-              placeholder="Ex. Remarks ..." ></textarea>	
+              placeholder="Ex. Observations ..." ></textarea>	
             </mat-form-field>	
             <div *ngIf="submitted && a.get('aLLiveConductorBNote')?.errors" class="invalid-feedback">	
               <div *ngIf="a.get('aLLiveConductorBNote')?.errors?.required">Field Is Required</div>	
@@ -1035,7 +1041,7 @@
 
                 <div class="col-md-4" style="margin-top: 30px">
                   <p class="joints">Number of earth electrodes 
-                    <input type="number" min="0" formControlName="noOfLocation" [readonly]="service.allFieldsDisable"
+                    <input (keypress)="keyPressNumbers($event)" type="number" min="0" formControlName="noOfLocation" [readonly]="service.allFieldsDisable"
                     [ngClass]="{ 'is-invalid': submitted && f.noOfLocation.errors }" 
                     [(ngModel)]="supplycharesteristic.noOfLocation" style="
                     width: 50px;
@@ -1049,7 +1055,7 @@
                 </div>
               </div>
             <br>
-            <div class="row" *ngIf="key1LocationTable && 0 < supplycharesteristic.noOfLocation" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <div class="row" *ngIf="key1LocationTable" [ngClass]="{'disableForm':service.allFieldsDisable}">
               <div class="col-sm-12">
                 <h2>Earth electrode details</h2>
                   <div class="table-responsive" style="border: 1px solid black">
@@ -1110,7 +1116,7 @@
                               <div *ngIf="submitted && a.get('electrodeResistanceEarth')?.errors" class="invalid-feedback">
                                 <div *ngIf="a.get('electrodeResistanceEarth')?.errors?.required">Field Is Required</div>
                               </div></td>
-                            <td><input type="tel" min="0" formControlName="electrodeResistanceGird" class="form-control" [readonly]="service.allFieldsDisable"
+                            <td><input type="number" min="0" formControlName="electrodeResistanceGird" class="form-control" [readonly]="service.allFieldsDisable"
                               [ngClass]="{ 'is-invalid': submitted && a.get('electrodeResistanceGird')?.errors }" [value]="a.get('electrodeResistanceGird')?.value"
                               placeholder="Enter electrode resistance">
                               <div *ngIf="submitted && a.get('electrodeResistanceGird')?.errors" class="invalid-feedback">
@@ -1124,6 +1130,22 @@
                       </tbody>  
                     </table>
                   </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">	
+                <mat-form-field class="client-description">	
+                  <mat-label>	
+                    <h3>Earth Electrode - Observations</h3>	
+                  </mat-label>	
+                  <textarea matInput class="client-box-description" formControlName="earthElectrodeObservation" 	
+                  [ngClass]="{ 'is-invalid': submitted && f.earthElectrodeObservation?.errors }" 	[(ngModel)]="earthElectrodeObservation"
+                  maxlength="500" 	
+                  placeholder="Ex. Observations ..." ></textarea>	
+                </mat-form-field>	
+                <div *ngIf="submitted && f.earthElectrodeObservation?.errors" class="invalid-feedback">	
+                  <div *ngIf="f.earthElectrodeObservation?.errors?.required">Field Is Required</div>	
+                </div>	
               </div>
             </div>
             </mat-expansion-panel>
@@ -1265,7 +1287,7 @@
                     info_outline
                    </mat-icon>
                     <p  class="joints">Number Of Joints
-                      <input type="number" formControlName="bondingNoOfJoints" [readonly]="service.allFieldsDisable"
+                      <input (keypress)="keyPressNumbers($event)" type="number" formControlName="bondingNoOfJoints" [readonly]="service.allFieldsDisable"
                       [(ngModel)]="supplycharesteristic.bondingNoOfJoints" 
                       [ngClass]="{ 'is-invalid': submitted && f.bondingNoOfJoints.errors }" style="
                       width: 50px;
@@ -1278,7 +1300,7 @@
                         <!-- <div *ngIf="f.bondingNoOfJoints?.errors?.min">Please enter value above 0</div> -->
                       </div>
                   </div>
-                  <div class="col-md-4" style="margin-top: 30px" *ngIf="JointLocationTable && 0 < supplycharesteristic.bondingNoOfJoints">
+                  <div class="col-md-4" style="margin-top: 30px" *ngIf="JointLocationTable">
                     <label>Type Of Joint:</label>
                     <mat-icon style="float: right;font-size: 18px;
                     line-height: unset;margin-right: 70%;"
@@ -1307,7 +1329,7 @@
                   <!-- (blur)="update(box.value)" (keyup)="onKey($event)"-->
                 </div>
               </div>
-               <div *ngIf="JointLocationTable && 0 < supplycharesteristic.bondingNoOfJoints"> 
+               <div *ngIf="JointLocationTable"> 
               <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="col-sm-12">
                 <h2>Joint resistance details</h2>
@@ -1369,6 +1391,22 @@
                 </div>
               </div>
               </div>
+              <div class="row">
+                <div class="col-md-4">	
+                  <mat-form-field class="client-description">	
+                    <mat-label>	
+                      <h3>Bonding Conductor - Observations</h3>	
+                    </mat-label>	
+                    <textarea matInput class="client-box-description" formControlName="bondingConductorObservation" 	
+                    [ngClass]="{ 'is-invalid': submitted && f.bondingConductorObservation?.errors }" 	[(ngModel)]="bondingConductorObservation"
+                    maxlength="500" 	
+                    placeholder="Ex. Observations ..." ></textarea>	
+                  </mat-form-field>	
+                  <div *ngIf="submitted && f.bondingConductorObservation?.errors" class="invalid-feedback">	
+                    <div *ngIf="f.bondingConductorObservation?.errors?.required">Field Is Required</div>	
+                  </div>	
+                </div>
+              </div>
               <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 30px">
@@ -1426,14 +1464,14 @@
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 30px">
                     <mat-icon style="float: right;font-size: 18px;
-                    line-height: unset;margin-right: 57%;"
+                    line-height: unset;margin-right: 50%;"
                     matTooltip="If number of joints is given, then point 14 & 15 should come."
                     matTooltipClass="multiline-tooltip"
                     aria-label="Button that shows a red tooltip"
                     class="example-button">
                     info_outline
                    </mat-icon>
-                    <p class="joints">Number Of Joints <input type="number" min="0" formControlName="earthingNoOfJoints" 
+                    <p class="joints">Number Of Joints <input (keypress)="keyPressNumbers($event)" type="number" min="0" formControlName="earthingNoOfJoints" 
                     [ngClass]="{ 'is-invalid': submitted && f.earthingNoOfJoints.errors }" [readonly]="service.allFieldsDisable"
                     [(ngModel)]="supplycharesteristic.earthingNoOfJoints" style="
                       width: 50px;
@@ -1445,7 +1483,7 @@
                         <!-- <div *ngIf="f.earthingNoOfJoints?.errors?.min">Please enter value above 0</div> -->
                       </div>
                   </div>
-                  <div class="col-md-4" style="margin-top: 30px" *ngIf="keyJOintLocationTable && 0 < supplycharesteristic.earthingNoOfJoints" >
+                  <div class="col-md-4" style="margin-top: 30px" *ngIf="keyJOintLocationTable" >
                     <label>Type Of Joint:</label>
                     <mat-icon style="float: right;font-size: 18px;
                     line-height: unset;margin-right: 70%;"
@@ -1473,7 +1511,7 @@
                   <!-- (keyup)="keyUpJoint($event)" -->
                 </div>
               </div>
-              <div *ngIf="keyJOintLocationTable && 0 < supplycharesteristic.earthingNoOfJoints">
+              <div *ngIf="keyJOintLocationTable">
                 <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                   <div class="col-sm-12">
                   <h2>Location Table</h2>
@@ -1533,6 +1571,23 @@
 
                     </div>
                   </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">	
+                  <mat-form-field class="client-description">	
+                    <mat-label>	
+                      <h3>Earthing Conductor - Observations</h3>	
+                    </mat-label>	
+                    <textarea matInput class="client-box-description" formControlName="earthingConductorObservation" 	
+                    [ngClass]="{ 'is-invalid': submitted && f.earthingConductorObservation?.errors }" 	[(ngModel)]="earthingConductorObservation"
+                    maxlength="500" 	
+                    placeholder="Ex. Observations ..." ></textarea>	
+                  </mat-form-field>	
+                  <div *ngIf="submitted && f.earthingConductorObservation?.errors" class="invalid-feedback">	
+                    <div *ngIf="f.earthingConductorObservation?.errors?.required">Field Is Required</div>	
+                  </div>	
                 </div>
               </div>
             </mat-expansion-panel>
@@ -1987,3 +2042,34 @@ style="margin-left: 10px;" >
 </div>
 
   </ng-template>
+
+  
+<ng-template #observationIter let-modal>
+  <form [formGroup]="ObservationsForm">
+    <div class="modal-header" style="text-align: center; display: block">
+      <h2 class="modal-title" style="display: contents">Observations:</h2>
+    </div>
+    <div class="modal-body">
+      <textarea col=60 row=1 (keyup)="onKeyObservation($event);" 
+      class="form-control"  [(ngModel)]="observationValues"
+      formControlName="observations"  placeholder="Ex. Observations ..." >
+      </textarea>
+      <br>
+      <div style="text-align: center">
+        <button class="btn btn-primary" (click)="submit(observationUpdateFlag)" [disabled]="disableObservation" 
+        style="font-size: 14px;">
+          Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button" aria-label="Close" class="btn btn-danger" (click)="closeModalDialog()"
+          style="font-size: 14px;">
+          <i class="bi bi-x icon"></i>
+          <span aria-hidden="true">Cancel</span>
+        </button>
+      </div>
+</div>
+    <div *ngIf="success" style="text-align: center;">
+      <span class="successshow">{{successMsg}}</span>
+    </div>
+    <div *ngIf="Error" style="text-align: center;">
+      <span class="errorshow">{{errorMsg}}</span>
+    </div>
+  </form>

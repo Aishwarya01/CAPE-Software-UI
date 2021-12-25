@@ -1,17 +1,19 @@
-<div class="card-body">
-
+<div class="card">
     <div class="card-body">
-        <form [formGroup]="airTerminationForm" (ngSubmit)="onSubmit(flag)">
+        <form [formGroup]="airTerminationForm" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
             <mat-accordion>
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Basic Details</mat-expansion-panel-header>
-                      <div class="d-flex" style="margin-bottom: 4rem;margin-inline: 6rem;">  
+                      <div class="d-flex">  
                         <div class="pr-2" > <u><b>Client Name:</b></u> <span> &nbsp; {{ClientName}}</span></div> &nbsp;&nbsp;
                         <div class="pr-2"> <u><b>Project Name:</b></u>  <span> &nbsp; {{projectName}}</span></div> &nbsp;&nbsp;
                         <div class="pr-2"> <u><b>Type of Industry:</b></u>  <span> &nbsp; {{industryType}}</span> </div> &nbsp;&nbsp;
                         <div class="pr-2"> <u><b>Type of Building:</b></u>  <span> &nbsp; {{buildingType}}</span> </div> &nbsp;&nbsp;
                       </div>
-                    <div style="margin-top: 0px;">
+                      <br>
+                    <div class="row">
+                        <div class="col-sm-12">
+                        <div class="table-responsive" style="border: 1px solid black;">
                         <table class="table">
                             <thead style="text-align: center;">
                                 <th>SI.No</th>
@@ -189,11 +191,15 @@
                             </tbody>
                         </table>
                     </div>
+                </div>
+                    </div>
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Vertical air terminal (VAT)</mat-expansion-panel-header>
-                    <div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                    <div class="table-responsive">                        
                         <table class="table">
                             <!-- <thead>
                                 <th>SI.No</th>
@@ -671,11 +677,15 @@
                             </tbody>
                         </table>    
                     </div>
+                </div>
+                </div>
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Mesh conductors</mat-expansion-panel-header>
-                    <div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                    <div class="table-responsive">
                         <table class="table">
                             <tbody formArrayName="meshArr" *ngFor="let a of meshControls(); let i = index">
                                 <div class="form-group" [formGroupName]="i">
@@ -952,11 +962,15 @@
                              
                             </table>
                     </div>
+                        </div>
+                    </div>
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Holders</mat-expansion-panel-header>
-                    <div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                    <div class="table-responsive">
                         <table class="table">
                             <tbody formArrayName="holderArr" *ngFor="let a of holdersContols(); let j = index">
                                 <div class="form-group" [formGroupName]="j">
@@ -1449,11 +1463,15 @@
                                 style="margin-inline: 1rem;float: right;position: relative;">delete</mat-icon></tbody>
                         </table>
                     </div>
+                    </div>
+                    </div>
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Clamps</mat-expansion-panel-header>
-                    <div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                    <div class="table-responsive">
                         <table class="table">
                             <tbody formArrayName="clampArr" *ngFor="let a of clampsControls(); let i = index">
                                 <div class="form-group" [formGroupName]="i">
@@ -1784,12 +1802,15 @@
                                 style="margin-inline: 1rem;float: right;position: relative;">delete</mat-icon></tbody>
                         </table>
                     </div>
-
+</div>
+                    </div>
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Expansion Pieces</mat-expansion-panel-header>
-                    <div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                    <div class="table-responsive">
                         <table class="table">
                             <tbody formArrayName="expArr" *ngFor="let a of expansionControls(); let i = index">
                                 <div class="form-group" [formGroupName]="i">
@@ -2056,12 +2077,15 @@
                                 style="margin-inline: 1rem;float: right;position: relative;">delete</mat-icon> </tbody>
                         </table>
                     </div>
-
+                        </div>
+                    </div>
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Connectors</mat-expansion-panel-header>
-                    <div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                    <div class="table-responsive" >
                         <table class="table">
                             <tbody formArrayName="conArr" *ngFor="let a of connectorsControls(); let i = index">
                                 <div class="form-group" [formGroupName]="i">
@@ -2423,6 +2447,8 @@
                                 style="margin-inline: 1rem;float: right;position: relative;">delete</mat-icon>
                             </tbody>
                         </table>
+                    </div>
+                        </div>
                     </div>
                 </mat-expansion-panel>
             </mat-accordion>

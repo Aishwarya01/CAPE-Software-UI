@@ -1,7 +1,6 @@
-<div class="card-body">
+<div class="card">
     <div class="card-body">
-        <form [formGroup]="EarthStudForm" (ngSubmit)="onSubmit(flag)">
-            <div class="card-body">
+        <form [formGroup]="EarthStudForm" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
                 <div style="font-weight: bold;">
                     <label for="Basicdetails">Basic Details:</label>
                 </div>
@@ -13,10 +12,10 @@
                     <div class="pr-2"> <u><b>Type of Building:</b></u>  <span> &nbsp; {{buildingType}}</span> </div> &nbsp;&nbsp;
                 </div>
 
-            </div>
     
     <!-- tables -->
     <div style="margin-top: 0px;">
+        <div class="table-responsive" style="border: 1px solid black;">
             <table class="table">
                 <thead>
                     <th>SI.No</th>
@@ -163,6 +162,7 @@
                 </tr>
             </tbody>
         </table>
+        </div>
     </div>
     <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
         <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>

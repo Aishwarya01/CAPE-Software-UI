@@ -70,6 +70,7 @@ import { NgbTooltipModule } from "@ng-bootstrap/ng-bootstrap";
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { DateAgoPipe } from './pipes/date-ago.pipe';
+import { TruncateModule } from 'ng2-truncate';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { GenerateOtpContactnumberComponent } from './generate-otp-contactnumber/generate-otp-contactnumber.component';
 import { ChangeContactnumberComponent } from './change-contactnumber/change-contactnumber.component';
@@ -85,6 +86,7 @@ import { LpsEarthStudComponent } from './LPS/lps-earth-stud/lps-earth-stud.compo
 import { LpsSavedReportComponent } from './LPS/lps-saved-report/lps-saved-report.component';
 import { LpsWelcomePageComponent } from './LPS/lps-welcome-page/lps-welcome-page.component';
 import { LpsFinalReportComponent } from './LPS/lps-final-report/lps-final-report.component';
+import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 
 @NgModule({
   declarations: [
@@ -142,6 +144,7 @@ import { LpsFinalReportComponent } from './LPS/lps-final-report/lps-final-report
     LpsFinalReportComponent
   ],
   imports: [
+    TruncateModule,
     NgbTooltipModule,
     NgbModule,
     BrowserModule,
@@ -168,7 +171,10 @@ import { LpsFinalReportComponent } from './LPS/lps-final-report/lps-final-report
     NgOtpInputModule,
     MatBadgeModule,
     MatProgressSpinnerModule,
-    MatTooltipModule
+    MatTooltipModule,
+    BackButtonDisableModule.forRoot({
+      preserveScrollPosition: true
+    })
     //NgbActiveModal, NgbModal 
   ],
  // exports: [WebStorageCodec, WebStorageCodec, SessionStorage],

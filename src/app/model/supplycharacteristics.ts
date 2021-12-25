@@ -48,6 +48,7 @@ export class Supplycharacteristics {
   boundingLocationReport: BoundingLocationReport[];
   earthingLocationReport: EarthingLocationReport[];
   circuitBreaker:CircuitBreaker[];
+  supplyOuterObservation: SupplyOuterObservation[];
 }
   export class Supplyparameters {
     supplyparametersId:number;
@@ -113,4 +114,19 @@ export class Supplycharacteristics {
     jointNo:String;
     jointReference:String;
     jointResistance:String;
+  }
+
+  export class SupplyOuterObservation{  
+    supplyOuterObservationId: number;
+    observationComponentDetails: String;
+    observationDescription:String;
+    alternativeInnerObservation: AlternativeInnerObservation[];  
+    supplyOuterObservationStatus: String;
+  }
+
+  export class AlternativeInnerObservation{  
+    supplyInnerObervationsId: number;
+    observationComponentDetails: String;
+    observationDescription:String;    
+    alternativeInnerObservationStatus: String;
   }

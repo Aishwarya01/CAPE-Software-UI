@@ -11,6 +11,10 @@ export class Summary {
     recommendationsDate!: number;
     generalConditionInstallation!: String;
     overallAssessmentInstallation!: String;
+    referanceNumberReport!: String;
+    furtherActions!: number;
+    
+    comment!: String;
     createdBy!: String;
     createdDate!: Date;
     updatedBy!: String;

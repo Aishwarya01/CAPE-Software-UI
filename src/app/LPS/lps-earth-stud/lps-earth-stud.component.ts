@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GlobalsService } from 'src/app/globals.service';
 import { EarthStud } from 'src/app/LPS_model/earth-stud';
 import { EarthStudService } from 'src/app/LPS_services/earth-stud.service';
 import { LPSBasicDetailsService } from 'src/app/LPS_services/lpsbasic-details.service';
@@ -50,7 +51,9 @@ export class LpsEarthStudComponent implements OnInit {
     private modalService: NgbModal, 
     private router: ActivatedRoute,
     private lpsMatstepper: LpsMatstepperComponent,
-    private welcome: LpsWelcomePageComponent
+    private welcome: LpsWelcomePageComponent,
+    public service: GlobalsService,
+
     ) { }
 
   ngOnInit(): void {
@@ -69,6 +72,8 @@ export class LpsEarthStudComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
+      // this.service.lvClick=1;
+
       this.step7List = data.earthStudDescription;
       this.earthStud.basicLpsId = basicLpsId;
       this.earthStud.earthStudDescId = this.step7List.earthStudDescId;
@@ -102,6 +107,9 @@ export class LpsEarthStudComponent implements OnInit {
             this.success = true;
             this.successMsg = data;
             this.EarthStudForm.markAsPristine();
+            this.service.lvClick=0;
+            this.service.logoutClick=0;
+            this.service.windowTabClick=0;
             this.proceedNext.emit(true);
           }, 
           (error) => {
@@ -133,6 +141,9 @@ export class LpsEarthStudComponent implements OnInit {
             setTimeout(() => {
               this.lpsMatstepper.changeTab1(2);
              }, 3000);
+             this.service.lvClick=0;
+            this.service.logoutClick=0;
+            this.service.windowTabClick=0;
           },
           (error) => {
             this.Error = true;
@@ -148,7 +159,46 @@ export class LpsEarthStudComponent implements OnInit {
   get f() {
     return this.EarthStudForm.controls;
   }
-
+  onChangeForm(event:any){
+    if(!this.EarthStudForm.invalid){
+      if(this.EarthStudForm.dirty){
+        this.service.lvClick=1;
+        this.service.logoutClick=1;
+        this.service.windowTabClick=1;
+      }
+      else{
+        this.validationError=false;
+        this.service.lvClick=0;
+        this.service.logoutClick=0;
+        this.service.windowTabClick=0;
+      }
+     }
+     else {
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+     }
+  }
+  onKeyForm(event: KeyboardEvent) { 
+   if(!this.EarthStudForm.invalid){ 
+    if(this.EarthStudForm.dirty){
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+    }
+    else{
+      this.validationError=false;
+      this.service.lvClick=0;
+      this.service.logoutClick=0;
+      this.service.windowTabClick=0;
+    }
+   }
+   else {
+    this.service.lvClick=1;
+    this.service.logoutClick=1;
+    this.service.windowTabClick=1;
+   }
+  } 
   closeModalDialog() {
     if (this.errorMsg != '') {
       this.Error = false;

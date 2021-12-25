@@ -53,22 +53,22 @@ thead {
 }
 
 /* add and delete button */
-.add{
+/* .add{
   background-color: #f1f1f1;
   color: black;
-}
+} */
 .add:hover{
-  background-color: #04AA6D;
-  color: white;
+  /* background-color: #04AA6D; */
+  color: green;
 }
 
-.dlt{
+/* .dlt{
   background-color: #f1f1f1;
   color: black;
-}
+} */
 .dlt:hover{
-  background-color: #df0000;
-  color: white;
+  /* background-color: #df0000; */
+  color: #df0000;
 }
 
 /* Mat stepper */

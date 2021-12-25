@@ -40,12 +40,15 @@ import { InspectionVerificationTestingComponent } from '../inspection-verificati
 import { InspectionVerificationIncomingEquipmentComponent } from '../inspection-verification-incoming-equipment/inspection-verification-incoming-equipment.component';
 import { SummaryComponent } from '../summary/summary.component';
 import { InspectionVerificationSupplyCharacteristicsComponent } from '../inspection-verification-supply-characteristics/inspection-verification-supply-characteristics.component';
-import { MatTabGroup } from '@angular/material/tabs';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 import { SavedreportsComponent } from '../savedreports/savedreports.component';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { map } from 'rxjs/operators';
 import { readJsonConfigFile } from 'typescript';
 import { FinalreportsComponent } from '../finalreports/finalreports.component';
+import { ObservationService } from '../services/observation.service';
+import {Pipe, PipeTransform } from '@angular/core';
+import { MatTabGroup, MatTabHeader, MatTab } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-verificationlv',
@@ -73,7 +76,10 @@ export class VerificationlvComponent implements OnInit {
   @ViewChild('companyPaginator', { static: true })
   companyPaginator!: MatPaginator;
   @ViewChild('companySort', { static: true }) companySort!: MatSort;
-
+  @Pipe({
+    name: 'truncate'
+})
+@ViewChild('tabs') tabs!: MatTabGroup;
   departmentColumns: string[] = [
     'action',
     'departmentCd',
@@ -220,10 +226,16 @@ export class VerificationlvComponent implements OnInit {
   validationError: boolean=false;
   validationErrorMsg: string="";
   disableTab: boolean=false;
+  noDetailsFlag: any = false;
+  siteData1: any = [];
+  currentUser: any = [];
+  currentUser1: any = [];
+  //counter: number=0;
 
   constructor(
     private _formBuilder: FormBuilder,
     private modalService: NgbModal,
+    private observationService: ObservationService,
     private dialog: MatDialog,
     private router: ActivatedRoute,
     private clientService: ClientService,
@@ -239,6 +251,9 @@ export class VerificationlvComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.currentUser=sessionStorage.getItem('authenticatedUser');
+    this.currentUser1 = [];
+    this.currentUser1=JSON.parse(this.currentUser);
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required],
       retrieveIsActive: ['', Validators.required],
@@ -264,6 +279,7 @@ export class VerificationlvComponent implements OnInit {
     this.refresh();
     // this.retrieveClientDetails();
     // this.retrieveSiteDetails();
+    this.tabs._handleClick = this.interceptTabChange.bind(this);
   }
   // callMethodFinal(){
   //   this.ngOnInit();
@@ -328,6 +344,12 @@ export class VerificationlvComponent implements OnInit {
     } else {
       this.success = false;
       this.modalService.dismissAll((this.successMsg = ''));
+    }
+  }
+
+  siteNameMethod(){
+    if(this.siteN.length > 15){
+      alert("Full Site Name:\r\n" + this.siteN);
     }
   }
 
@@ -492,8 +514,76 @@ export class VerificationlvComponent implements OnInit {
       this.retrieveSiteDetails();
     });
   }
-
-
+  
+  interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
+    if((this.service.lvClick==1) && (this.service.allStepsCompleted==true))
+       {
+        if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
+          this.selectedIndex=1; 
+          this.service.windowTabClick=0;
+          this.service.logoutClick=0; 
+          this.service.lvClick=0; 
+      }
+      else{
+        return;
+      }
+        }
+        else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
+        this.service.windowTabClick=0;
+        this.service.logoutClick=0;
+        this.service.lvClick=0; 
+        const tabs = tab.textLabel;
+        if((tabs==="Inspection Verification & Testing of Installation"))
+           {
+            this.selectedIndex=0; 
+            //--need to fix later--
+              // if(this.currentUser1.role == 'Inspector'){
+              //   this.siteService.retrieveListOfSite(this.email).subscribe(
+              //     data => {
+              //       this.siteData1 = JSON.parse(data);
+              //       for(let i of this.siteData1){
+              //         if(i.siteId == this.service.siteCount){
+              //           //this.counter++;
+              //           // this.basic.ngOnInit();
+              //           // this.supply.ngOnInit();
+              //           // this.incoming.ngOnInit();
+              //           // this.testing.ngOnInit();
+              //           // this.summary.ngOnInit();
+              //           this.changeTab(0, i.siteId, this.email, i.companyName, i.departmentName, i.site);
+              //           //this.changeTab(0, 2491, 'aishwarya547541@gmail.com', 'dvd', 'vdv', 'confimation box');
+              //         }
+              //       }
+              //     }
+              //   )
+              // }
+              // else {
+              //   if(this.currentUser1.assignedBy != null){
+              //     this.siteService.retrieveListOfSite(this.currentUser1.assignedBy).subscribe(
+              //       data => {
+              //         this.siteData1 = JSON.parse(data);
+              //         for(let i of this.siteData1){ 
+              //           if(i.siteId == this.service.siteCount){
+              //             // this.basic.ngOnInit();
+              //             // this.supply.ngOnInit();
+              //             // this.incoming.ngOnInit();
+              //             // this.testing.ngOnInit();
+              //             // this.summary.ngOnInit();
+              //             this.changeTab(0, i.siteId, this.currentUser1.assignedBy, i.companyName, i.departmentName, i.site);
+              //           }
+              //         }
+              //       }
+              //     )
+              //   }
+              // }
+          }
+          else if((tabs==="Saved Reports")){
+            this.selectedIndex=1; 
+          }    
+          else{
+            this.selectedIndex=2; 
+          }        
+        }
+  }
 
   deleteSite(siteId: number,sitedelete : any) {
     this.modalService.open(sitedelete, { centered: true });
@@ -573,30 +663,51 @@ export class VerificationlvComponent implements OnInit {
     this.service.isCompleted= next;
   }
   public NextStep2(next: any): void {
-    this.testing.callMethod();
     this.service.isLinear=false;
     //this.service.supplycharesteristicForm = next;
     this.service.isCompleted2= next;
+
+    if(next) {
+      this.callTestingNgOnInit();
+      this.callSummaryNgOnInit();
+    }
+    else {
+      this.callSummaryNgOnInit();
+    }
   }
+
+  callTestingNgOnInit() {
+    this.testing.callMethod();
+  }
+  callSummaryNgOnInit() {
+    this.summary.ngOnInit();
+  }
+
   public NextStep3(next: any): void {
     if(next){
-      this.testing.callMethod();
+      this.callTestingNgOnInit();
+      this.callSummaryNgOnInit();
     }
     else{
+      // need to uncoment for testing update issue
       this.testing.updateMethod();
+      this.callSummaryNgOnInit();
     }
     //this.service.addstep3 = next;
     this.service.isLinear=false;
     this.service.isCompleted3= next;
+
   }
   public NextStep4(next: any): void {
     this.service.isLinear=false;
     //this.service.testingForm = next;
     this.service.isCompleted4= next;
+    this.summary.ngOnInit();
+
   }
   public NextStep5(next: any): void {
-      this.saved.ngOnInit();
-      this.final.ngOnInit();
+    this.saved.ngOnInit();
+    this.final.ngOnInit();
     this.service.isLinear=false;
     //this.service.addsummary = next;
     this.service.isCompleted5 = next;
@@ -605,114 +716,185 @@ export class VerificationlvComponent implements OnInit {
     this.selectedIndex=2;
     }
   }
-
+ 
+  retreiveFromObservationSupply(siteId:any,observationComponent:any,userName:any){
+    this.observationService.retrieveObservation(siteId,observationComponent,userName).subscribe(
+      (data) => {
+      let observationArr=JSON.parse(data);
+      this.supply.retrieveFromObservationSupply(data);
+      },
+      (error) => {
+        this.errorArr = [];
+        this.Error = true;
+        this.errorArr = JSON.parse(error.error);
+        this.errorMsg = this.errorArr.message;
+      }
+    )
+  }
+  retreiveFromObservationInspection(siteId:any,observationComponent:any,userName:any){
+    this.observationService.retrieveObservation(siteId,observationComponent,userName).subscribe(
+      (data) => {
+      let observationArr=JSON.parse(data);
+      this.incoming.retrieveFromObservationInspection(data);
+      },
+      (error) => {
+        this.errorArr = [];
+        this.Error = true;
+        this.errorArr = JSON.parse(error.error);
+        this.errorMsg = this.errorArr.message;
+      }
+    )
+  }
+  retreiveFromObservationTesting(siteId:any,observationComponent:any,userName:any){
+    this.observationService.retrieveObservation(siteId,observationComponent,userName).subscribe(
+      (data) => {
+      let observationArr=JSON.parse(data);
+      this.testing.retrieveFromObservationTesting(data);
+      },
+      (error) => {
+        this.errorArr = [];
+        this.Error = true;
+        this.errorArr = JSON.parse(error.error);
+        this.errorMsg = this.errorArr.message;
+      }
+    )
+  }
 //for ongoing & completed
-  changeTab(index: number, sitedId: any, userName: any, companyName: any, departmentName: any, site: any): void {
-    // this.selectedIndex=1;
-    this.siteService.retrieveFinal(userName,sitedId).subscribe(
-      data=> {
-        //this.selectedIndex = index;
-        this.dataJSON = JSON.parse(data);
-        if(this.dataJSON.reportDetails != null) {
-          this.siteN=site;
-          this.selectedIndex = index;    
-          this.service.msgForStep1Flag=false;
-          this.basic.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
-           if(this.dataJSON.supplyCharacteristics != null) {
-             this.supply.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
-             //commented by Arun on 04/12/2021
-             //this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
-             if(this.dataJSON.periodicInspection != null) {
-               this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
-               this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
-              //  if(this.dataJSON.testingReport != null) {
-              //    this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
-                 if(this.dataJSON.summary != null) {
-                   this.summary.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
-                 }
-                //  else{
-                //    this.summary.ngOnInit();
-                //  }
-              // }
-             }
-            //  else{
-            //    this.incoming.ngOnInit();
-            //    this.testing.ngOnInit();
-            //  }
-           }
-          //  else{
-          //    this.supply.ngOnInit();
-          //    this.testing.ngOnInit();
-          //  }
-           if(this.service.commentScrollToBottom==1){
-            this.service.triggerScrollTo();
-          }
-          this.service.commentScrollToBottom=0;
-          }   
-        else{
-          this.siteN=site;
-          this.noDetails=true;
-          this.service.msgForStep1Flag=true;
-          this.retrieveSite(companyName,departmentName,site);
-          setTimeout(() => {
-            this.noDetails=false;
-            this.selectedIndex=0;
-          }, 3000);
-        }   
-      },
-      error=> {
+changeTab(index: number, sitedId: any, userName: any, companyName: any, departmentName: any, site: any): void {
+  // this.selectedIndex=1;
+  this.siteService.retrieveFinal(userName,sitedId).subscribe(
+    data=> {
+      //this.selectedIndex = index;
+      this.dataJSON = JSON.parse(data);
+      if(this.dataJSON.reportDetails != null) {
+        this.siteN=site;
+        this.noDetailsFlag = true;
+        this.selectedIndex = index;
+        this.retreiveFromObservationSupply(sitedId,'Supply-Component',userName);
+        this.retreiveFromObservationInspection(sitedId,'Inspection-Component',userName);
+        this.retreiveFromObservationTesting(sitedId,'Testing-Component',userName);
+        this.service.msgForStep1Flag=false;
+        this.basic.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
+      }
+      else{
+        this.siteN=site;
+        this.service.msgForStep1Flag=true;
+        this.retrieveSite(companyName,departmentName,site);
+        setTimeout(() => {
+          //this.selectedIndex=0;
+        }, 3000);
+      }
+      if(this.dataJSON.supplyCharacteristics != null) {
+        this.noDetailsFlag = true;
+        this.supply.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
+        this.summary.retrieveFromOngoingForObservation(sitedId);
+        //commented by Arun on 04/12/2021
+        //this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
 
       }
-    )
-  }
+
+      if(this.dataJSON.periodicInspection != null) {
+        this.noDetailsFlag = true;
+        this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
+        this.summary.retrieveFromOngoingForObservation(sitedId);
+        this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
+        this.summary.retrieveFromOngoingForObservation(sitedId);
+      //  if(this.dataJSON.testingReport != null) {
+      //    this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
+          if(this.dataJSON.summary != null) {
+            this.noDetailsFlag = true;
+            this.summary.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
+          }
+      }
+    
+      if(this.service.commentScrollToBottom==1){
+      this.service.triggerScrollTo();
+      }
+      this.service.commentScrollToBottom=0;
+        
+        
+      if(this.noDetailsFlag) {
+        this.siteN=site;
+      }  
+      else{
+        this.siteN=site;
+        this.noDetails=true;
+        this.service.msgForStep1Flag=true;
+        //this.retrieveSite(companyName,departmentName,site);
+        setTimeout(() => {
+          this.noDetails=false;
+          this.selectedIndex=0;
+        }, 3000);
+      }   
+    },
+    error=> {
+
+    }
+  )
+}
 //for continue button in saved reports
-  changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any) {
-    this.selectedIndex = 1;
-    this.siteService.retrieveFinal(userName,sitedId).subscribe(
-      data=> {
-        //this.selectedIndex = index;
-        this.dataJSON = JSON.parse(data);
-        if(this.dataJSON.reportDetails != null) {
-          this.siteN=site;
-          this.selectedIndex = index;       
-          this.service.msgForStep1Flag=false;
-          this.basic.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
-          this.service.siteCount = sitedId;
-           if(this.dataJSON.supplyCharacteristics != null) {
-             this.supply.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
-             if(this.dataJSON.periodicInspection != null) {
-               this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
-               this.testing.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
-                 if(this.dataJSON.summary != null) {
-                   this.summary.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
-                 }             
-             }
-           }
-           if(this.service.commentScrollToBottom==1){
-            this.service.triggerScrollTo();
-          }
-          this.service.commentScrollToBottom=0;
-          }   
-        else{
-          this.siteN=site;
-          this.noDetails=true;
-          this.service.msgForStep1Flag=true;
-          this.saved.savedContinue();
-          setTimeout(() => {
-            this.noDetails=false;
-            this.selectedIndex=0;
-          }, 3000);
-        }   
-      },
-      error=> {
-
+changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any) {
+  this.selectedIndex = 1;
+  this.siteService.retrieveFinal(userName,sitedId).subscribe(
+    data=> {
+      //this.selectedIndex = index;
+      this.dataJSON = JSON.parse(data);
+      if(this.dataJSON.reportDetails != null) {
+        this.siteN=site;
+        this.noDetailsFlag= true;
+        this.selectedIndex = index;       
+        this.service.msgForStep1Flag=false;
+        this.basic.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+        this.service.siteCount = sitedId;
       }
-    )
-  }
+      else {
+        this.siteN=site;
+      }
+
+      if(this.dataJSON.supplyCharacteristics != null) {
+        this.noDetailsFlag= true;
+        this.supply.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+        this.summary.retrieveFromOngoingForObservation(sitedId);
+      }
+      
+      if(this.dataJSON.periodicInspection != null) {
+        this.noDetailsFlag= true;
+        this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+        this.summary.retrieveFromOngoingForObservation(sitedId);
+        this.testing.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+       this.summary.retrieveFromOngoingForObservation(sitedId);
+          if(this.dataJSON.summary != null) {
+            this.summary.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+          }             
+      }
+         
+      if(this.service.commentScrollToBottom==1){
+        this.service.triggerScrollTo();
+      }
+      this.service.commentScrollToBottom=0;
+      
+      if(this.noDetailsFlag) {
+        this.siteN=site;
+      }  
+      else{
+        this.siteN=site;
+        this.noDetails=true;
+        this.service.msgForStep1Flag=true;
+        this.saved.savedContinue();
+        setTimeout(() => {
+          this.noDetails=false;
+          this.selectedIndex=0;
+        }, 3000);
+      }   
+    },
+    error=> {
+
+    }
+  )
+}
 
 //retrieve site after adding new site in modal
   retrieveSite(companyName:any,departmentName:any,site:any){
-    
   this.siteService.retrieveSiteForInspection(companyName,departmentName,site).subscribe(
     data=>{
       this.siteData=JSON.parse(data);

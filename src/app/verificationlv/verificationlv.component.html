@@ -1,10 +1,12 @@
-<div style="position: relative;left: 70%;top: 33px;" title="{{siteN}}"> 
-  <label style="color: lightslategrey;
+<div style="position: relative;left: 75%;top: 33px;"> 
+  <h3 style="color: lightslategrey;
   font-weight: 500;position: absolute;
-    top: -20px;">Working for Site Name:
-  <input type="text" maxlength="50" [value]="siteN" style="border: none;"></label>
+    top: -20px;" > Showing Site Name: 
+    <a style="cursor: pointer; text-decoration: underline;color: black;" (click)="siteNameMethod();">{{siteN | truncate : 15 : "..."}}</a>
+  <div class="horizontalLine"></div>
+ </h3> 
 </div>
-<mat-tab-group [selectedIndex]="selectedIndex" style="background-color:white;">
+<mat-tab-group [selectedIndex]="selectedIndex" style="background-color:white;" class="globalSite" #tabs>
   <!-- <mat-tab label="Site Details">
     <mat-horizontal-stepper #stepper>
       <mat-step>
@@ -223,8 +225,22 @@
     <app-finalreports></app-finalreports>
   </mat-tab>
 
-  <!-- <mat-tab label="Site Name:" class="disableTab"></mat-tab>
-  <mat-tab [label]="siteN" class="disableTab"></mat-tab> -->
+  <!-- <mat-tab>
+		<ng-template mat-tab-label>
+      <div style="position: relative;left: 70%;top: 33px;" > 
+        <h3 style="color: lightslategrey;
+        font-weight: 500;position: absolute;
+          top: -20px;">Working for Site Name:</h3>
+        <input type="text" maxlength="50" [value]="siteN" style="border: none;" title="{{siteN}}">
+      </div>
+		</ng-template>
+	</mat-tab> -->
+
+  <!-- <mat-tab label="Working for Site Name:" class="disableTab" [disabled]="true"></mat-tab>
+  <mat-tab [label]="siteN | truncate  : 10" class="disableTab" title="Click here!"
+  (click)="tabClick($event)"></mat-tab> -->
+
+   
 
 </mat-tab-group>
 

@@ -1,7 +1,6 @@
-<div class="card-body">
+<div class="card">
     <div class="card-body">
-        <form [formGroup]="separeteDistanceForm" (ngSubmit)="onSubmit(flag)">
-            <div class="card-body">
+        <form [formGroup]="separeteDistanceForm" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
                 <div style="font-weight: bold;">
                     <label for="Basicdetails">Basic Details:</label>
                 </div>
@@ -15,7 +14,6 @@
 
                 <!-- tables -->
                 <div style="margin-top: 0px;">
-
                     <table class="table">
                         <thead>
                             <th>SI.No</th>
@@ -34,8 +32,8 @@
                                 </td>
                             </tr>
                         </tbody>
-
                     </table>
+                    <div class="table-responsive" style="border: 1px solid black;">
                     <table>
                         <tbody formArrayName="separateDistanceDescriptionArr"
                             *ngFor="let f of getseparateDistanceDescriptionControls(); let i = index">
@@ -96,8 +94,8 @@
                             </div>
                         </tbody>
                     </table>
+                    </div>
                 </div>
-            </div>
             <div>
         </div>
             <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
