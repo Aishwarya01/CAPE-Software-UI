@@ -85,7 +85,7 @@
             [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('serviceCable')?.errors }">
            <option value="" selected>Select Option</option>
-            <option *ngFor="let value of InspectionList" [selected]="value=== a.get('serviceCable')?.value">{{value}}</option>
+            <option *ngFor="let value of cableBusBarList" [selected]="value=== a.get('serviceCable')?.value">{{value}}</option>
           </select>
             <div *ngIf="submitted && a.get('serviceCable')?.errors" class="invalid-feedback">
               <div *ngIf="a.get('serviceCable')?.errors?.required">Service Cable is required</div>
@@ -162,7 +162,7 @@
 
         <div class="col-sm-12">
           <div class="form-group equipment">
-            <label>Over Voltage Protection:</label>
+            <label>Over Voltage Protection (overvoltage category maintained):</label>
             <mat-icon style="float: right;font-size: 18px;
                 line-height: unset;"
                 matTooltip="Availability status to be included."
@@ -177,6 +177,27 @@
             </select>
             <div *ngIf="submitted && a.get('meterEqu')?.errors" class="invalid-feedback">
               <div *ngIf="a.get('meterEqu')?.errors?.required">Metering Equipment is required</div>
+          </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <div class="form-group equipment">
+            <label>TOV Control Measures On LV Side Due To HV Fault:</label>
+            <mat-icon style="float: right;font-size: 18px;
+                line-height: unset;"
+                matTooltip="Availability status to be included."
+                matTooltipClass="multiline-tooltip"
+                aria-label="Button that shows a red tooltip"
+                class="example-button"> info_outline
+            </mat-icon>
+            <select class="form-control" formControlName="tovMeasuresLVHV" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+            [ngClass]="{ 'is-invalid': submitted && a.get('meterEqu')?.errors }" >
+             <option value="" selected>Select Option</option>
+              <option *ngFor="let value of InspectionList" [selected]="value=== a.get('tovMeasuresLVHV')?.value">{{value}}</option>
+            </select>
+            <div *ngIf="submitted && a.get('tovMeasuresLVHV')?.errors" class="invalid-feedback">
+              <div *ngIf="a.get('tovMeasuresLVHV')?.errors?.required">TOV Control Measures required</div>
           </div>
           </div>
         </div>

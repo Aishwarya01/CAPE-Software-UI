@@ -71,6 +71,7 @@ export class InspectionVerificationIncomingEquipmentComponent
   // Second Tab dependencies
   panelOpenState = false;
   InspectionList: String[] = ['Yes', 'No', 'Not Applicable'];
+  cableBusBarList: String[] = ['Cable', 'Busbar'];
   incomingArr!: FormArray;
   arr: any = [];
   formBuilder: any;
@@ -676,6 +677,7 @@ showHideAccordion(index: number) {
       meterDistributor: new FormControl({disabled: false,value: item.meterDistributor}, [Validators.required]),
       meterConsumer: new FormControl({disabled: false,value: item.meterConsumer}, [Validators.required]),
       meterEqu: new FormControl({disabled: false,value: item.meterEqu}, [Validators.required]),
+      tovMeasuresLVHV: new FormControl({disabled: false,value: item.tovMeasuresLVHV}, [Validators.required]),
       isolator: new FormControl({disabled: false,value: item.isolator}, [Validators.required]),
 
       earthingArrangement: new FormControl({disabled: false,value: item.earthingArrangement}, [Validators.required]),
@@ -1101,6 +1103,7 @@ showHideAccordion(index: number) {
       meterDistributor: new FormControl('', [Validators.required]),
       meterConsumer: new FormControl('', [Validators.required]),
       meterEqu: new FormControl('', [Validators.required]),
+      tovMeasuresLVHV: new FormControl('', [Validators.required]),
       isolator: new FormControl('', [Validators.required]),
 
       earthingArrangement: new FormControl('', [Validators.required]),
