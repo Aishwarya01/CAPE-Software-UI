@@ -2752,7 +2752,7 @@ showHideAccordion(index: number) {
                 ) as FormArray;
                 this.circuitArr.removeAt(i);
                 this.alternateArr.removeAt(0);
-                this.observationAlternateArr.removeAt(0);
+                this.observationAlternateArr.removeAt(i);
 
                 break 
                 }
@@ -2764,7 +2764,7 @@ showHideAccordion(index: number) {
     this.supplycharesteristicForm.markAsPristine();
     this.supplycharesteristic.supplyNumber = '0';
   }
-      this.disableValidators();
+      //this.disableValidators();
     }
      else {
       this.alternativeSupplyNo=true;
@@ -2959,35 +2959,35 @@ showHideAccordion(index: number) {
   }
  
   disableValidators() {
-    // this.alternateArr = this.supplycharesteristicForm.get(
-    //   'alternateArr'
-    // ) as FormArray;
-    // this.loclength = this.alternateArr.length;
+    this.alternateArr = this.supplycharesteristicForm.get(
+      'alternateArr'
+    ) as FormArray;
+    this.loclength = this.alternateArr.length;
     this.supplycharesteristicForm.controls['supplyNumber'].setValue('');
     this.supplycharesteristicForm.controls['supplyNumber'].clearValidators();
     this.supplycharesteristicForm.controls[
       'supplyNumber'
     ].updateValueAndValidity();
 
-    // for (this.i = 0; this.i < this.loclength; this.i++) {
-    //   for (this.j = 0; this.j < this.fcname.length; this.j++) {
-    //     this.f.alternateArr.controls[this.i].controls[
-    //       this.fcname[this.j]
-    //     ].clearValidators();
-    //     this.f.alternateArr.controls[this.i].controls[
-    //       this.fcname[this.j]
-    //     ].updateValueAndValidity();
-    //   }
+    for (this.i = 0; this.i < this.loclength; this.i++) {
+      for (this.j = 0; this.j < this.fcname.length; this.j++) {
+        this.f.alternateArr.controls[this.i].controls[
+          this.fcname[this.j]
+        ].clearValidators();
+        this.f.alternateArr.controls[this.i].controls[
+          this.fcname[this.j]
+        ].updateValueAndValidity();
+      }
 
-    //   for (this.k=0; this.k < this.circuitName.length; this.k++) {
-    //     this.f.circuitArr.controls[this.i].controls[
-    //       this.circuitName[this.k]
-    //     ].clearValidators();
-    //     this.f.circuitArr.controls[this.i].controls[
-    //       this.circuitName[this.k]
-    //     ].updateValueAndValidity();
-    //   }
-    // }
+      for (this.k=0; this.k < this.circuitName.length; this.k++) {
+        this.f.circuitArr.controls[this.i].controls[
+          this.circuitName[this.k]
+        ].clearValidators();
+        this.f.circuitArr.controls[this.i].controls[
+          this.circuitName[this.k]
+        ].updateValueAndValidity();
+      }
+    }
   }
 
   get f(): any {
