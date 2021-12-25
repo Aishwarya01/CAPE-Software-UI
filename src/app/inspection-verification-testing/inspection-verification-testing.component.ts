@@ -3338,6 +3338,11 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
         this.testingRecords = v.get('testingRecords') as FormArray;
         for(let z=0; z < this.testingRecords.length; z++){
          this.observationArr.controls[z].controls.observationComponentDetails.setValue('circuit');
+         if(this.testingRecords.controls[z].controls.rcdRemarks.value == '' 
+         || this.testingRecords.controls[z].controls.rcdRemarks.value == undefined 
+          || this.testingRecords.controls[z].controls.rcdRemarks.value == null) {
+          this.testingRecords.controls[z].controls.rcdRemarks.setValue('NA');
+         }
          this.observationArr.controls[z].controls.observationDescription.setValue(this.testingRecords.controls[z].controls.rcdRemarks.value);
         }
       }

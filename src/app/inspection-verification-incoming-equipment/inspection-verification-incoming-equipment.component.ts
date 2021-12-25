@@ -824,7 +824,7 @@ showHideAccordion(index: number) {
       mechanicalDamage: new FormControl({disabled: false,value: itemvalue.mechanicalDamage}, [Validators.required]),
       electromagnetic: new FormControl({disabled: false,value: itemvalue.electromagnetic}, [Validators.required]),
       allConductorCon: new FormControl({disabled: false,value: itemvalue.allConductorCon}, [Validators.required]),
-      observationDescription: new FormControl(),
+      observationDescription: new FormControl('', [Validators.required]),
       consumerStatus: new FormControl(itemvalue.consumerStatus),
     });
   }
