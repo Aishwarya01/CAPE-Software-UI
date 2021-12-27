@@ -253,8 +253,8 @@
                         </mat-expansion-panel-header>
                       
                  <div formArrayName="testDistRecords" *ngFor="let z of gettestDistRecordsFormControls(a); let w = index">
-                   <div [formGroupName]="w" [ngClass]="{'disableForm':service.allFieldsDisable}">
-                   <div formArrayName="testDistribution" *ngFor="let c of gettestDistributionFormControls(z); let i = index">
+                   <div [formGroupName]="w">
+                   <div formArrayName="testDistribution"  [ngClass]="{'disableForm':service.allFieldsDisable}"  *ngFor="let c of gettestDistributionFormControls(z); let i = index">
                         <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
                             <div class="row">
                                 <div class="col-md-4">
@@ -402,7 +402,7 @@
 <br>
                 <div class="row" *ngIf="c.get('sourceFromSupply').value=='Mains Incoming'">
                     <div class="col-sm-12">
-                        <div class="table-responsive" >
+                        <div class="table-responsive">
                             <table  class="table testingTable" id="table1">
                                 <div formArrayName="distributionIncomingValueArr" 
                                 *ngFor="let e of getdistributionIncomingValueControls(c); let j= index">
@@ -425,77 +425,77 @@
                                             <tr>
                                                 <td>Nominal Voltage U/U0 (V)</td>
                                                 <td><input type="text" formControlName="incomingVoltage1" class="form-control disable" 
-                                                  [readonly]="service.allFieldsDisable"></td>
-                                                <td><input type="text"  formControlName="incomingVoltage2" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                                  readonly></td>
+                                                <td><input type="text"  formControlName="incomingVoltage2" class="form-control disable" readonly
                                                  ></td>
-                                                <td><input type="text"  formControlName="incomingVoltage3" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                                <td><input type="text"  formControlName="incomingVoltage3" class="form-control disable" readonly
                                                   ></td>
-                                                <td><input type="text" formControlName="incomingVoltage4" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                                <td><input type="text" formControlName="incomingVoltage4" class="form-control disable" readonly
                                                   ></td>
-                                                <td><input type="text"  formControlName="incomingVoltage5" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                                <td><input type="text"  formControlName="incomingVoltage5" class="form-control disable" readonly
                                                  ></td>
-                                                <td><input type="text" formControlName="incomingVoltage6" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                                <td><input type="text" formControlName="incomingVoltage6" class="form-control disable" readonly
                                                  ></td>
-                                                <td><input type="text" formControlName="incomingVoltage7" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                                <td><input type="text" formControlName="incomingVoltage7" class="form-control disable" readonly
                                                   ></td>
-                                                <td><input type="text" formControlName="incomingVoltage8" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                                <td><input type="text" formControlName="incomingVoltage8" class="form-control disable" readonly
                                                   ></td>
-                                                <td><input type="text" formControlName="incomingVoltage9" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                                <td><input type="text" formControlName="incomingVoltage9" class="form-control disable" readonly
                                                   ></td>
                                             </tr>
                                           
                                             <tr>
                                                 <td>External Loop Impedance Ze (Ω)</td>
-                                                <td><input type="text" formControlName="incomingZs1" class="form-control disable"
+                                                <td><input type="text" formControlName="incomingZs1" class="form-control disable" readonly
                                                   ></td>
-                                                <td><input type="text"formControlName="incomingZs2" class="form-control disable"
+                                                <td><input type="text"formControlName="incomingZs2" class="form-control disable" readonly
                                                   ></td>
-                                                <td><input type="text" formControlName="incomingZs3" class="form-control disable"
+                                                <td><input type="text" formControlName="incomingZs3" class="form-control disable" readonly
                                                  ></td>
-                                                <td><input type="text" formControlName="incomingZs4" class="form-control disable"
+                                                <td><input type="text" formControlName="incomingZs4" class="form-control disable" readonly
                                                   ></td>
-                                                <td><input type="text" formControlName="incomingZs5" class="form-control disable"
+                                                <td><input type="text" formControlName="incomingZs5" class="form-control disable"readonly
                                                   ></td>
-                                                <td><input type="text"  formControlName="incomingZs6" class="form-control disable"
+                                                <td><input type="text"  formControlName="incomingZs6" class="form-control disable" readonly
                                                   ></td>
-                                                <td><input type="text" formControlName="incomingZs7" class="form-control disable"
+                                                <td><input type="text" formControlName="incomingZs7" class="form-control disable" readonly
                                                   ></td>
-                                                <td><input type="text" formControlName="incomingZs8" class="form-control disable"
+                                                <td><input type="text" formControlName="incomingZs8" class="form-control disable"readonly
                                                   ></td>
-                                                <td><input type="text" formControlName="incomingZs9" class="form-control disable"
+                                                <td><input type="text" formControlName="incomingZs9" class="form-control disable" readonly
                                                   ></td>
                                             </tr>
 
                                             <tr>
                                               <td>Prospective fault current Ipfc (kA)</td>
-                                              <td><input type="text" formControlName="incomingIpf1" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                              <td><input type="text" formControlName="incomingIpf1" class="form-control disable" readonly
                                                 ></td>
-                                              <td><input type="text"  formControlName="incomingIpf2" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                              <td><input type="text"  formControlName="incomingIpf2" class="form-control disable" readonly
                                                 ></td>
-                                              <td><input type="text" formControlName="incomingIpf3" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                              <td><input type="text" formControlName="incomingIpf3" class="form-control disable" readonly
                                                 ></td>
-                                              <td><input type="text" formControlName="incomingIpf4" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                              <td><input type="text" formControlName="incomingIpf4" class="form-control disable" readonly
                                                 ></td>
-                                              <td><input type="text"  formControlName="incomingIpf5" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                              <td><input type="text"  formControlName="incomingIpf5" class="form-control disable" readonly
                                                 ></td>
-                                              <td><input type="text" formControlName="incomingIpf6" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                              <td><input type="text" formControlName="incomingIpf6" class="form-control disable" readonly
                                                 ></td>
-                                              <td><input type="text" formControlName="incomingIpf7" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                              <td><input type="text" formControlName="incomingIpf7" class="form-control disable" readonly
                                                 ></td>
-                                              <td><input type="text" formControlName="incomingIpf8" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                              <td><input type="text" formControlName="incomingIpf8" class="form-control disable" readonly
                                                 ></td>
-                                              <td><input type="text" formControlName="incomingIpf9" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                              <td><input type="text" formControlName="incomingIpf9" class="form-control disable" readonly
                                                 ></td>
                                           </tr>
                                           <tr>
                                             <td>Actual load current connected to this source (A)</td>
-                                            <td colspan="2"><input type="text" formControlName="actualLoadAl1" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                            <td colspan="2"><input type="text" formControlName="actualLoadAl1" class="form-control disable" readonly
                                               ></td>
-                                            <td colspan="2"><input type="text"  formControlName="actualLoadAl2" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                            <td colspan="2"><input type="text"  formControlName="actualLoadAl2" class="form-control disable" readonly
                                               ></td>
-                                            <td colspan="3"><input type="text" formControlName="actualLoadAl3" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                            <td colspan="3"><input type="text" formControlName="actualLoadAl3" class="form-control disable" readonly
                                               ></td>
-                                            <td colspan="2"><input type="text" formControlName="actualLoadAl4" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                            <td colspan="2"><input type="text" formControlName="actualLoadAl4" class="form-control disable" readonly
                                               ></td>
                                         </tr>
 
@@ -530,77 +530,77 @@
                                       <tbody [formGroupName]="j">
                                           <tr>
                                               <td>Nominal Voltage U/U0 (V)</td>
-                                              <td><input type="text" formControlName="incomingVoltage1" class="form-control disable"  [readonly]="service.allFieldsDisable"
+                                              <td><input type="text" formControlName="incomingVoltage1" class="form-control disable"  readonly
                                                 ></td>
-                                              <td><input type="text"  formControlName="incomingVoltage2" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                              <td><input type="text"  formControlName="incomingVoltage2" class="form-control disable" readonly
                                                 ></td>
-                                              <td><input type="text"  formControlName="incomingVoltage3" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                              <td><input type="text"  formControlName="incomingVoltage3" class="form-control disable" readonly
                                                 ></td>
-                                              <td><input type="text" formControlName="incomingVoltage4" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                              <td><input type="text" formControlName="incomingVoltage4" class="form-control disable" readonly
                                                ></td>
-                                              <td><input type="text"  formControlName="incomingVoltage5" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                              <td><input type="text"  formControlName="incomingVoltage5" class="form-control disable" readonly
                                                 ></td>
-                                              <td><input type="text" formControlName="incomingVoltage6" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                              <td><input type="text" formControlName="incomingVoltage6" class="form-control disable" readonly
                                                 ></td>
-                                              <td><input type="text" formControlName="incomingVoltage7" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                              <td><input type="text" formControlName="incomingVoltage7" class="form-control disable" readonly
                                                 ></td>
-                                              <td><input type="text" formControlName="incomingVoltage8" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                              <td><input type="text" formControlName="incomingVoltage8" class="form-control disable" readonly
                                                 ></td>
-                                              <td><input type="text" formControlName="incomingVoltage9" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                              <td><input type="text" formControlName="incomingVoltage9" class="form-control disable" readonly
                                                 ></td>
                                           </tr>
                                           <tr>
                                             <td>External Loop Impedance Ze (Ω)</td>
-                                            <td><input type="text" formControlName="incomingZs1" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                            <td><input type="text" formControlName="incomingZs1" class="form-control disable" readonly
                                               ></td>
-                                            <td><input type="text"formControlName="incomingZs2" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                            <td><input type="text"formControlName="incomingZs2" class="form-control disable" readonly
                                               ></td>
-                                            <td><input type="text" formControlName="incomingZs3" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                            <td><input type="text" formControlName="incomingZs3" class="form-control disable" readonly
                                               ></td>
-                                            <td><input type="text" formControlName="incomingZs4" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                            <td><input type="text" formControlName="incomingZs4" class="form-control disable" readonly
                                               ></td>
-                                            <td><input type="text" formControlName="incomingZs5" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                            <td><input type="text" formControlName="incomingZs5" class="form-control disable" readonly
                                               ></td>
-                                            <td><input type="text"  formControlName="incomingZs6" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                            <td><input type="text"  formControlName="incomingZs6" class="form-control disable" readonly
                                               ></td>
-                                            <td><input type="text" formControlName="incomingZs7" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                            <td><input type="text" formControlName="incomingZs7" class="form-control disable" readonly
                                               ></td>
-                                            <td><input type="text" formControlName="incomingZs8" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                            <td><input type="text" formControlName="incomingZs8" class="form-control disable" readonly
                                               ></td>
-                                            <td><input type="text" formControlName="incomingZs9" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                            <td><input type="text" formControlName="incomingZs9" class="form-control disable" readonly
                                               ></td>
                                         </tr>
 
                                           <tr>
                                             <td>Prospective fault current Ipfc (kA)</td>
-                                            <td><input type="text" formControlName="incomingIpf1" class="form-control disable"
+                                            <td><input type="text" formControlName="incomingIpf1" class="form-control disable" readonly
                                               ></td>
-                                            <td><input type="text"  formControlName="incomingIpf2" class="form-control disable"
+                                            <td><input type="text"  formControlName="incomingIpf2" class="form-control disable" readonly
                                               ></td>
-                                            <td><input type="text" formControlName="incomingIpf3" class="form-control disable"
+                                            <td><input type="text" formControlName="incomingIpf3" class="form-control disable" readonly
                                               ></td>
-                                            <td><input type="text" formControlName="incomingIpf4" class="form-control disable"
+                                            <td><input type="text" formControlName="incomingIpf4" class="form-control disable" readonly
                                               ></td>
-                                            <td><input type="text"  formControlName="incomingIpf5" class="form-control disable"
+                                            <td><input type="text"  formControlName="incomingIpf5" class="form-control disable" readonly
                                               ></td>
-                                            <td><input type="text" formControlName="incomingIpf6" class="form-control disable"
+                                            <td><input type="text" formControlName="incomingIpf6" class="form-control disable"readonly
                                               ></td>
-                                            <td><input type="text" formControlName="incomingIpf7" class="form-control disable"
+                                            <td><input type="text" formControlName="incomingIpf7" class="form-control disable" readonly
                                               ></td>
-                                            <td><input type="text" formControlName="incomingIpf8" class="form-control disable"
+                                            <td><input type="text" formControlName="incomingIpf8" class="form-control disable" readonly
                                               ></td>
-                                            <td><input type="text" formControlName="incomingIpf9" class="form-control disable"
+                                            <td><input type="text" formControlName="incomingIpf9" class="form-control disable" readonly
                                               ></td>
                                         </tr>
                                         <tr>
                                           <td>Actual load current connected to this source (A)</td>
-                                          <td colspan="2"><input type="text" formControlName="actualLoadAl1" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                          <td colspan="2"><input type="text" formControlName="actualLoadAl1" class="form-control disable" readonly
                                             ></td>
-                                          <td colspan="2"><input type="text"  formControlName="actualLoadAl2" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                          <td colspan="2"><input type="text"  formControlName="actualLoadAl2" class="form-control disable" readonly
                                             ></td>
-                                          <td colspan="3"><input type="text" formControlName="actualLoadAl3" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                          <td colspan="3"><input type="text" formControlName="actualLoadAl3" class="form-control disable" readonly
                                             ></td>
-                                          <td colspan="2"><input type="text" formControlName="actualLoadAl4" class="form-control disable" [readonly]="service.allFieldsDisable"
+                                          <td colspan="2"><input type="text" formControlName="actualLoadAl4" class="form-control disable" readonly
                                             ></td>
                                       </tr>
                                       </tbody>
@@ -837,7 +837,7 @@
                                 <td><input type="text" formControlName="continutiyRR" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="continutiyR" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
 
-                                <td><input type="text" formControlName="continutiyPolarity" class="form-control"  style="width:80px"></td>
+                                <td><input type="text" formControlName="continutiyPolarity" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
 
                                 <td><input type="text" formControlName="rycontinutiy" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="rbcontinutiy" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
