@@ -128,8 +128,8 @@
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Type-A earthing system</mat-expansion-panel-header>
-                    <div class="table-responsive">
-                    <table class="table">
+                    <div class="table-responsive" style="overflow-x: unset;">
+                        <table class="table TableBorder">
                         <tbody formArrayName="descriptionArr" *ngFor="let a of earthingDescriptionarr(); let j = index">
                          <div class="form-group" [formGroupName]="j">
                             <div class="row">
@@ -777,8 +777,8 @@
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Clamps</mat-expansion-panel-header>
-                    <div class="table-responsive">
-                            <table class="table">
+                    <div class="table-responsive" style="overflow-x: unset;">
+                        <table class="table TableBorder">
                                 <tbody formArrayName="ClampsArr" *ngFor="let a of earthingClampsarr(); let j = index">
                                     <div class="form-group" [formGroupName]="j">
                                         <div class="row">
@@ -1123,8 +1123,8 @@
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Earth electrode chambers</mat-expansion-panel-header>
-                    <div class="table-responsive">
-                        <table class="table">
+                    <div class="table-responsive" style="overflow-x: unset;">
+                        <table class="table TableBorder">
                             <tbody formArrayName="chamberArr"
                                 *ngFor="let a of earthElectrodeChambearr(); let j = index">
                                 <div class="form-group" [formGroupName]="j">
