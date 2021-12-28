@@ -12,7 +12,7 @@ import { CommentsSection } from '../model/comments-section';
 import { InspectionVerificationBasicInformationComponent } from '../inspection-verification-basic-information/inspection-verification-basic-information.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ObservationService } from '../services/observation.service';
-import { ObservationSupply } from '../model/observation-supply';
+// import { ObservationSupply } from '../model/observation-supply';
 
 @Component({
   selector: 'app-inspection-verification-supply-characteristics',
@@ -26,7 +26,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
 
   a: any;
   supplyparameters = new Supplyparameters();
-  observation= new ObservationSupply;
+  //observation= new ObservationSupply;
   supplycharesteristic = new Supplycharacteristics();
   enableAC: boolean = false;
   enableDC: boolean = false;
@@ -332,9 +332,9 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   circuitSourceArr1: any=[];
   observationUpdateFlag: boolean= false;
 
-  ObservationsForm = new FormGroup({
-    observations: new FormControl(''),
-  });
+  // ObservationsForm = new FormGroup({
+  //   observations: new FormControl(''),
+  // });
   storeDelData: any=[];
   observationFlag: boolean= false;
   errorArrObservation: any=[];
@@ -370,9 +370,9 @@ export class InspectionVerificationSupplyCharacteristicsComponent
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
 
-    this.ObservationsForm = this.formBuilder.group({
-      observations: [''],
-     })
+    // this.ObservationsForm = this.formBuilder.group({
+    //   observations: [''],
+    //  })
     this.supplycharesteristicForm = this.formBuilder.group({
       shortName: ['', Validators.required],
       systemEarthing: ['', Validators.required],
@@ -643,7 +643,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
         this.mainArr5 = [];
 
         this.mainArr1 = this.step2List.supplyCharacteristics.mainNominalVoltage.split(",");
-        this.mainArr2 = this.step2List.supplyCharacteristics.mainNominalFrequency;
+        this.mainArr2 = this.step2List.supplyCharacteristics.mainNominalCapacity;
         this.mainArr3 = this.step2List.supplyCharacteristics.mainNominalCurrent.split(",");
         this.mainArr4 = this.step2List.supplyCharacteristics.mainLoopImpedance.split(",");
         this.mainArr5 = this.step2List.supplyCharacteristics.mainActualLoad.split(",");
@@ -803,7 +803,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
           this.mainArr5 = [];
 
           this.mainArr1 = this.step2List.mainNominalVoltage.split(",");
-          this.mainArr2 = this.step2List.mainNominalFrequency;
+          this.mainArr2 = this.step2List.mainNominalCapacity;
           this.mainArr3 = this.step2List.mainNominalCurrent.split(",");
           this.mainArr4 = this.step2List.mainLoopImpedance.split(",");
           this.mainArr5 = this.step2List.mainActualLoad.split(",");
@@ -1619,22 +1619,22 @@ showHideAccordion(index: number) {
    
       })
     }
-   retrieveFromObservationSupply(data:any){
-    this.observation=JSON.parse(data);
-    this.observationValues=this.observation.observations;
-    this.observationUpdateFlag=true;
-    this.ObservationsForm.markAsPristine();
-    }
+  //  retrieveFromObservationSupply(data:any){
+  //   this.observation=JSON.parse(data);
+  //   this.observationValues=this.observation.observations;
+  //   this.observationUpdateFlag=true;
+  //   this.ObservationsForm.markAsPristine();
+  //   }
     
 
-    addObservationSupply(observationIter:any){
-      if(this.supplycharesteristicForm.touched || this.supplycharesteristicForm.untouched){
-        this.observationModalReference = this.modalService.open(observationIter, {
-           centered: true, 
-           size: 'md'
-          })
-       }
-    }
+  //   addObservationSupply(observationIter:any){
+  //     if(this.supplycharesteristicForm.touched || this.supplycharesteristicForm.untouched){
+  //       this.observationModalReference = this.modalService.open(observationIter, {
+  //          centered: true, 
+  //          size: 'md'
+  //         })
+  //      }
+  //   }
 
   addItem1(item: any) : FormGroup {
     return this.formBuilder.group({
@@ -1716,6 +1716,9 @@ showHideAccordion(index: number) {
           }
           }
         }
+        if(item.observationDescription!=null && item.observationDescription!=undefined && item.observationDescription!=''){
+          this.service.observationGlowSupply=true;
+          }
       }
       this.supplycharesteristicForm.setControl('location2Arr', this.formBuilder.array(this.arr2 || []))
       this.supplycharesteristicForm.setControl('location1Arr', this.formBuilder.array(this.arr1 || []))
@@ -2176,7 +2179,7 @@ showHideAccordion(index: number) {
         for (this.i = 0; this.i < this.delarr; this.i++) {
 
           let a = this.location1Arr.value[this.i];
-          if(a.locationReportId != 0){
+          if(a.locationReportId != 0 && a.locationReportId != undefined && a.locationReportId != ''){
             a.instalLocationReportStatus = 'R';
             this.locationArr = this.locationArr.concat(a);
           }
@@ -2189,7 +2192,23 @@ showHideAccordion(index: number) {
         }
       }
     }
-  }
+    }
+    else if(this.value == 0 && this.value != '') {
+      this.key1LocationTable=false;
+      this.delarr = this.location1Arr.length - this.value;
+        for (this.i = 0; this.i < this.delarr; this.i++) {
+          let a = this.location1Arr.value[this.location1Arr.length - 1];
+          if(a.locationReportId != 0 && a.locationReportId != undefined && a.locationReportId != ''){
+            a.instalLocationReportStatus = 'R';
+            this.locationArr = this.locationArr.concat(a);
+          }       
+          this.location1Arr = this.supplycharesteristicForm.get(
+            'location1Arr'
+          ) as FormArray;
+          this.location1Arr.removeAt(this.location1Arr.length - 1);
+        }
+
+    }
 }
 
     // this.f.location1Arr.controls[i].controls['locationNo'].clearValidators();
@@ -2330,9 +2349,10 @@ showHideAccordion(index: number) {
         for (this.i = 0; this.i < this.delarr; this.i++) {
 
           let a = this.location2Arr.value[this.i];
+          if(a.locationReportId != 0 && a.locationReportId != undefined && a.locationReportId != ''){
           a.instalLocationReportStatus = 'R';
           this.boundingArr = this.boundingArr.concat(a);
-
+          }
           this.location2Arr = this.supplycharesteristicForm.get(
             'location2Arr'
           ) as FormArray;
@@ -2340,7 +2360,23 @@ showHideAccordion(index: number) {
         }
       }
     }
-  }
+    }
+
+    else if(this.value == 0 && this.value != '') {
+      this.JointLocationTable=false;
+      this.delarr = this.location2Arr.length - this.value;
+        for (this.i = 0; this.i < this.delarr; this.i++) {
+          let a = this.location2Arr.value[this.location2Arr.length - 1];
+          if(a.locationReportId != 0 && a.locationReportId != undefined && a.locationReportId != ''){
+            a.instalLocationReportStatus = 'R';
+            this.boundingArr = this.boundingArr.concat(a);
+          }       
+          this.location2Arr = this.supplycharesteristicForm.get(
+            'location2Arr'
+          ) as FormArray;
+          this.location2Arr.removeAt(this.location2Arr.length - 1);
+        }
+    }
   // else{
   //   this.JointLocationTable=false;
   // }
@@ -2516,7 +2552,22 @@ showHideAccordion(index: number) {
         }
       }
     }
-  }
+    }
+    else if(this.value == 0 && this.value != '') {
+      this.keyJOintLocationTable=false;
+      this.delarr = this.location3Arr.length - this.value;
+        for (this.i = 0; this.i < this.delarr; this.i++) {
+          let a = this.location3Arr.value[this.location3Arr.length - 1];
+          if(a.locationReportId != 0 && a.locationReportId != undefined && a.locationReportId != ''){
+            a.instalLocationReportStatus = 'R';
+            this.earthingArr = this.earthingArr.concat(a);
+          }       
+          this.location3Arr = this.supplycharesteristicForm.get(
+            'location3Arr'
+          ) as FormArray;
+          this.location3Arr.removeAt(this.location3Arr.length - 1);
+        }
+    }
 //     else if((this.service.jointType==1 && this.service.noOfjoint==0) || (this.service.jointType=='' && this.service.noOfjoint==0))
 //     {
 //       this.keyJOintLocationTable=true;
@@ -2720,29 +2771,28 @@ showHideAccordion(index: number) {
       if (this.alternateArr.length != 0) {
         let b = parseInt(this.supplycharesteristicForm.value.supplyNumber);
         for (this.i = 0; this.i < b; this.i++) {
-          let d = this.alternateArr.value[0];
-          let x= this.observationAlternateArr.value[0]
+          let d = this.alternateArr.value[this.alternateArr.length-1];
+          let x= this.observationAlternateArr.value[this.alternateArr.length-1]
 
           if(d!=undefined){
 
-            if(d.supplyparametersId !=0){
+            if(d.supplyparametersId !=0 && d.supplyparametersId !=undefined && d.supplyparametersId != ''){
               d.supplyParameterStatus = 'R';
               this.alternateArr1 = this.alternateArr1.concat(d);
             }
-            if(x.supplyInnerObervationsId !=0 && x.supplyInnerObervationsId !=undefined) {
+            if(x.supplyInnerObervationsId !=0 && x.supplyInnerObervationsId !=undefined && x.supplyInnerObervationsId != '') {
               x.alternativeInnerObservationStatus= 'R';
               this.deletedObservation.push(x);
             }
             this.alternateArr = this.supplycharesteristicForm.get(
               'alternateArr'
             ) as FormArray;
-            
-            for (let i = 0; i <= g; i++) {
-              let e = items.value[i];
-              console.log(e); 
-              if(d.aLSupplyShortName == e.sourceName){
 
-                if(e.circuitBreakerId != 0){
+
+              //new code
+              let e = items.value[(this.alternateArr.length-1)+1];
+
+                if(e.circuitBreakerId != 0 && e.circuitBreakerId !=undefined && e.circuitBreakerId != ''){
                   e.circuitStatus = 'R';
                   this.circuitArr1 = this.circuitArr1.concat(e);
                 }
@@ -2750,21 +2800,41 @@ showHideAccordion(index: number) {
                 this.circuitArr = this.supplycharesteristicForm.get(
                   'circuitArr'
                 ) as FormArray;
-                this.circuitArr.removeAt(i);
-                this.alternateArr.removeAt(0);
-                this.observationAlternateArr.removeAt(i);
+                this.circuitArr.removeAt((this.alternateArr.length-1)+1);
+                this.observationAlternateArr.removeAt(this.alternateArr.length-1);
+                this.alternateArr.removeAt(this.alternateArr.length-1);
 
-                break 
-                }
 
-           }
+          // elango old code
+          //   for (let i = 0; i <= g; i++) {
+          //     let e = items.value[i];
+          //     console.log(e); 
+          //     if(d.aLSupplyShortName == e.sourceName){
+
+          //       if(e.circuitBreakerId != 0 && e.circuitBreakerId !=undefined && e.circuitBreakerId != ''){
+          //         e.circuitStatus = 'R';
+          //         this.circuitArr1 = this.circuitArr1.concat(e);
+          //       }
+                
+          //       this.circuitArr = this.supplycharesteristicForm.get(
+          //         'circuitArr'
+          //       ) as FormArray;
+          //       this.circuitArr.removeAt(i);
+          //       this.alternateArr.removeAt(0);
+          //       this.observationAlternateArr.removeAt(0);
+
+          //       break 
+          //       }
+
+          //  }
         }
     }
     this.supplycharesteristic.alternativeSupply= 'No';
     this.supplycharesteristicForm.markAsPristine();
-    this.supplycharesteristic.supplyNumber = '0';
+    //elango code
+    // this.supplycharesteristic.supplyNumber = '0';
   }
-      //this.disableValidators();
+      this.disableValidators();
     }
      else {
       this.alternativeSupplyNo=true;
@@ -2959,35 +3029,35 @@ showHideAccordion(index: number) {
   }
  
   disableValidators() {
-    this.alternateArr = this.supplycharesteristicForm.get(
-      'alternateArr'
-    ) as FormArray;
-    this.loclength = this.alternateArr.length;
+    // this.alternateArr = this.supplycharesteristicForm.get(
+    //   'alternateArr'
+    // ) as FormArray;
+    // this.loclength = this.alternateArr.length;
     this.supplycharesteristicForm.controls['supplyNumber'].setValue('');
     this.supplycharesteristicForm.controls['supplyNumber'].clearValidators();
     this.supplycharesteristicForm.controls[
       'supplyNumber'
     ].updateValueAndValidity();
 
-    for (this.i = 0; this.i < this.loclength; this.i++) {
-      for (this.j = 0; this.j < this.fcname.length; this.j++) {
-        this.f.alternateArr.controls[this.i].controls[
-          this.fcname[this.j]
-        ].clearValidators();
-        this.f.alternateArr.controls[this.i].controls[
-          this.fcname[this.j]
-        ].updateValueAndValidity();
-      }
+    // for (this.i = 0; this.i < this.loclength; this.i++) {
+    //   for (this.j = 0; this.j < this.fcname.length; this.j++) {
+    //     this.f.alternateArr.controls[this.i].controls[
+    //       this.fcname[this.j]
+    //     ].clearValidators();
+    //     this.f.alternateArr.controls[this.i].controls[
+    //       this.fcname[this.j]
+    //     ].updateValueAndValidity();
+    //   }
 
-      for (this.k=0; this.k < this.circuitName.length; this.k++) {
-        this.f.circuitArr.controls[this.i].controls[
-          this.circuitName[this.k]
-        ].clearValidators();
-        this.f.circuitArr.controls[this.i].controls[
-          this.circuitName[this.k]
-        ].updateValueAndValidity();
-      }
-    }
+    //   for (this.k=0; this.k < this.circuitName.length; this.k++) {
+    //     this.f.circuitArr.controls[this.i].controls[
+    //       this.circuitName[this.k]
+    //     ].clearValidators();
+    //     this.f.circuitArr.controls[this.i].controls[
+    //       this.circuitName[this.k]
+    //     ].updateValueAndValidity();
+    //   }
+    // }
   }
 
   get f(): any {
@@ -3151,76 +3221,76 @@ showHideAccordion(index: number) {
       this.modalService.dismissAll((this.successMsg = ''));
     }
   }
-  onKeyObservation(event:any){
-    if(this.ObservationsForm.dirty){
-      this.disableObservation=false;
-    }
-    else{
-      this.disableObservation=true;
-    }
-  }
-  submit(observeFlag:any){
-    if(this.ObservationsForm.invalid) {
-      return;
-    }
-    this.observation.siteId = this.service.siteCount;
-    this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
-    this.observation.observationComponent ="Supply-Component";
-    this.observation.observations =this.ObservationsForm.value.observations;
-    this.submitted = true;
-    if(!observeFlag) {
-      this.observationService.addObservation(this.observation).subscribe(
-        (data) => {
-          this.success = true;
-          this.successMsg = "Observation Information sucessfully Saved";
-          this.proceedNext.emit(true);
-          this.disableObservation=true;
-          this.observationFlag=true;
-          this.observationService.retrieveObservation(this.observation.siteId,this.observation.observationComponent,this.observation.userName).subscribe(
-            (data) => {
-            this.retrieveFromObservationSupply(data);
-            },
-            (error) => {
-              this.errorArr = [];
-              this.errorArr = JSON.parse(error.error);
-              console.log(this.errorArr.message);
-            }
-          )
-          setTimeout(() => {
-            this.success = false;
-            this.observationModalReference.close();
-          }, 3000);
-      },
-        (error) => {
-          this.errorArrObservation = [];
-          this.Error = true;
-          this.errorArrObservation = JSON.parse(error.error);
-          this.errorMsg = this.errorArrObservation.message;
-          this.observationFlag=false;
-        }
-      )
-    }
-    else {
-      this.observationService.updateObservation(this.observation).subscribe(
-        (data) => {
-          this.success = true;
-          this.successMsg = "Observation Information sucessfully updated";
-          this.proceedNext.emit(false);
-          this.disableObservation=true;
-          setTimeout(() => {
-            this.success = false;
-            this.observationModalReference.close();
-          }, 3000);
-      },
-        (error) => {
-          this.errorArrObservation = [];
-          this.Error = true;
-          this.errorArrObservation = JSON.parse(error.error);
-          this.errorMsg = this.errorArrObservation.message;
-        }
-      )
-    }   
-    }
+  // onKeyObservation(event:any){
+  //   if(this.ObservationsForm.dirty){
+  //     this.disableObservation=false;
+  //   }
+  //   else{
+  //     this.disableObservation=true;
+  //   }
+  // }
+  // submit(observeFlag:any){
+  //   if(this.ObservationsForm.invalid) {
+  //     return;
+  //   }
+  //   this.observation.siteId = this.service.siteCount;
+  //   this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
+  //   this.observation.observationComponent ="Supply-Component";
+  //   this.observation.observations =this.ObservationsForm.value.observations;
+  //   this.submitted = true;
+  //   if(!observeFlag) {
+  //     this.observationService.addObservation(this.observation).subscribe(
+  //       (data) => {
+  //         this.success = true;
+  //         this.successMsg = "Observation Information sucessfully Saved";
+  //         this.proceedNext.emit(true);
+  //         this.disableObservation=true;
+  //         this.observationFlag=true;
+  //         this.observationService.retrieveObservation(this.observation.siteId,this.observation.observationComponent,this.observation.userName).subscribe(
+  //           (data) => {
+  //           this.retrieveFromObservationSupply(data);
+  //           },
+  //           (error) => {
+  //             this.errorArr = [];
+  //             this.errorArr = JSON.parse(error.error);
+  //             console.log(this.errorArr.message);
+  //           }
+  //         )
+  //         setTimeout(() => {
+  //           this.success = false;
+  //           this.observationModalReference.close();
+  //         }, 3000);
+  //     },
+  //       (error) => {
+  //         this.errorArrObservation = [];
+  //         this.Error = true;
+  //         this.errorArrObservation = JSON.parse(error.error);
+  //         this.errorMsg = this.errorArrObservation.message;
+  //         this.observationFlag=false;
+  //       }
+  //     )
+  //   }
+  //   else {
+  //     this.observationService.updateObservation(this.observation).subscribe(
+  //       (data) => {
+  //         this.success = true;
+  //         this.successMsg = "Observation Information sucessfully updated";
+  //         this.proceedNext.emit(false);
+  //         this.disableObservation=true;
+  //         setTimeout(() => {
+  //           this.success = false;
+  //           this.observationModalReference.close();
+  //         }, 3000);
+  //     },
+  //       (error) => {
+  //         this.errorArrObservation = [];
+  //         this.Error = true;
+  //         this.errorArrObservation = JSON.parse(error.error);
+  //         this.errorMsg = this.errorArrObservation.message;
+  //       }
+  //     )
+  //   }   
+  //   }
 
   nextTab2(flag: any) {
     if(!flag) {
@@ -3330,7 +3400,7 @@ showHideAccordion(index: number) {
       }
     }
     
-    //this.nominalFrequency = this.nominalFrequency.replace(/,\s*$/, '');
+    this.nominalFrequency = this.nominalFrequency.replace(/,\s*$/, '');
 
     // Main table Nominal Current
     for (let k of this.nominalCurrentArr) {
@@ -3531,7 +3601,7 @@ showHideAccordion(index: number) {
     
     if (this.supplycharesteristic.liveConductorType != 'DC') {
       this.supplycharesteristic.mainNominalVoltage = this.nominalVoltage;
-      //this.supplycharesteristic.mainNominalFrequency = this.nominalFrequency;
+      this.supplycharesteristic.mainNominalCapacity = this.nominalFrequency;
       this.supplycharesteristic.mainNominalCurrent = this.nominalCurrent;
       this.supplycharesteristic.mainLoopImpedance = this.loopImpedence;
       this.supplycharesteristic.mainActualLoad = this.actualLoad;
@@ -3696,6 +3766,8 @@ showHideAccordion(index: number) {
             }
           }
         }
+
+        this.deletedObservation = [];
         console.log(this.supplycharesteristic);
       this.UpateInspectionService.updateSupply(this.supplycharesteristic).subscribe(
         (data)=> {
@@ -3707,10 +3779,15 @@ showHideAccordion(index: number) {
           this.service.retrieveMainNominalVoltage=this.mainNominalArr;
           this.service.retrieveMainNominalVoltage=this.retrieveMainNominalVoltage;
           this.service.nominalVoltageArr2=this.supplycharesteristic.supplyParameters;
+          this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.supplycharesteristic.userName,this.supplycharesteristic.siteId).subscribe(
+            data=>{
+             this.retrieveAllDetailsforSupply(this.supplycharesteristic.userName,this.supplycharesteristic.siteId,data);
+            }
+          )
           this.supplycharesteristicForm.markAsPristine();
           this.service.windowTabClick=0;
-       this.service.logoutClick=0; 
-       this.service.lvClick=0; 
+          this.service.logoutClick=0; 
+          this.service.lvClick=0; 
           //this.proceedNext.emit(true);
          },
          (error) => {
@@ -3751,32 +3828,32 @@ else{
             }
           )
 
-          if(!this.observationFlag){
-            this.observation.siteId = this.service.siteCount;
-            this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
-            this.observation.observationComponent ="Supply-Component";
-            this.observation.observations="No observation recorded"
-            this.observationService.addObservation(this.observation).subscribe(
-              (data) => {
-                this.proceedNext.emit(true);
-                this.observationService.retrieveObservation(this.observation.siteId,this.observation.observationComponent,this.observation.userName).subscribe(
-                  (data) => {
-                  this.retrieveFromObservationSupply(data);
-                  },
-                  (error) => {
-                    this.errorArr = [];
-                    this.errorArr = JSON.parse(error.error);
-                  console.log(this.errorArr.message);
-                  }
-                )
-            },
-              (error:any) => {
-                this.errorArrObservation = [];
-                this.errorArrObservation = JSON.parse(error.error);
-                console.log(this.errorArrObservation.message);
-              }
-            )
-          }
+          // if(!this.observationFlag){
+          //   this.observation.siteId = this.service.siteCount;
+          //   this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
+          //   this.observation.observationComponent ="Supply-Component";
+          //   this.observation.observations="No observation recorded"
+          //   this.observationService.addObservation(this.observation).subscribe(
+          //     (data) => {
+          //       this.proceedNext.emit(true);
+          //       this.observationService.retrieveObservation(this.observation.siteId,this.observation.observationComponent,this.observation.userName).subscribe(
+          //         (data) => {
+          //         this.retrieveFromObservationSupply(data);
+          //         },
+          //         (error) => {
+          //           this.errorArr = [];
+          //           this.errorArr = JSON.parse(error.error);
+          //         console.log(this.errorArr.message);
+          //         }
+          //       )
+          //   },
+          //     (error:any) => {
+          //       this.errorArrObservation = [];
+          //       this.errorArrObservation = JSON.parse(error.error);
+          //       console.log(this.errorArrObservation.message);
+          //     }
+          //   )
+          // }
         },
         (error) => {
           this.Error = true;

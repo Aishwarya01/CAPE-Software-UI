@@ -79,7 +79,7 @@ export class VerificationlvComponent implements OnInit {
   @Pipe({
     name: 'truncate'
 })
-@ViewChild('tabs') tabs!: MatTabGroup;
+@ViewChild('tabs') tabs!: MatTabGroup; //later implementation for clearing data from saved reports
   departmentColumns: string[] = [
     'action',
     'departmentCd',
@@ -108,6 +108,8 @@ export class VerificationlvComponent implements OnInit {
   site_dataSource!: MatTableDataSource<Company[]>;
   @ViewChild('sitePaginator', { static: true }) sitePaginator!: MatPaginator;
   @ViewChild('siteSort', { static: true }) siteSort!: MatSort;
+  @ViewChild('stepper', { static: false }) stepper!: MatStepper;
+
 
   selectedTabIndex: any;
   selectedIndex = 0;
@@ -279,7 +281,7 @@ export class VerificationlvComponent implements OnInit {
     this.refresh();
     // this.retrieveClientDetails();
     // this.retrieveSiteDetails();
-    this.tabs._handleClick = this.interceptTabChange.bind(this);
+    this.tabs._handleClick = this.interceptTabChange.bind(this); //later implementation for clearing data from saved reports
   }
   // callMethodFinal(){
   //   this.ngOnInit();
@@ -580,9 +582,12 @@ export class VerificationlvComponent implements OnInit {
             this.selectedIndex=1; 
           }    
           else{
-            this.selectedIndex=2; 
+            if(this.service.allStepsCompleted==false){
+              this.selectedIndex=2;
+            } 
           }        
         }
+      
   }
 
   deleteSite(siteId: number,sitedelete : any) {
@@ -638,7 +643,28 @@ export class VerificationlvComponent implements OnInit {
     this.supply.gotoNextTab();
     this.incoming.gotoNextTab();
     this.testing.gotoNextTab();
-    this.summary.gotoNextTab();
+    // this.summary.gotoNextTab();
+  }
+
+  triggerClickTab1() {
+    this.basic.gotoNextTab();
+    
+  }
+
+  triggerClickTab2() {
+    this.supply.gotoNextTab();
+  }
+
+  triggerClickTab3() {
+    this.incoming.gotoNextTab();
+  }
+
+  triggerClickTab4() {
+    this.testing.gotoNextTab();
+  }
+
+  triggerClickTab5() {
+    //this.summary.gotoNextTab();
   }
     // if(!this.service.step1Form.pristine || !this.service.supplycharesteristicForm.pristine || !this.service.addstep3.pristine 
     //   || !this.service.testingForm.pristine || !this.service.addsummary.pristine)
@@ -716,49 +742,53 @@ export class VerificationlvComponent implements OnInit {
     this.selectedIndex=2;
     }
   }
+  navigateStep(index: any) {
+    this.stepper.selectedIndex = index;
+  }
+  
  
-  retreiveFromObservationSupply(siteId:any,observationComponent:any,userName:any){
-    this.observationService.retrieveObservation(siteId,observationComponent,userName).subscribe(
-      (data) => {
-      let observationArr=JSON.parse(data);
-      this.supply.retrieveFromObservationSupply(data);
-      },
-      (error) => {
-        this.errorArr = [];
-        this.Error = true;
-        this.errorArr = JSON.parse(error.error);
-        this.errorMsg = this.errorArr.message;
-      }
-    )
-  }
-  retreiveFromObservationInspection(siteId:any,observationComponent:any,userName:any){
-    this.observationService.retrieveObservation(siteId,observationComponent,userName).subscribe(
-      (data) => {
-      let observationArr=JSON.parse(data);
-      this.incoming.retrieveFromObservationInspection(data);
-      },
-      (error) => {
-        this.errorArr = [];
-        this.Error = true;
-        this.errorArr = JSON.parse(error.error);
-        this.errorMsg = this.errorArr.message;
-      }
-    )
-  }
-  retreiveFromObservationTesting(siteId:any,observationComponent:any,userName:any){
-    this.observationService.retrieveObservation(siteId,observationComponent,userName).subscribe(
-      (data) => {
-      let observationArr=JSON.parse(data);
-      this.testing.retrieveFromObservationTesting(data);
-      },
-      (error) => {
-        this.errorArr = [];
-        this.Error = true;
-        this.errorArr = JSON.parse(error.error);
-        this.errorMsg = this.errorArr.message;
-      }
-    )
-  }
+  // retreiveFromObservationSupply(siteId:any,observationComponent:any,userName:any){
+  //   this.observationService.retrieveObservation(siteId,observationComponent,userName).subscribe(
+  //     (data) => {
+  //     let observationArr=JSON.parse(data);
+  //     this.supply.retrieveFromObservationSupply(data);
+  //     },
+  //     (error) => {
+  //       this.errorArr = [];
+  //       this.Error = true;
+  //       this.errorArr = JSON.parse(error.error);
+  //       this.errorMsg = this.errorArr.message;
+  //     }
+  //   )
+  // }
+  // retreiveFromObservationInspection(siteId:any,observationComponent:any,userName:any){
+  //   this.observationService.retrieveObservation(siteId,observationComponent,userName).subscribe(
+  //     (data) => {
+  //     let observationArr=JSON.parse(data);
+  //     this.incoming.retrieveFromObservationInspection(data);
+  //     },
+  //     (error) => {
+  //       this.errorArr = [];
+  //       this.Error = true;
+  //       this.errorArr = JSON.parse(error.error);
+  //       this.errorMsg = this.errorArr.message;
+  //     }
+  //   )
+  // }
+  // retreiveFromObservationTesting(siteId:any,observationComponent:any,userName:any){
+  //   this.observationService.retrieveObservation(siteId,observationComponent,userName).subscribe(
+  //     (data) => {
+  //     let observationArr=JSON.parse(data);
+  //     this.testing.retrieveFromObservationTesting(data);
+  //     },
+  //     (error) => {
+  //       this.errorArr = [];
+  //       this.Error = true;
+  //       this.errorArr = JSON.parse(error.error);
+  //       this.errorMsg = this.errorArr.message;
+  //     }
+  //   )
+  // }
 //for ongoing & completed
 changeTab(index: number, sitedId: any, userName: any, companyName: any, departmentName: any, site: any): void {
   // this.selectedIndex=1;
@@ -770,9 +800,9 @@ changeTab(index: number, sitedId: any, userName: any, companyName: any, departme
         this.siteN=site;
         this.noDetailsFlag = true;
         this.selectedIndex = index;
-        this.retreiveFromObservationSupply(sitedId,'Supply-Component',userName);
-        this.retreiveFromObservationInspection(sitedId,'Inspection-Component',userName);
-        this.retreiveFromObservationTesting(sitedId,'Testing-Component',userName);
+        // this.retreiveFromObservationSupply(sitedId,'Supply-Component',userName);
+        // this.retreiveFromObservationInspection(sitedId,'Inspection-Component',userName);
+        // this.retreiveFromObservationTesting(sitedId,'Testing-Component',userName);
         this.service.msgForStep1Flag=false;
         this.basic.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
       }
@@ -839,6 +869,7 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
     data=> {
       //this.selectedIndex = index;
       this.dataJSON = JSON.parse(data);
+      this.service.allStepsCompleted=true;
       if(this.dataJSON.reportDetails != null) {
         this.siteN=site;
         this.noDetailsFlag= true;

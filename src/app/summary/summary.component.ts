@@ -236,7 +236,7 @@ export class SummaryComponent implements OnInit {
     private ChangeDetectorRef: ChangeDetectorRef,
     private observationService: ObservationService,
     private componentFactoryResolver: ComponentFactoryResolver,
-    //private final: VerificationlvComponent,
+    private final: VerificationlvComponent,
     private UpateInspectionService: InspectionVerificationService,
     private basic: MainNavComponent,
   ) {
@@ -399,6 +399,10 @@ export class SummaryComponent implements OnInit {
       }
     )
   }
+  }
+
+  navigateToStep(index: any) {
+    this.final.navigateStep(index);
   }
 
   retrieveFromOngoingForObservation(siteId:any){

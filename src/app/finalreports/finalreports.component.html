@@ -1,4 +1,10 @@
-<div class="card">
+<mat-progress-spinner style="margin: 100px auto;" *ngIf="finalSpinner"
+color="primary"
+ [mode]="mode"
+ value="50"
+diameter="50">
+</mat-progress-spinner>
+<div class="card"  *ngIf="cardBodyFinal">
     <!-- <div class="card-header">
         
         <div class="row">
@@ -26,7 +32,7 @@
         </div>
         
       </div> -->
-
+     
     <div class="card-body">
       <mat-form-field appearance="standard" style=" font-size: 14px;width: 30%;">
         <mat-label>Filter Sites</mat-label>
