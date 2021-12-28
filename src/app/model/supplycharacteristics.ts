@@ -11,6 +11,7 @@ export class Supplycharacteristics {
   liveConductorBNote:String;
   mainNominalVoltage:String;
   mainNominalFrequency:String;
+  mainNominalCapacity: String;
   mainNominalCurrent:String;
   mainLoopImpedance:String;
   mainActualLoad:String;
