@@ -38,7 +38,7 @@ import { DatePipe } from '@angular/common'
 import { ValueTransformer } from '@angular/compiler/src/util';
 import { MatDialog } from '@angular/material/dialog';
 import { ObservationService } from '../services/observation.service';
-import { ObservationTesting } from '../model/observation-testing';
+// import { ObservationTesting } from '../model/observation-testing';
 
 @Component({
   selector: 'app-inspection-verification-testing',
@@ -131,7 +131,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   testingRetrieve: boolean = true;
   inspectionRetrieve: boolean = false;
   SourceList: any = [];
-  observation= new ObservationTesting();
+  //observation= new ObservationTesting();
   //disableSource:boolean=true;
   //comments starts
   completedCommentArr3: any = [];
@@ -245,9 +245,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
   observationUpdateFlag: boolean= false;
   alArr: any = [];
 
-  ObservationsForm = new FormGroup({
-    observations: new FormControl(''),
-  });
+  // ObservationsForm = new FormGroup({
+  //   observations: new FormControl(''),
+  // });
   observationFlag: boolean= false;
   errorArrObservation: any=[];
   observationValues: any="";
@@ -301,9 +301,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
     this.retrieveDetailsFromIncoming();
     this.expandedIndex = -1;
     this.retrieveDetailsFromSupply();
-    this.ObservationsForm = this.formBuilder.group({
-      observations: [''],
-     })
+    // this.ObservationsForm = this.formBuilder.group({
+    //   observations: [''],
+    //  })
   }
 
  retrieveDetailsFromIncoming() {
@@ -583,21 +583,21 @@ export class InspectionVerificationTestingComponent implements OnInit {
     }
 }
 
-retrieveFromObservationTesting(data:any){
-  this.observation=JSON.parse(data);
-  this.observationValues=this.observation.observations;
-  this.observationUpdateFlag=true;
-  this.ObservationsForm.markAsPristine();
-  }
+// retrieveFromObservationTesting(data:any){
+//   this.observation=JSON.parse(data);
+//   this.observationValues=this.observation.observations;
+//   this.observationUpdateFlag=true;
+//   this.ObservationsForm.markAsPristine();
+//   }
 
-  addObservationTesting(observationIter:any){
-    if(this.testingForm.touched || this.testingForm.untouched){
-      this.observationModalReference = this.modalService.open(observationIter, {
-         centered: true, 
-         size: 'md'
-        })
-     }
-  }
+//   addObservationTesting(observationIter:any){
+//     if(this.testingForm.touched || this.testingForm.untouched){
+//       this.observationModalReference = this.modalService.open(observationIter, {
+//          centered: true, 
+//          size: 'md'
+//         })
+//      }
+//   }
 
 
   // onKeyCirtcuit(event: KeyboardEvent) {
@@ -1233,8 +1233,8 @@ pushTestObservationRecord(testInnerObservationItem: any,testingId: any) {
   for (let item of testInnerObservationItem) {
     testingInnerObservation.push(this.pushTestingInnerObservationTable(item,testingId))
   
-    if(item.observationDescription!=null&&item.observationDescription!=undefined&&item.observationDescription!=''){
-      this.service.observationGlowingTesting=true;
+    if(item.observationDescription!=null && item.observationDescription!=undefined && item.observationDescription!=''){
+      this.service.observationGlowTesting=true;
      }
   }
   return testingInnerObservation;
@@ -2190,15 +2190,15 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
     });
   }
   
-  addObservation(observationIter:any){
-    if(this.ObservationsForm.touched || this.ObservationsForm.untouched){
-      this.observationModalReference = this.modalService.open(observationIter, {
-         centered: true, 
-         size: 'md'
-        })
-     }
+  // addObservation(observationIter:any){
+  //   if(this.ObservationsForm.touched || this.ObservationsForm.untouched){
+  //     this.observationModalReference = this.modalService.open(observationIter, {
+  //        centered: true, 
+  //        size: 'md'
+  //       })
+  //    }
 
-  }
+  // }
 
   addItem() {
     this.testaccordianArr = this.testingForm.get(
@@ -2785,76 +2785,76 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
       this.modalService.dismissAll((this.successMsg = ''));
     }
   }
-  onKeyObservation(event:any){
-    if(this.ObservationsForm.dirty){
-      this.disableObservation=false;
-    }
-    else{
-      this.disableObservation=true;
-    }
-  }
-  submit(observeFlag:any){
-    if(this.ObservationsForm.invalid) {
-      return;
-    }
-    this.observation.siteId = this.service.siteCount;
-    this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
-    this.observation.observationComponent ="Testing-Component";
-    this.observation.observations =this.ObservationsForm.value.observations;
-    this.submitted = true;
-    if(!observeFlag) {
-      this.observationService.addObservation(this.observation).subscribe(
-        (data) => {
-          this.success = true;
-          this.successMsg = "Observation Information sucessfully Saved";
-          this.proceedNext.emit(true);
-          this.disableObservation=true;
-          this.observationFlag=true;
-          this.observationService.retrieveObservation(this.observation.siteId,this.observation.observationComponent,this.observation.userName).subscribe(
-            (data) => {
-            this.retrieveFromObservationTesting(data);
-            },
-            (error) => {
-              this.errorArr = [];
-              this.errorArr = JSON.parse(error.error);
-              console.log(this.errorArr.message);
-            }
-          )
-          setTimeout(() => {
-            this.success = false;
-            this.observationModalReference.close();
-          }, 3000);
-      },
-        (error) => {
-          this.errorArrObservation = [];
-          this.Error = true;
-          this.errorArrObservation = JSON.parse(error.error);
-          this.errorMsg = this.errorArrObservation.message;
-          this.observationFlag=false;
-        }
-      )
-    }
-    else {
-      this.observationService.updateObservation(this.observation).subscribe(
-        (data) => {
-          this.success = true;
-          this.successMsg = "Observation Information sucessfully updated";
-          this.proceedNext.emit(false);
-          this.disableObservation=true;
-          setTimeout(() => {
-            this.success = false;
-            this.observationModalReference.close();
-          }, 3000);
-      },
-        (error) => {
-          this.errorArrObservation = [];
-          this.Error = true;
-          this.errorArrObservation = JSON.parse(error.error);
-          this.errorMsg = this.errorArrObservation.message;
-        }
-      )
-    }   
-    }
+  // onKeyObservation(event:any){
+  //   if(this.ObservationsForm.dirty){
+  //     this.disableObservation=false;
+  //   }
+  //   else{
+  //     this.disableObservation=true;
+  //   }
+  // }
+  // submit(observeFlag:any){
+  //   if(this.ObservationsForm.invalid) {
+  //     return;
+  //   }
+  //   this.observation.siteId = this.service.siteCount;
+  //   this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
+  //   this.observation.observationComponent ="Testing-Component";
+  //   this.observation.observations =this.ObservationsForm.value.observations;
+  //   this.submitted = true;
+  //   if(!observeFlag) {
+  //     this.observationService.addObservation(this.observation).subscribe(
+  //       (data) => {
+  //         this.success = true;
+  //         this.successMsg = "Observation Information sucessfully Saved";
+  //         this.proceedNext.emit(true);
+  //         this.disableObservation=true;
+  //         this.observationFlag=true;
+  //         this.observationService.retrieveObservation(this.observation.siteId,this.observation.observationComponent,this.observation.userName).subscribe(
+  //           (data) => {
+  //           this.retrieveFromObservationTesting(data);
+  //           },
+  //           (error) => {
+  //             this.errorArr = [];
+  //             this.errorArr = JSON.parse(error.error);
+  //             console.log(this.errorArr.message);
+  //           }
+  //         )
+  //         setTimeout(() => {
+  //           this.success = false;
+  //           this.observationModalReference.close();
+  //         }, 3000);
+  //     },
+  //       (error) => {
+  //         this.errorArrObservation = [];
+  //         this.Error = true;
+  //         this.errorArrObservation = JSON.parse(error.error);
+  //         this.errorMsg = this.errorArrObservation.message;
+  //         this.observationFlag=false;
+  //       }
+  //     )
+  //   }
+  //   else {
+  //     this.observationService.updateObservation(this.observation).subscribe(
+  //       (data) => {
+  //         this.success = true;
+  //         this.successMsg = "Observation Information sucessfully updated";
+  //         this.proceedNext.emit(false);
+  //         this.disableObservation=true;
+  //         setTimeout(() => {
+  //           this.success = false;
+  //           this.observationModalReference.close();
+  //         }, 3000);
+  //     },
+  //       (error) => {
+  //         this.errorArrObservation = [];
+  //         this.Error = true;
+  //         this.errorArrObservation = JSON.parse(error.error);
+  //         this.errorMsg = this.errorArrObservation.message;
+  //       }
+  //     )
+  //   }   
+  //   }
 
 
   nextTab(flag: any) {
@@ -3480,33 +3480,33 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
           )
          
 
-           if(!this.observationFlag){
-            this.observation.siteId = this.service.siteCount;
-            this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
-            this.observation.observationComponent ="Testing-Component";
-            this.observation.observations="No observation recorded"
-            this.observationService.addObservation(this.observation).subscribe(
-              (data) => {
-                this.proceedNext.emit(true);
-                this.observationService.retrieveObservation(this.observation.siteId,this.observation.observationComponent,this.observation.userName).subscribe(
-                  (data) => {
-                  this.retrieveFromObservationTesting(data);
-                  },
-                  (error) => {
-                    this.errorArr = [];
-                    this.errorArr = JSON.parse(error.error);
-                  console.log(this.errorArr.message);
-                  }
-                )
+          //  if(!this.observationFlag){
+          //   this.observation.siteId = this.service.siteCount;
+          //   this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
+          //   this.observation.observationComponent ="Testing-Component";
+          //   this.observation.observations="No observation recorded"
+          //   this.observationService.addObservation(this.observation).subscribe(
+          //     (data) => {
+          //       this.proceedNext.emit(true);
+          //       this.observationService.retrieveObservation(this.observation.siteId,this.observation.observationComponent,this.observation.userName).subscribe(
+          //         (data) => {
+          //         this.retrieveFromObservationTesting(data);
+          //         },
+          //         (error) => {
+          //           this.errorArr = [];
+          //           this.errorArr = JSON.parse(error.error);
+          //         console.log(this.errorArr.message);
+          //         }
+          //       )
                
-            },
-              (error:any) => {
-                this.errorArrObservation = [];
-                this.errorArrObservation = JSON.parse(error.error);
-                console.log(this.errorArrObservation.message);
-              }
-            )
-          }
+          //   },
+          //     (error:any) => {
+          //       this.errorArrObservation = [];
+          //       this.errorArrObservation = JSON.parse(error.error);
+          //       console.log(this.errorArrObservation.message);
+          //     }
+          //   )
+          // }
         },
         (error) => {
           this.Error = true;      

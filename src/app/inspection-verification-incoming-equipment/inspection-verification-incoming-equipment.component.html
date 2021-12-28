@@ -10,15 +10,12 @@
   <div class="card-body">
   <div class="row">
     <div class="col-sm-12">
-      <a  [ngClass]="{'button':service.observationGlowingInspection}"
-      style="margin-top: -10px;margin-bottom: 5px;float: right;cursor: pointer;text-decoration: underline;">Observations</a>
+      <a  [ngClass]="{'glow':service.observationGlowInspection}"
+      style="margin-top: -10px;margin-bottom: 5px;float: right;text-decoration: underline;">Observations</a>
     </div>
-    <!-- <div *ngIf="observationNotGlow" class="col-sm-12"> *ngIf="observationGlow" 
-      <a  style="margin-top: -10px;margin-bottom: 5px;float: right;cursor: pointer;text-decoration: underline;">Observations</a>
-    </div> -->
     </div>
   <form [formGroup]="addstep3" (ngSubmit)="nextTab3(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
-<div class="card-body" formArrayName="incomingArr" *ngFor="let a of getIncomingControls(); let i = index" >
+<div formArrayName="incomingArr" *ngFor="let a of getIncomingControls(); let i = index" >
   <div [formGroupName]="i" >
   <div class="search-bar">
     <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
@@ -50,7 +47,7 @@
 </div>
 
 <br>
-<div class="row" formArrayName="inspectionOuterObervation" *ngFor="let b of getObservationControls(a); let i = index">	
+<div class="row" formArrayName="inspectionOuterObervation" *ngFor="let b of getObservationControls(a); let i = index" [ngClass]="{'disableForm':service.allFieldsDisable}">	
   <div class="col-md-6" [formGroupName]="i">	
     <mat-form-field  class="client-description " >	
       <mat-label>	
@@ -2631,7 +2628,7 @@ position: relative;">
 
   </ng-template>
 
-  <ng-template #observationIter let-modal>
+  <!-- <ng-template #observationIter let-modal>
     <form [formGroup]="ObservationsForm">
       <div class="modal-header" style="text-align: center; display: block">
         <h2 class="modal-title" style="display: contents">Observations:</h2>
@@ -2661,4 +2658,4 @@ position: relative;">
       </div>
     </form>
   
-  </ng-template>
+  </ng-template> -->

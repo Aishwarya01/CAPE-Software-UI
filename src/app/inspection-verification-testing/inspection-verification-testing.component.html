@@ -8,12 +8,9 @@
     <div class="card-body">
       <div class="row">
         <div class="col-sm-12">
-          <a  [ngClass]="{'button':service.observationGlowingTesting}"
-          style="margin-top: -10px;margin-bottom: 5px;float: right;cursor: pointer;text-decoration: underline;">Observations</a>
+          <a  [ngClass]="{'glow':service.observationGlowTesting}"
+          style="margin-top: -10px;margin-bottom: 5px;float: right;text-decoration: underline;">Observations</a>
         </div>
-        <!-- <div *ngIf="observationNotGlow" class="col-sm-12"> *ngIf="observationGlow" 
-          <a  style="margin-top: -10px;margin-bottom: 5px;float: right;cursor: pointer;text-decoration: underline;">Observations</a>
-        </div> -->
         </div>
      <form [formGroup]="testingForm" (ngSubmit)="nextTab(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
        <div formArrayName="testaccordianArr" *ngFor="let a of getTestControls(); let i = index;" >
@@ -1243,7 +1240,7 @@ style="margin-left: 10px;" >
     
       </ng-template>
 
-      <ng-template #observationIter let-modal>
+      <!-- <ng-template #observationIter let-modal>
         <form [formGroup]="ObservationsForm">
           <div class="modal-header" style="text-align: center; display: block">
             <h2 class="modal-title" style="display: contents">Observations:</h2>
@@ -1275,4 +1272,4 @@ style="margin-left: 10px;" >
           </div>
         </form>
       
-      </ng-template>
+      </ng-template> -->

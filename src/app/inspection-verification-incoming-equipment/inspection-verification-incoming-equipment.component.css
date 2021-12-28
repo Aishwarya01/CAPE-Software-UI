@@ -106,7 +106,7 @@ mat-header-cell.mat-header-cell {
 ::ng-deep .multiline-tooltip{
   white-space: pre-line;
   }
-  .button {
+/* .button {
     background-color: unset;
     border-radius: 10px;
     border: none;
@@ -129,4 +129,4 @@ mat-header-cell.mat-header-cell {
     0% {box-shadow: 0 0 3px #17b881; }
     50% {  box-shadow: 0 0 40px #17b881; }
     100% { box-shadow: 0 0 3px #17b881; }
- }
+ } */

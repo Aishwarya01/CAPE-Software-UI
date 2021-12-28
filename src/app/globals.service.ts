@@ -12,9 +12,9 @@ export class GlobalsService {
   private data = {};  
   backBtn:boolean=true;
   //observationGlow:any=[];
-  observationGlowingSupply:boolean=false;
-  observationGlowingInspection:boolean=false;
-  observationGlowingTesting:boolean=false;
+  observationGlowSupply:boolean=false;
+  observationGlowInspection:boolean=false;
+  observationGlowTesting:boolean=false;
   siteCount: number = 0; 
   iterationList: any=[]; //for location no. & name
 //from supply to testing table

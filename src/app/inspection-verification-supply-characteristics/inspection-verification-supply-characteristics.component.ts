@@ -12,7 +12,7 @@ import { CommentsSection } from '../model/comments-section';
 import { InspectionVerificationBasicInformationComponent } from '../inspection-verification-basic-information/inspection-verification-basic-information.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ObservationService } from '../services/observation.service';
-import { ObservationSupply } from '../model/observation-supply';
+// import { ObservationSupply } from '../model/observation-supply';
 
 @Component({
   selector: 'app-inspection-verification-supply-characteristics',
@@ -26,7 +26,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
 
   a: any;
   supplyparameters = new Supplyparameters();
-  observation= new ObservationSupply;
+  //observation= new ObservationSupply;
   supplycharesteristic = new Supplycharacteristics();
   enableAC: boolean = false;
   enableDC: boolean = false;
@@ -332,9 +332,9 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   circuitSourceArr1: any=[];
   observationUpdateFlag: boolean= false;
 
-  ObservationsForm = new FormGroup({
-    observations: new FormControl(''),
-  });
+  // ObservationsForm = new FormGroup({
+  //   observations: new FormControl(''),
+  // });
   storeDelData: any=[];
   observationFlag: boolean= false;
   errorArrObservation: any=[];
@@ -370,9 +370,9 @@ export class InspectionVerificationSupplyCharacteristicsComponent
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
 
-    this.ObservationsForm = this.formBuilder.group({
-      observations: [''],
-     })
+    // this.ObservationsForm = this.formBuilder.group({
+    //   observations: [''],
+    //  })
     this.supplycharesteristicForm = this.formBuilder.group({
       shortName: ['', Validators.required],
       systemEarthing: ['', Validators.required],
@@ -1619,22 +1619,22 @@ showHideAccordion(index: number) {
    
       })
     }
-   retrieveFromObservationSupply(data:any){
-    this.observation=JSON.parse(data);
-    this.observationValues=this.observation.observations;
-    this.observationUpdateFlag=true;
-    this.ObservationsForm.markAsPristine();
-    }
+  //  retrieveFromObservationSupply(data:any){
+  //   this.observation=JSON.parse(data);
+  //   this.observationValues=this.observation.observations;
+  //   this.observationUpdateFlag=true;
+  //   this.ObservationsForm.markAsPristine();
+  //   }
     
 
-    addObservationSupply(observationIter:any){
-      if(this.supplycharesteristicForm.touched || this.supplycharesteristicForm.untouched){
-        this.observationModalReference = this.modalService.open(observationIter, {
-           centered: true, 
-           size: 'md'
-          })
-       }
-    }
+  //   addObservationSupply(observationIter:any){
+  //     if(this.supplycharesteristicForm.touched || this.supplycharesteristicForm.untouched){
+  //       this.observationModalReference = this.modalService.open(observationIter, {
+  //          centered: true, 
+  //          size: 'md'
+  //         })
+  //      }
+  //   }
 
   addItem1(item: any) : FormGroup {
     return this.formBuilder.group({
@@ -1716,8 +1716,8 @@ showHideAccordion(index: number) {
           }
           }
         }
-        if(item.observationDescription!=null&&item.observationDescription!=undefined&&item.observationDescription!=''){
-          this.service.observationGlowingSupply=true;
+        if(item.observationDescription!=null && item.observationDescription!=undefined && item.observationDescription!=''){
+          this.service.observationGlowSupply=true;
           }
       }
       this.supplycharesteristicForm.setControl('location2Arr', this.formBuilder.array(this.arr2 || []))
@@ -2195,7 +2195,6 @@ showHideAccordion(index: number) {
     }
     else if(this.value == 0 && this.value != '') {
       this.key1LocationTable=false;
-      debugger
       this.delarr = this.location1Arr.length - this.value;
         for (this.i = 0; this.i < this.delarr; this.i++) {
           let a = this.location1Arr.value[this.location1Arr.length - 1];
@@ -2365,7 +2364,6 @@ showHideAccordion(index: number) {
 
     else if(this.value == 0 && this.value != '') {
       this.JointLocationTable=false;
-      debugger
       this.delarr = this.location2Arr.length - this.value;
         for (this.i = 0; this.i < this.delarr; this.i++) {
           let a = this.location2Arr.value[this.location2Arr.length - 1];
@@ -2557,7 +2555,6 @@ showHideAccordion(index: number) {
     }
     else if(this.value == 0 && this.value != '') {
       this.keyJOintLocationTable=false;
-      debugger
       this.delarr = this.location3Arr.length - this.value;
         for (this.i = 0; this.i < this.delarr; this.i++) {
           let a = this.location3Arr.value[this.location3Arr.length - 1];
@@ -3224,76 +3221,76 @@ showHideAccordion(index: number) {
       this.modalService.dismissAll((this.successMsg = ''));
     }
   }
-  onKeyObservation(event:any){
-    if(this.ObservationsForm.dirty){
-      this.disableObservation=false;
-    }
-    else{
-      this.disableObservation=true;
-    }
-  }
-  submit(observeFlag:any){
-    if(this.ObservationsForm.invalid) {
-      return;
-    }
-    this.observation.siteId = this.service.siteCount;
-    this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
-    this.observation.observationComponent ="Supply-Component";
-    this.observation.observations =this.ObservationsForm.value.observations;
-    this.submitted = true;
-    if(!observeFlag) {
-      this.observationService.addObservation(this.observation).subscribe(
-        (data) => {
-          this.success = true;
-          this.successMsg = "Observation Information sucessfully Saved";
-          this.proceedNext.emit(true);
-          this.disableObservation=true;
-          this.observationFlag=true;
-          this.observationService.retrieveObservation(this.observation.siteId,this.observation.observationComponent,this.observation.userName).subscribe(
-            (data) => {
-            this.retrieveFromObservationSupply(data);
-            },
-            (error) => {
-              this.errorArr = [];
-              this.errorArr = JSON.parse(error.error);
-              console.log(this.errorArr.message);
-            }
-          )
-          setTimeout(() => {
-            this.success = false;
-            this.observationModalReference.close();
-          }, 3000);
-      },
-        (error) => {
-          this.errorArrObservation = [];
-          this.Error = true;
-          this.errorArrObservation = JSON.parse(error.error);
-          this.errorMsg = this.errorArrObservation.message;
-          this.observationFlag=false;
-        }
-      )
-    }
-    else {
-      this.observationService.updateObservation(this.observation).subscribe(
-        (data) => {
-          this.success = true;
-          this.successMsg = "Observation Information sucessfully updated";
-          this.proceedNext.emit(false);
-          this.disableObservation=true;
-          setTimeout(() => {
-            this.success = false;
-            this.observationModalReference.close();
-          }, 3000);
-      },
-        (error) => {
-          this.errorArrObservation = [];
-          this.Error = true;
-          this.errorArrObservation = JSON.parse(error.error);
-          this.errorMsg = this.errorArrObservation.message;
-        }
-      )
-    }   
-    }
+  // onKeyObservation(event:any){
+  //   if(this.ObservationsForm.dirty){
+  //     this.disableObservation=false;
+  //   }
+  //   else{
+  //     this.disableObservation=true;
+  //   }
+  // }
+  // submit(observeFlag:any){
+  //   if(this.ObservationsForm.invalid) {
+  //     return;
+  //   }
+  //   this.observation.siteId = this.service.siteCount;
+  //   this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
+  //   this.observation.observationComponent ="Supply-Component";
+  //   this.observation.observations =this.ObservationsForm.value.observations;
+  //   this.submitted = true;
+  //   if(!observeFlag) {
+  //     this.observationService.addObservation(this.observation).subscribe(
+  //       (data) => {
+  //         this.success = true;
+  //         this.successMsg = "Observation Information sucessfully Saved";
+  //         this.proceedNext.emit(true);
+  //         this.disableObservation=true;
+  //         this.observationFlag=true;
+  //         this.observationService.retrieveObservation(this.observation.siteId,this.observation.observationComponent,this.observation.userName).subscribe(
+  //           (data) => {
+  //           this.retrieveFromObservationSupply(data);
+  //           },
+  //           (error) => {
+  //             this.errorArr = [];
+  //             this.errorArr = JSON.parse(error.error);
+  //             console.log(this.errorArr.message);
+  //           }
+  //         )
+  //         setTimeout(() => {
+  //           this.success = false;
+  //           this.observationModalReference.close();
+  //         }, 3000);
+  //     },
+  //       (error) => {
+  //         this.errorArrObservation = [];
+  //         this.Error = true;
+  //         this.errorArrObservation = JSON.parse(error.error);
+  //         this.errorMsg = this.errorArrObservation.message;
+  //         this.observationFlag=false;
+  //       }
+  //     )
+  //   }
+  //   else {
+  //     this.observationService.updateObservation(this.observation).subscribe(
+  //       (data) => {
+  //         this.success = true;
+  //         this.successMsg = "Observation Information sucessfully updated";
+  //         this.proceedNext.emit(false);
+  //         this.disableObservation=true;
+  //         setTimeout(() => {
+  //           this.success = false;
+  //           this.observationModalReference.close();
+  //         }, 3000);
+  //     },
+  //       (error) => {
+  //         this.errorArrObservation = [];
+  //         this.Error = true;
+  //         this.errorArrObservation = JSON.parse(error.error);
+  //         this.errorMsg = this.errorArrObservation.message;
+  //       }
+  //     )
+  //   }   
+  //   }
 
   nextTab2(flag: any) {
     if(!flag) {
@@ -3831,32 +3828,32 @@ else{
             }
           )
 
-          if(!this.observationFlag){
-            this.observation.siteId = this.service.siteCount;
-            this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
-            this.observation.observationComponent ="Supply-Component";
-            this.observation.observations="No observation recorded"
-            this.observationService.addObservation(this.observation).subscribe(
-              (data) => {
-                this.proceedNext.emit(true);
-                this.observationService.retrieveObservation(this.observation.siteId,this.observation.observationComponent,this.observation.userName).subscribe(
-                  (data) => {
-                  this.retrieveFromObservationSupply(data);
-                  },
-                  (error) => {
-                    this.errorArr = [];
-                    this.errorArr = JSON.parse(error.error);
-                  console.log(this.errorArr.message);
-                  }
-                )
-            },
-              (error:any) => {
-                this.errorArrObservation = [];
-                this.errorArrObservation = JSON.parse(error.error);
-                console.log(this.errorArrObservation.message);
-              }
-            )
-          }
+          // if(!this.observationFlag){
+          //   this.observation.siteId = this.service.siteCount;
+          //   this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
+          //   this.observation.observationComponent ="Supply-Component";
+          //   this.observation.observations="No observation recorded"
+          //   this.observationService.addObservation(this.observation).subscribe(
+          //     (data) => {
+          //       this.proceedNext.emit(true);
+          //       this.observationService.retrieveObservation(this.observation.siteId,this.observation.observationComponent,this.observation.userName).subscribe(
+          //         (data) => {
+          //         this.retrieveFromObservationSupply(data);
+          //         },
+          //         (error) => {
+          //           this.errorArr = [];
+          //           this.errorArr = JSON.parse(error.error);
+          //         console.log(this.errorArr.message);
+          //         }
+          //       )
+          //   },
+          //     (error:any) => {
+          //       this.errorArrObservation = [];
+          //       this.errorArrObservation = JSON.parse(error.error);
+          //       console.log(this.errorArrObservation.message);
+          //     }
+          //   )
+          // }
         },
         (error) => {
           this.Error = true;

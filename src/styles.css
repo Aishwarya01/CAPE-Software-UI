@@ -506,13 +506,11 @@ th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:la
 }
 /*for ipad pro*/
 @media screen and (device-width: 1024px) and (device-height: 1366px){
-
+  .horizontalLine {
+    margin: 7px 0 0 141px !important;
+    width: 90px !important;
 }
-
-/* .TableBorder thead th, .TableBorder tr
-{  
-   border: 1px solid #dee2e6;
-} */
+}
 
 .TableBorder thead th, .TableBorder tr 
 {
@@ -572,20 +570,45 @@ input::-webkit-inner-spin-button {
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
-
+/* for mat-header line*/
 .horizontalLine {
   border-top-width: 1px;
   border-top-style: solid;
   border-top-color: rgba(0, 0, 0, 0.12);
   flex: auto;
   height: 0;
-  margin: 7px -92px 0 142px;
+  margin: 7px 0 0 213px;
   min-width: 32px;
   position: static;
-  width: 213px;
+  width: 142px;
 }
 .globalSite .mat-tab-header {
   width: 90% !important;
 }
+/* for observation glow start*/
+.glow {
+  color: black !important;
+  text-align: center;
+  /* -webkit-animation: glow 1500ms infinite;
+  animation: glow 1500ms infinite; */
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+}
 
-
+@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 10px #eeeeee, 0 0 20px #000000, 0 0 30px #000000, 0 0 40px #000000, 
+                 0 0 50px #9554b3, 0 0 60px #9554b3, 0 0 70px #9554b3;
+  }
+  to {
+    text-shadow: 0 0 20px #eeeeee, 0 0 30px #9554b3, 0 0 40px #9554b3, 0 0 50px #9554b3,
+                 0 0 60px #9554b3, 0 0 70px #9554b3, 0 0 80px #9554b3;
+  }
+}
+@keyframes glow {
+  0% {text-shadow: 0 0 3px #25e80e; }
+  50% {  text-shadow: 0 0 40px #25e80e; }
+  100% { text-shadow: 0 0 3px #25e80e; }
+}
+/* for observation glow end*/
