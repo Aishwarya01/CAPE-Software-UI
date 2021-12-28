@@ -11,6 +11,10 @@ export class GlobalsService {
    
   private data = {};  
   backBtn:boolean=true;
+  //observationGlow:any=[];
+  observationGlowingSupply:boolean=false;
+  observationGlowingInspection:boolean=false;
+  observationGlowingTesting:boolean=false;
   siteCount: number = 0; 
   iterationList: any=[]; //for location no. & name
 //from supply to testing table
@@ -19,6 +23,7 @@ export class GlobalsService {
   nominalVoltageArr2:any=[];
   testingTable:any=[];
   testingTable2:any=[];
+
   retrieveTable:boolean=false;
   mainNominalVoltage :any=[];
   mainNominalFrequency :any=[];

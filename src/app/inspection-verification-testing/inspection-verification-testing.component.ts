@@ -1232,6 +1232,10 @@ pushTestObservationRecord(testInnerObservationItem: any,testingId: any) {
   let testingInnerObservation = [];
   for (let item of testInnerObservationItem) {
     testingInnerObservation.push(this.pushTestingInnerObservationTable(item,testingId))
+  
+    if(item.observationDescription!=null&&item.observationDescription!=undefined&&item.observationDescription!=''){
+      this.service.observationGlowingTesting=true;
+     }
   }
   return testingInnerObservation;
 }

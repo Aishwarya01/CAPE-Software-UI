@@ -747,7 +747,11 @@ showHideAccordion(index: number) {
     let innerObservationArr: any =  [];
     for(let i of itemValue) {
       innerObservationArr.push(this.populateInnerObservationForm(i,inspectionOuterObservationId));
+       if(i.observationDescription!=null&&i.observationDescription!=undefined&&i.observationDescription!=''){
+        this.service.observationGlowingInspection=true;
+       }
     }
+    
     return innerObservationArr;
   }
 

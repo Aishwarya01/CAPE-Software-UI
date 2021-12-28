@@ -1716,6 +1716,9 @@ showHideAccordion(index: number) {
           }
           }
         }
+        if(item.observationDescription!=null&&item.observationDescription!=undefined&&item.observationDescription!=''){
+          this.service.observationGlowingSupply=true;
+          }
       }
       this.supplycharesteristicForm.setControl('location2Arr', this.formBuilder.array(this.arr2 || []))
       this.supplycharesteristicForm.setControl('location1Arr', this.formBuilder.array(this.arr1 || []))

@@ -7,11 +7,15 @@
 </div>
 
 <div class="card">
+  <div class="card-body">
   <div class="row">
     <div class="col-sm-12">
-      <a style="margin-top: 10px;margin-right: 20px;
-      margin-bottom: -10px;float: right;cursor: pointer;text-decoration: underline;">Observations</a>
+      <a  [ngClass]="{'button':service.observationGlowingInspection}"
+      style="margin-top: -10px;margin-bottom: 5px;float: right;cursor: pointer;text-decoration: underline;">Observations</a>
     </div>
+    <!-- <div *ngIf="observationNotGlow" class="col-sm-12"> *ngIf="observationGlow" 
+      <a  style="margin-top: -10px;margin-bottom: 5px;float: right;cursor: pointer;text-decoration: underline;">Observations</a>
+    </div> -->
     </div>
   <form [formGroup]="addstep3" (ngSubmit)="nextTab3(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
 <div class="card-body" formArrayName="incomingArr" *ngFor="let a of getIncomingControls(); let i = index" >
@@ -2579,6 +2583,7 @@ height: 35px;
 position: relative;">
 <mat-icon aria-hidden="false" aria-label="Example home icon" [ngClass]="{'disableForm':service.allFieldsDisable}" mat-list-icon>add_box</mat-icon>
 </button>
+</div>
 </div>
 
 <ng-template #content3 let-modal>

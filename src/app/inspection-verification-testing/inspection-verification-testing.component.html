@@ -8,8 +8,12 @@
     <div class="card-body">
       <div class="row">
         <div class="col-sm-12">
-          <a style="margin-top: 2px;float: right;cursor: pointer;text-decoration: underline;">Observations</a>
+          <a  [ngClass]="{'button':service.observationGlowingTesting}"
+          style="margin-top: -10px;margin-bottom: 5px;float: right;cursor: pointer;text-decoration: underline;">Observations</a>
         </div>
+        <!-- <div *ngIf="observationNotGlow" class="col-sm-12"> *ngIf="observationGlow" 
+          <a  style="margin-top: -10px;margin-bottom: 5px;float: right;cursor: pointer;text-decoration: underline;">Observations</a>
+        </div> -->
         </div>
      <form [formGroup]="testingForm" (ngSubmit)="nextTab(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
        <div formArrayName="testaccordianArr" *ngFor="let a of getTestControls(); let i = index;" >
