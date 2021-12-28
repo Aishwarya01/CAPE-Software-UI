@@ -108,6 +108,8 @@ export class VerificationlvComponent implements OnInit {
   site_dataSource!: MatTableDataSource<Company[]>;
   @ViewChild('sitePaginator', { static: true }) sitePaginator!: MatPaginator;
   @ViewChild('siteSort', { static: true }) siteSort!: MatSort;
+  @ViewChild('stepper', { static: false }) stepper!: MatStepper;
+
 
   selectedTabIndex: any;
   selectedIndex = 0;
@@ -638,7 +640,28 @@ export class VerificationlvComponent implements OnInit {
     this.supply.gotoNextTab();
     this.incoming.gotoNextTab();
     this.testing.gotoNextTab();
-    this.summary.gotoNextTab();
+    // this.summary.gotoNextTab();
+  }
+
+  triggerClickTab1() {
+    this.basic.gotoNextTab();
+    
+  }
+
+  triggerClickTab2() {
+    this.supply.gotoNextTab();
+  }
+
+  triggerClickTab3() {
+    this.incoming.gotoNextTab();
+  }
+
+  triggerClickTab4() {
+    this.testing.gotoNextTab();
+  }
+
+  triggerClickTab5() {
+    //this.summary.gotoNextTab();
   }
     // if(!this.service.step1Form.pristine || !this.service.supplycharesteristicForm.pristine || !this.service.addstep3.pristine 
     //   || !this.service.testingForm.pristine || !this.service.addsummary.pristine)
@@ -716,6 +739,10 @@ export class VerificationlvComponent implements OnInit {
     this.selectedIndex=2;
     }
   }
+  navigateStep(index: any) {
+    this.stepper.selectedIndex = index;
+  }
+  
  
   retreiveFromObservationSupply(siteId:any,observationComponent:any,userName:any){
     this.observationService.retrieveObservation(siteId,observationComponent,userName).subscribe(
