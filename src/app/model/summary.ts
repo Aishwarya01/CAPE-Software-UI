@@ -11,10 +11,10 @@ export class Summary {
     recommendationsDate!: number;
     generalConditionInstallation!: String;
     overallAssessmentInstallation!: String;
-    // referanceNumberReport!: String;
-    // furtherActions!: number;
+    referanceNumberReport!: String;
+    furtherActions!: number;
     
-    // comment!: String;
+    comment!: String;
     createdBy!: String;
     createdDate!: Date;
     updatedBy!: String;
@@ -28,8 +28,7 @@ export class Summary {
 
 export class summaryObervation {
     observations!: String;
-   // referanceNumberReport!: String;
-   observationComponentDetails!:String;
+    referanceNumberReport!: String;
     furtherActions!: number;
     obervationStatus!: String;
     comment!: String;
