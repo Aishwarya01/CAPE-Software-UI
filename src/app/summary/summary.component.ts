@@ -542,10 +542,10 @@ export class SummaryComponent implements OnInit {
 
        this.summary.limitationsInspection = this.summaryList.summary.limitationsInspection;
        this.limitationsValue = this.summaryList.summary.limitationsInspection;
-      //  this.summary.furtherActions = this.summaryList.summary.furtherActions,
-      //  this.summary.referanceNumberReport = this.summaryList.summary.referanceNumberReport,
+       this.summary.furtherActions = this.summaryList.summary.furtherActions,
+       this.summary.referanceNumberReport = this.summaryList.summary.referanceNumberReport,
        this.summary.recommendationsDate = this.summaryList.summary.recommendationsDate,
-       //this.summary.comment = this.summaryList.summary.comment,
+       this.summary.comment = this.summaryList.summary.comment,
        this.onChange(this.limitationsValue);
        for(let i of this.summaryList.summary.summaryDeclaration) {
          if(i.declarationRole == "Inspector") {
@@ -1036,17 +1036,9 @@ showHideAccordion(index: number) {
     return new FormGroup({
       observationsSupply: new FormControl(''),
       mainsObservations: new FormControl(''),
-      mainsFurtherActions: new FormControl('',[Validators.required]),
-      mainsComment: new FormControl('',[Validators.required]),
       earthElectrodeObservations: new FormControl(''),
-      electrodeFurtherActions: new FormControl('',[Validators.required]),
-      electrodeComment: new FormControl('',[Validators.required]),
       bondingConductorObservations: new FormControl(''),
-      bondingFurtherActions: new FormControl('',[Validators.required]),
-      bondingComment: new FormControl('',[Validators.required]),
       earthingConductorObservations: new FormControl(''),
-      earthingFurtherActions: new FormControl('',[Validators.required]),
-      earthingComment: new FormControl('',[Validators.required]),
       alternateArr: this._formBuilder.array([]),
       inspectionArr: this._formBuilder.array([]),
       testingArr: this._formBuilder.array([]),
@@ -1058,22 +1050,16 @@ showHideAccordion(index: number) {
   private alternateObservationsForm(): FormGroup {
     return new FormGroup({
       alternateObservations: new FormControl(''),
-      furtherActions: new FormControl('', [Validators.required]),
-      comment: new FormControl('', [Validators.required]),
     });
   }
   private testingObservationsForm(item:any): FormGroup {
     return new FormGroup({
       circuitObservation: new FormControl({ disabled: false, value: item.observationDescription}),
-      furtherActions: new FormControl('', [Validators.required]),
-      comment: new FormControl('', [Validators.required]),
     });
   }
   private inspectionOuterObservationsForm(item: any): FormGroup {
     return new FormGroup({
       outerObservations: new FormControl({ disabled: false, value: item.observationDescription}),
-      furtherActions: new FormControl('', [Validators.required]),
-      comment: new FormControl('', [Validators.required]),
       outerObservationsArr: this._formBuilder.array(this.populateInnerObserv(item.inspectionInnerObservations)),
     });
   }
@@ -1089,8 +1075,6 @@ showHideAccordion(index: number) {
   private inspectionInnerObservationsForm(item: any): FormGroup {
     return new FormGroup({
       innerObservations: new FormControl({ disabled: false, value: item.observationDescription}),
-      furtherActions: new FormControl('', [Validators.required]),
-      comment: new FormControl('', [Validators.required]),
     });
   }
 

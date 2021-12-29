@@ -616,6 +616,6 @@ input::-webkit-inner-spin-button {
 #supplyTable{
   display: block;
     width: 100%;
-    overflow-y: auto ;
-    height: 65%;
+    overflow-y: scroll;
+    height: 320px;
 }
