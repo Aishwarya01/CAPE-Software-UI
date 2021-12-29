@@ -612,3 +612,10 @@ input::-webkit-inner-spin-button {
   100% { text-shadow: 0 0 3px #25e80e; }
 }
 /* for observation glow end*/
+
+#supplyTable{
+  display: block;
+    width: 100%;
+    overflow-y: scroll;
+    height: 320px;
+}
