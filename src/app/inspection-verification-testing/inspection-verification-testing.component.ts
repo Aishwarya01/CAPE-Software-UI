@@ -1972,6 +1972,7 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
   onChangeForm(event:any){
     if(!this.testingForm.invalid){
       if(this.testingForm.dirty){
+        this.validationError=false;
         this.service.lvClick=1;
         this.service.logoutClick=1;
          this.service.windowTabClick=1;
@@ -1992,6 +1993,7 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
   onKeyForm(event: KeyboardEvent) { 
    if(!this.testingForm.invalid){ 
     if(this.testingForm.dirty){
+      this.validationError=false;
       this.service.lvClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;

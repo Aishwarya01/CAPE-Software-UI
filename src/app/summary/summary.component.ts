@@ -1242,6 +1242,7 @@ showHideAccordion(index: number) {
   onChangeForm(event:any){
     if(!this.addsummary.invalid){
       if(this.addsummary.dirty){
+        this.validationError=false;
         this.service.lvClick=1;
         this.service.logoutClick=1;
       }
@@ -1261,6 +1262,7 @@ showHideAccordion(index: number) {
   onKeyForm(event: KeyboardEvent) { 
    if(!this.addsummary.invalid){ 
     if(this.addsummary.dirty){
+      this.validationError=false;
       this.service.lvClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;
