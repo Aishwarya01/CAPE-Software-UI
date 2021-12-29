@@ -1228,6 +1228,7 @@ showHideAccordion(index: number) {
   onChangeForm(event:any){
     if(!this.addstep3.invalid){
       if(this.addstep3.dirty){
+        this.validationError=false;
         this.service.lvClick=1;
         this.service.logoutClick=1;
          this.service.windowTabClick=1;
@@ -1248,6 +1249,7 @@ showHideAccordion(index: number) {
   onKeyForm(event: KeyboardEvent) { 
    if(!this.addstep3.invalid){ 
     if(this.addstep3.dirty){
+      this.validationError=false;
       this.service.lvClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;

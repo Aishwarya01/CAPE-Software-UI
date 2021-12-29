@@ -599,6 +599,7 @@ export class LpsEarthingComponent implements OnInit {
  onChangeForm(event:any){
     if(!this.earthingForm.invalid){
       if(this.earthingForm.dirty){
+        this.validationError=false;
         this.service.lvClick=1;
         this.service.logoutClick=1;
         this.service.windowTabClick=1;
@@ -619,6 +620,7 @@ export class LpsEarthingComponent implements OnInit {
   onKeyForm(event: KeyboardEvent) { 
    if(!this.earthingForm.invalid){ 
     if(this.earthingForm.dirty){
+      this.validationError=false;
       this.service.lvClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;

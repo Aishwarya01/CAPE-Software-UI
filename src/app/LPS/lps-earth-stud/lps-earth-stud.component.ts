@@ -162,6 +162,7 @@ export class LpsEarthStudComponent implements OnInit {
   onChangeForm(event:any){
     if(!this.EarthStudForm.invalid){
       if(this.EarthStudForm.dirty){
+        this.validationError=false;
         this.service.lvClick=1;
         this.service.logoutClick=1;
         this.service.windowTabClick=1;
@@ -182,6 +183,7 @@ export class LpsEarthStudComponent implements OnInit {
   onKeyForm(event: KeyboardEvent) { 
    if(!this.EarthStudForm.invalid){ 
     if(this.EarthStudForm.dirty){
+      this.validationError=false;
       this.service.lvClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;
