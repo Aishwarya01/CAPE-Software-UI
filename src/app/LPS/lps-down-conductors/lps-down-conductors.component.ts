@@ -780,6 +780,7 @@ export class LpsDownConductorsComponent implements OnInit {
  onChangeForm(event:any){
     if(!this.downConductorForm.invalid){
       if(this.downConductorForm.dirty){
+        this.validationError=false;
         this.service.lvClick=1;
         this.service.logoutClick=1;
          this.service.windowTabClick=1;
@@ -800,6 +801,7 @@ export class LpsDownConductorsComponent implements OnInit {
   onKeyForm(event: KeyboardEvent) { 
    if(!this.downConductorForm.invalid){ 
     if(this.downConductorForm.dirty){
+      this.validationError=false;
       this.service.lvClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;

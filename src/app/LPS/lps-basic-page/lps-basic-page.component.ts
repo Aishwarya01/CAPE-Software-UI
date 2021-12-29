@@ -182,6 +182,7 @@ export class LpsBasicPageComponent implements OnInit {
   onChangeForm(event:any){
     if(!this.LPSBasicForm.invalid){
       if(this.LPSBasicForm.dirty){
+        this.validationError=false;
         this.service.lvClick=1;
         this.service.logoutClick=1;
          this.service.windowTabClick=1;
@@ -202,6 +203,7 @@ export class LpsBasicPageComponent implements OnInit {
   onKeyForm(event: KeyboardEvent) { 
    if(!this.LPSBasicForm.invalid){ 
     if(this.LPSBasicForm.dirty){
+      this.validationError=false;
       this.service.lvClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;

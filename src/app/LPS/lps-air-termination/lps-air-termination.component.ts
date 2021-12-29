@@ -420,6 +420,7 @@ export class LpsAirTerminationComponent implements OnInit {
     onChangeForm(event:any){
       if(!this.airTerminationForm.invalid){
         if(this.airTerminationForm.dirty){
+          this.validationError=false;
           this.service.lvClick=1;
           this.service.logoutClick=1;
           this.service.windowTabClick=1;
@@ -438,6 +439,7 @@ export class LpsAirTerminationComponent implements OnInit {
     onKeyForm(event: KeyboardEvent) { 
      if(!this.airTerminationForm.invalid){ 
       if(this.airTerminationForm.dirty){
+        this.validationError=false;
         this.service.lvClick=1;
         this.service.logoutClick=1;
         this.service.windowTabClick=1;
