@@ -11,18 +11,19 @@
                 <h3>Extent And Limitations Of Inspection And Testing</h3>
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">                    
+            <div class="form-group">                    
               <div class="row">
                   <div class="col-sm-12">
-                    <div class="form-group">
-                      <label>Extent Of Installation Covered By This Report:</label>
-                      <mat-icon style="float: right;font-size: 18px;
+                    <mat-icon style="float: right;font-size: 18px;
                       line-height: unset;"
                        matTooltip="Actual area / portion of the building/block/floor details covered in this report"
                        matTooltipClass="multiline-tooltip"
                        aria-label="Button that shows a red tooltip"
                        class="example-button"> info_outline
                      </mat-icon>
+                    <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
+                      <label>Extent Of Installation Covered By This Report:</label>
+                      
                       <input type="text" class="form-control" formControlName="extentInstallation"
                       [(ngModel)]="summary.extentInstallation" [readonly]="service.allFieldsDisable"
                       [ngClass]="{ 'is-invalid': submitted && f.extentInstallation?.errors }">
@@ -31,7 +32,7 @@
                     </div>
                     </div>
                   </div>
-                  <div class="col-sm-12">
+                  <div class="col-sm-12" [ngClass]="{'disableForm':service.allFieldsDisable}">
                     <div class="form-group">
                       <label>Agreed Limitations Including The Reasons:</label>
                       <input type="text" class="form-control" formControlName="agreedLimitations"
@@ -43,7 +44,7 @@
                     </div>
                   </div>
     
-                  <div class="col-sm-12">
+                  <div class="col-sm-12" [ngClass]="{'disableForm':service.allFieldsDisable}">
                     <div class="form-group">
                       <label>Agreed With:</label>
                       <input type="text" class="form-control" formControlName="agreedWith"
@@ -55,7 +56,7 @@
                     </div>
                   </div>
     
-                  <div class="col-sm-12">
+                  <div class="col-sm-12" [ngClass]="{'disableForm':service.allFieldsDisable}">
                     <div class="form-group">
                       <label>Operational Limitations Including The Reasons:</label>
                       <input type="text" class="form-control" formControlName="operationalLimitations"
@@ -91,18 +92,19 @@
                 <h3>Observations </h3>
               </mat-panel-title>
             </mat-expansion-panel-header>
-              <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
+              <div class="row">
               <div class="col-sm-12">
-                <div class="form-group">
-                  <label>Referring to attached inspection report and test results and subject to the 
-                    limitations specified at the extent and limitations of inspection and testing :</label>
-                    <mat-icon style="float: right;font-size: 18px;
+                <mat-icon style="float: right;font-size: 18px;
                     line-height: unset;"
                      matTooltip="If no remedial action required is selected, then following table is not necessary"
                      matTooltipClass="multiline-tooltip"
                      aria-label="Button that shows a red tooltip"
                      class="example-button"> info_outline
                    </mat-icon>
+                <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
+                  <label>Referring to attached inspection report and test results and subject to the 
+                    limitations specified at the extent and limitations of inspection and testing :</label>
+                    
                   <select class="form-control" formControlName="limitationsInspection" (change)="onChange($event)"
                   [(ngModel)]="summary.limitationsInspection" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
                   [ngClass]="{ 'is-invalid': submitted && f.limitationsInspection?.errors }">

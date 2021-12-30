@@ -71,17 +71,17 @@
           <h3>Incoming Equipment</h3>
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
+      <div class="row">
         <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Cable/Busbar trunking:</label>
-            <mat-icon style="float: right;font-size: 18px;
+          <mat-icon style="float: right;font-size: 18px;
                      line-height: unset;"
                      matTooltip="Type and availability status to be included."
                  matTooltipClass="multiline-tooltip"
                 aria-label="Button that shows a red tooltip"
                  class="example-button"> info_outline
             </mat-icon>
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <label>Cable/Busbar trunking:</label>
             <select class="form-control" formControlName="serviceCable"
             [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('serviceCable')?.errors }">
@@ -96,15 +96,16 @@
         </div>
 
         <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Incoming Protective Device:</label>
-            <mat-icon style="float: right;font-size: 18px;
+          <mat-icon style="float: right;font-size: 18px;
                      line-height: unset;"
                      matTooltip="Availability status to be included."
                  matTooltipClass="multiline-tooltip"
                 aria-label="Button that shows a red tooltip"
                  class="example-button"> info_outline
             </mat-icon>
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <label>Incoming Protective Device:</label>
+            
             <select class="form-control" formControlName="serviceFuse" 
             [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('serviceFuse')?.errors }">
@@ -118,15 +119,16 @@
         </div>
 
         <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Energy Meters for Mains Incoming:</label>
-            <mat-icon style="float: right;font-size: 18px;
+          <mat-icon style="float: right;font-size: 18px;
                  line-height: unset;"
                  matTooltip="Availability status to be included."
                 matTooltipClass="multiline-tooltip"
                aria-label="Button that shows a red tooltip"
                 class="example-button"> info_outline
              </mat-icon>
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <label>Energy Meters for Mains Incoming:</label>
+            
             <select class="form-control" formControlName="meterDistributor" 
             [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('meterDistributor')?.errors }">
@@ -140,15 +142,16 @@
         </div>
 
         <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Energy Meters for Outgoings:</label>
-            <mat-icon style="float: right;font-size: 18px;
+          <mat-icon style="float: right;font-size: 18px;
                  line-height: unset;"
                 matTooltip="Availability status to be included."
                 matTooltipClass="multiline-tooltip"
                 aria-label="Button that shows a red tooltip"
                 class="example-button"> info_outline
             </mat-icon>
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <label>Energy Meters for Outgoings:</label>
+            
             <select class="form-control" formControlName="meterConsumer" 
             [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('meterConsumer')?.errors }">
@@ -162,15 +165,16 @@
         </div>
 
         <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Over Voltage Protection (overvoltage category maintained):</label>
-            <mat-icon style="float: right;font-size: 18px;
+          <mat-icon style="float: right;font-size: 18px;
                 line-height: unset;"
                 matTooltip="Availability status to be included."
                 matTooltipClass="multiline-tooltip"
                 aria-label="Button that shows a red tooltip"
                 class="example-button"> info_outline
             </mat-icon>
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <label>Over Voltage Protection (overvoltage category maintained):</label>
+            
             <select class="form-control" formControlName="meterEqu" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('meterEqu')?.errors }" >
              <option value="" selected>Select Option</option>
@@ -183,15 +187,16 @@
         </div>
 
         <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>TOV Control Measures On LV Side Due To HV Fault:</label>
-            <mat-icon style="float: right;font-size: 18px;
+          <mat-icon style="float: right;font-size: 18px;
                 line-height: unset;"
                 matTooltip="Availability status to be included."
                 matTooltipClass="multiline-tooltip"
                 aria-label="Button that shows a red tooltip"
                 class="example-button"> info_outline
             </mat-icon>
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <label>TOV Control Measures On LV Side Due To HV Fault:</label>
+            
             <select class="form-control" formControlName="tovMeasuresLVHV" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('meterEqu')?.errors }" >
              <option value="" selected>Select Option</option>
@@ -204,15 +209,16 @@
         </div>
 
         <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Isolator (Means To Isolate The Incoming Supply System):</label>
-            <mat-icon style="float: right;font-size: 18px;
+          <mat-icon style="float: right;font-size: 18px;
                 line-height: unset;"
             matTooltip="Availability status to be included. Generally, the incoming protective device have this facility."
             matTooltipClass="multiline-tooltip"
             aria-label="Button that shows a red tooltip"
             class="example-button"> info_outline
         </mat-icon>
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <label>Isolator (Means To Isolate The Incoming Supply System):</label>
+            
             <select class="form-control" formControlName="isolator" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('isolator')?.errors }" >
              <option value="" selected>Select Option</option>
@@ -238,17 +244,19 @@
           <h3>Presence of Adequate Arrangements For Parallel Or Switched Alternative Sources Of Supply </h3>
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
+
+      <div class="row">
         <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Dedicated Earthing Arrangement Independent To That Of Public Supply:</label>
-            <mat-icon style="float: right;font-size: 18px;
+          <mat-icon style="float: right;font-size: 18px;
                 line-height: unset;"
                 matTooltip="Arrangement of earthing downstream point of commencement of supply."
                 matTooltipClass="multiline-tooltip"
                 aria-label="Button that shows a red tooltip"
                 class="example-button"> info_outline
             </mat-icon>
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <label>Dedicated Earthing Arrangement Independent To That Of Public Supply:</label>
+            
             <select class="form-control" formControlName="earthingArrangement" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('earthingArrangement')?.errors }" >
              <option value="" selected>Select Option</option>
@@ -261,7 +269,7 @@
         </div>
 
         <div class="col-sm-12">
-          <div class="form-group equipment">
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
             <label>Presence of Adequate Arrangements Where Generator To Operate in Parallel With The Public
               Supply System:</label>
             <select class="form-control" formControlName="adequateArrangement" 
@@ -276,7 +284,7 @@
         </div>
 
         <div class="col-sm-12">
-          <div class="form-group equipment">
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
             <label>Correct Connections Of Generator In Parallel. (Note: Special Attention To Circulating
               Currents):</label>
             <select class="form-control" formControlName="connectionGenerator" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
@@ -291,7 +299,7 @@
         </div>
 
         <div class="col-sm-12">
-          <div class="form-group equipment">
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
             <label>Compatibility of Characteristics Of Means of Generation :</label>
             <select class="form-control" formControlName="compatibilityCharacteristics" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('compatibilityCharacteristics')?.errors }" >
@@ -305,7 +313,7 @@
         </div>
 
         <div class="col-sm-12">
-          <div class="form-group equipment">
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
             <label>Means To Provide Automatic Disconnection Of Generator In The Event Of
               Loss Of Public Supply System Or Voltage Or Frequency Deviation Beyond Declared Values:</label>
             <select class="form-control" formControlName="automaticDisconnectGenerator" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
@@ -320,7 +328,7 @@
         </div>
 
         <div class="col-sm-12">
-          <div class="form-group equipment">
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
             <label>Means to prevent connection of generator in the event of loss of public supply system or voltage or frequency deviation beyond declared values:</label>
             <select class="form-control" formControlName="preventConnectGenerator" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('preventConnectGenerator')?.errors }" >
@@ -334,7 +342,7 @@
         </div>
 
         <div class="col-sm-12">
-          <div class="form-group equipment">
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
             <label>Means to Isolate Generator From The Public Supply System :</label>
             <select class="form-control" formControlName="isolateGenerator" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('isolateGenerator')?.errors }" >
@@ -356,17 +364,19 @@
           <h3>Automatic Disconnection Of Supply</h3>
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
+      <div class="row">
+
         <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Main Earthing/Bonding arrangements:</label>
-               <mat-icon style="float: right;font-size: 18px;
+          <mat-icon style="float: right;font-size: 18px;
                  line-height: unset;"
                   matTooltip="If the earth busbar of mains incoming panel and nearby metal installations such as metal pipes, metal handrails and lightning protection down conductors are not connected, select NO"
                   matTooltipClass="multiline-tooltip"
                   aria-label="Button that shows a red tooltip"
                   class="example-button"> info_outline
                 </mat-icon>
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <label>Main Earthing/Bonding arrangements:</label>
+               
             <select class="form-control" formControlName="mainEarting" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('mainEarting')?.errors }" >
              <option value="" selected>Select Option</option>
@@ -379,9 +389,7 @@
         </div>
 
         <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Presence and adequacy of energy suppliers earthing arrangement or installation earth electrode arrangement:</label>
-              <mat-icon style="float: right;font-size: 18px;
+          <mat-icon style="float: right;font-size: 18px;
                  line-height: unset;"
                   matTooltip="For TN system, protective conductor to source neutral is applicable. 
                   TT system earth electrode is applicable."
@@ -389,6 +397,9 @@
                   aria-label="Button that shows a red tooltip"
                   class="example-button"> info_outline
                 </mat-icon>
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <label>Presence and adequacy of energy suppliers earthing arrangement or installation earth electrode arrangement:</label>
+              
             <select class="form-control" formControlName="earthElectordeArrangement" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('earthElectordeArrangement')?.errors }" >
              <option value="" selected>Select Option</option>
@@ -401,7 +412,7 @@
         </div>
 
         <div class="col-sm-12">
-          <div class="form-group equipment">
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
             <label>Presence And Adequacy Of Earthing Conductor And Connections:</label>
             <select class="form-control" formControlName="earthConductorConnection" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('earthConductorConnection')?.errors }" >
@@ -415,7 +426,7 @@
         </div>
 
         <div class="col-sm-12">
-          <div class="form-group equipment">
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
             <label>Accessibility Of Earthing Conductor Connections:</label>
             <select class="form-control" formControlName="accessibility" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('accessibility')?.errors }" >
@@ -429,16 +440,17 @@
         </div>
 
         <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Presence and Adequacy Of Main Protective Bonding Conductors And Connections (Colour, Sizes,
-              Termination, and Provision of Independent Earthing) :</label>
-              <mat-icon style="float: right;font-size: 18px;
+          <mat-icon style="float: right;font-size: 18px;
                  line-height: unset;"
                   matTooltip="If the earth busbar of mains incoming panel and nearby metal installations such as metal pipes, metal handrails and lightning protection down conductors are not connected, select NO"
                   matTooltipClass="multiline-tooltip"
                   aria-label="Button that shows a red tooltip"
                   class="example-button"> info_outline
                 </mat-icon>
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <label>Presence and Adequacy Of Main Protective Bonding Conductors And Connections (Colour, Sizes,
+              Termination, and Provision of Independent Earthing) :</label>
+              
             <select class="form-control" formControlName="aainProtectBonding" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('aainProtectBonding')?.errors }" >
              <option value="" selected>Select Option</option>
@@ -451,15 +463,16 @@
         </div>
 
         <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Accessibility Of All Protective Bonding Connections:</label>
-            <mat-icon style="float: right;font-size: 18px;
+          <mat-icon style="float: right;font-size: 18px;
             line-height: unset;"
              matTooltip="If the earth busbar of mains incoming panel and nearby metal installations such as metal pipes, metal handrails and lightning protection down conductors are not connected, select NO"
              matTooltipClass="multiline-tooltip"
              aria-label="Button that shows a red tooltip"
              class="example-button"> info_outline
            </mat-icon>
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <label>Accessibility Of All Protective Bonding Connections:</label>
+            
             <select class="form-control" formControlName="allProtectBonding" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('allProtectBonding')?.errors }" 
             >
@@ -473,7 +486,7 @@
         </div>
 
         <div class="col-sm-12">
-          <div class="form-group equipment">
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
             <label>Presence and Adequacy of Electrical Earthing/Bonding Labels At All Appropriate
               Locations:</label>
             <select class="form-control" formControlName="allAppropriateLocation" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
@@ -488,7 +501,7 @@
         </div>
 
         <div class="col-sm-12">
-          <div class="form-group equipment">
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
             <label>Accessibility Of FELV Requirements Satisfied:</label>
             <select class="form-control" formControlName="felvRequirement" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('felvRequirement')?.errors }" >
@@ -517,17 +530,19 @@
       </div>
       
       <h3><b><u>Basic and Fault Protection</u></b></h3>
-      <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
+      <div class="row">
+
         <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>SELV System, Including The Source And Associated Circuits:</label>
-            <mat-icon style="float: right;font-size: 18px;
+          <mat-icon style="float: right;font-size: 18px;
             line-height: unset;"
              matTooltip="YES - If this protective measure is applied in the installation."
              matTooltipClass="multiline-tooltip"
              aria-label="Button that shows a red tooltip"
              class="example-button"> info_outline
            </mat-icon>
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <label>SELV System, Including The Source And Associated Circuits:</label>
+            
             <select class="form-control" formControlName="selvSystem" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('selvSystem')?.errors }" >
              <option value="" selected>Select Option</option>
@@ -538,16 +553,18 @@
           </div>
           </div>
         </div>
+
         <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>PELV system, Including The Source And Associated Circuits:</label>
-            <mat-icon style="float: right;font-size: 18px;
+          <mat-icon style="float: right;font-size: 18px;
             line-height: unset;"
              matTooltip="YES - If this protective measure is applied in the installation"
              matTooltipClass="multiline-tooltip"
              aria-label="Button that shows a red tooltip"
              class="example-button"> info_outline
            </mat-icon>
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <label>PELV system, Including The Source And Associated Circuits:</label>
+            
             <select class="form-control" formControlName="pelvSystem" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('pelvSystem')?.errors }" >
              <option value="" selected>Select Option</option>
@@ -558,16 +575,18 @@
           </div>
           </div>
         </div>
+
         <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Double Insulation (Class II or Equivalent Equipment And Associated Circuits):</label>
-            <mat-icon style="float: right;font-size: 18px;
+          <mat-icon style="float: right;font-size: 18px;
             line-height: unset;"
              matTooltip="YES - If this protective measure is applied in the installation"
              matTooltipClass="multiline-tooltip"
              aria-label="Button that shows a red tooltip"
              class="example-button"> info_outline
            </mat-icon>
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <label>Double Insulation (Class II or Equivalent Equipment And Associated Circuits):</label>
+            
             <select class="form-control" formControlName="doubleInsulation" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('doubleInsulation')?.errors }" >
              <option value="" selected>Select Option</option>
@@ -580,17 +599,19 @@
         </div>
       </div>
 
-      <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
+      <div class="row">
+
         <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>ReInforced Insulation:</label>
-            <mat-icon style="float: right;font-size: 18px;
+          <mat-icon style="float: right;font-size: 18px;
             line-height: unset;"
              matTooltip="YES - If this protective measure is applied in the installation"
              matTooltipClass="multiline-tooltip"
              aria-label="Button that shows a red tooltip"
              class="example-button"> info_outline
            </mat-icon>
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <label>ReInforced Insulation:</label>
+            
             <select class="form-control" formControlName="reinforcedInsulation" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('reinforcedInsulation')?.errors }" >
              <option value="" selected>Select Option</option>
@@ -601,16 +622,18 @@
           </div>
           </div>
         </div>
+
         <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Electrical separation for one item of equipment (shaver supply unit):</label>
-            <mat-icon style="float: right;font-size: 18px;
+          <mat-icon style="float: right;font-size: 18px;
             line-height: unset;"
              matTooltip="YES - If this protective measure is applied in the installation"
              matTooltipClass="multiline-tooltip"
              aria-label="Button that shows a red tooltip"
              class="example-button"> info_outline
            </mat-icon>
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}"> 
+            <label>Electrical separation for one item of equipment (shaver supply unit):</label>
+            
             <select class="form-control" formControlName="basicElectricalSepartion" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('basicElectricalSepartion')?.errors }" >
              <option value="" selected>Select Option</option>
@@ -637,18 +660,20 @@
       </div>
 
       <h3><b><u>Basic Protection (Prevention Of Contact With Live Parts)</u></b></h3>
-      <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
+      <div class="row">
+
         <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Insulation of Live Parts (Conductors Completely Covered With Durable Insulating
-              Material):</label>
-              <mat-icon style="float: right;font-size: 18px;
+          <mat-icon style="float: right;font-size: 18px;
               line-height: unset;"
                matTooltip="YES - If this protective measure is applied in the installation"
                matTooltipClass="multiline-tooltip"
                aria-label="Button that shows a red tooltip"
                class="example-button"> info_outline
              </mat-icon>
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <label>Insulation of Live Parts (Conductors Completely Covered With Durable Insulating
+              Material):</label>
+              
             <select class="form-control" formControlName="insulationLiveParts" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('insulationLiveParts')?.errors }" >
              <option value="" selected>Select Option</option>
@@ -661,15 +686,16 @@
         </div>
 
         <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Barriers Or Enclosures (Correct IP Rating):</label>
-            <mat-icon style="float: right;font-size: 18px;
+          <mat-icon style="float: right;font-size: 18px;
             line-height: unset;"
              matTooltip="YES - If this protective measure is applied in the installation"
              matTooltipClass="multiline-tooltip"
              aria-label="Button that shows a red tooltip"
              class="example-button"> info_outline
            </mat-icon>
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <label>Barriers Or Enclosures (Correct IP Rating):</label>
+            
             <select class="form-control" formControlName="barriersEnclosers" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('barriersEnclosers')?.errors }" >
              <option value="" selected>Select Option</option>
@@ -680,16 +706,18 @@
           </div>
           </div>
         </div>
+
         <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Obstacles:</label>
-            <mat-icon style="float: right;font-size: 18px;
+          <mat-icon style="float: right;font-size: 18px;
             line-height: unset;"
              matTooltip="YES - If this protective measure is applied in the installation"
              matTooltipClass="multiline-tooltip"
              aria-label="Button that shows a red tooltip"
              class="example-button"> info_outline
            </mat-icon>
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <label>Obstacles:</label>
+            
             <select class="form-control" formControlName="obstacles" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('obstacles')?.errors }" >
              <option value="" selected>Select Option</option>
@@ -700,16 +728,18 @@
           </div>
           </div>
         </div>
+
         <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Placing out of reach:</label>
-            <mat-icon style="float: right;font-size: 18px;
+          <mat-icon style="float: right;font-size: 18px;
             line-height: unset;"
              matTooltip="YES - If this protective measure is applied in the installation"
              matTooltipClass="multiline-tooltip"
              aria-label="Button that shows a red tooltip"
              class="example-button"> info_outline
            </mat-icon>
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <label>Placing out of reach:</label>
+            
             <select class="form-control" formControlName="placingOutReach" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('placingOutReach')?.errors }" >
              <option value="" selected>Select Option</option>
@@ -723,17 +753,19 @@
       </div>
 
       <h3><b><u>Fault protection</u></b></h3>
-      <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
+      <div class="row">
+
         <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Non-Conducting Location – Earth Free local Equipotential Bonding:</label>
-            <mat-icon style="float: right;font-size: 18px;
+          <mat-icon style="float: right;font-size: 18px;
             line-height: unset;"
              matTooltip="YES - If this protective measure is applied in the installation"
              matTooltipClass="multiline-tooltip"
              aria-label="Button that shows a red tooltip"
              class="example-button"> info_outline
            </mat-icon>
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <label>Non-Conducting Location – Earth Free local Equipotential Bonding:</label>
+            
             <select class="form-control" formControlName="faultNonConductLocation" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('faultNonConductLocation')?.errors }" >
              <option value="" selected>Select Option</option>
@@ -746,15 +778,16 @@
         </div>
 
         <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Electrical Separation:</label>
-            <mat-icon style="float: right;font-size: 18px;
+          <mat-icon style="float: right;font-size: 18px;
             line-height: unset;"
              matTooltip="YES - If this protective measure is applied in the installation"
              matTooltipClass="multiline-tooltip"
              aria-label="Button that shows a red tooltip"
              class="example-button"> info_outline
            </mat-icon>
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <label>Electrical Separation:</label>
+            
             <select class="form-control" formControlName="faultElectricalSepartion" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('faultElectricalSepartion')?.errors }" >
              <option value="" selected>Select Option</option>
@@ -768,17 +801,19 @@
       </div>
 
       <h3><b><u>Additional Protection</u></b></h3>
-      <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
+      <div class="row">
+
         <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>RCD(s) Not Exceeding 30 mA Operating Current:</label>
-            <mat-icon style="float: right;font-size: 18px;
+          <mat-icon style="float: right;font-size: 18px;
             line-height: unset;"
              matTooltip="YES - If this protective measure is applied in the installation"
              matTooltipClass="multiline-tooltip"
              aria-label="Button that shows a red tooltip"
              class="example-button"> info_outline
            </mat-icon>
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <label>RCD(s) Not Exceeding 30 mA Operating Current:</label>
+            
             <select class="form-control" formControlName="operatingCurrent" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('operatingCurrent')?.errors }">
              <option value="" selected>Select Option</option>
@@ -791,15 +826,16 @@
         </div>
 
         <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Supplementary Bonding:</label>
-            <mat-icon style="float: right;font-size: 18px;
+          <mat-icon style="float: right;font-size: 18px;
             line-height: unset;"
              matTooltip="YES - If this protective measure is applied in the installation"
              matTooltipClass="multiline-tooltip"
              aria-label="Button that shows a red tooltip"
              class="example-button"> info_outline
            </mat-icon>
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <label>Supplementary Bonding:</label>
+            
             <select class="form-control" formControlName="supplementaryBonding" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && a.get('supplementaryBonding')?.errors }">
              <option value="" selected>Select Option</option>
@@ -812,7 +848,7 @@
         </div>
       </div>
 
-        <div class="row">
+        <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
           <div class="col-md-4">
              <mat-form-field class="client-description">
               <!-- <mat-icon style="float: right;font-size: 18px;
@@ -857,7 +893,7 @@
       <br>
 
       <div formArrayName="consumerUnit" *ngFor="let b of getearthingControls(a); let i = index">
-        <div class="form-group" [formGroupName]="i"  [ngClass]="{'disableForm':service.allFieldsDisable}">
+        <div class="form-group" [formGroupName]="i">
       <div class="row">
         <div class="col">
           <h3><b>Consumer Unit(s) / Distribution Board(s) / Distribution Equipment - {{1+i}}</b> </h3> 
@@ -905,16 +941,17 @@
 
       <div class="row">
         <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Adequacy Of Access And Working Space For Items Of Electrical Equipment Including
-              Switchgear:</label>
-              <mat-icon style="float: right;font-size: 18px;
+          <mat-icon style="float: right;font-size: 18px;
               line-height: unset;"
                matTooltip="Spacing requirements shall be referred to NEC/NBC"
                matTooltipClass="multiline-tooltip"
                aria-label="Button that shows a red tooltip"
                class="example-button"> info_outline
              </mat-icon>
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <label>Adequacy Of Access And Working Space For Items Of Electrical Equipment Including
+              Switchgear:</label>
+              
             <select class="form-control" formControlName="accessWorking" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('accessWorking')?.errors }">
              <option value="" selected>Select Option</option>
@@ -927,15 +964,16 @@
         </div>
 
         <div class="col-sm-12">
-          <div class="form-group equipment">
-            <label>Security Of Fixing:</label>
-            <mat-icon style="float: right;font-size: 18px;
+          <mat-icon style="float: right;font-size: 18px;
             line-height: unset;"
              matTooltip="Quality of terminations and fixings"
              matTooltipClass="multiline-tooltip"
              aria-label="Button that shows a red tooltip"
              class="example-button"> info_outline
            </mat-icon>
+          <div class="form-group equipment" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <label>Security Of Fixing:</label>
+            
             <select class="form-control" formControlName="securityFixing" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
             [ngClass]="{ 'is-invalid': submitted && b.get('securityFixing')?.errors }" >
              <option value="" selected>Select Option</option>
@@ -947,7 +985,7 @@
           </div>
         </div>
 
-        <div class="col-sm-12">
+        <div class="col-sm-12" [ngClass]="{'disableForm':service.allFieldsDisable}">
           <div class="form-group equipment">
             <label>Insulation Of Live Parts Not Damaged During Erection:</label>
             <select class="form-control" formControlName="livePartsDamage" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
@@ -960,7 +998,7 @@
           </div>
           </div>
         </div>
-        <div class="col-sm-12">
+        <div class="col-sm-12" [ngClass]="{'disableForm':service.allFieldsDisable}">
           <div class="form-group equipment">
             <label>Adequacy / Security Of Barriers:</label>
             <select class="form-control" formControlName="securityBarriers" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
@@ -974,7 +1012,7 @@
           </div>
         </div>
 
-        <div class="col-sm-12">
+        <div class="col-sm-12" [ngClass]="{'disableForm':service.allFieldsDisable}">
           <div class="form-group equipment">
             <label>Suitability Of Enclosure(s) For IP And Fire Ratings:</label>
             <select class="form-control" formControlName="suitabilityEnclosure" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
@@ -988,7 +1026,7 @@
           </div>
         </div>
 
-        <div class="col-sm-12">
+        <div class="col-sm-12" [ngClass]="{'disableForm':service.allFieldsDisable}">
           <div class="form-group equipment">
             <label>Enclosure Not Damaged During Installation:</label>
             <select class="form-control" formControlName="enclosureDamaged" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
@@ -1002,7 +1040,7 @@
           </div>
         </div> 
 
-        <div class="col-sm-12">
+        <div class="col-sm-12" [ngClass]="{'disableForm':service.allFieldsDisable}">
           <div class="form-group equipment">
             <label>Presence And Effectiveness Of Obstacles:</label>
             <select class="form-control" formControlName="presenceObstacles" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
@@ -1015,7 +1053,7 @@
           </div>
           </div>
         </div>
-        <div class="col-sm-12">
+        <div class="col-sm-12" [ngClass]="{'disableForm':service.allFieldsDisable}">
           <div class="form-group equipment">
             <label>Placing Out Of Reach:</label>
             <select class="form-control" formControlName="placingOutOfConsumer" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
@@ -1029,7 +1067,7 @@
           </div>
         </div>
 
-        <div class="col-sm-12">
+        <div class="col-sm-12" [ngClass]="{'disableForm':service.allFieldsDisable}">
           <div class="form-group equipment">
             <label>Protection Against Mechanical Damage Where Cables Enter Equipment:</label>
             <select class="form-control" formControlName="mechanicalDamage" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
@@ -1043,7 +1081,7 @@
           </div>
         </div>
 
-        <div class="col-sm-12">
+        <div class="col-sm-12" [ngClass]="{'disableForm':service.allFieldsDisable}">
           <div class="form-group equipment">
             <label>Protection Against Electromagnetic/Heating Effects Where Cables Enter Ferromagnetic
               Enclosures:</label>
@@ -1058,7 +1096,7 @@
           </div>
         </div>
 
-        <div class="col-sm-12">
+        <div class="col-sm-12" [ngClass]="{'disableForm':service.allFieldsDisable}">
           <div class="form-group equipment">
             <label>Confirmation That All Conductor Connections Including Connections To Busbars Are Correctly
               Located In Terminals And Are Tight And Secure:</label>
@@ -1076,7 +1114,7 @@
 
 
         <h3><b><u>Section 2: Distribution Equipment’s: </u></b></h3>
-        <div class="row">
+        <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Selection Of Protective Devices And Bases Correct Type And Rating (No Signs Of Unacceptable
@@ -1220,7 +1258,7 @@
       </div>
 
         <h3><b><u>Section 3: Warning Notices: </u></b></h3>
-        <div class="row">
+        <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
         <div class="col-sm-12">
           <div class="form-group equipment">
             <label>Presence Of RCD Quarterly Test Notice:</label>
@@ -1350,7 +1388,7 @@
           </div>
         </div>
 
-        <div class="row">
+        <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
           <div class="col-sm-6">
              <mat-form-field  class="client-description " >	
               <mat-label>	

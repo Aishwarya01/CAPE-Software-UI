@@ -255,9 +255,9 @@
                       
                  <div formArrayName="testDistRecords" *ngFor="let z of gettestDistRecordsFormControls(a); let w = index">
                    <div [formGroupName]="w">
-                   <div formArrayName="testDistribution"  [ngClass]="{'disableForm':service.allFieldsDisable}"  *ngFor="let c of gettestDistributionFormControls(z); let i = index">
-                        <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
-                            <div class="row">
+                   <div formArrayName="testDistribution"  *ngFor="let c of gettestDistributionFormControls(z); let i = index">
+                        <div class="form-group" [formGroupName]="i" >
+                            <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                                 <div class="col-md-4">
                                     <label>Distribution Board Details </label>
                                     <input type="text" formControlName="distributionBoardDetails"  
@@ -291,9 +291,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-4">
-                                    <label>Correct Supply Polarity </label>
-                                    <mat-icon style="float: right;font-size: 18px;
+                              <mat-icon style="float: right;font-size: 18px;
                                     line-height: unset;margin-right: 56%;"
                                     matTooltip="Phase sequence – clockwise or anti-clockwise"
                                     matTooltipClass="multiline-tooltip"
@@ -301,6 +299,9 @@
                                     class="example-button">
                                     info_outline
                                    </mat-icon>
+                                <div class="col-md-4" [ngClass]="{'disableForm':service.allFieldsDisable}">
+                                    <label>Correct Supply Polarity </label>
+                                    
                                     <select class="form-control" formControlName="correctSupplyPolarity" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
                                     [ngClass]="{ 'is-invalid': submitted && c.get('correctSupplyPolarity')?.errors }">
                                        <option value="" selected>Select Option</option>
@@ -333,9 +334,8 @@
                             </div>
 
                              <div class="row">
-                              <div class="col-md-4">
-                                <label> Installed Equipment Vulnarable To Testing </label>
-                                <mat-icon style="float: right;font-size: 18px;
+
+                              <mat-icon style="float: right;font-size: 18px;
                                 line-height: unset;margin-right: 27%;"
                                 matTooltip="Live conductors of any equipment exposed at risk / any known susceptible issues in equipment/ flash over/ any incident"
                                 matTooltipClass="multiline-tooltip"
@@ -343,6 +343,9 @@
                                 class="example-button">
                                 info_outline
                                </mat-icon>
+                              <div class="col-md-4" [ngClass]="{'disableForm':service.allFieldsDisable}">
+                                <label> Installed Equipment Vulnarable To Testing </label>
+                                
                                 <input type="number" min="0" [readonly]="service.allFieldsDisable" 
                                 formControlName="installedEquipmentVulnarable" 
                                 placeholder=" Enter Installed Equipment Vulnarable To  Testing Name"
@@ -354,9 +357,7 @@
 
                                 <div class="col-md-4" formArrayName="rateArr" 
                                 *ngFor="let d of gettestrateFormControls(c); let j = index">
-                                    <div class="form-group" [formGroupName]="j">
-                                        <label>Rated Current (A) </label>
-                                        <mat-icon style="float: right;font-size: 18px;
+                                <mat-icon style="float: right;font-size: 18px;
                                         line-height: unset;margin-right: 64%;"
                                         matTooltip="Note: Based on number of circuits in use this field should be added."
                                         matTooltipClass="multiline-tooltip"
@@ -364,6 +365,9 @@
                                         class="example-button">
                                         info_outline
                                        </mat-icon>
+                                    <div class="form-group" [formGroupName]="j" [ngClass]="{'disableForm':service.allFieldsDisable}">
+                                        <label>Rated Current (A) </label>
+                                        
                                         <input type="number" min="0" [readonly]="service.allFieldsDisable" 
                                         formControlName="ratingsAmps" 
                                         class="form-control" placeholder=" Enter Ratings in Amps "
@@ -373,10 +377,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                
 
-                                <div class="col-md-4"> 
-                                    <label>Source Of Incoming:</label>
-                                    <mat-icon style="float: right;font-size: 18px;
+                                <mat-icon style="float: right;font-size: 18px;
                                     line-height: unset;margin-right: 60%;"
                                     matTooltip="Based on availability of number of supplies as in P2, drop down option to be given"
                                     matTooltipClass="multiline-tooltip"
@@ -384,6 +387,9 @@
                                     class="example-button">
                                     info_outline
                                    </mat-icon>
+                                <div class="col-md-4" [ngClass]="{'disableForm':service.allFieldsDisable}"> 
+                                    <label>Source Of Incoming:</label>
+                                    
                                     <select class="form-control" formControlName="sourceFromSupply" (change)="changeSource($event,c)" 
                                     [tabindex]="service.allFieldsDisable ? -1 : 0"
                                     [ngClass]="{ 'is-invalid': submitted && c.get('sourceFromSupply')?.errors }" 
@@ -617,7 +623,7 @@
           <div class="row">
             <div class="col">
                 <div class="table-responsive" id="style-1">
-                  <table class="table" border="1" id="table2" style="margin-bottom: unset;" [ngClass]="{'disableForm':service.allFieldsDisable}">
+                  <table class="table" border="1" id="table2" style="margin-bottom: unset;"   >
                       <thead>
                             <tr align="center">
                                 <th colspan="11"> Circuit Details </th>
