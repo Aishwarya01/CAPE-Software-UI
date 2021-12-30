@@ -1220,6 +1220,7 @@ callValue(e: any) {
   pushTestDistRecordsTable(testDistRecordsItem: any): FormGroup {
     return new FormGroup({
       testDistRecordId: new FormControl({disabled: false, value: testDistRecordsItem.testDistRecordId }),
+      locationCount: new FormControl({disabled: false, value: testDistRecordsItem.locationCount }),
       testDistribution: this.formBuilder.array([this.populateTestDistributionForm(testDistRecordsItem.testDistribution)]),
       testingRecords: this.formBuilder.array(this.populateTestRecordsForm(testDistRecordsItem.testingRecords,testDistRecordsItem.testDistRecordId)),
       testingInnerObservation: this.formBuilder.array(this.pushTestObservationRecord(testDistRecordsItem.testingInnerObservation,testDistRecordsItem.testDistRecordId)),
