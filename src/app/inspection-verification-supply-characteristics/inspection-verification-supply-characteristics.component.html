@@ -472,7 +472,7 @@
                 class="example-button">
                 info_outline
                </mat-icon>
-                <input (keypress)="keyPressNumbers($event)" type="number" min="0" class="form-control" formControlName="supplyNumber" [readonly]="service.allFieldsDisable"
+                <input (keypress)="keyPressNumbers($event)" type="tel" min="0" class="form-control" formControlName="supplyNumber" [readonly]="service.allFieldsDisable" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                 [ngClass]="{ 'is-invalid': submitted && f.supplyNumber.errors }" 
                 [(ngModel)]="supplycharesteristic.supplyNumber"
                 (keyup)="onKeyAlernate($event)">
