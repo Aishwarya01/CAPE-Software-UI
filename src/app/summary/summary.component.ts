@@ -299,7 +299,7 @@ export class SummaryComponent implements OnInit {
 
     this.refresh();
     this.expandedIndex = -1 ;
-    //this.retreiveFromObservation();
+    this.retreiveFromObservation();
     // this.Declaration2Arr = this.addsummary.get('Declaration2Arr') as FormArray;
   }
   // ngAfterViewInit(){
