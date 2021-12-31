@@ -340,12 +340,12 @@ export class VerificationlvComponent implements OnInit {
   }
 
   closeModalDialog() {
-    if (this.errorMsg != '') {
+    if (this.errorMsg != "") {
       this.Error = false;
-      this.modalService.dismissAll((this.errorMsg = ''));
+      this.modalService.dismissAll((this.errorMsg = ""));
     } else {
       this.success = false;
-      this.modalService.dismissAll((this.successMsg = ''));
+      this.modalService.dismissAll((this.successMsg = ""));
     }
   }
 
@@ -356,7 +356,7 @@ export class VerificationlvComponent implements OnInit {
   }
 
   deleteClient(clientname: String,clientdelete: any) {
-    this.modalService.open(clientdelete, { centered: true });
+    this.modalService.open(clientdelete, { centered: true,backdrop: 'static'});
     this.clientService
       .deleteClient(this.email, clientname).subscribe((
         data) => {
@@ -443,7 +443,7 @@ export class VerificationlvComponent implements OnInit {
   }
  
   deleteDepartment(departmentId: number,deptdelete: any) {
-    this.modalService.open(deptdelete, { centered: true });
+    this.modalService.open(deptdelete, { centered: true,backdrop: 'static' });
     this.departmentService
       .deleteDepartment(this.email, departmentId)
       .subscribe((
@@ -591,7 +591,7 @@ export class VerificationlvComponent implements OnInit {
   }
 
   deleteSite(siteId: number,sitedelete : any) {
-    this.modalService.open(sitedelete, { centered: true });
+    this.modalService.open(sitedelete, { centered: true,backdrop: 'static' });
     this.siteService.deleteSite(siteId).subscribe((
       data) => {
         this.success = true;
@@ -868,13 +868,15 @@ changeTab(index: number, sitedId: any, userName: any, companyName: any, departme
   )
 }
 //for continue button in saved reports
-changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any) {
+changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any,flag:any) {
   this.selectedIndex = 1;
   this.siteService.retrieveFinal(userName,sitedId).subscribe(
     data=> {
       //this.selectedIndex = index;
       this.dataJSON = JSON.parse(data);
-      this.service.allStepsCompleted=true;
+      if(flag){
+        this.service.allStepsCompleted=true;
+      }
       if(this.dataJSON.reportDetails != null) {
         this.siteN=site;
         this.noDetailsFlag= true;

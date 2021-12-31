@@ -1585,32 +1585,33 @@ showHideAccordion(index: number) {
   }
   OkModalDialog(content5: any){
     if(this.addsummary.dirty && this.addsummary.touched){ //update msg
-      this.modalService.open(content5, { centered: true});
+      this.modalService.open(content5, { centered: true,backdrop: 'static'});
      }
   
   }
   openModalDialog(content2: any){
     this.modalService.open(content2, {
       centered: true, 
-      size: 'md'
+      size: 'md',
+      backdrop: 'static'
      })
    //this.checkForAllSteps();
   }
   closeModalDialog() {
     this.finalSpinner=true;
     this.popup=false;
-    if (this.errorMsg != '') {
+    if (this.errorMsg != "") {
       this.Error = false;
       this.service.isCompleted5= false;
       this.service.isLinear=true;
-      this.modalService.dismissAll((this.errorMsg = ''));
+      this.modalService.dismissAll((this.errorMsg = ""));
       this.proceedNext.emit(false);
     } 
     else {
       this.success = false;
       this.service.isCompleted5= true;
       this.service.isLinear=false;
-      this.modalService.dismissAll((this.successMsg = ''));
+      this.modalService.dismissAll((this.successMsg = ""));
       this.proceedNext.emit(true);
     }
 

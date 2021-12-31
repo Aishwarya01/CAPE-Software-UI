@@ -850,11 +850,11 @@ export class LpsDownConductorsComponent implements OnInit {
     }
        //  Update and Success msg will be showing
        if(this.downConductorForm.dirty && this.downConductorForm.touched){
-        this.modalService.open(content, { centered: true });
+        this.modalService.open(content, { centered: true,backdrop: 'static' });
      }
     //  For Dirty popup
      else{
-      this.modalService.open(contents, { centered: true });
+      this.modalService.open(contents, { centered: true,backdrop: 'static' });
      }
   }
 

@@ -78,11 +78,11 @@ export class LpsSeperationDistanceComponent implements OnInit {
       return;
     }
     if(this.separeteDistanceForm.dirty && this.separeteDistanceForm.touched){
-      this.modalService.open(content, { centered: true });
+      this.modalService.open(content, { centered: true,backdrop: 'static' });
    }
   //  For Dirty popup
    else{
-    this.modalService.open(contents, { centered: true });
+    this.modalService.open(contents, { centered: true,backdrop: 'static' });
    }
   }
 

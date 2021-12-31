@@ -476,11 +476,11 @@ export class LpsAirTerminationComponent implements OnInit {
     }
     //  Update and Success msg will be showing
     if(this.airTerminationForm.dirty && this.airTerminationForm.touched){
-      this.modalService.open(content, { centered: true });
+      this.modalService.open(content, { centered: true,backdrop: 'static' });
    }
   //  For Dirty popup
    else{
-    this.modalService.open(contents, { centered: true });
+    this.modalService.open(contents, { centered: true,backdrop: 'static' });
    }
   }
 

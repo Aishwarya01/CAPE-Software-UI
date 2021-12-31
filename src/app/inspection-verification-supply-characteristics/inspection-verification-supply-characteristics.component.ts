@@ -3227,28 +3227,29 @@ showHideAccordion(index: number) {
     if(this.supplycharesteristicForm.touched || this.supplycharesteristicForm.untouched){
       this.modalReference = this.modalService.open(content2, {
          centered: true, 
-         size: 'md'
+         size: 'md',
+         backdrop: 'static'
         })
      }
      if(this.supplycharesteristicForm.dirty && this.supplycharesteristicForm.touched){ //update
-      this.modalService.open(content1, { centered: true});
+      this.modalService.open(content1, { centered: true,backdrop: 'static'});
       this.modalReference.close();
      }
   }
   closeModalDialog() {
-    if (this.errorMsg != '') {
+    if (this.errorMsg != "") {
       this.Error = false;
       this.success = false;
       this.service.isCompleted2= false;
       this.service.isLinear=true;
-      this.modalService.dismissAll((this.errorMsg = ''));
+      this.modalService.dismissAll((this.errorMsg = ""));
     } 
     else {
       this.success = false;
       this.Error = false;
       this.service.isCompleted2= true;
       this.service.isLinear=false;
-      this.modalService.dismissAll((this.successMsg = ''));
+      this.modalService.dismissAll((this.successMsg = ""));
     }
   }
   // onKeyObservation(event:any){

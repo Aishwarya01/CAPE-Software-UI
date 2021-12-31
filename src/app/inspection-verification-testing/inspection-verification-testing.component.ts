@@ -2761,11 +2761,12 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
     if(this.testingForm.touched || this.testingForm.untouched){
       this.modalReference = this.modalService.open(content2, {
          centered: true, 
-         size: 'md'
+         size: 'md',
+         backdrop: 'static'
         })
      }
      if(this.testingForm.dirty && this.testingForm.touched){ //update
-      this.modalService.open(content4, { centered: true});
+      this.modalService.open(content4, { centered: true,backdrop: 'static'});
       this.modalReference.close();
      }
 
@@ -2775,17 +2776,17 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
     this.ngOnInit();
   }
   closeModalDialog() {
-    if (this.errorMsg != '') {
+    if (this.errorMsg != "") {
       this.Error = false;
       this.service.isCompleted4= false;
       this.service.isLinear=true;
-      this.modalService.dismissAll((this.errorMsg = ''));
+      this.modalService.dismissAll((this.errorMsg = ""));
     } 
     else {
       this.success = false;
       this.service.isCompleted4= true;
       this.service.isLinear=false;
-      this.modalService.dismissAll((this.successMsg = ''));
+      this.modalService.dismissAll((this.successMsg = ""));
     }
   }
   // onKeyObservation(event:any){

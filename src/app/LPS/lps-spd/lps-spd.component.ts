@@ -398,11 +398,11 @@ export class LpsSpdComponent implements OnInit {
           return;
         }
         if(this.spdForm.dirty && this.spdForm.touched){
-          this.modalService.open(content, { centered: true });
+          this.modalService.open(content, { centered: true,backdrop: 'static' });
        }
       //  For Dirty popup
        else{
-        this.modalService.open(contents, { centered: true });
+        this.modalService.open(contents, { centered: true,backdrop: 'static' });
        }
     }
   
