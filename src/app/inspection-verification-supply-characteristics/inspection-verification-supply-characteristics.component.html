@@ -12,7 +12,8 @@
         style="margin-top: -10px;margin-bottom: 5px;float: right;text-decoration: underline;">Observations</a>
       </div>
       </div>
-    <form [formGroup]="supplycharesteristicForm" (ngSubmit)="nextTab2(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
+    <form [formGroup]="supplycharesteristicForm" (ngSubmit)="nextTab2(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)"
+    style="margin-top: 10px;">
       <mat-accordion>
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
@@ -47,6 +48,8 @@
             </div>
             <br>
               <div class="row">
+              <div class="col-md-3">
+                <label>System Earthing:</label>
                 <mat-icon style="float: right;font-size: 18px;
                 line-height: unset;margin-right: 50%;"
                 matTooltip="TN-C -system which has combined neutral and protective conductor. (i.e. body earthing is connected to the 
@@ -63,23 +66,26 @@
                 matTooltipClass="multiline-tooltip"
                 aria-label="Button that shows a red tooltip"
                 class="example-button">
-                info_outline
-               </mat-icon>
-              <div class="col-md-3" [ngClass]="{'disableForm':service.allFieldsDisable}">
-                <label>System Earthing:</label>
-                <select class="form-control"  formControlName="systemEarthing" (change)="changeSystem($event)" [tabindex]="service.allFieldsDisable ? -1 : 0"
-                [(ngModel)]="supplycharesteristic.mainSystemEarthing" [disabled]="service.allFieldsDisable"  [ngClass]="{ 'is-invalid': submitted && f.systemEarthing.errors }">
+                info_outline   
+               </mat-icon>   
+                <select class="form-control"  formControlName="systemEarthing" (change)="changeSystem($event)" 
+                [tabindex]="service.allFieldsDisable ? -1 : 0"
+                [(ngModel)]="supplycharesteristic.mainSystemEarthing" [disabled]="service.allFieldsDisable"  
+                [ngClass]="[submitted && f.systemEarthing.errors ? 'is-invalid' : '' , service.allFieldsDisable ? 'disableForm' : '']">
                   <option value="" selected>Select Option</option>
                   <option *ngFor="let value of systemEarthingList">
                     {{value}}
-                  </option>
+                  </option> 
                 </select>
                 <div *ngIf="submitted && f.systemEarthing.errors" class="invalid-feedback">
                   <div *ngIf="f.systemEarthing?.errors?.required">Field Is Required</div>
                 </div>
               </div>
 
-              <mat-icon style="float: right;font-size: 18px;
+             
+              <div class="col-md-3"> 
+                  <label>Type Of Live Conductors: </label>
+                  <mat-icon style="float: right;font-size: 18px;
                   line-height: unset;margin-right: 35%;"
                   matTooltip="DC is disabled now, since it is not commonly used."
                   matTooltipClass="multiline-tooltip"
@@ -87,12 +93,9 @@
                   class="example-button">
                   info_outline
                  </mat-icon>
-              <div class="col-md-3" [ngClass]="{'disableForm':service.allFieldsDisable}"> 
-                  <label>Type Of Live Conductors: </label>
-                  
                   <select class="form-control"  formControlName="liveConductor"  [tabindex]="service.allFieldsDisable ? -1 : 0"
                   [(ngModel)]="supplycharesteristic.liveConductorType"  [disabled]="service.allFieldsDisable" 
-                  (change)="changeCurrent($event)" [ngClass]="{ 'is-invalid': submitted && f.liveConductor.errors }">
+                  (change)="changeCurrent($event)" [ngClass]="[submitted && f.liveConductor.errors ? 'is-invalid' : '' , service.allFieldsDisable ? 'disableForm' : '']">
                     <option value="" selected>Select Option</option>
                     <option value="AC">AC</option>
                     <option value="DC" disabled style="cursor: not-allowed;">DC</option>
@@ -115,7 +118,10 @@
               </div>
             </div>
 
-            <mat-icon style="float: right;font-size: 18px;
+            
+              <div class="col-md-3" *ngIf="enableAC"> 
+                  <label>Number of conductors:</label>
+                  <mat-icon style="float: right;font-size: 18px;
                   line-height: unset;margin-right: 38%;"
                   matTooltip="Single phase / three phase / three phase with neutral etc."
                   matTooltipClass="multiline-tooltip"
@@ -123,12 +129,10 @@
                   class="example-button">
                   info_outline
                  </mat-icon>
-              <div class="col-md-3" *ngIf="enableAC" [ngClass]="{'disableForm':service.allFieldsDisable}"> 
-                  <label>Number of conductors:</label>
-                  
                   <select class="form-control" formControlName="AcConductor" [tabindex]="service.allFieldsDisable ? -1 : 0"
                   [(ngModel)]="supplycharesteristic.liveConductorAC" 
-                  [ngClass]="{ 'is-invalid': submitted && f.AcConductor.errors }" [disabled]="service.allFieldsDisable">
+                  [ngClass]="[submitted && f.AcConductor.errors ? 'is-invalid' : '' , service.allFieldsDisable ? 'disableForm' : '']" 
+                  [disabled]="service.allFieldsDisable">
                    <option value="" selected>Select Option</option>  
                     <option value="1-phase, 2-wire (LLM)" [selected]="f.AcConductor?.value=== AcValue">1-phase, 2-wire (LN)</option>
                           <option value="1-phase, 3-wire (LLM)" [selected]="f.AcConductor?.value=== AcValue">1-phase, 3-wire (LLM)</option>
@@ -440,10 +444,10 @@
             </mat-expansion-panel-header>
             
             <div class="row">
-
-              
               <div class="col-md-4">
-                <mat-icon style="float: right;font-size: 18px;
+                <div class="form-group">
+                  <label> Availability of Alternate Supply:</label>
+                  <mat-icon style="float: right;font-size: 18px;
                   line-height: unset;margin-right: 43%;"
                   matTooltip="In-case of availability of standby source from EB or/and DG source."
                   matTooltipClass="multiline-tooltip"
@@ -451,11 +455,10 @@
                   class="example-button">
                   info_outline
                  </mat-icon>
-                <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
-                  <label> Availability of Alternate Supply:</label>
                   <select class="form-control" formControlName="alternativeSupply" [tabindex]="service.allFieldsDisable ? -1 : 0" 
                   [disabled]="service.allFieldsDisable"
-                  (change)="showAlternateField($event)" [ngClass]="{ 'is-invalid': submitted && f.alternativeSupply.errors }" 
+                  (change)="showAlternateField($event)" 
+                  [ngClass]="[submitted && f.alternativeSupply.errors ? 'is-invalid' : '' , service.allFieldsDisable ? 'disableForm' : '']" 
                   [(ngModel)]="supplycharesteristic.alternativeSupply">
                  <option value="" disabled selected>Select Option</option>
                   <option value="Yes">Yes</option>
@@ -466,8 +469,10 @@
                   </div>
                 </div>
               </div>
-
-              <mat-icon style="float: right;font-size: 18px;
+              
+              <div class="col-md-4" *ngIf="alternativeSupplyNo"> 
+                <label>Number of Alternate Sources of Supply:</label>
+                <mat-icon style="float: right;font-size: 18px;
                 line-height: unset;margin-right: 30%;"
                 matTooltip="Total number of alternative sources from state EB and DG’s."
                 matTooltipClass="multiline-tooltip"
@@ -475,11 +480,10 @@
                 class="example-button">
                 info_outline
                </mat-icon>
-              <div class="col-md-4" *ngIf="alternativeSupplyNo" [ngClass]="{'disableForm':service.allFieldsDisable}"> 
-                <label>Number of Alternate Sources of Supply:</label>
-                
-                <input (keypress)="keyPressNumbers($event)" type="number" min="0" class="form-control" formControlName="supplyNumber" [disabled]="service.allFieldsDisable"
-                [ngClass]="{ 'is-invalid': submitted && f.supplyNumber.errors }" 
+                <input (keypress)="keyPressNumbers($event)" type="tel" min="0" class="form-control" formControlName="supplyNumber" 
+                [readonly]="service.allFieldsDisable" 
+                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                [ngClass]="[submitted && f.supplyNumber.errors ? 'is-invalid' : '' , service.allFieldsDisable ? 'disableForm' : '']" 
                 [(ngModel)]="supplycharesteristic.supplyNumber"
                 (keyup)="onKeyAlernate($event)">
 
@@ -510,7 +514,9 @@
                     </div>
                   </div> -->
                   <div class="row">
-                    <mat-icon style="float: right;font-size: 18px;
+                    <div class="col-md-4">
+                      <label>Alternate supply no:</label>
+                      <mat-icon style="float: right;font-size: 18px;
                       line-height: unset;margin-right: 60%;"
                       matTooltip="Start with 1 and continue sequentially."
                       matTooltipClass="multiline-tooltip"
@@ -518,10 +524,10 @@
                       class="example-button">
                       info_outline
                      </mat-icon>
-                    <div class="col-md-4" [ngClass]="{'disableForm':service.allFieldsDisable}">
-                      <label>Alternate supply no:</label>
-                      
-                      <input type="number" min="0" class="form-control" [readonly]="service.allFieldsDisable" formControlName="aLSupplyNo" [ngClass]="{ 'is-invalid': submitted && a.get('aLSupplyNo')?.errors }">
+                      <input type="number" min="0" class="form-control" [readonly]="service.allFieldsDisable" 
+                      formControlName="aLSupplyNo" 
+                      [ngClass]="[submitted && a.get('aLSupplyNo')?.errors ? 'is-invalid' : '' , service.allFieldsDisable ? 'disableForm' : '']" 
+                      >
                       <div *ngIf="submitted && a.get('aLSupplyNo')?.errors" class="invalid-feedback">
                         <div *ngIf="a.get('aLSupplyNo')?.errors?.required">Field Is Required</div>
                       </div>
@@ -544,8 +550,10 @@
                         <div *ngIf="a.get('aLSupplyShortName')?.errors?.required">Field Is Required</div>
                       </div>
                     </div> -->
-                  
-                    <mat-icon style="float: right;font-size: 18px;
+                   
+                    <div class="col-md-4">
+                      <label>System Earthing:</label>
+                      <mat-icon style="float: right;font-size: 18px;
                       line-height: unset;margin-right: 64%;"
                       matTooltip="TN-C -system which has combined neutral and protective conductor. (i.e. body earthing is connected to the neutral at or after point of commencement of supply). 
                       TN-C-S – system which has combined neutral and protective conductor from source up to mains incoming panel. 
@@ -561,10 +569,10 @@
                       class="example-button">
                       info_outline
                     </mat-icon>
-                    <div class="col-md-4" [ngClass]="{'disableForm':service.allFieldsDisable}">
-                      <label>System Earthing:</label>  
                      <select class="form-control" formControlName="aLSystemEarthing" (change)="enableBriefNote($event,a)" 
-                     [tabindex]="service.allFieldsDisable ? -1 : 0" [ngClass]="{ 'is-invalid': submitted && a.get('aLSystemEarthing')?.errors }">
+                     [tabindex]="service.allFieldsDisable ? -1 : 0" 
+                     [ngClass]="[submitted && a.get('aLSystemEarthing')?.errors ? 'is-invalid' : '' , service.allFieldsDisable ? 'disableForm' : '']" 
+                     >
                        <option value="" selected>Select Option</option>
                         <option *ngFor="let value of systemEarthingList" [selected]="value=== a.get('aLSystemEarthing')?.value"> {{value}}</option>
                       </select>
@@ -961,7 +969,10 @@
                 </div>
 
                 <!-- Select so i have given mat icon outside need check css styles -->
-                <mat-icon style="float: right;font-size: 18px;
+               
+                <div class="col-md-4">
+                  <label>Means Of Earthing :</label>
+                  <mat-icon style="float: right;font-size: 18px;
                   line-height: unset;margin-right: 61%;"
                   matTooltip="Choose supplier facility in case of TN-S system. 
                   Choose Installation earth electrode in case of TT system. 
@@ -972,11 +983,9 @@
                   class="example-button">
                   info_outline
                  </mat-icon>
-                <div class="col-md-4" [ngClass]="{'disableForm':service.allFieldsDisable}">
-                  <label>Means Of Earthing :</label>
-                  
                   <select class="form-control" formControlName="meansEarthing" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-                  [ngClass]="{ 'is-invalid': submitted && f.meansEarthing.errors }" [(ngModel)]="supplycharesteristic.meansEarthing">
+                  [ngClass]="[submitted && f.meansEarthing.errors ? 'is-invalid' : '' , service.allFieldsDisable ? 'disableForm' : '']" 
+                  [(ngModel)]="supplycharesteristic.meansEarthing">
                    <option value="" selected>Select Option</option>
                     <option *ngFor="let value of MeansofEarthingList"> {{value}}</option>
                   </select>
@@ -1199,7 +1208,10 @@
                     </div>
                   </div>
 
-                  <mat-icon style="float: right;font-size: 18px;
+                  
+                  <div class="col-md-4">
+                    <label>Continuity and connection of earthing conductor is verified:</label>
+                    <mat-icon style="float: right;font-size: 18px;
                     line-height: unset;"
                     matTooltip="Physical check up. If the wires are not traceable and a test can not be conducted during initial inspection select NO."
                     matTooltipClass="multiline-tooltip"
@@ -1207,10 +1219,10 @@
                     class="example-button">
                     info_outline
                    </mat-icon>
-                  <div class="col-md-4" [ngClass]="{'disableForm':service.allFieldsDisable}">
-                    <label>Continuity and connection of earthing conductor is verified:</label>
                     <select class="form-control" formControlName="conductorVerify" [disabled]="service.allFieldsDisable" 
-                    [tabindex]="service.allFieldsDisable ? -1 : 0" [ngClass]="{ 'is-invalid': submitted && f.conductorVerify.errors }" [(ngModel)]="supplycharesteristic.conductorVerify">
+                    [tabindex]="service.allFieldsDisable ? -1 : 0" 
+                    [ngClass]="[submitted && f.conductorVerify.errors ? 'is-invalid' : '' , service.allFieldsDisable ? 'disableForm' : '']"                    
+                    [(ngModel)]="supplycharesteristic.conductorVerify">
                      <option value="" selected>Select Option</option>
                       <option *ngFor="let value of  earthingConductorVerifyList"> {{value}}</option>
                     </select>
@@ -1991,7 +2003,7 @@ style="margin-left: 10px;" >
               <span class="alert alert-danger">Your response to comments has been rejected</span>
             </div>
             <br>
-             <div style="text-align: center;margin-top: 40px;margin-left: 80px;">
+             <div style="text-align: center;margin-top: 20px;">
               <!-- <button class="previous" mat-button matStepperPrevious *ngIf="service.backBtn">&laquo; Back</button> -->
               <button  class="next" (click)="gotoNextModal(content1,content2)" mat-button >Next &raquo;</button>
              </div>

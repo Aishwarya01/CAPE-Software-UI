@@ -46,9 +46,7 @@ export class FinalreportsComponent implements OnInit {
   Error: boolean=false;
   errorMsg: string="";
   errorArr: any=[];
-  finalSpinner: boolean= false;
   mode: any= 'indeterminate';
-  cardBodyFinal: boolean= false;
 
   constructor(private router: ActivatedRoute,
               private clientService: ClientService,
@@ -102,8 +100,6 @@ applyFilter(event: Event) {
     //this.ongoingFilterData=[];
     this.filteredData = [];
     this.completedFilterData=[];
-    this.finalSpinner=true;
-   this.cardBodyFinal=false;
     for(let i of this.superAdminArr) {
       if(this.email == i) {
         this.superAdminFlag = true;
@@ -119,10 +115,6 @@ applyFilter(event: Event) {
               this.filteredData.push(i);
             }
           }
-          setTimeout(()=>{
-            this.finalSpinner=false;
-            this.cardBodyFinal=true;
-       }, 5000);
           this.finalReport_dataSource = new MatTableDataSource(this.filteredData);
           this.finalReport_dataSource.paginator = this.finalReportPaginator;
           this.finalReport_dataSource.sort = this.finalReportSort;
@@ -143,10 +135,6 @@ applyFilter(event: Event) {
                 //  this.ongoingFilterData.push(i);
                 // }
             }
-            setTimeout(()=>{
-              this.finalSpinner=false;
-              this.cardBodyFinal=true;
-         }, 5000);
             this.finalReport_dataSource = new MatTableDataSource(this.completedFilterData);
             this.finalReport_dataSource.paginator = this.finalReportPaginator;
             this.finalReport_dataSource.sort = this.finalReportSort;
@@ -165,10 +153,6 @@ applyFilter(event: Event) {
                   //  this.ongoingFilterData.push(i);
                   // }
               }
-              setTimeout(()=>{
-                this.finalSpinner=false;
-                this.cardBodyFinal=true;
-           }, 5000);
               this.finalReport_dataSource = new MatTableDataSource(this.completedFilterData);
               this.finalReport_dataSource.paginator = this.finalReportPaginator;
               this.finalReport_dataSource.sort = this.finalReportSort;

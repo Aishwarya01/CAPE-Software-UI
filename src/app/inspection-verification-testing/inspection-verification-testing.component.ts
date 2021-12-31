@@ -2874,8 +2874,8 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
     ) as FormArray;
 
     for (let i of this.testaccordianArr.controls) {
-      this.testingRecords = i.get('testDistRecords') as FormArray;
-      for(let v of this.testingRecords.controls){
+      this.testDistRecords = i.get('testDistRecords') as FormArray;
+      for(let v of this.testDistRecords.controls){
         this.testDistribution = v.get('testDistribution') as FormArray;
         this.testingRecords = v.get('testingRecords') as FormArray;
          // coma separated value for first table

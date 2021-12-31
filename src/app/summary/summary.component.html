@@ -14,19 +14,18 @@
             <div class="form-group">                    
               <div class="row">
                   <div class="col-sm-12">
-                    <mat-icon style="float: right;font-size: 18px;
-                      line-height: unset;"
+                    <div class="form-group">
+                      <label>Extent Of Installation Covered By This Report:</label>
+                      <mat-icon style="font-size: 18px;
+                      line-height: unset;margin-left: 1%;margin-top: -1%;"
                        matTooltip="Actual area / portion of the building/block/floor details covered in this report"
                        matTooltipClass="multiline-tooltip"
                        aria-label="Button that shows a red tooltip"
                        class="example-button"> info_outline
                      </mat-icon>
-                    <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
-                      <label>Extent Of Installation Covered By This Report:</label>
-                      
                       <input type="text" class="form-control" formControlName="extentInstallation"
                       [(ngModel)]="summary.extentInstallation" [readonly]="service.allFieldsDisable"
-                      [ngClass]="{ 'is-invalid': submitted && f.extentInstallation?.errors }">
+                      [ngClass]="[submitted && f.extentInstallation?.errors ? 'is-invalid' : '' , service.allFieldsDisable ? 'disableForm' : '']">
                       <div *ngIf="submitted && f.extentInstallation?.errors" class="invalid-feedback">
                         <div *ngIf="f.extentInstallation?.errors?.required">Field Is Required</div>
                     </div>
@@ -92,112 +91,240 @@
                 <h3>Observations </h3>
               </mat-panel-title>
             </mat-expansion-panel-header>
-              <div class="row">
+              <div class="row" >
               <div class="col-sm-12">
-                <mat-icon style="float: right;font-size: 18px;
-                    line-height: unset;"
+                <div class="form-group">
+                  <label>Referring to attached inspection report and test results and subject to the 
+                    limitations specified at the extent and limitations of inspection and testing :</label>
+                    <mat-icon style="font-size: 18px;
+                    line-height: unset;margin-left: 1%;margin-top: -1%;"
                      matTooltip="If no remedial action required is selected, then following table is not necessary"
                      matTooltipClass="multiline-tooltip"
                      aria-label="Button that shows a red tooltip"
                      class="example-button"> info_outline
                    </mat-icon>
-                <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
-                  <label>Referring to attached inspection report and test results and subject to the 
-                    limitations specified at the extent and limitations of inspection and testing :</label>
-                    
-                  <select class="form-control" formControlName="limitationsInspection" (change)="onChange($event)"
-                  [(ngModel)]="summary.limitationsInspection" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+                   <label type="text" class="form-control" readonly style="width: 30%;">
+                    The following observations have been provided
+                   </label>
+                  <!-- <select class="form-control" formControlName="limitationsInspection" (change)="onChange($event)"
+                  [(ngModel)]="summary.limitationsInspection" [disabled]="service.allFieldsDisable" 
+                  [tabindex]="service.allFieldsDisable ? -1 : 0"
                   [ngClass]="{ 'is-invalid': submitted && f.limitationsInspection?.errors }">
-                  <option value="" selected>Select Option</option>
+                  <option value="" selected>Select Option</option> 
                   <option value="No remedial action required" [selected]="f.limitationsInspection?.value === 'No remedial action required'"
                   [disabled]="NoRemedial">No remedial action required</option>
-                  <option value="The following observations are made" [selected]="f.limitationsInspection?.value === 'The following observations are made'"
+                  <option value="The following observations are made" selected
                   [disabled]="observationsMade">The following observations are made</option>
-                  <!-- <option *ngFor="let a of observationList" [selected]="a === summary.limitationsInspection">{{a}}</option> -->
-                  <!-- <option value="No remedial action required" [selected]="f.limitationsInspection?.value === summary.limitationsInspection">No remedial action required</option>
-                  <option value="The following observations are made" [selected]="f.limitationsInspection?.value === summary.limitationsInspection">The following observations are made</option> -->
-                </select>
+                </select> -->
                 <div *ngIf="submitted && f.limitationsInspection?.errors" class="invalid-feedback">
                   <div *ngIf="f.limitationsInspection?.errors?.required">Field is required</div>
                 </div>
                 </div>
               </div>
          </div>
-         <div *ngIf="selectedType">
-              <div formArrayName="ObservationsArr" *ngFor="let a of getObservationsControls(); let i = index">
-              <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
-            <div class="form-group">
-            <!-- <div class="row">
-              <div class="col-sm-12">
-                <div class="form-group">
-
-                  always need to commented
-                  <mat-icon class="mousechange" (click)="addObservations()" [ngClass]="{'disableForm':service.allFieldsDisable}"
-                  style="margin-top: 2px;float: right;cursor: pointer;">add_box</mat-icon>
-                <mat-form-field class="client-description">
-
-                  <label>
-                    <h3>Observations :
-                  </h3>
-                  </label>
-
-                  always need to commented
-                  <textarea matInput class="client-box-description" maxlength="500" formControlName="observations"
-                   placeholder="Ex. Report description..." [readonly]="service.allFieldsDisable"
-                   [ngClass]="{ 'is-invalid': submitted &&  a.get('observations')?.errors }"></textarea>
-
-                <ul style="list-style: none;
-                margin-top: -15px;
-                margin-left: -35px;">
-                    <li>Supply Characteristics:
-                      <textarea matInput cols="30" rows="1"
-                      formControlName="observationsSupply"
-                      placeholder="Ex. Supply Observations..." readonly style="background-color: #e9ecef;border-bottom: 1px solid black;"
-                      [ngClass]="{ 'is-invalid': submitted &&  a.get('observationsSupply')?.errors }"></textarea> 
-                      <div *ngIf="submitted && a.get('observationsSupply')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('observationsSupply')?.errors?.required">Field Is Required</div>
-                    </div>
-                    </li>
-                    <br>
-                    <li>Inspection:
-                      <textarea matInput cols="30" rows="1" maxlength="500" 
-                      formControlName="observationsInspection"
-                      placeholder="Ex. Inspection Observations..." readonly style="background-color: #e9ecef;border-bottom: 1px solid black;"
-                      [ngClass]="{ 'is-invalid': submitted &&  a.get('observationsInspection')?.errors }"></textarea>  
-                      <div *ngIf="submitted && a.get('observationsInspection')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('observationsInspection')?.errors?.required">Field Is Required</div>
-                    </div>
-                    </li>
-                    <br>
-                    <li>Testing:
-                      <textarea matInput cols="30" rows="1" maxlength="500" 
-                      formControlName="observationsTesting"
-                      placeholder="Ex. Testing Observations..." readonly style="background-color: #e9ecef;border-bottom: 1px solid black;"
-                      [ngClass]="{ 'is-invalid': submitted &&  a.get('observationsTesting')?.errors }"></textarea> 
-                      <div *ngIf="submitted && a.get('observationsTesting')?.errors" class="invalid-feedback">
-                        <div *ngIf="a.get('observationsTesting')?.errors?.required">Field Is Required</div>
-                    </div>
-                    </li>
-                  </ul>
-
-                always need to commented
-                </mat-form-field>
-                
-              </div>
-              </div>
-            </div> -->
-
+              <div formArrayName="ObservationsArr" *ngFor="let a of getObservationsControls(); let i = index" class="tableObserve">
+              <div class="form-group" [formGroupName]="i">
               <!-- Observation starts here -->
               <label>
                 <h3><b>Observations :</b></h3>
               </label>
               <br>
-              <label>
+              <!-- <label>
                 <h3 style="cursor: pointer;" (click)= "navigateToStep(1)"><b><u>Supply Characteristics Observations :</u></b>
               </h3>
-              </label>
+              </label> -->
+                  <label><h3 style="cursor: pointer;" (click)= "navigateToStep(1)"><b><u>Supply Characteristics Observations :</u></b></h3></label>                    
+                  <div class="table-responsive" id="style-1" style="border: 1px solid black" *ngIf="yesObserveSupply">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th>Observations Provided</th>
+                            <th>Code Classification</th>
+                            <th>Remedial Actions To Be Taken</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <td nowrap="nowrap">Mains Observation:</td>
+                            <td> 
+                              <textarea type="text" class="form-control" cols="30" rows="1" formControlName="mainsObservations"
+                              placeholder="Ex. Supply Observations..." readonly style="background-color: #e9ecef;"></textarea> 
+                            </td>
+                            <td [ngClass]="{'disableForm':service.allFieldsDisable}">
+                              <select class="form-control" formControlName="mainsFurtherActions" [disabled]="service.allFieldsDisable" 
+                              [tabindex]="service.allFieldsDisable ? -1 : 0" (change)="onChange1($event,a)"
+                              [ngClass]="{ 'is-invalid': submitted && a.get('mainsFurtherActions')?.errors }">
+                                <option value="" selected>Select Option</option>
+                                <option value="C1">C1</option>
+                                <option value="C2">C2</option>
+                                <option value="C3">C3</option>
+                                <option value="R1">R1</option>
+                                <option value="No remedial action required">No remedial action required</option>
+                              </select>
+                              <div *ngIf="submitted && a.get('mainsFurtherActions')?.errors" class="invalid-feedback">
+                                <div *ngIf="a.get('mainsFurtherActions')?.errors?.required">Field Is Required</div>
+                            </div>
+                            </td>
+                            <td>
+                              <textarea type="text" cols="30" rows="1" 
+                              [readonly]="a.get('mainsFurtherActions')?.value==='No remedial action required'"
+                              placeholder="Enter comment" [readonly]="service.allFieldsDisable" class="form-control"
+                              formControlName="mainsComment"
+                              [ngClass]="{ 'is-invalid': submitted && a.get('mainsComment')?.errors }"></textarea>
+                              <div *ngIf="submitted && a.get('mainsComment')?.errors" class="invalid-feedback">
+                                <div *ngIf="a.get('mainsComment')?.errors?.required">Field Is Required</div>
+                            </div>     
+                            </td>
+                            </tr>
+                            <tr formArrayName="alternateArr" *ngFor="let b of getAlternateControls(a); let j = index">
+                              <ng-container [formGroupName]="j">
+                              <td>Alternate Observations-{{j+1}} :</td>
+                              <td>
+                                <textarea type="text" class="form-control" cols="30" rows="1"
+                                formControlName="observations"
+                                placeholder="Ex. Supply Observations..." readonly style="background-color: #e9ecef;"
+                                ></textarea>
+                              </td>
+                            <td [ngClass]="{'disableForm':service.allFieldsDisable}">
+                              <select class="form-control" formControlName="furtherActions" [disabled]="service.allFieldsDisable" 
+                              [tabindex]="service.allFieldsDisable ? -1 : 0" (change)="onChange2($event,b)"
+                              [ngClass]="{ 'is-invalid': submitted && b.get('furtherActions')?.errors }">
+                              <option value="" selected>Select Option</option>
+                              <option value="C1">C1</option>
+                              <option value="C2">C2</option>
+                              <option value="C3">C3</option>
+                              <option value="R1">R1</option>
+                              <option value="No remedial action required">No remedial action required</option>
+                              </select>
+                              <div *ngIf="submitted && b.get('furtherActions')?.errors" class="invalid-feedback">
+                                <div *ngIf="b.get('furtherActions')?.errors?.required">Field Is Required</div>
+                            </div>
+                            </td>
+                            <td>
+                              <textarea type="text" cols="30" rows="1" [readonly]="b.get('furtherActions')?.value==='No remedial action required'"
+                              placeholder="Enter comment" [readonly]="service.allFieldsDisable" class="form-control"
+                              formControlName="comment"
+                              [ngClass]="{ 'is-invalid': submitted && b.get('comment')?.errors }"></textarea>
+                              <div *ngIf="submitted && b.get('comment')?.errors" class="invalid-feedback">
+                                <div *ngIf="b.get('comment')?.errors?.required">Field Is Required</div>
+                            </div>     
+                            </td>
+                          </ng-container>
+                          </tr>
+                          <tr>
+                            <td nowrap="nowrap">Earth Electrode Observation:</td>
+                            <td> 
+                              <textarea type="text" class="form-control" cols="30" rows="1"
+                  formControlName="earthElectrodeObservations"
+                  placeholder="Ex. Supply Observations..." readonly style="background-color: #e9ecef;"
+                 ></textarea> 
+                            </td>
+                            <td [ngClass]="{'disableForm':service.allFieldsDisable}">
+                              <select class="form-control" formControlName="electrodeFurtherActions" [disabled]="service.allFieldsDisable" 
+                              [tabindex]="service.allFieldsDisable ? -1 : 0" (change)="onChange3($event,a)"
+                              [ngClass]="{ 'is-invalid': submitted && a.get('electrodeFurtherActions')?.errors }">
+                              <option value="" selected>Select Option</option>
+                              <option value="C1">C1</option>
+                              <option value="C2">C2</option>
+                              <option value="C3">C3</option>
+                              <option value="R1">R1</option>
+                              <option value="No remedial action required">No remedial action required</option>
 
-              <div class="row" style="margin-left: 10px;">
+                              </select>
+                              <div *ngIf="submitted && a.get('electrodeFurtherActions')?.errors" class="invalid-feedback">
+                                <div *ngIf="a.get('electrodeFurtherActions')?.errors?.required">Field Is Required</div>
+                            </div>
+                            </td>
+                            <td>
+                              <textarea type="text" cols="30" rows="1" [readonly]="a.get('electrodeFurtherActions')?.value==='No remedial action required'"
+                              placeholder="Enter comment" [readonly]="service.allFieldsDisable" class="form-control"
+                              formControlName="electrodeComment"
+                              [ngClass]="{ 'is-invalid': submitted && a.get('electrodeComment')?.errors }"></textarea>
+                              <div *ngIf="submitted && a.get('electrodeComment')?.errors" class="invalid-feedback">
+                                <div *ngIf="a.get('electrodeComment')?.errors?.required">Field Is Required</div>
+                            </div>     
+                            </td>
+                            </tr>
+                            <tr>
+                              <td nowrap="nowrap">Bonding Conductor Observation:</td>
+                              <td> 
+                                <textarea type="text" class="form-control" cols="30" rows="1"
+                  formControlName="bondingConductorObservations"
+                  placeholder="Ex. Supply Observations..." readonly style="background-color: #e9ecef;"
+                  ></textarea> 
+                              </td>
+                              <td [ngClass]="{'disableForm':service.allFieldsDisable}">
+                                <select class="form-control" formControlName="bondingFurtherActions" [disabled]="service.allFieldsDisable" 
+                                [tabindex]="service.allFieldsDisable ? -1 : 0" (change)="onChange4($event,a)"
+                                [ngClass]="{ 'is-invalid': submitted && a.get('bondingFurtherActions')?.errors }">
+                                <option value="" selected>Select Option</option>
+                                <option value="C1">C1</option>
+                                <option value="C2">C2</option>
+                                <option value="C3">C3</option>
+                                <option value="R1">R1</option>
+                                <option value="No remedial action required">No remedial action required</option>
+
+                                </select>
+                                <div *ngIf="submitted && a.get('bondingFurtherActions')?.errors" class="invalid-feedback">
+                                  <div *ngIf="a.get('bondingFurtherActions')?.errors?.required">Field Is Required</div>
+                              </div>
+                              </td>
+                              <td>
+                                <textarea type="text" cols="30" rows="1" [readonly]="a.get('bondingFurtherActions')?.value==='No remedial action required'"
+                                placeholder="Enter comment" [readonly]="service.allFieldsDisable" class="form-control"
+                                formControlName="bondingComment"
+                                [ngClass]="{ 'is-invalid': submitted && a.get('bondingComment')?.errors }"></textarea>
+                                <div *ngIf="submitted && a.get('bondingComment')?.errors" class="invalid-feedback">
+                                  <div *ngIf="a.get('bondingComment')?.errors?.required">Field Is Required</div>
+                              </div>     
+                              </td>
+                              </tr>
+                              <tr>
+                                <td nowrap="nowrap">Earthing Conductor Observation:</td>
+                                <td> 
+                                  <textarea type="text" class="form-control" cols="30" rows="1"
+                                  formControlName="earthingConductorObservations"
+                                  placeholder="Ex. Supply Observations..." readonly style="background-color: #e9ecef;"
+                                  ></textarea>  
+                                </td>
+                                <td [ngClass]="{'disableForm':service.allFieldsDisable}">
+                                  <select class="form-control" formControlName="earthingFurtherActions" [disabled]="service.allFieldsDisable" 
+                                  [tabindex]="service.allFieldsDisable ? -1 : 0" (change)="onChange5($event,a)"
+                                  [ngClass]="{ 'is-invalid': submitted && a.get('earthingFurtherActions')?.errors }">
+                                  <option value="" selected>Select Option</option>
+                                  <option value="C1">C1</option>
+                                  <option value="C2">C2</option>
+                                  <option value="C3">C3</option>
+                                  <option value="R1">R1</option>
+                                  <option value="No remedial action required">No remedial action required</option>
+
+                                  </select>
+                                  <div *ngIf="submitted && a.get('earthingFurtherActions')?.errors" class="invalid-feedback">
+                                    <div *ngIf="a.get('earthingFurtherActions')?.errors?.required">Field Is Required</div>
+                                </div>
+                                </td>
+                                <td>
+                                  <textarea type="text" cols="30" rows="1" [readonly]="a.get('earthingFurtherActions')?.value==='No remedial action required'"
+                                  placeholder="Enter comment" [readonly]="service.allFieldsDisable" class="form-control"
+                                  formControlName="earthingComment"
+                                  [ngClass]="{ 'is-invalid': submitted && a.get('earthingComment')?.errors }"></textarea>
+                                  <div *ngIf="submitted && a.get('earthingComment')?.errors" class="invalid-feedback">
+                                    <div *ngIf="a.get('earthingComment')?.errors?.required">Field Is Required</div>
+                                </div>     
+                                </td>
+                                </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="row" *ngIf="noObserveSupply">
+                      <div class="col-sm-12">
+                        <h3 style="color: #eea80a;">Currently, you have not provided Observations for Supply Characteristics!</h3>
+                      </div>
+                    </div>
+               
+<br>
+              <!-- <div class="row" style="margin-left: 10px;">
                 <div>
                   <label>Mains Observation: </label>
                 </div>
@@ -279,9 +406,101 @@
                   </div>          
                 </div>
               </div>
-              <br>
+              <br> -->
+             
+                  <label><h3 style="cursor: pointer;" (click)= "navigateToStep(2)"><b><u>Inspection Observations :</u></b></h3></label>                    
+                  <div class="table-responsive" id="style-1" style="border: 1px solid black" *ngIf="yesObserveInspection">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th>Observations Provided</th>
+                            <th>Code Classification</th>
+                            <th>Remedial Actions To Be Taken</th>
+                          </tr>
+                        </thead>
+                        <tbody formArrayName="inspectionArr" *ngFor="let c of getInspectionControls(a); let j = index">
+                            <ng-container [formGroupName]="j">
+                              <tr>
+                              <td>Inspection Observations-{{j+1}} :</td>
+                              <td>
+                                <textarea type="text" class="form-control" cols="30" rows="1"
+                                formControlName="observations"
+                                placeholder="Ex. Supply Observations..." readonly style="background-color: #e9ecef;"
+                                ></textarea>
+                              </td>
+                            <td [ngClass]="{'disableForm':service.allFieldsDisable}">
+                              <select class="form-control" formControlName="furtherActions" [disabled]="service.allFieldsDisable" 
+                              [tabindex]="service.allFieldsDisable ? -1 : 0" (change)="onChange6($event,c)"
+                              [ngClass]="{ 'is-invalid': submitted && c.get('furtherActions')?.errors }">
+                              <option value="" selected>Select Option</option>
+                              <option value="C1">C1</option>
+                              <option value="C2">C2</option>
+                              <option value="C3">C3</option>
+                              <option value="R1">R1</option>
+                              <option value="No remedial action required">No remedial action required</option>
 
-              <label>
+                              </select>
+                              <div *ngIf="submitted && c.get('furtherActions')?.errors" class="invalid-feedback">
+                                <div *ngIf="c.get('furtherActions')?.errors?.required">Field Is Required</div>
+                            </div>
+                            </td>
+                            <td>
+                              <textarea type="text" cols="30" rows="1" [readonly]="c.get('furtherActions')?.value==='No remedial action required'"
+                              placeholder="Enter comment" [readonly]="service.allFieldsDisable" class="form-control"
+                              formControlName="comment"
+                              [ngClass]="{ 'is-invalid': submitted && c.get('comment')?.errors }"></textarea>
+                              <div *ngIf="submitted && c.get('comment')?.errors" class="invalid-feedback">
+                                <div *ngIf="c.get('comment')?.errors?.required">Field Is Required</div>
+                            </div>     
+                            </td>
+                          </tr>
+                          <ng-container formArrayName="summaryInnerObservation" *ngFor="let d of getOuterObservationControls(c); let k = index">
+                            <tr [formGroupName]="k">
+                              <td style="position: relative;left: 4%;">Consumer Observations-{{k+1}} :</td>
+                              <td>
+                                <textarea type="text" class="form-control" cols="30" rows="1"
+                                formControlName="observations"
+                                placeholder="Ex. Supply Observations..." readonly style="background-color: #e9ecef;"
+                                ></textarea>
+                              </td>
+                            <td [ngClass]="{'disableForm':service.allFieldsDisable}">
+                              <select class="form-control" formControlName="furtherActions" [disabled]="service.allFieldsDisable" 
+                              [tabindex]="service.allFieldsDisable ? -1 : 0" (change)="onChange7($event,d)"
+                              [ngClass]="{ 'is-invalid': submitted && d.get('furtherActions')?.errors }">
+                              <option value="" selected>Select Option</option>
+                              <option value="C1">C1</option>
+                              <option value="C2">C2</option>
+                              <option value="C3">C3</option>
+                              <option value="R1">R1</option>
+                              <option value="No remedial action required">No remedial action required</option>
+
+                              </select>
+                              <div *ngIf="submitted && d.get('furtherActions')?.errors" class="invalid-feedback">
+                                <div *ngIf="d.get('furtherActions')?.errors?.required">Field Is Required</div>
+                            </div>
+                            </td>
+                            <td>
+                              <textarea type="text" cols="30" rows="1" [readonly]="d.get('furtherActions')?.value==='No remedial action required'"
+                              placeholder="Enter comment" [readonly]="service.allFieldsDisable" class="form-control"
+                              formControlName="comment"
+                              [ngClass]="{ 'is-invalid': submitted && d.get('comment')?.errors }"></textarea>
+                              <div *ngIf="submitted && d.get('comment')?.errors" class="invalid-feedback">
+                                <div *ngIf="d.get('comment')?.errors?.required">Field Is Required</div>
+                            </div>     
+                            </td>
+                          </tr>
+                          </ng-container>
+                          </ng-container>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="row" *ngIf="noObserveInspection">
+                      <div class="col-sm-12">
+                        <h3 style="color: #eea80a;">Currently, you have not provided Observations for Inspection!</h3>
+                      </div>
+                    </div>
+              <!-- <label>
                 <h3 style="cursor: pointer;" (click)= "navigateToStep(2)"><b><u>Inspection Observations :</u></b>
               </h3>
               </label>
@@ -317,10 +536,65 @@
                   </div>
                 </div>
                 
-              </div>
+              </div> -->
               <br>
 
-              <label>
+              
+                 <label><h3 style="cursor: pointer;" (click)= "navigateToStep(3)"><b><u>Testing Observation :</u></b></h3></label>                     
+                  <div class="table-responsive" id="style-1" id="style-1" style="border: 1px solid black" *ngIf="yesObserveTesting">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th>Observations Provided</th>
+                            <th>Code Classification</th>
+                            <th>Remedial Actions To Be Taken</th>
+                          </tr>
+                        </thead>
+                        <tbody formArrayName="testingArr" *ngFor="let c of getTestingControls(a); let j = index">
+                          <tr [formGroupName]="j">
+                            <td nowrap="nowrap">Circuit Observation-{{j+1}} :</td>
+                            <td> 
+                              <textarea cols="30" rows="1" type="text" class="form-control"
+                              formControlName="observations"
+                              placeholder="Ex. Supply Observations..." readonly style="background-color: #e9ecef;"
+                              ></textarea>
+                            </td>
+                            <td [ngClass]="{'disableForm':service.allFieldsDisable}">
+                              <select class="form-control" formControlName="furtherActions" [disabled]="service.allFieldsDisable" 
+                              [tabindex]="service.allFieldsDisable ? -1 : 0" (change)="onChange8($event,c)"
+                              [ngClass]="{ 'is-invalid': submitted && c.get('furtherActions')?.errors }">
+                              <option value="" selected>Select Option</option>
+                              <option value="C1">C1</option>
+                              <option value="C2">C2</option>
+                              <option value="C3">C3</option>
+                              <option value="R1">R1</option>
+                              <option value="No remedial action required">No remedial action required</option>
+
+                              </select>
+                              <div *ngIf="submitted && c.get('furtherActions')?.errors" class="invalid-feedback">
+                                <div *ngIf="c.get('furtherActions')?.errors?.required">Field Is Required</div>
+                            </div>
+                            </td>
+                            <td>
+                              <textarea type="text" cols="30" rows="1" [readonly]="c.get('furtherActions')?.value==='No remedial action required'"
+                              placeholder="Enter comment" [readonly]="service.allFieldsDisable" class="form-control"
+                              formControlName="comment"
+                              [ngClass]="{ 'is-invalid': submitted && c.get('comment')?.errors }"></textarea>
+                              <div *ngIf="submitted && c.get('comment')?.errors" class="invalid-feedback">
+                                <div *ngIf="c.get('comment')?.errors?.required">Field Is Required</div>
+                            </div>     
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="row" *ngIf="noObserveTesting">
+                      <div class="col-sm-12">
+                        <h3 style="color: #eea80a;">Currently, you have not provided Observations for Testing!</h3>
+                      </div>
+                    </div>
+              <!-- <label>
                 <h3 style="cursor: pointer;" (click)= "navigateToStep(3)"><b><u>Testing Observation :</u></b>
               </h3>
               </label>
@@ -342,10 +616,8 @@
                           
                 </div>
               </div>
-              <br>
+              <br> -->
               <!-- observation ends here -->
-
-
               
             <!-- <div class="row">
               <div class="col-sm-12">
@@ -358,12 +630,10 @@
                 </div>
               </div>
             </div> -->
-          </div>
                 </div>
               </div>
 
-
-              <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
+              <!-- <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Reference in report:</label>
@@ -392,8 +662,8 @@
                   </div>
                   </div>
                 </div>
-                </div>
-                <div class="row">
+                </div> -->
+                <!-- <div class="row">
                 <div class="col-sm-12">
                   <mat-form-field class="client-description">
                     <mat-label>
@@ -407,34 +677,34 @@
                     <div *ngIf="submitted && f.comment?.errors" class="invalid-feedback">
                       <div *ngIf="f.comment?.errors?.required">Field Is Required</div>
                   </div>     
-                  </mat-form-field>
+                  </mat-form-field> 
                 </div>
-                </div>
+                </div> -->
+                <br>
                 <div class="row">
                 <div class="col-sm-12">
                     <p>
-                      Any Observations classified as:-  </p>
+                      <b>Any Observations classified as:- </b> </p>
                       <p>Code C1 <b>(“dangers present”)</b> or Code C2 <b>(“potentially dangerous”)</b> are acted upon the matter of urgency and remedial 
                       action to be taken immediately,</p> 
                       <p>Code C3 <b>(“Improvement recommended”)</b> should be given due consideration,</p>
                     <p>Code R1 <b>(“required further investigation”)</b> should start investigation without any delay.</p> 
-                      <p>Subject to necessary remedial action being taken, I/We recommended that the installation is further inspected and tested by :</p>
-                     
-                    <input type="date" class="form-control" placeholder="Enter Date" [readonly]="service.allFieldsDisable"
-                    formControlName="recommendationsDate" [(ngModel)]="summary.recommendationsDate"
-                    [ngClass]="{ 'is-invalid': submitted && f.recommendationsDate?.errors }">  
-                    <div *ngIf="submitted && f.recommendationsDate?.errors" class="invalid-feedback">
-                      <div *ngIf="f.recommendationsDate?.errors?.required">Field Is Required</div>
-                  </div>            
+                      <div>Subject to necessary remedial action being taken, I/We recommended that the installation is further 
+                        inspected and tested by :
+                        <div style="display: inline-grid;">
+                        <input type="date" class="form-control" placeholder="Enter Date" [readonly]="service.allFieldsDisable"
+                        formControlName="recommendationsDate" [(ngModel)]="summary.recommendationsDate"
+                        [ngClass]="{ 'is-invalid': submitted && f.recommendationsDate?.errors }">
+                        <div *ngIf="submitted && f.recommendationsDate?.errors" class="invalid-feedback">
+                          <div *ngIf="f.recommendationsDate?.errors?.required">Field Is Required</div>
+                      </div>  
+                      </div> 
+                    </div>
                 </div>
                 <!-- <mat-icon class="mousechange" *ngIf="getObservationsControls().length > 1" 
                   (click)="removeObservations(i)" style="margin-top: 2px;float: right;cursor: pointer;">remove_circle</mat-icon> -->
               </div>
-
-
-        </div>
           </mat-expansion-panel>
-
 
           <!-- <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
@@ -873,10 +1143,10 @@ style="margin-left: 10px;" >
         <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
       </div> -->
     
-      <div class="row" style="display:block;margin-top: 30px;margin-left: 40px;">
+      <div class="row" style="margin-top: 20px;">
         <div class="col-sm-12">
         <div style="text-align: center;"> 
-        <button  style="width: auto;" type="submit" 
+        <button  style="width: auto;margin-left: 50px;" type="submit" 
         class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn next"
         mat-button [ngClass]="{'disableSubmit':service.disableSubmitSummary}">
           <i class="bi bi-journal-arrow-up icon"></i> Submit</button>
@@ -899,7 +1169,17 @@ style="margin-left: 10px;" >
 </div>
 
   <ng-template #content5 let-modal>
-    <div class="modal-body">
+     <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner"
+      color="primary"
+      [mode]="mode"
+      value="50"
+      diameter="50">
+      </mat-progress-spinner>
+      <br>
+      <div *ngIf="finalSpinner" style="text-align: center;">
+       Loading...Please wait!
+      </div>
+    <div class="modal-body"  *ngIf="popup">
         <div class="centre-text m-btm30">
             <div *ngIf="success" style="text-align: center;">
                 <span class="alert alert-success">{{successMsg}}</span>
@@ -911,7 +1191,7 @@ style="margin-left: 10px;" >
     </div>
     <br>
     <button type="button" class="col-md-6" class="close" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-   aria-label="Close" (click)="closeModalDialog()">
+   aria-label="Close" (click)="closeModalDialog()" *ngIf="popup">
     <span aria-hidden="true">Ok</span>
 </button>
 

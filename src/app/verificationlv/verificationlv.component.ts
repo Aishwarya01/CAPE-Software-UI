@@ -817,7 +817,9 @@ changeTab(index: number, sitedId: any, userName: any, companyName: any, departme
       if(this.dataJSON.supplyCharacteristics != null) {
         this.noDetailsFlag = true;
         this.supply.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
-        this.summary.retrieveFromOngoingForObservation(sitedId);
+        if(this.dataJSON.summary == null) {
+          this.summary.retrieveFromOngoingForObservation(sitedId);
+        }
         //commented by Arun on 04/12/2021
         //this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
 
@@ -826,10 +828,13 @@ changeTab(index: number, sitedId: any, userName: any, companyName: any, departme
       if(this.dataJSON.periodicInspection != null) {
         this.noDetailsFlag = true;
         this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
-        this.summary.retrieveFromOngoingForObservation(sitedId);
+        if(this.dataJSON.summary == null) {
+          this.summary.retrieveFromOngoingForObservation(sitedId);
+        }        
         this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
-        this.summary.retrieveFromOngoingForObservation(sitedId);
-      //  if(this.dataJSON.testingReport != null) {
+        if(this.dataJSON.summary == null) {
+          this.summary.retrieveFromOngoingForObservation(sitedId);
+        }      //  if(this.dataJSON.testingReport != null) {
       //    this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
           if(this.dataJSON.summary != null) {
             this.noDetailsFlag = true;
@@ -885,16 +890,21 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
       if(this.dataJSON.supplyCharacteristics != null) {
         this.noDetailsFlag= true;
         this.supply.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
-        this.summary.retrieveFromOngoingForObservation(sitedId);
-      }
+        if(this.dataJSON.summary == null) {
+          this.summary.retrieveFromOngoingForObservation(sitedId);
+        }      }
       
       if(this.dataJSON.periodicInspection != null) {
         this.noDetailsFlag= true;
         this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
-        this.summary.retrieveFromOngoingForObservation(sitedId);
+        if(this.dataJSON.summary == null) {
+          this.summary.retrieveFromOngoingForObservation(sitedId);
+        }        
         this.testing.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
-       this.summary.retrieveFromOngoingForObservation(sitedId);
-          if(this.dataJSON.summary != null) {
+        if(this.dataJSON.summary == null) {
+          this.summary.retrieveFromOngoingForObservation(sitedId);
+        }          
+        if(this.dataJSON.summary != null) {
             this.summary.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
           }             
       }

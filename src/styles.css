@@ -613,9 +613,8 @@ input::-webkit-inner-spin-button {
 }
 /* for observation glow end*/
 
-#supplyTable{
-  display: block;
-    width: 100%;
-    overflow-y: scroll;
-    height: 320px;
+.tableObserve .table-responsive{
+ overflow-x: unset !important;
+    overflow-y: auto!important;
+    height: 320px !important;
 }

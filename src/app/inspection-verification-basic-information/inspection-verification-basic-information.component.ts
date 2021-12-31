@@ -1676,19 +1676,23 @@ showHideAccordion(index: number) {
 onPopState(event:any) {
   if(this.service.allStepsCompleted==true){
   if(this.service.lvClick==1){
-    alert("Changes won't be saved!");
-  //   if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!"))
-  //   {
-  //   this.service.windowTabClick=0;
-  //   this.service.logoutClick=0; 
-  //   this.service.lvClick=0;
-     window.location.reload(); 
-  //    }
-  //  else{
-  //   history.pushState({page: 2}, "title 2", "?page=2");
-  //   //history.pushState({page: 1}, "title 1", "?page=1");
-  //   history.go(1) // alerts "location: http://example.com/example.html, state: null"
-  //  }
+    //alert("Changes won't be saved!");
+    if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!"))
+    {
+    this.service.windowTabClick=0;
+    this.service.logoutClick=0; 
+    this.service.lvClick=0;
+     window.location.reload();
+     return true;
+     }
+   else{
+    history.pushState({page: 1}, "title 1", "?page=1");
+    history.pushState({page: 2}, "title 2", "?page=2");    
+    history.back();
+    history.back();    
+    history.go(0) // alerts "location: http://example.com/example.html, state: null"
+    return false;
+   }
     }
     else{
       window.location.reload();
