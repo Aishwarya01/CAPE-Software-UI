@@ -1338,27 +1338,28 @@ showHideAccordion(index: number) {
     if(this.addstep3.touched || this.addstep3.untouched){
       this.modalReference = this.modalService.open(content2, {
          centered: true, 
-         size: 'md'
+         size: 'md',
+         backdrop: 'static'
         })
      }
      if(this.addstep3.dirty && this.addstep3.touched){ //update
-      this.modalService.open(content3, { centered: true});
+      this.modalService.open(content3, { centered: true,backdrop: 'static'});
       this.modalReference.close();
      }
    
   }
   closeModalDialog() {
-    if (this.errorMsg != '') {
+    if (this.errorMsg != "") {
       this.Error = false;
       this.service.isCompleted3= false;
       this.service.isLinear=true;
-      this.modalService.dismissAll((this.errorMsg = ''));
+      this.modalService.dismissAll((this.errorMsg = ""));
     } 
     else {
       this.success = false;
       this.service.isCompleted3= true;
       this.service.isLinear=false;
-      this.modalService.dismissAll((this.successMsg = ''));
+      this.modalService.dismissAll((this.successMsg = ""));
       this.disable = false;
     }
   }

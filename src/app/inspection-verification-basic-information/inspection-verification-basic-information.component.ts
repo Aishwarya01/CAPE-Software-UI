@@ -279,7 +279,7 @@ ShowNext: boolean = true;
       showField1: ['', Validators.required],
       evidenceAlterations: ['', Validators.required],
       showField2: ['', Validators.required],
-      previousRecord: ['', Validators.required],
+      previousRecord: [''],
       inspectionLast: ['', Validators.required],
       extentInstallation: ['', Validators.required],
       detailsOfClient: ['', Validators.required],
@@ -1676,19 +1676,23 @@ showHideAccordion(index: number) {
 onPopState(event:any) {
   if(this.service.allStepsCompleted==true){
   if(this.service.lvClick==1){
-    alert("Changes won't be saved!");
-  //   if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!"))
-  //   {
-  //   this.service.windowTabClick=0;
-  //   this.service.logoutClick=0; 
-  //   this.service.lvClick=0;
-     window.location.reload(); 
-  //    }
-  //  else{
-  //   history.pushState({page: 2}, "title 2", "?page=2");
-  //   //history.pushState({page: 1}, "title 1", "?page=1");
-  //   history.go(1) // alerts "location: http://example.com/example.html, state: null"
-  //  }
+    //alert("Changes won't be saved!");
+    if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!"))
+    {
+    this.service.windowTabClick=0;
+    this.service.logoutClick=0; 
+    this.service.lvClick=0;
+     window.location.reload();
+     return true;
+     }
+   else{
+    history.pushState({page: 1}, "title 1", "?page=1");
+    history.pushState({page: 2}, "title 2", "?page=2");    
+    history.back();
+    history.back();    
+    history.go(0) // alerts "location: http://example.com/example.html, state: null"
+    return false;
+   }
     }
     else{
       window.location.reload();
@@ -1702,23 +1706,24 @@ onPopState(event:any) {
 }
 //modal popup
   gotoNextModal(content1: any,content2:any) {
-      if(this.step1Form.invalid) {
-        //this.validationErrorTab = false;
-        this.validationError=true;
-        this.validationErrorMsg="Please check all the fields";
-    //     setTimeout(()=>{
-    //       this.validationError=false;
-    //  }, 3000);
-        return;
-      }
+    //   if(this.step1Form.invalid) {
+    //     //this.validationErrorTab = false;
+    //     this.validationError=true;
+    //     this.validationErrorMsg="Please check all the fields";
+    // //     setTimeout(()=>{
+    // //       this.validationError=false;
+    // //  }, 3000);
+    //     return;
+    //   }
      if(this.step1Form.touched || this.step1Form.untouched){
       this.modalReference = this.modalService.open(content2, {
          centered: true, 
-         size: 'md'
+         size: 'md',
+         backdrop: 'static'
         })
      }
      if(this.step1Form.dirty && this.step1Form.touched){ //update
-      this.modalService.open(content1, { centered: true});
+      this.modalService.open(content1, { centered: true,backdrop: 'static'});
       this.modalReference.close();
      }
     }
@@ -1728,13 +1733,13 @@ onPopState(event:any) {
         this.Error = false;
         this.service.isCompleted= false;
         this.service.isLinear=true;
-        this.modalService.dismissAll(this.errorMsg = "")
+        this.modalService.dismissAll(this.errorMsg = "");
       }
       else {
         this.success=false;
         this.service.isCompleted= true;
         this.service.isLinear=false;
-        this.modalService.dismissAll(this.successMsg="") 
+        this.modalService.dismissAll(this.successMsg=""); 
       }
     }
   
@@ -1744,9 +1749,9 @@ onPopState(event:any) {
      
       this.loading = true;
       this.submitted = true
-      if(this.step1Form.invalid) {
-        return;
-      }
+      // if(this.step1Form.invalid) {
+      //   return;
+      // }
       this.step1Form.value.designer1Arr[0].signatorRole= this.designer1Role;
       this.step1Form.value.designer1Arr[0].declarationSignature= this.step1Form.value.designer1AcknowledgeArr[0].declarationSignature;
       this.step1Form.value.designer1Arr[0].declarationName= this.step1Form.value.designer1AcknowledgeArr[0].declarationName;

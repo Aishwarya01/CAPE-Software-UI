@@ -21,18 +21,28 @@ export class Summary {
     updatedDate!: Date;
     
 
-    summaryObervation!: summaryObervation[];
+    summaryObservation!: summaryObservation[];
     summaryDeclaration!: summaryDeclaration[];
 
 }
 
-export class summaryObervation {
+export class summaryObservation {
+    observations!: String;
+    referanceNumberReport!: String;
+    furtherActions!: number;
+    obervationStatus!: String;
+    comment!: String;
+    summaryInnerObservation!: summaryInnerObservation[];
+}
+
+export class summaryInnerObservation {
     observations!: String;
     referanceNumberReport!: String;
     furtherActions!: number;
     obervationStatus!: String;
     comment!: String;
 }
+
 export class  summaryDeclaration{
         declarationRole!: String;
         signature!: String;

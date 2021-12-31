@@ -13,7 +13,7 @@
       (window:beforeunload)="doBeforeUnload()"
       (window:popstate)="onPopState($event)">
       <div class="search-bar">
-        <div class="form-group" *ngIf="siteDetails" [ngClass]="{'disableForm':service.allFieldsDisable}">
+        <div class="form-group" *ngIf="siteDetails">
           <div class="row">
             <!-- <div class="col-md-4">
                   <label>Company Name*</label>
@@ -37,7 +37,7 @@
             </div>
           </div>
       </div>
-        <div class="form-group" *ngIf="siteDetails1" [ngClass]="{'disableForm':service.allFieldsDisable}">
+        <div class="form-group" *ngIf="siteDetails1">
           <div class="row">
             <!-- <div class="col-md-4">
                   <label>Company Name</label>
@@ -70,7 +70,7 @@
                 <h3>Details Of Report</h3>
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <div class="row" >
               <div class="col-md-4">
                 <mat-form-field class="client-description">
                   <mat-icon style="float: right;font-size: 18px;
@@ -94,7 +94,7 @@
                 </mat-form-field>
               </div>
             </div>
-              <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
+              <div class="row">
               <div class="col-md-4">
                 <mat-form-field class="client-description">
                   <mat-icon style="float: right;font-size: 18px;
@@ -123,8 +123,8 @@
               </mat-panel-title>
 
             </mat-expansion-panel-header>
-            <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
-              <div class="col-md-4">
+            <div class="row" >
+              <div class="col-md-4" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <div class="form-group">
                   <label>Type of Installation* :</label>
                   <select class="form-control" formControlName="installationType" (change)="showWiringAge($event)" 
@@ -150,10 +150,9 @@
                 </div>
               </div>
 
+
               <div class="col-md-4">
-                <div class="form-group">
-                  <label>Description of the Premise* :</label>
-                  <mat-icon style="float: right;font-size: 18px;
+                <mat-icon style="float: right;font-size: 18px;
                   line-height: unset;margin-right: 45%;"
                   matTooltip="Type of premise"
                   matTooltipClass="multiline-tooltip"
@@ -161,6 +160,10 @@
                   class="example-button">
                   info_outline
                  </mat-icon>
+                <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
+                  
+                  <label>Description of the Premise* :</label>
+                  
                   <select class="form-control" formControlName="descPremise" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
                   [(ngModel)]="reportDetails.descriptionPremise" [ngClass]="{ 'is-invalid': submitted && f.descPremise.errors }">
                    <option value="" selected>Select Option</option>
@@ -172,7 +175,7 @@
                 </div>
               </div>
 
-              <div class="col-md-4" *ngIf="showField1" style="margin-top: 24px;">
+              <div class="col-md-4" [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="showField1" style="margin-top: 24px;">
                   <label>Estimated Age of Wiring System Years:</label>
                     <input type="tel" formControlName="showField1" [readonly]="service.allFieldsDisable" style="
                     width: 50px;
@@ -186,7 +189,7 @@
                      </div>
               </div>
 
-              <div class="col-md-4">
+              <div class="col-md-4" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <label>Evidence of Addition/Alterations* :</label>
                 <select class="form-control" formControlName="evidenceAlterations" (change)="showEstimatedAge($event)" 
                 [tabindex]="service.allFieldsDisable ? -1 : 0" [disabled]="service.allFieldsDisable"
@@ -199,7 +202,7 @@
               </div>
               </div>
 
-              <div class="col-md-4" *ngIf="showField2" style="margin-top: 35px;">
+              <div class="col-md-4" [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="showField2" style="margin-top: 35px;">
                 <label>If Yes Estimated Age Years:</label>
                   <input type="number" min="0" formControlName="showField2" [readonly]="service.allFieldsDisable" style="
                   width: 50px;
@@ -214,7 +217,7 @@
               </div>
               
 
-              <div class="col-md-4">
+              <div class="col-md-4" [ngClass]="{'disableForm':service.allFieldsDisable}">
                 <label>Previous Records Available* :</label>
                 <select class="form-control" formControlName="previousRecord" (change)="previousRecord($event)" 
                 [tabindex]="service.allFieldsDisable ? -1 : 0" [disabled]="service.allFieldsDisable"
@@ -227,7 +230,7 @@
                 </div>
               </div>
 
-              <div class="col-md-4" *ngIf="lastInspectionDate">
+              <div class="col-md-4" [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="lastInspectionDate">
                 <label>Last Date Of Inspection* :</label>
                 <input type="date" class="form-control" formControlName="inspectionLast" placeholder="Enter Date" [readonly]="service.allFieldsDisable"
                 [(ngModel)]="reportDetails.lastInspection" [ngClass]="{ 'is-invalid': submitted && f.inspectionLast.errors }">
@@ -237,7 +240,7 @@
               </div>
             </div>
  
-            <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <div class="row">
               <div class="col-md-4">
                 <mat-form-field class="client-description ">
                   <mat-icon style="float: right;font-size: 18px;
@@ -278,7 +281,7 @@
 
             </mat-expansion-panel-header>
 
-            <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <div class="row">
               <div class="col-md-4">
                 <mat-form-field class="client-description ">
                   <mat-icon style="float: right;font-size: 18px;
@@ -290,7 +293,7 @@
                   info_outline
                  </mat-icon>
                   <mat-label><h3>Details Of Client / Person Ordering This Report</h3></mat-label>
-                  <textarea matInput class="client-box-description" formControlName="detailsOfClient"
+                  <textarea matInput class="client-box-description" formControlName="detailsOfClient" [disabled]="service.allFieldsDisable"
                   [ngClass]="{ 'is-invalid': submitted && f.detailsOfClient.errors }" readonly style="background-color: #e9ecef;"
                   placeholder=" Ex. Name, address ,purpose ,relation with end user.." 
                   [(ngModel)]="reportDetails.clientDetails"></textarea>
@@ -361,7 +364,7 @@
               </div>
             </div>
 
-            <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <div class="row">
               <div class="col-md-4">
                 <mat-form-field class="client-description ">
                   <mat-icon style="float: right;font-size: 18px;
@@ -500,7 +503,7 @@
                 </div>
             </div>
 
-            <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
+            <div class="form-group">
              
                 <h3><b>Declaration of Contractor of Installation:</b></h3>
                 <mat-icon style="float: right;font-size: 18px;
@@ -1536,7 +1539,7 @@
         <span class="alert alert-danger">Your response to comments has been rejected</span>
       </div>
       <br>
-      <div class="row" style="margin-top: 40px;">
+      <div class="row" style="margin-top: 20px;">
         <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
         <button class="next" (click)="gotoNextModal(content1,content2)"
         mat-button>Next &raquo;</button>

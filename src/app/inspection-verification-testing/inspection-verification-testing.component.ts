@@ -1220,6 +1220,7 @@ callValue(e: any) {
   pushTestDistRecordsTable(testDistRecordsItem: any): FormGroup {
     return new FormGroup({
       testDistRecordId: new FormControl({disabled: false, value: testDistRecordsItem.testDistRecordId }),
+      locationCount: new FormControl({disabled: false, value: testDistRecordsItem.locationCount }),
       testDistribution: this.formBuilder.array([this.populateTestDistributionForm(testDistRecordsItem.testDistribution)]),
       testingRecords: this.formBuilder.array(this.populateTestRecordsForm(testDistRecordsItem.testingRecords,testDistRecordsItem.testDistRecordId)),
       testingInnerObservation: this.formBuilder.array(this.pushTestObservationRecord(testDistRecordsItem.testingInnerObservation,testDistRecordsItem.testDistRecordId)),
@@ -2760,11 +2761,12 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
     if(this.testingForm.touched || this.testingForm.untouched){
       this.modalReference = this.modalService.open(content2, {
          centered: true, 
-         size: 'md'
+         size: 'md',
+         backdrop: 'static'
         })
      }
      if(this.testingForm.dirty && this.testingForm.touched){ //update
-      this.modalService.open(content4, { centered: true});
+      this.modalService.open(content4, { centered: true,backdrop: 'static'});
       this.modalReference.close();
      }
 
@@ -2774,17 +2776,17 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
     this.ngOnInit();
   }
   closeModalDialog() {
-    if (this.errorMsg != '') {
+    if (this.errorMsg != "") {
       this.Error = false;
       this.service.isCompleted4= false;
       this.service.isLinear=true;
-      this.modalService.dismissAll((this.errorMsg = ''));
+      this.modalService.dismissAll((this.errorMsg = ""));
     } 
     else {
       this.success = false;
       this.service.isCompleted4= true;
       this.service.isLinear=false;
-      this.modalService.dismissAll((this.successMsg = ''));
+      this.modalService.dismissAll((this.successMsg = ""));
     }
   }
   // onKeyObservation(event:any){
@@ -2873,8 +2875,8 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
     ) as FormArray;
 
     for (let i of this.testaccordianArr.controls) {
-      this.testingRecords = i.get('testDistRecords') as FormArray;
-      for(let v of this.testingRecords.controls){
+      this.testDistRecords = i.get('testDistRecords') as FormArray;
+      for(let v of this.testDistRecords.controls){
         this.testDistribution = v.get('testDistribution') as FormArray;
         this.testingRecords = v.get('testingRecords') as FormArray;
          // coma separated value for first table

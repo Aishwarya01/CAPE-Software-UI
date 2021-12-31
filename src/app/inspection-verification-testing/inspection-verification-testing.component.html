@@ -255,9 +255,9 @@
                       
                  <div formArrayName="testDistRecords" *ngFor="let z of gettestDistRecordsFormControls(a); let w = index">
                    <div [formGroupName]="w">
-                   <div formArrayName="testDistribution"  [ngClass]="{'disableForm':service.allFieldsDisable}"  *ngFor="let c of gettestDistributionFormControls(z); let i = index">
-                        <div class="form-group" [formGroupName]="i" [ngClass]="{'disableForm':service.allFieldsDisable}">
-                            <div class="row">
+                   <div formArrayName="testDistribution"  *ngFor="let c of gettestDistributionFormControls(z); let i = index">
+                        <div class="form-group" [formGroupName]="i" >
+                            <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                                 <div class="col-md-4">
                                     <label>Distribution Board Details </label>
                                     <input type="text" formControlName="distributionBoardDetails"  
@@ -291,6 +291,7 @@
                             </div>
 
                             <div class="row">
+                            
                                 <div class="col-md-4">
                                     <label>Correct Supply Polarity </label>
                                     <mat-icon style="float: right;font-size: 18px;
@@ -302,8 +303,8 @@
                                     info_outline
                                    </mat-icon>
                                     <select class="form-control" formControlName="correctSupplyPolarity" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
-                                    [ngClass]="{ 'is-invalid': submitted && c.get('correctSupplyPolarity')?.errors }">
-                                       <option value="" selected>Select Option</option>
+                                    [ngClass]="[submitted && c.get('correctSupplyPolarity')?.errors ? 'is-invalid' : '' , service.allFieldsDisable ? 'disableForm' : '']">
+                                    <option value="" selected>Select Option</option>
                                         <option value="Yes" selected>Yes</option>
                                         <option value="No" selected>No</option>
                                     </select>
@@ -321,7 +322,7 @@
                                 </div>
                                 <div class="col-md-4">
                                   <label>Number Of Output Circuits Tested</label>
-                                  <input type="tel" min="1" formControlName="numOutputCircuitsUse"  [readonly]="service.allFieldsDisable"
+                                  <input type="tel" min="1" formControlName="numOutputCircuitsUse"  [readonly]="service.allFieldsDisable" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                                   placeholder=" Enter Number of output circuits in use"
                                   class="form-control"  (keyup)="onKey($event,c,z)" [ngClass]="{ 'is-invalid': submitted && c.get('numOutputCircuitsUse')?.errors }"  >
                                   <div *ngIf="submitted && c.get('numOutputCircuitsUse')?.errors" class="invalid-feedback">
@@ -346,7 +347,8 @@
                                 <input type="number" min="0" [readonly]="service.allFieldsDisable" 
                                 formControlName="installedEquipmentVulnarable" 
                                 placeholder=" Enter Installed Equipment Vulnarable To  Testing Name"
-                                    class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('installedEquipmentVulnarable')?.errors }"  >
+                                    class="form-control"
+                                    [ngClass]="[submitted && c.get('installedEquipmentVulnarable')?.errors ? 'is-invalid' : '' , service.allFieldsDisable ? 'disableForm' : '']">
                                     <div *ngIf="submitted && c.get('installedEquipmentVulnarable')?.errors" class="invalid-feedback">
                                       <div *ngIf="c.get('installedEquipmentVulnarable')?.errors?.required">Installed equipment vulnarable to testing  value is required</div>
                                     </div>
@@ -367,13 +369,13 @@
                                         <input type="number" min="0" [readonly]="service.allFieldsDisable" 
                                         formControlName="ratingsAmps" 
                                         class="form-control" placeholder=" Enter Ratings in Amps "
-                                          [ngClass]="{ 'is-invalid': submitted && d.get('ratingsAmps')?.errors }">
+                                        [ngClass]="[submitted && d.get('ratingsAmps')?.errors ? 'is-invalid' : '' , service.allFieldsDisable ? 'disableForm' : '']">
                                         <div *ngIf="submitted && d.get('ratingsAmps')?.errors" class="invalid-feedback">
                                             <div *ngIf="d.get('ratingsAmps')?.errors?.required">Ratings in Amps value is required</div>
                                         </div>
                                     </div>
                                 </div>
-
+                             
                                 <div class="col-md-4"> 
                                     <label>Source Of Incoming:</label>
                                     <mat-icon style="float: right;font-size: 18px;
@@ -386,7 +388,7 @@
                                    </mat-icon>
                                     <select class="form-control" formControlName="sourceFromSupply" (change)="changeSource($event,c)" 
                                     [tabindex]="service.allFieldsDisable ? -1 : 0"
-                                    [ngClass]="{ 'is-invalid': submitted && c.get('sourceFromSupply')?.errors }" 
+                                    [ngClass]="[submitted && c.get('sourceFromSupply')?.errors ? 'is-invalid' : '' , service.allFieldsDisable ? 'disableForm' : '']">
                                     [disabled]="service.allFieldsDisable">
                                    <option value="" selected>Select Option</option>
                                     <option *ngFor="let value of SourceList" [selected]="value=== c.get('sourceFromSupply')?.value">
@@ -617,7 +619,7 @@
           <div class="row">
             <div class="col">
                 <div class="table-responsive" id="style-1">
-                  <table class="table" border="1" id="table2" style="margin-bottom: unset;" [ngClass]="{'disableForm':service.allFieldsDisable}">
+                  <table class="table" border="1" id="table2" style="margin-bottom: unset;"   >
                       <thead>
                             <tr align="center">
                                 <th colspan="11"> Circuit Details </th>
@@ -1187,7 +1189,7 @@ style="margin-left: 10px;" >
                 <span class="alert alert-danger">Your response to comments has been rejected</span>
               </div>
               <br>
-            <div style="text-align: center;margin-top: 40px;margin-left: 40px;">
+            <div style="text-align: center;margin-top: 20px;">
                 <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
                 <button class="next" (click)="gotoNextModal(content4,content2)" mat-button>Next &raquo;</button>
         </div>

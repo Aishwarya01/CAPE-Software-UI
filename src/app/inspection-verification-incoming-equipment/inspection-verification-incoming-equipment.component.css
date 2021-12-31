@@ -28,6 +28,7 @@ mat-header-cell.mat-header-cell {
     border: 2px solid #b1b1b1;
     padding: 15px;
     border-radius: 4px;
+    margin-top: 10px;
 }
 
 .select.form-control {
