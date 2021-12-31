@@ -616,5 +616,10 @@ input::-webkit-inner-spin-button {
 .tableObserve .table-responsive{
  overflow-x: unset !important;
     overflow-y: auto!important;
-    height: 320px !important;
+    height: 200px !important;
 }
+.tableObserve .table-responsiveTest{
+  overflow-x: unset !important;
+     overflow-y: auto!important;
+     height: 120px !important;
+ }
