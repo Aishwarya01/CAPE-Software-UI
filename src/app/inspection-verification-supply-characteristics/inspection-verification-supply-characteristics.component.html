@@ -1051,7 +1051,8 @@
 
                 <div class="col-md-4" style="margin-top: 30px">
                   <p class="joints">Number of earth electrodes 
-                    <input (keypress)="keyPressNumbers($event)" type="number" min="0" formControlName="noOfLocation" [readonly]="service.allFieldsDisable"
+                    <input (keypress)="keyPressNumbers($event)" type="tel" min="0" formControlName="noOfLocation" [readonly]="service.allFieldsDisable"
+                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                     [ngClass]="{ 'is-invalid': submitted && f.noOfLocation.errors }" 
                     [(ngModel)]="supplycharesteristic.noOfLocation" style="
                     width: 50px;
@@ -1301,7 +1302,8 @@
                     info_outline
                    </mat-icon>
                     <p  class="joints">Number Of Joints
-                      <input (keypress)="keyPressNumbers($event)" type="number" formControlName="bondingNoOfJoints" [readonly]="service.allFieldsDisable"
+                      <input (keypress)="keyPressNumbers($event)" type="tel" formControlName="bondingNoOfJoints" [readonly]="service.allFieldsDisable" 
+                      oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                       [(ngModel)]="supplycharesteristic.bondingNoOfJoints" 
                       [ngClass]="{ 'is-invalid': submitted && f.bondingNoOfJoints.errors }" style="
                       width: 50px;
@@ -1486,7 +1488,8 @@
                     class="example-button">
                     info_outline
                    </mat-icon>
-                    <p class="joints">Number Of Joints <input (keypress)="keyPressNumbers($event)" type="number" min="0" formControlName="earthingNoOfJoints" 
+                    <p class="joints">Number Of Joints <input (keypress)="keyPressNumbers($event)" type="tel" min="0" formControlName="earthingNoOfJoints" 
+                      oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                     [ngClass]="{ 'is-invalid': submitted && f.earthingNoOfJoints.errors }" [readonly]="service.allFieldsDisable"
                     [(ngModel)]="supplycharesteristic.earthingNoOfJoints" style="
                       width: 50px;

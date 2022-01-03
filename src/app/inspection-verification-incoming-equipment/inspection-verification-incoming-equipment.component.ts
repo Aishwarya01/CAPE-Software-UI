@@ -1581,7 +1581,9 @@ for(let i of this.deletedInnerObservation) {
           this.Error = true;
           this.service.isCompleted3= false;
           this.service.isLinear=true;
-          this.errorMsg = 'Something went wrong, kindly check all the fields';
+          this.errorArr = [];
+          this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.errorArr.message;
          });
         }
     }
@@ -1635,7 +1637,9 @@ for(let i of this.deletedInnerObservation) {
         (error) => {
           this.proceedNext.emit(false);
           this.Error = true;
-          this.errorMsg = 'Something went wrong, kindly check all the fields';
+          this.errorArr = [];
+          this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.errorArr.message;
           this.service.isCompleted3= false;
           this.service.isLinear=true;
         });
