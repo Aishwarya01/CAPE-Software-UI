@@ -244,8 +244,9 @@ onSubmit() {
     error => {
       this.loading= false;
       this.errorMsgflag=true;
-      this.errorMsg=error.error.message;
-      setTimeout(()=>{
+      this.errorMsg = JSON.parse(error.error);
+      this.errorMsg=this.errorMsg.message;
+      setTimeout(()=>{ 
         this.errorMsgflag=false;
         this.errorMsg=" ";
       }, 3000);

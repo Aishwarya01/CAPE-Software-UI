@@ -1722,7 +1722,9 @@ showHideAccordion(index: number) {
          },
          (error) => {
           this.Error = true;
-          this.errorMsg = 'Something went wrong, kindly check all the fields';
+          this.errorArr = [];
+          this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.errorArr.message;
          });
         }
     }

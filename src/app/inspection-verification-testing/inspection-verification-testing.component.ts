@@ -763,6 +763,21 @@ callValue(e: any) {
               }
           } 
         }
+
+        // for(let i of this.incomingValues.ipaoInspection) {
+        //   for(let j of this.testList1.testing) {
+        //     if(i.locationCount == j.locationCount) {
+        //       for(let k of i.consumerUnit) {
+        //         for(let l of j.testDistRecords) {
+        //           if(k.locationCount != l.locationCount) {
+        //             debugger
+        //             console.log(k);
+        //           }
+        //         }
+        //       }
+        //     }
+        //   }
+        // }
       }, 3000);	
       }
     )
