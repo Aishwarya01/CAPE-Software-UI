@@ -331,7 +331,7 @@ export class LpsBasicPageComponent implements OnInit {
           
           this.basicDetails.basicLpsId=basicDetailsItr.basicLpsId;
           this.success = true;
-          this.successMsg = data;
+          this.successMsg = "Basic Information sucessfully Saved";
           //this.disable = true;
           this.retriveBasicDetails();
           this.LPSBasicForm.markAsPristine();
