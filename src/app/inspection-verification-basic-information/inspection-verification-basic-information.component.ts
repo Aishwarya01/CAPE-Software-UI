@@ -207,6 +207,9 @@ ShowNext: boolean = true;
   ContractorPersonNameMsg: boolean = false;
   ContractorPersonName: string="";
   deletedArr: any = [];
+  finalSpinner: boolean = true;
+  popup: boolean = false;
+
  
 
   constructor(
@@ -1729,6 +1732,8 @@ onPopState(event:any) {
     }
    
     closeModalDialog(){
+      this.finalSpinner=true;
+      this.popup=false;
       if(this.errorMsg != ""){
         this.Error = false;
         this.service.isCompleted= false;
@@ -2056,6 +2061,8 @@ onPopState(event:any) {
         }
         this.UpateBasicService.updateBasic(this.reportDetails).subscribe(
           data=> {
+           this.popup=true;
+           this.finalSpinner=false;
            this.success = true;
            this.successMsg = data;
            this.service.isCompleted= true;
@@ -2066,6 +2073,8 @@ onPopState(event:any) {
            this.service.lvClick=0; 
           },
           (error) => {
+            this.popup=true;
+            this.finalSpinner=false;
             this.Error = true;
             this.errorArr = [];
             this.errorArr = JSON.parse(error.error);
@@ -2081,6 +2090,8 @@ onPopState(event:any) {
    this.reportDetailsService.addReportDetails(this.reportDetails).subscribe(
      data=> {
        this.proceedNext.emit(true);
+       this.popup=true;
+       this.finalSpinner=false;
        this.success = true;
        this.successMsg = data;
        this.service.isCompleted= true;
@@ -2100,6 +2111,8 @@ onPopState(event:any) {
        //this.disable = true;
      },
      (error) => {
+       this.popup=true;
+       this.finalSpinner=false;
        this.Error = true;
        this.errorArr = [];
        this.errorArr = JSON.parse(error.error);

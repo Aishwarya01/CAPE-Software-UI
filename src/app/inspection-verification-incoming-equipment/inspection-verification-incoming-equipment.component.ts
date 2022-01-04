@@ -176,6 +176,8 @@ export class InspectionVerificationIncomingEquipmentComponent
   inspectionInnerObservation: any=[];
   deletedInnerObservation: any=[];
   deleteObDataFlag: boolean= false;
+  finalSpinner: boolean = true;
+  popup: boolean = false;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -1360,6 +1362,8 @@ showHideAccordion(index: number) {
    
   }
   closeModalDialog() {
+    this.finalSpinner=true;
+    this.popup=false;
     if (this.errorMsg != "") {
       this.Error = false;
       this.service.isCompleted3= false;
@@ -1573,12 +1577,15 @@ for(let i of this.deletedInnerObservation) {
       console.log(this.inspectionDetails);
       this.UpateInspectionService.updateIncoming(this.inspectionDetails).subscribe(
         data=> {
+          this.popup=true;
+          this.finalSpinner=false;
           if(this.step3List.testingReport != null){
             this.proceedNext.emit(false);
           }
           else{
             this.proceedNext.emit(true);
           }
+          
           this.success = true;
           this.service.isCompleted3= true;
           this.service.isLinear=false;
@@ -1589,6 +1596,8 @@ for(let i of this.deletedInnerObservation) {
        this.service.lvClick=0; 
          },
          (error) => {
+          this.popup=true;
+          this.finalSpinner=false;
           this.Error = true;
           this.service.isCompleted3= false;
           this.service.isLinear=true;
@@ -1604,6 +1613,8 @@ for(let i of this.deletedInnerObservation) {
       .subscribe(
         (data: any) => {
           this.proceedNext.emit(true);
+          this.popup=true;
+          this.finalSpinner=false;
           this.success = true;
           this.service.isCompleted3= true;
           this.service.isLinear=false;
@@ -1647,6 +1658,8 @@ for(let i of this.deletedInnerObservation) {
         },
         (error) => {
           this.proceedNext.emit(false);
+          this.popup=true;
+          this.finalSpinner=false;
           this.Error = true;
           this.errorArr = [];
           this.errorArr = JSON.parse(error.error);
