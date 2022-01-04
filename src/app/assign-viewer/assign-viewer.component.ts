@@ -472,7 +472,7 @@ createNewGroup(item: any): FormGroup{
     this.inspectorRegisterService.updateRegister(this.register).subscribe(
       data=> {
         this.successMsgOTP=true;
-        this.successMsg="You have successfully updated viewer profile"
+        this.successMsg=data;
         setTimeout(()=>{
           this.successMsgOTP=false;
           this.successMsg="";
@@ -493,7 +493,8 @@ createNewGroup(item: any): FormGroup{
       error => {
         this.loading= false;
         this.errorMsgflag=true;
-        this.errorMsg=error.error.message;
+        this.errorMsg = JSON.parse(error.error);
+        this.errorMsg=this.errorMsg.message;
         setTimeout(()=>{
           this.errorMsgflag=false;
           this.errorMsg=" ";

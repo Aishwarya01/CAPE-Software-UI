@@ -238,6 +238,17 @@ export class InspectionVerificationIncomingEquipmentComponent
         this.populateData(this.step3List1);
   }
 
+   // Only Accept numbers
+   keyPressNumbers(event:any) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
  
 //comments section starts
 
@@ -1600,7 +1611,7 @@ for(let i of this.deletedInnerObservation) {
           this.service.windowTabClick=0;
        this.service.logoutClick=0; 
        this.service.lvClick=0; 
-          this.successMsg = 'Incoming Equipment Successfully Saved';
+          this.successMsg = data;
           this.inspectionDetailsService.retrieveInspectionDetails(this.inspectionDetails.userName,this.inspectionDetails.siteId).subscribe(
             data=>{
              this.retrieveAllDetailsforIncoming(this.inspectionDetails.userName,this.inspectionDetails.siteId,data);

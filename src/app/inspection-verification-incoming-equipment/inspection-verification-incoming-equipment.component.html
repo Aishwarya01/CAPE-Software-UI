@@ -24,7 +24,7 @@
       <div class="row">
         <div class="col-md-4">
               <label>Location Number*</label>
-              <input type="number" min="1" class="form-control" formControlName="locationNumber"
+              <input type="text" min="1" class="form-control" formControlName="locationNumber" (keypress)="keyPressNumbers($event)" maxlength="10"
                placeholder="Enter Location Number" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
                [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors }">
               <div *ngIf="submitted && a.get('locationNumber')?.errors" class="invalid-feedback">

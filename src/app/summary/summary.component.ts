@@ -1713,7 +1713,7 @@ showHideAccordion(index: number) {
       this.UpateInspectionService.updateSummary(this.summary).subscribe(
         data=> {
           this.success = true;
-          this.successMsg = 'Summary Information Successfully Updated';
+          this.successMsg = data;
           this.finalFlag = true;
           this.addsummary.markAsPristine();
           this.service.windowTabClick=0;
@@ -1737,7 +1737,7 @@ showHideAccordion(index: number) {
           this.popup=true;
           this.finalSpinner=false;
           this.success = true;
-          this.successMsg = 'Summary Information Successfully Submitted';
+          this.successMsg = data;
           this.addsummary.markAsPristine();
           this.service.allFieldsDisable = true; 
           this.service.disableSubmitSummary=true;

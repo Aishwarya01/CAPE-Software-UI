@@ -60,7 +60,7 @@ export class GenerateOtpComponent implements OnInit {
     this.inspectorRegisterService.sendOTPInspector(this.email,this.contactNumber).subscribe(
       data=> { 
         this.successMsgOTP=true;
-        this.successMsg="OTP has been successfully sent to your mobile number"
+        this.successMsg=data;
         setTimeout(()=>{
           this.successMsgOTP=false;
           this.successMsg="";

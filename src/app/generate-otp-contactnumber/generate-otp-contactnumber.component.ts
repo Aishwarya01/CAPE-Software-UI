@@ -63,7 +63,7 @@ export class GenerateOtpContactnumberComponent implements OnInit {
     this.inspectorRegisterService.sendOtpContactNumber(this.email,this.contactNumber).subscribe(
       data=> { 
         this.successMsgOTP=true;
-        this.successMsg="OTP has been successfully sent to your mobile number";
+        this.successMsg=data;
         this.globalService.changeNumberSession = data;
         this.globalService.changeNumber = this.contactNumber;
 

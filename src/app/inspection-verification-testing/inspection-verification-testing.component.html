@@ -20,7 +20,7 @@
                             <div class="row" *ngIf="inspectionRetrieve">
                                 <div class="col-md-4">
                                     <label>Location Number*</label>
-                                    <input type="number" class="form-control" formControlName="locationNumber"
+                                    <input type="text" class="form-control" formControlName="locationNumber" (keypress)="keyPressNumbers($event)" maxlength="10"
                                         placeholder="Enter Location Number"
                                         value="{{location.locationArr[i]?.locationNumber}}"
                                         [(ngModel)]="location.locationArr[i].locationNumber" [readonly]="true"
