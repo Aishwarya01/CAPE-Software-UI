@@ -385,7 +385,6 @@ createNewGroup(item: any): FormGroup{
         }, 3000);
       },
       (error) => {
-        console.log(error);
         this.Error = true;
          let errorArr = [];
          errorArr = JSON.parse(error.error);

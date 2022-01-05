@@ -722,7 +722,6 @@ emailPDF(siteId: any,userName: any){
   this.disable=false;
   this.inspectionService.mailPDF(siteId,userName).subscribe(
   data => {
-  console.log('worked');
   this.success = true;
   this.successMsg = data;
   setTimeout(()=>{

@@ -713,7 +713,6 @@ callValue(e: any) {
     this.testingService.retrieveTesting(this.testingDetails.siteId,this.email).subscribe(
       data=>{
        this.retrieveDetailsforTesting(this.email,this.testingDetails.siteId,data);    
-       console.log(this.incomingValues.ipaoInspection);
        
        setTimeout(() => {
         if(this.incomingValues.ipaoInspection.length != this.testList1.testing.length) {

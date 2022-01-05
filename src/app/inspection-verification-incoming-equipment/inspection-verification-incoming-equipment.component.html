@@ -910,7 +910,7 @@
         <div class="col-md-4">
             <label>Distribution Board Details </label>
             <input type="text" formControlName="distributionBoardDetails"  
-            (keyup)="ChangeBoardDetails($event,a,i)"
+            (keyup)="ChangeBoardDetails($event,a,i)" (focusout)="onFocusOutEventBoard($event,b)"
             placeholder="Enter Distribution board details"  class="form-control" 
             [ngClass]="{ 'is-invalid': submitted && b.get('distributionBoardDetails')?.errors }" [readonly]="service.allFieldsDisable" >
             <div *ngIf="submitted && b.get('distributionBoardDetails')?.errors" class="invalid-feedback">
@@ -921,7 +921,7 @@
         <div class="col-md-4">
             <label>Distribution board name</label>
             <input type="text" formControlName="referance" placeholder="Enter Distribution board name" 
-            (keyup)="ChangeBoardName($event,a,i)"
+            (keyup)="ChangeBoardName($event,a,i)" (focusout)="onFocusOutEventReferance($event,b)"
             class="form-control"[ngClass]="{ 'is-invalid': submitted && b.get('referance')?.errors }" [readonly]="service.allFieldsDisable" >
             <div *ngIf="submitted && b.get('referance')?.errors" class="invalid-feedback">
               <div *ngIf="b.get('referance')?.errors?.required">Reference name  is required</div>
@@ -931,10 +931,14 @@
         <div class="col-md-4">
             <label>Location</label>
             <input type="text" formControlName="location"  placeholder=" Enter Location Name" 
-            (keyup)="ChangeLocation($event,a,i)"
+            (keyup)="ChangeLocation($event,a,i)" (focusout)="onFocusOutEventLocation($event,b)"
             class="form-control"[ngClass]="{ 'is-invalid': submitted && b.get('location')?.errors }" [readonly]="service.allFieldsDisable" >
             <div *ngIf="submitted && b.get('location')?.errors" class="invalid-feedback">
               <div *ngIf="b.get('location')?.errors?.required">Location  name  is required</div>
+            </div>
+
+            <div *ngIf="b.get('locationFlag')?.value" class="invalid-feedback">
+              <div style="color: #b4b659;">Location name already exist</div>
             </div>
         </div>
       </div>

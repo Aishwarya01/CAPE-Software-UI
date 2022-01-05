@@ -181,7 +181,6 @@ export class InspectorRegistrationComponent implements OnInit {
             }
           },
           error => {
-            console.log(error);
           }
         );
       }
@@ -222,7 +221,6 @@ export class InspectorRegistrationComponent implements OnInit {
 
 onSubmit() {
   this.submitted = true;
-  console.log(this.InspectorRegisterForm.value.applicationType)
   if(this.existFlag) {
     return;
   }
