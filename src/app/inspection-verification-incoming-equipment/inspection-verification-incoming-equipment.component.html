@@ -523,7 +523,8 @@
     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <h3>Other Methods Of Protection</h3>
+          <h3 class="col-md-11">Other Methods Of Protection</h3>
+          <button  class="save" (click)="intermedeateIpaoSave(content4)"  mat-button style="display: flex;">Save</button>	
         </mat-panel-title>
       </mat-expansion-panel-header>
       <div class="row">
@@ -1413,7 +1414,8 @@
     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <h3>Circuits</h3>
+          <h3 class="col-md-11">Circuits</h3>
+          <button  class="save" (click)="intermedeateIpaoSave1(content4)"  mat-button style="display: flex;">Save </button>	
         </mat-panel-title>
       </mat-expansion-panel-header>
       <div formArrayName="circuit" *ngFor="let c of getcircuitControls(a); let i = index">
@@ -1920,7 +1922,7 @@
 
       </div>
         </div>
-      </div>
+      </div> 	
     </mat-expansion-panel>
   <!-- circuit ends-->
 
@@ -2611,7 +2613,7 @@ position: relative;">
 </button>	
 <div style="text-align: center;">	
   <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->	
-  <button  class="next" (click)="gotoNextModal(content3,content2)" mat-button >Next &raquo;</button>	
+  <button  class="next" (click)="gotoNextModal(content3,content2)"  mat-button >Next &raquo;</button>	
 </div>	
 </form>	
 </div>	
@@ -2643,6 +2645,24 @@ position: relative;">
   <span aria-hidden="true">Ok</span>
 </button>
 </ng-template>
+
+
+<ng-template #content4 let-modal>
+  <div class="modal-body">
+  <div class="centre-text m-btm30">
+  <div *ngIf="success" style="text-align: center;">
+    <span class="alert alert-success">{{successMsg}}</span>
+   </div>
+   <div *ngIf="Error" style="text-align: center;">
+     <span class="alert alert-danger">{{errorMsg}}</span>
+    </div>
+       </div>
+   </div>
+  <br>
+ 
+  <span aria-hidden="true" (click)="closeModalDialog()"  class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"  style="text-align:center; width: auto;" >Ok</span>
+  </ng-template>
+  
 
 
 <ng-template #content2 let-modal>

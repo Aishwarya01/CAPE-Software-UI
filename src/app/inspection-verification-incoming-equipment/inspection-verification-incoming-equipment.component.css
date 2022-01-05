@@ -87,7 +87,18 @@ mat-header-cell.mat-header-cell {
     margin-left: 30px;
     cursor: not-allowed;
   }   
-
+  .save{
+    background-color: #cac9c9;
+    color: black;
+    line-height: 32px !important;
+    height: 30px;
+  }
+  .save:hover{
+    background-color: #04AA6D;
+    color: white;
+    line-height: 32px !important;
+    height: 30px;
+  }
 .example-section {
   margin: 12px 0;
   display: contents;
