@@ -41,10 +41,16 @@
                                     </span>
                                 </div>
                                 <input type="email" formControlName="email" class="form-control" placeholder="Enter your email address" maxlength="50"
-                                [ngClass]="{ 'is-invalid': submitted && f.email.errors}" [ngStyle]="{'border-color': alert ? 'red' : ''}" [(ngModel)]="register.username"/>
+                                [ngClass]="[ existFlag  ? 'is-invalid' : '',submitted && f.email.errors ? 'is-invalid' : '']" (focusout)="onFocusOutEvent($event)" [ngStyle]="{'border-color': alert ? 'red' : ''}" [(ngModel)]="register.username"/>
                                 <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                                     <div *ngIf="f.email.errors.required">Email is required</div>
                                     <div *ngIf="f.email.errors.pattern">Enter valid email</div>
+                                </div>
+                                <div *ngIf="existFlag" class="invalid-feedback">
+                                    <div>Given username is already exist</div>
+                                </div>
+                                <div *ngIf="notExistFlag" class="invalid-feedback">
+                                    <div style="color: #11a807;">This username can be used</div>
                                 </div>
                             </div>
                         </div>

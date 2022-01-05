@@ -56,6 +56,8 @@ export class InspectorRegistrationComponent implements OnInit {
   countryCode: String = '';
   contactNumber: string = '';
   modalReference: any;
+  existFlag: boolean = false;
+  notExistFlag: boolean = false;
 
 
   constructor(private formBuilder: FormBuilder, private modalService: NgbModal,
@@ -162,6 +164,38 @@ export class InspectorRegistrationComponent implements OnInit {
     this.countryCode = country.dialCode;
   }
 
+  onFocusOutEvent(a: any) {  
+    if(a.target.value != '') {
+      if(!this.f.email.errors?.pattern) {
+        let changedValue = a.target.value;
+        this.inspectorRegisterService.retrieveRegisterName(changedValue).subscribe(
+          data => {
+            debugger;
+            if(data != '') {
+              this.notExistFlag = false;
+              this.existFlag = true;
+            }
+            else {
+              this.notExistFlag = true;
+              this.existFlag = false;
+            }
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      }
+      else {
+        this.notExistFlag = false;
+        this.existFlag = false;
+      }
+    }
+    else {
+      this.notExistFlag = false;
+      this.existFlag = false;
+    }
+  }
+
   onSelect(e: any) {
     let selectedValue = e.target.value;
     if(selectedValue == "Viewer") {
@@ -192,6 +226,9 @@ onSubmit() {
 
   //Breaks if form is invalid
   if(this.InspectorRegisterForm.invalid) {
+    if(this.existFlag) {
+      return;
+    }
     return;
   }
   this.loading = true;
