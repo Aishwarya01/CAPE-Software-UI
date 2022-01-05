@@ -223,12 +223,11 @@ export class InspectorRegistrationComponent implements OnInit {
 onSubmit() {
   this.submitted = true;
   console.log(this.InspectorRegisterForm.value.applicationType)
-
+  if(this.existFlag) {
+    return;
+  }
   //Breaks if form is invalid
   if(this.InspectorRegisterForm.invalid) {
-    if(this.existFlag) {
-      return;
-    }
     return;
   }
   this.loading = true;
