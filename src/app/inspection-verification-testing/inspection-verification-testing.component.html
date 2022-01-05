@@ -20,7 +20,7 @@
                             <div class="row" *ngIf="inspectionRetrieve">
                                 <div class="col-md-4">
                                     <label>Location Number*</label>
-                                    <input type="number" class="form-control" formControlName="locationNumber"
+                                    <input type="text" class="form-control" formControlName="locationNumber" (keypress)="keyPressNumbers($event)" maxlength="10"
                                         placeholder="Enter Location Number"
                                         value="{{location.locationArr[i]?.locationNumber}}"
                                         [(ngModel)]="location.locationArr[i].locationNumber" [readonly]="true"
@@ -1197,7 +1197,17 @@ style="margin-left: 10px;" >
     </div>
   </div>
     <ng-template #content4 let-modal>
-        <div class="modal-body">
+        <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner"
+        color="primary"
+        [mode]="mode"
+        value="50"
+        diameter="50">
+        </mat-progress-spinner>
+        <br>
+        <div *ngIf="finalSpinner" style="text-align: center;">
+          Testing Save in Progress!
+        </div>
+        <div class="modal-body" *ngIf="popup">
             <div class="centre-text m-btm30">
                 <div *ngIf="success" style="text-align: center;">
                     <span class="successshow">{{successMsg}}</span>

@@ -266,6 +266,8 @@ export class InspectionVerificationTestingComponent implements OnInit {
   deletedObservationArr: any = [];
   testDistRecords1: any = [];
   deleteObRecordDataFlag: boolean=false;
+  finalSpinner: boolean = true;
+  popup: boolean = false;
   
   constructor(
     private testingService: TestingService,
@@ -440,6 +442,18 @@ export class InspectionVerificationTestingComponent implements OnInit {
     }
   }
 }
+
+   // Only Accept numbers
+   keyPressNumbers(event:any) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
 
  retrieveDetailsFromSupply(){
   this.pushJsonArray=[];
@@ -2791,6 +2805,8 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
     this.ngOnInit();
   }
   closeModalDialog() {
+    this.finalSpinner=true;
+    this.popup=false;
     if (this.errorMsg != "") {
       this.Error = false;
       this.service.isCompleted4= false;
@@ -3460,6 +3476,8 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
         }
       this.UpateInspectionService.updateTesting(this.testingDetails).subscribe(
         data => {
+          this.popup=true;
+          this.finalSpinner=false;
           this.success = true;
           this.service.isCompleted4= true;
           this.service.isLinear=false;
@@ -3470,6 +3488,8 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
        this.service.lvClick=0; 
         },
         (error) => {
+          this.popup=true;
+          this.finalSpinner=false;
           this.Error = true;
           this.service.isCompleted4= false;
         this.service.isLinear=true;
@@ -3484,6 +3504,8 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
         (data) => {
           this.proceedNext.emit(true);
           // show success message ofter click button
+          this.popup=true;
+          this.finalSpinner=false;
           this.success = true;
           this.successMsg = data;
           this.service.isCompleted4= true;
@@ -3528,6 +3550,8 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
           // }
         },
         (error) => {
+          this.popup=true;
+          this.finalSpinner=false;
           this.Error = true;      
           this.proceedNext.emit(false);
           this.errorArr = [];

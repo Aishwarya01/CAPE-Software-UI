@@ -348,6 +348,8 @@ export class InspectionVerificationSupplyCharacteristicsComponent
   observeMainArr: any = [];
   deletedObservation: any = [];
   observationAlternateArr: any= [];
+  finalSpinner: boolean = true;
+  popup: boolean = false;
 
   constructor(
     private supplyCharacteristicsService: SupplyCharacteristicsService,
@@ -3237,6 +3239,8 @@ showHideAccordion(index: number) {
      }
   }
   closeModalDialog() {
+    this.finalSpinner=true;
+    this.popup=false;
     if (this.errorMsg != "") {
       this.Error = false;
       this.success = false;
@@ -3802,6 +3806,8 @@ showHideAccordion(index: number) {
         console.log(this.supplycharesteristic);
       this.UpateInspectionService.updateSupply(this.supplycharesteristic).subscribe(
         (data)=> {
+          this.popup=true;
+          this.finalSpinner=false;
           this.success = true;
           this.service.isCompleted2= true;
           this.service.isLinear=false;
@@ -3822,6 +3828,8 @@ showHideAccordion(index: number) {
           //this.proceedNext.emit(true);
          },
          (error) => {
+          this.popup=true;
+          this.finalSpinner=false;
           this.Error = true;
           this.service.isCompleted2= false;
         this.service.isLinear=true;
@@ -3839,6 +3847,8 @@ else{
     this.supplyCharacteristicsService.addSupplyCharacteristics(this.supplycharesteristic).subscribe(
         (data) => {
           this.proceedNext.emit(true);
+          this.popup=true;
+          this.finalSpinner=false;
           this.success = true;
           this.successMsg = data;
           //this.disable = true;
@@ -3887,6 +3897,8 @@ else{
           // }
         },
         (error) => {
+          this.popup=true;
+          this.finalSpinner=false;
           this.Error = true;
           this.proceedNext.emit(false);
           this.errorArr = [];

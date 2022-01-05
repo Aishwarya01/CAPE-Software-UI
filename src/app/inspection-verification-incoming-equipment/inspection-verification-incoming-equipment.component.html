@@ -24,7 +24,7 @@
       <div class="row">
         <div class="col-md-4">
               <label>Location Number*</label>
-              <input type="number" min="1" class="form-control" formControlName="locationNumber"
+              <input type="text" min="1" class="form-control" formControlName="locationNumber" (keypress)="keyPressNumbers($event)" maxlength="10"
                placeholder="Enter Location Number" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
                [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors }">
               <div *ngIf="submitted && a.get('locationNumber')?.errors" class="invalid-feedback">
@@ -2617,7 +2617,17 @@ position: relative;">
 </div>	
 </div>
 <ng-template #content3 let-modal>
-<div class="modal-body">
+  <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner"
+  color="primary"
+  [mode]="mode"
+  value="50"
+  diameter="50">
+  </mat-progress-spinner>
+  <br>
+  <div *ngIf="finalSpinner" style="text-align: center;">
+    Inspection Save in Progress!
+  </div>
+<div class="modal-body" *ngIf="popup">
 <div class="centre-text m-btm30">
 <div *ngIf="success" style="text-align: center;">
   <span class="alert alert-success">{{successMsg}}</span>

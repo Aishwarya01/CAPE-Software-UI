@@ -84,6 +84,7 @@ export class AssignViewerComponent implements OnInit {
   onSave = new EventEmitter();
   inspectorData: any = [];
   demoArr: any = [];
+  existSite: boolean = false;
 
   constructor(private dialog: MatDialog,
               private formBuilder: FormBuilder, private modalService: NgbModal,
@@ -169,6 +170,91 @@ export class AssignViewerComponent implements OnInit {
   getViewerControls() : AbstractControl[] {
     return (<FormArray> this.viewerRegisterForm.get('viewerArr')).controls
   }
+
+  onFocusOutEvent(e: any,a: any) {
+    if(e.target.value != '' && a.get('companyName')?.value != '' && a.get('companyName')?.value != undefined && a.get('department')?.value != '' && a.get('department')?.value != undefined) {
+      let siteName = a.get('siteName')?.value;
+      let companyName = a.get('companyName')?.value;
+      let departmentName = a.get('department')?.value;
+
+      if(!a.get('siteName')?.errors?.minlength) {
+        this.siteService.retrieveSiteName(companyName,departmentName,siteName).subscribe(
+          data => {
+            debugger
+            if(data != '') {
+              this.existSite = true;
+            }
+            else {
+              this.existSite = false;
+            }
+          }
+        )
+      }
+      else {
+        this.existSite = false;
+      }
+    }
+    else {
+      this.existSite = false;
+    }
+  }
+
+  onFocusOutEventCompany(e: any,a: any) {
+    if(e.target.value != '' && a.get('siteName')?.value != '' && a.get('siteName')?.value != undefined && a.get('department')?.value != '' && a.get('department')?.value != undefined) {
+      let siteName = a.get('siteName')?.value;
+      let companyName = a.get('companyName')?.value;
+      let departmentName = a.get('department')?.value;
+
+      if(!a.get('siteName')?.errors?.minlength) {
+        this.siteService.retrieveSiteName(companyName,departmentName,siteName).subscribe(
+          data => {
+            debugger
+            if(data != '') {
+              this.existSite = true;
+            }
+            else {
+              this.existSite = false;
+            }
+          }
+        )
+      }
+      else {
+        this.existSite = false;
+      }
+    }
+    else {
+      this.existSite = false;
+    }
+  }
+
+  onFocusOutEventDepartment(e: any,a: any) {
+    if(e.target.value != '' && a.get('siteName')?.value != '' && a.get('siteName')?.value != undefined && a.get('companyName')?.value != '' && a.get('companyName')?.value != undefined) {
+      let siteName = a.get('siteName')?.value;
+      let companyName = a.get('companyName')?.value;
+      let departmentName = a.get('department')?.value;
+
+      if(!a.get('siteName')?.errors?.minlength) {
+        this.siteService.retrieveSiteName(companyName,departmentName,siteName).subscribe(
+          data => {
+            debugger
+            if(data != '') {
+              this.existSite = true;
+            }
+            else {
+              this.existSite = false;
+            }
+          }
+        )
+      }
+      else {
+        this.existSite = false;
+      }
+    }
+    else {
+      this.existSite = false;
+    }
+  }
+
 
 createGroup(item: any): FormGroup{
   // this.mobileArr = [];
@@ -264,6 +350,8 @@ createNewGroup(item: any): FormGroup{
     this.modalReference.close();
   }
   continue(contentViewer:any) {
+
+    this.existSite = false;
     this.submitted1 = true;
     if(this.assignViewerForm.invalid) {
       return;
@@ -424,7 +512,9 @@ createNewGroup(item: any): FormGroup{
   onSubmit(flag: any) {
     
   this.submitted = true;
-
+  if(this.existSite) {
+    return;
+  }
   //Breaks if form is invalid
   if(this.viewerRegisterForm.invalid) {
     return;
@@ -472,7 +562,7 @@ createNewGroup(item: any): FormGroup{
     this.inspectorRegisterService.updateRegister(this.register).subscribe(
       data=> {
         this.successMsgOTP=true;
-        this.successMsg="You have successfully updated viewer profile"
+        this.successMsg=data;
         setTimeout(()=>{
           this.successMsgOTP=false;
           this.successMsg="";
@@ -493,7 +583,8 @@ createNewGroup(item: any): FormGroup{
       error => {
         this.loading= false;
         this.errorMsgflag=true;
-        this.errorMsg=error.error.message;
+        this.errorMsg = JSON.parse(error.error);
+        this.errorMsg=this.errorMsg.message;
         setTimeout(()=>{
           this.errorMsgflag=false;
           this.errorMsg=" ";

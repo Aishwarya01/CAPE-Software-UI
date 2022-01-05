@@ -96,8 +96,9 @@
                         formControlName="siteName"
                         class="form-control"
                         placeholder="Enter the Site Name"
-                        [ngClass]="{ 'is-invalid': submitted && a.get('siteName')?.errors }"
+                        [ngClass]="[ existSite  ? 'is-invalid' : '',submitted && a.get('siteName')?.errors ? 'is-invalid' : '']"
                         [(ngModel)]="register.siteName"
+                        (focusout)="onFocusOutEvent($event,a)"
                       />
                       <div
                         *ngIf="submitted && a.get('siteName')?.errors"
@@ -108,6 +109,12 @@
                         </div>
                         <div *ngIf="a.get('siteName')?.errors?.minlength">
                           Site Name should be more than 2 characters
+                        </div>
+                      </div>
+
+                      <div *ngIf="existSite" class="invalid-feedback">
+                        <div>
+                          Note: Sitename already exist
                         </div>
                       </div>
                     </div>
@@ -268,6 +275,7 @@
                         [ngClass]="{
                           'is-invalid': submitted && a.get('companyName')?.errors
                         }"
+                        (focusout)="onFocusOutEventCompany($event,a)"
                         [(ngModel)]="register.companyName"
                       />
                       <div
@@ -305,6 +313,7 @@
                           'is-invalid': submitted && a.get('department')?.errors
                         }"
                         [(ngModel)]="register.department"
+                        (focusout)="onFocusOutEventDepartment($event,a)"
                       />
                       <div
                         *ngIf="submitted && a.get('department')?.errors"
