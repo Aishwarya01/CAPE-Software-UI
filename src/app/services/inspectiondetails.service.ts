@@ -32,6 +32,10 @@ export class InspectiondetailsService {
   public approveRejectComments(comment: CommentsSection,siteId: any): Observable<any> {
     return this.http.post<any>(this.apiUrl + '/approveInspectionComments'+'/'+comment.userName+ '/' +siteId, comment, { responseType: 'text' as 'json' })
   }
+
+  public retrieveLocationDetails(distributionDetails: String,referance:String,location: String): Observable<any> {
+    return this.http.get<InspectionDetails>(this.apiUrl + '/retrieveLocationDetails' + '/' +distributionDetails + '/' +referance+ '/' +location,{ responseType: 'text' as 'json' })
+  }
 }
 
 

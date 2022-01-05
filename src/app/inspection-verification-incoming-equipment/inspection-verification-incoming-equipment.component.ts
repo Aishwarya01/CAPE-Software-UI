@@ -806,6 +806,7 @@ showHideAccordion(index: number) {
       consumerId: new FormControl({disabled: false,value: itemvalue.consumerId}),
       ipaoInspectionId: new FormControl({disabled: false,value: ipaoInspectionId}),
       locationCount: new FormControl({disabled: false,value: itemvalue.locationCount}),
+      locationFlag: new FormControl(false),
       distributionBoardDetails: new FormControl({ disabled: false, value: itemvalue.distributionBoardDetails },[Validators.required]),
       referance: new FormControl({ disabled: false, value: itemvalue.referance },[Validators.required]),
       location: new FormControl({ disabled: false, value: itemvalue.location },[Validators.required]),
@@ -956,6 +957,7 @@ showHideAccordion(index: number) {
   private createEarthingForm(): FormGroup {
     return new FormGroup({
       distributionBoardDetails:  new FormControl('', [Validators.required]),
+      locationFlag: new FormControl(false),
       referance:  new FormControl('', [Validators.required]),
       location: new FormControl('', [Validators.required]),
       accessWorking: new FormControl('', [Validators.required]),
@@ -1087,6 +1089,90 @@ showHideAccordion(index: number) {
 
   getIncomingControls(): AbstractControl[] {
     return (<FormArray>this.addstep3.get('incomingArr')).controls;
+  }
+
+  onFocusOutEventBoard(e: any,b: any) {
+    if(e.target.value != '' && b.get('location')?.value != '' && b.get('location')?.value != undefined && b.get('referance')?.value != '' && b.get('referance')?.value != undefined) {
+      let distributionBoardDetails = b.get('distributionBoardDetails')?.value;
+      let referance = b.get('referance')?.value;
+      let location = b.get('location')?.value;
+
+      if(!b.get('location')?.errors?.minlength) {
+        this.inspectionDetailsService.retrieveLocationDetails(distributionBoardDetails,referance,location).subscribe(
+          data => {
+            debugger
+            if(data != '') {
+              b.controls.locationFlag.setValue(true);
+            }
+            else {
+              b.controls.locationFlag.setValue(false);
+            }
+          }
+        )
+      }
+      else {
+        b.controls.locationFlag.setValue(false);
+      }
+    }
+    else {
+      b.controls.locationFlag.setValue(false);
+    }
+  }
+
+  onFocusOutEventReferance(e: any,b: any) {
+    if(e.target.value != '' && b.get('distributionBoardDetails')?.value != '' && b.get('distributionBoardDetails')?.value != undefined && b.get('location')?.value != '' && b.get('location')?.value != undefined) {
+      let distributionBoardDetails = b.get('distributionBoardDetails')?.value;
+      let referance = b.get('referance')?.value;
+      let location = b.get('location')?.value;
+
+      if(!b.get('location')?.errors?.minlength) {
+        this.inspectionDetailsService.retrieveLocationDetails(distributionBoardDetails,referance,location).subscribe(
+          data => {
+            debugger
+            if(data != '') {
+              b.controls.locationFlag.setValue(true);
+            }
+            else {
+              b.controls.locationFlag.setValue(false);
+            }
+          }
+        )
+      }
+      else {
+        b.controls.locationFlag.setValue(false);
+      }
+    }
+    else {
+      b.controls.locationFlag.setValue(false);
+    }
+  }
+
+  onFocusOutEventLocation(e: any,b: any) {
+    if(e.target.value != '' && b.get('distributionBoardDetails')?.value != '' && b.get('distributionBoardDetails')?.value != undefined && b.get('referance')?.value != '' && b.get('referance')?.value != undefined) {
+      let distributionBoardDetails = b.get('distributionBoardDetails')?.value;
+      let referance = b.get('referance')?.value;
+      let location = e.target.value;
+
+      if(!b.get('location')?.errors?.minlength) {
+        this.inspectionDetailsService.retrieveLocationDetails(distributionBoardDetails,referance,location).subscribe(
+          data => {
+            debugger
+            if(data != '') {
+              b.controls.locationFlag.setValue(true);
+            }
+            else {
+              b.controls.locationFlag.setValue(false);
+            }
+          }
+        )
+      }
+      else {
+        b.controls.locationFlag.setValue(false);
+      }
+    }
+    else {
+      b.controls.locationFlag.setValue(false);
+    }
   }
 
   // populateData() {
@@ -1505,7 +1591,6 @@ showHideAccordion(index: number) {
   // }
  
 
-console.log(this.inspectionDetails);
     this.service.iterationList = this.incomingArr.value;
     this.inspectionDetails.ipaoInspection = this.addstep3.value.incomingArr;
    
@@ -1574,7 +1659,6 @@ for(let i of this.deletedInnerObservation) {
     }
   }
 }
-      console.log(this.inspectionDetails);
       this.UpateInspectionService.updateIncoming(this.inspectionDetails).subscribe(
         data=> {
           this.popup=true;

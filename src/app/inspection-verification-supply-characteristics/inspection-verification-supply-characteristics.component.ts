@@ -3750,7 +3750,6 @@ showHideAccordion(index: number) {
     }
     }
     
-    console.log(this.supplycharesteristic)
 
     if(flag) { 
      
@@ -3803,7 +3802,6 @@ showHideAccordion(index: number) {
         }
 
         this.deletedObservation = [];
-        console.log(this.supplycharesteristic);
       this.UpateInspectionService.updateSupply(this.supplycharesteristic).subscribe(
         (data)=> {
           this.popup=true;
