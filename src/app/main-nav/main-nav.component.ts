@@ -38,6 +38,7 @@ import { SavedreportsComponent } from '../savedreports/savedreports.component';
 import { LpsMatstepperComponent } from '../LPS/lps-matstepper/lps-matstepper.component';
 import { LpsWelcomePageComponent } from '../LPS/lps-welcome-page/lps-welcome-page.component';
 import { wind } from 'ngx-bootstrap-icons';
+import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
 
 export interface PeriodicElement {
   siteCd: string;
@@ -237,7 +238,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
     private inspectionService: InspectionVerificationService,
     private router: ActivatedRoute,
     public service: GlobalsService,
-    private route: Router,
+    private route: Router,private dialog: MatDialog,
     private componentFactoryResolver: ComponentFactoryResolver,
     private applicationService: ApplicationTypeService,
     private modalService: NgbModal, private bnIdle: BnNgIdleService,
@@ -451,26 +452,58 @@ notification(number: any,viewerName: any,inspectorName: any,viewerDate: any,insp
 triggerNavigateTo(siteName:any){
   if((this.service.lvClick==1) && (this.service.allStepsCompleted==true))
   {
-   if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
-     //this.service.triggerScrollTo();
-  this.welcome= false;  
-  this.ongoingSite=false;
-  this.completedSite=false;
-  this.value= false;
-  this.service.mainNavToSaved=1;
-  this.service.commentScrollToBottom=1;
-  this.service.filterSiteName=siteName;
-  this.service.highlightText=true;
-  this.viewContainerRef.clear();
-  const VerificationlvFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
-  const lvInspectionRef = this.viewContainerRef.createComponent(VerificationlvFactory);
-  lvInspectionRef.changeDetectorRef.detectChanges();
-  this.service.windowTabClick=0;
-  this.service.logoutClick=0; 
- }
- else{
-   return;
- }
+    const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+      width: '420px',
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.editModal = false;
+    dialogRef.componentInstance.viewModal = false;
+    dialogRef.componentInstance.triggerModal = true;
+    dialogRef.componentInstance.linkModal = false;
+    dialogRef.componentInstance.summaryModal = false;
+
+    dialogRef.componentInstance.confirmBox.subscribe(data=>{
+      if(data) {
+        this.welcome= false;  
+        this.ongoingSite=false;
+        this.completedSite=false;
+        this.value= false;
+        this.service.mainNavToSaved=1;
+        this.service.commentScrollToBottom=1;
+        this.service.filterSiteName=siteName;
+        this.service.highlightText=true;
+        this.viewContainerRef.clear();
+        const VerificationlvFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
+        const lvInspectionRef = this.viewContainerRef.createComponent(VerificationlvFactory);
+        lvInspectionRef.changeDetectorRef.detectChanges();
+        this.service.windowTabClick=0;
+        this.service.logoutClick=0; 
+      }
+      else{
+        return;
+      }
+    })
+//    if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
+//      //this.service.triggerScrollTo();
+//   this.welcome= false;  
+//   this.ongoingSite=false;
+//   this.completedSite=false;
+//   this.value= false;
+//   this.service.mainNavToSaved=1;
+//   this.service.commentScrollToBottom=1;
+//   this.service.filterSiteName=siteName;
+//   this.service.highlightText=true;
+//   this.viewContainerRef.clear();
+//   const VerificationlvFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
+//   const lvInspectionRef = this.viewContainerRef.createComponent(VerificationlvFactory);
+//   lvInspectionRef.changeDetectorRef.detectChanges();
+//   this.service.windowTabClick=0;
+//   this.service.logoutClick=0; 
+//  }
+//  else{
+//    return;
+//  }
    }
    else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
     this.welcome= false;  
@@ -607,16 +640,39 @@ triggerNavigateTo(siteName:any){
  
   logout() {
     if((this.service.logoutClick==1) && (this.service.allStepsCompleted==true)){
-      if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
-        this.loginservice.logout();
-        this.service.windowTabClick=0;
-        this.route.navigate(['login']);
-        window.location.reload();
-        this.service.logoutClick=0;  
-    }
-    else{
-      return;
-    }
+      const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+        width: '420px',
+        maxHeight: '90vh',
+        disableClose: true,
+      });
+      dialogRef.componentInstance.editModal = false;
+      dialogRef.componentInstance.viewModal = false;
+      dialogRef.componentInstance.triggerModal = true;
+      dialogRef.componentInstance.linkModal = false;
+      dialogRef.componentInstance.summaryModal = false;
+
+      dialogRef.componentInstance.confirmBox.subscribe(data=>{
+        if(data) {
+          this.loginservice.logout();
+          this.service.windowTabClick=0;
+          this.route.navigate(['login']);
+          window.location.reload();
+          this.service.logoutClick=0;  
+        }
+        else{
+          return;
+        }
+      })
+    //   if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
+    //     this.loginservice.logout();
+    //     this.service.windowTabClick=0;
+    //     this.route.navigate(['login']);
+    //     window.location.reload();
+    //     this.service.logoutClick=0;  
+    // }
+    // else{
+    //   return;
+    // }
   }
     else if((this.service.logoutClick==0) || (this.service.allStepsCompleted==false)){
       this.loginservice.logout();
@@ -652,10 +708,20 @@ triggerNavigateTo(siteName:any){
   this.service.allStepsCompleted=true;
   this.service.disableSubmitSummary=false;
   this.service.allFieldsDisable = false;
-  
-  if (confirm("Are you sure you want to edit site details?"))
-  {
-    this.value= true;
+  const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+    width: '420px',
+    maxHeight: '90vh',
+    disableClose: true,
+  });
+  dialogRef.componentInstance.editModal = true;
+    dialogRef.componentInstance.viewModal = false;
+    dialogRef.componentInstance.triggerModal = false;
+    dialogRef.componentInstance.linkModal = false;
+    dialogRef.componentInstance.summaryModal = false;
+
+  dialogRef.componentInstance.confirmBox.subscribe(data=>{
+    if(data) {
+      this.value= true;
     this.welcome= false;  
     this.ongoingSite=false;
     this.completedSite=false;
@@ -664,13 +730,32 @@ triggerNavigateTo(siteName:any){
       this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
     }, 1000);
     this.service.disableFields=false;
-  } 
-  else {
-    this.value= false;
+    }
+    else{
+      this.value= false;
     this.welcome= false;  
     this.ongoingSite=true;
     this.completedSite=false;
-  }
+    }
+  })
+  // if (confirm("Are you sure you want to edit site details?"))
+  // {
+  //   this.value= true;
+  //   this.welcome= false;  
+  //   this.ongoingSite=false;
+  //   this.completedSite=false;
+  //   this.service.mainNavToSaved=0;
+  //   setTimeout(()=>{
+  //     this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
+  //   }, 1000);
+  //   this.service.disableFields=false;
+  // } 
+  // else {
+  //   this.value= false;
+  //   this.welcome= false;  
+  //   this.ongoingSite=true;
+  //   this.completedSite=false;
+  // }
  }
 
  viewSite(siteId: any,userName: any,site: any){
@@ -679,24 +764,55 @@ triggerNavigateTo(siteName:any){
   this.service.disableFields=true;
   this.service.allFieldsDisable = true;
 
-  if (confirm("Are you sure you want to view site details?"))
-  {
-    this.value= true;
-    this.welcome= false;  
-    this.ongoingSite=false;
-    this.completedSite=false;
-    this.service.mainNavToSaved=0;
-    setTimeout(()=>{
-      this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
-    }, 1000);
-   // this.service.disableFields=true;
-  } 
-  else {
-    this.value= false;
-    this.welcome= false;   
-    this.ongoingSite=false;
-    this.completedSite=true;
-  }
+  const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+    width: '420px',
+    maxHeight: '90vh',
+    disableClose: true,
+  });
+  dialogRef.componentInstance.editModal = true;
+    dialogRef.componentInstance.viewModal = false;
+    dialogRef.componentInstance.triggerModal = false;
+    dialogRef.componentInstance.linkModal = false;
+    dialogRef.componentInstance.summaryModal = false;
+
+
+  dialogRef.componentInstance.confirmBox.subscribe(data=>{
+    if(data) {
+      this.value= true;
+      this.welcome= false;  
+      this.ongoingSite=false;
+      this.completedSite=false;
+      this.service.mainNavToSaved=0;
+      setTimeout(()=>{
+        this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
+      }, 1000);
+      // this.service.disableFields=true;
+    }
+    else{
+      this.value= false;
+      this.welcome= false;   
+      this.ongoingSite=false;
+      this.completedSite=true;
+    }
+  })
+  // if (confirm("Are you sure you want to view site details?"))
+  // {
+  //   this.value= true;
+  //   this.welcome= false;  
+  //   this.ongoingSite=false;
+  //   this.completedSite=false;
+  //   this.service.mainNavToSaved=0;
+  //   setTimeout(()=>{
+  //     this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
+  //   }, 1000);
+  //  // this.service.disableFields=true;
+  // } 
+  // else {
+  //   this.value= false;
+  //   this.welcome= false;   
+  //   this.ongoingSite=false;
+  //   this.completedSite=true;
+  // }
   // this.welcome= false;
   // this.ongoingSite=false;
   // this.completedSite=false;
@@ -756,15 +872,38 @@ emailPDF(siteId: any,userName: any){
  
  changePassword(email: String) {
   if((this.service.lvClick==1) && (this.service.allStepsCompleted==true)){
-    if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
-      this.service.windowTabClick=0;
-      this.route.navigate(['changePassword', { email: email }])
-      this.service.logoutClick=0;  
-      this.service.lvClick=0; 
-  }
-  else{
-    return;
-  }
+    const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+      width: '420px',
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.editModal = false;
+    dialogRef.componentInstance.viewModal = false;
+    dialogRef.componentInstance.triggerModal = true;
+    dialogRef.componentInstance.linkModal = false;
+    dialogRef.componentInstance.summaryModal = false;
+
+
+    dialogRef.componentInstance.confirmBox.subscribe(data=>{
+      if(data) {
+        this.service.windowTabClick=0;
+        this.route.navigate(['changePassword', { email: email }])
+        this.service.logoutClick=0;  
+        this.service.lvClick=0;  
+      }
+      else{
+        return;
+      }
+    })
+  //   if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
+  //     this.service.windowTabClick=0;
+  //     this.route.navigate(['changePassword', { email: email }])
+  //     this.service.logoutClick=0;  
+  //     this.service.lvClick=0; 
+  // }
+  // else{
+  //   return;
+  // }
 }
   else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
     this.route.navigate(['changePassword', { email: email }])
@@ -773,15 +912,37 @@ emailPDF(siteId: any,userName: any){
  
 profileUpdate(email: String) {
   if((this.service.lvClick==1) && (this.service.allStepsCompleted==true)){
-    if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
-      this.service.windowTabClick=0;
-      this.route.navigate(['profile', { email: email }])
-      this.service.logoutClick=0;
-      this.service.lvClick=0; 
-  }
-  else{
-    return;
-  }
+    const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+      width: '420px',
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.editModal = false;
+    dialogRef.componentInstance.viewModal = false;
+    dialogRef.componentInstance.triggerModal = true;
+    dialogRef.componentInstance.linkModal = false;
+    dialogRef.componentInstance.summaryModal = false;
+
+    dialogRef.componentInstance.confirmBox.subscribe(data=>{
+      if(data) {
+        this.service.windowTabClick=0;
+        this.route.navigate(['profile', { email: email }])
+        this.service.logoutClick=0;
+        this.service.lvClick=0; 
+      }
+      else{
+        return;
+      }
+    })
+  //   if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
+  //     this.service.windowTabClick=0;
+  //     this.route.navigate(['profile', { email: email }])
+  //     this.service.logoutClick=0;
+  //     this.service.lvClick=0; 
+  // }
+  // else{
+  //   return;
+  // }
 }
   else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
     this.route.navigate(['profile', { email: email }])
@@ -802,44 +963,95 @@ profileUpdate(email: String) {
   showLinkDescription(id: any) {
     this.welcome= false;
     if((this.service.lvClick==1) && (this.service.allStepsCompleted==true)){
-      if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To save the details, kindly fill all fields & click on next button!")){
-        this.service.lvClick=0;
-        switch (id) {
-          case 'LV Systems':
-            this.viewContainerRef.clear();
-            const lvInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LvInspectionDetailsComponent);
-            const lvInspectionRef = this.viewContainerRef.createComponent(lvInspectionFactory);
-            lvInspectionRef.changeDetectorRef.detectChanges();
-            break;
-          case 'HV Systems':
-            this.viewContainerRef.clear();
-            break;
-          case 'Risk Assessment':
-            this.viewContainerRef.clear();
-            const riskAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(RiskAssessmentInspectionMaintenanceComponent);
-            const riskAssessmentInspectionRef = this.viewContainerRef.createComponent(riskAssessmentInspectionFactory);
-            riskAssessmentInspectionRef.changeDetectorRef.detectChanges();
-            break;
-          case 'EMC Assessment':
-            this.viewContainerRef.clear();
-            const emcAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(EmcAssessmentInstallationComponent);
-            const emcAssessmentInspectionRef = this.viewContainerRef.createComponent(emcAssessmentInspectionFactory);
-            emcAssessmentInspectionRef.changeDetectorRef.detectChanges();
-            break;
-          case 'LPS Systems':
-            this.viewContainerRef.clear();
-            const LpsInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LpsWelcomePageComponent);
-            const LpsInspectionRef = this.viewContainerRef.createComponent(LpsInspectionFactory);
-            LpsInspectionRef.changeDetectorRef.detectChanges();
-            break;
-          case 6:
-            this.viewContainerRef.clear();
-            break;
+      const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+        width: '420px',
+        maxHeight: '90vh',
+        disableClose: true,
+      });
+      dialogRef.componentInstance.editModal = false;
+      dialogRef.componentInstance.viewModal = false;
+      dialogRef.componentInstance.triggerModal = false;
+      dialogRef.componentInstance.linkModal = true;
+      dialogRef.componentInstance.summaryModal = false;
+
+      dialogRef.componentInstance.confirmBox.subscribe(data=>{
+        if(data) {
+          this.service.lvClick=0;
+          switch (id) {
+            case 'LV Systems':
+              this.viewContainerRef.clear();
+              const lvInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LvInspectionDetailsComponent);
+              const lvInspectionRef = this.viewContainerRef.createComponent(lvInspectionFactory);
+              lvInspectionRef.changeDetectorRef.detectChanges();
+              break;
+            case 'HV Systems':
+              this.viewContainerRef.clear();
+              break;
+            case 'Risk Assessment':
+              this.viewContainerRef.clear();
+              const riskAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(RiskAssessmentInspectionMaintenanceComponent);
+              const riskAssessmentInspectionRef = this.viewContainerRef.createComponent(riskAssessmentInspectionFactory);
+              riskAssessmentInspectionRef.changeDetectorRef.detectChanges();
+              break;
+            case 'EMC Assessment':
+              this.viewContainerRef.clear();
+              const emcAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(EmcAssessmentInstallationComponent);
+              const emcAssessmentInspectionRef = this.viewContainerRef.createComponent(emcAssessmentInspectionFactory);
+              emcAssessmentInspectionRef.changeDetectorRef.detectChanges();
+              break;
+            case 'LPS Systems':
+              this.viewContainerRef.clear();
+              const LpsInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LpsWelcomePageComponent);
+              const LpsInspectionRef = this.viewContainerRef.createComponent(LpsInspectionFactory);
+              LpsInspectionRef.changeDetectorRef.detectChanges();
+              break;
+            case 6:
+              this.viewContainerRef.clear();
+              break;
+          }
         }
-      }
-      else{
-        return;
-      }
+        else{
+          return;
+        }
+      })
+      // if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To save the details, kindly fill all fields & click on next button!")){
+      //   this.service.lvClick=0;
+      //   switch (id) {
+      //     case 'LV Systems':
+      //       this.viewContainerRef.clear();
+      //       const lvInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LvInspectionDetailsComponent);
+      //       const lvInspectionRef = this.viewContainerRef.createComponent(lvInspectionFactory);
+      //       lvInspectionRef.changeDetectorRef.detectChanges();
+      //       break;
+      //     case 'HV Systems':
+      //       this.viewContainerRef.clear();
+      //       break;
+      //     case 'Risk Assessment':
+      //       this.viewContainerRef.clear();
+      //       const riskAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(RiskAssessmentInspectionMaintenanceComponent);
+      //       const riskAssessmentInspectionRef = this.viewContainerRef.createComponent(riskAssessmentInspectionFactory);
+      //       riskAssessmentInspectionRef.changeDetectorRef.detectChanges();
+      //       break;
+      //     case 'EMC Assessment':
+      //       this.viewContainerRef.clear();
+      //       const emcAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(EmcAssessmentInstallationComponent);
+      //       const emcAssessmentInspectionRef = this.viewContainerRef.createComponent(emcAssessmentInspectionFactory);
+      //       emcAssessmentInspectionRef.changeDetectorRef.detectChanges();
+      //       break;
+      //     case 'LPS Systems':
+      //       this.viewContainerRef.clear();
+      //       const LpsInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LpsWelcomePageComponent);
+      //       const LpsInspectionRef = this.viewContainerRef.createComponent(LpsInspectionFactory);
+      //       LpsInspectionRef.changeDetectorRef.detectChanges();
+      //       break;
+      //     case 6:
+      //       this.viewContainerRef.clear();
+      //       break;
+      //   }
+      // }
+      // else{
+      //   return;
+      // }
      }
      else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
       switch (id) {

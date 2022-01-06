@@ -18,6 +18,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
 import { environment } from 'src/environments/environment';
+import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
 
 @Component({
   selector: 'app-licenselist',
@@ -92,7 +93,9 @@ export class LicenselistComponent implements OnInit {
   errorArr: any=[];
   disable: boolean=false;
   allData: any = [];
-  superAdminFlag: boolean = false;;
+  superAdminFlag: boolean = false;
+  //confirmBox: boolean = false;
+  urlEmail:any='';
   superAdminArr: any = [];
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
@@ -194,27 +197,52 @@ export class LicenselistComponent implements OnInit {
     this.service.allStepsCompleted=true;
     this.service.disableSubmitSummary=false;
     this.service.allFieldsDisable = false;
+    const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+      width: '420px',
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.editModal = true;
+    dialogRef.componentInstance.viewModal = false;
+    dialogRef.componentInstance.triggerModal = false;
+    dialogRef.componentInstance.linkModal = false;
+    dialogRef.componentInstance.summaryModal = false;
 
-    if (confirm("Are you sure you want to edit site details?"))
-    {
+    dialogRef.componentInstance.confirmBox.subscribe(data=>{
+      if(data) {
+        this.viewContainerRef.clear();
+        this.destroy = true;
+        this.value=true;
+        this.service.disableFields=false;
+        setTimeout(()=>{
+          this.verification.changeTab(0,siteId,userName,companyName,departmentName,site);
+        }, 1000);
+      }
+      else{
+        this.destroy = false;
+        this.value=false;
+      }
+    })
+    // if((confirm("Are you sure you want to view site details?"))){
+    //   this.viewContainerRef.clear();
+    //   this.destroy = true;
+    //   this.value=true;
+    //   this.service.disableFields=false;
+    //   setTimeout(()=>{
+    //     this.verification.changeTab(0,siteId,userName,companyName,departmentName,site);
+    //   }, 1000);
+      
+    // }
+    // else{
+    //   this.destroy = false;
+    // this.value=false;
+    // }
     // this.viewContainerRef.clear();
     // this.destroy = true;
     // const verificationFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
     // const verificationRef = this.viewContainerRef.createComponent(verificationFactory);
     // verificationRef.changeDetectorRef.detectChanges();
     // this.change.emit(siteId);
-    this.viewContainerRef.clear();
-    this.destroy = true;
-    this.value=true;
-    setTimeout(()=>{
-      this.verification.changeTab(0,siteId,userName,companyName,departmentName,site);
-    }, 1000);
-    this.service.disableFields=false;
-    } 
-    else {
-      this.destroy = false;
-      this.value=false;
-    }
   }
 
   viewSite(siteId: any,userName: any,site: any,departmentName:any,companyName:any){
@@ -222,25 +250,50 @@ export class LicenselistComponent implements OnInit {
     this.service.disableSubmitSummary=true;
     this.service.disableFields=true;
     this.service.allFieldsDisable = true;
+    const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+      width: '420px',
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.editModal = false;
+    dialogRef.componentInstance.viewModal = true;
+    dialogRef.componentInstance.triggerModal = false;
+    dialogRef.componentInstance.linkModal = false;
+    dialogRef.componentInstance.summaryModal = false;
 
-    if (confirm("Are you sure you want to view site details?"))
-  {
-    // this.viewContainerRef.clear();
-    // this.destroy = true;
-    // const verificationFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
-    // const verificationRef = this.viewContainerRef.createComponent(verificationFactory);
-    // verificationRef.changeDetectorRef.detectChanges();
-    this.viewContainerRef.clear();
-    this.destroy = true;
-    this.value=true;
-    setTimeout(()=>{
-      this.verification.changeTab(0,siteId,userName,companyName,departmentName,site);
-    }, 1000);
-  } 
-  else {
-    this.destroy = false;
-    this.value=false;
-  } 
+    dialogRef.componentInstance.confirmBox.subscribe(data=>{
+      if(data) {
+        this.viewContainerRef.clear();
+        this.destroy = true;
+        this.value=true;
+        setTimeout(()=>{
+          this.verification.changeTab(0,siteId,userName,companyName,departmentName,site);
+        }, 1000);
+      }
+      else{
+        this.destroy = false;
+        this.value=false;
+        +3
+      }
+    })
+  //   if (confirm("Are you sure you want to view site details?"))
+  // {
+  //   // this.viewContainerRef.clear();
+  //   // this.destroy = true;
+  //   // const verificationFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
+  //   // const verificationRef = this.viewContainerRef.createComponent(verificationFactory);
+  //   // verificationRef.changeDetectorRef.detectChanges();
+  //   this.viewContainerRef.clear();
+  //   this.destroy = true;
+  //   this.value=true;
+  //   setTimeout(()=>{
+  //     this.verification.changeTab(0,siteId,userName,companyName,departmentName,site);
+  //   }, 1000);
+  // } 
+  // else {
+  //   this.destroy = false;
+  //   this.value=false;
+  // } 
   }
   pdfModal(siteId: any,userName: any){
     this.disable=false;
