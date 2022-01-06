@@ -577,13 +577,13 @@ input::-webkit-inner-spin-button {
   border-top-color: rgba(0, 0, 0, 0.12);
   flex: auto;
   height: 0;
-  margin: 7px 0 0 213px;
+  margin: 7px 0 0 142px;
   min-width: 32px;
   position: static;
-  width: 142px;
+  width: 213px;
 }
 .globalSite .mat-tab-header {
-  width: 90% !important;
+  width: 85% !important;
 }
 /* for observation glow start*/
 .glow {
