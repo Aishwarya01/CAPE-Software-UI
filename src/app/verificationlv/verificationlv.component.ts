@@ -351,9 +351,10 @@ export class VerificationlvComponent implements OnInit {
     }
   }
 
-  siteNameMethod(){
+  siteNameMethod(contentSiteName:any){
     if(this.siteN.length > 15){
-      alert("Full Site Name:\r\n" + this.siteN);
+      this.modalService.open(contentSiteName, { size: 'sm', centered: true,backdrop: 'static'});
+      //alert("Full Site Name:\r\n" + this.siteN);
     }
   }
 

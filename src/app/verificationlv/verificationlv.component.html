@@ -2,7 +2,7 @@
   <h3 style="color: lightslategrey;
   font-weight: 500;position: absolute;
     top: -20px;" > Showing Site Name: 
-    <a style="cursor: pointer; text-decoration: underline;color: black;" (click)="siteNameMethod();">{{siteN | truncate : 15 : "..."}}</a>
+    <a style="cursor: pointer; text-decoration: underline;color: black;" (click)="siteNameMethod(contentSiteName);">{{siteN | truncate : 15 : "..."}}</a>
   <div class="horizontalLine"></div>
  </h3> 
 </div>
@@ -285,7 +285,6 @@
 
 <!-- Exeption Messages For Site -->
 <ng-template #sitedelete let-modal>
-
   <div class="modal-body">
    <div class="centre-text m-btm30">
     <div *ngIf="success" style="text-align: center;">
@@ -297,7 +296,25 @@
     </div>
    </div>
   <br>
-  <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"  (click)="closeModalDialog()">
+  <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" 
+  aria-label="Close"  (click)="closeModalDialog()">
     <span aria-hidden="true">Ok</span>
   </button>
+</ng-template>
+
+<ng-template #contentSiteName let-modal>
+  <div class="modal-body">
+      <div class="centre-text m-btm30">
+          <div style="text-align: center;">
+            Full Site Name:
+          </div>
+          <div class="successshow">
+             {{siteN}}
+          </div>
+      </div>
+  </div>
+  <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+  aria-label="Close" (click)="closeModalDialog()">
+   <span aria-hidden="true">Ok</span>
+</button>
 </ng-template>
