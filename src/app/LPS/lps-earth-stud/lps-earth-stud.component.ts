@@ -71,6 +71,10 @@ export class LpsEarthStudComponent implements OnInit {
     });
   }
 
+  reset(){
+    this.EarthStudForm.reset();
+  }
+
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
       // this.service.lvClick=1;
 

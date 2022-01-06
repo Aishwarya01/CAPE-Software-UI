@@ -443,6 +443,9 @@ export class InspectionVerificationTestingComponent implements OnInit {
   }
 }
 
+reset(){
+  this.testingForm.reset();
+  }
    // Only Accept numbers
    keyPressNumbers(event:any) {
     var charCode = (event.which) ? event.which : event.keyCode;

@@ -563,44 +563,44 @@ export class VerificationlvComponent implements OnInit {
            {
             this.selectedIndex=0; 
             //--need to fix later--
-              // if(this.currentUser1.role == 'Inspector'){
-              //   this.siteService.retrieveListOfSite(this.email).subscribe(
-              //     data => {
-              //       this.siteData1 = JSON.parse(data);
-              //       for(let i of this.siteData1){
-              //         if(i.siteId == this.service.siteCount){
-              //           //this.counter++;
-              //           // this.basic.ngOnInit();
-              //           // this.supply.ngOnInit();
-              //           // this.incoming.ngOnInit();
-              //           // this.testing.ngOnInit();
-              //           // this.summary.ngOnInit();
-              //           this.changeTab(0, i.siteId, this.email, i.companyName, i.departmentName, i.site);
-              //           //this.changeTab(0, 2491, 'aishwarya547541@gmail.com', 'dvd', 'vdv', 'confimation box');
-              //         }
-              //       }
-              //     }
-              //   )
-              // }
-              // else {
-              //   if(this.currentUser1.assignedBy != null){
-              //     this.siteService.retrieveListOfSite(this.currentUser1.assignedBy).subscribe(
-              //       data => {
-              //         this.siteData1 = JSON.parse(data);
-              //         for(let i of this.siteData1){ 
-              //           if(i.siteId == this.service.siteCount){
-              //             // this.basic.ngOnInit();
-              //             // this.supply.ngOnInit();
-              //             // this.incoming.ngOnInit();
-              //             // this.testing.ngOnInit();
-              //             // this.summary.ngOnInit();
-              //             this.changeTab(0, i.siteId, this.currentUser1.assignedBy, i.companyName, i.departmentName, i.site);
-              //           }
-              //         }
-              //       }
-              //     )
-              //   }
-              // }
+              if(this.currentUser1.role == 'Inspector'){
+                this.siteService.retrieveListOfSite(this.email).subscribe(
+                  data => {
+                    this.siteData1 = JSON.parse(data);
+                    for(let i of this.siteData1){
+                      if(i.siteId == this.service.siteCount){
+                        //this.counter++;
+                        this.basic.reset();
+                        this.supply.reset();
+                        this.incoming.reset();
+                        this.testing.reset();
+                        this.summary.reset();
+                        this.changeTab(0, i.siteId, this.email, i.companyName, i.departmentName, i.site);
+                        //this.changeTab(0, 2491, 'aishwarya547541@gmail.com', 'dvd', 'vdv', 'confimation box');
+                      }
+                    }
+                  }
+                )
+              }
+              else {
+                if(this.currentUser1.assignedBy != null){
+                  this.siteService.retrieveListOfSite(this.currentUser1.assignedBy).subscribe(
+                    data => {
+                      this.siteData1 = JSON.parse(data);
+                      for(let i of this.siteData1){ 
+                        if(i.siteId == this.service.siteCount){
+                          this.basic.reset();
+                          this.supply.reset();
+                          this.incoming.reset();
+                          this.testing.reset();
+                          this.summary.reset();
+                          this.changeTab(0, i.siteId, this.currentUser1.assignedBy, i.companyName, i.departmentName, i.site);
+                        }
+                      }
+                    }
+                  )
+                }
+              }
           }
           else if((tabs==="Saved Reports")){
             this.selectedIndex=1; 
@@ -899,6 +899,13 @@ changeTab(index: number, sitedId: any, userName: any, companyName: any, departme
 //for continue button in saved reports
 changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any,flag:any) {
   this.selectedIndex = 1;
+
+  this.basic.reset();
+  this.supply.reset();
+  this.summary.reset();
+  this.incoming.reset();
+  this.testing.reset();
+
  // this.logger.log('changeTab started');
   this.siteService.retrieveFinal(userName,sitedId).subscribe(
     data=> {

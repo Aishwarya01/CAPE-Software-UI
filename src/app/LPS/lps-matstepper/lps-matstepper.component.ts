@@ -162,6 +162,15 @@ export class LpsMatstepperComponent implements OnInit {
   public changeTabLpsSavedReport(index: number, basicLpsId: any, userName: any, clientName: any) {
    
     this.selectedIndex = 1;
+
+    this.basic.reset();
+    this.airTermination.reset();
+    this.downConductors.reset();
+    this.earthing.reset();
+    this.spd.reset();
+    this.seperationDistance.reset();
+    this.earthStud.reset();
+
     this.basicLpsService.retrieveFinalLps(userName,basicLpsId).subscribe(
       (data) => {
         this.dataJSON = JSON.parse(data);

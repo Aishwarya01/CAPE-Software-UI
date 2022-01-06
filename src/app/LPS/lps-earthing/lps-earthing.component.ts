@@ -96,6 +96,10 @@ export class LpsEarthingComponent implements OnInit {
     }
   }
 
+  reset(){
+    this.earthingForm.reset();
+  }
+
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
       // this.service.lvClick=1;
 

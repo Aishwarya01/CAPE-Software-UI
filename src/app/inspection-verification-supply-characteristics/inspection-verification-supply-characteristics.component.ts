@@ -3217,6 +3217,11 @@ showHideAccordion(index: number) {
     this.service.windowTabClick=1;
    }
   } 
+
+  reset(){
+    this.supplycharesteristicForm.reset();
+    }
+     
   gotoNextModal(content1: any,content2:any) {
     if (this.supplycharesteristicForm.invalid) {
       this.validationError = true;

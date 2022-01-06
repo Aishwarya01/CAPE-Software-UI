@@ -310,6 +310,10 @@ export class SummaryComponent implements OnInit {
     this.ChangeDetectorRef.detectChanges();
   }
  
+  reset(){
+    this.addsummary.reset();
+    }
+
   retreiveFromObservation(){
     if(this.service.siteCount!=0 && this.service.siteCount!=undefined){
     this.observationService.retrieveObservationSummary(this.service.siteCount, this.email).subscribe(

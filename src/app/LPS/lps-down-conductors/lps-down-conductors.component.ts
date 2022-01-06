@@ -112,6 +112,10 @@ export class LpsDownConductorsComponent implements OnInit {
     }
   }
 
+  reset(){
+    this.downConductorForm.reset();
+  }
+
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
       //this.service.lvClick=1;
 

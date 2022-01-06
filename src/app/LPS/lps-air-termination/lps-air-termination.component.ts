@@ -115,6 +115,10 @@ export class LpsAirTerminationComponent implements OnInit {
     }
   }
 
+  reset(){
+    this.airTerminationForm.reset();
+  }
+
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
       // this.service.lvClick=1;
 
