@@ -76,6 +76,10 @@ export class LpsSpdComponent implements OnInit {
     });
   }
 
+  reset(){
+    this.spdForm.reset();
+  }
+
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
     // this.service.lvClick=1;
 

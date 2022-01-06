@@ -120,6 +120,10 @@ export class LpsBasicPageComponent implements OnInit {
     this.flag=true;
     }
 
+    reset(){
+      this.LPSBasicForm.reset();
+    }
+
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
       //this.service.lvClick=1;
 

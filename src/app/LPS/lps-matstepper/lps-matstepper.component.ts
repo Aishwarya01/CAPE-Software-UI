@@ -24,6 +24,7 @@ import { AirterminationService } from 'src/app/LPS_services/airtermination.servi
 import { SeparatedistanceService } from 'src/app/LPS_services/separatedistance.service';
 import { MatTabGroup, MatTabHeader, MatTab } from '@angular/material/tabs';
 import { GlobalsService } from 'src/app/globals.service';
+import { ConfirmationBoxComponent } from 'src/app/confirmation-box/confirmation-box.component';
 
 @Component({
   selector: 'app-lps-matstepper',
@@ -73,7 +74,7 @@ export class LpsMatstepperComponent implements OnInit {
   isEditable:boolean=false;
 
   constructor(
-    private _formBuilder: FormBuilder,
+    private _formBuilder: FormBuilder,private dialog: MatDialog,
     private basicLpsService: LPSBasicDetailsService,
     private router: ActivatedRoute, public service: GlobalsService,
     private ChangeDetectorRef: ChangeDetectorRef,) { 
@@ -161,6 +162,15 @@ export class LpsMatstepperComponent implements OnInit {
   public changeTabLpsSavedReport(index: number, basicLpsId: any, userName: any, clientName: any) {
    
     this.selectedIndex = 1;
+
+    this.basic.reset();
+    this.airTermination.reset();
+    this.downConductors.reset();
+    this.earthing.reset();
+    this.spd.reset();
+    this.seperationDistance.reset();
+    this.earthStud.reset();
+
     this.basicLpsService.retrieveFinalLps(userName,basicLpsId).subscribe(
       (data) => {
         this.dataJSON = JSON.parse(data);
@@ -230,15 +240,37 @@ export class LpsMatstepperComponent implements OnInit {
   interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
     if((this.service.lvClick==1) && (this.service.allStepsCompleted==true))
        {
-        if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
-          this.selectedIndex=1; 
-          this.service.windowTabClick=0;
-          this.service.logoutClick=0; 
-          this.service.lvClick=0; 
-      }
-      else{
-        return;
-      }
+        const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+          width: '420px',
+          maxHeight: '90vh',
+          disableClose: true,
+        });
+        dialogRef.componentInstance.editModal = false;
+        dialogRef.componentInstance.viewModal = false;
+        dialogRef.componentInstance.triggerModal = true;
+        dialogRef.componentInstance.linkModal = false;
+        dialogRef.componentInstance.summaryModal = false;
+    
+        dialogRef.componentInstance.confirmBox.subscribe(data=>{
+          if(data) {
+            this.selectedIndex=1; 
+            this.service.windowTabClick=0;
+            this.service.logoutClick=0; 
+            this.service.lvClick=0; 
+          }
+          else{
+            return;
+          }
+        })
+      //   if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
+      //     this.selectedIndex=1; 
+      //     this.service.windowTabClick=0;
+      //     this.service.logoutClick=0; 
+      //     this.service.lvClick=0; 
+      // }
+      // else{
+      //   return;
+      // }
         }
         else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
         this.service.windowTabClick=0;

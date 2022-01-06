@@ -1006,6 +1006,10 @@ showHideAccordion(index: number) {
     }
   } 
 
+  reset(){
+    this.step1Form.reset();
+  }
+
   //**Important */
 // Only AlphaNumeric with Some Characters [-_ ]
   keyPressAlphaNumericWithCharacters(event:any) {

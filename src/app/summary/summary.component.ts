@@ -41,6 +41,7 @@ import { LvInspectionDetailsComponent } from '../lv-inspection-details/lv-inspec
 import { LicenselistComponent } from '../licenselist/licenselist.component';
 import { ObservationService } from '../services/observation.service';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
 
 @Component({
   selector: 'app-summary',
@@ -309,6 +310,10 @@ export class SummaryComponent implements OnInit {
     this.ChangeDetectorRef.detectChanges();
   }
  
+  reset(){
+    this.addsummary.reset();
+    }
+
   retreiveFromObservation(){
     if(this.service.siteCount!=0 && this.service.siteCount!=undefined){
     this.observationService.retrieveObservationSummary(this.service.siteCount, this.email).subscribe(
@@ -1641,12 +1646,30 @@ showHideAccordion(index: number) {
       // }, 3000);
       return;
     }
-    if(!confirm("Are you sure you want to procced?\r\n\r\nNote: Once saved, details can't be modified!")){
-     return;
-    }
-  else{
-      this.modalService.open(content5, { centered: true, backdrop: 'static'});
-  }
+    const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+      width: '420px',
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.editModal = false;
+    dialogRef.componentInstance.viewModal = false;
+    dialogRef.componentInstance.triggerModal = false;
+    dialogRef.componentInstance.linkModal = false;
+    dialogRef.componentInstance.summaryModal = true;
+    dialogRef.componentInstance.confirmBox.subscribe(data=>{
+      if(data) {
+        return;
+      }
+      else{
+        this.modalService.open(content5, { centered: true, backdrop: 'static'});
+      }
+    })
+  //   if(!confirm("Are you sure you want to procced?\r\n\r\nNote: Once saved, details can't be modified!")){
+  //    return;
+  //   }
+  // else{
+  //     this.modalService.open(content5, { centered: true, backdrop: 'static'});
+  // }
   this.summaryObervation=this.addsummary.get('summaryObervation') as FormArray;
   this.ObservationsArr=this.addsummary.get('ObservationsArr') as FormArray;
 

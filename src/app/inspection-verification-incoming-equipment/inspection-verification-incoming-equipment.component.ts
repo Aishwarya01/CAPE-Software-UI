@@ -1534,6 +1534,10 @@ showHideAccordion(index: number) {
   //   )
   // }   
   //    }
+
+  reset(){
+    this.addstep3.reset();
+    }
      
   nextTab3(flag: any) {
     if(!flag) {

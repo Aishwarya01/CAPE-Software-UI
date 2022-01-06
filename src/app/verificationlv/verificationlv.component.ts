@@ -49,6 +49,8 @@ import { FinalreportsComponent } from '../finalreports/finalreports.component';
 import { ObservationService } from '../services/observation.service';
 import {Pipe, PipeTransform } from '@angular/core';
 import { MatTabGroup, MatTabHeader, MatTab } from '@angular/material/tabs';
+//import { NGXLogger } from 'ngx-logger';
+import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
 
 @Component({
   selector: 'app-verificationlv',
@@ -233,7 +235,7 @@ export class VerificationlvComponent implements OnInit {
   currentUser: any = [];
   currentUser1: any = [];
   //counter: number=0;
-
+//private logger: NGXLogger,
   constructor(
     private _formBuilder: FormBuilder,
     private modalService: NgbModal,
@@ -349,9 +351,10 @@ export class VerificationlvComponent implements OnInit {
     }
   }
 
-  siteNameMethod(){
+  siteNameMethod(contentSiteName:any){
     if(this.siteN.length > 15){
-      alert("Full Site Name:\r\n" + this.siteN);
+      this.modalService.open(contentSiteName, { size: 'sm', centered: true,backdrop: 'static'});
+      //alert("Full Site Name:\r\n" + this.siteN);
     }
   }
 
@@ -520,15 +523,37 @@ export class VerificationlvComponent implements OnInit {
   interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
     if((this.service.lvClick==1) && (this.service.allStepsCompleted==true))
        {
-        if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
-          this.selectedIndex=1; 
-          this.service.windowTabClick=0;
-          this.service.logoutClick=0; 
-          this.service.lvClick=0; 
-      }
-      else{
-        return;
-      }
+        const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+          width: '420px',
+          maxHeight: '90vh',
+          disableClose: true,
+        });
+        dialogRef.componentInstance.editModal = false;
+        dialogRef.componentInstance.viewModal = false;
+        dialogRef.componentInstance.triggerModal = true;
+        dialogRef.componentInstance.linkModal = false;
+        dialogRef.componentInstance.summaryModal = false;
+
+        dialogRef.componentInstance.confirmBox.subscribe(data=>{
+          if(data) {
+            this.selectedIndex=1; 
+            this.service.windowTabClick=0;
+            this.service.logoutClick=0; 
+            this.service.lvClick=0; 
+          }
+          else{
+            return;
+          }
+        })
+      //   if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
+      //     this.selectedIndex=1; 
+      //     this.service.windowTabClick=0;
+      //     this.service.logoutClick=0; 
+      //     this.service.lvClick=0; 
+      // }
+      // else{
+      //   return;
+      // }
         }
         else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
         this.service.windowTabClick=0;
@@ -539,44 +564,44 @@ export class VerificationlvComponent implements OnInit {
            {
             this.selectedIndex=0; 
             //--need to fix later--
-              // if(this.currentUser1.role == 'Inspector'){
-              //   this.siteService.retrieveListOfSite(this.email).subscribe(
-              //     data => {
-              //       this.siteData1 = JSON.parse(data);
-              //       for(let i of this.siteData1){
-              //         if(i.siteId == this.service.siteCount){
-              //           //this.counter++;
-              //           // this.basic.ngOnInit();
-              //           // this.supply.ngOnInit();
-              //           // this.incoming.ngOnInit();
-              //           // this.testing.ngOnInit();
-              //           // this.summary.ngOnInit();
-              //           this.changeTab(0, i.siteId, this.email, i.companyName, i.departmentName, i.site);
-              //           //this.changeTab(0, 2491, 'aishwarya547541@gmail.com', 'dvd', 'vdv', 'confimation box');
-              //         }
-              //       }
-              //     }
-              //   )
-              // }
-              // else {
-              //   if(this.currentUser1.assignedBy != null){
-              //     this.siteService.retrieveListOfSite(this.currentUser1.assignedBy).subscribe(
-              //       data => {
-              //         this.siteData1 = JSON.parse(data);
-              //         for(let i of this.siteData1){ 
-              //           if(i.siteId == this.service.siteCount){
-              //             // this.basic.ngOnInit();
-              //             // this.supply.ngOnInit();
-              //             // this.incoming.ngOnInit();
-              //             // this.testing.ngOnInit();
-              //             // this.summary.ngOnInit();
-              //             this.changeTab(0, i.siteId, this.currentUser1.assignedBy, i.companyName, i.departmentName, i.site);
-              //           }
-              //         }
-              //       }
-              //     )
-              //   }
-              // }
+              if(this.currentUser1.role == 'Inspector'){
+                this.siteService.retrieveListOfSite(this.email).subscribe(
+                  data => {
+                    this.siteData1 = JSON.parse(data);
+                    for(let i of this.siteData1){
+                      if(i.siteId == this.service.siteCount){
+                        //this.counter++;
+                        this.basic.reset();
+                        this.supply.reset();
+                        this.incoming.reset();
+                        this.testing.reset();
+                        this.summary.reset();
+                        this.changeTab(0, i.siteId, this.email, i.companyName, i.departmentName, i.site);
+                        //this.changeTab(0, 2491, 'aishwarya547541@gmail.com', 'dvd', 'vdv', 'confimation box');
+                      }
+                    }
+                  }
+                )
+              }
+              else {
+                if(this.currentUser1.assignedBy != null){
+                  this.siteService.retrieveListOfSite(this.currentUser1.assignedBy).subscribe(
+                    data => {
+                      this.siteData1 = JSON.parse(data);
+                      for(let i of this.siteData1){ 
+                        if(i.siteId == this.service.siteCount){
+                          this.basic.reset();
+                          this.supply.reset();
+                          this.incoming.reset();
+                          this.testing.reset();
+                          this.summary.reset();
+                          this.changeTab(0, i.siteId, this.currentUser1.assignedBy, i.companyName, i.departmentName, i.site);
+                        }
+                      }
+                    }
+                  )
+                }
+              }
           }
           else if((tabs==="Saved Reports")){
             this.selectedIndex=1; 
@@ -789,11 +814,15 @@ export class VerificationlvComponent implements OnInit {
   //     }
   //   )
   // }
+
 //for ongoing & completed
+
 changeTab(index: number, sitedId: any, userName: any, companyName: any, departmentName: any, site: any): void {
   // this.selectedIndex=1;
+ // this.logger.error('changeTab started');
   this.siteService.retrieveFinal(userName,sitedId).subscribe(
     data=> {
+      //this.logger.debug('data fetched');
       //this.selectedIndex = index;
       this.dataJSON = JSON.parse(data);
       if(this.dataJSON.reportDetails != null) {
@@ -866,10 +895,19 @@ changeTab(index: number, sitedId: any, userName: any, companyName: any, departme
 
     }
   )
+  //this.logger.debug('finished');
 }
 //for continue button in saved reports
 changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any,flag:any) {
   this.selectedIndex = 1;
+
+  this.basic.reset();
+  this.supply.reset();
+  this.summary.reset();
+  this.incoming.reset();
+  this.testing.reset();
+
+ // this.logger.log('changeTab started');
   this.siteService.retrieveFinal(userName,sitedId).subscribe(
     data=> {
       //this.selectedIndex = index;

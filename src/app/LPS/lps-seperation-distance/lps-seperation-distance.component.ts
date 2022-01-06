@@ -93,6 +93,10 @@ export class LpsSeperationDistanceComponent implements OnInit {
     });
   }
 
+  reset(){
+    this.separeteDistanceForm.reset();
+  }
+
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
       // this.service.lvClick=1;
 
