@@ -1926,6 +1926,7 @@ showHideAccordion(index: number) {
     }
     private createLocation2Form(): FormGroup {
       return new FormGroup({
+        locationReportId: new FormControl(''),
         location: new FormControl('', [Validators.required]),
         jointNo: new FormControl('', [Validators.required]),
         jointReference: new FormControl('', [Validators.required]),
@@ -1936,6 +1937,7 @@ showHideAccordion(index: number) {
 
   private createLocation1Form(): FormGroup {
     return new FormGroup({
+      locationReportId: new FormControl(''),
       locationNo: new FormControl('', [Validators.required]),
       locationName: new FormControl('', [Validators.required]),
       electrodeEarthType: new FormControl('', [Validators.required]),
@@ -1950,6 +1952,7 @@ showHideAccordion(index: number) {
 
   private createLocation3Form(): FormGroup {
     return new FormGroup({
+      locationReportId: new FormControl(''),
       location: new FormControl('', [Validators.required]),
       jointNo: new FormControl('', [Validators.required]),
       jointReference: new FormControl('', [Validators.required]),
@@ -2151,6 +2154,7 @@ showHideAccordion(index: number) {
   // }
 
   onKey1(event: KeyboardEvent) {
+    debugger
     this.values = (<HTMLInputElement>event.target).value;
     this.value = this.values;
     this.location1Arr = this.supplycharesteristicForm.get(
@@ -2198,7 +2202,7 @@ showHideAccordion(index: number) {
         this.delarr = this.location1Arr.length - this.value;
         for (this.i = 0; this.i < this.delarr; this.i++) {
 
-          let a = this.location1Arr.value[this.i];
+          let a = this.location1Arr.value[this.location1Arr.length-1];
           if(a.locationReportId != 0 && a.locationReportId != undefined && a.locationReportId != ''){
             a.instalLocationReportStatus = 'R';
             this.locationArr = this.locationArr.concat(a);
@@ -2369,7 +2373,7 @@ showHideAccordion(index: number) {
           this.delarr = this.location2Arr.length - this.value;
           for (this.i = 0; this.i < this.delarr; this.i++) {
 
-            let a = this.location2Arr.value[this.i];
+            let a = this.location2Arr.value[this.location2Arr.length-1];
             if(a.locationReportId != 0 && a.locationReportId != undefined && a.locationReportId != ''){
             a.instalLocationReportStatus = 'R';
             this.boundingArr = this.boundingArr.concat(a);
@@ -2568,7 +2572,7 @@ showHideAccordion(index: number) {
         
           this.delarr = this.location3Arr.length - this.value;
           for (this.i = 0; this.i < this.delarr; this.i++) {
-            let a = this.location3Arr.value[this.i];
+            let a = this.location3Arr.value[this.location3Arr.length-1];
             a.instalLocationReportStatus = 'R';
             this.earthingArr = this.earthingArr.concat(a);
             this.location3Arr = this.supplycharesteristicForm.get(
