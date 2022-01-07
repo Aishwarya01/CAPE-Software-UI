@@ -237,6 +237,7 @@ export class LpsMatstepperComponent implements OnInit {
     
     this.ChangeDetectorRef.detectChanges();
   }
+
   interceptTabChange(tab: MatTab, tabHeader: MatTabHeader) {
     if((this.service.lvClick==1) && (this.service.allStepsCompleted==true))
        {
@@ -278,8 +279,17 @@ export class LpsMatstepperComponent implements OnInit {
         this.service.lvClick=0; 
         const tabs = tab.textLabel;
         if((tabs==="Lightning Protection System"))
+          
            {
               this.selectedIndex=0; 
+              this.basic.reset();
+              this.airTermination.reset();
+              this.downConductors.reset();
+              this.earthing.reset();
+              this.spd.reset();
+              this.seperationDistance.reset();
+              this.earthStud.reset();
+              this.changeTab1(0);
           }
           else if((tabs==="Saved Reports")){
             this.selectedIndex=1; 
