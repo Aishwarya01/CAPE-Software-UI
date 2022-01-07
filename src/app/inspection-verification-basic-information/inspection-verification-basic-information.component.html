@@ -295,7 +295,7 @@
                   <mat-label><h3>Details Of Client / Person Ordering This Report</h3></mat-label>
                   <textarea matInput class="client-box-description" formControlName="detailsOfClient" [disabled]="service.allFieldsDisable"
                   [ngClass]="{ 'is-invalid': submitted && f.detailsOfClient.errors }" readonly style="background-color: #e9ecef;"
-                  placeholder=" Ex. Name, address ,purpose ,relation with end user.." 
+                  placeholder="Ex. Name, address ,purpose ,relation with end user.." 
                   [(ngModel)]="reportDetails.clientDetails"></textarea>
                   <div *ngIf="submitted && f.detailsOfClient.errors" class="invalid-feedback">
                     <div *ngIf="f.detailsOfClient?.errors?.required">Details Of client is required</div>
@@ -378,7 +378,7 @@
                   <mat-label><h3>Details Of Installation Referred In This Report * (maximum length is 75 )</h3></mat-label>
                   <textarea matInput class="client-box-description" formControlName="detailsOfInstallation" maxlength="75" 
                   [ngClass]="{ 'is-invalid': submitted && f.detailsOfInstallation.errors }" [readonly]="service.allFieldsDisable"
-                  placeholder=" Ex. Occupier ,address details etc.." [(ngModel)]="reportDetails.installationDetails"></textarea>
+                  placeholder="Ex. Occupier ,address details etc.." [(ngModel)]="reportDetails.installationDetails"></textarea>
                   <div *ngIf="submitted && f.detailsOfInstallation.errors" class="invalid-feedback">
                     <div *ngIf="f.detailsOfInstallation?.errors?.required">Details Of installation is required</div>
                 </div>

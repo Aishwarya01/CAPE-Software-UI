@@ -930,7 +930,7 @@
 
         <div class="col-md-4">
             <label>Location</label>
-            <input type="text" formControlName="location"  placeholder=" Enter Location Name" 
+            <input type="text" formControlName="location"  placeholder="Enter Location Name" 
             (keyup)="ChangeLocation($event,a,i)" (focusout)="onFocusOutEventLocation($event,b)"
             class="form-control"[ngClass]="{ 'is-invalid': submitted && b.get('location')?.errors }" [readonly]="service.allFieldsDisable" >
             <div *ngIf="submitted && b.get('location')?.errors" class="invalid-feedback">
@@ -1456,7 +1456,7 @@
     
             <div class="col-md-4">
                 <label>Location</label>
-                <input type="text" formControlName="location"  placeholder=" Enter Location Name" 
+                <input type="text" formControlName="location"  placeholder="Enter Location Name" 
                 readonly
                 class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('location')?.errors }" >
                 <div *ngIf="submitted && c.get('location')?.errors" class="invalid-feedback">
