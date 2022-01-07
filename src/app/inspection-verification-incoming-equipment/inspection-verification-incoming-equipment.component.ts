@@ -1451,13 +1451,9 @@ showHideAccordion(index: number) {
   // }   
   //    }
   intermedeateIpaoSave(content3:any){
-    debugger
     this.intermediateSave=true;
     this.successMsg="intermediateSucessfully Saved";
-   
-    
- //   this.nextTab3(false)
-    if(this.addstep3.touched || this.addstep3.untouched){
+    if(this.addstep3.touched){
       this.modalReference = this.modalService.open(content3, {
          centered: true, 
          size: 'md',
@@ -1470,12 +1466,9 @@ showHideAccordion(index: number) {
     
   }
   intermedeateIpaoSave1(content3:any){
-    debugger
     this.intermediateSave=true;
     this.successMsg="intermediateSucessfully Saved from Consumer and Circuite";
-   
-
-    if(this.addstep3.touched || this.addstep3.untouched){
+     if(this.addstep3.touched){
       this.modalReference = this.modalService.open(content3, {
          centered: true, 
          size: 'md',
