@@ -315,7 +315,7 @@
 
                                 <div class="col-md-4">
                                     <label>Total number of output circuits including spare </label>
-                                    <input type="number" min="0" formControlName="numOutputCircuitsSpare"  [readonly]="service.allFieldsDisable" placeholder=" Enter Number of output circuits - Spare"class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('numOutputCircuitsSpare')?.errors }"  >
+                                    <input type="number" min="0" formControlName="numOutputCircuitsSpare"  [readonly]="service.allFieldsDisable" placeholder="Enter Number of output circuits - Spare"class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('numOutputCircuitsSpare')?.errors }"  >
                                     <div *ngIf="submitted && c.get('numOutputCircuitsSpare')?.errors" class="invalid-feedback">
                                       <div *ngIf="c.get('numOutputCircuitsSpare')?.errors?.required">Number of output circuits -spare value is required</div>
                                     </div>
@@ -323,7 +323,7 @@
                                 <div class="col-md-4">
                                   <label>Number Of Output Circuits Tested</label>
                                   <input type="tel" min="1" formControlName="numOutputCircuitsUse"  [readonly]="service.allFieldsDisable" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-                                  placeholder=" Enter Number of output circuits in use"
+                                  placeholder="Enter Number of output circuits tested"
                                   class="form-control"  (keyup)="onKey($event,c,z)" [ngClass]="{ 'is-invalid': submitted && c.get('numOutputCircuitsUse')?.errors }"  >
                                   <div *ngIf="submitted && c.get('numOutputCircuitsUse')?.errors" class="invalid-feedback">
                                     <div *ngIf="c.get('numOutputCircuitsUse')?.errors?.required">Number of output circuits in use value is required</div>
@@ -346,7 +346,7 @@
                                </mat-icon>
                                 <input type="number" min="0" [readonly]="service.allFieldsDisable" 
                                 formControlName="installedEquipmentVulnarable" 
-                                placeholder=" Enter Installed Equipment Vulnarable To  Testing Name"
+                                placeholder="Enter Installed Equipment Vulnarable To  Testing Name"
                                     class="form-control"
                                     [ngClass]="[submitted && c.get('installedEquipmentVulnarable')?.errors ? 'is-invalid' : '' , service.allFieldsDisable ? 'disableForm' : '']">
                                     <div *ngIf="submitted && c.get('installedEquipmentVulnarable')?.errors" class="invalid-feedback">
@@ -368,7 +368,7 @@
                                        </mat-icon>
                                         <input type="number" min="0" [readonly]="service.allFieldsDisable" 
                                         formControlName="ratingsAmps" 
-                                        class="form-control" placeholder=" Enter Ratings in Amps "
+                                        class="form-control" placeholder="Enter Ratings in Amps "
                                         [ngClass]="[submitted && d.get('ratingsAmps')?.errors ? 'is-invalid' : '' , service.allFieldsDisable ? 'disableForm' : '']">
                                         <div *ngIf="submitted && d.get('ratingsAmps')?.errors" class="invalid-feedback">
                                             <div *ngIf="d.get('ratingsAmps')?.errors?.required">Ratings in Amps value is required</div>
@@ -1219,7 +1219,7 @@ style="margin-left: 10px;" >
         </div>
         <br>
 
-        <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+        <button type="button" class="close" *ngIf="popup" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
         aria-label="Close" (click)="closeModalDialog()" matStepperNext>
          <span aria-hidden="true">Ok</span>
      </button>

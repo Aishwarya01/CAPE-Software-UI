@@ -1680,8 +1680,13 @@ for(let i of this.deletedInnerObservation) {
           this.successMsg = 'Incoming Equipment Successfully Updated';
           this.addstep3.markAsPristine();
           this.service.windowTabClick=0;
-       this.service.logoutClick=0; 
-       this.service.lvClick=0; 
+          this.service.logoutClick=0; 
+          this.service.lvClick=0; 
+          this.inspectionDetailsService.retrieveInspectionDetails(this.inspectionDetails.userName,this.inspectionDetails.siteId).subscribe(
+            data=>{
+            this.retrieveAllDetailsforIncoming(this.inspectionDetails.userName,this.inspectionDetails.siteId,data);
+            }
+      )
          },
          (error) => {
           this.popup=true;
