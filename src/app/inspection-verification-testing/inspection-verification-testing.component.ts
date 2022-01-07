@@ -268,6 +268,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   deleteObRecordDataFlag: boolean=false;
   finalSpinner: boolean = true;
   popup: boolean = false;
+  tempConsumerArr: any = [];
   
   constructor(
     private testingService: TestingService,
@@ -718,22 +719,25 @@ callValue(e: any) {
        this.retrieveDetailsforTesting(this.email,this.testingDetails.siteId,data);    
        
        setTimeout(() => {
+        this.testaccordianArr = this.testingForm.get(
+          'testaccordianArr'
+        ) as FormArray;
         if(this.incomingValues.ipaoInspection.length != this.testList1.testing.length) {
           this.tempArray = [];
           for(let i=0;  i<this.testList1.testing.length; i++) {
             for(let j=0;  j<this.incomingValues.ipaoInspection.length; j++) {
               if(this.incomingValues.ipaoInspection[j].locationCount != this.testList1.testing[i].locationCount) {
-               this.tempArray.push(this.incomingValues.ipaoInspection[j]);
+              this.tempArray.push(this.incomingValues.ipaoInspection[j]);
               } 
               else {
-               this.tempArray = [];
+              this.tempArray = [];
               }
             }
           }
- 
+
           if(this.tempArray.length != 0) {
             for(let k=0; k<this.tempArray.length; k++) {
-             this.addItem();
+            this.addItem();
             }
 
             for(let r = this.testList1.testing.length; r < this.testaccordianArr.controls.length; r++){
@@ -751,7 +755,7 @@ callValue(e: any) {
     
                 this.testaccordianArr.controls[r].controls.testDistRecords.controls[l].controls.testDistribution.controls[0].
                 controls.distributionBoardDetails.setValue(this.incomingValues.ipaoInspection[r].consumerUnit[l].distributionBoardDetails);
-               
+              
                 this.testaccordianArr.controls[r].controls.testDistRecords.controls[l].controls.testDistribution.controls[0].
                 controls.referance.setValue(this.incomingValues.ipaoInspection[r].consumerUnit[l].referance);
     
@@ -759,7 +763,7 @@ callValue(e: any) {
                 controls.location.setValue(this.incomingValues.ipaoInspection[r].consumerUnit[l].location);
               }
 
-               this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.email, this.service.siteCount).subscribe(
+              this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.email, this.service.siteCount).subscribe(
                 data=>{
                 this.supplyValues = JSON.parse(data);
                 for(let j of this.supplyValues.supplyParameters) {                  
@@ -778,24 +782,99 @@ callValue(e: any) {
                 this.testaccordianArr.controls[r].controls.locationCount.setValue(this.incomingValues.ipaoInspection[r].locationCount);
               }
           } 
-        }
+          for(let i=0; i<this.incomingValues.ipaoInspection.length; i++) {
+            if(this.incomingValues.ipaoInspection[i].locationCount == this.testList1.testing[i].locationCount) {
+              if(this.incomingValues.ipaoInspection[i].consumerUnit.length 
+                != this.testList1.testing[i].testDistRecords.length) {
 
-        // for(let i of this.incomingValues.ipaoInspection) {
-        //   for(let j of this.testList1.testing) {
-        //     if(i.locationCount == j.locationCount) {
-        //       for(let k of i.consumerUnit) {
-        //         for(let l of j.testDistRecords) {
-        //           if(k.locationCount != l.locationCount) {
-        //             debugger
-        //             console.log(k);
-        //           }
-        //         }
-        //       }
-        //     }
-        //   }
-        // }
+                let testDistRecords:any=[];
+                testDistRecords= this.testaccordianArr.controls[i].controls.testDistRecords as FormArray;
+
+                  for(let k=this.testList1.testing[i].testDistRecords.length;
+                    k<this.incomingValues.ipaoInspection[i].consumerUnit.length; k++) {
+                     testDistRecords.push(this.createtestDistRecordsForm());            
+                 }
+
+              for(let j=this.testList1.testing[i].testDistRecords.length ;
+                j<this.incomingValues.ipaoInspection[i].consumerUnit.length; j++) {
+                   
+                
+                this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].
+                controls.locationCount.setValue(this.incomingValues.ipaoInspection[i].consumerUnit[j].locationCount);
+    
+                this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].controls.testDistribution.controls[0].
+                controls.distributionBoardDetails.setValue(this.incomingValues.ipaoInspection[i].consumerUnit[j].distributionBoardDetails);
+                
+                this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].controls.testDistribution.controls[0].
+                controls.referance.setValue(this.incomingValues.ipaoInspection[i].consumerUnit[j].referance);
+    
+                this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].controls.testDistribution.controls[0].
+                controls.location.setValue(this.incomingValues.ipaoInspection[i].consumerUnit[j].location);
+
+                this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.email, this.service.siteCount).subscribe(
+                  data=>{
+                  this.supplyValues = JSON.parse(data);
+                  for(let k of this.supplyValues.supplyParameters) {                  
+                      let testingRecordsArr = this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].controls.testingRecords as FormArray;
+                      for(let y of testingRecordsArr.controls) {
+                        this.testingAlternateRecords = y.get('testingRecordsSourceSupply') as FormArray;
+                        this.testingAlternateRecords.push(this.createValue(this.supplyValues.mainLoopImpedance,k.nominalVoltage,k.loopImpedance));
+                      }
+                  }
+                  });
+                }
+              }
+            }
+          }
+        }
+        else {
+          for(let i=0; i<this.incomingValues.ipaoInspection.length; i++) {
+            if(this.incomingValues.ipaoInspection[i].locationCount == this.testList1.testing[i].locationCount) {
+              if(this.incomingValues.ipaoInspection[i].consumerUnit.length 
+                != this.testList1.testing[i].testDistRecords.length) {
+
+                let testDistRecords:any=[];
+                testDistRecords= this.testaccordianArr.controls[i].controls.testDistRecords as FormArray;
+
+                  for(let k=this.testList1.testing[i].testDistRecords.length;
+                    k<this.incomingValues.ipaoInspection[i].consumerUnit.length; k++) {
+                     testDistRecords.push(this.createtestDistRecordsForm());            
+                 }
+
+              for(let j=this.testList1.testing[i].testDistRecords.length ;
+                j<this.incomingValues.ipaoInspection[i].consumerUnit.length; j++) {
+                   
+                
+                this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].
+                controls.locationCount.setValue(this.incomingValues.ipaoInspection[i].consumerUnit[j].locationCount);
+    
+                this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].controls.testDistribution.controls[0].
+                controls.distributionBoardDetails.setValue(this.incomingValues.ipaoInspection[i].consumerUnit[j].distributionBoardDetails);
+                
+                this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].controls.testDistribution.controls[0].
+                controls.referance.setValue(this.incomingValues.ipaoInspection[i].consumerUnit[j].referance);
+    
+                this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].controls.testDistribution.controls[0].
+                controls.location.setValue(this.incomingValues.ipaoInspection[i].consumerUnit[j].location);
+
+                this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.email, this.service.siteCount).subscribe(
+                  data=>{
+                  this.supplyValues = JSON.parse(data);
+                  for(let k of this.supplyValues.supplyParameters) {                  
+                      let testingRecordsArr = this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].controls.testingRecords as FormArray;
+                      for(let y of testingRecordsArr.controls) {
+                        this.testingAlternateRecords = y.get('testingRecordsSourceSupply') as FormArray;
+                        this.testingAlternateRecords.push(this.createValue(this.supplyValues.mainLoopImpedance,k.nominalVoltage,k.loopImpedance));
+                      }
+                  }
+                  });
+                }
+              }
+            }
+          }
+        }
       }, 3000);	
-      }
+      } 
     )
   }
   //comments section starts
