@@ -1452,33 +1452,35 @@ showHideAccordion(index: number) {
   //    }
   intermedeateIpaoSave(content3:any){
     this.intermediateSave=true;
-    this.successMsg="intermediateSucessfully Saved";
+    this.successMsg="Partial Inspection Data Saved";
     if(this.addstep3.touched){
       this.modalReference = this.modalService.open(content3, {
          centered: true, 
          size: 'md',
          backdrop: 'static'
         })
-     }
+     
      setTimeout(() => {
       this.modalService.dismissAll((this.errorMsg = ""));
     }, 3000);
-    
+  }
   }
   intermedeateIpaoSave1(content3:any){
     this.intermediateSave=true;
-    this.successMsg="intermediateSucessfully Saved from Consumer and Circuite";
-     if(this.addstep3.touched){
+    this.successMsg="Partial Inspection Data Saved";
+   
+
+  if(this.addstep3.touched){
       this.modalReference = this.modalService.open(content3, {
          centered: true, 
          size: 'md',
          backdrop: 'static'
         })
-     }
+     
      setTimeout(() => {
       this.modalService.dismissAll((this.errorMsg = ""));
     }, 3000);
-    
+  }
     
   }
      
@@ -1648,6 +1650,7 @@ for(let i of this.deletedInnerObservation) {
         }
     }
     else {
+      if(this.addstep3.touched){
       this.inspectionDetailsService
       .addInspectionDetails(this.inspectionDetails)
       .subscribe(
@@ -1713,4 +1716,5 @@ for(let i of this.deletedInnerObservation) {
     }
     // this.verification.testingNgOnINit();
   }
+}
 }
