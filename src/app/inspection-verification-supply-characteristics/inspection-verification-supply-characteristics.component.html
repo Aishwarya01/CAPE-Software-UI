@@ -48,10 +48,9 @@
             </div>
             <br>
               <div class="row">
-              <div class="col-md-3">
+              <div class="col-md-3 SystemEarthingTT">
                 <label>System Earthing:</label>
-                <mat-icon style="float: right;font-size: 18px;
-                line-height: unset;margin-right: 50%;"
+                <mat-icon style="font-size: 18px;"
                 matTooltip="TN-C -system which has combined neutral and protective conductor. (i.e. body earthing is connected to the 
                 neutral at or after point of commencement of supply). 
                 TN-C-S – system which has combined neutral and protective conductor from source up to mains incoming panel.
@@ -83,10 +82,9 @@
               </div>
 
              
-              <div class="col-md-3"> 
+              <div class="col-md-3 TypeLiveCon"> 
                   <label>Type Of Live Conductors: </label>
-                  <mat-icon style="float: right;font-size: 18px;
-                  line-height: unset;margin-right: 35%;"
+                  <mat-icon style="font-size: 18px;"
                   matTooltip="DC is disabled now, since it is not commonly used."
                   matTooltipClass="multiline-tooltip"
                   aria-label="Button that shows a red tooltip"
@@ -119,10 +117,9 @@
             </div>
 
             
-              <div class="col-md-3" *ngIf="enableAC"> 
+              <div class="col-md-3 NumberOfCon" *ngIf="enableAC"> 
                   <label>Number of conductors:</label>
-                  <mat-icon style="float: right;font-size: 18px;
-                  line-height: unset;margin-right: 38%;"
+                  <mat-icon style="font-size: 18px;"
                   matTooltip="Single phase / three phase / three phase with neutral etc."
                   matTooltipClass="multiline-tooltip"
                   aria-label="Button that shows a red tooltip"
@@ -197,9 +194,8 @@
           </div>	
 <br>
           <div class="row" *ngIf="tableAC">
-            <div class="col-sm-12">
-              <mat-icon style="float: right;font-size: 18px;
-              line-height: unset;margin-right: 35%;margin-top: 0.5%;"
+            <div class="col-sm-12 SupplyParaTT">
+              <mat-icon style="font-size: 18px;"
               matTooltip="If 1-phase, 2-wire (LN) is selected, column L1-N, L1-PE to be filled. 
               If 1-phase, 3-wire (LLM) is selected, column L1-L2, L1-N, L2-N, L1-PE & L2-PE to be filled. 
               If 2-phase, 3-wire (LLN) is selected, column L1-L2, L1-N, L2-N, L1-PE & L2-PE to be filled. 
@@ -301,8 +297,8 @@
                         <td><input  type="text" style="width:50px;pointer-events: none;" formControlName="PF9" readonly [(ngModel)]="PF9"></td>
                       </tr>
                       <tr>
-                        <td>Capacity (kVA)
-                          <mat-icon style="line-height: unset;font-size: 18px;margin-right: 54%;float: right;"
+                        <td class="CapacityTT">Capacity (kVA)
+                          <mat-icon style="font-size: 18px;"
                           matTooltip="Capacity of DG, if alternative source is from state EB fill as not applicable"
                           matTooltipClass="multiline-tooltip"
                           aria-label="Button that shows a red tooltip"
@@ -327,14 +323,13 @@
          <br>
 
           <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-12 IncomingProTT">
               <h2>Incoming (Supply) Protective Device Characteristics:</h2>
               <div class="table-responsive" style="border: 1px solid black">
               <table  class="table">
                 <tr>
                   <td nowrap="nowrap">Type Of Over Current Protective Device
-                    <mat-icon style="float: right;font-size: 18px;
-                    line-height: unset;margin-right: 60%;"
+                    <mat-icon style="font-size: 18px;"
                     matTooltip="MCB/MCCB/RCBO/MCB with RCD/ACB with micrologic relay/ ACB with numerical protection relay."
                     matTooltipClass="multiline-tooltip"
                     aria-label="Button that shows a red tooltip"
@@ -352,8 +347,7 @@
               </tr>
                 <tr>
                   <td nowrap="nowrap">Rated current (A)
-                    <mat-icon style="float: right;font-size: 18px;
-                    line-height: unset;margin-right:79%;"
+                    <mat-icon style="font-size: 18px;"
                     matTooltip="Rated current mentioned in over current protective device."
                     matTooltipClass="multiline-tooltip"
                     aria-label="Button that shows a red tooltip"
@@ -372,8 +366,7 @@
               </tr>
                 <tr>
                   <td nowrap="nowrap">Current for Disconnection With in 0.2 seconds (A)
-                    <mat-icon style="float: right;font-size: 18px;
-                  line-height: unset;margin-right: 51%;"
+                    <mat-icon style="font-size: 18px;"
                   matTooltip="MCB: B curve 3-5 times rated current (eg. For B6 MCB, 30 A current is needed to trip the MCB. 
                   C curve 5-10 times rated current 
                   D curve 10-20 times rated current 
@@ -444,11 +437,10 @@
             </mat-expansion-panel-header>
             
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-6 IncomingProTT">
                 <div class="form-group">
                   <label> Availability of Alternate Supply:</label>
-                  <mat-icon style="float: right;font-size: 18px;
-                  line-height: unset;margin-right: 43%;"
+                  <mat-icon style="font-size: 18px;"
                   matTooltip="In-case of availability of standby source from EB or/and DG source."
                   matTooltipClass="multiline-tooltip"
                   aria-label="Button that shows a red tooltip"
@@ -470,10 +462,9 @@
                 </div>
               </div>
               
-              <div class="col-md-4" *ngIf="alternativeSupplyNo"> 
-                <label>Number of Alternate Sources of Supply:</label>
-                <mat-icon style="float: right;font-size: 18px;
-                line-height: unset;margin-right: 30%;"
+              <div class="col-md-6 AlternateSourceTT" *ngIf="alternativeSupplyNo"> 
+                <label style="width: 250px;">Number of Alternate Sources of Supply:</label>
+                <mat-icon style="font-size: 18px;"
                 matTooltip="Total number of alternative sources from state EB and DG’s."
                 matTooltipClass="multiline-tooltip"
                 aria-label="Button that shows a red tooltip"
@@ -514,10 +505,9 @@
                     </div>
                   </div> -->
                   <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 IncomingProTT">
                       <label>Alternate supply no:</label>
-                      <mat-icon style="float: right;font-size: 18px;
-                      line-height: unset;margin-right: 60%;"
+                      <mat-icon style="font-size: 18px;"
                       matTooltip="Start with 1 and continue sequentially."
                       matTooltipClass="multiline-tooltip"
                       aria-label="Button that shows a red tooltip"
@@ -551,10 +541,9 @@
                       </div>
                     </div> -->
                    
-                    <div class="col-md-4">
+                    <div class="col-md-4 IncomingProTT">
                       <label>System Earthing:</label>
-                      <mat-icon style="float: right;font-size: 18px;
-                      line-height: unset;margin-right: 64%;"
+                      <mat-icon style="font-size: 18px;"
                       matTooltip="TN-C -system which has combined neutral and protective conductor. (i.e. body earthing is connected to the neutral at or after point of commencement of supply). 
                       TN-C-S – system which has combined neutral and protective conductor from source up to mains incoming panel. 
                       After this point separate neutral and protective conductor  is used downstream. 
@@ -699,9 +688,8 @@
                   </div>
 <br>
                   <div class="row" *ngIf="a.get('aLLiveConductorType')?.value=='AC'">
-                    <div class="col-sm-12">
-                      <mat-icon style="float: right;font-size: 18px;
-                      line-height: unset;margin-right: 36%;margin-top: 0.5%;"
+                    <div class="col-sm-12 SupplyParaTT">
+                      <mat-icon style="font-size: 18px;"
                       matTooltip="If 1-phase, 2-wire (LN) is selected, column L1-N, L1-PE to be filled. 
                       If 1-phase, 3-wire (LLM) is selected, column L1-L2, L1-N, L2-N, L1-PE & L2-PE to be filled. 
                       If 2-phase, 3-wire (LLN) is selected, column L1-L2, L1-N, L2-N, L1-PE & L2-PE to be filled. 
@@ -795,8 +783,8 @@
                                   [value]="row.get('current9')?.value"></td>
                               </tr>
                                 <tr>
-                                  <td>Capacity (kVA)
-                                    <mat-icon style="line-height: unset;font-size: 18px;margin-right: 53%;float: right;"
+                                  <td class="IncomingProTT">Capacity (kVA)
+                                    <mat-icon style="font-size: 18px;"
                                     matTooltip="Capacity of DG, if alternative source is from state EB fill as not applicable"
                                     matTooltipClass="multiline-tooltip"
                                     aria-label="Button that shows a red tooltip"
@@ -821,14 +809,13 @@
                   <br>
 
                   <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-12 IncomingProTT">
                       <h2>Incoming (Supply) Protective Device Characteristics:</h2>
                       <div class="table-responsive" style="border: 1px solid black">
                       <table  class="table">
                           <tr>
                             <td nowrap="nowrap">Type Of Over Current Protective Device
-                              <mat-icon style="float: right;font-size: 18px;
-                              line-height: unset;margin-right: 47%;"
+                              <mat-icon style="font-size: 18px;"
                               matTooltip="MCB/MCCB/RCBO/MCB with RCD/ACB with micrologic relay/ ACB with numerical protection relay."
                               matTooltipClass="multiline-tooltip"
                               aria-label="Button that shows a red tooltip"
@@ -847,8 +834,7 @@
                           </tr>
                           <tr>
                               <td nowrap="nowrap">Rated current (A)
-                                <mat-icon style="float: right;font-size: 18px;
-                              line-height: unset;margin-right: 73%;"
+                                <mat-icon style="font-size: 18px;"
                               matTooltip="Rated current mentioned in over current protective device."
                               matTooltipClass="multiline-tooltip"
                               aria-label="Button that shows a red tooltip"
@@ -867,8 +853,7 @@
                           </tr>
                           <tr>
                             <td nowrap="nowrap">Current for Disconnection with in 0.2 seconds (A)
-                              <mat-icon style="float: right;font-size: 18px;
-                              line-height: unset;margin-right: 35%;"
+                              <mat-icon style="font-size: 18px;"
                               matTooltip="MCB: B curve 3-5 times rated current (eg. For B6 MCB, 30 A current is needed to trip the MCB. 
                               C curve 5-10 times rated current
                               D curve 10-20 times rated current 
@@ -970,10 +955,9 @@
 
                 <!-- Select so i have given mat icon outside need check css styles -->
                
-                <div class="col-md-4">
+                <div class="col-md-4 IncomingProTT">
                   <label>Means Of Earthing :</label>
-                  <mat-icon style="float: right;font-size: 18px;
-                  line-height: unset;margin-right: 61%;"
+                  <mat-icon style="font-size: 18px;"
                   matTooltip="Choose supplier facility in case of TN-S system. 
                   Choose Installation earth electrode in case of TT system. 
                   Supplier and installation earth electrode in case of TN-C-S system or TN-S system with PME. 
@@ -1171,9 +1155,8 @@
               <div class="form-group">
                 <div class="row">
 
-                  <div class="col-md-4" style="margin-top: 57px">
-                    <mat-icon style="float: right;font-size: 18px;
-                    line-height: unset;margin-right: 25%;"
+                  <div class="col-md-4 SizeEarthingConTT" style="margin-top: 57px">
+                    <mat-icon
                     matTooltip="Earthing conductor is used for connection from MET to means of earthing (earth electrode or towards source neutral)."
                     matTooltipClass="multiline-tooltip"
                     aria-label="Button that shows a red tooltip"
@@ -1192,10 +1175,9 @@
                       </div>
                   </div>
 
-                  <div class="col-md-4">
+                  <div class="col-md-4 EarthingConTT">
                     <label>Material Of Earthing Conductor:</label>
-                    <mat-icon style="float: right;font-size: 18px;
-                    line-height: unset;margin-right: 42%;"
+                    <mat-icon style="font-size: 18px;"
                     matTooltip="Copper / aluminium / galvanised iron"
                     matTooltipClass="multiline-tooltip"
                     aria-label="Button that shows a red tooltip"
@@ -1210,10 +1192,9 @@
                   </div>
 
                   
-                  <div class="col-md-4">
+                  <div class="col-md-4 continuityTT">
                     <label>Continuity and connection of earthing conductor is verified:</label>
-                    <mat-icon style="float: right;font-size: 18px;
-                    line-height: unset;"
+                    <mat-icon style="font-size: 18px;"
                     matTooltip="Physical check up. If the wires are not traceable and a test can not be conducted during initial inspection select NO."
                     matTooltipClass="multiline-tooltip"
                     aria-label="Button that shows a red tooltip"
@@ -1258,10 +1239,9 @@
                       </div>
                   </div>
 
-                  <div class="col-md-4">
+                  <div class="col-md-4 BondingConTT">
                     <label>Material Of Main Protective Bonding Conductor:</label>
-                    <mat-icon style="float: right;font-size: 18px;
-                    line-height: unset;margin-right: 17%;"
+                    <mat-icon style="font-size: 18px;"
                     matTooltip="Copper / aluminium"
                     matTooltipClass="multiline-tooltip"
                     aria-label="Button that shows a red tooltip"
@@ -1292,9 +1272,8 @@
 
               <div class="form-group">
                 <div class="row">
-                  <div class="col-md-4" style="margin-top: 30px">
-                    <mat-icon style="float: right;font-size: 18px;
-                    line-height: unset;margin-right: 49%;"
+                  <div class="col-md-4 JointsTT" style="margin-top: 30px">
+                    <mat-icon style="font-size: 18px;"
                     matTooltip="If number of joints is given, then point 8 & 9 should come."
                     matTooltipClass="multiline-tooltip"
                     aria-label="Button that shows a red tooltip"
@@ -1446,10 +1425,9 @@
                       </div>
                   </div>
 
-                  <div class="col-md-4">
+                  <div class="col-md-4 BondingConTT">
                     <label>Material of Main Protective Earthing Conductor:</label>
-                    <mat-icon style="float: right;font-size: 18px;
-                    line-height: unset;margin-right: 17%;"
+                    <mat-icon style="font-size: 18px;"
                     matTooltip="Copper / aluminium"
                     matTooltipClass="multiline-tooltip"
                     aria-label="Button that shows a red tooltip"
@@ -1479,9 +1457,8 @@
 
               <div class="form-group">
                 <div class="row">
-                  <div class="col-md-4" style="margin-top: 30px">
-                    <mat-icon style="float: right;font-size: 18px;
-                    line-height: unset;margin-right: 50%;"
+                  <div class="col-md-4 JointsTT" style="margin-top: 30px">
+                    <mat-icon style="font-size: 18px;"
                     matTooltip="If number of joints is given, then point 14 & 15 should come."
                     matTooltipClass="multiline-tooltip"
                     aria-label="Button that shows a red tooltip"
@@ -1630,10 +1607,12 @@
                         </div>
 
                      
-                          <div class="col-md-4">
+                          <div class="col-md-4 SourceNameTT">
                             <label>Source Name:</label>
 
-                            <mat-icon style="float: right; font-size: 18px; margin-right: 69%; padding: 1px;" matTooltip="Mains Incoming shortname value from Supply Characteristics" matTooltipClass="multiline-tooltip"> info_outline </mat-icon>
+                            <mat-icon style="font-size: 18px;" 
+                            matTooltip="Mains Incoming shortname value from Supply Characteristics" 
+                            matTooltipClass="multiline-tooltip"> info_outline </mat-icon>
 
                             <!-- <input type="text" [readonly]="service.allFieldsDisable" formControlName="sourceName" class="form-control" [(ngModel)]="supplycharesteristic.shortName" [ngClass]="{ 'is-invalid': submitted && a.get('sourceName')?.errors }" > -->
 
@@ -1646,9 +1625,9 @@
                  
 
                  
-                          <div class="col-md-4">
+                          <div class="col-md-4 MakeTT">
                             <label>Make:</label>
-                            <mat-icon style="float: right; font-size: 18px; margin-right: 83%; padding: 1px;" matTooltip="Manufacturer’s name" matTooltipClass="multiline-tooltip"> info_outline </mat-icon>
+                            <mat-icon style="font-size: 18px;" matTooltip="Manufacturer’s name" matTooltipClass="multiline-tooltip"> info_outline </mat-icon>
                             <input type="text" [readonly]="service.allFieldsDisable" formControlName="make" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('make')?.errors }" >
                             <div *ngIf="submitted && a.get('make')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('make')?.errors?.required">Make is required</div>
@@ -1657,9 +1636,9 @@
                
 
                      
-                          <div class="col-md-4">
+                          <div class="col-md-4 ModelTT">
                             <label>Model / Current curve:</label>
-                            <mat-icon style="float: right; font-size: 18px; margin-right: 56%; padding: 1px;" matTooltip="MCB Type B / C / D / K / Z & others specify manufacturer’s model" matTooltipClass="multiline-tooltip"> info_outline </mat-icon>
+                            <mat-icon style="font-size: 18px;" matTooltip="MCB Type B / C / D / K / Z & others specify manufacturer’s model" matTooltipClass="multiline-tooltip"> info_outline </mat-icon>
                             <input type="text" [readonly]="service.allFieldsDisable" formControlName="currentCurve" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('currentCurve')?.errors }" placeholder="Enter Model / Current curve" >
                             <div *ngIf="submitted && a.get('currentCurve')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('currentCurve')?.errors?.required">Model / Current curve is required</div>
@@ -1667,10 +1646,9 @@
                           </div>
                    
 
-                        <div class="col-md-4">
+                        <div class="col-md-4 TypeTT">
                           <label>Type:</label>
-                          <mat-icon style="float: right;font-size: 18px;
-                          line-height: unset;margin-right: 82%;"
+                          <mat-icon style="font-size: 18px;"
                           matTooltip="MCB/MCCB/RCBO/MCB with RCD/ACB with micrologic relay/ ACB with numerical protection relay (enter details of relay in case of ACB)."
                           matTooltipClass="multiline-tooltip"
                           aria-label="Button that shows a red tooltip"
@@ -1693,10 +1671,9 @@
                           </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-4 PolesTT">
                           <label>No Of Poles:</label>
-                          <mat-icon style="float: right;font-size: 18px;
-                          line-height: unset;margin-right: 71%;"
+                          <mat-icon style="font-size: 18px;"
                           matTooltip="1/ 2/ 3/ 4"
                           matTooltipClass="multiline-tooltip"
                           aria-label="Button that shows a red tooltip"
@@ -1722,10 +1699,9 @@
                           </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-4 VoltageRatingTT">
                           <label>Voltage Rating:</label>
-                          <mat-icon style="float: right;font-size: 18px;
-                          line-height: unset;margin-right: 68%;"
+                          <mat-icon style="font-size: 18px;"
                           matTooltip="Rated voltage of the protective device."
                           matTooltipClass="multiline-tooltip"
                           aria-label="Button that shows a red tooltip"
@@ -1743,10 +1719,9 @@
                           </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-4 FuseTT">
                           <label>Fuse Rating or Settings:</label>
-                          <mat-icon style="float: right;font-size: 18px;
-                          line-height: unset;margin-right: 54%;"
+                          <mat-icon style="font-size: 18px;"
                           matTooltip="Over current / Short circuit or earth fault setting."
                           matTooltipClass="multiline-tooltip"
                           aria-label="Button that shows a red tooltip"
@@ -1765,18 +1740,18 @@
                         </div>
 
                  
-                          <div class="col-md-4">
+                          <div class="col-md-4 ResidualTT">
                             <label>Type of residual current device:</label>
-                            <mat-icon style="float: right; font-size: 18px; margin-right: 41%; padding: 1px;" matTooltip="Type A / Type AC / Type F / Type B" matTooltipClass="multiline-tooltip"> info_outline </mat-icon>
+                            <mat-icon style="font-size: 18px;" matTooltip="Type A / Type AC / Type F / Type B" matTooltipClass="multiline-tooltip"> info_outline </mat-icon>
                             <input type="text" [readonly]="service.allFieldsDisable" formControlName="typeOfResidualCurrent" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('typeOfResidualCurrent')?.errors }" placeholder="Enter Type of residual current device" >
                             <div *ngIf="submitted && a.get('typeOfResidualCurrent')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('typeOfResidualCurrent')?.errors?.required">Model / Current curve is required</div>
                             </div>
                           </div>
 
-                        <div class="col-md-4" *ngIf="true">
+                        <div class="col-md-4 RatedResidualTT" *ngIf="true">
                           <label>Rated residual operating current I∆n (mA):</label>
-                          <mat-icon style="float: right;font-size: 18px; margin-right: 23%;"
+                          <mat-icon style="font-size: 18px;"
                           matTooltip="30/100/300/500"
                           matTooltipClass="multiline-tooltip"
                           aria-label="Button that shows a red tooltip"

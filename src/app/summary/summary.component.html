@@ -13,11 +13,11 @@
             </mat-expansion-panel-header>
             <div class="form-group">                    
               <div class="row">
-                  <div class="col-sm-12">
+                  <div class="col-sm-12 ExtentTT">
                     <div class="form-group">
                       <label>Extent Of Installation Covered By This Report:</label>
                       <mat-icon style="font-size: 18px;
-                      line-height: unset;margin-left: 1%;margin-top: -1%;"
+                      "
                        matTooltip="Actual area / portion of the building/block/floor details covered in this report"
                        matTooltipClass="multiline-tooltip"
                        aria-label="Button that shows a red tooltip"
@@ -92,18 +92,17 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
               <div class="row" >
-              <div class="col-sm-12">
+              <div class="col-sm-12 ReferringTT">
                 <div class="form-group">
                   <label>Referring to attached inspection report and test results and subject to the 
                     limitations specified at the extent and limitations of inspection and testing :</label>
-                    <mat-icon style="font-size: 18px;
-                    line-height: unset;margin-left: 1%;margin-top: -1%;"
+                    <mat-icon style="font-size: 18px;"
                      matTooltip="If no remedial action required is selected, then following table is not necessary"
                      matTooltipClass="multiline-tooltip"
                      aria-label="Button that shows a red tooltip"
                      class="example-button"> info_outline
                    </mat-icon>
-                   <label type="text" class="form-control" readonly style="width: 30%;">
+                   <label type="text" class="form-control" readonly style="max-width: 50%;">
                     The following observations have been provided
                    </label>
                   <!-- <select class="form-control" formControlName="limitationsInspection" (change)="onChange($event)"
@@ -140,9 +139,8 @@
                           <tr>
                             <th></th>
                             <th>Observations Provided</th>
-                            <th>Code Classification
-                              <mat-icon style="float: right;font-size: 18px;
-                              line-height: unset;margin-right: 45%;"
+                            <th class="codeTT">Code Classification
+                              <mat-icon style="font-size: 18px;"
                               matTooltip="Code C1 (“dangers present”). 
                               Code C2 (“potentially dangerous”)are acted upon the 
                               matter of urgency and remedial action to be taken immediately. 
@@ -426,9 +424,8 @@
                           <tr>
                             <th></th>
                             <th>Observations Provided</th>
-                            <th>Code Classification
-                              <mat-icon style="float: right;font-size: 18px;
-                              line-height: unset;margin-right: 45%;"
+                            <th class="codeTT">Code Classification
+                              <mat-icon style="font-size: 18px;"
                               matTooltip="Code C1 (“dangers present”). 
                               Code C2 (“potentially dangerous”)are acted upon the matter of urgency and remedial 
                               action to be taken immediately. 
@@ -569,9 +566,8 @@
                           <tr>
                             <th></th>
                             <th>Observations Provided</th>
-                            <th>Code Classification
-                              <mat-icon style="float: right;font-size: 18px;
-                              line-height: unset;margin-right: 45%;"
+                            <th class="codeTT">Code Classification
+                              <mat-icon style="font-size: 18px;"
                               matTooltip="Code C1 (“dangers present”). 
                               Code C2 (“potentially dangerous”)are acted upon the matter of urgency and remedial 
                               action to be taken immediately. 

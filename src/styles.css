@@ -444,11 +444,212 @@ th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:la
   50% { background-color: #FF0000; box-shadow: 0 0 40px #FF0000; }
   100% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
 } */
+::ng-deep .multiline-tooltip{
+  white-space: pre-line;
+}
+/* basic tooltip starts*/
+.siteNameTool .mat-icon {
+  position: absolute;
+  left: 15%;
+  top: 6%;
+}
+.InstallationTypeTT .mat-icon {
+  position: absolute;
+  left: 47%;
+  top: 2%;
+}
+.DeclarationTT .mat-icon {
+  position: relative;
+    right: 74%;
+    bottom: 36px;
+    float: right;
+}
+.LiabilityTT .mat-icon {
+  float: right;
+  font-size: 18px;
+  line-height: unset;
+  margin-right: 68%;
+  margin-top: 0.4%;
+}
+/* basic tooltip ends*/
 
-@media screen and (max-width: 700px) and (min-width: 319px) {
-  /* .card{
-    margin-top: 60px;
-  } */
+/* supply tooltip starts*/
+.SystemEarthingTT .mat-icon {
+  position: absolute;
+  left: 40%;
+  top: 3%;
+}
+.TypeLiveCon .mat-icon {
+  position: absolute;
+  left: 55%;
+  top: 2%;
+}
+.NumberOfCon .mat-icon {
+  position: absolute;
+  left: 52%;
+  top: 2%;
+}
+.SupplyParaTT .mat-icon {
+  position: absolute;
+  left: 62%;
+  top: 2%;
+}
+.CapacityTT .mat-icon {
+  position: relative;
+  left: 3%;
+  bottom: -3px;
+}
+.IncomingProTT .mat-icon {
+  position: relative;
+  left: 3%;
+  bottom: -3px;
+}
+.AlternateSourceTT .mat-icon {
+  position: absolute;
+    left: 42%;
+    top: 2%;
+}
+.SizeEarthingConTT .mat-icon {
+  float: right;
+  font-size: 18px;
+  line-height: unset;
+  margin-right: 25%;
+}
+.EarthingConTT .mat-icon {
+  position: absolute;
+    top: 2%;
+    left: 50%;
+}
+.continuityTT .mat-icon {
+  position: absolute;
+  bottom: 70%;
+  left: 90%;
+}
+.BondingConTT .mat-icon {
+  position: absolute;
+  top: 3%;
+  left: 73%;
+}
+.JointsTT .mat-icon {
+  position: absolute;
+  top: 10%;
+  left: 45%;
+}
+.SourceNameTT .mat-icon {
+  position: absolute;
+  left: 25%;
+}
+.MakeTT .mat-icon {
+  position: absolute;
+  left: 15%;
+}
+.ModelTT .mat-icon {
+  position: absolute;
+    top: 4%;
+    left: 37%;
+}
+.TypeTT .mat-icon {
+  position: absolute;
+    top: 3%;
+    left: 13%;
+}
+.PolesTT .mat-icon {
+  position: absolute;
+    top: 3%;
+    left: 23%;
+}
+.VoltageRatingTT .mat-icon {
+  position: absolute;
+    top: 3%;
+    left: 27%;
+}
+.FuseTT .mat-icon {
+  position: absolute;
+    top: 3%;
+    left: 40%;
+}
+.ResidualTT .mat-icon {
+  position: absolute;
+    top: 3%;
+    left: 50%;
+}
+.RatedResidualTT .mat-icon {
+  position: absolute;
+  top: 5%;
+  left: 65%;
+}
+/* supply tooltip ends*/
+
+/* testing tooltip starts*/
+.PolarityTT .mat-icon {
+  position: absolute;
+  top: 5%;
+  left: 38%;
+}
+.VulnerableTT .mat-icon {
+  position: absolute;
+  bottom: 66%;
+  left: 65%;
+}
+.RatedCurrentTT .mat-icon {
+position: absolute;
+    top: 3%;
+    left: 30%;
+}
+.SourceIncomingTT .mat-icon {
+  position: absolute;
+      top: 3%;
+      left: 35%;
+  }
+/* testing tooltip ends*/
+
+/* summary tooltip starts*/
+.ReferringTT .mat-icon {
+  position: absolute;
+  left: 73%;
+  }
+  .codeTT .mat-icon {
+    position: relative;
+    left: 4%;
+    bottom: -4px
+    }
+  /* summary tooltip ends*/
+  .ShowingSiteName{
+    color: lightslategrey;
+  font-weight: 500;
+  position: absolute;
+    top: -20px;
+  }
+  .ExtentTT .mat-icon {
+    position: absolute;
+    top: 2%;
+    right: 74%;
+  }
+
+@media screen and (max-width: 768px) and (min-width: 319px) {
+  .mat-horizontal-stepper-header-container{
+    overflow-x: scroll;
+    display: -webkit-box !important;
+    margin-top: 30px;
+  }
+  .globalSite .mat-tab-header {
+    width: 100% !important;
+}
+.horizontalLine {
+ border: unset !important;
+  flex: unset !important;
+  height:unset !important;
+  margin: unset !important;
+  min-width: unset !important;
+  position: unset !important;
+  width: unset !important;
+}
+.ShowingSiteName{
+  position: relative !important;
+  top: 70px !important;
+  z-index: 999 !important;
+  left: -60% !important;
+}
   #tableResponsive{
     display: block;
     overflow-x: auto;
@@ -498,11 +699,317 @@ th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:la
   margin: 210px 0px 0px 0px !important; 
 }
 }
-
+/*for macbook pro default (device-width: 1280px) and (device-height: 800px)*/
+@media screen and (max-width: 1280px){
+.siteNameTool .mat-icon{
+  position: absolute;
+  left: 20%;
+  top: 6%;
+  }
+  .InstallationTypeTT .mat-icon {
+    position: absolute;
+    left: 58%;
+    /* top: 0%; */
+}
+.LiabilityTT .mat-icon {
+  float: right;
+  font-size: 18px;
+  line-height: unset;
+  margin-right: 60%;
+  margin-top: 0.4%;
+}
+  .SystemEarthingTT .mat-icon {
+    position: absolute;
+    left: 50%;
+    top: 2%;
+  }
+  .TypeLiveCon .mat-icon {
+    position: absolute;
+    left: 68%;
+    top: 2%;
+}
+.NumberOfCon .mat-icon {
+  position: absolute;
+  left: 63%;
+  top: 2%;
+}
+.AlternateSourceTT .mat-icon {
+  position: absolute;
+  left: 52%;
+  /* top: 2%; */
+}
+.EarthingConTT .mat-icon {
+  position: absolute;
+  top: 2%;
+  left: 62%;
+}
+.continuityTT .mat-icon {
+  position: absolute;
+  bottom: 52%;
+  left: 21%;
+}
+.SizeEarthingConTT .mat-icon {
+  float: right;
+  font-size: 18px;
+  line-height: unset;
+  margin-right: 6%;
+}
+.BondingConTT .mat-icon {
+  position: absolute;
+  top: 2%;
+  left: 92%;
+}
+.JointsTT .mat-icon {
+  position: absolute;
+  top: 10%;
+  left: 55%;
+}
+.SourceNameTT .mat-icon {
+  position: absolute;
+  left: 32%;
+}
+.MakeTT .mat-icon {
+  position: absolute;
+  left: 17%;
+}
+.ModelTT .mat-icon {
+  position: absolute;
+  top: 2%;
+  left: 45%;
+}
+.TypeTT .mat-icon {
+  position: absolute;
+  top: 3%;
+  left: 15%;
+}
+.PolesTT .mat-icon {
+  position: absolute;
+  top: 2%;
+  left: 28%;
+}
+.VoltageRatingTT .mat-icon {
+    position: absolute;
+    top: 3%;
+    left: 33%;
+}
+.FuseTT .mat-icon {
+  position: absolute;
+  top: 3%;
+  left: 48%;
+}
+.ResidualTT .mat-icon {
+  position: absolute;
+  top: 3%;
+  left: 61%;
+}
+.RatedResidualTT .mat-icon {
+  position: absolute;
+  top: 2%;
+  left: 80%;
+}
+.PolarityTT .mat-icon {
+  position: absolute;
+  top: 3%;
+  left: 47%;
+}
+.VulnerableTT .mat-icon {
+  position: absolute;
+  bottom: 69%;
+  left: 81%;
+}
+.RatedCurrentTT .mat-icon {
+  position: absolute;
+  top: 2%;
+  left: 37%;
+}
+.SourceIncomingTT .mat-icon {
+  position: absolute;
+  top: 3%;
+  left: 42%;
+}
+.ReferringTT .mat-icon {
+  position: absolute;
+  left: 90%;
+}
+.ExtentTT .mat-icon {
+  position: absolute;
+  right: 69%;
+}
+}
 
 /*for ipad*/
 @media screen and (device-width: 768px) and (device-height: 1024px){
+  .horizontalLine {
+    margin: 7px 0 0 141px !important;
+    width: 90px !important;
+}
+/* basic tooltip starts*/
+.siteNameTool .mat-icon {
+  position: absolute;
+  left: 36%;
+  top: 6%;
+}
+.InstallationTypeTT .mat-icon {
+  position: absolute;
+  left: 74%;
+  top: 3%;
+}
+.DeclarationTT .mat-icon {
+  position: relative;
+  right: 58%;
+  bottom: 36px;
+  float: right;
+}
+/* basic tooltip ends*/
 
+/* supply tooltip starts*/
+.SystemEarthingTT .mat-icon {
+  position: absolute;
+  left: 88%;
+  top: 2%;
+}
+.TypeLiveCon .mat-icon {
+  position: absolute;
+  left: 85%;
+  top: 2%;
+}
+.NumberOfCon .mat-icon {
+  position: absolute;
+  left: 85%;
+  top: 2%;
+}
+.SupplyParaTT .mat-icon {
+  position: absolute;
+  left: 52%;
+  top: 10%;
+}
+.CapacityTT .mat-icon {
+  position: relative;
+  left: 15%;
+  /* bottom: 20px; */
+}
+.IncomingProTT .mat-icon {
+  position: relative;
+  left: 6%;
+  bottom: -3px;
+}
+.AlternateSourceTT .mat-icon {
+  position: absolute;
+    left: 95%;
+    top: 2%;
+}
+.SizeEarthingConTT .mat-icon {
+  float: right;
+  font-size: 18px;
+  line-height: unset;
+  margin-right: 15%;
+}
+.EarthingConTT .mat-icon {
+  position: absolute;
+    top: 18%;
+    left: 50%;
+}
+.continuityTT .mat-icon {
+  position: absolute;
+  top: 32%;
+    left: 80%;
+}
+.BondingConTT .mat-icon {
+  position: absolute;
+  top: 33%;
+    left: 47%;
+}
+.JointsTT .mat-icon {
+  position: absolute;
+  top: 10%;
+  left: 70%;
+}
+.SourceNameTT .mat-icon {
+  position: absolute;
+  left: 60%;
+}
+.MakeTT .mat-icon {
+  position: absolute;
+  left: 32%;
+}
+.ModelTT .mat-icon {
+  position: absolute;
+    top: 3%;
+    left: 83%;
+}
+.TypeTT .mat-icon {
+  position: absolute;
+    top: 3%;
+    left: 30%;
+}
+.PolesTT .mat-icon {
+  position: absolute;
+    top: 3%;
+    left: 53%;
+}
+.VoltageRatingTT .mat-icon {
+  position: absolute;
+    top: 3%;
+    left: 60%;
+}
+.FuseTT .mat-icon {
+  position: absolute;
+    top: 3%;
+    left: 90%;
+}
+.ResidualTT .mat-icon {
+  position: absolute;
+  top: 25%;
+    left: 39%;
+}
+.RatedResidualTT .mat-icon {
+  position: absolute;
+  top: 26%;
+  left: 68%;
+}
+/* supply tooltip ends*/
+
+/* testing tooltip starts*/
+.PolarityTT .mat-icon {
+  position: absolute;
+  top: 5%;
+  left: 85%;
+}
+.VulnerableTT .mat-icon {
+  position: absolute;
+  bottom: 45%;
+  left: 84%;
+  }
+  .RatedCurrentTT .mat-icon {
+    position: absolute;
+        top: 3%;
+        left: 70%;
+    }
+    .SourceIncomingTT .mat-icon {
+      position: absolute;
+          top: 3%;
+          left: 80%;
+      }
+/* testing tooltip ends*/
+
+/* summary tooltip starts*/
+.ReferringTT .mat-icon {
+position: absolute;
+top: 22%;
+left: 75%;
+}
+.codeTT .mat-icon {
+  position: relative;
+    left: 5%;
+    top: 28.5%;
+  }
+/* summary tooltip ends*/
+.tableObserve .table-responsive .table{
+  width: 1000px !important;
+}
+#table1{
+  width: 1000px !important;
+}
 }
 /*for ipad pro*/
 @media screen and (device-width: 1024px) and (device-height: 1366px){
@@ -510,8 +1017,172 @@ th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:la
     margin: 7px 0 0 141px !important;
     width: 90px !important;
 }
+.tableObserve .table-responsive .table{
+  width: 1000px !important;
 }
+/* basic tooltip starts*/
+.siteNameTool .mat-icon {
+  position: absolute;
+  left: 24% !important;
+  top: 6%;
+}
+.InstallationTypeTT .mat-icon {
+  position: absolute;
+  left: 74%;
+  top: 3%;
+}
+.DeclarationTT .mat-icon {
+  position: relative;
+  right: 58%;
+  bottom: 36px;
+  float: right;
+}
+/* basic tooltip ends*/
 
+/* supply tooltip starts*/
+.SystemEarthingTT .mat-icon {
+  position: absolute;
+  left: 65%;
+  top: 2%;
+}
+.TypeLiveCon .mat-icon {
+  position: absolute;
+  left: 85%;
+  top: 2%;
+}
+.NumberOfCon .mat-icon {
+  position: absolute;
+  left: 85%;
+  top: 2%;
+}
+.SupplyParaTT .mat-icon {
+  position: absolute;
+  left: 98%;
+  top: 2%;
+}
+.CapacityTT .mat-icon {
+  position: relative;
+  left: 3%;
+  bottom: -3px;
+}
+.IncomingProTT .mat-icon {
+  position: relative;
+  left: 3%;
+  bottom: -3px;
+}
+.AlternateSourceTT .mat-icon {
+  position: absolute;
+    left: 98%;
+    top: 2%;
+}
+.SizeEarthingConTT .mat-icon {
+  float: right;
+  font-size: 18px;
+  line-height: unset;
+  margin-right: 15%;
+}
+.EarthingConTT .mat-icon {
+  position: absolute;
+    top: 2%;
+    left: 50%;
+}
+.continuityTT .mat-icon {
+  position: absolute;
+    top: 20%;
+    left: 60%;
+}
+.BondingConTT .mat-icon {
+  position: absolute;
+    top: 25%;
+    left: 37%;
+}
+.JointsTT .mat-icon {
+  position: absolute;
+  top: 10%;
+  left: 70%;
+}
+.SourceNameTT .mat-icon {
+  position: absolute;
+  left: 44%;
+}
+.MakeTT .mat-icon {
+  position: absolute;
+  left: 22%;
+}
+.ModelTT .mat-icon {
+  position: absolute;
+    top: 3%;
+    left: 60%;
+}
+.TypeTT .mat-icon {
+  position: absolute;
+    top: 3%;
+    left: 20%;
+}
+.PolesTT .mat-icon {
+  position: absolute;
+    top: 3%;
+    left: 36%;
+}
+.VoltageRatingTT .mat-icon {
+  position: absolute;
+    top: 3%;
+    left: 43%;
+}
+.FuseTT .mat-icon {
+  position: absolute;
+    top: 3%;
+    left: 62%;
+}
+.ResidualTT .mat-icon {
+  position: absolute;
+    top: 3%;
+    left: 80%;
+}
+.RatedResidualTT .mat-icon {
+  position: absolute;
+  top: 26%;
+  left: 25%;
+}
+/* supply tooltip ends*/
+
+/* testing tooltip starts*/
+.PolarityTT .mat-icon {
+  position: absolute;
+  top: 5%;
+  left: 65%;
+}
+.VulnerableTT .mat-icon {
+  position: absolute;
+      bottom: 55%;
+      left: 30%;
+  }
+  .RatedCurrentTT .mat-icon {
+    position: absolute;
+        top: 3%;
+        left: 50%;
+    }
+    .SourceIncomingTT .mat-icon {
+      position: absolute;
+          top: 3%;
+          left: 55%;
+      }
+/* testing tooltip ends*/
+
+/* summary tooltip starts*/
+.ReferringTT .mat-icon {
+position: absolute;
+    top: 22%;
+    left: 22%;
+}
+.codeTT .mat-icon {
+  position: relative;
+    left: 5%;
+    top: 28.5%;
+  }
+/* summary tooltip ends*/
+
+}
 .TableBorder thead th, .TableBorder tr 
 {
   border: 1px solid #dee2e6;
@@ -531,9 +1202,7 @@ th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:la
 .disableTab .mat-tab-label.mat-tab-disabled {
   cursor: not-allowed !important;
 }
-::ng-deep .multiline-tooltip{
-  white-space: pre-line;
-}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -583,7 +1252,7 @@ input::-webkit-inner-spin-button {
   width: 213px;
 }
 .globalSite .mat-tab-header {
-  width: 85% !important;
+  width: 85%;
 }
 /* for observation glow start*/
 .glow {
