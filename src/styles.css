@@ -711,6 +711,11 @@ position: absolute;
     left: 58%;
     /* top: 0%; */
 }
+.SupplyParaTT .mat-icon {
+  position: absolute;
+  left: 77%;
+  top: 2%;
+}
 .LiabilityTT .mat-icon {
   float: right;
   font-size: 18px;
