@@ -218,6 +218,9 @@ export class InspectionVerificationIncomingEquipmentComponent
         this.step3List = JSON.parse(data);
         this.inspectionDetails.siteId = siteId;
         this.deletedArr = [];
+        this.deletedConsumer = [];
+        this.deletedInnerObservation = [];
+        this.deletedCircuit = [];
         this.inspectionDetails.periodicInspectionId = this.step3List.periodicInspection.periodicInspectionId;
         this.inspectionDetails.createdBy = this.step3List.periodicInspection.createdBy;
         this.inspectionDetails.createdDate  = this.step3List.periodicInspection.createdDate;
@@ -233,6 +236,9 @@ export class InspectionVerificationIncomingEquipmentComponent
         this.step3List1 = JSON.parse(data);
         this.inspectionDetails.siteId = siteId;
         this.deletedArr = [];
+        this.deletedConsumer = [];
+        this.deletedInnerObservation = [];
+        this.deletedCircuit = [];
         this.inspectionDetails.periodicInspectionId = this.step3List1.periodicInspectionId;
         this.inspectionDetails.createdBy = this.step3List1.createdBy;
         this.inspectionDetails.createdDate  = this.step3List1.createdDate;
@@ -749,15 +755,15 @@ showHideAccordion(index: number) {
       observationComponentDetails: new FormControl({disabled: false,value: itemvalue.observationComponentDetails}),
       observationDescription: new FormControl({disabled: false,value: itemvalue.observationDescription}),
       inspectionOuterObservationStatus:new FormControl({disabled: false,value: itemvalue.inspectionOuterObservationStatus}),
-      inspectionInnerObservations: this._formBuilder.array(this.populateInspectionInnerObervation(itemvalue.inspectionInnerObservations,itemvalue.inspectionOuterObservationId)),
+      inspectionInnerObservations: this._formBuilder.array(this.populateInspectionInnerObervation(itemvalue.inspectionInnerObservations,itemvalue.inspectionOuterObservationId,ipaoInspectionId)),
     });
   }
 
 
-  private populateInspectionInnerObervation(itemValue: any,inspectionOuterObservationId: any) {
+  private populateInspectionInnerObervation(itemValue: any,inspectionOuterObservationId: any,ipaoInspectionId: any) {
     let innerObservationArr: any =  [];
     for(let i of itemValue) {
-      innerObservationArr.push(this.populateInnerObservationForm(i,inspectionOuterObservationId));
+      innerObservationArr.push(this.populateInnerObservationForm(i,inspectionOuterObservationId,ipaoInspectionId));
        if(i.observationDescription!=null && i.observationDescription!=undefined && i.observationDescription!=''){
         this.service.observationGlowInspection=true;
        }
@@ -766,8 +772,9 @@ showHideAccordion(index: number) {
     return innerObservationArr;
   }
 
-  populateInnerObservationForm(itemvalue: any,inspectionOuterObservationId: any): FormGroup {
+  populateInnerObservationForm(itemvalue: any,inspectionOuterObservationId: any,ipaoInspectionId: any): FormGroup {
     return new FormGroup({
+      ipaoInspectionId: new FormControl({disabled: false,value: ipaoInspectionId}),
       inspectionOuterObservationId: new FormControl({disabled: false,value: inspectionOuterObservationId}),
       inspectionInnerObservationsId: new FormControl({disabled: false,value: itemvalue.inspectionInnerObservationsId}),
       observationComponentDetails: new FormControl({disabled: false,value: itemvalue.observationComponentDetails}),
@@ -947,7 +954,19 @@ showHideAccordion(index: number) {
 
   private createInnerObservationForm(): FormGroup {
     return new FormGroup({
-      inspectionInnerObservationsId:new FormControl(),
+      inspectionInnerObservationsId:new FormControl(''),
+      ipaoInspectionId: new FormControl(''),
+      observationComponentDetails:  new FormControl('consumer-unit'),
+      observationDescription:  new FormControl(''),
+      inspectionInnerObservationStatus:  new FormControl('A'),
+    
+    });
+  }
+
+  private createInnerObservationForm1(ipaoInspectionId: any): FormGroup {
+    return new FormGroup({
+      inspectionInnerObservationsId:new FormControl(''),
+      ipaoInspectionId: new FormControl({disabled: false,value: ipaoInspectionId}),
       observationComponentDetails:  new FormControl('consumer-unit'),
       observationDescription:  new FormControl(''),
       inspectionInnerObservationStatus:  new FormControl('A'),
@@ -956,7 +975,52 @@ showHideAccordion(index: number) {
   }
   private createEarthingForm(): FormGroup {
     return new FormGroup({
+      ipaoInspectionId: new FormControl(''),
+      consumerId: new FormControl(''),
       distributionBoardDetails:  new FormControl('', [Validators.required]),
+      locationFlag: new FormControl(false),
+      referance:  new FormControl('', [Validators.required]),
+      location: new FormControl('', [Validators.required]),
+      accessWorking: new FormControl('', [Validators.required]),
+      securityFixing: new FormControl('', [Validators.required]),
+      livePartsDamage: new FormControl('', [Validators.required]),
+      securityBarriers: new FormControl('', [Validators.required]),
+      suitabilityEnclosure: new FormControl('', [Validators.required]),
+      enclosureDamaged: new FormControl('', [Validators.required]),
+      presenceObstacles: new FormControl('', [Validators.required]),
+      placingOutOfConsumer: new FormControl('', [Validators.required]),
+      presenceMainSwitches: new FormControl('', [Validators.required]),
+      operationMainSwitches: new FormControl('', [Validators.required]),
+      manualCircuitBreakers: new FormControl('', [Validators.required]),
+      switchCausesRcd: new FormControl('', [Validators.required]),
+      rcdFaultProtection: new FormControl('', [Validators.required]),
+      rcdAdditionalProtection: new FormControl('', [Validators.required]),
+      overVoltageProtection: new FormControl('', [Validators.required]),
+      indicationOfSpd: new FormControl('', [Validators.required]),
+      rcdQuarterlyTest: new FormControl('', [Validators.required]),
+      diagramsCharts: new FormControl('', [Validators.required]),
+      nonstandardCableColour: new FormControl('', [Validators.required]),
+      alSupplyOfOrign: new FormControl('', [Validators.required]),
+      alSupplyOfMeter: new FormControl('', [Validators.required]),
+      alSupplyDistribution: new FormControl('', [Validators.required]),
+      allPointsIsolation: new FormControl('', [Validators.required]),
+      nextInspection: new FormControl('', [Validators.required]),
+      otherRequiredLabelling: new FormControl('', [Validators.required]),
+      basesCorrectType: new FormControl('', [Validators.required]),
+      singlePole: new FormControl('', [Validators.required]),
+      mechanicalDamage: new FormControl('', [Validators.required]),
+      electromagnetic: new FormControl('', [Validators.required]),
+      allConductorCon: new FormControl('', [Validators.required]),
+      observationDescription: new FormControl('', [Validators.required]),
+      consumerStatus: new FormControl('A'),
+   
+    });
+  }
+  private createEarthingForm1(ipaoInspectionId: any): FormGroup {
+    return new FormGroup({
+      distributionBoardDetails:  new FormControl('', [Validators.required]),
+      ipaoInspectionId: new FormControl({disabled: false,value: ipaoInspectionId}),
+      consumerId: new FormControl(''),
       locationFlag: new FormControl(false),
       referance:  new FormControl('', [Validators.required]),
       location: new FormControl('', [Validators.required]),
@@ -1000,6 +1064,50 @@ showHideAccordion(index: number) {
   }
   private createcircuitForm(): FormGroup {
     return new FormGroup({
+      ipaoInspectionId: new FormControl(''),
+      circuitId: new FormControl(''),
+      identificationConductors: new FormControl('', [Validators.required]),
+      distributionBoardDetails:  new FormControl('', [Validators.required]),
+      referance:  new FormControl('', [Validators.required]),
+      location: new FormControl('', [Validators.required]),
+      cableInstallation: new FormControl('', [Validators.required]),
+      examinationCables: new FormControl('', [Validators.required]),
+      examinationInsulation: new FormControl('', [Validators.required]),
+      nonSheathedCables: new FormControl('', [Validators.required]),
+      containmentSystems: new FormControl('', [Validators.required]),
+      temperatureRating: new FormControl('', [Validators.required]),
+      cablesTerminated: new FormControl('', [Validators.required]),
+      currentCarryCapacity: new FormControl('', [Validators.required]),
+      adequacyProtectDevices: new FormControl('', [Validators.required]),
+      presenceProtectConductors: new FormControl('', [Validators.required]),
+      coOrdination: new FormControl('', [Validators.required]),
+      wiringSystems: new FormControl('', [Validators.required]),
+      cablesConcealUnderFloors: new FormControl('', [Validators.required]),
+      provisionFireBarriers: new FormControl('', [Validators.required]),
+      sectionsRegardlessDepth: new FormControl('', [Validators.required]),
+      cablesConcDepth: new FormControl('', [Validators.required]),
+      operatingCurrentSocket: new FormControl('', [Validators.required]),
+      operatingCurrentCircuits: new FormControl('', [Validators.required]),
+      separationBand: new FormControl('', [Validators.required]),
+      separationElectrical: new FormControl('', [Validators.required]),
+      conditionCircuitAccessories: new FormControl('', [Validators.required]),
+      conductorCorrectTerminated: new FormControl('', [Validators.required]),
+      conductorVisibleOutside: new FormControl('', [Validators.required]),
+      connLiveConductors: new FormControl('', [Validators.required]),
+      adequatelyConnectedEnclosure: new FormControl('', [Validators.required]),
+      suitabilityCircuitAccessories: new FormControl('', [Validators.required]),
+      conditionAccessories: new FormControl('', [Validators.required]),
+      singlePoleDevices: new FormControl('', [Validators.required]),
+      adequacyConnections: new FormControl('', [Validators.required]),
+      isolationSwitching: new FormControl('', [Validators.required]),
+      circuitStatus: new FormControl('A'),
+    });
+  }
+
+  private createcircuitForm1(ipaoInspectionId: any): FormGroup {
+    return new FormGroup({
+      ipaoInspectionId: new FormControl({disabled: false,value: ipaoInspectionId}),
+      circuitId: new FormControl(''),
       identificationConductors: new FormControl('', [Validators.required]),
       distributionBoardDetails:  new FormControl('', [Validators.required]),
       referance:  new FormControl('', [Validators.required]),
@@ -1197,6 +1305,7 @@ showHideAccordion(index: number) {
 
   createItem() {
     return this._formBuilder.group({
+      ipaoInspectionId: new FormControl(''),
       locationName: new FormControl('', [Validators.required]),
       locationNumber: new FormControl('', [Validators.required]),
       serviceCable: new FormControl('', [Validators.required]),
@@ -1257,10 +1366,10 @@ showHideAccordion(index: number) {
     this.inspectionOuterObservation=a.controls.inspectionOuterObervation as FormArray;
     this.inspectionInnerObservation=this.inspectionOuterObservation.controls[0].controls.inspectionInnerObservations as FormArray;
 
-    this.inspectionInnerObservation.push(this.createInnerObservationForm());
+    this.inspectionInnerObservation.push(this.createInnerObservationForm1(a.controls.ipaoInspectionId.value));
     
-    this.consumerArr.push(this.createEarthingForm());
-    this.circuitArr.push(this.createcircuitForm());
+    this.consumerArr.push(this.createEarthingForm1(a.controls.ipaoInspectionId.value));
+    this.circuitArr.push(this.createcircuitForm1(a.controls.ipaoInspectionId.value));
   }
 
   removeConsumerCircuit(a: any,j: any) {
@@ -1648,11 +1757,11 @@ showHideAccordion(index: number) {
 for(let i of this.deletedInnerObservation) {
   for(let j of this.inspectionDetails.ipaoInspection) {
     for(let k of j.inspectionOuterObervation[0].inspectionInnerObservations) {
-      if(k.inspectionOuterObservationId == i.inspectionOuterObservationId) {
+      if(k.ipaoInspectionId == i.ipaoInspectionId) {
         if(k.inspectionInnerObservationsId != i.inspectionInnerObservationsId) {
           this.deleteObDataFlag = true;
         }
-        else {
+        else { 
           this.deleteObDataFlag = false;
         }
       }
