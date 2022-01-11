@@ -676,6 +676,10 @@ callValue(e: any) {
     this.inspectionRetrieve = false;
     this.testList1 = JSON.parse(data);
     this.testingDetails.siteId = siteId;
+    this.deletedTestingEquipment = [];
+    this.deletedTestingRecord = [];
+    this.deletedObservationArr = [];
+
     this.retrieveDetailsFromIncoming();
     this.retrieveDetailsFromSupply();
     if(this.testList1 != null) {
@@ -694,6 +698,9 @@ callValue(e: any) {
     this.inspectionRetrieve = false;
     this.testList = JSON.parse(data);
     this.testingDetails.siteId = siteId;
+    this.deletedTestingEquipment = [];
+    this.deletedTestingRecord = [];
+    this.deletedObservationArr = [];
     //this.testingDetails.testingOuterObservation = this.testList.testingReport.testingOuterObservation;
     this.retrieveDetailsFromIncoming();
     this.retrieveDetailsFromSupply();
@@ -1308,7 +1315,7 @@ callValue(e: any) {
   private populateTestDistRecordsForm(testDistRecordsItem: any,testingId: any) {
     let testDistRecordsItemArr = [];
     for (let item of testDistRecordsItem) {
-      testDistRecordsItemArr.push(this.pushTestDistRecordsTable(item))
+      testDistRecordsItemArr.push(this.pushTestDistRecordsTable(item,testingId))
     }
     return testDistRecordsItemArr;
   }
@@ -1327,22 +1334,23 @@ callValue(e: any) {
     });
   }
 
-  pushTestDistRecordsTable(testDistRecordsItem: any): FormGroup {
+  pushTestDistRecordsTable(testDistRecordsItem: any,testingId: any): FormGroup {
     return new FormGroup({
       testDistRecordId: new FormControl({disabled: false, value: testDistRecordsItem.testDistRecordId }),
+      testingId: new FormControl({ disabled: false, value: testingId }),
       locationCount: new FormControl({disabled: false, value: testDistRecordsItem.locationCount }),
       testDistribution: this.formBuilder.array([this.populateTestDistributionForm(testDistRecordsItem.testDistribution)]),
-      testingRecords: this.formBuilder.array(this.populateTestRecordsForm(testDistRecordsItem.testingRecords,testDistRecordsItem.testDistRecordId)),
-      testingInnerObservation: this.formBuilder.array(this.pushTestObservationRecord(testDistRecordsItem.testingInnerObservation,testDistRecordsItem.testDistRecordId)),
+      testingRecords: this.formBuilder.array(this.populateTestRecordsForm(testDistRecordsItem.testingRecords,testDistRecordsItem.testDistRecordId,testingId)),
+      testingInnerObservation: this.formBuilder.array(this.pushTestObservationRecord(testDistRecordsItem.testingInnerObservation,testDistRecordsItem.testDistRecordId,testingId)),
 
       testDistRecordStatus: new FormControl(testDistRecordsItem.testDistRecordStatus),
     });
   }
   
-pushTestObservationRecord(testInnerObservationItem: any,testingId: any) {
+pushTestObservationRecord(testInnerObservationItem: any,testDistRecordId: any,testingId: any) {
   let testingInnerObservation = [];
   for (let item of testInnerObservationItem) {
-    testingInnerObservation.push(this.pushTestingInnerObservationTable(item,testingId))
+    testingInnerObservation.push(this.pushTestingInnerObservationTable(item,testDistRecordId,testingId))
   
     if(item.observationDescription!=null && item.observationDescription!=undefined && item.observationDescription!=''){
       this.service.observationGlowTesting=true;
@@ -1350,9 +1358,10 @@ pushTestObservationRecord(testInnerObservationItem: any,testingId: any) {
   }
   return testingInnerObservation;
 }
-private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormGroup {
+private pushTestingInnerObservationTable(item: any,testDistRecordId: any,testingId: any): FormGroup {
   return new FormGroup({
     testDistRecordId: new FormControl({ disabled: false, value: testDistRecordId }),
+    testingId: new FormControl({ disabled: false, value: testingId }),
     testingInnerObervationsId: new FormControl({disabled: false, value: item.testingInnerObervationsId}),
     observationComponentDetails: new FormControl({disabled: false, value: item.observationComponentDetails}),
     observationDescription: new FormControl({disabled: false, value: item.observationDescription}),
@@ -1510,7 +1519,7 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
      
     });
   }
-  private populateTestRecordsForm(testRecordsItem: any,testDistRecordId: any) {
+  private populateTestRecordsForm(testRecordsItem: any,testDistRecordId: any,testingId: any) {
     let disconnectionTimeArr = [];
     let testFaultCurrentArr = [];
     let testLoopImpedanceArr = [];
@@ -1525,16 +1534,17 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
       testVoltageArr = item.testVoltage.split(",");
       insulationResistanceArr = item.insulationResistance.split(",");
 
-      this.testingRecordTableArr.push(this.pushTestingTable(item, disconnectionTimeArr, testFaultCurrentArr, testLoopImpedanceArr, testVoltageArr, insulationResistanceArr,testDistRecordId))
+      this.testingRecordTableArr.push(this.pushTestingTable(item, disconnectionTimeArr, testFaultCurrentArr, testLoopImpedanceArr, testVoltageArr, insulationResistanceArr,testDistRecordId,testingId))
     }
     // let item = [];
     // item.push(nominalVoltageAL,nominalFrequencyAL,faultCurrentAL,loopImpedanceAL,installedCapacityAL,actualLoadAL);
     return this.testingRecordTableArr
   }
 
-  pushTestingTable(itemTestingValue: any, disconnectionTimeArr: any, testFaultCurrentArr: any, testLoopImpedanceArr: any, testVoltageArr: any, insulationResistanceArr: any, testDistRecordId: any): FormGroup {
+  pushTestingTable(itemTestingValue: any, disconnectionTimeArr: any, testFaultCurrentArr: any, testLoopImpedanceArr: any, testVoltageArr: any, insulationResistanceArr: any, testDistRecordId: any, testingId: any): FormGroup {
     return new FormGroup({
       testDistRecordId: new FormControl({ disabled: false, value: testDistRecordId }),
+      testingId: new FormControl({ disabled: false, value: testingId }),
       testingRecordId: new FormControl({ disabled: false, value: itemTestingValue.testingRecordId }),
       circuitNo: new FormControl({ disabled: false, value: itemTestingValue.circuitNo }),
       circuitDesc: new FormControl({ disabled: false, value: itemTestingValue.circuitDesc }),
@@ -1748,6 +1758,7 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
   private createtestDistRecordsForm(): FormGroup {
     return new FormGroup({
       locationCount: new FormControl(''),
+      testingId: new FormControl(''),
       testDistribution: this.formBuilder.array([
         this.createtestDistributionForm(),
       ]),
@@ -1759,9 +1770,20 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
 
   createObservationForm(): FormGroup {
     return new FormGroup({
-      testingInnerObervationsId: new FormControl(),
-      observationComponentDetails: new FormControl(),
-      observationDescription: new FormControl(),
+      testingInnerObervationsId: new FormControl(''),
+      testingId: new FormControl(''),
+      observationComponentDetails: new FormControl(''),
+      observationDescription: new FormControl(''),
+      testingInnerObservationStatus: new FormControl('A'),
+    })
+  }
+
+  createObservationForm1(testingId: any): FormGroup {
+    return new FormGroup({
+      testingInnerObervationsId: new FormControl(''),
+      testingId: new FormControl({ disabled: false, value: testingId }),
+      observationComponentDetails: new FormControl(''),
+      observationDescription: new FormControl(''),
       testingInnerObservationStatus: new FormControl('A'),
     })
   }
@@ -1822,6 +1844,9 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
   }
   private createtestValueForm(): FormGroup {
     return new FormGroup({
+      testingId: new FormControl(''),
+      testingRecordId: new FormControl(''),
+      testDistRecordId: new FormControl(''),
       circuitNo: new FormControl(''),
       circuitDesc: new FormControl(''),
       circuitMake: new FormControl(''),
@@ -1907,9 +1932,10 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
     });
   }
 
-  private createtestValuePushForm(value: any): FormGroup {
+  private createtestValuePushForm(value: any,testingId: any): FormGroup {
     return new FormGroup({
       testDistRecordId: new FormControl(''),
+      testingId: new FormControl({ disabled: false, value: testingId }),
       testingRecordId: new FormControl(''),
       circuitNo: new FormControl(''),
       circuitDesc: new FormControl(''),
@@ -2132,8 +2158,8 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
     if (this.testingRecords.length == 0 && this.rateArr.length == 0) {
       if (this.value != '' && this.value != 0) {
         for (this.i = 1; this.i < this.value; this.i++) {
-          this.testingRecords.push(this.createtestValuePushForm(this.testingRecords));
-          this.observationArr.push(this.createObservationForm());
+          this.testingRecords.push(this.createtestValuePushForm(this.testingRecords,a.controls.testingId.value));
+          this.observationArr.push(this.createObservationForm1(a.controls.testingId.value));
           this.rateArr.push(this.ratingAmps());
         }
       }
@@ -2156,8 +2182,8 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
         this.delarr = this.value - this.rateArr.length;
 
         for (this.i = 0; this.i < this.delarr; this.i++) {
-          this.testingRecords.push(this.createtestValuePushForm(this.testingRecords));
-          this.observationArr.push(this.createObservationForm());
+          this.testingRecords.push(this.createtestValuePushForm(this.testingRecords,a.controls.testingId.value));
+          this.observationArr.push(this.createObservationForm1(a.controls.testingId.value));
           this.rateArr.push(this.ratingAmps());
         }
       }
@@ -2236,6 +2262,7 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
    
   createItem() {
     return this.formBuilder.group({
+      testingId: [''],
       locationNumber: ['', Validators.required],
       locationName: ['', Validators.required],
       locationCount: [''],
@@ -2260,7 +2287,7 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
   }
   addDesigner(a:any) {
     this.testingEquipment = a.controls.testingEquipment as FormArray;
-    this.testingEquipment.push(this.createTestInstrumentForm());
+    this.testingEquipment.push(this.createTestInstrumentForm1(a.controls.testingId.value));
   }
   removeItem(a: any,j:any) {
     this.testingForm.markAsTouched();
@@ -2285,6 +2312,20 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
       testingEquipmentStatus: new FormControl('A'),
     });
   }
+
+  createTestInstrumentForm1(testingId: any): FormGroup {
+    return new FormGroup({
+      testingId: new FormControl({ disabled: false, value: testingId }),
+      equipmentName: new FormControl('',[Validators.required]),
+      equipmentId: new FormControl(''),
+      equipmentMake: new FormControl('',[Validators.required]),
+      equipmentModel: new FormControl('',[Validators.required]),
+      equipmentSerialNo: new FormControl('',[Validators.required]),
+      equipmentCalibrationDueDate: new FormControl('',[Validators.required]),
+      testingEquipmentStatus: new FormControl('A'),
+    });
+  }
+
   createtestDistribution(): FormGroup {
     return new FormGroup({
       distributionBoardDetails: new FormControl(''),
@@ -3518,7 +3559,7 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
           for(let j of this.testingDetails.testing) {
             for(let l of j.testDistRecords) {
               for(let k of l.testingRecords) {
-                if(k.testDistRecordId == i.testDistRecordId) {
+                if(k.testingId == i.testingId) {
                   if(k.testingRecordId != i.testingRecordId) {
                     this.deleteRecordDataFlag = true;
                   }
@@ -3539,7 +3580,7 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
           for(let j of this.testingDetails.testing) {
             for(let l of j.testDistRecords) {
               for(let k of l.testingInnerObservation) {
-                if(k.testDistRecordId == i.testDistRecordId) {
+                if(k.testingId == i.testingId) {
                   if(k.testingInnerObervationsId != i.testingInnerObervationsId) {
                     this.deleteObRecordDataFlag = true;
                   }
@@ -3567,6 +3608,11 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
           this.service.windowTabClick=0;
        this.service.logoutClick=0; 
        this.service.lvClick=0; 
+       this.testingService.retrieveTesting(this.testingDetails.siteId,this.testingDetails.userName).subscribe(
+        data=>{
+         this.retrieveDetailsforTesting(this.testingDetails.userName,this.testingDetails.siteId,data);
+        }
+      )
         },
         (error) => {
           this.popup=true;

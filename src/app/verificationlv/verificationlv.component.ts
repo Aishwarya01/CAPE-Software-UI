@@ -832,6 +832,7 @@ changeTab(index: number, sitedId: any, userName: any, companyName: any, departme
         // this.retreiveFromObservationSupply(sitedId,'Supply-Component',userName);
         // this.retreiveFromObservationInspection(sitedId,'Inspection-Component',userName);
         // this.retreiveFromObservationTesting(sitedId,'Testing-Component',userName);
+        this.service.siteCount = sitedId;
         this.service.msgForStep1Flag=false;
         this.basic.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
       }
@@ -845,6 +846,7 @@ changeTab(index: number, sitedId: any, userName: any, companyName: any, departme
       }
       if(this.dataJSON.supplyCharacteristics != null) {
         this.noDetailsFlag = true;
+        this.service.siteCount = sitedId;
         this.supply.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
         if(this.dataJSON.summary == null) {
           this.summary.retrieveFromOngoingForObservation(sitedId);
@@ -856,6 +858,7 @@ changeTab(index: number, sitedId: any, userName: any, companyName: any, departme
 
       if(this.dataJSON.periodicInspection != null) {
         this.noDetailsFlag = true;
+        this.service.siteCount = sitedId;
         this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
         if(this.dataJSON.summary == null) {
           this.summary.retrieveFromOngoingForObservation(sitedId);
@@ -930,6 +933,7 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
       if(this.dataJSON.supplyCharacteristics != null) {
         this.noDetailsFlag= true;
         this.supply.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+        this.service.siteCount = sitedId;
         if(this.dataJSON.summary == null) {
           this.summary.retrieveFromOngoingForObservation(sitedId);
         }      }
@@ -937,6 +941,7 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
       if(this.dataJSON.periodicInspection != null) {
         this.noDetailsFlag= true;
         this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
+        this.service.siteCount = sitedId;
         if(this.dataJSON.summary == null) {
           this.summary.retrieveFromOngoingForObservation(sitedId);
         }        

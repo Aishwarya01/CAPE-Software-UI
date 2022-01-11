@@ -69,6 +69,7 @@ export class TestDistribution {
 
 export class TestingRecords {
   testingRecordId: number;
+  testingId: number
   testDistRecordId: number;
   circuitNo!: String;
   circuitDesc!: String;
@@ -113,6 +114,7 @@ export class TestIncomingDistribution {
 
 export class TestingInnerObservation{  
   testDistRecordId: number;
+  testingId: number
   testingInnerObervationsId: number;
   observationComponentDetails: String;
   observationDescription:String;    
