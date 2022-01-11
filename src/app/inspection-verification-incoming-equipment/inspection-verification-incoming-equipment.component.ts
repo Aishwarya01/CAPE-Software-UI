@@ -178,6 +178,7 @@ export class InspectionVerificationIncomingEquipmentComponent
   deleteObDataFlag: boolean= false;
   finalSpinner: boolean = true;
   popup: boolean = false;
+  intermediateSave:boolean=false;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -1506,6 +1507,38 @@ showHideAccordion(index: number) {
    return true;
     }
   }
+  intermedeateIpaoSave(content3:any){
+    this.intermediateSave=true;
+    this.successMsg="Partial Inspection Data Saved";
+    if(this.addstep3.touched){
+      this.modalReference = this.modalService.open(content3, {
+         centered: true, 
+         size: 'md',
+         backdrop: 'static'
+        })
+     
+     setTimeout(() => {
+      this.modalService.dismissAll((this.errorMsg = ""));
+    }, 3000);
+  }
+  }
+  intermedeateIpaoSave1(content3:any){
+    this.intermediateSave=true;
+    this.successMsg="Partial Inspection Data Saved";
+  if(this.addstep3.touched){
+      this.modalReference = this.modalService.open(content3, {
+         centered: true, 
+         size: 'md',
+         backdrop: 'static'
+        })
+     
+     setTimeout(() => {
+      this.modalService.dismissAll((this.errorMsg = ""));
+    }, 3000);
+  }
+    
+  }
+     
   gotoNextTab() {
     if ((this.addstep3.dirty && this.addstep3.invalid) || this.service.isCompleted2==false) {
       this.service.isCompleted3= false;
@@ -1654,10 +1687,12 @@ showHideAccordion(index: number) {
     }
     this.incomingArr = this.addstep3.get('incomingArr') as FormArray;
     this.inspectionDetails.userName = this.email;
-    this.submitted = true;
-    if (this.addstep3.invalid) {
-      return;
-    }
+    if(this.intermediateSave == false){
+      this.submitted = true;
+     if (this.addstep3.invalid) {
+       return;
+     }
+   }
 
       for(let h of this.incomingArr.value){
           for(let g of h.inspectionOuterObervation){
@@ -1786,7 +1821,10 @@ for(let i of this.deletedInnerObservation) {
           this.success = true;
           this.service.isCompleted3= true;
           this.service.isLinear=false;
-          this.successMsg = 'Incoming Equipment Successfully Updated';
+          if(this.intermediateSave == false){
+            this.successMsg = 'Incoming Equipment Successfully Updated';
+            }
+          this.intermediateSave=false;
           this.addstep3.markAsPristine();
           this.service.windowTabClick=0;
           this.service.logoutClick=0; 
@@ -1824,7 +1862,10 @@ for(let i of this.deletedInnerObservation) {
           this.service.windowTabClick=0;
        this.service.logoutClick=0; 
        this.service.lvClick=0; 
-          this.successMsg = data;
+       if(this.intermediateSave == false){
+        this.successMsg = data; 
+        }
+         this.intermediateSave=false;
           this.inspectionDetailsService.retrieveInspectionDetails(this.inspectionDetails.userName,this.inspectionDetails.siteId).subscribe(
             data=>{
              this.retrieveAllDetailsforIncoming(this.inspectionDetails.userName,this.inspectionDetails.siteId,data);
