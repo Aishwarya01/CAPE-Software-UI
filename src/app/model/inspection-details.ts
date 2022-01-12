@@ -67,6 +67,7 @@ export class InspectionOuterObervation{
 }
 export class InspectionInnerObervations{
   inspectionOuterObservationId!: number;
+  ipaoInspectionId!: number;
   inspectionInnerObservationsId!: number;
   observationComponentDetails!: String;
   observationDescription!: String;

@@ -292,10 +292,9 @@
 
                             <div class="row">
                             
-                                <div class="col-md-4">
+                                <div class="col-md-4 PolarityTT">
                                     <label>Correct Supply Polarity </label>
-                                    <mat-icon style="float: right;font-size: 18px;
-                                    line-height: unset;margin-right: 56%;"
+                                    <mat-icon style="font-size: 18px;"
                                     matTooltip="Phase sequence – clockwise or anti-clockwise"
                                     matTooltipClass="multiline-tooltip"
                                     aria-label="Button that shows a red tooltip"
@@ -334,10 +333,9 @@
                             </div>
 
                              <div class="row">
-                              <div class="col-md-4">
+                              <div class="col-md-4 VulnerableTT">
                                 <label> Installed Equipment Vulnarable To Testing </label>
-                                <mat-icon style="float: right;font-size: 18px;
-                                line-height: unset;margin-right: 27%;"
+                                <mat-icon style="font-size: 18px;"
                                 matTooltip="Live conductors of any equipment exposed at risk / any known susceptible issues in equipment/ flash over/ any incident"
                                 matTooltipClass="multiline-tooltip"
                                 aria-label="Button that shows a red tooltip"
@@ -354,12 +352,11 @@
                                     </div>
                             </div>
 
-                                <div class="col-md-4" formArrayName="rateArr" 
+                                <div class="col-md-4 RatedCurrentTT" formArrayName="rateArr" 
                                 *ngFor="let d of gettestrateFormControls(c); let j = index">
                                     <div class="form-group" [formGroupName]="j">
                                         <label>Rated Current (A) </label>
-                                        <mat-icon style="float: right;font-size: 18px;
-                                        line-height: unset;margin-right: 64%;"
+                                        <mat-icon style="font-size: 18px;"
                                         matTooltip="Note: Based on number of circuits in use this field should be added."
                                         matTooltipClass="multiline-tooltip"
                                         aria-label="Button that shows a red tooltip"
@@ -376,10 +373,9 @@
                                     </div>
                                 </div>
                              
-                                <div class="col-md-4"> 
+                                <div class="col-md-4 SourceIncomingTT"> 
                                     <label>Source Of Incoming:</label>
-                                    <mat-icon style="float: right;font-size: 18px;
-                                    line-height: unset;margin-right: 60%;"
+                                    <mat-icon style="font-size: 18px;"
                                     matTooltip="Based on availability of number of supplies as in P2, drop down option to be given"
                                     matTooltipClass="multiline-tooltip"
                                     aria-label="Button that shows a red tooltip"
@@ -962,15 +958,15 @@
                                 <td><input type="text" formControlName="rpeFaultCurrent" [value]="g.get('rpeFaultCurrent')?.value" class="form-control"   style="width:80px" readonly></td>
                                 <td><input type="text" formControlName="ypeFaultCurrent" [value]="g.get('ypeFaultCurrent')?.value" class="form-control"   style="width:80px" readonly></td>
                                 <td><input type="text" formControlName="bpeFaultCurrent" [value]="g.get('bpeFaultCurrent')?.value" class="form-control"   style="width:80px" readonly></td>
-                                <td><input type="text" formControlName="ryDisconnect" class="form-control"  style="width:80px" ></td>
-                                <td><input type="text" formControlName="rbDisconnect" class="form-control"  style="width:80px" ></td>
-                                <td><input type="text" formControlName="ybDisconnect" class="form-control"  style="width:80px" ></td>
-                                <td><input type="text" formControlName="rnDisconnect" class="form-control"  style="width:80px" ></td>
-                                <td><input type="text" formControlName="ynDisconnect" class="form-control"  style="width:80px" ></td>
-                                <td><input type="text" formControlName="bnDisconnect" class="form-control"   style="width:80px" ></td>
-                                <td><input type="text" formControlName="rpeDisconnect" class="form-control"  style="width:80px" ></td>
-                                <td><input type="text" formControlName="ypeDisconnect" class="form-control"  style="width:80px" ></td>
-                                <td><input type="text" formControlName="bpeDisconnect" class="form-control"  style="width:80px" ></td>
+                                <td><input type="text" formControlName="ryDisconnect" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="rbDisconnect" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="ybDisconnect" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="rnDisconnect" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="ynDisconnect" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="bnDisconnect" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="rpeDisconnect" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="ypeDisconnect" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="bpeDisconnect" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
 
                                 <td></td>
                                 <td></td>

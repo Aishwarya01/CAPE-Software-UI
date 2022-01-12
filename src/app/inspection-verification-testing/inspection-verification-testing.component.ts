@@ -676,6 +676,10 @@ callValue(e: any) {
     this.inspectionRetrieve = false;
     this.testList1 = JSON.parse(data);
     this.testingDetails.siteId = siteId;
+    this.deletedTestingEquipment = [];
+    this.deletedTestingRecord = [];
+    this.deletedObservationArr = [];
+
     this.retrieveDetailsFromIncoming();
     this.retrieveDetailsFromSupply();
     if(this.testList1 != null) {
@@ -694,6 +698,9 @@ callValue(e: any) {
     this.inspectionRetrieve = false;
     this.testList = JSON.parse(data);
     this.testingDetails.siteId = siteId;
+    this.deletedTestingEquipment = [];
+    this.deletedTestingRecord = [];
+    this.deletedObservationArr = [];
     //this.testingDetails.testingOuterObservation = this.testList.testingReport.testingOuterObservation;
     this.retrieveDetailsFromIncoming();
     this.retrieveDetailsFromSupply();
@@ -1308,7 +1315,7 @@ callValue(e: any) {
   private populateTestDistRecordsForm(testDistRecordsItem: any,testingId: any) {
     let testDistRecordsItemArr = [];
     for (let item of testDistRecordsItem) {
-      testDistRecordsItemArr.push(this.pushTestDistRecordsTable(item))
+      testDistRecordsItemArr.push(this.pushTestDistRecordsTable(item,testingId))
     }
     return testDistRecordsItemArr;
   }
@@ -1327,22 +1334,23 @@ callValue(e: any) {
     });
   }
 
-  pushTestDistRecordsTable(testDistRecordsItem: any): FormGroup {
+  pushTestDistRecordsTable(testDistRecordsItem: any,testingId: any): FormGroup {
     return new FormGroup({
       testDistRecordId: new FormControl({disabled: false, value: testDistRecordsItem.testDistRecordId }),
+      testingId: new FormControl({ disabled: false, value: testingId }),
       locationCount: new FormControl({disabled: false, value: testDistRecordsItem.locationCount }),
       testDistribution: this.formBuilder.array([this.populateTestDistributionForm(testDistRecordsItem.testDistribution)]),
-      testingRecords: this.formBuilder.array(this.populateTestRecordsForm(testDistRecordsItem.testingRecords,testDistRecordsItem.testDistRecordId)),
-      testingInnerObservation: this.formBuilder.array(this.pushTestObservationRecord(testDistRecordsItem.testingInnerObservation,testDistRecordsItem.testDistRecordId)),
+      testingRecords: this.formBuilder.array(this.populateTestRecordsForm(testDistRecordsItem.testingRecords,testDistRecordsItem.testDistRecordId,testingId)),
+      testingInnerObservation: this.formBuilder.array(this.pushTestObservationRecord(testDistRecordsItem.testingInnerObservation,testDistRecordsItem.testDistRecordId,testingId)),
 
       testDistRecordStatus: new FormControl(testDistRecordsItem.testDistRecordStatus),
     });
   }
   
-pushTestObservationRecord(testInnerObservationItem: any,testingId: any) {
+pushTestObservationRecord(testInnerObservationItem: any,testDistRecordId: any,testingId: any) {
   let testingInnerObservation = [];
   for (let item of testInnerObservationItem) {
-    testingInnerObservation.push(this.pushTestingInnerObservationTable(item,testingId))
+    testingInnerObservation.push(this.pushTestingInnerObservationTable(item,testDistRecordId,testingId))
   
     if(item.observationDescription!=null && item.observationDescription!=undefined && item.observationDescription!=''){
       this.service.observationGlowTesting=true;
@@ -1350,9 +1358,10 @@ pushTestObservationRecord(testInnerObservationItem: any,testingId: any) {
   }
   return testingInnerObservation;
 }
-private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormGroup {
+private pushTestingInnerObservationTable(item: any,testDistRecordId: any,testingId: any): FormGroup {
   return new FormGroup({
     testDistRecordId: new FormControl({ disabled: false, value: testDistRecordId }),
+    testingId: new FormControl({ disabled: false, value: testingId }),
     testingInnerObervationsId: new FormControl({disabled: false, value: item.testingInnerObervationsId}),
     observationComponentDetails: new FormControl({disabled: false, value: item.observationComponentDetails}),
     observationDescription: new FormControl({disabled: false, value: item.observationDescription}),
@@ -1510,7 +1519,7 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
      
     });
   }
-  private populateTestRecordsForm(testRecordsItem: any,testDistRecordId: any) {
+  private populateTestRecordsForm(testRecordsItem: any,testDistRecordId: any,testingId: any) {
     let disconnectionTimeArr = [];
     let testFaultCurrentArr = [];
     let testLoopImpedanceArr = [];
@@ -1525,16 +1534,17 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
       testVoltageArr = item.testVoltage.split(",");
       insulationResistanceArr = item.insulationResistance.split(",");
 
-      this.testingRecordTableArr.push(this.pushTestingTable(item, disconnectionTimeArr, testFaultCurrentArr, testLoopImpedanceArr, testVoltageArr, insulationResistanceArr,testDistRecordId))
+      this.testingRecordTableArr.push(this.pushTestingTable(item, disconnectionTimeArr, testFaultCurrentArr, testLoopImpedanceArr, testVoltageArr, insulationResistanceArr,testDistRecordId,testingId))
     }
     // let item = [];
     // item.push(nominalVoltageAL,nominalFrequencyAL,faultCurrentAL,loopImpedanceAL,installedCapacityAL,actualLoadAL);
     return this.testingRecordTableArr
   }
 
-  pushTestingTable(itemTestingValue: any, disconnectionTimeArr: any, testFaultCurrentArr: any, testLoopImpedanceArr: any, testVoltageArr: any, insulationResistanceArr: any, testDistRecordId: any): FormGroup {
+  pushTestingTable(itemTestingValue: any, disconnectionTimeArr: any, testFaultCurrentArr: any, testLoopImpedanceArr: any, testVoltageArr: any, insulationResistanceArr: any, testDistRecordId: any, testingId: any): FormGroup {
     return new FormGroup({
       testDistRecordId: new FormControl({ disabled: false, value: testDistRecordId }),
+      testingId: new FormControl({ disabled: false, value: testingId }),
       testingRecordId: new FormControl({ disabled: false, value: itemTestingValue.testingRecordId }),
       circuitNo: new FormControl({ disabled: false, value: itemTestingValue.circuitNo }),
       circuitDesc: new FormControl({ disabled: false, value: itemTestingValue.circuitDesc }),
@@ -1743,11 +1753,13 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
       // testingAlternateRecords: this.formBuilder.array([
       //   this.distributionIncomingValue(),
       // ]),
+
     });
   }
   private createtestDistRecordsForm(): FormGroup {
     return new FormGroup({
       locationCount: new FormControl(''),
+      testingId: new FormControl(''),
       testDistribution: this.formBuilder.array([
         this.createtestDistributionForm(),
       ]),
@@ -1759,9 +1771,20 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
 
   createObservationForm(): FormGroup {
     return new FormGroup({
-      testingInnerObervationsId: new FormControl(),
-      observationComponentDetails: new FormControl(),
-      observationDescription: new FormControl(),
+      testingInnerObervationsId: new FormControl(''),
+      testingId: new FormControl(''),
+      observationComponentDetails: new FormControl(''),
+      observationDescription: new FormControl(''),
+      testingInnerObservationStatus: new FormControl('A'),
+    })
+  }
+
+  createObservationForm1(testingId: any): FormGroup {
+    return new FormGroup({
+      testingInnerObervationsId: new FormControl(''),
+      testingId: new FormControl({ disabled: false, value: testingId }),
+      observationComponentDetails: new FormControl(''),
+      observationDescription: new FormControl(''),
       testingInnerObservationStatus: new FormControl('A'),
     })
   }
@@ -1822,6 +1845,9 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
   }
   private createtestValueForm(): FormGroup {
     return new FormGroup({
+      testingId: new FormControl(''),
+      testingRecordId: new FormControl(''),
+      testDistRecordId: new FormControl(''),
       circuitNo: new FormControl(''),
       circuitDesc: new FormControl(''),
       circuitMake: new FormControl(''),
@@ -1907,9 +1933,10 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
     });
   }
 
-  private createtestValuePushForm(value: any): FormGroup {
+  private createtestValuePushForm(value: any,testingId: any): FormGroup {
     return new FormGroup({
       testDistRecordId: new FormControl(''),
+      testingId: new FormControl({ disabled: false, value: testingId }),
       testingRecordId: new FormControl(''),
       circuitNo: new FormControl(''),
       circuitDesc: new FormControl(''),
@@ -2132,8 +2159,8 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
     if (this.testingRecords.length == 0 && this.rateArr.length == 0) {
       if (this.value != '' && this.value != 0) {
         for (this.i = 1; this.i < this.value; this.i++) {
-          this.testingRecords.push(this.createtestValuePushForm(this.testingRecords));
-          this.observationArr.push(this.createObservationForm());
+          this.testingRecords.push(this.createtestValuePushForm(this.testingRecords,a.controls.testingId.value));
+          this.observationArr.push(this.createObservationForm1(a.controls.testingId.value));
           this.rateArr.push(this.ratingAmps());
         }
       }
@@ -2156,8 +2183,8 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
         this.delarr = this.value - this.rateArr.length;
 
         for (this.i = 0; this.i < this.delarr; this.i++) {
-          this.testingRecords.push(this.createtestValuePushForm(this.testingRecords));
-          this.observationArr.push(this.createObservationForm());
+          this.testingRecords.push(this.createtestValuePushForm(this.testingRecords,a.controls.testingId.value));
+          this.observationArr.push(this.createObservationForm1(a.controls.testingId.value));
           this.rateArr.push(this.ratingAmps());
         }
       }
@@ -2236,6 +2263,7 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
    
   createItem() {
     return this.formBuilder.group({
+      testingId: [''],
       locationNumber: ['', Validators.required],
       locationName: ['', Validators.required],
       locationCount: [''],
@@ -2260,7 +2288,7 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
   }
   addDesigner(a:any) {
     this.testingEquipment = a.controls.testingEquipment as FormArray;
-    this.testingEquipment.push(this.createTestInstrumentForm());
+    this.testingEquipment.push(this.createTestInstrumentForm1(a.controls.testingId.value));
   }
   removeItem(a: any,j:any) {
     this.testingForm.markAsTouched();
@@ -2285,6 +2313,20 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
       testingEquipmentStatus: new FormControl('A'),
     });
   }
+
+  createTestInstrumentForm1(testingId: any): FormGroup {
+    return new FormGroup({
+      testingId: new FormControl({ disabled: false, value: testingId }),
+      equipmentName: new FormControl('',[Validators.required]),
+      equipmentId: new FormControl(''),
+      equipmentMake: new FormControl('',[Validators.required]),
+      equipmentModel: new FormControl('',[Validators.required]),
+      equipmentSerialNo: new FormControl('',[Validators.required]),
+      equipmentCalibrationDueDate: new FormControl('',[Validators.required]),
+      testingEquipmentStatus: new FormControl('A'),
+    });
+  }
+
   createtestDistribution(): FormGroup {
     return new FormGroup({
       distributionBoardDetails: new FormControl(''),
@@ -3088,6 +3130,7 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
         let incomingLoopImpedance: String = '';
         let incomingFaultCurrent: String = '';
         let incomingActualLoad: String = '';
+
         for (let a of arr) {
           if (a != '') {
             incomingVoltage += a + ',';
@@ -3241,155 +3284,157 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
        o.controls.disconnectionTime.setValue(disconnectionTime1);
         }
       }
-      for (let x of this.testingRecords.value) {
-        if (x.circuitNo == '') {
-          x.circuitNo = 'NA';
+
+      for (let x of this.testingRecords.controls) {
+        if (x.controls.circuitNo.value == '' || x.controls.circuitNo.value == undefined || x.controls.circuitNo.value == null) {
+          x.controls.circuitNo.setValue('NA');
         }
-        if (x.continutiyRR == '') {
-          x.continutiyRR = 'NA';
+        if (x.controls.continutiyRR.value == '' || x.controls.continutiyRR.value == undefined || x.controls.continutiyRR.value == null) {
+          x.controls.continutiyRR.setValue('NA');
         }
-        if (x.continutiyLL == '') {
-          x.continutiyLL = 'NA';
+        // if (x.controls.continutiyLL?.value == '' || x.controls.continutiyLL?.value == undefined || x.controls.continutiyLL?.value == null) {
+        //   x.controls.continutiyLL.setValue('NA');
+        // }
+        // if (x.controls.continutiyLE.value == '' || x.controls.continutiyLE.value == undefined || x.controls.continutiyLE.value == null) {
+        //   x.controls.continutiyLE.setValue('NA');
+        // }
+        if (x.controls.continutiyPolarity.value == '' || x.controls.continutiyPolarity.value == undefined || x.controls.continutiyPolarity.value == null) {
+          x.controls.continutiyPolarity.setValue('NA');
         }
-        if (x.continutiyLE == '') {
-          x.continutiyLE = 'NA';
+        if (x.controls.conductorPecpc.value == '' || x.controls.conductorPecpc.value == undefined || x.controls.conductorPecpc.value == null) {
+          x.controls.conductorPecpc.setValue('NA');
         }
-        if (x.continutiyPolarity == '') {
-          x.continutiyPolarity = 'NA';
+        if (x.controls.continutiyApproximateLength.value == '' || x.controls.continutiyApproximateLength.value == undefined || x.controls.continutiyApproximateLength.value == null) {
+          x.controls.continutiyApproximateLength.setValue('NA');
         }
-        if (x.conductorPecpc == '') {
-          x.conductorPecpc = 'NA';
+        if (x.controls.continutiyR.value == '' || x.controls.continutiyR.value == undefined || x.controls.continutiyR.value == null) {
+          x.controls.continutiyR.setValue('NA');
         }
-        if (x.continutiyApproximateLength == '') {
-          x.continutiyApproximateLength = 'NA';
+        if (x.controls.circuitMake.value == '' || x.controls.circuitMake.value == undefined || x.controls.circuitMake.value == null) {
+          x.controls.circuitMake.setValue('NA');
         }
-        if (x.continutiyR == '') {
-          x.continutiyR = 'NA';
+        if (x.controls.circuitStandardNo.value == '' || x.controls.circuitStandardNo.value == undefined || x.controls.circuitStandardNo.value == null) {
+          x.controls.circuitStandardNo.setValue('NA');
         }
-        if (x.circuitMake == '') {
-          x.circuitMake = 'NA';
+        if (x.controls.numberOfPoles.value == '' || x.controls.numberOfPoles.value == undefined || x.controls.numberOfPoles.value == null) {
+          x.controls.numberOfPoles.setValue('NA');
         }
-        if (x.circuitStandardNo == '') {
-          x.circuitStandardNo = 'NA';
+        if (x.controls.conductorInstallation.value == '' || x.controls.conductorInstallation.value == undefined || x.controls.conductorInstallation.value == null) {
+          x.controls.conductorInstallation.setValue('NA');
         }
-        if (x.numberOfPoles == '') {
-          x.numberOfPoles = 'NA';
+        if (x.controls.circuitType.value == '' || x.controls.circuitType.value == undefined || x.controls.circuitType.value == null) {
+          x.controls.circuitType.setValue('NA');
         }
-        if (x.conductorInstallation == '') {
-          x.conductorInstallation = 'NA';
-        }
-        if (x.circuitType == '') {
-          x.circuitType = 'NA';
-        }
-        if (x.circuitCurrentCurve == '') {
-          x.circuitCurrentCurve = 'NA';
+        if (x.controls.circuitCurrentCurve.value == '' || x.controls.circuitCurrentCurve.value == undefined || x.controls.circuitCurrentCurve.value == null) {
+          x.controls.circuitCurrentCurve.setValue('NA');
         }
         // if (x.circuitType == '') {
         //   x.circuitType = 'NA';
         // }
-        if (x.circuitRating == '') {
-          x.circuitRating = 'NA';
+        if (x.controls.circuitRating.value == '' || x.controls.circuitRating.value == undefined || x.controls.circuitRating.value == null) {
+          x.controls.circuitRating.setValue('NA');
         }
-        if (x.circuitBreakingCapacity == '') {
-          x.circuitBreakingCapacity = 'NA';
+        if (x.controls.circuitBreakingCapacity.value == '' || x.controls.circuitBreakingCapacity.value == undefined || x.controls.circuitBreakingCapacity.value == null) {
+          x.controls.circuitBreakingCapacity.setValue('NA');
         }
-        if (x.shortCircuitSetting == '') {
-          x.shortCircuitSetting = 'NA';
+        if (x.controls.shortCircuitSetting.value == '' || x.controls.shortCircuitSetting.value == undefined || x.controls.shortCircuitSetting.value == null) {
+          x.controls.shortCircuitSetting.setValue('NA');
         }
-        if (x.eFSetting == '') {
-          x.eFSetting = 'NA';
+        if (x.controls.eFSetting.value == '' || x.controls.eFSetting.value == undefined || x.controls.eFSetting.value == null) {
+          x.controls.eFSetting.setValue('NA');
         }
-        if (x.conductorPhase == '') {
-          x.conductorPhase = 'NA';
+        if (x.controls.conductorPhase.value == '' || x.controls.conductorPhase.value == undefined || x.controls.conductorPhase.value == null) {
+          x.controls.conductorPhase.setValue('NA');
         }
-        if (x.conductorNeutral == '') {
-          x.conductorNeutral = 'NA';
+        if (x.controls.conductorNeutral.value == '' || x.controls.conductorNeutral.value == undefined || x.controls.conductorNeutral.value == null) {
+          x.controls.conductorNeutral.setValue('NA');
         }
-        if (x.circuitDesc == '') {
-          x.circuitDesc = 'NA';
+        if (x.controls.circuitDesc.value == '' || x.controls.circuitDesc.value == undefined || x.controls.circuitDesc.value == null) {
+          x.controls.circuitDesc.setValue('NA');
         }
-        if (x.rcdTestButtonOperation == '') {
-          x.rcdTestButtonOperation = 'NA';
+        if (x.controls.rcdTestButtonOperation.value == '' || x.controls.rcdTestButtonOperation.value == undefined || x.controls.rcdTestButtonOperation.value == null) {
+          x.controls.rcdTestButtonOperation.setValue('NA');
         }
-        if (x.rcdRemarks == '') {
-          x.rcdRemarks = 'NA';
+        if (x.controls.rcdRemarks.value == '' || x.controls.rcdRemarks.value == undefined || x.controls.rcdRemarks.value == null) {
+          x.controls.rcdRemarks.setValue('NA');
         }
-        if (x.rcdType == '') {
-          x.rcdType = 'NA';
-        }
-
-        if (x.rcdCurrent == '') {
-          x.rcdCurrent = 'NA';
+        if (x.controls.rcdType.value == '' || x.controls.rcdType.value == undefined || x.controls.rcdType.value == null) {
+          x.controls.rcdType.setValue('NA');
         }
 
-        if (x.rcdOperatingCurrent == '') {
-          x.rcdOperatingCurrent = 'NA';
+        if (x.controls.rcdCurrent.value == '' || x.controls.rcdCurrent.value == undefined || x.controls.rcdCurrent.value == null) {
+          x.controls.rcdCurrent.setValue('NA');
         }
-        if (x.rcdOperatingFiveCurrent == '') {
-          x.rcdOperatingFiveCurrent = 'NA';
+
+        if (x.controls.rcdOperatingCurrent.value == '' || x.controls.rcdOperatingCurrent.value == undefined || x.controls.rcdOperatingCurrent.value == null) {
+          x.controls.rcdOperatingCurrent.setValue('NA');
+        }
+        if (x.controls.rcdOperatingFiveCurrent.value == '' || x.controls.rcdOperatingFiveCurrent.value == undefined || x.controls.rcdOperatingFiveCurrent.value == null) {
+          x.controls.rcdOperatingFiveCurrent.setValue('NA');
         }
       }
-      // coma saparated value for second table
-      for (let n of this.testingRecords.value) {
+      // coma saparated value for second table  
+      for (let n of this.testingRecords.controls) {
         let arr: any = [];
         let arr1: any = [];
         let arr2: any = [];
         let arr3: any = [];
         let arr4: any = [];
         arr4.push(
-          n.rycontinutiy,
-          n.rbcontinutiy,
-          n.ybcontinutiy,
-          n.rncontinutiy,
-          n.yncontinutiy,
-          n.bncontinutiy,
-          n.rpecontinutiy,
-          n.ypecontinutiy,
-          n.bpecontinutiy
+          n.controls.rycontinutiy.value,
+          n.controls.rbcontinutiy.value,
+          n.controls.ybcontinutiy.value,
+          n.controls.rncontinutiy.value,
+          n.controls.yncontinutiy.value,
+          n.controls.bncontinutiy.value,
+          n.controls.rpecontinutiy.value,
+          n.controls.ypecontinutiy.value,
+          n.controls.bpecontinutiy.value
         );
         arr.push(
-          n.ryVoltage,
-          n.rbVoltage,
-          n.ybVoltage,
-          n.rnVoltage,
-          n.ynVoltage,
-          n.bnVoltage,
-          n.rpeVoltage,
-          n.ypeVoltage,
-          n.bpeVoltage
+          n.controls.ryVoltage.value,
+          n.controls.rbVoltage.value,
+          n.controls.ybVoltage.value,
+          n.controls.rnVoltage.value,
+          n.controls.ynVoltage.value,
+          n.controls.bnVoltage.value,
+          n.controls.rpeVoltage.value,
+          n.controls.ypeVoltage.value,
+          n.controls.bpeVoltage.value
+
         );
         arr1.push(
-          n.ryLoopImpedance,
-          n.rbLoopImpedance,
-          n.ybLoopImpedance,
-          n.rnLoopImpedance,
-          n.ynLoopImpedance,
-          n.bnLoopImpedance,
-          n.rpeLoopImpedance,
-          n.ypeLoopImpedance,
-          n.bpeLoopImpedance
+          n.controls.ryLoopImpedance.value,
+          n.controls.rbLoopImpedance.value,
+          n.controls.ybLoopImpedance.value,
+          n.controls.rnLoopImpedance.value,
+          n.controls.ynLoopImpedance.value,
+          n.controls.bnLoopImpedance.value,
+          n.controls.rpeLoopImpedance.value,
+          n.controls.ypeLoopImpedance.value,
+          n.controls.bpeLoopImpedance.value
         );
         arr2.push(
-          n.ryFaultCurrent,
-          n.rbFaultCurrent,
-          n.ybFaultCurrent,
-          n.rnFaultCurrent,
-          n.ynFaultCurrent,
-          n.bnFaultCurrent,
-          n.rpeFaultCurrent,
-          n.ypeFaultCurrent,
-          n.bpeFaultCurrent
+          n.controls.ryFaultCurrent.value,
+          n.controls.rbFaultCurrent.value,
+          n.controls.ybFaultCurrent.value,
+          n.controls.rnFaultCurrent.value,
+          n.controls.ynFaultCurrent.value,
+          n.controls.bnFaultCurrent.value,
+          n.controls.rpeFaultCurrent.value,
+          n.controls.ypeFaultCurrent.value,
+          n.controls.bpeFaultCurrent.value
         );
         arr3.push(
-          n.ryDisconnect,
-          n.rbDisconnect,
-          n.ybDisconnect,
-          n.rnDisconnect,
-          n.ynDisconnect,
-          n.bnDisconnect,
-          n.rpeDisconnect,
-          n.ypeDisconnect,
-          n.bpeDisconnect
+          n.controls.ryDisconnect.value,
+          n.controls.rbDisconnect.value,
+          n.controls.ybDisconnect.value,
+          n.controls.rnDisconnect.value,
+          n.controls.ynDisconnect.value,
+          n.controls.bnDisconnect.value,
+          n.controls.rpeDisconnect.value,
+          n.controls.ypeDisconnect.value,
+          n.controls.bpeDisconnect.value
         );
         let testVoltage: String = '';
         let testLoopImpedance: String = '';
@@ -3398,37 +3443,38 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
         let insulationResistance: String = '';
 
         for (let x of arr4) {
-          if (x != '') {
+          if (x != '' && x != undefined && x != null) {
             insulationResistance += x + ',';
           } else {
             insulationResistance += 'NA,';
           }
         }
         insulationResistance = insulationResistance.replace(/,\s*$/, '');
-        n.insulationResistance = insulationResistance;
+        n.controls.insulationResistance.setValue(insulationResistance);
 
         for (let a of arr) {
-          if (a != '') {
+          if (a != '' && a != undefined && a != null) {
             testVoltage += a + ',';
           } else {
             testVoltage += 'NA,';
           }
         }
         testVoltage = testVoltage.replace(/,\s*$/, '');
-        n.testVoltage=testVoltage;
-
+        n.controls.testVoltage.setValue(testVoltage);
+        
         for (let b of arr1) {
-          if (b != '') {
+          if (b != '' && b != undefined && b != null) {
             testLoopImpedance += b + ',';
-          } else {
+          }
+          else {
             testLoopImpedance += 'NA,';
           }
         }
         testLoopImpedance = testLoopImpedance.replace(/,\s*$/, '');
-        n.testLoopImpedance = testLoopImpedance;
+        n.controls.testLoopImpedance.setValue(testLoopImpedance);
 
         for (let c of arr2) {
-          if (c != '') {
+          if (c != '' && c != undefined && c != null) {
             testFaultCurrent += c + ',';
           } else {
             testFaultCurrent += 'NA,';
@@ -3436,17 +3482,17 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
         }
 
         testFaultCurrent = testFaultCurrent.replace(/,\s*$/, '');
-        n.testFaultCurrent = testFaultCurrent;
+        n.controls.testFaultCurrent.setValue(testFaultCurrent);
 
         for (let d of arr3) {
-          if (d != '') {
+          if (d != '' && d != undefined && d != null) {
             disconnectionTime += d + ',';
           } else {
             disconnectionTime += 'NA,';
           }
         }
         disconnectionTime = disconnectionTime.replace(/,\s*$/, '');
-        n.disconnectionTime = disconnectionTime;
+        n.controls.disconnectionTime.setValue(disconnectionTime);
       }
       }
     }
@@ -3518,7 +3564,7 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
           for(let j of this.testingDetails.testing) {
             for(let l of j.testDistRecords) {
               for(let k of l.testingRecords) {
-                if(k.testDistRecordId == i.testDistRecordId) {
+                if(k.testingId == i.testingId) {
                   if(k.testingRecordId != i.testingRecordId) {
                     this.deleteRecordDataFlag = true;
                   }
@@ -3539,7 +3585,7 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
           for(let j of this.testingDetails.testing) {
             for(let l of j.testDistRecords) {
               for(let k of l.testingInnerObservation) {
-                if(k.testDistRecordId == i.testDistRecordId) {
+                if(k.testingId == i.testingId) {
                   if(k.testingInnerObervationsId != i.testingInnerObervationsId) {
                     this.deleteObRecordDataFlag = true;
                   }
@@ -3567,6 +3613,11 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any): FormG
           this.service.windowTabClick=0;
        this.service.logoutClick=0; 
        this.service.lvClick=0; 
+       this.testingService.retrieveTesting(this.testingDetails.siteId,this.testingDetails.userName).subscribe(
+        data=>{
+         this.retrieveDetailsforTesting(this.testingDetails.userName,this.testingDetails.siteId,data);
+        }
+      )
         },
         (error) => {
           this.popup=true;

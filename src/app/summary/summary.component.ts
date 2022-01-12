@@ -342,15 +342,35 @@ export class SummaryComponent implements OnInit {
           this.noObserveSupply=false;
            for(let j of this.ObservationsSumaryArr.supplyOuterObservation) {
              if(j.observationComponentDetails == 'mains') {
-               i.controls.mainsObservations.setValue(j.observationDescription);
+              i.controls['mainsComment'].setValidators(Validators.required);
+              i.controls['mainsComment'].updateValueAndValidity();
+              i.controls['mainsFurtherActions'].setValidators(Validators.required);
+              i.controls['mainsFurtherActions'].updateValueAndValidity();
+
+              i.controls.mainsObservations.setValue(j.observationDescription);
              }
              else if(j.observationComponentDetails == 'instalLocationReportOb') {
+              i.controls['electrodeComment'].setValidators(Validators.required);
+              i.controls['electrodeComment'].updateValueAndValidity();
+              i.controls['electrodeFurtherActions'].setValidators(Validators.required);
+              i.controls['electrodeFurtherActions'].updateValueAndValidity();
+
                i.controls.earthElectrodeObservations.setValue(j.observationDescription);
              }
              else if(j.observationComponentDetails == 'bondingNoOfJointsOb') {
+              i.controls['bondingComment'].setValidators(Validators.required);
+              i.controls['bondingComment'].updateValueAndValidity();
+              i.controls['bondingFurtherActions'].setValidators(Validators.required);
+              i.controls['bondingFurtherActions'].updateValueAndValidity();
+
                i.controls.bondingConductorObservations.setValue(j.observationDescription);
              }
              else if(j.observationComponentDetails == 'earthingNoOfJointsOb') {
+              i.controls['earthingComment'].setValidators(Validators.required);
+              i.controls['earthingComment'].updateValueAndValidity();
+              i.controls['earthingFurtherActions'].setValidators(Validators.required);
+              i.controls['earthingFurtherActions'].updateValueAndValidity();
+
                i.controls.earthingConductorObservations.setValue(j.observationDescription);
              }
              else if(j.observationComponentDetails == 'alternate') {
@@ -477,15 +497,35 @@ export class SummaryComponent implements OnInit {
             this.noObserveSupply=false;
             for(let j of this.ObservationsSumaryArr.supplyOuterObservation) {
               if(j.observationComponentDetails == 'mains') {
+                i.controls['mainsComment'].setValidators(Validators.required);
+                i.controls['mainsComment'].updateValueAndValidity();
+                i.controls['mainsFurtherActions'].setValidators(Validators.required);
+                i.controls['mainsFurtherActions'].updateValueAndValidity();
+
                 i.controls.mainsObservations.setValue(j.observationDescription);
               }
               else if(j.observationComponentDetails == 'instalLocationReportOb') {
+                i.controls['electrodeComment'].setValidators(Validators.required);
+                i.controls['electrodeComment'].updateValueAndValidity();
+                i.controls['electrodeFurtherActions'].setValidators(Validators.required);
+                i.controls['electrodeFurtherActions'].updateValueAndValidity();
+
                 i.controls.earthElectrodeObservations.setValue(j.observationDescription);
               }
               else if(j.observationComponentDetails == 'bondingNoOfJointsOb') {
+                i.controls['bondingComment'].setValidators(Validators.required);
+                i.controls['bondingComment'].updateValueAndValidity();
+                i.controls['bondingFurtherActions'].setValidators(Validators.required);
+                i.controls['bondingFurtherActions'].updateValueAndValidity();
+
                 i.controls.bondingConductorObservations.setValue(j.observationDescription);
               }
               else if(j.observationComponentDetails == 'earthingNoOfJointsOb') {
+                i.controls['earthingComment'].setValidators(Validators.required);
+                i.controls['earthingComment'].updateValueAndValidity();
+                i.controls['earthingFurtherActions'].setValidators(Validators.required);
+                i.controls['earthingFurtherActions'].updateValueAndValidity();
+
                 i.controls.earthingConductorObservations.setValue(j.observationDescription);
               }
               else if(j.observationComponentDetails == 'alternate') {
@@ -1179,17 +1219,17 @@ showHideAccordion(index: number) {
     return new FormGroup({
       observationsSupply: new FormControl(''),
       mainsObservations: new FormControl(''),
-      mainsFurtherActions: new FormControl('',[Validators.required]),
-      mainsComment: new FormControl('',[Validators.required]),
+      mainsFurtherActions: new FormControl(''),
+      mainsComment: new FormControl(''),
       earthElectrodeObservations: new FormControl(''),
-      electrodeFurtherActions: new FormControl('',[Validators.required]),
-      electrodeComment: new FormControl('',[Validators.required]),
+      electrodeFurtherActions: new FormControl(''),
+      electrodeComment: new FormControl(''),
       bondingConductorObservations: new FormControl(''),
-      bondingFurtherActions: new FormControl('',[Validators.required]),
-      bondingComment: new FormControl('',[Validators.required]),
+      bondingFurtherActions: new FormControl(''),
+      bondingComment: new FormControl(''),
       earthingConductorObservations: new FormControl(''),
-      earthingFurtherActions: new FormControl('',[Validators.required]),
-      earthingComment: new FormControl('',[Validators.required]),
+      earthingFurtherActions: new FormControl(''),
+      earthingComment: new FormControl(''),
       alternateArr: this._formBuilder.array([]),
       inspectionArr: this._formBuilder.array([]),
       testingArr: this._formBuilder.array([]),
@@ -1658,10 +1698,123 @@ showHideAccordion(index: number) {
     dialogRef.componentInstance.summaryModal = true;
     dialogRef.componentInstance.confirmBox.subscribe(data=>{
       if(data) {
-        return;
+        this.modalService.open(content5, { centered: true, backdrop: 'static'});
+
+        this.summaryObervation=this.addsummary.get('summaryObervation') as FormArray;
+        this.ObservationsArr=this.addsummary.get('ObservationsArr') as FormArray;
+
+        for(let i of this.summaryObervation.controls){
+        if(i.controls.observationComponentDetails.value == 'mainsObservations')  {
+          i.controls.comment.setValue(this.ObservationsArr.controls[0].controls.mainsComment.value);
+          i.controls.furtherActions.setValue(this.ObservationsArr.controls[0].controls.mainsFurtherActions.value);
+          i.controls.observations.setValue(this.ObservationsArr.controls[0].controls.mainsObservations.value);
+        } 
+        else if(i.controls.observationComponentDetails.value == 'earthElectrodeObservations')  {
+          i.controls.comment.setValue(this.ObservationsArr.controls[0].controls.electrodeComment.value);
+          i.controls.furtherActions.setValue(this.ObservationsArr.controls[0].controls.electrodeFurtherActions.value);
+          i.controls.observations.setValue(this.ObservationsArr.controls[0].controls.earthElectrodeObservations.value);
+        } 
+        else  if(i.controls.observationComponentDetails.value == 'boundingObservations')  {
+          i.controls.comment.setValue(this.ObservationsArr.controls[0].controls.bondingComment.value);
+          i.controls.furtherActions.setValue(this.ObservationsArr.controls[0].controls.bondingFurtherActions.value); 
+          i.controls.observations.setValue(this.ObservationsArr.controls[0].controls.bondingConductorObservations.value);
+        } 
+        else if(i.controls.observationComponentDetails.value == 'earthingObservations')  {
+          i.controls.comment.setValue(this.ObservationsArr.controls[0].controls.earthingComment.value);
+          i.controls.furtherActions.setValue(this.ObservationsArr.controls[0].controls.earthingFurtherActions.value);
+          i.controls.observations.setValue(this.ObservationsArr.controls[0].controls.earthingConductorObservations.value);
+        }    
+        }
+
+        if(this.ObservationsArr.value[0].alternateArr.length!=0){
+          this.alternateArr=this.ObservationsArr.controls[0].controls.alternateArr as FormArray;
+          for(let i of this.alternateArr.value){
+            this.summaryObervation.value.push(i);
+          }
+        }
+        if(this.ObservationsArr.value[0].inspectionArr.length!=0){
+          this.inspectionArr=this.ObservationsArr.controls[0].controls.inspectionArr as FormArray;
+          for(let i of this.inspectionArr.value){
+            this.summaryObervation.value.push(i);
+            // for(let j of i.summaryInnerObservation){
+            //   this.summaryObervation.value.push(j);
+            // }
+          }
+        }
+        if(this.ObservationsArr.value[0].testingArr.length!=0){
+          this.testingArr=this.ObservationsArr.controls[0].controls.testingArr as FormArray;
+          for(let i of this.testingArr.value){
+            this.summaryObervation.value.push(i);
+          }
+        }
+      
+          //this.verification.callFinalSavedMethod();
+          this.summary.summaryObservation = this.addsummary.value.summaryObervation;
+          this.summary.summaryDeclaration = this.addsummary.value.Declaration1Arr;
+          this.summary.limitationsInspection='The following observations are made';
+          this.summary.summaryDeclaration = this.summary.summaryDeclaration.concat(
+            this.addsummary.value.Declaration2Arr
+          );
+
+          if(flag) {
+            if(this.addsummary.dirty){
+              if(this.deletedArr.length != 0) {
+                for(let i of this.deletedArr) {
+                  this.summary.summaryObservation.push(i);
+                }
+              }
+            this.UpateInspectionService.updateSummary(this.summary).subscribe(
+              data=> {
+                this.success = true;
+                this.successMsg = data;
+                this.finalFlag = true;
+                this.addsummary.markAsPristine();
+                this.service.windowTabClick=0;
+            this.service.logoutClick=0; 
+            this.service.lvClick=0; 
+              },
+              (error) => {
+                this.Error = true;
+                this.errorArr = [];
+                this.errorArr = JSON.parse(error.error);
+                this.errorMsg = this.errorArr.message;
+              });
+              }
+          }
+
+          else {
+            this.summarydetailsService.addSummary(this.summary).subscribe(
+              (data) => {
+                //this.proceedNext.emit(true);
+                this.ConfirmSuccess=true;
+                this.popup=true;
+                this.finalSpinner=false;
+                this.success = true;
+                this.successMsg = data;
+                this.addsummary.markAsPristine();
+                this.service.allFieldsDisable = true; 
+                this.service.disableSubmitSummary=true;
+                this.finalFlag = true;
+                this.service.windowTabClick=0;
+            this.service.logoutClick=0; 
+            this.service.lvClick=0; 
+              },
+              (error) => {
+                this.popup=true;
+                this.finalSpinner=false;
+                this.Error = true;
+                this.errorArr = [];
+                this.errorArr = JSON.parse(error.error);
+                this.errorMsg = this.errorArr.message;
+                this.proceedNext.emit(false);
+                this.service.disableSubmitSummary=false;
+                //this.addsummary.markAsPristine();
+              });
+          }
+
       }
       else{
-        this.modalService.open(content5, { centered: true, backdrop: 'static'});
+        return;
       }
     })
   //   if(!confirm("Are you sure you want to procced?\r\n\r\nNote: Once saved, details can't be modified!")){
@@ -1670,118 +1823,8 @@ showHideAccordion(index: number) {
   // else{
   //     this.modalService.open(content5, { centered: true, backdrop: 'static'});
   // }
-  this.summaryObervation=this.addsummary.get('summaryObervation') as FormArray;
-  this.ObservationsArr=this.addsummary.get('ObservationsArr') as FormArray;
-
-  for(let i of this.summaryObervation.controls){
-   if(i.controls.observationComponentDetails.value == 'mainsObservations')  {
-    i.controls.comment.setValue(this.ObservationsArr.controls[0].controls.mainsComment.value);
-    i.controls.furtherActions.setValue(this.ObservationsArr.controls[0].controls.mainsFurtherActions.value);
-    i.controls.observations.setValue(this.ObservationsArr.controls[0].controls.mainsObservations.value);
-   } 
-   else if(i.controls.observationComponentDetails.value == 'earthElectrodeObservations')  {
-    i.controls.comment.setValue(this.ObservationsArr.controls[0].controls.electrodeComment.value);
-    i.controls.furtherActions.setValue(this.ObservationsArr.controls[0].controls.electrodeFurtherActions.value);
-    i.controls.observations.setValue(this.ObservationsArr.controls[0].controls.earthElectrodeObservations.value);
-   } 
-  else  if(i.controls.observationComponentDetails.value == 'boundingObservations')  {
-    i.controls.comment.setValue(this.ObservationsArr.controls[0].controls.bondingComment.value);
-    i.controls.furtherActions.setValue(this.ObservationsArr.controls[0].controls.bondingFurtherActions.value); 
-    i.controls.observations.setValue(this.ObservationsArr.controls[0].controls.bondingConductorObservations.value);
-   } 
-   else if(i.controls.observationComponentDetails.value == 'earthingObservations')  {
-    i.controls.comment.setValue(this.ObservationsArr.controls[0].controls.earthingComment.value);
-    i.controls.furtherActions.setValue(this.ObservationsArr.controls[0].controls.earthingFurtherActions.value);
-    i.controls.observations.setValue(this.ObservationsArr.controls[0].controls.earthingConductorObservations.value);
-   }    
-  }
-
-  if(this.ObservationsArr.value[0].alternateArr.length!=0){
-    this.alternateArr=this.ObservationsArr.controls[0].controls.alternateArr as FormArray;
-    for(let i of this.alternateArr.value){
-      this.summaryObervation.value.push(i);
+  
     }
-  }
-  if(this.ObservationsArr.value[0].inspectionArr.length!=0){
-    this.inspectionArr=this.ObservationsArr.controls[0].controls.inspectionArr as FormArray;
-    for(let i of this.inspectionArr.value){
-      this.summaryObervation.value.push(i);
-      // for(let j of i.summaryInnerObservation){
-      //   this.summaryObervation.value.push(j);
-      // }
-    }
-  }
-  if(this.ObservationsArr.value[0].testingArr.length!=0){
-    this.testingArr=this.ObservationsArr.controls[0].controls.testingArr as FormArray;
-    for(let i of this.testingArr.value){
-      this.summaryObervation.value.push(i);
-    }
-  }
- 
-    //this.verification.callFinalSavedMethod();
-    this.summary.summaryObservation = this.addsummary.value.summaryObervation;
-    this.summary.summaryDeclaration = this.addsummary.value.Declaration1Arr;
-    this.summary.limitationsInspection='The following observations are made';
-    this.summary.summaryDeclaration = this.summary.summaryDeclaration.concat(
-      this.addsummary.value.Declaration2Arr
-    );
-
-    if(flag) {
-      if(this.addsummary.dirty){
-        if(this.deletedArr.length != 0) {
-          for(let i of this.deletedArr) {
-            this.summary.summaryObservation.push(i);
-          }
-        }
-      this.UpateInspectionService.updateSummary(this.summary).subscribe(
-        data=> {
-          this.success = true;
-          this.successMsg = data;
-          this.finalFlag = true;
-          this.addsummary.markAsPristine();
-          this.service.windowTabClick=0;
-       this.service.logoutClick=0; 
-       this.service.lvClick=0; 
-         },
-         (error) => {
-          this.Error = true;
-          this.errorArr = [];
-          this.errorArr = JSON.parse(error.error);
-          this.errorMsg = this.errorArr.message;
-         });
-        }
-    }
-
-    else {
-      this.summarydetailsService.addSummary(this.summary).subscribe(
-        (data) => {
-          //this.proceedNext.emit(true);
-          this.ConfirmSuccess=true;
-          this.popup=true;
-          this.finalSpinner=false;
-          this.success = true;
-          this.successMsg = data;
-          this.addsummary.markAsPristine();
-          this.service.allFieldsDisable = true; 
-          this.service.disableSubmitSummary=true;
-          this.finalFlag = true;
-          this.service.windowTabClick=0;
-       this.service.logoutClick=0; 
-       this.service.lvClick=0; 
-        },
-        (error) => {
-          this.popup=true;
-          this.finalSpinner=false;
-          this.Error = true;
-          this.errorArr = [];
-          this.errorArr = JSON.parse(error.error);
-          this.errorMsg = this.errorArr.message;
-          this.proceedNext.emit(false);
-          this.service.disableSubmitSummary=false;
-          //this.addsummary.markAsPristine();
-        });
-    }
-  }
 
   } 
 

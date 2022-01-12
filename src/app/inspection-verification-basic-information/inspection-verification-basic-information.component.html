@@ -23,10 +23,9 @@
                   <label>Department Name*</label>
                   <input type="text" class="form-control"  formControlName="departmentName" [(ngModel)]="departmentNameSite" readonly/>
             </div> -->
-            <div class="col-md-6">
+            <div class="col-md-6 siteNameTool">
                   <label>Site Name</label>
-                  <mat-icon style="float: right;font-size: 18px;
-                  line-height: unset;margin-right: 80%;"
+                  <mat-icon style=" font-size: 18px;"
                   matTooltip="Respective site / end customer / user (client and site name can be same)."
                   matTooltipClass="multiline-tooltip"
                   aria-label="Button that shows a red tooltip"
@@ -47,10 +46,9 @@
                   <label>Department Name</label>
                   <input type="text" class="form-control"  formControlName="departmentName1" readonly/>
             </div> -->
-            <div class="col-md-6">
+            <div class="col-md-6 siteNameTool">
                   <label>Site Name</label>
-                  <mat-icon style="float: right;font-size: 18px;
-                  line-height: unset;margin-right: 80%;"
+                  <mat-icon style=" font-size: 18px;"
                   matTooltip="Respective site / end customer / user (client and site name can be same)."
                   matTooltipClass="multiline-tooltip"
                   aria-label="Button that shows a red tooltip"
@@ -151,7 +149,7 @@
               </div>
 
 
-              <div class="col-md-4">
+              <div class="col-md-4 InstallationTypeTT">
                 <mat-icon style="float: right;font-size: 18px;
                   line-height: unset;margin-right: 45%;"
                   matTooltip="Type of premise"
@@ -388,7 +386,7 @@
 <br>
             <div class="form-group" [ngClass]="{'disableForm':service.allFieldsDisable}">
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <label>Date of Starting the Verification *</label>
                   <input type="date" class="form-control" formControlName="startingDateVerification"
                   [ngClass]="{ 'is-invalid': submitted && f.startingDateVerification.errors }" placeholder="Enter Date" 
@@ -398,7 +396,7 @@
                 </div>
                 </div>
                 
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <label>Read and Confirmed the Extent and Limitations* :</label>
                   <select class="form-control" formControlName="limitations" [(ngModel)]="reportDetails.limitations" 
                   [ngClass]="{ 'is-invalid': submitted && f.limitations.errors }" [tabindex]="service.allFieldsDisable ? -1 : 0" 
@@ -417,14 +415,13 @@
 
           </mat-expansion-panel>
 
-          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" class="LiabilityTT">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 <h3>Liability and Declaration</h3>
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <mat-icon style="float: right;font-size: 18px;
-            line-height: unset;margin-right: 68%;margin-top: 0.4%;"
+            <mat-icon 
             matTooltip="Person/organisation who designed the installation, if don’t know fill the details as unknown."
             matTooltipClass="multiline-tooltip"
             aria-label="Button that shows a red tooltip"
@@ -503,11 +500,9 @@
                 </div>
             </div>
 
-            <div class="form-group">
-             
+            <div class="form-group DeclarationTT">
                 <h3><b>Declaration of Contractor of Installation:</b></h3>
-                <mat-icon style="float: right;font-size: 18px;
-                line-height: unset;margin-right: 74%;margin-top: -3%;"
+                <mat-icon style="font-size: 18px;"
                 matTooltip="Person/organisation who will do the installation, if don’t know fill the details as unknown."
                 matTooltipClass="multiline-tooltip"
                 aria-label="Button that shows a red tooltip"
