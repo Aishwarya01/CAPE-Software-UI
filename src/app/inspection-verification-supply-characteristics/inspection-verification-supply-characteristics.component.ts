@@ -540,6 +540,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
 
        this.step2List = JSON.parse(data);
        this.supplycharesteristic.siteId = siteId;
+       this.deletedObservation = [];
        this.supplycharesteristic.supplyCharacteristicsId = this.step2List.supplyCharacteristics.supplyCharacteristicsId;
        this.supplycharesteristic.createdBy = this.step2List.supplyCharacteristics.createdBy;
        this.supplycharesteristic.createdDate = this.step2List.supplyCharacteristics.createdDate;
@@ -714,6 +715,7 @@ export class InspectionVerificationSupplyCharacteristicsComponent
     // }
          this.step2List = JSON.parse(data);
          this.supplycharesteristic.siteId = siteId;
+         this.deletedObservation = [];
          this.supplycharesteristic.supplyCharacteristicsId = this.step2List.supplyCharacteristicsId;
          this.supplycharesteristic.createdBy = this.step2List.createdBy;
          this.supplycharesteristic.createdDate = this.step2List.createdDate;
@@ -1686,6 +1688,7 @@ showHideAccordion(index: number) {
       // if(this.service.disableFields==true){
       //   this.disable=true;
       //   }
+      this.observeMainArr = []
       
       for (let item of value.boundingLocationReport) {     
         this.arr2.push(this.createGroup(item));
@@ -1767,6 +1770,7 @@ showHideAccordion(index: number) {
     }
 
     private createObserveArr(item: any){
+      this.observArr = [];
       for(let i of item) {
         this.observArr.push(this.createObserveArr1(i));
       }
@@ -3810,7 +3814,6 @@ showHideAccordion(index: number) {
           }
         }
 
-        this.deletedObservation = [];
       this.UpateInspectionService.updateSupply(this.supplycharesteristic).subscribe(
         (data)=> {
           this.popup=true;
