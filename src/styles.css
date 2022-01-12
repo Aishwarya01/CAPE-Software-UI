@@ -630,7 +630,14 @@ position: absolute;
     margin-right: 70%;
     float: right;
   }
+/*for mobile */
 @media screen and (max-width: 768px) and (min-width: 319px) {
+  .mat-stepper-horizontal-line{
+    display: none !important;
+  }
+  .mat-tab-group{
+    margin-top: -20px;
+  }
   .mat-horizontal-stepper-header-container{
     overflow-x: scroll;
     display: -webkit-box !important;
@@ -650,7 +657,7 @@ position: absolute;
 }
 .ShowingSiteName{
   position: relative !important;
-  top: 70px !important;
+  top: 50px !important;
   z-index: 999 !important;
   left: -60% !important;
 }
@@ -876,8 +883,15 @@ position: absolute;
 }
 .InstallationTypeTT .mat-icon {
   position: absolute;
-  left: 74%;
+  left: 90%;
   top: 3%;
+}
+.LiabilityTT .mat-icon {
+  float: right;
+  font-size: 18px;
+  line-height: unset;
+  margin-right: 35%;
+  margin-top: 0.4%;
 }
 .DeclarationTT .mat-icon {
   position: relative;
@@ -905,7 +919,7 @@ position: absolute;
 }
 .SupplyParaTT .mat-icon {
   position: absolute;
-  left: 52%;
+  left: 28%;
   top: 10%;
 }
 .CapacityTT .mat-icon {
@@ -920,8 +934,8 @@ position: absolute;
 }
 .AlternateSourceTT .mat-icon {
   position: absolute;
-    left: 95%;
-    top: 2%;
+  left: 83%;
+  top: 2%;
 }
 .SizeEarthingConTT .mat-icon {
   float: right;
@@ -936,18 +950,18 @@ position: absolute;
 }
 .continuityTT .mat-icon {
   position: absolute;
-  top: 32%;
-    left: 80%;
+  top: 16%;
+  left: 93%;
 }
 .BondingConTT .mat-icon {
   position: absolute;
-  top: 33%;
-    left: 47%;
+  top: 23%;
+  left: 67%;
 }
 .JointsTT .mat-icon {
   position: absolute;
   top: 10%;
-  left: 70%;
+  left: 88%;
 }
 .SourceNameTT .mat-icon {
   position: absolute;
@@ -979,8 +993,8 @@ position: absolute;
 }
 .FuseTT .mat-icon {
   position: absolute;
-    top: 3%;
-    left: 90%;
+  top: 3%;
+  left: 80%;
 }
 .ResidualTT .mat-icon {
   position: absolute;
@@ -1018,10 +1032,14 @@ position: absolute;
 /* testing tooltip ends*/
 
 /* summary tooltip starts*/
+.ExtentTT .mat-icon {
+  position: absolute;
+  right: 50%;
+}
 .ReferringTT .mat-icon {
-position: absolute;
-top: 22%;
-left: 75%;
+  position: absolute;
+  top: 22%;
+  left: 50%;
 }
 .codeTT .mat-icon {
   position: relative;
@@ -1038,9 +1056,24 @@ left: 75%;
 }
 /*for ipad pro*/
 @media screen and (device-width: 1024px) and (device-height: 1366px){
+  .LiabilityTT .mat-icon {
+    margin-right: 48%;
+}
+.AlternateSourceTT .mat-icon {
+  left: 67%;
+}
+.EarthingConTT .mat-icon {
+  left: 80%;
+}
+.ExtentTT .mat-icon {
+  right: 59%;
+}
+.ShowingSiteName{
+  font-size: 12.5px !important;
+} 
   .horizontalLine {
-    margin: 7px 0 0 141px !important;
-    width: 90px !important;
+    margin: 7px 0 0 92px !important;
+    width: 140px !important;
 }
 .tableObserve .table-responsive .table{
   width: 1000px !important;
