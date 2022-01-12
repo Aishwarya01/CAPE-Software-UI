@@ -902,9 +902,11 @@ changeTab(index: number, sitedId: any, userName: any, companyName: any, departme
 }
 //for continue button in saved reports
 changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any,flag:any) {
+  this.noDetailsFlag= false;
   this.selectedIndex = 1;
 
   this.basic.reset();
+  this.basic.ngOnDestroy();
   this.supply.reset();
   this.summary.reset();
   this.incoming.reset();
@@ -928,6 +930,11 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
       }
       else {
         this.siteN=site;
+        //Remove the below if the reset is fixed
+        this.basic.siteDetails = true;
+        this.basic.siteDetails1 = false;
+        this.retrieveSite(clientName,departmentName,site);
+
       }
 
       if(this.dataJSON.supplyCharacteristics != null) {
