@@ -179,6 +179,8 @@ export class InspectionVerificationIncomingEquipmentComponent
   finalSpinner: boolean = true;
   popup: boolean = false;
   intermediateSave:boolean=false;
+  intermediateSaveInspection:boolean=true;
+  intermediateSaveInspectionInCircuits:boolean=true;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -1507,11 +1509,11 @@ showHideAccordion(index: number) {
    return true;
     }
   }
-  intermedeateIpaoSave(content3:any){
+  intermedeateIpaoSave(content4:any){
     this.intermediateSave=true;
-    this.successMsg="Partial Inspection Data Saved";
-    if(this.addstep3.touched){
-      this.modalReference = this.modalService.open(content3, {
+  this.successMsg="Partial Inspection Data Saved";
+   if(this.addstep3.touched){
+     this.modalReference = this.modalService.open(content4, {
          centered: true, 
          size: 'md',
          backdrop: 'static'
@@ -1522,11 +1524,12 @@ showHideAccordion(index: number) {
     }, 3000);
   }
   }
-  intermedeateIpaoSave1(content3:any){
+  intermedeateIpaoSave1(content4:any){
     this.intermediateSave=true;
     this.successMsg="Partial Inspection Data Saved";
   if(this.addstep3.touched){
-      this.modalReference = this.modalService.open(content3, {
+    this.intermediateSaveInspection=false;
+      this.modalReference = this.modalService.open(content4, {
          centered: true, 
          size: 'md',
          backdrop: 'static'
@@ -1821,6 +1824,12 @@ for(let i of this.deletedInnerObservation) {
           this.success = true;
           this.service.isCompleted3= true;
           this.service.isLinear=false;
+          if(this.intermediateSaveInspection){
+          this.intermediateSaveInspection=false;
+          }
+          else if(this.intermediateSaveInspectionInCircuits){
+          this.intermediateSaveInspectionInCircuits=false;
+          }
           if(this.intermediateSave == false){
             this.successMsg = 'Incoming Equipment Successfully Updated';
             }
@@ -1861,7 +1870,13 @@ for(let i of this.deletedInnerObservation) {
           this.addstep3.markAsPristine();
           this.service.windowTabClick=0;
        this.service.logoutClick=0; 
-       this.service.lvClick=0; 
+       this.service.lvClick=0;
+       if(this.intermediateSaveInspection){
+        this.intermediateSaveInspection=false;
+        }
+        else if(this.intermediateSaveInspectionInCircuits){
+        this.intermediateSaveInspectionInCircuits=false; 
+        }
        if(this.intermediateSave == false){
         this.successMsg = data; 
         }
