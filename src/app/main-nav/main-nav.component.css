@@ -1,12 +1,10 @@
 .brand-logo {
-  text-align: center;
-  /* margin-top: 2rem; */
+  width: 89%;
 }
 
 
 .brand-logo img{
-  width: 22%;
- 
+  width: 89%;
 }
 .sidenav-container {
   height: 90%;
