@@ -790,48 +790,50 @@ callValue(e: any) {
               }
           } 
           for(let i=0; i<this.incomingValues.ipaoInspection.length; i++) {
-            if(this.incomingValues.ipaoInspection[i].locationCount == this.testList1.testing[i].locationCount) {
-              if(this.incomingValues.ipaoInspection[i].consumerUnit.length 
-                != this.testList1.testing[i].testDistRecords.length) {
-
-                let testDistRecords:any=[];
-                testDistRecords= this.testaccordianArr.controls[i].controls.testDistRecords as FormArray;
-
-                  for(let k=this.testList1.testing[i].testDistRecords.length;
-                    k<this.incomingValues.ipaoInspection[i].consumerUnit.length; k++) {
-                     testDistRecords.push(this.createtestDistRecordsForm());            
-                 }
-
-              for(let j=this.testList1.testing[i].testDistRecords.length ;
-                j<this.incomingValues.ipaoInspection[i].consumerUnit.length; j++) {
-                   
-                
-                this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].
-                controls.locationCount.setValue(this.incomingValues.ipaoInspection[i].consumerUnit[j].locationCount);
-    
-                this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].controls.testDistribution.controls[0].
-                controls.distributionBoardDetails.setValue(this.incomingValues.ipaoInspection[i].consumerUnit[j].distributionBoardDetails);
-                
-                this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].controls.testDistribution.controls[0].
-                controls.referance.setValue(this.incomingValues.ipaoInspection[i].consumerUnit[j].referance);
-    
-                this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].controls.testDistribution.controls[0].
-                controls.location.setValue(this.incomingValues.ipaoInspection[i].consumerUnit[j].location);
-
-                this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.email, this.service.siteCount).subscribe(
-                  data=>{
-                  this.supplyValues = JSON.parse(data);
-                  for(let k of this.supplyValues.supplyParameters) {                  
-                      let testingRecordsArr = this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].controls.testingRecords as FormArray;
-                      for(let y of testingRecordsArr.controls) {
-                        this.testingAlternateRecords = y.get('testingRecordsSourceSupply') as FormArray;
-                        this.testingAlternateRecords.push(this.createValue(this.supplyValues.mainLoopImpedance,k.nominalVoltage,k.loopImpedance));
+            if(this.testList1.testing[i] != undefined ) {
+                  if(this.incomingValues.ipaoInspection[i].locationCount == this.testList1.testing[i].locationCount) {
+                    if(this.incomingValues.ipaoInspection[i].consumerUnit.length 
+                      != this.testList1.testing[i].testDistRecords.length) {
+      
+                      let testDistRecords:any=[];
+                      testDistRecords= this.testaccordianArr.controls[i].controls.testDistRecords as FormArray;
+      
+                        for(let k=this.testList1.testing[i].testDistRecords.length;
+                          k<this.incomingValues.ipaoInspection[i].consumerUnit.length; k++) {
+                           testDistRecords.push(this.createtestDistRecordsForm());            
+                       }
+      
+                    for(let j=this.testList1.testing[i].testDistRecords.length ;
+                      j<this.incomingValues.ipaoInspection[i].consumerUnit.length; j++) {
+                         
+                      
+                      this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].
+                      controls.locationCount.setValue(this.incomingValues.ipaoInspection[i].consumerUnit[j].locationCount);
+          
+                      this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].controls.testDistribution.controls[0].
+                      controls.distributionBoardDetails.setValue(this.incomingValues.ipaoInspection[i].consumerUnit[j].distributionBoardDetails);
+                      
+                      this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].controls.testDistribution.controls[0].
+                      controls.referance.setValue(this.incomingValues.ipaoInspection[i].consumerUnit[j].referance);
+          
+                      this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].controls.testDistribution.controls[0].
+                      controls.location.setValue(this.incomingValues.ipaoInspection[i].consumerUnit[j].location);
+      
+                      this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.email, this.service.siteCount).subscribe(
+                        data=>{
+                        this.supplyValues = JSON.parse(data);
+                        for(let k of this.supplyValues.supplyParameters) {                  
+                            let testingRecordsArr = this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].controls.testingRecords as FormArray;
+                            for(let y of testingRecordsArr.controls) {
+                              this.testingAlternateRecords = y.get('testingRecordsSourceSupply') as FormArray;
+                              this.testingAlternateRecords.push(this.createValue(this.supplyValues.mainLoopImpedance,k.nominalVoltage,k.loopImpedance));
+                            }
+                        }
+                        });
                       }
+                    }
                   }
-                  });
-                }
-              }
-            }
+                 }
           }
         }
         else {
