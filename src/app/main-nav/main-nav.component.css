@@ -3,10 +3,11 @@
   /* margin-top: 2rem; */
 }
 
-.brand-logo img{
-  width: 64px;
-}
 
+.brand-logo img{
+  width: 100%;
+  margin: 50px auto 20px 0px;
+}
 .sidenav-container {
   height: 90%;
 
