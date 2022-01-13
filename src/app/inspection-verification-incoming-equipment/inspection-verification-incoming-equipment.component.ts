@@ -682,7 +682,9 @@ showHideAccordion(index: number) {
     this.arr = [];
     for (let item of value.ipaoInspection) {
       this.arr.push(this.createGroup(item,item.inspectionOuterObervation[0]));
-      
+      if(item.ipaoInspectionId !=''&&item.ipaoInspectionId !=undefined&&item.ipaoInspectionId !=null){
+       this.intermediateSaveInspection=false;
+         } 
     }
     this.addstep3.setControl('incomingArr', this._formBuilder.array(this.arr || []))
   }
@@ -768,6 +770,7 @@ showHideAccordion(index: number) {
     for(let i of itemValue) {
       innerObservationArr.push(this.populateInnerObservationForm(i,inspectionOuterObservationId,ipaoInspectionId));
        if(i.observationDescription!=null && i.observationDescription!=undefined && i.observationDescription!=''){
+        this.intermediateSaveInspectionInCircuits=false;
         this.service.observationGlowInspection=true;
        }
     }
