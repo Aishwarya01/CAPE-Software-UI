@@ -632,6 +632,11 @@ position: absolute;
   }
 /*for mobile */
 @media screen and (max-width: 768px) and (min-width: 319px) {
+  .siteNameTool .mat-icon {
+    position: absolute;
+    left: 37% !important;
+    top: 6%;
+}
   .mat-stepper-horizontal-line{
     display: none !important;
   }
@@ -659,7 +664,8 @@ position: absolute;
   position: relative !important;
   top: 50px !important;
   z-index: 999 !important;
-  left: -60% !important;
+  left: -74% !important;
+  text-align: center;
 }
   #tableResponsive{
     display: block;
@@ -711,7 +717,7 @@ position: absolute;
 }
 }
 /*for macbook pro default (device-width: 1280px) and (device-height: 800px)*/
-@media screen and (max-width: 1680px){
+@media screen and (max-width: 1440px){
 .siteNameTool .mat-icon{
   position: absolute;
   left: 20%;
