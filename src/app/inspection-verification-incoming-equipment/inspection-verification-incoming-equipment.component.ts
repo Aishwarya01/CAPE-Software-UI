@@ -31,6 +31,7 @@ import { VerificationlvComponent } from '../verificationlv/verificationlv.compon
 import { MatDialog } from '@angular/material/dialog';
 import { ObservationService } from '../services/observation.service';
 import { flatten } from '@angular/compiler';
+import { TestingService } from '../services/testing.service';
 
 @Component({
   selector: 'app-inspection-verification-incoming-equipment',
@@ -191,7 +192,8 @@ export class InspectionVerificationIncomingEquipmentComponent
     private siteService: SiteService,
     private UpateInspectionService: InspectionVerificationService,
     private basic: MainNavComponent,
-    private verification: VerificationlvComponent
+    private verification: VerificationlvComponent,
+    private testingService: TestingService
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
   }
@@ -1776,12 +1778,20 @@ for(let i of this.deletedInnerObservation) {
         data=> {
           this.popup=true;
           this.finalSpinner=false;
-          if(this.step3List.testingReport != null){
-            this.proceedNext.emit(false);
-          }
-          else{
-            this.proceedNext.emit(true);
-          }
+          this.testingService.retrieveTesting(this.inspectionDetails.siteId,this.inspectionDetails.userName).subscribe(
+            (data) => {
+              this.proceedNext.emit(false);
+            },
+            (error) => {
+              this.proceedNext.emit(true);
+            }
+          )
+          // if(this.step3List.testingReport != null){
+          //   this.proceedNext.emit(false);
+          // }
+          // else{
+          //   this.proceedNext.emit(true);
+          // }
           
           this.success = true;
           this.service.isCompleted3= true;

@@ -16,18 +16,23 @@
     float: left;
     max-width: 500px;
     width:100%;
+    margin-top: 40px;
     /* height: 600px; */
     /* margin-top: 40px; */
 }
-
+.loginMargin {
+    border-top: 1px solid rgba(0, 0, 0, 0.125) !important;
+}
+.brand-logo img{
+    width: 65%;
+    margin: 50px auto 20px 0px;
+}
 .brand-logo {
     text-align: center;
     /* margin-top: 2rem; */
 }
 
-.brand-logo img{
-    width: 150px;
-}
+
 
 .login-title {
     margin-top: 2rem;
