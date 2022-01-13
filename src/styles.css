@@ -450,12 +450,12 @@ th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:la
 /* basic tooltip starts*/
 .siteNameTool .mat-icon {
   position: absolute;
-  left: 15%;
+  left: 18%;
   top: 6%;
 }
 .InstallationTypeTT .mat-icon {
   position: absolute;
-  left: 47%;
+  left: 60%;
   top: 2%;
 }
 .DeclarationTT .mat-icon {
@@ -476,17 +476,17 @@ th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:la
 /* supply tooltip starts*/
 .SystemEarthingTT .mat-icon {
   position: absolute;
-  left: 40%;
+  left: 50%;
   top: 3%;
 }
 .TypeLiveCon .mat-icon {
   position: absolute;
-  left: 55%;
+  left: 67%;
   top: 2%;
 }
 .NumberOfCon .mat-icon {
   position: absolute;
-  left: 52%;
+  left: 62%;
   top: 2%;
 }
 .SupplyParaTT .mat-icon {
@@ -506,7 +506,7 @@ th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:la
 }
 .AlternateSourceTT .mat-icon {
   position: absolute;
-    left: 42%;
+    left: 51%;
     top: 2%;
 }
 .SizeEarthingConTT .mat-icon {
@@ -518,65 +518,65 @@ th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:la
 .EarthingConTT .mat-icon {
   position: absolute;
     top: 2%;
-    left: 50%;
+    left: 62%;
 }
 .continuityTT .mat-icon {
   position: absolute;
   bottom: 70%;
-  left: 90%;
+  left: 94%;
 }
 .BondingConTT .mat-icon {
   position: absolute;
   top: 3%;
-  left: 73%;
+  left: 88%;
 }
 .JointsTT .mat-icon {
   position: absolute;
   top: 10%;
-  left: 45%;
+  left: 53%;
 }
 .SourceNameTT .mat-icon {
   position: absolute;
-  left: 25%;
+  left: 30%;
 }
 .MakeTT .mat-icon {
   position: absolute;
-  left: 15%;
+  left: 17%;
 }
 .ModelTT .mat-icon {
   position: absolute;
     top: 4%;
-    left: 37%;
+    left: 45%;
 }
 .TypeTT .mat-icon {
   position: absolute;
     top: 3%;
-    left: 13%;
+    left: 15%;
 }
 .PolesTT .mat-icon {
   position: absolute;
     top: 3%;
-    left: 23%;
+    left: 27%;
 }
 .VoltageRatingTT .mat-icon {
   position: absolute;
     top: 3%;
-    left: 27%;
+    left: 32%;
 }
 .FuseTT .mat-icon {
   position: absolute;
     top: 3%;
-    left: 40%;
+    left: 46%;
 }
 .ResidualTT .mat-icon {
   position: absolute;
     top: 3%;
-    left: 50%;
+    left: 60%;
 }
 .RatedResidualTT .mat-icon {
   position: absolute;
   top: 5%;
-  left: 65%;
+  left: 78%;
 }
 /* supply tooltip ends*/
 
@@ -584,29 +584,29 @@ th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:la
 .PolarityTT .mat-icon {
   position: absolute;
   top: 5%;
-  left: 38%;
+  left: 45%;
 }
 .VulnerableTT .mat-icon {
   position: absolute;
   bottom: 66%;
-  left: 65%;
+  left: 78%;
 }
 .RatedCurrentTT .mat-icon {
 position: absolute;
     top: 3%;
-    left: 30%;
+    left: 35%;
 }
 .SourceIncomingTT .mat-icon {
   position: absolute;
       top: 3%;
-      left: 35%;
+      left: 41%;
   }
 /* testing tooltip ends*/
 
 /* summary tooltip starts*/
 .ReferringTT .mat-icon {
   position: absolute;
-  left: 73%;
+  left: 69%;
   }
   .codeTT .mat-icon {
     position: relative;
@@ -623,11 +623,11 @@ position: absolute;
   .ExtentTT .mat-icon {
     position: absolute;
     top: 2%;
-    right: 74%;
+    right: 88%;
   }
   .typeofjointTT .mat-icon {
     line-height: unset;
-    margin-right: 70%;
+    margin-right: 63%;
     float: right;
   }
 /*for mobile */
