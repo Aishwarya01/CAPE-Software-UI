@@ -1443,12 +1443,16 @@ showHideAccordion(index: number) {
     if(!this.addstep3.invalid){
       if(this.addstep3.dirty){
         this.validationError=false;
+        this.intermediateSaveInspectionInCircuits=false;
+        this.intermediateSaveInspection=false;
         this.service.lvClick=1;
         this.service.logoutClick=1;
-         this.service.windowTabClick=1;
+        this.service.windowTabClick=1;
       }
       else{
         this.validationError=false;
+        this.intermediateSaveInspectionInCircuits=false;
+        this.intermediateSaveInspection=false;
         this.service.lvClick=0;
         this.service.logoutClick=0;
         this.service.windowTabClick=0;
@@ -1464,16 +1468,21 @@ showHideAccordion(index: number) {
    if(!this.addstep3.invalid){ 
     if(this.addstep3.dirty){
       this.validationError=false;
+      this.intermediateSaveInspectionInCircuits=false;
+      this.intermediateSaveInspection=false;
       this.service.lvClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;
     }
     else{
       this.validationError=false;
+      this.intermediateSaveInspectionInCircuits=false;
+      this.intermediateSaveInspection=false;
       this.service.lvClick=0;
       this.service.logoutClick=0;
       this.service.windowTabClick=0;
     }
+  
    }
    else {
     this.service.lvClick=1;
