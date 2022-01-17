@@ -45,7 +45,7 @@ import { ObservationService } from '../services/observation.service';
   templateUrl: './inspection-verification-testing.component.html',
   styleUrls: ['./inspection-verification-testing.component.css'],
 })
-export class InspectionVerificationTestingComponent implements OnInit {
+export class InspectionVerificationTestingComponent implements OnInit, OnDestroy {
   j: any;
   i: any;
   delarr: any;
@@ -66,7 +66,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
   incomingFaultCurrent: String = '';
   incomingActualLoad: String = '';
   rateArr: any = [];
-  locationNumberList: any = [];
   //@Input()
   userName: String = '';
   //@Input()
@@ -74,7 +73,6 @@ export class InspectionVerificationTestingComponent implements OnInit {
   rateValueArr: any = [];
   testingRecordTableArr: any = [];
 
-  locationNameList: any = [];
   distributionIncomingValueArr: any = [];
   distributionIncomingValueArr2: any = [];
   testDistRecords: any=[];
@@ -202,6 +200,8 @@ export class InspectionVerificationTestingComponent implements OnInit {
   isClicked: boolean[] = [];
   arrViewer: any = [];
   @ViewChild('target') private myScrollContainer!: ElementRef;
+ 
+
   expandedIndexx!: number;
   inspectorName: String = '';
   hideShowComment: boolean = false;
@@ -269,6 +269,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   finalSpinner: boolean = true;
   popup: boolean = false;
   tempConsumerArr: any = [];
+  dataRefresher: any;
   
   constructor(
     private testingService: TestingService,
@@ -286,7 +287,23 @@ export class InspectionVerificationTestingComponent implements OnInit {
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
   }
-  
+  ngOnDestroy(): void {
+    this.service.siteCount=0;
+  this.location=new Location();
+  this.supply=new Location();
+  this.service.iterationList=[];
+  this.service.nominalVoltageArr2=[];
+  this.service.retrieveMainNominalVoltage=[];	
+  this.service.mainNominalVoltageValue="";	
+  this.service.mainLoopImpedanceValue="";	
+  this.service.mainNominalCurrentValue="";
+  this.service.mainActualLoadValue="";
+  this.service.testingTable2=[];	
+  this.service.observationGlowTesting=false;
+  this.service.testingTable=[];	
+  this.service.supplyList=[];			
+  }
+ 
   ngOnInit(): void {
     this.currentUser = sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
@@ -300,14 +317,13 @@ export class InspectionVerificationTestingComponent implements OnInit {
       viewerCommentArr: this.formBuilder.array([this.addCommentViewer()]),
       completedCommentArr1: this.formBuilder.array([]),
     });
-    
     this.retrieveDetailsFromIncoming();
     this.expandedIndex = -1;
     this.retrieveDetailsFromSupply();
     // this.ObservationsForm = this.formBuilder.group({
     //   observations: [''],
     //  })
-  }
+  } 
 
  retrieveDetailsFromIncoming() {
   if(this.service.siteCount !=0 && this.service.siteCount!=undefined) {
@@ -445,8 +461,12 @@ export class InspectionVerificationTestingComponent implements OnInit {
 }
 
 reset(){
-  this.testingForm.reset();
-  }
+  this.ngOnInit();
+  setTimeout(() => {
+    this.testingForm.reset();
+  }, 1000);
+}
+  
    // Only Accept numbers
    keyPressNumbers(event:any) {
     var charCode = (event.which) ? event.which : event.keyCode;
