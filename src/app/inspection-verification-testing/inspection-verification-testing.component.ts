@@ -461,10 +461,10 @@ export class InspectionVerificationTestingComponent implements OnInit, OnDestroy
 }
 
 reset(){
-  this.ngOnInit();
-  setTimeout(() => {
+  //this.ngOnInit();
+  //setTimeout(() => {
     this.testingForm.reset();
-  }, 1000);
+  //}, 1000);
 }
   
    // Only Accept numbers
