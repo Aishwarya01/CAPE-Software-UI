@@ -88,16 +88,38 @@ mat-header-cell.mat-header-cell {
     cursor: not-allowed;
   }  
   .save{
-    background-color: #cac9c9;
     color: black;
     line-height: 32px !important;
-    height: 30px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 97.5rem;
   }
   .save:hover{
     background-color: #04AA6D;
     color: white;
     line-height: 32px !important;
     height: 30px;
+  }
+
+  .ButtonSave {
+    color: black;
+    line-height: 32px !important;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 85rem;
+  }
+  .ButtonSave:hover {
+    background-color: #04AA6D;
+    color: white;
+    line-height: 32px !important;
+    height: 30px;
+  }
+  button .fa-save {
+    font-size: 20px;
   }
 
 .example-section {
