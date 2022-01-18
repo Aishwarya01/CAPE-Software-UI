@@ -2478,7 +2478,7 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any,testing
      }
   }
 
-  onKeyVoltage(event:KeyboardEvent,f:any){
+  onKeyVoltage1(event:KeyboardEvent,f:any){
     if(f.controls.ryVoltage.value!='' && f.controls.ryLoopImpedance.value!='' && f.controls.ryLoopImpedance.value!=undefined && f.controls.ryVoltage.value!=undefined && f.controls.ryVoltage.value!='NA' && f.controls.ryLoopImpedance.value!='NA'){
     //f.controls.ryFaultCurrent.value= f.controls.ryVoltage.value/f.controls.ryLoopImpedance.value; 
     var ryFaultCurrent= f.controls.ryVoltage.value/f.controls.ryLoopImpedance.value;	
