@@ -110,7 +110,9 @@ export class InspectionVerificationTestingComponent implements OnInit, OnDestroy
     'conductorPhase',
     'conductorPhaseFlag',
     'conductorNeutral',
+    'conductorNeutralFlag',
     'conductorPecpc',
+    'conductorPecpcFlag',
     'continutiyApproximateLength',
     'continutiyRR',
     'continutiyR',
@@ -699,6 +701,7 @@ callValue(e: any) {
     // if(this.service.disableFields==true){
     //   this.testingForm.disable();
     //  }
+    this.valueMismatchingFlag = false;    
     this.testingRetrieve = true;
     this.inspectionRetrieve = false;
     this.testList1 = JSON.parse(data);
@@ -722,6 +725,7 @@ callValue(e: any) {
   retrieveDetailsfromSavedReports(userName: any, siteId: any, clientName: any, departmentName: any, site: any, data: any) {
     //this.service.lvClick=1;
     this.testingRetrieve = true;
+    this.valueMismatchingFlag = false;    
     this.inspectionRetrieve = false;
     this.testList = JSON.parse(data);
     this.testingDetails.siteId = siteId;
@@ -1590,7 +1594,9 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any,testing
       conductorPhase: new FormControl({ disabled: false, value: itemTestingValue.conductorPhase },[Validators.required]),
       conductorPhaseFlag: new FormControl(false),
       conductorNeutral: new FormControl({ disabled: false, value: itemTestingValue.conductorNeutral }),
+      conductorNeutralFlag: new FormControl(false),
       conductorPecpc: new FormControl({ disabled: false, value: itemTestingValue.conductorPecpc }),
+      conductorPecpcFlag: new FormControl(false),
       continutiyApproximateLength: new FormControl({ disabled: false, value: itemTestingValue.continutiyApproximateLength },[Validators.required]),
       continutiyRR: new FormControl({ disabled: false, value: itemTestingValue.continutiyRR }),
       continutiyR: new FormControl({ disabled: false, value: itemTestingValue.continutiyR }),
@@ -1896,7 +1902,9 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any,testing
       conductorPhase: new FormControl('',[Validators.required]),
       conductorPhaseFlag: new FormControl(false),
       conductorNeutral: new FormControl(''),
+      conductorNeutralFlag: new FormControl(false),
       conductorPecpc: new FormControl(''),
+      conductorPecpcFlag: new FormControl(false),
       continutiyApproximateLength: new FormControl('',[Validators.required]),
       continutiyRR: new FormControl(''),
       continutiyR: new FormControl(''),
@@ -1987,7 +1995,9 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any,testing
       conductorPhase: new FormControl('',[Validators.required]),
       conductorPhaseFlag: new FormControl(false),
       conductorNeutral: new FormControl(''),
+      conductorNeutralFlag: new FormControl(false),
       conductorPecpc: new FormControl(''),
+      conductorPecpcFlag: new FormControl(false),
       continutiyApproximateLength: new FormControl('',[Validators.required]),
       continutiyRR: new FormControl(''),
       continutiyR: new FormControl(''),
@@ -2408,7 +2418,7 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any,testing
   // }
 
   onFocusOut(e: any,a: any) {
-    if(a.controls.conductorPhase.value != '' && a.controls.conductorPhase.value != undefined && a.controls.conductorPhase.value != 'NA'
+    if(a.controls.conductorPhase.value != '' && a.controls.conductorPhase.value != undefined
     && a.controls.continutiyApproximateLength.value != '' && a.controls.continutiyApproximateLength.value != undefined && a.controls.continutiyApproximateLength.value != 'NA') {
       for(let i=0; i<this.nominalCrossSection.length; i++) {
         if(this.nominalCrossSection[i] == a.controls.conductorPhase.value) {
@@ -2424,9 +2434,51 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any,testing
         }
       }
      }
+     else {
+      a.controls.maximumAllowedValue.setValue('');
+      a.controls.conductorPhaseFlag.setValue(false);  
+     }
   }
 
-  onKeyVoltage1(event:KeyboardEvent,f:any){
+  onFocusOutNeutral(e: any,a: any) {
+    if(a.controls.conductorNeutral.value != '' && a.controls.conductorNeutral.value != undefined) {
+      for(let i=0; i<this.nominalCrossSection.length; i++) {
+        if(this.nominalCrossSection[i] == a.controls.conductorNeutral.value) {
+          a.controls.conductorNeutralFlag.setValue(false);  
+          this.valueMismatchingFlag = false;    
+          break;
+        }
+        else {
+          a.controls.conductorNeutralFlag.setValue(true);  
+          this.valueMismatchingFlag = true;   
+        }
+      }
+     }
+     else {
+      a.controls.conductorNeutralFlag.setValue(false);  
+     }
+  }
+
+  onFocusOutPe(e: any,a: any) {
+    if(a.controls.conductorPecpc.value != '' && a.controls.conductorPecpc.value != undefined) {
+      for(let i=0; i<this.nominalCrossSection.length; i++) {
+        if(this.nominalCrossSection[i] == a.controls.conductorPecpc.value) {
+          a.controls.conductorPecpcFlag.setValue(false); 
+          this.valueMismatchingFlag = false;     
+          break;
+        }
+        else {
+          a.controls.conductorPecpcFlag.setValue(true);  
+          this.valueMismatchingFlag = true;   
+        }
+      }
+     }
+     else {
+      a.controls.conductorPecpcFlag.setValue(false);  
+     }
+  }
+
+  onKeyVoltage(event:KeyboardEvent,f:any){
     if(f.controls.ryVoltage.value!='' && f.controls.ryLoopImpedance.value!='' && f.controls.ryLoopImpedance.value!=undefined && f.controls.ryVoltage.value!=undefined && f.controls.ryVoltage.value!='NA' && f.controls.ryLoopImpedance.value!='NA'){
     //f.controls.ryFaultCurrent.value= f.controls.ryVoltage.value/f.controls.ryLoopImpedance.value; 
     var ryFaultCurrent= f.controls.ryVoltage.value/f.controls.ryLoopImpedance.value;	
