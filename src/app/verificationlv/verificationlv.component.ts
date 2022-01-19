@@ -234,6 +234,11 @@ export class VerificationlvComponent implements OnInit {
   siteData1: any = [];
   currentUser: any = [];
   currentUser1: any = [];
+  basicValue: boolean = true;
+  supplyValue: boolean = true;
+  incomingValue: boolean = true;
+  testingValue: boolean = true;
+  summaryValue: boolean = true;
   //counter: number=0;
 //private logger: NGXLogger,
   constructor(
@@ -575,7 +580,7 @@ export class VerificationlvComponent implements OnInit {
                         this.supply.reset();
                         this.incoming.reset();
                         this.testing.reset();
-                        this.summary.reset();
+                        // this.summary.reset();
                         this.changeTab(0, i.siteId, this.email, i.companyName, i.departmentName, i.site);
                         //this.changeTab(0, 2491, 'aishwarya547541@gmail.com', 'dvd', 'vdv', 'confimation box');
                       }
@@ -905,14 +910,28 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
   this.noDetailsFlag= false;
   this.selectedIndex = 1;
 
-  this.basic.reset();
-  this.basic.ngOnDestroy();
-  this.supply.reset();
-  this.summary.reset();
-  this.incoming.reset();
-  this.testing.reset();
+  // this.basic.reset();
+  // this.basic.ngOnDestroy();
+  // this.supply.reset();
+  // this.summary.reset();
+  // this.incoming.reset();
+  // this.testing.reset();
+    this.basicValue = false;
+    this.supplyValue = false;
+    this.incomingValue = false;
+    this.testingValue = false;
+    this.summaryValue = false;
 
+    setTimeout(() => {
+    this.basicValue =true;
+    this.supplyValue = true;
+    this.incomingValue = true;
+    this.testingValue = true;
+    this.summaryValue = true;
+
+    }, 500);
  // this.logger.log('changeTab started');
+ setTimeout(() => {
   this.siteService.retrieveFinal(userName,sitedId).subscribe(
     data=> {
       //this.selectedIndex = index;
@@ -931,8 +950,8 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
       else {
         this.siteN=site;
         //Remove the below if the reset is fixed
-        this.basic.siteDetails = true;
-        this.basic.siteDetails1 = false;
+        // this.basic.siteDetails = true;
+        // this.basic.siteDetails1 = false;
         this.retrieveSite(clientName,departmentName,site);
 
       }
@@ -983,7 +1002,8 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
     error=> {
 
     }
-  )
+  )}, 3000);
+ 
 }
 
 //retrieve site after adding new site in modal

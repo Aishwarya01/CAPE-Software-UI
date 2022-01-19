@@ -8,7 +8,8 @@ import {
   ChangeDetectorRef,
   VERSION,
   ElementRef,
-  ViewContainerRef
+  ViewContainerRef,
+  OnDestroy
 } from '@angular/core';
 import {
   AbstractControl,
@@ -48,7 +49,7 @@ import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.c
   templateUrl: './summary.component.html',
   styleUrls: ['./summary.component.css'],
 })
-export class SummaryComponent implements OnInit {
+export class SummaryComponent implements OnInit,OnDestroy {
   selectedValue: any;
   overallAssessmentInstallation: boolean = false;
   installations: string[] = ['Satisfactory', 'Unsatisfactory'];
@@ -253,6 +254,16 @@ export class SummaryComponent implements OnInit {
     private basic: MainNavComponent,
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
+  }
+  ngOnDestroy(): void {
+    this.service.allFieldsDisable = false; 
+    this.service.disableSubmitSummary=false;
+    this.service.isCompleted5= true;
+    this.service.isLinear=false;
+    this.service.editable=true;
+    this.service.lvClick=0;
+    this.service.logoutClick=0;
+    this.service.windowTabClick=0;
   }
 
   ngOnInit(): void {

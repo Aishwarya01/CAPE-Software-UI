@@ -298,19 +298,25 @@ export class InspectionVerificationTestingComponent implements OnInit, OnDestroy
   }
   ngOnDestroy(): void {
     this.service.siteCount=0;
-  this.location=new Location();
-  this.supply=new Location();
-  this.service.iterationList=[];
-  this.service.nominalVoltageArr2=[];
-  this.service.retrieveMainNominalVoltage=[];	
-  this.service.mainNominalVoltageValue="";	
-  this.service.mainLoopImpedanceValue="";	
-  this.service.mainNominalCurrentValue="";
-  this.service.mainActualLoadValue="";
-  this.service.testingTable2=[];	
-  this.service.observationGlowTesting=false;
-  this.service.testingTable=[];	
-  this.service.supplyList=[];			
+    this.location=new Location();
+    this.supply=new Location();
+    this.service.iterationList=[];
+    this.service.nominalVoltageArr2=[];
+    this.service.retrieveMainNominalVoltage=[];	
+    this.service.mainNominalVoltageValue="";	
+    this.service.mainLoopImpedanceValue="";	
+    this.service.mainNominalCurrentValue="";
+    this.service.mainActualLoadValue="";
+    this.service.testingTable2=[];	
+    this.service.observationGlowTesting=false;
+    this.service.testingTable=[];	
+    this.service.supplyList=[];			
+    this.service.isCompleted4= true;
+    this.service.isLinear=false;
+    this.service.editable=true;
+    this.service.lvClick=0;
+    this.service.logoutClick=0;
+    this.service.windowTabClick=0;
   }
  
   ngOnInit(): void {

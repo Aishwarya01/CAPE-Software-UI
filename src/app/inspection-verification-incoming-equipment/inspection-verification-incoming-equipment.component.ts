@@ -6,7 +6,8 @@ import {
   OnInit,
   Output,
   ViewChild,
-  ElementRef
+  ElementRef,
+  OnDestroy
 } from '@angular/core';
 import {
   AbstractControl,
@@ -39,7 +40,7 @@ import { TestingService } from '../services/testing.service';
   styleUrls: ['./inspection-verification-incoming-equipment.component.css'],
 })
 export class InspectionVerificationIncomingEquipmentComponent
-  implements OnInit
+  implements OnInit,OnDestroy
 {
   submitted = false;
   locationList: any = [];
@@ -196,6 +197,16 @@ export class InspectionVerificationIncomingEquipmentComponent
     private testingService: TestingService
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
+  }
+  ngOnDestroy(): void {
+    this.service.observationGlowInspection=false;
+    this.service.iterationList=[];
+    this.service.isCompleted3= true;
+    this.service.isLinear=false;
+    this.service.editable=true;
+    this.service.lvClick=0;
+    this.service.logoutClick=0;
+    this.service.windowTabClick=0;
   }
 
   ngOnInit(): void {

@@ -235,6 +235,12 @@ ShowNext: boolean = true;
     this.service.viewerData = [];
     this.service.inspectorData = [];
     this.service.msgForStep1Flag=false;
+    this.service.isCompleted= true;
+    this.service.isLinear=false;
+    this.service.editable=true;
+    this.service.lvClick=0;
+    this.service.logoutClick=0;
+    this.service.windowTabClick=0;
   }
 
   ngOnInit(): void {
