@@ -18,7 +18,9 @@ import { SingInPageComponent } from './signin-page/signin-page.component';
 import { GenerateOtpComponent } from './generate-otp/generate-otp.component';
 import { GenerateOtpContactnumberComponent } from './generate-otp-contactnumber/generate-otp-contactnumber.component';
 import { ChangeContactnumberComponent } from './change-contactnumber/change-contactnumber.component';
-
+import { EmcFacilityDataComponent } from './EMC/emc-facility-data/emc-facility-data.component';
+import { PowerAndEarthingDataComponent } from './EMC/emc-power-and-earthing-data/power-and-earthing-data.component';
+import { EmcElectromagneticCompatibilityDataComponent } from './EMC/emc-electromagnetic-compatibility-data/emc-electromagnetic-compatibility-data.component';
 const routes: Routes = [
   {path: '', redirectTo: "/SignIn", pathMatch: 'full' },
   // {
@@ -40,6 +42,9 @@ const routes: Routes = [
   {path: 'generateOtp',component:GenerateOtpComponent},
   {path: 'generateContactNumber',component:GenerateOtpContactnumberComponent},
   {path: 'createContactNumber',component:ChangeContactnumberComponent},
+  {path: 'EmcFacilityDataComponent',component:EmcFacilityDataComponent},
+  {path: 'PowerAndEarthingDataComponent',component:PowerAndEarthingDataComponent},
+  {path: 'EmcElectromagneticCompatibilityDataComponent',component:EmcElectromagneticCompatibilityDataComponent},
   
 ];
 

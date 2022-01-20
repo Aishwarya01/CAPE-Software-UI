@@ -72,6 +72,9 @@ import { DateAgoPipe } from './pipes/date-ago.pipe';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { GenerateOtpContactnumberComponent } from './generate-otp-contactnumber/generate-otp-contactnumber.component';
 import { ChangeContactnumberComponent } from './change-contactnumber/change-contactnumber.component';
+import { EmcFacilityDataComponent } from './EMC/emc-facility-data/emc-facility-data.component';
+import { PowerAndEarthingDataComponent } from './EMC/emc-power-and-earthing-data/power-and-earthing-data.component';
+import { EmcElectromagneticCompatibilityDataComponent } from './EMC/emc-electromagnetic-compatibility-data/emc-electromagnetic-compatibility-data.component';
 
 @NgModule({
   declarations: [
@@ -115,7 +118,11 @@ import { ChangeContactnumberComponent } from './change-contactnumber/change-cont
     ViewerRegisterComponent,
     DateAgoPipe,
     GenerateOtpContactnumberComponent,
-    ChangeContactnumberComponent
+    ChangeContactnumberComponent,
+    EmcFacilityDataComponent,
+    PowerAndEarthingDataComponent,
+    EmcElectromagneticCompatibilityDataComponent
+
   ],
   imports: [
     NgbTooltipModule,

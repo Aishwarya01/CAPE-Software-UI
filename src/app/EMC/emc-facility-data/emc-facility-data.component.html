@@ -1,0 +1,639 @@
+<div class="card">
+    <div>
+        <h2 style="text-align: center;"> FACILITY DATA</h2>
+    </div>
+    <div class="card-body">
+
+        <mat-accordion>
+            <form [formGroup]="EMCFacilityForm">
+
+                <mat-expansion-panel class="body">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h3>Building Location / Setting</h3>
+                        </mat-panel-title>
+
+                    </mat-expansion-panel-header>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Type</label>
+                                <select class="form-control">
+                                    <option [ngValue]="null">Select Option</option>
+                                    <option *ngFor="let value of buildingType">{{value}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Describe others</label>
+                                <textarea class="textarea-size" class="form-control"
+                                    placeholder="Describe others"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                </mat-expansion-panel>
+                <mat-expansion-panel class="body">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h3>Building Construction</h3>
+                        </mat-panel-title>
+
+                    </mat-expansion-panel-header>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Type </label>
+                                <select class="form-control">
+                                    <option [ngValue]="null">Select Option</option>
+                                    <option *ngFor="let value of buildingConstruction">{{value}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>No. of floors </label>
+                                <input type="text" class="form-control" placeholder="Enter No. of floors">
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Computer room floor location </label>
+                                <input type="text" class="form-control"
+                                    placeholder="Enter Computer room floor location">
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Building primary use </label>
+                                <input type="text" class="form-control" placeholder="Enter Building primary use">
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+                            <div>
+                                <label>Other uses / processes</label>
+                                <input type="text" class="form-control" placeholder="Enter Other uses / processes">
+                            </div>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+                <mat-expansion-panel class="body">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h3>Room Location</h3>
+                        </mat-panel-title>
+
+                    </mat-expansion-panel-header>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Interior room</label>
+                                <input type="text" class="form-control" placeholder="Enter Interior room">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Exterior room </label>
+                                <input type="text" class="form-control" placeholder="Enter Exterior room">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Solid exterior walls</label>
+                                <input type="text" class="form-control" placeholder="Enter Solid exterior walls">
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Windowed exterior walls </label>
+                                <input type="text" class="form-control" placeholder="Enter Windowed exterior walls">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Windows face (north, south, east, or west)</label>
+                                <input type="text" class="form-control"
+                                    placeholder="Enter Windows face (north, south, east, or west)">
+                            </div>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel class="body">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h3>Room Use</h3>
+                        </mat-panel-title>
+
+                    </mat-expansion-panel-header>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Dedicated room for system</label>
+                                <!-- <input type="text" class="form-control" placeholder="Enter Dedicated room for system"> -->
+                                <select class="form-control">
+                                    <option [ngValue]="null">Select Option</option>
+                                    <option *ngFor="let value of dedicatedRoomForSafety">{{value}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Non dedicated room</label>
+                                <input type="text" class="form-control" placeholder="Enter Non dedicated room">
+                            </div>
+                        </div> -->
+                        <div class="col-md-4">
+                            <div>
+                                <label>Describe other equipment in room</label>
+                                <textarea class="textarea-size" class="form-control" style="font-size: medium;"
+                                    placeholder="Enter Describe other equipment in room"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+                <mat-expansion-panel class="body">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h3>Room Dimentions</h3>
+                        </mat-panel-title>
+
+                    </mat-expansion-panel-header>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Height (true floor to true ceiling)</label>
+                                <input type="text" class="form-control"
+                                    placeholder="Enter Height (true floor to true ceiling)">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Height (false floor to drop ceiling)</label>
+                                <input type="text" class="form-control"
+                                    placeholder="Enter Height (false floor to drop ceiling)">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Width</label>
+                                <input type="text" class="form-control" placeholder="Enter Width">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Length</label>
+                                <input type="text" class="form-control" placeholder="Enter Length">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Maximum allowable floor loading (Kg/m2)</label>
+                                <input type="text" class="form-control"
+                                    placeholder="Enter Maximum allowable floor loading (Kg/m2)">
+                            </div>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+                <mat-expansion-panel class="body">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h3>Floor Type</h3>
+                        </mat-panel-title>
+
+                    </mat-expansion-panel-header>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Raised floor</label>
+                                <input type="text" class="form-control" placeholder="Enter Raised floor">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Used as air supply plenum</label>
+                                <input type="text" class="form-control" placeholder="Enter Used as air supply plenum">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Height</label>
+                                <input type="text" class="form-control" placeholder="Enter Height">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Air flow obstructions</label>
+                                <input type="text" class="form-control" placeholder="Enter Air flow obstructions">
+                            </div>
+                        </div>
+                        <div class="col-md-4    ">
+                            <div>
+                                <label>Description</label>
+                                <textarea class="textarea-size" class="form-control" style="font-size: medium;"
+                                    placeholder="Enter Description"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Air grill dampers</label>
+                                <input type="text" class="form-control" placeholder="Enter Air grill dampers">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Cable hole edge guards</label>
+                                <input type="text" class="form-control" placeholder="Enter Cable hole edge guards">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Pedestals</label>
+                                <input type="text" class="form-control" placeholder="Enter Pedestals">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Grids</label>
+                                <input type="text" class="form-control" placeholder="Enter Grids">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Bolted</label>
+                                <input type="text" class="form-control" placeholder="Enter Bolted">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>welded</label>
+                                <input type="text" class="form-control" placeholder="Enter welded">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div>
+                                <label>Description of earthing</label>
+                                <textarea class="textarea-size" class="form-control" style="font-size: medium;"
+                                    placeholder="Enter Description of earthing"></textarea>
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-4">
+                            <div class="form-group">
+                                <label>True floor: material</label>
+                                <input type="text" class="form-control" placeholder="Enter True floor: material">
+                            </div>
+                        </div> -->
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>True floor: material </label>
+                                <select class="form-control">
+                                    <option [ngValue]="null">Select Option</option>
+                                    <option *ngFor="let value of floorMaterisl">{{value}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Sealed/coated/covered</label>
+                                <input type="text" class="form-control" placeholder="Enter Sealed/coated/covered">
+                            </div>
+                        </div> -->
+                        <div class="col-md-4">
+                            <div>
+                                <label>Describe</label>
+                                <textarea class="textarea-size" class="form-control" style="font-size: medium;"
+                                    placeholder="Enter Describe"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Cleanliness</label>
+                                <input type="text" class="form-control" placeholder="Enter Cleanliness">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div>
+                                <label>Other descriptions</label>
+                                <textarea class="textarea-size" class="form-control" style="font-size: medium;"
+                                    placeholder="Enter Other descriptions"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+                <mat-expansion-panel class="body">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h3>Floor Covering</h3>
+                        </mat-panel-title>
+
+                    </mat-expansion-panel-header>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Type</label>
+                                <input type="text" class="form-control" placeholder="Enter Type">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Manufacturer</label>
+                                <input type="text" class="form-control" placeholder="Enter Manufacturer">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Static tratment type and description</label>
+                                <input type="text" class="form-control"
+                                    placeholder="Enter Static tratment type and description ">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Woven</label>
+                                <input type="text" class="form-control" placeholder="Enter Woven">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Chemical</label>
+                                <input type="text" class="form-control" placeholder="Enter Chemical">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>None</label>
+                                <input type="text" class="form-control" placeholder="Enter None">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div>
+                                <label>Others - Describe</label>
+                                <textarea class="textarea-size" class="form-control" style="font-size: medium;"
+                                    placeholder="Enter Others - Describe"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel class="body">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h3>Walls</h3>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Type of construction</label>
+                                <input type="text" class="form-control" placeholder="Enter Type of construction">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Material</label>
+                                <input type="text" class="form-control" placeholder="Enter Material">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Covering type</label>
+                                <input type="text" class="form-control" placeholder="Enter Covering type">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Humidity and dust control</label>
+                                <input type="text" class="form-control" placeholder="Enter Humidity and dust control">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>True floor to true sealing</label>
+                                <input type="text" class="form-control" placeholder="Enter True floor to true sealing">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Additional description</label>
+                                <input type="text" class="form-control" placeholder="Enter Additional description">
+                            </div>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+                <mat-expansion-panel class="body">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h3>Ceiling Construction</h3>
+                        </mat-panel-title>
+
+                    </mat-expansion-panel-header>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div>
+                                <label>Description of False (drop) ceiling</label>
+                                <textarea class="textarea-size" class="form-control" style="font-size: medium;"
+                                    placeholder="Enter Description of False (drop) ceiling"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Humidity and dust control</label>
+                                <input type="text" class="form-control" placeholder="Enter Humidity and dust control">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Height and use of void space</label>
+                                <input type="text" class="form-control"
+                                    placeholder="Enter Height and use of void space">
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Utilisation of void</label>
+                                <input type="text" class="form-control" placeholder="Enter Utilisation of void">
+                            </div>
+                        </div> -->
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Utilisation of void</label>
+                                <select class="form-control">
+                                    <option [ngValue]="null">Select Option</option>
+                                    <option *ngFor="let value of utilisation">{{value}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div>
+                                <label>Description of true ceiling</label>
+                                <textarea class="textarea-size" class="form-control" style="font-size: medium;"
+                                    placeholder="Enter Description of true ceiling"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Humidity and dust control</label>
+                                <input type="text" class="form-control" placeholder="Enter Humidity and dust control">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div>
+                                <label>Description of surface tratment and condition/clealiness</label>
+                                <textarea class="textarea-size" class="form-control" style="font-size: medium;"
+                                    placeholder="Enter Description of surface tratment and condition/clealiness"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+                <mat-expansion-panel class="body">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h3>Windows</h3>
+                        </mat-panel-title>
+
+                    </mat-expansion-panel-header>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>External</label>
+                                <select class="form-control">
+                                    <option [ngValue]="null">Select Option</option>
+                                    <option *ngFor="let value of external">{{value}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div>
+                                <label>Description of construction</label>
+                                <textarea class="textarea-size" class="form-control" style="font-size: medium;"
+                                    placeholder="(can the windows be opened?)...!"></textarea>
+                            </div>
+                        </div>
+                      
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Window covering</label>
+                                <select class="form-control">
+                                    <option [ngValue]="null">Select Option</option>
+                                    <option *ngFor="let value of windowCovering">{{value}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div>
+                                <label>Describe others</label>
+                                <textarea class="textarea-size" class="form-control" style="font-size: medium;"
+                                    placeholder="Enter Describe others"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div>
+                                <label>Description of Internal windows </label>
+                                <textarea class="textarea-size" class="form-control" style="font-size: medium;"
+                                    placeholder="Enter Description of Internal windows "></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+
+
+                <mat-expansion-panel class="body">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h3>Doors</h3>
+                        </mat-panel-title>
+
+                    </mat-expansion-panel-header>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Material</label>
+                                <input type="text" class="form-control" placeholder="Enter Material">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Number</label>
+                                <input type="text" class="form-control" placeholder="Enter Number">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Width</label>
+                                <input type="text" class="form-control" placeholder="Enter Width">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Height</label>
+                                <input type="text" class="form-control" placeholder="Enter Height">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Closure mechanism</label>
+                                <input type="text" class="form-control" placeholder="Enter Closure mechanism">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Quality of air sealing</label>
+                                <input type="text" class="form-control" placeholder="Enter Quality of air sealing">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div>
+                                <label>Description of service area provided</label>
+                                <textarea class="textarea-size" class="form-control" style="font-size: medium;"
+                                    placeholder="Enter Description of service area provided"></textarea>
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Attach room layout as close to scale as possible (or attach site plan drawing, if
+                                    current). Show all major equipment: windows, doors, furniture, and so forth. If
+                                    possible, make three copies of this drawing for use in subsequent survey
+                                    sections</label>
+                                <input type="text" class="form-control" placeholder="Enter Attach room layout">
+
+                            </div>
+                        </div> -->
+                        <!-- <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Note:</label>
+                                <p>Attach room layout as close to scale as possible (or attach site plan drawing, if
+                                    current).
+                                    Show all major equipment: windows, doors, furniture, and so forth.
+                                    If possible, make three copies of this drawing for use in subsequent survey sections
+                                </p>
+                            </div>
+                        </div> -->
+                        <div>
+                            <label for="" style="font-weight: normal;">Note: Attach room layout as close to scale as possible (or attach site plan drawing, if current). Show all major equipment: windows, doors, furniture, and so forth. If possible, make three copies of this drawing for use in subsequent survey sections.</label>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+
+                <div class="container">
+                    <button type="submit" style="width: 100px; margin: 16px auto;" class="btn btn-success">Next</button>
+                </div>
+
+            </form>
+        </mat-accordion>
+    </div>
+
+</div>
