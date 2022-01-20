@@ -47,6 +47,10 @@ export class SavedreportsComponent implements OnInit {
   superAdminFlag: boolean = false;
   allData: any = [];
   filteredData: any = [];
+  mode: any = 'indeterminate';
+  savedReportSpinner: boolean = false;
+  savedReportBody: boolean = true;
+  spinnerValue: String = '';
 
   constructor(private router: ActivatedRoute,
               private clientService: ClientService,
@@ -173,6 +177,9 @@ export class SavedreportsComponent implements OnInit {
   }
 
   continue(siteId: any,userName :any,site: any, departmentName: any, clientName: any) {
+    this.savedReportBody = false;
+    this.savedReportSpinner = true;
+    this.spinnerValue = "Please wait, the details are loading!";
     //this.service.commentScrollToBottom=1;
     this.verification.changeTabSavedReport(0,siteId,userName,clientName,departmentName,site,true);
     this.service.allFieldsDisable = false;

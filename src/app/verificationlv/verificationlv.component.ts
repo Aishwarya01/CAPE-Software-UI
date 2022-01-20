@@ -851,6 +851,7 @@ changeTab(index: number, sitedId: any, userName: any, companyName: any, departme
       }
       if(this.dataJSON.supplyCharacteristics != null) {
         this.noDetailsFlag = true;
+        this.selectedIndex = index;
         this.service.siteCount = sitedId;
         this.supply.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
         if(this.dataJSON.summary == null) {
@@ -863,6 +864,7 @@ changeTab(index: number, sitedId: any, userName: any, companyName: any, departme
 
       if(this.dataJSON.periodicInspection != null) {
         this.noDetailsFlag = true;
+        this.selectedIndex = index;
         this.service.siteCount = sitedId;
         this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
         if(this.dataJSON.summary == null) {
@@ -910,12 +912,6 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
   this.noDetailsFlag= false;
   this.selectedIndex = 1;
 
-  // this.basic.reset();
-  // this.basic.ngOnDestroy();
-  // this.supply.reset();
-  // this.summary.reset();
-  // this.incoming.reset();
-  // this.testing.reset();
     this.basicValue = false;
     this.supplyValue = false;
     this.incomingValue = false;
@@ -930,11 +926,13 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
     this.summaryValue = true;
 
     }, 500);
- // this.logger.log('changeTab started');
+    
  setTimeout(() => {
   this.siteService.retrieveFinal(userName,sitedId).subscribe(
     data=> {
       //this.selectedIndex = index;
+      this.saved.savedReportSpinner =false;
+      this.saved.savedReportBody = true;
       this.dataJSON = JSON.parse(data);
       if(flag){
         this.service.allStepsCompleted=true;
@@ -953,19 +951,21 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
         // this.basic.siteDetails = true;
         // this.basic.siteDetails1 = false;
         this.retrieveSite(clientName,departmentName,site);
-
       }
 
       if(this.dataJSON.supplyCharacteristics != null) {
         this.noDetailsFlag= true;
+        this.selectedIndex = index;       
         this.supply.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
         this.service.siteCount = sitedId;
         if(this.dataJSON.summary == null) {
           this.summary.retrieveFromOngoingForObservation(sitedId);
-        }      }
+        }      
+      }
       
       if(this.dataJSON.periodicInspection != null) {
         this.noDetailsFlag= true;
+        this.selectedIndex = index;       
         this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
         this.service.siteCount = sitedId;
         if(this.dataJSON.summary == null) {
@@ -977,7 +977,7 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
         }          
         if(this.dataJSON.summary != null) {
             this.summary.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
-          }             
+        }             
       }
          
       if(this.service.commentScrollToBottom==1){
@@ -996,11 +996,12 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
         setTimeout(() => {
           this.noDetails=false;
           this.selectedIndex=0;
-        }, 3000);
+        }, 1000);
       }   
     },
     error=> {
-
+      this.saved.savedReportSpinner =false;
+      this.saved.savedReportBody = true;
     }
   )}, 3000);
  
