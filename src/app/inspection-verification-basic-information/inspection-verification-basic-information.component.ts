@@ -1717,17 +1717,17 @@ onPopState(event:any) {
     return;
   }
 }
-//modal popup
+//modal popup 
   gotoNextModal(content1: any,content2:any) {
-    //   if(this.step1Form.invalid) {
-    //     //this.validationErrorTab = false;
-    //     this.validationError=true;
-    //     this.validationErrorMsg="Please check all the fields";
-    // //     setTimeout(()=>{
-    // //       this.validationError=false;
-    // //  }, 3000);
-    //     return;
-    //   }
+      if(this.step1Form.invalid) {
+        //this.validationErrorTab = false;
+        this.validationError=true;
+        this.validationErrorMsg="Please check all the fields";
+    //     setTimeout(()=>{
+    //       this.validationError=false;
+    //  }, 3000);
+        return;
+      }
      if(this.step1Form.touched || this.step1Form.untouched){
       this.modalReference = this.modalService.open(content2, {
          centered: true, 
@@ -1764,9 +1764,9 @@ onPopState(event:any) {
      
       this.loading = true;
       this.submitted = true
-      // if(this.step1Form.invalid) {
-      //   return;
-      // }
+      if(this.step1Form.invalid) {
+        return;
+      }
       this.step1Form.value.designer1Arr[0].signatorRole= this.designer1Role;
       this.step1Form.value.designer1Arr[0].declarationSignature= this.step1Form.value.designer1AcknowledgeArr[0].declarationSignature;
       this.step1Form.value.designer1Arr[0].declarationName= this.step1Form.value.designer1AcknowledgeArr[0].declarationName;

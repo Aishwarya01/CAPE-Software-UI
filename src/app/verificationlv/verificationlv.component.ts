@@ -239,6 +239,7 @@ export class VerificationlvComponent implements OnInit {
   incomingValue: boolean = true;
   testingValue: boolean = true;
   summaryValue: boolean = true;
+  selectedIndexStepper!: number;
   //counter: number=0;
 //private logger: NGXLogger,
   constructor(
@@ -827,13 +828,17 @@ changeTab(index: number, sitedId: any, userName: any, companyName: any, departme
  // this.logger.error('changeTab started');
   this.siteService.retrieveFinal(userName,sitedId).subscribe(
     data=> {
-      //this.logger.debug('data fetched');
+    
+            //this.logger.debug('data fetched');
       //this.selectedIndex = index;
       this.dataJSON = JSON.parse(data);
       if(this.dataJSON.reportDetails != null) {
         this.siteN=site;
         this.noDetailsFlag = true;
-        this.selectedIndex = index;
+        if(this.dataJSON.allStepsCompleted == "Step1 completed"){
+          this.selectedIndexStepper = 0;
+        }
+        
         // this.retreiveFromObservationSupply(sitedId,'Supply-Component',userName);
         // this.retreiveFromObservationInspection(sitedId,'Inspection-Component',userName);
         // this.retreiveFromObservationTesting(sitedId,'Testing-Component',userName);
@@ -842,6 +847,9 @@ changeTab(index: number, sitedId: any, userName: any, companyName: any, departme
         this.basic.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
       }
       else{
+        if(this.dataJSON.allStepsCompleted == null){
+          this.selectedIndexStepper = 0;
+        }
         this.siteN=site;
         this.service.msgForStep1Flag=true;
         this.retrieveSite(companyName,departmentName,site);
@@ -853,30 +861,43 @@ changeTab(index: number, sitedId: any, userName: any, companyName: any, departme
         this.noDetailsFlag = true;
         this.selectedIndex = index;
         this.service.siteCount = sitedId;
+        if(this.dataJSON.allStepsCompleted == "Step2 completed"){
+         this.selectedIndexStepper=1;
+        }        
         this.supply.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
         if(this.dataJSON.summary == null) {
           this.summary.retrieveFromOngoingForObservation(sitedId);
         }
         //commented by Arun on 04/12/2021
         //this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
-
       }
 
       if(this.dataJSON.periodicInspection != null) {
         this.noDetailsFlag = true;
         this.selectedIndex = index;
         this.service.siteCount = sitedId;
+        if(this.dataJSON.allStepsCompleted == "Step3 completed"){
+          this.selectedIndexStepper=2;
+         }
+         else if(this.dataJSON.allStepsCompleted == "Step4 completed"){
+          this.selectedIndexStepper=3;
+         }
         this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
         if(this.dataJSON.summary == null) {
           this.summary.retrieveFromOngoingForObservation(sitedId);
         }        
         this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
-        if(this.dataJSON.summary == null) {
-          this.summary.retrieveFromOngoingForObservation(sitedId);
-        }      //  if(this.dataJSON.testingReport != null) {
+        //multiple conditions
+        // if(this.dataJSON.summary == null) {
+        //   this.summary.retrieveFromOngoingForObservation(sitedId);
+        // }      
+        //  if(this.dataJSON.testingReport != null) {
       //    this.testing.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
           if(this.dataJSON.summary != null) {
             this.noDetailsFlag = true;
+            if(this.dataJSON.allStepsCompleted == "AllStepCompleted"){
+              this.selectedIndexStepper=0;
+             }
             this.summary.retrieveDetailsfromSavedReports(userName,sitedId,companyName,departmentName,site,data);
           }
       }
@@ -930,6 +951,7 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
  setTimeout(() => {
   this.siteService.retrieveFinal(userName,sitedId).subscribe(
     data=> {
+     
       //this.selectedIndex = index;
       this.saved.savedReportSpinner =false;
       this.saved.savedReportBody = true;
@@ -940,13 +962,20 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
       if(this.dataJSON.reportDetails != null) {
         this.siteN=site;
         this.noDetailsFlag= true;
+        if(this.dataJSON.allStepsCompleted == "Step1 completed"){
+          this.selectedIndexStepper = 0;
+        }
         this.selectedIndex = index;       
         this.service.msgForStep1Flag=false;
         this.basic.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
         this.service.siteCount = sitedId;
       }
       else {
+        if(this.dataJSON.allStepsCompleted == null){
+          this.selectedIndexStepper = 0;
+        }
         this.siteN=site;
+        //this.selectedIndex = 0;       
         //Remove the below if the reset is fixed
         // this.basic.siteDetails = true;
         // this.basic.siteDetails1 = false;
@@ -958,6 +987,10 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
         this.selectedIndex = index;       
         this.supply.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
         this.service.siteCount = sitedId;
+        if(this.dataJSON.allStepsCompleted == "Step2 completed"){
+          this.selectedIndexStepper=1;
+         }    
+        this.supply.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
         if(this.dataJSON.summary == null) {
           this.summary.retrieveFromOngoingForObservation(sitedId);
         }      
@@ -968,6 +1001,13 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
         this.selectedIndex = index;       
         this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
         this.service.siteCount = sitedId;
+        if(this.dataJSON.allStepsCompleted == "Step3 completed"){
+          this.selectedIndexStepper=2;
+         }
+         else if(this.dataJSON.allStepsCompleted == "Step4 completed"){
+          this.selectedIndexStepper=3;
+         }
+        this.incoming.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
         if(this.dataJSON.summary == null) {
           this.summary.retrieveFromOngoingForObservation(sitedId);
         }        
@@ -976,6 +1016,9 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
           this.summary.retrieveFromOngoingForObservation(sitedId);
         }          
         if(this.dataJSON.summary != null) {
+          if(this.dataJSON.allStepsCompleted == "AllStepCompleted"){
+            this.selectedIndexStepper=0;
+           }
             this.summary.retrieveDetailsfromSavedReports(userName,sitedId,clientName,departmentName,site,data);
         }             
       }

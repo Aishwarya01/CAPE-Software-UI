@@ -157,7 +157,7 @@
   </mat-tab> -->
   <mat-tab label="Inspection Verification & Testing of Installation"> 
 
-    <mat-horizontal-stepper [linear]="service.isLinear" #stepper>
+    <mat-horizontal-stepper [linear]="service.isLinear" #stepper [selectedIndex]="selectedIndexStepper">
       <!-- step 1 (proceedNext)="doSomething1($event)"-->
       <mat-step [completed]="service.isCompleted" [editable]="service.editable">
         <ng-template matStepLabel>
