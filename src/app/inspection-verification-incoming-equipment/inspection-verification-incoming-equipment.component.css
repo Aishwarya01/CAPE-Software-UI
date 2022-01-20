@@ -94,7 +94,7 @@ mat-header-cell.mat-header-cell {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 97.5rem;
+    margin-left: 71.5rem;
   }
   .save:hover{
     background-color: #04AA6D;
@@ -110,7 +110,7 @@ mat-header-cell.mat-header-cell {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 85rem;
+    margin-left: 62rem;
   }
   .ButtonSave:hover {
     background-color: #04AA6D;
