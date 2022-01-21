@@ -1,0 +1,30 @@
+<mat-tab-group style="background-color: white">
+    <mat-tab label="Electro Magnetic Compatibility">
+        <mat-horizontal-stepper linear #stepper>
+
+            <mat-step>
+                <ng-template matStepLabel>FACILITY DATA</ng-template>
+                <app-emc-facility-data></app-emc-facility-data>
+            </mat-step>
+
+            <mat-step>
+          <ng-template matStepLabel>POWER AND EARTHING DATA</ng-template>
+          <app-power-and-earthing-data></app-power-and-earthing-data>
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel >ELECTROMAGNETIC COMPATIBILITY (EMC) DATA</ng-template>
+          <app-emc-electromagnetic-compatibility-data></app-emc-electromagnetic-compatibility-data>
+        </mat-step>
+  
+
+        </mat-horizontal-stepper>
+    </mat-tab>
+
+    <mat-tab label="Saved Reports">
+        <app-emc-saved-report></app-emc-saved-report>
+    </mat-tab>
+    <mat-tab label="Final Reports">
+        <app-emc-final-report ></app-emc-final-report>
+    </mat-tab>
+</mat-tab-group>

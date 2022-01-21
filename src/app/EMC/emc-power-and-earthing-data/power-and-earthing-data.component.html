@@ -1,7 +1,7 @@
 <div class="card">
-    <div>
+    <!-- <div>
         <h2 style="text-align: center;"> POWER AND EARTHING DATA</h2>
-    </div>
+    </div> -->
 
     <div class="card-body">
         <form [formGroup]="EMCPowerAndEarthForm">
@@ -848,8 +848,11 @@
             </mat-accordion>
 
             <div class="container">
-                <button type="button" style="width: 100px; margin: 16px auto;" class="btn btn-primary">Previous</button>
-                <button type="submit" style="width: 100px; margin: 16px auto;" class="btn btn-success">Next</button>
+                <div style="text-align: center;">
+                    <button type="button" style="width: 100px; margin: 16px auto;"
+                        class="btn btn-primary">Previous</button>
+                    <button type="submit" style="width: 100px; margin: 16px auto;" class="btn btn-success">Next</button>
+                </div>
             </div>
 
         </form>

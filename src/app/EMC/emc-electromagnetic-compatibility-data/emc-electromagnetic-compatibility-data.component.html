@@ -1,7 +1,7 @@
 <div class="card">
-    <div>
+    <!-- <div>
         <h2 style="text-align: center;">ELECTROMAGNETIC COMPATIBILITY (EMC) DATA</h2>
-    </div>
+    </div>2 -->
     <div class="card-body">
         <mat-accordion>
             <form [formGroup]="EMCElectroMagneticFormm">
@@ -18,11 +18,9 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">System earth referance a single point referance</label>
-                                <select class="form-control">
+                                <select class="form-control" formControlName="seSinglePoint">
                                     <option [ngValue]="null">Select Option</option>
-                                    <option value="YES">Yes</option>
-                                    <option value="NO">No</option>
-                                    <!-- <option value="NOT-APPLICABLE">Not-Applicable</option> -->
+                                    <option *ngFor="let value of selectionValue">{{value}}</option>
                                 </select>
                             </div>
                         </div>
@@ -30,11 +28,9 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>System earth referance a meshed arrangement</label>
-                                <select class="form-control">
+                                <select class="form-control" formControlName="seMeshedArrangment">
                                     <option [ngValue]="null">Select Option</option>
-                                    <option value="YES">Yes</option>
-                                    <option value="NO">No</option>
-                                    <!-- <option value="NOT-APPLICABLE">Not-Applicable</option> -->
+                                    <option *ngFor="let value of selectionValue">{{value}}</option>
                                 </select>
 
                             </div>
@@ -42,7 +38,7 @@
                         <div class="col-md-4">
                             <div>
                                 <label>Descriptions</label>
-                                <textarea class="textarea-size" class="form-control" style="font-size: 100%;"
+                                <textarea class="textarea-size" class="form-control" style="font-size: 100%;" formControlName="seDescription"
                                     placeholder="other connections to facility safety earth system (or earth electrodes)...!"></textarea>
                             </div>
                         </div>
@@ -50,7 +46,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Provide A Schematic Of Equipotential Bonding</label>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control" formControlName="equiptentialBonding"
                                     placeholder="Enter Provide A Schematic Of Equipotential Bonding">
                             </div>
                         </div>
@@ -69,11 +65,9 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>RFI - resistant cabinets used</label>
-                                <select class="form-control">
+                                <select class="form-control" formControlName="resistanceCabinet">
                                     <option [ngValue]="null">Select Option</option>
-                                    <option value="YES">Yes</option>
-                                    <option value="NO">No</option>
-                                    <!-- <option value="NOT-APPLICABLE">NOT-APPLICABLE</option> -->
+                                    <option *ngFor="let value of selectionValue">{{value}}</option>
                                 </select>
 
                             </div>
@@ -81,18 +75,16 @@
                         <div class="col-md-4">
                             <div>
                                 <label>Descriptions</label>
-                                <textarea class="textarea-size" class="form-control" style="font-size: 100%;"
+                                <textarea class="textarea-size" class="form-control" style="font-size: 100%;" formControlName="resistanceCabinetDesc"
                                     placeholder="Enter Descriptions"></textarea>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Computer room shield</label>
-                                <select class="form-control">
+                                <select class="form-control" formControlName="roomShield">
                                     <option [ngValue]="null">Select Option</option>
-                                    <option value="YES">Yes</option>
-                                    <option value="NO">No</option>
-                                    <!-- <option value="NOT-APPLICABLE">Not-Applicable</option> -->
+                                    <option *ngFor="let value of selectionValue">{{value}}</option>
                                 </select>
 
                             </div>
@@ -100,14 +92,14 @@
                         <div class="col-md-4">
                             <div>
                                 <label>Descriptions</label>
-                                <textarea class="textarea-size" class="form-control"
+                                <textarea class="textarea-size" class="form-control" formControlName="roomShieldDesc"
                                     placeholder="Enter Descriptions"></textarea>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div>
                                 <label>Describe other shielding provisions </label>
-                                <textarea class="textarea-size" class="form-control"
+                                <textarea class="textarea-size" class="form-control" formControlName="shieldingOtherDesc"
                                     placeholder="(window screens, etc)...!"></textarea>
                             </div>
                         </div>
@@ -129,11 +121,9 @@
                                     (e.g., welding machine, ultrasonic cleaners, high-energy medical equipment, relay
                                     banks, microwave equipment, sodium or mercury arc lamps, equipment engines using
                                     spark plugs, other)?</label>
-                                <select class="form-control">
+                                <select class="form-control" formControlName="equipmentHighFrequency">
                                     <option [ngValue]="null">Select Option</option>
-                                    <option value="YES">Yes</option>
-                                    <option value="NO">No</option>
-                                    <!-- <option value="NOT-APPLICABLE">NOT-APPLICABLE</option> -->
+                                    <option *ngFor="let value of selectionValue">{{value}}</option>
                                 </select>
 
                             </div>
@@ -141,7 +131,7 @@
                         <div class="col-md-4">
                             <div>
                                 <label class="form-label">Describe</label>
-                                <textarea class="textarea-size" class="form-control"
+                                <textarea class="textarea-size" class="form-control" formControlName="equipmentHighFrequencyDesc"
                                     placeholder="Enter Describe"></textarea>
                             </div>
                         </div>
@@ -149,7 +139,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Approximate distance from electronic system in meters</label>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control" formControlName="approximateDistance"
                                     placeholder="Enter Approximate distance from electronic system in meters">
                             </div>
                         </div>
@@ -157,11 +147,9 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Equipment maintained and operated properly (access doors/panels closed??)</label>
-                                <select class="form-control">
+                                <select class="form-control" formControlName="equipmentMaintence">
                                     <option [ngValue]="null">Select Option</option>
-                                    <option value="YES">Yes</option>
-                                    <option value="NO">No</option>
-                                    <!-- <option value="NOT-APPLICABLE">NOT-APPLICABLE</option> -->
+                                    <option *ngFor="let value of selectionValue">{{value}}</option>
                                 </select>
                             </div>
                         </div>
@@ -169,7 +157,7 @@
                         <div class="col-md-4">
                             <div>
                                 <label>Describe</label>
-                                <textarea class="textarea-size" class="form-control"
+                                <textarea class="textarea-size" class="form-control" formControlName="equipmentMaintenceDesc"
                                     placeholder="Enter Describe"></textarea>
                             </div>
                         </div>
@@ -177,13 +165,13 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Operational frequency</label>
-                                <input type="text" class="form-control" placeholder=" (if known) ">
+                                <input type="text" class="form-control" formControlName="operationFrequency" placeholder=" (if known) ">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Radiated power or power consumption in RF section</label>
-                                <input type="text" class="form-control" placeholder=" (if known) ">
+                                <input type="text" class="form-control" formControlName="radiatedPower" placeholder=" (if known) ">
                             </div>
                         </div>
                     </div>
@@ -201,18 +189,16 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Communications / navigation</label>
-                                <input type="text" class="form-control" placeholder="Enter Communications navigation ">
+                                <input type="text" class="form-control" formControlName="communication" placeholder="Enter Communications navigation ">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Any broadcast or communication antennas visible on or near the customers
                                     site?</label>
-                                <select class="form-control">
+                                <select class="form-control" formControlName="visibilityOfAntennas">
                                     <option [ngValue]="null">Select Option</option>
-                                    <option value="YES">Yes</option>
-                                    <option value="NO">No</option>
-                                    <!-- <option value="NOT-APPLICABLE">NOT-APPLICABLE</option> -->
+                                    <option *ngFor="let value of selectionValue">{{value}}</option>
                                 </select>
 
                             </div>
@@ -221,21 +207,21 @@
                             <div class="form-group">
                                 <label>Type (s) of transmission (radar, radio/tv broadcse, amateur, microwave, other, if
                                     known)</label>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control" formControlName="typeOfTransmission"
                                     placeholder="Enter Type (s) of transmission (radar, radio/tv broadcse, amateur, microwave, other, if known)">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div>
                                 <label>Describe</label>
-                                <textarea class="textarea-size" class="form-control"
+                                <textarea class="textarea-size" class="form-control" formControlName="transmissionDesc"
                                     placeholder="Enter Describe"></textarea>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Distance from antenna to electronic system in meters</label>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control" formControlName="antennaDistance"
                                     placeholder="Enter Distance from antenna to electronic system in meters">
                             </div>
                         </div>
@@ -243,7 +229,7 @@
                             <div class="form-group">
                                 <label>Number of walls in building between electronic system and antenna (theoretical
                                     line of sight):</label>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control" formControlName="noOfWalls"
                                     placeholder="Enter Number of walls in building between electronic system and antenna (theoretical line of sight):">
                             </div>
                         </div>
@@ -251,34 +237,34 @@
                         <div class="col-md-4">
                             <div>
                                 <label>Describe</label>
-                                <textarea class="textarea-size" class="form-control"
+                                <textarea class="textarea-size" class="form-control" formControlName="losDesc"
                                     placeholder="Enter Describe"></textarea>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Distance from electronic system to outside wall near to source in meters </label>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control" formControlName="electronicSystemDistance"
                                     placeholder="Enter Distance from electronic system to outside wall near to source in meters ">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Transmitter power (if known) in watts (ERP)</label>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control" formControlName="transmitterPower"
                                     placeholder="Enter Transmitter power (if known) in watts (ERP)">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Frequency (if known)</label>
-                                <input type="text" class="form-control" placeholder="Enter Frequency (if known)">
+                                <input type="text" class="form-control" formControlName="frequency" placeholder="Enter Frequency (if known)">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Orintation of electronic system to antenna</label>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control" formControlName="orientationAntinna"
                                     placeholder="Enter Orintation of electronic system to antenna">
                             </div>
                         </div>
@@ -298,11 +284,9 @@
                             <div class="form-group">
                                 <label>CB, walkie talkies, wireless intercom, or clock synchronisation syste used on
                                     site</label>
-                                <select class="form-control">
+                                <select class="form-control" formControlName="systemSite">
                                     <option [ngValue]="null">Select Option</option>
-                                    <option value="YES">Yes</option>
-                                    <option value="NO">No</option>
-                                    <!-- <option value="NOT-APPLICABLE">NOT-APPLICABLE</option> -->
+                                    <option *ngFor="let value of selectionValue">{{value}}</option>
                                 </select>
 
                             </div>
@@ -310,18 +294,16 @@
                         <div class="col-md-6">
                             <div>
                                 <label>Describe</label>
-                                <textarea class="textarea-size" class="form-control"
+                                <textarea class="textarea-size" class="form-control" formControlName="systemSiteDesc"
                                     placeholder="Enter Describe"></textarea>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Dimmer switches or large SCR cotrolled loads</label>
-                                <select class="form-control">
+                                <select class="form-control" formControlName="controlledLoads">
                                     <option [ngValue]="null">Select Option</option>
-                                    <option value="YES">Yes</option>
-                                    <option value="NO">No</option>
-                                    <!-- <option value="NOT-APPLICABLE">NOT-APPLICABLE</option> -->
+                                    <option *ngFor="let value of selectionValue">{{value}}</option>
                                 </select>
 
                             </div>
@@ -329,18 +311,16 @@
                         <div class="col-md-6">
                             <div>
                                 <label>Describe</label>
-                                <textarea class="textarea-size" class="form-control"
+                                <textarea class="textarea-size" class="form-control" formControlName="controlledLoadsDesc"
                                     placeholder="Enter Describe"></textarea>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Electric railway / traction near by</label>
-                                <select class="form-control">
+                                <select class="form-control" formControlName="electricRailway">
                                     <option [ngValue]="null">Select Option</option>
-                                    <option value="YES">Yes</option>
-                                    <option value="NO">No</option>
-                                    <!-- <option value="NOT-APPLICABLE">NOT-APPLICABLE</option> -->
+                                    <option *ngFor="let value of selectionValue">{{value}}</option>
                                 </select>
 
                             </div>
@@ -348,18 +328,16 @@
                         <div class="col-md-6">
                             <div>
                                 <label>Describe</label>
-                                <textarea class="textarea-size" class="form-control"
+                                <textarea class="textarea-size" class="form-control" formControlName="electricRailwayDesc"
                                     placeholder="Enter Describe"></textarea>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>High voltage transmission lines near by</label>
-                                <select class="form-control">
+                                <select class="form-control" formControlName="hvTransmission">
                                     <option [ngValue]="null">Select Option</option>
-                                    <option value="YES">Yes</option>
-                                    <option value="NO">No</option>
-                                    <!-- <option value="NOT-APPLICABLE">NOT-APPLICABLE</option> -->
+                                    <option *ngFor="let value of selectionValue">{{value}}</option>
                                 </select>
 
                             </div>
@@ -367,18 +345,16 @@
                         <div class="col-md-6">
                             <div>
                                 <label>Describe</label>
-                                <textarea class="textarea-size" class="form-control"
+                                <textarea class="textarea-size" class="form-control" formControlName="hvTransmissionDesc"
                                     placeholder="Enter Describe"></textarea>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>High power a.c magets or high current feeders nearby</label>
-                                <select class="form-control">
+                                <select class="form-control" formControlName="hpAcMangets">
                                     <option [ngValue]="null">Select Option</option>
-                                    <option value="YES">Yes</option>
-                                    <option value="NO">No</option>
-                                    <!-- <option value="NOT-APPLICABLE">NOT-APPLICABLE</option> -->
+                                    <option *ngFor="let value of selectionValue">{{value}}</option>
                                 </select>
 
                             </div>
@@ -386,7 +362,7 @@
                         <div class="col-md-6">
                             <div>
                                 <label>Describe</label>
-                                <textarea class="textarea-size" class="form-control"
+                                <textarea class="textarea-size" class="form-control" formControlName="hpAcMangetsDesc"
                                     placeholder="Enter Describe"></textarea>
                             </div>
                         </div>
@@ -394,7 +370,7 @@
                             <div class="form-group">
                                 <label>Approximate distance between electronics system and cable connected to metal
                                     parts of the lightning protection system: (in meters)</label>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control" formControlName="approximateDistance"
                                     placeholder="Approximate distance between electronics...">
                             </div>
                         </div>
@@ -413,11 +389,9 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>RFI survey been condcuted on this site</label>
-                                <select class="form-control">
+                                <select class="form-control" formControlName="rfiSurvey">
                                     <option [ngValue]="null">Select Option</option>
-                                    <option value="YES">Yes</option>
-                                    <option value="NO">No</option>
-                                    <!-- <option value="NOT-APPLICABLE">NOT-APPLICABLE</option> -->
+                                    <option *ngFor="let value of selectionValue">{{value}}</option>
                                 </select>
 
                             </div>
@@ -425,11 +399,9 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">RFI survey needed</label>
-                                <select class="form-control">
+                                <select class="form-control" formControlName="newRfiSurvey">
                                     <option [ngValue]="null">Select Option</option>
-                                    <option value="YES">Yes</option>
-                                    <option value="NO">No</option>
-                                    <!-- <option value="NOT-APPLICABLE">NOT-APPLICABLE</option> -->
+                                    <option *ngFor="let value of selectionValue">{{value}}</option>
                                 </select>
 
                             </div>
@@ -437,7 +409,7 @@
                         <div class="col-md-4">
                             <div>
                                 <label>Describe</label>
-                                <textarea class="textarea-size" class="form-control"
+                                <textarea class="textarea-size" class="form-control" formControlName="newRfiSurveyDesc"
                                     placeholder="Enter Describe"></textarea>
                             </div>
                         </div>
@@ -447,9 +419,12 @@
 
 
                 <div class="container">
-                    <button type="button" style="width: 100px; margin: 16px auto;"
-                        class="btn btn-primary">Previous</button>
-                    <button type="submit" style="width: 100px; margin: 16px auto;" class="btn btn-success">Next</button>
+                    <div style="text-align: center;">
+                        <button type="button" style="width: 100px; margin: 16px auto;"
+                            class="btn btn-primary">Previous</button>
+                        <button type="submit" style="width: 100px; margin: 16px auto;"
+                            class="btn btn-success">Next</button>
+                    </div>
                 </div>
 
             </form>

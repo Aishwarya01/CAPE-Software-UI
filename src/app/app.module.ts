@@ -75,6 +75,9 @@ import { ChangeContactnumberComponent } from './change-contactnumber/change-cont
 import { EmcFacilityDataComponent } from './EMC/emc-facility-data/emc-facility-data.component';
 import { PowerAndEarthingDataComponent } from './EMC/emc-power-and-earthing-data/power-and-earthing-data.component';
 import { EmcElectromagneticCompatibilityDataComponent } from './EMC/emc-electromagnetic-compatibility-data/emc-electromagnetic-compatibility-data.component';
+import { EmcMatstepperComponent } from './EMC/emc-matstepper/emc-matstepper.component';
+import { EmcSavedReportComponent } from './EMC/emc-saved-report/emc-saved-report.component';
+import { EmcFinalReportComponent } from './EMC/emc-final-report/emc-final-report.component';
 
 @NgModule({
   declarations: [
@@ -121,7 +124,10 @@ import { EmcElectromagneticCompatibilityDataComponent } from './EMC/emc-electrom
     ChangeContactnumberComponent,
     EmcFacilityDataComponent,
     PowerAndEarthingDataComponent,
-    EmcElectromagneticCompatibilityDataComponent
+    EmcElectromagneticCompatibilityDataComponent,
+    EmcMatstepperComponent,
+    EmcSavedReportComponent,
+    EmcFinalReportComponent
 
   ],
   imports: [

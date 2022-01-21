@@ -8,6 +8,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
 
+  selectionValue: String[] = ['Yes', 'No', ];
+
   EMCElectroMagneticFormm!: FormGroup;
 
   constructor(private formBuilder: FormBuilder) { }
