@@ -1,4 +1,4 @@
-import {Component,EventEmitter,OnInit,Output,ElementRef,ViewChild} from '@angular/core';
+import {Component,EventEmitter,OnInit,Output,ElementRef,ViewChild, OnDestroy} from '@angular/core';
 import {AbstractControl,FormArray,FormBuilder,FormControl,FormGroup,Validators,} from '@angular/forms';
 import {Supplycharacteristics,Supplyparameters,} from '../model/supplycharacteristics';
 import { SupplyCharacteristicsService } from '../services/supply-characteristics.service';
@@ -21,7 +21,7 @@ import { ObservationService } from '../services/observation.service';
   styleUrls: ['./inspection-verification-supply-characteristics.component.css'],
 })
 export class InspectionVerificationSupplyCharacteristicsComponent
-  implements OnInit
+  implements OnInit,OnDestroy
 {
 
   a: any;
@@ -364,6 +364,20 @@ export class InspectionVerificationSupplyCharacteristicsComponent
     private UpateInspectionService: InspectionVerificationService,
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
+  }
+  ngOnDestroy(): void {
+    this.service.mainNominalVoltage = [];
+    this.service.mainNominalCurrent = [];
+    this.service.supplyList= '';
+    this.service.retrieveMainNominalVoltage=[];
+    this.service.retrieveMainNominalVoltage=[];
+    this.service.nominalVoltageArr2=[];
+    this.service.isCompleted2= true;
+    this.service.isLinear=false;
+    this.service.editable=true;
+    this.service.lvClick=0;
+    this.service.logoutClick=0;
+    this.service.windowTabClick=0;
   }
 
   ngOnInit(): void {

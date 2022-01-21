@@ -514,7 +514,7 @@
                                   <div class="form-group" style="border:1px solid #dee2e6;">
                                       <thead>
                                           <tr align="center">
-                                              <th></th>
+                                              <th>Reference</th>
                                               <th>L1-L2</th>
                                               <th>L2-L3</th>
                                               <th>L1-L3</th>
@@ -620,7 +620,7 @@
                             <tr align="center">
                                 <th colspan="11"> Circuit Details </th>
                                 <th colspan="4"> Conductor Details </th>
-                                <th colspan="3"> Continuity (Ω) </th>
+                                <th colspan="5"> Continuity (Ω) </th>
                                 <th rowspan="2"></th>
                                 <th colspan="9" rowspan="2">Insulation Resistance (MΩ)
                                   <mat-icon style="float: right;font-size: 18px;
@@ -653,7 +653,7 @@
                                 <th colspan="9">OCPD</th>
                                 <th></th>
                                 <th colspan="3">Cross sectional area (sq.mm.) </th>
-                                <th colspan="3">Applicable to live and protective conductors in final circuits only </th>
+                                <th colspan="5">Applicable to live and protective conductors in final circuits only </th>
                                 <th></th>
                                 <th colspan="2">Operating Time</th>
                                 <th></th>
@@ -755,6 +755,8 @@
                                 <th>Length(meter)</th>
                                 <th>R1+R2 (Ω)</th>
                                 <th>R2 (Ω)</th>
+                                <th>Maximum allowed value</th>
+                                <th>Remarks</th>
                                 <th>Polarity</th>
                                 <th>L1-L2</th>
                                 <th>L2-L3</th>
@@ -829,12 +831,42 @@
                                 <td><input type="text" formControlName="shortCircuitSetting" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="eFSetting" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><textarea formControlName="conductorInstallation"  class="form-control"  style="height:40px;width:170px;" [readonly]="service.allFieldsDisable"></textarea>
-                                <td><input type="text" formControlName="conductorPhase" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="conductorNeutral" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="conductorPecpc" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
-                                <td><input type="text" formControlName="continutiyApproximateLength" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="conductorPhase" class="form-control"  (focusout)="onFocusOut($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"
+                                  [ngClass]="[ f.get('conductorPhaseFlag')?.value  ? 'is-invalid' : '',submitted && f.get('conductorPhase')?.errors ? 'is-invalid' : '']">
+                                <div class="invalid-feedback" style="font-size: 75%" *ngIf="f.get('conductorPhaseFlag')?.value">
+                                  <div>Value entered doesn't match the standard</div>
+                                </div>
+                                <div *ngIf="submitted && f.get('conductorPhase')?.errors" style="font-size: 75%" class="invalid-feedback">
+                                  <div *ngIf="f.get('conductorPhase')?.errors?.required">Value is required</div>
+                                </div>
+                                </td>
+                                <td><input type="text" formControlName="conductorNeutral" class="form-control" (focusout)="onFocusOutNeutral($event,f)"  style="width:80px" [readonly]="service.allFieldsDisable"
+                                  [ngClass]="[ f.get('conductorNeutralFlag')?.value  ? 'is-invalid' : '',submitted && f.get('conductorNeutral')?.errors ? 'is-invalid' : '']">
+                                <div class="invalid-feedback" style="font-size: 75%" *ngIf="f.get('conductorNeutralFlag')?.value">
+                                  <div>Value entered doesn't match the standard</div>
+                                </div>
+                                </td>
+                                <td><input type="text" formControlName="conductorPecpc" class="form-control" (focusout)="onFocusOutPe($event,f)"  style="width:80px" [readonly]="service.allFieldsDisable"
+                                  [ngClass]="[ f.get('conductorPecpcFlag')?.value  ? 'is-invalid' : '',submitted && f.get('conductorPecpc')?.errors ? 'is-invalid' : '']">
+                                  <div class="invalid-feedback" style="font-size: 75%" *ngIf="f.get('conductorPecpcFlag')?.value">
+                                    <div>Value entered doesn't match the standard</div>
+                                  </div>
+                                </td>
+                                <td><input type="text" formControlName="continutiyApproximateLength" class="form-control" (focusout)="onFocusOut($event,f)"  style="width:80px" [readonly]="service.allFieldsDisable"
+                                  [ngClass]="[submitted && f.get('continutiyApproximateLength')?.errors ? 'is-invalid' : '' , service.allFieldsDisable ? 'disableForm' : '']">
+                                  <div *ngIf="submitted && f.get('continutiyApproximateLength')?.errors" style="font-size: 75%" class="invalid-feedback">
+                                    <div *ngIf="f.get('continutiyApproximateLength')?.errors?.required">Value is required</div>
+                                  </div></td>
                                 <td><input type="text" formControlName="continutiyRR" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="continutiyR" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
+
+                                <td><input type="text" formControlName="maximumAllowedValue" class="form-control"   style="width:80px" readonly
+                                  [ngClass]="[submitted && f.get('maximumAllowedValue')?.errors ? 'is-invalid' : '' , service.allFieldsDisable ? 'disableForm' : '']">
+                                  <div *ngIf="submitted && f.get('maximumAllowedValue')?.errors" style="font-size: 75%" class="invalid-feedback">
+                                    <div *ngIf="f.get('maximumAllowedValue')?.errors?.required">Value is required</div>
+                                  </div>
+                                </td>
+                                <td><input type="text" formControlName="continuityRemarks" class="form-control"   style="width:80px" readonly></td>
 
                                 <td><input type="text" formControlName="continutiyPolarity" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
 
@@ -919,6 +951,8 @@
                                 <td></td>
                               
                                 
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>

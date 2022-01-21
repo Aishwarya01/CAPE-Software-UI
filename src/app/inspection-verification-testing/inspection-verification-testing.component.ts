@@ -108,11 +108,16 @@ export class InspectionVerificationTestingComponent implements OnInit, OnDestroy
     'eFSetting',
     'conductorInstallation',
     'conductorPhase',
+    'conductorPhaseFlag',
     'conductorNeutral',
+    'conductorNeutralFlag',
     'conductorPecpc',
+    'conductorPecpcFlag',
     'continutiyApproximateLength',
     'continutiyRR',
     'continutiyR',
+    'maximumAllowedValue',
+    'continuityRemarks',
     'continutiyPolarity',
 
     'rcdType',
@@ -270,6 +275,10 @@ export class InspectionVerificationTestingComponent implements OnInit, OnDestroy
   popup: boolean = false;
   tempConsumerArr: any = [];
   dataRefresher: any;
+  nominalCrossSection: any = ['1.5','2.5','4','6','10','16','25','35','50','70','95','120','150','185'];
+  specificConductor: any = ['12.575','7.566','4.739','3.149','1.881','1.185','0.752','0.546','0.404','0.281','0.204','0.163','0.134','0.109'];
+  valueMismatchingFlag: boolean = false;
+
   
   constructor(
     private testingService: TestingService,
@@ -289,19 +298,25 @@ export class InspectionVerificationTestingComponent implements OnInit, OnDestroy
   }
   ngOnDestroy(): void {
     this.service.siteCount=0;
-  this.location=new Location();
-  this.supply=new Location();
-  this.service.iterationList=[];
-  this.service.nominalVoltageArr2=[];
-  this.service.retrieveMainNominalVoltage=[];	
-  this.service.mainNominalVoltageValue="";	
-  this.service.mainLoopImpedanceValue="";	
-  this.service.mainNominalCurrentValue="";
-  this.service.mainActualLoadValue="";
-  this.service.testingTable2=[];	
-  this.service.observationGlowTesting=false;
-  this.service.testingTable=[];	
-  this.service.supplyList=[];			
+    this.location=new Location();
+    this.supply=new Location();
+    this.service.iterationList=[];
+    this.service.nominalVoltageArr2=[];
+    this.service.retrieveMainNominalVoltage=[];	
+    this.service.mainNominalVoltageValue="";	
+    this.service.mainLoopImpedanceValue="";	
+    this.service.mainNominalCurrentValue="";
+    this.service.mainActualLoadValue="";
+    this.service.testingTable2=[];	
+    this.service.observationGlowTesting=false;
+    this.service.testingTable=[];	
+    this.service.supplyList=[];			
+    this.service.isCompleted4= true;
+    this.service.isLinear=false;
+    this.service.editable=true;
+    this.service.lvClick=0;
+    this.service.logoutClick=0;
+    this.service.windowTabClick=0;
   }
  
   ngOnInit(): void {
@@ -692,6 +707,7 @@ callValue(e: any) {
     // if(this.service.disableFields==true){
     //   this.testingForm.disable();
     //  }
+    this.valueMismatchingFlag = false;    
     this.testingRetrieve = true;
     this.inspectionRetrieve = false;
     this.testList1 = JSON.parse(data);
@@ -715,6 +731,7 @@ callValue(e: any) {
   retrieveDetailsfromSavedReports(userName: any, siteId: any, clientName: any, departmentName: any, site: any, data: any) {
     //this.service.lvClick=1;
     this.testingRetrieve = true;
+    this.valueMismatchingFlag = false;    
     this.inspectionRetrieve = false;
     this.testList = JSON.parse(data);
     this.testingDetails.siteId = siteId;
@@ -1580,14 +1597,17 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any,testing
       shortCircuitSetting: new FormControl({ disabled: false, value: itemTestingValue.shortCircuitSetting }),
       eFSetting: new FormControl({ disabled: false, value: itemTestingValue.eFSetting }),
       conductorInstallation: new FormControl({ disabled: false, value: itemTestingValue.conductorInstallation }),
-      conductorPhase: new FormControl({ disabled: false, value: itemTestingValue.conductorPhase }),
+      conductorPhase: new FormControl({ disabled: false, value: itemTestingValue.conductorPhase },[Validators.required]),
+      conductorPhaseFlag: new FormControl(false),
       conductorNeutral: new FormControl({ disabled: false, value: itemTestingValue.conductorNeutral }),
+      conductorNeutralFlag: new FormControl(false),
       conductorPecpc: new FormControl({ disabled: false, value: itemTestingValue.conductorPecpc }),
-      continutiyApproximateLength: new FormControl({ disabled: false, value: itemTestingValue.continutiyApproximateLength }),
+      conductorPecpcFlag: new FormControl(false),
+      continutiyApproximateLength: new FormControl({ disabled: false, value: itemTestingValue.continutiyApproximateLength },[Validators.required]),
       continutiyRR: new FormControl({ disabled: false, value: itemTestingValue.continutiyRR }),
       continutiyR: new FormControl({ disabled: false, value: itemTestingValue.continutiyR }),
-      // continutiyLL: new FormControl({disabled: false,value: itemTestingValue.continutiyLL}),
-      // continutiyLE: new FormControl({disabled: false,value: itemTestingValue.continutiyLE}),
+      maximumAllowedValue: new FormControl({disabled: false,value: itemTestingValue.maximumAllowedValue},[Validators.required]),
+      continuityRemarks: new FormControl({disabled: false,value: itemTestingValue.continuityRemarks}),
       continutiyPolarity: new FormControl({ disabled: false, value: itemTestingValue.continutiyPolarity }),
 
       rycontinutiy: new FormControl({ disabled: false, value: insulationResistanceArr[0] }),
@@ -1885,14 +1905,17 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any,testing
       shortCircuitSetting: new FormControl(''),
       eFSetting: new FormControl(''),
       conductorInstallation: new FormControl(''),
-      conductorPhase: new FormControl(''),
+      conductorPhase: new FormControl('',[Validators.required]),
+      conductorPhaseFlag: new FormControl(false),
       conductorNeutral: new FormControl(''),
+      conductorNeutralFlag: new FormControl(false),
       conductorPecpc: new FormControl(''),
-      continutiyApproximateLength: new FormControl(''),
+      conductorPecpcFlag: new FormControl(false),
+      continutiyApproximateLength: new FormControl('',[Validators.required]),
       continutiyRR: new FormControl(''),
       continutiyR: new FormControl(''),
-      // continutiyLL: new FormControl(''),
-      // continutiyLE: new FormControl(''),
+      maximumAllowedValue: new FormControl('',[Validators.required]),
+      continuityRemarks: new FormControl(''),
       continutiyPolarity: new FormControl(''),
       rycontinutiy: new FormControl(''),
       rbcontinutiy: new FormControl(''),
@@ -1975,14 +1998,17 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any,testing
       shortCircuitSetting: new FormControl(''),
       eFSetting: new FormControl(''),
       conductorInstallation: new FormControl(''),
-      conductorPhase: new FormControl(''),
+      conductorPhase: new FormControl('',[Validators.required]),
+      conductorPhaseFlag: new FormControl(false),
       conductorNeutral: new FormControl(''),
+      conductorNeutralFlag: new FormControl(false),
       conductorPecpc: new FormControl(''),
-      continutiyApproximateLength: new FormControl(''),
+      conductorPecpcFlag: new FormControl(false),
+      continutiyApproximateLength: new FormControl('',[Validators.required]),
       continutiyRR: new FormControl(''),
       continutiyR: new FormControl(''),
-      // continutiyLL: new FormControl(''),
-      // continutiyLE: new FormControl(''),
+      maximumAllowedValue: new FormControl('',[Validators.required]),
+      continuityRemarks: new FormControl(''),
       continutiyPolarity: new FormControl(''),
       rycontinutiy: new FormControl(''),
       rbcontinutiy: new FormControl(''),
@@ -2396,6 +2422,68 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any,testing
   // clickAcc(){
   //   this.gotoNextTab();
   // }
+
+  onFocusOut(e: any,a: any) {
+    if(a.controls.conductorPhase.value != '' && a.controls.conductorPhase.value != undefined
+    && a.controls.continutiyApproximateLength.value != '' && a.controls.continutiyApproximateLength.value != undefined && a.controls.continutiyApproximateLength.value != 'NA') {
+      for(let i=0; i<this.nominalCrossSection.length; i++) {
+        if(this.nominalCrossSection[i] == a.controls.conductorPhase.value) {
+          a.controls.maximumAllowedValue.setValue(2*a.controls.continutiyApproximateLength.value*this.specificConductor[i]);
+          a.controls.conductorPhaseFlag.setValue(false);   
+          this.valueMismatchingFlag = false;   
+          break;
+        }
+        else {
+          a.controls.maximumAllowedValue.setValue('');
+          a.controls.conductorPhaseFlag.setValue(true);  
+          this.valueMismatchingFlag = true;       
+        }
+      }
+     }
+     else {
+      a.controls.maximumAllowedValue.setValue('');
+      a.controls.conductorPhaseFlag.setValue(false);  
+     }
+  }
+
+  onFocusOutNeutral(e: any,a: any) {
+    if(a.controls.conductorNeutral.value != '' && a.controls.conductorNeutral.value != undefined) {
+      for(let i=0; i<this.nominalCrossSection.length; i++) {
+        if(this.nominalCrossSection[i] == a.controls.conductorNeutral.value) {
+          a.controls.conductorNeutralFlag.setValue(false);  
+          this.valueMismatchingFlag = false;    
+          break;
+        }
+        else {
+          a.controls.conductorNeutralFlag.setValue(true);  
+          this.valueMismatchingFlag = true;   
+        }
+      }
+     }
+     else {
+      a.controls.conductorNeutralFlag.setValue(false);  
+     }
+  }
+
+  onFocusOutPe(e: any,a: any) {
+    if(a.controls.conductorPecpc.value != '' && a.controls.conductorPecpc.value != undefined) {
+      for(let i=0; i<this.nominalCrossSection.length; i++) {
+        if(this.nominalCrossSection[i] == a.controls.conductorPecpc.value) {
+          a.controls.conductorPecpcFlag.setValue(false); 
+          this.valueMismatchingFlag = false;     
+          break;
+        }
+        else {
+          a.controls.conductorPecpcFlag.setValue(true);  
+          this.valueMismatchingFlag = true;   
+        }
+      }
+     }
+     else {
+      a.controls.conductorPecpcFlag.setValue(false);  
+     }
+  }
+
   onKeyVoltage1(event:KeyboardEvent,f:any){
     if(f.controls.ryVoltage.value!='' && f.controls.ryLoopImpedance.value!='' && f.controls.ryLoopImpedance.value!=undefined && f.controls.ryVoltage.value!=undefined && f.controls.ryVoltage.value!='NA' && f.controls.ryLoopImpedance.value!='NA'){
     //f.controls.ryFaultCurrent.value= f.controls.ryVoltage.value/f.controls.ryLoopImpedance.value; 
@@ -3317,12 +3405,12 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any,testing
         if (x.controls.continutiyRR.value == '' || x.controls.continutiyRR.value == undefined || x.controls.continutiyRR.value == null) {
           x.controls.continutiyRR.setValue('NA');
         }
-        // if (x.controls.continutiyLL?.value == '' || x.controls.continutiyLL?.value == undefined || x.controls.continutiyLL?.value == null) {
-        //   x.controls.continutiyLL.setValue('NA');
-        // }
-        // if (x.controls.continutiyLE.value == '' || x.controls.continutiyLE.value == undefined || x.controls.continutiyLE.value == null) {
-        //   x.controls.continutiyLE.setValue('NA');
-        // }
+        if (x.controls.maximumAllowedValue?.value == '' || x.controls.maximumAllowedValue?.value == undefined || x.controls.maximumAllowedValue?.value == null) {
+          x.controls.maximumAllowedValue.setValue('NA');
+        }
+        if (x.controls.continuityRemarks.value == '' || x.controls.continuityRemarks.value == undefined || x.controls.continuityRemarks.value == null) {
+          x.controls.continuityRemarks.setValue('NA');
+        }
         if (x.controls.continutiyPolarity.value == '' || x.controls.continutiyPolarity.value == undefined || x.controls.continutiyPolarity.value == null) {
           x.controls.continutiyPolarity.setValue('NA');
         }

@@ -26,8 +26,9 @@
         </div> -->
         <!-- </div> -->
       <!-- </div> -->
+     
 
-    <div class="card-body">
+    <div class="card-body" >
       <mat-form-field appearance="standard" style=" font-size: 14px;width: 30%;">
         <mat-label>Filter Sites</mat-label>
         <input matInput (keyup)="applyFilter1($event)" (focus)="applyFilter(siteName)"
@@ -38,7 +39,17 @@
         <mat-label>Filter Sites</mat-label>
         <input matInput placeholder="Ex. ium" #input [(ngModel)]="siteName">
       </mat-form-field> -->
-      <table mat-table [dataSource]="savedReport_dataSource" class="mat-elevation-z8 table" matSort
+      <mat-progress-spinner style="margin: 0 auto;" *ngIf="savedReportSpinner"
+      color="primary"
+      [mode]="mode"
+      value="50"
+      diameter="50">
+      </mat-progress-spinner>
+      <br>
+      <div *ngIf="savedReportSpinner" style="text-align: center;">
+        {{spinnerValue}}
+      </div>
+      <table mat-table *ngIf="savedReportBody" [dataSource]="savedReport_dataSource" class="mat-elevation-z8 table" matSort
         #savedReportSort="matSort" >
 
         <ng-container matColumnDef="siteCD">
