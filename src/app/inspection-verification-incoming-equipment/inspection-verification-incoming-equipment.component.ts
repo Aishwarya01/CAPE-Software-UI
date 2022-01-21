@@ -178,6 +178,8 @@ export class InspectionVerificationIncomingEquipmentComponent
   deleteObDataFlag: boolean= false;
   finalSpinner: boolean = true;
   popup: boolean = false;
+  partialSpinner: boolean = true;
+  partialPopup: boolean = false;
   intermediateSave:boolean=false;
   intermediateSaveInspection:boolean=true;
   intermediateSaveInspectionInCircuits:boolean=true;
@@ -1440,6 +1442,7 @@ showHideAccordion(index: number) {
     (this.addstep3.get('incomingArr') as FormArray).removeAt(index);
   }
   onChangeForm(event:any){
+    
     if(!this.addstep3.invalid){
       if(this.addstep3.dirty){
         this.validationError=false;
@@ -1459,6 +1462,9 @@ showHideAccordion(index: number) {
       }
      }
      else {
+      if(this.addstep3.dirty) {
+        this.intermediateSaveInspectionInCircuits=true;
+      }
       this.service.lvClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;
@@ -1468,13 +1474,16 @@ showHideAccordion(index: number) {
    if(!this.addstep3.invalid){ 
     if(this.addstep3.dirty){
       this.validationError=false;
-      this.intermediateSaveInspectionInCircuits=false;
+      this.intermediateSaveInspectionInCircuits=true;
       this.intermediateSaveInspection=false;
       this.service.lvClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;
     }
     else{
+      if(this.addstep3.dirty) {
+        this.intermediateSaveInspectionInCircuits=true;
+      }
       this.validationError=false;
       this.intermediateSaveInspectionInCircuits=false;
       this.intermediateSaveInspection=false;
@@ -1531,9 +1540,9 @@ showHideAccordion(index: number) {
          backdrop: 'static'
         })
      
-     setTimeout(() => {
-      this.modalService.dismissAll((this.errorMsg = ""));
-    }, 3000);
+    //  setTimeout(() => {
+    //   this.modalService.dismissAll((this.errorMsg = ""));
+    // }, 3000);
   }
   }
   intermedeateIpaoSave1(content4:any){
@@ -1547,9 +1556,9 @@ showHideAccordion(index: number) {
          backdrop: 'static'
         })
      
-     setTimeout(() => {
-      this.modalService.dismissAll((this.errorMsg = ""));
-    }, 3000);
+    //  setTimeout(() => {
+    //   this.modalService.dismissAll((this.errorMsg = ""));
+    // }, 3000);
   }
     
   }
@@ -1621,6 +1630,7 @@ showHideAccordion(index: number) {
       this.disable = false;
     }
   }
+  
   // onKeyObservation(event:any){
   //   if(this.ObservationsForm.dirty){
   //     this.disableObservation=false;
@@ -1869,7 +1879,8 @@ for(let i of this.deletedInnerObservation) {
         }
     }
     else {
-      this.inspectionDetailsService
+      if(this.addstep3.dirty) {
+        this.inspectionDetailsService
       .addInspectionDetails(this.inspectionDetails)
       .subscribe(
         (data: any) => {
@@ -1937,6 +1948,7 @@ for(let i of this.deletedInnerObservation) {
           this.service.isCompleted3= false;
           this.service.isLinear=true;
         });
+      }
     }
     // this.verification.testingNgOnINit();
   }
