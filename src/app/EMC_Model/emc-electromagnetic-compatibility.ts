@@ -1,6 +1,7 @@
 export class EmcElectromagneticCompatibility {
 
     emcId!: number;
+    userName!: String;
 
     seSinglePoint!: String;
     seMeshedArrangment!: String;
