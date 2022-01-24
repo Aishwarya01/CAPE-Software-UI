@@ -2429,6 +2429,7 @@ private pushTestingInnerObservationTable(item: any,testDistRecordId: any,testing
       for(let i=0; i<this.nominalCrossSection.length; i++) {
         if(this.nominalCrossSection[i] == a.controls.conductorPhase.value) {
           a.controls.maximumAllowedValue.setValue(2*a.controls.continutiyApproximateLength.value*this.specificConductor[i]);
+          a.controls.continuityRemarks.setValue('R1 + R2 is the combined resistance of Phase and Neutral conductor measured at one location as a loop (note: up to 16 sqmm, Phase, Neutral and PE shall be of similar size)')
           a.controls.conductorPhaseFlag.setValue(false);   
           this.valueMismatchingFlag = false;   
           break;
