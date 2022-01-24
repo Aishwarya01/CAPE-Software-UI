@@ -1,8 +1,4 @@
 <div class="card">
-    <!-- <div>
-        <h2 style="text-align: center;"> POWER AND EARTHING DATA</h2>
-    </div> -->
-
     <div class="card-body">
         <form [formGroup]="EMCPowerAndEarthForm">
             <mat-accordion displayMode="default" [multi]="true" [hideToggle]="false">
@@ -22,7 +18,8 @@
                                     <i class="bi bi-text-paragraph"></i>
                                 </span>
                             </div>
-                            <textarea class="textarea-size" class="form-control"
+                            <textarea class="textarea-size" class="form-control" [(ngModel)]="emcPowerAndEarthingData.powerElectricalUtility"
+                                formControlName="powerElectricalUtility"
                                 placeholder="describe type, demand, system earthing, protection at incoming...!"></textarea>
                         </div>
                     </div>
@@ -36,7 +33,8 @@
                                     <i class="bi bi-text-paragraph"></i>
                                 </span>
                             </div>
-                            <textarea class="textarea-size" class="form-control" style="font-size: medium;"
+                            <textarea class="textarea-size" class="form-control" style="font-size: medium;" [(ngModel)]="emcPowerAndEarthingData.powerBackupSource"
+                                formControlName="powerBackupSource"
                                 placeholder="describe type, capacity, time delay, loads, etc...!"></textarea>
                         </div>
                     </div>
@@ -50,7 +48,7 @@
                                     <i class="bi bi-text-paragraph"></i>
                                 </span>
                             </div>
-                            <textarea class="form-control"
+                            <textarea class="form-control" formControlName="powerDistanceHvLv" [(ngModel)]="emcPowerAndEarthingData.powerDistanceHvLv"
                                 placeholder="In case transformer with in the premise (HV supply), describe this and the distance to the suppliers substation...!"></textarea>
                         </div>
                     </div>
@@ -59,12 +57,12 @@
                     <div class="acc_font">
                         <label>4. Type of incoming cables from HV/LV substation:</label>
                         <br>
-                        <select class="form-control">
-                            <option [ngValue]="null">Select Option</option>
-                            <option>Overhead</option>
-                            <option>Burried</option>
-                            <option>Combination</option>
-                        </select>
+                        <div class="form-group">
+                            <select class="form-control" [(ngModel)]="emcPowerAndEarthingData.powerCableHvLv" formControlName="powerCableHvLv">
+                                <option [ngValue]="null">Select Option</option>
+                                <option *ngFor="let value of incomingcable">{{value}}</option>
+                            </select>
+                        </div>
                     </div>
                     <br>
 
@@ -77,7 +75,7 @@
                                     <i class="bi bi-text-paragraph"></i>
                                 </span>
                             </div>
-                            <textarea class="textarea-size" class="form-control"
+                            <textarea class="textarea-size" class="form-control" [(ngModel)]="emcPowerAndEarthingData.powerDiscSupply" formControlName="powerDiscSupply"
                                 placeholder="Enter Discription of supply"></textarea>
                         </div>
                     </div>
@@ -90,7 +88,8 @@
                             <div>
                                 <div>
                                     <label class="form-label">KVA: </label>
-                                    <input type="number" class="form-control" placeholder="Enter KVA">
+                                    <input type="number" class="form-control" [(ngModel)]="emcPowerAndEarthingData.powerTransformationKVA" formControlName="powerTransformationKVA"
+                                        placeholder="Enter KVA">
                                 </div>
                             </div>
                             <br>
@@ -101,22 +100,26 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <label class="form-label">Volts:</label>
-                                    <input type="number" class="form-control" placeholder="Enter Volts">
+                                    <input type="number" class="form-control" [(ngModel)]="emcPowerAndEarthingData.powerInputVolts" formControlName="powerInputVolts"
+                                        placeholder="Enter Volts">
                                 </div>
 
                                 <div class="col-md-4">
                                     <label class="form-label">No. of phases:</label>
-                                    <input type="number" class="form-control" placeholder="Enter No. of phases">
+                                    <input type="number" class="form-control" [(ngModel)]="emcPowerAndEarthingData.powerInputPhase" formControlName="powerInputPhase"
+                                        placeholder="Enter No. of phases">
                                 </div>
 
                                 <div class="col-md-4">
                                     <label class="form-label">No. of wires:</label>
-                                    <input type="number" class="form-control" placeholder="Enter No. of wires">
+                                    <input type="number" class="form-control" [(ngModel)]="emcPowerAndEarthingData.powerInputWires" formControlName="powerInputWires"
+                                        placeholder="Enter No. of wires">
                                 </div>
 
                                 <div class="col-md-4">
                                     <label class="form-label">Feed (Delta/WYE):</label>
-                                    <input type="text" class="form-control" placeholder="Enter Feed (Delta/WYE)">
+                                    <input type="text" class="form-control" [(ngModel)]="emcPowerAndEarthingData.powerInputFeed" formControlName="powerInputFeed"
+                                        placeholder="Enter Feed (Delta/WYE)">
                                 </div>
                             </div>
 
@@ -129,7 +132,7 @@
                                         </span>
                                     </div>
                                     <textarea class="textarea-size" class="form-control"
-                                        placeholder="Enter Describe Others"></textarea>
+                                        formControlName="powerInputDesc" [(ngModel)]="emcPowerAndEarthingData.powerInputDesc" placeholder="Enter Describe Others"></textarea>
                                 </div>
                             </div>
 
@@ -141,36 +144,41 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <label class="form-label">Volts:</label>
-                                        <input type="number" class="form-control" placeholder="Enter Volts">
+                                        <input type="number" class="form-control" [(ngModel)]="emcPowerAndEarthingData.powerOutputVolts" formControlName="powerOutputVolts"
+                                            placeholder="Enter Volts">
                                     </div>
 
                                     <div class="col-md-4">
                                         <label class="form-label">No. of phases:</label>
-                                        <input type="number" class="form-control" placeholder="Enter No. of phases">
+                                        <input type="number" class="form-control" [(ngModel)]="emcPowerAndEarthingData.powerOutputPhase" formControlName="powerOutputPhase"
+                                            placeholder="Enter No. of phases">
                                     </div>
 
                                     <div class="col-md-4">
                                         <label class="form-label">No. of wires:</label>
-                                        <input type="number" class="form-control" placeholder="Enter No. of wires">
+                                        <input type="number" class="form-control" [(ngModel)]="emcPowerAndEarthingData.powerOutputWires" formControlName="powerOutputWires"
+                                            placeholder="Enter No. of wires">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4">
                                         <label class="form-label">Feed (Delta/WYE):</label>
-                                        <input type="text" class="form-control" placeholder="Enter Feed (Delta/WYE)">
+                                        <input type="text" class="form-control" [(ngModel)]="emcPowerAndEarthingData.powerOutputFeed" formControlName="powerOutputFeed"
+                                            placeholder="Enter Feed (Delta/WYE)">
                                     </div>
 
                                     <!-- Incoming (Amps) -->
 
                                     <div class="col-md-4">
                                         <label class="form-label">Incoming (Amps):</label>
-                                        <input type="number" class="form-control" placeholder="Enter Amps here">
+                                        <input type="number" class="form-control" [(ngModel)]="emcPowerAndEarthingData.powerIncomingAmps" formControlName="powerIncomingAmps"
+                                            placeholder="Enter Amps here">
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Neutral</label>
-                                            <select class="form-control">
+                                            <select class="form-control" [(ngModel)]="emcPowerAndEarthingData.powerNeutral" formControlName="powerNeutral">
                                                 <option [ngValue]="null">Select Option</option>
                                                 <option *ngFor="let value of neutral">{{value}}</option>
                                             </select>
@@ -188,7 +196,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea class="textarea-size" class="form-control"
+                                    <textarea class="textarea-size" class="form-control" [(ngModel)]="emcPowerAndEarthingData.psEarthing"  formControlName="psEarthing"
                                         placeholder="describe how and where?"></textarea>
                                 </div>
                             </div>
@@ -197,7 +205,8 @@
                                 <label class="form-label">Attach SLD of power supply system</label>
                                 <div class="input-group mb-3">
                                     <label for="inputGroupFile01">Upload</label>
-                                    <input type="file" class="form-control" id="inputGroupFile01">
+                                    <input type="file" class="form-control" id="inputGroupFile01" [(ngModel)]="emcPowerAndEarthingData.peAttachement"
+                                        formControlName="peAttachement">
                                 </div>
                             </div>
                         </div>
@@ -208,10 +217,9 @@
                         <label class="form-label">6. Building Service Entrance</label>
                         <div>
                             <label class="form-label">Dedicated transformer:</label>
-                            <select class="form-control">
+                            <select class="form-control" [(ngModel)]="emcPowerAndEarthingData.dedicatedTransfermation" formControlName="dedicatedTransfermation">
                                 <option [ngValue]="null">Select Option</option>
-                                <option>Yes</option>
-                                <option>No</option>
+                                <option *ngFor="let value of selectionValue">{{value}}</option>
                             </select>
                         </div>
                         <div>
@@ -223,7 +231,8 @@
                                         <i class="bi bi-text-paragraph"></i>
                                     </span>
                                 </div>
-                                <textarea class="textarea-size" class="form-control"
+                                <textarea class="textarea-size" class="form-control" [(ngModel)]="emcPowerAndEarthingData.dedicatedTransfermationOtherBuilding"
+                                    formControlName="dedicatedTransfermationOtherBuilding"
                                     placeholder="Enter If no, which are the other buildings / loads connected to the transformer"></textarea>
                             </div>
                         </div>
@@ -238,7 +247,7 @@
                                         <i class="bi bi-text-paragraph"></i>
                                     </span>
                                 </div>
-                                <textarea class="textarea-size" class="form-control"
+                                <textarea class="textarea-size" class="form-control" [(ngModel)]="emcPowerAndEarthingData.typeOFIncoming" formControlName="typeOFIncoming"
                                     placeholder="metallic conduit / non metallic conduit / others...!"></textarea>
                             </div>
                         </div>
@@ -252,7 +261,7 @@
                                         <i class="bi bi-text-paragraph"></i>
                                     </span>
                                 </div>
-                                <textarea class="textarea-size" class="form-control"
+                                <textarea class="textarea-size" class="form-control" [(ngModel)]="emcPowerAndEarthingData.descOfService" formControlName="descOfService"
                                     placeholder="foundation earth / building steel / ring earth / rod / multiple rods / grid / earth plate / burried conduit / metal water pipe etc...!"></textarea>
                             </div>
                         </div>
@@ -267,7 +276,8 @@
                                         <i class="bi bi-text-paragraph"></i>
                                     </span>
                                 </div>
-                                <textarea class="textarea-size" class="form-control"
+                                <textarea class="textarea-size" class="form-control" [(ngModel)]="emcPowerAndEarthingData.descOfTestingService"
+                                    formControlName="descOfTestingService"
                                     placeholder="Date of testing / Name of person who did the testing / value (impedance in ohms)...!"></textarea>
                             </div>
                         </div>
@@ -284,574 +294,606 @@
                                         <i class="bi bi-text-paragraph"></i>
                                     </span>
                                 </div>
-                                <textarea class="textarea-size" class="form-control"
+                                <textarea class="textarea-size" class="form-control" [(ngModel)]="emcPowerAndEarthingData.descOfEquipotentilaBonding"
+                                    formControlName="descOfEquipotentilaBonding"
                                     placeholder="Ex...yes/no. If yes, type and rating of SPD's...!"></textarea>
                             </div>
                         </div>
                     </div>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel [hideToggle]="false" class="body">
-                    <mat-expansion-panel-header>Building Distribution</mat-expansion-panel-header>
 
-                    <!-- SLD -->
-                    <div>
-                        <div>
-                            <label class="form-label">1. SLD:</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="bi bi-text-paragraph"></i>
-                                    </span>
+                <div formArrayName="electronicSystemArr" *ngFor="let a of getElectronicSystemControl(); let i = index">
+                    <div class="form-group" [formGroupName]="i">
+
+                        <mat-expansion-panel [hideToggle]="false" class="body">
+                            <mat-expansion-panel-header>Building Distribution</mat-expansion-panel-header>
+
+                            <!-- SLD -->
+                            <div>
+                                <div>
+                                    <label class="form-label">1. SLD:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="bi bi-text-paragraph"></i>
+                                            </span>
+                                        </div>
+                                        <textarea class="textarea-size" class="form-control" formControlName="bDSld"
+                                            placeholder="Ex. An one-line diagram of the site power distribution system from the service entrance to the electronic system power distribution panel(s). Show all transformers, load centres, power conditioning equipment, emergency load transfer switches, etc. Also indicate nominal voltage, kVA, type of feed, how run, number of conductors, and approximate length of feeders involved...!"></textarea>
+                                    </div>
                                 </div>
-                                <textarea class="textarea-size" class="form-control"
-                                    placeholder="Ex. An one-line diagram of the site power distribution system from the service entrance to the electronic system power distribution panel(s). Show all transformers, load centres, power conditioning equipment, emergency load transfer switches, etc. Also indicate nominal voltage, kVA, type of feed, how run, number of conductors, and approximate length of feeders involved...!"></textarea>
-                            </div>
-                        </div>
-                        <br>
-                        <!-- Notes -->
-                        <div>
-                            <label for="" style="font-weight: bold;">Note: any heavy cycling loads or variable load
-                                controllers fed from the same distribution feeder path that supplies the computer
-                                system.</label>
-                        </div>
-
-                        <div>
-                            <label for="" style="font-weight: bold;">Note: how protective earthing distribution is
-                                accomplished (conduit only, flexible conduit and bond wire, other).</label>
-                        </div>
-
-                        <!-- Record data -->
-                        <div>
-                            <label class="form-label">2. Record data:</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="bi bi-text-paragraph"></i>
-                                    </span>
+                                <br>
+                                <!-- Notes -->
+                                <div>
+                                    <label for="" style="font-weight: bold;">Note: any heavy cycling loads or variable
+                                        load
+                                        controllers fed from the same distribution feeder path that supplies the
+                                        computer
+                                        system.</label>
                                 </div>
-                                <textarea class="textarea-size" class="form-control"
-                                    placeholder="Ex. Record data (including name-plate data) note any power conditioning equipment and/or last transformer before electronic system load...!"></textarea>
-                            </div>
-                        </div>
 
-                        <!-- Earthing  -->
-                        <div>
-                            <label class="form-label">3. Earthing :</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="bi bi-text-paragraph"></i>
-                                    </span>
+                                <div>
+                                    <label for="" style="font-weight: bold;">Note: how protective earthing distribution
+                                        is
+                                        accomplished (conduit only, flexible conduit and bond wire, other).</label>
                                 </div>
-                                <textarea class="textarea-size" class="form-control"
-                                    placeholder="Ex. Describe how and where earthing of power conditioning equipment carried out...!"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </mat-expansion-panel>
 
-                <mat-expansion-panel [hideToggle]="false" class="body">
-                    <mat-expansion-panel-header>Electronics System Room Power Distribution</mat-expansion-panel-header>
-
-                    <!--1. Using the SLD, sketch the system power and ground distribution system, including all major components in (or immediately adjacent to) the computer room. Clearly identify all major components -->
-
-                    <!-- Electronic system power distribution panel -->
-                    <div>
-                        <div>
-                            <label class="form-label">1. Description:</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="bi bi-text-paragraph"></i>
-                                    </span>
+                                <!-- Record data -->
+                                <div>
+                                    <label class="form-label">2. Record data:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="bi bi-text-paragraph"></i>
+                                            </span>
+                                        </div>
+                                        <textarea class="textarea-size" class="form-control"
+                                            formControlName="bDRecordData"
+                                            placeholder="Ex. Record data (including name-plate data) note any power conditioning equipment and/or last transformer before electronic system load...!"></textarea>
+                                    </div>
                                 </div>
-                                <textarea class="textarea-size" class="form-control"
-                                    placeholder="Ex. Using the SLD, sketch the system power and ground distribution system, including all major components in (or immediately adjacent to) the computer room. Clearly identify all major components...!"></textarea>
+
+                                <!-- Earthing  -->
+                                <div>
+                                    <label class="form-label">3. Earthing :</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="bi bi-text-paragraph"></i>
+                                            </span>
+                                        </div>
+                                        <textarea class="textarea-size" class="form-control"
+                                            formControlName="bDEarthing"
+                                            placeholder="Ex. Describe how and where earthing of power conditioning equipment carried out...!"></textarea>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <br>
-                        <label class="form-label">2. Electronic system power distribution panel</label>
+                        </mat-expansion-panel>
 
-                        <div class="container-fluid">
-                            <table cellpadding="7" cellspacing="7" border="1"
-                                style="border:solid 1px #ddd;font-size:14px; line-height:24px; width:100%; border-collapse:collapse; margin:15px 0 0 0px;">
-                                <tr>
-                                    <td rowspan="1" style="width: 4rem;">a.</td>
-                                    <td style="width: 27rem;">
-                                        <label class="form-label">Panel ID:</label>
-                                    </td>
+                        <mat-expansion-panel [hideToggle]="false" class="body">
+                            <mat-expansion-panel-header>Electronics System Room Power Distribution
+                            </mat-expansion-panel-header>
 
-                                    <td>
-                                        <input type="text" class="form-control" placeholder="Enter ID here">
-                                    </td>
-                                </tr>
-                            </table>
+                            <!--1. Using the SLD, sketch the system power and ground distribution system, including all major components in (or immediately adjacent to) the computer room. Clearly identify all major components -->
 
-                            <table cellpadding="7" cellspacing="7" border="1"
-                                style="border:solid 1px #ddd;font-size:14px; line-height:24px; width:100%; border-collapse:collapse; margin:15px 0 0 0px;">
+                            <!-- Electronic system power distribution panel -->
+                            <div>
+                                <div>
+                                    <label class="form-label">1. Description:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="bi bi-text-paragraph"></i>
+                                            </span>
+                                        </div>
+                                        <textarea class="textarea-size" class="form-control"
+                                            formControlName="electronicDesc"
+                                            placeholder="Ex. Using the SLD, sketch the system power and ground distribution system, including all major components in (or immediately adjacent to) the computer room. Clearly identify all major components...!"></textarea>
+                                    </div>
+                                </div>
+                                <br>
+                                <label class="form-label">2. Electronic system power distribution panel</label>
 
-                                <tr>
-                                    <td rowspan="1" style="width: 4rem;">
-                                        <label class="form-label">b.</label>
-                                    </td>
-                                    <td style="width: 27rem;">
-                                        <label class="form-label">Name plate data (manufacturer)</label>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control" placeholder="Name (manufacturer)">
-                                    </td>
-                                </tr>
-                            </table>
+                                <div class="container-fluid">
+                                    <table cellpadding="7" cellspacing="7" border="1"
+                                        style="border:solid 1px #ddd;font-size:14px; line-height:24px; width:100%; border-collapse:collapse; margin:15px 0 0 0px;">
+                                        <tr>
+                                            <td rowspan="1" style="width: 4rem;">a.</td>
+                                            <td style="width: 27rem;">
+                                                <label class="form-label">Panel ID:</label>
+                                            </td>
 
-                            <table cellpadding="7" cellspacing="7" border="1"
-                                style="border:solid 1px #ddd;font-size:14px; line-height:24px; width:100%; border-collapse:collapse; margin:15px 0 0 0px;">
-                                <tr>
-                                    <td rowspan="3" style="width: 4rem;">
-                                        <label class="form-label">c.</label>
-                                    </td>
-                                    <td style="width: 27rem;">
-                                        <label class="form-label">Main circuit breaker</label>
-                                    </td>
-                                    <td style="width: 36rem;">
-                                        <select class="form-control">
-                                            <!-- <option value="o">choose yes/no</option> -->
-                                            <option [ngValue]="null">Select Option</option>
-                                            <option value="1">Yes</option>
-                                            <option value="2">No</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <p style="font-size: 100%;">Rating (A)
-                                            <input type="text" style="
+                                            <td>
+                                                <input type="number" class="form-control" formControlName="panelId"
+                                                    placeholder="Enter ID here">
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <table cellpadding="7" cellspacing="7" border="1"
+                                        style="border:solid 1px #ddd;font-size:14px; line-height:24px; width:100%; border-collapse:collapse; margin:15px 0 0 0px;">
+
+                                        <tr>
+                                            <td rowspan="1" style="width: 4rem;">
+                                                <label class="form-label">b.</label>
+                                            </td>
+                                            <td style="width: 27rem;">
+                                                <label class="form-label">Name plate data (manufacturer)</label>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" formControlName="namePlateData"
+                                                    placeholder="Name (manufacturer)">
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <table cellpadding="7" cellspacing="7" border="1"
+                                        style="border:solid 1px #ddd;font-size:14px; line-height:24px; width:100%; border-collapse:collapse; margin:15px 0 0 0px;">
+                                        <tr>
+                                            <td rowspan="3" style="width: 4rem;">
+                                                <label class="form-label">c.</label>
+                                            </td>
+                                            <td style="width: 27rem;">
+                                                <label class="form-label">Main circuit breaker</label>
+                                            </td>
+                                            <td style="width: 36rem;">
+                                                <select class="form-control" formControlName="mainCircuteBraker">
+                                                    <!-- <option value="o">choose yes/no</option> -->
+                                                    <option [ngValue]="null">Select Option</option>
+                                                    <option value="1">Yes</option>
+                                                    <option value="2">No</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <p style="font-size: 100%;">Rating (A)
+                                                    <input type="text" style=" 
                             width: 50px;
                             background: transparent;
                             border: none;
-                            border-bottom: 1px solid #000000;">
-                                        </p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td rowspan="1" style="font-size: 100%;">Emergency trip?</td>
-                                    <td>
-                                        <p style="font-size: 100%;">Remote <input type="text" style="
+                            border-bottom: 1px solid #000000;" formControlName="mainCircuteBrakerRating">
+                                                </p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="1" style="font-size: 100%;">Emergency trip?</td>
+                                            <td>
+                                                <p style="font-size: 100%;">Remote <input type="text" style=" 
                                 width: 50px;
                                 background: transparent;
                                 border: none;
-                                border-bottom: 1px solid #000000;" /> local<input type="text" style="
+                                border-bottom: 1px solid #000000;" formControlName="emergencyTripRemote" /> local<input
+                                                        type="text" style=" 
                                 width: 50px;
                                 background: transparent;
                                 border: none;
-                                border-bottom: 1px solid #000000;" /> none</p>
+                                border-bottom: 1px solid #000000;" formControlName="emergencyTripLocal" /> none</p>
 
-                                    </td>
-                                </tr>
-                            </table>
+                                            </td>
+                                        </tr>
+                                    </table>
 
-                            <table cellpadding="7" cellspacing="7" border="1"
-                                style="border:solid 1px #ddd;font-size:14px; line-height:24px; width:100%; border-collapse:collapse; margin:15px 0 0 0px;">
-                                <tr>
-                                    <td rowspan="2" style="width: 4rem;">
-                                        <label class="form-label">d.</label>
-                                    </td>
+                                    <table cellpadding="7" cellspacing="7" border="1"
+                                        style="border:solid 1px #ddd;font-size:14px; line-height:24px; width:100%; border-collapse:collapse; margin:15px 0 0 0px;">
+                                        <tr>
+                                            <td rowspan="2" style="width: 4rem;">
+                                                <label class="form-label">d.</label>
+                                            </td>
 
-                                    <td style="width: 27rem;">
-                                        <label class="form-label">Other trips:</label>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control"
-                                            placeholder="Under voltage / over voltage">
-                                    </td>
-                                </tr>
+                                            <td style="width: 27rem;">
+                                                <label class="form-label">Other trips:</label>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" formControlName="otherTrip"
+                                                    placeholder="Under voltage / over voltage">
+                                            </td>
+                                        </tr>
 
-                                <tr>
-                                    <td>
-                                        <label class="form-label">Differential protection:</label>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control"
-                                            placeholder="Enter Differential protection">
-                                    </td>
-                                </tr>
+                                        <tr>
+                                            <td>
+                                                <label class="form-label">Differential protection:</label>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control"
+                                                    formControlName="differentalProtection"
+                                                    placeholder="Enter Differential protection">
+                                            </td>
+                                        </tr>
 
-                            </table>
+                                    </table>
 
-                            <table cellpadding="7" cellspacing="7" border="1"
-                                style="border:solid 1px #ddd;font-size:14px; line-height:24px; width:100%; border-collapse:collapse; margin:15px 0 0 0px;">
+                                    <table cellpadding="7" cellspacing="7" border="1"
+                                        style="border:solid 1px #ddd;font-size:14px; line-height:24px; width:100%; border-collapse:collapse; margin:15px 0 0 0px;">
 
-                                <tr>
-                                    <td rowspan="1" style="width: 4rem;">
-                                        <label class="form-label">e.</label>
-                                    </td>
+                                        <tr>
+                                            <td rowspan="1" style="width: 4rem;">
+                                                <label class="form-label">e.</label>
+                                            </td>
 
-                                    <td style="width: 27rem;">
-                                        <label class="form-label">Panel bonded to building
-                                            steel:</label>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control"
-                                            placeholder="YES / NO. Describe bond location - external or internal steel member">
-                                    </td>
-                                </tr>
-                            </table>
+                                            <td style="width: 27rem;">
+                                                <label class="form-label">Panel bonded to building
+                                                    steel:</label>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" formControlName="bouodingStell"
+                                                    placeholder="YES / NO. Describe bond location - external or internal steel member">
+                                            </td>
+                                        </tr>
+                                    </table>
 
-                            <table cellpadding="7" cellspacing="7" border="1"
-                                style="border:solid 1px #ddd;font-size:14px; line-height:24px; width:100%; border-collapse:collapse; margin:15px 0 0 0px;">
-                                <tr>
-                                    <td rowspan="4" style="width: 4rem;">
-                                        <label class="form-label">f.</label>
-                                    </td>
-                                    <td style="width: 27rem;">
-                                        <label class="form-label">Panel feed:</label>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control"
-                                            placeholder="WYE / DELTA / SPLIT PHASE / Single phase / No of wires">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label class="form-label">Phase wires:</label>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control"
-                                            placeholder="Cu / Al, Size, Number and insulation type">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label class="form-label">Neutral wire:</label>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control"
-                                            placeholder="Cu / Al, Size, Number and insulation type">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label class="form-label">PE wire size:</label>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control"
-                                            placeholder="Cu / Al, Size, Number and insulation type">
-                                    </td>
-                                </tr>
-                            </table>
+                                    <table cellpadding="7" cellspacing="7" border="1"
+                                        style="border:solid 1px #ddd;font-size:14px; line-height:24px; width:100%; border-collapse:collapse; margin:15px 0 0 0px;">
+                                        <tr>
+                                            <td rowspan="4" style="width: 4rem;">
+                                                <label class="form-label">f.</label>
+                                            </td>
+                                            <td style="width: 27rem;">
+                                                <label class="form-label">Panel feed:</label>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" formControlName="panelFeed"
+                                                    placeholder="WYE / DELTA / SPLIT PHASE / Single phase / No of wires">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label class="form-label">Phase wires:</label>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" formControlName="phaseWires"
+                                                    placeholder="Cu / Al, Size, Number and insulation type">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label class="form-label">Neutral wire:</label>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" formControlName="neutralWire"
+                                                    placeholder="Cu / Al, Size, Number and insulation type">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label class="form-label">PE wire size:</label>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" formControlName="peWireSize"
+                                                    placeholder="Cu / Al, Size, Number and insulation type">
+                                            </td>
+                                        </tr>
+                                    </table>
 
-                            <table cellpadding="7" cellspacing="7" border="1"
-                                style="border:solid 1px #ddd;font-size:14px; line-height:24px; width:100%; border-collapse:collapse; margin:15px 0 0 0px;">
-                                <tr>
-                                    <td rowspan="4" style="width: 4rem;">g.</td>
-                                    <td rowspan="4" style="width: 27rem; font-size: 100%;">Panel connectors</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="text" class="form-control" placeholder="Type - Cu / Al, Cu/Al">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="text" class="form-control"
-                                            placeholder="Any discoloration / corrosion">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="text" class="form-control"
-                                            placeholder="Termination quality (checked / not checked??)">
-                                    </td>
-                                </tr>
-                            </table>
+                                    <table cellpadding="7" cellspacing="7" border="1"
+                                        style="border:solid 1px #ddd;font-size:14px; line-height:24px; width:100%; border-collapse:collapse; margin:15px 0 0 0px;">
+                                        <tr>
+                                            <td rowspan="4" style="width: 4rem;">g.</td>
+                                            <td rowspan="4" style="width: 27rem; font-size: 100%;">Panel connectors</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="text" class="form-control"
+                                                    formControlName="pannelConnectors"
+                                                    placeholder="Type - Cu / Al, Cu/Al">
+                                            </td>
+                                        </tr>
+                                        <!--  <tr>
+                                            <td>
+                                                <input type="text" class="form-control" formControlName=""
+                                                    placeholder="Any discoloration / corrosion">
+                                            </td>
+                                        </tr> -->
+                                        <!-- <tr>
+                                            <td>
+                                                <input type="text" class="form-control" formControlName=""
+                                                    placeholder="Termination quality (checked / not checked??)">
+                                            </td>
+                                        </tr> -->
+                                    </table>
 
-                            <table cellpadding="7" cellspacing="7" border="1"
-                                style="border:solid 1px #ddd;font-size:14px; line-height:24px; width:100%; border-collapse:collapse; margin:15px 0 0 0px;">
-                                <tr>
-                                    <td rowspan="4" style="width: 4rem;">h.</td>
-                                    <td rowspan="4" style="width: 27rem; font-size: 100%;">Neutral and earth busbars
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="font-size: 100%; width: 25rem;">Neutral bus:</td>
-                                    <td>
-                                        <input type="text" class="form-control"
-                                            placeholder="insulated from panel?? (check for bonding screws / straps) etc">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="font-size: 100%;">Earth bus:</td>
-                                    <td>
-                                        <input type="text" class="form-control"
-                                            placeholder="(available  / not available) (insulated / uninsulated) quality of bonding">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="font-size: 100%;">List of non electronic loads on earth bus:</td>
-                                    <td>
-                                        <input type="text" class="form-control"
-                                            placeholder="List of non electronic loads on earth bus">
-                                    </td>
-                                </tr>
-                            </table>
+                                    <table cellpadding="7" cellspacing="7" border="1"
+                                        style="border:solid 1px #ddd;font-size:14px; line-height:24px; width:100%; border-collapse:collapse; margin:15px 0 0 0px;">
+                                        <tr>
+                                            <td rowspan="4" style="width: 4rem;">h.</td>
+                                            <td rowspan="4" style="width: 27rem; font-size: 100%;">Neutral and earth
+                                                busbars
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 100%; width: 25rem;">Neutral bus:</td>
+                                            <td>
+                                                <input type="text" class="form-control" formControlName="neutralBus"
+                                                    placeholder="insulated from panel?? (check for bonding screws / straps) etc">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 100%;">Earth bus:</td>
+                                            <td>
+                                                <input type="text" class="form-control" formControlName="earthBus"
+                                                    placeholder="(available  / not available) (insulated / uninsulated) quality of bonding">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 100%;">List of non electronic loads on earth bus:</td>
+                                            <td>
+                                                <input type="text" class="form-control"
+                                                    formControlName="listOfNonElectronicLoad"
+                                                    placeholder="List of non electronic loads on earth bus">
+                                            </td>
+                                        </tr>
+                                    </table>
 
-                            <table cellpadding="7" cellspacing="7" border="1"
-                                style="border:solid 1px #ddd;font-size:14px; line-height:24px; width:100%; border-collapse:collapse; margin:15px 0 0 0px;">
-                                <tr>
-                                    <td rowspan="3" style="width: 4rem;">i.</td>
-                                    <td rowspan="3" style="width: 27rem; font-size: 100%;">Uses</td>
-                                </tr>
-                                <tr>
-                                    <td style="font-size: 100%; width: 25rem;">Dediated to electronic system?:</td>
-                                    <td>
-                                        <input type="text" class="form-control"
-                                            placeholder="Enter Dediated to electronic system?">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="font-size: 100%;">List all non computer loads, including any convenience
-                                        receptacles:</td>
-                                    <td>
-                                        <input type="text" class="form-control" placeholder="Enter List all non computer loads, including any
+                                    <table cellpadding="7" cellspacing="7" border="1"
+                                        style="border:solid 1px #ddd;font-size:14px; line-height:24px; width:100%; border-collapse:collapse; margin:15px 0 0 0px;">
+                                        <tr>
+                                            <td rowspan="3" style="width: 4rem;">i.</td>
+                                            <td rowspan="3" style="width: 27rem; font-size: 100%;">Uses</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 100%; width: 25rem;">Dediated to electronic system?:
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control"
+                                                    formControlName="dedicatedElectronicSystem"
+                                                    placeholder="Enter Dediated to electronic system?">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 100%;">List all non computer loads, including any
+                                                convenience
+                                                receptacles:</td>
+                                            <td>
+                                                <input type="text" class="form-control"
+                                                    formControlName="nonComputerLoads" placeholder="Enter List all non computer loads, including any
                                         convenience receptacles">
-                                    </td>
-                                </tr>
+                                            </td>
+                                        </tr>
 
-                            </table>
-                        </div>
-                    </div>
-                </mat-expansion-panel>
-
-                <!-- Distribution panel at load (final circuits) -->
-                <mat-expansion-panel [hideToggle]="false" class="body">
-                    <mat-expansion-panel-header>Distribution panel At Load (Final Circuits)</mat-expansion-panel-header>
-
-                    <!-- a. Branch circuit wire size -->
-                    <div>
-                        <label class="form-label">a. Branch circuit wire size</label>
-                        <br>
-                        <label class="form-label">Wire size compatilble to circuit braker</label>
-                        <select class="form-control">
-                            <option [ngValue]="null">Select Option</option>
-                            <option value="">Yes</option>
-                            <option value="">No</option>
-                        </select>
-                        <div>
-                            <label class="form-label">Description</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="bi bi-text-paragraph"></i>
-                                    </span>
+                                    </table>
                                 </div>
-                                <textarea class="textarea-size" class="form-control"
-                                    placeholder="Description"></textarea>
                             </div>
-                        </div>
-                        <div>
-                            <label class="form-label">Matches receptable:</label>
-                            <select name="" id="" class="form-control">
-                                <option [ngValue]="null">Select Option</option>
-                                <option value="">Yes</option>
-                                <option value="">No</option>
-                            </select>
+                        </mat-expansion-panel>
+                    </div>
+                </div>
+
+                <div formArrayName="distributionPannelArr"
+                    *ngFor="let a of getDistributionPannelControl(); let j = index">
+                    <div class="form-group" [formGroupName]="j">
+
+                        <!-- Distribution panel at load (final circuits) -->
+                        <mat-expansion-panel [hideToggle]="false" class="body">
+                            <mat-expansion-panel-header>Distribution panel At Load (Final Circuits)
+                            </mat-expansion-panel-header>
+
+                            <!-- a. Branch circuit wire size -->
                             <div>
-                                <label class="form-label">Description</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="bi bi-text-paragraph"></i>
-                                        </span>
+                                <label class="form-label">a. Branch circuit wire size</label>
+                                <br>
+                                <label class="form-label">Wire size compatilble to circuit braker</label>
+                                <select class="form-control" formControlName="cbWireSize">
+                                    <option [ngValue]="null">Select Option</option>
+                                    <option value="">Yes</option>
+                                    <option value="">No</option>
+                                </select>
+                                <div>
+                                    <label class="form-label">Description</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="bi bi-text-paragraph"></i>
+                                            </span>
+                                        </div>
+                                        <textarea class="textarea-size" class="form-control" formControlName="cbDesc"
+                                            placeholder="Description"></textarea>
                                     </div>
-                                    <textarea class="textarea-size" class="form-control"
-                                        placeholder="Description"></textarea>
+                                </div>
+                                <div>
+                                    <label class="form-label">Matches receptable:</label>
+                                    <select name="" id="" class="form-control" formControlName="matchesReceptable">
+                                        <option [ngValue]="null">Select Option</option>
+                                        <option value="">Yes</option>
+                                        <option value="">No</option>
+                                    </select>
+                                    <div>
+                                        <label class="form-label">Description</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea class="textarea-size" class="form-control" formControlName="matchesReceptableDesc"
+                                                placeholder="Description"></textarea>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <!--b. Individual insulated PE wire run in each electronics load circuit -->
-                    <div>
-                        <div>
-                            <label class="form-label">b. Individual insulated PE wire run in each
-                                electronics load circuit</label>
-                            <select name="" id="" class="form-control">
-                                <option [ngValue]="null">Select Option</option>
-                                <option value="">Yes</option>
-                                <option value="">No</option>
-                            </select>
+                            <!--b. Individual insulated PE wire run in each electronics load circuit -->
                             <div>
-                                <label class="form-label">Description</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="bi bi-text-paragraph"></i>
-                                        </span>
+                                <div>
+                                    <label class="form-label">b. Individual insulated PE wire run in each
+                                        electronics load circuit</label>
+                                    <select name="" id="" class="form-control" formControlName="indivdialPwire">
+                                        <option [ngValue]="null">Select Option</option>
+                                        <option value="">Yes</option>
+                                        <option value="">No</option>
+                                    </select>
+                                    <div>
+                                        <label class="form-label">Description</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea class="textarea-size" class="form-control" formControlName="indivdialPwireDesc"
+                                                placeholder="Description"></textarea>
+                                        </div>
                                     </div>
-                                    <textarea class="textarea-size" class="form-control"
-                                        placeholder="Description"></textarea>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <!--c. Individual insulated neutral wire run in each computer load circuit (if necessary??) -->
-                    <div>
-                        <div>
-                            <label class="form-label">c. Individual insulated neutral wire run in each
-                                computer load circuit (if necessary??</label>
-                            <select name="" id="" class="form-control">
-                                <option [ngValue]="null">Select Option</option>
-                                <option value="">Yes</option>
-                                <option value="">No</option>
-                            </select>
+                            <!--c. Individual insulated neutral wire run in each computer load circuit (if necessary??) -->
                             <div>
-                                <label class="form-label">Description</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="bi bi-text-paragraph"></i>
-                                        </span>
+                                <div>
+                                    <label class="form-label">c. Individual insulated neutral wire run in each
+                                        computer load circuit (if necessary??</label>
+                                    <select name="" id="" class="form-control" formControlName="indivdialNeutralwire">
+                                        <option [ngValue]="null">Select Option</option>
+                                        <option value="">Yes</option>
+                                        <option value="">No</option>
+                                    </select>
+                                    <div>
+                                        <label class="form-label">Description</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea class="textarea-size" class="form-control" formControlName="indivdialNeutralwireDesc"
+                                                placeholder="Description"></textarea>
+                                        </div>
                                     </div>
-                                    <textarea class="textarea-size" class="form-control"
-                                        placeholder="Description"></textarea>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <!-- d. All computer load circuits coorectly identified -->
-                    <div>
-                        <div>
-                            <label class="form-label">d. All computer load circuits coorectly
-                                identified</label>
-                            <select name="" id="" class="form-control">
-                                <option [ngValue]="null">Select Option</option>
-                                <option value="">Yes</option>
-                                <option value="">No</option>
-                            </select>
+                            <!-- d. All computer load circuits coorectly identified -->
                             <div>
-                                <label class="form-label">Description</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="bi bi-text-paragraph"></i>
-                                        </span>
+                                <div>
+                                    <label class="form-label">d. All computer load circuits coorectly
+                                        identified</label>
+                                    <select name="" id="" class="form-control" formControlName="computerLoadCircute">
+                                        <option [ngValue]="null">Select Option</option>
+                                        <option value="">Yes</option>
+                                        <option value="">No</option>
+                                    </select>
+                                    <div>
+                                        <label class="form-label">Description</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea class="textarea-size" class="form-control" formControlName="computerLoadCircuteDes"
+                                                placeholder="Description"></textarea>
+                                        </div>
                                     </div>
-                                    <textarea class="textarea-size" class="form-control"
-                                        placeholder="Description"></textarea>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <!-- e. All computer load circuits (<30 A/phase) terminated in isolated earth receptacles -->
-                    <div>
-                        <div>
-                            <label class="form-label">e. All computer load circuits (30/Aphase)
-                                terminated in isolated earth receptacles</label>
-                            <select name="" id="" class="form-control">
-                                <option [ngValue]="null">Select Option</option>
-                                <option value="">Yes</option>
-                                <option value="">No</option>
-                            </select>
+                            <!-- e. All computer load circuits (<30 A/phase) terminated in isolated earth receptacles -->
                             <div>
-                                <label class="form-label">Description</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="bi bi-text-paragraph"></i>
-                                        </span>
+                                <div>
+                                    <label class="form-label">e. All computer load circuits (30/Aphase)
+                                        terminated in isolated earth receptacles</label>
+                                    <select name="" id="" class="form-control" formControlName="computerLoadReceptable">
+                                        <option [ngValue]="null">Select Option</option>
+                                        <option value="">Yes</option>
+                                        <option value="">No</option>
+                                    </select>
+                                    <div>
+                                        <label class="form-label">Description</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea class="textarea-size" class="form-control" formControlName="computerLoadReceptableDesc"
+                                                placeholder="Description"></textarea>
+                                        </div>
                                     </div>
-                                    <textarea class="textarea-size" class="form-control"
-                                        placeholder="Description"></textarea>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <!-- f. System branch circuits run in (metallic conduits / non metallic conduits) -->
-                    <div>
-                        <div>
-                            <label class="form-label">f. System branch circuits run in (metallic
-                                conduits / non metallic conduits)</label>
-                            <select name="" id="" class="form-control">
-                                <option [ngValue]="null">Select Option</option>
-                                <option value="">Yes</option>
-                                <option value="">No</option>
-                            </select>
-
+                            <!-- f. System branch circuits run in (metallic conduits / non metallic conduits) -->
                             <div>
-                                <label class="form-label">Description</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="bi bi-text-paragraph"></i>
-                                        </span>
+                                <div>
+                                    <label class="form-label">f. System branch circuits run in (metallic
+                                        conduits / non metallic conduits)</label>
+                                    <select name="" id="" class="form-control" formControlName="branchCircuteRun">
+                                        <option [ngValue]="null">Select Option</option>
+                                        <option value="">Yes</option>
+                                        <option value="">No</option>
+                                    </select>
+
+                                    <div>
+                                        <label class="form-label">Description</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea class="textarea-size" class="form-control" formControlName="branchCircuteRunDesc"
+                                                placeholder="Description"></textarea>
+                                        </div>
                                     </div>
-                                    <textarea class="textarea-size" class="form-control"
-                                        placeholder="Description"></textarea>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <!--g. Frequently cyclid loads (disks/tapes etc) power circuit run seperately or in same physical closure -->
-                    <div>
-                        <div>
-                            <label class="form-label">g. Frequently cyclid loads (disks/tapes etc) power
-                                circuit run seperately or in same physical closure</label>
-                            <select name="" id="" class="form-control">
-                                <option [ngValue]="null">Select Option</option>
-                                <option value="">Yes</option>
-                                <option value="">No</option>
-                            </select>
+                            <!--g. Frequently cyclid loads (disks/tapes etc) power circuit run seperately or in same physical closure -->
                             <div>
-                                <label class="form-label">Description</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="bi bi-text-paragraph"></i>
-                                        </span>
+                                <div>
+                                    <label class="form-label">g. Frequently cyclid loads (disks/tapes etc) power
+                                        circuit run seperately or in same physical closure</label>
+                                    <select name="" id="" class="form-control" formControlName="frequencyCyclidLoads">
+                                        <option [ngValue]="null">Select Option</option>
+                                        <option value="">Yes</option>
+                                        <option value="">No</option>
+                                    </select>
+                                    <div>
+                                        <label class="form-label">Description</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea class="textarea-size" class="form-control" formControlName="frequencyCyclidLoadsDesc"
+                                                placeholder="Description"></textarea>
+                                        </div>
                                     </div>
-                                    <textarea class="textarea-size" class="form-control"
-                                        placeholder="Description"></textarea>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <!-- h. Any phase conductor, neutral conductor or PE condcutors daisy chained?? -->
-                    <div>
-                        <div>
-                            <label class="form-label">h. Any phase conductor, neutral conductor or PE
-                                condcutors daisy chained??</label>
-                            <select name="" id="" class="form-control">
-                                <option [ngValue]="null">Select Option</option>
-                                <option value="">Yes</option>
-                                <option value="">No</option>
-                            </select>
+                            <!-- h. Any phase conductor, neutral conductor or PE condcutors daisy chained?? -->
                             <div>
-                                <label class="form-label">Description</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="bi bi-text-paragraph"></i>
-                                        </span>
+                                <div>
+                                    <label class="form-label">h. Any phase conductor, neutral conductor or PE
+                                        condcutors daisy chained??</label>
+                                    <select name="" id="" class="form-control" formControlName="conductors">
+                                        <option [ngValue]="null">Select Option</option>
+                                        <option value="">Yes</option>
+                                        <option value="">No</option>
+                                    </select>
+                                    <div>
+                                        <label class="form-label">Description</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea class="textarea-size" class="form-control" formControlName="conductorsDesc"
+                                                placeholder="Description"></textarea>
+                                        </div>
                                     </div>
-                                    <textarea class="textarea-size" class="form-control"
-                                        placeholder="Description"></textarea>
                                 </div>
                             </div>
-                        </div>
+                        </mat-expansion-panel>
                     </div>
-
-                </mat-expansion-panel>
+                </div>
             </mat-accordion>
 
             <div class="container">
                 <div style="text-align: center;">
                     <button type="button" style="width: 100px; margin: 16px auto;"
                         class="btn btn-primary">Previous</button>
-                    <button type="submit" style="width: 100px; margin: 16px auto;" class="btn btn-success">Next</button>
+                    <button type="submit" style="width: 100px; margin: 16px auto;" (click)="savePowerAndEarthingData()" class="btn btn-success">Next</button>
                 </div>
             </div>
 
