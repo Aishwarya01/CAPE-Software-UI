@@ -867,8 +867,8 @@
                                   </div>
                                 </td>
                                 <td>
-                                  <textarea  formControlName="continuityRemarks"  class="form-control" style="height:40px;width: 250px;"  readonly></textarea>
-                                  <!-- <input type="text" formControlName="continuityRemarks" class="form-control"   style="width:80px" readonly> -->
+                                  <!-- <textarea  formControlName="continuityRemarks"  class="form-control" style="height:40px;width: 170px;" matTooltip="{{f.get('continuityRemarks')?.value}}" readonly></textarea> -->
+                                  <input type="text" formControlName="continuityRemarks" class="form-control long-value-input" matTooltip="{{f.get('continuityRemarks')?.value}}"   readonly>
                                 </td>
 
                                 <td><input type="text" formControlName="continutiyPolarity" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
