@@ -18,6 +18,9 @@ export class EmcFacilityDataService {
   public retrieveFacilityData(userName:any, emcId:any): Observable<any> {
     return this.http.get<any>(this.apiUrl + '/retrieveFacilityData'+'/'+userName+ '/' +emcId, { responseType: 'text' as 'json' })
   }
+  public upDateFacilityData(emcFacilityData: EmcFacilityData): Observable<any> {
+    return this.http.put<any>(this.apiUrl + '/updateFacilityData', emcFacilityData, { responseType: 'text' as 'json' })
+  }
 
 
 }
