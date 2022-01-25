@@ -207,8 +207,15 @@ retrivePowerEarthingData(userName: any, emcId: any, data: any) {
   }
 
   }
+  get f():any {
+    return this.EMCPowerAndEarthForm.controls;
+  }
 
 savePowerAndEarthingData(flag:any){
+  this.submitted=true;
+  // if(this.EMCPowerAndEarthForm.invalid){
+  //   return
+  // }
   console.log(this.EMCPowerAndEarthForm);
 
   this.emcPowerAndEarthingData.userName='Hasan';
@@ -220,8 +227,8 @@ savePowerAndEarthingData(flag:any){
     this.distributionPannelArr = this.EMCPowerAndEarthForm.get('distributionPannelArr') as FormArray;
     this.emcPowerAndEarthingData.distrubutionPannel = this.EMCPowerAndEarthForm.value.distributionPannelArr;
 if(flag){
-
-  this.emcPowerAndEarthingDataService
+  
+   this.emcPowerAndEarthingDataService
   .updatePowerEarthingData(this.emcPowerAndEarthingData)
   .subscribe(
     (data: any) => {

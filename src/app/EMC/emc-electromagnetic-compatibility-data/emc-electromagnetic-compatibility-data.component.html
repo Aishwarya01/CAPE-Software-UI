@@ -19,10 +19,14 @@
                             <div class="form-group">
                                 <label class="form-label">System earth referance a single point referance</label>
                                 <select class="form-control" formControlName="seSinglePoint"
-                                    [(ngModel)]="emcElectromagneticCompatibility.seSinglePoint">
+                                    [(ngModel)]="emcElectromagneticCompatibility.seSinglePoint"
+                                    [ngClass]="{'is-invalid':submitted && f.seSinglePoint?.errors}">
                                     <option [ngValue]="null">Select Option</option>
                                     <option *ngFor="let value of selectionValue">{{value}}</option>
                                 </select>
+                                <div *ngIf="submitted &&f.seSinglePoint?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.seSinglePoint?.errors?.required">Field Is Required</div>
+                                </div>
                             </div>
                         </div>
 
@@ -460,7 +464,7 @@
                         <button type="button" style="width: 100px; margin: 16px auto;"
                             class="btn btn-primary">Previous</button>
                         <button type="submit" style="width: 100px; margin: 16px auto;"
-                        (click)="saveElectroMagneticData()"  (click)="gotoNextModal(content2)" class="btn btn-success">Next</button>
+                        (click)="saveElectroMagneticData()"  class="btn btn-success">Next</button>
                     </div>
                 </div>
 

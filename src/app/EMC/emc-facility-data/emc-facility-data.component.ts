@@ -190,6 +190,9 @@ export class EmcFacilityDataComponent implements OnInit {
      })
    }
   }
+  get f():any {
+    return this.EMCFacilityForm.controls;
+  }
 
   closeModalDialog() {
     this.finalSpinner = true;
@@ -221,7 +224,7 @@ export class EmcFacilityDataComponent implements OnInit {
 
   saveFacilityData(flag: any) {
 
-    // this.submitted=true;
+     this.submitted=true;
     // if(this.EMCFacilityForm.invalid) {
     //   return;
     // }

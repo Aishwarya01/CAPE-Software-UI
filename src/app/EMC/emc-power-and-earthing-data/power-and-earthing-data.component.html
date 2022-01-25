@@ -18,9 +18,14 @@
                                     <i class="bi bi-text-paragraph"></i>
                                 </span>
                             </div>
-                            <textarea class="textarea-size" class="form-control" [(ngModel)]="emcPowerAndEarthingData.powerElectricalUtility"
+                            <textarea class="textarea-size" class="form-control" 
                                 formControlName="powerElectricalUtility"
-                                placeholder="describe type, demand, system earthing, protection at incoming...!"></textarea>
+                                placeholder="describe type, demand, system earthing, protection at incoming...!"
+                                [ngClass]="{'is-invalid':submitted && f.powerElectricalUtility?.errors}"
+                                [(ngModel)]="emcPowerAndEarthingData.powerElectricalUtility"></textarea>
+                                <div *ngIf="submitted &&f.powerElectricalUtility?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.powerElectricalUtility?.errors?.required">Field Is Required</div>
+                                </div>
                         </div>
                     </div>
 
@@ -893,7 +898,7 @@
                 <div style="text-align: center;">
                     <button type="button" style="width: 100px; margin: 16px auto;"
                         class="btn btn-primary">Previous</button>
-                    <button type="submit" style="width: 100px; margin: 16px auto;" (click)="savePowerAndEarthingData(flag)"  (click)="gotoNextModal(content3)"class="btn btn-success">Next</button>
+                    <button type="submit" style="width: 100px; margin: 16px auto;" (click)="savePowerAndEarthingData(flag)"  class="btn btn-success">Next</button>
                 </div>
             </div>
 

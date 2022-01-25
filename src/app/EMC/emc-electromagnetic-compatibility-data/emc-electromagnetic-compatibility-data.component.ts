@@ -99,6 +99,9 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
     })
 
   }
+  get f():any {
+    return this.EMCElectroMagneticFormm.controls;
+  }
 
 
   closeModalDialog() {
@@ -120,6 +123,11 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
     }
   }
   saveElectroMagneticData(){
+
+    this.submitted=true;
+    // if(this.EMCElectroMagneticFormm.invalid){
+    //   return
+    // }
     console.log(this.EMCElectroMagneticFormm);
   
     this.emcElectromagneticCompatibility.userName='siva';

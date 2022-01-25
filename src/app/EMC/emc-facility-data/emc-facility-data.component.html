@@ -19,10 +19,14 @@
                             <div class="form-group">
                                 <label>Type</label>
                                 <select class="form-control" formControlName="blType"
-                                    [(ngModel)]="emcFacilityData.blType">
+                                    [(ngModel)]="emcFacilityData.blType"
+                                    [ngClass]="{'is-invalid':submitted && f.blType?.errors}">
                                     <option [ngValue]="null">Select Option</option>
                                     <option *ngFor="let value of buildingType">{{value}}</option>
                                 </select>
+                                <div *ngIf="submitted &&f.blType?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.blType?.errors?.required">Field Is Required</div>
+                                </div>
                             </div>
                         </div>
 
@@ -713,7 +717,7 @@
                 <div class="container">
                     <div style="text-align: center;">
                         <button type="submit" style="width: 100px; margin: 16px auto;"
-                        (click)="saveFacilityData(flag)"  (click)="gotoNextModal(content1)" class="btn btn-success">Next</button>
+                        (click)="saveFacilityData(flag)"  class="btn btn-success">Next</button>
                     </div>
                 </div>  `
 
