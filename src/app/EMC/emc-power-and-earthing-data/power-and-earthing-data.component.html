@@ -893,9 +893,32 @@
                 <div style="text-align: center;">
                     <button type="button" style="width: 100px; margin: 16px auto;"
                         class="btn btn-primary">Previous</button>
-                    <button type="submit" style="width: 100px; margin: 16px auto;" (click)="savePowerAndEarthingData()" class="btn btn-success">Next</button>
+                    <button type="submit" style="width: 100px; margin: 16px auto;" (click)="savePowerAndEarthingData()"  (click)="gotoNextModal(content3)"class="btn btn-success">Next</button>
                 </div>
             </div>
 
         </form>
     </div>
+
+    
+<ng-template #content3 let-modal>
+    <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner"
+    color="primary">
+    </mat-progress-spinner>
+    <div class="modal-body" *ngIf="popup">
+        <div class="centre-text m-btm30">
+            <div *ngIf="success" style="text-align: center;">
+                <span class="successshow">{{successMsg}}</span>
+            </div>
+            <div *ngIf="Error" style="text-align: center;">
+                <span class="errorshow">{{errorMsg}}</span>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <button type="button" *ngIf="popup" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+                aria-label="Close" (click)="closeModalDialog()" matStepperNext>
+                 <span aria-hidden="true">Ok</span>
+     </button>
+ </ng-template>

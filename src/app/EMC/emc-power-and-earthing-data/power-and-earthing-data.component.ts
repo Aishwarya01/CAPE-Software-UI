@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EmcPowerAndEarthingData } from 'src/app/EMC_Model/emc-power-and-earthing-data';
 import { EmcPowerAndEarthingDataService } from 'src/app/EMC_Services/emc-power-and-earthing-data.service';
 
@@ -18,9 +19,19 @@ export class PowerAndEarthingDataComponent implements OnInit {
   emcPowerAndEarthingData = new EmcPowerAndEarthingData();
   electronicSystemArr!: FormArray;
   distributionPannelArr!: FormArray;
+  errorArr: any = [];
+  success: boolean = false;
+  Error: boolean = false;
+  submitted=false;
+  successMsg: string = "";
+  errorMsg: string = "";
+  finalSpinner: boolean = true;
+  popup: boolean = false;
+  modalReference: any;
   
   constructor(
     private formBuilder: FormBuilder,
+    private modalService: NgbModal,
     private emcPowerAndEarthingDataService: EmcPowerAndEarthingDataService
     ) { }
 
@@ -120,6 +131,34 @@ export class PowerAndEarthingDataComponent implements OnInit {
   return (<FormArray>this.EMCPowerAndEarthForm.get('distributionPannelArr')).controls
 }
 
+gotoNextModal(content2: any) {
+  this.modalReference = this.modalService.open(content2, {
+    centered: true,
+    size: 'md',
+    backdrop: 'static'
+  })
+
+}
+
+closeModalDialog() {
+  this.finalSpinner = true;
+  this.popup = false;
+  if (this.errorMsg != "") {
+    this.Error = false;
+    // this.service.isCompleted3= false;
+    // this.service.isLinear=true;
+    this.modalService.dismissAll((this.errorMsg = ""));
+  }
+  else {
+    this.success = false;
+    // this.service.isCompleted3= true;
+    // this.service.isLinear=false;
+    this.modalService.dismissAll((this.successMsg = ""));
+    // this.disable = false;
+
+  }
+}
+
 savePowerAndEarthingData(){
   console.log(this.EMCPowerAndEarthForm);
 
@@ -138,12 +177,21 @@ savePowerAndEarthingData(){
     .savePowerEarthingData(this.emcPowerAndEarthingData)
     .subscribe(
       (data: any) => {
+        this.finalSpinner = false;
+        this.popup = true;
+        this.success = true;
+        this.successMsg = data;
       
       },
       (error: any) => {
+        this.finalSpinner = false;
+        this.popup = true;
+        this.Error = true;
+        this.errorArr = [];
+        this.errorArr = JSON.parse(error.error);
+        this.errorMsg = this.errorArr.message;
         
       });
-console.log('hiiiiiiiiiiiiiiiiiiii');
   }
 
 
