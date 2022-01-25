@@ -2,6 +2,7 @@ export class EmcPowerAndEarthingData {
 
     userName!: String;
     emcId!: number;
+    powerEarthingDataId!:number;
     powerElectricalUtility!: String;
     powerBackupSource!: String;
     powerDistanceHvLv!: String;

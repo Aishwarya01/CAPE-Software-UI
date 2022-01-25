@@ -29,6 +29,7 @@ export class EmcFacilityDataComponent implements OnInit {
   errorArr: any = [];
   success: boolean = false;
   Error: boolean = false;
+  submitted=false;
   successMsg: string = "";
   errorMsg: string = "";
   email: String;
@@ -259,10 +260,16 @@ export class EmcFacilityDataComponent implements OnInit {
   }
 
   saveFacilityData(flag: any) {
+
+    this.submitted=true;
+    if(this.EMCFacilityForm.invalid) {
+      return;
+    }
     this.emcFacilityData.userName = "sivaraju";
     if (!flag) {
       this.emcFacilityData.emcId = 88;
     }
+  
     this.floorCoveringArr = this.EMCFacilityForm.get('floorCoveringArr') as FormArray;
     this.emcFacilityData.floorCovering = this.EMCFacilityForm.value.floorCoveringArr;
     if (flag) {

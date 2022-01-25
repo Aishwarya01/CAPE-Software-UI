@@ -18,4 +18,7 @@ export class EmcPowerAndEarthingDataService {
   public retrievePowerEarthingData(userName:any, emcId:any): Observable<any> {
     return this.http.get<any>(this.apiUrl + '/retrievePowerEarthingData'+'/'+userName+ '/' +emcId, { responseType: 'text' as 'json' })
   }
+  public updatePowerEarthingData(emcPowerAndEarthingData: EmcPowerAndEarthingData): Observable<any> {
+    return this.http.put<any>(this.apiUrl + '/updatePowerEarthingData', emcPowerAndEarthingData, { responseType: 'text' as 'json' })
+  }
 }
