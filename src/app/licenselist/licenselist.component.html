@@ -208,17 +208,17 @@
                         <mat-icon>visibility</mat-icon>
                       </button>
                       <button class="btn btn-outline-danger delete" title="Download Final PDF" 
-                      (click)="downloadPdf(element.siteId,element.userName)" [disabled]="disable"
+                      (click)="downloadPdf(element.siteId,element.userName, element.site)" [disabled]="disable"
                       style="border-color: #cdcecf;box-shadow: unset;">
                         <mat-icon>download</mat-icon>
                       </button>
                       <button class="btn btn-outline-danger delete" title="Trigger Email With Final PDF" 
-                      (click)="emailPDF(element.siteId,element.userName)" [disabled]="disable"
+                      (click)="emailPDF(element.siteId,element.userName, element.site)" [disabled]="disable"
                       style="border-color: #cdcecf;box-shadow: unset;">
                         <mat-icon>email</mat-icon>
                       </button>
                       <button class="btn btn-outline-danger delete" title="Print Final PDF" 
-                      (click)="pdfModal(element.siteId,element.userName)" [disabled]="disable"
+                      (click)="pdfModal(element.siteId,element.userName, element.site)" [disabled]="disable"
                       style="border-color: #cdcecf;box-shadow: unset;">
                         <mat-icon>print</mat-icon>
                       </button>

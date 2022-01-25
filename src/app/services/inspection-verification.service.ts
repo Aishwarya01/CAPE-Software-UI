@@ -34,10 +34,10 @@ export class InspectionVerificationService {
   public updateSummary(summary: Summary): Observable<any> {
     return this.http.put<any>(this.apiUrl + '/updateSummary', summary, { responseType: 'text' as 'json' })
   }
-  public downloadPDF(siteId: any,userName: any) {
-  return   this.http.get(this.apiUrl2 + '/printFinalPDF'+'/'+userName+ '/' +siteId, { responseType: 'blob' }).subscribe(
+  public downloadPDF(siteId: any,userName: any, siteName: any) {
+  return   this.http.get(this.apiUrl2 + '/printFinalPDF'+'/'+userName+ '/' +siteId +'/' +siteName, { responseType: 'blob' }).subscribe(
        data =>{
-         const fileName = 'finalreport.pdf';
+         const fileName = siteName+'.pdf';
          FileSaver.saveAs(data, fileName);
        },
        err=>{
@@ -45,8 +45,8 @@ export class InspectionVerificationService {
        }
      )
   }
-  public printPDF(siteId: any,userName: any) {
-    return   this.http.get(this.apiUrl2 + '/printFinalPDF'+'/'+userName+ '/' +siteId, { responseType: 'blob' }).subscribe(
+  public printPDF(siteId: any,userName: any, siteName: any) {
+    return   this.http.get(this.apiUrl2 + '/printFinalPDF'+'/'+userName+ '/' +siteId +'/' +siteName, { responseType: 'blob' }).subscribe(
          data =>{
            //const fileName = 'finalreport.pdf';
            var fileURL: any = URL.createObjectURL(data);
@@ -62,8 +62,8 @@ export class InspectionVerificationService {
          }
        )
     }
-    public mailPDF(siteId: any,userName: any): Observable<any> {
-      return this.http.get(this.apiUrl2 + '/sendPDFinMail'+'/'+userName+ '/' +siteId, { responseType: 'text' as 'json' })
+    public mailPDF(siteId: any,userName: any, siteName: any): Observable<any> {
+      return this.http.get(this.apiUrl2 + '/sendPDFinMail'+'/'+userName+ '/' +siteId+ '/'+siteName , { responseType: 'text' as 'json' })
       }
 
   public notificationRetrieveComments(userName: any): Observable<any> {

@@ -180,6 +180,11 @@ export class InspectionVerificationIncomingEquipmentComponent
   deleteObDataFlag: boolean= false;
   finalSpinner: boolean = true;
   popup: boolean = false;
+  partialSpinner: boolean = true;
+  partialPopup: boolean = false;
+  intermediateSave:boolean=false;
+  intermediateSaveInspection:boolean=true;
+  intermediateSaveInspectionInCircuits:boolean=true;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -692,7 +697,9 @@ showHideAccordion(index: number) {
     this.arr = [];
     for (let item of value.ipaoInspection) {
       this.arr.push(this.createGroup(item,item.inspectionOuterObervation[0]));
-      
+      if(item.ipaoInspectionId !=''&&item.ipaoInspectionId !=undefined&&item.ipaoInspectionId !=null){
+       this.intermediateSaveInspection=false;
+         } 
     }
     this.addstep3.setControl('incomingArr', this._formBuilder.array(this.arr || []))
   }
@@ -778,6 +785,7 @@ showHideAccordion(index: number) {
     for(let i of itemValue) {
       innerObservationArr.push(this.populateInnerObservationForm(i,inspectionOuterObservationId,ipaoInspectionId));
        if(i.observationDescription!=null && i.observationDescription!=undefined && i.observationDescription!=''){
+        this.intermediateSaveInspectionInCircuits=false;
         this.service.observationGlowInspection=true;
        }
     }
@@ -1447,21 +1455,29 @@ showHideAccordion(index: number) {
     (this.addstep3.get('incomingArr') as FormArray).removeAt(index);
   }
   onChangeForm(event:any){
+    
     if(!this.addstep3.invalid){
       if(this.addstep3.dirty){
         this.validationError=false;
+        this.intermediateSaveInspectionInCircuits=false;
+        this.intermediateSaveInspection=false;
         this.service.lvClick=1;
         this.service.logoutClick=1;
-         this.service.windowTabClick=1;
+        this.service.windowTabClick=1;
       }
       else{
         this.validationError=false;
+        this.intermediateSaveInspectionInCircuits=false;
+        this.intermediateSaveInspection=false;
         this.service.lvClick=0;
         this.service.logoutClick=0;
         this.service.windowTabClick=0;
       }
      }
      else {
+      if(this.addstep3.dirty) {
+        this.intermediateSaveInspectionInCircuits=true;
+      }
       this.service.lvClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;
@@ -1471,16 +1487,24 @@ showHideAccordion(index: number) {
    if(!this.addstep3.invalid){ 
     if(this.addstep3.dirty){
       this.validationError=false;
+      this.intermediateSaveInspectionInCircuits=true;
+      this.intermediateSaveInspection=false;
       this.service.lvClick=1;
       this.service.logoutClick=1;
       this.service.windowTabClick=1;
     }
     else{
+      if(this.addstep3.dirty) {
+        this.intermediateSaveInspectionInCircuits=true;
+      }
       this.validationError=false;
+      this.intermediateSaveInspectionInCircuits=false;
+      this.intermediateSaveInspection=false;
       this.service.lvClick=0;
       this.service.logoutClick=0;
       this.service.windowTabClick=0;
     }
+  
    }
    else {
     this.service.lvClick=1;
@@ -1519,6 +1543,39 @@ showHideAccordion(index: number) {
    return true;
     }
   }
+  intermedeateIpaoSave(content4:any){
+    this.intermediateSave=true;
+  this.successMsg="Partial Inspection Data Saved, Click on Next Button for further steps";
+   if(this.addstep3.touched){
+     this.modalReference = this.modalService.open(content4, {
+         centered: true, 
+         size: 'md',
+         backdrop: 'static'
+        })
+     
+    //  setTimeout(() => {
+    //   this.modalService.dismissAll((this.errorMsg = ""));
+    // }, 3000);
+  }
+  }
+  intermedeateIpaoSave1(content4:any){
+    this.intermediateSave=true;
+    this.successMsg="Partial Inspection Data Saved, Click on Next Button for further steps";
+  if(this.addstep3.touched){
+    this.intermediateSaveInspection=false;
+      this.modalReference = this.modalService.open(content4, {
+         centered: true, 
+         size: 'md',
+         backdrop: 'static'
+        })
+     
+    //  setTimeout(() => {
+    //   this.modalService.dismissAll((this.errorMsg = ""));
+    // }, 3000);
+  }
+    
+  }
+     
   gotoNextTab() {
     if ((this.addstep3.dirty && this.addstep3.invalid) || this.service.isCompleted2==false) {
       this.service.isCompleted3= false;
@@ -1586,6 +1643,7 @@ showHideAccordion(index: number) {
       this.disable = false;
     }
   }
+  
   // onKeyObservation(event:any){
   //   if(this.ObservationsForm.dirty){
   //     this.disableObservation=false;
@@ -1667,10 +1725,12 @@ showHideAccordion(index: number) {
     }
     this.incomingArr = this.addstep3.get('incomingArr') as FormArray;
     this.inspectionDetails.userName = this.email;
-    this.submitted = true;
-    if (this.addstep3.invalid) {
-      return;
-    }
+    if(this.intermediateSave == false){
+      this.submitted = true;
+     if (this.addstep3.invalid) {
+       return;
+     }
+   }
 
       for(let h of this.incomingArr.value){
           for(let g of h.inspectionOuterObervation){
@@ -1807,7 +1867,16 @@ for(let i of this.deletedInnerObservation) {
           this.success = true;
           this.service.isCompleted3= true;
           this.service.isLinear=false;
-          this.successMsg = 'Incoming Equipment Successfully Updated';
+          if(this.intermediateSaveInspection){
+          this.intermediateSaveInspection=false;
+          }
+          else if(this.intermediateSaveInspectionInCircuits){
+          this.intermediateSaveInspectionInCircuits=false;
+          }
+          if(this.intermediateSave == false){
+            this.successMsg = 'Incoming Equipment Successfully Updated';
+            }
+          this.intermediateSave=false;
           this.addstep3.markAsPristine();
           this.service.windowTabClick=0;
           this.service.logoutClick=0; 
@@ -1831,7 +1900,8 @@ for(let i of this.deletedInnerObservation) {
         }
     }
     else {
-      this.inspectionDetailsService
+      if(this.addstep3.dirty) {
+        this.inspectionDetailsService
       .addInspectionDetails(this.inspectionDetails)
       .subscribe(
         (data: any) => {
@@ -1844,8 +1914,17 @@ for(let i of this.deletedInnerObservation) {
           this.addstep3.markAsPristine();
           this.service.windowTabClick=0;
        this.service.logoutClick=0; 
-       this.service.lvClick=0; 
-          this.successMsg = data;
+       this.service.lvClick=0;
+       if(this.intermediateSaveInspection){
+        this.intermediateSaveInspection=false;
+        }
+        else if(this.intermediateSaveInspectionInCircuits){
+        this.intermediateSaveInspectionInCircuits=false; 
+        }
+       if(this.intermediateSave == false){
+        this.successMsg = data; 
+        }
+         this.intermediateSave=false;
           this.inspectionDetailsService.retrieveInspectionDetails(this.inspectionDetails.userName,this.inspectionDetails.siteId).subscribe(
             data=>{
              this.retrieveAllDetailsforIncoming(this.inspectionDetails.userName,this.inspectionDetails.siteId,data);
@@ -1890,6 +1969,7 @@ for(let i of this.deletedInnerObservation) {
           this.service.isCompleted3= false;
           this.service.isLinear=true;
         });
+      }
     }
     // this.verification.testingNgOnINit();
   }

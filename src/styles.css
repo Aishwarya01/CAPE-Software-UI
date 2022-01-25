@@ -468,7 +468,7 @@ th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:la
   float: right;
   font-size: 18px;
   line-height: unset;
-  margin-right: 68%;
+  margin-right: 60%;
   margin-top: 0.4%;
 }
 /* basic tooltip ends*/
@@ -606,7 +606,7 @@ position: absolute;
 /* summary tooltip starts*/
 .ReferringTT .mat-icon {
   position: absolute;
-  left: 69%;
+  left: 88%;
   }
   .codeTT .mat-icon {
     position: relative;
@@ -623,7 +623,7 @@ position: absolute;
   .ExtentTT .mat-icon {
     position: absolute;
     top: 2%;
-    right: 88%;
+    right: 69%;
   }
   .typeofjointTT .mat-icon {
     line-height: unset;
@@ -631,7 +631,93 @@ position: absolute;
     float: right;
   }
 /*for mobile */
-@media screen and (max-width: 768px) and (min-width: 319px) {
+@media screen and (min-device-width: 314px) and (max-device-width: 700px) and (orientation:portrait) {
+  .siteNameTool .mat-icon {
+    position: absolute;
+    left: 37% !important;
+    top: 6%;
+}
+  .mat-stepper-horizontal-line{
+    display: none !important;
+  }
+  .mat-tab-group{
+    margin-top: -20px;
+  }
+  .mat-horizontal-stepper-header-container{
+    overflow-x: scroll;
+    display: -webkit-box !important;
+    margin-top: 30px;
+  }
+  .globalSite .mat-tab-header {
+    width: 100% !important;
+}
+.horizontalLine {
+ border: unset !important;
+  flex: unset !important;
+  height:unset !important;
+  margin: unset !important;
+  min-width: unset !important;
+  position: unset !important;
+  width: unset !important;
+}
+.ShowingSiteName{
+  position: relative !important;
+  top: 50px !important;
+  z-index: 999 !important;
+  left: -74% !important;
+  text-align: center;
+}
+  #tableResponsive{
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  .mat-paginator-container{
+   display: contents !important;
+  }
+  .mat-paginator-range-label {
+    margin: 0px !important;
+}
+.pagePadding{
+  padding: unset !important;
+  margin-top: 70px;
+}
+.mat-horizontal-content-container {
+  padding: 0 7px 24px 7px !important;
+}
+  .loginCardBody{
+    width: 109% !important;
+    margin-left: -14px;
+  }
+  .mobileDisplay{
+    display: block !important;
+  }
+  .desktopDisplay{
+    display: none !important;
+  }
+  .mat-drawer-inner-container {
+    margin-top: 20px;
+}
+.appName {
+  margin-left: 10px !important;
+}
+
+.auth-form-btn {
+  width: auto !important;
+}
+.register{
+  padding-top: unset !important;
+  padding-left: unset !important;
+}
+.mat-list-base .mat-list-item .mat-list-item-content, .mat-list-base .mat-list-option .mat-list-item-content {
+  padding: 0 16px !important;
+}
+.welcome-text{
+  margin: 210px 0px 0px 0px !important; 
+}
+}
+
+@media only screen and (min-device-width: 701px) and (max-device-width: 1023px){
   .siteNameTool .mat-icon {
     position: absolute;
     left: 37% !important;

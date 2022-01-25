@@ -931,7 +931,12 @@ changeTab(index: number, sitedId: any, userName: any, companyName: any, departme
 //for continue button in saved reports
 changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any, departmentName: any, site: any,flag:any) {
   this.noDetailsFlag= false;
-  this.selectedIndex = 1;
+  if(flag){
+    this.selectedIndex = 1;
+  } else{
+    this.selectedIndex = 2;
+  }
+  
 
     this.basicValue = false;
     this.supplyValue = false;
@@ -955,10 +960,20 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
       //this.selectedIndex = index;
       this.saved.savedReportSpinner =false;
       this.saved.savedReportBody = true;
+      this.final.finalReportSpinner = false;
+      this.final.finalReportBody = true;
       this.dataJSON = JSON.parse(data);
       if(flag){
         this.service.allStepsCompleted=true;
       }
+      if(this.dataJSON.reportDetails != null 
+           && this.dataJSON.supplyCharacteristics != null 
+             && this.dataJSON.periodicInspection != null 
+               && this.dataJSON.testingReport != null 
+                 && this.dataJSON.summary != null) {
+                  this.service.allFieldsDisable = true;
+                  this.service.disableSubmitSummary=true;
+                 }
       if(this.dataJSON.reportDetails != null) {
         this.siteN=site;
         this.noDetailsFlag= true;
