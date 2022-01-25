@@ -959,6 +959,13 @@ changeTabSavedReport(index: number, sitedId: any, userName: any, clientName: any
       if(flag){
         this.service.allStepsCompleted=true;
       }
+      if(this.dataJSON.reportDetails != null 
+           && this.dataJSON.supplyCharacteristics != null 
+             && this.dataJSON.periodicInspection != null 
+               && this.dataJSON.testingReport != null 
+                 && this.dataJSON.summary != null) {
+                  this.service.allFieldsDisable = true;
+                 }
       if(this.dataJSON.reportDetails != null) {
         this.siteN=site;
         this.noDetailsFlag= true;

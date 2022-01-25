@@ -164,8 +164,8 @@ applyFilter(event: Event) {
  
   continue(siteId: any,userName :any,site: any) {
    if(this.service.allStepsCompleted==false){
-    this.verification.changeTabSavedReport(0,siteId,userName,'clientName','departmentName',site,false);
     this.service.allFieldsDisable = true;
+    this.verification.changeTabSavedReport(0,siteId,userName,'clientName','departmentName',site,false);
    }
   }
   savedContinue()
