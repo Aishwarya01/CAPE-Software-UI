@@ -83,6 +83,15 @@ export class LpsAirTerminationComponent implements OnInit {
 
   ngOnInit(): void {
     this.airTerminationForm = this.formBuilder.group({
+
+      buildingnumber: ['',Validators.required],
+      buildingname: ['',Validators.required],
+      buildingType: ['',Validators.required],
+      buildingLength: ['', Validators.required],
+      buildingHeight: ['', Validators.required],
+      levelOfProtection: ['', Validators.required],
+      buildingWidth: ['', Validators.required],
+
       connectionMadeBraOb: ['', Validators.required],
       connectionMadeBraRe: [''],
       electricalEquipPlacedOb: ['', Validators.required],
@@ -99,7 +108,8 @@ export class LpsAirTerminationComponent implements OnInit {
       holderArr: this.formBuilder.array([this.createHolderArrForm()]),
       clampArr: this.formBuilder.array([this.createClampArrForm()]),
       expArr: this.formBuilder.array([this.createExpansioArrForm()]),
-      conArr: this.formBuilder.array([this.createConArrForm()])
+      conArr: this.formBuilder.array([this.createConArrForm()]),
+      basicLpsDescription: this.formBuilder.array([this.createLpsDescriptionarr()])
     });
   }
 
@@ -167,6 +177,7 @@ export class LpsAirTerminationComponent implements OnInit {
         this.flag=true;
       }
 
+      
     populateData() {
       for (let item of this.step2List.lpsVerticalAirTermination) {
         if(item.flag) {this.arr1.push(this.createGroup(item));}    
@@ -237,13 +248,37 @@ export class LpsAirTerminationComponent implements OnInit {
       this.airTerminationForm.markAsPristine();
     }
 
+    private createLpsDescriptionarr() {
+      return this.formBuilder.group({
+        basicLpsDescriptionId: [''],
+        approvedDrawingObserv: ['', Validators.required],
+        approvedDrawingRemarks: [''],
+        architectNameObserv: ['', Validators.required],
+        architectNameRemarks: [''],
+        designDateObserv: ['', Validators.required],
+        designDateRemarks: [''],
+        approvedByObserv: ['', Validators.required],
+        approvedByRemarks: [''],
+        dateOfApprovalOb: ['', Validators.required],
+        dateOfApprovalRem: [''],
+        drawingObserv: ['', Validators.required],
+        drawingRemarks: [''],
+        revisionNoObserv: ['', Validators.required],
+        revisionNoRemarks: [''],
+        deviationObserv: ['', Validators.required],
+        deviationRemarks: [''],
+        installationQualityObserv: ['', Validators.required],
+        installationQualityRemarks: ['']
+      });
+    }
+
     createGroup(item: any): FormGroup {
       return this.formBuilder.group({
 
       lpsVerticalAirTerminationId: new FormControl({disabled: false, value: item.lpsVerticalAirTerminationId}),
-      flag: new FormControl({disabled: false, value: item.flag}),
-      locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
-      locationName: new FormControl({disabled: false, value: item.locationName}),
+      // flag: new FormControl({disabled: false, value: item.flag}),
+      // locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
+      // locationName: new FormControl({disabled: false, value: item.locationName}),
       physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
       physicalInspectionRe: new FormControl({disabled: false, value: item.physicalInspectionRe}),
       installationTerminationsystemOb: new FormControl({disabled: false, value: item.installationTerminationsystemOb}, Validators.required),
@@ -277,9 +312,9 @@ export class LpsAirTerminationComponent implements OnInit {
       return this.formBuilder.group({
 
         meshDescriptionId: new FormControl({disabled: false, value: item.meshDescriptionId}),
-        flag: new FormControl({disabled: false, value: item.flag}),
-        locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
-        locationName: new FormControl({disabled: false, value: item.locationName}),
+        // flag: new FormControl({disabled: false, value: item.flag}),
+        // locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
+        // locationName: new FormControl({disabled: false, value: item.locationName}),
         physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
         physicalInspectionRe: new FormControl({disabled: false, value: item.physicalInspectionRe}),
         materailOfConductorOb: new FormControl({disabled: false, value: item.materailOfConductorOb}, Validators.required),
@@ -301,9 +336,9 @@ export class LpsAirTerminationComponent implements OnInit {
       return this.formBuilder.group({
 
         holderDescriptionId: new FormControl({disabled: false, value: item.holderDescriptionId}),
-        flag: new FormControl({disabled: false, value: item.flag}),
-        locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
-        locationName: new FormControl({disabled: false, value: item.locationName}),
+        // flag: new FormControl({disabled: false, value: item.flag}),
+        // locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
+        // locationName: new FormControl({disabled: false, value: item.locationName}),
         physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
         physicalInspectionRe: new FormControl({disabled: false, value: item.physicalInspectionRe}), 
         conductorHolderFlatSurfaceOb: new FormControl({disabled: false, value: item.conductorHolderFlatSurfaceOb}, Validators.required),
@@ -341,9 +376,9 @@ export class LpsAirTerminationComponent implements OnInit {
       return this.formBuilder.group({
 
         clampsId: new FormControl({disabled: false, value: item.clampsId}),
-        flag: new FormControl({disabled: false, value: item.flag}),
-        locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
-        locationName: new FormControl({disabled: false, value: item.locationName}),
+        // flag: new FormControl({disabled: false, value: item.flag}),
+        // locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
+        // locationName: new FormControl({disabled: false, value: item.locationName}),
         physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
         physicalInspectionRe: new FormControl({disabled: false, value: item.physicalInspectionRe}),
         conductorClampsFlatSurafaceOb: new FormControl({disabled: false, value: item.conductorClampsFlatSurafaceOb}, Validators.required),
@@ -372,9 +407,9 @@ export class LpsAirTerminationComponent implements OnInit {
       return this.formBuilder.group({
 
         expansionId: new FormControl({disabled: false, value: item.expansionId}),
-        flag: new FormControl({disabled: false, value: item.flag}),
-        locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
-        locationName: new FormControl({disabled: false, value: item.locationName}),
+        // flag: new FormControl({disabled: false, value: item.flag}),
+        // locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
+        // locationName: new FormControl({disabled: false, value: item.locationName}),
         physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
         physicalInspectionRe: new FormControl({disabled: false, value: item.physicalInspectionRe}),
         strightConnectorPiecOb: new FormControl({disabled: false, value: item.strightConnectorPiecOb}, Validators.required),
@@ -397,8 +432,8 @@ export class LpsAirTerminationComponent implements OnInit {
       return this.formBuilder.group({
         connectorId: new FormControl({disabled: false, value: item.connectorId}),
         flag: new FormControl({disabled: false, value: item.flag}),
-        locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
-        locationName: new FormControl({disabled: false, value: item.locationName}),
+        // locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
+        // locationName: new FormControl({disabled: false, value: item.locationName}),
         physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
         physicalInspectionRe: new FormControl({disabled: false, value: item.physicalInspectionRe}),
         checkConnectionConnectorsOb: new FormControl({disabled: false, value: item.checkConnectionConnectorsOb}, Validators.required),
@@ -583,7 +618,12 @@ export class LpsAirTerminationComponent implements OnInit {
           }
         }
     }
-  
+
+  getDescriptionControl(): AbstractControl[] {
+      return (<FormArray>this.airTerminationForm.get('airTermination')).controls;
+  }
+
+ 
 
   vatControls(): AbstractControl[] {
     return (<FormArray>this.airTerminationForm.get('vatArr')).controls;

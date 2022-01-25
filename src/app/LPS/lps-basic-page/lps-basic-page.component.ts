@@ -183,6 +183,7 @@ export class LpsBasicPageComponent implements OnInit {
       installationQualityRemarks: ['']
     });
   }
+  
   onChangeForm(event:any){
     if(!this.LPSBasicForm.invalid){
       if(this.LPSBasicForm.dirty){
@@ -361,6 +362,7 @@ export class LpsBasicPageComponent implements OnInit {
   getDescriptionControl(): AbstractControl[] {
     return (<FormArray>this.LPSBasicForm.get('basicLpsDescription')).controls;
   }
+  
   get f() {
     return this.LPSBasicForm.controls;
   }
