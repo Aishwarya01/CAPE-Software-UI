@@ -468,7 +468,7 @@ th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:la
   float: right;
   font-size: 18px;
   line-height: unset;
-  margin-right: 67%;
+  margin-right: 60%;
   margin-top: 0.4%;
 }
 /* basic tooltip ends*/
@@ -606,7 +606,7 @@ position: absolute;
 /* summary tooltip starts*/
 .ReferringTT .mat-icon {
   position: absolute;
-  left: 72%;
+  left: 88%;
   }
   .codeTT .mat-icon {
     position: relative;
@@ -623,7 +623,7 @@ position: absolute;
   .ExtentTT .mat-icon {
     position: absolute;
     top: 2%;
-    right: 75%;
+    right: 69%;
   }
   .typeofjointTT .mat-icon {
     line-height: unset;

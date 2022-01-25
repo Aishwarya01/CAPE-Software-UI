@@ -441,7 +441,7 @@
                         <tbody formArrayName="inspectionArr" *ngFor="let c of getInspectionControls(a); let j = index">
                             <ng-container [formGroupName]="j">
                               <tr>
-                              <td>Inspection Observations-{{j+1}} :</td>
+                              <td style="width: 20%">Inspection Observations-{{j+1}} :</td>
                               <td>
                                 <textarea type="text" class="form-control" cols="30" rows="1"
                                 formControlName="observations"
@@ -476,7 +476,7 @@
                           </tr>
                           <ng-container formArrayName="summaryInnerObservation" *ngFor="let d of getOuterObservationControls(c); let k = index">
                             <tr [formGroupName]="k">
-                              <td style="position: relative;left: 4%;">Consumer Observations-{{k+1}} :</td>
+                              <td style="position: relative;left: 2%;">Consumer Observations-{{k+1}} :</td>
                               <td>
                                 <textarea type="text" class="form-control" cols="30" rows="1"
                                 formControlName="observations"

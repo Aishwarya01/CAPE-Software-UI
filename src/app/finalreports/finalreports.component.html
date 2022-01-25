@@ -32,7 +32,17 @@
         <mat-label>Filter Sites</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
       </mat-form-field>
-      <table mat-table [dataSource]="finalReport_dataSource" class="mat-elevation-z8 table" matSort
+      <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalReportSpinner"
+      color="primary"
+      [mode]="mode"
+      value="50"
+      diameter="50">
+      </mat-progress-spinner>
+      <br>
+      <div *ngIf="finalReportSpinner" style="text-align: center;">
+        {{spinnerValue}}
+      </div>
+      <table *ngIf="finalReportBody" mat-table [dataSource]="finalReport_dataSource" class="mat-elevation-z8 table" matSort
         #finalReportSort="matSort">
 
         <ng-container matColumnDef="siteCD">
@@ -119,17 +129,17 @@
               <mat-icon>visibility</mat-icon>
             </button>
             <button class="btn btn-outline-danger delete" title="Download Final PDF" 
-            (click)="downloadPdf(element.siteId,element.userName)" 
+            (click)="downloadPdf(element.siteId,element.userName, element.site)" 
             style="border-color: #cdcecf;box-shadow: unset;">
               <mat-icon>download</mat-icon>
             </button>
             <button class="btn btn-outline-danger delete" title="Trigger Email With Final PDF" 
-            (click)="emailPDF(element.siteId,element.userName)"
+            (click)="emailPDF(element.siteId,element.userName, element.site)"
             style="border-color: #cdcecf;box-shadow: unset;">
               <mat-icon>email</mat-icon>
             </button>
             <button class="btn btn-outline-danger delete" title="Print Final PDF" 
-            (click)="pdfModal(element.siteId,element.userName)" 
+            (click)="pdfModal(element.siteId,element.userName, element.site)" 
             style="border-color: #cdcecf;box-shadow: unset;">
               <mat-icon>print</mat-icon>
             </button>
@@ -148,6 +158,14 @@
       </table>
 
       <mat-paginator #finalReportPaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      <div class="centre-text m-btm30">
+        <div *ngIf="success" style="text-align: center;">
+          <span class="successshow">{{successMsg}}</span>
+         </div>
+         <div *ngIf="Error" style="text-align: center;">
+           <span class="errorshow">{{errorMsg}}</span>
+          </div>
+             </div>
     </div>
 
   </div>

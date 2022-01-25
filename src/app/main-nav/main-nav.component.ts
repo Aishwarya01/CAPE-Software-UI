@@ -824,19 +824,19 @@ triggerNavigateTo(siteName:any){
   // lvInspectionRef.changeDetectorRef.detectChanges();
 }
 
-pdfModal(siteId: any,userName: any){
+pdfModal(siteId: any,userName: any, siteName: any){
   this.disable=false;
-  this.inspectionService.printPDF(siteId,userName);
+  this.inspectionService.printPDF(siteId,userName, siteName);
 }
 
-downloadPdf(siteId: any,userName: any): any {
+downloadPdf(siteId: any,userName: any, siteName: any): any {
   this.disable=false;
-  this.inspectionService.downloadPDF(siteId,userName);
+  this.inspectionService.downloadPDF(siteId,userName, siteName);
 }
 
-emailPDF(siteId: any,userName: any){
+emailPDF(siteId: any,userName: any, siteName: any){
   this.disable=false;
-  this.inspectionService.mailPDF(siteId,userName).subscribe(
+  this.inspectionService.mailPDF(siteId,userName, siteName).subscribe(
   data => {
   this.success = true;
   this.successMsg = data;

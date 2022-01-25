@@ -831,7 +831,7 @@
                                 <td><input type="text" formControlName="shortCircuitSetting" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><input type="text" formControlName="eFSetting" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
                                 <td><textarea formControlName="conductorInstallation"  class="form-control"  style="height:40px;width:170px;" [readonly]="service.allFieldsDisable"></textarea>
-                                <td><input type="text" formControlName="conductorPhase" class="form-control"  (focusout)="onFocusOut($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"
+                                <td><input type="number" formControlName="conductorPhase" class="form-control"  (focusout)="onFocusOut($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"
                                   [ngClass]="[ f.get('conductorPhaseFlag')?.value  ? 'is-invalid' : '',submitted && f.get('conductorPhase')?.errors ? 'is-invalid' : '']">
                                 <div class="invalid-feedback" style="font-size: 75%" *ngIf="f.get('conductorPhaseFlag')?.value">
                                   <div>Value entered doesn't match the standard</div>
@@ -840,13 +840,13 @@
                                   <div *ngIf="f.get('conductorPhase')?.errors?.required">Value is required</div>
                                 </div>
                                 </td>
-                                <td><input type="text" formControlName="conductorNeutral" class="form-control" (focusout)="onFocusOutNeutral($event,f)"  style="width:80px" [readonly]="service.allFieldsDisable"
+                                <td><input type="number" formControlName="conductorNeutral" class="form-control" (focusout)="onFocusOutNeutral($event,f)"  style="width:80px" [readonly]="service.allFieldsDisable"
                                   [ngClass]="[ f.get('conductorNeutralFlag')?.value  ? 'is-invalid' : '',submitted && f.get('conductorNeutral')?.errors ? 'is-invalid' : '']">
                                 <div class="invalid-feedback" style="font-size: 75%" *ngIf="f.get('conductorNeutralFlag')?.value">
                                   <div>Value entered doesn't match the standard</div>
                                 </div>
                                 </td>
-                                <td><input type="text" formControlName="conductorPecpc" class="form-control" (focusout)="onFocusOutPe($event,f)"  style="width:80px" [readonly]="service.allFieldsDisable"
+                                <td><input type="number" formControlName="conductorPecpc" class="form-control" (focusout)="onFocusOutPe($event,f)"  style="width:80px" [readonly]="service.allFieldsDisable"
                                   [ngClass]="[ f.get('conductorPecpcFlag')?.value  ? 'is-invalid' : '',submitted && f.get('conductorPecpc')?.errors ? 'is-invalid' : '']">
                                   <div class="invalid-feedback" style="font-size: 75%" *ngIf="f.get('conductorPecpcFlag')?.value">
                                     <div>Value entered doesn't match the standard</div>

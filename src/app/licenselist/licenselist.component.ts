@@ -295,21 +295,21 @@ export class LicenselistComponent implements OnInit {
   //   this.value=false;
   // } 
   }
-  pdfModal(siteId: any,userName: any){
+  pdfModal(siteId: any,userName: any, siteName: any){
     this.disable=false;
-    this.inspectionService.printPDF(siteId,userName)
+    this.inspectionService.printPDF(siteId,userName, siteName)
   }
   
-  downloadPdf(siteId: any,userName: any): any {
+  downloadPdf(siteId: any,userName: any, siteName: any): any {
     this.disable=false;
-    this.inspectionService.downloadPDF(siteId,userName)
+    this.inspectionService.downloadPDF(siteId,userName, siteName)
   }
-  emailPDF(siteId: any,userName: any){
+  emailPDF(siteId: any,userName: any, siteName: any){
     this.disable=false;
-    this.inspectionService.mailPDF(siteId,userName).subscribe(
+    this.inspectionService.mailPDF(siteId,userName, siteName).subscribe(
     data => {
     this.success = true;
-    this.successMsg = data;
+    this.successMsg = "Email has been sent successfully. Please check your email box.";
     setTimeout(()=>{
       this.success=false;
   }, 3000);

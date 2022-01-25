@@ -47,6 +47,9 @@ export class FinalreportsComponent implements OnInit {
   errorMsg: string="";
   errorArr: any=[];
   mode: any= 'indeterminate';
+  finalReportSpinner: boolean = false;
+  finalReportBody: boolean = true;
+  spinnerValue: String = '';
 
   constructor(private router: ActivatedRoute,
               private clientService: ClientService,
@@ -163,6 +166,9 @@ applyFilter(event: Event) {
   }
  
   continue(siteId: any,userName :any,site: any) {
+    this.finalReportBody = false;
+    this.finalReportSpinner = true;
+    this.spinnerValue = "Please wait, the details are loading!";
    if(this.service.allStepsCompleted==false){
     this.service.allFieldsDisable = true;
     this.verification.changeTabSavedReport(0,siteId,userName,'clientName','departmentName',site,false);
@@ -180,36 +186,36 @@ applyFilter(event: Event) {
    }
   }
 
-  downloadPdf(siteId: any,userName: any): any {
-   // this.disable=false;
-    this.inspectionService.downloadPDF(siteId,userName)
-  }
-
-  pdfModal(siteId: any,userName: any){
-    this.disable=false;
-    this.inspectionService.printPDF(siteId,userName)
-  }
-
-  emailPDF(siteId: any,userName: any){
-    this.disable=false;
-    this.inspectionService.mailPDF(siteId,userName).subscribe(
-    data => {
-    this.success = true;
-    this.successMsg = data;
-    setTimeout(()=>{
-      this.success=false;
-  }, 3000);
-    },
-    error => {
-      this.Error = true;
-      this.errorArr = [];
-      this.errorArr = JSON.parse(error.error);
-      this.errorMsg = this.errorArr.message;
-      setTimeout(()=>{
-        this.Error = false;
-    }, 3000);
-    }
-      );
-  }
+  downloadPdf(siteId: any,userName: any, siteName: any): any {
+    // this.disable=false;
+     this.inspectionService.downloadPDF(siteId,userName, siteName)
+   }
+ 
+   pdfModal(siteId: any,userName: any, siteName: any){
+     this.disable=false;
+     this.inspectionService.printPDF(siteId,userName,siteName)
+   }
+ 
+   emailPDF(siteId: any,userName: any, siteName: any){
+     this.disable=false;
+     this.inspectionService.mailPDF(siteId,userName, siteName).subscribe(
+     data => {
+     this.success = true;
+     this.successMsg = "Email has been sent successfully. Please check your email box.";
+     setTimeout(()=>{
+       this.success=false;
+   }, 3000);
+     },
+     error => {
+       this.Error = true;
+       this.errorArr = [];
+       this.errorArr = JSON.parse(error.error);
+       this.errorMsg = this.errorArr.message;
+       setTimeout(()=>{
+         this.Error = false;
+     }, 3000);
+     }
+       );
+   }
 
 }
