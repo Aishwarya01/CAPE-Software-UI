@@ -24,6 +24,7 @@ export class LpsAirTerminationComponent implements OnInit {
   clampArr!: FormArray;
   expArr!: FormArray;
   conArr!: FormArray;
+  airTerminationBasicArr!: FormArray;
   submitted=false;
   validationError: boolean = false;
   validationErrorMsg: String = '';
@@ -91,17 +92,7 @@ export class LpsAirTerminationComponent implements OnInit {
       buildingHeight: ['', Validators.required],
       levelOfProtection: ['', Validators.required],
       buildingWidth: ['', Validators.required],
-
-      connectionMadeBraOb: ['', Validators.required],
-      connectionMadeBraRe: [''],
-      electricalEquipPlacedOb: ['', Validators.required],
-      electricalEquipPlacedRe: [''],
-      combustablePartOb: ['', Validators.required],
-      combustablePartRe: [''],
-      terminationMeshConductorOb: ['', Validators.required],
-      terminationMeshConductorRe: [''],
-      bondingEquipotentialOb: ['', Validators.required],
-      bondingEquipotentialRe: [''],
+      
       
       vatArr: this.formBuilder.array([this.createVatArrForm()]),
       meshArr: this.formBuilder.array([this.createMeshArrForm()]),
@@ -109,9 +100,11 @@ export class LpsAirTerminationComponent implements OnInit {
       clampArr: this.formBuilder.array([this.createClampArrForm()]),
       expArr: this.formBuilder.array([this.createExpansioArrForm()]),
       conArr: this.formBuilder.array([this.createConArrForm()]),
-      basicLpsDescription: this.formBuilder.array([this.createLpsDescriptionarr()])
+      airTerminationBasicArr: this.formBuilder.array([this.createLpsDescriptionarr()])
     });
   }
+
+  
 
   // Only Accept numbers
   keyPressNumbers(event:any) {
@@ -248,27 +241,38 @@ export class LpsAirTerminationComponent implements OnInit {
       this.airTerminationForm.markAsPristine();
     }
 
-    private createLpsDescriptionarr() {
-      return this.formBuilder.group({
-        basicLpsDescriptionId: [''],
-        approvedDrawingObserv: ['', Validators.required],
-        approvedDrawingRemarks: [''],
-        architectNameObserv: ['', Validators.required],
-        architectNameRemarks: [''],
-        designDateObserv: ['', Validators.required],
-        designDateRemarks: [''],
-        approvedByObserv: ['', Validators.required],
-        approvedByRemarks: [''],
-        dateOfApprovalOb: ['', Validators.required],
-        dateOfApprovalRem: [''],
-        drawingObserv: ['', Validators.required],
-        drawingRemarks: [''],
-        revisionNoObserv: ['', Validators.required],
-        revisionNoRemarks: [''],
-        deviationObserv: ['', Validators.required],
-        deviationRemarks: [''],
-        installationQualityObserv: ['', Validators.required],
-        installationQualityRemarks: ['']
+    private createLpsDescriptionarr(): FormGroup{
+    return new FormGroup({
+       //new changes
+      approvedDrawingObserv:  new FormControl('', Validators.required),
+      approvedDrawingRemarks: new FormControl(''),
+      architectNameObserv:  new FormControl('', Validators.required),
+      architectNameRemarks: new FormControl(''),
+      designDateObserv:  new FormControl('', Validators.required),
+      designDateRemarks: new FormControl(''),
+      approvedByObserv:  new FormControl('', Validators.required),
+      approvedByRemarks: new FormControl(''),
+      dateOfApprovalOb:  new FormControl('', Validators.required),
+      dateOfApprovalRem: new FormControl(''),
+      drawingObserv:  new FormControl('', Validators.required),
+      drawingRemarks: new FormControl(''),
+      revisionNoObserv:  new FormControl('', Validators.required),
+      revisionNoRemarks: new FormControl(''),
+      deviationObserv:  new FormControl('', Validators.required),
+      deviationRemarks: new FormControl(''),
+      installationQualityObserv:  new FormControl('', Validators.required),
+      installationQualityRemarks: new FormControl(''),
+
+      connectionMadeBraOb:  new FormControl('', Validators.required),
+      connectionMadeBraRe: new FormControl(''),
+      electricalEquipPlacedOb:  new FormControl('', Validators.required),
+      electricalEquipPlacedRe: new FormControl(''),
+      combustablePartOb:  new FormControl('', Validators.required),
+      combustablePartRe: new FormControl(''),
+      terminationMeshConductorOb:  new FormControl('', Validators.required),
+      terminationMeshConductorRe: new FormControl(''),
+      bondingEquipotentialOb:  new FormControl('', Validators.required),
+      bondingEquipotentialRe: new FormControl(''),
       });
     }
 
@@ -620,7 +624,7 @@ export class LpsAirTerminationComponent implements OnInit {
     }
 
   getDescriptionControl(): AbstractControl[] {
-      return (<FormArray>this.airTerminationForm.get('airTermination')).controls;
+      return (<FormArray>this.airTerminationForm.get('airTerminationBasicArr')).controls;
   }
 
  

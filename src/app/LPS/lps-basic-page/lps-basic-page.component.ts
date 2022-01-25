@@ -66,7 +66,7 @@ export class LpsBasicPageComponent implements OnInit {
       soilResistivity: [''],
       dealerContractorName: ['', Validators.required],
       buildingWidth: ['', Validators.required],
-      basicLpsDescription: this.formBuilder.array([this.createLpsDescriptionarr()])
+     // basicLpsDescription: this.formBuilder.array([this.createLpsDescriptionarr()])
     });
 
   }
@@ -160,29 +160,29 @@ export class LpsBasicPageComponent implements OnInit {
  
 
 
-  private createLpsDescriptionarr() {
-    return this.formBuilder.group({
-      basicLpsDescriptionId: [''],
-      approvedDrawingObserv: ['', Validators.required],
-      approvedDrawingRemarks: [''],
-      architectNameObserv: ['', Validators.required],
-      architectNameRemarks: [''],
-      designDateObserv: ['', Validators.required],
-      designDateRemarks: [''],
-      approvedByObserv: ['', Validators.required],
-      approvedByRemarks: [''],
-      dateOfApprovalOb: ['', Validators.required],
-      dateOfApprovalRem: [''],
-      drawingObserv: ['', Validators.required],
-      drawingRemarks: [''],
-      revisionNoObserv: ['', Validators.required],
-      revisionNoRemarks: [''],
-      deviationObserv: ['', Validators.required],
-      deviationRemarks: [''],
-      installationQualityObserv: ['', Validators.required],
-      installationQualityRemarks: ['']
-    });
-  }
+  // private createLpsDescriptionarr() {
+  //   return this.formBuilder.group({
+  //     basicLpsDescriptionId: [''],
+  //     approvedDrawingObserv: ['', Validators.required],
+  //     approvedDrawingRemarks: [''],
+  //     architectNameObserv: ['', Validators.required],
+  //     architectNameRemarks: [''],
+  //     designDateObserv: ['', Validators.required],
+  //     designDateRemarks: [''],
+  //     approvedByObserv: ['', Validators.required],
+  //     approvedByRemarks: [''],
+  //     dateOfApprovalOb: ['', Validators.required],
+  //     dateOfApprovalRem: [''],
+  //     drawingObserv: ['', Validators.required],
+  //     drawingRemarks: [''],
+  //     revisionNoObserv: ['', Validators.required],
+  //     revisionNoRemarks: [''],
+  //     deviationObserv: ['', Validators.required],
+  //     deviationRemarks: [''],
+  //     installationQualityObserv: ['', Validators.required],
+  //     installationQualityRemarks: ['']
+  //   });
+  // }
   
   onChangeForm(event:any){
     if(!this.LPSBasicForm.invalid){
