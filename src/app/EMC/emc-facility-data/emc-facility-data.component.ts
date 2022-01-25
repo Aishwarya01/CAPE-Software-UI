@@ -95,6 +95,7 @@ export class EmcFacilityDataComponent implements OnInit {
   private createFloorDescriptionArr() {
 
     return this.formBuilder.group({
+      floorCoveringId :[''],
       fcType: ['', Validators.required],
       fcManufactor: ['', Validators.required],
       fcDescription: ['', Validators.required],
@@ -183,52 +184,11 @@ export class EmcFacilityDataComponent implements OnInit {
     this.emcFacilityData.createdBy = this.step1List[0].createdBy;
     this.emcFacilityData.updatedBy = this.step1List[0].updatedBy;
     this.emcFacilityData.updatedDate = this.step1List[0].updatedDate;
-    this.populateData(this.step1List[0].floorCovering)
-  }
-
-  populateData(value: any) {
-    this.arr2 = [];
-    for (let item of value) {
-      this.arr2.push(this.createGroup(item));
-    }
-  }
-
-  createGroup(item: any): FormGroup {
-    return this.formBuilder.group({
-      floorCoveringId: new FormControl({ disabled: false, value: item.floorCoveringId }),
-      fcType: new FormControl({ disabled: false, value: item.fcType }),
-      fcManufactor: new FormControl({ disabled: false, value: item.fcManufactor }),
-      fcDescription: new FormControl({ disabled: false, value: item.fcDescription }),
-      fcWoven: new FormControl({ disabled: false, value: item.fcWoven }),
-      fcChemical: new FormControl({ disabled: false, value: item.fcChemical }),
-      fcNone: new FormControl({ disabled: false, value: item.fcNone }),
-      fcOtherDecription: new FormControl({ disabled: false, value: item.fcOtherDecription }),
-      wallType: new FormControl({ disabled: false, value: item.wallType }),
-      wallMaterial: new FormControl({ disabled: false, value: item.wallMaterial }),
-      wallCoveringType: new FormControl({ disabled: false, value: item.wallCoveringType }),
-      wallHumidity: new FormControl({ disabled: false, value: item.wallHumidity }),
-      wallSealing: new FormControl({ disabled: false, value: item.wallSealing }),
-      wallDesc: new FormControl({ disabled: false, value: item.wallDesc }),
-      ccFalseDesc: new FormControl({ disabled: false, value: item.ccFalseDesc }),
-      ccFalseHumidity: new FormControl({ disabled: false, value: item.ccFalseHumidity }),
-      ccFalseHeight: new FormControl({ disabled: false, value: item.ccFalseHeight }),
-      ccUtilisation: new FormControl({ disabled: false, value: item.ccUtilisation }),
-      ccTrueDesc: new FormControl({ disabled: false, value: item.ccTrueDesc }),
-      ccTrueHumidity: new FormControl({ disabled: false, value: item.ccTrueHumidity }),
-      ccSurfaceDesc: new FormControl({ disabled: false, value: item.ccSurfaceDesc }),
-      windowsExternal: new FormControl({ disabled: false, value: item.windowsExternal }),
-      windowsDescription: new FormControl({ disabled: false, value: item.windowsDescription }),
-      windowsCovering: new FormControl({ disabled: false, value: item.windowsCovering }),
-      windowsOtherDesc: new FormControl({ disabled: false, value: item.windowsOtherDesc }),
-      windowsInternalDesc: new FormControl({ disabled: false, value: item.windowsInternalDesc }),
-      doorsMaterial: new FormControl({ disabled: false, value: item.doorsMaterial }),
-      doorsNumber: new FormControl({ disabled: false, value: item.doorsNumber }),
-      doorsWidth: new FormControl({ disabled: false, value: item.doorsWidth }),
-      doorsHeight: new FormControl({ disabled: false, value: item.doorsHeight }),
-      doorsCloserMechanish: new FormControl({ disabled: false, value: item.doorsCloserMechanish }),
-      doorsQualitySealing: new FormControl({ disabled: false, value: item.doorsQualitySealing }),
-      doorsDesc: new FormControl({ disabled: false, value: item.doorsDesc }),
-    });
+   for(let i of this.step1List[0].floorCovering ){
+    this.EMCFacilityForm.patchValue ({
+      floorCoveringArr: [i],
+     })
+   }
   }
 
   closeModalDialog() {
@@ -261,10 +221,10 @@ export class EmcFacilityDataComponent implements OnInit {
 
   saveFacilityData(flag: any) {
 
-    this.submitted=true;
-    if(this.EMCFacilityForm.invalid) {
-      return;
-    }
+    // this.submitted=true;
+    // if(this.EMCFacilityForm.invalid) {
+    //   return;
+    // }
     this.emcFacilityData.userName = "sivaraju";
     if (!flag) {
       this.emcFacilityData.emcId = 88;

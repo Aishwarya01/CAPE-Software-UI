@@ -76,7 +76,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
 
   createElectronicSystemArr(): any {
     return this.formBuilder.group({
-     
+     electronicSystemId: [''],
      bDSld: ['', Validators.required],
      bDRecordData: ['', Validators.required],
      bDEarthing: ['', Validators.required],
@@ -105,7 +105,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
 
  createDistributionPannelArr(): any {
   return this.formBuilder.group({
-   
+   distrubutionPannelId:[''],
    cbWireSize: ['', Validators.required],
    cbDesc: ['', Validators.required],
    matchesReceptable: ['', Validators.required],
@@ -194,79 +194,19 @@ retrivePowerEarthingData(userName: any, emcId: any, data: any) {
   this.emcPowerAndEarthingData.descOfService = this.step1List2[0].descOfService;
   this.emcPowerAndEarthingData.descOfTestingService = this.step1List2[0].descOfTestingService;
   this.emcPowerAndEarthingData.descOfEquipotentilaBonding = this.step1List2[0].descOfEquipotentilaBonding;
-  this.populateData(this.step1List2[0].distrubutionPannel,this.step1List2[0].powerEarthingDataId);
-  this.populateData1(this.step1List2[0].electronicSystem,this.step1List2[0].powerEarthingDataId);
+  for(let i of this.step1List2[0].electronicSystem){
+    this.EMCPowerAndEarthForm.patchValue ({
+      electronicSystemArr: [i],
+     })
   }
 
-  populateData(value: any,id:any) {
-    this.arr1 = [];
-    for (let item of value) {
-      console.log(id);
-      this.arr1.push(this.createDistrubutionPannelGroup(item,id));
-    }
+  for(let j of this.step1List2[0].distrubutionPannel){
+    this.EMCPowerAndEarthForm.patchValue ({
+      distributionPannelArr: [j],
+     })
   }
 
-
-  populateData1(value: any,id:any) {
-    this.arr2 = [];
-    for (let item of value) {
-      console.log(item.panelId);
-      this.arr2.push(this.createElectronicSystemGroup(item,id));
-    }
   }
-
-  createElectronicSystemGroup(item: any,id:any): FormGroup {
-    return this.formBuilder.group({
-      powerEarthingDataId: new FormControl({ disabled: false, value: id }),
-      electronicSystemId: new FormControl({ disabled: false, value: item.electronicSystemId }),
-      panelId: new FormControl({ disabled: false, value: item.panelId }),
-      namePlateData: new FormControl({ disabled: false, value: item.namePlateData }),
-      mainCircuteBraker: new FormControl({ disabled: false, value: item.mainCircuteBraker }),
-      mainCircuteBrakerRating: new FormControl({ disabled: false, value: item.mainCircuteBrakerRating }),
-      emergencyTripRemote: new FormControl({ disabled: false, value: item.emergencyTripRemote }),
-      emergencyTripLocal: new FormControl({ disabled: false, value: item.emergencyTripLocal }),
-      otherTrip: new FormControl({ disabled: false, value: item.otherTrip }),
-      differentalProtection: new FormControl({ disabled: false, value: item.differentalProtection }),
-      bouodingStell: new FormControl({ disabled: false, value: item.bouodingStell }),
-      panelFeed: new FormControl({ disabled: false, value: item.panelFeed }),
-      phaseWires: new FormControl({ disabled: false, value: item.phaseWires }),
-      peWireSize: new FormControl({ disabled: false, value: item.peWireSize }),
-      pannelConnectors: new FormControl({ disabled: false, value: item.pannelConnectors }),
-      neutralBus: new FormControl({ disabled: false, value: item.neutralBus }),
-      earthBus: new FormControl({ disabled: false, value: item.earthBus }),
-      listOfNonElectronicLoad: new FormControl({ disabled: false, value: item.listOfNonElectronicLoad }),
-      dedicatedElectronicSystem: new FormControl({ disabled: false, value: item.dedicatedElectronicSystem }),
-      nonComputerLoads: new FormControl({ disabled: false, value: item.nonComputerLoads }),
-     });
-  }
-
- 
-
-  createDistrubutionPannelGroup(item: any,id:any): FormGroup {
-    return this.formBuilder.group({
-      powerEarthingDataId: new FormControl({ disabled: false, value: id }),
-      distrubutionPannelId: new FormControl({ disabled: false, value: item.distrubutionPannelId }),
-      cbWireSize: new FormControl({ disabled: false, value: item.cbWireSize }),
-      cbDesc: new FormControl({ disabled: false, value: item.cbDesc }),
-      matchesReceptable: new FormControl({ disabled: false, value: item.matchesReceptable }),
-      indivdialPwire: new FormControl({ disabled: false, value: item.fcWoven }),
-      indivdialPwireDesc: new FormControl({ disabled: false, value: item.indivdialPwireDesc }),
-      indivdialNeutralwire: new FormControl({ disabled: false, value: item.indivdialNeutralwire }),
-      indivdialNeutralwireDesc: new FormControl({ disabled: false, value: item.indivdialNeutralwireDesc }),
-      computerLoadCircute: new FormControl({ disabled: false, value: item.computerLoadCircute }),
-      computerLoadCircuteDes: new FormControl({ disabled: false, value: item.computerLoadCircuteDes }),
-      computerLoadReceptable: new FormControl({ disabled: false, value: item.computerLoadReceptable }),
-      computerLoadReceptableDesc: new FormControl({ disabled: false, value: item.computerLoadReceptableDesc }),
-      branchCircuteRun: new FormControl({ disabled: false, value: item.branchCircuteRun }),
-      branchCircuteRunDesc: new FormControl({ disabled: false, value: item.branchCircuteRunDesc }),
-      frequencyCyclidLoads: new FormControl({ disabled: false, value: item.frequencyCyclidLoads }),
-      frequencyCyclidLoadsDesc: new FormControl({ disabled: false, value: item.frequencyCyclidLoadsDesc }),
-      conductors: new FormControl({ disabled: false, value: item.conductors }),
-      conductorsDesc: new FormControl({ disabled: false, value: item.conductorsDesc }),
-     });
-  }
-
- 
 
 savePowerAndEarthingData(flag:any){
   console.log(this.EMCPowerAndEarthForm);
