@@ -1545,7 +1545,7 @@ showHideAccordion(index: number) {
   }
   intermedeateIpaoSave(content4:any){
     this.intermediateSave=true;
-  this.successMsg="Partial Inspection Data Saved";
+  this.successMsg="Partial Inspection Data Saved, Click on Next Button for further steps";
    if(this.addstep3.touched){
      this.modalReference = this.modalService.open(content4, {
          centered: true, 
@@ -1560,7 +1560,7 @@ showHideAccordion(index: number) {
   }
   intermedeateIpaoSave1(content4:any){
     this.intermediateSave=true;
-    this.successMsg="Partial Inspection Data Saved";
+    this.successMsg="Partial Inspection Data Saved, Click on Next Button for further steps";
   if(this.addstep3.touched){
     this.intermediateSaveInspection=false;
       this.modalReference = this.modalService.open(content4, {
