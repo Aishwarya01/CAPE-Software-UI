@@ -84,25 +84,30 @@ export class LpsAirTerminationComponent implements OnInit {
 
   ngOnInit(): void {
     this.airTerminationForm = this.formBuilder.group({
+      lpsAirDescription: this.formBuilder.array([this.allLPSAirterminationArr()])
+    });
+  }
 
-      buildingnumber: ['',Validators.required],
-      buildingname: ['',Validators.required],
-      buildingType: ['',Validators.required],
-      buildingLength: ['', Validators.required],
-      buildingHeight: ['', Validators.required],
-      buildingWidth: ['', Validators.required],
-      levelOfProtection: ['', Validators.required],
-      
+  allLPSAirterminationArr():FormGroup {
+    return new FormGroup({
+
+      buildingnumber: new FormControl('', Validators.required),
+      buildingname: new FormControl('', Validators.required),
+      buildingType: new FormControl('', Validators.required),
+      buildingLength: new FormControl('', Validators.required),
+      buildingHeight: new FormControl('', Validators.required),
+      buildingWidth: new FormControl('', Validators.required),
+      levelOfProtection: new FormControl('', Validators.required),
+
       vatArr: this.formBuilder.array([this.createVatArrForm()]),
       meshArr: this.formBuilder.array([this.createMeshArrForm()]),
       holderArr: this.formBuilder.array([this.createHolderArrForm()]),
       clampArr: this.formBuilder.array([this.createClampArrForm()]),
       expArr: this.formBuilder.array([this.createExpansioArrForm()]),
       conArr: this.formBuilder.array([this.createConArrForm()]),
-      airTerminationBasicArr: this.formBuilder.array([this.createLpsDescriptionarr()])
-    });
+      airTerminationBasicArr: this.formBuilder.array([this.createLpsDescriptionarr()]),
+    })
   }
-
   
 
   // Only Accept numbers
@@ -623,32 +628,39 @@ export class LpsAirTerminationComponent implements OnInit {
         }
     }
 
-  getDescriptionControl(): AbstractControl[] {
-      return (<FormArray>this.airTerminationForm.get('airTerminationBasicArr')).controls;
+// Parent Array Controls:
+
+  overAllControl(): AbstractControl[] {
+      return(<FormArray>this.airTerminationForm.get('lpsAirDescription')).controls;
   }
 
-  vatControls(): AbstractControl[] {
-    return (<FormArray>this.airTerminationForm.get('vatArr')).controls;
+  getDescriptionControl(form:any) {
+      //return (<FormArray>this.airTerminationForm.get('airTerminationBasicArr')).controls;
+      return form.controls.airTerminationBasicArr?.controls;
   }
 
-  meshControls(): AbstractControl[] {
-    return (<FormArray>this.airTerminationForm.get('meshArr')).controls;
+  vatControls(form:any) {
+    return form.controls.vatArr?.controls;
   }
 
- holdersContols(): AbstractControl[] {
-    return (<FormArray>this.airTerminationForm.get('holderArr')).controls;
+  meshControls(form:any) {
+    return form.controls.meshArr?.controls;
   }
 
-  clampsControls(): AbstractControl[] {
-    return (<FormArray>this.airTerminationForm.get('clampArr')).controls;
+ holdersContols(form:any) {
+    return form.controls.holderArr?.controls;
   }
 
-  expansionControls(): AbstractControl[] {
-    return (<FormArray>this.airTerminationForm.get('expArr')).controls;
+  clampsControls(form:any) {
+    return form.controls.clampArr?.controls;
   }
 
-  connectorsControls(): AbstractControl[] {
-    return (<FormArray>this.airTerminationForm.get('conArr')).controls;
+  expansionControls(form:any) {
+    return form.controls.expArr?.controls;
+  }
+
+  connectorsControls(form:any) {
+    return form.controls.conArr?.controls;
   }
 
   private createVatArrForm(): FormGroup{

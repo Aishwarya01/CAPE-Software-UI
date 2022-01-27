@@ -39,9 +39,10 @@
                         </div>
                     </div>
 
-                    <div>
-                        <div class="table-responsive" style="border: 1px solid black; margin-top: 20px;">
-                        <table class="table">
+                    <div class="row">
+                    <div class="col-sm-12">
+                        <div class="table-responsive" style="overflow-x: unset; margin-top: 20px;">
+                            <table class="table TableBorder">
                             <thead>
                                 <th>SI.No</th>
                                 <th>Description</th>
@@ -151,37 +152,17 @@
                         </table>
                         </div>
                     </div>
+                    </div>
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Type-A earthing system</mat-expansion-panel-header>
+                    <div class="row">
+                    <div class="col-sm-12">
                     <div class="table-responsive" style="overflow-x: unset;">
                         <table class="table TableBorder">
                         <tbody formArrayName="descriptionArr" *ngFor="let a of earthingDescriptionarr(); let j = index">
                          <div class="form-group" [formGroupName]="j">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="lname">Location Name</label>
-                                    <input class="form-control" [readonly]="isEditable" formControlName="locationName" type="text" placeholder="Location Name"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('locationName')?.errors}">
-                                    <div *ngIf="submitted && a.get('locationName')?.errors"
-                                        class="invalid-feedback">
-                                        <div *ngIf="a.get('locationName')?.errors?.required">
-                                            Location Name is required</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="lnumber">Location Number</label>
-                                    <input class="form-control" (keypress)="keyPressNumbers($event)" [readonly]="isEditable" formControlName="locationNumber" placeholder="Location Number"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors}">
-                                    <div *ngIf="submitted && a.get('locationNumber')?.errors"
-                                        class="invalid-feedback">
-                                        <div *ngIf="a.get('locationNumber')?.errors?.required">
-                                            Location Number is required</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
                     <!-- Table -->
                               <thead>
                                         <th>SI.No</th>
@@ -192,7 +173,7 @@
                                     <tr>
                                         <td style="width: 1rem; text-align: center;">4.1</td>
                                         <td style="width: 24rem;">Soil resistivity</td>
-                                        <td style="width: 40rem;">
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -209,7 +190,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td style="width: 40rem;">
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -791,46 +772,27 @@
                                         </td>
                                     </tr>
                                 </div>
-                                <mat-icon class="mousechange" class="add" type="button"  (click)="submit1()" *ngIf="earthingDescriptionarr().length == j+1"
+                                <!-- <mat-icon class="mousechange" class="add" type="button"  (click)="submit1()" *ngIf="earthingDescriptionarr().length == j+1"
                                     style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section" [ngClass]="{'disableForm':isEditable}"
                                   >add_box</mat-icon>
                                 <mat-icon class="mousechange" class="dlt" type="button" title="delete"  *ngIf="earthingDescriptionarr().length > 1"
                                     (click)="removeItem1(a,j)"
-                                    style="margin-inline: 0rem;float: right;position: relative;" [ngClass]="{'disableForm':isEditable}">delete</mat-icon>
+                                    style="margin-inline: 0rem;float: right;position: relative;" [ngClass]="{'disableForm':isEditable}">delete</mat-icon> -->
                             </tbody>
                         </table>
                     </div>
+                    </div>
+                </div>
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Clamps</mat-expansion-panel-header>
+                    <div class="row">
+                    <div class="col-sm-12">
                     <div class="table-responsive" style="overflow-x: unset;">
                         <table class="table TableBorder">
                                 <tbody formArrayName="ClampsArr" *ngFor="let a of earthingClampsarr(); let j = index">
                                     <div class="form-group" [formGroupName]="j">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="lname">Location Name</label>
-                                                <input class="form-control" [readonly]="isEditable" formControlName="locationName" type="text" placeholder="Location Name"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('locationName')?.errors}">
-                                                <div *ngIf="submitted && a.get('locationName')?.errors"
-                                                    class="invalid-feedback">
-                                                    <div *ngIf="a.get('locationName')?.errors?.required">
-                                                        Location Name is required</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="lnumber">Location Number</label>
-                                                <input class="form-control" (keypress)="keyPressNumbers($event)" [readonly]="isEditable" formControlName="locationNumber" placeholder="Location Number"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors}">
-                                                <div *ngIf="submitted && a.get('locationNumber')?.errors"
-                                                    class="invalid-feedback">
-                                                    <div *ngIf="a.get('locationNumber')?.errors?.required">
-                                                        Location Number is required</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br>
                                         <thead>
                                             <th>SI.No</th>
                                             <th>Description</th>
@@ -840,7 +802,7 @@
                                         <tr>
                                             <td style="width: 1rem; text-align: center;">5.1</td>
                                             <td style="width: 24rem;">Physical inspection (damage/break/corroded)</td>
-                                            <td style="width: 40rem;">
+                                            <td style="width: 43rem;">
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">
@@ -857,7 +819,7 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td style="width: 40rem;">
+                                            <td style="width: 43rem;">
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">
@@ -1137,47 +1099,28 @@
                                             </td>
                                         </tr>
                                     </div>
-                                    <mat-icon class="mousechange" class="add" type="button" [ngClass]="{'disableForm':isEditable}" (click)="submit2()" *ngIf="earthingClampsarr().length == j+1"
+                                    <!-- <mat-icon class="mousechange" class="add" type="button" [ngClass]="{'disableForm':isEditable}" (click)="submit2()" *ngIf="earthingClampsarr().length == j+1"
                                     style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section"
                                   >add_box</mat-icon>
                                 <mat-icon class="mousechange" class="dlt" type="button" [ngClass]="{'disableForm':isEditable}" title="delete" *ngIf="earthingClampsarr().length > 1"
                                     (click)="removeItem2(a,j)"
-                                    style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
+                                    style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon> -->
                                 </tbody>
                             </table>
-                        </div>
+                    </div>
+                    </div>
+                    </div>
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Earth electrode chambers</mat-expansion-panel-header>
+                    <div class="row">
+                    <div class="col-sm-12">
                     <div class="table-responsive" style="overflow-x: unset;">
                         <table class="table TableBorder">
                             <tbody formArrayName="chamberArr"
                                 *ngFor="let a of earthElectrodeChambearr(); let j = index">
                                 <div class="form-group" [formGroupName]="j">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="lname">Location Name</label>
-                                            <input class="form-control" [readonly]="isEditable" formControlName="locationName" type="text" placeholder="Location Name"
-                                                [ngClass]="{ 'is-invalid': submitted && a.get('locationName')?.errors}">
-                                            <div *ngIf="submitted && a.get('locationName')?.errors"
-                                                class="invalid-feedback">
-                                                <div *ngIf="a.get('locationName')?.errors?.required">
-                                                    Location Name is required</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="lnumber">Location Number</label>
-                                            <input class="form-control" (keypress)="keyPressNumbers($event)" [readonly]="isEditable" formControlName="locationNumber" placeholder="Location Number"
-                                                [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors}">
-                                            <div *ngIf="submitted && a.get('locationNumber')?.errors"
-                                                class="invalid-feedback">
-                                                <div *ngIf="a.get('locationNumber')?.errors?.required">
-                                                    Location Number is required</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
                                     <thead>
                                         <th>SI.No</th>
                                         <th>Description</th>
@@ -1187,7 +1130,7 @@
                                     <tr>
                                         <td style="width: 1rem; text-align: center;">6.1</td>
                                         <td style="width: 24rem;">Physical inspection (damage/break/corroded)</td>
-                                        <td style="width: 40rem;">
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1204,7 +1147,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td style="width: 40rem;">
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1478,21 +1421,25 @@
                                         </td>
                                     </tr>
                                 </div>
-                                <mat-icon class="mousechange" class="add" type="button" [ngClass]="{'disableForm':isEditable}" (click)="submit3()" *ngIf="earthElectrodeChambearr().length == j+1"
+                                <!-- <mat-icon class="mousechange" class="add" type="button" [ngClass]="{'disableForm':isEditable}" (click)="submit3()" *ngIf="earthElectrodeChambearr().length == j+1"
                                     style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section"
                                   >add_box</mat-icon>
                                 <mat-icon class="mousechange" class="dlt" type="button" [ngClass]="{'disableForm':isEditable}" title="delete" *ngIf="earthElectrodeChambearr().length > 1"
                                     (click)="removeItem3(a,j)"
-                                    style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
+                                    style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon> -->
                             </tbody>
                         </table>
+                    </div>
+                    </div>
                     </div>
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Type-B earthing system</mat-expansion-panel-header>
-                    <div class="table-responsive" style="border: 1px solid black;">
-                        <table class="table">
+                    <div class="row">
+                    <div class="col-sm-12">
+                    <div class="table-responsive" style="overflow-x: unset;">
+                        <table class="table TableBorder">
                             <tbody formArrayName="earthingArr" *ngFor="let a of earthingSystemarr(); let j = index">
                                 <div class="form-group" [formGroupName]="j">
                                     <thead>
@@ -1505,7 +1452,7 @@
                                         <td style="width: 1rem; text-align: center;">7.1</td>
                                         <td style="width: 24rem;">Earth electrode must be buried atleast 0.5m depth and
                                             1m distance from external wall as closed loop.</td>
-                                        <td style="width: 40rem;">
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1522,7 +1469,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td style="width: 40rem;">
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -2023,6 +1970,8 @@
 
                             </tbody>
                         </table>
+                    </div>
+                    </div>
                     </div>
                 </mat-expansion-panel>
 

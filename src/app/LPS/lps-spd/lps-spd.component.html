@@ -40,9 +40,10 @@
 
 
                     <!-- tables -->
-                    <div style="margin-top: 20px;">
-                        <div class="table-responsive" style="border: 1px solid black;">
-                        <table class="table">
+                    <div class="row">
+                    <div class="col-sm-12">
+                        <div class="table-responsive" style="overflow-x: unset; margin-top: 20px;">
+                            <table class="table TableBorder">
                             <thead>
                                 <th>SI.No</th>
                                 <th>Description</th>
@@ -53,7 +54,7 @@
                                 <tr>
                                     <td style="width: 1rem; text-align: center;">1.</td>
                                     <td style="width: 24rem;">Mains incoming panel</td>
-                                    <td style="width: 34rem;">
+                                    <td style="width: 43rem;">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -69,7 +70,7 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td style="width: 34rem;">
+                                    <td style="width: 43rem;">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -189,6 +190,7 @@
                         </table>
                         </div>
                     </div>
+                    </div>
 
                 </mat-expansion-panel>
 
@@ -201,10 +203,10 @@
                     <mat-expansion-panel-header>Mains incoming panel (if more panels are available data from each panel
                         is necessary)</mat-expansion-panel-header>
                     <!-- tables -->
-                    <div style="margin-top: 40px;" formArrayName="spdarr"
-                        *ngFor="let x of spdarrControls(); let j = index">
-                        <div class="table-responsive" style="border: 1px solid black;">
-                        <table class="table" [formGroupName]="j">
+                    <div class="row" style="margin-top: 40px;" formArrayName="spdarr" *ngFor="let x of spdarrControls(); let j = index">
+                        <div class="col-sm-12">
+                        <div class="table-responsive" style="overflow-x: unset;">
+                        <table class="table TableBorder" [formGroupName]="j">
                             <thead>
                                 <th>SI.No</th>
                                 <th>Description</th>
@@ -215,7 +217,7 @@
                                 <tr>
                                     <td style="width: 1rem; text-align: center;">5.1</td>
                                     <td style="width: 24rem;">Type of SPD / Model</td>
-                                    <td style="width: 35rem;">
+                                    <td style="width: 43rem;">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -229,7 +231,7 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td style="width: 35rem;">
+                                    <td style="width: 43rem;">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -435,16 +437,17 @@
                         </table>
                         </div>
                     </div>
+                    </div>
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Street light panel(if more panels are available data from each panel is
                         necessary)</mat-expansion-panel-header>
                     <!-- tables -->
-                    <div style="margin-top: 40px;" formArrayName="panelarr"
-                        *ngFor="let x of panelarrControls(); let j = index">
-                        <div class="table-responsive" style="border: 1px solid black;">
-                        <table class="table" [formGroupName]="j">
+                    <div class="row" style="margin-top: 40px;" formArrayName="panelarr" *ngFor="let x of panelarrControls(); let j = index">
+                        <div class="col-sm-12">
+                        <div class="table-responsive" style="overflow-x: unset;">
+                        <table class="table TableBorder" [formGroupName]="j">
                             <thead>
                                 <th>SI.No</th>
                                 <th>Description</th>
@@ -470,7 +473,7 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td style="width: 35rem;">
+                                    <td style="width: 43rem;">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -676,16 +679,17 @@
                         </table>
                         </div>
                     </div>
+                    </div>
                 </mat-expansion-panel>
 
                 <mat-expansion-panel [hideToggle]="false">
                     <mat-expansion-panel-header>Other panels feeding power to outdoor equipment if more panels are
                         available data from each panel is necessary)</mat-expansion-panel-header>
                     <!-- tables -->
-                    <div style="margin-top: 40px;" formArrayName="powerarr"
-                        *ngFor="let x of powerarrControls(); let j = index">
-                        <div class="table-responsive" style="border: 1px solid black;">
-                        <table class="table" [formGroupName]="j">
+                    <div class="row" style="margin-top: 40px;" formArrayName="powerarr" *ngFor="let x of powerarrControls(); let j = index">
+                        <div class="col-sm-12">
+                        <div class="table-responsive" style="overflow-x: unset;">
+                        <table class="table TableBorder" [formGroupName]="j">
                             <thead>
                                 <th>SI.No</th>
                                 <th>Description</th>
@@ -696,7 +700,7 @@
                                 <tr>
                                     <td style="width: 1rem; text-align: center;">7.1</td>
                                     <td style="width: 24rem;">Type of SPD / Model</td>
-                                    <td style="width: 35rem;">
+                                    <td style="width: 43rem;">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -711,7 +715,7 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td style="width: 35rem;">
+                                    <td style="width: 43rem;">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -915,6 +919,7 @@
                                 </tr>
                             </tbody>
                         </table>
+                        </div>
                         </div>
                     </div>
                 </mat-expansion-panel>

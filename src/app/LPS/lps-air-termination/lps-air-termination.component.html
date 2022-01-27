@@ -1,6 +1,8 @@
 <div class="card">
     <div class="card-body">
         <form [formGroup]="airTerminationForm" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
+            <div formArrayName="lpsAirDescription" *ngFor="let q of overAllControl(); let j = index">
+                <div class="form-group" [formGroupName]="j">
             <mat-accordion>
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Basic Details</mat-expansion-panel-header>
@@ -14,11 +16,11 @@
                                         <i class="bi bi-align-start"></i>
                                     </span>
                                 </div>
-                                <input type="number" class="form-control" placeholder="Enter Building Number" formControlName="buildingnumber" [(ngModel)]="airtermination.buildingnumber"
-                                [ngClass]="{ 'is-invalid': submitted && f.buildingnumber.errors}" />
-
-                                <div *ngIf="submitted && f.buildingnumber.errors" class="invalid-feedback">
-                                    <div *ngIf="f.buildingnumber.errors.required">Building Number is required</div>
+                                <input type="number" class="form-control" placeholder="Enter Building Number" formControlName="buildingnumber" [ngClass]="{ 'is-invalid': submitted && q.get('buildingnumber')?.errors }"
+                                required/>
+                                <div *ngIf="submitted && q.get('buildingnumber')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="q.get('buildingnumber')?.errors?.required">Building Number is required</div>
                                 </div>
 
                             </div>
@@ -33,12 +35,12 @@
                                     </span>
                                 </div>
                                 <input type="text" class="form-control"  formControlName="buildingname"
-                                [(ngModel)]="airtermination.buildingname"
-                                [ngClass]="{ 'is-invalid': submitted && f.buildingname.errors}" />
-
-                                <div *ngIf="submitted && f.buildingname.errors" class="invalid-feedback">
-                                    <div *ngIf="f.buildingname.errors.required">Building Number is required</div>
-                                </div>
+                                [ngClass]="{ 'is-invalid': submitted && q.get('buildingname')?.errors }"
+                                        required/>
+                                        <div *ngIf="submitted && q.get('buildingname')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="q.get('buildingname')?.errors?.required">Building Name is required</div>
+                                        </div>
                             </div>
                         </div>
 
@@ -47,7 +49,7 @@
 
                     <div class="row">
                         <div class="col-md-4">
-                            <label for="typeofbuilding">Type of Building </label>
+                            <label for="typeofbuilding">Type of Building</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
@@ -55,12 +57,12 @@
                                     </span>
                                 </div>
                                 <input type="text" class="form-control"  formControlName="buildingType"
-                                [(ngModel)]="airtermination.buildingType"
-                                [ngClass]="{ 'is-invalid': submitted && f.buildingType.errors}" />
-
-                                <div *ngIf="submitted && f.buildingType.errors" class="invalid-feedback">
-                                    <div *ngIf="f.buildingType.errors.required">Building Number is required</div>
-                                </div>
+                                [ngClass]="{ 'is-invalid': submitted && q.get('buildingType')?.errors }"
+                                        required/>
+                                        <div *ngIf="submitted && q.get('buildingType')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="q.get('buildingType')?.errors?.required">Type of Building is required</div>
+                                        </div>
                             </div>
                         </div>
                     </div>
@@ -80,12 +82,12 @@
                                     </span>
                             </div>
                                 <input type="number" class="form-control" formControlName="buildingLength"
-                                [(ngModel)]="airtermination.buildingLength"
-                                [ngClass]="{ 'is-invalid': submitted && f.buildingLength.errors}" />
-
-                                <div *ngIf="submitted && f.buildingLength.errors" class="invalid-feedback">
-                                    <div *ngIf="f.buildingLength.errors.required">Building Number is required</div>
-                                </div>
+                                [ngClass]="{ 'is-invalid': submitted && q.get('buildingLength')?.errors }"
+                                        required/>
+                                        <div *ngIf="submitted && q.get('buildingLength')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="q.get('buildingLength')?.errors?.required">Length is required</div>
+                                        </div>
                             </div>
                         </div>
                     
@@ -99,12 +101,12 @@
                                     </span>
                                 </div>
                                 <input type="number" class="form-control" formControlName="buildingWidth"
-                                [(ngModel)]="airtermination.buildingWidth"
-                                [ngClass]="{ 'is-invalid': submitted && f.buildingWidth.errors}" />
-
-                                <div *ngIf="submitted && f.buildingWidth.errors" class="invalid-feedback">
-                                    <div *ngIf="f.buildingWidth.errors.required">Building Number is required</div>
-                                </div>
+                                [ngClass]="{ 'is-invalid': submitted && q.get('buildingWidth')?.errors }"
+                                        required/>
+                                        <div *ngIf="submitted && q.get('buildingWidth')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="q.get('buildingWidth')?.errors?.required">Width is required</div>
+                                        </div>
                         </div>
                         </div>
         
@@ -117,19 +119,19 @@
                                     </span>
                                 </div>
                                 <input type="number" class="form-control" formControlName="buildingHeight"
-                                [(ngModel)]="airtermination.buildingHeight"
-                                [ngClass]="{ 'is-invalid': submitted && f.buildingHeight.errors}" />
-
-                                <div *ngIf="submitted && f.buildingHeight.errors" class="invalid-feedback">
-                                    <div *ngIf="f.buildingHeight.errors.required">Building Number is required</div>
-                                </div>
+                                [ngClass]="{ 'is-invalid': submitted && q.get('buildingHeight')?.errors }"
+                                        required/>
+                                        <div *ngIf="submitted && q.get('buildingHeight')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="q.get('buildingHeight')?.errors?.required">Height is required</div>
+                                        </div>
                         </div>
                         </div>
                     </div>
         
                     <div class="row">
                         <div class="col-md-4">
-                            <label for="levelofprotection">Level of protection </label>
+                            <label for="levelofprotection">Level of protection</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
@@ -137,27 +139,28 @@
                                     </span>
                                 </div>
                                 <input type="text" class="form-control" formControlName="levelOfProtection"
-                                [(ngModel)]="airtermination.levelOfProtection"
-                                [ngClass]="{ 'is-invalid': submitted && f.levelOfProtection.errors}" />
-
-                                <div *ngIf="submitted && f.levelOfProtection.errors" class="invalid-feedback">
-                                    <div *ngIf="f.levelOfProtection.errors.required">Building Number is required</div>
-                                </div>
+                                [ngClass]="{ 'is-invalid': submitted && q.get('levelOfProtection')?.errors }"
+                                        required/>
+                                        <div *ngIf="submitted && q.get('levelOfProtection')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="q.get('levelOfProtection')?.errors?.required">Level of protection is required</div>
+                                        </div>
                         </div>
                     </div> 
                     </div>
 
             <!-- Table -->
             <div class="row">
-                <div class="table-responsive" style="border: 1px solid black;margin: 15px;">
-                <table class="table">
+                <div class="col-sm-12">
+                <div class="table-responsive" style="overflow-x: unset; margin-top: 20px;">
+                <table class="table TableBorder">
                     <!-- <thead style="text-align: center;">
                         <th>SI.No</th>
                         <th>Description</th>
                         <th>Observation</th>
                         <th>Remarks(Optional)</th>
                     </thead> -->
-                    <tbody formArrayName="airTerminationBasicArr" *ngFor="let a of getDescriptionControl(); let j = index">
+                    <tbody formArrayName="airTerminationBasicArr" *ngFor="let a of getDescriptionControl(q); let j = index">
                         <div class="form-group" [formGroupName]="j">
 
                             <thead style="text-align: center;">
@@ -169,7 +172,7 @@
                         <tr>
                             <td style="width: 1rem; text-align: center;">1.</td>
                             <td style="width: 24rem;">Collect approved copy of drawing from the site</td>
-                            <td style="width: 35rem;">
+                            <td style="width: 43rem;">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -186,7 +189,7 @@
                                         </div>
                                 </div>
                             </td>
-                            <td style="width: 35rem;">
+                            <td style="width: 43rem;">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -201,7 +204,7 @@
                         <tr>
                             <td style="width: 1rem; text-align: center;">1(a)</td>
                             <td style="width: 24rem;">Architect Name</td>
-                            <td style="width: 35rem;">
+                            <td style="width: 43rem;">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -218,7 +221,7 @@
                                         </div>
                                 </div>
                             </td>
-                            <td style="width: 35rem;">
+                            <td style="width: 43rem;">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -233,7 +236,7 @@
                         <tr>
                             <td style="width: 1rem; text-align: center;">1(b)</td>
                             <td style="width: 24rem;">Date of Design</td>
-                            <td style="width: 35rem;">
+                            <td style="width: 43rem;">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -249,7 +252,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td style="width: 35rem;">
+                            <td style="width: 43rem;">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -264,7 +267,7 @@
                         <tr>
                             <td style="width: 1rem; text-align: center;">1(c)</td>
                             <td style="width: 24rem;">Approved by</td>
-                            <td style="width: 35rem;">
+                            <td style="width: 43rem;">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -281,7 +284,7 @@
                                         </div>
                                 </div>
                             </td>
-                            <td style="width: 35rem;">
+                            <td style="width: 43rem;">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -296,7 +299,7 @@
                         <tr>
                             <td style="width: 1rem; text-align: center;">1(d)</td>
                             <td style="width: 24rem;">Date of approval</td>
-                            <td style="width: 35rem;">
+                            <td style="width: 43rem;">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -312,7 +315,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td style="width: 35rem;">
+                            <td style="width: 43rem;">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -327,7 +330,7 @@
                         <tr>
                             <td style="width: 1rem; text-align: center;">1(e)</td>
                             <td style="width: 24rem;">Drawing number</td>
-                            <td style="width: 35rem;">
+                            <td style="width: 43rem;">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -344,7 +347,7 @@
                                         </div>
                                 </div>
                             </td>
-                            <td style="width: 35rem;">
+                            <td style="width: 43rem;">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -359,7 +362,7 @@
                         <tr>
                             <td style="width: 1rem; text-align: center;">1(f)</td>
                             <td style="width: 24rem;">Revision number</td>
-                            <td style="width: 35rem;">
+                            <td style="width: 43rem;">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -376,7 +379,7 @@
                                         </div>
                                 </div>
                             </td>
-                            <td style="width: 35rem;">
+                            <td style="width: 43rem;">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -391,7 +394,7 @@
                         <tr>
                             <td style="width: 1rem; text-align: center;">2</td>
                             <td style="width: 24rem;">Check for any deviation of design with standard</td>
-                            <td style="width: 35rem;">
+                            <td style="width: 43rem;">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -408,7 +411,7 @@
                                         </div>
                                 </div>
                             </td>
-                            <td style="width: 35rem;">
+                            <td style="width: 43rem;">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -423,7 +426,7 @@
                         <tr>
                             <td style="width: 1rem; text-align: center;">3</td>
                             <td style="width: 24rem;">Quality of installation</td>
-                            <td style="width: 35rem;">
+                            <td style="width: 43rem;">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -440,7 +443,7 @@
                                         </div>
                                 </div>
                             </td>
-                            <td style="width: 35rem;">
+                            <td style="width: 43rem;">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -456,7 +459,7 @@
                                     <td style="width: 1rem; text-align: center;">1.</td>
                                     <td style="width: 24rem;">Connections are made by brazing/welding/crimping/
                                         seaming/screwing/bolting</td>
-                                    <td style="width: 35rem;">
+                                    <td style="width: 43rem;">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -473,7 +476,7 @@
                                                 </div>
                                         </div>
                                     </td>
-                                    <td style="width: 35rem;">
+                                    <td style="width: 43rem;">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -486,9 +489,9 @@
                         </tr>
 
                         <tr>
-                                    <td style="text-align: center;">2.</td>
-                                    <td>Electrical and electronic equipment is placed on walls outside structures </td>
-                                    <td>
+                                    <td style="width: 1rem; text-align: center;">2.</td>
+                                    <td style="width: 24rem;">Electrical and electronic equipment is placed on walls outside structures </td>
+                                    <td style="width: 43rem;">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -519,10 +522,10 @@
                         </tr>
                                 
                         <tr>
-                                    <td style="text-align: center;">3.</td>
-                                    <td>Easily combustible part should not directly contact with air termination
+                                    <td style="width: 1rem; text-align: center;">3.</td>
+                                    <td style="width: 24rem;">Easily combustible part should not directly contact with air termination
                                         systems</td>
-                                    <td>
+                                    <td style="width: 43rem;">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -552,10 +555,10 @@
                         </tr>
                                 
                         <tr>
-                                    <td style="text-align: center;">4.</td>
-                                    <td>No power/ control/ instrumentation/telecommunication cable or cable passage in
+                                    <td style="width: 1rem; text-align: center;">4.</td>
+                                    <td style="width: 24rem;">No power/ control/ instrumentation/telecommunication cable or cable passage in
                                         path/near air terminals and/or air termination mesh condcutor</td>
-                                    <td>
+                                    <td style="width: 43rem;">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -585,9 +588,9 @@
                         </tr>
                                 
                         <tr>
-                                    <td style="text-align: center;">5.</td>
-                                    <td>Equipotenial bonding carried out or not</td>
-                                    <td>
+                                    <td style="width: 1rem; text-align: center;">5.</td>
+                                    <td style="width: 24rem;">Equipotenial bonding carried out or not</td>
+                                    <td style="width: 43rem;">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -621,6 +624,7 @@
                 </table>
             </div>
         </div>
+        </div>
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
@@ -636,7 +640,7 @@
                                 <th>Remarks</th>
                             </thead> -->
                             <!-- Form Array -->
-                            <tbody formArrayName="vatArr" *ngFor="let a of vatControls(); let j = index">
+                            <tbody formArrayName="vatArr" *ngFor="let a of vatControls(q); let j = index">
                                 <div class="form-group" [formGroupName]="j">
                                     <thead>
                                         <th>SI.No</th>
@@ -648,7 +652,7 @@
                                         <td style="width: 1rem; text-align: center;">6.1</td>
                                         <td style="width: 24rem;">Physical inspection
                                             (damage/break/bend/corroded/route)</td>
-                                        <td style="width: 40rem;">
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -666,7 +670,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td style="width: 40rem;">
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1092,7 +1096,7 @@
                         <div class="col-sm-12">
                             <div class="table-responsive" style="overflow-x: unset;">
                                 <table class="table TableBorder">
-                            <tbody formArrayName="meshArr" *ngFor="let a of meshControls(); let i = index">
+                            <tbody formArrayName="meshArr" *ngFor="let a of meshControls(q); let i = index">
                                 <div class="form-group" [formGroupName]="i">
                                     <thead>
                                         <th>SI.No</th>
@@ -1105,7 +1109,7 @@
                                         <td style="width: 24rem;">Physical inspection
                                             (damage/break/bend/corroded/route)
                                         </td>
-                                        <td style="width: 40rem;">
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1122,7 +1126,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td style="width: 40rem;">
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1355,7 +1359,7 @@
                         <div class="col-sm-12">
                             <div class="table-responsive" style="overflow-x: unset;">
                                 <table class="table TableBorder">
-                            <tbody formArrayName="holderArr" *ngFor="let a of holdersContols(); let j = index">
+                            <tbody formArrayName="holderArr" *ngFor="let a of holdersContols(q); let j = index">
                                 <div class="form-group" [formGroupName]="j">
                                     <thead>
                                         <th>SI.No</th>
@@ -1366,7 +1370,7 @@
                                     <tr>
                                         <td style="width: 1rem; text-align: center;">8.1</td>
                                         <td style="width: 24rem;">Physical inspection (damage/break/corroded)</td>
-                                        <td style="width: 40rem;">
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1384,7 +1388,7 @@
 
                                             </div>
                                         </td>
-                                        <td style="width: 40rem;">
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1834,7 +1838,7 @@
                         <div class="col-sm-12">
                             <div class="table-responsive" style="overflow-x: unset;">
                                 <table class="table TableBorder">
-                            <tbody formArrayName="clampArr" *ngFor="let a of clampsControls(); let i = index">
+                            <tbody formArrayName="clampArr" *ngFor="let a of clampsControls(q); let i = index">
                                 <div class="form-group" [formGroupName]="i">
                                     <thead>
                                         <th>SI.No</th>
@@ -1845,7 +1849,7 @@
                                     <tr>
                                         <td style="width: 1rem; text-align: center;">9.1</td>
                                         <td style="width: 24rem;">Physical inspection (damage/break/corroded)</td>
-                                        <td style="width: 40rem;">
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1862,7 +1866,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td style="width: 40rem;">
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -2151,7 +2155,7 @@
                         <div class="col-sm-12">
                             <div class="table-responsive" style="overflow-x: unset;">
                                 <table class="table TableBorder">
-                            <tbody formArrayName="expArr" *ngFor="let a of expansionControls(); let i = index">
+                            <tbody formArrayName="expArr" *ngFor="let a of expansionControls(q); let i = index">
                                 <div class="form-group" [formGroupName]="i">
                                     <thead>
                                         <th>SI.No</th>
@@ -2162,7 +2166,7 @@
                                     <tr>
                                         <td style="width: 1rem; text-align: center;">10.1</td>
                                         <td style="width: 24rem;">Physical inspection (damage/break/corroded)</td>
-                                        <td style="width: 40rem;">
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -2179,7 +2183,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td style="width: 40rem;">
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -2386,11 +2390,6 @@
                                         </td>
                                     </tr>
                                 </div>
-                                <!-- <mat-icon class="mousechange" class="add" type="button" [ngClass]="{'disableForm':isEditable}" *ngIf="expansionControls().length == i+1" (click)="submit4()"
-                                style="margin-inline: 1rem;float: right;position: relative;"
-                                title="add another Section">add_box</mat-icon>
-                            <mat-icon class="mousechange" class="dlt" *ngIf="expansionControls().length > 1" (click)="removeItem4(a,i)"  title="delete" [ngClass]="{'disableForm':isEditable}"
-                                style="margin-inline: 1rem;float: right;position: relative;">delete</mat-icon> -->
                              </tbody>
                         </table>
                     </div>
@@ -2404,7 +2403,7 @@
                         <div class="col-sm-12">
                             <div class="table-responsive" style="overflow-x: unset;">
                                 <table class="table TableBorder">
-                            <tbody formArrayName="conArr" *ngFor="let a of connectorsControls(); let i = index">
+                            <tbody formArrayName="conArr" *ngFor="let a of connectorsControls(q); let i = index">
                                 <div class="form-group" [formGroupName]="i">
                                     <thead>
                                         <th>SI.No</th>
@@ -2415,7 +2414,7 @@
                                     <tr>
                                         <td style="width: 1rem; text-align: center;">11.1</td>
                                         <td style="width: 24rem;">Physical inspection (damage/break/corroded)</td>
-                                        <td style="width: 40rem;">
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -2432,7 +2431,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td style="width: 40rem;">
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -2753,6 +2752,7 @@
             height: 35px;	
             position: relative;
             margin-top: 10px;">	
+            
             <mat-icon aria-hidden="false" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>	
             </button>	
 
@@ -2769,6 +2769,9 @@
                                 title="Add New Building">Create Building Two</mat-icon>
             <mat-icon class="mousechange" class="dlt" type="button" title="delete" [ngClass]="{'disableForm':isEditable}"   title="Delete Above Building"
                                 style="margin-inline: 1rem;float: right;position: relative;">Delete Above Building</mat-icon> -->
+
+            </div>
+        </div>
         </form>
     </div>
 </div>

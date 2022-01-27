@@ -40,8 +40,10 @@
                 </div>
 
                 <!-- tables -->
-                <div style="margin-top: 20px;">
-                    <table class="table">
+                <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive" style="overflow-x: unset; margin-top: 20px;">
+                        <table class="table TableBorder">
                         <thead>
                             <th>SI.No</th>
                             <th>Description</th>
@@ -60,13 +62,15 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div class="table-responsive" style="border: 1px solid black;">
-                    <table>
+                    <div class="row">
+                    <div class="col-sm-12">
+                    <div class="table-responsive" style="overflow-x: unset;">
+                    <table class="table TableBorder">
                         <tbody formArrayName="separateDistanceDescriptionArr"
                             *ngFor="let f of getseparateDistanceDescriptionControls(); let i = index">
                             <div class="form-group" [formGroupName]="i">
                                 <td style="width: 4rem; text-align: center;">{{i+1}}</td>
-                                <td style="width: 35rem; margin-left: 1rem;">
+                                <td style="width: 43rem; margin-left: 1rem;">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
@@ -81,7 +85,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td style="width: 35rem;">
+                                <td style="width: 43rem;">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
@@ -96,14 +100,14 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td style="width: 35rem;">
+                                <td style="width: 43rem;">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
                                                 <i class="bi bi-text-paragraph"></i>
                                             </span>
                                         </div>
-                                        <textarea type="text" [readonly]="isEditable" formControlName="seperationDistanceRem"
+                                        <textarea type="text" [readonly]="isEditable" formControlName="seperationDistanceRem" placeholder="Remarks (Optional)"
                                             class="form-control"
                                             ></textarea>
                                         
@@ -122,6 +126,10 @@
                         </tbody>
                     </table>
                     </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
                 </div>
             <div>
         </div>
