@@ -19,10 +19,14 @@
                             <div class="form-group">
                                 <label class="form-label">System earth referance a single point referance</label>
                                 <select class="form-control" formControlName="seSinglePoint"
-                                    [(ngModel)]="emcElectromagneticCompatibility.seSinglePoint">
+                                    [(ngModel)]="emcElectromagneticCompatibility.seSinglePoint"
+                                    [ngClass]="{'is-invalid':submitted && f.seSinglePoint?.errors}">
                                     <option [ngValue]="null">Select Option</option>
                                     <option *ngFor="let value of selectionValue">{{value}}</option>
                                 </select>
+                                <div *ngIf="submitted &&f.seSinglePoint?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.seSinglePoint?.errors?.required">Field Is Required</div>
+                                </div>
                             </div>
                         </div>
 
@@ -30,10 +34,14 @@
                             <div class="form-group">
                                 <label>System earth referance a meshed arrangement</label>
                                 <select class="form-control" formControlName="seMeshedArrangment"
+                                [ngClass]="{'is-invalid':submitted && f.seMeshedArrangment?.errors}"
                                     [(ngModel)]="emcElectromagneticCompatibility.seMeshedArrangment">
                                     <option [ngValue]="null">Select Option</option>
                                     <option *ngFor="let value of selectionValue">{{value}}</option>
                                 </select>
+                                <div *ngIf="submitted &&f.seMeshedArrangment?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.seMeshedArrangment?.errors?.required">Field Is Required</div>
+                                </div>
 
                             </div>
                         </div>
@@ -42,8 +50,12 @@
                                 <label>Descriptions</label>
                                 <textarea class="textarea-size" class="form-control" style="font-size: 100%;"
                                     [(ngModel)]="emcElectromagneticCompatibility.seDescription"
+                                    [ngClass]="{'is-invalid':submitted && f.seDescription?.errors}"
                                     formControlName="seDescription"
                                     placeholder="other connections to facility safety earth system (or earth electrodes)...!"></textarea>
+                                    <div *ngIf="submitted &&f.seDescription?.errors" class="invalid-feedback">
+                                        <div *ngIf="f.seDescription?.errors?.required">Field Is Required</div>
+                                    </div>
                             </div>
                         </div>
 

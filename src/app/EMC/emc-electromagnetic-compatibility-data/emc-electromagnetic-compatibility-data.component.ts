@@ -22,6 +22,7 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
   errorArr: any = [];
   success: boolean = false;
   Error: boolean = false;
+  submitted=false;
   successMsg: string = "";
   errorMsg: string = "";
   email: String;
@@ -108,7 +109,9 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
     })
 
   }
-
+  get f():any {
+    return this.EMCElectroMagneticFormm.controls;
+  }
 
   closeModalDialog() {
     this.finalSpinner = true;
@@ -199,6 +202,11 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
   }
 
     saveElectroMagneticData(flag: any) {
+
+      this.submitted=true;
+      // if(this.EMCElectroMagneticFormm.invalid){
+      //   return
+      // }
       this.emcElectromagneticCompatibility.userName = "Hasan";
       if (!flag) {
         this.emcElectromagneticCompatibility.emcId = 10;
