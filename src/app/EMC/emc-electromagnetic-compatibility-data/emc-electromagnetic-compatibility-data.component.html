@@ -54,7 +54,7 @@
                                     formControlName="seDescription"
                                     placeholder="other connections to facility safety earth system (or earth electrodes)...!"></textarea>
                                 <div *ngIf="submitted &&f.seDescription?.errors" class="invalid-feedback">
-                                    <div *ngIf="f.seDescription?.errors?.required">Field Is Required</div>
+                                    <div *ngIf="f.seDescription?.errors?.required">Description Is Required</div>
                                 </div>
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                                     [(ngModel)]="emcElectromagneticCompatibility.resistanceCabinetDesc"
                                     formControlName="resistanceCabinetDesc" placeholder="Enter Descriptions"></textarea>
                                 <div *ngIf="submitted &&f.resistanceCabinetDesc?.errors" class="invalid-feedback">
-                                    <div *ngIf="f.resistanceCabinetDesc?.errors?.required">Field Is Required</div>
+                                    <div *ngIf="f.resistanceCabinetDesc?.errors?.required">Description Is Required</div>
                                 </div>
                             </div>
                         </div>
@@ -119,7 +119,7 @@
                                     <option *ngFor="let value of selectionValue">{{value}}</option>
                                 </select>
                                 <div *ngIf="submitted &&f.roomShield?.errors" class="invalid-feedback">
-                                    <div *ngIf="f.roomShield?.errors?.required">Field Is Required</div>
+                                    <div *ngIf="f.roomShield?.errors?.required">Computer Room Shield Is Required</div>
                                 </div>
                             </div>
                         </div>
@@ -131,7 +131,7 @@
                                     [(ngModel)]="emcElectromagneticCompatibility.roomShieldDesc"
                                     formControlName="roomShieldDesc" placeholder="Enter Descriptions"></textarea>
                                 <div *ngIf="submitted &&f.roomShieldDesc?.errors" class="invalid-feedback">
-                                    <div *ngIf="f.roomShieldDesc?.errors?.required">Field Is Required</div>
+                                    <div *ngIf="f.roomShieldDesc?.errors?.required">Description Is Required</div>
                                 </div>
                             </div>
                         </div>
@@ -186,7 +186,7 @@
                                     formControlName="equipmentHighFrequencyDesc"
                                     placeholder="Enter Describe"></textarea>
                                 <div *ngIf="submitted &&f.equipmentHighFrequencyDesc?.errors" class="invalid-feedback">
-                                    <div *ngIf="f.equipmentHighFrequencyDesc?.errors?.required">Field Is Required</div>
+                                    <div *ngIf="f.equipmentHighFrequencyDesc?.errors?.required">Describe Is Required</div>
                                 </div>
                             </div>
                         </div>
@@ -227,7 +227,7 @@
                                     [(ngModel)]="emcElectromagneticCompatibility.equipmentMaintenceDesc"
                                     formControlName="equipmentMaintenceDesc" placeholder="Enter Describe"></textarea>
                                 <div *ngIf="submitted &&f.equipmentMaintenceDesc?.errors" class="invalid-feedback">
-                                    <div *ngIf="f.equipmentMaintenceDesc?.errors?.required">Field Is Required</div>
+                                    <div *ngIf="f.equipmentMaintenceDesc?.errors?.required">Describe Is Required</div>
                                 </div>
                             </div>
                         </div>
@@ -240,7 +240,7 @@
                                     [(ngModel)]="emcElectromagneticCompatibility.operationFrequency"
                                     placeholder=" (if known) ">
                                 <div *ngIf="submitted &&f.operationFrequency?.errors" class="invalid-feedback">
-                                    <div *ngIf="f.operationFrequency?.errors?.required">Field Is Required</div>
+                                    <div *ngIf="f.operationFrequency?.errors?.required">Operational Frequency Is Required</div>
                                 </div>
                             </div>
                         </div>
@@ -281,7 +281,7 @@
                                             placeholder="Enter Communications navigation ">
                                         <div *ngIf="submitted && a.get('communication')?.errors"
                                             class="invalid-feedback">
-                                            <div *ngIf="a.get('communication')?.errors?.required">Field Is Required
+                                            <div *ngIf="a.get('communication')?.errors?.required">Communications / Navigation Is Required
                                             </div>
                                         </div>
                                     </div>
@@ -326,7 +326,7 @@
                                             placeholder="Enter Describe"></textarea>
                                         <div *ngIf="submitted && a.get('transmissionDesc')?.errors"
                                             class="invalid-feedback">
-                                            <div *ngIf="a.get('transmissionDesc')?.errors?.required">Field Is Required
+                                            <div *ngIf="a.get('transmissionDesc')?.errors?.required">Describe Is Required
                                             </div>
                                         </div>
                                     </div>
@@ -365,7 +365,7 @@
                                             [ngClass]="{'is-invalid':submitted && a.get('losDesc')?.errors}"
                                             placeholder="Enter Describe"></textarea>
                                         <div *ngIf="submitted && a.get('losDesc')?.errors" class="invalid-feedback">
-                                            <div *ngIf="a.get('losDesc')?.errors?.required">Field Is Required</div>
+                                            <div *ngIf="a.get('losDesc')?.errors?.required">Describe Is Required</div>
                                         </div>
                                     </div>
                                 </div>
@@ -392,7 +392,7 @@
                                             placeholder="Enter Transmitter power (if known) in watts (ERP)">
                                         <div *ngIf="submitted && a.get('transmitterPower')?.errors"
                                             class="invalid-feedback">
-                                            <div *ngIf="a.get('transmitterPower')?.errors?.required">Field Is Required
+                                            <div *ngIf="a.get('transmitterPower')?.errors?.required">Transmitter Power Is Required
                                             </div>
                                         </div>
                                     </div>
@@ -404,7 +404,7 @@
                                             [ngClass]="{'is-invalid':submitted && a.get('frequency')?.errors}"
                                             placeholder="Enter Frequency (if known)">
                                         <div *ngIf="submitted && a.get('frequency')?.errors" class="invalid-feedback">
-                                            <div *ngIf="a.get('frequency')?.errors?.required">Field Is Required</div>
+                                            <div *ngIf="a.get('frequency')?.errors?.required">Frequency Is Required</div>
                                         </div>
                                     </div>
                                 </div>
@@ -456,7 +456,7 @@
                                             formControlName="systemSiteDesc" placeholder="Enter Describe"></textarea>
                                         <div *ngIf="submitted && a.get('systemSiteDesc')?.errors"
                                             class="invalid-feedback">
-                                            <div *ngIf="a.get('systemSiteDesc')?.errors?.required">Field Is Required
+                                            <div *ngIf="a.get('systemSiteDesc')?.errors?.required">Describe Is Required
                                             </div>
                                         </div>
                                     </div>
@@ -485,7 +485,7 @@
                                             placeholder="Enter Describe"></textarea>
                                         <div *ngIf="submitted && a.get('controlledLoadsDesc')?.errors"
                                             class="invalid-feedback">
-                                            <div *ngIf="a.get('controlledLoadsDesc')?.errors?.required">Field Is
+                                            <div *ngIf="a.get('controlledLoadsDesc')?.errors?.required">Describe Is
                                                 Required</div>
                                         </div>
                                     </div>
@@ -514,7 +514,7 @@
                                             placeholder="Enter Describe"></textarea>
                                         <div *ngIf="submitted && a.get('electricRailwayDesc')?.errors"
                                             class="invalid-feedback">
-                                            <div *ngIf="a.get('electricRailwayDesc')?.errors?.required">Field Is
+                                            <div *ngIf="a.get('electricRailwayDesc')?.errors?.required">Describe Is
                                                 Required</div>
                                         </div>
                                     </div>
@@ -542,7 +542,7 @@
                                             [ngClass]="{'is-invalid':submitted && a.get('hvTransmissionDesc')?.errors}"
                                             placeholder="Enter Describe"></textarea>
                                             <div *ngIf="submitted && a.get('hvTransmissionDesc')?.errors" class="invalid-feedback">
-                                            <div *ngIf="a.get('hvTransmissionDesc')?.errors?.required">Field Is Required</div>
+                                            <div *ngIf="a.get('hvTransmissionDesc')?.errors?.required">Describe Is Required</div>
                                         </div>
                                     </div>
                                 </div>
@@ -567,7 +567,7 @@
                                             [ngClass]="{'is-invalid':submitted && a.get('hpAcMangetsDesc')?.errors}"
                                             placeholder="Enter Describe"></textarea>
                                             <div *ngIf="submitted && a.get('hpAcMangetsDesc')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('hpAcMangetsDesc')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="a.get('hpAcMangetsDesc')?.errors?.required">Describe Is Required</div>
                                             </div>
                                     </div>
                                 </div>
@@ -618,7 +618,7 @@
                                             <option *ngFor="let value of selectionValue">{{value}}</option>
                                         </select>
                                         <div *ngIf="submitted && a.get('rfiSurvey')?.errors" class="invalid-feedback">
-                                            <div *ngIf="a.get('rfiSurvey')?.errors?.required">Field Is Required</div>
+                                            <div *ngIf="a.get('rfiSurvey')?.errors?.required">RFI Survey Needed Is Required</div>
                                         </div>
                                     </div>
                                 </div>
@@ -629,7 +629,7 @@
                                         [ngClass]="{'is-invalid':submitted && a.get('newRfiSurveyDesc')?.errors}"
                                             formControlName="newRfiSurveyDesc" placeholder="Enter Describe"></textarea>
                                             <div *ngIf="submitted && a.get('newRfiSurveyDesc')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('newRfiSurveyDesc')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="a.get('newRfiSurveyDesc')?.errors?.required">Describe Is Required</div>
                                             </div>
                                     </div>
                                 </div>
