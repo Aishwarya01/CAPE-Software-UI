@@ -18,14 +18,14 @@
                                     <i class="bi bi-text-paragraph"></i>
                                 </span>
                             </div>
-                            <textarea class="textarea-size" class="form-control" 
+                            <textarea class="textarea-size" class="form-control"
                                 formControlName="powerElectricalUtility"
                                 placeholder="describe type, demand, system earthing, protection at incoming...!"
                                 [ngClass]="{'is-invalid':submitted && f.powerElectricalUtility?.errors}"
                                 [(ngModel)]="emcPowerAndEarthingData.powerElectricalUtility"></textarea>
-                                <div *ngIf="submitted &&f.powerElectricalUtility?.errors" class="invalid-feedback">
-                                    <div *ngIf="f.powerElectricalUtility?.errors?.required">Field Is Required</div>
-                                </div>
+                            <div *ngIf="submitted &&f.powerElectricalUtility?.errors" class="invalid-feedback">
+                                <div *ngIf="f.powerElectricalUtility?.errors?.required">Field Is Required</div>
+                            </div>
                         </div>
                     </div>
 
@@ -38,13 +38,14 @@
                                     <i class="bi bi-text-paragraph"></i>
                                 </span>
                             </div>
-                            <textarea class="textarea-size" class="form-control" style="font-size: medium;" [(ngModel)]="emcPowerAndEarthingData.powerBackupSource"
+                            <textarea class="textarea-size" class="form-control" style="font-size: medium;"
+                                [(ngModel)]="emcPowerAndEarthingData.powerBackupSource"
                                 formControlName="powerBackupSource"
                                 [ngClass]="{'is-invalid':submitted && f.powerBackupSource?.errors}"
                                 placeholder="describe type, capacity, time delay, loads, etc...!"></textarea>
-                                <div *ngIf="submitted &&f.powerBackupSource?.errors" class="invalid-feedback">
-                                    <div *ngIf="f.powerBackupSource?.errors?.required">Field Is Required</div>
-                                </div>
+                            <div *ngIf="submitted &&f.powerBackupSource?.errors" class="invalid-feedback">
+                                <div *ngIf="f.powerBackupSource?.errors?.required">Field Is Required</div>
+                            </div>
                         </div>
                     </div>
 
@@ -57,12 +58,13 @@
                                     <i class="bi bi-text-paragraph"></i>
                                 </span>
                             </div>
-                            <textarea class="form-control" formControlName="powerDistanceHvLv" [(ngModel)]="emcPowerAndEarthingData.powerDistanceHvLv"
-                            [ngClass]="{'is-invalid':submitted && f.powerDistanceHvLv?.errors}"
+                            <textarea class="form-control" formControlName="powerDistanceHvLv"
+                                [(ngModel)]="emcPowerAndEarthingData.powerDistanceHvLv"
+                                [ngClass]="{'is-invalid':submitted && f.powerDistanceHvLv?.errors}"
                                 placeholder="In case transformer with in the premise (HV supply), describe this and the distance to the suppliers substation...!"></textarea>
-                                <div *ngIf="submitted &&f.powerDistanceHvLv?.errors" class="invalid-feedback">
-                                    <div *ngIf="f.powerDistanceHvLv?.errors?.required">Field Is Required</div>
-                                </div>
+                            <div *ngIf="submitted &&f.powerDistanceHvLv?.errors" class="invalid-feedback">
+                                <div *ngIf="f.powerDistanceHvLv?.errors?.required">Field Is Required</div>
+                            </div>
                         </div>
                     </div>
 
@@ -71,8 +73,9 @@
                         <label>4. Type of incoming cables from HV/LV substation:</label>
                         <br>
                         <div class="form-group">
-                            <select class="form-control" [(ngModel)]="emcPowerAndEarthingData.powerCableHvLv" formControlName="powerCableHvLv"
-                            [ngClass]="{'is-invalid':submitted && f.powerCableHvLv?.errors}">
+                            <select class="form-control" [(ngModel)]="emcPowerAndEarthingData.powerCableHvLv"
+                                formControlName="powerCableHvLv"
+                                [ngClass]="{'is-invalid':submitted && f.powerCableHvLv?.errors}">
                                 <option [ngValue]="null">Select Option</option>
                                 <option *ngFor="let value of incomingcable">{{value}}</option>
                             </select>
@@ -92,11 +95,13 @@
                                     <i class="bi bi-text-paragraph"></i>
                                 </span>
                             </div>
-                            <textarea class="textarea-size" class="form-control" [(ngModel)]="emcPowerAndEarthingData.powerDiscSupply" formControlName="powerDiscSupply"
-                                placeholder="Enter Discription of supply"  [ngClass]="{'is-invalid':submitted && f.powerDiscSupply?.errors}"></textarea>
-                                <div *ngIf="submitted &&f.powerDiscSupply?.errors" class="invalid-feedback">
-                                    <div *ngIf="f.powerDiscSupply?.errors?.required">Field Is Required</div>
-                                </div>
+                            <textarea class="textarea-size" class="form-control"
+                                [(ngModel)]="emcPowerAndEarthingData.powerDiscSupply" formControlName="powerDiscSupply"
+                                placeholder="Enter Discription of supply"
+                                [ngClass]="{'is-invalid':submitted && f.powerDiscSupply?.errors}"></textarea>
+                            <div *ngIf="submitted &&f.powerDiscSupply?.errors" class="invalid-feedback">
+                                <div *ngIf="f.powerDiscSupply?.errors?.required">Field Is Required</div>
+                            </div>
                         </div>
                     </div>
 
@@ -108,12 +113,14 @@
                             <div>
                                 <div>
                                     <label class="form-label">KVA: </label>
-                                    <input type="number" class="form-control" [(ngModel)]="emcPowerAndEarthingData.powerTransformationKVA" formControlName="powerTransformationKVA"
-                                    [ngClass]="{'is-invalid':submitted && f.powerTransformationKVA?.errors}"
+                                    <input type="number" class="form-control"
+                                        [(ngModel)]="emcPowerAndEarthingData.powerTransformationKVA"
+                                        formControlName="powerTransformationKVA"
+                                        [ngClass]="{'is-invalid':submitted && f.powerTransformationKVA?.errors}"
                                         placeholder="Enter KVA">
-                                        <div *ngIf="submitted &&f.powerTransformationKVA?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.powerTransformationKVA?.errors?.required">Field Is Required</div>
-                                        </div>
+                                    <div *ngIf="submitted &&f.powerTransformationKVA?.errors" class="invalid-feedback">
+                                        <div *ngIf="f.powerTransformationKVA?.errors?.required">Field Is Required</div>
+                                    </div>
                                 </div>
                             </div>
                             <br>
@@ -124,38 +131,46 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <label class="form-label">Volts:</label>
-                                    <input type="number" class="form-control" [(ngModel)]="emcPowerAndEarthingData.powerInputVolts" formControlName="powerInputVolts"
-                                        placeholder="Enter Volts"      [ngClass]="{'is-invalid':submitted && f.powerInputVolts?.errors}">
-                                        <div *ngIf="submitted &&f.powerInputVolts?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.powerInputVolts?.errors?.required">Field Is Required</div>
-                                        </div>
+                                    <input type="number" class="form-control"
+                                        [(ngModel)]="emcPowerAndEarthingData.powerInputVolts"
+                                        formControlName="powerInputVolts" placeholder="Enter Volts"
+                                        [ngClass]="{'is-invalid':submitted && f.powerInputVolts?.errors}">
+                                    <div *ngIf="submitted &&f.powerInputVolts?.errors" class="invalid-feedback">
+                                        <div *ngIf="f.powerInputVolts?.errors?.required">Field Is Required</div>
+                                    </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <label class="form-label">No. of phases:</label>
-                                    <input type="number" class="form-control" [(ngModel)]="emcPowerAndEarthingData.powerInputPhase" formControlName="powerInputPhase"
-                                        placeholder="Enter No. of phases"    [ngClass]="{'is-invalid':submitted && f.powerInputPhase?.errors}">
-                                        <div *ngIf="submitted &&f.powerInputPhase?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.powerInputPhase?.errors?.required">Field Is Required</div>
-                                        </div>
+                                    <input type="number" class="form-control"
+                                        [(ngModel)]="emcPowerAndEarthingData.powerInputPhase"
+                                        formControlName="powerInputPhase" placeholder="Enter No. of phases"
+                                        [ngClass]="{'is-invalid':submitted && f.powerInputPhase?.errors}">
+                                    <div *ngIf="submitted &&f.powerInputPhase?.errors" class="invalid-feedback">
+                                        <div *ngIf="f.powerInputPhase?.errors?.required">Field Is Required</div>
+                                    </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <label class="form-label">No. of wires:</label>
-                                    <input type="number" class="form-control" [(ngModel)]="emcPowerAndEarthingData.powerInputWires" formControlName="powerInputWires"
-                                        placeholder="Enter No. of wires"   [ngClass]="{'is-invalid':submitted && f.powerInputWires?.errors}">
-                                        <div *ngIf="submitted &&f.powerInputWires?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.powerInputWires?.errors?.required">Field Is Required</div>
-                                        </div>
+                                    <input type="number" class="form-control"
+                                        [(ngModel)]="emcPowerAndEarthingData.powerInputWires"
+                                        formControlName="powerInputWires" placeholder="Enter No. of wires"
+                                        [ngClass]="{'is-invalid':submitted && f.powerInputWires?.errors}">
+                                    <div *ngIf="submitted &&f.powerInputWires?.errors" class="invalid-feedback">
+                                        <div *ngIf="f.powerInputWires?.errors?.required">Field Is Required</div>
+                                    </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <label class="form-label">Feed (Delta/WYE):</label>
-                                    <input type="text" class="form-control" [(ngModel)]="emcPowerAndEarthingData.powerInputFeed" formControlName="powerInputFeed"
-                                        placeholder="Enter Feed (Delta/WYE)"  [ngClass]="{'is-invalid':submitted && f.powerInputFeed?.errors}">
-                                        <div *ngIf="submitted &&f.powerInputFeed?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.powerInputFeed?.errors?.required">Field Is Required</div>
-                                        </div>
+                                    <input type="text" class="form-control"
+                                        [(ngModel)]="emcPowerAndEarthingData.powerInputFeed"
+                                        formControlName="powerInputFeed" placeholder="Enter Feed (Delta/WYE)"
+                                        [ngClass]="{'is-invalid':submitted && f.powerInputFeed?.errors}">
+                                    <div *ngIf="submitted &&f.powerInputFeed?.errors" class="invalid-feedback">
+                                        <div *ngIf="f.powerInputFeed?.errors?.required">Field Is Required</div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -167,11 +182,14 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea class="textarea-size" class="form-control"  [ngClass]="{'is-invalid':submitted && f.powerInputDesc?.errors}"
-                                        formControlName="powerInputDesc" [(ngModel)]="emcPowerAndEarthingData.powerInputDesc" placeholder="Enter Describe Others"></textarea>
-                                        <div *ngIf="submitted &&f.powerInputDesc?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.powerInputDesc?.errors?.required">Field Is Required</div>
-                                        </div>
+                                    <textarea class="textarea-size" class="form-control"
+                                        [ngClass]="{'is-invalid':submitted && f.powerInputDesc?.errors}"
+                                        formControlName="powerInputDesc"
+                                        [(ngModel)]="emcPowerAndEarthingData.powerInputDesc"
+                                        placeholder="Enter Describe Others"></textarea>
+                                    <div *ngIf="submitted &&f.powerInputDesc?.errors" class="invalid-feedback">
+                                        <div *ngIf="f.powerInputDesc?.errors?.required">Field Is Required</div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -183,57 +201,69 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <label class="form-label">Volts:</label>
-                                        <input type="number" class="form-control" [(ngModel)]="emcPowerAndEarthingData.powerOutputVolts" formControlName="powerOutputVolts"
-                                            placeholder="Enter Volts" [ngClass]="{'is-invalid':submitted && f.powerOutputVolts?.errors}">
-                                            <div *ngIf="submitted &&f.powerOutputVolts?.errors" class="invalid-feedback">
-                                                <div *ngIf="f.powerOutputVolts?.errors?.required">Field Is Required</div>
-                                            </div>
+                                        <input type="number" class="form-control"
+                                            [(ngModel)]="emcPowerAndEarthingData.powerOutputVolts"
+                                            formControlName="powerOutputVolts" placeholder="Enter Volts"
+                                            [ngClass]="{'is-invalid':submitted && f.powerOutputVolts?.errors}">
+                                        <div *ngIf="submitted &&f.powerOutputVolts?.errors" class="invalid-feedback">
+                                            <div *ngIf="f.powerOutputVolts?.errors?.required">Field Is Required</div>
+                                        </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <label class="form-label">No. of phases:</label>
-                                        <input type="number" class="form-control" [(ngModel)]="emcPowerAndEarthingData.powerOutputPhase" formControlName="powerOutputPhase"
-                                            placeholder="Enter No. of phases"  [ngClass]="{'is-invalid':submitted && f.powerOutputPhase?.errors}">
-                                            <div *ngIf="submitted &&f.powerOutputPhase?.errors" class="invalid-feedback">
-                                                <div *ngIf="f.powerOutputPhase?.errors?.required">Field Is Required</div>
-                                            </div>
+                                        <input type="number" class="form-control"
+                                            [(ngModel)]="emcPowerAndEarthingData.powerOutputPhase"
+                                            formControlName="powerOutputPhase" placeholder="Enter No. of phases"
+                                            [ngClass]="{'is-invalid':submitted && f.powerOutputPhase?.errors}">
+                                        <div *ngIf="submitted &&f.powerOutputPhase?.errors" class="invalid-feedback">
+                                            <div *ngIf="f.powerOutputPhase?.errors?.required">Field Is Required</div>
+                                        </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <label class="form-label">No. of wires:</label>
-                                        <input type="number" class="form-control" [(ngModel)]="emcPowerAndEarthingData.powerOutputWires" formControlName="powerOutputWires"
-                                            placeholder="Enter No. of wires"  [ngClass]="{'is-invalid':submitted && f.powerOutputWires?.errors}">
-                                            <div *ngIf="submitted &&f.powerOutputWires?.errors" class="invalid-feedback">
-                                                <div *ngIf="f.powerOutputWires?.errors?.required">Field Is Required</div>
-                                            </div>
+                                        <input type="number" class="form-control"
+                                            [(ngModel)]="emcPowerAndEarthingData.powerOutputWires"
+                                            formControlName="powerOutputWires" placeholder="Enter No. of wires"
+                                            [ngClass]="{'is-invalid':submitted && f.powerOutputWires?.errors}">
+                                        <div *ngIf="submitted &&f.powerOutputWires?.errors" class="invalid-feedback">
+                                            <div *ngIf="f.powerOutputWires?.errors?.required">Field Is Required</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4">
                                         <label class="form-label">Feed (Delta/WYE):</label>
-                                        <input type="text" class="form-control" [(ngModel)]="emcPowerAndEarthingData.powerOutputFeed" formControlName="powerOutputFeed"
-                                            placeholder="Enter Feed (Delta/WYE)"  [ngClass]="{'is-invalid':submitted && f.powerOutputFeed?.errors}">
-                                            <div *ngIf="submitted &&f.powerOutputFeed?.errors" class="invalid-feedback">
-                                                <div *ngIf="f.powerOutputFeed?.errors?.required">Field Is Required</div>
-                                            </div>
+                                        <input type="text" class="form-control"
+                                            [(ngModel)]="emcPowerAndEarthingData.powerOutputFeed"
+                                            formControlName="powerOutputFeed" placeholder="Enter Feed (Delta/WYE)"
+                                            [ngClass]="{'is-invalid':submitted && f.powerOutputFeed?.errors}">
+                                        <div *ngIf="submitted &&f.powerOutputFeed?.errors" class="invalid-feedback">
+                                            <div *ngIf="f.powerOutputFeed?.errors?.required">Field Is Required</div>
+                                        </div>
                                     </div>
 
                                     <!-- Incoming (Amps) -->
 
                                     <div class="col-md-4">
                                         <label class="form-label">Incoming (Amps):</label>
-                                        <input type="number" class="form-control" [(ngModel)]="emcPowerAndEarthingData.powerIncomingAmps" formControlName="powerIncomingAmps"
-                                            placeholder="Enter Amps here"  [ngClass]="{'is-invalid':submitted && f.powerIncomingAmps?.errors}">
-                                            <div *ngIf="submitted &&f.powerIncomingAmps?.errors" class="invalid-feedback">
-                                                <div *ngIf="f.powerIncomingAmps?.errors?.required">Field Is Required</div>
-                                            </div>
+                                        <input type="number" class="form-control"
+                                            [(ngModel)]="emcPowerAndEarthingData.powerIncomingAmps"
+                                            formControlName="powerIncomingAmps" placeholder="Enter Amps here"
+                                            [ngClass]="{'is-invalid':submitted && f.powerIncomingAmps?.errors}">
+                                        <div *ngIf="submitted &&f.powerIncomingAmps?.errors" class="invalid-feedback">
+                                            <div *ngIf="f.powerIncomingAmps?.errors?.required">Field Is Required</div>
+                                        </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Neutral</label>
-                                            <select class="form-control" [(ngModel)]="emcPowerAndEarthingData.powerNeutral" formControlName="powerNeutral"
-                                            [ngClass]="{'is-invalid':submitted && f.powerNeutral?.errors}">
+                                            <select class="form-control"
+                                                [(ngModel)]="emcPowerAndEarthingData.powerNeutral"
+                                                formControlName="powerNeutral"
+                                                [ngClass]="{'is-invalid':submitted && f.powerNeutral?.errors}">
                                                 <option [ngValue]="null">Select Option</option>
                                                 <option *ngFor="let value of neutral">{{value}}</option>
                                             </select>
@@ -254,11 +284,13 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea class="textarea-size" class="form-control" [(ngModel)]="emcPowerAndEarthingData.psEarthing"  formControlName="psEarthing"
-                                        placeholder="describe how and where?"  [ngClass]="{'is-invalid':submitted && f.psEarthing?.errors}"></textarea>
-                                        <div *ngIf="submitted &&f.psEarthing?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.psEarthing?.errors?.required">Field Is Required</div>
-                                        </div>
+                                    <textarea class="textarea-size" class="form-control"
+                                        [(ngModel)]="emcPowerAndEarthingData.psEarthing" formControlName="psEarthing"
+                                        placeholder="describe how and where?"
+                                        [ngClass]="{'is-invalid':submitted && f.psEarthing?.errors}"></textarea>
+                                    <div *ngIf="submitted &&f.psEarthing?.errors" class="invalid-feedback">
+                                        <div *ngIf="f.psEarthing?.errors?.required">Field Is Required</div>
+                                    </div>
                                 </div>
                             </div>
                             <br>
@@ -266,11 +298,13 @@
                                 <label class="form-label">Attach SLD of power supply system</label>
                                 <div class="input-group mb-3">
                                     <label for="inputGroupFile01">Upload</label>
-                                    <input type="file" class="form-control" id="inputGroupFile01" [(ngModel)]="emcPowerAndEarthingData.peAttachement"
-                                        formControlName="peAttachement"  [ngClass]="{'is-invalid':submitted && f.peAttachement?.errors}">
-                                        <div *ngIf="submitted &&f.peAttachement?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.peAttachement?.errors?.required">Field Is Required</div>
-                                        </div>
+                                    <input type="file" class="form-control" id="inputGroupFile01"
+                                        [(ngModel)]="emcPowerAndEarthingData.peAttachement"
+                                        formControlName="peAttachement"
+                                        [ngClass]="{'is-invalid':submitted && f.peAttachement?.errors}">
+                                    <div *ngIf="submitted &&f.peAttachement?.errors" class="invalid-feedback">
+                                        <div *ngIf="f.peAttachement?.errors?.required">Field Is Required</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -281,8 +315,9 @@
                         <label class="form-label">6. Building Service Entrance</label>
                         <div>
                             <label class="form-label">Dedicated transformer:</label>
-                            <select class="form-control" [(ngModel)]="emcPowerAndEarthingData.dedicatedTransfermation" formControlName="dedicatedTransfermation"
-                            [ngClass]="{'is-invalid':submitted && f.dedicatedTransfermation?.errors}">
+                            <select class="form-control" [(ngModel)]="emcPowerAndEarthingData.dedicatedTransfermation"
+                                formControlName="dedicatedTransfermation"
+                                [ngClass]="{'is-invalid':submitted && f.dedicatedTransfermation?.errors}">
                                 <option [ngValue]="null">Select Option</option>
                                 <option *ngFor="let value of selectionValue">{{value}}</option>
                             </select>
@@ -299,12 +334,16 @@
                                         <i class="bi bi-text-paragraph"></i>
                                     </span>
                                 </div>
-                                <textarea class="textarea-size" class="form-control" [(ngModel)]="emcPowerAndEarthingData.dedicatedTransfermationOtherBuilding"
-                                    formControlName="dedicatedTransfermationOtherBuilding"  [ngClass]="{'is-invalid':submitted && f.dedicatedTransfermationOtherBuilding?.errors}"
+                                <textarea class="textarea-size" class="form-control"
+                                    [(ngModel)]="emcPowerAndEarthingData.dedicatedTransfermationOtherBuilding"
+                                    formControlName="dedicatedTransfermationOtherBuilding"
+                                    [ngClass]="{'is-invalid':submitted && f.dedicatedTransfermationOtherBuilding?.errors}"
                                     placeholder="Enter If no, which are the other buildings / loads connected to the transformer"></textarea>
-                                    <div *ngIf="submitted &&f.dedicatedTransfermationOtherBuilding?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.dedicatedTransfermationOtherBuilding?.errors?.required">Field Is Required</div>
-                                    </div>
+                                <div *ngIf="submitted &&f.dedicatedTransfermationOtherBuilding?.errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="f.dedicatedTransfermationOtherBuilding?.errors?.required">Field Is
+                                        Required</div>
+                                </div>
                             </div>
                         </div>
 
@@ -318,12 +357,14 @@
                                         <i class="bi bi-text-paragraph"></i>
                                     </span>
                                 </div>
-                                <textarea class="textarea-size" class="form-control" [(ngModel)]="emcPowerAndEarthingData.typeOFIncoming" formControlName="typeOFIncoming"
-                                [ngClass]="{'is-invalid':submitted && f.typeOFIncoming?.errors}"
+                                <textarea class="textarea-size" class="form-control"
+                                    [(ngModel)]="emcPowerAndEarthingData.typeOFIncoming"
+                                    formControlName="typeOFIncoming"
+                                    [ngClass]="{'is-invalid':submitted && f.typeOFIncoming?.errors}"
                                     placeholder="metallic conduit / non metallic conduit / others...!"></textarea>
-                                    <div *ngIf="submitted &&f.typeOFIncoming?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.typeOFIncoming?.errors?.required">Field Is Required</div>
-                                    </div>
+                                <div *ngIf="submitted &&f.typeOFIncoming?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.typeOFIncoming?.errors?.required">Field Is Required</div>
+                                </div>
                             </div>
                         </div>
 
@@ -336,12 +377,13 @@
                                         <i class="bi bi-text-paragraph"></i>
                                     </span>
                                 </div>
-                                <textarea class="textarea-size" class="form-control" [(ngModel)]="emcPowerAndEarthingData.descOfService" formControlName="descOfService"
-                                [ngClass]="{'is-invalid':submitted && f.descOfService?.errors}"
+                                <textarea class="textarea-size" class="form-control"
+                                    [(ngModel)]="emcPowerAndEarthingData.descOfService" formControlName="descOfService"
+                                    [ngClass]="{'is-invalid':submitted && f.descOfService?.errors}"
                                     placeholder="foundation earth / building steel / ring earth / rod / multiple rods / grid / earth plate / burried conduit / metal water pipe etc...!"></textarea>
-                                    <div *ngIf="submitted &&f.descOfService?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.descOfService?.errors?.required">Field Is Required</div>
-                                    </div>
+                                <div *ngIf="submitted &&f.descOfService?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.descOfService?.errors?.required">Field Is Required</div>
+                                </div>
                             </div>
                         </div>
 
@@ -355,12 +397,14 @@
                                         <i class="bi bi-text-paragraph"></i>
                                     </span>
                                 </div>
-                                <textarea class="textarea-size" class="form-control" [(ngModel)]="emcPowerAndEarthingData.descOfTestingService"
-                                    formControlName="descOfTestingService"  [ngClass]="{'is-invalid':submitted && f.descOfTestingService?.errors}"
+                                <textarea class="textarea-size" class="form-control"
+                                    [(ngModel)]="emcPowerAndEarthingData.descOfTestingService"
+                                    formControlName="descOfTestingService"
+                                    [ngClass]="{'is-invalid':submitted && f.descOfTestingService?.errors}"
                                     placeholder="Date of testing / Name of person who did the testing / value (impedance in ohms)...!"></textarea>
-                                    <div *ngIf="submitted &&f.descOfTestingService?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.descOfTestingService?.errors?.required">Field Is Required</div>
-                                    </div>
+                                <div *ngIf="submitted &&f.descOfTestingService?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.descOfTestingService?.errors?.required">Field Is Required</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -376,17 +420,18 @@
                                         <i class="bi bi-text-paragraph"></i>
                                     </span>
                                 </div>
-                                <textarea class="textarea-size" class="form-control" [(ngModel)]="emcPowerAndEarthingData.descOfEquipotentilaBonding"
-                                    formControlName="descOfEquipotentilaBonding"  [ngClass]="{'is-invalid':submitted && f.descOfEquipotentilaBonding?.errors}"
+                                <textarea class="textarea-size" class="form-control"
+                                    [(ngModel)]="emcPowerAndEarthingData.descOfEquipotentilaBonding"
+                                    formControlName="descOfEquipotentilaBonding"
+                                    [ngClass]="{'is-invalid':submitted && f.descOfEquipotentilaBonding?.errors}"
                                     placeholder="Ex...yes/no. If yes, type and rating of SPD's...!"></textarea>
-                                    <div *ngIf="submitted &&f.descOfEquipotentilaBonding?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.descOfEquipotentilaBonding?.errors?.required">Field Is Required</div>
-                                    </div>
+                                <div *ngIf="submitted &&f.descOfEquipotentilaBonding?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.descOfEquipotentilaBonding?.errors?.required">Field Is Required</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </mat-expansion-panel>
-
 
                 <div formArrayName="electronicSystemArr" *ngFor="let a of getElectronicSystemControl(); let i = index">
                     <div class="form-group" [formGroupName]="i">
@@ -404,11 +449,12 @@
                                                 <i class="bi bi-text-paragraph"></i>
                                             </span>
                                         </div>
-                                        <textarea class="textarea-size" class="form-control" formControlName="bDSld"  [ngClass]="{'is-invalid':submitted && a.get('bDSld')?.errors}"
+                                        <textarea class="textarea-size" class="form-control" formControlName="bDSld"
+                                            [ngClass]="{'is-invalid':submitted && a.get('bDSld')?.errors}"
                                             placeholder="Ex. An one-line diagram of the site power distribution system from the service entrance to the electronic system power distribution panel(s). Show all transformers, load centres, power conditioning equipment, emergency load transfer switches, etc. Also indicate nominal voltage, kVA, type of feed, how run, number of conductors, and approximate length of feeders involved...!"></textarea>
-                                            <div *ngIf="submitted &&a.get('bDSld')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('bDSld')?.errors?.required">Field Is Required</div>
-                                            </div>
+                                        <div *ngIf="submitted &&a.get('bDSld')?.errors" class="invalid-feedback">
+                                            <div *ngIf="a.get('bDSld')?.errors?.required">Field Is Required</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <br>
@@ -437,11 +483,12 @@
                                             </span>
                                         </div>
                                         <textarea class="textarea-size" class="form-control"
-                                            formControlName="bDRecordData"[ngClass]="{'is-invalid':submitted && a.get('bDRecordData')?.errors}"
+                                            formControlName="bDRecordData"
+                                            [ngClass]="{'is-invalid':submitted && a.get('bDRecordData')?.errors}"
                                             placeholder="Ex. Record data (including name-plate data) note any power conditioning equipment and/or last transformer before electronic system load...!"></textarea>
-                                            <div *ngIf="submitted &&a.get('bDRecordData')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('bDRecordData')?.errors?.required">Field Is Required</div>
-                                            </div>
+                                        <div *ngIf="submitted &&a.get('bDRecordData')?.errors" class="invalid-feedback">
+                                            <div *ngIf="a.get('bDRecordData')?.errors?.required">Field Is Required</div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -455,11 +502,12 @@
                                             </span>
                                         </div>
                                         <textarea class="textarea-size" class="form-control"
-                                            formControlName="bDEarthing" [ngClass]="{'is-invalid':submitted && a.get('bDEarthing')?.errors}"
+                                            formControlName="bDEarthing"
+                                            [ngClass]="{'is-invalid':submitted && a.get('bDEarthing')?.errors}"
                                             placeholder="Ex. Describe how and where earthing of power conditioning equipment carried out...!"></textarea>
-                                            <div *ngIf="submitted &&a.get('bDEarthing')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('bDEarthing')?.errors?.required">Field Is Required</div>
-                                            </div>
+                                        <div *ngIf="submitted &&a.get('bDEarthing')?.errors" class="invalid-feedback">
+                                            <div *ngIf="a.get('bDEarthing')?.errors?.required">Field Is Required</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -482,11 +530,14 @@
                                             </span>
                                         </div>
                                         <textarea class="textarea-size" class="form-control"
-                                            formControlName="electronicDesc" [ngClass]="{'is-invalid':submitted && a.get('electronicDesc')?.errors}"
+                                            formControlName="electronicDesc"
+                                            [ngClass]="{'is-invalid':submitted && a.get('electronicDesc')?.errors}"
                                             placeholder="Ex. Using the SLD, sketch the system power and ground distribution system, including all major components in (or immediately adjacent to) the computer room. Clearly identify all major components...!"></textarea>
-                                            <div *ngIf="submitted &&a.get('electronicDesc')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('electronicDesc')?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="submitted &&a.get('electronicDesc')?.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="a.get('electronicDesc')?.errors?.required">Field Is Required
                                             </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <br>
@@ -502,11 +553,14 @@
                                             </td>
 
                                             <td>
-                                                <input type="number" class="form-control" formControlName="panelId" [ngClass]="{'is-invalid':submitted && a.get('panelId')?.errors}"
+                                                <input type="number" class="form-control" formControlName="panelId"
+                                                    [ngClass]="{'is-invalid':submitted && a.get('panelId')?.errors}"
                                                     placeholder="Enter ID here">
-                                                    <div *ngIf="submitted &&a.get('panelId')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('panelId')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="submitted &&a.get('panelId')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('panelId')?.errors?.required">Field Is Required
                                                     </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     </table>
@@ -523,10 +577,13 @@
                                             </td>
                                             <td>
                                                 <input type="text" class="form-control" formControlName="namePlateData"
-                                                    placeholder="Name (manufacturer)"  [ngClass]="{'is-invalid':submitted && a.get('namePlateData')?.errors}">
-                                                    <div *ngIf="submitted &&a.get('namePlateData')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('namePlateData')?.errors?.required">Field Is Required</div>
-                                                    </div>
+                                                    placeholder="Name (manufacturer)"
+                                                    [ngClass]="{'is-invalid':submitted && a.get('namePlateData')?.errors}">
+                                                <div *ngIf="submitted &&a.get('namePlateData')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('namePlateData')?.errors?.required">Field Is
+                                                        Required</div>
+                                                </div>
                                             </td>
                                         </tr>
                                     </table>
@@ -542,14 +599,16 @@
                                             </td>
                                             <td style="width: 36rem;">
                                                 <select class="form-control" formControlName="mainCircuteBraker"
-                                                [ngClass]="{'is-invalid':submitted && a.get('mainCircuteBraker')?.errors}">
+                                                    [ngClass]="{'is-invalid':submitted && a.get('mainCircuteBraker')?.errors}">
                                                     <!-- <option value="o">choose yes/no</option> -->
                                                     <option [ngValue]="null">Select Option</option>
                                                     <option value="1">Yes</option>
                                                     <option value="2">No</option>
                                                 </select>
-                                                <div *ngIf="submitted &&a.get('mainCircuteBraker')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="a.get('mainCircuteBraker')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="submitted &&a.get('mainCircuteBraker')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('mainCircuteBraker')?.errors?.required">Field Is
+                                                        Required</div>
                                                 </div>
                                             </td>
                                             <td>
@@ -558,10 +617,13 @@
                             width: 50px;
                             background: transparent;
                             border: none;
-                            border-bottom: 1px solid #000000;" formControlName="mainCircuteBrakerRating"  [ngClass]="{'is-invalid':submitted && a.get('mainCircuteBrakerRating')?.errors}">
+                            border-bottom: 1px solid #000000;" formControlName="mainCircuteBrakerRating"
+                                                        [ngClass]="{'is-invalid':submitted && a.get('mainCircuteBrakerRating')?.errors}">
                                                 </p>
-                                                <div *ngIf="submitted &&a.get('mainCircuteBrakerRating')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="a.get('mainCircuteBrakerRating')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="submitted &&a.get('mainCircuteBrakerRating')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('mainCircuteBrakerRating')?.errors?.required">
+                                                        Field Is Required</div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -572,13 +634,15 @@
                                 width: 50px;
                                 background: transparent;
                                 border: none;
-                                border-bottom: 1px solid #000000;" formControlName="emergencyTripRemote"  [ngClass]="{'is-invalid':submitted && a.get('emergencyTripRemote')?.errors}" />
-                                 local<input
-                                                        type="text" style=" 
+                                border-bottom: 1px solid #000000;" formControlName="emergencyTripRemote"
+                                                        [ngClass]="{'is-invalid':submitted && a.get('emergencyTripRemote')?.errors}" />
+                                                    local<input type="text" style=" 
                                 width: 50px;
                                 background: transparent;
                                 border: none;
-                                border-bottom: 1px solid #000000;" formControlName="emergencyTripLocal"   [ngClass]="{'is-invalid':submitted && a.get('emergencyTripLocal')?.errors}"/> none</p>
+                                border-bottom: 1px solid #000000;" formControlName="emergencyTripLocal"
+                                                        [ngClass]="{'is-invalid':submitted && a.get('emergencyTripLocal')?.errors}" />
+                                                    none</p>
 
                                             </td>
                                         </tr>
@@ -597,10 +661,12 @@
                                             <td>
                                                 <input type="text" class="form-control" formControlName="otherTrip"
                                                     placeholder="Under voltage / over voltage"
-                                                    [ngClass]="{'is-invalid':submitted && a.get('otherTrip')?.errors}" >
-                                                    <div *ngIf="submitted &&a.get('otherTrip')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('otherTrip')?.errors?.required">Field Is Required</div>
+                                                    [ngClass]="{'is-invalid':submitted && a.get('otherTrip')?.errors}">
+                                                <div *ngIf="submitted &&a.get('otherTrip')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('otherTrip')?.errors?.required">Field Is Required
                                                     </div>
+                                                </div>
                                             </td>
                                         </tr>
 
@@ -609,12 +675,15 @@
                                                 <label class="form-label">Differential protection:</label>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control"   [ngClass]="{'is-invalid':submitted && a.get('differentalProtection')?.errors}"
+                                                <input type="text" class="form-control"
+                                                    [ngClass]="{'is-invalid':submitted && a.get('differentalProtection')?.errors}"
                                                     formControlName="differentalProtection"
                                                     placeholder="Enter Differential protection">
-                                                    <div *ngIf="submitted &&a.get('differentalProtection')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('differentalProtection')?.errors?.required">Field Is Required</div>
-                                                    </div>
+                                                <div *ngIf="submitted &&a.get('differentalProtection')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('differentalProtection')?.errors?.required">Field
+                                                        Is Required</div>
+                                                </div>
                                             </td>
                                         </tr>
 
@@ -633,11 +702,14 @@
                                                     steel:</label>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" formControlName="bouodingStell"  [ngClass]="{'is-invalid':submitted && a.get('bouodingStell')?.errors}"
+                                                <input type="text" class="form-control" formControlName="bouodingStell"
+                                                    [ngClass]="{'is-invalid':submitted && a.get('bouodingStell')?.errors}"
                                                     placeholder="YES / NO. Describe bond location - external or internal steel member">
-                                                    <div *ngIf="submitted &&a.get('bouodingStell')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('bouodingStell')?.errors?.required">Field Is Required</div>
-                                                    </div>
+                                                <div *ngIf="submitted &&a.get('bouodingStell')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('bouodingStell')?.errors?.required">Field Is
+                                                        Required</div>
+                                                </div>
                                             </td>
                                         </tr>
                                     </table>
@@ -652,11 +724,14 @@
                                                 <label class="form-label">Panel feed:</label>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" formControlName="panelFeed"  [ngClass]="{'is-invalid':submitted && a.get('panelFeed')?.errors}"
+                                                <input type="text" class="form-control" formControlName="panelFeed"
+                                                    [ngClass]="{'is-invalid':submitted && a.get('panelFeed')?.errors}"
                                                     placeholder="WYE / DELTA / SPLIT PHASE / Single phase / No of wires">
-                                                    <div *ngIf="submitted &&a.get('panelFeed')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('panelFeed')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="submitted &&a.get('panelFeed')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('panelFeed')?.errors?.required">Field Is Required
                                                     </div>
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr>
@@ -664,11 +739,14 @@
                                                 <label class="form-label">Phase wires:</label>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" formControlName="phaseWires"  [ngClass]="{'is-invalid':submitted && a.get('phaseWires')?.errors}"
+                                                <input type="text" class="form-control" formControlName="phaseWires"
+                                                    [ngClass]="{'is-invalid':submitted && a.get('phaseWires')?.errors}"
                                                     placeholder="Cu / Al, Size, Number and insulation type">
-                                                    <div *ngIf="submitted &&a.get('phaseWires')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('phaseWires')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="submitted &&a.get('phaseWires')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('phaseWires')?.errors?.required">Field Is Required
                                                     </div>
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr>
@@ -677,11 +755,13 @@
                                             </td>
                                             <td>
                                                 <input type="text" class="form-control" formControlName="neutralWire"
-                                                [ngClass]="{'is-invalid':submitted && a.get('neutralWire')?.errors}"
+                                                    [ngClass]="{'is-invalid':submitted && a.get('neutralWire')?.errors}"
                                                     placeholder="Cu / Al, Size, Number and insulation type">
-                                                    <div *ngIf="submitted &&a.get('neutralWire')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('neutralWire')?.errors?.required">Field Is Required</div>
-                                                    </div>
+                                                <div *ngIf="submitted &&a.get('neutralWire')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('neutralWire')?.errors?.required">Field Is
+                                                        Required</div>
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr>
@@ -690,11 +770,13 @@
                                             </td>
                                             <td>
                                                 <input type="text" class="form-control" formControlName="peWireSize"
-                                                [ngClass]="{'is-invalid':submitted && a.get('peWireSize')?.errors}"
+                                                    [ngClass]="{'is-invalid':submitted && a.get('peWireSize')?.errors}"
                                                     placeholder="Cu / Al, Size, Number and insulation type">
-                                                    <div *ngIf="submitted &&a.get('peWireSize')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('peWireSize')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="submitted &&a.get('peWireSize')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('peWireSize')?.errors?.required">Field Is Required
                                                     </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     </table>
@@ -707,12 +789,15 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input type="text" class="form-control"  [ngClass]="{'is-invalid':submitted && a.get('pannelConnectors')?.errors}"
+                                                <input type="text" class="form-control"
+                                                    [ngClass]="{'is-invalid':submitted && a.get('pannelConnectors')?.errors}"
                                                     formControlName="pannelConnectors"
                                                     placeholder="Type - Cu / Al, Cu/Al">
-                                                    <div *ngIf="submitted &&a.get('pannelConnectors')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('pannelConnectors')?.errors?.required">Field Is Required</div>
-                                                    </div>
+                                                <div *ngIf="submitted &&a.get('pannelConnectors')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('pannelConnectors')?.errors?.required">Field Is
+                                                        Required</div>
+                                                </div>
                                             </td>
                                         </tr>
                                         <!--  <tr>
@@ -740,32 +825,41 @@
                                         <tr>
                                             <td style="font-size: 100%; width: 25rem;">Neutral bus:</td>
                                             <td>
-                                                <input type="text" class="form-control" formControlName="neutralBus"  [ngClass]="{'is-invalid':submitted && a.get('neutralBus')?.errors}"
+                                                <input type="text" class="form-control" formControlName="neutralBus"
+                                                    [ngClass]="{'is-invalid':submitted && a.get('neutralBus')?.errors}"
                                                     placeholder="insulated from panel?? (check for bonding screws / straps) etc">
-                                                    <div *ngIf="submitted &&a.get('neutralBus')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('neutralBus')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="submitted &&a.get('neutralBus')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('neutralBus')?.errors?.required">Field Is Required
                                                     </div>
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td style="font-size: 100%;">Earth bus:</td>
                                             <td>
-                                                <input type="text" class="form-control" formControlName="earthBus"  [ngClass]="{'is-invalid':submitted && a.get('earthBus')?.errors}"
+                                                <input type="text" class="form-control" formControlName="earthBus"
+                                                    [ngClass]="{'is-invalid':submitted && a.get('earthBus')?.errors}"
                                                     placeholder="(available  / not available) (insulated / uninsulated) quality of bonding">
-                                                    <div *ngIf="submitted &&a.get('earthBus')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('earthBus')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="submitted &&a.get('earthBus')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('earthBus')?.errors?.required">Field Is Required
                                                     </div>
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td style="font-size: 100%;">List of non electronic loads on earth bus:</td>
                                             <td>
-                                                <input type="text" class="form-control"  [ngClass]="{'is-invalid':submitted && a.get('listOfNonElectronicLoad')?.errors}"
+                                                <input type="text" class="form-control"
+                                                    [ngClass]="{'is-invalid':submitted && a.get('listOfNonElectronicLoad')?.errors}"
                                                     formControlName="listOfNonElectronicLoad"
                                                     placeholder="List of non electronic loads on earth bus">
-                                                    <div *ngIf="submitted &&a.get('listOfNonElectronicLoad')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('listOfNonElectronicLoad')?.errors?.required">Field Is Required</div>
-                                                    </div>
+                                                <div *ngIf="submitted &&a.get('listOfNonElectronicLoad')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('listOfNonElectronicLoad')?.errors?.required">
+                                                        Field Is Required</div>
+                                                </div>
                                             </td>
                                         </tr>
                                     </table>
@@ -781,11 +875,14 @@
                                             </td>
                                             <td>
                                                 <input type="text" class="form-control"
-                                                    formControlName="dedicatedElectronicSystem" [ngClass]="{'is-invalid':submitted && a.get('dedicatedElectronicSystem')?.errors}"
+                                                    formControlName="dedicatedElectronicSystem"
+                                                    [ngClass]="{'is-invalid':submitted && a.get('dedicatedElectronicSystem')?.errors}"
                                                     placeholder="Enter Dediated to electronic system?">
-                                                    <div *ngIf="submitted &&a.get('dedicatedElectronicSystem')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('dedicatedElectronicSystem')?.errors?.required">Field Is Required</div>
-                                                    </div>
+                                                <div *ngIf="submitted &&a.get('dedicatedElectronicSystem')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('dedicatedElectronicSystem')?.errors?.required">
+                                                        Field Is Required</div>
+                                                </div>
                                             </td>
                                         </tr>
                                         <tr>
@@ -793,12 +890,15 @@
                                                 convenience
                                                 receptacles:</td>
                                             <td>
-                                                <input type="text" class="form-control"  [ngClass]="{'is-invalid':submitted && a.get('nonComputerLoads')?.errors}"
+                                                <input type="text" class="form-control"
+                                                    [ngClass]="{'is-invalid':submitted && a.get('nonComputerLoads')?.errors}"
                                                     formControlName="nonComputerLoads" placeholder="Enter List all non computer loads, including any
                                         convenience receptacles">
-                                        <div *ngIf="submitted &&a.get('nonComputerLoads')?.errors" class="invalid-feedback">
-                                            <div *ngIf="a.get('nonComputerLoads')?.errors?.required">Field Is Required</div>
-                                        </div>
+                                                <div *ngIf="submitted &&a.get('nonComputerLoads')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('nonComputerLoads')?.errors?.required">Field Is
+                                                        Required</div>
+                                                </div>
                                             </td>
                                         </tr>
 
@@ -823,10 +923,10 @@
                                 <label class="form-label">a. Branch circuit wire size</label>
                                 <br>
                                 <label class="form-label">Wire size compatilble to circuit braker</label>
-                                <select class="form-control" formControlName="cbWireSize"  [ngClass]="{'is-invalid':submitted && b.get('nonComputerLoads')?.errors}">
+                                <select class="form-control" formControlName="cbWireSize"
+                                    [ngClass]="{'is-invalid':submitted && b.get('nonComputerLoads')?.errors}">
                                     <option [ngValue]="null">Select Option</option>
-                                    <option value="">Yes</option>
-                                    <option value="">No</option>
+                                    <option *ngFor="let value of selectionValue">{{value}}</option>
                                 </select>
                                 <div *ngIf="submitted &&b.get('cbWireSize')?.errors" class="invalid-feedback">
                                     <div *ngIf="b.get('cbWireSize')?.errors?.required">Field Is Required</div>
@@ -839,23 +939,25 @@
                                                 <i class="bi bi-text-paragraph"></i>
                                             </span>
                                         </div>
-                                        <textarea class="textarea-size" class="form-control" formControlName="cbDesc"  [ngClass]="{'is-invalid':submitted && b.get('cbDesc')?.errors}"
+                                        <textarea class="textarea-size" class="form-control" formControlName="cbDesc"
+                                            [ngClass]="{'is-invalid':submitted && b.get('cbDesc')?.errors}"
                                             placeholder="Description"></textarea>
-                                            <div *ngIf="submitted &&b.get('cbDesc')?.errors" class="invalid-feedback">
-                                                <div *ngIf="b.get('cbDesc')?.errors?.required">Field Is Required</div>
-                                            </div>
+                                        <div *ngIf="submitted &&b.get('cbDesc')?.errors" class="invalid-feedback">
+                                            <div *ngIf="b.get('cbDesc')?.errors?.required">Field Is Required</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div>
                                     <label class="form-label">Matches receptable:</label>
                                     <select name="" id="" class="form-control" formControlName="matchesReceptable"
-                                    [ngClass]="{'is-invalid':submitted && b.get('matchesReceptable')?.errors}">
+                                        [ngClass]="{'is-invalid':submitted && b.get('matchesReceptable')?.errors}">
                                         <option [ngValue]="null">Select Option</option>
-                                        <option value="">Yes</option>
-                                        <option value="">No</option>
+                                        <option *ngFor="let value of selectionValue">{{value}}</option>
                                     </select>
-                                    <div *ngIf="submitted &&b.get('matchesReceptable')?.errors" class="invalid-feedback">
-                                        <div *ngIf="b.get('matchesReceptable')?.errors?.required">Field Is Required</div>
+                                    <div *ngIf="submitted &&b.get('matchesReceptable')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="b.get('matchesReceptable')?.errors?.required">Field Is Required
+                                        </div>
                                     </div>
                                     <div>
                                         <label class="form-label">Description</label>
@@ -865,12 +967,15 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea class="textarea-size" class="form-control" formControlName="matchesReceptableDesc"
-                                            [ngClass]="{'is-invalid':submitted && b.get('matchesReceptableDesc')?.errors}"
+                                            <textarea class="textarea-size" class="form-control"
+                                                formControlName="matchesReceptableDesc"
+                                                [ngClass]="{'is-invalid':submitted && b.get('matchesReceptableDesc')?.errors}"
                                                 placeholder="Description"></textarea>
-                                                <div *ngIf="submitted &&b.get('matchesReceptableDesc')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="b.get('matchesReceptableDesc')?.errors?.required">Field Is Required</div>
-                                                </div>
+                                            <div *ngIf="submitted &&b.get('matchesReceptableDesc')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="b.get('matchesReceptableDesc')?.errors?.required">Field Is
+                                                    Required</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -882,10 +987,9 @@
                                     <label class="form-label">b. Individual insulated PE wire run in each
                                         electronics load circuit</label>
                                     <select name="" id="" class="form-control" formControlName="indivdialPwire"
-                                    [ngClass]="{'is-invalid':submitted && b.get('indivdialPwire')?.errors}">
+                                        [ngClass]="{'is-invalid':submitted && b.get('indivdialPwire')?.errors}">
                                         <option [ngValue]="null">Select Option</option>
-                                        <option value="">Yes</option>
-                                        <option value="">No</option>
+                                        <option *ngFor="let value of selectionValue">{{value}}</option>
                                     </select>
                                     <div *ngIf="submitted &&b.get('indivdialPwire')?.errors" class="invalid-feedback">
                                         <div *ngIf="b.get('indivdialPwire')?.errors?.required">Field Is Required</div>
@@ -898,12 +1002,15 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea class="textarea-size" class="form-control" formControlName="indivdialPwireDesc"
-                                            [ngClass]="{'is-invalid':submitted && b.get('indivdialPwireDesc')?.errors}"
+                                            <textarea class="textarea-size" class="form-control"
+                                                formControlName="indivdialPwireDesc"
+                                                [ngClass]="{'is-invalid':submitted && b.get('indivdialPwireDesc')?.errors}"
                                                 placeholder="Description"></textarea>
-                                                <div *ngIf="submitted &&b.get('indivdialPwireDesc')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="b.get('indivdialPwireDesc')?.errors?.required">Field Is Required</div>
-                                                </div>
+                                            <div *ngIf="submitted &&b.get('indivdialPwireDesc')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="b.get('indivdialPwireDesc')?.errors?.required">Field Is
+                                                    Required</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -915,13 +1022,14 @@
                                     <label class="form-label">c. Individual insulated neutral wire run in each
                                         computer load circuit (if necessary??</label>
                                     <select name="" id="" class="form-control" formControlName="indivdialNeutralwire"
-                                    [ngClass]="{'is-invalid':submitted && b.get('indivdialNeutralwire')?.errors}">
+                                        [ngClass]="{'is-invalid':submitted && b.get('indivdialNeutralwire')?.errors}">
                                         <option [ngValue]="null">Select Option</option>
-                                        <option value="">Yes</option>
-                                        <option value="">No</option>
+                                        <option *ngFor="let value of selectionValue">{{value}}</option>
                                     </select>
-                                    <div *ngIf="submitted &&b.get('indivdialNeutralwire')?.errors" class="invalid-feedback">
-                                        <div *ngIf="b.get('indivdialNeutralwire')?.errors?.required">Field Is Required</div>
+                                    <div *ngIf="submitted &&b.get('indivdialNeutralwire')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="b.get('indivdialNeutralwire')?.errors?.required">Field Is Required
+                                        </div>
                                     </div>
                                     <div>
                                         <label class="form-label">Description</label>
@@ -931,12 +1039,15 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea class="textarea-size" class="form-control" formControlName="indivdialNeutralwireDesc"
-                                            [ngClass]="{'is-invalid':submitted && b.get('indivdialNeutralwireDesc')?.errors}"
+                                            <textarea class="textarea-size" class="form-control"
+                                                formControlName="indivdialNeutralwireDesc"
+                                                [ngClass]="{'is-invalid':submitted && b.get('indivdialNeutralwireDesc')?.errors}"
                                                 placeholder="Description"></textarea>
-                                                <div *ngIf="submitted &&b.get('indivdialNeutralwireDesc')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="b.get('indivdialNeutralwireDesc')?.errors?.required">Field Is Required</div>
-                                                </div>
+                                            <div *ngIf="submitted &&b.get('indivdialNeutralwireDesc')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="b.get('indivdialNeutralwireDesc')?.errors?.required">Field
+                                                    Is Required</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -948,13 +1059,14 @@
                                     <label class="form-label">d. All computer load circuits coorectly
                                         identified</label>
                                     <select name="" id="" class="form-control" formControlName="computerLoadCircute"
-                                    [ngClass]="{'is-invalid':submitted && b.get('computerLoadCircute')?.errors}">
+                                        [ngClass]="{'is-invalid':submitted && b.get('computerLoadCircute')?.errors}">
                                         <option [ngValue]="null">Select Option</option>
-                                        <option value="">Yes</option>
-                                        <option value="">No</option>
+                                        <option *ngFor="let value of selectionValue">{{value}}</option>
                                     </select>
-                                    <div *ngIf="submitted &&b.get('computerLoadCircute')?.errors" class="invalid-feedback">
-                                        <div *ngIf="b.get('computerLoadCircute')?.errors?.required">Field Is Required</div>
+                                    <div *ngIf="submitted &&b.get('computerLoadCircute')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="b.get('computerLoadCircute')?.errors?.required">Field Is Required
+                                        </div>
                                     </div>
                                     <div>
                                         <label class="form-label">Description</label>
@@ -964,12 +1076,15 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea class="textarea-size" class="form-control" formControlName="computerLoadCircuteDes"
-                                            [ngClass]="{'is-invalid':submitted && b.get('computerLoadCircuteDes')?.errors}"
+                                            <textarea class="textarea-size" class="form-control"
+                                                formControlName="computerLoadCircuteDes"
+                                                [ngClass]="{'is-invalid':submitted && b.get('computerLoadCircuteDes')?.errors}"
                                                 placeholder="Description"></textarea>
-                                                <div *ngIf="submitted &&b.get('computerLoadCircuteDes')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="b.get('computerLoadCircuteDes')?.errors?.required">Field Is Required</div>
-                                                </div>
+                                            <div *ngIf="submitted &&b.get('computerLoadCircuteDes')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="b.get('computerLoadCircuteDes')?.errors?.required">Field Is
+                                                    Required</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -981,13 +1096,14 @@
                                     <label class="form-label">e. All computer load circuits (30/Aphase)
                                         terminated in isolated earth receptacles</label>
                                     <select name="" id="" class="form-control" formControlName="computerLoadReceptable"
-                                    [ngClass]="{'is-invalid':submitted && b.get('computerLoadReceptable')?.errors}">
+                                        [ngClass]="{'is-invalid':submitted && b.get('computerLoadReceptable')?.errors}">
                                         <option [ngValue]="null">Select Option</option>
-                                        <option value="">Yes</option>
-                                        <option value="">No</option>
+                                        <option *ngFor="let value of selectionValue">{{value}}</option>
                                     </select>
-                                    <div *ngIf="submitted &&b.get('computerLoadReceptable')?.errors" class="invalid-feedback">
-                                        <div *ngIf="b.get('computerLoadReceptable')?.errors?.required">Field Is Required</div>
+                                    <div *ngIf="submitted &&b.get('computerLoadReceptable')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="b.get('computerLoadReceptable')?.errors?.required">Field Is Required
+                                        </div>
                                     </div>
                                     <div>
                                         <label class="form-label">Description</label>
@@ -997,12 +1113,15 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea class="textarea-size" class="form-control" formControlName="computerLoadReceptableDesc"
-                                            [ngClass]="{'is-invalid':submitted && b.get('computerLoadReceptableDesc')?.errors}"
+                                            <textarea class="textarea-size" class="form-control"
+                                                formControlName="computerLoadReceptableDesc"
+                                                [ngClass]="{'is-invalid':submitted && b.get('computerLoadReceptableDesc')?.errors}"
                                                 placeholder="Description"></textarea>
-                                                <div *ngIf="submitted &&b.get('computerLoadReceptableDesc')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="b.get('computerLoadReceptableDesc')?.errors?.required">Field Is Required</div>
-                                                </div>
+                                            <div *ngIf="submitted &&b.get('computerLoadReceptableDesc')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="b.get('computerLoadReceptableDesc')?.errors?.required">Field
+                                                    Is Required</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1014,10 +1133,9 @@
                                     <label class="form-label">f. System branch circuits run in (metallic
                                         conduits / non metallic conduits)</label>
                                     <select name="" id="" class="form-control" formControlName="branchCircuteRun"
-                                    [ngClass]="{'is-invalid':submitted && b.get('branchCircuteRun')?.errors}">
+                                        [ngClass]="{'is-invalid':submitted && b.get('branchCircuteRun')?.errors}">
                                         <option [ngValue]="null">Select Option</option>
-                                        <option value="">Yes</option>
-                                        <option value="">No</option>
+                                        <option *ngFor="let value of selectionValue">{{value}}</option>
                                     </select>
                                     <div *ngIf="submitted &&b.get('branchCircuteRun')?.errors" class="invalid-feedback">
                                         <div *ngIf="b.get('branchCircuteRun')?.errors?.required">Field Is Required</div>
@@ -1031,12 +1149,15 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea class="textarea-size" class="form-control" formControlName="branchCircuteRunDesc"
-                                            [ngClass]="{'is-invalid':submitted && b.get('branchCircuteRunDesc')?.errors}"
+                                            <textarea class="textarea-size" class="form-control"
+                                                formControlName="branchCircuteRunDesc"
+                                                [ngClass]="{'is-invalid':submitted && b.get('branchCircuteRunDesc')?.errors}"
                                                 placeholder="Description"></textarea>
-                                                <div *ngIf="submitted &&b.get('branchCircuteRunDesc')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="b.get('branchCircuteRunDesc')?.errors?.required">Field Is Required</div>
-                                                </div>
+                                            <div *ngIf="submitted &&b.get('branchCircuteRunDesc')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="b.get('branchCircuteRunDesc')?.errors?.required">Field Is
+                                                    Required</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1048,13 +1169,14 @@
                                     <label class="form-label">g. Frequently cyclid loads (disks/tapes etc) power
                                         circuit run seperately or in same physical closure</label>
                                     <select name="" id="" class="form-control" formControlName="frequencyCyclidLoads"
-                                    [ngClass]="{'is-invalid':submitted && b.get('frequencyCyclidLoads')?.errors}">
+                                        [ngClass]="{'is-invalid':submitted && b.get('frequencyCyclidLoads')?.errors}">
                                         <option [ngValue]="null">Select Option</option>
-                                        <option value="">Yes</option>
-                                        <option value="">No</option>
+                                        <option *ngFor="let value of selectionValue">{{value}}</option>
                                     </select>
-                                    <div *ngIf="submitted &&b.get('frequencyCyclidLoads')?.errors" class="invalid-feedback">
-                                        <div *ngIf="b.get('frequencyCyclidLoads')?.errors?.required">Field Is Required</div>
+                                    <div *ngIf="submitted &&b.get('frequencyCyclidLoads')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="b.get('frequencyCyclidLoads')?.errors?.required">Field Is Required
+                                        </div>
                                     </div>
                                     <div>
                                         <label class="form-label">Description</label>
@@ -1064,12 +1186,15 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea class="textarea-size" class="form-control" formControlName="frequencyCyclidLoadsDesc"
-                                            [ngClass]="{'is-invalid':submitted && b.get('frequencyCyclidLoadsDesc')?.errors}"
+                                            <textarea class="textarea-size" class="form-control"
+                                                formControlName="frequencyCyclidLoadsDesc"
+                                                [ngClass]="{'is-invalid':submitted && b.get('frequencyCyclidLoadsDesc')?.errors}"
                                                 placeholder="Description"></textarea>
-                                                <div *ngIf="submitted &&b.get('frequencyCyclidLoadsDesc')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="b.get('frequencyCyclidLoadsDesc')?.errors?.required">Field Is Required</div>
-                                                </div>
+                                            <div *ngIf="submitted &&b.get('frequencyCyclidLoadsDesc')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="b.get('frequencyCyclidLoadsDesc')?.errors?.required">Field
+                                                    Is Required</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1081,10 +1206,9 @@
                                     <label class="form-label">h. Any phase conductor, neutral conductor or PE
                                         condcutors daisy chained??</label>
                                     <select name="" id="" class="form-control" formControlName="conductors"
-                                    [ngClass]="{'is-invalid':submitted && b.get('conductors')?.errors}">
+                                        [ngClass]="{'is-invalid':submitted && b.get('conductors')?.errors}">
                                         <option [ngValue]="null">Select Option</option>
-                                        <option value="">Yes</option>
-                                        <option value="">No</option>
+                                        <option *ngFor="let value of selectionValue">{{value}}</option>
                                     </select>
                                     <div *ngIf="submitted &&b.get('conductors')?.errors" class="invalid-feedback">
                                         <div *ngIf="b.get('conductors')?.errors?.required">Field Is Required</div>
@@ -1097,12 +1221,15 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea class="textarea-size" class="form-control" formControlName="conductorsDesc"
-                                            [ngClass]="{'is-invalid':submitted && b.get('conductorsDesc')?.errors}"
+                                            <textarea class="textarea-size" class="form-control"
+                                                formControlName="conductorsDesc"
+                                                [ngClass]="{'is-invalid':submitted && b.get('conductorsDesc')?.errors}"
                                                 placeholder="Description"></textarea>
-                                                <div *ngIf="submitted &&b.get('conductorsDesc')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="b.get('conductorsDesc')?.errors?.required">Field Is Required</div>
+                                            <div *ngIf="submitted &&b.get('conductorsDesc')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="b.get('conductorsDesc')?.errors?.required">Field Is Required
                                                 </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1116,32 +1243,33 @@
                 <div style="text-align: center;">
                     <button type="button" style="width: 100px; margin: 16px auto;"
                         class="btn btn-primary">Previous</button>
-                    <button type="submit" style="width: 100px; margin: 16px auto;" (click)="savePowerAndEarthingData(flag)"  class="btn btn-success">Next</button>
+                    <button type="submit" style="width: 100px; margin: 16px auto;"
+                        (click)="savePowerAndEarthingData(flag)" class="btn btn-success">Next</button>
                 </div>
             </div>
 
         </form>
     </div>
 
-    
-<ng-template #content3 let-modal>
-    <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner"
-    color="primary">
-    </mat-progress-spinner>
-    <div class="modal-body" *ngIf="popup">
-        <div class="centre-text m-btm30">
-            <div *ngIf="success" style="text-align: center;">
-                <span class="successshow">{{successMsg}}</span>
-            </div>
-            <div *ngIf="Error" style="text-align: center;">
-                <span class="errorshow">{{errorMsg}}</span>
+
+    <ng-template #content3 let-modal>
+        <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner" color="primary">
+        </mat-progress-spinner>
+        <div class="modal-body" *ngIf="popup">
+            <div class="centre-text m-btm30">
+                <div *ngIf="success" style="text-align: center;">
+                    <span class="successshow">{{successMsg}}</span>
+                </div>
+                <div *ngIf="Error" style="text-align: center;">
+                    <span class="errorshow">{{errorMsg}}</span>
+                </div>
             </div>
         </div>
-    </div>
-    <br>
+        <br>
 
-    <button type="button" *ngIf="popup" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-                aria-label="Close" (click)="closeModalDialog()" matStepperNext>
-                 <span aria-hidden="true">Ok</span>
-     </button>
- </ng-template>
+        <button type="button" *ngIf="popup" class="close"
+            class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
+            (click)="closeModalDialog()" matStepperNext>
+            <span aria-hidden="true">Ok</span>
+        </button>
+    </ng-template>
