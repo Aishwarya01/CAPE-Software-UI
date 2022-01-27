@@ -2,6 +2,7 @@ export class EmcElectromagneticCompatibility {
 
     emcId!: number;
     userName!: String;
+    electromagneticCompatabilityId!: number;
 
     seSinglePoint!: String;
     seMeshedArrangment!: String;
@@ -19,6 +20,10 @@ export class EmcElectromagneticCompatibility {
     equipmentMaintenceDesc!: String;
     operationFrequency!: String;
     radiatedPower!: String;
+    createdDate!: Date;
+    createdBy!: String;
+    updatedBy!: String;
+    updatedDate!: Date;
 
     externalCompatibility!: ExternalCompatibility[];
 
@@ -28,6 +33,7 @@ export class EmcElectromagneticCompatibility {
 
 export class ExternalCompatibility {
 
+    externalCompatibilityId!: number;
     communication!: String;
     visibilityOfAntennas!: String;
     typeOfTransmission!: String;

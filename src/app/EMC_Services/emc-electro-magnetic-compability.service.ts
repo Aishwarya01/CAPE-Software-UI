@@ -18,4 +18,8 @@ export class EmcElectroMagneticCompabilityService {
   public retrieveElectromagneticCompatability(userName:any, emcId:any): Observable<any> {
     return this.http.get<any>(this.apiUrl + '/retrieveElectromagneticCompatability'+'/'+userName+ '/' +emcId, { responseType: 'text' as 'json' })
   }
+
+  public updateElectromagneticCompatability(emcElectromagneticCompatibility: EmcElectromagneticCompatibility): Observable<any> {
+    return this.http.put<any>(this.apiUrl + '/updateElectromagneticCompatability', emcElectromagneticCompatibility, { responseType: 'text' as 'json' })
+  }
 }
