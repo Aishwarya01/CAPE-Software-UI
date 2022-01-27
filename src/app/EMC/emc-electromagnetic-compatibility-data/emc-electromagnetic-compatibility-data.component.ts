@@ -67,7 +67,7 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
 
   createExternalCompatibilityArr(): any {
      return this.formBuilder.group({
-      
+      externalCompatibilityId: [ '' ],
       communication: ['', Validators.required],
       visibilityOfAntennas: ['', Validators.required],
       typeOfTransmission: ['', Validators.required],
@@ -156,7 +156,13 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
     this.emcElectromagneticCompatibility.updatedBy = this.step1List[0].updatedBy;
     this.emcElectromagneticCompatibility.updatedDate = this.step1List[0].updatedDate;
 
-    this.populateData(this.step1List[0].externalCompatibility)
+    // this.populateData(this.step1List[0].externalCompatibility)
+
+    for(let i of this.step1List[0].externalCompatibility){
+      this.EMCElectroMagneticFormm.patchValue ({
+        externalCompatibilityArr: [i],
+       })
+     }
   }
 
   populateData(value: any) {
