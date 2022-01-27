@@ -90,9 +90,8 @@ export class LpsAirTerminationComponent implements OnInit {
       buildingType: ['',Validators.required],
       buildingLength: ['', Validators.required],
       buildingHeight: ['', Validators.required],
-      levelOfProtection: ['', Validators.required],
       buildingWidth: ['', Validators.required],
-      
+      levelOfProtection: ['', Validators.required],
       
       vatArr: this.formBuilder.array([this.createVatArrForm()]),
       meshArr: this.formBuilder.array([this.createMeshArrForm()]),
@@ -128,16 +127,16 @@ export class LpsAirTerminationComponent implements OnInit {
       this.step2List = data.lpsAirDiscription;
       this.airtermination.basicLpsId = basicLpsId;
       this.airtermination.lpsAirDescId = this.step2List.lpsAirDescId;
-      this.airtermination.connectionMadeBraOb = this.step2List.connectionMadeBraOb;
-      this.airtermination.connectionMadeBraRe = this.step2List.connectionMadeBraRe;
-      this.airtermination.electricalEquipPlacedOb = this.step2List.electricalEquipPlacedOb;
-      this.airtermination.electricalEquipPlacedRe = this.step2List.electricalEquipPlacedRe;
-      this.airtermination.combustablePartOb = this.step2List.combustablePartOb;
-      this.airtermination.combustablePartRe = this.step2List.combustablePartRe;
-      this.airtermination.terminationMeshConductorOb = this.step2List.terminationMeshConductorOb;
-      this.airtermination.terminationMeshConductorRe = this.step2List.terminationMeshConductorRe;
-      this.airtermination.bondingEquipotentialOb = this.step2List.bondingEquipotentialOb;
-      this.airtermination.bondingEquipotentialRe = this.step2List.bondingEquipotentialRe;
+      // this.airtermination.connectionMadeBraOb = this.step2List.connectionMadeBraOb;
+      // this.airtermination.connectionMadeBraRe = this.step2List.connectionMadeBraRe;
+      // this.airtermination.electricalEquipPlacedOb = this.step2List.electricalEquipPlacedOb;
+      // this.airtermination.electricalEquipPlacedRe = this.step2List.electricalEquipPlacedRe;
+      // this.airtermination.combustablePartOb = this.step2List.combustablePartOb;
+      // this.airtermination.combustablePartRe = this.step2List.combustablePartRe;
+      // this.airtermination.terminationMeshConductorOb = this.step2List.terminationMeshConductorOb;
+      // this.airtermination.terminationMeshConductorRe = this.step2List.terminationMeshConductorRe;
+      // this.airtermination.bondingEquipotentialOb = this.step2List.bondingEquipotentialOb;
+      // this.airtermination.bondingEquipotentialRe = this.step2List.bondingEquipotentialRe;
       
       this.airtermination.createdBy = this.step2List.createdBy;
       this.airtermination.createdDate = this.step2List.createdDate;     
@@ -153,16 +152,16 @@ export class LpsAirTerminationComponent implements OnInit {
         this.step2List=JSON.parse(data);
         this.airtermination.basicLpsId = basicLpsId;
         this.airtermination.lpsAirDescId = this.step2List[0].lpsAirDescId;
-        this.airtermination.connectionMadeBraOb = this.step2List[0].connectionMadeBraOb;
-        this.airtermination.connectionMadeBraRe = this.step2List[0].connectionMadeBraRe;
-        this.airtermination.electricalEquipPlacedOb = this.step2List[0].electricalEquipPlacedOb;
-        this.airtermination.electricalEquipPlacedRe = this.step2List[0].electricalEquipPlacedRe;
-        this.airtermination.combustablePartOb = this.step2List[0].combustablePartOb;
-        this.airtermination.combustablePartRe = this.step2List[0].combustablePartRe;
-        this.airtermination.terminationMeshConductorOb = this.step2List[0].terminationMeshConductorOb;
-        this.airtermination.terminationMeshConductorRe = this.step2List[0].terminationMeshConductorRe;
-        this.airtermination.bondingEquipotentialOb = this.step2List[0].bondingEquipotentialOb;
-        this.airtermination.bondingEquipotentialRe = this.step2List[0].bondingEquipotentialRe;
+        // this.airtermination.connectionMadeBraOb = this.step2List[0].connectionMadeBraOb;
+        // this.airtermination.connectionMadeBraRe = this.step2List[0].connectionMadeBraRe;
+        // this.airtermination.electricalEquipPlacedOb = this.step2List[0].electricalEquipPlacedOb;
+        // this.airtermination.electricalEquipPlacedRe = this.step2List[0].electricalEquipPlacedRe;
+        // this.airtermination.combustablePartOb = this.step2List[0].combustablePartOb;
+        // this.airtermination.combustablePartRe = this.step2List[0].combustablePartRe;
+        // this.airtermination.terminationMeshConductorOb = this.step2List[0].terminationMeshConductorOb;
+        // this.airtermination.terminationMeshConductorRe = this.step2List[0].terminationMeshConductorRe;
+        // this.airtermination.bondingEquipotentialOb = this.step2List[0].bondingEquipotentialOb;
+        // this.airtermination.bondingEquipotentialRe = this.step2List[0].bondingEquipotentialRe;
         this.airtermination.createdBy = this.step2List[0].createdBy;
         this.airtermination.createdDate = this.step2List[0].createdDate;     
         this.airtermination.userName = this.step2List[0].userName;
@@ -244,35 +243,35 @@ export class LpsAirTerminationComponent implements OnInit {
     private createLpsDescriptionarr(): FormGroup{
     return new FormGroup({
        //new changes
-      // approvedDrawingObserv:  new FormControl('', Validators.required),
-      // approvedDrawingRemarks: new FormControl(''),
-      // architectNameObserv:  new FormControl('', Validators.required),
-      // architectNameRemarks: new FormControl(''),
-      // designDateObserv:  new FormControl('', Validators.required),
-      // designDateRemarks: new FormControl(''),
-      // approvedByObserv:  new FormControl('', Validators.required),
-      // approvedByRemarks: new FormControl(''),
-      // dateOfApprovalOb:  new FormControl('', Validators.required),
-      // dateOfApprovalRem: new FormControl(''),
-      // drawingObserv:  new FormControl('', Validators.required),
-      // drawingRemarks: new FormControl(''),
-      // revisionNoObserv:  new FormControl('', Validators.required),
-      // revisionNoRemarks: new FormControl(''),
-      // deviationObserv:  new FormControl('', Validators.required),
-      // deviationRemarks: new FormControl(''),
-      // installationQualityObserv:  new FormControl('', Validators.required),
-      // installationQualityRemarks: new FormControl(''),
+      approvedDrawingObserv:  new FormControl('', Validators.required),
+      approvedDrawingRemarks: new FormControl(''),
+      architectNameObserv:  new FormControl('', Validators.required),
+      architectNameRemarks: new FormControl(''),
+      designDateObserv:  new FormControl('', Validators.required),
+      designDateRemarks: new FormControl(''),
+      approvedByObserv:  new FormControl('', Validators.required),
+      approvedByRemarks: new FormControl(''),
+      dateOfApprovalOb:  new FormControl('', Validators.required),
+      dateOfApprovalRem: new FormControl(''),
+      drawingObserv:  new FormControl('', Validators.required),
+      drawingRemarks: new FormControl(''),
+      revisionNoObserv:  new FormControl('', Validators.required),
+      revisionNoRemarks: new FormControl(''),
+      deviationObserv:  new FormControl('', Validators.required),
+      deviationRemarks: new FormControl(''),
+      installationQualityObserv:  new FormControl('', Validators.required),
+      installationQualityRemarks: new FormControl(''),
 
-      // connectionMadeBraOb:  new FormControl('', Validators.required),
-      // connectionMadeBraRe: new FormControl(''),
-      // electricalEquipPlacedOb:  new FormControl('', Validators.required),
-      // electricalEquipPlacedRe: new FormControl(''),
-      // combustablePartOb:  new FormControl('', Validators.required),
-      // combustablePartRe: new FormControl(''),
-      // terminationMeshConductorOb:  new FormControl('', Validators.required),
-      // terminationMeshConductorRe: new FormControl(''),
-      // bondingEquipotentialOb:  new FormControl('', Validators.required),
-      // bondingEquipotentialRe: new FormControl(''),
+      connectionMadeBraOb:  new FormControl('', Validators.required),
+      connectionMadeBraRe: new FormControl(''),
+      electricalEquipPlacedOb:  new FormControl('', Validators.required),
+      electricalEquipPlacedRe: new FormControl(''),
+      combustablePartOb:  new FormControl('', Validators.required),
+      combustablePartRe: new FormControl(''),
+      terminationMeshConductorOb:  new FormControl('', Validators.required),
+      terminationMeshConductorRe: new FormControl(''),
+      bondingEquipotentialOb:  new FormControl('', Validators.required),
+      bondingEquipotentialRe: new FormControl(''),
       });
     }
 
@@ -498,6 +497,7 @@ export class LpsAirTerminationComponent implements OnInit {
       this.service.logoutClick=1;
      }
     } 
+
   gotoNextModal(content: any,contents:any) {
     
      if (this.airTerminationForm.invalid) {
@@ -626,8 +626,6 @@ export class LpsAirTerminationComponent implements OnInit {
   getDescriptionControl(): AbstractControl[] {
       return (<FormArray>this.airTerminationForm.get('airTerminationBasicArr')).controls;
   }
-
- 
 
   vatControls(): AbstractControl[] {
     return (<FormArray>this.airTerminationForm.get('vatArr')).controls;
@@ -868,6 +866,9 @@ export class LpsAirTerminationComponent implements OnInit {
     this.conArr.push(this.createConArrForm());
   }
   
+//   getDescriptionControl(): AbstractControl[] {
+//     return (<FormArray>this.airTerminationForm.get('airTerminationBasicArr')).controls;
+// }
   get f() {
     return this.airTerminationForm.controls;
   }

@@ -2,16 +2,25 @@ export class Airtermination {
     basicLpsId!: number;
     lpsAirDescId!: number;
     userName!: string;
-    connectionMadeBraOb!: string;
-    connectionMadeBraRe!: string;
-    electricalEquipPlacedOb!: string;
-    electricalEquipPlacedRe!: string;
-    combustablePartOb!: string;
-    combustablePartRe!: string;
-    terminationMeshConductorOb!: string;
-    terminationMeshConductorRe!: string;
-    bondingEquipotentialOb!: string;
-    bondingEquipotentialRe!: string;
+    // connectionMadeBraOb!: string;
+    // connectionMadeBraRe!: string;
+    // electricalEquipPlacedOb!: string;
+    // electricalEquipPlacedRe!: string;
+    // combustablePartOb!: string;
+    // combustablePartRe!: string;
+    // terminationMeshConductorOb!: string;
+    // terminationMeshConductorRe!: string;
+    // bondingEquipotentialOb!: string;
+    // bondingEquipotentialRe!: string;
+
+      buildingnumber!: String;
+      buildingname!: String;
+      buildingType!: String;
+      buildingLength!: String;
+      buildingHeight!: String;
+      buildingWidth!: String;
+      levelOfProtection!: String;
+
     createdBy!: String;
     createdDate!: Date;
     airClamps!:AirClamps[];
@@ -20,9 +29,41 @@ export class Airtermination {
     airMeshDescription!:AirMeshDescription[];
     airExpansion!:AirExpansion[];
     airHolderDescription!:AirHolderDescription[];
-    
-
+    airTerminationBasicArr!: BasicDetails[];
 }
+
+export class BasicDetails {
+      approvedDrawingObserv!: String;
+      approvedDrawingRemarks!: String;
+      architectNameObserv!: String;
+      architectNameRemarks!: String;
+      designDateObserv!: String;
+      designDateRemarks!: String;
+      approvedByObserv!: String;
+      approvedByRemarks!: String;
+      dateOfApprovalOb!: String;
+      dateOfApprovalRem!: String;
+      drawingObserv!: String;
+      drawingRemarks!: String;
+      revisionNoObserv!: String;
+      revisionNoRemarks!: String;
+      deviationObserv!: String;
+      deviationRemarks!: String;
+      installationQualityObserv!: String;
+      installationQualityRemarks!: String;
+
+      connectionMadeBraOb!: String;
+      connectionMadeBraRe!: String;
+      electricalEquipPlacedOb!: String;
+      electricalEquipPlacedRe!: String;
+      combustablePartOb!: String;
+      combustablePartRe!: String;
+      terminationMeshConductorOb!: String;
+      terminationMeshConductorRe!: String;
+      bondingEquipotentialOb!: String;
+      bondingEquipotentialRe!: String;
+}
+
 export class AirClamps {
     flag:boolean=true;
     locationNumber!:number;

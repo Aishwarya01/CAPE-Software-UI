@@ -176,23 +176,6 @@
                         </div>
                     </div>
                 </div>
-                
-                <div class="col-md-4">
-                    <label for="typeofbuilding">Type of Building </label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <i class="bi bi-building"></i>
-                            </span>
-                        </div>
-                        <input type="text" class="form-control" placeholder="Enter Type of Building name"
-                            
-                            [ngClass]="{ 'is-invalid': submitted && f.buildingType.errors}" />
-                        <div *ngIf="submitted && f.buildingType.errors" class="invalid-feedback">
-                            <div *ngIf="f.buildingType.errors.required">Type of Building is required</div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <div style="text-align: center;margin-top: 40px;margin-left: 80px;">
