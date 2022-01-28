@@ -266,11 +266,12 @@
 
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Down conductors</mat-expansion-panel-header>
+                    <div class="row">
+                    <div class="col-sm-12">
                     <div class="table-responsive" style="overflow-x: unset;">
                         <table class="table TableBorder">
                             <tbody formArrayName="downArr" *ngFor="let a of downConductorControls(); let j = index">
                                 <div class="form-group" [formGroupName]="j">
-                                    
                                     <br>
                                     <thead>
                                         <th>Sl.No</th>
@@ -739,6 +740,8 @@
                                     style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon> -->
                             </tbody>
                         </table>
+                    </div>
+                    </div>
                     </div>
                 </mat-expansion-panel>
 

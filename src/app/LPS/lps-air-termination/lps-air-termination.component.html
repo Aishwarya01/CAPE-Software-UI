@@ -44,7 +44,7 @@
                             </div>
                         </div>
 
-                        <mat-icon class="mousechange" class="dlt" type="button" title="Delete" style="position: relative; top: 30px; left: 27%;">remove_circle_outline</mat-icon>
+                        <!-- <mat-icon class="mousechange" class="dlt" type="button" title="Delete" style="position: relative; top: 30px; left: 27%;">remove_circle_outline</mat-icon> -->
                     </div>
 
                     <div class="row">
@@ -2746,31 +2746,37 @@
                 </mat-expansion-panel>
             </mat-accordion>
 
-            <button class="btn btn-info mousechange" (click)="addItem()" title="Add Another Building" 
+            <button class="btn btn-info mousechange" *ngIf="overAllControl().length == j+1" (click)="addItem()" title="Add Another Building" 
+            style="padding: 5px 0px 0px 0px; 
+            width: 3%;	
+            height: 35px;	
+            position: relative;
+            margin-top: 10px;
+            margin-right: 15px;">	
+            
+            <mat-icon aria-hidden="false" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>	
+            </button>	
+
+            <button class="btn btn-danger" *ngIf="overAllControl().length > 1" (click)="removeItem(q,j)" title="Delete Above Building" 
             style="padding: 5px 0px 0px 0px; 
             width: 3%;	
             height: 35px;	
             position: relative;
             margin-top: 10px;">	
-            
-            <mat-icon aria-hidden="false" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>	
-            </button>	
 
-           
-
-            <!-- <mat-icon class="mousechange" class="add" type="button" [ngClass]="{'disableForm':isEditable}" 
-                                style="margin-inline: 1rem;float: right;position: relative;"
-                                title="Add New Building">Create Building Two</mat-icon>
-            <mat-icon class="mousechange" class="dlt" type="button" title="delete" [ngClass]="{'disableForm':isEditable}"   title="Delete Above Building"
-                                style="margin-inline: 1rem;float: right;position: relative;">Delete Above Building</mat-icon> -->
+            <mat-icon aria-hidden="false" aria-label="Example home icon" mat-list-icon>remove_circle_outline</mat-icon>	
+            </button>
 
             </div>
         </div>
-        </form>
+
         <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
             <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
             <button class="next" (click)="gotoNextModal(content,contents)" mat-button >Next &raquo;</button>
        </div>
+
+        </form>
+        
         <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
             <span class="alert alert-danger">{{validationErrorMsg}}</span>
         </div>

@@ -12,27 +12,30 @@ export class Airtermination {
     // terminationMeshConductorRe!: string;
     // bondingEquipotentialOb!: string;
     // bondingEquipotentialRe!: string;
-
-      buildingnumber!: String;
-      buildingname!: String;
-      buildingType!: String;
-      buildingLength!: String;
-      buildingHeight!: String;
-      buildingWidth!: String;
-      levelOfProtection!: String;
-
     createdBy!: String;
     createdDate!: Date;
-    airClamps!:AirClamps[];
+    lpsAirDescription!: lpsAirDescription[]
+}
+
+export class lpsAirDescription {
+    buildingnumber!: String;
+    buildingname!: String;
+    buildingType!: String;
+    buildingLength!: String;
+    buildingHeight!: String;
+    buildingWidth!: String;
+    levelOfProtection!: String;
+    flag!: String;
+    airClamps!:airClamps[];
     airConnectors!:AirConnectors[];
     lpsVerticalAirTermination!:LpsVerticalAirTermination[];
     airMeshDescription!:AirMeshDescription[];
     airExpansion!:AirExpansion[];
     airHolderDescription!:AirHolderDescription[];
-    airTerminationBasicArr!: BasicDetails[];
+    airBasicDescription!: airBasicDescription[];
 }
 
-export class BasicDetails {
+export class airBasicDescription {
       approvedDrawingObserv!: String;
       approvedDrawingRemarks!: String;
       architectNameObserv!: String;
@@ -64,7 +67,7 @@ export class BasicDetails {
       bondingEquipotentialRe!: String;
 }
 
-export class AirClamps {
+export class airClamps {
     flag:boolean=true;
     locationNumber!:number;
     locationName!:String;

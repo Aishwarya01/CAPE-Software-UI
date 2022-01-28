@@ -38,6 +38,8 @@ export class LpsAirTerminationComponent implements OnInit {
   i: any;
   j: any;
   success1 = false;
+
+  airTerminationPushArr: any=[];
   // successMsg1: String="";
 
   @Output() proceedNext = new EventEmitter<any>();
@@ -465,6 +467,7 @@ export class LpsAirTerminationComponent implements OnInit {
         inspectionFailedRe: new FormControl({disabled: false, value: item.inspectionFailedRe})      
       });
     }
+
     onChangeForm(event:any){
       if(!this.airTerminationForm.invalid){
         if(this.airTerminationForm.dirty){
@@ -550,20 +553,29 @@ export class LpsAirTerminationComponent implements OnInit {
           }
       this.airtermination.userName=this.router.snapshot.paramMap.get('email') || '{}';
       this.airtermination.basicLpsId=this.basicLpsId; 
-     
-        this.airtermination.airClamps=this.airTerminationForm.value.clampArr;
-        this.airtermination.airConnectors=this.airTerminationForm.value.conArr;
-        this.airtermination.airMeshDescription=this.airTerminationForm.value.meshArr;
-        this.airtermination.lpsVerticalAirTermination=this.airTerminationForm.value.vatArr;
-        this.airtermination.airExpansion=this.airTerminationForm.value.expArr;
-        this.airtermination.airHolderDescription=this.airTerminationForm.value.holderArr;
+      let airTerminationData = this.airTerminationForm.value;
+        console.log(airTerminationData);
+        
+      for (let a of airTerminationData) {
+         
+        console.log(a);
+        
+        
+      }
+
+        // this.airtermination.airClamps=this.airTerminationForm.value.clampArr;
+        // this.airtermination.airConnectors=this.airTerminationForm.value.conArr;
+        // this.airtermination.airMeshDescription=this.airTerminationForm.value.meshArr;
+        // this.airtermination.lpsVerticalAirTermination=this.airTerminationForm.value.vatArr;
+        // this.airtermination.airExpansion=this.airTerminationForm.value.expArr;
+        // this.airtermination.airHolderDescription=this.airTerminationForm.value.holderArr;
        
-        this.airtermination.lpsVerticalAirTermination=this.airtermination.lpsVerticalAirTermination.concat(this.vatPusharr);
-        this.airtermination.airClamps= this.airtermination.airClamps.concat(this.clampPusharr);
-        this.airtermination.airConnectors=this.airtermination.airConnectors.concat(this.conPusharr);
-        this.airtermination.airMeshDescription= this.airtermination.airMeshDescription.concat(this.meshPusharr);
-        this.airtermination.airExpansion=this.airtermination.airExpansion.concat(this.exPusharr);
-        this.airtermination.airHolderDescription=this.airtermination.airHolderDescription.concat(this.holderPusharr);
+        // this.airtermination.lpsVerticalAirTermination=this.airtermination.lpsVerticalAirTermination.concat(this.vatPusharr);
+        // this.airtermination.airClamps= this.airtermination.airClamps.concat(this.clampPusharr);
+        // this.airtermination.airConnectors=this.airtermination.airConnectors.concat(this.conPusharr);
+        // this.airtermination.airMeshDescription= this.airtermination.airMeshDescription.concat(this.meshPusharr);
+        // this.airtermination.airExpansion=this.airtermination.airExpansion.concat(this.exPusharr);
+        // this.airtermination.airHolderDescription=this.airtermination.airHolderDescription.concat(this.holderPusharr);
        
         this.vatPusharr=[];
         this.meshPusharr= [];
@@ -667,8 +679,8 @@ export class LpsAirTerminationComponent implements OnInit {
   private createVatArrForm(): FormGroup{
     return new FormGroup({
        
-      locationNumber: new FormControl('', Validators.required),
-      locationName: new FormControl('', Validators.required),
+      // locationNumber: new FormControl('', Validators.required),
+      // locationName: new FormControl('', Validators.required),
       physicalInspectionOb: new FormControl('', Validators.required),
       physicalInspectionRe: new FormControl(''),
       installationTerminationsystemOb: new FormControl('', Validators.required),
@@ -701,8 +713,8 @@ export class LpsAirTerminationComponent implements OnInit {
 
   private createMeshArrForm(): FormGroup{
     return new FormGroup({
-      locationNumber: new FormControl('', Validators.required),
-      locationName: new FormControl('', Validators.required),
+      // locationNumber: new FormControl('', Validators.required),
+      // locationName: new FormControl('', Validators.required),
       physicalInspectionOb: new FormControl('', Validators.required),
       physicalInspectionRe: new FormControl(''),
       materailOfConductorOb: new FormControl('', Validators.required),
@@ -723,8 +735,8 @@ export class LpsAirTerminationComponent implements OnInit {
 
   private createHolderArrForm(): FormGroup{
     return new FormGroup({
-      locationNumber: new FormControl('', Validators.required),
-      locationName: new FormControl('', Validators.required),
+      // locationNumber: new FormControl('', Validators.required),
+      // locationName: new FormControl('', Validators.required),
 
       physicalInspectionOb: new FormControl('', Validators.required),
       physicalInspectionRe: new FormControl(''),
@@ -774,8 +786,8 @@ export class LpsAirTerminationComponent implements OnInit {
 
   private createClampArrForm(): FormGroup{
     return new FormGroup({
-      locationNumber: new FormControl('', Validators.required),
-      locationName: new FormControl('', Validators.required),
+      // locationNumber: new FormControl('', Validators.required),
+      // locationName: new FormControl('', Validators.required),
       physicalInspectionOb: new FormControl('', Validators.required),
       physicalInspectionRe: new FormControl(''),
       conductorClampsFlatSurafaceOb: new FormControl('', Validators.required),
@@ -801,8 +813,8 @@ export class LpsAirTerminationComponent implements OnInit {
 
   private createExpansioArrForm(): FormGroup{
     return new FormGroup({
-      locationNumber: new FormControl('', Validators.required),
-      locationName: new FormControl('', Validators.required),
+      // locationNumber: new FormControl('', Validators.required),
+      // locationName: new FormControl('', Validators.required),
       physicalInspectionOb: new FormControl('', Validators.required),
       physicalInspectionRe: new FormControl(''),
       strightConnectorPiecOb: new FormControl('', Validators.required),
@@ -823,8 +835,8 @@ export class LpsAirTerminationComponent implements OnInit {
   
   private createConArrForm(): FormGroup{
     return new FormGroup({
-      locationNumber: new FormControl('', Validators.required),
-      locationName: new FormControl('', Validators.required),
+      // locationNumber: new FormControl('', Validators.required),
+      // locationName: new FormControl('', Validators.required),
       physicalInspectionOb: new FormControl('', Validators.required),
       physicalInspectionRe: new FormControl(''),
       checkConnectionConnectorsOb: new FormControl('', Validators.required),
@@ -879,24 +891,38 @@ export class LpsAirTerminationComponent implements OnInit {
   //   this.conArr.push(this.createConArrForm());
   // }
   
+
+  // Detele and Add buttons for Building Locations
   addItem() {
-    debugger
     this.lpsAirDescription = this.airTerminationForm.get('lpsAirDescription') as FormArray;
     this.lpsAirDescription.push(this.allLPSAirterminationArr());
   }
 
-  removeIte(a:any,index: any) {
+  removeItem(a:any,index: any) {
     if(a.value.lpsVerticalAirTerminationId !=0 && a.value.lpsVerticalAirTerminationId !=undefined){
-       a.value.flag=false;
-     (this.airTerminationForm.get('vatArr') as FormArray).removeAt(index);
-     this.vatPusharr= this.vatPusharr.concat(a.value);
+      a.value.flag=false;
+    (this.airTerminationForm.get('lpsAirDescription') as FormArray).removeAt(index);
+    this.airTerminationPushArr= this.airTerminationPushArr.concat(a.value);
+   
+   }
+
+  else
+  {(this.airTerminationForm.get('lpsAirDescription') as FormArray).removeAt(index);}
+  }
+
+
+  // removeIte(a:any,index: any) {
+  //   if(a.value.lpsVerticalAirTerminationId !=0 && a.value.lpsVerticalAirTerminationId !=undefined){
+  //      a.value.flag=false;
+  //    (this.airTerminationForm.get('vatArr') as FormArray).removeAt(index);
+  //    this.vatPusharr= this.vatPusharr.concat(a.value);
     
-    }
-    else{
-      (this.airTerminationForm.get('vatArr') as FormArray).removeAt(index);
-    }
+  //   }
+  //   else{
+  //     (this.airTerminationForm.get('vatArr') as FormArray).removeAt(index);
+  //   }
     
-    }
+  //   }
 
 //   getDescriptionControl(): AbstractControl[] {
 //     return (<FormArray>this.airTerminationForm.get('airTerminationBasicArr')).controls;

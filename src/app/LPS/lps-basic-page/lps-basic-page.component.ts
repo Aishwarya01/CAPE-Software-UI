@@ -59,14 +59,14 @@ export class LpsBasicPageComponent implements OnInit {
       location: ['', Validators.required],
       installationContractor: ['', Validators.required],
       industryType: ['', Validators.required],
-      buildingType: ['', Validators.required],
-      buildingLength: ['', Validators.required],
-      buildingHeight: ['', Validators.required],
-      levelOfProtection: ['', Validators.required],
+      // buildingType: ['', Validators.required],
+      // buildingLength: ['', Validators.required],
+      // buildingHeight: ['', Validators.required],
+      // levelOfProtection: ['', Validators.required],
       soilResistivity: [''],
       dealerContractorName: ['', Validators.required],
-      buildingWidth: ['', Validators.required],
-     // basicLpsDescription: this.formBuilder.array([this.createLpsDescriptionarr()])
+      // buildingWidth: ['', Validators.required],
+      // basicLpsDescription: this.formBuilder.array([this.createLpsDescriptionarr()])
     });
 
   }

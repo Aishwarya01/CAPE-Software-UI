@@ -176,6 +176,19 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col-md-4">
+                    <label for="soilresistivity">Soil Resistivity-(Ω) (Optional)</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="bi bi-shield-fill-x"></i>
+                            </span>
+                        </div>
+                        <input (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Enter Soil Resistivity"
+                            [readonly]="isEditable" formControlName="soilResistivity" [(ngModel)]="basicDetails.soilResistivity"/>
+                    </div>
+                </div>
             </div>
 
             <div style="text-align: center;margin-top: 40px;margin-left: 80px;">
