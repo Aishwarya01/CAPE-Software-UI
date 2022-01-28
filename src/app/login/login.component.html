@@ -55,8 +55,8 @@
                             <div class="row my-2 d-flex justify-content-between align-items-center">
 
                                 <div class="col-md-8">
-                                    <input type="checkbox" disabled ="true" />
-                                    <!-- <input type="checkbox" (change)="rememberMe($event)"/> -->
+                                    <!-- <input type="checkbox" disabled ="true" /> -->
+                                    <input type="checkbox" (change)="rememberMe($event)"/>
                                     Remember me(Future Implementation)
                                 </div>
                                 <div class="col-md-4"><a [routerLink]="['/forgotpassword']">Forgot Password?</a></div>
