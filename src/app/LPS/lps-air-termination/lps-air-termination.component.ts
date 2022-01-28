@@ -548,41 +548,21 @@ export class LpsAirTerminationComponent implements OnInit {
   
   onSubmit(flag: any){
        this.submitted=true;
-          if(this.airTerminationForm.invalid){
-            return
-          }
+          // if(this.airTerminationForm.invalid){
+          //   return
+          // }
       this.airtermination.userName=this.router.snapshot.paramMap.get('email') || '{}';
       this.airtermination.basicLpsId=this.basicLpsId; 
+      
       let airTerminationData = this.airTerminationForm.value;
-        console.log(airTerminationData);
         
-      for (let a of airTerminationData) {
-         
-        console.log(a);
-        
-        
+        let i=0;
+        this.airtermination.lpsAirDescription=[]
+      for (let a of airTerminationData.lpsAirDescription) {
+        this.airtermination.lpsAirDescription[i]=a;
+        i=i+1;
       }
-
-        // this.airtermination.airClamps=this.airTerminationForm.value.clampArr;
-        // this.airtermination.airConnectors=this.airTerminationForm.value.conArr;
-        // this.airtermination.airMeshDescription=this.airTerminationForm.value.meshArr;
-        // this.airtermination.lpsVerticalAirTermination=this.airTerminationForm.value.vatArr;
-        // this.airtermination.airExpansion=this.airTerminationForm.value.expArr;
-        // this.airtermination.airHolderDescription=this.airTerminationForm.value.holderArr;
-       
-        // this.airtermination.lpsVerticalAirTermination=this.airtermination.lpsVerticalAirTermination.concat(this.vatPusharr);
-        // this.airtermination.airClamps= this.airtermination.airClamps.concat(this.clampPusharr);
-        // this.airtermination.airConnectors=this.airtermination.airConnectors.concat(this.conPusharr);
-        // this.airtermination.airMeshDescription= this.airtermination.airMeshDescription.concat(this.meshPusharr);
-        // this.airtermination.airExpansion=this.airtermination.airExpansion.concat(this.exPusharr);
-        // this.airtermination.airHolderDescription=this.airtermination.airHolderDescription.concat(this.holderPusharr);
-       
-        this.vatPusharr=[];
-        this.meshPusharr= [];
-        this.holderPusharr= [];
-        this.clampPusharr= [];
-        this.exPusharr= [];
-        this.conPusharr=[];
+  
         if (!this.validationError) {
           if(flag) {
             if(this.airTerminationForm.dirty && this.airTerminationForm.touched){ 
