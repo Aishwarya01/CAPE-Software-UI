@@ -13,12 +13,12 @@ export class FinalPdfServiceService {
   apiUrl = environment.apiUrl_LPS;
   constructor(private http: HttpClient) { }
 
-  public downloadPDF(basicLpsId: any,userName: any,) {
+  public downloadPDF(basicLpsId: any,userName: any,projectName: any) {
     
-    return   this.http.get(this.apiUrl + '/printFinalPDF'+'/'+userName+ '/' +basicLpsId, { responseType: 'blob' }).subscribe(
+    return   this.http.get(this.apiUrl + '/printFinalPDF'+'/'+userName+ '/' +basicLpsId+ '/' +projectName, { responseType: 'blob' }).subscribe(
          data =>{
            
-           const fileName = 'Lpsfinalreport.pdf';
+           const fileName = projectName+'.pdf';
            FileSaver.saveAs(data, fileName);
          }, 
          error=>{
@@ -27,8 +27,8 @@ export class FinalPdfServiceService {
        )
     }
 
-  public printPDF(basicLpsId: any,userName: any) {
-      return   this.http.get(this.apiUrl + '/printFinalPDF'+'/'+userName+ '/' +basicLpsId, { responseType: 'blob' }).subscribe(
+  public printPDF(basicLpsId: any,userName: any, projectName: any) {
+      return   this.http.get(this.apiUrl + '/printFinalPDF'+'/'+userName+ '/' +basicLpsId+ '/' +projectName, { responseType: 'blob' }).subscribe(
            data =>{
              var fileURL: any = URL.createObjectURL(data);
              var a = document.createElement("a");
@@ -42,8 +42,8 @@ export class FinalPdfServiceService {
          )
     }
 
-    public mailPDF(basicLpsId: any,userName: any): Observable<any> {
+    public mailPDF(basicLpsId: any,userName: any, projectName: any): Observable<any> {
       
-      return this.http.get(this.apiUrl + '/sendPDFinMail'+'/'+userName+ '/' +basicLpsId, { responseType: 'text' as 'json' })
+      return this.http.get(this.apiUrl + '/sendPDFinMail'+'/'+userName+ '/' +basicLpsId+ '/' +projectName, { responseType: 'text' as 'json' })
     }
 }
