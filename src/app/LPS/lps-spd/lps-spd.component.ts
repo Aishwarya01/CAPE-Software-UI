@@ -250,7 +250,7 @@ export class LpsSpdComponent implements OnInit {
   }
 
   spdarrControls(): AbstractControl[] {
- 
+
     return (<FormArray>this.spdForm.get('spdarr')).controls;
   }
 
@@ -273,9 +273,23 @@ export class LpsSpdComponent implements OnInit {
         this.spd.userName = this.router.snapshot.paramMap.get('email') || '{}';;
         this.spd.basicLpsId = this.basicLpsId;
 
-        this.spd.spdDescription = this.spdForm.getRawValue().spdarr;
-        this.spd.spdDescription=this.spd.spdDescription.concat(this.spdForm.getRawValue().panelarr);
-        this.spd.spdDescription=this.spd.spdDescription.concat(this.spdForm.getRawValue().powerarr);
+        let mainRole = this.spdForm.getRawValue().spdarr;
+        let streetRole = this.spdForm.getRawValue().panelarr;
+        let otherRole = this.spdForm.getRawValue().powerarr;
+
+        if(mainRole[0].spdDescriptionRole != '' || mainRole[0].spdDescriptionRole != null || mainRole[0].spdDescriptionRole != undefined) {
+            mainRole[0].spdDescriptionRole = "Mains_SPD";
+          }
+          if(streetRole[0].spdDescriptionRole != '' || streetRole[0].spdDescriptionRole != null || streetRole[0].spdDescriptionRole != undefined) {
+            streetRole[0].spdDescriptionRole = "Street_SPD";
+          }
+          if(otherRole[0].spdDescriptionRole != '' || otherRole[0].spdDescriptionRole != null || otherRole[0].spdDescriptionRole != undefined) {
+            otherRole[0].spdDescriptionRole = "Other_SPD";
+          }
+
+        this.spd.spdDescription = mainRole;
+        this.spd.spdDescription=this.spd.spdDescription.concat(streetRole);
+        this.spd.spdDescription=this.spd.spdDescription.concat(otherRole);
       
         if (!this.validationError) {
           if(flag) {

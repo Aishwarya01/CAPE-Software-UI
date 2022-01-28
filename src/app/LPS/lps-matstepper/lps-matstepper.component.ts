@@ -25,6 +25,7 @@ import { SeparatedistanceService } from 'src/app/LPS_services/separatedistance.s
 import { MatTabGroup, MatTabHeader, MatTab } from '@angular/material/tabs';
 import { GlobalsService } from 'src/app/globals.service';
 import { ConfirmationBoxComponent } from 'src/app/confirmation-box/confirmation-box.component';
+import { tree } from 'ngx-bootstrap-icons';
 
 @Component({
   selector: 'app-lps-matstepper',
@@ -51,6 +52,14 @@ export class LpsMatstepperComponent implements OnInit {
   Completed5: boolean=true;
   Completed6: boolean=true;
   Completed7: boolean=true;
+
+  basicDetails: boolean = true;
+  airTermValue: boolean = true;
+  downValue: boolean = true;
+  earthingValue: boolean = true;
+  spdValue: boolean = true;
+  seperationValue: boolean = true;
+  equipotentialBond: boolean = true;
   
   @ViewChild(LpsBasicPageComponent)
   basic!: LpsBasicPageComponent;
@@ -160,17 +169,35 @@ export class LpsMatstepperComponent implements OnInit {
   }
 
   public changeTabLpsSavedReport(index: number, basicLpsId: any, userName: any, clientName: any) {
-   
     this.selectedIndex = 1;
 
-    this.basic.reset();
-    this.airTermination.reset();
-    this.downConductors.reset();
-    this.earthing.reset();
-    this.spd.reset();
-    this.seperationDistance.reset();
-    this.earthStud.reset();
+    // this.basic.reset();
+    // this.airTermination.reset();
+    // this.downConductors.reset();
+    // this.earthing.reset();
+    // this.spd.reset();
+    // this.seperationDistance.reset();
+    // this.earthStud.reset();
 
+    this.basicDetails = false;
+    this.airTermValue = false;
+    this.downValue = false;
+    this.earthingValue = false;
+    this.spdValue = false;
+    this.seperationValue = false;
+    this.equipotentialBond = false;
+
+    setTimeout(() => {
+      this.basicDetails = true;
+      this.airTermValue = true;
+      this.downValue = true;
+      this.earthingValue = true;
+      this.spdValue = true;
+      this.seperationValue = true;
+      this.equipotentialBond = true;
+    }, 500);
+
+    setTimeout(() => {
     this.basicLpsService.retrieveFinalLps(userName,basicLpsId).subscribe(
       (data) => {
         this.dataJSON = JSON.parse(data);
@@ -222,7 +249,7 @@ export class LpsMatstepperComponent implements OnInit {
       (error) => {
 
       }
-    )
+    )}, 3000);
   }
 
   // Final Report 
@@ -281,15 +308,15 @@ export class LpsMatstepperComponent implements OnInit {
         if((tabs==="Lightning Protection System"))
           
            {
-              this.selectedIndex=0; 
-              this.basic.reset();
-              this.airTermination.reset();
-              this.downConductors.reset();
-              this.earthing.reset();
-              this.spd.reset();
-              this.seperationDistance.reset();
-              this.earthStud.reset();
-              this.changeTab1(0);
+              // this.selectedIndex=0; 
+              // this.basic.reset();
+              // this.airTermination.reset();
+              // this.downConductors.reset();
+              // this.earthing.reset();
+              // this.spd.reset();
+              // this.seperationDistance.reset();
+              // this.earthStud.reset();
+              // this.changeTab1(0);
           }
           else if((tabs==="Saved Reports")){
             this.selectedIndex=1; 
