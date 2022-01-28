@@ -25,6 +25,7 @@ export class LpsAirTerminationComponent implements OnInit {
   expArr!: FormArray;
   conArr!: FormArray;
   airTerminationBasicArr!: FormArray;
+  lpsAirDescription!: FormArray;
   submitted=false;
   validationError: boolean = false;
   validationErrorMsg: String = '';
@@ -766,7 +767,7 @@ export class LpsAirTerminationComponent implements OnInit {
       
       parpetInspectionFailedNoOb: new FormControl('', Validators.required),
       parpetInspectionFailedNoRe: new FormControl(''),
-     flag: new FormControl('true')
+      flag: new FormControl('true')
     
     }) 
   }
@@ -848,44 +849,43 @@ export class LpsAirTerminationComponent implements OnInit {
     })
   }
 
-  submit(){
-    this.vatArr = this.airTerminationForm.get('vatArr') as FormArray;
-    this.vatArr.push(this.createVatArrForm());
-  }
+  // submit(){
+  //   this.vatArr = this.airTerminationForm.get('vatArr') as FormArray;
+  //   this.vatArr.push(this.createVatArrForm());
+  // }
 
-  submit1(){
-    this.meshArr = this.airTerminationForm.get('meshArr') as FormArray;
-    this.meshArr.push(this.createMeshArrForm());
-  }
+  // submit1(){
+  //   this.meshArr = this.airTerminationForm.get('meshArr') as FormArray;
+  //   this.meshArr.push(this.createMeshArrForm());
+  // }
 
-  submit2(){
-    this.holderArr = this.airTerminationForm.get('holderArr') as FormArray;
-    this.holderArr.push(this.createHolderArrForm());
-  }
+  // submit2(){
+  //   this.holderArr = this.airTerminationForm.get('holderArr') as FormArray;
+  //   this.holderArr.push(this.createHolderArrForm());
+  // }
 
-  submit3(){
-    this.clampArr = this.airTerminationForm.get('clampArr') as FormArray;
-    this.clampArr.push(this.createClampArrForm());
-  }
+  // submit3(){
+  //   this.clampArr = this.airTerminationForm.get('clampArr') as FormArray;
+  //   this.clampArr.push(this.createClampArrForm());
+  // }
 
-  submit4(){
-    this.expArr = this.airTerminationForm.get('expArr') as FormArray;
-    this.expArr.push(this.createExpansioArrForm());
-  }
+  // submit4(){
+  //   this.expArr = this.airTerminationForm.get('expArr') as FormArray;
+  //   this.expArr.push(this.createExpansioArrForm());
+  // }
 
-  submit5(){
-    this.conArr = this.airTerminationForm.get('conArr') as FormArray;
-    this.conArr.push(this.createConArrForm());
-  }
+  // submit5(){
+  //   this.conArr = this.airTerminationForm.get('conArr') as FormArray;
+  //   this.conArr.push(this.createConArrForm());
+  // }
   
-//   getDescriptionControl(): AbstractControl[] {
-//     return (<FormArray>this.airTerminationForm.get('airTerminationBasicArr')).controls;
-// }
-  get f() {
-    return this.airTerminationForm.controls;
+  addItem() {
+    debugger
+    this.lpsAirDescription = this.airTerminationForm.get('lpsAirDescription') as FormArray;
+    this.lpsAirDescription.push(this.allLPSAirterminationArr());
   }
 
-  removeItem(a:any,index: any) {
+  removeIte(a:any,index: any) {
     if(a.value.lpsVerticalAirTerminationId !=0 && a.value.lpsVerticalAirTerminationId !=undefined){
        a.value.flag=false;
      (this.airTerminationForm.get('vatArr') as FormArray).removeAt(index);
@@ -897,52 +897,72 @@ export class LpsAirTerminationComponent implements OnInit {
     }
     
     }
-  removeItem1(a:any,index: any) {
-    if(a.value.meshDescriptionId !=0 && a.value.meshDescriptionId !=undefined){
-      a.value.flag=false;
-    (this.airTerminationForm.get('meshArr') as FormArray).removeAt(index);
-    this.meshPusharr= this.meshPusharr.concat(a.value);
+
+//   getDescriptionControl(): AbstractControl[] {
+//     return (<FormArray>this.airTerminationForm.get('airTerminationBasicArr')).controls;
+// }
+  get f() {
+    return this.airTerminationForm.controls;
+  }
+
+//   removeItem(a:any,index: any) {
+//     if(a.value.lpsVerticalAirTerminationId !=0 && a.value.lpsVerticalAirTerminationId !=undefined){
+//        a.value.flag=false;
+//      (this.airTerminationForm.get('vatArr') as FormArray).removeAt(index);
+//      this.vatPusharr= this.vatPusharr.concat(a.value);
+    
+//     }
+//     else{
+//       (this.airTerminationForm.get('vatArr') as FormArray).removeAt(index);
+//     }
+    
+//     }
+//   removeItem1(a:any,index: any) {
+//     if(a.value.meshDescriptionId !=0 && a.value.meshDescriptionId !=undefined){
+//       a.value.flag=false;
+//     (this.airTerminationForm.get('meshArr') as FormArray).removeAt(index);
+//     this.meshPusharr= this.meshPusharr.concat(a.value);
     
    
-   }
-    else{
-    (this.airTerminationForm.get('meshArr') as FormArray).removeAt(index);     
-    }
-    }
-  removeItem2(a:any,index: any) {
-    if(a.value.holderDescriptionId !=0 && a.value.holderDescriptionId !=undefined){
-      a.value.flag=false;
-    (this.airTerminationForm.get('holderArr') as FormArray).removeAt(index);
+//    }
+//     else{
+//     (this.airTerminationForm.get('meshArr') as FormArray).removeAt(index);     
+//     }
+//     }
+//   removeItem2(a:any,index: any) {
+//     if(a.value.holderDescriptionId !=0 && a.value.holderDescriptionId !=undefined){
+//       a.value.flag=false;
+//     (this.airTerminationForm.get('holderArr') as FormArray).removeAt(index);
    
-    this.holderPusharr= this.holderPusharr.concat(a.value);
-   }
-   else{
-    (this.airTerminationForm.get('holderArr') as FormArray).removeAt(index);
-    }}
-  removeItem3(a:any,index: any) {
-    if(a.value.clampsId !=0 && a.value.clampsId !=undefined){
-      a.value.flag=false;
-    (this.airTerminationForm.get('clampArr') as FormArray).removeAt(index);
-    this.clampPusharr= this.clampPusharr.concat(a.value);
-   }
-    else
-    {(this.airTerminationForm.get('clampArr') as FormArray).removeAt(index);}
-    }
-  removeItem4(a:any,index: any) {
-    if(a.value.expansionId !=0 && a.value.expansionId !=undefined){
-      a.value.flag=false;
-    (this.airTerminationForm.get('expArr') as FormArray).removeAt(index);
-    this.exPusharr= this.exPusharr.concat(a.value);
-   }else
-{(this.airTerminationForm.get('expArr') as FormArray).removeAt(index); }}
-  removeItem5(a:any,index: any) {
-    if(a.value.connectorId !=0 && a.value.connectorId !=undefined){
-      a.value.flag=false;
-    (this.airTerminationForm.get('conArr') as FormArray).removeAt(index);
-    this.conPusharr= this.conPusharr.concat(a.value);
-   }else
-    {(this.airTerminationForm.get('conArr') as FormArray).removeAt(index);}
-    }
+//     this.holderPusharr= this.holderPusharr.concat(a.value);
+//    }
+//    else{
+//     (this.airTerminationForm.get('holderArr') as FormArray).removeAt(index);
+//     }}
+//   removeItem3(a:any,index: any) {
+//     if(a.value.clampsId !=0 && a.value.clampsId !=undefined){
+//       a.value.flag=false;
+//     (this.airTerminationForm.get('clampArr') as FormArray).removeAt(index);
+//     this.clampPusharr= this.clampPusharr.concat(a.value);
+//    }
+//     else
+//     {(this.airTerminationForm.get('clampArr') as FormArray).removeAt(index);}
+//     }
+//   removeItem4(a:any,index: any) {
+//     if(a.value.expansionId !=0 && a.value.expansionId !=undefined){
+//       a.value.flag=false;
+//     (this.airTerminationForm.get('expArr') as FormArray).removeAt(index);
+//     this.exPusharr= this.exPusharr.concat(a.value);
+//    }else
+// {(this.airTerminationForm.get('expArr') as FormArray).removeAt(index); }}
+//   removeItem5(a:any,index: any) {
+//     if(a.value.connectorId !=0 && a.value.connectorId !=undefined){
+//       a.value.flag=false;
+//     (this.airTerminationForm.get('conArr') as FormArray).removeAt(index);
+//     this.conPusharr= this.conPusharr.concat(a.value);
+//    }else
+//     {(this.airTerminationForm.get('conArr') as FormArray).removeAt(index);}
+//     }
 
   retriveAirTermination(){
     this.airterminationServices.retriveAirTerminationDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
@@ -953,5 +973,7 @@ export class LpsAirTerminationComponent implements OnInit {
       }
     );  
   }
+
+ 
 
 }
