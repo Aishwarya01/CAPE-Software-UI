@@ -27,6 +27,10 @@ export class PowerAndEarthingDataComponent implements OnInit {
   successMsg: string = "";
   errorMsg: string = "";
   finalSpinner: boolean = true;
+  validationErrorTab: boolean = false;
+  validationErrorMsgTab: string="";
+  validationError: boolean =false;
+  validationErrorMsg: String ="";
   popup: boolean = false;
   modalReference: any;
   step1List2: any;
@@ -60,7 +64,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
       powerIncomingAmps: ['', Validators.required],
       powerNeutral: ['', Validators.required],
       psEarthing: ['', Validators.required],
-      peAttachement: ['', Validators.required],
+      peAttachement: [''],
       dedicatedTransfermation: ['', Validators.required],
       dedicatedTransfermationOtherBuilding: ['', Validators.required],
       typeOFIncoming: ['', Validators.required],
@@ -136,12 +140,25 @@ export class PowerAndEarthingDataComponent implements OnInit {
 }
 
 gotoNextModal(content2: any) {
+  if(this.EMCPowerAndEarthForm.invalid) {
+    this.validationError=true;
+    this.validationErrorMsg="Please check all the fields";
+//     setTimeout(()=>{
+//       this.validationError=false;
+//  }, 3000);
+    return;
+  }
+ if(this.EMCPowerAndEarthForm.touched || this.EMCPowerAndEarthForm.untouched){
   this.modalReference = this.modalService.open(content2, {
-    centered: true,
-    size: 'md',
-    backdrop: 'static'
-  })
-
+     centered: true, 
+     size: 'md',
+     backdrop: 'static'
+    })
+ }
+ if(this.EMCPowerAndEarthForm.dirty && this.EMCPowerAndEarthForm.touched){ //update
+  this.modalService.open(content2, { centered: true,backdrop: 'static'});
+  this.modalReference.close();
+ }
 }
 
 closeModalDialog() {
@@ -207,15 +224,60 @@ retrivePowerEarthingData(userName: any, emcId: any, data: any) {
   }
 
   }
+
+  onChangeForm(event:any){
+    if(!this.EMCPowerAndEarthForm.invalid){
+      if(this.EMCPowerAndEarthForm.dirty){
+        this.validationError=false;
+        // this.service.lvClick=1;
+        // this.service.logoutClick=1;
+        //  this.service.windowTabClick=1;
+      }
+      else{
+        this.validationError=false;
+        // this.service.lvClick=0;
+        // this.service.logoutClick=0;
+        // this.service.windowTabClick=0;
+      }
+     }
+     else {
+      // this.service.lvClick=1;
+      // this.service.logoutClick=1;
+      // this.service.windowTabClick=1;
+     }
+  }
+
+  onKeyForm(event: KeyboardEvent) { 
+    if(!this.EMCPowerAndEarthForm.invalid){ 
+     if(this.EMCPowerAndEarthForm.dirty){
+      this.validationError=false;
+      //  this.service.lvClick=1;
+      //  this.service.logoutClick=1;
+      //  this.service.windowTabClick=1;
+     }
+     else{
+       this.validationError=false;
+      //  this.service.lvClick=0;
+      //  this.service.logoutClick=0;
+      //  this.service.windowTabClick=0;
+     }
+    }
+    else {
+    //  this.service.lvClick=1;
+    //  this.service.logoutClick=1;
+    //  this.service.windowTabClick=1;
+    }
+   } 
+
   get f():any {
     return this.EMCPowerAndEarthForm.controls;
   }
 
 savePowerAndEarthingData(flag:any){
   this.submitted=true;
-  // if(this.EMCPowerAndEarthForm.invalid){
-  //   return
-  // }
+  if(this.EMCPowerAndEarthForm.invalid){
+    return
+  }
   console.log(this.EMCPowerAndEarthForm);
 
   this.emcPowerAndEarthingData.userName='Hasan';
@@ -227,7 +289,7 @@ savePowerAndEarthingData(flag:any){
     this.distributionPannelArr = this.EMCPowerAndEarthForm.get('distributionPannelArr') as FormArray;
     this.emcPowerAndEarthingData.distrubutionPannel = this.EMCPowerAndEarthForm.value.distributionPannelArr;
 if(flag){
-  
+  if(this.EMCPowerAndEarthForm.dirty){
    this.emcPowerAndEarthingDataService
   .updatePowerEarthingData(this.emcPowerAndEarthingData)
   .subscribe(
@@ -248,6 +310,7 @@ if(flag){
 
     });
   
+}
 }
 
 else{

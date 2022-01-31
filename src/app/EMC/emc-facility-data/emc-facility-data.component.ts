@@ -32,6 +32,10 @@ export class EmcFacilityDataComponent implements OnInit {
   submitted=false;
   successMsg: string = "";
   errorMsg: string = "";
+  validationErrorTab: boolean = false;
+  validationErrorMsgTab: string="";
+  validationError: boolean =false;
+  validationErrorMsg: String ="";
   email: String;
   step1List: any;
   arr2: any;
@@ -194,6 +198,50 @@ export class EmcFacilityDataComponent implements OnInit {
     return this.EMCFacilityForm.controls;
   }
 
+  onKeyForm(event: KeyboardEvent) { 
+    if(!this.EMCFacilityForm.invalid){ 
+     if(this.EMCFacilityForm.dirty){
+      this.validationError=false;
+      //  this.service.lvClick=1;
+      //  this.service.logoutClick=1;
+      //  this.service.windowTabClick=1;
+     }
+     else{
+       this.validationError=false;
+      //  this.service.lvClick=0;
+      //  this.service.logoutClick=0;
+      //  this.service.windowTabClick=0;
+     }
+    }
+    else {
+    //  this.service.lvClick=1;
+    //  this.service.logoutClick=1;
+    //  this.service.windowTabClick=1;
+    }
+   } 
+
+
+   onChangeForm(event:any){
+    if(!this.EMCFacilityForm.invalid){
+      if(this.EMCFacilityForm.dirty){
+        this.validationError=false;
+        // this.service.lvClick=1;
+        // this.service.logoutClick=1;
+        //  this.service.windowTabClick=1;
+      }
+      else{
+        this.validationError=false;
+        // this.service.lvClick=0;
+        // this.service.logoutClick=0;
+        // this.service.windowTabClick=0;
+      }
+     }
+     else {
+      // this.service.lvClick=1;
+      // this.service.logoutClick=1;
+      // this.service.windowTabClick=1;
+     }
+  }
   closeModalDialog() {
     this.finalSpinner = true;
     this.popup = false;
@@ -214,20 +262,32 @@ export class EmcFacilityDataComponent implements OnInit {
   }
 
   gotoNextModal(content1: any) {
+    if(this.EMCFacilityForm.invalid) {
+      this.validationError=true;
+      this.validationErrorMsg="Please check all the fields";
+  //     setTimeout(()=>{
+  //       this.validationError=false;
+  //  }, 3000);
+      return;
+    }
+   if(this.EMCFacilityForm.touched || this.EMCFacilityForm.untouched){
     this.modalReference = this.modalService.open(content1, {
-      centered: true,
-      size: 'md',
-      backdrop: 'static'
-    })
-
+       centered: true, 
+       size: 'md',
+       backdrop: 'static'
+      })
+   }
+   if(this.EMCFacilityForm.dirty && this.EMCFacilityForm.touched){ //update
+    this.modalService.open(content1, { centered: true,backdrop: 'static'});
+    this.modalReference.close();
+   }
   }
-
   saveFacilityData(flag: any) {
 
      this.submitted=true;
-    // if(this.EMCFacilityForm.invalid) {
-    //   return;
-    // }
+    if(this.EMCFacilityForm.invalid) {
+      return;
+    }
     this.emcFacilityData.userName = "sivaraju";
     if (!flag) {
       this.emcFacilityData.emcId = 88;
@@ -235,7 +295,8 @@ export class EmcFacilityDataComponent implements OnInit {
   
     this.floorCoveringArr = this.EMCFacilityForm.get('floorCoveringArr') as FormArray;
     this.emcFacilityData.floorCovering = this.EMCFacilityForm.value.floorCoveringArr;
-    if (flag) {
+    if(flag) {
+      if(this.EMCFacilityForm.dirty){
       this.emcFacilityDataService
         .upDateFacilityData(this.emcFacilityData)
         .subscribe(
@@ -256,6 +317,7 @@ export class EmcFacilityDataComponent implements OnInit {
 
           });
     }
+  }
 
     else {
       this.emcFacilityDataService

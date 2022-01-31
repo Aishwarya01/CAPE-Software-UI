@@ -1,6 +1,9 @@
+<div *ngIf="validationErrorTab" style="text-align: center;">
+    <span class="alert alert-danger">{{validationErrorMsgTab}}</span>
+  </div>
 <div class="card">
     <div class="card-body">
-        <form [formGroup]="EMCPowerAndEarthForm">
+        <form [formGroup]="EMCPowerAndEarthForm"  (ngSubmit)="savePowerAndEarthingData(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
             <mat-accordion displayMode="default" [multi]="true" [hideToggle]="false">
 
                 <mat-expansion-panel [hideToggle]="false" class="body">
@@ -1238,13 +1241,16 @@
                     </div>
                 </div>
             </mat-accordion>
+            <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+                <span class="alert alert-danger">{{validationErrorMsg}}</span>
+              </div>
 
             <div class="container">
                 <div style="text-align: center;">
                     <button type="button" style="width: 100px; margin: 16px auto;"
                         class="btn btn-primary">Previous</button>
                     <button type="submit" style="width: 100px; margin: 16px auto;"
-                        (click)="savePowerAndEarthingData(flag)" class="btn btn-success">Next</button>
+                    (click)="gotoNextModal(content2)"    class="btn btn-success">Next</button>
                 </div>
             </div>
 
@@ -1252,7 +1258,7 @@
     </div>
 
 
-    <ng-template #content3 let-modal>
+    <ng-template #content2 let-modal>
         <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner" color="primary">
         </mat-progress-spinner>
         <div class="modal-body" *ngIf="popup">

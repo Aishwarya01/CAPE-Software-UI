@@ -1,10 +1,14 @@
+
+<div *ngIf="validationErrorTab" style="text-align: center;">
+    <span class="alert alert-danger">{{validationErrorMsgTab}}</span>
+  </div>
 <div class="card">
     <!-- <div>
         <h2 style="text-align: center;">ELECTROMAGNETIC COMPATIBILITY (EMC) DATA</h2>
     </div>2 -->
     <div class="card-body">
         <mat-accordion>
-            <form [formGroup]="EMCElectroMagneticFormm">
+            <form [formGroup]="EMCElectroMagneticFormm" (ngSubmit)="saveElectroMagneticData(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
 
                 <mat-expansion-panel class="body">
 
@@ -613,12 +617,12 @@
                                     <div class="form-group">
                                         <label class="form-label">RFI survey needed</label>
                                         <select class="form-control" formControlName="newRfiSurvey"
-                                        [ngClass]="{'is-invalid':submitted && a.get('rfiSurvey')?.errors}">
+                                        [ngClass]="{'is-invalid':submitted && a.get('newRfiSurvey')?.errors}">
                                             <option [ngValue]="null">Select Option</option>
                                             <option *ngFor="let value of selectionValue">{{value}}</option>
                                         </select>
-                                        <div *ngIf="submitted && a.get('rfiSurvey')?.errors" class="invalid-feedback">
-                                            <div *ngIf="a.get('rfiSurvey')?.errors?.required">RFI Survey Needed Is Required</div>
+                                        <div *ngIf="submitted && a.get('newRfiSurvey')?.errors" class="invalid-feedback">
+                                            <div *ngIf="a.get('newRfiSurvey')?.errors?.required">RFI Survey Needed Is Required</div>
                                         </div>
                                     </div>
                                 </div>
@@ -638,13 +642,17 @@
                         </mat-expansion-panel>
                     </div>
                 </div>
+                <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+                    <span class="alert alert-danger">{{validationErrorMsg}}</span>
+                  </div>
+
 
                 <div class="container">
                     <div style="text-align: center;">
                         <button type="button" style="width: 100px; margin: 16px auto;"
                             class="btn btn-primary">Previous</button>
                         <button type="submit" style="width: 100px; margin: 16px auto;"
-                            (click)="saveElectroMagneticData(flag)" class="btn btn-success">Next</button>
+                        (click)="gotoNextModal(content3)" class="btn btn-success">Next</button>
                     </div>
                 </div>
 
@@ -655,7 +663,7 @@
 
 
 
-<ng-template #content2 let-modal>
+<ng-template #content3 let-modal>
     <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner" color="primary">
     </mat-progress-spinner>
     <div class="modal-body" *ngIf="popup">

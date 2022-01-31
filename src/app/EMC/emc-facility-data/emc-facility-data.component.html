@@ -1,3 +1,6 @@
+<div *ngIf="validationErrorTab" style="text-align: center;">
+    <span class="alert alert-danger">{{validationErrorMsgTab}}</span>
+  </div>
 <div class="card">
     <!-- <div>
         <h2 style="text-align: center;"> FACILITY DATA</h2>
@@ -5,7 +8,7 @@
     <div class="card-body">
 
         <mat-accordion>
-            <form [formGroup]="EMCFacilityForm">
+            <form [formGroup]="EMCFacilityForm" (ngSubmit)="saveFacilityData(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
 
                 <mat-expansion-panel class="body">
                     <mat-expansion-panel-header>
@@ -979,10 +982,14 @@
                     </div>
                 </div>
 
+                <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+                    <span class="alert alert-danger">{{validationErrorMsg}}</span>
+                  </div>
+
                 <div class="container">
                     <div style="text-align: center;">
                         <button type="submit" style="width: 100px; margin: 16px auto;"
-                        (click)="saveFacilityData(flag)"  class="btn btn-success">Next</button>
+                         (click)="gotoNextModal(content1)"  class="btn btn-success">Next</button>
                     </div>
                 </div>  `
 

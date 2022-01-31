@@ -23,6 +23,10 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
   success: boolean = false;
   Error: boolean = false;
   submitted=false;
+  validationErrorTab: boolean = false;
+  validationErrorMsgTab: string="";
+  validationError: boolean =false;
+  validationErrorMsg: String ="";
   successMsg: string = "";
   errorMsg: string = "";
   email: String;
@@ -99,15 +103,6 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
 
   getExternalCompatibilityControl(): AbstractControl[] {
     return (<FormArray>this.EMCElectroMagneticFormm.get('externalCompatibilityArr')).controls
-  }
-
-  gotoNextModal(content2: any) {
-    this.modalReference = this.modalService.open(content2, {
-      centered: true,
-      size: 'md',
-      backdrop: 'static'
-    })
-
   }
   get f():any {
     return this.EMCElectroMagneticFormm.controls;
@@ -206,13 +201,77 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
       newRfiSurveyDesc: new FormControl({ disabled: false, value: item.newRfiSurveyDesc }),
     });
   }
+  gotoNextModal(content3: any) {
+    if(this.EMCElectroMagneticFormm.invalid) {
+      this.validationError=true;
+      this.validationErrorMsg="Please check all the fields";
+  //     setTimeout(()=>{
+  //       this.validationError=false;
+  //  }, 3000);
+      return;
+    }
+   if(this.EMCElectroMagneticFormm.touched || this.EMCElectroMagneticFormm.untouched){
+    this.modalReference = this.modalService.open(content3, {
+       centered: true, 
+       size: 'md',
+       backdrop: 'static'
+      })
+   }
+   if(this.EMCElectroMagneticFormm.dirty && this.EMCElectroMagneticFormm.touched){ //update
+    this.modalService.open(content3, { centered: true,backdrop: 'static'});
+    this.modalReference.close();
+   }
+  }
+  onKeyForm(event: KeyboardEvent) { 
+    if(!this.EMCElectroMagneticFormm.invalid){ 
+     if(this.EMCElectroMagneticFormm.dirty){
+      this.validationError=false;
+      //  this.service.lvClick=1;
+      //  this.service.logoutClick=1;
+      //  this.service.windowTabClick=1;
+     }
+     else{
+       this.validationError=false;
+      //  this.service.lvClick=0;
+      //  this.service.logoutClick=0;
+      //  this.service.windowTabClick=0;
+     }
+    }
+    else {
+    //  this.service.lvClick=1;
+    //  this.service.logoutClick=1;
+    //  this.service.windowTabClick=1;
+    }
+   } 
+
+   onChangeForm(event:any){
+    if(!this.EMCElectroMagneticFormm.invalid){
+      if(this.EMCElectroMagneticFormm.dirty){
+        this.validationError=false;
+        // this.service.lvClick=1;
+        // this.service.logoutClick=1;
+        //  this.service.windowTabClick=1;
+      }
+      else{
+        this.validationError=false;
+        // this.service.lvClick=0;
+        // this.service.logoutClick=0;
+        // this.service.windowTabClick=0;
+      }
+     }
+     else {
+      // this.service.lvClick=1;
+      // this.service.logoutClick=1;
+      // this.service.windowTabClick=1;
+     }
+  }
 
     saveElectroMagneticData(flag: any) {
 
       this.submitted=true;
-      // if(this.EMCElectroMagneticFormm.invalid){
-      //   return
-      // }
+      if(this.EMCElectroMagneticFormm.invalid){
+        return
+      }
       this.emcElectromagneticCompatibility.userName = "Hasan";
       if (!flag) {
         this.emcElectromagneticCompatibility.emcId = 10;
@@ -221,6 +280,7 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
       this.emcElectromagneticCompatibility.externalCompatibility = this.EMCElectroMagneticFormm.value.externalCompatibilityArr;
   
       if (flag) {
+        if(this.EMCElectroMagneticFormm.dirty){
         this.emcElectroMagneticCompabilityService
           .updateElectromagneticCompatability(this.emcElectromagneticCompatibility)
           .subscribe(
@@ -241,6 +301,7 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
   
             });
       }
+    }
   
       else {
         this.emcElectroMagneticCompabilityService
