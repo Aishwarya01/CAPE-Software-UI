@@ -94,8 +94,8 @@ export class LpsAirTerminationComponent implements OnInit {
   allLPSAirterminationArr():FormGroup {
     return new FormGroup({
 
-      buildingnumber: new FormControl(Validators.required),
-      buildingname: new FormControl('', Validators.required),
+      buildingNumber: new FormControl(Validators.required),
+      buildingName: new FormControl('', Validators.required),
       buildingType: new FormControl('', Validators.required),
       buildingLength: new FormControl('', Validators.required),
       buildingHeight: new FormControl('', Validators.required),

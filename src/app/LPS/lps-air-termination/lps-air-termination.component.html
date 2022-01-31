@@ -9,37 +9,37 @@
 
                     <div class="row">
                         <div class="col-md-4">
-                            <label for="buildingnumber">Building Number</label>
+                            <label for="buildingNumber">Building Number</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                         <i class="bi bi-align-start"></i>
                                     </span>
                                 </div>
-                                <input type="number" class="form-control" placeholder="Enter Building Number" formControlName="buildingnumber" [ngClass]="{ 'is-invalid': submitted && q.get('buildingnumber')?.errors }"
+                                <input type="number" class="form-control" placeholder="Enter Building Number" formControlName="buildingNumber" [ngClass]="{ 'is-invalid': submitted && q.get('buildingNumber')?.errors }"
                                 required/>
-                                <div *ngIf="submitted && q.get('buildingnumber')?.errors"
+                                <div *ngIf="submitted && q.get('buildingNumber')?.errors"
                                         class="invalid-feedback">
-                                        <div *ngIf="q.get('buildingnumber')?.errors?.required">Building Number is required</div>
+                                        <div *ngIf="q.get('buildingNumber')?.errors?.required">Building Number is required</div>
                                 </div>
 
                             </div>
                         </div>
         
                         <div class="col-md-4">
-                            <label for="buildingname">Building Name</label>
+                            <label for="buildingName">Building Name</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                         <i class="bi bi-align-start"></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control"  formControlName="buildingname"
-                                [ngClass]="{ 'is-invalid': submitted && q.get('buildingname')?.errors }"
+                                <input type="text" class="form-control"  formControlName="buildingName"
+                                [ngClass]="{ 'is-invalid': submitted && q.get('buildingName')?.errors }"
                                         required/>
-                                        <div *ngIf="submitted && q.get('buildingname')?.errors"
+                                        <div *ngIf="submitted && q.get('buildingName')?.errors"
                                                 class="invalid-feedback">
-                                                <div *ngIf="q.get('buildingname')?.errors?.required">Building Name is required</div>
+                                                <div *ngIf="q.get('buildingName')?.errors?.required">Building Name is required</div>
                                         </div>
                             </div>
                         </div>
