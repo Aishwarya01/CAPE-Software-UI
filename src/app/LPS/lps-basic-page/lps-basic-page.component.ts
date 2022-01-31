@@ -110,11 +110,11 @@ export class LpsBasicPageComponent implements OnInit {
       this.basicDetails.soilResistivity = this.step1List.soilResistivity;
       this.basicDetails.userName = this.step1List.userName;
       this.basicDetails.allStepsCompleted = this.step1List.allStepsCompleted;
-      for(let i of this.step1List.basicLpsDescription) {
-        this.LPSBasicForm.patchValue ({
-         basicLpsDescription: [i],
-        })
-       }
+      // for(let i of this.step1List.basicLpsDescription) {
+      //   this.LPSBasicForm.patchValue ({
+      //    basicLpsDescription: [i],
+      //   })
+      //  }
     //  }
      
     this.flag=true;
@@ -149,11 +149,11 @@ export class LpsBasicPageComponent implements OnInit {
        this.basicDetails.soilResistivity = this.stepBack[0].soilResistivity;
        this.basicDetails.userName = this.stepBack[0].userName;
        this.basicDetails.allStepsCompleted = this.stepBack[0].allStepsCompleted;
-       for(let i of this.stepBack[0].basicLpsDescription) {
-         this.LPSBasicForm.patchValue ({
-          basicLpsDescription: [i],
-         })
-        }
+      //  for(let i of this.stepBack[0].basicLpsDescription) {
+      //    this.LPSBasicForm.patchValue ({
+      //     basicLpsDescription: [i],
+      //    })
+      //   }
      this.flag=true;
      this.LPSBasicForm.markAsPristine();
      }

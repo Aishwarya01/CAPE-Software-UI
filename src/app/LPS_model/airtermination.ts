@@ -18,13 +18,13 @@ export class Airtermination {
 }
 
 export class lpsAirDescription {
-    buildingnumber!: String;
-    buildingname!: String;
+    buildingNumber!: number;
+    buildingName!: String;
     buildingType!: String;
-    buildingLength!: String;
-    buildingHeight!: String;
-    buildingWidth!: String;
-    levelOfProtection!: String;
+    buildingLength!: number;
+    buildingHeight!: number;
+    buildingWidth!: number;
+    protectionLevel!: String;
     flag!: String;
     airClamps!:airClamps[];
     airConnectors!:AirConnectors[];

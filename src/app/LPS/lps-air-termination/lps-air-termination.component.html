@@ -138,12 +138,12 @@
                                         <i class="bi bi-shield-fill-x"></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control" formControlName="levelOfProtection"
-                                [ngClass]="{ 'is-invalid': submitted && q.get('levelOfProtection')?.errors }"
+                                <input type="text" class="form-control" formControlName="protectionLevel"
+                                [ngClass]="{ 'is-invalid': submitted && q.get('protectionLevel')?.errors }"
                                         required/>
-                                        <div *ngIf="submitted && q.get('levelOfProtection')?.errors"
+                                        <div *ngIf="submitted && q.get('protectionLevel')?.errors"
                                                 class="invalid-feedback">
-                                                <div *ngIf="q.get('levelOfProtection')?.errors?.required">Level of protection is required</div>
+                                                <div *ngIf="q.get('protectionLevel')?.errors?.required">Level of protection is required</div>
                                         </div>
                         </div>
                     </div> 
@@ -160,7 +160,7 @@
                         <th>Observation</th>
                         <th>Remarks(Optional)</th>
                     </thead> -->
-                    <tbody formArrayName="airTerminationBasicArr" *ngFor="let a of getDescriptionControl(q); let j = index">
+                    <tbody formArrayName="airBasicDescription" *ngFor="let a of getDescriptionControl(q); let j = index">
                         <div class="form-group" [formGroupName]="j">
 
                             <thead style="text-align: center;">
@@ -640,7 +640,7 @@
                                 <th>Remarks</th>
                             </thead> -->
                             <!-- Form Array -->
-                            <tbody formArrayName="vatArr" *ngFor="let a of vatControls(q); let j = index">
+                            <tbody formArrayName="lpsVerticalAirTermination" *ngFor="let a of vatControls(q); let j = index">
                                 <div class="form-group" [formGroupName]="j">
                                     <thead>
                                         <th>SI.No</th>
@@ -1096,7 +1096,7 @@
                         <div class="col-sm-12">
                             <div class="table-responsive" style="overflow-x: unset;">
                                 <table class="table TableBorder">
-                            <tbody formArrayName="meshArr" *ngFor="let a of meshControls(q); let i = index">
+                            <tbody formArrayName="airMeshDescription" *ngFor="let a of meshControls(q); let i = index">
                                 <div class="form-group" [formGroupName]="i">
                                     <thead>
                                         <th>SI.No</th>
@@ -1359,7 +1359,7 @@
                         <div class="col-sm-12">
                             <div class="table-responsive" style="overflow-x: unset;">
                                 <table class="table TableBorder">
-                            <tbody formArrayName="holderArr" *ngFor="let a of holdersContols(q); let j = index">
+                            <tbody formArrayName="airHolderDescription" *ngFor="let a of holdersContols(q); let j = index">
                                 <div class="form-group" [formGroupName]="j">
                                     <thead>
                                         <th>SI.No</th>
@@ -1838,7 +1838,7 @@
                         <div class="col-sm-12">
                             <div class="table-responsive" style="overflow-x: unset;">
                                 <table class="table TableBorder">
-                            <tbody formArrayName="clampArr" *ngFor="let a of clampsControls(q); let i = index">
+                            <tbody formArrayName="airClamps" *ngFor="let a of clampsControls(q); let i = index">
                                 <div class="form-group" [formGroupName]="i">
                                     <thead>
                                         <th>SI.No</th>
@@ -2155,7 +2155,7 @@
                         <div class="col-sm-12">
                             <div class="table-responsive" style="overflow-x: unset;">
                                 <table class="table TableBorder">
-                            <tbody formArrayName="expArr" *ngFor="let a of expansionControls(q); let i = index">
+                            <tbody formArrayName="airExpansion" *ngFor="let a of expansionControls(q); let i = index">
                                 <div class="form-group" [formGroupName]="i">
                                     <thead>
                                         <th>SI.No</th>
@@ -2403,7 +2403,7 @@
                         <div class="col-sm-12">
                             <div class="table-responsive" style="overflow-x: unset;">
                                 <table class="table TableBorder">
-                            <tbody formArrayName="conArr" *ngFor="let a of connectorsControls(q); let i = index">
+                            <tbody formArrayName="airConnectors" *ngFor="let a of connectorsControls(q); let i = index">
                                 <div class="form-group" [formGroupName]="i">
                                     <thead>
                                         <th>SI.No</th>
