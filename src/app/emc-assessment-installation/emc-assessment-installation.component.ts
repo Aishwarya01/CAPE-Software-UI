@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ViewChild, ViewContainerRef } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-emc-assessment-installation',
@@ -7,18 +9,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmcAssessmentInstallationComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild('reference', { read: ViewContainerRef })
+  viewContainerRef!: ViewContainerRef;
+  destroy: boolean = false;
+  email: String = '';
+  showLicence: boolean = false;
+  showHome: boolean = false;
 
+  constructor( private router: ActivatedRoute) { 
+      {
+        this.email = this.router.snapshot.paramMap.get('email') || '{}'
+      }
+    }
   ngOnInit(): void {
-  }
-
-  onClose(){
-    alert("Are you sure want to proceed further");
-  }
-
-  onNavigateToQuestionaire(){
     
   }
 
+  onNavigateToQuestionaire() {
+    this.viewContainerRef.clear();
+    this.destroy = true;
+    this.showHome = true;
+  }
 
+  displayIconsBasedOnEmail(){
+  }
+  
 }
