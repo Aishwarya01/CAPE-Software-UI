@@ -4,7 +4,7 @@
 <div class="card">
     <div class="card-body">
         <form [formGroup]="EMCPowerAndEarthForm"  (ngSubmit)="savePowerAndEarthingData(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
-            <mat-accordion displayMode="default" [multi]="true" [hideToggle]="false">
+            <mat-accordion displayMode="default" [hideToggle]="false">
 
                 <mat-expansion-panel [hideToggle]="false" class="body">
                     <mat-expansion-panel-header>
