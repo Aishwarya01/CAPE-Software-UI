@@ -47,7 +47,7 @@
                                 [ngClass]="{'is-invalid':submitted && f.powerBackupSource?.errors}"
                                 placeholder="describe type, capacity, time delay, loads, etc...!"></textarea>
                             <div *ngIf="submitted &&f.powerBackupSource?.errors" class="invalid-feedback">
-                                <div *ngIf="f.powerBackupSource?.errors?.required">Field Is Required</div>
+                                <div *ngIf="f.powerBackupSource?.errors?.required">Back Up Source Is Required</div>
                             </div>
                         </div>
                     </div>
@@ -66,7 +66,7 @@
                                 [ngClass]="{'is-invalid':submitted && f.powerDistanceHvLv?.errors}"
                                 placeholder="In case transformer with in the premise (HV supply), describe this and the distance to the suppliers substation...!"></textarea>
                             <div *ngIf="submitted &&f.powerDistanceHvLv?.errors" class="invalid-feedback">
-                                <div *ngIf="f.powerDistanceHvLv?.errors?.required">Field Is Required</div>
+                                <div *ngIf="f.powerDistanceHvLv?.errors?.required">Distance to HV/LV Substation Is Required</div>
                             </div>
                         </div>
                     </div>
@@ -103,7 +103,7 @@
                                 placeholder="Enter Discription of supply"
                                 [ngClass]="{'is-invalid':submitted && f.powerDiscSupply?.errors}"></textarea>
                             <div *ngIf="submitted &&f.powerDiscSupply?.errors" class="invalid-feedback">
-                                <div *ngIf="f.powerDiscSupply?.errors?.required">Field Is Required</div>
+                                <div *ngIf="f.powerDiscSupply?.errors?.required">Discription Of Supply Is Required</div>
                             </div>
                         </div>
                     </div>
@@ -122,7 +122,7 @@
                                         [ngClass]="{'is-invalid':submitted && f.powerTransformationKVA?.errors}"
                                         placeholder="Enter KVA">
                                     <div *ngIf="submitted &&f.powerTransformationKVA?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.powerTransformationKVA?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.powerTransformationKVA?.errors?.required">kVA Is Required</div>
                                     </div>
                                 </div>
                             </div>
@@ -139,7 +139,7 @@
                                         formControlName="powerInputVolts" placeholder="Enter Volts"
                                         [ngClass]="{'is-invalid':submitted && f.powerInputVolts?.errors}">
                                     <div *ngIf="submitted &&f.powerInputVolts?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.powerInputVolts?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.powerInputVolts?.errors?.required">Volts Is Required</div>
                                     </div>
                                 </div>
 
@@ -150,7 +150,7 @@
                                         formControlName="powerInputPhase" placeholder="Enter No. of phases"
                                         [ngClass]="{'is-invalid':submitted && f.powerInputPhase?.errors}">
                                     <div *ngIf="submitted &&f.powerInputPhase?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.powerInputPhase?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.powerInputPhase?.errors?.required">No. Of Phases Is Required</div>
                                     </div>
                                 </div>
 
@@ -161,7 +161,7 @@
                                         formControlName="powerInputWires" placeholder="Enter No. of wires"
                                         [ngClass]="{'is-invalid':submitted && f.powerInputWires?.errors}">
                                     <div *ngIf="submitted &&f.powerInputWires?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.powerInputWires?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.powerInputWires?.errors?.required">No. Of wires Is Required</div>
                                     </div>
                                 </div>
 
@@ -172,7 +172,7 @@
                                         formControlName="powerInputFeed" placeholder="Enter Feed (Delta/WYE)"
                                         [ngClass]="{'is-invalid':submitted && f.powerInputFeed?.errors}">
                                     <div *ngIf="submitted &&f.powerInputFeed?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.powerInputFeed?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.powerInputFeed?.errors?.required">Feed (Delta/WYE) Is Required</div>
                                     </div>
                                 </div>
                             </div>
@@ -191,7 +191,7 @@
                                         [(ngModel)]="emcPowerAndEarthingData.powerInputDesc"
                                         placeholder="Enter Describe Others"></textarea>
                                     <div *ngIf="submitted &&f.powerInputDesc?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.powerInputDesc?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.powerInputDesc?.errors?.required">Describe Other Is Required</div>
                                     </div>
                                 </div>
                             </div>
@@ -209,7 +209,7 @@
                                             formControlName="powerOutputVolts" placeholder="Enter Volts"
                                             [ngClass]="{'is-invalid':submitted && f.powerOutputVolts?.errors}">
                                         <div *ngIf="submitted &&f.powerOutputVolts?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.powerOutputVolts?.errors?.required">Field Is Required</div>
+                                            <div *ngIf="f.powerOutputVolts?.errors?.required">Output to MDB Is Required</div>
                                         </div>
                                     </div>
 
@@ -220,7 +220,7 @@
                                             formControlName="powerOutputPhase" placeholder="Enter No. of phases"
                                             [ngClass]="{'is-invalid':submitted && f.powerOutputPhase?.errors}">
                                         <div *ngIf="submitted &&f.powerOutputPhase?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.powerOutputPhase?.errors?.required">Field Is Required</div>
+                                            <div *ngIf="f.powerOutputPhase?.errors?.required">No. Of Phases Is Required</div>
                                         </div>
                                     </div>
 
@@ -231,7 +231,7 @@
                                             formControlName="powerOutputWires" placeholder="Enter No. of wires"
                                             [ngClass]="{'is-invalid':submitted && f.powerOutputWires?.errors}">
                                         <div *ngIf="submitted &&f.powerOutputWires?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.powerOutputWires?.errors?.required">Field Is Required</div>
+                                            <div *ngIf="f.powerOutputWires?.errors?.required">No. Of Wires Is Required</div>
                                         </div>
                                     </div>
                                 </div>
@@ -243,7 +243,7 @@
                                             formControlName="powerOutputFeed" placeholder="Enter Feed (Delta/WYE)"
                                             [ngClass]="{'is-invalid':submitted && f.powerOutputFeed?.errors}">
                                         <div *ngIf="submitted &&f.powerOutputFeed?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.powerOutputFeed?.errors?.required">Field Is Required</div>
+                                            <div *ngIf="f.powerOutputFeed?.errors?.required">Feed (Delta/WYE) Is Required</div>
                                         </div>
                                     </div>
 
@@ -256,7 +256,7 @@
                                             formControlName="powerIncomingAmps" placeholder="Enter Amps here"
                                             [ngClass]="{'is-invalid':submitted && f.powerIncomingAmps?.errors}">
                                         <div *ngIf="submitted &&f.powerIncomingAmps?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.powerIncomingAmps?.errors?.required">Field Is Required</div>
+                                            <div *ngIf="f.powerIncomingAmps?.errors?.required">Incoming (Amps) Is Required</div>
                                         </div>
                                     </div>
 
@@ -271,7 +271,7 @@
                                                 <option *ngFor="let value of neutral">{{value}}</option>
                                             </select>
                                             <div *ngIf="submitted &&f.powerNeutral?.errors" class="invalid-feedback">
-                                                <div *ngIf="f.powerNeutral?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="f.powerNeutral?.errors?.required">Neutral Is Required</div>
                                             </div>
                                         </div>
                                     </div>
@@ -292,7 +292,7 @@
                                         placeholder="describe how and where?"
                                         [ngClass]="{'is-invalid':submitted && f.psEarthing?.errors}"></textarea>
                                     <div *ngIf="submitted &&f.psEarthing?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.psEarthing?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.psEarthing?.errors?.required">System Earthing Is Required</div>
                                     </div>
                                 </div>
                             </div>
@@ -325,7 +325,7 @@
                                 <option *ngFor="let value of selectionValue">{{value}}</option>
                             </select>
                             <div *ngIf="submitted &&f.dedicatedTransfermation?.errors" class="invalid-feedback">
-                                <div *ngIf="f.dedicatedTransfermation?.errors?.required">Field Is Required</div>
+                                <div *ngIf="f.dedicatedTransfermation?.errors?.required">Dedicated Transformer Is Required</div>
                             </div>
                         </div>
                         <div>
@@ -456,7 +456,7 @@
                                             [ngClass]="{'is-invalid':submitted && a.get('bDSld')?.errors}"
                                             placeholder="Ex. An one-line diagram of the site power distribution system from the service entrance to the electronic system power distribution panel(s). Show all transformers, load centres, power conditioning equipment, emergency load transfer switches, etc. Also indicate nominal voltage, kVA, type of feed, how run, number of conductors, and approximate length of feeders involved...!"></textarea>
                                         <div *ngIf="submitted &&a.get('bDSld')?.errors" class="invalid-feedback">
-                                            <div *ngIf="a.get('bDSld')?.errors?.required">Field Is Required</div>
+                                            <div *ngIf="a.get('bDSld')?.errors?.required">SLD Is Required</div>
                                         </div>
                                     </div>
                                 </div>
@@ -490,7 +490,7 @@
                                             [ngClass]="{'is-invalid':submitted && a.get('bDRecordData')?.errors}"
                                             placeholder="Ex. Record data (including name-plate data) note any power conditioning equipment and/or last transformer before electronic system load...!"></textarea>
                                         <div *ngIf="submitted &&a.get('bDRecordData')?.errors" class="invalid-feedback">
-                                            <div *ngIf="a.get('bDRecordData')?.errors?.required">Field Is Required</div>
+                                            <div *ngIf="a.get('bDRecordData')?.errors?.required">Record Data Is Required</div>
                                         </div>
                                     </div>
                                 </div>
@@ -509,7 +509,7 @@
                                             [ngClass]="{'is-invalid':submitted && a.get('bDEarthing')?.errors}"
                                             placeholder="Ex. Describe how and where earthing of power conditioning equipment carried out...!"></textarea>
                                         <div *ngIf="submitted &&a.get('bDEarthing')?.errors" class="invalid-feedback">
-                                            <div *ngIf="a.get('bDEarthing')?.errors?.required">Field Is Required</div>
+                                            <div *ngIf="a.get('bDEarthing')?.errors?.required">Earthing Is Required</div>
                                         </div>
                                     </div>
                                 </div>
@@ -538,7 +538,7 @@
                                             placeholder="Ex. Using the SLD, sketch the system power and ground distribution system, including all major components in (or immediately adjacent to) the computer room. Clearly identify all major components...!"></textarea>
                                         <div *ngIf="submitted &&a.get('electronicDesc')?.errors"
                                             class="invalid-feedback">
-                                            <div *ngIf="a.get('electronicDesc')?.errors?.required">Field Is Required
+                                            <div *ngIf="a.get('electronicDesc')?.errors?.required">Description Is Required
                                             </div>
                                         </div>
                                     </div>
@@ -584,7 +584,7 @@
                                                     [ngClass]="{'is-invalid':submitted && a.get('namePlateData')?.errors}">
                                                 <div *ngIf="submitted &&a.get('namePlateData')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('namePlateData')?.errors?.required">Field Is
+                                                    <div *ngIf="a.get('namePlateData')?.errors?.required">Name Plate Data Is
                                                         Required</div>
                                                 </div>
                                             </td>
@@ -605,12 +605,11 @@
                                                     [ngClass]="{'is-invalid':submitted && a.get('mainCircuteBraker')?.errors}">
                                                     <!-- <option value="o">choose yes/no</option> -->
                                                     <option [ngValue]="null">Select Option</option>
-                                                    <option value="1">Yes</option>
-                                                    <option value="2">No</option>
+                                                    <option *ngFor="let value of selectionValue">{{value}}</option>
                                                 </select>
                                                 <div *ngIf="submitted &&a.get('mainCircuteBraker')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('mainCircuteBraker')?.errors?.required">Field Is
+                                                    <div *ngIf="a.get('mainCircuteBraker')?.errors?.required">Main Circuit Breaker Is
                                                         Required</div>
                                                 </div>
                                             </td>
@@ -667,7 +666,7 @@
                                                     [ngClass]="{'is-invalid':submitted && a.get('otherTrip')?.errors}">
                                                 <div *ngIf="submitted &&a.get('otherTrip')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('otherTrip')?.errors?.required">Field Is Required
+                                                    <div *ngIf="a.get('otherTrip')?.errors?.required">Other Trips Is Required
                                                     </div>
                                                 </div>
                                             </td>
@@ -684,7 +683,7 @@
                                                     placeholder="Enter Differential protection">
                                                 <div *ngIf="submitted &&a.get('differentalProtection')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('differentalProtection')?.errors?.required">Field
+                                                    <div *ngIf="a.get('differentalProtection')?.errors?.required">Differential Protection
                                                         Is Required</div>
                                                 </div>
                                             </td>
@@ -732,7 +731,7 @@
                                                     placeholder="WYE / DELTA / SPLIT PHASE / Single phase / No of wires">
                                                 <div *ngIf="submitted &&a.get('panelFeed')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('panelFeed')?.errors?.required">Field Is Required
+                                                    <div *ngIf="a.get('panelFeed')?.errors?.required">Panel Feed Is Required
                                                     </div>
                                                 </div>
                                             </td>
@@ -747,7 +746,7 @@
                                                     placeholder="Cu / Al, Size, Number and insulation type">
                                                 <div *ngIf="submitted &&a.get('phaseWires')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('phaseWires')?.errors?.required">Field Is Required
+                                                    <div *ngIf="a.get('phaseWires')?.errors?.required">Phase Wires Is Required
                                                     </div>
                                                 </div>
                                             </td>
@@ -762,7 +761,7 @@
                                                     placeholder="Cu / Al, Size, Number and insulation type">
                                                 <div *ngIf="submitted &&a.get('neutralWire')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('neutralWire')?.errors?.required">Field Is
+                                                    <div *ngIf="a.get('neutralWire')?.errors?.required">Neutral Wire Is
                                                         Required</div>
                                                 </div>
                                             </td>
@@ -777,7 +776,7 @@
                                                     placeholder="Cu / Al, Size, Number and insulation type">
                                                 <div *ngIf="submitted &&a.get('peWireSize')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('peWireSize')?.errors?.required">Field Is Required
+                                                    <div *ngIf="a.get('peWireSize')?.errors?.required">PE Wire Size Is Required
                                                     </div>
                                                 </div>
                                             </td>
@@ -798,7 +797,7 @@
                                                     placeholder="Type - Cu / Al, Cu/Al">
                                                 <div *ngIf="submitted &&a.get('pannelConnectors')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('pannelConnectors')?.errors?.required">Field Is
+                                                    <div *ngIf="a.get('pannelConnectors')?.errors?.required">Panel Connectors Is
                                                         Required</div>
                                                 </div>
                                             </td>
@@ -833,7 +832,7 @@
                                                     placeholder="insulated from panel?? (check for bonding screws / straps) etc">
                                                 <div *ngIf="submitted &&a.get('neutralBus')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('neutralBus')?.errors?.required">Field Is Required
+                                                    <div *ngIf="a.get('neutralBus')?.errors?.required">Neutral Bus Is Required
                                                     </div>
                                                 </div>
                                             </td>
@@ -846,7 +845,7 @@
                                                     placeholder="(available  / not available) (insulated / uninsulated) quality of bonding">
                                                 <div *ngIf="submitted &&a.get('earthBus')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('earthBus')?.errors?.required">Field Is Required
+                                                    <div *ngIf="a.get('earthBus')?.errors?.required">Earth Bus Is Required
                                                     </div>
                                                 </div>
                                             </td>
@@ -884,7 +883,7 @@
                                                 <div *ngIf="submitted &&a.get('dedicatedElectronicSystem')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('dedicatedElectronicSystem')?.errors?.required">
-                                                        Field Is Required</div>
+                                                        Dediated to Electronic System Is Required</div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -932,7 +931,7 @@
                                     <option *ngFor="let value of selectionValue">{{value}}</option>
                                 </select>
                                 <div *ngIf="submitted &&b.get('cbWireSize')?.errors" class="invalid-feedback">
-                                    <div *ngIf="b.get('cbWireSize')?.errors?.required">Field Is Required</div>
+                                    <div *ngIf="b.get('cbWireSize')?.errors?.required">Branch Circuit Wire Size Is Required</div>
                                 </div>
                                 <div>
                                     <label class="form-label">Description</label>
@@ -946,7 +945,7 @@
                                             [ngClass]="{'is-invalid':submitted && b.get('cbDesc')?.errors}"
                                             placeholder="Description"></textarea>
                                         <div *ngIf="submitted &&b.get('cbDesc')?.errors" class="invalid-feedback">
-                                            <div *ngIf="b.get('cbDesc')?.errors?.required">Field Is Required</div>
+                                            <div *ngIf="b.get('cbDesc')?.errors?.required">Description Is Required</div>
                                         </div>
                                     </div>
                                 </div>
@@ -959,7 +958,7 @@
                                     </select>
                                     <div *ngIf="submitted &&b.get('matchesReceptable')?.errors"
                                         class="invalid-feedback">
-                                        <div *ngIf="b.get('matchesReceptable')?.errors?.required">Field Is Required
+                                        <div *ngIf="b.get('matchesReceptable')?.errors?.required">Matches Receptable Is Required
                                         </div>
                                     </div>
                                     <div>
@@ -976,7 +975,7 @@
                                                 placeholder="Description"></textarea>
                                             <div *ngIf="submitted &&b.get('matchesReceptableDesc')?.errors"
                                                 class="invalid-feedback">
-                                                <div *ngIf="b.get('matchesReceptableDesc')?.errors?.required">Field Is
+                                                <div *ngIf="b.get('matchesReceptableDesc')?.errors?.required">Description Is
                                                     Required</div>
                                             </div>
                                         </div>
@@ -1011,7 +1010,7 @@
                                                 placeholder="Description"></textarea>
                                             <div *ngIf="submitted &&b.get('indivdialPwireDesc')?.errors"
                                                 class="invalid-feedback">
-                                                <div *ngIf="b.get('indivdialPwireDesc')?.errors?.required">Field Is
+                                                <div *ngIf="b.get('indivdialPwireDesc')?.errors?.required">Description Is
                                                     Required</div>
                                             </div>
                                         </div>
@@ -1048,7 +1047,7 @@
                                                 placeholder="Description"></textarea>
                                             <div *ngIf="submitted &&b.get('indivdialNeutralwireDesc')?.errors"
                                                 class="invalid-feedback">
-                                                <div *ngIf="b.get('indivdialNeutralwireDesc')?.errors?.required">Field
+                                                <div *ngIf="b.get('indivdialNeutralwireDesc')?.errors?.required">Description
                                                     Is Required</div>
                                             </div>
                                         </div>
@@ -1085,7 +1084,7 @@
                                                 placeholder="Description"></textarea>
                                             <div *ngIf="submitted &&b.get('computerLoadCircuteDes')?.errors"
                                                 class="invalid-feedback">
-                                                <div *ngIf="b.get('computerLoadCircuteDes')?.errors?.required">Field Is
+                                                <div *ngIf="b.get('computerLoadCircuteDes')?.errors?.required">Description Is
                                                     Required</div>
                                             </div>
                                         </div>
@@ -1122,7 +1121,7 @@
                                                 placeholder="Description"></textarea>
                                             <div *ngIf="submitted &&b.get('computerLoadReceptableDesc')?.errors"
                                                 class="invalid-feedback">
-                                                <div *ngIf="b.get('computerLoadReceptableDesc')?.errors?.required">Field
+                                                <div *ngIf="b.get('computerLoadReceptableDesc')?.errors?.required">Description
                                                     Is Required</div>
                                             </div>
                                         </div>
@@ -1158,7 +1157,7 @@
                                                 placeholder="Description"></textarea>
                                             <div *ngIf="submitted &&b.get('branchCircuteRunDesc')?.errors"
                                                 class="invalid-feedback">
-                                                <div *ngIf="b.get('branchCircuteRunDesc')?.errors?.required">Field Is
+                                                <div *ngIf="b.get('branchCircuteRunDesc')?.errors?.required">Description Is
                                                     Required</div>
                                             </div>
                                         </div>
@@ -1195,7 +1194,7 @@
                                                 placeholder="Description"></textarea>
                                             <div *ngIf="submitted &&b.get('frequencyCyclidLoadsDesc')?.errors"
                                                 class="invalid-feedback">
-                                                <div *ngIf="b.get('frequencyCyclidLoadsDesc')?.errors?.required">Field
+                                                <div *ngIf="b.get('frequencyCyclidLoadsDesc')?.errors?.required">Description
                                                     Is Required</div>
                                             </div>
                                         </div>
@@ -1230,7 +1229,7 @@
                                                 placeholder="Description"></textarea>
                                             <div *ngIf="submitted &&b.get('conductorsDesc')?.errors"
                                                 class="invalid-feedback">
-                                                <div *ngIf="b.get('conductorsDesc')?.errors?.required">Field Is Required
+                                                <div *ngIf="b.get('conductorsDesc')?.errors?.required">Description Is Required
                                                 </div>
                                             </div>
                                         </div>
@@ -1244,11 +1243,11 @@
             <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
                 <span class="alert alert-danger">{{validationErrorMsg}}</span>
               </div>
-
+              
             <div class="container">
                 <div style="text-align: center;">
                     <button type="button" style="width: 100px; margin: 16px auto;"
-                        class="btn btn-primary">Previous</button>
+                        class="btn btn-primary" mat-button matStepperPrevious>&laquo; Previous</button>
                     <button type="submit" style="width: 100px; margin: 16px auto;"
                     (click)="gotoNextModal(content2)"    class="btn btn-success">Next</button>
                 </div>
