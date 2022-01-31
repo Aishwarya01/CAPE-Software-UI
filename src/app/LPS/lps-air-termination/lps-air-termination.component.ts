@@ -56,6 +56,7 @@ export class LpsAirTerminationComponent implements OnInit {
   
   airterminationService;
   step2List: any = [];
+  popArray: any = [];
   arr1: any = [];
   arr2: any = [];
   arr3: any = [];
@@ -129,32 +130,41 @@ export class LpsAirTerminationComponent implements OnInit {
     this.airTerminationForm.reset();
   }
 
-  retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
+
+    retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
+    debugger
       // this.service.lvClick=1;
 
-      this.step2List = data.lpsAirDiscription;
+      this.step2List = data.airTermination;
       this.airtermination.basicLpsId = basicLpsId;
-      this.airtermination.lpsAirDescId = this.step2List.lpsAirDescId;
-      // this.airtermination.connectionMadeBraOb = this.step2List.connectionMadeBraOb;
-      // this.airtermination.connectionMadeBraRe = this.step2List.connectionMadeBraRe;
-      // this.airtermination.electricalEquipPlacedOb = this.step2List.electricalEquipPlacedOb;
-      // this.airtermination.electricalEquipPlacedRe = this.step2List.electricalEquipPlacedRe;
-      // this.airtermination.combustablePartOb = this.step2List.combustablePartOb;
-      // this.airtermination.combustablePartRe = this.step2List.combustablePartRe;
-      // this.airtermination.terminationMeshConductorOb = this.step2List.terminationMeshConductorOb;
-      // this.airtermination.terminationMeshConductorRe = this.step2List.terminationMeshConductorRe;
-      // this.airtermination.bondingEquipotentialOb = this.step2List.bondingEquipotentialOb;
-      // this.airtermination.bondingEquipotentialRe = this.step2List.bondingEquipotentialRe;
+      //this.airtermination.lpsAirDescId = this.step2List.lpsAirDescId;
+      console.log(this.step2List);
       
-      this.airtermination.createdBy = this.step2List.createdBy;
-      this.airtermination.createdDate = this.step2List.createdDate;     
-      this.airtermination.userName = this.step2List.userName;
- 
-      this.populateData();
+      // this.airtermination.createdBy = this.step2List.createdBy;
+      // this.airtermination.createdDate = this.step2List.createdDate;     
+      // this.airtermination.userName = this.step2List.userName;
+      debugger
+      this.airRetrieve();
       this.flag=true;
     }
 
+    airTerminationBasicArr:any=[];
+
+    airRetrieve() {
+      debugger
+      for (let item of this.step2List.lpsAirDescription) {
+        this.popArray.push(this.airTerminationBasic(item));
+        console.log(item);
+        this.airTerminationBasicArr=item;
+       
+       // this.populateData();
+      }
+      this.airTerminationForm.setControl('lpsAirDescription', this.formBuilder.array(this.popArray || []));
+      this.popArray = [];
+    }
+
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
+      debugger
       //this.service.lvClick=1;
 
         this.step2List=JSON.parse(data);
@@ -176,63 +186,71 @@ export class LpsAirTerminationComponent implements OnInit {
         this.populateData1();
         this.flag=true;
       }
-
       
-    populateData() {
-      for (let item of this.step2List.lpsVerticalAirTermination) {
-        if(item.flag) {this.arr1.push(this.createGroup(item));}    
-        
-      }
-      for (let item of this.step2List.airMeshDescription) {     
-        if(item.flag) {this.arr2.push(this.createGroup1(item));}
-      }
-      for (let item of this.step2List.airHolderDescription) {     
-        if(item.flag) {this.arr3.push(this.createGroup2(item));}
-      }
-      for (let item of this.step2List.airClamps) { 
-        if(item.flag) {this.arr4.push(this.createGroup3(item));}
-      }
-      for (let item of this.step2List.airExpansion) { 
-        if(item.flag) {this.arr5.push(this.createGroup4(item));}
-      }
-      for (let item of this.step2List.airConnectors) {     
-        if(item.flag) {this.arr6.push(this.createGroup5(item));}
-      }
-      this.airTerminationForm.setControl('lpsVerticalAirTermination', this.formBuilder.array(this.arr1 || []))
-      this.airTerminationForm.setControl('airMeshDescription', this.formBuilder.array(this.arr2 || []))
-      this.airTerminationForm.setControl('airHolderDescription', this.formBuilder.array(this.arr3 || []))
-      this.airTerminationForm.setControl('airClamps', this.formBuilder.array(this.arr4 || []))
-      this.airTerminationForm.setControl('airExpansion', this.formBuilder.array(this.arr5 || []))
-      this.airTerminationForm.setControl('airConnectors', this.formBuilder.array(this.arr6 || []))
+      
+    // populateData() {
+    
+    //   console.log(this.airTerminationBasicArr);
+      
+    //   for (let item of this.airTerminationBasicArr.lpsVerticalAirTermination) {
+    //     this.arr1.push(this.createGroup(item));
+    //   }
+    //   for (let item of this.airTerminationBasicArr.airMeshDescription) {     
+    //   this.arr2.push(this.createGroup1(item));
+    //   }
+    //   for (let item of this.airTerminationBasicArr.airHolderDescription) {     
+    //    this.arr3.push(this.createGroup2(item));
+    //   }
+    //   for (let item of this.airTerminationBasicArr.airClamps) { 
+    //   this.arr4.push(this.createGroup3(item));
+    //   }
+    //   for (let item of this.airTerminationBasicArr.airExpansion) { 
+    //     this.arr5.push(this.createGroup4(item));
+    //   }
+    //   for (let item of this.airTerminationBasicArr.airConnectors) {     
+    //     this.arr6.push(this.createGroup5(item));
+    //   }
+      
+    //   this.airTerminationForm.setControl('lpsVerticalAirTermination', this.formBuilder.array(this.arr1 || []))
+    //   this.airTerminationForm.setControl('airMeshDescription', this.formBuilder.array(this.arr2 || []))
+    //   this.airTerminationForm.setControl('airHolderDescription', this.formBuilder.array(this.arr3 || []))
+    //   this.airTerminationForm.setControl('airClamps', this.formBuilder.array(this.arr4 || []))
+    //   this.airTerminationForm.setControl('airExpansion', this.formBuilder.array(this.arr5 || []))
+    //   this.airTerminationForm.setControl('airConnectors', this.formBuilder.array(this.arr6 || []))
 
-      this.arr1 = [];
-      this.arr2 = [];
-      this.arr3 = [];
-      this.arr4 = [];
-      this.arr5 = [];
-      this.arr6 = [];
-    }
+    //   this.arr1 = [];
+    //   this.arr2 = [];
+    //   this.arr3 = [];
+    //   this.arr4 = [];
+    //   this.arr5 = [];
+    //   this.arr6 = [];
+    // }
+
+   
 
     populateData1() {
-      for (let item of this.step2List[0].lpsVerticalAirTermination) {
-        if(item.flag) {this.arr1.push(this.createGroup(item));}    
+
+      for (let item of this.step2List[0].airBasicDescription) {
+     //   this.arr1.push(this.airTerminationBasic(item));
       }
+
+     
       for (let item of this.step2List[0].airMeshDescription) {     
-        if(item.flag) {this.arr2.push(this.createGroup1(item));}
+        this.arr2.push(this.createGroup1(item));
       }
       for (let item of this.step2List[0].airHolderDescription) {     
-        if(item.flag) {this.arr3.push(this.createGroup2(item));}
+        this.arr3.push(this.createGroup2(item));
       }
       for (let item of this.step2List[0].airClamps) { 
-        if(item.flag) {this.arr4.push(this.createGroup3(item));}
+        this.arr4.push(this.createGroup3(item));
       }
       for (let item of this.step2List[0].airExpansion) { 
-        if(item.flag) {this.arr5.push(this.createGroup4(item));}
+        this.arr5.push(this.createGroup4(item));
       }
       for (let item of this.step2List[0].airConnectors) {     
-        if(item.flag) {this.arr6.push(this.createGroup5(item));}
+        this.arr6.push(this.createGroup5(item));
       }
-      this.airTerminationForm.setControl('lpsVerticalAirTermination', this.formBuilder.array(this.arr1 || []))
+      
       this.airTerminationForm.setControl('airMeshDescription', this.formBuilder.array(this.arr2 || []))
       this.airTerminationForm.setControl('airHolderDescription', this.formBuilder.array(this.arr3 || []))
       this.airTerminationForm.setControl('airClamps', this.formBuilder.array(this.arr4 || []))
@@ -279,17 +297,130 @@ export class LpsAirTerminationComponent implements OnInit {
       terminationMeshConductorOb:  new FormControl('', Validators.required),
       terminationMeshConductorRe: new FormControl(''),
       bondingEquipotentialOb:  new FormControl('', Validators.required),
-      bondingEquipotentialRe: new FormControl(''),
+      bondingEquipotentialRe: new FormControl('')
+      });
+    }
+
+    airTerminationBasic(item:any): FormGroup {
+      return this.formBuilder.group({
+        
+        airBasicDescriptionId: new FormControl({disabled: false, value: item.airBasicDescriptionId}),
+
+        buildingNumber: new FormControl({disabled: false, value: item.buildingNumber}, Validators.required),
+        buildingName: new FormControl({disabled: false, value: item.buildingName}, Validators.required),
+        buildingType: new FormControl({disabled: false, value: item.buildingType}, Validators.required),
+        buildingLength: new FormControl({disabled: false, value: item.buildingLength}, Validators.required),
+        buildingHeight: new FormControl({disabled: false, value: item.buildingHeight}, Validators.required),
+        buildingWidth: new FormControl({disabled: false, value: item.buildingWidth}, Validators.required),
+        protectionLevel: new FormControl({disabled: false, value: item.protectionLevel}, Validators.required),
+
+
+        lpsVerticalAirTermination: this.formBuilder.array(this.retriveLpsVerticalAirTerminationData(item)),
+        airMeshDescription: this.formBuilder.array(this.retriveLpsVerticalAirTerminationData1(item)),
+        airHolderDescription: this.formBuilder.array(this.retriveLpsVerticalAirTerminationData2(item)),
+        airClamps: this.formBuilder.array(this.retriveLpsVerticalAirTerminationData3(item)),
+        airExpansion: this.formBuilder.array(this.retriveLpsVerticalAirTerminationData4(item)),
+        airConnectors: this.formBuilder.array(this.retriveLpsVerticalAirTerminationData5(item)),
+        airBasicDescription: this.formBuilder.array(this.retriveLpsVerticalAirTerminationData6(item))
+      });
+    }
+    // For Retriveing the DB
+    retriveLpsVerticalAirTerminationData(item:any){
+      let retriveLpsVerticalAirTerminationDataArr:any=[];
+      for (let a of item.lpsVerticalAirTermination) {
+        retriveLpsVerticalAirTerminationDataArr.push(this.createGroup(a));   
+      } 
+      return retriveLpsVerticalAirTerminationDataArr;
+    }
+
+    retriveLpsVerticalAirTerminationData1(item:any){
+      let retriveLpsAirMeshDescriptionDataArr1:any=[];
+      for (let b of item.airMeshDescription) {
+        retriveLpsAirMeshDescriptionDataArr1.push(this.createGroup1(b));   
+      } 
+      return retriveLpsAirMeshDescriptionDataArr1;
+    }
+
+    retriveLpsVerticalAirTerminationData2(item:any){
+      let retriveLpsAirHolderDescriptionDataArr2:any=[];
+      for (let c of item.airHolderDescription) {
+        retriveLpsAirHolderDescriptionDataArr2.push(this.createGroup2(c));   
+      } 
+      return retriveLpsAirHolderDescriptionDataArr2;
+    }
+
+    retriveLpsVerticalAirTerminationData3(item:any){
+      let retriveLpsAirClampsDataArr3:any=[];
+      for (let d of item.airClamps) {
+        retriveLpsAirClampsDataArr3.push(this.createGroup3(d));   
+      } 
+      return retriveLpsAirClampsDataArr3;
+    }
+
+    retriveLpsVerticalAirTerminationData4(item:any){
+      let retriveLpsAirExpansionDataArr4:any=[];
+      for (let e of item.airExpansion) {
+        retriveLpsAirExpansionDataArr4.push(this.createGroup4(e));   
+      } 
+      return retriveLpsAirExpansionDataArr4;
+    }
+
+    retriveLpsVerticalAirTerminationData5(item:any){
+      let retriveLpsAirConnectorsDataArr5:any=[];
+      for (let f of item.airConnectors) {
+        retriveLpsAirConnectorsDataArr5.push(this.createGroup5(f));   
+      } 
+      return retriveLpsAirConnectorsDataArr5;
+    }
+
+    retriveLpsVerticalAirTerminationData6(item:any){
+      let retriveairBasicDescriptionDataArr6:any=[];
+      for (let g of item.airBasicDescription) {
+        retriveairBasicDescriptionDataArr6.push(this.basicDetailsGroup(g));   
+      } 
+      return retriveairBasicDescriptionDataArr6;
+    }
+
+    basicDetailsGroup(item:any){
+      return this.formBuilder.group({
+
+        approvedDrawingObserv:  new FormControl({disabled: false, value: item.approvedDrawingObserv}, Validators.required),
+        approvedDrawingRemarks: new FormControl({disabled: false, value: item.approvedDrawingRemarks}),
+        architectNameObserv:  new FormControl({disabled: false, value: item.architectNameObserv}, Validators.required),
+        architectNameRemarks: new FormControl({disabled: false, value: item.architectNameRemarks}),
+        designDateObserv:  new FormControl({disabled: false, value: item.designDateObserv}, Validators.required),
+        designDateRemarks: new FormControl({disabled: false, value: item.designDateRemarks}),
+        approvedByObserv:  new FormControl({disabled: false, value: item.approvedByObserv}, Validators.required),
+        approvedByRemarks: new FormControl({disabled: false, value: item.approvedByRemarks}),
+        dateOfApprovalOb:  new FormControl({disabled: false, value: item.dateOfApprovalOb}, Validators.required),
+        dateOfApprovalRem: new FormControl({disabled: false, value: item.dateOfApprovalRem}),
+        drawingObserv:  new FormControl({disabled: false, value: item.drawingObserv}, Validators.required),
+        drawingRemarks: new FormControl({disabled: false, value: item.drawingRemarks}),
+        revisionNoObserv:  new FormControl({disabled: false, value: item.revisionNoObserv}, Validators.required),
+        revisionNoRemarks: new FormControl({disabled: false, value: item.revisionNoRemarks}),
+        deviationObserv:  new FormControl({disabled: false, value: item.deviationObserv}, Validators.required),
+        deviationRemarks: new FormControl({disabled: false, value: item.deviationRemarks}),
+        installationQualityObserv:  new FormControl({disabled: false, value: item.installationQualityObserv}, Validators.required),
+        installationQualityRemarks: new FormControl({disabled: false, value: item.installationQualityRemarks}),
+  
+        connectionMadeBraOb:  new FormControl({disabled: false, value: item.connectionMadeBraOb}, Validators.required),
+        connectionMadeBraRe: new FormControl({disabled: false, value: item.connectionMadeBraRe}),
+        electricalEquipPlacedOb:  new FormControl({disabled: false, value: item.electricalEquipPlacedOb}, Validators.required),
+        electricalEquipPlacedRe: new FormControl({disabled: false, value: item.electricalEquipPlacedRe}),
+        combustablePartOb:  new FormControl({disabled: false, value: item.combustablePartOb}, Validators.required),
+        combustablePartRe: new FormControl({disabled: false, value: item.combustablePartRe}),
+        terminationMeshConductorOb:  new FormControl({disabled: false, value: item.terminationMeshConductorOb}, Validators.required),
+        terminationMeshConductorRe: new FormControl({disabled: false, value: item.terminationMeshConductorRe}),
+        bondingEquipotentialOb:  new FormControl({disabled: false, value: item.bondingEquipotentialOb}, Validators.required),
+        bondingEquipotentialRe: new FormControl({disabled: false, value: item.bondingEquipotentialRe})
       });
     }
 
     createGroup(item: any): FormGroup {
+      
       return this.formBuilder.group({
 
-      lpsVerticalAirTerminationId: new FormControl({disabled: false, value: item.lpsVerticalAirTerminationId}),
-      // flag: new FormControl({disabled: false, value: item.flag}),
-      // locationNumber: new FormControl({disabled: false, value: item.locationNumber}, Validators.required),
-      // locationName: new FormControl({disabled: false, value: item.locationName}),
+      lpsVerticalAirTerminationId: [new FormControl({disabled: false, value: item.lpsVerticalAirTerminationId})],
       physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
       physicalInspectionRe: new FormControl({disabled: false, value: item.physicalInspectionRe}),
       installationTerminationsystemOb: new FormControl({disabled: false, value: item.installationTerminationsystemOb}, Validators.required),
@@ -557,16 +688,12 @@ export class LpsAirTerminationComponent implements OnInit {
       let airTerminationData = this.airTerminationForm.value;
         
         let i=0;
-        this.airtermination.lpsAirDescription=[]
-      for (let a of airTerminationData.lpsAirDescription) {
-          
-        this.airtermination.lpsAirDescription[i]=a;
-    
-        i=i+1;
-        
-      }
- 
-  
+        this.airtermination.lpsAirDescription=[];
+
+          for (let a of airTerminationData.lpsAirDescription) {
+            this.airtermination.lpsAirDescription[i]=a;
+            i=i+1;
+          }  
         if (!this.validationError) {
           if(flag) {
             if(this.airTerminationForm.dirty && this.airTerminationForm.touched){ 
