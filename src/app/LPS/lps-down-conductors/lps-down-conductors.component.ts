@@ -16,12 +16,12 @@ export class LpsDownConductorsComponent implements OnInit {
 
   downConductorForm!: FormGroup;
 
-  downArr!: FormArray;
-  bridgingArr!: FormArray;
-  holderArr!: FormArray;
-  connectorArr!: FormArray;
-  lightArr!: FormArray;
-  testjointsArr!: FormArray;
+  downConductor!: FormArray;
+  bridgingDescription!: FormArray;
+  holder!: FormArray;
+  connectors!: FormArray;
+  lightningCounter!: FormArray;
+  testingJoint!: FormArray;
   lpsDownconductorService;
   submitted = false;
   downConductorDescription = new DownConductorDescription();
@@ -65,6 +65,10 @@ export class LpsDownConductorsComponent implements OnInit {
   testjointsPushArr: any = [];
   isEditable!:boolean
 
+  buildingNumberArr: any = [];
+  buildingNameArr: any = [];
+  noBuilding : number = 0;
+
   stepBack:any;
   
   constructor(
@@ -77,7 +81,12 @@ export class LpsDownConductorsComponent implements OnInit {
 
   ngOnInit(): void {
     this.downConductorForm = this.formBuilder.group({
+      downConductorDescription: this.formBuilder.array([this.allLPSDownConductor()])
+    });
+  }
 
+  allLPSDownConductor():FormGroup {
+    return new FormGroup({
       biMetallicIssueOb: new FormControl('', Validators.required),
       biMetallicIssueRem: new FormControl(''),
       warningNoticeGroundLevelOb: new FormControl('', Validators.required),
@@ -91,12 +100,12 @@ export class LpsDownConductorsComponent implements OnInit {
       cobustMaterialWallOB: new FormControl('', Validators.required),
       cobustMaterialWallRem: new FormControl(''),
 
-      downArr: this.formBuilder.array([this.createDownArrForm()]),
-      bridgingArr: this.formBuilder.array([this.createBridgeArrForm()]),
-      holderArr: this.formBuilder.array([this.createHolderArrForm()]),
-      connectorArr: this.formBuilder.array([this.createConnectorArrForm()]),
-      lightArr: this.formBuilder.array([this.createLightArrForm()]),
-      testjointsArr: this.formBuilder.array([this.createTestJointsArrForm()])
+      downConductor: this.formBuilder.array([this.createDownArrForm()]),
+      bridgingDescription: this.formBuilder.array([this.createBridgeArrForm()]),
+      holder: this.formBuilder.array([this.createHolderArrForm()]),
+      connectors: this.formBuilder.array([this.createConnectorArrForm()]),
+      lightningCounter: this.formBuilder.array([this.createLightArrForm()]),
+      testingJoint: this.formBuilder.array([this.createTestJointsArrForm()]),
     });
   }
   
@@ -162,12 +171,12 @@ export class LpsDownConductorsComponent implements OnInit {
       for (let item of this.step3List.testingJoint) {     
         this.arr6.push(this.createGroup5(item));
       }
-      this.downConductorForm.setControl('downArr', this.formBuilder.array(this.arr1 || []))
-      this.downConductorForm.setControl('bridgingArr', this.formBuilder.array(this.arr2 || []))
-      this.downConductorForm.setControl('holderArr', this.formBuilder.array(this.arr3 || []))
-      this.downConductorForm.setControl('connectorArr', this.formBuilder.array(this.arr4 || []))
-      this.downConductorForm.setControl('lightArr', this.formBuilder.array(this.arr5 || []))
-      this.downConductorForm.setControl('testjointsArr', this.formBuilder.array(this.arr6 || []))
+      this.downConductorForm.setControl('downConductor', this.formBuilder.array(this.arr1 || []))
+      this.downConductorForm.setControl('bridgingDescription', this.formBuilder.array(this.arr2 || []))
+      this.downConductorForm.setControl('holder', this.formBuilder.array(this.arr3 || []))
+      this.downConductorForm.setControl('connectors', this.formBuilder.array(this.arr4 || []))
+      this.downConductorForm.setControl('lightningCounter', this.formBuilder.array(this.arr5 || []))
+      this.downConductorForm.setControl('testingJoint', this.formBuilder.array(this.arr6 || []))
 
       this.arr1 = [];
       this.arr2 = [];
@@ -222,12 +231,12 @@ export class LpsDownConductorsComponent implements OnInit {
       for (let item of this.step3List[0].testingJoint) {     
         this.arr6.push(this.createGroup5(item));
       }
-      this.downConductorForm.setControl('downArr', this.formBuilder.array(this.arr1 || []))
-      this.downConductorForm.setControl('bridgingArr', this.formBuilder.array(this.arr2 || []))
-      this.downConductorForm.setControl('holderArr', this.formBuilder.array(this.arr3 || []))
-      this.downConductorForm.setControl('connectorArr', this.formBuilder.array(this.arr4 || []))
-      this.downConductorForm.setControl('lightArr', this.formBuilder.array(this.arr5 || []))
-      this.downConductorForm.setControl('testjointsArr', this.formBuilder.array(this.arr6 || []))
+      this.downConductorForm.setControl('downConductor', this.formBuilder.array(this.arr1 || []))
+      this.downConductorForm.setControl('bridgingDescription', this.formBuilder.array(this.arr2 || []))
+      this.downConductorForm.setControl('holder', this.formBuilder.array(this.arr3 || []))
+      this.downConductorForm.setControl('connectors', this.formBuilder.array(this.arr4 || []))
+      this.downConductorForm.setControl('lightningCounter', this.formBuilder.array(this.arr5 || []))
+      this.downConductorForm.setControl('testingJoint', this.formBuilder.array(this.arr6 || []))
 
       this.arr1 = [];
       this.arr2 = [];
@@ -412,28 +421,33 @@ export class LpsDownConductorsComponent implements OnInit {
       });
     }
 
-  downConductorControls(): AbstractControl[] {
-    return (<FormArray>this.downConductorForm.get('downArr')).controls
+  overAllDownControl(): AbstractControl[] {
+    return(<FormArray>this.downConductorForm.get('overAllDownConductor')).controls;
   }
 
-  bridgingCablesControls(): AbstractControl[] {
-    return (<FormArray>this.downConductorForm.get('bridgingArr')).controls
+  downConductorControls(form:any){
+    return form.controls.downConductor?.controls;
   }
 
-  holdersControls(): AbstractControl[] {
-    return (<FormArray>this.downConductorForm.get('holderArr')).controls
+  bridgingCablesControls(form:any){
+    return form.controls.bridgingDescription?.controls;
   }
 
-  connectorsControls(): AbstractControl[] {
-    return (<FormArray>this.downConductorForm.get('connectorArr')).controls
+  holdersControls(form:any){
+    return form.controls.holder?.controls;
   }
 
-  lightControls(): AbstractControl[] {
-    return (<FormArray>this.downConductorForm.get('lightArr')).controls
+  connectorsControls(form:any){
+    return form.controls.connectors?.controls;
   }
 
-  jointControls(): AbstractControl[] {
-    return (<FormArray>this.downConductorForm.get('testjointsArr')).controls
+  lightControls(form:any){
+    return form.controls.lightningCounter?.controls;
+  }
+
+  jointControls(form:any){
+    // return (<FormArray>this.downConductorForm.get('testingJoint')).controls
+    return form.controls.testingJoint?.controls;
   }
 
   private createDownArrForm(): FormGroup {
@@ -606,87 +620,6 @@ export class LpsDownConductorsComponent implements OnInit {
     })
   }
 
-  submit() {
-    this.downArr = this.downConductorForm.get('downArr') as FormArray;
-    this.downArr.push(this.createDownArrForm());
-  }
-  submit1() {
-    this.downArr = this.downConductorForm.get('bridgingArr') as FormArray;
-    this.downArr.push(this.createBridgeArrForm());
-  }
-  submit2() {
-    this.holderArr = this.downConductorForm.get('holderArr') as FormArray;
-    this.holderArr.push(this.createHolderArrForm());
-  }
-  submit3() {
-    this.connectorArr = this.downConductorForm.get('connectorArr') as FormArray;
-    this.connectorArr.push(this.createConnectorArrForm());
-  }
-  submit4() {
-    this.lightArr = this.downConductorForm.get('lightArr') as FormArray;
-    this.lightArr.push(this.createLightArrForm());
-  }
-
-  submit5() {
-    this.lightArr = this.downConductorForm.get('testjointsArr') as FormArray;
-    this.lightArr.push(this.createTestJointsArrForm());
-  }
-         
-  removeItem(a:any,index: any) {
-    if(a.value.downConductorId !=0 && a.value.downConductorId !=undefined){
-      a.value.flag=false;
-    (this.downConductorForm.get('downArr') as FormArray).removeAt(index);
-    this.downPushArr= this.downPushArr.concat(a.value);
-   
-   }
-   else {(this.downConductorForm.get('downArr') as FormArray).removeAt(index);}
-  }
-  removeItem1(a:any,index: any) {
-    if(a.value.bridgingDescriptionId !=0 && a.value.bridgingDescriptionId !=undefined){
-      a.value.flag=false;
-    (this.downConductorForm.get('bridgingArr') as FormArray).removeAt(index);
-    this.bridgingPushArr= this.bridgingPushArr.concat(a.value);
-   
-   }
-   else {(this.downConductorForm.get('bridgingArr') as FormArray).removeAt(index);}
-  }
-  removeItem2(a:any,index: any) {
-    if(a.value.holderId !=0 && a.value.holderId !=undefined){
-      a.value.flag=false;
-    (this.downConductorForm.get('holderArr') as FormArray).removeAt(index);
-    this.holderPushArr= this.holderPushArr.concat(a.value);
-   
-   }
-   else {(this.downConductorForm.get('holderArr') as FormArray).removeAt(index);}
-  }
-  removeItem3(a:any,index: any) {
-    if(a.value.connectorId !=0 && a.value.connectorId !=undefined){
-      a.value.flag=false;
-    (this.downConductorForm.get('connectorArr') as FormArray).removeAt(index);
-    this.connectorPushArr= this.connectorPushArr.concat(a.value);
-   
-   }
-   else {(this.downConductorForm.get('connectorArr') as FormArray).removeAt(index);}
-  }
-  removeItem4(a:any,index: any) {
-    if(a.value.lightingCountersId !=0 && a.value.lightingCountersId !=undefined){
-      a.value.flag=false;
-    (this.downConductorForm.get('lightArr') as FormArray).removeAt(index);
-    this.lightPushArr= this.lightPushArr.concat(a.value);
-   
-   }
-  else  {(this.downConductorForm.get('lightArr') as FormArray).removeAt(index);}
-  }
-  removeItem5(a:any,index: any) {
-    if(a.value.testJointId !=0 && a.value.testJointId !=undefined){
-      a.value.flag=false;
-    (this.downConductorForm.get('testjointsArr') as FormArray).removeAt(index);
-    this.testjointsPushArr= this.testjointsPushArr.concat(a.value);
-   
-   }
-   else {(this.downConductorForm.get('testjointsArr') as FormArray).removeAt(index);}
-  }
-
   get f() {
     return this.downConductorForm.controls;
   }
@@ -704,26 +637,13 @@ export class LpsDownConductorsComponent implements OnInit {
     else{
     this.downConductorDescription.userName = this.router.snapshot.paramMap.get('email') || '{}';;
     this.downConductorDescription.basicLpsId = this.basicLpsId;
-    this.downConductorDescription.downConductor = this.downConductorForm.value.downArr;
-    this.downConductorDescription.bridgingDescription = this.downConductorForm.value.bridgingArr;
-    this.downConductorDescription.holder = this.downConductorForm.value.holderArr;
-    this.downConductorDescription.connectors = this.downConductorForm.value.connectorArr;
-    this.downConductorDescription.lightningCounter = this.downConductorForm.value.lightArr;
-    this.downConductorDescription.testingJoint = this.downConductorForm.value.testjointsArr; 
+    this.downConductorDescription.downConductor = this.downConductorForm.value.downConductor;
+    this.downConductorDescription.bridgingDescription = this.downConductorForm.value.bridgingDescription;
+    this.downConductorDescription.holder = this.downConductorForm.value.holder;
+    this.downConductorDescription.connectors = this.downConductorForm.value.connectors;
+    this.downConductorDescription.lightningCounter = this.downConductorForm.value.lightningCounter;
+    this.downConductorDescription.testingJoint = this.downConductorForm.value.testingJoint; 
     
-    this.downConductorDescription.downConductor = this.downConductorDescription.downConductor.concat(this.downPushArr);
-    this.downConductorDescription.bridgingDescription = this.downConductorDescription.bridgingDescription.concat(this.bridgingPushArr);
-    this.downConductorDescription.holder = this.downConductorDescription.holder.concat(this.holderPushArr);
-    this.downConductorDescription.connectors = this.downConductorDescription.connectors.concat(this.connectorPushArr);
-    this.downConductorDescription.lightningCounter = this.downConductorDescription.lightningCounter.concat(this.lightPushArr);
-    this.downConductorDescription.testingJoint = this.downConductorDescription.testingJoint.concat(this.testjointsPushArr);
-    
-    this.downPushArr= [];
-    this.bridgingPushArr = [];
-    this.holderPushArr= [];
-    this.connectorPushArr = [];
-    this.lightPushArr = [];
-    this.testjointsPushArr = [];
     if (!this.validationError) {
       if(flag) {
         if(this.downConductorForm.dirty && this.downConductorForm.touched){ 

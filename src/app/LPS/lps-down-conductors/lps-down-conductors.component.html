@@ -1,6 +1,8 @@
 <div class="card">
     <div class="card-body">
-        <form [formGroup]="downConductorForm" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
+        <form [formGroup]="downConductorForm"  (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
+            <div formArrayName="overAllDownConductor" *ngFor="let q of overAllDownControl(); let j = index">
+                <div class="form-group" [formGroupName]="j">
             <mat-accordion>
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Basic Details</mat-expansion-panel-header>
@@ -32,8 +34,6 @@
                         </div>
                     </div>
                     
-                    
-
                     <!-- tables -->
                 <div class="col-sm-12">
                     <div class="table-responsive" style="overflow-x: unset; margin-top: 20px;">
@@ -270,7 +270,7 @@
                     <div class="col-sm-12">
                     <div class="table-responsive" style="overflow-x: unset;">
                         <table class="table TableBorder">
-                            <tbody formArrayName="downArr" *ngFor="let a of downConductorControls(); let j = index">
+                            <tbody formArrayName="downConductor" *ngFor="let a of downConductorControls(q); let j = index">
                                 <div class="form-group" [formGroupName]="j">
                                     <br>
                                     <thead>
@@ -750,7 +750,7 @@
                     <div class="table-responsive" style="overflow-x: unset;">
                         <table class="table TableBorder">
                             <tbody formArrayName="bridgingArr"
-                                *ngFor="let a of bridgingCablesControls(); let f = index">
+                                *ngFor="let a of bridgingCablesControls(q); let f = index">
                                 <div class="form-group" [formGroupName]="f">
                                     <thead>
                                         <th>Sl.No</th>
@@ -1002,7 +1002,7 @@
                     <mat-expansion-panel-header>Holders</mat-expansion-panel-header>
                     <div class="table-responsive" style="overflow-x: unset;">
                         <table class="table TableBorder">
-                            <tbody formArrayName="holderArr" *ngFor="let a of holdersControls(); let k = index">
+                            <tbody formArrayName="holder" *ngFor="let a of holdersControls(q); let k = index">
                                 <div class="form-group" [formGroupName]="k">
                                     <thead>
                                         <th>Sl.No</th>
@@ -1283,7 +1283,7 @@
                     <mat-expansion-panel-header>Connectors</mat-expansion-panel-header>
                     <div class="table-responsive" style="overflow-x: unset;">
                         <table class="table TableBorder">
-                            <tbody formArrayName="connectorArr" *ngFor="let a of connectorsControls(); let z = index">
+                            <tbody formArrayName="connectors" *ngFor="let a of connectorsControls(q); let z = index">
                                 <div class="form-group" [formGroupName]="z">
                                     <thead>
                                         <th>Sl.No</th>
@@ -1566,7 +1566,7 @@
                     <mat-expansion-panel-header>Lightning Counters</mat-expansion-panel-header>
                     <div class="table-responsive" style="overflow-x: unset;">
                         <table class="table TableBorder">
-                            <tbody formArrayName="lightArr" *ngFor="let a of lightControls(); let f = index">
+                            <tbody formArrayName="lightningCounter" *ngFor="let a of lightControls(q); let f = index">
                                 <div class="form-group" [formGroupName]="f">
                                     <thead>
                                         <th>Sl.No</th>
@@ -1948,7 +1948,7 @@
                     <mat-expansion-panel-header>Test Joints</mat-expansion-panel-header>
                     <div class="table-responsive" style="overflow-x: unset;">
                                 <table class="table TableBorder">
-                            <tbody formArrayName="testjointsArr" *ngFor="let a of jointControls(); let x = index">
+                            <tbody formArrayName="testingJoint" *ngFor="let a of jointControls(q); let x = index">
                                 <div class="form-group" [formGroupName]="x">
                                     <thead>
                                         <th>Sl.No</th>
@@ -2310,6 +2310,8 @@
                     </div>
                 </mat-expansion-panel>
             </mat-accordion>
+                </div>
+            </div>
             <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
                 <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
                 <button class="next"  (click)="gotoNextModal(content,contents)"  mat-button >Next &raquo;</button>

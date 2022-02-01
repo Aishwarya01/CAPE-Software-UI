@@ -12,12 +12,15 @@ export class Airtermination {
     // terminationMeshConductorRe!: string;
     // bondingEquipotentialOb!: string;
     // bondingEquipotentialRe!: string;
+    airTerminationId!: Number;
     createdBy!: String;
     createdDate!: Date;
     lpsAirDescription!: lpsAirDescription[]
 }
 
 export class lpsAirDescription {
+    // lpsVerticalAirTerminationId!: Number;
+    buildingCount!: Number
     buildingNumber!: number;
     buildingName!: String;
     buildingType!: String;
@@ -68,9 +71,10 @@ export class airBasicDescription {
 }
 
 export class airClamps {
-    flag:boolean=true;
-    locationNumber!:number;
-    locationName!:String;
+    // flag:boolean=true;
+    clampsId!: Number;
+    // locationNumber!:number;
+    // locationName!:String;
     physicalInspectionOb!: string;
     physicalInspectionRe!: string;
     installationTerminationsystemOb!: string;
@@ -92,9 +96,9 @@ export class airClamps {
 }
 
 export class AirConnectors {
-    flag:boolean=true;
-    locationNumber!:number;
-    locationName!:String;
+    // flag:boolean=true;
+    // locationNumber!:number;
+    // locationName!:String;
     physicalInspectionOb!: string;
     physicalInspectionRe!: string;
     checkConnectionConnectorsOb!: string;
@@ -118,9 +122,10 @@ export class AirConnectors {
 }
 
 export class LpsVerticalAirTermination {
-    flag:boolean=true;
-    locationNumber!:number;
-    locationName!:String;
+    // flag:boolean=true;
+    // locationNumber!:number;
+    // locationName!:String;
+    lpsVerticalAirTerminationId!: Number;
     sizeOfTerminalOb!: string;
     sizeOfTerminalRe!: string;
     heightOfTerminalOb!: string;
@@ -147,9 +152,10 @@ export class LpsVerticalAirTermination {
     inspFaileddNoRe!: string
 }
 export class AirMeshDescription {
-    flag:boolean=true;
-    locationNumber!:number;
-    locationName!:String;
+    // flag:boolean=true;
+    meshDescriptionId!: Number;
+    // locationNumber!:number;
+    // locationName!:String;
     physicalInspectionOb!: string;
     physicalInspectionRe!: string;
     materailOfConductorOb!: string;
@@ -166,9 +172,10 @@ export class AirMeshDescription {
     heightOfConductorFlatSurfaceRe!: string
 }
 export class AirExpansion {
-    flag:boolean=true;
-    locationNumber!:number;
-    locationName!:String;
+    // flag:boolean=true;
+    // locationNumber!:number;
+    // locationName!:String;
+    expansionId!: Number;
     physicalInspectionOb!: string;
     physicalInspectionRe!: string;
     strightConnectorPiecOb!: string;
@@ -185,9 +192,10 @@ export class AirExpansion {
     inspectionFailedNoRe!: string
 }
 export class AirHolderDescription {
-    flag:boolean=true;
-    locationNumber!:number;
-    locationName!:String;
+    holderDescriptionId!: Number;
+    // flag:boolean=true;
+    // locationNumber!:number;
+    // locationName!:String;
 	 physicalInspectionOb!: string;
 	 physicalInspectionRe!: string;
 	 conductorHolderFlatSurfaceOb!: string;
@@ -217,8 +225,5 @@ export class AirHolderDescription {
 	 parpetInspectionPassedNoOb!: string;
 	 parpetInspectionPassedNoRe!: string;
 	 parpetInspectionFailedNoOb!: string;
-	 parpetInspectionFailedNoRe!: string;
-	
-
-    
+	 parpetInspectionFailedNoRe!: string;    
 }

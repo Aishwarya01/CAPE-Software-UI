@@ -95,7 +95,7 @@ export class LpsAirTerminationComponent implements OnInit {
   allLPSAirterminationArr():FormGroup {
     return new FormGroup({
 
-      buildingNumber: new FormControl(Validators.required),
+      buildingNumber: new FormControl('',Validators.required),
       buildingName: new FormControl('', Validators.required),
       buildingType: new FormControl('', Validators.required),
       buildingLength: new FormControl('', Validators.required),
@@ -137,12 +137,11 @@ export class LpsAirTerminationComponent implements OnInit {
 
       this.step2List = data.airTermination;
       this.airtermination.basicLpsId = basicLpsId;
-      //this.airtermination.lpsAirDescId = this.step2List.lpsAirDescId;
-      console.log(this.step2List);
+      this.airtermination.airTerminationId = this.step2List.airTerminationId;
       
-      // this.airtermination.createdBy = this.step2List.createdBy;
-      // this.airtermination.createdDate = this.step2List.createdDate;     
-      // this.airtermination.userName = this.step2List.userName;
+      this.airtermination.createdBy = this.step2List.createdBy;
+      this.airtermination.createdDate = this.step2List.createdDate;     
+      this.airtermination.userName = this.step2List.userName;
       debugger
       this.airRetrieve();
       this.flag=true;
@@ -167,23 +166,17 @@ export class LpsAirTerminationComponent implements OnInit {
       debugger
       //this.service.lvClick=1;
 
-        this.step2List=JSON.parse(data);
+        let list=JSON.parse(data);
+        this.step2List = list[0];
+        
         this.airtermination.basicLpsId = basicLpsId;
-        this.airtermination.lpsAirDescId = this.step2List[0].lpsAirDescId;
-        // this.airtermination.connectionMadeBraOb = this.step2List[0].connectionMadeBraOb;
-        // this.airtermination.connectionMadeBraRe = this.step2List[0].connectionMadeBraRe;
-        // this.airtermination.electricalEquipPlacedOb = this.step2List[0].electricalEquipPlacedOb;
-        // this.airtermination.electricalEquipPlacedRe = this.step2List[0].electricalEquipPlacedRe;
-        // this.airtermination.combustablePartOb = this.step2List[0].combustablePartOb;
-        // this.airtermination.combustablePartRe = this.step2List[0].combustablePartRe;
-        // this.airtermination.terminationMeshConductorOb = this.step2List[0].terminationMeshConductorOb;
-        // this.airtermination.terminationMeshConductorRe = this.step2List[0].terminationMeshConductorRe;
-        // this.airtermination.bondingEquipotentialOb = this.step2List[0].bondingEquipotentialOb;
-        // this.airtermination.bondingEquipotentialRe = this.step2List[0].bondingEquipotentialRe;
-        this.airtermination.createdBy = this.step2List[0].createdBy;
-        this.airtermination.createdDate = this.step2List[0].createdDate;     
-        this.airtermination.userName = this.step2List[0].userName;
-        this.populateData1();
+        this.airtermination.basicLpsId = basicLpsId;
+        this.airtermination.airTerminationId = this.step2List.airTerminationId;
+        
+        this.airtermination.createdBy = this.step2List.createdBy;
+        this.airtermination.createdDate = this.step2List.createdDate;     
+        this.airtermination.userName = this.step2List.userName;
+        this.airRetrieve();
         this.flag=true;
       }
       
@@ -233,8 +226,6 @@ export class LpsAirTerminationComponent implements OnInit {
       for (let item of this.step2List[0].airBasicDescription) {
      //   this.arr1.push(this.airTerminationBasic(item));
       }
-
-     
       for (let item of this.step2List[0].airMeshDescription) {     
         this.arr2.push(this.createGroup1(item));
       }
@@ -304,8 +295,8 @@ export class LpsAirTerminationComponent implements OnInit {
     airTerminationBasic(item:any): FormGroup {
       return this.formBuilder.group({
         
-        airBasicDescriptionId: new FormControl({disabled: false, value: item.airBasicDescriptionId}),
-
+        lpsAirDescId: new FormControl({disabled: false, value: item.lpsAirDescId}),
+        buildingCount: new FormControl({disabled: false, value: item.buildingCount}),
         buildingNumber: new FormControl({disabled: false, value: item.buildingNumber}, Validators.required),
         buildingName: new FormControl({disabled: false, value: item.buildingName}, Validators.required),
         buildingType: new FormControl({disabled: false, value: item.buildingType}, Validators.required),
@@ -313,8 +304,7 @@ export class LpsAirTerminationComponent implements OnInit {
         buildingHeight: new FormControl({disabled: false, value: item.buildingHeight}, Validators.required),
         buildingWidth: new FormControl({disabled: false, value: item.buildingWidth}, Validators.required),
         protectionLevel: new FormControl({disabled: false, value: item.protectionLevel}, Validators.required),
-
-
+        flag: new FormControl({disabled: false, value: item.flag}),
         lpsVerticalAirTermination: this.formBuilder.array(this.retriveLpsVerticalAirTerminationData(item)),
         airMeshDescription: this.formBuilder.array(this.retriveLpsVerticalAirTerminationData1(item)),
         airHolderDescription: this.formBuilder.array(this.retriveLpsVerticalAirTerminationData2(item)),
@@ -383,7 +373,7 @@ export class LpsAirTerminationComponent implements OnInit {
 
     basicDetailsGroup(item:any){
       return this.formBuilder.group({
-
+        airBasicDescriptionId: new FormControl({disabled: false, value: item.airBasicDescriptionId}),
         approvedDrawingObserv:  new FormControl({disabled: false, value: item.approvedDrawingObserv}, Validators.required),
         approvedDrawingRemarks: new FormControl({disabled: false, value: item.approvedDrawingRemarks}),
         architectNameObserv:  new FormControl({disabled: false, value: item.architectNameObserv}, Validators.required),
@@ -417,10 +407,10 @@ export class LpsAirTerminationComponent implements OnInit {
     }
 
     createGroup(item: any): FormGroup {
-      
+      debugger
       return this.formBuilder.group({
 
-      lpsVerticalAirTerminationId: [new FormControl({disabled: false, value: item.lpsVerticalAirTerminationId})],
+      lpsVerticalAirTerminationId: new FormControl({disabled: false, value: item.lpsVerticalAirTerminationId}),
       physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
       physicalInspectionRe: new FormControl({disabled: false, value: item.physicalInspectionRe}),
       installationTerminationsystemOb: new FormControl({disabled: false, value: item.installationTerminationsystemOb}, Validators.required),
@@ -702,6 +692,7 @@ export class LpsAirTerminationComponent implements OnInit {
                 this.success1 = false;
                 this.success = true;
                 this.successMsg = data;
+                this.retriveAirTermination();
                 this.airTerminationForm.markAsPristine();
                 this.service.lvClick=0;
                 this.service.logoutClick=0;
@@ -1102,6 +1093,7 @@ export class LpsAirTerminationComponent implements OnInit {
 //     }
 
   retriveAirTermination(){
+    debugger
     this.airterminationServices.retriveAirTerminationDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
       data => {
         this.retrieveDetailsfromSavedReports1(this.airtermination.userName,this.basicLpsId,this.ClientName,data);
