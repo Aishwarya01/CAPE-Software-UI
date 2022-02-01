@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EmcPowerAndEarthingData } from 'src/app/EMC_Model/emc-power-and-earthing-data';
 import { EmcPowerAndEarthingDataService } from 'src/app/EMC_Services/emc-power-and-earthing-data.service';
+import { GlobalsService } from 'src/app/globals.service';
 
 @Component({
   selector: 'app-power-and-earthing-data',
@@ -33,6 +35,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
   validationErrorMsg: String ="";
   popup: boolean = false;
   modalReference: any;
+  email: String;
   step1List2: any;
   arr1: any;
   arr2: any;
@@ -40,8 +43,12 @@ export class PowerAndEarthingDataComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
+    private router: ActivatedRoute,
+    public service: GlobalsService,
     private emcPowerAndEarthingDataService: EmcPowerAndEarthingDataService
-    ) { }
+    ) {
+      this.email = this.router.snapshot.paramMap.get('email') || '{}';
+     }
 
   ngOnInit(): void {
     this.EMCPowerAndEarthForm = this.formBuilder.group({
@@ -280,8 +287,11 @@ savePowerAndEarthingData(flag:any){
   }
   console.log(this.EMCPowerAndEarthForm);
 
-  this.emcPowerAndEarthingData.userName='Hasan';
-  this.emcPowerAndEarthingData.emcId=10;
+  this.emcPowerAndEarthingData.userName=this.email;
+  if (!flag) {
+    this.emcPowerAndEarthingData.emcId=this.service.siteCount;
+  }
+ 
   
     this.electronicSystemArr = this.EMCPowerAndEarthForm.get('electronicSystemArr') as FormArray;
     this.emcPowerAndEarthingData.electronicSystem = this.EMCPowerAndEarthForm.value.electronicSystemArr;

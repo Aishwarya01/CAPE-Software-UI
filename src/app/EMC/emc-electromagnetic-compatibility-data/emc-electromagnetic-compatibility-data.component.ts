@@ -272,9 +272,9 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
       if(this.EMCElectroMagneticFormm.invalid){
         return
       }
-      this.emcElectromagneticCompatibility.userName = "Hasan";
+      this.emcElectromagneticCompatibility.userName = this.email;
       if (!flag) {
-        this.emcElectromagneticCompatibility.emcId = 10;
+        this.emcElectromagneticCompatibility.emcId =this.service.siteCount;
       }
       this.externalCompatibilityArr = this.EMCElectroMagneticFormm.get('externalCompatibilityArr') as FormArray;
       this.emcElectromagneticCompatibility.externalCompatibility = this.EMCElectroMagneticFormm.value.externalCompatibilityArr;

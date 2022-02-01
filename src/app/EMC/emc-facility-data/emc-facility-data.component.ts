@@ -288,9 +288,9 @@ export class EmcFacilityDataComponent implements OnInit {
     if(this.EMCFacilityForm.invalid) {
       return;
     }
-    this.emcFacilityData.userName = "sivaraju";
+    this.emcFacilityData.userName = this.email;
     if (!flag) {
-      this.emcFacilityData.emcId = 88;
+      this.emcFacilityData.emcId =this.service.siteCount;
     }
   
     this.floorCoveringArr = this.EMCFacilityForm.get('floorCoveringArr') as FormArray;
