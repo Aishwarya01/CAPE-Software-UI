@@ -1,11 +1,11 @@
 <div *ngIf="validationErrorTab" style="text-align: center;">
     <span class="alert alert-danger">{{validationErrorMsgTab}}</span>
-  </div>
+</div>
 <div class="card">
     <div class="card-body">
-        <form [formGroup]="EMCPowerAndEarthForm"  (ngSubmit)="savePowerAndEarthingData(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
+        <form [formGroup]="EMCPowerAndEarthForm" (ngSubmit)="savePowerAndEarthingData(flag)" (keyup)="onKeyForm($event)"
+            (change)="onChangeForm($event)">
             <mat-accordion displayMode="default" [hideToggle]="false">
-
                 <mat-expansion-panel [hideToggle]="false" class="body">
                     <mat-expansion-panel-header>
                         Service Entrance
@@ -66,7 +66,8 @@
                                 [ngClass]="{'is-invalid':submitted && f.powerDistanceHvLv?.errors}"
                                 placeholder="In case transformer with in the premise (HV supply), describe this and the distance to the suppliers substation...!"></textarea>
                             <div *ngIf="submitted &&f.powerDistanceHvLv?.errors" class="invalid-feedback">
-                                <div *ngIf="f.powerDistanceHvLv?.errors?.required">Distance to HV/LV Substation Is Required</div>
+                                <div *ngIf="f.powerDistanceHvLv?.errors?.required">Distance to HV/LV Substation Is
+                                    Required</div>
                             </div>
                         </div>
                     </div>
@@ -172,7 +173,8 @@
                                         formControlName="powerInputFeed" placeholder="Enter Feed (Delta/WYE)"
                                         [ngClass]="{'is-invalid':submitted && f.powerInputFeed?.errors}">
                                     <div *ngIf="submitted &&f.powerInputFeed?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.powerInputFeed?.errors?.required">Feed (Delta/WYE) Is Required</div>
+                                        <div *ngIf="f.powerInputFeed?.errors?.required">Feed (Delta/WYE) Is Required
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -209,7 +211,8 @@
                                             formControlName="powerOutputVolts" placeholder="Enter Volts"
                                             [ngClass]="{'is-invalid':submitted && f.powerOutputVolts?.errors}">
                                         <div *ngIf="submitted &&f.powerOutputVolts?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.powerOutputVolts?.errors?.required">Output to MDB Is Required</div>
+                                            <div *ngIf="f.powerOutputVolts?.errors?.required">Output to MDB Is Required
+                                            </div>
                                         </div>
                                     </div>
 
@@ -220,7 +223,8 @@
                                             formControlName="powerOutputPhase" placeholder="Enter No. of phases"
                                             [ngClass]="{'is-invalid':submitted && f.powerOutputPhase?.errors}">
                                         <div *ngIf="submitted &&f.powerOutputPhase?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.powerOutputPhase?.errors?.required">No. Of Phases Is Required</div>
+                                            <div *ngIf="f.powerOutputPhase?.errors?.required">No. Of Phases Is Required
+                                            </div>
                                         </div>
                                     </div>
 
@@ -231,7 +235,8 @@
                                             formControlName="powerOutputWires" placeholder="Enter No. of wires"
                                             [ngClass]="{'is-invalid':submitted && f.powerOutputWires?.errors}">
                                         <div *ngIf="submitted &&f.powerOutputWires?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.powerOutputWires?.errors?.required">No. Of Wires Is Required</div>
+                                            <div *ngIf="f.powerOutputWires?.errors?.required">No. Of Wires Is Required
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -243,7 +248,8 @@
                                             formControlName="powerOutputFeed" placeholder="Enter Feed (Delta/WYE)"
                                             [ngClass]="{'is-invalid':submitted && f.powerOutputFeed?.errors}">
                                         <div *ngIf="submitted &&f.powerOutputFeed?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.powerOutputFeed?.errors?.required">Feed (Delta/WYE) Is Required</div>
+                                            <div *ngIf="f.powerOutputFeed?.errors?.required">Feed (Delta/WYE) Is
+                                                Required</div>
                                         </div>
                                     </div>
 
@@ -256,7 +262,8 @@
                                             formControlName="powerIncomingAmps" placeholder="Enter Amps here"
                                             [ngClass]="{'is-invalid':submitted && f.powerIncomingAmps?.errors}">
                                         <div *ngIf="submitted &&f.powerIncomingAmps?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.powerIncomingAmps?.errors?.required">Incoming (Amps) Is Required</div>
+                                            <div *ngIf="f.powerIncomingAmps?.errors?.required">Incoming (Amps) Is
+                                                Required</div>
                                         </div>
                                     </div>
 
@@ -325,7 +332,8 @@
                                 <option *ngFor="let value of selectionValue">{{value}}</option>
                             </select>
                             <div *ngIf="submitted &&f.dedicatedTransfermation?.errors" class="invalid-feedback">
-                                <div *ngIf="f.dedicatedTransfermation?.errors?.required">Dedicated Transformer Is Required</div>
+                                <div *ngIf="f.dedicatedTransfermation?.errors?.required">Dedicated Transformer Is
+                                    Required</div>
                             </div>
                         </div>
                         <div>
@@ -490,7 +498,8 @@
                                             [ngClass]="{'is-invalid':submitted && a.get('bDRecordData')?.errors}"
                                             placeholder="Ex. Record data (including name-plate data) note any power conditioning equipment and/or last transformer before electronic system load...!"></textarea>
                                         <div *ngIf="submitted &&a.get('bDRecordData')?.errors" class="invalid-feedback">
-                                            <div *ngIf="a.get('bDRecordData')?.errors?.required">Record Data Is Required</div>
+                                            <div *ngIf="a.get('bDRecordData')?.errors?.required">Record Data Is Required
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -509,7 +518,8 @@
                                             [ngClass]="{'is-invalid':submitted && a.get('bDEarthing')?.errors}"
                                             placeholder="Ex. Describe how and where earthing of power conditioning equipment carried out...!"></textarea>
                                         <div *ngIf="submitted &&a.get('bDEarthing')?.errors" class="invalid-feedback">
-                                            <div *ngIf="a.get('bDEarthing')?.errors?.required">Earthing Is Required</div>
+                                            <div *ngIf="a.get('bDEarthing')?.errors?.required">Earthing Is Required
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -538,7 +548,8 @@
                                             placeholder="Ex. Using the SLD, sketch the system power and ground distribution system, including all major components in (or immediately adjacent to) the computer room. Clearly identify all major components...!"></textarea>
                                         <div *ngIf="submitted &&a.get('electronicDesc')?.errors"
                                             class="invalid-feedback">
-                                            <div *ngIf="a.get('electronicDesc')?.errors?.required">Description Is Required
+                                            <div *ngIf="a.get('electronicDesc')?.errors?.required">Description Is
+                                                Required
                                             </div>
                                         </div>
                                     </div>
@@ -584,7 +595,8 @@
                                                     [ngClass]="{'is-invalid':submitted && a.get('namePlateData')?.errors}">
                                                 <div *ngIf="submitted &&a.get('namePlateData')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('namePlateData')?.errors?.required">Name Plate Data Is
+                                                    <div *ngIf="a.get('namePlateData')?.errors?.required">Name Plate
+                                                        Data Is
                                                         Required</div>
                                                 </div>
                                             </td>
@@ -609,7 +621,8 @@
                                                 </select>
                                                 <div *ngIf="submitted &&a.get('mainCircuteBraker')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('mainCircuteBraker')?.errors?.required">Main Circuit Breaker Is
+                                                    <div *ngIf="a.get('mainCircuteBraker')?.errors?.required">Main
+                                                        Circuit Breaker Is
                                                         Required</div>
                                                 </div>
                                             </td>
@@ -666,7 +679,8 @@
                                                     [ngClass]="{'is-invalid':submitted && a.get('otherTrip')?.errors}">
                                                 <div *ngIf="submitted &&a.get('otherTrip')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('otherTrip')?.errors?.required">Other Trips Is Required
+                                                    <div *ngIf="a.get('otherTrip')?.errors?.required">Other Trips Is
+                                                        Required
                                                     </div>
                                                 </div>
                                             </td>
@@ -683,7 +697,8 @@
                                                     placeholder="Enter Differential protection">
                                                 <div *ngIf="submitted &&a.get('differentalProtection')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('differentalProtection')?.errors?.required">Differential Protection
+                                                    <div *ngIf="a.get('differentalProtection')?.errors?.required">
+                                                        Differential Protection
                                                         Is Required</div>
                                                 </div>
                                             </td>
@@ -731,7 +746,8 @@
                                                     placeholder="WYE / DELTA / SPLIT PHASE / Single phase / No of wires">
                                                 <div *ngIf="submitted &&a.get('panelFeed')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('panelFeed')?.errors?.required">Panel Feed Is Required
+                                                    <div *ngIf="a.get('panelFeed')?.errors?.required">Panel Feed Is
+                                                        Required
                                                     </div>
                                                 </div>
                                             </td>
@@ -746,7 +762,8 @@
                                                     placeholder="Cu / Al, Size, Number and insulation type">
                                                 <div *ngIf="submitted &&a.get('phaseWires')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('phaseWires')?.errors?.required">Phase Wires Is Required
+                                                    <div *ngIf="a.get('phaseWires')?.errors?.required">Phase Wires Is
+                                                        Required
                                                     </div>
                                                 </div>
                                             </td>
@@ -776,7 +793,8 @@
                                                     placeholder="Cu / Al, Size, Number and insulation type">
                                                 <div *ngIf="submitted &&a.get('peWireSize')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('peWireSize')?.errors?.required">PE Wire Size Is Required
+                                                    <div *ngIf="a.get('peWireSize')?.errors?.required">PE Wire Size Is
+                                                        Required
                                                     </div>
                                                 </div>
                                             </td>
@@ -797,7 +815,8 @@
                                                     placeholder="Type - Cu / Al, Cu/Al">
                                                 <div *ngIf="submitted &&a.get('pannelConnectors')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('pannelConnectors')?.errors?.required">Panel Connectors Is
+                                                    <div *ngIf="a.get('pannelConnectors')?.errors?.required">Panel
+                                                        Connectors Is
                                                         Required</div>
                                                 </div>
                                             </td>
@@ -832,7 +851,8 @@
                                                     placeholder="insulated from panel?? (check for bonding screws / straps) etc">
                                                 <div *ngIf="submitted &&a.get('neutralBus')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('neutralBus')?.errors?.required">Neutral Bus Is Required
+                                                    <div *ngIf="a.get('neutralBus')?.errors?.required">Neutral Bus Is
+                                                        Required
                                                     </div>
                                                 </div>
                                             </td>
@@ -845,7 +865,8 @@
                                                     placeholder="(available  / not available) (insulated / uninsulated) quality of bonding">
                                                 <div *ngIf="submitted &&a.get('earthBus')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('earthBus')?.errors?.required">Earth Bus Is Required
+                                                    <div *ngIf="a.get('earthBus')?.errors?.required">Earth Bus Is
+                                                        Required
                                                     </div>
                                                 </div>
                                             </td>
@@ -915,8 +936,8 @@
                     *ngFor="let b of getDistributionPannelControl(); let j = index">
                     <div class="form-group" [formGroupName]="j">
 
-                        <!-- Distribution panel at load (final circuits) -->
                         <mat-expansion-panel [hideToggle]="false" class="body">
+                            <!-- Distribution panel at load (final circuits) -->
                             <mat-expansion-panel-header>Distribution panel At Load (Final Circuits)
                             </mat-expansion-panel-header>
 
@@ -931,7 +952,8 @@
                                     <option *ngFor="let value of selectionValue">{{value}}</option>
                                 </select>
                                 <div *ngIf="submitted &&b.get('cbWireSize')?.errors" class="invalid-feedback">
-                                    <div *ngIf="b.get('cbWireSize')?.errors?.required">Branch Circuit Wire Size Is Required</div>
+                                    <div *ngIf="b.get('cbWireSize')?.errors?.required">Branch Circuit Wire Size Is
+                                        Required</div>
                                 </div>
                                 <div>
                                     <label class="form-label">Description</label>
@@ -958,7 +980,8 @@
                                     </select>
                                     <div *ngIf="submitted &&b.get('matchesReceptable')?.errors"
                                         class="invalid-feedback">
-                                        <div *ngIf="b.get('matchesReceptable')?.errors?.required">Matches Receptable Is Required
+                                        <div *ngIf="b.get('matchesReceptable')?.errors?.required">Matches Receptable Is
+                                            Required
                                         </div>
                                     </div>
                                     <div>
@@ -975,7 +998,8 @@
                                                 placeholder="Description"></textarea>
                                             <div *ngIf="submitted &&b.get('matchesReceptableDesc')?.errors"
                                                 class="invalid-feedback">
-                                                <div *ngIf="b.get('matchesReceptableDesc')?.errors?.required">Description Is
+                                                <div *ngIf="b.get('matchesReceptableDesc')?.errors?.required">
+                                                    Description Is
                                                     Required</div>
                                             </div>
                                         </div>
@@ -1010,7 +1034,8 @@
                                                 placeholder="Description"></textarea>
                                             <div *ngIf="submitted &&b.get('indivdialPwireDesc')?.errors"
                                                 class="invalid-feedback">
-                                                <div *ngIf="b.get('indivdialPwireDesc')?.errors?.required">Description Is
+                                                <div *ngIf="b.get('indivdialPwireDesc')?.errors?.required">Description
+                                                    Is
                                                     Required</div>
                                             </div>
                                         </div>
@@ -1047,7 +1072,8 @@
                                                 placeholder="Description"></textarea>
                                             <div *ngIf="submitted &&b.get('indivdialNeutralwireDesc')?.errors"
                                                 class="invalid-feedback">
-                                                <div *ngIf="b.get('indivdialNeutralwireDesc')?.errors?.required">Description
+                                                <div *ngIf="b.get('indivdialNeutralwireDesc')?.errors?.required">
+                                                    Description
                                                     Is Required</div>
                                             </div>
                                         </div>
@@ -1084,7 +1110,8 @@
                                                 placeholder="Description"></textarea>
                                             <div *ngIf="submitted &&b.get('computerLoadCircuteDes')?.errors"
                                                 class="invalid-feedback">
-                                                <div *ngIf="b.get('computerLoadCircuteDes')?.errors?.required">Description Is
+                                                <div *ngIf="b.get('computerLoadCircuteDes')?.errors?.required">
+                                                    Description Is
                                                     Required</div>
                                             </div>
                                         </div>
@@ -1121,7 +1148,8 @@
                                                 placeholder="Description"></textarea>
                                             <div *ngIf="submitted &&b.get('computerLoadReceptableDesc')?.errors"
                                                 class="invalid-feedback">
-                                                <div *ngIf="b.get('computerLoadReceptableDesc')?.errors?.required">Description
+                                                <div *ngIf="b.get('computerLoadReceptableDesc')?.errors?.required">
+                                                    Description
                                                     Is Required</div>
                                             </div>
                                         </div>
@@ -1157,7 +1185,8 @@
                                                 placeholder="Description"></textarea>
                                             <div *ngIf="submitted &&b.get('branchCircuteRunDesc')?.errors"
                                                 class="invalid-feedback">
-                                                <div *ngIf="b.get('branchCircuteRunDesc')?.errors?.required">Description Is
+                                                <div *ngIf="b.get('branchCircuteRunDesc')?.errors?.required">Description
+                                                    Is
                                                     Required</div>
                                             </div>
                                         </div>
@@ -1194,7 +1223,8 @@
                                                 placeholder="Description"></textarea>
                                             <div *ngIf="submitted &&b.get('frequencyCyclidLoadsDesc')?.errors"
                                                 class="invalid-feedback">
-                                                <div *ngIf="b.get('frequencyCyclidLoadsDesc')?.errors?.required">Description
+                                                <div *ngIf="b.get('frequencyCyclidLoadsDesc')?.errors?.required">
+                                                    Description
                                                     Is Required</div>
                                             </div>
                                         </div>
@@ -1229,7 +1259,8 @@
                                                 placeholder="Description"></textarea>
                                             <div *ngIf="submitted &&b.get('conductorsDesc')?.errors"
                                                 class="invalid-feedback">
-                                                <div *ngIf="b.get('conductorsDesc')?.errors?.required">Description Is Required
+                                                <div *ngIf="b.get('conductorsDesc')?.errors?.required">Description Is
+                                                    Required
                                                 </div>
                                             </div>
                                         </div>
@@ -1240,17 +1271,14 @@
                     </div>
                 </div>
             </mat-accordion>
+
+            <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
+                <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
+                <button class="next" (click)="gotoNextModal(content2)" mat-button>Next &raquo;</button>
+            </div>
+
             <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
                 <span class="alert alert-danger">{{validationErrorMsg}}</span>
-              </div>
-              
-            <div class="container">
-                <div style="text-align: center;">
-                    <button type="button" style="width: 100px; margin: 16px auto;"
-                        class="btn btn-primary" mat-button matStepperPrevious>&laquo; Previous</button>
-                    <button type="submit" style="width: 100px; margin: 16px auto;"
-                    (click)="gotoNextModal(content2)"    class="btn btn-success">Next</button>
-                </div>
             </div>
 
         </form>

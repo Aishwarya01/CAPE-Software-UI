@@ -986,12 +986,9 @@
                     <span class="alert alert-danger">{{validationErrorMsg}}</span>
                   </div>
 
-                <div class="container">
-                    <div style="text-align: center;">
-                        <button type="submit" style="width: 100px; margin: 16px auto;"
-                         (click)="gotoNextModal(content1)"  class="btn btn-success">Next</button>
-                    </div>
-                </div>  `
+                  <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
+                    <button class="next" (click)="gotoNextModal(content1)" mat-button>Next &raquo;</button>
+                </div>
 
             </form>
         </mat-accordion>
