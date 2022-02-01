@@ -28,7 +28,7 @@
                                     <option *ngFor="let value of buildingType">{{value}}</option>
                                 </select>
                                 <div *ngIf="submitted &&f.blType?.errors" class="invalid-feedback">
-                                    <div *ngIf="f.blType?.errors?.required">Field Is Required</div>
+                                    <div *ngIf="f.blType?.errors?.required">Type Is Required</div>
                                 </div>
                             </div>
                         </div>
@@ -41,7 +41,7 @@
                                     [ngClass]="{'is-invalid':submitted && f.blOtherDescription?.errors}"
                                     formControlName="blOtherDescription" placeholder="Describe others"></textarea>
                                     <div *ngIf="submitted &&f.blOtherDescription?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.blOtherDescription?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.blOtherDescription?.errors?.required">Describe Others Is Required</div>
                                     </div>
                             </div>
                         </div>
@@ -66,7 +66,7 @@
                                     <option *ngFor="let value of buildingConstruction">{{value}}</option>
                                 </select>
                                 <div *ngIf="submitted &&f.bcType?.errors" class="invalid-feedback">
-                                    <div *ngIf="f.bcType?.errors?.required">Field Is Required</div>
+                                    <div *ngIf="f.bcType?.errors?.required">Type Is Required</div>
                                 </div>
                             </div>
                         </div>
@@ -79,7 +79,7 @@
                                     [ngClass]="{'is-invalid':submitted && f.bcNoOfFloors?.errors}"
                                      placeholder="Enter No. of floors">
                                      <div *ngIf="submitted &&f.bcNoOfFloors?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.bcNoOfFloors?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.bcNoOfFloors?.errors?.required">No. Of Floors Is Required</div>
                                     </div>
                             </div>
 
@@ -92,7 +92,7 @@
                                     placeholder="Enter Computer room floor location"
                                     [ngClass]="{'is-invalid':submitted && f.bcRoomFloorLocation?.errors}">
                                     <div *ngIf="submitted &&f.bcRoomFloorLocation?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.bcRoomFloorLocation?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.bcRoomFloorLocation?.errors?.required">Computer Room Floor Location Is Required</div>
                                     </div>
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                                     placeholder="Enter Building primary use"
                                     [ngClass]="{'is-invalid':submitted && f.bcBuildingPrimaryUse?.errors}">
                                     <div *ngIf="submitted &&f.bcBuildingPrimaryUse?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.bcBuildingPrimaryUse?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.bcBuildingPrimaryUse?.errors?.required">Building Primary Use Is Required</div>
                                     </div>
                             </div>
 
@@ -118,7 +118,7 @@
                                     [ngClass]="{'is-invalid':submitted && f.bcOtherUses?.errors}"
                                     placeholder="Enter Other uses / processes">
                                     <div *ngIf="submitted &&f.bcOtherUses?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.bcOtherUses?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.bcOtherUses?.errors?.required">Other Uses / Processes Is Required</div>
                                     </div>
                             </div>
                         </div>
@@ -139,7 +139,7 @@
                                 [ngClass]="{'is-invalid':submitted && f.rlInteriorRoom?.errors}"
                                     [(ngModel)]="emcFacilityData.rlInteriorRoom" placeholder="Enter Interior room">
                                     <div *ngIf="submitted &&f.rlInteriorRoom?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.rlInteriorRoom?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.rlInteriorRoom?.errors?.required">Interior Room Is Required</div>
                                     </div>
                             </div>
                         </div>
@@ -150,7 +150,7 @@
                                 [ngClass]="{'is-invalid':submitted && f.rlExteriorRoom?.errors}"
                                     [(ngModel)]="emcFacilityData.rlExteriorRoom" placeholder="Enter Exterior room">
                                     <div *ngIf="submitted &&f.rlExteriorRoom?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.rlExteriorRoom?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.rlExteriorRoom?.errors?.required">Exterior Room Is Required</div>
                                     </div>
                             </div>
                         </div>
@@ -162,7 +162,7 @@
                                     [ngClass]="{'is-invalid':submitted && f.rlSolidExterior?.errors}"
                                     placeholder="Enter Solid exterior walls">
                                     <div *ngIf="submitted &&f.rlSolidExterior?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.rlSolidExterior?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.rlSolidExterior?.errors?.required">Solid Exterior Walls Is Required</div>
                                     </div>
                             </div>
                         </div>
@@ -175,7 +175,7 @@
                                     [ngClass]="{'is-invalid':submitted && f.rlWindowedExterior?.errors}"
                                     placeholder="Enter Windowed exterior walls">
                                     <div *ngIf="submitted &&f.rlWindowedExterior?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.rlWindowedExterior?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.rlWindowedExterior?.errors?.required">Windowed Exterior Walls Is Required</div>
                                     </div>
                             </div>
                         </div>
@@ -187,7 +187,7 @@
                                     [ngClass]="{'is-invalid':submitted && f.rlWindsFace?.errors}"
                                     placeholder="Enter Windows face (north, south, east, or west)">
                                     <div *ngIf="submitted &&f.rlWindsFace?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.rlWindsFace?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.rlWindsFace?.errors?.required">Windows Face Is Required</div>
                                     </div>
                             </div>
                         </div>
@@ -213,7 +213,7 @@
                                     <option *ngFor="let value of dedicatedRoomForSafety">{{value}}</option>
                                 </select>
                                 <div *ngIf="submitted &&f.ruDedicated?.errors" class="invalid-feedback">
-                                    <div *ngIf="f.ruDedicated?.errors?.required">Field Is Required</div>
+                                    <div *ngIf="f.ruDedicated?.errors?.required">Dedicated Room For System Is Required</div>
                                 </div>
                             </div>
                         </div>
@@ -231,7 +231,7 @@
                                     [ngClass]="{'is-invalid':submitted && f.ruOtherDesc?.errors}"
                                     placeholder="Enter Describe other equipment in room"></textarea>
                                     <div *ngIf="submitted &&f.ruOtherDesc?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ruOtherDesc?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.ruOtherDesc?.errors?.required">Describe Other Equipment In Room Is Required</div>
                                     </div>
                             </div>
                         </div>
@@ -253,7 +253,7 @@
                                     [ngClass]="{'is-invalid':submitted && f.rmHeightTrueFloor?.errors}"
                                     placeholder="Enter Height (true floor to true ceiling)">
                                     <div *ngIf="submitted &&f.rmHeightTrueFloor?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.rmHeightTrueFloor?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.rmHeightTrueFloor?.errors?.required">Height (true floor to true ceiling) Is Required</div>
                                     </div>
                             </div>
                         </div>
@@ -265,7 +265,7 @@
                                     [ngClass]="{'is-invalid':submitted && f.rmHeightFalseFloor?.errors}"
                                     placeholder="Enter Height (false floor to drop ceiling)">
                                     <div *ngIf="submitted &&f.rmHeightFalseFloor?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.rmHeightFalseFloor?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.rmHeightFalseFloor?.errors?.required">Height (false floor to drop ceiling) Is Required</div>
                                     </div>
                             </div>
                         </div>
@@ -276,7 +276,7 @@
                                 [ngClass]="{'is-invalid':submitted && f.rmWidth?.errors}"
                                     [(ngModel)]="emcFacilityData.rmWidth" placeholder="Enter Width">
                                     <div *ngIf="submitted &&f.rmWidth?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.rmWidth?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.rmWidth?.errors?.required">Width Is Required</div>
                                     </div>
                             </div>
                         </div>
@@ -287,7 +287,7 @@
                                 [ngClass]="{'is-invalid':submitted && f.rmLength?.errors}"
                                     [(ngModel)]="emcFacilityData.rmLength" placeholder="Enter Length">
                                     <div *ngIf="submitted &&f.rmLength?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.rmLength?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.rmLength?.errors?.required">Length Is Required</div>
                                     </div>
                             </div>
                         </div>
@@ -299,7 +299,7 @@
                                     [ngClass]="{'is-invalid':submitted && f.rmMaxFloor?.errors}"
                                     placeholder="Enter Maximum allowable floor loading (Kg/m2)">
                                     <div *ngIf="submitted &&f.rmMaxFloor?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.rmMaxFloor?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.rmMaxFloor?.errors?.required">Maximum Allowable Floor Loading (Kg/m2) Is Required</div>
                                     </div>
                             </div>
                         </div>
@@ -320,7 +320,7 @@
                                 [ngClass]="{'is-invalid':submitted && f.ftRaisedFloor?.errors}"
                                     [(ngModel)]="emcFacilityData.ftRaisedFloor" placeholder="Enter Raised floor">
                                     <div *ngIf="submitted &&f.ftRaisedFloor?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftRaisedFloor?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.ftRaisedFloor?.errors?.required">Raised Floor Is Required</div>
                                     </div>
                             </div>
                         </div>
@@ -332,7 +332,7 @@
                                     [ngClass]="{'is-invalid':submitted && f.ftAirSupply?.errors}"
                                     placeholder="Enter Used as air supply plenum">
                                     <div *ngIf="submitted &&f.ftAirSupply?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftAirSupply?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.ftAirSupply?.errors?.required">Used As Air Supply Plenum Is Required</div>
                                     </div>
                             </div>
                         </div>
@@ -343,7 +343,7 @@
                                 [ngClass]="{'is-invalid':submitted && f.ftHeight?.errors}"
                                     [(ngModel)]="emcFacilityData.ftHeight" placeholder="Enter Height">
                                     <div *ngIf="submitted &&f.ftHeight?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftHeight?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.ftHeight?.errors?.required">Height Is Required</div>
                                     </div>
                             </div>
                         </div>
@@ -355,7 +355,7 @@
                                     [(ngModel)]="emcFacilityData.ftAirFlowObservation"
                                     placeholder="Enter Air flow obstructions">
                                     <div *ngIf="submitted &&f.ftAirFlowObservation?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftAirFlowObservation?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.ftAirFlowObservation?.errors?.required">Air Flow Obstructions Is Required</div>
                                     </div>
                             </div>
                         </div>
@@ -367,7 +367,7 @@
                                     [ngClass]="{'is-invalid':submitted && f.ftDescription?.errors}"
                                     placeholder="Enter Description"></textarea>
                                     <div *ngIf="submitted &&f.ftDescription?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftDescription?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.ftDescription?.errors?.required">Description Is Required</div>
                                     </div>
                             </div>
                         </div>
@@ -379,7 +379,7 @@
                                     [ngClass]="{'is-invalid':submitted && f.ftAirGrillDampers?.errors}"
                                     placeholder="Enter Air grill dampers">
                                     <div *ngIf="submitted &&f.ftAirGrillDampers?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftAirGrillDampers?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.ftAirGrillDampers?.errors?.required">Air Grill Dampers Is Required</div>
                                     </div>
                             </div>
                         </div>
@@ -391,7 +391,7 @@
                                     [ngClass]="{'is-invalid':submitted && f.ftCableHole?.errors}"
                                     placeholder="Enter Cable hole edge guards">
                                     <div *ngIf="submitted &&f.ftCableHole?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftCableHole?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.ftCableHole?.errors?.required">Cable Hole Edge Guards Is Required</div>
                                     </div>
                             </div>
                         </div>
@@ -402,7 +402,7 @@
                                 [ngClass]="{'is-invalid':submitted && f.ftPedestals?.errors}"
                                     [(ngModel)]="emcFacilityData.ftPedestals" placeholder="Enter Pedestals">
                                     <div *ngIf="submitted &&f.ftPedestals?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftPedestals?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.ftPedestals?.errors?.required">Pedestals Is Required</div>
                                     </div>
                             </div>
                         </div>
@@ -413,7 +413,7 @@
                                 [ngClass]="{'is-invalid':submitted && f.ftGrids?.errors}"
                                     [(ngModel)]="emcFacilityData.ftGrids" placeholder="Enter Grids">
                                     <div *ngIf="submitted &&f.ftGrids?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftGrids?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.ftGrids?.errors?.required">Grids Is Required</div>
                                     </div>
                             </div>
                         </div>
@@ -424,7 +424,7 @@
                                 [ngClass]="{'is-invalid':submitted && f.ftBolted?.errors}"
                                     [(ngModel)]="emcFacilityData.ftBolted" placeholder="Enter Bolted">
                                     <div *ngIf="submitted &&f.ftBolted?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftBolted?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.ftBolted?.errors?.required">Bolted Is Required</div>
                                     </div>
                             </div>
                         </div>
@@ -435,7 +435,7 @@
                                 [ngClass]="{'is-invalid':submitted && f.ftWelded?.errors}"
                                     [(ngModel)]="emcFacilityData.ftWelded" placeholder="Enter welded">
                                     <div *ngIf="submitted &&f.ftWelded?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftWelded?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.ftWelded?.errors?.required">welded Is Required</div>
                                     </div>
                             </div>
                         </div>
@@ -447,7 +447,7 @@
                                     [ngClass]="{'is-invalid':submitted && f.ftEarthingDesc?.errors}"
                                     placeholder="Enter Description of earthing"></textarea>
                                     <div *ngIf="submitted &&f.ftEarthingDesc?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftEarthingDesc?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.ftEarthingDesc?.errors?.required">Description Of Earthing Is Required</div>
                                     </div>
                             </div>
                         </div>
@@ -468,7 +468,7 @@
                                     <option *ngFor="let value of floorMaterisl">{{value}}</option>
                                 </select>
                                 <div *ngIf="submitted &&f.ftTrueFloorMaterial?.errors" class="invalid-feedback">
-                                    <div *ngIf="f.ftTrueFloorMaterial?.errors?.required">Field Is Required</div>
+                                    <div *ngIf="f.ftTrueFloorMaterial?.errors?.required">True Floor: Material Is Required</div>
                                 </div>
                             </div>
                         </div>
@@ -487,7 +487,7 @@
                                     [ngClass]="{'is-invalid':submitted && f.ftDescribe?.errors}"
                                     placeholder="Enter Describe"></textarea>
                                     <div *ngIf="submitted &&f.ftDescribe?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftDescribe?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.ftDescribe?.errors?.required">Describe Is Required</div>
                                     </div>
                             </div>
                         </div>
@@ -498,7 +498,7 @@
                                 [ngClass]="{'is-invalid':submitted && f.ftDescribe?.errors}"
                                     [(ngModel)]="emcFacilityData.ftCleanliness" placeholder="Enter Cleanliness">
                                     <div *ngIf="submitted &&f.ftCleanliness?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftCleanliness?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.ftCleanliness?.errors?.required">Cleanliness Is Required</div>
                                     </div>
                             </div>
                         </div>
@@ -511,7 +511,7 @@
                                     [ngClass]="{'is-invalid':submitted && f.ftOtherDescription?.errors}"
                                     placeholder="Enter Other descriptions"></textarea>
                                     <div *ngIf="submitted &&f.ftOtherDescription?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftOtherDescription?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="f.ftOtherDescription?.errors?.required">Other Descriptions Is Required</div>
                                     </div>
                             </div>
                         </div>
@@ -536,7 +536,7 @@
                                         [ngClass]="{ 'is-invalid': submitted && a.get('fcType')?.errors }"
                                             placeholder="Enter Type">
                                             <div *ngIf="submitted && a.get('fcType')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('fcType')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="a.get('fcType')?.errors?.required">Type Is Required</div>
                                             </div>
                                     </div>
                                 </div>
@@ -547,7 +547,7 @@
                                         [ngClass]="{ 'is-invalid': submitted && a.get('fcManufactor')?.errors }"
                                             placeholder="Enter Manufacturer">
                                             <div *ngIf="submitted && a.get('fcManufactor')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('fcManufactor')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="a.get('fcManufactor')?.errors?.required">Manufacturer Is Required</div>
                                             </div>
                                     </div>
                                 </div>
@@ -569,7 +569,7 @@
                                         [ngClass]="{ 'is-invalid': submitted && a.get('fcWoven')?.errors }"
                                             placeholder="Enter Woven">
                                             <div *ngIf="submitted && a.get('fcWoven')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('fcWoven')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="a.get('fcWoven')?.errors?.required">Woven Is Required</div>
                                             </div>
                                     </div>
                                 </div>
@@ -580,7 +580,7 @@
                                         [ngClass]="{ 'is-invalid': submitted && a.get('fcChemical')?.errors }"
                                             placeholder="Enter Chemical">
                                             <div *ngIf="submitted && a.get('fcChemical')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('fcChemical')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="a.get('fcChemical')?.errors?.required">Chemical Is Required</div>
                                             </div>
                                     </div>
                                 </div>
@@ -591,7 +591,7 @@
                                         [ngClass]="{ 'is-invalid': submitted && a.get('fcNone')?.errors }"
                                             placeholder="Enter None">
                                             <div *ngIf="submitted && a.get('fcNone')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('fcNone')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="a.get('fcNone')?.errors?.required">None Is Required</div>
                                             </div>
                                     </div>
                                 </div>
@@ -603,7 +603,7 @@
                                             [ngClass]="{ 'is-invalid': submitted && a.get('fcOtherDecription')?.errors }"
                                             placeholder="Enter Others - Describe"></textarea>
                                             <div *ngIf="submitted && a.get('fcOtherDecription')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('fcOtherDecription')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="a.get('fcOtherDecription')?.errors?.required">Others - Describe Is Required</div>
                                             </div>
                                     </div>
                                 </div>
@@ -624,7 +624,7 @@
                                         [ngClass]="{ 'is-invalid': submitted && a.get('wallType')?.errors }"
                                             placeholder="Enter Type of construction">
                                             <div *ngIf="submitted && a.get('wallType')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('wallType')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="a.get('wallType')?.errors?.required">Type of construction Is Required</div>
                                             </div>
                                     </div>
                                 </div>
@@ -635,7 +635,7 @@
                                         [ngClass]="{ 'is-invalid': submitted && a.get('wallMaterial')?.errors }"
                                             placeholder="Enter Material">
                                             <div *ngIf="submitted && a.get('wallMaterial')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('wallMaterial')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="a.get('wallMaterial')?.errors?.required">Material Is Required</div>
                                             </div>
                                     </div>
                                 </div>
@@ -646,7 +646,7 @@
                                         [ngClass]="{ 'is-invalid': submitted && a.get('wallCoveringType')?.errors }"
                                             placeholder="Enter Covering type">
                                             <div *ngIf="submitted && a.get('wallCoveringType')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('wallCoveringType')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="a.get('wallCoveringType')?.errors?.required">Covering Type Is Required</div>
                                             </div>
                                     </div>
                                 </div>
@@ -657,7 +657,7 @@
                                         [ngClass]="{ 'is-invalid': submitted && a.get('wallHumidity')?.errors }"
                                             placeholder="Enter Humidity and dust control">
                                             <div *ngIf="submitted && a.get('wallHumidity')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('wallHumidity')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="a.get('wallHumidity')?.errors?.required">Humidity And Dust Control Is Required</div>
                                             </div>
                                     </div>
                                 </div>
@@ -668,7 +668,7 @@
                                         [ngClass]="{ 'is-invalid': submitted && a.get('wallSealing')?.errors }"
                                             placeholder="Enter True floor to true sealing">
                                             <div *ngIf="submitted && a.get('wallSealing')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('wallSealing')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="a.get('wallSealing')?.errors?.required">True Floor to True Sealing Is Required</div>
                                             </div>
                                     </div>
                                 </div>
@@ -679,7 +679,7 @@
                                         [ngClass]="{ 'is-invalid': submitted && a.get('wallDesc')?.errors }"
                                             placeholder="Enter Additional description">
                                             <div *ngIf="submitted && a.get('wallDesc')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('wallDesc')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="a.get('wallDesc')?.errors?.required">Additional Description Is Required</div>
                                             </div>
                                     </div>
                                 </div>
@@ -743,7 +743,7 @@
                                             <option *ngFor="let value of utilisation">{{value}}</option>
                                         </select>
                                         <div *ngIf="submitted && a.get('ccUtilisation')?.errors" class="invalid-feedback">
-                                            <div *ngIf="a.get('ccUtilisation')?.errors?.required">Field Is Required</div>
+                                            <div *ngIf="a.get('ccUtilisation')?.errors?.required">Utilisation Of Void Is Required</div>
                                         </div>
                                     </div>
                                 </div>
@@ -756,7 +756,7 @@
                                             [ngClass]="{ 'is-invalid': submitted && a.get('ccTrueDesc')?.errors }"
                                             placeholder="Enter Description of true ceiling"></textarea>
                                             <div *ngIf="submitted && a.get('ccTrueDesc')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('ccTrueDesc')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="a.get('ccTrueDesc')?.errors?.required">Description Of True Ceiling Is Required</div>
                                             </div>
                                     </div>
                                 </div>
@@ -767,7 +767,7 @@
                                         [ngClass]="{ 'is-invalid': submitted && a.get('ccTrueHumidity')?.errors }"
                                             placeholder="Enter Humidity and dust control">
                                             <div *ngIf="submitted && a.get('ccTrueHumidity')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('ccTrueHumidity')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="a.get('ccTrueHumidity')?.errors?.required">Humidity And Dust Control Is Required</div>
                                             </div>
                                     </div>
                                 </div>
@@ -802,7 +802,7 @@
                                             <option *ngFor="let value of external">{{value}}</option>
                                         </select>
                                         <div *ngIf="submitted && a.get('windowsExternal')?.errors" class="invalid-feedback">
-                                            <div *ngIf="a.get('windowsExternal')?.errors?.required">Field Is Required</div>
+                                            <div *ngIf="a.get('windowsExternal')?.errors?.required">External Is Required</div>
                                         </div>
                                     </div>
                                 </div>
@@ -815,7 +815,7 @@
                                             [ngClass]="{ 'is-invalid': submitted && a.get('windowsDescription')?.errors }"
                                             placeholder="(can the windows be opened?)...!"></textarea>
                                             <div *ngIf="submitted && a.get('windowsDescription')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('windowsDescription')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="a.get('windowsDescription')?.errors?.required">Description Of Construction Is Required</div>
                                             </div>
                                     </div>
                                 </div>
@@ -829,7 +829,7 @@
                                             <option *ngFor="let value of windowCovering">{{value}}</option>
                                         </select>
                                         <div *ngIf="submitted && a.get('windowsCovering')?.errors" class="invalid-feedback">
-                                            <div *ngIf="a.get('windowsCovering')?.errors?.required">Field Is Required</div>
+                                            <div *ngIf="a.get('windowsCovering')?.errors?.required">Window Covering Is Required</div>
                                         </div>
                                     </div>
                                 </div>
@@ -842,7 +842,7 @@
                                             [ngClass]="{ 'is-invalid': submitted && a.get('windowsOtherDesc')?.errors }"
                                             placeholder="Enter Describe others"></textarea>
                                             <div *ngIf="submitted && a.get('windowsOtherDesc')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('windowsOtherDesc')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="a.get('windowsOtherDesc')?.errors?.required">Describe Others Is Required</div>
                                             </div>
                                     </div>
                                 </div>
@@ -855,7 +855,7 @@
                                             [ngClass]="{ 'is-invalid': submitted && a.get('windowsInternalDesc')?.errors }"
                                             placeholder="Enter Description of Internal windows "></textarea>
                                             <div *ngIf="submitted && a.get('windowsInternalDesc')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('windowsInternalDesc')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="a.get('windowsInternalDesc')?.errors?.required">Description Of Internal Windows Is Required</div>
                                             </div>
                                     </div>
                                 </div>
@@ -877,7 +877,7 @@
                                         [ngClass]="{ 'is-invalid': submitted && a.get('doorsMaterial')?.errors }"
                                             placeholder="Enter Material">
                                             <div *ngIf="submitted && a.get('doorsMaterial')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('doorsMaterial')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="a.get('doorsMaterial')?.errors?.required">Material Is Required</div>
                                             </div>
                                     </div>
                                 </div>
@@ -888,7 +888,7 @@
                                         [ngClass]="{ 'is-invalid': submitted && a.get('doorsNumber')?.errors }"
                                             placeholder="Enter Number">
                                             <div *ngIf="submitted && a.get('doorsNumber')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('doorsNumber')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="a.get('doorsNumber')?.errors?.required">Number Is Required</div>
                                             </div>
                                     </div>
                                 </div>
@@ -899,7 +899,7 @@
                                         [ngClass]="{ 'is-invalid': submitted && a.get('doorsWidth')?.errors }"
                                             placeholder="Enter Width">
                                             <div *ngIf="submitted && a.get('doorsWidth')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('doorsWidth')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="a.get('doorsWidth')?.errors?.required">Width Is Required</div>
                                             </div>
                                     </div>
                                 </div>
@@ -910,7 +910,7 @@
                                         [ngClass]="{ 'is-invalid': submitted && a.get('doorsHeight')?.errors }"
                                             placeholder="Enter Height">
                                             <div *ngIf="submitted && a.get('doorsHeight')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('doorsHeight')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="a.get('doorsHeight')?.errors?.required">Height Is Required</div>
                                             </div>
                                     </div>
                                 </div>
@@ -921,7 +921,7 @@
                                         [ngClass]="{ 'is-invalid': submitted && a.get('doorsCloserMechanish')?.errors }"
                                             placeholder="Enter Closure mechanism">
                                             <div *ngIf="submitted && a.get('doorsCloserMechanish')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('doorsCloserMechanish')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="a.get('doorsCloserMechanish')?.errors?.required">Closure Mechanism Is Required</div>
                                             </div>
                                     </div>
                                 </div>
@@ -932,7 +932,7 @@
                                         [ngClass]="{ 'is-invalid': submitted && a.get('doorsQualitySealing')?.errors }"
                                             placeholder="Enter Quality of air sealing">
                                             <div *ngIf="submitted && a.get('doorsQualitySealing')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('doorsQualitySealing')?.errors?.required">Field Is Required</div>
+                                                <div *ngIf="a.get('doorsQualitySealing')?.errors?.required">Quality Of Air Sealing Is Required</div>
                                             </div>
                                     </div>
                                 </div>
