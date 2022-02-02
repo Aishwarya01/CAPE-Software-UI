@@ -89,6 +89,7 @@ import { LpsFinalReportComponent } from './LPS/lps-final-report/lps-final-report
 import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 //import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { ConfirmationBoxComponent } from './confirmation-box/confirmation-box.component';
+import {EncrDecrServiceService} from '../app/services/encr-decr-service.service';
 
 @NgModule({
   declarations: [
@@ -144,7 +145,7 @@ import { ConfirmationBoxComponent } from './confirmation-box/confirmation-box.co
     LpsEarthStudComponent,
     LpsSavedReportComponent,
     LpsWelcomePageComponent, 
-    LpsFinalReportComponent, 
+    LpsFinalReportComponent,
   ],
   imports: [
     TruncateModule,
@@ -183,7 +184,7 @@ import { ConfirmationBoxComponent } from './confirmation-box/confirmation-box.co
     //NgbActiveModal, NgbModal 
   ],
  // exports: [WebStorageCodec, WebStorageCodec, SessionStorage],
-  providers: [GlobalsService, { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }, BnNgIdleService,DatePipe],
+  providers: [GlobalsService, EncrDecrServiceService,{ provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }, BnNgIdleService,DatePipe],
   bootstrap: [AppComponent],
   entryComponents: [ AddApplicationTypesComponent, UpdateApplicationTypesComponent, VerificationlvComponent, LpsMatstepperComponent ]
 })

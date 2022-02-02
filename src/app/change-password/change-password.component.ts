@@ -3,6 +3,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChangePassword } from '../model/changepassword';
 import { ChangePasswordService } from '../services/change-password.service';
+import { EncrDecrServiceService } from '../services/encr-decr-service.service';
 
 @Component({
   selector: 'app-change-password',
@@ -28,7 +29,7 @@ export class ChangePasswordComponent implements OnInit {
   Error: boolean=false;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder,private EncrDecr: EncrDecrServiceService,
     private router: ActivatedRoute,
     private route: Router,
     private changepasswordservice: ChangePasswordService
@@ -60,7 +61,17 @@ export class ChangePasswordComponent implements OnInit {
 
     this.loading=true;
 
-    this.changepasswordservice.changePassword(this.changePassword.email, this.changePassword.oldpassword, this.changePassword.password).subscribe(
+      //password encryption
+      var encrypted = this.EncrDecr.set('123456$#@$^@1ERF', this.changePassword.password);
+      var decrypted = this.EncrDecr.get('123456$#@$^@1ERF', encrypted);
+      var encrypted1 = this.EncrDecr.get('123456$#@$^@1ERF', this.changePassword.oldpassword);
+      var decrypted1 = this.EncrDecr.get('123456$#@$^@1ERF', encrypted1);
+      
+      console.log('Encrypted :' + encrypted);
+      console.log('Decrypted :' + decrypted);
+      console.log('Decrypted :' + decrypted1);
+
+    this.changepasswordservice.changePassword(this.changePassword.email, encrypted1, encrypted).subscribe(
       data=> {
         this.SuccessMsg = data;
         setTimeout(() => {

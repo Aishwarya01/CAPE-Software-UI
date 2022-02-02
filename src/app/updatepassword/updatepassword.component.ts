@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../model/user';
+import { EncrDecrServiceService } from '../services/encr-decr-service.service';
 import { UpdatepasswordService } from '../services/updatepassword.service';
 
 @Component({
@@ -30,7 +31,7 @@ export class UpdatepasswordComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: ActivatedRoute,
     private route: Router,
-    private updatepasswordservice: UpdatepasswordService
+    private updatepasswordservice: UpdatepasswordService,private EncrDecr: EncrDecrServiceService,
     ) {
       this.user.email=this.router.snapshot.paramMap.get('email') || '{}'
     }
@@ -59,7 +60,14 @@ export class UpdatepasswordComponent implements OnInit {
 
     this.loading=true;
 
-    this.updatepasswordservice.updatePassword(this.user.email, this.user.password).subscribe(
+     //password encryption
+     var encrypted = this.EncrDecr.set('123456$#@$^@1ERF', this.user.password);
+     var decrypted = this.EncrDecr.get('123456$#@$^@1ERF', encrypted);
+     
+     console.log('Encrypted :' + encrypted);
+     console.log('Decrypted :' + decrypted);
+
+    this.updatepasswordservice.updatePassword(this.user.email, encrypted).subscribe(
       data=> {
         this.successMsg = data;
         setTimeout(() => {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../model/user';
+//import { EncrDecrServiceService } from '../services/encr-decr-service.service';
 import { ForgotpasswordService } from '../services/forgotpassword.service'
 
 @Component({
@@ -51,6 +52,14 @@ export class ForgotpasswordComponent implements OnInit {
     }
 
     this.loading=true;
+
+     //password encryption
+    //  var encrypted = this.EncrDecr.set('123456$#@$^@1ERF', this.user.password);
+    //  var decrypted = this.EncrDecr.get('123456$#@$^@1ERF', encrypted);
+     
+    //  console.log('Encrypted :' + encrypted);
+    //  console.log('Decrypted :' + decrypted);
+
     this.forgotpasswordservice.forgotPassword(this.user.email).subscribe(
       data=> {
         this.route.navigate(['/updatepassword', {email: data}])

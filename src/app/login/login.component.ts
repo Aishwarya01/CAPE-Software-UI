@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { GlobalsService } from '../globals.service';
 import { User } from '../model/user';
 import { LoginserviceService } from '../services/loginservice.service';
+import {EncrDecrServiceService} from '../services/encr-decr-service.service';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,7 @@ export class LoginComponent implements OnInit {
   public token: string = '';
   
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder,private EncrDecr: EncrDecrServiceService,
     private router: Router,
     private loginservice: LoginserviceService,public service: GlobalsService
   ) { }
@@ -62,15 +63,20 @@ export class LoginComponent implements OnInit {
 }
   onSubmit() {
     this.submitted=true;
-
     //Breaks if form is invalid
     if(this.loginForm.invalid) {
       return;
     }
-
     this.loading=true;
-
-    this.loginservice.login(this.user.email, this.user.password).subscribe(
+    
+    //password encryption
+    var encrypted = this.EncrDecr.set('123456$#@$^@1ERF', this.user.password);
+    var decrypted = this.EncrDecr.get('123456$#@$^@1ERF', encrypted);
+    
+    console.log('Encrypted :' + encrypted);
+    console.log('Decrypted :' + decrypted);
+    
+    this.loginservice.login(this.user.email, encrypted).subscribe(
       data=> {
       localStorage.setItem('email', this.user.email);
       localStorage.setItem('password', this.user.password);
