@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-body">
         <form [formGroup]="downConductorForm"  (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
-            <div formArrayName="overAllDownConductor" *ngFor="let q of overAllDownControl(); let j = index">
+            <div formArrayName="downConductorDescription" *ngFor="let q of overAllDownControl(); let j = index">
                 <div class="form-group" [formGroupName]="j">
             <mat-accordion>
                 <mat-expansion-panel>
@@ -749,7 +749,7 @@
                     <mat-expansion-panel-header>Bridging Cables</mat-expansion-panel-header>
                     <div class="table-responsive" style="overflow-x: unset;">
                         <table class="table TableBorder">
-                            <tbody formArrayName="bridgingArr"
+                            <tbody formArrayName="bridgingDescription"
                                 *ngFor="let a of bridgingCablesControls(q); let f = index">
                                 <div class="form-group" [formGroupName]="f">
                                     <thead>

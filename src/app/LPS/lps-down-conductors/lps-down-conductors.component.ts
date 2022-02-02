@@ -65,9 +65,7 @@ export class LpsDownConductorsComponent implements OnInit {
   testjointsPushArr: any = [];
   isEditable!:boolean
 
-  buildingNumberArr: any = [];
-  buildingNameArr: any = [];
-  noBuilding : number = 0;
+ 
 
   stepBack:any;
   
@@ -109,6 +107,17 @@ export class LpsDownConductorsComponent implements OnInit {
     });
   }
   
+  createDwonconductorForm(noOfBuildingNumber:any){
+    debugger
+    let popArray=this.downConductorForm.value
+     console.log(popArray);
+     
+    this.downConductorForm.setControl('downConductorDescription', this.formBuilder.array(popArray || []));
+     
+    
+  }
+
+
   // Only Accept numbers
   keyPressNumbers(event:any) {
     var charCode = (event.which) ? event.which : event.keyCode;
@@ -422,7 +431,7 @@ export class LpsDownConductorsComponent implements OnInit {
     }
 
   overAllDownControl(): AbstractControl[] {
-    return(<FormArray>this.downConductorForm.get('overAllDownConductor')).controls;
+    return(<FormArray>this.downConductorForm.get('downConductorDescription')).controls;
   }
 
   downConductorControls(form:any){

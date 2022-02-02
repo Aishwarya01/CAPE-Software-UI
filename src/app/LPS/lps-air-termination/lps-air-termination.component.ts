@@ -53,6 +53,10 @@ export class LpsAirTerminationComponent implements OnInit {
   buildingHeight:  number = 0;
   protectionLevel: String='';
   soilResistivity: String='';
+
+  buildingNumberArr: any = [];
+  buildingNameArr: any = [];
+  noBuilding : number = 0;
   
   airterminationService;
   step2List: any = [];
@@ -155,7 +159,9 @@ export class LpsAirTerminationComponent implements OnInit {
         this.popArray.push(this.airTerminationBasic(item));
         console.log(item);
         this.airTerminationBasicArr=item;
-       
+        
+        this.buildingNumberArr=this.buildingNumberArr.push(item.buildingNumber);
+        this.buildingNameArr=this.buildingNameArr.push(item.buildingName);
        // this.populateData();
       }
       this.airTerminationForm.setControl('lpsAirDescription', this.formBuilder.array(this.popArray || []));

@@ -135,7 +135,9 @@ export class LpsMatstepperComponent implements OnInit {
     this.refresh();
   }
   public doSomething2(next: any): void {
+    debugger
     this.Completed2 = this.airTermination.success;
+    this.downConductors.createDwonconductorForm(this.airTermination.buildingNumberArr);
     this.refresh();
   }
 
