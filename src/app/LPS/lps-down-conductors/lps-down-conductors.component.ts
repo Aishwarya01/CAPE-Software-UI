@@ -125,7 +125,7 @@ export class LpsDownConductorsComponent implements OnInit {
         const myArray = noOfBuildingNumber[i].split(",");
         buildingNumber=parseInt(myArray[0])
         buildingName=myArray[1]
-          if(!popArrayFlag){
+          
             for (let j = 0; !popArrayFlag && j < popArray.downConductorDescription.length; j++) { 
               if(popArray.downConductorDescription.length == 1 && popArray.downConductorDescription[j].buildingNumber==null && popArray.downConductorDescription[j].downConduDescId == null){
               popArray=[];
@@ -140,7 +140,7 @@ export class LpsDownConductorsComponent implements OnInit {
                 
               }
             }
-          }
+          
         if(!isBuildingRequired){
           popArray.push(this.allLPSDownConductor(buildingNumber,buildingName));
            buildingNumber=null;
