@@ -1,17 +1,12 @@
 <div class="card">
     <div class="card-body">
         <form [formGroup]="earthingForm" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
+            <div formArrayName="earthingLpsDescription" *ngFor="let q of overAllEarthingControl(); let j = index">
+            <div class="form-group" [formGroupName]="j">
             <mat-accordion>
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Basic Details</mat-expansion-panel-header>
-                        
-                    <!-- <div class="d-flex" style="margin-bottom: 4rem;margin-inline: 6rem;">  
-                        <div class="pr-2" > <u><b>Client Name:</b></u> <span> &nbsp; {{ClientName}}</span></div> &nbsp;&nbsp;
-                        <div class="pr-2"> <u><b>Project Name:</b></u>  <span> &nbsp; {{projectName}}</span></div> &nbsp;&nbsp;
-                        <div class="pr-2"> <u><b>Type of Industry:</b></u>  <span> &nbsp; {{industryType}}</span> </div> &nbsp;&nbsp;
-                        <div class="pr-2"> <u><b>Type of Building:</b></u>  <span> &nbsp; {{buildingType}}</span> </div> &nbsp;&nbsp;
-                      </div> -->
-
+               
                       <div class="row">
                         <div class="col-md-4">
                             <label for="buildingnumber">Building Number</label>
@@ -61,11 +56,11 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="earthingTypeInOb"  [(ngModel)]="earthingLpsDescription.earthingTypeInOb" placeholder="Please enter Observation here"
-                                                [ngClass]="{ 'is-invalid': submitted && f.earthingTypeInOb.errors}"></textarea>
-                                            <div *ngIf="submitted && f.earthingTypeInOb.errors"
-                                                class="invalid-feedback">
-                                                <div *ngIf="f.earthingTypeInOb.errors.required">Type of Earthing
+                                                [readonly]="isEditable" formControlName="earthingTypeInOb" placeholder="Please enter Observation here"
+                                                [ngClass]="{ 'is-invalid': submitted && q.get('earthingTypeInOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && q.get('earthingTypeInOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="q.get('earthingTypeInOb')?.errors?.required">Type of Earthing
                                                     Observation is required</div>
                                             </div>
                                         </div>
@@ -77,7 +72,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control" [(ngModel)]="earthingLpsDescription.earthingTypeInRem"
+                                            <textarea type="text" class="form-control" 
                                                 [readonly]="isEditable" formControlName="earthingTypeInRem" ></textarea>
                                         </div>
                                     </td>
@@ -93,12 +88,12 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control" [(ngModel)]="earthingLpsDescription.bimetallicIssueInOb"
+                                            <textarea type="text" class="form-control" 
                                                 [readonly]="isEditable" formControlName="bimetallicIssueInOb" placeholder="Please enter Observation here"
-                                                [ngClass]="{ 'is-invalid': submitted && f.bimetallicIssueInOb.errors}"></textarea>
-                                            <div *ngIf="submitted && f.bimetallicIssueInOb.errors"
-                                                class="invalid-feedback">
-                                                <div *ngIf="f.bimetallicIssueInOb.errors.required">Bimetallic issue
+                                                [ngClass]="{ 'is-invalid': submitted && q.get('bimetallicIssueInOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && q.get('bimetallicIssueInOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="q.get('bimetallicIssueInOb')?.errors?.required">Bimetallic issue
                                                     Observation is required</div>
                                             </div>
                                         </div>
@@ -110,7 +105,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control" [(ngModel)]="earthingLpsDescription.bimetallicIssueInRem"
+                                            <textarea type="text" class="form-control" 
                                                 [readonly]="isEditable" formControlName="bimetallicIssueInRem" ></textarea>
                                         </div>
                                     </td>
@@ -125,12 +120,12 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control" [(ngModel)]="earthingLpsDescription.brazingConnectInOb"
+                                            <textarea type="text" class="form-control" 
                                                 [readonly]="isEditable" formControlName="brazingConnectInOb" placeholder="Please enter Observation here"
-                                                [ngClass]="{ 'is-invalid': submitted && f.brazingConnectInOb.errors}"></textarea>
-                                            <div *ngIf="submitted && f.brazingConnectInOb.errors"
-                                                class="invalid-feedback">
-                                                <div *ngIf="f.brazingConnectInOb.errors.required">Connections
+                                                [ngClass]="{ 'is-invalid': submitted && q.get('brazingConnectInOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && q.get('brazingConnectInOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="q.get('brazingConnectInOb')?.errors?.required">Connections
                                                     Observation is required</div>
                                             </div>
                                         </div>
@@ -142,7 +137,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control"  [(ngModel)]="earthingLpsDescription.brazingConnectInRem"
+                                            <textarea type="text" class="form-control" 
                                                 [readonly]="isEditable" formControlName="brazingConnectInRem" ></textarea>
                                         </div>
                                     </td>
@@ -161,7 +156,7 @@
                     <div class="col-sm-12">
                     <div class="table-responsive" style="overflow-x: unset;">
                         <table class="table TableBorder">
-                        <tbody formArrayName="descriptionArr" *ngFor="let a of earthingDescriptionarr(); let j = index">
+                        <tbody formArrayName="descriptionArr" *ngFor="let a of earthingDescriptionarr(q); let j = index">
                          <div class="form-group" [formGroupName]="j">
                     <!-- Table -->
                               <thead>
@@ -791,7 +786,7 @@
                     <div class="col-sm-12">
                     <div class="table-responsive" style="overflow-x: unset;">
                         <table class="table TableBorder">
-                                <tbody formArrayName="ClampsArr" *ngFor="let a of earthingClampsarr(); let j = index">
+                                <tbody formArrayName="ClampsArr" *ngFor="let a of earthingClampsarr(q); let j = index">
                                     <div class="form-group" [formGroupName]="j">
                                         <thead>
                                             <th>SI.No</th>
@@ -1119,7 +1114,7 @@
                     <div class="table-responsive" style="overflow-x: unset;">
                         <table class="table TableBorder">
                             <tbody formArrayName="chamberArr"
-                                *ngFor="let a of earthElectrodeChambearr(); let j = index">
+                                *ngFor="let a of earthElectrodeChambearr(q); let j = index">
                                 <div class="form-group" [formGroupName]="j">
                                     <thead>
                                         <th>SI.No</th>
@@ -1440,7 +1435,7 @@
                     <div class="col-sm-12">
                     <div class="table-responsive" style="overflow-x: unset;">
                         <table class="table TableBorder">
-                            <tbody formArrayName="earthingArr" *ngFor="let a of earthingSystemarr(); let j = index">
+                            <tbody formArrayName="earthingArr" *ngFor="let a of earthingSystemarr(q); let j = index">
                                 <div class="form-group" [formGroupName]="j">
                                     <thead>
                                         <th>SI.No</th>
@@ -1976,6 +1971,8 @@
                 </mat-expansion-panel>
 
             </mat-accordion>
+            </div>
+            </div>
             <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
                 <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
                 <button class="next" (click)="gotoNextModal(content,contents)" mat-button >Next &raquo;</button>

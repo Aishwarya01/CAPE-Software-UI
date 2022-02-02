@@ -57,9 +57,12 @@ export class LpsSpdComponent implements OnInit {
 
   ngOnInit(): void {
     this.spdForm = this.formBuilder.group({
-      //spdId!: number;
-      //basicLpsId!: number;
-      //userName!: String;
+      spd: this.formBuilder.array([this.allSPD()])
+    });
+  }
+
+  allSPD():FormGroup {
+    return new FormGroup({
       mainsIncomingOb:new FormControl('', Validators.required),
       mainsIncomingRem: new FormControl(''),
       totalMainsIncomingOb:new FormControl('', Validators.required),
@@ -72,7 +75,6 @@ export class LpsSpdComponent implements OnInit {
       spdarr: this.formBuilder.array([this.spdarrfun()]),
       panelarr: this.formBuilder.array([this.panelarrfun()]),
       powerarr: this.formBuilder.array([this.powerarrfun()]),
-
     });
   }
 
@@ -249,17 +251,20 @@ export class LpsSpdComponent implements OnInit {
     });
   }
 
-  spdarrControls(): AbstractControl[] {
- 
-    return (<FormArray>this.spdForm.get('spdarr')).controls;
+  overAllspdControl(): AbstractControl[] {
+    return(<FormArray>this.spdForm.get('spd')).controls;
   }
 
-  panelarrControls(): AbstractControl[] {
-    return (<FormArray>this.spdForm.get('panelarr')).controls;
+  spdarrControls(form:any){
+    return form.controls.spdarr?.controls;
   }
 
-  powerarrControls(): AbstractControl[] {
-    return (<FormArray>this.spdForm.get('powerarr')).controls;
+  panelarrControls(form:any){
+    return form.controls.panelarr?.controls;
+  }
+
+  powerarrControls(form:any){
+    return form.controls.powerarr?.controls;
   }
 
   get f() {

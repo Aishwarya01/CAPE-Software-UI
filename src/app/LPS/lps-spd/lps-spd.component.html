@@ -1,18 +1,13 @@
 <div class="card">
     <div class="card-body">
         <form [formGroup]="spdForm" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
+            <div formArrayName="spd" *ngFor="let q of overAllspdControl(); let j = index">
+            <div class="form-group" [formGroupName]="j">  
             <mat-accordion>
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>Basic Details</mat-expansion-panel-header>
-                    
-                    <!-- <div class="d-flex" style="margin-bottom: 4rem;margin-inline: 6rem;">  
-                        <div class="pr-2" > <u><b>Client Name:</b></u> <span> &nbsp; {{ClientName}}</span></div> &nbsp;&nbsp;
-                        <div class="pr-2"> <u><b>Project Name:</b></u>  <span> &nbsp; {{projectName}}</span></div> &nbsp;&nbsp;
-                        <div class="pr-2"> <u><b>Type of Industry:</b></u>  <span> &nbsp; {{industryType}}</span> </div> &nbsp;&nbsp;
-                        <div class="pr-2"> <u><b>Type of Building:</b></u>  <span> &nbsp; {{buildingType}}</span> </div> &nbsp;&nbsp;
-                      </div> -->
 
-                      <div class="row">
+                    <div class="row">
                         <div class="col-md-4">
                             <label for="buildingnumber">Building Number</label>
                             <div class="input-group">
@@ -37,12 +32,11 @@
                             </div>
                         </div>
                     </div>
-
-
+                    
                     <!-- tables -->
                     <div class="row">
                     <div class="col-sm-12">
-                        <div class="table-responsive" style="overflow-x: unset; margin-top: 20px;">
+                        <div class="table-responsive" style="overflow-x: unset; margin-top: 20px;"> 
                             <table class="table TableBorder">
                             <thead>
                                 <th>SI.No</th>
@@ -61,11 +55,11 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control"   [(ngModel)]="spd.mainsIncomingOb"[readonly]="isEditable" formControlName="mainsIncomingOb"
+                                            <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="mainsIncomingOb"
                                                 placeholder="Please enter Observation here"
-                                                [ngClass]="{ 'is-invalid': submitted && f.mainsIncomingOb.errors}"></textarea>
-                                            <div *ngIf="submitted && f.mainsIncomingOb.errors" class="invalid-feedback">
-                                                <div *ngIf="f.mainsIncomingOb.errors.required">Mains incoming panel observation is required
+                                                [ngClass]="{'is-invalid': submitted && q.get('mainsIncomingOb')?.errors}"></textarea>
+                                            <div *ngIf="submitted && q.get('mainsIncomingOb')?.errors" class="invalid-feedback">
+                                                <div *ngIf="q.get('mainsIncomingOb')?.errors?.required">Mains incoming panel observation is required
                                                 </div>
                                             </div>
                                         </div>
@@ -94,13 +88,11 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="totalMainsIncomingOb"  [(ngModel)]="spd.totalMainsIncomingOb"
+                                                [readonly]="isEditable" formControlName="totalMainsIncomingOb"  
                                                 placeholder="Please enter Observation here"
-                                                [ngClass]="{ 'is-invalid': submitted && f.totalMainsIncomingOb.errors}"></textarea>
-                                            <div *ngIf="submitted && f.totalMainsIncomingOb.errors"
-                                                class="invalid-feedback">
-                                                <div *ngIf="f.totalMainsIncomingOb.errors.required">Total Number of mains incoming panels observation is
-                                                    required</div>
+                                                [ngClass]="{'is-invalid': submitted && q.get('totalMainsIncomingOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && q.get('totalMainsIncomingOb')?.errors" class="invalid-feedback">
+                                                <div *ngIf="q.get('totalMainsIncomingOb')?.errors?.required">Total Number of mains incoming panels observation is required</div>
                                             </div>
                                         </div>
                                     </td>
@@ -129,12 +121,11 @@
                                                 </span>
                                             </div>
                                             <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="noPannelSupplittingOb"  [(ngModel)]="spd.noPannelSupplittingOb"
+                                                [readonly]="isEditable" formControlName="noPannelSupplittingOb"
                                                 placeholder="Please enter Observation here"
-                                                [ngClass]="{ 'is-invalid': submitted && f.noPannelSupplittingOb.errors}"></textarea>
-                                            <div *ngIf="submitted && f.noPannelSupplittingOb.errors"
-                                                class="invalid-feedback">
-                                                <div *ngIf="f.noPannelSupplittingOb.errors.required">Total Number of panels supplting power to outdoor equipment observation is
+                                                [ngClass]="{'is-invalid': submitted && q.get('noPannelSupplittingOb')?.errors}"></textarea>
+                                            <div *ngIf="submitted && q.get('noPannelSupplittingOb')?.errors" class="invalid-feedback">
+                                                <div *ngIf="q.get('noPannelSupplittingOb')?.errors?.required">Total Number of panels supplting power to outdoor equipment observation is
                                                     required</div>
                                             </div>
                                         </div>
@@ -146,7 +137,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control"  [(ngModel)]="spd.noPannelSupplittingRem"
+                                            <textarea type="text" class="form-control" 
                                                 [readonly]="isEditable" formControlName="noPannelSupplittingRem"
                                                 ></textarea>
                                         </div>
@@ -162,13 +153,12 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control" [(ngModel)]="spd.totalNoOutDoorRequipmentOb"
+                                            <textarea type="text" class="form-control"
                                                 [readonly]="isEditable" formControlName="totalNoOutDoorRequipmentOb"
                                                 placeholder="Please enter Observation here"
-                                                [ngClass]="{ 'is-invalid': submitted && f.totalNoOutDoorRequipmentOb.errors}"></textarea>
-                                            <div *ngIf="submitted && f.totalNoOutDoorRequipmentOb.errors"
-                                                class="invalid-feedback">
-                                                <div *ngIf="f.totalNoOutDoorRequipmentOb.errors.required">Total Number of outdoor equipment observation is
+                                                [ngClass]="{'is-invalid': submitted && q.get('totalNoOutDoorRequipmentOb')?.errors}"></textarea>
+                                            <div *ngIf="submitted && q.get('totalNoOutDoorRequipmentOb')?.errors" class="invalid-feedback">
+                                                <div *ngIf="q.get('totalNoOutDoorRequipmentOb')?.errors?.required">Total Number of outdoor equipment observation is
                                                     required</div>
                                             </div>
                                         </div>
@@ -180,7 +170,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                            <textarea type="text" class="form-control" [(ngModel)]="spd.totalNoOutDoorRequipmentRem"
+                                            <textarea type="text" class="form-control" 
                                                 [readonly]="isEditable" formControlName="totalNoOutDoorRequipmentRem"
                                                 ></textarea>
                                         </div>
@@ -203,7 +193,7 @@
                     <mat-expansion-panel-header>Mains incoming panel (if more panels are available data from each panel
                         is necessary)</mat-expansion-panel-header>
                     <!-- tables -->
-                    <div class="row" style="margin-top: 40px;" formArrayName="spdarr" *ngFor="let x of spdarrControls(); let j = index">
+                    <div class="row" style="margin-top: 40px;" formArrayName="spdarr" *ngFor="let x of spdarrControls(q); let j = index">
                         <div class="col-sm-12">
                         <div class="table-responsive" style="overflow-x: unset;">
                         <table class="table TableBorder" [formGroupName]="j">
@@ -444,7 +434,7 @@
                     <mat-expansion-panel-header>Street light panel(if more panels are available data from each panel is
                         necessary)</mat-expansion-panel-header>
                     <!-- tables -->
-                    <div class="row" style="margin-top: 40px;" formArrayName="panelarr" *ngFor="let x of panelarrControls(); let j = index">
+                    <div class="row" style="margin-top: 40px;" formArrayName="panelarr" *ngFor="let x of panelarrControls(q); let j = index">
                         <div class="col-sm-12">
                         <div class="table-responsive" style="overflow-x: unset;">
                         <table class="table TableBorder" [formGroupName]="j">
@@ -686,7 +676,7 @@
                     <mat-expansion-panel-header>Other panels feeding power to outdoor equipment if more panels are
                         available data from each panel is necessary)</mat-expansion-panel-header>
                     <!-- tables -->
-                    <div class="row" style="margin-top: 40px;" formArrayName="powerarr" *ngFor="let x of powerarrControls(); let j = index">
+                    <div class="row" style="margin-top: 40px;" formArrayName="powerarr" *ngFor="let x of powerarrControls(q); let j = index">
                         <div class="col-sm-12">
                         <div class="table-responsive" style="overflow-x: unset;">
                         <table class="table TableBorder" [formGroupName]="j">
@@ -924,6 +914,8 @@
                     </div>
                 </mat-expansion-panel>
             </mat-accordion>
+            </div>
+            </div>
             <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
                 <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
                 <button class="next" (click)="gotoNextModal(content,contents)" mat-button >Next &raquo;</button>

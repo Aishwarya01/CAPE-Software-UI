@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalsService } from 'src/app/globals.service';
@@ -58,17 +58,27 @@ export class LpsEarthStudComponent implements OnInit {
 
   ngOnInit(): void {
     this.EarthStudForm = this.formBuilder.group({
-      earthStudVisibilityOb: ['', Validators.required],
-      earthStudVisibilityRem: [''],
-      earthStudBendOb: ['', Validators.required],
-      earthStudBendRem: [''],
-      properBondingRailOb: ['', Validators.required],
-      properBondingRailRem: [''],
-      physicalDamageStudOb: ['', Validators.required],
-      physicalDamageStudRem: [''],
-      continutyExistaEarthOb: ['', Validators.required],
-      continutyExistaEarthRem: ['']
+      earthStudDescription: this.formBuilder.array([this.eartStudControl()])
     });
+  }
+
+  eartStudControl():FormGroup {
+    return new FormGroup({
+      earthStudVisibilityOb: new FormControl('', Validators.required),
+      earthStudVisibilityRem: new FormControl(''),
+      earthStudBendOb: new FormControl('', Validators.required),
+      earthStudBendRem: new FormControl(''),
+      properBondingRailOb: new FormControl('', Validators.required),
+      properBondingRailRem: new FormControl(''),
+      physicalDamageStudOb: new FormControl('', Validators.required),
+      physicalDamageStudRem: new FormControl(''),
+      continutyExistaEarthOb: new FormControl('', Validators.required),
+      continutyExistaEarthRem: new FormControl(''),
+    });
+  }
+
+  overAllEartStudControl(): AbstractControl[] {
+    return(<FormArray>this.EarthStudForm.get('earthStudDescription')).controls;
   }
 
   reset(){

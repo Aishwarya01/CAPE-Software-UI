@@ -68,8 +68,12 @@ export class LpsEarthingComponent implements OnInit {
 
   ngOnInit(): void {
     this.earthingForm = this.formBuilder.group({
+      earthingLpsDescription: this.formBuilder.array([this.allEarthing()])
+    });
+  }
 
-      
+  allEarthing():FormGroup {
+    return new FormGroup({
       earthingTypeInOb: new FormControl('', Validators.required),
       earthingTypeInRem: new FormControl(''),
       bimetallicIssueInOb: new FormControl('', Validators.required),
@@ -335,61 +339,26 @@ export class LpsEarthingComponent implements OnInit {
       });
     }
 
-
-  earthingDescriptionarr(): AbstractControl[] {
-    return (<FormArray>this.earthingForm.get('descriptionArr')).controls;
+  overAllEarthingControl(): AbstractControl[] {
+    return(<FormArray>this.earthingForm.get('earthingLpsDescription')).controls;
   }
 
-  earthingClampsarr(): AbstractControl[] {
-    return (<FormArray>this.earthingForm.get('ClampsArr')).controls;
+  earthingDescriptionarr(form:any){
+    return form.controls.descriptionArr?.controls;
   }
 
-  earthElectrodeChambearr(): AbstractControl[] {
-    return (<FormArray>this.earthingForm.get('chamberArr')).controls;
+  earthingClampsarr(form:any){
+    return form.controls.ClampsArr?.controls;
   }
 
-  earthingSystemarr(): AbstractControl[] {
-    return (<FormArray>this.earthingForm.get('earthingArr')).controls;
+  earthElectrodeChambearr(form:any){
+    return form.controls.chamberArr?.controls;
   }
-  submit1(){
-    this.descriptionArr = this.earthingForm.get('descriptionArr') as FormArray;
-    this.descriptionArr.push(this.earthingDescription());
+
+  earthingSystemarr(form:any){
+    return form.controls.earthingArr?.controls;
   }
-  submit2(){
-    this.ClampsArr = this.earthingForm.get('ClampsArr') as FormArray;
-    this.ClampsArr.push(this.earthingClamps());
-  }
-  submit3(){
-    this.chamberArr = this.earthingForm.get('chamberArr') as FormArray;
-    this.chamberArr.push(this.earthElectrodeChamber());
-  }  
-  removeItem1(a:any,index: any) {
-    if(a.value.earthDescriptionId !=0 && a.value.earthDescriptionId !=undefined){
-      a.value.flag=false;
-    (this.earthingForm.get('descriptionArr') as FormArray).removeAt(index);
-    this.descriptionPushArr= this.descriptionPushArr.concat(a.value);
-   
-   }
-    else{(this.earthingForm.get('descriptionArr') as FormArray).removeAt(index);}
-  }
-  removeItem2(a:any,index: any) {
-    if(a.value.earthingClampsId !=0 && a.value.earthingClampsId !=undefined){
-      a.value.flag=false;
-    (this.earthingForm.get('ClampsArr') as FormArray).removeAt(index);
-    this.ClampsPushArr= this.ClampsPushArr.concat(a.value);
-   
-   }
-   else {(this.earthingForm.get('ClampsArr') as FormArray).removeAt(index);}
-  }
-  removeItem3(a:any,index: any) {
-    if(a.value.earthingElectrodeChamberId !=0 && a.value.earthingElectrodeChamberId !=undefined){
-      a.value.flag=false;
-    (this.earthingForm.get('chamberArr') as FormArray).removeAt(index);
-    this.chamberPushArr= this.chamberPushArr.concat(a.value);
-   
-   }
-   else {(this.earthingForm.get('chamberArr') as FormArray).removeAt(index);}
-  }
+
   earthingSystem(): FormGroup {
     return new FormGroup({
      
