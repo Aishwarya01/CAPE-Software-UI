@@ -48,7 +48,8 @@ export class EmcFacilityData {
 }
 
 export class FloorCovering {
-
+   
+    floorCoveringId!: number;
     fcType!: String;
     fcManufactor!: String;
     fcDescription!: String;
