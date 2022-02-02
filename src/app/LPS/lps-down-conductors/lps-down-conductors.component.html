@@ -9,29 +9,41 @@
 
                       <div class="row">
                         <div class="col-md-4">
-                            <label for="buildingnumber">Building Number</label>
+                            <label for="buildingNumber">Building Number</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                         <i class="bi bi-align-start"></i>
                                     </span>
                                 </div>
-                                <input class="form-control"  placeholder="Enter length in meter"
-                                     />
+                                <input type="number" class="form-control" placeholder="Enter Building Number" formControlName="buildingNumber" [ngClass]="{ 'is-invalid': submitted && q.get('buildingNumber')?.errors }"
+                                required/>
+                                <div *ngIf="submitted && q.get('buildingNumber')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="q.get('buildingNumber')?.errors?.required">Building Number is required</div>
+                                </div>
+
                             </div>
                         </div>
         
                         <div class="col-md-4">
-                            <label for="buildingname">Building Name</label>
+                            <label for="buildingName">Building Name</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                         <i class="bi bi-align-start"></i>
                                     </span>
                                 </div>
-                                <input  class="form-control"  placeholder="Enter length in meter"/>
+                                <input type="text" class="form-control"  formControlName="buildingName"
+                                [ngClass]="{ 'is-invalid': submitted && q.get('buildingName')?.errors }"
+                                        required/>
+                                        <div *ngIf="submitted && q.get('buildingName')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="q.get('buildingName')?.errors?.required">Building Name is required</div>
+                                        </div>
                             </div>
                         </div>
+
                     </div>
                     
                     <!-- tables -->

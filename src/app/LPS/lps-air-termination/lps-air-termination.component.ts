@@ -155,14 +155,14 @@ export class LpsAirTerminationComponent implements OnInit {
 
     airRetrieve() {
       debugger
+      let i=0;
       for (let item of this.step2List.lpsAirDescription) {
         this.popArray.push(this.airTerminationBasic(item));
         console.log(item);
         this.airTerminationBasicArr=item;
         
-        this.buildingNumberArr=this.buildingNumberArr.push(item.buildingNumber);
-        this.buildingNameArr=this.buildingNameArr.push(item.buildingName);
-       // this.populateData();
+        this.buildingNumberArr[0]=item.buildingNumber+","+item.buildingName;
+        
       }
       this.airTerminationForm.setControl('lpsAirDescription', this.formBuilder.array(this.popArray || []));
       this.popArray = [];

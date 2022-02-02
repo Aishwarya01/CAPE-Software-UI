@@ -79,12 +79,15 @@ export class LpsDownConductorsComponent implements OnInit {
 
   ngOnInit(): void {
     this.downConductorForm = this.formBuilder.group({
-      downConductorDescription: this.formBuilder.array([this.allLPSDownConductor()])
+      downConductorDescription: this.formBuilder.array([this.allLPSDownConductor('','')])
     });
   }
 
-  allLPSDownConductor():FormGroup {
+  allLPSDownConductor(buildingNumber:any,buildingName:any):FormGroup {
+    debugger
     return new FormGroup({
+      buildingNumber : new FormControl(buildingNumber,Validators.required),
+      buildingName: new FormControl(buildingName, Validators.required),
       biMetallicIssueOb: new FormControl('', Validators.required),
       biMetallicIssueRem: new FormControl(''),
       warningNoticeGroundLevelOb: new FormControl('', Validators.required),
@@ -107,11 +110,45 @@ export class LpsDownConductorsComponent implements OnInit {
     });
   }
   
+  //creating form array based on airtermination building
   createDwonconductorForm(noOfBuildingNumber:any){
     debugger
     let popArray=this.downConductorForm.value
-     console.log(popArray);
-     
+     if(noOfBuildingNumber !=null && noOfBuildingNumber !='' && noOfBuildingNumber !=undefined){
+
+      for (let i = 0; i < noOfBuildingNumber.length; i++) {
+        let buildingNumber=null;
+        let buildingName=null;
+        let isBuildingRequired=false;
+        for (let j of popArray.downConductorDescription) { 
+
+          const myArray = noOfBuildingNumber[i].split(",");
+           buildingNumber=parseInt(myArray[0])
+           buildingName=myArray[1]
+             if(popArray.downConductorDescription.length == 1 && j.buildingNumber==null){
+              popArray=[];
+             }
+             else{
+               if(myArray !=null && j.buildingNumber !=null
+                  && j.buildingName !=null && buildingNumber==j.buildingNumber && buildingName==j.buildingName){
+                  isBuildingRequired=true;
+                }
+                
+             }
+                
+        }
+        if(!isBuildingRequired){
+          popArray.push(this.allLPSDownConductor(buildingNumber,buildingName));
+           buildingNumber=null;
+           buildingName=null;
+           isBuildingRequired=false;
+        }
+      }
+
+     }
+     else{
+
+     }
     this.downConductorForm.setControl('downConductorDescription', this.formBuilder.array(popArray || []));
      
     
