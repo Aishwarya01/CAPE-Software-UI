@@ -6,6 +6,7 @@ import { SessionStorageService, SessionStorage } from 'angular-web-storage';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { UpdatePasswordInspector } from '../model/update-password-inspector';
 import { Register } from '../model/register';
+import { EncrDecrServiceService } from '../services/encr-decr-service.service';
 
 @Component({
   selector: 'app-inspector-update-password',
@@ -34,8 +35,10 @@ export class InspectorUpdatePasswordComponent implements OnInit {
   OTPerrorMsg: any;
   OTPerrorMsgflag: boolean=false;
   SubmitSuccessMsg: boolean=false;
+  password: String = "";
+  confirmpassword: String = "";
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder,private EncrDecr: EncrDecrServiceService,
     private route: Router,
     private router: ActivatedRoute,
     public sessionStorage: SessionStorageService,
@@ -165,8 +168,18 @@ clear() {
     +this.loginForm.value.input5+this.loginForm.value.input6;
     this.updatePassInspector.otp= this.otp;
     this.updatePassInspector.email=this.loginForm.value.emailId;
+
+     //password encryption
+     var encrypted = this.EncrDecr.set('123456$#@$^@1ERF', this.password);
+     var decrypted = this.EncrDecr.get('123456$#@$^@1ERF', encrypted);
+     this.updatePassInspector.password = encrypted;
+     //this.loginForm.controls.confirmpassword.setValue(encrypted);
+     console.log('Encrypted :' + encrypted);
+     console.log('Decrypted :' + decrypted);
+
     this.updateInspectorService.createPasswordInspector(this.updatePassInspector).subscribe(
       data=> {
+        this.updatePassInspector.password = '';
         this.SubmitSuccessMsg=true;
         setTimeout(()=>{
           this.SubmitSuccessMsg=false;
@@ -174,6 +187,7 @@ clear() {
         }, 3000);
       },
       error => {
+        this.updatePassInspector.password = '';
         let errorJSON= JSON.parse(error.error);
         this.showErrorMessage=true;
         this.OTPerrorMsg=errorJSON.message;
