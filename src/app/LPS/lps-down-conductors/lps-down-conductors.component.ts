@@ -86,6 +86,7 @@ export class LpsDownConductorsComponent implements OnInit {
   allLPSDownConductor(buildingNumber:any,buildingName:any):FormGroup {
     debugger
     return new FormGroup({
+      downConduDescId:new FormControl(''),
       buildingNumber : new FormControl(buildingNumber,Validators.required),
       buildingName: new FormControl(buildingName, Validators.required),
       biMetallicIssueOb: new FormControl('', Validators.required),
@@ -115,28 +116,31 @@ export class LpsDownConductorsComponent implements OnInit {
     debugger
     let popArray=this.downConductorForm.value
      if(noOfBuildingNumber !=null && noOfBuildingNumber !='' && noOfBuildingNumber !=undefined){
-
+    let popArrayFlag=false
       for (let i = 0; i < noOfBuildingNumber.length; i++) {
         let buildingNumber=null;
         let buildingName=null;
         let isBuildingRequired=false;
-        for (let j of popArray.downConductorDescription) { 
-
-          const myArray = noOfBuildingNumber[i].split(",");
-           buildingNumber=parseInt(myArray[0])
-           buildingName=myArray[1]
-             if(popArray.downConductorDescription.length == 1 && j.buildingNumber==null){
+        
+        const myArray = noOfBuildingNumber[i].split(",");
+        buildingNumber=parseInt(myArray[0])
+        buildingName=myArray[1]
+          if(!popArrayFlag){
+            for (let j = 0; !popArrayFlag && j < popArray.downConductorDescription.length; j++) { 
+              if(popArray.downConductorDescription.length == 1 && popArray.downConductorDescription[j].buildingNumber==null && popArray.downConductorDescription[j].downConduDescId == null){
               popArray=[];
-             }
-             else{
-               if(myArray !=null && j.buildingNumber !=null
-                  && j.buildingName !=null && buildingNumber==j.buildingNumber && buildingName==j.buildingName){
+              popArrayFlag=true
+              }
+              else{
+                if(myArray !=null && popArray.downConductorDescription[j].buildingNumber !=null
+                  && popArray.downConductorDescription[j].buildingName !=null 
+                  && buildingNumber==popArray.downConductorDescription[j].buildingNumber && buildingName==popArray.downConductorDescription[j].buildingName){
                   isBuildingRequired=true;
                 }
                 
-             }
-                
-        }
+              }
+            }
+          }
         if(!isBuildingRequired){
           popArray.push(this.allLPSDownConductor(buildingNumber,buildingName));
            buildingNumber=null;
@@ -146,9 +150,7 @@ export class LpsDownConductorsComponent implements OnInit {
       }
 
      }
-     else{
-
-     }
+     
     this.downConductorForm.setControl('downConductorDescription', this.formBuilder.array(popArray || []));
      
     
