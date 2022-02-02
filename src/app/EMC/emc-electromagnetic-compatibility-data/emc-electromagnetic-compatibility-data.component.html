@@ -659,9 +659,16 @@
                     </div>
                 </div>
 
-                <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
-                    <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
-                    <button class="next" (click)="gotoNextModal(content3)" mat-button>Next &raquo;</button>
+                <div class="row" style="margin-top: 20px;">
+                    <div class="col-sm-12">
+                        <div style="text-align: center;">
+                            <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
+                            <button style="width: auto;margin-left: 50px;" (click)="gotoNextModal(content3)" type="submit"
+                                class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn next"
+                                mat-button>
+                                <i class="bi bi-journal-arrow-up icon"></i> Submit</button>
+                        </div>
+                    </div>
                 </div>
 
                 <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
@@ -690,7 +697,7 @@
     </div>
     <br>
 
-    <button type="button" *ngIf="popup" class="close"
+    <button type="button" *ngIf="popup" class="close" style="text-align: center;margin-left:180px;width:20%"
         class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
         (click)="closeModalDialog()" matStepperNext>
         <span aria-hidden="true">Ok</span>

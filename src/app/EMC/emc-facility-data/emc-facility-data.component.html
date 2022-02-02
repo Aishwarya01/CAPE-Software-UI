@@ -1,6 +1,6 @@
 <div *ngIf="validationErrorTab" style="text-align: center;">
     <span class="alert alert-danger">{{validationErrorMsgTab}}</span>
-  </div>
+</div>
 <div class="card">
     <!-- <div>
         <h2 style="text-align: center;"> FACILITY DATA</h2>
@@ -8,7 +8,8 @@
     <div class="card-body">
 
         <mat-accordion>
-            <form [formGroup]="EMCFacilityForm" (ngSubmit)="saveFacilityData(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
+            <form [formGroup]="EMCFacilityForm" (ngSubmit)="saveFacilityData(flag)" (keyup)="onKeyForm($event)"
+                (change)="onChangeForm($event)">
 
                 <mat-expansion-panel class="body">
                     <mat-expansion-panel-header>
@@ -40,9 +41,10 @@
                                     [(ngModel)]="emcFacilityData.blOtherDescription"
                                     [ngClass]="{'is-invalid':submitted && f.blOtherDescription?.errors}"
                                     formControlName="blOtherDescription" placeholder="Describe others"></textarea>
-                                    <div *ngIf="submitted &&f.blOtherDescription?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.blOtherDescription?.errors?.required">Describe Others Is Required</div>
+                                <div *ngIf="submitted &&f.blOtherDescription?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.blOtherDescription?.errors?.required">Describe Others Is Required
                                     </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -77,10 +79,10 @@
                                 <input type="number" class="form-control" formControlName="bcNoOfFloors"
                                     [(ngModel)]="emcFacilityData.bcNoOfFloors"
                                     [ngClass]="{'is-invalid':submitted && f.bcNoOfFloors?.errors}"
-                                     placeholder="Enter No. of floors">
-                                     <div *ngIf="submitted &&f.bcNoOfFloors?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.bcNoOfFloors?.errors?.required">No. Of Floors Is Required</div>
-                                    </div>
+                                    placeholder="Enter No. of floors">
+                                <div *ngIf="submitted &&f.bcNoOfFloors?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.bcNoOfFloors?.errors?.required">No. Of Floors Is Required</div>
+                                </div>
                             </div>
 
                         </div>
@@ -91,9 +93,10 @@
                                     [(ngModel)]="emcFacilityData.bcRoomFloorLocation"
                                     placeholder="Enter Computer room floor location"
                                     [ngClass]="{'is-invalid':submitted && f.bcRoomFloorLocation?.errors}">
-                                    <div *ngIf="submitted &&f.bcRoomFloorLocation?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.bcRoomFloorLocation?.errors?.required">Computer Room Floor Location Is Required</div>
-                                    </div>
+                                <div *ngIf="submitted &&f.bcRoomFloorLocation?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.bcRoomFloorLocation?.errors?.required">Computer Room Floor Location Is
+                                        Required</div>
+                                </div>
                             </div>
                         </div>
 
@@ -104,9 +107,10 @@
                                     [(ngModel)]="emcFacilityData.bcBuildingPrimaryUse"
                                     placeholder="Enter Building primary use"
                                     [ngClass]="{'is-invalid':submitted && f.bcBuildingPrimaryUse?.errors}">
-                                    <div *ngIf="submitted &&f.bcBuildingPrimaryUse?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.bcBuildingPrimaryUse?.errors?.required">Building Primary Use Is Required</div>
-                                    </div>
+                                <div *ngIf="submitted &&f.bcBuildingPrimaryUse?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.bcBuildingPrimaryUse?.errors?.required">Building Primary Use Is
+                                        Required</div>
+                                </div>
                             </div>
 
                         </div>
@@ -117,9 +121,10 @@
                                     [(ngModel)]="emcFacilityData.bcOtherUses"
                                     [ngClass]="{'is-invalid':submitted && f.bcOtherUses?.errors}"
                                     placeholder="Enter Other uses / processes">
-                                    <div *ngIf="submitted &&f.bcOtherUses?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.bcOtherUses?.errors?.required">Other Uses / Processes Is Required</div>
+                                <div *ngIf="submitted &&f.bcOtherUses?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.bcOtherUses?.errors?.required">Other Uses / Processes Is Required
                                     </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -136,22 +141,22 @@
                             <div class="form-group">
                                 <label>Interior room</label>
                                 <input type="text" class="form-control" formControlName="rlInteriorRoom"
-                                [ngClass]="{'is-invalid':submitted && f.rlInteriorRoom?.errors}"
+                                    [ngClass]="{'is-invalid':submitted && f.rlInteriorRoom?.errors}"
                                     [(ngModel)]="emcFacilityData.rlInteriorRoom" placeholder="Enter Interior room">
-                                    <div *ngIf="submitted &&f.rlInteriorRoom?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.rlInteriorRoom?.errors?.required">Interior Room Is Required</div>
-                                    </div>
+                                <div *ngIf="submitted &&f.rlInteriorRoom?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.rlInteriorRoom?.errors?.required">Interior Room Is Required</div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Exterior room </label>
                                 <input type="text" class="form-control" formControlName="rlExteriorRoom"
-                                [ngClass]="{'is-invalid':submitted && f.rlExteriorRoom?.errors}"
+                                    [ngClass]="{'is-invalid':submitted && f.rlExteriorRoom?.errors}"
                                     [(ngModel)]="emcFacilityData.rlExteriorRoom" placeholder="Enter Exterior room">
-                                    <div *ngIf="submitted &&f.rlExteriorRoom?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.rlExteriorRoom?.errors?.required">Exterior Room Is Required</div>
-                                    </div>
+                                <div *ngIf="submitted &&f.rlExteriorRoom?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.rlExteriorRoom?.errors?.required">Exterior Room Is Required</div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -161,9 +166,10 @@
                                     [(ngModel)]="emcFacilityData.rlSolidExterior"
                                     [ngClass]="{'is-invalid':submitted && f.rlSolidExterior?.errors}"
                                     placeholder="Enter Solid exterior walls">
-                                    <div *ngIf="submitted &&f.rlSolidExterior?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.rlSolidExterior?.errors?.required">Solid Exterior Walls Is Required</div>
+                                <div *ngIf="submitted &&f.rlSolidExterior?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.rlSolidExterior?.errors?.required">Solid Exterior Walls Is Required
                                     </div>
+                                </div>
                             </div>
                         </div>
 
@@ -174,9 +180,10 @@
                                     [(ngModel)]="emcFacilityData.rlWindowedExterior"
                                     [ngClass]="{'is-invalid':submitted && f.rlWindowedExterior?.errors}"
                                     placeholder="Enter Windowed exterior walls">
-                                    <div *ngIf="submitted &&f.rlWindowedExterior?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.rlWindowedExterior?.errors?.required">Windowed Exterior Walls Is Required</div>
-                                    </div>
+                                <div *ngIf="submitted &&f.rlWindowedExterior?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.rlWindowedExterior?.errors?.required">Windowed Exterior Walls Is
+                                        Required</div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -186,9 +193,9 @@
                                     [(ngModel)]="emcFacilityData.rlWindsFace"
                                     [ngClass]="{'is-invalid':submitted && f.rlWindsFace?.errors}"
                                     placeholder="Enter Windows face (north, south, east, or west)">
-                                    <div *ngIf="submitted &&f.rlWindsFace?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.rlWindsFace?.errors?.required">Windows Face Is Required</div>
-                                    </div>
+                                <div *ngIf="submitted &&f.rlWindsFace?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.rlWindsFace?.errors?.required">Windows Face Is Required</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -213,7 +220,8 @@
                                     <option *ngFor="let value of dedicatedRoomForSafety">{{value}}</option>
                                 </select>
                                 <div *ngIf="submitted &&f.ruDedicated?.errors" class="invalid-feedback">
-                                    <div *ngIf="f.ruDedicated?.errors?.required">Dedicated Room For System Is Required</div>
+                                    <div *ngIf="f.ruDedicated?.errors?.required">Dedicated Room For System Is Required
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -230,9 +238,10 @@
                                     [(ngModel)]="emcFacilityData.ruOtherDesc" formControlName="ruOtherDesc"
                                     [ngClass]="{'is-invalid':submitted && f.ruOtherDesc?.errors}"
                                     placeholder="Enter Describe other equipment in room"></textarea>
-                                    <div *ngIf="submitted &&f.ruOtherDesc?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ruOtherDesc?.errors?.required">Describe Other Equipment In Room Is Required</div>
-                                    </div>
+                                <div *ngIf="submitted &&f.ruOtherDesc?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.ruOtherDesc?.errors?.required">Describe Other Equipment In Room Is
+                                        Required</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -252,9 +261,10 @@
                                     [(ngModel)]="emcFacilityData.rmHeightTrueFloor"
                                     [ngClass]="{'is-invalid':submitted && f.rmHeightTrueFloor?.errors}"
                                     placeholder="Enter Height (true floor to true ceiling)">
-                                    <div *ngIf="submitted &&f.rmHeightTrueFloor?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.rmHeightTrueFloor?.errors?.required">Height (true floor to true ceiling) Is Required</div>
-                                    </div>
+                                <div *ngIf="submitted &&f.rmHeightTrueFloor?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.rmHeightTrueFloor?.errors?.required">Height (true floor to true
+                                        ceiling) Is Required</div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -264,31 +274,32 @@
                                     [(ngModel)]="emcFacilityData.rmHeightFalseFloor"
                                     [ngClass]="{'is-invalid':submitted && f.rmHeightFalseFloor?.errors}"
                                     placeholder="Enter Height (false floor to drop ceiling)">
-                                    <div *ngIf="submitted &&f.rmHeightFalseFloor?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.rmHeightFalseFloor?.errors?.required">Height (false floor to drop ceiling) Is Required</div>
-                                    </div>
+                                <div *ngIf="submitted &&f.rmHeightFalseFloor?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.rmHeightFalseFloor?.errors?.required">Height (false floor to drop
+                                        ceiling) Is Required</div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Width</label>
                                 <input type="text" class="form-control" formControlName="rmWidth"
-                                [ngClass]="{'is-invalid':submitted && f.rmWidth?.errors}"
+                                    [ngClass]="{'is-invalid':submitted && f.rmWidth?.errors}"
                                     [(ngModel)]="emcFacilityData.rmWidth" placeholder="Enter Width">
-                                    <div *ngIf="submitted &&f.rmWidth?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.rmWidth?.errors?.required">Width Is Required</div>
-                                    </div>
+                                <div *ngIf="submitted &&f.rmWidth?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.rmWidth?.errors?.required">Width Is Required</div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Length</label>
                                 <input type="text" class="form-control" formControlName="rmLength"
-                                [ngClass]="{'is-invalid':submitted && f.rmLength?.errors}"
+                                    [ngClass]="{'is-invalid':submitted && f.rmLength?.errors}"
                                     [(ngModel)]="emcFacilityData.rmLength" placeholder="Enter Length">
-                                    <div *ngIf="submitted &&f.rmLength?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.rmLength?.errors?.required">Length Is Required</div>
-                                    </div>
+                                <div *ngIf="submitted &&f.rmLength?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.rmLength?.errors?.required">Length Is Required</div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -298,9 +309,10 @@
                                     [(ngModel)]="emcFacilityData.rmMaxFloor"
                                     [ngClass]="{'is-invalid':submitted && f.rmMaxFloor?.errors}"
                                     placeholder="Enter Maximum allowable floor loading (Kg/m2)">
-                                    <div *ngIf="submitted &&f.rmMaxFloor?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.rmMaxFloor?.errors?.required">Maximum Allowable Floor Loading (Kg/m2) Is Required</div>
-                                    </div>
+                                <div *ngIf="submitted &&f.rmMaxFloor?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.rmMaxFloor?.errors?.required">Maximum Allowable Floor Loading (Kg/m2)
+                                        Is Required</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -317,11 +329,11 @@
                             <div class="form-group">
                                 <label>Raised floor</label>
                                 <input type="text" class="form-control" formControlName="ftRaisedFloor"
-                                [ngClass]="{'is-invalid':submitted && f.ftRaisedFloor?.errors}"
+                                    [ngClass]="{'is-invalid':submitted && f.ftRaisedFloor?.errors}"
                                     [(ngModel)]="emcFacilityData.ftRaisedFloor" placeholder="Enter Raised floor">
-                                    <div *ngIf="submitted &&f.ftRaisedFloor?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftRaisedFloor?.errors?.required">Raised Floor Is Required</div>
-                                    </div>
+                                <div *ngIf="submitted &&f.ftRaisedFloor?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.ftRaisedFloor?.errors?.required">Raised Floor Is Required</div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -331,32 +343,34 @@
                                     [(ngModel)]="emcFacilityData.ftAirSupply"
                                     [ngClass]="{'is-invalid':submitted && f.ftAirSupply?.errors}"
                                     placeholder="Enter Used as air supply plenum">
-                                    <div *ngIf="submitted &&f.ftAirSupply?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftAirSupply?.errors?.required">Used As Air Supply Plenum Is Required</div>
+                                <div *ngIf="submitted &&f.ftAirSupply?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.ftAirSupply?.errors?.required">Used As Air Supply Plenum Is Required
                                     </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Height</label>
                                 <input type="text" class="form-control" formControlName="ftHeight"
-                                [ngClass]="{'is-invalid':submitted && f.ftHeight?.errors}"
+                                    [ngClass]="{'is-invalid':submitted && f.ftHeight?.errors}"
                                     [(ngModel)]="emcFacilityData.ftHeight" placeholder="Enter Height">
-                                    <div *ngIf="submitted &&f.ftHeight?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftHeight?.errors?.required">Height Is Required</div>
-                                    </div>
+                                <div *ngIf="submitted &&f.ftHeight?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.ftHeight?.errors?.required">Height Is Required</div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Air flow obstructions</label>
                                 <input type="text" class="form-control" formControlName="ftAirFlowObservation"
-                                [ngClass]="{'is-invalid':submitted && f.ftAirFlowObservation?.errors}"
+                                    [ngClass]="{'is-invalid':submitted && f.ftAirFlowObservation?.errors}"
                                     [(ngModel)]="emcFacilityData.ftAirFlowObservation"
                                     placeholder="Enter Air flow obstructions">
-                                    <div *ngIf="submitted &&f.ftAirFlowObservation?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftAirFlowObservation?.errors?.required">Air Flow Obstructions Is Required</div>
-                                    </div>
+                                <div *ngIf="submitted &&f.ftAirFlowObservation?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.ftAirFlowObservation?.errors?.required">Air Flow Obstructions Is
+                                        Required</div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4    ">
@@ -366,9 +380,9 @@
                                     [(ngModel)]="emcFacilityData.ftDescription" formControlName="ftDescription"
                                     [ngClass]="{'is-invalid':submitted && f.ftDescription?.errors}"
                                     placeholder="Enter Description"></textarea>
-                                    <div *ngIf="submitted &&f.ftDescription?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftDescription?.errors?.required">Description Is Required</div>
-                                    </div>
+                                <div *ngIf="submitted &&f.ftDescription?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.ftDescription?.errors?.required">Description Is Required</div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -378,9 +392,10 @@
                                     [(ngModel)]="emcFacilityData.ftAirGrillDampers"
                                     [ngClass]="{'is-invalid':submitted && f.ftAirGrillDampers?.errors}"
                                     placeholder="Enter Air grill dampers">
-                                    <div *ngIf="submitted &&f.ftAirGrillDampers?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftAirGrillDampers?.errors?.required">Air Grill Dampers Is Required</div>
+                                <div *ngIf="submitted &&f.ftAirGrillDampers?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.ftAirGrillDampers?.errors?.required">Air Grill Dampers Is Required
                                     </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -390,53 +405,54 @@
                                     [(ngModel)]="emcFacilityData.ftCableHole"
                                     [ngClass]="{'is-invalid':submitted && f.ftCableHole?.errors}"
                                     placeholder="Enter Cable hole edge guards">
-                                    <div *ngIf="submitted &&f.ftCableHole?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftCableHole?.errors?.required">Cable Hole Edge Guards Is Required</div>
+                                <div *ngIf="submitted &&f.ftCableHole?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.ftCableHole?.errors?.required">Cable Hole Edge Guards Is Required
                                     </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Pedestals</label>
                                 <input type="text" class="form-control" formControlName="ftPedestals"
-                                [ngClass]="{'is-invalid':submitted && f.ftPedestals?.errors}"
+                                    [ngClass]="{'is-invalid':submitted && f.ftPedestals?.errors}"
                                     [(ngModel)]="emcFacilityData.ftPedestals" placeholder="Enter Pedestals">
-                                    <div *ngIf="submitted &&f.ftPedestals?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftPedestals?.errors?.required">Pedestals Is Required</div>
-                                    </div>
+                                <div *ngIf="submitted &&f.ftPedestals?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.ftPedestals?.errors?.required">Pedestals Is Required</div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Grids</label>
                                 <input type="text" class="form-control" formControlName="ftGrids"
-                                [ngClass]="{'is-invalid':submitted && f.ftGrids?.errors}"
+                                    [ngClass]="{'is-invalid':submitted && f.ftGrids?.errors}"
                                     [(ngModel)]="emcFacilityData.ftGrids" placeholder="Enter Grids">
-                                    <div *ngIf="submitted &&f.ftGrids?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftGrids?.errors?.required">Grids Is Required</div>
-                                    </div>
+                                <div *ngIf="submitted &&f.ftGrids?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.ftGrids?.errors?.required">Grids Is Required</div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Bolted</label>
                                 <input type="text" class="form-control" formControlName="ftBolted"
-                                [ngClass]="{'is-invalid':submitted && f.ftBolted?.errors}"
+                                    [ngClass]="{'is-invalid':submitted && f.ftBolted?.errors}"
                                     [(ngModel)]="emcFacilityData.ftBolted" placeholder="Enter Bolted">
-                                    <div *ngIf="submitted &&f.ftBolted?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftBolted?.errors?.required">Bolted Is Required</div>
-                                    </div>
+                                <div *ngIf="submitted &&f.ftBolted?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.ftBolted?.errors?.required">Bolted Is Required</div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>welded</label>
                                 <input type="text" class="form-control" formControlName="ftWelded"
-                                [ngClass]="{'is-invalid':submitted && f.ftWelded?.errors}"
+                                    [ngClass]="{'is-invalid':submitted && f.ftWelded?.errors}"
                                     [(ngModel)]="emcFacilityData.ftWelded" placeholder="Enter welded">
-                                    <div *ngIf="submitted &&f.ftWelded?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftWelded?.errors?.required">welded Is Required</div>
-                                    </div>
+                                <div *ngIf="submitted &&f.ftWelded?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.ftWelded?.errors?.required">welded Is Required</div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -446,9 +462,10 @@
                                     [(ngModel)]="emcFacilityData.ftEarthingDesc" formControlName="ftEarthingDesc"
                                     [ngClass]="{'is-invalid':submitted && f.ftEarthingDesc?.errors}"
                                     placeholder="Enter Description of earthing"></textarea>
-                                    <div *ngIf="submitted &&f.ftEarthingDesc?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftEarthingDesc?.errors?.required">Description Of Earthing Is Required</div>
+                                <div *ngIf="submitted &&f.ftEarthingDesc?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.ftEarthingDesc?.errors?.required">Description Of Earthing Is Required
                                     </div>
+                                </div>
                             </div>
                         </div>
                         <!-- <div class="col-md-4">
@@ -468,7 +485,8 @@
                                     <option *ngFor="let value of floorMaterisl">{{value}}</option>
                                 </select>
                                 <div *ngIf="submitted &&f.ftTrueFloorMaterial?.errors" class="invalid-feedback">
-                                    <div *ngIf="f.ftTrueFloorMaterial?.errors?.required">True Floor: Material Is Required</div>
+                                    <div *ngIf="f.ftTrueFloorMaterial?.errors?.required">True Floor: Material Is
+                                        Required</div>
                                 </div>
                             </div>
                         </div>
@@ -486,20 +504,20 @@
                                     [(ngModel)]="emcFacilityData.ftDescribe" formControlName="ftDescribe"
                                     [ngClass]="{'is-invalid':submitted && f.ftDescribe?.errors}"
                                     placeholder="Enter Describe"></textarea>
-                                    <div *ngIf="submitted &&f.ftDescribe?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftDescribe?.errors?.required">Describe Is Required</div>
-                                    </div>
+                                <div *ngIf="submitted &&f.ftDescribe?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.ftDescribe?.errors?.required">Describe Is Required</div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Cleanliness</label>
                                 <input type="text" class="form-control" formControlName="ftCleanliness"
-                                [ngClass]="{'is-invalid':submitted && f.ftDescribe?.errors}"
+                                    [ngClass]="{'is-invalid':submitted && f.ftDescribe?.errors}"
                                     [(ngModel)]="emcFacilityData.ftCleanliness" placeholder="Enter Cleanliness">
-                                    <div *ngIf="submitted &&f.ftCleanliness?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftCleanliness?.errors?.required">Cleanliness Is Required</div>
-                                    </div>
+                                <div *ngIf="submitted &&f.ftCleanliness?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.ftCleanliness?.errors?.required">Cleanliness Is Required</div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -510,9 +528,10 @@
                                     formControlName="ftOtherDescription"
                                     [ngClass]="{'is-invalid':submitted && f.ftOtherDescription?.errors}"
                                     placeholder="Enter Other descriptions"></textarea>
-                                    <div *ngIf="submitted &&f.ftOtherDescription?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.ftOtherDescription?.errors?.required">Other Descriptions Is Required</div>
+                                <div *ngIf="submitted &&f.ftOtherDescription?.errors" class="invalid-feedback">
+                                    <div *ngIf="f.ftOtherDescription?.errors?.required">Other Descriptions Is Required
                                     </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -533,66 +552,71 @@
                                     <div class="form-group">
                                         <label>Type</label>
                                         <input type="text" class="form-control" formControlName="fcType"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('fcType')?.errors }"
+                                            [ngClass]="{ 'is-invalid': submitted && a.get('fcType')?.errors }"
                                             placeholder="Enter Type">
-                                            <div *ngIf="submitted && a.get('fcType')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('fcType')?.errors?.required">Type Is Required</div>
-                                            </div>
+                                        <div *ngIf="submitted && a.get('fcType')?.errors" class="invalid-feedback">
+                                            <div *ngIf="a.get('fcType')?.errors?.required">Type Is Required</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Manufacturer</label>
                                         <input type="text" class="form-control" formControlName="fcManufactor"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('fcManufactor')?.errors }"
+                                            [ngClass]="{ 'is-invalid': submitted && a.get('fcManufactor')?.errors }"
                                             placeholder="Enter Manufacturer">
-                                            <div *ngIf="submitted && a.get('fcManufactor')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('fcManufactor')?.errors?.required">Manufacturer Is Required</div>
-                                            </div>
+                                        <div *ngIf="submitted && a.get('fcManufactor')?.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="a.get('fcManufactor')?.errors?.required">Manufacturer Is
+                                                Required</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Static tratment type and description</label>
                                         <input type="text" class="form-control" formControlName="fcDescription"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('fcDescription')?.errors }"
+                                            [ngClass]="{ 'is-invalid': submitted && a.get('fcDescription')?.errors }"
                                             placeholder="Enter Static tratment type and description ">
-                                            <div *ngIf="submitted && a.get('fcDescription')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('fcDescription')?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="submitted && a.get('fcDescription')?.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="a.get('fcDescription')?.errors?.required">Field Is Required
                                             </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Woven</label>
                                         <input type="text" class="form-control" formControlName="fcWoven"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('fcWoven')?.errors }"
+                                            [ngClass]="{ 'is-invalid': submitted && a.get('fcWoven')?.errors }"
                                             placeholder="Enter Woven">
-                                            <div *ngIf="submitted && a.get('fcWoven')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('fcWoven')?.errors?.required">Woven Is Required</div>
-                                            </div>
+                                        <div *ngIf="submitted && a.get('fcWoven')?.errors" class="invalid-feedback">
+                                            <div *ngIf="a.get('fcWoven')?.errors?.required">Woven Is Required</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Chemical</label>
                                         <input type="text" class="form-control" formControlName="fcChemical"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('fcChemical')?.errors }"
+                                            [ngClass]="{ 'is-invalid': submitted && a.get('fcChemical')?.errors }"
                                             placeholder="Enter Chemical">
-                                            <div *ngIf="submitted && a.get('fcChemical')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('fcChemical')?.errors?.required">Chemical Is Required</div>
+                                        <div *ngIf="submitted && a.get('fcChemical')?.errors" class="invalid-feedback">
+                                            <div *ngIf="a.get('fcChemical')?.errors?.required">Chemical Is Required
                                             </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>None</label>
                                         <input type="text" class="form-control" formControlName="fcNone"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('fcNone')?.errors }"
+                                            [ngClass]="{ 'is-invalid': submitted && a.get('fcNone')?.errors }"
                                             placeholder="Enter None">
-                                            <div *ngIf="submitted && a.get('fcNone')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('fcNone')?.errors?.required">None Is Required</div>
-                                            </div>
+                                        <div *ngIf="submitted && a.get('fcNone')?.errors" class="invalid-feedback">
+                                            <div *ngIf="a.get('fcNone')?.errors?.required">None Is Required</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -602,9 +626,11 @@
                                             formControlName="fcOtherDecription"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('fcOtherDecription')?.errors }"
                                             placeholder="Enter Others - Describe"></textarea>
-                                            <div *ngIf="submitted && a.get('fcOtherDecription')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('fcOtherDecription')?.errors?.required">Others - Describe Is Required</div>
-                                            </div>
+                                        <div *ngIf="submitted && a.get('fcOtherDecription')?.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="a.get('fcOtherDecription')?.errors?.required">Others - Describe
+                                                Is Required</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -621,66 +647,75 @@
                                     <div class="form-group">
                                         <label>Type of construction</label>
                                         <input type="text" class="form-control" formControlName="wallType"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('wallType')?.errors }"
+                                            [ngClass]="{ 'is-invalid': submitted && a.get('wallType')?.errors }"
                                             placeholder="Enter Type of construction">
-                                            <div *ngIf="submitted && a.get('wallType')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('wallType')?.errors?.required">Type of construction Is Required</div>
-                                            </div>
+                                        <div *ngIf="submitted && a.get('wallType')?.errors" class="invalid-feedback">
+                                            <div *ngIf="a.get('wallType')?.errors?.required">Type of construction Is
+                                                Required</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Material</label>
                                         <input type="text" class="form-control" formControlName="wallMaterial"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('wallMaterial')?.errors }"
+                                            [ngClass]="{ 'is-invalid': submitted && a.get('wallMaterial')?.errors }"
                                             placeholder="Enter Material">
-                                            <div *ngIf="submitted && a.get('wallMaterial')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('wallMaterial')?.errors?.required">Material Is Required</div>
+                                        <div *ngIf="submitted && a.get('wallMaterial')?.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="a.get('wallMaterial')?.errors?.required">Material Is Required
                                             </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Covering type</label>
                                         <input type="text" class="form-control" formControlName="wallCoveringType"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('wallCoveringType')?.errors }"
+                                            [ngClass]="{ 'is-invalid': submitted && a.get('wallCoveringType')?.errors }"
                                             placeholder="Enter Covering type">
-                                            <div *ngIf="submitted && a.get('wallCoveringType')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('wallCoveringType')?.errors?.required">Covering Type Is Required</div>
-                                            </div>
+                                        <div *ngIf="submitted && a.get('wallCoveringType')?.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="a.get('wallCoveringType')?.errors?.required">Covering Type Is
+                                                Required</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Humidity and dust control</label>
                                         <input type="text" class="form-control" formControlName="wallHumidity"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('wallHumidity')?.errors }"
+                                            [ngClass]="{ 'is-invalid': submitted && a.get('wallHumidity')?.errors }"
                                             placeholder="Enter Humidity and dust control">
-                                            <div *ngIf="submitted && a.get('wallHumidity')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('wallHumidity')?.errors?.required">Humidity And Dust Control Is Required</div>
-                                            </div>
+                                        <div *ngIf="submitted && a.get('wallHumidity')?.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="a.get('wallHumidity')?.errors?.required">Humidity And Dust
+                                                Control Is Required</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>True floor to true sealing</label>
                                         <input type="text" class="form-control" formControlName="wallSealing"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('wallSealing')?.errors }"
+                                            [ngClass]="{ 'is-invalid': submitted && a.get('wallSealing')?.errors }"
                                             placeholder="Enter True floor to true sealing">
-                                            <div *ngIf="submitted && a.get('wallSealing')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('wallSealing')?.errors?.required">True Floor to True Sealing Is Required</div>
-                                            </div>
+                                        <div *ngIf="submitted && a.get('wallSealing')?.errors" class="invalid-feedback">
+                                            <div *ngIf="a.get('wallSealing')?.errors?.required">True Floor to True
+                                                Sealing Is Required</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Additional description</label>
                                         <input type="text" class="form-control" formControlName="wallDesc"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('wallDesc')?.errors }"
+                                            [ngClass]="{ 'is-invalid': submitted && a.get('wallDesc')?.errors }"
                                             placeholder="Enter Additional description">
-                                            <div *ngIf="submitted && a.get('wallDesc')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('wallDesc')?.errors?.required">Additional Description Is Required</div>
-                                            </div>
+                                        <div *ngIf="submitted && a.get('wallDesc')?.errors" class="invalid-feedback">
+                                            <div *ngIf="a.get('wallDesc')?.errors?.required">Additional Description Is
+                                                Required</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -700,20 +735,22 @@
                                             formControlName="ccFalseDesc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('ccFalseDesc')?.errors }"
                                             placeholder="Enter Description of False (drop) ceiling"></textarea>
-                                            <div *ngIf="submitted && a.get('ccFalseDesc')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('ccFalseDesc')?.errors?.required">Field Is Required</div>
-                                            </div>
+                                        <div *ngIf="submitted && a.get('ccFalseDesc')?.errors" class="invalid-feedback">
+                                            <div *ngIf="a.get('ccFalseDesc')?.errors?.required">Field Is Required</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Humidity and dust control</label>
                                         <input type="text" class="form-control" formControlName="ccFalseHumidity"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('ccFalseHumidity')?.errors }"
+                                            [ngClass]="{ 'is-invalid': submitted && a.get('ccFalseHumidity')?.errors }"
                                             placeholder="Enter Humidity and dust control">
-                                            <div *ngIf="submitted && a.get('ccFalseHumidity')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('ccFalseHumidity')?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="submitted && a.get('ccFalseHumidity')?.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="a.get('ccFalseHumidity')?.errors?.required">Field Is Required
                                             </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -722,9 +759,11 @@
                                         <input type="text" class="form-control" formControlName="ccFalseHeight"
                                             placeholder="Enter Height and use of void space"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('ccFalseHeight')?.errors }">
-                                            <div *ngIf="submitted && a.get('ccFalseHeight')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('ccFalseHeight')?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="submitted && a.get('ccFalseHeight')?.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="a.get('ccFalseHeight')?.errors?.required">Field Is Required
                                             </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- <div class="col-md-4">
@@ -738,12 +777,14 @@
                                     <div class="form-group">
                                         <label>Utilisation of void</label>
                                         <select class="form-control" formControlName="ccUtilisation"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('ccUtilisation')?.errors }">
+                                            [ngClass]="{ 'is-invalid': submitted && a.get('ccUtilisation')?.errors }">
                                             <option [ngValue]="null">Select Option</option>
                                             <option *ngFor="let value of utilisation">{{value}}</option>
                                         </select>
-                                        <div *ngIf="submitted && a.get('ccUtilisation')?.errors" class="invalid-feedback">
-                                            <div *ngIf="a.get('ccUtilisation')?.errors?.required">Utilisation Of Void Is Required</div>
+                                        <div *ngIf="submitted && a.get('ccUtilisation')?.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="a.get('ccUtilisation')?.errors?.required">Utilisation Of Void Is
+                                                Required</div>
                                         </div>
                                     </div>
                                 </div>
@@ -755,20 +796,23 @@
                                             formControlName="ccTrueDesc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('ccTrueDesc')?.errors }"
                                             placeholder="Enter Description of true ceiling"></textarea>
-                                            <div *ngIf="submitted && a.get('ccTrueDesc')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('ccTrueDesc')?.errors?.required">Description Of True Ceiling Is Required</div>
-                                            </div>
+                                        <div *ngIf="submitted && a.get('ccTrueDesc')?.errors" class="invalid-feedback">
+                                            <div *ngIf="a.get('ccTrueDesc')?.errors?.required">Description Of True
+                                                Ceiling Is Required</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Humidity and dust control</label>
                                         <input type="text" class="form-control" formControlName="ccTrueHumidity"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('ccTrueHumidity')?.errors }"
+                                            [ngClass]="{ 'is-invalid': submitted && a.get('ccTrueHumidity')?.errors }"
                                             placeholder="Enter Humidity and dust control">
-                                            <div *ngIf="submitted && a.get('ccTrueHumidity')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('ccTrueHumidity')?.errors?.required">Humidity And Dust Control Is Required</div>
-                                            </div>
+                                        <div *ngIf="submitted && a.get('ccTrueHumidity')?.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="a.get('ccTrueHumidity')?.errors?.required">Humidity And Dust
+                                                Control Is Required</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -778,9 +822,11 @@
                                             formControlName="ccSurfaceDesc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('ccSurfaceDesc')?.errors }"
                                             placeholder="Enter Description of surface tratment and condition/clealiness"></textarea>
-                                            <div *ngIf="submitted && a.get('ccSurfaceDesc')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('ccSurfaceDesc')?.errors?.required">Field Is Required</div>
+                                        <div *ngIf="submitted && a.get('ccSurfaceDesc')?.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="a.get('ccSurfaceDesc')?.errors?.required">Field Is Required
                                             </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -797,12 +843,14 @@
                                     <div class="form-group">
                                         <label>External</label>
                                         <select class="form-control" formControlName="windowsExternal"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('windowsExternal')?.errors }">
+                                            [ngClass]="{ 'is-invalid': submitted && a.get('windowsExternal')?.errors }">
                                             <option [ngValue]="null">Select Option</option>
                                             <option *ngFor="let value of external">{{value}}</option>
                                         </select>
-                                        <div *ngIf="submitted && a.get('windowsExternal')?.errors" class="invalid-feedback">
-                                            <div *ngIf="a.get('windowsExternal')?.errors?.required">External Is Required</div>
+                                        <div *ngIf="submitted && a.get('windowsExternal')?.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="a.get('windowsExternal')?.errors?.required">External Is Required
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -814,9 +862,11 @@
                                             formControlName="windowsDescription"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('windowsDescription')?.errors }"
                                             placeholder="(can the windows be opened?)...!"></textarea>
-                                            <div *ngIf="submitted && a.get('windowsDescription')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('windowsDescription')?.errors?.required">Description Of Construction Is Required</div>
-                                            </div>
+                                        <div *ngIf="submitted && a.get('windowsDescription')?.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="a.get('windowsDescription')?.errors?.required">Description Of
+                                                Construction Is Required</div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -824,12 +874,14 @@
                                     <div class="form-group">
                                         <label>Window covering</label>
                                         <select class="form-control" formControlName="windowsCovering"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('windowsCovering')?.errors }">
+                                            [ngClass]="{ 'is-invalid': submitted && a.get('windowsCovering')?.errors }">
                                             <option [ngValue]="null">Select Option</option>
                                             <option *ngFor="let value of windowCovering">{{value}}</option>
                                         </select>
-                                        <div *ngIf="submitted && a.get('windowsCovering')?.errors" class="invalid-feedback">
-                                            <div *ngIf="a.get('windowsCovering')?.errors?.required">Window Covering Is Required</div>
+                                        <div *ngIf="submitted && a.get('windowsCovering')?.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="a.get('windowsCovering')?.errors?.required">Window Covering Is
+                                                Required</div>
                                         </div>
                                     </div>
                                 </div>
@@ -841,9 +893,11 @@
                                             formControlName="windowsOtherDesc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('windowsOtherDesc')?.errors }"
                                             placeholder="Enter Describe others"></textarea>
-                                            <div *ngIf="submitted && a.get('windowsOtherDesc')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('windowsOtherDesc')?.errors?.required">Describe Others Is Required</div>
-                                            </div>
+                                        <div *ngIf="submitted && a.get('windowsOtherDesc')?.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="a.get('windowsOtherDesc')?.errors?.required">Describe Others Is
+                                                Required</div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -854,9 +908,11 @@
                                             formControlName="windowsInternalDesc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('windowsInternalDesc')?.errors }"
                                             placeholder="Enter Description of Internal windows "></textarea>
-                                            <div *ngIf="submitted && a.get('windowsInternalDesc')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('windowsInternalDesc')?.errors?.required">Description Of Internal Windows Is Required</div>
-                                            </div>
+                                        <div *ngIf="submitted && a.get('windowsInternalDesc')?.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="a.get('windowsInternalDesc')?.errors?.required">Description Of
+                                                Internal Windows Is Required</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -874,66 +930,72 @@
                                     <div class="form-group">
                                         <label>Material</label>
                                         <input type="text" class="form-control" formControlName="doorsMaterial"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('doorsMaterial')?.errors }"
+                                            [ngClass]="{ 'is-invalid': submitted && a.get('doorsMaterial')?.errors }"
                                             placeholder="Enter Material">
-                                            <div *ngIf="submitted && a.get('doorsMaterial')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('doorsMaterial')?.errors?.required">Material Is Required</div>
+                                        <div *ngIf="submitted && a.get('doorsMaterial')?.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="a.get('doorsMaterial')?.errors?.required">Material Is Required
                                             </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Number</label>
                                         <input type="text" class="form-control" formControlName="doorsNumber"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('doorsNumber')?.errors }"
+                                            [ngClass]="{ 'is-invalid': submitted && a.get('doorsNumber')?.errors }"
                                             placeholder="Enter Number">
-                                            <div *ngIf="submitted && a.get('doorsNumber')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('doorsNumber')?.errors?.required">Number Is Required</div>
-                                            </div>
+                                        <div *ngIf="submitted && a.get('doorsNumber')?.errors" class="invalid-feedback">
+                                            <div *ngIf="a.get('doorsNumber')?.errors?.required">Number Is Required</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Width</label>
                                         <input type="text" class="form-control" formControlName="doorsWidth"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('doorsWidth')?.errors }"
+                                            [ngClass]="{ 'is-invalid': submitted && a.get('doorsWidth')?.errors }"
                                             placeholder="Enter Width">
-                                            <div *ngIf="submitted && a.get('doorsWidth')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('doorsWidth')?.errors?.required">Width Is Required</div>
-                                            </div>
+                                        <div *ngIf="submitted && a.get('doorsWidth')?.errors" class="invalid-feedback">
+                                            <div *ngIf="a.get('doorsWidth')?.errors?.required">Width Is Required</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Height</label>
                                         <input type="text" class="form-control" formControlName="doorsHeight"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('doorsHeight')?.errors }"
+                                            [ngClass]="{ 'is-invalid': submitted && a.get('doorsHeight')?.errors }"
                                             placeholder="Enter Height">
-                                            <div *ngIf="submitted && a.get('doorsHeight')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('doorsHeight')?.errors?.required">Height Is Required</div>
-                                            </div>
+                                        <div *ngIf="submitted && a.get('doorsHeight')?.errors" class="invalid-feedback">
+                                            <div *ngIf="a.get('doorsHeight')?.errors?.required">Height Is Required</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Closure mechanism</label>
                                         <input type="text" class="form-control" formControlName="doorsCloserMechanish"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('doorsCloserMechanish')?.errors }"
+                                            [ngClass]="{ 'is-invalid': submitted && a.get('doorsCloserMechanish')?.errors }"
                                             placeholder="Enter Closure mechanism">
-                                            <div *ngIf="submitted && a.get('doorsCloserMechanish')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('doorsCloserMechanish')?.errors?.required">Closure Mechanism Is Required</div>
-                                            </div>
+                                        <div *ngIf="submitted && a.get('doorsCloserMechanish')?.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="a.get('doorsCloserMechanish')?.errors?.required">Closure
+                                                Mechanism Is Required</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Quality of air sealing</label>
                                         <input type="text" class="form-control" formControlName="doorsQualitySealing"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('doorsQualitySealing')?.errors }"
+                                            [ngClass]="{ 'is-invalid': submitted && a.get('doorsQualitySealing')?.errors }"
                                             placeholder="Enter Quality of air sealing">
-                                            <div *ngIf="submitted && a.get('doorsQualitySealing')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('doorsQualitySealing')?.errors?.required">Quality Of Air Sealing Is Required</div>
-                                            </div>
+                                        <div *ngIf="submitted && a.get('doorsQualitySealing')?.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="a.get('doorsQualitySealing')?.errors?.required">Quality Of Air
+                                                Sealing Is Required</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -943,9 +1005,9 @@
                                             formControlName="doorsDesc"
                                             [ngClass]="{ 'is-invalid': submitted && a.get('doorsDesc')?.errors }"
                                             placeholder="Enter Description of service area provided"></textarea>
-                                            <div *ngIf="submitted && a.get('doorsDesc')?.errors" class="invalid-feedback">
-                                                <div *ngIf="a.get('doorsDesc')?.errors?.required">Field Is Required</div>
-                                            </div>
+                                        <div *ngIf="submitted && a.get('doorsDesc')?.errors" class="invalid-feedback">
+                                            <div *ngIf="a.get('doorsDesc')?.errors?.required">Field Is Required</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- <div class="col-md-4">
@@ -984,9 +1046,9 @@
 
                 <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
                     <span class="alert alert-danger">{{validationErrorMsg}}</span>
-                  </div>
+                </div>
 
-                  <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
+                <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
                     <button class="next" (click)="gotoNextModal(content1)" mat-button>Next &raquo;</button>
                 </div>
 
@@ -997,11 +1059,8 @@
 </div>
 
 
-
-
 <ng-template #content1 let-modal>
-    <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner"
-    color="primary">
+    <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner" color="primary">
     </mat-progress-spinner>
     <div class="modal-body" *ngIf="popup">
         <div class="centre-text m-btm30">
@@ -1015,8 +1074,9 @@
     </div>
     <br>
 
-    <button type="button" *ngIf="popup" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
-                aria-label="Close" (click)="closeModalDialog()" matStepperNext>
-                 <span aria-hidden="true">Ok</span>
-     </button>
- </ng-template>
+    <button type="button" *ngIf="popup" style="text-align: center;margin-left:180px;width:20%" class="close"
+        class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
+        (click)="closeModalDialog()" matStepperNext>
+        <span aria-hidden="true">Ok</span>
+    </button>
+</ng-template>
