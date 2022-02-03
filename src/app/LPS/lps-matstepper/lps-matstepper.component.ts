@@ -137,7 +137,15 @@ export class LpsMatstepperComponent implements OnInit {
   public doSomething2(next: any): void {
     debugger
     this.Completed2 = this.airTermination.success;
-    this.downConductors.createDwonconductorForm(this.airTermination.buildingNumberArr);
+      if(next){
+        //when airtermination update and save service call only happen, refreaching all component form
+          this.changeTabLpsSavedReport(0,this.basic.basicDetails.basicLpsId,
+            this.router.snapshot.paramMap.get('email') || '{}',this.basic.basicDetails.clientName);
+      }
+      else{
+        //while clicking saved report continue only
+         this.downConductors.createDwonconductorForm(this.airTermination.buildingNumberArr);
+      }
     this.refresh();
   }
 
@@ -186,8 +194,10 @@ export class LpsMatstepperComponent implements OnInit {
         if(this.dataJSON.airTermination != null) {
             
             this.airTermination.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
-            this.doSomething2(false);
             this.Completed2 = true;
+            setTimeout(() => {
+              this.doSomething2(false);
+            }, 4000);
         }
         if(this.dataJSON.downConductorDesc != null) {
               
