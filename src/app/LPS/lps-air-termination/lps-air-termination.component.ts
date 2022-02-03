@@ -703,7 +703,9 @@ export class LpsAirTerminationComponent implements OnInit {
                 this.service.lvClick=0;
                 this.service.logoutClick=0;
                 this.service.windowTabClick=0;
-                this.proceedNext.emit(true);
+                setTimeout(() => {
+                  this.proceedNext.emit(true);
+                }, 4000);
               },
               (error) => {
                 this.success1 = false;
@@ -733,7 +735,9 @@ export class LpsAirTerminationComponent implements OnInit {
                   this.successMsg = data;
                   this.disable = true;
                   this.retriveAirTermination();
-                  this.proceedNext.emit(true);
+                  setTimeout(() => {
+                    this.proceedNext.emit(true);
+                  }, 4000);
                   this.service.lvClick=0;
                   this.service.logoutClick=0;
                   this.service.windowTabClick=0;
