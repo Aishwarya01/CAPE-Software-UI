@@ -21,10 +21,11 @@ export class LpsDownConductorsComponent implements OnInit {
   holder!: FormArray;
   connectors!: FormArray;
   lightningCounter!: FormArray;
+  downConductorDescription!: FormArray;
   testingJoint!: FormArray;
   lpsDownconductorService;
   submitted = false;
-  downConductorDescription = new DownConductorDescription();
+  downConductorDescriptionModel = new DownConductorDescription();
   disable: boolean = false;
 
   basicLpsId: number = 0;
@@ -113,47 +114,46 @@ export class LpsDownConductorsComponent implements OnInit {
   
   //creating form array based on airtermination building
   createDwonconductorForm(noOfBuildingNumber:any){
-    debugger
-    let popArray=this.downConductorForm.value
+     
+    this.downConductorDescription = this.downConductorForm.get('downConductorDescription') as FormArray;
+    let sizeOfDwonconductor=this.downConductorForm.value.downConductorDescription.length;
      if(noOfBuildingNumber !=null && noOfBuildingNumber !='' && noOfBuildingNumber !=undefined){
-    let popArrayFlag=false
+      
       for (let i = 0; i < noOfBuildingNumber.length; i++) {
         let buildingNumber=null;
         let buildingName=null;
         let isBuildingRequired=false;
         
+        //spliting locationNum and locationName from airtermination
         const myArray = noOfBuildingNumber[i].split(",");
         buildingNumber=parseInt(myArray[0])
         buildingName=myArray[1]
-          
-            for (let j = 0; !popArrayFlag && j < popArray.downConductorDescription.length; j++) { 
-              if(popArray.downConductorDescription.length == 1 && popArray.downConductorDescription[j].buildingNumber==null && popArray.downConductorDescription[j].downConduDescId == null){
-              popArray=[];
-              popArrayFlag=true
+            for (let j = 0; !isBuildingRequired && j < sizeOfDwonconductor; j++) { 
+              //if form dont have any data
+              if(this.downConductorForm.value.downConductorDescription[j].buildingNumber==null && this.downConductorForm.value.downConductorDescription[j].downConduDescId == null){
+                //first removing empty form
+               (this.downConductorForm.get('downConductorDescription') as FormArray).removeAt(j);
+               this.downConductorDescription.push(this.allLPSDownConductor(buildingNumber,buildingName));
+                isBuildingRequired=true;
               }
               else{
-                if(myArray !=null && popArray.downConductorDescription[j].buildingNumber !=null
-                  && popArray.downConductorDescription[j].buildingName !=null 
-                  && buildingNumber==popArray.downConductorDescription[j].buildingNumber && buildingName==popArray.downConductorDescription[j].buildingName){
+                //verifying form have coressponding buildingName,buildingNumber
+                if(myArray !=null && this.downConductorForm.value.downConductorDescription[j].buildingNumber !=null
+                  && this.downConductorForm.value.downConductorDescription[j].buildingName !=null 
+                  && buildingNumber==this.downConductorForm.value.downConductorDescription[j].buildingNumber && buildingName==this.downConductorForm.value.downConductorDescription[j].buildingName){
                   isBuildingRequired=true;
                 }
                 
               }
             }
-          
+        //adding new dwonconductor
         if(!isBuildingRequired){
-          popArray.push(this.allLPSDownConductor(buildingNumber,buildingName));
-           buildingNumber=null;
+        this.downConductorDescription.push(this.allLPSDownConductor(buildingNumber,buildingName));
            buildingName=null;
            isBuildingRequired=false;
         }
       }
-
-     }
-     
-    this.downConductorForm.setControl('downConductorDescription', this.formBuilder.array(popArray || []));
-     
-    
+     }    
   }
 
 
@@ -175,26 +175,26 @@ export class LpsDownConductorsComponent implements OnInit {
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
       //this.service.lvClick=1;
-
+debugger
       this.step3List = data.downConductorDesc;
-      this.downConductorDescription.basicLpsId = basicLpsId;
-      this.downConductorDescription.downConduDescId = this.step3List.downConduDescId;
-      this.downConductorDescription.biMetallicIssueOb = this.step3List.biMetallicIssueOb;
-      this.downConductorDescription.biMetallicIssueRem = this.step3List.biMetallicIssueRem;
-      this.downConductorDescription.warningNoticeGroundLevelOb = this.step3List.warningNoticeGroundLevelOb;
-      this.downConductorDescription.warningNoticeGroundLevelRem = this.step3List.warningNoticeGroundLevelRem;
-      this.downConductorDescription.noPowerDownConductorOb = this.step3List.noPowerDownConductorOb;
-      this.downConductorDescription.noPowerDownConductorRem = this.step3List.noPowerDownConductorRem;
-      this.downConductorDescription.connectMadeBrazingOb = this.step3List.connectMadeBrazingOb;
-      this.downConductorDescription.connectMadeBrazingRem = this.step3List.connectMadeBrazingRem;
-      this.downConductorDescription.chemicalSprinklerOb = this.step3List.chemicalSprinklerOb;
-      this.downConductorDescription.chemicalSprinklerRem = this.step3List.chemicalSprinklerRem;
-      this.downConductorDescription.cobustMaterialWallOB = this.step3List.cobustMaterialWallOB;
-      this.downConductorDescription.cobustMaterialWallRem = this.step3List.cobustMaterialWallRem;
-      this.downConductorDescription.createdBy = this.step3List.createdBy;
-      this.downConductorDescription.createdDate = this.step3List.createdDate;
+      this.downConductorDescriptionModel.basicLpsId = basicLpsId;
+      this.downConductorDescriptionModel.downConduDescId = this.step3List.downConduDescId;
+      this.downConductorDescriptionModel.biMetallicIssueOb = this.step3List.biMetallicIssueOb;
+      this.downConductorDescriptionModel.biMetallicIssueRem = this.step3List.biMetallicIssueRem;
+      this.downConductorDescriptionModel.warningNoticeGroundLevelOb = this.step3List.warningNoticeGroundLevelOb;
+      this.downConductorDescriptionModel.warningNoticeGroundLevelRem = this.step3List.warningNoticeGroundLevelRem;
+      this.downConductorDescriptionModel.noPowerDownConductorOb = this.step3List.noPowerDownConductorOb;
+      this.downConductorDescriptionModel.noPowerDownConductorRem = this.step3List.noPowerDownConductorRem;
+      this.downConductorDescriptionModel.connectMadeBrazingOb = this.step3List.connectMadeBrazingOb;
+      this.downConductorDescriptionModel.connectMadeBrazingRem = this.step3List.connectMadeBrazingRem;
+      this.downConductorDescriptionModel.chemicalSprinklerOb = this.step3List.chemicalSprinklerOb;
+      this.downConductorDescriptionModel.chemicalSprinklerRem = this.step3List.chemicalSprinklerRem;
+      this.downConductorDescriptionModel.cobustMaterialWallOB = this.step3List.cobustMaterialWallOB;
+      this.downConductorDescriptionModel.cobustMaterialWallRem = this.step3List.cobustMaterialWallRem;
+      this.downConductorDescriptionModel.createdBy = this.step3List.createdBy;
+      this.downConductorDescriptionModel.createdDate = this.step3List.createdDate;
       
-      this.downConductorDescription.userName = this.step3List.userName;
+      this.downConductorDescriptionModel.userName = this.step3List.userName;
 
       this.populateData();
       this.flag=true;
@@ -202,19 +202,19 @@ export class LpsDownConductorsComponent implements OnInit {
 
     populateData() {
       for (let item of this.step3List.downConductor) {     
-        if(item.flag) {this.arr1.push(this.createGroup(item));}
+        {this.arr1.push(this.createGroup(item));}
       }
       for (let item of this.step3List.bridgingDescription) {     
-        if(item.flag)  {this.arr2.push(this.createGroup1(item));}
+         {this.arr2.push(this.createGroup1(item));}
       }
       for (let item of this.step3List.holder) {     
-        if(item.flag)  {this.arr3.push(this.createGroup2(item));}
+         {this.arr3.push(this.createGroup2(item));}
       }
       for (let item of this.step3List.connectors) { 
-        if(item.flag) {this.arr4.push(this.createGroup3(item));}
+        {this.arr4.push(this.createGroup3(item));}
       }
       for (let item of this.step3List.lightningCounter) { 
-        if(item.flag)  {this.arr5.push(this.createGroup4(item));}
+         {this.arr5.push(this.createGroup4(item));}
       }
       for (let item of this.step3List.testingJoint) {     
         this.arr6.push(this.createGroup5(item));
@@ -236,25 +236,25 @@ export class LpsDownConductorsComponent implements OnInit {
 
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
       //this.service.lvClick=1;
-
+      debugger
       this.step3List = JSON.parse(data);
-      this.downConductorDescription.basicLpsId = basicLpsId;
-      this.downConductorDescription.downConduDescId = this.step3List[0].downConduDescId;
-      this.downConductorDescription.biMetallicIssueOb = this.step3List[0].biMetallicIssueOb;
-      this.downConductorDescription.biMetallicIssueRem = this.step3List[0].biMetallicIssueRem;
-      this.downConductorDescription.warningNoticeGroundLevelOb = this.step3List[0].warningNoticeGroundLevelOb;
-      this.downConductorDescription.warningNoticeGroundLevelRem = this.step3List[0].warningNoticeGroundLevelRem;
-      this.downConductorDescription.noPowerDownConductorOb = this.step3List[0].noPowerDownConductorOb;
-      this.downConductorDescription.noPowerDownConductorRem = this.step3List[0].noPowerDownConductorRem;
-      this.downConductorDescription.connectMadeBrazingOb = this.step3List[0].connectMadeBrazingOb;
-      this.downConductorDescription.connectMadeBrazingRem = this.step3List[0].connectMadeBrazingRem;
-      this.downConductorDescription.chemicalSprinklerOb = this.step3List[0].chemicalSprinklerOb;
-      this.downConductorDescription.chemicalSprinklerRem = this.step3List[0].chemicalSprinklerRem;
-      this.downConductorDescription.cobustMaterialWallOB = this.step3List[0].cobustMaterialWallOB;
-      this.downConductorDescription.cobustMaterialWallRem = this.step3List[0].cobustMaterialWallRem;
-      this.downConductorDescription.createdBy = this.step3List[0].createdBy;
-      this.downConductorDescription.createdDate = this.step3List[0].createdDate;
-      this.downConductorDescription.userName = this.step3List[0].userName;
+      this.downConductorDescriptionModel.basicLpsId = basicLpsId;
+      this.downConductorDescriptionModel.downConduDescId = this.step3List[0].downConduDescId;
+      this.downConductorDescriptionModel.biMetallicIssueOb = this.step3List[0].biMetallicIssueOb;
+      this.downConductorDescriptionModel.biMetallicIssueRem = this.step3List[0].biMetallicIssueRem;
+      this.downConductorDescriptionModel.warningNoticeGroundLevelOb = this.step3List[0].warningNoticeGroundLevelOb;
+      this.downConductorDescriptionModel.warningNoticeGroundLevelRem = this.step3List[0].warningNoticeGroundLevelRem;
+      this.downConductorDescriptionModel.noPowerDownConductorOb = this.step3List[0].noPowerDownConductorOb;
+      this.downConductorDescriptionModel.noPowerDownConductorRem = this.step3List[0].noPowerDownConductorRem;
+      this.downConductorDescriptionModel.connectMadeBrazingOb = this.step3List[0].connectMadeBrazingOb;
+      this.downConductorDescriptionModel.connectMadeBrazingRem = this.step3List[0].connectMadeBrazingRem;
+      this.downConductorDescriptionModel.chemicalSprinklerOb = this.step3List[0].chemicalSprinklerOb;
+      this.downConductorDescriptionModel.chemicalSprinklerRem = this.step3List[0].chemicalSprinklerRem;
+      this.downConductorDescriptionModel.cobustMaterialWallOB = this.step3List[0].cobustMaterialWallOB;
+      this.downConductorDescriptionModel.cobustMaterialWallRem = this.step3List[0].cobustMaterialWallRem;
+      this.downConductorDescriptionModel.createdBy = this.step3List[0].createdBy;
+      this.downConductorDescriptionModel.createdDate = this.step3List[0].createdDate;
+      this.downConductorDescriptionModel.userName = this.step3List[0].userName;
 
       this.populateData1();
       this.flag=true;
@@ -262,19 +262,19 @@ export class LpsDownConductorsComponent implements OnInit {
 
     populateData1() {
       for (let item of this.step3List[0].downConductor) {     
-        if(item.flag) {this.arr1.push(this.createGroup(item));}
+        {this.arr1.push(this.createGroup(item));}
       }
       for (let item of this.step3List[0].bridgingDescription) {     
-        if(item.flag)  {this.arr2.push(this.createGroup1(item));}
+         {this.arr2.push(this.createGroup1(item));}
       }
       for (let item of this.step3List[0].holder) {     
-        if(item.flag)  {this.arr3.push(this.createGroup2(item));}
+         {this.arr3.push(this.createGroup2(item));}
       }
       for (let item of this.step3List[0].connectors) { 
-        if(item.flag) {this.arr4.push(this.createGroup3(item));}
+        {this.arr4.push(this.createGroup3(item));}
       }
       for (let item of this.step3List[0].lightningCounter) { 
-        if(item.flag)  {this.arr5.push(this.createGroup4(item));}
+         {this.arr5.push(this.createGroup4(item));}
       }
       for (let item of this.step3List[0].testingJoint) {     
         this.arr6.push(this.createGroup5(item));
@@ -675,27 +675,27 @@ export class LpsDownConductorsComponent implements OnInit {
 
   onSubmit(flag: any) {
     this.submitted = true;
-    this.downConductorDescription.userName = "inspector2@gmail.com";
-    this.downConductorDescription.basicLpsId = 22;
+    this.downConductorDescriptionModel.userName = "inspector2@gmail.com";
+    this.downConductorDescriptionModel.basicLpsId = 22;
     if (this.downConductorForm.invalid) {
 
       return;
 
     }
     else{
-    this.downConductorDescription.userName = this.router.snapshot.paramMap.get('email') || '{}';;
-    this.downConductorDescription.basicLpsId = this.basicLpsId;
-    this.downConductorDescription.downConductor = this.downConductorForm.value.downConductor;
-    this.downConductorDescription.bridgingDescription = this.downConductorForm.value.bridgingDescription;
-    this.downConductorDescription.holder = this.downConductorForm.value.holder;
-    this.downConductorDescription.connectors = this.downConductorForm.value.connectors;
-    this.downConductorDescription.lightningCounter = this.downConductorForm.value.lightningCounter;
-    this.downConductorDescription.testingJoint = this.downConductorForm.value.testingJoint; 
+    this.downConductorDescriptionModel.userName = this.router.snapshot.paramMap.get('email') || '{}';;
+    this.downConductorDescriptionModel.basicLpsId = this.basicLpsId;
+    this.downConductorDescriptionModel.downConductor = this.downConductorForm.value.downConductor;
+    this.downConductorDescriptionModel.bridgingDescription = this.downConductorForm.value.bridgingDescription;
+    this.downConductorDescriptionModel.holder = this.downConductorForm.value.holder;
+    this.downConductorDescriptionModel.connectors = this.downConductorForm.value.connectors;
+    this.downConductorDescriptionModel.lightningCounter = this.downConductorForm.value.lightningCounter;
+    this.downConductorDescriptionModel.testingJoint = this.downConductorForm.value.testingJoint; 
     
     if (!this.validationError) {
       if(flag) {
         if(this.downConductorForm.dirty && this.downConductorForm.touched){ 
-        this.lpsDownconductorService.updateDownConductor(this.downConductorDescription).subscribe(
+        this.lpsDownconductorService.updateDownConductor(this.downConductorDescriptionModel).subscribe(
           (data) => {
             
             this.success = true;
@@ -727,7 +727,7 @@ export class LpsDownConductorsComponent implements OnInit {
       }
       }
       else {
-        this.lpsDownconductorService.saveDownConductors(this.downConductorDescription).subscribe(
+        this.lpsDownconductorService.saveDownConductors(this.downConductorDescriptionModel).subscribe(
           (data) => {
             this.success = true;
             this.successMsg = data;
@@ -833,7 +833,7 @@ export class LpsDownConductorsComponent implements OnInit {
   retriveDownConductor(){
     this.lpsDownconductorService.retrieveDownConductor(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
       data => {
-        this.retrieveDetailsfromSavedReports1(this.downConductorDescription.userName,this.basicLpsId,this.ClientName,data);
+        this.retrieveDetailsfromSavedReports1(this.downConductorDescriptionModel.userName,this.basicLpsId,this.ClientName,data);
       },
       error=>{
       }
