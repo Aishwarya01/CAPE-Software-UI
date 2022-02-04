@@ -1163,14 +1163,14 @@ showHideAccordion(index: number) {
     }
   private createContractorAcknowledgeForm(): FormGroup {
       return new FormGroup({
-        declarationSignature: new FormControl(''),
+        declarationSignature: new FormControl('',[Validators.required]),
         declarationDate: new FormControl('',[Validators.required]),
         declarationName: new FormControl('',[Validators.required])
       })
     }
   private createInspectorAcknowledgeForm(inspectorValue:any): FormGroup {
       return new FormGroup({
-        declarationSignature: new FormControl(''),
+        declarationSignature: new FormControl('',[Validators.required]),
         declarationDate: new FormControl('',[Validators.required]),
         declarationName: new FormControl(inspectorValue.name,[Validators.required])
       })
