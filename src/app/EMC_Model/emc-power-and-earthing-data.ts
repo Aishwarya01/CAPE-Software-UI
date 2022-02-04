@@ -32,12 +32,17 @@ export class EmcPowerAndEarthingData {
     descOfTestingService!: String;
     descOfEquipotentilaBonding!: String;
 
+    createdDate!: Date;
+    createdBy!: String;
+    updatedBy!: String;
+    updatedDate!: Date;
+
     electronicSystem!: ElectronicSystem[];
     distrubutionPannel!: DistrubutionPannel[];
 }
 
 export class ElectronicSystem {
-
+    electronicSystemId!: number;
     bDSld!: String;
     bDRecordData!: String;
     bDEarthing!: String;
@@ -65,6 +70,7 @@ export class ElectronicSystem {
 
 export class DistrubutionPannel {
 
+    distrubutionPannelId!:number;
     cbWireSize!: String;
     cbDesc!: String;
     matchesReceptable!: String;

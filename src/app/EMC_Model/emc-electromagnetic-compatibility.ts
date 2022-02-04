@@ -26,9 +26,6 @@ export class EmcElectromagneticCompatibility {
     updatedDate!: Date;
 
     externalCompatibility!: ExternalCompatibility[];
-
-
-
 }
 
 export class ExternalCompatibility {

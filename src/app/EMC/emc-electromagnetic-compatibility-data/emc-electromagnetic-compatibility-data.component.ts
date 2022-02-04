@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output ,EventEmitter } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -13,20 +13,21 @@ import { GlobalsService } from 'src/app/globals.service';
 })
 export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
 
-  selectionValue: String[] = ['Yes', 'No', ];
+  selectionValue: String[] = ['Yes', 'No',];
 
   EMCElectroMagneticFormm!: FormGroup;
   emcElectromagneticCompatibility = new EmcElectromagneticCompatibility();
+  @Output() proceedNext = new EventEmitter<any>();
   externalCompatibilityArr!: FormArray;
   flag: boolean = false;
   errorArr: any = [];
   success: boolean = false;
   Error: boolean = false;
-  submitted=false;
+  submitted = false;
   validationErrorTab: boolean = false;
-  validationErrorMsgTab: string="";
-  validationError: boolean =false;
-  validationErrorMsg: String ="";
+  validationErrorMsgTab: string = "";
+  validationError: boolean = false;
+  validationErrorMsg: String = "";
   successMsg: string = "";
   errorMsg: string = "";
   email: String;
@@ -35,16 +36,17 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
   finalSpinner: boolean = true;
   popup: boolean = false;
   modalReference: any;
+  emcId: number = 0;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: ActivatedRoute,
     public service: GlobalsService,
     private modalService: NgbModal,
-    private emcElectroMagneticCompabilityService: EmcElectroMagneticCompabilityService){ 
-     
-      this.email = this.router.snapshot.paramMap.get('email') || '{}';
-    }
+    private emcElectroMagneticCompabilityService: EmcElectroMagneticCompabilityService) {
+
+    this.email = this.router.snapshot.paramMap.get('email') || '{}';
+  }
 
   ngOnInit(): void {
     this.EMCElectroMagneticFormm = this.formBuilder.group({
@@ -71,8 +73,8 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
   }
 
   createExternalCompatibilityArr(): any {
-     return this.formBuilder.group({
-      externalCompatibilityId: [ '' ],
+    return this.formBuilder.group({
+      externalCompatibilityId: [''],
       communication: ['', Validators.required],
       visibilityOfAntennas: ['', Validators.required],
       typeOfTransmission: ['', Validators.required],
@@ -104,7 +106,7 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
   getExternalCompatibilityControl(): AbstractControl[] {
     return (<FormArray>this.EMCElectroMagneticFormm.get('externalCompatibilityArr')).controls
   }
-  get f():any {
+  get f(): any {
     return this.EMCElectroMagneticFormm.controls;
   }
 
@@ -126,6 +128,80 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
 
     }
   }
+
+  retrieveDetailsfromSavedReports(userName: any, emcId: any, data: any) {
+
+    this.step1List = data.emcElectromagneticCompatibility;
+    this.emcElectromagneticCompatibility.emcId = emcId;
+    this.emcElectromagneticCompatibility.seSinglePoint = this.step1List.seSinglePoint;
+    this.emcElectromagneticCompatibility.seMeshedArrangment = this.step1List.seMeshedArrangment;
+    this.emcElectromagneticCompatibility.seDescription = this.step1List.seDescription;
+    this.emcElectromagneticCompatibility.equiptentialBonding = this.step1List.equiptentialBonding;
+    this.emcElectromagneticCompatibility.resistanceCabinet = this.step1List.resistanceCabinet;
+    this.emcElectromagneticCompatibility.resistanceCabinetDesc = this.step1List.resistanceCabinetDesc;
+    this.emcElectromagneticCompatibility.roomShield = this.step1List.roomShield;
+    this.emcElectromagneticCompatibility.roomShieldDesc = this.step1List.roomShieldDesc;
+    this.emcElectromagneticCompatibility.shieldingOtherDesc = this.step1List.shieldingOtherDesc;
+    this.emcElectromagneticCompatibility.equipmentHighFrequency = this.step1List.equipmentHighFrequency;
+    this.emcElectromagneticCompatibility.equipmentHighFrequencyDesc = this.step1List.equipmentHighFrequencyDesc;
+    this.emcElectromagneticCompatibility.approximateDistance = this.step1List.approximateDistance;
+    this.emcElectromagneticCompatibility.equipmentMaintence = this.step1List.equipmentMaintence;
+    this.emcElectromagneticCompatibility.equipmentMaintenceDesc = this.step1List.equipmentMaintenceDesc;
+    this.emcElectromagneticCompatibility.operationFrequency = this.step1List.operationFrequency;
+    this.emcElectromagneticCompatibility.radiatedPower = this.step1List.radiatedPower;
+
+    this.emcElectromagneticCompatibility.createdBy = this.step1List.createdBy;
+    this.emcElectromagneticCompatibility.createdDate = this.step1List.createdDate;
+    this.emcElectromagneticCompatibility.userName = this.step1List.userName;
+
+    this.populateData2();
+    this.flag = true;
+  }
+
+  populateData2() {
+    for (let item of this.step1List.externalCompatibility) {
+      if (item.flag) { this.arr2.push(this.createGroup2(item)); }
+
+    }
+    this.EMCElectroMagneticFormm.setControl('externalCompatibilityArr', this.formBuilder.array(this.arr2 || []))
+    this.arr2 = [];
+
+  }
+
+  createGroup2(item: any): FormGroup {
+    return this.formBuilder.group({
+
+      externalCompatibilityId: new FormControl({ disabled: false, value: item.externalCompatibilityId }),
+      communication: new FormControl({ disabled: false, value: item.communication }, Validators.required),
+      visibilityOfAntennas: new FormControl({ disabled: false, value: item.visibilityOfAntennas }, Validators.required),
+      typeOfTransmission: new FormControl({ disabled: false, value: item.typeOfTransmission }, Validators.required),
+      transmissionDesc: new FormControl({ disabled: false, value: item.transmissionDesc }, Validators.required),
+      antennaDistance: new FormControl({ disabled: false, value: item.antennaDistance }, Validators.required),
+      noOfWalls: new FormControl({ disabled: false, value: item.noOfWalls }, Validators.required),
+      losDesc: new FormControl({ disabled: false, value: item.losDesc }, Validators.required),
+      electronicSystemDistance: new FormControl({ disabled: false, value: item.electronicSystemDistance }, Validators.required),
+      transmitterPower: new FormControl({ disabled: false, value: item.transmitterPower }, Validators.required),
+      frequency: new FormControl({ disabled: false, value: item.frequency }, Validators.required),
+      orientationAntinna: new FormControl({ disabled: false, value: item.orientationAntinna }, Validators.required),
+      systemSite: new FormControl({ disabled: false, value: item.systemSite }, Validators.required),
+      systemSiteDesc: new FormControl({ disabled: false, value: item.systemSiteDesc }, Validators.required),
+      controlledLoads: new FormControl({ disabled: false, value: item.controlledLoads }, Validators.required),
+      controlledLoadsDesc: new FormControl({ disabled: false, value: item.controlledLoadsDesc }, Validators.required),
+      electricRailway: new FormControl({ disabled: false, value: item.electricRailway }, Validators.required),
+      electricRailwayDesc: new FormControl({ disabled: false, value: item.electricRailwayDesc }, Validators.required),
+      hvTransmission: new FormControl({ disabled: false, value: item.hvTransmission }, Validators.required),
+      hvTransmissionDesc: new FormControl({ disabled: false, value: item.hvTransmissionDesc }, Validators.required),
+      hpAcMangets: new FormControl({ disabled: false, value: item.hpAcMangets }, Validators.required),
+      hpAcMangetsDesc: new FormControl({ disabled: false, value: item.hpAcMangetsDesc }, Validators.required),
+      approximateDistance: new FormControl({ disabled: false, value: item.approximateDistance }, Validators.required),
+      rfiSurvey: new FormControl({ disabled: false, value: item.rfiSurvey }, Validators.required),
+      newRfiSurvey: new FormControl({ disabled: false, value: item.newRfiSurvey }, Validators.required),
+      newRfiSurveyDesc: new FormControl({ disabled: false, value: item.newRfiSurveyDesc }, Validators.required),
+    });
+  }
+
+
+
 
   retrieveElectromagneticCompatability(userName: any, emcId: any, data: any) {
     this.flag = true;
@@ -156,11 +232,11 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
 
     // this.populateData(this.step1List[0].externalCompatibility)
 
-    for(let i of this.step1List[0].externalCompatibility){
-      this.EMCElectroMagneticFormm.patchValue ({
+    for (let i of this.step1List[0].externalCompatibility) {
+      this.EMCElectroMagneticFormm.patchValue({
         externalCompatibilityArr: [i],
-       })
-     }
+      })
+    }
   }
 
   populateData(value: any) {
@@ -202,85 +278,85 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
     });
   }
   gotoNextModal(content3: any) {
-    if(this.EMCElectroMagneticFormm.invalid) {
-      this.validationError=true;
-      this.validationErrorMsg="Please check all the fields";
-  //     setTimeout(()=>{
-  //       this.validationError=false;
-  //  }, 3000);
+    if (this.EMCElectroMagneticFormm.invalid) {
+      this.validationError = true;
+      this.validationErrorMsg = "Please check all the fields";
+      //     setTimeout(()=>{
+      //       this.validationError=false;
+      //  }, 3000);
       return;
     }
-   if(this.EMCElectroMagneticFormm.touched || this.EMCElectroMagneticFormm.untouched){
-    this.modalReference = this.modalService.open(content3, {
-       centered: true, 
-       size: 'md',
-       backdrop: 'static'
+    if (this.EMCElectroMagneticFormm.touched || this.EMCElectroMagneticFormm.untouched) {
+      this.modalReference = this.modalService.open(content3, {
+        centered: true,
+        size: 'md',
+        backdrop: 'static'
       })
-   }
-   if(this.EMCElectroMagneticFormm.dirty && this.EMCElectroMagneticFormm.touched){ //update
-    this.modalService.open(content3, { centered: true,backdrop: 'static'});
-    this.modalReference.close();
-   }
+    }
+    if (this.EMCElectroMagneticFormm.dirty && this.EMCElectroMagneticFormm.touched) { //update
+      this.modalService.open(content3, { centered: true, backdrop: 'static' });
+      this.modalReference.close();
+    }
   }
-  onKeyForm(event: KeyboardEvent) { 
-    if(!this.EMCElectroMagneticFormm.invalid){ 
-     if(this.EMCElectroMagneticFormm.dirty){
-      this.validationError=false;
+  onKeyForm(event: KeyboardEvent) {
+    if (!this.EMCElectroMagneticFormm.invalid) {
+      if (this.EMCElectroMagneticFormm.dirty) {
+        this.validationError = false;
+        //  this.service.lvClick=1;
+        //  this.service.logoutClick=1;
+        //  this.service.windowTabClick=1;
+      }
+      else {
+        this.validationError = false;
+        //  this.service.lvClick=0;
+        //  this.service.logoutClick=0;
+        //  this.service.windowTabClick=0;
+      }
+    }
+    else {
       //  this.service.lvClick=1;
       //  this.service.logoutClick=1;
       //  this.service.windowTabClick=1;
-     }
-     else{
-       this.validationError=false;
-      //  this.service.lvClick=0;
-      //  this.service.logoutClick=0;
-      //  this.service.windowTabClick=0;
-     }
     }
-    else {
-    //  this.service.lvClick=1;
-    //  this.service.logoutClick=1;
-    //  this.service.windowTabClick=1;
-    }
-   } 
+  }
 
-   onChangeForm(event:any){
-    if(!this.EMCElectroMagneticFormm.invalid){
-      if(this.EMCElectroMagneticFormm.dirty){
-        this.validationError=false;
+  onChangeForm(event: any) {
+    if (!this.EMCElectroMagneticFormm.invalid) {
+      if (this.EMCElectroMagneticFormm.dirty) {
+        this.validationError = false;
         // this.service.lvClick=1;
         // this.service.logoutClick=1;
         //  this.service.windowTabClick=1;
       }
-      else{
-        this.validationError=false;
+      else {
+        this.validationError = false;
         // this.service.lvClick=0;
         // this.service.logoutClick=0;
         // this.service.windowTabClick=0;
       }
-     }
-     else {
+    }
+    else {
       // this.service.lvClick=1;
       // this.service.logoutClick=1;
       // this.service.windowTabClick=1;
-     }
+    }
   }
 
-    saveElectroMagneticData(flag: any) {
+  saveElectroMagneticData(flag: any) {
 
-      this.submitted=true;
-      if(this.EMCElectroMagneticFormm.invalid){
-        return
-      }
-      this.emcElectromagneticCompatibility.userName = this.email;
-      if (!flag) {
-        this.emcElectromagneticCompatibility.emcId =this.service.siteCount;
-      }
-      this.externalCompatibilityArr = this.EMCElectroMagneticFormm.get('externalCompatibilityArr') as FormArray;
-      this.emcElectromagneticCompatibility.externalCompatibility = this.EMCElectroMagneticFormm.value.externalCompatibilityArr;
-  
-      if (flag) {
-        if(this.EMCElectroMagneticFormm.dirty){
+    this.submitted = true;
+    if (this.EMCElectroMagneticFormm.invalid) {
+      return
+    }
+    this.emcElectromagneticCompatibility.userName = this.email;
+    if (!flag) {
+      this.emcElectromagneticCompatibility.emcId = this.service.siteCount;
+    }
+    this.externalCompatibilityArr = this.EMCElectroMagneticFormm.get('externalCompatibilityArr') as FormArray;
+    this.emcElectromagneticCompatibility.externalCompatibility = this.EMCElectroMagneticFormm.value.externalCompatibilityArr;
+
+    if (flag) {
+      if (this.EMCElectroMagneticFormm.dirty) {
         this.emcElectroMagneticCompabilityService
           .updateElectromagneticCompatability(this.emcElectromagneticCompatibility)
           .subscribe(
@@ -289,7 +365,7 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
               this.popup = true;
               this.success = true;
               this.successMsg = data;
-  
+
             },
             (error: any) => {
               this.finalSpinner = false;
@@ -298,40 +374,76 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
               this.errorArr = [];
               this.errorArr = JSON.parse(error.error);
               this.errorMsg = this.errorArr.message;
-  
+
             });
       }
     }
-  
-      else {
-        this.emcElectroMagneticCompabilityService
-          .addElectromagneticCompatability(this.emcElectromagneticCompatibility)
-          .subscribe(
-            (data: any) => {
-              this.finalSpinner = false;
-              this.popup = true;
-              this.success = true;
-              this.successMsg = data;
-              this.emcElectroMagneticCompabilityService
-                .retrieveElectromagneticCompatability(this.emcElectromagneticCompatibility.userName, this.emcElectromagneticCompatibility.emcId)
-                .subscribe(
-                  (data: any) => {
-                    this.retrieveElectromagneticCompatability(this.emcElectromagneticCompatibility.userName, this.emcElectromagneticCompatibility.emcId, data);
-                  },
-                  (error: any) => {
-  
-                  });
-            },
-            (error: any) => {
-              this.finalSpinner = false;
-              this.popup = true;
-              this.Error = true;
-              this.errorArr = [];
-              this.errorArr = JSON.parse(error.error);
-              this.errorMsg = this.errorArr.message;
-  
-            })
-      }
+
+    else {
+      // this.emcElectroMagneticCompabilityService
+      //   .addElectromagneticCompatability(this.emcElectromagneticCompatibility)
+      //   .subscribe(
+      //     (data: any) => {
+      //       this.finalSpinner = false;
+      //       this.popup = true;
+      //       this.success = true;
+      //       this.successMsg = data;
+      //       this.emcElectroMagneticCompabilityService
+      //         .retrieveElectromagneticCompatability(this.emcElectromagneticCompatibility.userName, this.emcElectromagneticCompatibility.emcId)
+      //         .subscribe(
+      //           (data: any) => {
+      //             this.retrieveElectromagneticCompatability(this.emcElectromagneticCompatibility.userName, this.emcElectromagneticCompatibility.emcId, data);
+      //           },
+      //           (error: any) => {
+
+      //           });
+      //     },
+      //     (error: any) => {
+      //       this.finalSpinner = false;
+      //       this.popup = true;
+      //       this.Error = true;
+      //       this.errorArr = [];
+      //       this.errorArr = JSON.parse(error.error);
+      //       this.errorMsg = this.errorArr.message;
+
+      //     })
+
+      this.emcElectroMagneticCompabilityService.addElectromagneticCompatability(this.emcElectromagneticCompatibility).subscribe(
+
+        data => {
+          let emcElectromagneticCompatibility = JSON.parse(data);
+
+          this.emcElectromagneticCompatibility.emcId = emcElectromagneticCompatibility.emcId;
+          this.finalSpinner = false;
+          this.popup = true;
+          this.success = true;
+          this.successMsg = "Electro Magnetic Compatibility Data Information sucessfully Saved";
+          //this.disable = true;
+          this.retriveElectroMagneticCompatibilityDetails();
+          this.proceedNext.emit(true);
+        },
+        error => {
+          this.finalSpinner = false;
+          this.popup = true;
+          this.Error = true;
+          this.errorArr = [];
+          this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.errorArr.message;
+          this.proceedNext.emit(false);
+        }
+      )
     }
+    (this.emcElectromagneticCompatibility);
+  }
+
+  retriveElectroMagneticCompatibilityDetails() {
+    this.emcElectroMagneticCompabilityService.retrieveElectromagneticCompatability(this.router.snapshot.paramMap.get('email') || '{}', this.emcElectromagneticCompatibility.emcId).subscribe(
+      data => {
+        this.retrieveDetailsfromSavedReports(this.emcElectromagneticCompatibility.userName, this.emcElectromagneticCompatibility.emcId,data);
+      },
+      error => {
+      }
+    );
+  }
 
 }

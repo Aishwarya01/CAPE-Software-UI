@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Output ,EventEmitter } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -24,24 +24,29 @@ export class EmcFacilityDataComponent implements OnInit {
   EMCFacilityForm!: FormGroup;
 
   emcFacilityData = new EmcFacilityData();
+  @Output() proceedNext = new EventEmitter<any>();
   flag: boolean = false;
   floorCoveringArr!: FormArray;
   errorArr: any = [];
   success: boolean = false;
   Error: boolean = false;
-  submitted=false;
+  submitted = false;
   successMsg: string = "";
   errorMsg: string = "";
   validationErrorTab: boolean = false;
-  validationErrorMsgTab: string="";
-  validationError: boolean =false;
-  validationErrorMsg: String ="";
+  validationErrorMsgTab: string = "";
+  validationError: boolean = false;
+  validationErrorMsg: String = "";
   email: String;
   step1List: any;
   arr2: any;
   finalSpinner: boolean = true;
   popup: boolean = false;
   modalReference: any;
+
+
+  arr1: any = [];
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -99,7 +104,7 @@ export class EmcFacilityDataComponent implements OnInit {
   private createFloorDescriptionArr() {
 
     return this.formBuilder.group({
-      floorCoveringId :[''],
+      floorCoveringId: [''],
       fcType: ['', Validators.required],
       fcManufactor: ['', Validators.required],
       fcDescription: ['', Validators.required],
@@ -137,6 +142,113 @@ export class EmcFacilityDataComponent implements OnInit {
 
   }
 
+  retrieveDetailsfromSavedReports(userName: any, emcId: any, data: any) {
+
+    console.log(data);
+
+    this.step1List = data.emcFacilityData;
+    this.emcFacilityData.emcId = emcId;
+    // this.emcFacilityData.facilityDataId = this.step1List.facilityDataId;
+    this.emcFacilityData.blType = this.step1List.blType;
+    this.emcFacilityData.blOtherDescription = this.step1List.blOtherDescription;
+    this.emcFacilityData.bcType = this.step1List.bcType;
+    this.emcFacilityData.bcNoOfFloors = this.step1List.bcNoOfFloors;
+    this.emcFacilityData.bcRoomFloorLocation = this.step1List.bcRoomFloorLocation;
+    this.emcFacilityData.bcBuildingPrimaryUse = this.step1List.bcBuildingPrimaryUse;
+    this.emcFacilityData.bcOtherUses = this.step1List.bcOtherUses;
+    this.emcFacilityData.rlInteriorRoom = this.step1List.rlInteriorRoom;
+    this.emcFacilityData.rlExteriorRoom = this.step1List.rlExteriorRoom;
+    this.emcFacilityData.rlSolidExterior = this.step1List.rlSolidExterior;
+    this.emcFacilityData.rlWindowedExterior = this.step1List.rlWindowedExterior;
+    this.emcFacilityData.rlWindsFace = this.step1List.rlWindsFace;
+    this.emcFacilityData.ruDedicated = this.step1List.ruDedicated;
+    this.emcFacilityData.ruOtherDesc = this.step1List.ruOtherDesc;
+    this.emcFacilityData.rmHeightTrueFloor = this.step1List.rmHeightTrueFloor;
+    this.emcFacilityData.rmHeightFalseFloor = this.step1List.rmHeightFalseFloor;
+    this.emcFacilityData.rmWidth = this.step1List.rmWidth;
+    this.emcFacilityData.rmLength = this.step1List.rmLength;
+    this.emcFacilityData.rmMaxFloor = this.step1List.rmMaxFloor;
+    this.emcFacilityData.ftRaisedFloor = this.step1List.ftRaisedFloor;
+    this.emcFacilityData.ftAirSupply = this.step1List.ftAirSupply;
+    this.emcFacilityData.ftHeight = this.step1List.ftHeight;
+    this.emcFacilityData.ftAirFlowObservation = this.step1List.ftAirFlowObservation;
+    this.emcFacilityData.ftDescription = this.step1List.ftDescription;
+    this.emcFacilityData.ftAirGrillDampers = this.step1List.ftAirGrillDampers;
+    this.emcFacilityData.ftCableHole = this.step1List.ftCableHole;
+    this.emcFacilityData.ftPedestals = this.step1List.ftPedestals;
+    this.emcFacilityData.ftGrids = this.step1List.ftGrids;
+    this.emcFacilityData.ftBolted = this.step1List.ftBolted;
+    this.emcFacilityData.ftWelded = this.step1List.ftWelded;
+    this.emcFacilityData.ftEarthingDesc = this.step1List.ftEarthingDesc;
+    this.emcFacilityData.ftTrueFloorMaterial = this.step1List.ftTrueFloorMaterial;
+    this.emcFacilityData.ftDescribe = this.step1List.ftDescribe;
+    this.emcFacilityData.ftCleanliness = this.step1List.ftCleanliness;
+    this.emcFacilityData.ftOtherDescription = this.step1List.ftOtherDescription;
+
+    this.emcFacilityData.createdBy = this.step1List.createdBy;
+    this.emcFacilityData.createdDate = this.step1List.createdDate;
+    this.emcFacilityData.userName = this.step1List.userName;
+
+    // this.populateData();
+    this.flag = true;
+    for (let i of this.step1List[0].floorCovering) {
+      this.EMCFacilityForm.patchValue({
+        floorCoveringArr: [i],
+      })
+    }
+  }
+
+  // populateData() {
+  //   for (let item of this.step1List.floorCovering) {
+  //     if (item.flag) { this.arr1.push(this.createGroup(item)); }
+
+  //   }
+  //   this.EMCFacilityForm.setControl('floorCoveringArr', this.formBuilder.array(this.arr1 || []))
+  //   this.arr1 = [];
+
+  // }
+
+  createGroup(item: any): FormGroup {
+    return this.formBuilder.group({
+
+      floorCoveringId: new FormControl({ disabled: false, value: item.floorCoveringId }),
+      flag: new FormControl({ disabled: false, value: item.flag }),
+      fcType: new FormControl({ disabled: false, value: item.fcType }, Validators.required),
+      fcManufactor: new FormControl({ disabled: false, value: item.fcManufactor }, Validators.required),
+      fcDescription: new FormControl({ disabled: false, value: item.fcDescription }, Validators.required),
+      fcWoven: new FormControl({ disabled: false, value: item.fcWoven }, Validators.required),
+      fcChemical: new FormControl({ disabled: false, value: item.fcChemical }, Validators.required),
+      fcNone: new FormControl({ disabled: false, value: item.fcNone }, Validators.required),
+      fcOtherDecription: new FormControl({ disabled: false, value: item.fcOtherDecription }, Validators.required),
+      wallType: new FormControl({ disabled: false, value: item.wallType }, Validators.required),
+      wallMaterial: new FormControl({ disabled: false, value: item.wallMaterial }, Validators.required),
+      wallCoveringType: new FormControl({ disabled: false, value: item.wallCoveringType }, Validators.required),
+      wallHumidity: new FormControl({ disabled: false, value: item.wallHumidity }, Validators.required),
+      wallSealing: new FormControl({ disabled: false, value: item.wallSealing }, Validators.required),
+      wallDesc: new FormControl({ disabled: false, value: item.wallDesc }, Validators.required),
+      ccFalseDesc: new FormControl({ disabled: false, value: item.ccFalseDesc }, Validators.required),
+      ccFalseHumidity: new FormControl({ disabled: false, value: item.ccFalseHumidity }, Validators.required),
+      ccFalseHeight: new FormControl({ disabled: false, value: item.ccFalseHeight }, Validators.required),
+      ccUtilisation: new FormControl({ disabled: false, value: item.ccUtilisation }, Validators.required),
+      ccTrueDesc: new FormControl({ disabled: false, value: item.ccTrueDesc }, Validators.required),
+      ccTrueHumidity: new FormControl({ disabled: false, value: item.ccTrueHumidity }, Validators.required),
+      ccSurfaceDesc: new FormControl({ disabled: false, value: item.ccSurfaceDesc }, Validators.required),
+      windowsExternal: new FormControl({ disabled: false, value: item.windowsExternal }, Validators.required),
+      windowsDescription: new FormControl({ disabled: false, value: item.windowsDescription }, Validators.required),
+      windowsCovering: new FormControl({ disabled: false, value: item.windowsCovering }, Validators.required),
+      windowsOtherDesc: new FormControl({ disabled: false, value: item.windowsOtherDesc }, Validators.required),
+      windowsInternalDesc: new FormControl({ disabled: false, value: item.windowsInternalDesc }, Validators.required),
+      doorsMaterial: new FormControl({ disabled: false, value: item.doorsMaterial }, Validators.required),
+      doorsNumbe: new FormControl({ disabled: false, value: item.doorsNumber }, Validators.required),
+      doorsWidth: new FormControl({ disabled: false, value: item.doorsWidth }, Validators.required),
+      doorsHeight: new FormControl({ disabled: false, value: item.doorsHeight }, Validators.required),
+      doorsCloserMechanish: new FormControl({ disabled: false, value: item.doorsCloserMechanish }, Validators.required),
+      doorsQualitySealing: new FormControl({ disabled: false, value: item.doorsQualitySealing }, Validators.required),
+      doorsDesc: new FormControl({ disabled: false, value: item.doorsDesc }, Validators.required)
+    });
+  }
+
+
   getfloorCoveringarrControl(): AbstractControl[] {
     return (<FormArray>this.EMCFacilityForm.get('floorCoveringArr')).controls
   }
@@ -146,7 +258,7 @@ export class EmcFacilityDataComponent implements OnInit {
     this.flag = true;
     this.step1List = JSON.parse(data);
     this.emcFacilityData.userName = userName;
-    this.emcFacilityData.facilityDataId = this.step1List[0].facilityDataId;
+    // this.emcFacilityData.facilityDataId = this.step1List[0].facilityDataId;
     this.emcFacilityData.emcId = emcId;
     this.emcFacilityData.blType = this.step1List[0].blType;
     this.emcFacilityData.blOtherDescription = this.step1List[0].blOtherDescription;
@@ -188,59 +300,59 @@ export class EmcFacilityDataComponent implements OnInit {
     this.emcFacilityData.createdBy = this.step1List[0].createdBy;
     this.emcFacilityData.updatedBy = this.step1List[0].updatedBy;
     this.emcFacilityData.updatedDate = this.step1List[0].updatedDate;
-   for(let i of this.step1List[0].floorCovering ){
-    this.EMCFacilityForm.patchValue ({
-      floorCoveringArr: [i],
-     })
-   }
+    for (let i of this.step1List[0].floorCovering) {
+      this.EMCFacilityForm.patchValue({
+        floorCoveringArr: [i],
+      })
+    }
   }
-  get f():any {
+  get f(): any {
     return this.EMCFacilityForm.controls;
   }
 
-  onKeyForm(event: KeyboardEvent) { 
-    if(!this.EMCFacilityForm.invalid){ 
-     if(this.EMCFacilityForm.dirty){
-      this.validationError=false;
+  onKeyForm(event: KeyboardEvent) {
+    if (!this.EMCFacilityForm.invalid) {
+      if (this.EMCFacilityForm.dirty) {
+        this.validationError = false;
+        //  this.service.lvClick=1;
+        //  this.service.logoutClick=1;
+        //  this.service.windowTabClick=1;
+      }
+      else {
+        this.validationError = false;
+        //  this.service.lvClick=0;
+        //  this.service.logoutClick=0;
+        //  this.service.windowTabClick=0;
+      }
+    }
+    else {
       //  this.service.lvClick=1;
       //  this.service.logoutClick=1;
       //  this.service.windowTabClick=1;
-     }
-     else{
-       this.validationError=false;
-      //  this.service.lvClick=0;
-      //  this.service.logoutClick=0;
-      //  this.service.windowTabClick=0;
-     }
     }
-    else {
-    //  this.service.lvClick=1;
-    //  this.service.logoutClick=1;
-    //  this.service.windowTabClick=1;
-    }
-   } 
+  }
 
 
-   onChangeForm(event:any){
-    if(!this.EMCFacilityForm.invalid){
-      if(this.EMCFacilityForm.dirty){
-        this.validationError=false;
+  onChangeForm(event: any) {
+    if (!this.EMCFacilityForm.invalid) {
+      if (this.EMCFacilityForm.dirty) {
+        this.validationError = false;
         // this.service.lvClick=1;
         // this.service.logoutClick=1;
         //  this.service.windowTabClick=1;
       }
-      else{
-        this.validationError=false;
+      else {
+        this.validationError = false;
         // this.service.lvClick=0;
         // this.service.logoutClick=0;
         // this.service.windowTabClick=0;
       }
-     }
-     else {
+    }
+    else {
       // this.service.lvClick=1;
       // this.service.logoutClick=1;
       // this.service.windowTabClick=1;
-     }
+    }
   }
   closeModalDialog() {
     this.finalSpinner = true;
@@ -262,93 +374,132 @@ export class EmcFacilityDataComponent implements OnInit {
   }
 
   gotoNextModal(content1: any) {
-    if(this.EMCFacilityForm.invalid) {
-      this.validationError=true;
-      this.validationErrorMsg="Please check all the fields";
-  //     setTimeout(()=>{
-  //       this.validationError=false;
-  //  }, 3000);
+    if (this.EMCFacilityForm.invalid) {
+      this.validationError = true;
+      this.validationErrorMsg = "Please check all the fields";
+      //     setTimeout(()=>{
+      //       this.validationError=false;
+      //  }, 3000);
       return;
     }
-   if(this.EMCFacilityForm.touched || this.EMCFacilityForm.untouched){
-    this.modalReference = this.modalService.open(content1, {
-       centered: true, 
-       size: 'md',
-       backdrop: 'static'
+
+    if (this.EMCFacilityForm.touched || this.EMCFacilityForm.untouched) {
+      this.modalReference = this.modalService.open(content1, {
+        centered: true,
+        size: 'md',
+        backdrop: 'static'
       })
-   }
-   if(this.EMCFacilityForm.dirty && this.EMCFacilityForm.touched){ //update
-    this.modalService.open(content1, { centered: true,backdrop: 'static'});
-    this.modalReference.close();
-   }
+    }
+    if (this.EMCFacilityForm.dirty && this.EMCFacilityForm.touched) { //update
+      this.modalService.open(content1, { centered: true, backdrop: 'static' });
+      this.modalReference.close();
+    }
   }
   saveFacilityData(flag: any) {
 
-     this.submitted=true;
-    if(this.EMCFacilityForm.invalid) {
+    this.submitted = true;
+    if (this.EMCFacilityForm.invalid) {
       return;
     }
-    this.emcFacilityData.userName = this.email;
-    if (!flag) {
-      this.emcFacilityData.emcId =this.service.siteCount;
-    }
-  
+
+    this.emcFacilityData.userName = this.router.snapshot.paramMap.get('email') || '{}';
+
+    // if (!flag) {
+    //   this.emcFacilityData.emcId = this.service.siteCount;
+    // }
+
     this.floorCoveringArr = this.EMCFacilityForm.get('floorCoveringArr') as FormArray;
     this.emcFacilityData.floorCovering = this.EMCFacilityForm.value.floorCoveringArr;
-    if(flag) {
-      if(this.EMCFacilityForm.dirty){
-      this.emcFacilityDataService
-        .upDateFacilityData(this.emcFacilityData)
-        .subscribe(
-          (data: any) => {
-            this.finalSpinner = false;
-            this.popup = true;
-            this.success = true;
-            this.successMsg = data;
+    if (flag) {
+      if (this.EMCFacilityForm.dirty) {
+        this.emcFacilityDataService
+          .upDateFacilityData(this.emcFacilityData)
+          .subscribe(
+            (data: any) => {
+              this.finalSpinner = false;
+              this.popup = true;
+              this.success = true;
+              this.successMsg = data;
 
-          },
-          (error: any) => {
-            this.finalSpinner = false;
-            this.popup = true;
-            this.Error = true;
-            this.errorArr = [];
-            this.errorArr = JSON.parse(error.error);
-            this.errorMsg = this.errorArr.message;
+            },
+            (error: any) => {
+              this.finalSpinner = false;
+              this.popup = true;
+              this.Error = true;
+              this.errorArr = [];
+              this.errorArr = JSON.parse(error.error);
+              this.errorMsg = this.errorArr.message;
 
-          });
+            });
+      }
     }
-  }
 
     else {
-      this.emcFacilityDataService
-        .addFacilityData(this.emcFacilityData)
-        .subscribe(
-          (data: any) => {
-            this.finalSpinner = false;
-            this.popup = true;
-            this.success = true;
-            this.successMsg = data;
-            this.emcFacilityDataService
-              .retrieveFacilityData(this.emcFacilityData.userName, this.emcFacilityData.emcId)
-              .subscribe(
-                (data: any) => {
-                  this.retriveFacilityData(this.emcFacilityData.userName, this.emcFacilityData.emcId, data);
-                },
-                (error: any) => {
+      //   this.emcFacilityDataService
+      //     .addFacilityData(this.emcFacilityData)
+      //     .subscribe(
+      //       (data: any) => {
+      //         this.finalSpinner = false;
+      //         this.popup = true;
+      //         this.success = true;
+      //         this.successMsg = data;
+      //         this.emcFacilityDataService
+      //           .retrieveFacilityData(this.emcFacilityData.userName, this.emcFacilityData.emcId)
+      //           .subscribe(
+      //             (data: any) => {
+      //               this.retriveFacilityData(this.emcFacilityData.userName, this.emcFacilityData.emcId, data);
+      //             },
+      //             (error: any) => {
 
-                });
-          },
-          (error: any) => {
-            this.finalSpinner = false;
-            this.popup = true;
-            this.Error = true;
-            this.errorArr = [];
-            this.errorArr = JSON.parse(error.error);
-            this.errorMsg = this.errorArr.message;
+      //             });
+      //       },
+      //       (error: any) => {
+      //         this.finalSpinner = false;
+      //         this.popup = true;
+      //         this.Error = true;
+      //         this.errorArr = [];
+      //         this.errorArr = JSON.parse(error.error);
+      //         this.errorMsg = this.errorArr.message;
+      //       })
+      // }
 
-          })
+      this.emcFacilityDataService.addFacilityData(this.emcFacilityData).subscribe(
+
+        data => {
+          // let emcFacilityDataItr = JSON.parse(data);
+
+          // this.emcFacilityData.emcId = emcFacilityDataItr.emcId;
+          this.finalSpinner = false;
+          this.popup = true;
+          this.success = true;
+          this.successMsg = data;
+          //this.disable = true;
+          this.retriveFacilityDetails();
+          this.proceedNext.emit(true);
+        },
+        error => {
+          this.finalSpinner = false;
+          this.popup = true;
+          this.Error = true;
+          this.errorArr = [];
+          this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.errorArr.message;
+          this.proceedNext.emit(false);
+        }
+      )
     }
+    (this.emcFacilityData);
   }
 
+  retriveFacilityDetails() {
+    this.emcFacilityDataService.retrieveFacilityData(this.emcFacilityData.userName, this.emcFacilityData.emcId).subscribe(
+      data => {
+        console.log(this.emcFacilityData.emcId);
+        this.retrieveDetailsfromSavedReports(this.emcFacilityData.userName, this.emcFacilityData.emcId,data);
+      },
+      error => {
+      }
+    );
+  }
 }
 
