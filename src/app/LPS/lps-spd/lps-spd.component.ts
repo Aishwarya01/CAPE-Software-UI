@@ -431,6 +431,7 @@ export class LpsSpdComponent implements OnInit {
           this.retrieveDetailsfromSavedReports1(userName,basicLpsId,'',data);
         },
         error=>{
+          this.ngOnInit();
         }
       );  
     }

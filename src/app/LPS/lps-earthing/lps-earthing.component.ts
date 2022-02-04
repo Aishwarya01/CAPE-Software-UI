@@ -667,6 +667,7 @@ export class LpsEarthingComponent implements OnInit {
           this.retrieveDetailsfromSavedReports1(userName,basicLpsId,'',data);
         },
         error=>{
+          this.ngOnInit();
         }
       );  
     }

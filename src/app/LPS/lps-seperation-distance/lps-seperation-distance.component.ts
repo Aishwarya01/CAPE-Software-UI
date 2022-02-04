@@ -386,6 +386,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
         this.retrieveDetailsfromSavedReports1(userName,basicLpsId,'',data);
       },
       error=>{
+        this.ngOnInit();
       }
     );  
   }

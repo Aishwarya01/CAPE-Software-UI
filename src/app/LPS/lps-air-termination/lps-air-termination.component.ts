@@ -636,31 +636,31 @@ export class LpsAirTerminationComponent implements OnInit {
 
   gotoNextModal(content: any,contents:any) {
     
-     if (this.airTerminationForm.invalid) {
-       this.validationError = true;
-       this.validationErrorMsg = 'Please check all the fields';
-       setTimeout(() => {
-         this.validationError = false;
-       }, 3000);
-       return;
-     }
+  //    if (this.airTerminationForm.invalid) {
+  //      this.validationError = true;
+  //      this.validationErrorMsg = 'Please check all the fields';
+  //      setTimeout(() => {
+  //        this.validationError = false;
+  //      }, 3000);
+  //      return;
+  //    }
      
-     if (this.basicLpsId == 0) {
-      this.validationError = true;
-      this.validationErrorMsg = 'Basics Form is Required, Please fill';
-      setTimeout(() => {
-        this.validationError = false;
-      }, 3000);
-      return;
-    }
-    //  Update and Success msg will be showing
-    if(this.airTerminationForm.dirty && this.airTerminationForm.touched){
-      this.modalService.open(content, { centered: true,backdrop: 'static' });
-   }
-  //  For Dirty popup
-   else{
-    this.modalService.open(contents, { centered: true,backdrop: 'static' });
-   }
+  //    if (this.basicLpsId == 0) {
+  //     this.validationError = true;
+  //     this.validationErrorMsg = 'Basics Form is Required, Please fill';
+  //     setTimeout(() => {
+  //       this.validationError = false;
+  //     }, 3000);
+  //     return;
+  //   }
+  //   //  Update and Success msg will be showing
+  //   if(this.airTerminationForm.dirty && this.airTerminationForm.touched){
+  //     this.modalService.open(content, { centered: true,backdrop: 'static' });
+  //  }
+  // //  For Dirty popup
+  //  else{
+  //   this.modalService.open(contents, { centered: true,backdrop: 'static' });
+  //  }
   }
 
   closeModalDialog() {
