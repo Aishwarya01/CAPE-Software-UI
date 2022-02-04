@@ -78,6 +78,7 @@ export class LpsAirTerminationComponent implements OnInit {
   isEditable:boolean=false;
   stepBack:any;
   lpsBasic: any;
+  airterminationDataDeleted:boolean=false
    
   constructor(
     private formBuilder: FormBuilder,
@@ -642,7 +643,7 @@ export class LpsAirTerminationComponent implements OnInit {
        setTimeout(() => {
          this.validationError = false;
        }, 3000);
-       return;
+      return;
      }
      
      if (this.basicLpsId == 0) {
@@ -1021,7 +1022,8 @@ export class LpsAirTerminationComponent implements OnInit {
         (this.airTerminationForm.get('lpsAirDescription') as FormArray).removeAt(index);
         this.airTerminationPushArr= this.airTerminationPushArr.concat(a.value);
         this.airTerminationForm.markAsTouched();
-        this.airTerminationForm.markAsDirty();  
+        this.airTerminationForm.markAsDirty(); 
+        this.airterminationDataDeleted=true; 
       }
       else{
         (this.airTerminationForm.get('lpsAirDescription') as FormArray).removeAt(index);

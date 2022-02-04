@@ -146,7 +146,7 @@ export class LpsMatstepperComponent implements OnInit {
     debugger
     this.Completed2 = this.airTermination.success;
 
-   
+   if(this.airTermination.airterminationDataDeleted) {
     this.downValue = false;
     this.earthingValue = false;
     this.spdValue = false;
@@ -166,14 +166,17 @@ export class LpsMatstepperComponent implements OnInit {
       this.seperationDistance.dosomthingRetriveSeperationDistance(this.router.snapshot.paramMap.get('email') || '{}',this.basic.basicDetails.basicLpsId); 
       this.earthing.dosomethingRetriveEarthingDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basic.basicDetails.basicLpsId); 
       this.spd.dosomthingRetriveSPD(this.router.snapshot.paramMap.get('email') || '{}',this.basic.basicDetails.basicLpsId); 
-    // this.earthStud.retrieveDetails
-    }, 500);
+       // this.earthStud.retrieveDetails
 
-   setTimeout(() => {
-    this.downConductors.createDwonconductorForm(this.airTermination.buildingNumberArr);
-    this.seperationDistance.createSeperationForm(this.airTermination.buildingNumberArr)
-  }, 500);
-
+      }, 500),setTimeout(() => {
+        this.downConductors.createDwonconductorForm(this.airTermination.buildingNumberArr);
+        this.seperationDistance.createSeperationForm(this.airTermination.buildingNumberArr)
+      }, 500);;}
+      else{
+      this.downConductors.createDwonconductorForm(this.airTermination.buildingNumberArr);
+      this.seperationDistance.createSeperationForm(this.airTermination.buildingNumberArr)
+      }
+      
     this.refresh();
   }
 
