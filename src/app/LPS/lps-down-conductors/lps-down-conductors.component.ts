@@ -130,7 +130,7 @@ export class LpsDownConductorsComponent implements OnInit {
         buildingName=myArray[1]
             for (let j = 0; !isBuildingRequired && j < sizeOfDwonconductor; j++) { 
               //if form dont have any data
-              if(this.downConductorForm.value.downConductorDescription[j].buildingNumber==null && this.downConductorForm.value.downConductorDescription[j].downConduDescId == null){
+              if((this.downConductorForm.value.downConductorDescription[j].buildingNumber==null || this.downConductorForm.value.downConductorDescription[j].buildingNumber=='') && (this.downConductorForm.value.downConductorDescription[j].downConduDescId == null ||this.downConductorForm.value.downConductorDescription[j].downConduDescId == '')){
                 //first removing empty form
                (this.downConductorForm.get('downConductorDescription') as FormArray).removeAt(j);
                this.downConductorDescription.push(this.allLPSDownConductor(buildingNumber,buildingName));
@@ -834,6 +834,16 @@ debugger
     this.lpsDownconductorService.retrieveDownConductor(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
       data => {
         this.retrieveDetailsfromSavedReports1(this.downConductorDescriptionModel.userName,this.basicLpsId,this.ClientName,data);
+      },
+      error=>{
+      }
+    );  
+  }
+
+  dosomethingRetriveDownConductor(userName:any,basicLpsId:any){
+    this.lpsDownconductorService.retrieveDownConductor(userName,basicLpsId).subscribe(
+      data => {
+        this.retrieveDetailsfromSavedReports1(userName,basicLpsId,'',data);
       },
       error=>{
       }

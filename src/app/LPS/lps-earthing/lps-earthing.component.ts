@@ -660,4 +660,14 @@ export class LpsEarthingComponent implements OnInit {
         }
       );  
     }
+
+   dosomethingRetriveEarthingDetails(userName:any,basicLpsId:any){
+      this.lpsEarthings.retrieveEarthingLps(userName,basicLpsId).subscribe(
+        data => {
+          this.retrieveDetailsfromSavedReports1(userName,basicLpsId,'',data);
+        },
+        error=>{
+        }
+      );  
+    }
 }

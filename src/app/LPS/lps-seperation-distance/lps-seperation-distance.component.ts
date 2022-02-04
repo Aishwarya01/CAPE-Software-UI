@@ -379,4 +379,14 @@ export class LpsSeperationDistanceComponent implements OnInit {
       }
     );  
   }
+
+  dosomthingRetriveSeperationDistance(userName:any,basicLpsId:any){
+    this.separatedistanceService.retriveSeperationDistance(userName,basicLpsId).subscribe(
+      data => {
+        this.retrieveDetailsfromSavedReports1(userName,basicLpsId,'',data);
+      },
+      error=>{
+      }
+    );  
+  }
 }

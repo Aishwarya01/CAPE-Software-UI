@@ -424,5 +424,15 @@ export class LpsSpdComponent implements OnInit {
         }
       );  
     }
+
+    dosomthingRetriveSPD(userName:any,basicLpsId:any){
+      this.lpsSpd_Services.retrieveSPDDetails(userName,basicLpsId).subscribe(
+        data => {
+          this.retrieveDetailsfromSavedReports1(userName,basicLpsId,'',data);
+        },
+        error=>{
+        }
+      );  
+    }
     
 }

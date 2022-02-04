@@ -145,16 +145,35 @@ export class LpsMatstepperComponent implements OnInit {
   public doSomething2(next: any): void {
     debugger
     this.Completed2 = this.airTermination.success;
-      // if(next){
-      //   //when airtermination update and save service call only happen, refreaching all component form
-      //     this.changeTabLpsSavedReport(0,this.basic.basicDetails.basicLpsId,
-      //       this.router.snapshot.paramMap.get('email') || '{}',this.basic.basicDetails.clientName);
-      // }
-      // else{
-        //while clicking saved report continue only
-        this.downConductors.createDwonconductorForm(this.airTermination.buildingNumberArr);
-        this.seperationDistance.createSeperationForm(this.airTermination.buildingNameArr)
-      //}
+
+   
+    this.downValue = false;
+    this.earthingValue = false;
+    this.spdValue = false;
+    this.seperationValue = false;
+    this.equipotentialBond = false;
+
+    setTimeout(() => {
+      this.downValue = true;
+      this.earthingValue = true;
+      this.spdValue = true;
+      this.seperationValue = true;
+      this.equipotentialBond = true;
+    }, 500);
+
+      setTimeout(() => {
+      this.downConductors.dosomethingRetriveDownConductor(this.router.snapshot.paramMap.get('email') || '{}',this.basic.basicDetails.basicLpsId);  
+      this.seperationDistance.dosomthingRetriveSeperationDistance(this.router.snapshot.paramMap.get('email') || '{}',this.basic.basicDetails.basicLpsId); 
+      this.earthing.dosomethingRetriveEarthingDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basic.basicDetails.basicLpsId); 
+      this.spd.dosomthingRetriveSPD(this.router.snapshot.paramMap.get('email') || '{}',this.basic.basicDetails.basicLpsId); 
+    // this.earthStud.retrieveDetails
+    }, 500);
+
+   setTimeout(() => {
+    this.downConductors.createDwonconductorForm(this.airTermination.buildingNumberArr);
+    this.seperationDistance.createSeperationForm(this.airTermination.buildingNumberArr)
+  }, 500);
+
     this.refresh();
   }
 
@@ -214,41 +233,45 @@ export class LpsMatstepperComponent implements OnInit {
         if(this.dataJSON.airTermination != null) {
             
             this.airTermination.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
-            this.doSomething2(false);
+           // this.doSomething2(false);
             this.Completed2 = true;
         }
         if(this.dataJSON.downConductorDesc != null) {
               
               this.downConductors.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
-              this.doSomething3(false);
+            //  this.doSomething3(false);
               this.Completed3 = true;
         }
         if(this.dataJSON.earthingLpsDescription != null) {
                 
                 this.earthing.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
-                this.doSomething4(false);
+             //   this.doSomething4(false);
                 this.Completed4 = true;
         }
         if(this.dataJSON.spddesc != null) {
                   
                   this.spd.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
-                  this.doSomething5(false);
+               //   this.doSomething5(false);
                   this.Completed5 = true;
         }
         if(this.dataJSON.seperationDistanceDesc != null) {
                     
                     this.seperationDistance.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
-                    this.doSomething6(false);
+                 //   this.doSomething6(false);
                     this.Completed6 = true;
         }
         if(this.dataJSON.earthStudDescription != null) {
-                      
-                      this.earthStud.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
-                      this.doSomething7(false);
-                      this.Completed7 = true;
-                      this.doSomething2(false)
-                      
+         
+          this.earthStud.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
+          //this.doSomething7(false);
+          this.Completed7 = true;
+          // this.doSomething2(false)                                   
         }
+        setTimeout(() => {
+          this.downConductors.createDwonconductorForm(this.airTermination.buildingNumberArr);
+          this.seperationDistance.createSeperationForm(this.airTermination.buildingNumberArr)
+        }, 500);
+
       },
       (error) => {
 

@@ -688,6 +688,10 @@ export class LpsAirTerminationComponent implements OnInit {
 
           for (let a of airTerminationData.lpsAirDescription) {
             this.airtermination.lpsAirDescription[i]=a;
+            if(this.airtermination.lpsAirDescription[i] !=null || this.airtermination.lpsAirDescription[i] !=undefined
+              ||this.airtermination.lpsAirDescription !=[]){
+              this.airtermination.lpsAirDescription=this.airtermination.lpsAirDescription.concat(this.airTerminationPushArr);
+            }
             i=i+1;
           }  
         if (!this.validationError) {
@@ -1011,15 +1015,18 @@ export class LpsAirTerminationComponent implements OnInit {
   }
 
   removeItem(a:any,index: any) {
-    if(a.value.lpsVerticalAirTerminationId !=0 && a.value.lpsVerticalAirTerminationId !=undefined){
-      a.value.flag=false;
-    (this.airTerminationForm.get('lpsAirDescription') as FormArray).removeAt(index);
-    this.airTerminationPushArr= this.airTerminationPushArr.concat(a.value);
-   
-   }
-
-  else
-  {(this.airTerminationForm.get('lpsAirDescription') as FormArray).removeAt(index);}
+    
+        if(a.value.lpsAirDescId !=0 && a.value.lpsAirDescId !=undefined){
+          a.value.flag="R";
+        (this.airTerminationForm.get('lpsAirDescription') as FormArray).removeAt(index);
+        this.airTerminationPushArr= this.airTerminationPushArr.concat(a.value);
+        this.airTerminationForm.markAsTouched();
+        this.airTerminationForm.markAsDirty();  
+      }
+      else{
+        (this.airTerminationForm.get('lpsAirDescription') as FormArray).removeAt(index);
+      }
+          
   }
 
 
