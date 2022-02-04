@@ -91,7 +91,6 @@ import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 import { ConfirmationBoxComponent } from './confirmation-box/confirmation-box.component';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { SignatureComponent } from './signature/signature.component';
-import {EncrDecrServiceService} from '../app/services/encr-decr-service.service';
 
 @NgModule({
   declarations: [
@@ -187,7 +186,7 @@ import {EncrDecrServiceService} from '../app/services/encr-decr-service.service'
     //NgbActiveModal, NgbModal 
   ],
  // exports: [WebStorageCodec, WebStorageCodec, SessionStorage],
-  providers: [GlobalsService, EncrDecrServiceService,{ provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }, BnNgIdleService,DatePipe],
+  providers: [GlobalsService, { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }, BnNgIdleService,DatePipe],
   bootstrap: [AppComponent],
   entryComponents: [ AddApplicationTypesComponent, UpdateApplicationTypesComponent, VerificationlvComponent, LpsMatstepperComponent ]
 })
