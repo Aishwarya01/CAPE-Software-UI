@@ -106,7 +106,6 @@ export class LpsAirTerminationComponent implements OnInit {
       buildingHeight: new FormControl('', Validators.required),
       buildingWidth: new FormControl('', Validators.required),
       protectionLevel: new FormControl('', Validators.required),
-      buildingCount: new FormControl(''),
 
       lpsVerticalAirTermination: this.formBuilder.array([this.createVatArrForm()]),
       airMeshDescription: this.formBuilder.array([this.createMeshArrForm()]),
@@ -689,10 +688,6 @@ export class LpsAirTerminationComponent implements OnInit {
 
           for (let a of airTerminationData.lpsAirDescription) {
             this.airtermination.lpsAirDescription[i]=a;
-            if(this.airtermination.lpsAirDescription[i] !=null || this.airtermination.lpsAirDescription[i] !=undefined
-              ||this.airtermination.lpsAirDescription !=[]){
-              this.airtermination.lpsAirDescription=this.airtermination.lpsAirDescription.concat(this.airTerminationPushArr);
-            }
             i=i+1;
           }  
         if (!this.validationError) {
@@ -703,14 +698,14 @@ export class LpsAirTerminationComponent implements OnInit {
                 this.success1 = false;
                 this.success = true;
                 this.successMsg = data;
-                //this.retriveAirTermination();
+                this.retriveAirTermination();
                 this.airTerminationForm.markAsPristine();
                 this.service.lvClick=0;
                 this.service.logoutClick=0;
                 this.service.windowTabClick=0;
-               // setTimeout(() => {
+                setTimeout(() => {
                   this.proceedNext.emit(true);
-               // }, 4000);
+                }, 4000);
               },
               (error) => {
                 this.success1 = false;
@@ -739,10 +734,10 @@ export class LpsAirTerminationComponent implements OnInit {
                   this.success = true;
                   this.successMsg = data;
                   this.disable = true;
-                //  this.retriveAirTermination();
-                 // setTimeout(() => {
+                  this.retriveAirTermination();
+                  setTimeout(() => {
                     this.proceedNext.emit(true);
-                 // }, 4000);
+                  }, 4000);
                   this.service.lvClick=0;
                   this.service.logoutClick=0;
                   this.service.windowTabClick=0;
@@ -1016,17 +1011,16 @@ export class LpsAirTerminationComponent implements OnInit {
   }
 
   removeItem(a:any,index: any) {
+    if(a.value.lpsVerticalAirTerminationId !=0 && a.value.lpsVerticalAirTerminationId !=undefined){
+      a.value.flag=false;
+    (this.airTerminationForm.get('lpsAirDescription') as FormArray).removeAt(index);
+    this.airTerminationPushArr= this.airTerminationPushArr.concat(a.value);
+   
+   }
 
-    if(a.value.lpsAirDescId !=0 && a.value.lpsAirDescId !=undefined){
-          a.value.flag="R";
-        (this.airTerminationForm.get('lpsAirDescription') as FormArray).removeAt(index);
-        this.airTerminationPushArr= this.airTerminationPushArr.concat(a.value);
-      }
-      else{
-        (this.airTerminationForm.get('lpsAirDescription') as FormArray).removeAt(index);
-      }
-      this.airTerminationForm.markAsDirty();
-    }
+  else
+  {(this.airTerminationForm.get('lpsAirDescription') as FormArray).removeAt(index);}
+  }
 
 
   // removeIte(a:any,index: any) {

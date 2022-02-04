@@ -114,7 +114,7 @@ export class LpsDownConductorsComponent implements OnInit {
   
   //creating form array based on airtermination building
   createDwonconductorForm(noOfBuildingNumber:any){
-    debugger
+     
     this.downConductorDescription = this.downConductorForm.get('downConductorDescription') as FormArray;
     let sizeOfDwonconductor=this.downConductorForm.value.downConductorDescription.length;
      if(noOfBuildingNumber !=null && noOfBuildingNumber !='' && noOfBuildingNumber !=undefined){
@@ -136,14 +136,16 @@ export class LpsDownConductorsComponent implements OnInit {
                this.downConductorDescription.push(this.allLPSDownConductor(buildingNumber,buildingName));
                 isBuildingRequired=true;
               }
-             //verifying form have coressponding buildingName,buildingNumber
-             else if(myArray !=null && this.downConductorForm.value.downConductorDescription[j].buildingNumber !=null
-                && this.downConductorForm.value.downConductorDescription[j].buildingName !=null 
-                && buildingNumber==this.downConductorForm.value.downConductorDescription[j].buildingNumber && buildingName==this.downConductorForm.value.downConductorDescription[j].buildingName){
-                isBuildingRequired=true;
-            }         
-              
-          }
+              else{
+                //verifying form have coressponding buildingName,buildingNumber
+                if(myArray !=null && this.downConductorForm.value.downConductorDescription[j].buildingNumber !=null
+                  && this.downConductorForm.value.downConductorDescription[j].buildingName !=null 
+                  && buildingNumber==this.downConductorForm.value.downConductorDescription[j].buildingNumber && buildingName==this.downConductorForm.value.downConductorDescription[j].buildingName){
+                  isBuildingRequired=true;
+                }
+                
+              }
+            }
         //adding new dwonconductor
         if(!isBuildingRequired){
         this.downConductorDescription.push(this.allLPSDownConductor(buildingNumber,buildingName));
