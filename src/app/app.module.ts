@@ -89,6 +89,9 @@ import { LpsFinalReportComponent } from './LPS/lps-final-report/lps-final-report
 import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 //import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { ConfirmationBoxComponent } from './confirmation-box/confirmation-box.component';
+import { SignaturePadModule } from 'angular2-signaturepad';
+import { SignatureComponent } from './signature/signature.component';
+import {EncrDecrServiceService} from '../app/services/encr-decr-service.service';
 
 @NgModule({
   declarations: [
@@ -144,7 +147,7 @@ import { ConfirmationBoxComponent } from './confirmation-box/confirmation-box.co
     LpsEarthStudComponent,
     LpsSavedReportComponent,
     LpsWelcomePageComponent, 
-    LpsFinalReportComponent, 
+    LpsFinalReportComponent, SignatureComponent, 
   ],
   imports: [
     TruncateModule,
@@ -171,6 +174,7 @@ import { ConfirmationBoxComponent } from './confirmation-box/confirmation-box.co
     NgxBootstrapIconsModule.pick(allIcons),
     NgMultiSelectDropDownModule.forRoot(),
     ScrollToModule.forRoot(),
+    SignaturePadModule,
     NgOtpInputModule,
     MatBadgeModule,
     MatProgressSpinnerModule,
@@ -183,7 +187,7 @@ import { ConfirmationBoxComponent } from './confirmation-box/confirmation-box.co
     //NgbActiveModal, NgbModal 
   ],
  // exports: [WebStorageCodec, WebStorageCodec, SessionStorage],
-  providers: [GlobalsService, { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }, BnNgIdleService,DatePipe],
+  providers: [GlobalsService, EncrDecrServiceService,{ provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }, BnNgIdleService,DatePipe],
   bootstrap: [AppComponent],
   entryComponents: [ AddApplicationTypesComponent, UpdateApplicationTypesComponent, VerificationlvComponent, LpsMatstepperComponent ]
 })
