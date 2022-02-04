@@ -16,7 +16,7 @@
                                         <i class="bi bi-align-start"></i>
                                     </span>
                                 </div>
-                                <input type="number" class="form-control" placeholder="Enter Building Number" formControlName="buildingNumber" [ngClass]="{ 'is-invalid': submitted && q.get('buildingNumber')?.errors }" required readonly/>
+                                <input type="number" class="form-control" placeholder="Enter Building Number" formControlName="buildingNumber"  required readonly/>
                             </div>
                         </div>
         
@@ -28,7 +28,7 @@
                                         <i class="bi bi-align-start"></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control"  formControlName="buildingName" [ngClass]="{ 'is-invalid': submitted && q.get('buildingName')?.errors }"required readonly/>
+                                <input type="text" class="form-control" formControlName="buildingName" required readonly/>
                             </div>
                         </div>
 

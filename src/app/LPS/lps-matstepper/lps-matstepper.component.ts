@@ -51,6 +51,14 @@ export class LpsMatstepperComponent implements OnInit {
   Completed5: boolean=true;
   Completed6: boolean=true;
   Completed7: boolean=true;
+
+  basicDetails: boolean = true;
+  airTermValue: boolean = true;
+  downValue: boolean = true;
+  earthingValue: boolean = true;
+  spdValue: boolean = true;
+  seperationValue: boolean = true;
+  equipotentialBond: boolean = true;
   
   @ViewChild(LpsBasicPageComponent)
   basic!: LpsBasicPageComponent;
@@ -137,7 +145,16 @@ export class LpsMatstepperComponent implements OnInit {
   public doSomething2(next: any): void {
     debugger
     this.Completed2 = this.airTermination.success;
-    this.downConductors.createDwonconductorForm(this.airTermination.buildingNumberArr);
+      // if(next){
+      //   //when airtermination update and save service call only happen, refreaching all component form
+      //     this.changeTabLpsSavedReport(0,this.basic.basicDetails.basicLpsId,
+      //       this.router.snapshot.paramMap.get('email') || '{}',this.basic.basicDetails.clientName);
+      // }
+      // else{
+        //while clicking saved report continue only
+        this.downConductors.createDwonconductorForm(this.airTermination.buildingNumberArr);
+        this.seperationDistance.createSeperationForm(this.airTermination.buildingNameArr)
+      //}
     this.refresh();
   }
 
@@ -165,14 +182,25 @@ export class LpsMatstepperComponent implements OnInit {
    
     this.selectedIndex = 1;
 
-    this.basic.reset();
-    this.airTermination.reset();
-    this.downConductors.reset();
-    this.earthing.reset();
-    this.spd.reset();
-    this.seperationDistance.reset();
-    this.earthStud.reset();
+    this.basicDetails = false;
+    this.airTermValue = false;
+    this.downValue = false;
+    this.earthingValue = false;
+    this.spdValue = false;
+    this.seperationValue = false;
+    this.equipotentialBond = false;
 
+    setTimeout(() => {
+      this.basicDetails = true;
+      this.airTermValue = true;
+      this.downValue = true;
+      this.earthingValue = true;
+      this.spdValue = true;
+      this.seperationValue = true;
+      this.equipotentialBond = true;
+    }, 500);
+
+    setTimeout(() => {
     this.basicLpsService.retrieveFinalLps(userName,basicLpsId).subscribe(
       (data) => {
         this.dataJSON = JSON.parse(data);
@@ -218,13 +246,14 @@ export class LpsMatstepperComponent implements OnInit {
                       this.earthStud.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
                       this.doSomething7(false);
                       this.Completed7 = true;
+                      this.doSomething2(false)
                       
         }
       },
       (error) => {
 
       }
-    )
+      )}, 3000);
   }
 
   // Final Report 
@@ -283,15 +312,15 @@ export class LpsMatstepperComponent implements OnInit {
         if((tabs==="Lightning Protection System"))
           
            {
-              this.selectedIndex=0; 
-              this.basic.reset();
-              this.airTermination.reset();
-              this.downConductors.reset();
-              this.earthing.reset();
-              this.spd.reset();
-              this.seperationDistance.reset();
-              this.earthStud.reset();
-              this.changeTab1(0);
+              // this.selectedIndex=0; 
+              // this.basic.reset();
+              // this.airTermination.reset();
+              // this.downConductors.reset();
+              // this.earthing.reset();
+              // this.spd.reset();
+              // this.seperationDistance.reset();
+              // this.earthStud.reset();
+              // this.changeTab1(0);
           }
           else if((tabs==="Saved Reports")){
             this.selectedIndex=1; 

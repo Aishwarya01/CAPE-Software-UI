@@ -16,8 +16,7 @@
                                     <i class="bi bi-align-start"></i>
                                 </span>
                             </div>
-                            <input class="form-control"  placeholder="Enter length in meter"
-                                 />
+                            <input class="form-control" formControlName="buildingNumber" placeholder="Enter length in meter"/>
                         </div>
                     </div>
     
@@ -29,7 +28,7 @@
                                     <i class="bi bi-align-start"></i>
                                 </span>
                             </div>
-                            <input  class="form-control"  placeholder="Enter length in meter"/>
+                            <input  class="form-control" formControlName="buildingName" placeholder="Enter length in meter"/>
                         </div>
                     </div>
                 </div>
@@ -128,6 +127,8 @@
                 </div>
             <div>
         </div>
+        </div>
+        </div>
             <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
                 <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
                 <button class="next" (click)="gotoNextModal(content,contents)" mat-button >Next &raquo;</button>
@@ -135,8 +136,6 @@
             <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
                 <span class="alert alert-danger">{{validationErrorMsg}}</span>
             </div>
-        </div>
-        </div>
         </form>
     </div>
 </div>

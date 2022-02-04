@@ -17,7 +17,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
   i: any;
   separatedistance = new Separatedistance();
   separeteDistanceForm!: FormGroup;
-
+  seperationDistanceDescription!: FormArray;
   separateDistance!: FormArray;
   submitted!: boolean;
   email: any;
@@ -89,16 +89,16 @@ export class LpsSeperationDistanceComponent implements OnInit {
   ngOnInit(): void {
 
     this.separeteDistanceForm = this.formBuilder.group({
-      seperationDistanceDescription: this.formBuilder.array([this.allSeparateDistance()])
+      seperationDistanceDescription: this.formBuilder.array([this.allSeparateDistance('','')])
     });
   }
 
-  allSeparateDistance(): FormGroup {
+  allSeparateDistance(buildingNumber:any,buildingName:any): FormGroup {
     return new FormGroup({
       seperationDistanceId: new FormControl(''),
-      buildingNumber: new FormControl(''),
+      buildingNumber: new FormControl(buildingNumber),
       buildingCount: new FormControl(''),
-      buildingName:new FormControl(''),
+      buildingName:new FormControl(buildingName),
       flag:new FormControl(''),
 
       separateDistance: this.formBuilder.array([this.separateDistanceArrForm()]),
@@ -253,6 +253,51 @@ export class LpsSeperationDistanceComponent implements OnInit {
       this.modalService.dismissAll((this.successMsg = ''));
     }
   }
+
+  createSeperationForm(noOfBuildingNumber:any){
+    debugger
+    this.seperationDistanceDescription = this.separeteDistanceForm.get('seperationDistanceDescription') as FormArray;
+    let sizeOfSeperation=this.separeteDistanceForm.value.seperationDistanceDescription.length;
+     if(noOfBuildingNumber !=null && noOfBuildingNumber !='' && noOfBuildingNumber !=undefined){
+      
+      for (let i = 0; i < noOfBuildingNumber.length; i++) {
+        let buildingNumber=null;
+        let buildingName=null;
+        let isBuildingRequired=false;
+        
+        //spliting locationNum and locationName from airtermination
+        const myArray = noOfBuildingNumber[i].split(",");
+        buildingNumber=parseInt(myArray[0])
+        buildingName=myArray[1]
+            for (let j = 0; !isBuildingRequired && j < sizeOfSeperation; j++) { 
+              //if form dont have any data
+              if((this.separeteDistanceForm.value.seperationDistanceDescription[j].buildingNumber==null || this.separeteDistanceForm.value.seperationDistanceDescription[j].buildingNumber=='') && (this.separeteDistanceForm.value.seperationDistanceDescription[j].seperationDistanceDescId == null ||
+              this.separeteDistanceForm.value.seperationDistanceDescription[j].seperationDistanceDescId == undefined)){
+                //first removing empty form
+               (this.separeteDistanceForm.get('seperationDistanceDescription') as FormArray).removeAt(j);
+               this.seperationDistanceDescription.push(this.allSeparateDistance(buildingNumber,buildingName));
+                isBuildingRequired=true;
+              }
+              else{
+                //verifying form have coressponding buildingName,buildingNumber
+                if(myArray !=null && this.separeteDistanceForm.value.seperationDistanceDescription[j].buildingNumber !=null
+                  && this.separeteDistanceForm.value.seperationDistanceDescription[j].buildingName !=null 
+                  && buildingNumber==this.separeteDistanceForm.value.seperationDistanceDescription[j].buildingNumber && buildingName==this.separeteDistanceForm.value.seperationDistanceDescription[j].buildingName){
+                  isBuildingRequired=true;
+                }
+                
+              }
+            }
+        //adding new dwonconductor
+        if(!isBuildingRequired){
+        this.seperationDistanceDescription.push(this.allSeparateDistance(buildingNumber,buildingName));
+           buildingName=null;
+           isBuildingRequired=false;
+        }
+      }
+     }    
+  }
+
   onSubmit(flag: any) {
 
     this.separatedistance.userName = this.router.snapshot.paramMap.get('email') || '{}';;
