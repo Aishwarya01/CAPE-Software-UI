@@ -234,7 +234,10 @@ ShowNext: boolean = true;
     this.service.lvClick=0;
     this.service.logoutClick=0;
     this.service.windowTabClick=0;
-    this.service.signatureImg="";
+    this.service.signatureImg1="";
+    this.service.signatureImg2="";
+    this.service.signatureImg3="";
+    this.service.signatureImg4="";
     this.service.sigInput=0;
   }
 

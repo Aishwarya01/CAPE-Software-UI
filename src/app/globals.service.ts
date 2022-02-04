@@ -73,7 +73,13 @@ lvClick: number=0;
 windowTabClick: number=0; 
 logoutClick:number=0;
 //siganture
-signatureImg:string="";
+signatureImg1:string="";
+signatureImg2:string="";
+signatureImg3:string="";
+signatureImg4:string="";
+signatureImg5:string="";
+signatureImg6:string="";
+
 sigInput:number=0;
 
 //remember me

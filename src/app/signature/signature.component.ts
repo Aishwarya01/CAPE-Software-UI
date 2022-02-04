@@ -32,7 +32,13 @@ export class SignatureComponent implements OnInit {
     }
     SaveSignature(){
     const base64=this.signaturePad.toDataURL('image/png', 0.5); 
-    this.service.signatureImg=base64;
+    this.service.signatureImg1=base64;
+    this.service.signatureImg2=base64;
+    this.service.signatureImg3=base64;
+    this.service.signatureImg4=base64;
+    this.service.signatureImg5=base64;
+    this.service.signatureImg6=base64;
+
     this.dialogRef.close();
     this.service.sigInput=1;
     const blob= this.base64toBlob(base64);

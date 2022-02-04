@@ -265,6 +265,9 @@ export class SummaryComponent implements OnInit,OnDestroy {
     this.service.lvClick=0;
     this.service.logoutClick=0;
     this.service.windowTabClick=0;
+    this.service.signatureImg5="";
+    this.service.signatureImg6="";
+    this.service.sigInput=0;
   }
 
   ngOnInit(): void {
