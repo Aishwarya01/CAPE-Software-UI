@@ -18,12 +18,13 @@ import { CommentsSection } from '../model/comments-section';
 import { DatePipe } from '@angular/common';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { ignoreElements } from 'rxjs/operators';
-import { MainNavComponent } from '../main-nav/main-nav.component';
+import { MainNavComponent } from '../main-nav/main-nav.component'; 
 import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
 import { ReturnTypeTransform } from '@angular/compiler-cli/src/ngtsc/transform';
-//import { SignaturePad } from 'angular2-signaturepad';
+import { MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
+import { SignatureComponent } from '../signature/signature.component';
 
-//import { ErrorHandlerService } from './../../shared/services/error-handler.service';
 @Component({
   selector: 'app-inspection-verification-basic-information',
   templateUrl: './inspection-verification-basic-information.component.html',
@@ -32,14 +33,7 @@ import { ReturnTypeTransform } from '@angular/compiler-cli/src/ngtsc/transform';
 export class InspectionVerificationBasicInformationComponent implements OnInit,OnDestroy {
  
 //e-siganture in progress
-  // signatureImg: string="";
-  // @ViewChild(SignaturePad) signaturePad!: SignaturePad;
 
-  // signaturePadOptions: Object = { 
-  //   'minWidth': 2,
-  //   'canvasWidth': 425,
-  //   'canvasHeight': 300
-  // };
   step1Form!: FormGroup;
   public data: string = "";
   model: any = {};
@@ -210,8 +204,6 @@ ShowNext: boolean = true;
   finalSpinner: boolean = true;
   popup: boolean = false;
 
- 
-
   constructor(
     private _formBuilder: FormBuilder,
     private router: ActivatedRoute,
@@ -221,11 +213,12 @@ ShowNext: boolean = true;
     private siteService: SiteService,
     private UpateBasicService: InspectionVerificationService,
     public service: GlobalsService,
-    private modalService: NgbModal,
+    private modalService: NgbModal,private dialog: MatDialog,
     private basic: MainNavComponent,private verification: VerificationlvComponent,
     private registerService: InspectorregisterService,
     private ChangeDetectorRef: ChangeDetectorRef,public datepipe: DatePipe) {
-    this.email = this.router.snapshot.paramMap.get('email') || '{}'
+     
+    this.email = this.router.snapshot.paramMap.get('url') || '{}';
     setInterval(() => {
       this.today = new Date();
     }, 1);
@@ -241,6 +234,8 @@ ShowNext: boolean = true;
     this.service.lvClick=0;
     this.service.logoutClick=0;
     this.service.windowTabClick=0;
+    this.service.signatureImg="";
+    this.service.sigInput=0;
   }
 
   ngOnInit(): void {
@@ -325,6 +320,53 @@ ShowNext: boolean = true;
     this.expandedIndex = -1 ;
     //this.service.siteCount = this.reportDetails.siteId;
   }
+
+/*e-siganture starts in progress*/ 
+SignatureDesigner1(){
+    this.dialog.open(SignatureComponent, {
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+  }
+  focusSigDesigner1(a: any){
+  // if(this.service.sigInput==1){
+     return a.controls.declarationSignature.markAsDirty();
+    //}
+  }
+  SignatureDesigner2(){
+    this.dialog.open(SignatureComponent, {
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+  }
+  focusSigDesigner2(a: any){
+  // if(this.service.sigInput==1){
+     return a.controls.declarationSignature.markAsDirty();
+    //}
+  }
+  SignatureContractor(){
+    this.dialog.open(SignatureComponent, {
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+  }
+  focusSigContractor(a: any){
+  // if(this.service.sigInput==1){
+     return a.controls.declarationSignature.markAsDirty();
+    //}
+  }
+  SignatureInspector(){
+    this.dialog.open(SignatureComponent, {
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+  }
+  focusSigInspector(a: any){
+  // if(this.service.sigInput==1){
+     return a.controls.declarationSignature.markAsDirty();
+    //}
+  }
+  /*e-siganture ends*/
   focusPersonFunction(){
     if(this.declarationPersonName==''){
       this.showPersonNameMsg=true;
@@ -756,7 +798,6 @@ getViewerFirstMessage(x: any) {
 }
 
 showHideAccordion(index: number) {  
-  //console.log(x);
   this.expandedIndexx = index === this.expandedIndexx ? -1 : index;  
   this.isClicked[index] = !this.isClicked[index];
   }
@@ -1108,7 +1149,7 @@ showHideAccordion(index: number) {
 // Signature part
   private createDesigner1AcknowledgeForm(): FormGroup {
       return new FormGroup({
-        declarationSignature: new FormControl(''),
+        declarationSignature: new FormControl('',[Validators.required]),
         declarationDate: new FormControl('',[Validators.required]),
         declarationName: new FormControl('',[Validators.required])
       })
@@ -1565,30 +1606,6 @@ showHideAccordion(index: number) {
     }
   }
 
-/*e-siganture starts in progress*/
-//   ngAfterViewInit() {
-//     // this.signaturePad is now available
-//     this.signaturePad.set('minWidth', 2); 
-//     this.signaturePad.clear(); 
-//   }
-
-//clearSignature() {
-  // console.log(this.signaturePad);
-  // this.signaturePad.clear();
-  // this.signatureImg ="";
-  //this.closeModalDialog();
-  //this.modalService.dismissAll(this.signatureImg="") 
-
-//}
-// savePad() {
-//   const base64Data = this.signaturePad.toDataURL();
-//   this.signatureImg = base64Data;
-// }
-//   focusFunction(contentSig: any){
-//     this.modalService.open(contentSig, { centered: true});
-//   }
-  /*e-siganture ends*/
-
   /*disable tab starts*/
   // clickAcc(){
   //   this.gotoNextTab();
@@ -1728,12 +1745,19 @@ onPopState(event:any) {
     //  }, 3000);
         return;
       }
+
      if(this.step1Form.touched || this.step1Form.untouched){
+       if(this.service.sigInput==1){
+        this.modalService.open(content1, { centered: true});
+       // this.modalReference.close();
+       }
+       else{
       this.modalReference = this.modalService.open(content2, {
          centered: true, 
          size: 'md',
          backdrop: 'static'
         })
+      }
      }
      if(this.step1Form.dirty && this.step1Form.touched){ //update
       this.modalService.open(content1, { centered: true,backdrop: 'static'});

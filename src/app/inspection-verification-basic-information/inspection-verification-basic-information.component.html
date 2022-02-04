@@ -443,10 +443,15 @@
                     <div class="row">
                       <div class="col-md-4">
                         <label>Signature:</label>
-                        <input type="text" formControlName="declarationSignature" class="form-control"
-                        readonly
+                      <div (mouseover)="focusSigDesigner1(a)" class="signatureBtn">
+                       <input type="image" formControlName="declarationSignature" class="form-control" 
+                       src={{service.signatureImg}} [(ngModel)] ="service.signatureImg" style="width: 90%;"
                         [ngClass]="{ 'is-invalid': submitted && a.get('declarationSignature')?.errors }">
-                          <div *ngIf="submitted && a.get('declarationSignature')?.errors" class="invalid-feedback">
+                        <button type="button" (click)="SignatureDesigner1()" 
+                        >Sign
+                        </button>
+                    </div>
+                        <div *ngIf="submitted && a.get('declarationSignature')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('declarationSignature')?.errors?.required">Signature is required</div>
                         </div>
                       </div>
@@ -482,7 +487,14 @@
                     <div class="row">
                       <div class="col-md-4">
                         <label>Signature:</label>
-                        <input type="text" formControlName="declarationSignature" class="form-control" readonly>
+                        <div (mouseover)="focusSigDesigner2(a)" class="signatureBtn">
+                          <input type="image" formControlName="declarationSignature" class="form-control" 
+                          src={{service.signatureImg}} [(ngModel)] ="service.signatureImg" style="width: 90%;">
+                           <button type="button" (click)="SignatureDesigner2()" 
+                           >Sign
+                           </button>
+                       </div>
+                        <!-- <input type="text" formControlName="declarationSignature" class="form-control" readonly> -->
                       </div>
                       <div class="col-md-4">
                         <label>Date:</label>
@@ -522,8 +534,16 @@
                       <div class="row">
                         <div class="col-md-4">
                           <label>Signature:</label>
-                          <input type="text" formControlName="declarationSignature" class="form-control" readonly
-                          [ngClass]="{ 'is-invalid': submitted && a.get('declarationSignature')?.errors }">
+                          <div (mouseover)="focusSigContractor(a)" class="signatureBtn">
+                            <input type="image" formControlName="declarationSignature" class="form-control" 
+                            src={{service.signatureImg}} [(ngModel)] ="service.signatureImg" style="width: 90%;"
+                            [ngClass]="{ 'is-invalid': submitted && a.get('declarationSignature')?.errors }">
+                             <button type="button" (click)="SignatureContractor()" 
+                             >Sign
+                             </button>
+                         </div>
+                          <!-- <input type="text" formControlName="declarationSignature" class="form-control" readonly
+                          [ngClass]="{ 'is-invalid': submitted && a.get('declarationSignature')?.errors }"> -->
                           <div *ngIf="submitted && a.get('declarationSignature')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('declarationSignature')?.errors?.required">Signature is required</div>
                         </div>
@@ -568,8 +588,16 @@
                       <div class="row">
                         <div class="col-md-4">
                           <label>Signature:</label>
-                          <input type="text" formControlName="declarationSignature" class="form-control" readonly
-                          [ngClass]="{ 'is-invalid': submitted && a.get('declarationSignature')?.errors }">
+                          <div (mouseover)="focusSigInspector(a)" class="signatureBtn">
+                            <input type="image" formControlName="declarationSignature" class="form-control" 
+                            src={{service.signatureImg}} [(ngModel)] ="service.signatureImg" style="width: 90%;"
+                            [ngClass]="{ 'is-invalid': submitted && a.get('declarationSignature')?.errors }">
+                             <button type="button" (click)="SignatureInspector()" 
+                             >Sign
+                             </button>
+                         </div>
+                          <!-- <input type="text" formControlName="declarationSignature" class="form-control" readonly
+                          [ngClass]="{ 'is-invalid': submitted && a.get('declarationSignature')?.errors }"> -->
                           <div *ngIf="submitted && a.get('declarationSignature')?.errors" class="invalid-feedback">
                             <div *ngIf="a.get('declarationSignature')?.errors?.required">Signature is required</div>
                         </div>
@@ -1597,16 +1625,4 @@
   </div>
     </ng-template> 
 
-    <!-- <ng-template #contentSig let-modal>
-      <div class="modal-body">
-        <div class="signature-container">
-          <signature-pad [options]="signaturePadOptions"></signature-pad>
-        </div>
-     
-        <div class="buttons">
-          <button (click)="clearSignature()">Clear signature pad</button>
-          <button (click)="savePad()">Save signature</button>
-        </div>
-      
-       </div>
-      </ng-template>   -->
+    

@@ -43,6 +43,7 @@ import { LicenselistComponent } from '../licenselist/licenselist.component';
 import { ObservationService } from '../services/observation.service';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
+import { SignatureComponent } from '../signature/signature.component';
 
 @Component({
   selector: 'app-summary',
@@ -324,6 +325,31 @@ export class SummaryComponent implements OnInit,OnDestroy {
   reset(){
     this.addsummary.reset();
     }
+
+/*e-siganture starts in progress*/ 
+SignatureDeclaration1(){
+  this.dialog.open(SignatureComponent, {
+    maxHeight: '90vh',
+    disableClose: true,
+  });
+}
+focusSigDeclaration1(a: any){
+// if(this.service.sigInput==1){
+   return a.controls.declarationSignature.markAsDirty();
+  //}
+}
+SignatureDeclaration2(){
+  this.dialog.open(SignatureComponent, {
+    maxHeight: '90vh',
+    disableClose: true,
+  });
+}
+focusSigDeclaration2(a: any){
+// if(this.service.sigInput==1){
+   return a.controls.declarationSignature.markAsDirty();
+  //}
+}
+/*e-siganture ends*/
 
   retreiveFromObservation(){
     if(this.service.siteCount!=0 && this.service.siteCount!=undefined){
@@ -885,7 +911,6 @@ getViewerFirstMessage(x: any) {
   return x.controls.completedCommentArr.controls[0].controls.viewerComments.value;
 }
 showHideAccordion(index: number) {  
-  //console.log(x);
   this.expandedIndexx = index === this.expandedIndexx ? -1 : index;  
   this.isClicked[index] = !this.isClicked[index];
   }

@@ -72,6 +72,12 @@ msgForStep1Flag:boolean=false;
 lvClick: number=0;  
 windowTabClick: number=0; 
 logoutClick:number=0;
+//siganture
+signatureImg:string="";
+sigInput:number=0;
+
+//remember me
+autoLoginToken:number=0;
 
  constructor(private _scrollToService: ScrollToService
   ) {}
