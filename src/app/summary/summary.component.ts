@@ -24,7 +24,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../model/user';
 import { MatRadioChange } from '@angular/material/radio';
@@ -331,26 +331,38 @@ export class SummaryComponent implements OnInit,OnDestroy {
 
 /*e-siganture starts in progress*/ 
 SignatureDeclaration1(){
-  this.dialog.open(SignatureComponent, {
+  const dialogRef = this.dialog.open(SignatureComponent, {
     maxHeight: '90vh',
     disableClose: true,
   });
+  dialogRef.componentInstance.sigImg1 = false;
+  dialogRef.componentInstance.sigImg2 = false;
+  dialogRef.componentInstance.sigImg3 = false;
+  dialogRef.componentInstance.sigImg4 = false;
+  dialogRef.componentInstance.sigImg5 = true;
+  dialogRef.componentInstance.sigImg6 = false;
 }
 focusSigDeclaration1(a: any){
-// if(this.service.sigInput==1){
-   return a.controls.declarationSignature.markAsDirty();
-  //}
+  if(a.controls.signature.value!=""){
+    return a.controls.signature.markAsDirty();
+   }
 }
 SignatureDeclaration2(){
-  this.dialog.open(SignatureComponent, {
+  const dialogRef= this.dialog.open(SignatureComponent, {
     maxHeight: '90vh',
     disableClose: true,
   });
+  dialogRef.componentInstance.sigImg1 = false;
+  dialogRef.componentInstance.sigImg2 = false;
+  dialogRef.componentInstance.sigImg3 = false;
+  dialogRef.componentInstance.sigImg4 = false;
+  dialogRef.componentInstance.sigImg5 = false;
+  dialogRef.componentInstance.sigImg6 = true;
 }
 focusSigDeclaration2(a: any){
-// if(this.service.sigInput==1){
-   return a.controls.declarationSignature.markAsDirty();
-  //}
+  if(a.controls.signature.value!=""){
+    return a.controls.signature.markAsDirty();
+   }
 }
 /*e-siganture ends*/
 

@@ -9,8 +9,25 @@
          aria-label="Close" (click)="clearSignature()">
           <span aria-hidden="true">Clear signature pad</span>
       </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <button type="button" class="col-md-4" style="width: auto;" (click)="SaveSignature();"
+      <button type="button" class="col-md-4" style="width: auto;" (click)="SaveSignature();" *ngIf="sigImg1"
       class="btn btn-success btn-rounded btn-sm font-weight-medium auth-form-btn">Save</button>
+
+      <button type="button" class="col-md-4" style="width: auto;" (click)="SaveSignature();" *ngIf="sigImg2"
+      class="btn btn-success btn-rounded btn-sm font-weight-medium auth-form-btn">Save</button>
+
+      <button type="button" class="col-md-4" style="width: auto;" (click)="SaveSignature();" *ngIf="sigImg3"
+      class="btn btn-success btn-rounded btn-sm font-weight-medium auth-form-btn">Save</button>
+
+      <button type="button" class="col-md-4" style="width: auto;" (click)="SaveSignature();" *ngIf="sigImg4"
+      class="btn btn-success btn-rounded btn-sm font-weight-medium auth-form-btn">Save</button>
+
+      <button type="button" class="col-md-4" style="width: auto;" (click)="SaveSignature();" *ngIf="sigImg5"
+      class="btn btn-success btn-rounded btn-sm font-weight-medium auth-form-btn">Save</button>
+
+      <button type="button" class="col-md-4" style="width: auto;" (click)="SaveSignature();" *ngIf="sigImg6"
+      class="btn btn-success btn-rounded btn-sm font-weight-medium auth-form-btn">Save</button>
+
+
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <button type="button" class="col-md-4" style="width: auto;" class="btn btn-danger btn-rounded btn-sm font-weight-medium auth-form-btn"
          aria-label="Close" (click)="closeSignature()">

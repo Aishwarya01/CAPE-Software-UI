@@ -445,12 +445,12 @@
                         <label>Signature:</label>
                       <div (mouseover)="focusSigDesigner1(a)" class="signatureBtn">
                         <input type="image" formControlName="declarationSignature"
-                        class="form-control"
+                        class="form-control" 
                         src={{service.signatureImg1}} [(ngModel)] ="service.signatureImg1"
                          [ngClass]="{ 'is-invalid': submitted && a.get('declarationSignature')?.errors }"
-                         [readonly]="true"
-                         style="width: 90%;pointer-events:none; border-color: #cdcecf;box-shadow: unset;">
-                        <button type="button" (click)="SignatureDesigner1()" 
+                         [readonly]="true" 
+                         style="width: 90%;pointer-events:none;">
+                        <button type="button" (click)="SignatureDesigner1()" title="Click here"
                         >Sign
                         </button>
                     </div>
@@ -492,8 +492,9 @@
                         <label>Signature:</label>
                         <div (mouseover)="focusSigDesigner2(a)" class="signatureBtn">
                           <input type="image" formControlName="declarationSignature" class="form-control" 
-                          src={{service.signatureImg2}} [(ngModel)] ="service.signatureImg2" style="width: 90%;">
-                           <button type="button" (click)="SignatureDesigner2()" 
+                          src={{service.signatureImg2}} [(ngModel)] ="service.signatureImg2" [readonly]="true" 
+                          style="width: 90%;pointer-events:none;">
+                           <button type="button" (click)="SignatureDesigner2()" title="Click here"
                            >Sign
                            </button>
                        </div>
@@ -539,9 +540,10 @@
                           <label>Signature:</label>
                           <div (mouseover)="focusSigContractor(a)" class="signatureBtn">
                             <input type="image" formControlName="declarationSignature" class="form-control" 
-                            src={{service.signatureImg3}} [(ngModel)] ="service.signatureImg3" style="width: 90%;"
+                            src={{service.signatureImg3}} [(ngModel)] ="service.signatureImg3" [readonly]="true" 
+                            style="width: 90%;pointer-events:none;"
                             [ngClass]="{ 'is-invalid': submitted && a.get('declarationSignature')?.errors }">
-                             <button type="button" (click)="SignatureContractor()" 
+                             <button type="button" (click)="SignatureContractor()" title="Click here"
                              >Sign
                              </button>
                          </div>
@@ -593,9 +595,10 @@
                           <label>Signature:</label>
                           <div (mouseover)="focusSigInspector(a)" class="signatureBtn">
                             <input type="image" formControlName="declarationSignature" class="form-control" 
-                            src={{service.signatureImg4}} [(ngModel)] ="service.signatureImg4" style="width: 90%;"
+                            src={{service.signatureImg4}} [(ngModel)] ="service.signatureImg4" [readonly]="true"
+                            style="width: 90%;pointer-events:none;"
                             [ngClass]="{ 'is-invalid': submitted && a.get('declarationSignature')?.errors }">
-                             <button type="button" (click)="SignatureInspector()" 
+                             <button type="button" (click)="SignatureInspector()" title="Click here"
                              >Sign
                              </button>
                          </div>

@@ -18,6 +18,13 @@ export class SignatureComponent implements OnInit {
     'canvasHeight': 300,
   };
   signature= new EventEmitter();
+
+  sigImg1:boolean=false;
+  sigImg2:boolean=false;
+  sigImg3:boolean=false;
+  sigImg4:boolean=false;
+  sigImg5:boolean=false;
+  sigImg6:boolean=false;
   constructor(private dialog: MatDialog, public service: GlobalsService,
     public dialogRef: MatDialogRef<SignatureComponent>) { }
 
@@ -32,16 +39,29 @@ export class SignatureComponent implements OnInit {
     }
     SaveSignature(){
     const base64=this.signaturePad.toDataURL('image/png', 0.5); 
-    this.service.signatureImg1=base64;
-    this.service.signatureImg2=base64;
-    this.service.signatureImg3=base64;
-    this.service.signatureImg4=base64;
-    this.service.signatureImg5=base64;
-    this.service.signatureImg6=base64;
+    if(this.sigImg1==true){
+      this.service.signatureImg1=base64;
+    }
+    else if(this.sigImg2==true){
+      this.service.signatureImg2=base64;
+    }
+    else if(this.sigImg3==true){
+      this.service.signatureImg3=base64;
+    }
+    else if(this.sigImg4==true){
+      this.service.signatureImg4=base64;
+    }
+    else if(this.sigImg5==true){
+      this.service.signatureImg5=base64;
+    }
+    else if(this.sigImg6==true){
+      this.service.signatureImg6=base64;
+    }
 
     this.dialogRef.close();
     this.service.sigInput=1;
     const blob= this.base64toBlob(base64);
+    console.log(blob);
     }
     base64toBlob(base64:any){
       const byteString = atob(base64.split(',')[1]);

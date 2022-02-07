@@ -326,48 +326,73 @@ ShowNext: boolean = true;
 
 /*e-siganture starts in progress*/ 
 SignatureDesigner1(){
-    this.dialog.open(SignatureComponent, {
+  const dialogRef =this.dialog.open(SignatureComponent, {
       maxHeight: '90vh',
       disableClose: true,
     });
+    dialogRef.componentInstance.sigImg1 = true;
+    dialogRef.componentInstance.sigImg2 = false;
+    dialogRef.componentInstance.sigImg3 = false;
+    dialogRef.componentInstance.sigImg4 = false;
+    dialogRef.componentInstance.sigImg5 = false;
+    dialogRef.componentInstance.sigImg6 = false;
   }
   focusSigDesigner1(a: any){
-  // if(this.service.sigInput==1){
+   if(a.controls.declarationSignature.value!=""){
      return a.controls.declarationSignature.markAsDirty();
-    //}
+    }
   }
+  
   SignatureDesigner2(){
-    this.dialog.open(SignatureComponent, {
+    const dialogRef =this.dialog.open(SignatureComponent, {
       maxHeight: '90vh',
       disableClose: true,
     });
+    dialogRef.componentInstance.sigImg1 = false;
+    dialogRef.componentInstance.sigImg2 = true;
+    dialogRef.componentInstance.sigImg3 = false;
+    dialogRef.componentInstance.sigImg4 = false;
+    dialogRef.componentInstance.sigImg5 = false;
+    dialogRef.componentInstance.sigImg6 = false;
   }
   focusSigDesigner2(a: any){
-  // if(this.service.sigInput==1){
-     return a.controls.declarationSignature.markAsDirty();
-    //}
+    if(a.controls.declarationSignature.value!=""){
+      return a.controls.declarationSignature.markAsDirty();
+     }
   }
   SignatureContractor(){
-    this.dialog.open(SignatureComponent, {
+    const dialogRef =this.dialog.open(SignatureComponent, {
       maxHeight: '90vh',
       disableClose: true,
     });
+    dialogRef.componentInstance.sigImg1 = false;
+    dialogRef.componentInstance.sigImg2 = false;
+    dialogRef.componentInstance.sigImg3 = true;
+    dialogRef.componentInstance.sigImg4 = false;
+    dialogRef.componentInstance.sigImg5 = false;
+    dialogRef.componentInstance.sigImg6 = false;
   }
   focusSigContractor(a: any){
-  // if(this.service.sigInput==1){
-     return a.controls.declarationSignature.markAsDirty();
-    //}
+    if(a.controls.declarationSignature.value!=""){
+      return a.controls.declarationSignature.markAsDirty();
+     }
   }
   SignatureInspector(){
-    this.dialog.open(SignatureComponent, {
+    const dialogRef =this.dialog.open(SignatureComponent, {
       maxHeight: '90vh',
       disableClose: true,
     });
+    dialogRef.componentInstance.sigImg1 = false;
+    dialogRef.componentInstance.sigImg2 = false;
+    dialogRef.componentInstance.sigImg3 = false;
+    dialogRef.componentInstance.sigImg4 = true;
+    dialogRef.componentInstance.sigImg5 = false;
+    dialogRef.componentInstance.sigImg6 = false;
   }
   focusSigInspector(a: any){
-  // if(this.service.sigInput==1){
-     return a.controls.declarationSignature.markAsDirty();
-    //}
+    if(a.controls.declarationSignature.value!=""){
+      return a.controls.declarationSignature.markAsDirty();
+     }
   }
   /*e-siganture ends*/
   focusPersonFunction(){
