@@ -35,7 +35,7 @@
     
             <!-- tables -->
             <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-16">
                 <div class="table-responsive" style="overflow-x: unset; margin-top: 20px;">
                     <table class="table TableBorder">
                         <thead>
@@ -55,9 +55,10 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <select id="">
-                                        <option value="YES">yes</option>
-                                        <option value="NO">no</option>
+                                    <select class="form-control">
+                                        <option value="" selected>Select Option</option>
+                                        <option value="YES">Yes</option>
+                                        <option value="NO">No</option>
                                       </select>
                                     <!-- <textarea [readonly]="isEditable" formControlName="earthStudVisibilityOb"  class="form-control" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && f.get('earthStudVisibilityOb')?.errors }"></textarea>
                                     <div *ngIf="submitted && f.get('earthStudVisibilityOb')?.errors" class="invalid-feedback">
@@ -141,10 +142,12 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea [readonly]="isEditable" formControlName="physicalDamageStudOb" type="text" class="form-control" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && f.get('physicalDamageStudOb')?.errors }"></textarea>
-                                    <div *ngIf="submitted && f.get('physicalDamageStudOb')?.errors" class="invalid-feedback">
-                                        <div *ngIf="f.get('physicalDamageStudOb')?.errors?.required">Concept of protevtive equipotential bonding is required</div>
-                                    </div>
+                                    <select class="form-control">
+                                        <option value="" selected>Select Option</option>
+                                        <option value="" >Yes</option>
+                                        <option value="" >No</option>
+                                        <option value="" >Partially</option>
+                                    </select>
                                 </div>
                             </td>
                             <td>
@@ -269,14 +272,30 @@
                                 </div>
                             </td>
                         </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+            </div>
                         
-                        <mat-accordion>
-                            <mat-expansion-panel>
-                                <mat-expansion-panel-header>Main protective equipotential bonding at service entrance in numbers</mat-expansion-panel-header>
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>Integrated LPS Tests During Construction</mat-expansion-panel-header>
+                    <div class="row">
+                        <div class="col-sm-16">
+                            <div class="table-responsive" style="overflow-x: unset; margin-top: 20px;">
+                                <table class="table TableBorder">
+                                    <thead>
+                                        <th>SI.No</th>
+                                        <th>Description</th>
+                                        <th>Observation</th>
+                                        <th>Remarks(Optional)</th>
+                                    </thead>
+                        <tbody>
                          <tr>
-                            <td style="text-align: center;">8.1</td>
-                            <td>Integrated LPS tests during construction</td>
-                            <td>
+                            <td style="width: 1rem; text-align: center;">8.1</td>
+                            <td style="width: 24rem;">Earth stud visibility if any</td>
+                            <td style="width: 43rem;">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -289,7 +308,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td>
+                            <td style="width: 43rem;"> 
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -299,7 +318,9 @@
                                     <textarea [readonly]="isEditable" formControlName="continutyExistaEarthRem" type="text" class="form-control" ></textarea>
                                 </div>
                             </td>
-                        </tr><tr>
+                         </tr>
+
+                         <tr>
                             <td style="text-align: center;">8.2</td>
                             <td>Earth stud visibility if any</td>
                             <td>
@@ -325,8 +346,9 @@
                                     <textarea [readonly]="isEditable" formControlName="continutyExistaEarthRem" type="text" class="form-control" ></textarea>
                                 </div>
                             </td>
-                        </tr>
-                        <tr>
+                         </tr>
+
+                         <tr>
                             <td style="text-align: center;">8.3</td>
                             <td>Proper bonding rail</td>
                             <td>
@@ -352,9 +374,9 @@
                                     <textarea [readonly]="isEditable" formControlName="continutyExistaEarthRem" type="text" class="form-control" ></textarea>
                                 </div>
                             </td>
-                        </tr>
+                         </tr>
 
-                        <tr>
+                         <tr>
                             <td style="text-align: center;">8.4</td>
                             <td>Physical damage of stud</td>
                             <td>
@@ -380,7 +402,9 @@
                                     <textarea [readonly]="isEditable" formControlName="continutyExistaEarthRem" type="text" class="form-control" ></textarea>
                                 </div>
                             </td>
-                        </tr><tr>
+                         </tr>
+                        
+                         <tr>
                             <td style="text-align: center;">8.5</td>
                             <td>Whether continuity exist in earth stud</td>
                             <td>
@@ -406,14 +430,16 @@
                                     <textarea [readonly]="isEditable"  type="text" class="form-control" ></textarea>
                                 </div>
                             </td>
-                        </tr>
-                        </mat-expansion-panel>
-                        </mat-accordion>
-                    </tbody>
-                </table>
+                         </tr>
+                        </tbody>
+                    </table>
+                    </div>
                 </div>
-            </div>
-            </div>
+                </div>
+
+             </mat-expansion-panel>
+         </mat-accordion>
+                    
         </div>
         </div>
     <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
