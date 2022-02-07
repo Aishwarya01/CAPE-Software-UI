@@ -46,12 +46,30 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td style="width: 1rem; text-align: center;"></td>
-                                <td colspan="3" style="width: 24rem;">Measured Seperation distance beweeen air
-                                    termination and electrical
-                                    apparatus (lights, Solar PV, AC chillers, cameras…. Etc)(Measurement required in
-                                    atleast
-                                    10 locations on roof top)
+                                <td style="text-align: center;">1.</td>
+                                <td>Calculated seperation distance between LPS and other metallic parts of building</td>
+                                <td>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="bi bi-text-paragraph"></i>
+                                            </span>
+                                        </div>
+                                        <textarea [readonly]="isEditable" formControlName="continutyExistaEarthOb"  type="text" class="form-control" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && q.get('continutyExistaEarthOb')?.errors }"></textarea>
+                                        <div *ngIf="submitted && q.get('continutyExistaEarthOb')?.errors" class="invalid-feedback">
+                                            <div *ngIf="q.get('continutyExistaEarthOb')?.errors?.required">Size of main protective equipotential bonding is required</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="bi bi-text-paragraph"></i>
+                                            </span>
+                                        </div>
+                                        <textarea [readonly]="isEditable" formControlName="continutyExistaEarthRem" type="text" class="form-control" ></textarea>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -63,22 +81,9 @@
                         <tbody formArrayName="separateDistance"
                             *ngFor="let f of getseparateDistanceDescriptionControls(q); let i = index">
                             <div class="form-group" [formGroupName]="i">
-                                <td style="width: 4rem; text-align: center;">{{i+1}}</td>
-                                <td style="width: 43rem; margin-left: 1rem;">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                <i class="bi bi-text-paragraph"></i>
-                                            </span>
-                                        </div>
-                                        <textarea type="text" [readonly]="isEditable" formControlName="seperationDistanceDesc"
-                                            class="form-control" placeholder="Please enter Description here"
-                                            [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceDesc')?.errors }"></textarea>
-                                        <div *ngIf="submitted && f.get('seperationDistanceDesc')?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.get('seperationDistanceDesc')?.errors?.required">SeparateDistance Description is required</div>
-                                        </div>
-                                    </div>
-                                </td>
+                                <td style="width: 4rem; text-align: center;">2.{{i+1}}</td>
+                                <td>Calculated seperation distance between LPS and other metallic parts of building</td>
+                                
                                 <td style="width: 43rem;">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -88,9 +93,9 @@
                                         </div>
                                         <textarea type="text" [readonly]="isEditable" formControlName="seperationDistanceOb"
                                             class="form-control" placeholder="Please enter Observation here"
-                                            [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceOb')?.errors }"></textarea>
-                                        <div *ngIf="submitted && f.get('seperationDistanceOb')?.errors" class="invalid-feedback">
-                                            <div *ngIf="f.get('seperationDistanceOb')?.errors?.required"> SeparateDistance Observation is required</div>
+                                            [ngClass]="{ 'is-invalid': submitted && q.get('seperationDistanceOb')?.errors }"></textarea>
+                                        <div *ngIf="submitted && q.get('seperationDistanceOb')?.errors" class="invalid-feedback">
+                                            <div *ngIf="q.get('seperationDistanceOb')?.errors?.required"> SeparateDistance Observation is required</div>
                                         </div>
                                     </div>
                                 </td>
