@@ -57,7 +57,7 @@ export class LpsBasicPageComponent implements OnInit {
       contractorName: ['', Validators.required],
       address: ['', Validators.required],
       location: ['', Validators.required],
-      installationContractor: ['', Validators.required],
+      // installationContractor: ['', Validators.required],
       industryType: ['', Validators.required],
       // buildingType: ['', Validators.required],
       // buildingLength: ['', Validators.required],
@@ -104,7 +104,7 @@ export class LpsBasicPageComponent implements OnInit {
       this.basicDetails.createdDate = this.step1List.createdDate;
       this.basicDetails.dealerContractorName = this.step1List.dealerContractorName;
       this.basicDetails.industryType = this.step1List.industryType;
-      this.basicDetails.installationContractor = this.step1List.installationContractor;
+      // this.basicDetails.installationContractor = this.step1List.installationContractor;
       this.basicDetails.levelOfProtection = this.step1List.levelOfProtection;
       this.basicDetails.location = this.step1List.location;
       this.basicDetails.soilResistivity = this.step1List.soilResistivity;
@@ -143,7 +143,7 @@ export class LpsBasicPageComponent implements OnInit {
        this.basicDetails.createdDate = this.stepBack[0].createdDate;
        this.basicDetails.dealerContractorName = this.stepBack[0].dealerContractorName;
        this.basicDetails.industryType = this.stepBack[0].industryType;
-       this.basicDetails.installationContractor = this.stepBack[0].installationContractor;
+      //  this.basicDetails.installationContractor = this.stepBack[0].installationContractor;
        this.basicDetails.levelOfProtection = this.stepBack[0].levelOfProtection;
        this.basicDetails.location = this.stepBack[0].location;
        this.basicDetails.soilResistivity = this.stepBack[0].soilResistivity;

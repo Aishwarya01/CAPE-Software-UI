@@ -140,7 +140,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <!-- <div class="col-md-4">
                     <label for="installationbyCAPE/contractor/dealer">Installation by CAPE /
                         Contractor/Dealer </label>
                     <div class="input-group">
@@ -158,7 +158,7 @@
                                 Contractor/Dealer is required</div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="col-md-4">
                     <label for="typeofindustry">Type of Industry </label>
@@ -178,7 +178,7 @@
                 </div>
 
                 <div class="col-md-4">
-                    <label for="soilresistivity">Soil Resistivity-(Ω) (Optional)</label>
+                    <label for="soilresistivity">Soil Resistivity in ohm-meter(Optional)</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -188,6 +188,101 @@
                         <input (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Enter Soil Resistivity"
                             [readonly]="isEditable" formControlName="soilResistivity" [(ngModel)]="basicDetails.soilResistivity"/>
                     </div>
+                </div>                
+            </div>
+
+            <div class="row" style="font-weight: bold;">
+                <label for="Basicdetails" style="font-weight: bold;margin: 10px; font-size: 16px;">Person who ordering the report</label>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="clientname">Name</label>
+                    <!-- icon code -->
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> 
+                                <i class="bi bi-person-lines-fill"></i>
+                            </span>
+                        </div>
+                        <input tpe="text" class="form-control" placeholder="Enter clientname"
+                            [readonly]="isEditable"/>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="clientname">Company</label>
+                    <!-- icon code -->
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> 
+                                <i class="bi bi-building"></i>
+                            </span>
+                        </div>
+                        <input tpe="text" class="form-control" placeholder="Enter clientname"
+                            [readonly]="isEditable"/>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="clientname">Designation</label>
+                    <!-- icon code -->
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> 
+                                <i class="bi bi-person-lines-fill"></i>
+                            </span>
+                        </div>
+                        <input tpe="text" class="form-control" placeholder="Enter clientname"
+                            [readonly]="isEditable"/>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="clientname">Contact Number</label>
+                    <!-- icon code -->
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> 
+                                <i class="bi bi-phone-fill"></i>
+                            </span>
+                        </div>
+                        <input tpe="text" class="form-control" placeholder="Enter clientname"
+                            [readonly]="isEditable"/>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="clientname">Mail Id</label>
+                    <!-- icon code -->
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> 
+                                <i class="bi bi-envelope-fill"></i>
+                            </span>
+                        </div>
+                        <input tpe="text" class="form-control" placeholder="Enter clientname" [readonly]="isEditable"/>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <label>Availability of previous report</label>
+                    <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> 
+                            <i class="bi bi-check-square-fill"></i>
+                        </span>
+                    </div>
+                    <select class="form-control">
+                        <option value="" selected>Select Yes/No</option>
+                        <option value="" >Yes</option>
+                        <option value="" >No</option>
+                    </select>
+                    </div>
                 </div>
             </div>
 
@@ -195,9 +290,9 @@
                 <button class="next" (click)="gotoNextModal(content,contents)" mat-button >Next &raquo;</button>
             </div>
        
-        <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+            <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
             <span class="alert alert-danger">{{validationErrorMsg}}</span>
-        </div>
+            </div>
     </form>
 </div>
 </div>
