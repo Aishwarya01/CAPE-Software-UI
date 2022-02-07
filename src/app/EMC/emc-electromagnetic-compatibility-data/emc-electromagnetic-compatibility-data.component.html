@@ -2,13 +2,10 @@
     <span class="alert alert-danger">{{validationErrorMsgTab}}</span>
 </div>
 <div class="card">
-    <!-- <div>
-        <h2 style="text-align: center;">ELECTROMAGNETIC COMPATIBILITY (EMC) DATA</h2>
-    </div>2 -->
     <div class="card-body">
         <mat-accordion>
-            <form [formGroup]="EMCElectroMagneticFormm" (ngSubmit)="saveElectroMagneticData(flag)"
-                (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
+            <form [formGroup]="EMCElectroMagneticFormm" (ngSubmit)="saveElectroMagneticData(flag)">
+                <!-- (keyup)="onKeyForm($event)" (change)="onChangeForm($event)"> -->
 
                 <mat-expansion-panel class="body">
 

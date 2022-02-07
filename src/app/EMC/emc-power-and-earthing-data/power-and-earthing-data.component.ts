@@ -38,10 +38,10 @@ export class PowerAndEarthingDataComponent implements OnInit {
   modalReference: any;
   email: String;
   step1List2: any;
-  arr1: any;
-  arr2: any;
-  emcId: number = 0;
-
+  arr1: any = [];
+  arr2: any = [];
+  emcId!: number;
+ 
   constructor(
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
@@ -149,14 +149,14 @@ export class PowerAndEarthingDataComponent implements OnInit {
   }
 
   gotoNextModal(content2: any) {
-    if (this.EMCPowerAndEarthForm.invalid) {
-      this.validationError = true;
-      this.validationErrorMsg = "Please check all the fields";
-      //     setTimeout(()=>{
-      //       this.validationError=false;
-      //  }, 3000);
-      return;
-    }
+    // if (this.EMCPowerAndEarthForm.invalid) {
+    //   this.validationError = true;
+    //   this.validationErrorMsg = "Please check all the fields";
+    //   //     setTimeout(()=>{
+    //   //       this.validationError=false;
+    //   //  }, 3000);
+    //   return;
+    // }
     if (this.EMCPowerAndEarthForm.touched || this.EMCPowerAndEarthForm.untouched) {
       this.modalReference = this.modalService.open(content2, {
         centered: true,
@@ -188,9 +188,6 @@ export class PowerAndEarthingDataComponent implements OnInit {
 
     }
   }
-
-
-
 
   retrieveDetailsfromSavedReports(userName: any, emcId: any, data: any) {
 
@@ -226,8 +223,20 @@ export class PowerAndEarthingDataComponent implements OnInit {
     this.emcPowerAndEarthingData.createdDate = this.step1List2.createdDate;
     this.emcPowerAndEarthingData.userName = this.step1List2.userName;
 
-    this.populateData();
+    // this.populateData();
     this.flag = true;
+
+    for (let i of this.step1List2[0].electronicSystem) {
+      this.EMCPowerAndEarthForm.patchValue({
+        electronicSystemArr: [i],
+      })
+    }
+
+    for (let i of this.step1List2[0].distrubutionPannel) {
+      this.EMCPowerAndEarthForm.patchValue({
+        distributionPannelArr: [i],
+      })
+    }
   }
 
   populateData() {
@@ -397,17 +406,14 @@ export class PowerAndEarthingDataComponent implements OnInit {
   }
 
   savePowerAndEarthingData(flag: any) {
-    this.submitted = true;
-    if (this.EMCPowerAndEarthForm.invalid) {
-      return
-    }
-    console.log(this.EMCPowerAndEarthForm);
+    // this.submitted = true;
+    // if (this.EMCPowerAndEarthForm.invalid) {
+    //   return
+    // }
 
     this.emcPowerAndEarthingData.userName = this.email;
-    if (!flag) {
-      this.emcPowerAndEarthingData.emcId = this.service.siteCount;
-    }
-
+    
+    this.emcPowerAndEarthingData.emcId = this.emcId;
 
     this.electronicSystemArr = this.EMCPowerAndEarthForm.get('electronicSystemArr') as FormArray;
     this.emcPowerAndEarthingData.electronicSystem = this.EMCPowerAndEarthForm.value.electronicSystemArr;
@@ -439,41 +445,14 @@ export class PowerAndEarthingDataComponent implements OnInit {
     }
 
     else {
-      // this.emcPowerAndEarthingDataService
-      //   .savePowerEarthingData(this.emcPowerAndEarthingData)
-      //   .subscribe(
-      //     (data: any) => {
-      //       this.finalSpinner = false;
-      //       this.popup = true;
-      //       this.success = true;
-      //       this.successMsg = data;
-      //       this.emcPowerAndEarthingDataService
-      //         .retrievePowerEarthingData(this.emcPowerAndEarthingData.userName, this.emcPowerAndEarthingData.emcId)
-      //         .subscribe(
-      //           (data: any) => {
-      //             this.retrivePowerEarthingData(this.emcPowerAndEarthingData.userName, this.emcPowerAndEarthingData.emcId, data);
-      //           },
-      //           (error: any) => {
-      //           });
-      //     },
-      //     (error: any) => {
-      //       this.finalSpinner = false;
-      //       this.popup = true;
-      //       this.Error = true;
-      //       this.errorArr = [];
-      //       this.errorArr = JSON.parse(error.error);
-      //       this.errorMsg = this.errorArr.message;
-      //     });
+     
       this.emcPowerAndEarthingDataService.savePowerEarthingData(this.emcPowerAndEarthingData).subscribe(
 
         data => {
-          let emcPowerAndEarthingData = JSON.parse(data);
-
-          this.emcPowerAndEarthingData.emcId = emcPowerAndEarthingData.emcId;
           this.finalSpinner = false;
           this.popup = true;
           this.success = true;
-          this.successMsg = "Power And Earthing Data Information sucessfully Saved";
+          this.successMsg = data;
           //this.disable = true;
           this.retrivePowerAndEarthingDetails();
           this.proceedNext.emit(true);
@@ -493,9 +472,10 @@ export class PowerAndEarthingDataComponent implements OnInit {
   }
 
   retrivePowerAndEarthingDetails() {
-    this.emcPowerAndEarthingDataService.retrievePowerEarthingData(this.router.snapshot.paramMap.get('email') || '{}', this.emcPowerAndEarthingData.emcId).subscribe(
+    this.emcPowerAndEarthingDataService.retrievePowerEarthingData(this.emcPowerAndEarthingData.userName, this.emcPowerAndEarthingData.emcId).subscribe(
       data => {
-        this.retrieveDetailsfromSavedReports(this.emcPowerAndEarthingData.userName, this.emcPowerAndEarthingData.emcId,data);
+        this.retrivePowerEarthingData(this.emcPowerAndEarthingData.userName, this.emcPowerAndEarthingData.emcId,data);
+        
       },
       error => {
       }

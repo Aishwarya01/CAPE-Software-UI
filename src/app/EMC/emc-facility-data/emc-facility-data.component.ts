@@ -23,7 +23,7 @@ export class EmcFacilityDataComponent implements OnInit {
 
   EMCFacilityForm!: FormGroup;
 
-  emcFacilityData = new EmcFacilityData();
+  emcFacilityData = new EmcFacilityData;
   @Output() proceedNext = new EventEmitter<any>();
   flag: boolean = false;
   floorCoveringArr!: FormArray;
@@ -44,10 +44,8 @@ export class EmcFacilityDataComponent implements OnInit {
   popup: boolean = false;
   modalReference: any;
 
-
   arr1: any = [];
-
-
+  
   constructor(
     private formBuilder: FormBuilder,
     private router: ActivatedRoute,
@@ -143,12 +141,9 @@ export class EmcFacilityDataComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(userName: any, emcId: any, data: any) {
-
-    console.log(data);
-
+   
     this.step1List = data.emcFacilityData;
     this.emcFacilityData.emcId = emcId;
-    // this.emcFacilityData.facilityDataId = this.step1List.facilityDataId;
     this.emcFacilityData.blType = this.step1List.blType;
     this.emcFacilityData.blOtherDescription = this.step1List.blOtherDescription;
     this.emcFacilityData.bcType = this.step1List.bcType;
@@ -190,23 +185,24 @@ export class EmcFacilityDataComponent implements OnInit {
     this.emcFacilityData.userName = this.step1List.userName;
 
     // this.populateData();
-    this.flag = true;
+
     for (let i of this.step1List[0].floorCovering) {
       this.EMCFacilityForm.patchValue({
         floorCoveringArr: [i],
       })
     }
+    this.flag = true;
   }
 
-  // populateData() {
-  //   for (let item of this.step1List.floorCovering) {
-  //     if (item.flag) { this.arr1.push(this.createGroup(item)); }
+  populateData() {
+    for (let item of this.step1List.floorCovering) {
+      if (item.flag) { this.arr1.push(this.createGroup(item)); }
 
-  //   }
-  //   this.EMCFacilityForm.setControl('floorCoveringArr', this.formBuilder.array(this.arr1 || []))
-  //   this.arr1 = [];
+    }
+    this.EMCFacilityForm.setControl('floorCoveringArr', this.formBuilder.array(this.arr1 || []))
+    this.arr1 = [];
 
-  // }
+  }
 
   createGroup(item: any): FormGroup {
     return this.formBuilder.group({
@@ -258,7 +254,6 @@ export class EmcFacilityDataComponent implements OnInit {
     this.flag = true;
     this.step1List = JSON.parse(data);
     this.emcFacilityData.userName = userName;
-    // this.emcFacilityData.facilityDataId = this.step1List[0].facilityDataId;
     this.emcFacilityData.emcId = emcId;
     this.emcFacilityData.blType = this.step1List[0].blType;
     this.emcFacilityData.blOtherDescription = this.step1List[0].blOtherDescription;
@@ -374,14 +369,14 @@ export class EmcFacilityDataComponent implements OnInit {
   }
 
   gotoNextModal(content1: any) {
-    if (this.EMCFacilityForm.invalid) {
-      this.validationError = true;
-      this.validationErrorMsg = "Please check all the fields";
-      //     setTimeout(()=>{
-      //       this.validationError=false;
-      //  }, 3000);
-      return;
-    }
+    // if (this.EMCFacilityForm.invalid) {
+    //   this.validationError = true;
+    //   this.validationErrorMsg = "Please check all the fields";
+    //   //     setTimeout(()=>{
+    //   //       this.validationError=false;
+    //   //  }, 3000);
+    //   return;
+    // }
 
     if (this.EMCFacilityForm.touched || this.EMCFacilityForm.untouched) {
       this.modalReference = this.modalService.open(content1, {
@@ -397,16 +392,12 @@ export class EmcFacilityDataComponent implements OnInit {
   }
   saveFacilityData(flag: any) {
 
-    this.submitted = true;
-    if (this.EMCFacilityForm.invalid) {
-      return;
-    }
+    // this.submitted = true;
+    // if (this.EMCFacilityForm.invalid) {
+    //   return;
+    // }
 
     this.emcFacilityData.userName = this.router.snapshot.paramMap.get('email') || '{}';
-
-    // if (!flag) {
-    //   this.emcFacilityData.emcId = this.service.siteCount;
-    // }
 
     this.floorCoveringArr = this.EMCFacilityForm.get('floorCoveringArr') as FormArray;
     this.emcFacilityData.floorCovering = this.EMCFacilityForm.value.floorCoveringArr;
@@ -435,44 +426,16 @@ export class EmcFacilityDataComponent implements OnInit {
     }
 
     else {
-      //   this.emcFacilityDataService
-      //     .addFacilityData(this.emcFacilityData)
-      //     .subscribe(
-      //       (data: any) => {
-      //         this.finalSpinner = false;
-      //         this.popup = true;
-      //         this.success = true;
-      //         this.successMsg = data;
-      //         this.emcFacilityDataService
-      //           .retrieveFacilityData(this.emcFacilityData.userName, this.emcFacilityData.emcId)
-      //           .subscribe(
-      //             (data: any) => {
-      //               this.retriveFacilityData(this.emcFacilityData.userName, this.emcFacilityData.emcId, data);
-      //             },
-      //             (error: any) => {
-
-      //             });
-      //       },
-      //       (error: any) => {
-      //         this.finalSpinner = false;
-      //         this.popup = true;
-      //         this.Error = true;
-      //         this.errorArr = [];
-      //         this.errorArr = JSON.parse(error.error);
-      //         this.errorMsg = this.errorArr.message;
-      //       })
-      // }
-
       this.emcFacilityDataService.addFacilityData(this.emcFacilityData).subscribe(
 
         data => {
-          // let emcFacilityDataItr = JSON.parse(data);
+          let emcFacilityDataItr = JSON.parse(data);
 
-          // this.emcFacilityData.emcId = emcFacilityDataItr.emcId;
+          this.emcFacilityData.emcId = emcFacilityDataItr.emcId;
           this.finalSpinner = false;
           this.popup = true;
           this.success = true;
-          this.successMsg = data;
+          this.successMsg = "Facility Data Successfully Saved";
           //this.disable = true;
           this.retriveFacilityDetails();
           this.proceedNext.emit(true);
@@ -494,8 +457,7 @@ export class EmcFacilityDataComponent implements OnInit {
   retriveFacilityDetails() {
     this.emcFacilityDataService.retrieveFacilityData(this.emcFacilityData.userName, this.emcFacilityData.emcId).subscribe(
       data => {
-        console.log(this.emcFacilityData.emcId);
-        this.retrieveDetailsfromSavedReports(this.emcFacilityData.userName, this.emcFacilityData.emcId,data);
+        this.retriveFacilityData(this.emcFacilityData.userName, this.emcFacilityData.emcId,data);
       },
       error => {
       }
