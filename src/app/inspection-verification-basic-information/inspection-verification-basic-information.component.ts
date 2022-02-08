@@ -218,7 +218,7 @@ ShowNext: boolean = true;
     private registerService: InspectorregisterService,
     private ChangeDetectorRef: ChangeDetectorRef,public datepipe: DatePipe) {
      
-    this.email = this.router.snapshot.paramMap.get('url') || '{}';
+    this.email = this.router.snapshot.paramMap.get('email') || '{}';
     setInterval(() => {
       this.today = new Date();
     }, 1);
@@ -1776,19 +1776,20 @@ onPopState(event:any) {
 
      if(this.step1Form.touched || this.step1Form.untouched){
        if(this.service.sigInput==1){
-        this.modalService.open(content1, { centered: true});
-       // this.modalReference.close();
+        this.modalReference=this.modalService.open(content1, { centered: true,backdrop: 'static'});
+        this.modalReference.close();
        }
        else{
       this.modalReference = this.modalService.open(content2, {
          centered: true, 
          size: 'md',
          backdrop: 'static'
-        })
+        });
+        this.modalReference.close();
       }
      }
      if(this.step1Form.dirty && this.step1Form.touched){ //update
-      this.modalService.open(content1, { centered: true,backdrop: 'static'});
+      this.modalReference=this.modalService.open(content1, { centered: true,backdrop: 'static'});
       this.modalReference.close();
      }
     }
