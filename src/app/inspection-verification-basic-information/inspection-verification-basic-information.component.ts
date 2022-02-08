@@ -1776,21 +1776,21 @@ onPopState(event:any) {
 
      if(this.step1Form.touched || this.step1Form.untouched){
        if(this.service.sigInput==1){
-        this.modalReference=this.modalService.open(content1, { centered: true,backdrop: 'static'});
-        this.modalReference.close();
+        this.modalService.open(content1, { centered: true,backdrop: 'static'});
+        //this.modalReference.close();
        }
        else{
-      this.modalReference = this.modalService.open(content2, {
+      this.modalService.open(content2, {
          centered: true, 
          size: 'md',
          backdrop: 'static'
         });
-        this.modalReference.close();
+       // this.modalReference.close();
       }
      }
      if(this.step1Form.dirty && this.step1Form.touched){ //update
-      this.modalReference=this.modalService.open(content1, { centered: true,backdrop: 'static'});
-      this.modalReference.close();
+      this.modalService.open(content1, { centered: true,backdrop: 'static'});
+      //this.modalReference.close();
      }
     }
    
