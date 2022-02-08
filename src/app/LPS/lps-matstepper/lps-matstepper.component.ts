@@ -100,42 +100,42 @@ export class LpsMatstepperComponent implements OnInit {
     this.airTermination.ClientName=this.basic.basicDetails.clientName;
     this.airTermination.projectName=this.basic.basicDetails.projectName;
     this.airTermination.industryType=this.basic.basicDetails.industryType;
-    this.airTermination.buildingType=this.basic.basicDetails.buildingType;
+   // this.airTermination.buildingType=this.basic.basicDetails.buildingType;
     this.airTermination.isEditable=this.isEditable;
     // DownConductor
     this.downConductors.basicLpsId=this.basic.basicDetails.basicLpsId;
     this.downConductors.ClientName=this.basic.basicDetails.clientName;
     this.downConductors.projectName=this.basic.basicDetails.projectName;
     this.downConductors.industryType=this.basic.basicDetails.industryType;
-    this.downConductors.buildingType=this.basic.basicDetails.buildingType;
+    //this.downConductors.buildingType=this.basic.basicDetails.buildingType;
     this.downConductors.isEditable=this.isEditable;
     // Earthing
     this.earthing.basicLpsId=this.basic.basicDetails.basicLpsId;
     this.earthing.ClientName=this.basic.basicDetails.clientName;
     this.earthing.projectName=this.basic.basicDetails.projectName;
     this.earthing.industryType=this.basic.basicDetails.industryType;
-    this.earthing.buildingType=this.basic.basicDetails.buildingType;
+   // this.earthing.buildingType=this.basic.basicDetails.buildingType;
     this.earthing.isEditable=this.isEditable;
     // SPD
     this.spd.basicLpsId=this.basic.basicDetails.basicLpsId;
     this.spd.ClientName=this.basic.basicDetails.clientName;
     this.spd.projectName=this.basic.basicDetails.projectName;
     this.spd.industryType=this.basic.basicDetails.industryType;
-    this.spd.buildingType=this.basic.basicDetails.buildingType;
+   // this.spd.buildingType=this.basic.basicDetails.buildingType;
     this.spd.isEditable=this.isEditable;
     // Seperation Distance
     this.seperationDistance.basicLpsId=this.basic.basicDetails.basicLpsId;
     this.seperationDistance.ClientName=this.basic.basicDetails.clientName;
     this.seperationDistance.projectName=this.basic.basicDetails.projectName;
     this.seperationDistance.industryType=this.basic.basicDetails.industryType;
-    this.seperationDistance.buildingType=this.basic.basicDetails.buildingType;
+    //this.seperationDistance.buildingType=this.basic.basicDetails.buildingType;
     this.seperationDistance.isEditable=this.isEditable;
     // EarthStud
     this.earthStud.basicLpsId=this.basic.basicDetails.basicLpsId;
     this.earthStud.ClientName=this.basic.basicDetails.clientName;
     this.earthStud.projectName=this.basic.basicDetails.projectName;
     this.earthStud.industryType=this.basic.basicDetails.industryType;
-    this.earthStud.buildingType=this.basic.basicDetails.buildingType;
+    //this.earthStud.buildingType=this.basic.basicDetails.buildingType;
     this.earthStud.isEditable=this.isEditable;
 
     this.Completed1 = this.basic.success;

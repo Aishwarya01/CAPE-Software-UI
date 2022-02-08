@@ -50,23 +50,23 @@ export class LpsBasicPageComponent implements OnInit {
     
     this.LPSBasicForm = this.formBuilder.group({
     
+     // userName: ['', Validators.required],
       clientName: ['', Validators.required],
       projectName: ['', Validators.required],
       pmcName: ['', Validators.required],
       consultantName: ['', Validators.required],
       contractorName: ['', Validators.required],
+      dealerContractorName: ['', Validators.required],
       address: ['', Validators.required],
       location: ['', Validators.required],
-      // installationContractor: ['', Validators.required],
       industryType: ['', Validators.required],
-      // buildingType: ['', Validators.required],
-      // buildingLength: ['', Validators.required],
-      // buildingHeight: ['', Validators.required],
-      // levelOfProtection: ['', Validators.required],
-      soilResistivity: [''],
-      dealerContractorName: ['', Validators.required],
-      // buildingWidth: ['', Validators.required],
-      // basicLpsDescription: this.formBuilder.array([this.createLpsDescriptionarr()])
+      soilResistivity: ['', Validators.required],
+      name: ['', Validators.required],
+      company: ['', Validators.required],
+      designation: ['', Validators.required],
+      contactNumber: ['', Validators.required],
+      mailId: ['', Validators.required],
+      availabilityOfPreviousReport: ['', Validators.required],
     });
 
   }
@@ -94,30 +94,24 @@ export class LpsBasicPageComponent implements OnInit {
       this.basicDetails.projectName = this.step1List.projectName;
       this.basicDetails.pmcName = this.step1List.pmcName;
       this.basicDetails.address = this.step1List.address;
-      this.basicDetails.buildingHeight = this.step1List.buildingHeight;
-      this.basicDetails.buildingLength = this.step1List.buildingLength;
-      this.basicDetails.buildingType = this.step1List.buildingType;
-      this.basicDetails.buildingWidth = this.step1List.buildingWidth;
       this.basicDetails.consultantName = this.step1List.consultantName;
       this.basicDetails.contractorName = this.step1List.contractorName;
       this.basicDetails.createdBy = this.step1List.createdBy;
       this.basicDetails.createdDate = this.step1List.createdDate;
       this.basicDetails.dealerContractorName = this.step1List.dealerContractorName;
       this.basicDetails.industryType = this.step1List.industryType;
-      // this.basicDetails.installationContractor = this.step1List.installationContractor;
-      this.basicDetails.levelOfProtection = this.step1List.levelOfProtection;
       this.basicDetails.location = this.step1List.location;
       this.basicDetails.soilResistivity = this.step1List.soilResistivity;
       this.basicDetails.userName = this.step1List.userName;
       this.basicDetails.allStepsCompleted = this.step1List.allStepsCompleted;
-      // for(let i of this.step1List.basicLpsDescription) {
-      //   this.LPSBasicForm.patchValue ({
-      //    basicLpsDescription: [i],
-      //   })
-      //  }
-    //  }
-     
-    this.flag=true;
+      this.basicDetails.name = this.step1List.name;
+      this.basicDetails.company = this.step1List.company;
+      this.basicDetails.designation = this.step1List.designation;
+      this.basicDetails.contactNumber = this.step1List.contactNumber;
+      this.basicDetails.mailId = this.step1List.mailId;
+      this.basicDetails.availabilityOfPreviousReport = this.step1List.availabilityOfPreviousReport;
+      this.basicDetails.updatedBy = this.step1List.updatedBy;
+      this.basicDetails.updatedDate = this.step1List.updatedDate;
     }
 
     reset(){
@@ -127,62 +121,33 @@ export class LpsBasicPageComponent implements OnInit {
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
       //this.service.lvClick=1;
 
-       this.stepBack=JSON.parse(data);
-       this.basicDetails.basicLpsId = basicLpsId;
-       this.basicDetails.clientName = this.stepBack[0].clientName;
-       this.basicDetails.projectName = this.stepBack[0].projectName;
-       this.basicDetails.pmcName = this.stepBack[0].pmcName;
-       this.basicDetails.address = this.stepBack[0].address;
-       this.basicDetails.buildingHeight = this.stepBack[0].buildingHeight;
-       this.basicDetails.buildingLength = this.stepBack[0].buildingLength;
-       this.basicDetails.buildingType = this.stepBack[0].buildingType;
-       this.basicDetails.buildingWidth = this.stepBack[0].buildingWidth;
-       this.basicDetails.consultantName = this.stepBack[0].consultantName;
-       this.basicDetails.contractorName = this.stepBack[0].contractorName;
-       this.basicDetails.createdBy = this.stepBack[0].createdBy;
-       this.basicDetails.createdDate = this.stepBack[0].createdDate;
-       this.basicDetails.dealerContractorName = this.stepBack[0].dealerContractorName;
-       this.basicDetails.industryType = this.stepBack[0].industryType;
-      //  this.basicDetails.installationContractor = this.stepBack[0].installationContractor;
-       this.basicDetails.levelOfProtection = this.stepBack[0].levelOfProtection;
-       this.basicDetails.location = this.stepBack[0].location;
-       this.basicDetails.soilResistivity = this.stepBack[0].soilResistivity;
-       this.basicDetails.userName = this.stepBack[0].userName;
-       this.basicDetails.allStepsCompleted = this.stepBack[0].allStepsCompleted;
-      //  for(let i of this.stepBack[0].basicLpsDescription) {
-      //    this.LPSBasicForm.patchValue ({
-      //     basicLpsDescription: [i],
-      //    })
-      //   }
-     this.flag=true;
+      this.stepBack=JSON.parse(data);
+      this.basicDetails.basicLpsId = basicLpsId;
+      this.basicDetails.clientName = this.stepBack[0].clientName;
+      this.basicDetails.projectName = this.stepBack[0].projectName;
+      this.basicDetails.pmcName = this.stepBack[0].pmcName;
+      this.basicDetails.address = this.stepBack[0].address;
+      this.basicDetails.consultantName = this.stepBack[0].consultantName;
+      this.basicDetails.contractorName = this.stepBack[0].contractorName;
+      this.basicDetails.createdBy = this.stepBack[0].createdBy;
+      this.basicDetails.createdDate = this.stepBack[0].createdDate;
+      this.basicDetails.dealerContractorName = this.stepBack[0].dealerContractorName;
+      this.basicDetails.industryType = this.stepBack[0].industryType;
+      this.basicDetails.location = this.stepBack[0].location;
+      this.basicDetails.soilResistivity = this.stepBack[0].soilResistivity;
+      this.basicDetails.userName = this.stepBack[0].userName;
+      this.basicDetails.allStepsCompleted = this.stepBack[0].allStepsCompleted;
+      this.basicDetails.name = this.stepBack[0].name;
+      this.basicDetails.company = this.stepBack[0].company;
+      this.basicDetails.designation = this.stepBack[0].designation;
+      this.basicDetails.contactNumber = this.stepBack[0].contactNumber;
+      this.basicDetails.mailId = this.stepBack[0].mailId;
+      this.basicDetails.availabilityOfPreviousReport = this.stepBack[0].availabilityOfPreviousReport;
+      this.basicDetails.updatedBy = this.stepBack[0].updatedBy;
+      this.basicDetails.updatedDate = this.stepBack[0].updatedDate;
      this.LPSBasicForm.markAsPristine();
      }
- 
-
-
-  // private createLpsDescriptionarr() {
-  //   return this.formBuilder.group({
-  //     basicLpsDescriptionId: [''],
-  //     approvedDrawingObserv: ['', Validators.required],
-  //     approvedDrawingRemarks: [''],
-  //     architectNameObserv: ['', Validators.required],
-  //     architectNameRemarks: [''],
-  //     designDateObserv: ['', Validators.required],
-  //     designDateRemarks: [''],
-  //     approvedByObserv: ['', Validators.required],
-  //     approvedByRemarks: [''],
-  //     dateOfApprovalOb: ['', Validators.required],
-  //     dateOfApprovalRem: [''],
-  //     drawingObserv: ['', Validators.required],
-  //     drawingRemarks: [''],
-  //     revisionNoObserv: ['', Validators.required],
-  //     revisionNoRemarks: [''],
-  //     deviationObserv: ['', Validators.required],
-  //     deviationRemarks: [''],
-  //     installationQualityObserv: ['', Validators.required],
-  //     installationQualityRemarks: ['']
-  //   });
-  // }
+  
   
   onChangeForm(event:any){
     if(!this.LPSBasicForm.invalid){
@@ -279,6 +244,7 @@ export class LpsBasicPageComponent implements OnInit {
   }
  
   onSubmit(flag: any) {
+    debugger
     this.submitted=true;
      if (this.LPSBasicForm.invalid) {
        return;
@@ -286,7 +252,7 @@ export class LpsBasicPageComponent implements OnInit {
      
 
     this.basicDetails.userName=this.router.snapshot.paramMap.get('email') || '{}';
-    this.basicDetails.basicLpsDescription = this.LPSBasicForm.value.basicLpsDescription;
+    this.basicDetails = this.LPSBasicForm.value;
     if (!this.validationError) {
     if(flag) {
       if(this.LPSBasicForm.dirty && this.LPSBasicForm.touched){ 
