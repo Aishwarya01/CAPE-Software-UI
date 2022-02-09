@@ -55,6 +55,8 @@ export class LpsEarthingComponent implements OnInit {
   ClampsPushArr: any = [];
   chamberPushArr: any = [];
   isEditable!:boolean
+  applicableChambers: boolean=false;
+  applicableClamps: boolean=false;
   constructor(
     private formBuilder: FormBuilder, 
     private lpsEarthings: LpsEarthing,
@@ -568,6 +570,68 @@ export class LpsEarthingComponent implements OnInit {
 
   get f() {
     return this.earthingForm.controls;
+  }
+  onChangeClamps(event: any,a:any) {
+    let changedValue;
+    if(event.target != undefined) {
+      changedValue = event.target.value;
+    }
+    else{
+      changedValue = event;
+    }
+    if (changedValue == 'Not applicable') {
+      this.applicableClamps=false;
+      for(let y in a.controls){
+        console.log(y);
+        a.controls[y].clearValidators();
+        a.controls[y].updateValueAndValidity();
+      }
+     // a.controls['physicalInspectionOb'].clearValidators();
+     // a.controls['physicalInspectionOb'].updateValueAndValidity();
+
+    }
+    else{
+      this.applicableClamps=true;
+      for(let y in a.controls){
+        console.log(y);
+        a.controls[y].setValidators([Validators.required]);
+        a.controls[y].updateValueAndValidity();
+      }
+     // a.controls['physicalInspectionOb'].setValidators([Validators.required]);
+      //a.controls['physicalInspectionOb'].updateValueAndValidity();
+   
+    }
+  }
+  onChangeChambers(event: any,a:any) {
+    let changedValue;
+    if(event.target != undefined) {
+      changedValue = event.target.value;
+    }
+    else{
+      changedValue = event;
+    }
+    if (changedValue == 'Not applicable') {
+      this.applicableChambers=false;
+      for(let y in a.controls){
+        console.log(y);
+        a.controls[y].clearValidators();
+        a.controls[y].updateValueAndValidity();
+      }
+     // a.controls['physicalInspectionOb'].clearValidators();
+     // a.controls['physicalInspectionOb'].updateValueAndValidity();
+
+    }
+    else{
+      this.applicableChambers=true;
+      for(let y in a.controls){
+        console.log(y);
+        a.controls[y].setValidators([Validators.required]);
+        a.controls[y].updateValueAndValidity();
+      }
+     // a.controls['physicalInspectionOb'].setValidators([Validators.required]);
+      //a.controls['physicalInspectionOb'].updateValueAndValidity();
+   
+    }
   }
  onChangeForm(event:any){
     if(!this.earthingForm.invalid){

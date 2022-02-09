@@ -265,9 +265,20 @@
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
-                    <mat-expansion-panel-header>Down conductors</mat-expansion-panel-header>
-                    <div class="row">
-                    <div class="col-sm-16">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h3>Down conductors</h3>
+                        </mat-panel-title>
+                            <!-- <mat-panel-description *ngFor="let a of vatControls(q); let j = index">
+                                <select class="ButtonSave" 
+                                (change)="onChangeDown($event,a)">
+                                <option value="" selected>Select Option</option>
+                                <option value="applicable" >applicable </option>
+                                <option value="not applicable" >not applicable</option>
+                                </select>
+                              </mat-panel-description> -->
+                    </mat-expansion-panel-header>
+                    
                     <div class="table-responsive" style="overflow-x: unset;">
                         <table class="table TableBorder">
                             <tbody formArrayName="downConductor" *ngFor="let a of downConductorControls(q); let j = index">
@@ -741,13 +752,24 @@
                             </tbody>
                         </table>
                     </div>
-                    </div>
-                    </div>
+                    
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
-                    <mat-expansion-panel-header>Bridging Cables</mat-expansion-panel-header>
-                    <div class="table-responsive" style="overflow-x: unset;">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h3>Bridging Cables</h3>
+                        </mat-panel-title>
+                            <mat-panel-description *ngFor="let a of bridgingCablesControls(q); let f = index">
+                                <select class="ButtonSave" 
+                                (change)="onChangeCables($event,a)">
+                                <option value="" selected>Select Option</option>
+                                <option value="applicable" >applicable </option>
+                                <option value="not applicable" >not applicable</option>
+                                </select>
+                              </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableCables">
                         <table class="table TableBorder">
                             <tbody formArrayName="bridgingDescription"
                                 *ngFor="let a of bridgingCablesControls(q); let f = index">
@@ -999,8 +1021,21 @@
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
-                    <mat-expansion-panel-header>Holders</mat-expansion-panel-header>
-                    <div class="table-responsive" style="overflow-x: unset;">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h3>Holders</h3>
+                        </mat-panel-title>
+                            <mat-panel-description *ngFor="let a of holdersControls(q); let k = index">
+                                <select class="ButtonSave" 
+                                (change)="onChangeHolders($event,a)">
+                                <option value="" selected>Select Option</option>
+                                <option value="applicable" >applicable </option>
+                                <option value="not applicable" >not applicable</option>
+                                </select>
+                              </mat-panel-description>
+
+                    </mat-expansion-panel-header>
+                    <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableHolders">
                         <table class="table TableBorder">
                             <tbody formArrayName="holder" *ngFor="let a of holdersControls(q); let k = index">
                                 <div class="form-group" [formGroupName]="k">
@@ -1280,8 +1315,20 @@
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
-                    <mat-expansion-panel-header>Connectors</mat-expansion-panel-header>
-                    <div class="table-responsive" style="overflow-x: unset;">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h3>Connectors</h3>
+                        </mat-panel-title>
+                            <mat-panel-description *ngFor="let a of connectorsControls(q); let z = index">
+                                <select class="ButtonSave" 
+                                (change)="onChangeConnectors($event,a)">
+                                <option value="" selected>Select Option</option>
+                                <option value="applicable" >applicable </option>
+                                <option value="not applicable" >not applicable</option>
+                                </select>
+                              </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableConnectors">
                         <table class="table TableBorder">
                             <tbody formArrayName="connectors" *ngFor="let a of connectorsControls(q); let z = index">
                                 <div class="form-group" [formGroupName]="z">
@@ -1563,8 +1610,27 @@
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
-                    <mat-expansion-panel-header>Lightning Counters</mat-expansion-panel-header>
-                    <div class="table-responsive" style="overflow-x: unset;">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h3>Lightning Counters</h3>
+                        </mat-panel-title>
+                            <mat-panel-description *ngFor="let a of connectorsControls(q); let z = index">
+                                <select class="ButtonSave" 
+                                (change)="onChangeCounters($event,a)">
+                                <option value="" selected>Select Option</option>
+                                <option value="applicable" >applicable </option>
+                                <option value="not applicable" >not applicable</option>
+                                </select>
+                              </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div class="row" *ngIf="Notapplicable">
+                      <div class="col-sm-12">
+                        <textarea readonly class="form-control">
+                        As per latest standard IS/IEC 62305,installation of single lightning counter for whole building is mandatory.
+                        </textarea>
+                      </div>
+                    </div>
+                    <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableCounters">
                         <table class="table TableBorder">
                             <tbody formArrayName="lightningCounter" *ngFor="let a of lightControls(q); let f = index">
                                 <div class="form-group" [formGroupName]="f">
@@ -1945,8 +2011,27 @@
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
-                    <mat-expansion-panel-header>Test Joints</mat-expansion-panel-header>
-                    <div class="table-responsive" style="overflow-x: unset;">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h3>Test Joints</h3>
+                        </mat-panel-title>
+                            <mat-panel-description *ngFor="let a of jointControls(q); let x = index">
+                                <select class="ButtonSave" 
+                                (change)="onChangeJoints($event,a)">
+                                <option value="" selected>Select Option</option>
+                                <option value="applicable" >applicable </option>
+                                <option value="not applicable" >not applicable</option>
+                                </select>
+                              </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div class="row" *ngIf="Notapplicable">
+                        <div class="col-sm-12">
+                          <textarea readonly class="form-control">
+                            As per latest standard IS/IEC62305, installation of test joint at each down conductor is mandatory for the purpose of testing of down conductors and earth electrode as well.
+                          </textarea>
+                        </div>
+                      </div>
+                      <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableJoints">
                                 <table class="table TableBorder">
                             <tbody formArrayName="testingJoint" *ngFor="let a of jointControls(q); let x = index">
                                 <div class="form-group" [formGroupName]="x">

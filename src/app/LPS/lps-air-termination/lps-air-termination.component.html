@@ -5,7 +5,11 @@
                 <div class="form-group" [formGroupName]="j">
             <mat-accordion>
                 <mat-expansion-panel>
-                    <mat-expansion-panel-header>Basic Details</mat-expansion-panel-header>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h3>Basic Details</h3>
+                          </mat-panel-title>
+                    </mat-expansion-panel-header>
 
                     <div class="row">
                         <div class="col-md-4">
@@ -750,10 +754,21 @@
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
-                    <mat-expansion-panel-header>Vertical air terminal (VAT)</mat-expansion-panel-header>
-                    <div class="row">
-                        <div class="col-sm-16">
-                            <div class="table-responsive" style="overflow-x: unset;">
+                    <mat-expansion-panel-header>
+                     <mat-panel-title>
+                        <h3>Vertical air terminal (VAT)</h3>
+                    </mat-panel-title>
+                        <mat-panel-description *ngFor="let a of vatControls(q); let j = index">
+                            <select class="ButtonSave" 
+                            (change)="onChangeAir($event,a)">
+                            <option value="" selected>Select Option</option>
+                            <option value="applicable" >applicable </option>
+                            <option value="not applicable" >not applicable</option>
+                            </select>
+                          </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    
+                            <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableAir">
                                 <table class="table TableBorder">
                             <!-- <thead>
                                 <th>SI.No</th>
@@ -763,6 +778,12 @@
                             </thead> -->
                             <!-- Form Array -->
                             <tbody formArrayName="lpsVerticalAirTermination" *ngFor="let a of vatControls(q); let j = index">
+                                <!-- <select class="ButtonSave" 
+                                (change)="onChange1($event,a)">
+                                <option value="" selected>Select Option</option>
+                                <option value="applicable" >applicable </option>
+                                <option value="not applicable" >not applicable</option>
+                                </select> -->
                                 <div class="form-group" [formGroupName]="j">
                                     <thead>
                                         <th>SI.No</th>
@@ -1224,22 +1245,32 @@
                             </tbody>
                         </table>    
                     </div>
-                </div>
-                </div>
+               
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
-                    <mat-expansion-panel-header>Mesh conductors</mat-expansion-panel-header>
-                    <div>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h3>Mesh conductors</h3>
+                          </mat-panel-title>
+                          <mat-panel-description *ngFor="let a of meshControls(q); let i = index">
+                            <select class="ButtonSave" 
+                            (change)="onChangeMesh($event,a)">
+                            <option value="" selected>Select Option</option>
+                            <option value="Applicable" >applicable </option>
+                            <option value="Not applicable" >not applicable</option>
+                            </select>
+                          </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div *ngIf="applicableMesh">
                         <select class="form-control">
                             <option value="" selected>Select Option</option>
                             <option value="" >Yes</option>
                             <option value="" >No</option>
                         </select>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-16">
-                            <div class="table-responsive" style="overflow-x: unset;">
+                   
+                            <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableMesh">
                                 <table class="table TableBorder">
                             <tbody formArrayName="airMeshDescription" *ngFor="let a of meshControls(q); let i = index">
                                 <div class="form-group" [formGroupName]="i">
@@ -1571,15 +1602,25 @@
                              
                             </table>
                     </div>
-                        </div>
-                    </div>
+                      
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
-                    <mat-expansion-panel-header>Holders</mat-expansion-panel-header>
-                    <div class="row">
-                        <div class="col-sm-16">
-                            <div class="table-responsive" style="overflow-x: unset;">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h3>Holders</h3>
+                          </mat-panel-title>
+                          <mat-panel-description *ngFor="let a of holdersContols(q); let j = index">
+                            <select class="ButtonSave" 
+                            (change)="onChangeHolders($event,a)">
+                            <option value="" selected>Select Option</option>
+                            <option value="Applicable" >applicable </option>
+                            <option value="Not applicable" >not applicable</option>
+                            </select>
+                          </mat-panel-description>          
+                    </mat-expansion-panel-header>
+                    
+                            <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableHolders">
                                 <table class="table TableBorder">
                             <tbody formArrayName="airHolderDescription" *ngFor="let a of holdersContols(q); let j = index">
                                 <div class="form-group" [formGroupName]="j">
@@ -2077,15 +2118,25 @@
                             </tbody>
                         </table>
                     </div>
-                    </div>
-                    </div>
+                  
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
-                    <mat-expansion-panel-header>Clamps</mat-expansion-panel-header>
-                    <div class="row">
-                        <div class="col-sm-16">
-                            <div class="table-responsive" style="overflow-x: unset;">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h3>Clamps</h3>
+                          </mat-panel-title>
+                          <mat-panel-description *ngFor="let a of clampsControls(q); let i = index">
+                            <select class="ButtonSave" 
+                            (change)="onChangeClamps($event,a)">
+                            <option value="" selected>Select Option</option>
+                            <option value="Applicable" >applicable </option>
+                            <option value="Not applicable" >not applicable</option>
+                            </select>
+                          </mat-panel-description>                          
+                        </mat-expansion-panel-header>
+                   
+                            <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableClamps">
                                 <table class="table TableBorder">
                             <tbody formArrayName="airClamps" *ngFor="let a of clampsControls(q); let i = index">
                                 <div class="form-group" [formGroupName]="i">
@@ -2456,15 +2507,25 @@
                             </tbody>
                         </table>
                     </div>
-</div>
-                    </div>
+
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
-                    <mat-expansion-panel-header>Expansion Pieces</mat-expansion-panel-header>
-                    <div class="row">
-                        <div class="col-sm-16">
-                            <div class="table-responsive" style="overflow-x: unset;">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h3>Expansion Pieces</h3>
+                          </mat-panel-title>
+                          <mat-panel-description *ngFor="let a of expansionControls(q); let i = index">
+                            <select class="ButtonSave" 
+                            (change)="onChangeExpansion($event,a)">
+                            <option value="" selected>Select Option</option>
+                            <option value="Applicable" >applicable </option>
+                            <option value="Not applicable" >not applicable</option>
+                            </select>
+                          </mat-panel-description>                    
+                        </mat-expansion-panel-header>
+                    
+                            <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableExpansion">
                                 <table class="table TableBorder">
                             <tbody formArrayName="airExpansion" *ngFor="let a of expansionControls(q); let i = index">
                                 <div class="form-group" [formGroupName]="i">
@@ -2789,15 +2850,25 @@
                              </tbody>
                         </table>
                     </div>
-                    </div>
-                    </div>
+                   
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
-                    <mat-expansion-panel-header>Connectors</mat-expansion-panel-header>
-                    <div class="row">
-                        <div class="col-sm-16">
-                            <div class="table-responsive" style="overflow-x: unset;">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h3>Connectors</h3>
+                          </mat-panel-title>
+                          <mat-panel-description *ngFor="let a of connectorsControls(q); let i = index">
+                            <select class="ButtonSave" 
+                            (change)="onChangeConnectors($event,a)">
+                            <option value="" selected>Select Option</option>
+                            <option value="Applicable" >applicable </option>
+                            <option value="Not applicable" >not applicable</option>
+                            </select>
+                          </mat-panel-description>
+                    </mat-expansion-panel-header>
+                   
+                            <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableConnectors">
                                 <table class="table TableBorder">
                             <tbody formArrayName="airConnectors" *ngFor="let a of connectorsControls(q); let i = index">
                                 <div class="form-group" [formGroupName]="i">
@@ -3180,8 +3251,7 @@
                             </tbody>
                         </table>
                     </div>
-                        </div>
-                    </div>
+                       
                 </mat-expansion-panel>
             </mat-accordion>
 

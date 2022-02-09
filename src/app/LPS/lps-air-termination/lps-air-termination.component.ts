@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalsService } from 'src/app/globals.service';
 import { Airtermination } from 'src/app/LPS_model/airtermination';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
+import { convertTypeAcquisitionFromJson } from 'typescript';
 import { LpsBasicPageComponent } from '../lps-basic-page/lps-basic-page.component';
 import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.component';
 
@@ -78,7 +79,13 @@ export class LpsAirTerminationComponent implements OnInit {
   isEditable:boolean=false;
   stepBack:any;
   lpsBasic: any;
-  airterminationDataDeleted:boolean=false
+  airterminationDataDeleted:boolean=false;
+  applicableConnectors: boolean=false;
+  applicableExpansion: boolean=false;
+  applicableClamps: boolean=false;
+  applicableHolders: boolean=false;
+  applicableMesh: boolean=false;
+  applicableAir: boolean=false;
    
   constructor(
     private formBuilder: FormBuilder,
@@ -594,6 +601,192 @@ export class LpsAirTerminationComponent implements OnInit {
         inspectionFailedOb: new FormControl({disabled: false, value: item.inspectionFailedOb}, Validators.required),
         inspectionFailedRe: new FormControl({disabled: false, value: item.inspectionFailedRe})      
       });
+    }
+    onChangeAir(event: any,a:any) {
+      let changedValue;
+      if(event.target != undefined) {
+        changedValue = event.target.value;
+      }
+      else{
+        changedValue = event;
+      }
+      if (changedValue == 'Not applicable') {
+        this.applicableAir=false;
+        for(let x in a.controls){
+          console.log(x);
+          a.controls[x].clearValidators();
+          a.controls[x].updateValueAndValidity();
+        }
+       // a.controls['physicalInspectionOb'].clearValidators();
+       // a.controls['physicalInspectionOb'].updateValueAndValidity();
+
+      }
+      else{
+        this.applicableAir=true;
+        for(let x in a.controls){
+          console.log(x);
+          a.controls[x].setValidators([Validators.required]);
+          a.controls[x].updateValueAndValidity();
+        }
+       // a.controls['physicalInspectionOb'].setValidators([Validators.required]);
+        //a.controls['physicalInspectionOb'].updateValueAndValidity();
+     
+      }
+    }
+    onChangeMesh(event: any,a:any) {
+      let changedValue;
+      if(event.target != undefined) {
+        changedValue = event.target.value;
+      }
+      else{
+        changedValue = event;
+      }
+      if (changedValue == 'Not applicable') {
+        this.applicableMesh=false;
+        for(let y in a.controls){
+          console.log(y);
+          a.controls[y].clearValidators();
+          a.controls[y].updateValueAndValidity();
+        }
+       // a.controls['physicalInspectionOb'].clearValidators();
+       // a.controls['physicalInspectionOb'].updateValueAndValidity();
+
+      }
+      else{
+        this.applicableMesh=true;
+        for(let y in a.controls){
+          console.log(y);
+          a.controls[y].setValidators([Validators.required]);
+          a.controls[y].updateValueAndValidity();
+        }
+       // a.controls['physicalInspectionOb'].setValidators([Validators.required]);
+        //a.controls['physicalInspectionOb'].updateValueAndValidity();
+     
+      }
+    }
+    onChangeHolders(event: any,a:any) {
+      let changedValue;
+      if(event.target != undefined) {
+        changedValue = event.target.value;
+      }
+      else{
+        changedValue = event;
+      }
+      if (changedValue == 'Not applicable') {
+        this.applicableHolders=false;
+        for(let y in a.controls){
+          console.log(y);
+          a.controls[y].clearValidators();
+          a.controls[y].updateValueAndValidity();
+        }
+       // a.controls['physicalInspectionOb'].clearValidators();
+       // a.controls['physicalInspectionOb'].updateValueAndValidity();
+
+      }
+      else{
+        this.applicableHolders=true;
+        for(let y in a.controls){
+          console.log(y);
+          a.controls[y].setValidators([Validators.required]);
+          a.controls[y].updateValueAndValidity();
+        }
+       // a.controls['physicalInspectionOb'].setValidators([Validators.required]);
+        //a.controls['physicalInspectionOb'].updateValueAndValidity();
+     
+      }
+    }
+    onChangeClamps(event: any,a:any) {
+      let changedValue;
+      if(event.target != undefined) {
+        changedValue = event.target.value;
+      }
+      else{
+        changedValue = event;
+      }
+      if (changedValue == 'Not applicable') {
+        this.applicableClamps=false;
+        for(let y in a.controls){
+          console.log(y);
+          a.controls[y].clearValidators();
+          a.controls[y].updateValueAndValidity();
+        }
+       // a.controls['physicalInspectionOb'].clearValidators();
+       // a.controls['physicalInspectionOb'].updateValueAndValidity();
+
+      }
+      else{
+        this.applicableClamps=true;
+        for(let y in a.controls){
+          console.log(y);
+          a.controls[y].setValidators([Validators.required]);
+          a.controls[y].updateValueAndValidity();
+        }
+       // a.controls['physicalInspectionOb'].setValidators([Validators.required]);
+        //a.controls['physicalInspectionOb'].updateValueAndValidity();
+     
+      }
+    }
+    onChangeExpansion(event: any,a:any) {
+      let changedValue;
+      if(event.target != undefined) {
+        changedValue = event.target.value;
+      }
+      else{
+        changedValue = event;
+      }
+      if (changedValue == 'Not applicable') {
+        this.applicableExpansion=false;
+        for(let y in a.controls){
+          console.log(y);
+          a.controls[y].clearValidators();
+          a.controls[y].updateValueAndValidity();
+        }
+       // a.controls['physicalInspectionOb'].clearValidators();
+       // a.controls['physicalInspectionOb'].updateValueAndValidity();
+
+      }
+      else{
+        this.applicableExpansion=true;
+        for(let y in a.controls){
+          console.log(y);
+          a.controls[y].setValidators([Validators.required]);
+          a.controls[y].updateValueAndValidity();
+        }
+       // a.controls['physicalInspectionOb'].setValidators([Validators.required]);
+        //a.controls['physicalInspectionOb'].updateValueAndValidity();
+     
+      }
+    }
+    onChangeConnectors(event: any,a:any) {
+      let changedValue;
+      if(event.target != undefined) {
+        changedValue = event.target.value;
+      }
+      else{
+        changedValue = event;
+      }
+      if (changedValue == 'Not applicable') {
+        this.applicableConnectors=false;
+        for(let y in a.controls){
+          console.log(y);
+          a.controls[y].clearValidators();
+          a.controls[y].updateValueAndValidity();
+        }
+       // a.controls['physicalInspectionOb'].clearValidators();
+       // a.controls['physicalInspectionOb'].updateValueAndValidity();
+
+      }
+      else{
+        this.applicableConnectors=true;
+        for(let y in a.controls){
+          console.log(y);
+          a.controls[y].setValidators([Validators.required]);
+          a.controls[y].updateValueAndValidity();
+        }
+       // a.controls['physicalInspectionOb'].setValidators([Validators.required]);
+        //a.controls['physicalInspectionOb'].updateValueAndValidity();
+     
+      }
     }
 
     onChangeForm(event:any){

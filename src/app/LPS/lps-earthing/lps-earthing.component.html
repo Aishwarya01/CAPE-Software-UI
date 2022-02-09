@@ -5,7 +5,11 @@
             <div class="form-group" [formGroupName]="j">
             <mat-accordion>
                 <mat-expansion-panel>
-                    <mat-expansion-panel-header>Basic Details</mat-expansion-panel-header>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h3>Basic Details</h3>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
                
                       <div class="row">
                         <div class="col-md-4">
@@ -151,7 +155,11 @@
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
-                    <mat-expansion-panel-header>Type-A earthing system</mat-expansion-panel-header>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h3>Type-A earthing system</h3>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
                     <div class="row">
                     <div class="col-sm-12">
                     <div class="table-responsive" style="overflow-x: unset;">
@@ -781,10 +789,22 @@
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
-                    <mat-expansion-panel-header>Clamps</mat-expansion-panel-header>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h3>Clamps</h3>
+                        </mat-panel-title>
+                            <mat-panel-description *ngFor="let a of earthingClampsarr(q); let j = index">
+                                <select class="ButtonSave" 
+                                (change)="onChangeClamps($event,a)">
+                                <option value="" selected>Select Option</option>
+                                <option value="applicable" >applicable </option>
+                                <option value="not applicable" >not applicable</option>
+                                </select>
+                              </mat-panel-description>
+                    </mat-expansion-panel-header>
                     <div class="row">
                     <div class="col-sm-12">
-                    <div class="table-responsive" style="overflow-x: unset;">
+                    <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableClamps">
                         <table class="table TableBorder">
                                 <tbody formArrayName="ClampsArr" *ngFor="let a of earthingClampsarr(q); let j = index">
                                     <div class="form-group" [formGroupName]="j">
@@ -1108,10 +1128,22 @@
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
-                    <mat-expansion-panel-header>Earth electrode chambers</mat-expansion-panel-header>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h3>Earth electrode chambers</h3>
+                        </mat-panel-title>
+                            <mat-panel-description *ngFor="let a of earthElectrodeChambearr(q); let j = index">
+                                <select class="ButtonSave" 
+                                (change)="onChangeChambers($event,a)">
+                                <option value="" selected>Select Option</option>
+                                <option value="applicable" >applicable </option>
+                                <option value="not applicable" >not applicable</option>
+                                </select>
+                              </mat-panel-description>
+                    </mat-expansion-panel-header>
                     <div class="row">
                     <div class="col-sm-12">
-                    <div class="table-responsive" style="overflow-x: unset;">
+                    <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableChambers">
                         <table class="table TableBorder">
                             <tbody formArrayName="chamberArr"
                                 *ngFor="let a of earthElectrodeChambearr(q); let j = index">
@@ -1430,7 +1462,11 @@
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
-                    <mat-expansion-panel-header>Type-B earthing system</mat-expansion-panel-header>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h3>Type-B earthing system</h3>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
                     <div class="row">
                     <div class="col-sm-12">
                     <div class="table-responsive" style="overflow-x: unset;">
