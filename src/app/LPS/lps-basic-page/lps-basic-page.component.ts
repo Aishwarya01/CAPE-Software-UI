@@ -32,7 +32,7 @@ export class LpsBasicPageComponent implements OnInit {
 
   success1: boolean =false;
   successMsg1: string="";
-
+  countryCode: String = '';
   stepBack:any;
 
   constructor(private formBuilder: FormBuilder, 
@@ -64,8 +64,10 @@ export class LpsBasicPageComponent implements OnInit {
       name: ['', Validators.required],
       company: ['', Validators.required],
       designation: ['', Validators.required],
-      contactNumber: ['', Validators.required],
-      mailId: ['', Validators.required],
+      contactNumber: ['',[Validators.required ,Validators.maxLength(10),Validators.minLength(10)]],
+      mailId: ['', [
+        Validators.required,
+        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       availabilityOfPreviousReport: ['', Validators.required],
     });
 
@@ -342,5 +344,15 @@ export class LpsBasicPageComponent implements OnInit {
       }
     );  
   }
+
+// Only Integer
+ NumberskeyPressNumbers(event:any)
+  {var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {event.preventDefault();return false;} else {return true;}} 
+
+countryChange(country: any) {this.countryCode = country.dialCode;}
+
+
   
 }
