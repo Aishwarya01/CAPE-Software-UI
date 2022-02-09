@@ -34,6 +34,7 @@ export class LpsBasicPageComponent implements OnInit {
   successMsg1: string="";
   countryCode: String = '';
   stepBack:any;
+  basicLpsIdRetrive:number=0;
 
   constructor(private formBuilder: FormBuilder, 
     private lPSBasicDetailsService: LPSBasicDetailsService,
@@ -49,8 +50,7 @@ export class LpsBasicPageComponent implements OnInit {
   ngOnInit(): void {
     
     this.LPSBasicForm = this.formBuilder.group({
-    
-     // userName: ['', Validators.required],
+     
       clientName: ['', Validators.required],
       projectName: ['', Validators.required],
       pmcName: ['', Validators.required],
@@ -87,11 +87,11 @@ export class LpsBasicPageComponent implements OnInit {
 
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
     //this.service.lvClick=1;
-
+debugger
      this.step1List = data.basicLps;
     //  if(this.step1List.clientName != null){
       this.success = true;
-      this.basicDetails.basicLpsId = basicLpsId;
+      this.basicLpsIdRetrive = basicLpsId;
       this.basicDetails.clientName = this.step1List.clientName;
       this.basicDetails.projectName = this.step1List.projectName;
       this.basicDetails.pmcName = this.step1List.pmcName;
@@ -114,6 +114,7 @@ export class LpsBasicPageComponent implements OnInit {
       this.basicDetails.availabilityOfPreviousReport = this.step1List.availabilityOfPreviousReport;
       this.basicDetails.updatedBy = this.step1List.updatedBy;
       this.basicDetails.updatedDate = this.step1List.updatedDate;
+      this.flag=true
     }
 
     reset(){
@@ -124,7 +125,7 @@ export class LpsBasicPageComponent implements OnInit {
       //this.service.lvClick=1;
 
       this.stepBack=JSON.parse(data);
-      this.basicDetails.basicLpsId = basicLpsId;
+      this.basicLpsIdRetrive = basicLpsId;
       this.basicDetails.clientName = this.stepBack[0].clientName;
       this.basicDetails.projectName = this.stepBack[0].projectName;
       this.basicDetails.pmcName = this.stepBack[0].pmcName;
@@ -147,6 +148,7 @@ export class LpsBasicPageComponent implements OnInit {
       this.basicDetails.availabilityOfPreviousReport = this.stepBack[0].availabilityOfPreviousReport;
       this.basicDetails.updatedBy = this.stepBack[0].updatedBy;
       this.basicDetails.updatedDate = this.stepBack[0].updatedDate;
+      this.flag=true
      this.LPSBasicForm.markAsPristine();
      }
   
@@ -252,23 +254,23 @@ export class LpsBasicPageComponent implements OnInit {
        return;
      }
      
-
-    this.basicDetails.userName=this.router.snapshot.paramMap.get('email') || '{}';
-    this.basicDetails = this.LPSBasicForm.value;
     if (!this.validationError) {
     if(flag) {
+        
       if(this.LPSBasicForm.dirty && this.LPSBasicForm.touched){ 
-      this.lPSBasicDetailsService.updateLpsBasicDetails(this.basicDetails).subscribe(
+      this.lPSBasicDetailsService.updateLpsBasicDetails(this.getBasicDetailsObject()).subscribe(
         data => {
           // update success msg
           this.success1 = false;
           this.success = true;
           this.successMsg = data;
+          this.retriveBasicDetails();
           this.LPSBasicForm.markAsPristine();
           this.proceedNext.emit(true);
           this.service.lvClick=0;
           this.service.logoutClick=0;
           this.service.windowTabClick=0;
+          this.basicLpsIdRetrive=0;
         },
           // update failed msg
         error => {
@@ -297,7 +299,7 @@ export class LpsBasicPageComponent implements OnInit {
       
     }
     else {
-      this.lPSBasicDetailsService.saveLPSBasicDetails(this.basicDetails).subscribe(
+      this.lPSBasicDetailsService.saveLPSBasicDetails(this.getBasicDetailsObject()).subscribe(
     
         data => {
           let basicDetailsItr=JSON.parse(data);              
@@ -324,6 +326,31 @@ export class LpsBasicPageComponent implements OnInit {
     }
   }
     //(this.basicDetails);
+  }
+
+  getBasicDetailsObject(){
+    if(this.basicLpsIdRetrive !=0){
+      this.basicDetails.basicLpsId=this.basicLpsIdRetrive;
+    }
+    this.basicDetails.clientName = this.LPSBasicForm.value.clientName;
+    this.basicDetails.projectName = this.LPSBasicForm.value.projectName;
+    this.basicDetails.pmcName = this.LPSBasicForm.value.pmcName;
+    this.basicDetails.consultantName = this.LPSBasicForm.value.consultantName;
+    this.basicDetails.contractorName = this.LPSBasicForm.value.contractorName;
+    this.basicDetails.dealerContractorName = this.LPSBasicForm.value.dealerContractorName;
+    this.basicDetails.address = this.LPSBasicForm.value.address;
+    this.basicDetails.location = this.LPSBasicForm.value.location;
+    this.basicDetails.industryType = this.LPSBasicForm.value.industryType;
+    this.basicDetails.soilResistivity = this.LPSBasicForm.value.soilResistivity;
+    this.basicDetails.name = this.LPSBasicForm.value.name;
+    this.basicDetails.company = this.LPSBasicForm.value.company;
+    this.basicDetails.designation = this.LPSBasicForm.value.designation;
+    this.basicDetails.contactNumber = this.LPSBasicForm.value.contactNumber;
+    this.basicDetails.mailId = this.LPSBasicForm.value.mailId;
+    this.basicDetails.availabilityOfPreviousReport = this.LPSBasicForm.value.availabilityOfPreviousReport;
+    this.basicDetails.userName=this.router.snapshot.paramMap.get('email') || '{}';
+
+    return this.basicDetails;
   }
 
 

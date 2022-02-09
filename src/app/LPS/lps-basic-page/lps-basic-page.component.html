@@ -187,10 +187,7 @@
                         </div>
                         <input (keypress)="keyPressNumbers($event)" class="form-control" placeholder="Enter Soil Resistivity"
                             [readonly]="isEditable" formControlName="soilResistivity" [(ngModel)]="basicDetails.soilResistivity"
-                            [ngClass]="{ 'is-invalid': submitted && f.soilResistivity.errors}" />
-                            <div *ngIf="submitted && f.soilResistivity.errors" class="invalid-feedback">
-                                <div *ngIf="f.soilResistivity.errors.required">Soil Resistivity is required</div>
-                            </div>
+                            />
                     </div>
                 </div>                
             </div>
@@ -301,13 +298,13 @@
                     </div>
                     <select class="form-control" formControlName="availabilityOfPreviousReport"  
                     [ngClass]="{ 'is-invalid': submitted && f.availabilityOfPreviousReport.errors}"   [(ngModel)]="basicDetails.availabilityOfPreviousReport">
-                    <div *ngIf="submitted && f.availabilityOfPreviousReport.errors" class="invalid-feedback">
-                        <div *ngIf="f.availabilityOfPreviousReport.errors.required">Availability of previous report is required</div>
-                    </div>>
                         <option  value="" selected>Select Option</option>
                         <option value="YES" >Yes</option>
                         <option value="NO" >No</option>
                     </select>
+                    <div *ngIf="submitted && f.availabilityOfPreviousReport.errors" class="invalid-feedback">
+                        <div *ngIf="f.availabilityOfPreviousReport.errors.required">Availability of previous report is required</div>
+                    </div>
                     </div>
                 </div>
             </div>
