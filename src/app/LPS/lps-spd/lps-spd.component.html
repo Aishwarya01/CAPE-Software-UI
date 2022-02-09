@@ -1,37 +1,36 @@
 <div class="card">
-    <div class="card-body">
-        <form [formGroup]="spdForm" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
-            <div formArrayName="spd" *ngFor="let q of overAllspdControl(); let j = index">
-            <div class="form-group" [formGroupName]="j">  
-            <mat-accordion>
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>Basic Details</mat-expansion-panel-header>
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label for="buildingnumber">Building Number</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="bi bi-align-start"></i>
-                                    </span>
+<div class="card-body">
+    <form [formGroup]="spdForm" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
+        <div formArrayName="spd" *ngFor="let q of overAllspdControl(); let j = index">
+        <div class="form-group" [formGroupName]="j">  
+        <mat-accordion>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>Basic Details</mat-expansion-panel-header>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="buildingnumber">Building Number</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-align-start"></i>
+                                </span>
                                 </div>
-                                <input class="form-control"  placeholder="Enter length in meter"/>
-                            </div>
-                        </div>
-        
-                        <div class="col-md-4">
-                            <label for="buildingname">Building Name</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="bi bi-align-start"></i>
-                                    </span>
-                                </div>
-                                <input  class="form-control"  placeholder="Enter length in meter"/>
-                            </div>
+                            <input class="form-control"  placeholder="Enter length in meter"/>
                         </div>
                     </div>
+        
+                    <div class="col-md-4">
+                        <label for="buildingname">Building Name</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="bi bi-align-start"></i>
+                                </span>
+                            </div>
+                            <input  class="form-control"  placeholder="Enter length in meter"/>
+                        </div>
+                    </div>
+                </div>
                     
                     <!-- tables -->
                     <div class="row">
@@ -53,8 +52,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
                                                     <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
+                                                </span></div>
                                             <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="mainsIncomingOb"
                                                 placeholder="Please enter Observation here"
                                                 [ngClass]="{'is-invalid': submitted && q.get('mainsIncomingOb')?.errors}"></textarea>
@@ -182,750 +180,432 @@
                     </div>
                     </div>
 
-                </mat-expansion-panel>
+            </mat-expansion-panel>
 
-                <div style="margin-top: 10px;">
-                    <label style="font-size: 11px; font-weight: bold;">* SPD is necessary for each mains incoming panel and each electrical
-                        panel feeding power to an outdoor equipment</label>
+            <div style="margin-top: 10px;">
+                <label style="font-size: 11px; font-weight: bold;">* SPD is necessary for each mains incoming panel and each electrical panel feeding power to an outdoor equipment</label>
+            </div>
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>SPD</mat-expansion-panel-header>
+                <div class="row">
+                    <div class="col-sm-16">
+                    <div class="table-responsive" style="overflow-x: unset;">
+                        <table class="table TableBorder">
+                            <tbody>
+                                <div class="form-group">
+
+                                    <thead>
+                                        <th>SI.No</th>
+                                        <th>Description</th>
+                                        <th>Observation</th>
+                                        <th>Remarks(Optional)</th>
+                                    </thead>
+
+                                    <!-- <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="buildingnumber">Location</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-align-start"></i>
+                                                    </span>
+                                                    </div>
+                                                <input class="form-control"  placeholder="Enter Location"/>
+                                            </div>
+                                        </div>
+                            
+                                        <div class="col-md-4">
+                                            <label for="buildingname">Panel Name</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-align-start"></i>
+                                                    </span>
+                                                </div>
+                                                <input  class="form-control"  placeholder="Enter panel name"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br> -->
+
+                                    <tr>
+                                        <td style="width: 1rem; text-align: center;">5</td>
+                                        <td style="width: 43rem;">
+                                                <label for="buildingnumber">Location</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-align-start"></i>
+                                                        </span>
+                                                        </div>
+                                                    <input class="form-control"  placeholder="Enter Location"/>
+                                                </div>
+                                        </td>
+                                        <td style="width: 43rem;">
+                                            <label for="buildingnumber">Panel Name</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-align-start"></i>
+                                                        </span>
+                                                        </div>
+                                                    <input class="form-control"  placeholder="Enter Location"/>
+                                                </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td rowspan="5" style="width: 1rem; text-align: center;">5(a)</td>
+                                        <td style="width: 24rem; font-weight: 600;">* Details of SPD</td>
+                                        <td style="width: 43rem;"></td>
+                                        <td style="width: 43rem;"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Make</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"></textarea>
+                                                </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Model</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>class Type</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <select class="form-control">
+                                                    <option  value="" selected>Select Option</option>
+                                                    <option value="class I" >class I</option>
+                                                    <option value="class II" >class II</option>
+                                                    <option value="class III" >class III</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Application</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <select class="form-control">
+                                                    <option  value="" selected>Select Option</option>
+                                                    <option value="Power line" >Power line</option>
+                                                    <option value="telecom line" >Telecom line</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="text-align: center;">5(b)</td>
+                                        <td>Application</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <select class="form-control" >
+                                                    <option  value="" selected>Select Option</option>
+                                                    <option value="YES" >Continuation of supply to equipment</option>
+                                                    <option value="NO" >Continuation of protection to equipment</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td style="text-align: center;">5(c)</td>
+                                        <td>Proper connection made based on application</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <select class="form-control">
+                                                    <option  value="" selected>Select Option</option>
+                                                    <option value="YES" >Yes</option>
+                                                    <option value="NO" >No</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="text-align: center;">5(d)</td>
+                                        <td>Incomer rating of the panel in A</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="text-align: center;">5(e)</td>
+                                        <td>Back up fuse/MCB rating in A (Back up fuse in line with safety requirements at "End of Life")</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td rowspan="3" style="text-align: center;">5(f)</td>
+                                        <td style="font-weight: 600;">* Length of connecting wire in meters</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Phase</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Protective conductor</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td rowspan="3" style="text-align: center;">5(g)</td>
+                                        <td style="font-weight: 600;">* Size of connecting wire in sq.mm</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Phase</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Protective conductor</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"></textarea>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </div>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
                 </div>
+            </mat-expansion-panel>
 
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>Mains incoming panel (if more panels are available data from each panel
-                        is necessary)</mat-expansion-panel-header>
-                    <!-- tables -->
-                    <div class="row" style="margin-top: 40px;" formArrayName="spdarr" *ngFor="let x of spdarrControls(q); let j = index">
-                        <div class="col-sm-16">
-                        <div class="table-responsive" style="overflow-x: unset;">
-                        <table class="table TableBorder" [formGroupName]="j">
-                            <thead>
-                                <th>SI.No</th>
-                                <th>Description</th>
-                                <th>Observation</th>
-                                <th>Remarks(Optional)</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td style="width: 1rem; text-align: center;">5.1</td>
-                                    <td style="width: 24rem;">Type of SPD / Model</td>
-                                    <td style="width: 43rem;">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="spdTypeOb" placeholder="Please enter Observation here"
-                                                [ngClass]="{ 'is-invalid': submitted && x.get('spdTypeOb')?.errors}"></textarea>
-                                            <div *ngIf="submitted && x.get('spdTypeOb')?.errors" class="invalid-feedback">
-                                                <div *ngIf="x.get('spdTypeOb')?.errors?.required">Type of SPD / Model observation is required</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td style="width: 43rem;">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="spdTypeRe"
-                                                ></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center;">5.2</td>
-                                    <td>Application</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="spdApplicationOb"
-                                                placeholder="Please enter Observation here"
-                                                [ngClass]="{ 'is-invalid': submitted && x.get('spdApplicationOb')?.errors}"></textarea>
-                                            <div *ngIf="submitted && x.get('spdApplicationOb')?.errors" class="invalid-feedback">
-                                                <div *ngIf="x.get('spdApplicationOb')?.errors?.required">Application observation is required</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="spdApplicationRem"
-                                                ></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center;">5.3</td>
-                                    <td>Panel name</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="panelNameOb"
-                                                placeholder="Please enter Observation here"
-                                                [ngClass]="{ 'is-invalid': submitted && x.get('panelNameOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && x.get('panelNameOb')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="x.get('panelNameOb')?.errors?.required">Panel name observation is required</div>
-                                                </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="panelNameRem"
-                                                ></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center;">5.4</td>
-                                    <td>Check Incomer rating of the panel</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="incomingRatingOb"
-                                                placeholder="Please enter Observation here"
-                                                [ngClass]="{ 'is-invalid': submitted && x.get('incomingRatingOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && x.get('incomingRatingOb')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="x.get('incomingRatingOb')?.errors?.required">Check Incomer rating of the panel observation is required</div>
-                                                </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="incomingRatingRem"
-                                                ></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center;">5.5</td>
-                                    <td>Check Back up fuse</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="backupFuseCheckOb"
-                                                placeholder="Please enter Observation here"
-                                                [ngClass]="{ 'is-invalid': submitted && x.get('backupFuseCheckOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && x.get('backupFuseCheckOb')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="x.get('backupFuseCheckOb')?.errors?.required">Check Back up fuse observation is required</div>
-                                                </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="backupFuseCheckRem"
-                                                ></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center;">5.6</td>
-                                    <td>Check Connecting wire length</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="connectingWireLengthOb"
-                                                placeholder="Please enter Observation here"
-                                                [ngClass]="{ 'is-invalid': submitted && x.get('connectingWireLengthOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && x.get('connectingWireLengthOb')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="x.get('connectingWireLengthOb')?.errors?.required">Check Connecting wire length observation is required</div>
-                                                </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="connectingWireLengthRem"
-                                                ></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center;">5.7</td>
-                                    <td>Check Connecting wire size</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="connectingWireSizeOb"
-                                                placeholder="Please enter Observation here"
-                                                [ngClass]="{ 'is-invalid': submitted && x.get('connectingWireSizeOb')?.errors}"></textarea>
-                                            <div *ngIf="submitted && x.get('connectingWireSizeOb')?.errors" class="invalid-feedback">
-                                                <div *ngIf="x.get('connectingWireSizeOb')?.errors?.required">Check Connecting wire size observation is required</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="connectingWireSizeRem"
-                                                ></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        </div>
-                    </div>
-                    </div>
-                </mat-expansion-panel>
+        </mat-accordion>
+        </div>
+        </div>
 
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>Street light panel(if more panels are available data from each panel is
-                        necessary)</mat-expansion-panel-header>
-                    <!-- tables -->
-                    <div class="row" style="margin-top: 40px;" formArrayName="panelarr" *ngFor="let x of panelarrControls(q); let j = index">
-                        <div class="col-sm-16">
-                        <div class="table-responsive" style="overflow-x: unset;">
-                        <table class="table TableBorder" [formGroupName]="j">
-                            <thead>
-                                <th>SI.No</th>
-                                <th>Description</th>
-                                <th>Observation</th>
-                                <th>Remarks(Optional)</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td style="width: 1rem; text-align: center;">6.1</td>
-                                    <td style="width: 24rem;">Type of SPD / Model</td>
-                                    <td style="width: 35rem">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="spdTypeOb"
-                                                placeholder="Please enter Observation here"
-                                                [ngClass]="{ 'is-invalid': submitted && x.get('spdTypeOb')?.errors}"></textarea>
-                                            <div *ngIf="submitted && x.get('spdTypeOb')?.errors" class="invalid-feedback">
-                                                <div *ngIf="x.get('spdTypeOb')?.errors?.required">Type of SPD / Model: observation is required</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td style="width: 43rem;">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="spdTypeRe"
-                                                ></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center;">6.2</td>
-                                    <td>Application</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="spdApplicationOb"
-                                                placeholder="Please enter Observation here"
-                                                [ngClass]="{ 'is-invalid': submitted && x.get('spdApplicationOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && x.get('spdApplicationOb')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="x.get('spdApplicationOb')?.errors?.required">Application observation is required</div>
-                                                </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="spdApplicationRem"
-                                                ></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center;">6.3</td>
-                                    <td>Panel name</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="panelNameOb"
-                                                placeholder="Please enter Observation here"
-                                                [ngClass]="{ 'is-invalid': submitted && x.get('panelNameOb')?.errors}"></textarea>
-                                            <div *ngIf="submitted && x.get('panelNameOb')?.errors" class="invalid-feedback">
-                                                <div *ngIf="x.get('panelNameOb')?.errors?.required">Panel name observation is required</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="panelNameRem"
-                                                ></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center;">6.4</td>
-                                    <td>Check Incomer rating of the panel</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="incomingRatingOb"
-                                                placeholder="Please enter Observation here"
-                                                [ngClass]="{ 'is-invalid': submitted && x.get('incomingRatingOb')?.errors}"></textarea>
-                                            <div *ngIf="submitted && x.get('incomingRatingOb')?.errors" class="invalid-feedback">
-                                                <div *ngIf="x.get('incomingRatingOb')?.errors?.required">Check Incomer rating of the panel observation is required</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="incomingRatingRem"
-                                                ></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center;">6.5</td>
-                                    <td>Check Back up fuse</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="backupFuseCheckOb"
-                                                placeholder="Please enter Observation here"
-                                                [ngClass]="{ 'is-invalid': submitted && x.get('backupFuseCheckOb')?.errors}"></textarea>
-                                            <div *ngIf="submitted && x.get('backupFuseCheckOb')?.errors" class="invalid-feedback">
-                                                <div *ngIf="x.get('backupFuseCheckOb')?.errors?.required">Check Back up fuse observation is required</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="backupFuseCheckRem"
-                                                ></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center;">6.6</td>
-                                    <td>Check Connecting wire length</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="connectingWireLengthOb"
-                                                placeholder="Please enter Observation here"
-                                                [ngClass]="{ 'is-invalid': submitted && x.get('connectingWireLengthOb')?.errors}"></textarea>
-                                            <div *ngIf="submitted && x.get('connectingWireLengthOb')?.errors" class="invalid-feedback">
-                                                <div *ngIf="x.get('connectingWireLengthOb')?.errors?.required">Check Connecting wire length observation is required</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="connectingWireLengthRem"
-                                                ></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center;">6.7</td>
-                                    <td>Check Connecting wire size</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="connectingWireSizeOb"
-                                                placeholder="Please enter Observation here"
-                                                [ngClass]="{ 'is-invalid': submitted && x.get('connectingWireSizeOb')?.errors}"></textarea>
-                                            <div *ngIf="submitted && x.get('connectingWireSizeOb')?.errors" class="invalid-feedback">
-                                                <div *ngIf="x.get('connectingWireSizeOb')?.errors?.required">Check Connecting wire size observation is required</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="connectingWireSizeRem"
-                                                ></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        </div>
-                    </div>
-                    </div>
-                </mat-expansion-panel>
+        <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
+            <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
+            <button class="next" (click)="gotoNextModal(content,contents)" mat-button >Next &raquo;</button>
+        </div>  
 
-                <mat-expansion-panel [hideToggle]="false">
-                    <mat-expansion-panel-header>Other panels feeding power to outdoor equipment if more panels are
-                        available data from each panel is necessary)</mat-expansion-panel-header>
-                    <!-- tables -->
-                    <div class="row" style="margin-top: 40px;" formArrayName="powerarr" *ngFor="let x of powerarrControls(q); let j = index">
-                        <div class="col-sm-16">
-                        <div class="table-responsive" style="overflow-x: unset;">
-                        <table class="table TableBorder" [formGroupName]="j">
-                            <thead>
-                                <th>SI.No</th>
-                                <th>Description</th>
-                                <th>Observation</th>
-                                <th>Remarks(Optional)</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td style="width: 1rem; text-align: center;">7.1</td>
-                                    <td style="width: 24rem;">Type of SPD / Model</td>
-                                    <td style="width: 43rem;">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="spdTypeOb"
-                                                placeholder="Please enter Observation here"
-                                                [ngClass]="{ 'is-invalid': submitted && x.get('spdTypeOb')?.errors}"></textarea>
-                                            <div *ngIf="submitted && x.get('spdTypeOb')?.errors" class="invalid-feedback">
-                                                <div *ngIf="x.get('spdTypeOb')?.errors?.required">Type of SPD / Model observation is required</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td style="width: 43rem;">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="spdTypeRe"
-                                                ></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center;">7.2</td>
-                                    <td>Application</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="spdApplicationOb"
-                                                placeholder="Please enter Observation here"
-                                                [ngClass]="{ 'is-invalid': submitted && x.get('spdApplicationOb')?.errors}"></textarea>
-                                            <div *ngIf="submitted && x.get('spdApplicationOb')?.errors" class="invalid-feedback">
-                                                <div *ngIf="x.get('spdApplicationOb')?.errors?.required">Application observation is required</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="spdApplicationRem"
-                                                ></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center;">7.3</td>
-                                    <td>Panel name</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="panelNameOb"
-                                                placeholder="Please enter Observation here"
-                                                [ngClass]="{ 'is-invalid': submitted && x.get('panelNameOb')?.errors}"></textarea>
-                                            <div *ngIf="submitted && x.get('panelNameOb')?.errors" class="invalid-feedback">
-                                                <div *ngIf="x.get('panelNameOb')?.errors?.required">Panel name observation is required</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="panelNameRem"
-                                                ></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center;">7.4</td>
-                                    <td>Check Incomer rating of the panel</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="incomingRatingOb"
-                                                placeholder="Please enter Observation here"
-                                                [ngClass]="{ 'is-invalid': submitted && x.get('incomingRatingOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && x.get('incomingRatingOb')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="x.get('incomingRatingOb')?.errors?.required">Check Incomer rating of the panel observation is required</div>
-                                                </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="incomingRatingRem"
-                                                ></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center;">7.5</td>
-                                    <td>Check Back up fuse</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="backupFuseCheckOb"
-                                                placeholder="Please enter Observation here"
-                                                [ngClass]="{ 'is-invalid': submitted && x.get('backupFuseCheckOb')?.errors}"></textarea>
-                                            <div *ngIf="submitted && x.get('backupFuseCheckOb')?.errors" class="invalid-feedback">
-                                                <div *ngIf="x.get('backupFuseCheckOb')?.errors?.required">Check Back up fuse observation is required</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="backupFuseCheckRem"
-                                                ></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center;">7.6</td>
-                                    <td>Check Connecting wire length</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="connectingWireLengthOb"
-                                                placeholder="Please enter Observation here"
-                                                [ngClass]="{ 'is-invalid': submitted && x.get('connectingWireLengthOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && x.get('connectingWireLengthOb')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="x.get('connectingWireLengthOb')?.errors?.required">Check Connecting wire length observation is required</div>
-                                                </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="connectingWireLengthRem"
-                                                ></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center;">7.7</td>
-                                    <td>Check Connecting wire size</td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="connectingWireSizeOb"
-                                                placeholder="Please enter Observation here"
-                                                [ngClass]="{ 'is-invalid': submitted && x.get('connectingWireSizeOb')?.errors}"></textarea>
-                                            <div *ngIf="submitted && x.get('connectingWireSizeOb')?.errors" class="invalid-feedback">
-                                                <div *ngIf="x.get('connectingWireSizeOb')?.errors?.required">Check Connecting wire size observation is required</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="bi bi-text-paragraph"></i>
-                                                </span>
-                                            </div>
-                                            <textarea type="text" class="form-control"
-                                                [readonly]="isEditable" formControlName="connectingWireSizeRem"
-                                                ></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        </div>
-                        </div>
-                    </div>
-                </mat-expansion-panel>
-            </mat-accordion>
-            </div>
-            </div>
-            <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
-                <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
-                <button class="next" (click)="gotoNextModal(content,contents)" mat-button >Next &raquo;</button>
-            </div>  
-            <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
-                <span class="alert alert-danger">{{validationErrorMsg}}</span>
-            </div>
-        </form>
-    </div>
+        <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+            <span class="alert alert-danger">{{validationErrorMsg}}</span>
+        </div>
+    </form>
 </div>
+</div>
+
 <ng-template #content let-modal>
     <div class="modal-body">
         <div class="centre-text m-btm30">
