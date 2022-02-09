@@ -78,6 +78,7 @@ import { EmcElectromagneticCompatibilityDataComponent } from './EMC/emc-electrom
 import { EmcMatstepperComponent } from './EMC/emc-matstepper/emc-matstepper.component';
 import { EmcSavedReportComponent } from './EMC/emc-saved-report/emc-saved-report.component';
 import { EmcFinalReportComponent } from './EMC/emc-final-report/emc-final-report.component';
+import { EmcClientDetailsComponent } from './EMC/emc-client-details/emc-client-details.component';
 
 @NgModule({
   declarations: [
@@ -127,7 +128,8 @@ import { EmcFinalReportComponent } from './EMC/emc-final-report/emc-final-report
     EmcElectromagneticCompatibilityDataComponent,
     EmcMatstepperComponent,
     EmcSavedReportComponent,
-    EmcFinalReportComponent
+    EmcFinalReportComponent,
+    EmcClientDetailsComponent
 
   ],
   imports: [

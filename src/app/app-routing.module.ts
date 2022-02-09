@@ -24,6 +24,7 @@ import { EmcElectromagneticCompatibilityDataComponent } from './EMC/emc-electrom
 import { EmcMatstepperComponent } from './EMC/emc-matstepper/emc-matstepper.component';
 import { EmcSavedReportComponent } from './EMC/emc-saved-report/emc-saved-report.component';
 import { EmcFinalReportComponent } from './EMC/emc-final-report/emc-final-report.component';
+import { EmcClientDetailsComponent } from './EMC/emc-client-details/emc-client-details.component';
 
 const routes: Routes = [
   {path: '', redirectTo: "/SignIn", pathMatch: 'full' },
@@ -50,8 +51,9 @@ const routes: Routes = [
   {path: 'PowerAndEarthingDataComponent',component:PowerAndEarthingDataComponent},
   {path: 'EmcElectromagneticCompatibilityDataComponent',component:EmcElectromagneticCompatibilityDataComponent},
   {path: 'EmcMatstepperComponent',component:EmcMatstepperComponent},
-  {path: 'EmcSavedReportComponent',component:EmcMatstepperComponent},
-  {path: 'EmcFinalReportComponent',component:EmcMatstepperComponent},
+  {path: 'EmcSavedReportComponent',component:EmcSavedReportComponent},
+  {path: 'EmcFinalReportComponent',component:EmcFinalReportComponent},
+  {path: 'EmcClientDetailsComponent',component:EmcClientDetailsComponent},
   
 ];
 
