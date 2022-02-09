@@ -7,6 +7,7 @@ import { EmcClientDetailsService } from 'src/app/EMC_Services/emc-client-details
 import { EmcFacilityDataComponent } from '../emc-facility-data/emc-facility-data.component';
 import { EmcMatstepperComponent } from '../emc-matstepper/emc-matstepper.component';
 import { EmcAssessmentInstallationComponent } from 'src/app/emc-assessment-installation/emc-assessment-installation.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-emc-client-details',
@@ -15,9 +16,6 @@ import { EmcAssessmentInstallationComponent } from 'src/app/emc-assessment-insta
 })
 export class EmcClientDetailsComponent implements OnInit {
 
-  @ViewChild('reference', { read: ViewContainerRef })
-  viewContainerRef!: ViewContainerRef;
-  destroy: boolean = false;
 
   EmcClientDetailsForm!: FormGroup;
   emcClientDetails = new EmcClientDetails();
@@ -28,6 +26,8 @@ export class EmcClientDetailsComponent implements OnInit {
   submitted = false;
   validationError: boolean = false;
   validationErrorMsg: String = "";
+  sucess: boolean = false;
+  sucessMsg: String = "";
   loading = false;
   successMsg: string = "";
   success: boolean = false;
@@ -35,12 +35,13 @@ export class EmcClientDetailsComponent implements OnInit {
   errorMsg: string = "";
   onSubmitClientDetails = new EventEmitter();
 
-  @Input()
+  
   data: any = [];
   errorArr: any=[];
  
   constructor(
     public dialog: MatDialog,
+    private router: ActivatedRoute,
     private formBuilder: FormBuilder,
     public emcClientDetailsService : EmcClientDetailsService,
   ) { }
@@ -56,13 +57,13 @@ export class EmcClientDetailsComponent implements OnInit {
       landMark: ['', Validators.required],
       clientLocation: ['', Validators.required],
       clientAddress: ['', Validators.required],
-      email: ['', Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")],
+      email: ['', Validators.required],
       country: ['', Validators.required],
       state: ['', Validators.required],
     });
-
-    this.emcClientDetailsService.retrieveCountry().subscribe(
+   this.emcClientDetailsService.retrieveCountry().subscribe(
       data => {
+       
         this.countryList = JSON.parse(data);
       }
     )
@@ -110,7 +111,7 @@ countryChange(country: any, a: any) {
   onSubmit() {
     this.submitted = true;
 
-    //Breaks if form is invalid
+   // Breaks if form is invalid
     if(this.EmcClientDetailsForm.invalid) {
       this.validationError = true;
       this.validationErrorMsg = "Please check all the fields";
@@ -121,49 +122,25 @@ countryChange(country: any, a: any) {
     }
 
     this.loading = true;
-
-    
+    this.emcClientDetails.userName= this.router.snapshot.paramMap.get('email') || '{}';
     this.emcClientDetailsService.addClientDetailsData(this.emcClientDetails).subscribe(
       data=> {
-        this.success = true
-        this.successMsg =data;
-        setTimeout(() => {
-          this.success = false;
-        }, 3000);
-        setTimeout(() => {
-          this.dialog.closeAll();
-          this.onSubmitClientDetails.emit(true);
-        }, 2000);
+        this.validationError = false;
+        this.sucess = true;
+        this.sucessMsg = "Client details Saved sucessfuLLY";
+         setTimeout(() => {
+       this.dialog.closeAll();
+     }, 1000);
+       
       },
       error => {
         this.Error = true;
         this.errorArr = [];
         this.errorArr = JSON.parse(error.error);
         this.errorMsg =this.errorArr.message;
-        this.onSubmitClientDetails.emit(false);
-        setTimeout(() => {
-          this.Error = false;
-        }, 3000);
-        this.EmcClientDetailsForm.reset();
-        this.loading=false;
+     
       }
       )
   }
-
-
-
-
-
-  onNavigateToQuestionaire() {
-    this.viewContainerRef.clear();
-    this.destroy = true;
-    // this.showHome = true;
-    const dialogRef = this.dialog.open(EmcMatstepperComponent, {
-      // width: '1000px',
-      // maxHeight: '90vh',
-      disableClose: true,
-    });
-  }
-
 
 }

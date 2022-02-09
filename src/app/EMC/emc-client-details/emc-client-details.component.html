@@ -1,8 +1,10 @@
 <h2 style="text-align: center;">Add New Client Details</h2>
 <div class="card">
     <div class="card-body">
-        <form [formGroup]="EmcClientDetailsForm" (ngSubmit)="onSubmit">
+        
+        <form [formGroup]="EmcClientDetailsForm" >
             <div class="row">
+               
 
                 <div class="col-md-4">
                     <div class="form-group">
@@ -189,6 +191,15 @@
                 </div>
 
             </div>
+           
+
+            <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+                <span class="alert alert-danger">{{validationErrorMsg}}</span>
+            </div>
+
+            <div *ngIf="sucess" style="text-align: center;margin-top: 30px;">
+                <span class="alert alert-danger">{{sucessMsg}}</span>
+            </div>
             <br>
             <div class="row">
                 <div class="col-md-6" (click)="cancel()" style="text-align: right;">
@@ -202,7 +213,7 @@
                 <div class="col-md-6">
                     <button type="submit" class="btn btn-primary btn-rounded btn-md font-weight-medium" id="login-btn">
                         <i class="bi bi-person-plus-fill icon"></i>
-                        <span aria-hidden="true" (click)="onSubmit()" (click)="onNavigateToQuestionaire()" > Save</span>
+                        <span aria-hidden="true" (click)="onSubmit()" > Save</span>
                     </button>
                     <!-- (click)="onSubmit()" -->
                 </div>
