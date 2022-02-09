@@ -31,14 +31,14 @@ export class EmcAssessmentInstallationComponent implements OnInit {
 
   onNavigateToQuestionaire() {
     this.viewContainerRef.clear();
-  
+    this.destroy = true;
     const dialogRef = this.dialog.open(EmcClientDetailsComponent, {
       width: '1000px',
       maxHeight: '90vh',
       disableClose: true,
+      
     });
-    this.destroy = true;
-    this.showHome = true;
+  
   }
 
   displayIconsBasedOnEmail(){

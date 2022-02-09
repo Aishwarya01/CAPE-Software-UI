@@ -1,10 +1,13 @@
+<div *ngIf="destroy">
+    <app-emc-matstepper *ngIf="showHome"></app-emc-matstepper>
+</div>
 <h2 style="text-align: center;">Add New Client Details</h2>
 <div class="card">
     <div class="card-body">
-        
-        <form [formGroup]="EmcClientDetailsForm" >
+
+        <form [formGroup]="EmcClientDetailsForm">
             <div class="row">
-               
+
 
                 <div class="col-md-4">
                     <div class="form-group">
@@ -23,9 +26,12 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Contact Number</label>
-                        <input type="number" class="form-control" formControlName="contactNumber" 
-                        [(ngModel)]="emcClientDetails.contactNumber"
-                        placeholder="Please Enter Contact Number">
+                        <input type="number" class="form-control" formControlName="contactNumber"
+                            [ngClass]="{'is-invalid':submitted && a.contactNumber?.errors}"
+                            [(ngModel)]="emcClientDetails.contactNumber" placeholder="Please Enter Contact Number">
+                        <div *ngIf="submitted &&a.contactNumber?.errors" class="invalid-feedback">
+                            <div *ngIf="a.contactNumber?.errors?.required">Client Name Is Required</div>
+                        </div>
                     </div>
                 </div>
 
@@ -122,9 +128,9 @@
                     <label>* Address</label>
                     <input type="text" formControlName="clientAddress" class="form-control" placeholder="Enter Address"
                         [(ngModel)]="emcClientDetails.clientAddress"
-                        [ngClass]="{ 'is-invalid': submitted && a.Address?.errors }">
-                    <div *ngIf="submitted && a.Address?.errors" class="invalid-feedback">
-                        <div *ngIf="a.Address?.errors?.required">Address Is Required</div>
+                        [ngClass]="{ 'is-invalid': submitted && a.clientAddress?.errors }">
+                    <div *ngIf="submitted && a.clientAddress?.errors" class="invalid-feedback">
+                        <div *ngIf="a.clientAddress?.errors?.required">Address Is Required</div>
                     </div>
                 </div>
 
@@ -142,9 +148,9 @@
                             [(ngModel)]="emcClientDetails.email"
                             [ngClass]="{'is-invalid':submitted && a.emcClientDetails?.errors}"
                             placeholder="Enter Email Address">
-                        <div *ngIf="submitted &&a.emcClientDetails?.errors" class="invalid-feedback">
-                            <div *ngIf="a.emcClientDetails?.errors?.required">Email is required</div>
-                            <div *ngIf="a.emcClientDetails?.errors?.pattern">Enter valid email</div>
+                        <div *ngIf="submitted &&a.email?.errors" class="invalid-feedback">
+                            <div *ngIf="a.email?.errors?.required">Email is required</div>
+                            <div *ngIf="a.email?.errors?.pattern">Enter valid email</div>
                         </div>
                     </div>
 
@@ -191,7 +197,7 @@
                 </div>
 
             </div>
-           
+
 
             <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
                 <span class="alert alert-danger">{{validationErrorMsg}}</span>
@@ -207,18 +213,15 @@
                         <i class="bi bi-x icon"></i> Cancel
                     </button>
                 </div>
-                <!-- (click)="cancel()" -->
-
 
                 <div class="col-md-6">
                     <button type="submit" class="btn btn-primary btn-rounded btn-md font-weight-medium" id="login-btn">
                         <i class="bi bi-person-plus-fill icon"></i>
-                        <span aria-hidden="true" (click)="onSubmit()" > Save</span>
-                    </button>
-                    <!-- (click)="onSubmit()" -->
+                        <span aria-hidden="true" (click)="onSubmit()"> Save</span>
+                    </button> 
                 </div>
-            </div>
 
+            </div>
         </form>
     </div>
 </div>

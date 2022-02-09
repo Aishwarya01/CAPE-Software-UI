@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators  } from '@angular/forms';
 import { ViewChild, ViewContainerRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -16,10 +16,15 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class EmcClientDetailsComponent implements OnInit {
 
+  @ViewChild('reference', { read: ViewContainerRef })
+  viewContainerRef!: ViewContainerRef;
+  destroy: boolean = false;
+  showHome: boolean = false;
 
   EmcClientDetailsForm!: FormGroup;
   emcClientDetails = new EmcClientDetails();
 
+  @Output() proceedNext = new EventEmitter<any>();
   countryList: any = [];
   stateList: any = [];
   countryCode: any;
@@ -122,12 +127,17 @@ countryChange(country: any, a: any) {
     }
 
     this.loading = true;
-    this.emcClientDetails.userName= this.router.snapshot.paramMap.get('email') || '{}';
+    this.emcClientDetails.userName=this.router.snapshot.paramMap.get('email') || '{}';
+     
     this.emcClientDetailsService.addClientDetailsData(this.emcClientDetails).subscribe(
       data=> {
         this.validationError = false;
         this.sucess = true;
-        this.sucessMsg = "Client details Saved sucessfuLLY";
+        this.sucessMsg = "Client Details Successfully Saved";
+        // this.retriveClientDetails();
+        this.proceedNext.emit(true);
+        this.destroy = true;
+        this.showHome = true;
          setTimeout(() => {
        this.dialog.closeAll();
      }, 1000);
@@ -138,9 +148,26 @@ countryChange(country: any, a: any) {
         this.errorArr = [];
         this.errorArr = JSON.parse(error.error);
         this.errorMsg =this.errorArr.message;
-     
+        this.proceedNext.emit(false);
       }
       )
   }
+
+  onNavigateToQuestionaire() {
+    // this.viewContainerRef.clear();
+   
+    // const dialogRef = this.dialog.open(EmcMatstepperComponent, {
+    // });
+  }
+
+  // retriveClientDetails() {
+  //   this.emcFacilityDataService.retrieveFacilityData(this.emcFacilityData.userName, this.emcFacilityData.emcId).subscribe(
+  //     data => {
+  //       this.retriveFacilityData(this.emcFacilityData.userName, this.emcFacilityData.emcId,data);
+  //     },
+  //     error => {
+  //     }
+  //   );
+  // }
 
 }
