@@ -2,6 +2,11 @@
     <mat-tab label="Electro Magnetic Compatibility">
         <mat-horizontal-stepper linear #stepper>
 
+            <mat-step [completed]=Completed>
+                <ng-template matStepLabel>CLIENT DETAILS</ng-template>
+                <app-emc-client-details (proceedNext)="doSomething($event)"></app-emc-client-details>
+            </mat-step>
+
             <mat-step [completed]=Completed1>
                 <ng-template matStepLabel>FACILITY DATA</ng-template>
                 <app-emc-facility-data (proceedNext)="doSomething1($event)"></app-emc-facility-data>

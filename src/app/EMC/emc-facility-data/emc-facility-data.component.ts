@@ -45,6 +45,7 @@ export class EmcFacilityDataComponent implements OnInit {
   modalReference: any;
 
   arr1: any = [];
+  emcId!: number;
   
   constructor(
     private formBuilder: FormBuilder,
@@ -398,6 +399,7 @@ export class EmcFacilityDataComponent implements OnInit {
     // }
 
     this.emcFacilityData.userName = this.router.snapshot.paramMap.get('email') || '{}';
+    this.emcFacilityData.emcId = this.emcId;
 
     this.floorCoveringArr = this.EMCFacilityForm.get('floorCoveringArr') as FormArray;
     this.emcFacilityData.floorCovering = this.EMCFacilityForm.value.floorCoveringArr;
@@ -429,13 +431,12 @@ export class EmcFacilityDataComponent implements OnInit {
       this.emcFacilityDataService.addFacilityData(this.emcFacilityData).subscribe(
 
         data => {
-          let emcFacilityDataItr = JSON.parse(data);
-
-          this.emcFacilityData.emcId = emcFacilityDataItr.emcId;
+          // let emcFacilityDataItr = JSON.parse(data);
+          // this.emcFacilityData.emcId = emcFacilityDataItr.emcId;
           this.finalSpinner = false;
           this.popup = true;
           this.success = true;
-          this.successMsg = "Facility Data Successfully Saved";
+          this.successMsg = data;
           //this.disable = true;
           this.retriveFacilityDetails();
           this.proceedNext.emit(true);

@@ -13,6 +13,9 @@ export class EmcClientDetails {
     country!: String;
     state!: String;
 
-    
+    createdDate!: Date;
+    createdBy!: String;
+    updatedBy!: String;
+    updatedDate!: Date;
 
 }

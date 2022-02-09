@@ -14,6 +14,8 @@ import { EmcElectromagneticCompatibilityDataComponent } from '../emc-electromagn
 import { EmcSavedReportComponent } from '../emc-saved-report/emc-saved-report.component';
 import { EmcSavedReportService } from 'src/app/EMC_Services/emc-saved-report.service';
 import { EmcFinalReportComponent } from '../emc-final-report/emc-final-report.component';
+import { EmcClientDetails } from 'src/app/EMC_Model/emc-client-details';
+import { EmcClientDetailsComponent } from '../emc-client-details/emc-client-details.component';
 
 @Component({
   selector: 'app-emc-matstepper',
@@ -32,10 +34,13 @@ export class EmcMatstepperComponent implements OnInit {
 
   @ViewChild(MatTabGroup) tabGroup!: MatTabGroup;
   selectedIndex: any;
+  Completed: boolean = true;
   Completed1: boolean = true;
   Completed2: boolean = true;
   Completed3: boolean = true;
 
+  @ViewChild(EmcClientDetailsComponent)
+  clientData!: EmcClientDetailsComponent;
   @ViewChild(EmcFacilityDataComponent)
   facility!: EmcFacilityDataComponent;
   @ViewChild(PowerAndEarthingDataComponent)
@@ -59,16 +64,25 @@ export class EmcMatstepperComponent implements OnInit {
     this.refresh();
   }
 
-  public doSomething1(next: any): void {
+
+  public doSomething(next: any): void {
+
+    // facilityData
+    this.facility.emcId = this.clientData.emcClientDetails.emcId;
 
     // powerAndEarthing
-    this.powerAndEarthing.emcId=this.facility.emcFacilityData.emcId;
+    this.powerAndEarthing.emcId = this.clientData.emcClientDetails.emcId;
 
     // electroMagneticCopatibility
-    this.electroMagneticCopatibility.emcId=this.facility.emcFacilityData.emcId;
+    this.electroMagneticCopatibility.emcId = this.clientData.emcClientDetails.emcId;
 
-    this.Completed1 = this.facility.success;
+    this.Completed = this.clientData.success;
     this.saved.ngOnInit();
+    this.refresh();
+  }
+
+  public doSomething1(next: any): void {
+    this.Completed1 = this.facility.success;
     this.refresh();
   }
 
@@ -82,29 +96,35 @@ export class EmcMatstepperComponent implements OnInit {
     this.final.ngOnInit();
   }
 
-  public changeTabLpsSavedReport(index: number, emcId: any, userName: any) {
+  public changeTabEmcSavedReport(index: number, emcId: any, userName: any) {
 
     this.selectedIndex = 1;
     this.emcSavedReportService.retrieveListOfEmc(userName, emcId).subscribe(
       (data) => {
         this.dataJSON = JSON.parse(data);
 
-        if (this.dataJSON.facility != null) {
+        if (this.dataJSON.clientData != null) {
           this.selectedIndex = index;
-          this.facility.retrieveDetailsfromSavedReports(userName, emcId, this.dataJSON);
-          this.doSomething1(false);
-          this.Completed1 = true;
+          this.clientData.retrieveDetailsfromSavedReports(userName, emcId, this.dataJSON);
+          this.doSomething(false);
+          this.Completed = true;
 
-          if (this.dataJSON.powerAndEarthing != null) {
-            this.powerAndEarthing.retrieveDetailsfromSavedReports(userName,emcId,this.dataJSON);
-            this.doSomething2(false);
-            this.Completed2 = true;
+          if (this.dataJSON.facility != null) {
+            this.facility.retrieveDetailsfromSavedReports(userName, emcId, this.dataJSON);
+            this.doSomething1(false);
+            this.Completed1 = true;
 
-            if (this.dataJSON.electroMagneticCopatibility != null) {
-               this.electroMagneticCopatibility.retrieveDetailsfromSavedReports(userName,emcId,this.dataJSON);
-              this.doSomething3(false);
-              this.Completed3 = true;
+            if (this.dataJSON.powerAndEarthing != null) {
+              this.powerAndEarthing.retrieveDetailsfromSavedReports(userName, emcId, this.dataJSON);
+              this.doSomething2(false);
+              this.Completed2 = true;
 
+              if (this.dataJSON.electroMagneticCopatibility != null) {
+                this.electroMagneticCopatibility.retrieveDetailsfromSavedReports(userName, emcId, this.dataJSON);
+                this.doSomething3(false);
+                this.Completed3 = true;
+
+              }
             }
           }
         }
@@ -131,7 +151,7 @@ export class EmcMatstepperComponent implements OnInit {
     this.ngOnInit();
     this.isEditable = true;
     let userName = this.router.snapshot.paramMap.get('email') || '{}';
-    this.changeTabLpsSavedReport(0, emcId, userName);
+    this.changeTabEmcSavedReport(0, emcId, userName);
 
   }
 
@@ -140,7 +160,7 @@ export class EmcMatstepperComponent implements OnInit {
     this.ngOnInit();
     this.isEditable = false;
     let userName = this.router.snapshot.paramMap.get('email') || '{}';
-    this.changeTabLpsSavedReport(0, emcId, userName);
+    this.changeTabEmcSavedReport(0, emcId, userName);
 
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
-import { FormGroup, FormBuilder, Validators  } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ViewChild, ViewContainerRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EmcClientDetails } from 'src/app/EMC_Model/emc-client-details';
@@ -8,6 +8,7 @@ import { EmcFacilityDataComponent } from '../emc-facility-data/emc-facility-data
 import { EmcMatstepperComponent } from '../emc-matstepper/emc-matstepper.component';
 import { EmcAssessmentInstallationComponent } from 'src/app/emc-assessment-installation/emc-assessment-installation.component';
 import { ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-emc-client-details',
@@ -18,6 +19,7 @@ export class EmcClientDetailsComponent implements OnInit {
 
   @ViewChild('reference', { read: ViewContainerRef })
   viewContainerRef!: ViewContainerRef;
+
   destroy: boolean = false;
   showHome: boolean = false;
 
@@ -38,17 +40,22 @@ export class EmcClientDetailsComponent implements OnInit {
   success: boolean = false;
   Error: boolean = false;
   errorMsg: string = "";
-  onSubmitClientDetails = new EventEmitter();
-
-  
+  finalSpinner: boolean = true;
+  popup: boolean = false;
+  step1List: any;
+  flag: boolean = false;
+  modalReference: any;
+  validationErrorTab: boolean = false;
+  validationErrorMsgTab: string = "";
   data: any = [];
-  errorArr: any=[];
- 
+  errorArr: any = [];
+
   constructor(
     public dialog: MatDialog,
     private router: ActivatedRoute,
     private formBuilder: FormBuilder,
-    public emcClientDetailsService : EmcClientDetailsService,
+    private modalService: NgbModal,
+    public emcClientDetailsService: EmcClientDetailsService,
   ) { }
 
 
@@ -66,15 +73,62 @@ export class EmcClientDetailsComponent implements OnInit {
       country: ['', Validators.required],
       state: ['', Validators.required],
     });
-   this.emcClientDetailsService.retrieveCountry().subscribe(
+    this.emcClientDetailsService.retrieveCountry().subscribe(
       data => {
-       
+
         this.countryList = JSON.parse(data);
       }
     )
   }
 
-  get a():any {
+  retriveClientDetailsData(userName: any, emcId: any, data: any) {
+    this.flag = true;
+    this.step1List = JSON.parse(data);
+    this.emcClientDetails.userName = userName;
+    this.emcClientDetails.emcId = emcId;
+    this.emcClientDetails.clientName = this.step1List[0].ClientName;
+    this.emcClientDetails.contactNumber = this.step1List[0].contactNumber;
+    this.emcClientDetails.contactPerson = this.step1List[0].contactPerson;
+    this.emcClientDetails.landMark = this.step1List[0].landMark;
+    this.emcClientDetails.clientLocation = this.step1List[0].clientLocation;
+    this.emcClientDetails.clientAddress = this.step1List[0].clientAddress;
+    this.emcClientDetails.email = this.step1List[0].email;
+    this.emcClientDetails.country = this.step1List[0].country;
+    this.emcClientDetails.state = this.step1List[0].state;
+
+    this.emcClientDetails.createdDate = this.step1List[0].createdDate;
+    this.emcClientDetails.createdDate = this.step1List[0].createdDate;
+    this.emcClientDetails.createdBy = this.step1List[0].createdBy;
+    this.emcClientDetails.updatedBy = this.step1List[0].updatedBy;
+    this.emcClientDetails.updatedDate = this.step1List[0].updatedDate;
+
+  }
+
+
+
+  retrieveDetailsfromSavedReports(userName: any, emcId: any, data: any) {
+
+    this.step1List = data.emcClientDetails;
+    this.emcClientDetails.userName = this.step1List.userName;
+    this.emcClientDetails.emcId = emcId;
+    this.emcClientDetails.clientName = this.step1List.clientName;
+    this.emcClientDetails.contactNumber = this.step1List.contactNumber;
+    this.emcClientDetails.contactPerson = this.step1List.contactPerson;
+    this.emcClientDetails.landMark = this.step1List.landMark;
+    this.emcClientDetails.clientLocation = this.step1List.clientLocation;
+    this.emcClientDetails.clientAddress = this.step1List.clientAddress;
+    this.emcClientDetails.email = this.step1List.email;
+    this.emcClientDetails.country = this.step1List.country;
+    this.emcClientDetails.state = this.step1List.state;
+
+    this.emcClientDetails.createdBy = this.step1List.createdBy;
+    this.emcClientDetails.createdDate = this.step1List.createdDate;
+
+    this.flag = true;
+  }
+
+
+  get a(): any {
     return this.EmcClientDetailsForm.controls;
   }
 
@@ -82,8 +136,8 @@ export class EmcClientDetailsComponent implements OnInit {
     this.dialog.closeAll();
   }
 
-   // Only Integer Numbers
-   keyPressNumbers(event:any) {
+  // Only Integer Numbers
+  keyPressNumbers(event: any) {
     var charCode = (event.which) ? event.which : event.keyCode;
     // Only Numbers 0-9
     if ((charCode < 48 || charCode > 57)) {
@@ -97,77 +151,175 @@ export class EmcClientDetailsComponent implements OnInit {
   changeCountry(e: any) {
     let changedValue = e.target.value;
     this.stateList = [];
-      for(let arr of this.countryList) {
-        if( arr.name == changedValue) {
-          this.emcClientDetailsService.retrieveState(arr.code).subscribe(
-            data => {
-              this.stateList = JSON.parse(data)
-            }
-          )};
-      }
-  }
-
-//country code
-countryChange(country: any, a: any) {
-  this.countryCode = country.dialCode;
-  a.controls.countryCode.value= this.countryCode;
-}
-
-  onSubmit() {
-    this.submitted = true;
-
-   // Breaks if form is invalid
-    if(this.EmcClientDetailsForm.invalid) {
-      this.validationError = true;
-      this.validationErrorMsg = "Please check all the fields";
-      // setTimeout(() => {
-      //   this.validationError = false;
-      // }, 3000);
-      return;
+    for (let arr of this.countryList) {
+      if (arr.name == changedValue) {
+        this.emcClientDetailsService.retrieveState(arr.code).subscribe(
+          data => {
+            this.stateList = JSON.parse(data)
+          }
+        )
+      };
     }
-
-    this.loading = true;
-    this.emcClientDetails.userName=this.router.snapshot.paramMap.get('email') || '{}';
-     
-    this.emcClientDetailsService.addClientDetailsData(this.emcClientDetails).subscribe(
-      data=> {
-        this.validationError = false;
-        this.sucess = true;
-        this.sucessMsg = "Client Details Successfully Saved";
-        // this.retriveClientDetails();
-        this.proceedNext.emit(true);
-        this.destroy = true;
-        this.showHome = true;
-         setTimeout(() => {
-       this.dialog.closeAll();
-     }, 1000);
-       
-      },
-      error => {
-        this.Error = true;
-        this.errorArr = [];
-        this.errorArr = JSON.parse(error.error);
-        this.errorMsg =this.errorArr.message;
-        this.proceedNext.emit(false);
-      }
-      )
   }
 
-  onNavigateToQuestionaire() {
-    // this.viewContainerRef.clear();
-   
-    // const dialogRef = this.dialog.open(EmcMatstepperComponent, {
-    // });
+  //country code
+  countryChange(country: any, a: any) {
+    this.countryCode = country.dialCode;
+    a.controls.countryCode.value = this.countryCode;
   }
 
-  // retriveClientDetails() {
-  //   this.emcFacilityDataService.retrieveFacilityData(this.emcFacilityData.userName, this.emcFacilityData.emcId).subscribe(
-  //     data => {
-  //       this.retriveFacilityData(this.emcFacilityData.userName, this.emcFacilityData.emcId,data);
+  // onSubmit() {
+  //   this.submitted = true;
+
+  //  // Breaks if form is invalid
+  //   if(this.EmcClientDetailsForm.invalid) {
+  //     this.validationError = true;
+  //     this.validationErrorMsg = "Please check all the fields";
+  //     // setTimeout(() => {
+  //     //   this.validationError = false;
+  //     // }, 3000);
+  //     return;
+  //   }
+
+  //   this.loading = true;
+  //   this.emcClientDetails.userName=this.router.snapshot.paramMap.get('email') || '{}';
+
+  //   this.emcClientDetailsService.addClientDetailsData(this.emcClientDetails).subscribe(
+  //     data=> {
+  //       this.validationError = false;
+  //       this.sucess = true;
+  //       this.sucessMsg = "Client Details Successfully Saved";
+  //       this.retriveClientDetails();
+  //       this.proceedNext.emit(true);
+  //        setTimeout(() => {
+  //      this.dialog.closeAll();
+  //    }, 1000);
+
   //     },
   //     error => {
+  //       this.Error = true;
+  //       this.errorArr = [];
+  //       this.errorArr = JSON.parse(error.error);
+  //       this.errorMsg =this.errorArr.message;
+  //       this.proceedNext.emit(false);
   //     }
-  //   );
+  //     )
   // }
+
+  closeModalDialog() {
+    this.finalSpinner = true;
+    this.popup = false;
+    if (this.errorMsg != "") {
+      this.Error = false;
+      // this.service.isCompleted3= false;
+      // this.service.isLinear=true;
+      this.modalService.dismissAll((this.errorMsg = ""));
+    }
+    else {
+      this.success = false;
+      // this.service.isCompleted3= true;
+      // this.service.isLinear=false;
+      this.modalService.dismissAll((this.successMsg = ""));
+      // this.disable = false;
+
+    }
+  }
+
+
+  gotoNextModal(content: any) {
+    // if (this.EMCFacilityForm.invalid) {
+    //   this.validationError = true;
+    //   this.validationErrorMsg = "Please check all the fields";
+    //   //     setTimeout(()=>{
+    //   //       this.validationError=false;
+    //   //  }, 3000);
+    //   return;
+    // }
+
+    if (this.EmcClientDetailsForm.touched || this.EmcClientDetailsForm.untouched) {
+      this.modalReference = this.modalService.open(content, {
+        centered: true,
+        size: 'md',
+        backdrop: 'static'
+      })
+    }
+    if (this.EmcClientDetailsForm.dirty && this.EmcClientDetailsForm.touched) { //update
+      this.modalService.open(content, { centered: true, backdrop: 'static' });
+      this.modalReference.close();
+    }
+  }
+
+
+  saveClientDetails(flag: any) {
+
+    // this.submitted = true;
+    // if (this.EMCFacilityForm.invalid) {
+    //   return;
+    // }
+
+    this.emcClientDetails.userName = this.router.snapshot.paramMap.get('email') || '{}';
+
+    if (flag) {
+      if (this.EmcClientDetailsForm.dirty) {
+        this.emcClientDetailsService
+          .upDateClientDetailsData(this.emcClientDetails)
+          .subscribe(
+            (data: any) => {
+              this.finalSpinner = false;
+              this.popup = true;
+              this.success = true;
+              this.successMsg = data;
+
+            },
+            (error: any) => {
+              this.finalSpinner = false;
+              this.popup = true;
+              this.Error = true;
+              this.errorArr = [];
+              this.errorArr = JSON.parse(error.error);
+              this.errorMsg = this.errorArr.message;
+
+            });
+      }
+    }
+
+    else {
+      this.emcClientDetailsService.addClientDetailsData(this.emcClientDetails).subscribe(
+
+        data => {
+          let emcClientDetailsDataItr = JSON.parse(data);
+          this.emcClientDetails.emcId = emcClientDetailsDataItr.emcId;
+
+          this.finalSpinner = false;
+          this.popup = true;
+          this.success = true;
+          this.successMsg = "Client Details Successfully Saved";
+          //this.disable = true;
+          this.retriveClientDetails();
+          this.proceedNext.emit(true);
+        },
+        error => {
+          this.finalSpinner = false;
+          this.popup = true;
+          this.Error = true;
+          this.errorArr = [];
+          this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.errorArr.message;
+          this.proceedNext.emit(false);
+        }
+      )
+    }
+    (this.emcClientDetails);
+  }
+
+  retriveClientDetails() {
+    this.emcClientDetailsService.retrieveClientDetailsData(this.emcClientDetails.userName, this.emcClientDetails.emcId).subscribe(
+      data => {
+        this.retriveClientDetailsData(this.emcClientDetails.userName, this.emcClientDetails.emcId, data);
+      },
+      error => {
+      }
+    );
+  }
 
 }

@@ -412,7 +412,6 @@ export class PowerAndEarthingDataComponent implements OnInit {
     // }
 
     this.emcPowerAndEarthingData.userName = this.email;
-    
     this.emcPowerAndEarthingData.emcId = this.emcId;
 
     this.electronicSystemArr = this.EMCPowerAndEarthForm.get('electronicSystemArr') as FormArray;

@@ -15,8 +15,7 @@ export class EmcAssessmentInstallationComponent implements OnInit {
   viewContainerRef!: ViewContainerRef;
   destroy: boolean = false;
   email: String = '';
-  showLicence: boolean = false;
-  showHome: boolean = false;
+  showEmcHome: boolean = false;
 
   constructor( private router: ActivatedRoute,
     private dialog: MatDialog,
@@ -32,15 +31,16 @@ export class EmcAssessmentInstallationComponent implements OnInit {
   onNavigateToQuestionaire() {
     this.viewContainerRef.clear();
     this.destroy = true;
-    const dialogRef = this.dialog.open(EmcClientDetailsComponent, {
-      width: '1000px',
-      maxHeight: '90vh',
-      disableClose: true,
+    // const dialogRef = this.dialog.open(EmcClientDetailsComponent, {
+    //   width: '1000px',
+    //   maxHeight: '90vh',
+    //   disableClose: true,
       
-    });
-  
+    // });
+  this.showEmcHome = true;
+    // });
+    // dialogRef.componentInstance.email = this.email;
   }
-
   displayIconsBasedOnEmail(){
   }
   

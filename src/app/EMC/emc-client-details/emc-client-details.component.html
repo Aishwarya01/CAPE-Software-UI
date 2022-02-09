@@ -1,13 +1,14 @@
-<div *ngIf="destroy">
-    <app-emc-matstepper *ngIf="showHome"></app-emc-matstepper>
+<!-- <h2 style="text-align: center;">Add New Client Details</h2> -->
+
+<div *ngIf="validationErrorTab" style="text-align: center;">
+    <span class="alert alert-danger">{{validationErrorMsgTab}}</span>
 </div>
-<h2 style="text-align: center;">Add New Client Details</h2>
+
 <div class="card">
     <div class="card-body">
 
-        <form [formGroup]="EmcClientDetailsForm">
+        <form [formGroup]="EmcClientDetailsForm" (ngSubmit)="saveClientDetails(flag)">
             <div class="row">
-
 
                 <div class="col-md-4">
                     <div class="form-group">
@@ -21,7 +22,6 @@
                         </div>
                     </div>
                 </div>
-
 
                 <div class="col-md-4">
                     <div class="form-group">
@@ -204,24 +204,52 @@
             </div>
 
             <div *ngIf="sucess" style="text-align: center;margin-top: 30px;">
-                <span class="alert alert-danger">{{sucessMsg}}</span>
+                <span class="alert alert-success">{{sucessMsg}}</span>
             </div>
             <br>
-            <div class="row">
-                <div class="col-md-6" (click)="cancel()" style="text-align: right;">
+            
+                <!-- <div class="col-md-6" (click)="cancel()" style="text-align: right;">
                     <button type="Cancel" class="btn btn-danger">
                         <i class="bi bi-x icon"></i> Cancel
                     </button>
+                </div> -->
+
+                 <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
+                    <button class="next" (click)="gotoNextModal(content)" mat-button>Next &raquo;</button>
                 </div>
 
-                <div class="col-md-6">
-                    <button type="submit" class="btn btn-primary btn-rounded btn-md font-weight-medium" id="login-btn">
+                <!-- <div class="row">
+                    <div class="col-md-6">
+                    <button type="submit" class="btn btn-primary btn-rounded btn-md font-weight-medium"
+                        style="text-align: left;" id="login-btn">
                         <i class="bi bi-person-plus-fill icon"></i>
-                        <span aria-hidden="true" (click)="onSubmit()"> Save</span>
-                    </button> 
+                        <span aria-hidden="true" (click)="onSubmit(flag)">
+                            Next</span>
+                    </button>
                 </div>
-
-            </div>
+            </div> -->
         </form>
     </div>
 </div>
+
+<ng-template #content let-modal>
+    <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner" color="primary">
+    </mat-progress-spinner>
+    <div class="modal-body" *ngIf="popup">
+        <div class="centre-text m-btm30">
+            <div *ngIf="success" style="text-align: center;">
+                <span class="successshow">{{successMsg}}</span>
+            </div>
+            <div *ngIf="Error" style="text-align: center;">
+                <span class="errorshow">{{errorMsg}}</span>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <button type="button" *ngIf="popup" style="text-align: center;margin-left:180px;width:20%" class="close"
+        class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"
+        (click)="closeModalDialog()" matStepperNext>
+        <span aria-hidden="true">Ok</span>
+    </button>
+</ng-template>
