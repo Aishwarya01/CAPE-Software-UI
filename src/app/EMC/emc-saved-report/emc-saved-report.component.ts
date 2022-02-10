@@ -57,7 +57,7 @@ export class EmcSavedReportComponent implements OnInit {
      this.currentUser=sessionStorage.getItem('authenticatedUser');
      this.currentUser1 = [];
      this.currentUser1=JSON.parse(this.currentUser);
-    //  this.retrieveEmcDetails();
+      this.retrieveEmcDetails();
     
    }
  
