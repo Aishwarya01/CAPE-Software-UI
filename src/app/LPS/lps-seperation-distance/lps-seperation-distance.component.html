@@ -75,21 +75,27 @@
                                     </tr>
                                     
                                     <tr>
-                                        <td style="text-align: center;">2.{{i+1}}</td>
-                                        <td>Measured Seperation distance between air termination and electrical apparatus (lights, Solar PV, AC chillers, cameras…. Etc)(Measurement required in atleast 10 locations on roof top) in meters</td>
-                                        <td>
+                                        <td colspan="4">
+                                        <label>2.Measured Seperation distance between air termination and electrical apparatus (lights, Solar PV, AC chillers, cameras…. Etc)(Measurement required in atleast 10 locations on roof top) in meters</label>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>2.{{i+1}}</td>
+                                        <td style="width: 40rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" [readonly]="isEditable" formControlName="seperationDistanceOb" class="form-control" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceOb')?.errors }"></textarea>
+                                                <textarea type="number" [readonly]="isEditable" formControlName="seperationDistanceOb" class="form-control" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceOb')?.errors }"></textarea>
                                                 <div *ngIf="submitted && f.get('seperationDistanceOb')?.errors" class="invalid-feedback">
                                                     <div *ngIf="f.get('seperationDistanceOb')?.errors?.required"> SeparateDistance Observation is required</div>
                                                 </div>
                                             </div>
                                         </td>
+
                                         <td>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
@@ -97,13 +103,33 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="seperationDistanceRem" placeholder="Remarks (Optional)"></textarea>
+                                                <textarea type="number" [readonly]="isEditable" formControlName="seperationDistanceOb" class="form-control" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceOb')?.errors }"></textarea>
+                                                <div *ngIf="submitted && f.get('seperationDistanceOb')?.errors" class="invalid-feedback">
+                                                    <div *ngIf="f.get('seperationDistanceOb')?.errors?.required"> SeparateDistance Observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="number" class="form-control" [readonly]="isEditable" formControlName="seperationDistanceRem" placeholder="Remarks (Optional)"></textarea>
                                             </div>
                                         </td>
                                     </tr>
+                                    
                                     <tr>
-                                        <td style="text-align: center;">3.</td>
-                                        <td>Measured Seperation distance between down conductors and electrical apparatus (lights, Solar PV, AC chillers, cameras…. Etc)(Measurement required in atleast 10 locations on roof top) in meters</td>
+                                        <td colspan="4">
+                                        <label>3.Measured Seperation distance between down conductors and electrical apparatus (lights, Solar PV, AC chillers, cameras…. Etc)(Measurement required in atleast 10 locations on roof top) in meters</label>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>3.{{i+1}}</td>
                                         <td>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
@@ -111,7 +137,24 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" class="form-control"
+                                                <textarea type="number" class="form-control"
+                                                    [readonly]="isEditable" formControlName="noPannelSupplittingOb"
+                                                    placeholder="Please enter Observation here"
+                                                    [ngClass]="{'is-invalid': submitted && f.get('noPannelSupplittingOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && f.get('noPannelSupplittingOb')?.errors" class="invalid-feedback">
+                                                    <div *ngIf="f.get('noPannelSupplittingOb')?.errors?.required">Total Number of panels supplting power to outdoor equipment observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="number" class="form-control"
                                                     [readonly]="isEditable" formControlName="noPannelSupplittingOb"
                                                     placeholder="Please enter Observation here"
                                                     [ngClass]="{'is-invalid': submitted && f.get('noPannelSupplittingOb')?.errors}"></textarea>
@@ -128,7 +171,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" class="form-control" 
+                                                <textarea type="number" class="form-control" 
                                                     [readonly]="isEditable" formControlName="noPannelSupplittingRem"
                                                     ></textarea>
                                             </div>
