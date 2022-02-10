@@ -2,7 +2,7 @@ export class EmcFacilityData {
 
     userName!: String;
     emcId!: number;
-    // facilityDataId!:number;
+    facilityDataId!:number;
     blType!: String;
     blOtherDescription!: String;
     bcType!: String;

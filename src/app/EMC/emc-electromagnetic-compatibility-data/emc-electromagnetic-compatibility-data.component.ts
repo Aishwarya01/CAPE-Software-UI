@@ -284,14 +284,14 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
     });
   }
   gotoNextModal(content3: any) {
-    // if (this.EMCElectroMagneticFormm.invalid) {
-    //   this.validationError = true;
-    //   this.validationErrorMsg = "Please check all the fields";
-    //   //     setTimeout(()=>{
-    //   //       this.validationError=false;
-    //   //  }, 3000);
-    //   return;
-    // }
+    if (this.EMCElectroMagneticFormm.invalid) {
+      this.validationError = true;
+      this.validationErrorMsg = "Please check all the fields";
+      //     setTimeout(()=>{
+      //       this.validationError=false;
+      //  }, 3000);
+      return;
+    }
     if (this.EMCElectroMagneticFormm.touched || this.EMCElectroMagneticFormm.untouched) {
       this.modalReference = this.modalService.open(content3, {
         centered: true,
@@ -350,10 +350,10 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
 
   saveElectroMagneticData(flag: any) {
 
-    // this.submitted = true;
-    // if (this.EMCElectroMagneticFormm.invalid) {
-    //   return
-    // }
+    this.submitted = true;
+    if (this.EMCElectroMagneticFormm.invalid) {
+      return
+    }
     this.emcElectromagneticCompatibility.userName = this.email;
 
     this.emcElectromagneticCompatibility.emcId = this.emcId;

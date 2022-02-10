@@ -4,9 +4,9 @@
 <div class="card">
     <div class="card-body">
         <mat-accordion>
-            <form [formGroup]="EMCElectroMagneticFormm" (ngSubmit)="saveElectroMagneticData(flag)">
-                <!-- (keyup)="onKeyForm($event)" (change)="onChangeForm($event)"> -->
-
+            <form [formGroup]="EMCElectroMagneticFormm" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)"
+                (ngSubmit)="saveElectroMagneticData(flag)">
+               
                 <mat-expansion-panel class="body">
 
                     <mat-expansion-panel-header>
@@ -660,7 +660,8 @@
                     <div class="col-sm-12">
                         <div style="text-align: center;">
                             <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
-                            <button style="width: auto;margin-left: 50px;" (click)="gotoNextModal(content3)" type="submit"
+                            <button style="width: auto;margin-left: 50px;" (click)="gotoNextModal(content3)"
+                                type="submit"
                                 class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn next"
                                 mat-button>
                                 <i class="bi bi-journal-arrow-up icon"></i> Submit</button>

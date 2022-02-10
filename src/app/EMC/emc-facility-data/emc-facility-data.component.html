@@ -5,9 +5,8 @@
     <div class="card-body">
 
         <mat-accordion>
-            <form [formGroup]="EMCFacilityForm" (ngSubmit)="saveFacilityData(flag)">
-
-                <!-- (keyup)="onKeyForm($event)"  (change)="onChangeForm($event)"-->
+            <form [formGroup]="EMCFacilityForm" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)"
+                (ngSubmit)="saveFacilityData(flag)">
 
                 <mat-expansion-panel class="body">
                     <mat-expansion-panel-header>

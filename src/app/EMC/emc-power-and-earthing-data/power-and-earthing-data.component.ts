@@ -149,14 +149,14 @@ export class PowerAndEarthingDataComponent implements OnInit {
   }
 
   gotoNextModal(content2: any) {
-    // if (this.EMCPowerAndEarthForm.invalid) {
-    //   this.validationError = true;
-    //   this.validationErrorMsg = "Please check all the fields";
-    //   //     setTimeout(()=>{
-    //   //       this.validationError=false;
-    //   //  }, 3000);
-    //   return;
-    // }
+    if (this.EMCPowerAndEarthForm.invalid) {
+      this.validationError = true;
+      this.validationErrorMsg = "Please check all the fields";
+      //     setTimeout(()=>{
+      //       this.validationError=false;
+      //  }, 3000);
+      return;
+    }
     if (this.EMCPowerAndEarthForm.touched || this.EMCPowerAndEarthForm.untouched) {
       this.modalReference = this.modalService.open(content2, {
         centered: true,
@@ -406,10 +406,10 @@ export class PowerAndEarthingDataComponent implements OnInit {
   }
 
   savePowerAndEarthingData(flag: any) {
-    // this.submitted = true;
-    // if (this.EMCPowerAndEarthForm.invalid) {
-    //   return
-    // }
+    this.submitted = true;
+    if (this.EMCPowerAndEarthForm.invalid) {
+      return
+    }
 
     this.emcPowerAndEarthingData.userName = this.email;
     this.emcPowerAndEarthingData.emcId = this.emcId;

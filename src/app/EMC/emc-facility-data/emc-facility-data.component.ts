@@ -256,6 +256,7 @@ export class EmcFacilityDataComponent implements OnInit {
     this.step1List = JSON.parse(data);
     this.emcFacilityData.userName = userName;
     this.emcFacilityData.emcId = emcId;
+    this.emcFacilityData.facilityDataId =this.step1List[0].facilityDataId ;
     this.emcFacilityData.blType = this.step1List[0].blType;
     this.emcFacilityData.blOtherDescription = this.step1List[0].blOtherDescription;
     this.emcFacilityData.bcType = this.step1List[0].bcType;
@@ -370,14 +371,14 @@ export class EmcFacilityDataComponent implements OnInit {
   }
 
   gotoNextModal(content1: any) {
-    // if (this.EMCFacilityForm.invalid) {
-    //   this.validationError = true;
-    //   this.validationErrorMsg = "Please check all the fields";
-    //   //     setTimeout(()=>{
-    //   //       this.validationError=false;
-    //   //  }, 3000);
-    //   return;
-    // }
+    if (this.EMCFacilityForm.invalid) {
+      this.validationError = true;
+      this.validationErrorMsg = "Please check all the fields";
+      //     setTimeout(()=>{
+      //       this.validationError=false;
+      //  }, 3000);
+      return;
+    }
 
     if (this.EMCFacilityForm.touched || this.EMCFacilityForm.untouched) {
       this.modalReference = this.modalService.open(content1, {
@@ -393,10 +394,10 @@ export class EmcFacilityDataComponent implements OnInit {
   }
   saveFacilityData(flag: any) {
 
-    // this.submitted = true;
-    // if (this.EMCFacilityForm.invalid) {
-    //   return;
-    // }
+    this.submitted = true;
+    if (this.EMCFacilityForm.invalid) {
+      return;
+    }
 
     this.emcFacilityData.userName = this.router.snapshot.paramMap.get('email') || '{}';
     this.emcFacilityData.emcId = this.emcId;

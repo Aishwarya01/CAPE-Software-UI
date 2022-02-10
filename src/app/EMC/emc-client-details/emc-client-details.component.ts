@@ -69,7 +69,7 @@ export class EmcClientDetailsComponent implements OnInit {
       landMark: ['', Validators.required],
       clientLocation: ['', Validators.required],
       clientAddress: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]] ,
       country: ['', Validators.required],
       state: ['', Validators.required],
     });
@@ -86,7 +86,7 @@ export class EmcClientDetailsComponent implements OnInit {
     this.step1List = JSON.parse(data);
     this.emcClientDetails.userName = userName;
     this.emcClientDetails.emcId = emcId;
-    this.emcClientDetails.clientName = this.step1List[0].ClientName;
+    this.emcClientDetails.clientName = this.step1List[0].clientName;
     this.emcClientDetails.contactNumber = this.step1List[0].contactNumber;
     this.emcClientDetails.contactPerson = this.step1List[0].contactPerson;
     this.emcClientDetails.landMark = this.step1List[0].landMark;
@@ -137,7 +137,8 @@ export class EmcClientDetailsComponent implements OnInit {
   }
 
   // Only Integer Numbers
-  keyPressNumbers(event: any) {
+
+  keyPressNumbers(event:any) {
     var charCode = (event.which) ? event.which : event.keyCode;
     // Only Numbers 0-9
     if ((charCode < 48 || charCode > 57)) {
@@ -162,50 +163,17 @@ export class EmcClientDetailsComponent implements OnInit {
     }
   }
 
-  //country code
-  countryChange(country: any, a: any) {
+  countryChange(country: any) {
     this.countryCode = country.dialCode;
-    a.controls.countryCode.value = this.countryCode;
   }
 
-  // onSubmit() {
-  //   this.submitted = true;
-
-  //  // Breaks if form is invalid
-  //   if(this.EmcClientDetailsForm.invalid) {
-  //     this.validationError = true;
-  //     this.validationErrorMsg = "Please check all the fields";
-  //     // setTimeout(() => {
-  //     //   this.validationError = false;
-  //     // }, 3000);
-  //     return;
-  //   }
-
-  //   this.loading = true;
-  //   this.emcClientDetails.userName=this.router.snapshot.paramMap.get('email') || '{}';
-
-  //   this.emcClientDetailsService.addClientDetailsData(this.emcClientDetails).subscribe(
-  //     data=> {
-  //       this.validationError = false;
-  //       this.sucess = true;
-  //       this.sucessMsg = "Client Details Successfully Saved";
-  //       this.retriveClientDetails();
-  //       this.proceedNext.emit(true);
-  //        setTimeout(() => {
-  //      this.dialog.closeAll();
-  //    }, 1000);
-
-  //     },
-  //     error => {
-  //       this.Error = true;
-  //       this.errorArr = [];
-  //       this.errorArr = JSON.parse(error.error);
-  //       this.errorMsg =this.errorArr.message;
-  //       this.proceedNext.emit(false);
-  //     }
-  //     )
+  // //country code
+  // countryChange(country: any, a: any) {
+  //   this.countryCode = country.dialCode;
+  //   a.controls.countryCode.value = this.countryCode;
   // }
 
+  
   closeModalDialog() {
     this.finalSpinner = true;
     this.popup = false;
@@ -225,16 +193,60 @@ export class EmcClientDetailsComponent implements OnInit {
     }
   }
 
+  onKeyForm(event: KeyboardEvent) {
+    if (!this.EmcClientDetailsForm.invalid) {
+      if (this.EmcClientDetailsForm.dirty) {
+        this.validationError = false;
+        //  this.service.lvClick=1;
+        //  this.service.logoutClick=1;
+        //  this.service.windowTabClick=1;
+      }
+      else {
+        this.validationError = false;
+        //  this.service.lvClick=0;
+        //  this.service.logoutClick=0;
+        //  this.service.windowTabClick=0;
+      }
+    }
+    else {
+      //  this.service.lvClick=1;
+      //  this.service.logoutClick=1;
+      //  this.service.windowTabClick=1;
+    }
+  }
+
+  
+  onChangeForm(event: any) {
+    if (!this.EmcClientDetailsForm.invalid) {
+      if (this.EmcClientDetailsForm.dirty) {
+        this.validationError = false;
+        // this.service.lvClick=1;
+        // this.service.logoutClick=1;
+        //  this.service.windowTabClick=1;
+      }
+      else {
+        this.validationError = false;
+        // this.service.lvClick=0;
+        // this.service.logoutClick=0;
+        // this.service.windowTabClick=0;
+      }
+    }
+    else {
+      // this.service.lvClick=1;
+      // this.service.logoutClick=1;
+      // this.service.windowTabClick=1;
+    }
+  }
 
   gotoNextModal(content: any) {
-    // if (this.EMCFacilityForm.invalid) {
-    //   this.validationError = true;
-    //   this.validationErrorMsg = "Please check all the fields";
-    //   //     setTimeout(()=>{
-    //   //       this.validationError=false;
-    //   //  }, 3000);
-    //   return;
-    // }
+    if (this.EmcClientDetailsForm.invalid) {
+      this.validationError = true;
+      this.validationErrorMsg = "Please check all the fields";
+      //     setTimeout(()=>{
+      //       this.validationError=false;
+      //  }, 3000);
+      return;
+    }
 
     if (this.EmcClientDetailsForm.touched || this.EmcClientDetailsForm.untouched) {
       this.modalReference = this.modalService.open(content, {
@@ -249,14 +261,11 @@ export class EmcClientDetailsComponent implements OnInit {
     }
   }
 
-
   saveClientDetails(flag: any) {
-
-    // this.submitted = true;
-    // if (this.EMCFacilityForm.invalid) {
-    //   return;
-    // }
-
+    this.submitted = true;
+    if (this.EmcClientDetailsForm.invalid) {
+      return;
+    }
     this.emcClientDetails.userName = this.router.snapshot.paramMap.get('email') || '{}';
 
     if (flag) {
