@@ -107,8 +107,8 @@ export class EmcClientDetailsComponent implements OnInit {
 
 
   retrieveDetailsfromSavedReports(userName: any, emcId: any, data: any) {
-
-    this.step1List = data.emcClientDetails;
+    this.flag = true;
+    this.step1List = data.clientDetails;
     this.emcClientDetails.userName = this.step1List.userName;
     this.emcClientDetails.emcId = emcId;
     this.emcClientDetails.clientName = this.step1List.clientName;
@@ -120,11 +120,8 @@ export class EmcClientDetailsComponent implements OnInit {
     this.emcClientDetails.email = this.step1List.email;
     this.emcClientDetails.country = this.step1List.country;
     this.emcClientDetails.state = this.step1List.state;
-
     this.emcClientDetails.createdBy = this.step1List.createdBy;
     this.emcClientDetails.createdDate = this.step1List.createdDate;
-
-    this.flag = true;
   }
 
 

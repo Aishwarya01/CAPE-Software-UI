@@ -101,25 +101,26 @@ export class EmcMatstepperComponent implements OnInit {
     this.selectedIndex = 1;
     this.emcSavedReportService.retrieveFinalEmcReport(userName, emcId).subscribe(
       (data) => {
+       
         this.dataJSON = JSON.parse(data);
-
-        if (this.dataJSON.clientData != null) {
+        if (this.dataJSON.clientDetails!= null) {
+         
           this.selectedIndex = index;
           this.clientData.retrieveDetailsfromSavedReports(userName, emcId, this.dataJSON);
           this.doSomething(false);
           this.Completed = true;
 
-          if (this.dataJSON.facility != null) {
+          if (this.dataJSON.facilityData != null) {
             this.facility.retrieveDetailsfromSavedReports(userName, emcId, this.dataJSON);
             this.doSomething1(false);
             this.Completed1 = true;
 
-            if (this.dataJSON.powerAndEarthing != null) {
+            if (this.dataJSON.powerEarthingData != null) {
               this.powerAndEarthing.retrieveDetailsfromSavedReports(userName, emcId, this.dataJSON);
               this.doSomething2(false);
               this.Completed2 = true;
 
-              if (this.dataJSON.electroMagneticCopatibility != null) {
+              if (this.dataJSON.electromagneticCompatability != null) {
                 this.electroMagneticCopatibility.retrieveDetailsfromSavedReports(userName, emcId, this.dataJSON);
                 this.doSomething3(false);
                 this.Completed3 = true;

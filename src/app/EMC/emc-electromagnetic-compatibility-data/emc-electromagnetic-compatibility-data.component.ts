@@ -131,8 +131,11 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
 
   retrieveDetailsfromSavedReports(userName: any, emcId: any, data: any) {
 
-    this.step1List = data.emcElectromagneticCompatibility;
+    this.flag = true;
+
+    this.step1List = data.electromagneticCompatability;
     this.emcElectromagneticCompatibility.emcId = emcId;
+    this.emcElectromagneticCompatibility.electromagneticCompatabilityId = this.step1List.electromagneticCompatabilityId;
     this.emcElectromagneticCompatibility.seSinglePoint = this.step1List.seSinglePoint;
     this.emcElectromagneticCompatibility.seMeshedArrangment = this.step1List.seMeshedArrangment;
     this.emcElectromagneticCompatibility.seDescription = this.step1List.seDescription;
@@ -155,9 +158,8 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
     this.emcElectromagneticCompatibility.userName = this.step1List.userName;
 
     // this.populateData2();
-    this.flag = true;
 
-    for (let i of this.step1List[0].externalCompatibility) {
+    for (let i of this.step1List.externalCompatibility) {
       this.EMCElectroMagneticFormm.patchValue({
         externalCompatibilityArr: [i],
       })

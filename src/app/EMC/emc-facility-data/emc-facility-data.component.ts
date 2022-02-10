@@ -142,9 +142,10 @@ export class EmcFacilityDataComponent implements OnInit {
   }
 
   retrieveDetailsfromSavedReports(userName: any, emcId: any, data: any) {
-   
-    this.step1List = data.emcFacilityData;
+    this.flag = true;
+    this.step1List = data.facilityData;
     this.emcFacilityData.emcId = emcId;
+    this.emcFacilityData.facilityDataId=this.step1List.facilityDataId
     this.emcFacilityData.blType = this.step1List.blType;
     this.emcFacilityData.blOtherDescription = this.step1List.blOtherDescription;
     this.emcFacilityData.bcType = this.step1List.bcType;
@@ -187,12 +188,12 @@ export class EmcFacilityDataComponent implements OnInit {
 
     // this.populateData();
 
-    for (let i of this.step1List[0].floorCovering) {
+    for (let i of this.step1List.floorCovering) {
       this.EMCFacilityForm.patchValue({
         floorCoveringArr: [i],
       })
     }
-    this.flag = true;
+   
   }
 
   populateData() {

@@ -191,8 +191,9 @@ export class PowerAndEarthingDataComponent implements OnInit {
 
   retrieveDetailsfromSavedReports(userName: any, emcId: any, data: any) {
 
-    this.step1List2 = data.emcPowerAndEarthingData
+    this.step1List2 = data.powerEarthingData
     this.emcPowerAndEarthingData.emcId = emcId;
+    this.emcPowerAndEarthingData.powerEarthingDataId = this.step1List2.powerEarthingDataId;
     this.emcPowerAndEarthingData.powerElectricalUtility = this.step1List2.powerElectricalUtility;
     this.emcPowerAndEarthingData.powerBackupSource = this.step1List2.powerBackupSource;
     this.emcPowerAndEarthingData.powerDistanceHvLv = this.step1List2.powerDistanceHvLv;
@@ -226,13 +227,13 @@ export class PowerAndEarthingDataComponent implements OnInit {
     // this.populateData();
     this.flag = true;
 
-    for (let i of this.step1List2[0].electronicSystem) {
+    for (let i of this.step1List2.electronicSystem) {
       this.EMCPowerAndEarthForm.patchValue({
         electronicSystemArr: [i],
       })
     }
 
-    for (let i of this.step1List2[0].distrubutionPannel) {
+    for (let i of this.step1List2.distrubutionPannel) {
       this.EMCPowerAndEarthForm.patchValue({
         distributionPannelArr: [i],
       })
