@@ -3,7 +3,7 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalsService } from 'src/app/globals.service';
-import { Separatedistance } from 'src/app/LPS_model/separatedistance';
+import { SeperationDistanceReport } from 'src/app/LPS_model/SeperationDistanceReport';
 import { SeparatedistanceService } from 'src/app/LPS_services/separatedistance.service';
 
 
@@ -15,10 +15,11 @@ import { SeparatedistanceService } from 'src/app/LPS_services/separatedistance.s
 export class LpsSeperationDistanceComponent implements OnInit {
 
   i: any;
-  separatedistance = new Separatedistance();
+  seperationDistanceReport = new SeperationDistanceReport();
   separeteDistanceForm!: FormGroup;
   seperationDistanceDescription!: FormArray;
   separateDistance!: FormArray;
+  separateDistanceDownConductors!: FormArray;
   submitted!: boolean;
   email: any;
   
@@ -113,11 +114,11 @@ export class LpsSeperationDistanceComponent implements OnInit {
       // this.service.lvClick=1;
 
       this.step6List = data.seperationDistanceDesc;
-      this.separatedistance.basicLpsId = basicLpsId;   
-      this.separatedistance.seperationDistanceId = this.step6List.seperationDistanceId  
-      this.separatedistance.createdBy = this.step6List.createdBy;
-      this.separatedistance.createdDate = this.step6List.createdDate;   
-      this.separatedistance.userName = this.step6List.userName;   
+      this.seperationDistanceReport.basicLpsId = basicLpsId;   
+      this.seperationDistanceReport.seperationDistanceReportId = this.step6List.seperationDistanceId  
+      this.seperationDistanceReport.createdBy = this.step6List.createdBy;
+      this.seperationDistanceReport.createdDate = this.step6List.createdDate;   
+      this.seperationDistanceReport.userName = this.step6List.userName;   
       this.populateData();     
       this.flag=true;
     }
@@ -136,11 +137,11 @@ export class LpsSeperationDistanceComponent implements OnInit {
     // this.service.lvClick=1;
 
     this.step6List = JSON.parse(data);
-    this.separatedistance.basicLpsId = basicLpsId;   
-    this.separatedistance.seperationDistanceId = this.step6List[0].seperationDistanceId  
-    this.separatedistance.createdBy = this.step6List[0].createdBy;
-    this.separatedistance.createdDate = this.step6List[0].createdDate;   
-    this.separatedistance.userName = this.step6List[0].userName;   
+    this.seperationDistanceReport.basicLpsId = basicLpsId;   
+    this.seperationDistanceReport.seperationDistanceReportId = this.step6List[0].seperationDistanceId  
+    this.seperationDistanceReport.createdBy = this.step6List[0].createdBy;
+    this.seperationDistanceReport.createdDate = this.step6List[0].createdDate;   
+    this.seperationDistanceReport.userName = this.step6List[0].userName;   
     this.populateData1();     
     this.flag=true;
   }
@@ -182,6 +183,10 @@ export class LpsSeperationDistanceComponent implements OnInit {
     return form.controls.separateDistance?.controls;
   }
 
+  getSeparateDistanceDownConductorsControls(form:any) {
+    return form.controls.separateDistanceDownConductors?.controls;
+  }
+
   add(form:any) {
     debugger
     this.separateDistance = form.get('separateDistance') as FormArray;
@@ -197,6 +202,8 @@ export class LpsSeperationDistanceComponent implements OnInit {
       (form.get('separateDistance') as FormArray).removeAt(index);
       this.separatedistancePushArr= this.separatedistancePushArr.concat(a.value);
     }
+
+
   else
   {(form.get('separateDistance') as FormArray).removeAt(index);}
   }
@@ -299,23 +306,23 @@ export class LpsSeperationDistanceComponent implements OnInit {
   }
 
   onSubmit(flag: any) {
-
-    this.separatedistance.userName = this.router.snapshot.paramMap.get('email') || '{}';;
-    this.separatedistance.basicLpsId = this.basicLpsId;
+    debugger
+    this.seperationDistanceReport.userName = this.router.snapshot.paramMap.get('email') || '{}';;
+    this.seperationDistanceReport.basicLpsId = this.basicLpsId;
      
     this.submitted = true;
     if (this.separeteDistanceForm.invalid) {
       return;
     }
 
-    this.separatedistance.separateDistanceDescription = this.separeteDistanceForm.value.separateDistance;
+    this.seperationDistanceReport.seperationDistanceDescription = this.separeteDistanceForm.value.seperationDistanceDescription;
     
-    this.separatedistance.separateDistanceDescription=this.separatedistance.separateDistanceDescription.concat(this.separatedistancePushArr);
+    this.seperationDistanceReport.seperationDistanceDescription=this.seperationDistanceReport.seperationDistanceDescription.concat(this.separatedistancePushArr);
     this.separatedistancePushArr=[];
     if (!this.validationError) {
       if(flag) {
         if(this.separeteDistanceForm.dirty && this.separeteDistanceForm.touched){ 
-        this.separatedistanceService.updateSeparateDistance(this.separatedistance).subscribe(
+        this.separatedistanceService.updateSeparateDistance(this.seperationDistanceReport).subscribe(
           (data) => {
             this.success = true;
             this.successMsg = data;
@@ -345,7 +352,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
       }
       }
       else {
-        this.separatedistanceService.saveSeparateDistance(this.separatedistance).subscribe(
+        this.separatedistanceService.saveSeparateDistance(this.seperationDistanceReport).subscribe(
           (data) => {
             this.success = true;
             this.successMsg = data;
@@ -373,7 +380,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
   retriveSeperationDistance(){
     this.separatedistanceService.retriveSeperationDistance(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
       data => {
-        this.retrieveDetailsfromSavedReports1(this.separatedistance.userName,this.basicLpsId,this.ClientName,data);
+        this.retrieveDetailsfromSavedReports1(this.seperationDistanceReport.userName,this.basicLpsId,this.ClientName,data);
       },
       error=>{
       }
