@@ -11,40 +11,40 @@
     <table mat-table [dataSource]="savedReportEmc_dataSource" class="mat-elevation-z8 table" matSort
       #savedReportSort="matSort">
 
-      <!-- Name Column -->
-      <ng-container matColumnDef="userName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> User Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
+      <!-- Client Name Column -->
+      <ng-container matColumnDef="clientName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Client Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.clientName}} </td>
       </ng-container>
 
-      <!-- Name Column -->
-      <ng-container matColumnDef="projectName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Project Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.projectName}} </td>
+      <!-- Contact Person Column -->
+      <ng-container matColumnDef="contactPerson">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact Person </th>
+        <td mat-cell *matCellDef="let element"> {{element.contactPerson}} </td>
       </ng-container>
 
-      <!-- Name Column -->
-      <ng-container matColumnDef="consultantName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Consultant Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.consultantName}} </td>
+      <!-- Client Location Column -->
+      <ng-container matColumnDef="clientLocation">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Client Location </th>
+        <td mat-cell *matCellDef="let element"> {{element.clientLocation}} </td>
       </ng-container>
 
-      <!-- Weight Column -->
-      <ng-container matColumnDef="contractorName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Contractor Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.contractorName}} </td>
+      <!-- Address Column -->
+      <ng-container matColumnDef="clientAddress">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
+        <td mat-cell *matCellDef="let element"> {{element.clientAddress}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="dealerContractorName">
+      <!-- <ng-container matColumnDef="dealerContractorName">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Dealer Name </th>
         <td mat-cell *matCellDef="let element"> {{element.dealerContractorName}} </td>
       </ng-container>
 
-      <!-- Weight Column -->
+      Weight Column
       <ng-container matColumnDef="address">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
         <td mat-cell *matCellDef="let element"> {{element.address}} </td>
-      </ng-container>
+      </ng-container> -->
 
       <!-- Weight Column -->
       <ng-container matColumnDef="createdDate">
@@ -62,7 +62,7 @@
       <ng-container matColumnDef="continue">
         <th mat-header-cell *matHeaderCellDef> Action </th>
         <td mat-cell *matCellDef="let element">
-          <button class="btn btn-info" (click)="continue(element.basicLpsId,element.clientName)">continue</button>
+          <button class="btn btn-info" (click)="continue(element.emcId,element.clientName)">continue</button>
         </td>
       </ng-container>
 

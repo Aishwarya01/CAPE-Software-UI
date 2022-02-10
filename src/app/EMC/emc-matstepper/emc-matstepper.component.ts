@@ -99,7 +99,7 @@ export class EmcMatstepperComponent implements OnInit {
   public changeTabEmcSavedReport(index: number, emcId: any, userName: any) {
 
     this.selectedIndex = 1;
-    this.emcSavedReportService.retrieveListOfEmc(userName, emcId).subscribe(
+    this.emcSavedReportService.retrieveFinalEmcReport(userName, emcId).subscribe(
       (data) => {
         this.dataJSON = JSON.parse(data);
 

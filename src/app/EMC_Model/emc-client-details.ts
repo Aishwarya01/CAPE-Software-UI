@@ -12,6 +12,7 @@ export class EmcClientDetails {
     email!: String;
     country!: String;
     state!: String;
+    allStepsCompleted!: String;
 
     createdDate!: Date;
     createdBy!: String;
