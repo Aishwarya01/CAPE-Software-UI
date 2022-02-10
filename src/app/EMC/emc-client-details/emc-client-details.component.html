@@ -21,6 +21,7 @@
                 <div class="col-md-4">
                     <label>* Contact Number:</label>
                     <input type="tel" minlength="10" maxlength="10" ng2TelInput
+                    [(ngModel)]="emcClientDetails.contactNumber"
                         [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}"
                         (keypress)="keyPressNumbers($event)" (countryChange)="countryChange($event)"
                         placeholder="Enter Contact Number" formControlName="contactNumber" class="form-control"
@@ -107,7 +108,8 @@
 
                 <div class="col-md-4">
                     <label>* State:</label>
-                    <select formControlName="state" class="form-control" [(ngModel)]="emcClientDetails.state"
+                    <select formControlName="state" class="form-control" 
+                    [(ngModel)]="emcClientDetails.state"
                         [ngClass]="{ 'is-invalid': submitted && a.state?.errors }">
                         <option value="0" selected>Select State Name</option>
                         <option *ngFor="let state of stateList">{{state.name}}</option>
