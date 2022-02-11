@@ -1,7 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmationBoxComponent } from 'src/app/confirmation-box/confirmation-box.component';
 import { GlobalsService } from 'src/app/globals.service';
 import { EarthingLpsDescription } from 'src/app/LPS_model/earthing';
 import { LpsEarthing } from 'src/app/LPS_services/lps-earthing';
@@ -57,8 +59,11 @@ export class LpsEarthingComponent implements OnInit {
   isEditable!:boolean
   applicableChambers: boolean=false;
   applicableClamps: boolean=false;
+  applicableChambersNote: boolean=true;
+  applicableClampsNote: boolean=true;
+  TypeAEarthingArr: any = [];
   constructor(
-    private formBuilder: FormBuilder, 
+    private formBuilder: FormBuilder,private dialog: MatDialog,
     private lpsEarthings: LpsEarthing,
     private modalService: NgbModal, 
     private router: ActivatedRoute,
@@ -459,20 +464,12 @@ export class LpsEarthingComponent implements OnInit {
       earthPitDigRem: new FormControl(''),
       earthElectrodeLesthanDownConductorInOb: new FormControl('', Validators.required),
       earthElectrodeLesthanDownConductorInRem: new FormControl(''),
+
       connectedEarthTerminalInOb: new FormControl('', Validators.required),
       connectedEarthTerminalInRem: new FormControl(''),
       testJointEarthElectrodeInOb: new FormControl('', Validators.required),
       testJointEarthElectrodeInRem: new FormControl(''),
-      grountLevelComponentFilledInOb: new FormControl('', Validators.required),
-      grountLevelComponentFilledInRem: new FormControl(''),
-      earthElectrodeLocationInOb: new FormControl('', Validators.required),
-      earthElectrodeLocationInRem: new FormControl(''),
-      earthElectrodeMaterialInOb: new FormControl('', Validators.required),
-      earthElectrodeMaterialInRem: new FormControl(''),
-      earthElectrodeSizeInOb: new FormControl('', Validators.required),
-      earthElectrodeSizeInRem: new FormControl(''),
-      earthElectrodeLengthingOb: new FormControl('', Validators.required),
-      earthElectrodeLengthingRem: new FormControl(''),
+    
       earthelectMaxiDistWallInOb: new FormControl('', Validators.required),
       earthelectMaxiDistWallInRem: new FormControl(''),
       earthelectManimumDistanceWallInOb: new FormControl('', Validators.required),
@@ -489,8 +486,8 @@ export class LpsEarthingComponent implements OnInit {
       inspectedPassedNoRem: new FormControl(''),
       inspectedFailedNoOb: new FormControl('', Validators.required),
       inspectedFailedNoRem: new FormControl(''),
-      flag: new FormControl('true')
-
+      flag: new FormControl('true'),
+      TypeAEarthing: this.formBuilder.array([this.createTypeAEarthingIteration()]),
     })
   }
   onSubmit(flag: any) {
@@ -571,6 +568,66 @@ export class LpsEarthingComponent implements OnInit {
   get f() {
     return this.earthingForm.controls;
   }
+
+  addItemTypeAEarthing(a:any) {
+    const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+      width: '420px',
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.lpsAirTModal = false;
+    dialogRef.componentInstance.lpsAirHModal = false;
+    dialogRef.componentInstance.lpsTypeEModal = true;
+    
+    dialogRef.componentInstance.confirmBox.subscribe(data=>{
+      if(data) {
+        this.TypeAEarthingArr = a.controls.TypeAEarthing as FormArray;
+        this.TypeAEarthingArr.push(this.createTypeAEarthingIteration());
+      }
+      else{
+        return;
+      }
+    })
+  }
+  
+  removeItemTypeAEarthing(a: any,x:any) {
+    this.earthingForm.markAsTouched();
+    this.TypeAEarthingArr = a.controls.TypeAEarthing as FormArray;
+    this.TypeAEarthingArr.removeAt(x);
+    this.earthingForm.markAsDirty();
+  }
+  
+  createTypeAEarthingIteration()  : FormGroup {
+    return this.formBuilder.group({
+      grountLevelComponentFilledInOb: new FormControl('', Validators.required),
+      grountLevelComponentFilledInRem: new FormControl(''),
+      earthElectrodeLocationInOb: new FormControl('', Validators.required),
+      earthElectrodeLocationInRem: new FormControl('', Validators.required),
+      earthElectrodeMaterialInOb: new FormControl('', Validators.required),
+      earthElectrodeMaterialInRem: new FormControl(''),
+      earthElectrodeSizeInOb: new FormControl('', Validators.required),
+      earthElectrodeSizeInRem: new FormControl(''),
+      earthElectrodeLengthingOb: new FormControl('', Validators.required),
+      earthElectrodeLengthingRem: new FormControl(''),
+
+      // holderTypeOb: new FormControl('', Validators.required),
+      // holderTypeRe: new FormControl('', Validators.required),
+      // materailOfHolderOb: new FormControl('', Validators.required),
+      // materailOfHolderRem: new FormControl('', Validators.required),
+      // totalHolderNoOb: new FormControl('', Validators.required),
+      // totalHolderNoRe: new FormControl('', Validators.required),
+      // holderInspNoOb: new FormControl('', Validators.required),
+      // holderInspNoRe: new FormControl('', Validators.required),
+      // holderInspPassedNoOb: new FormControl('', Validators.required),
+      // holderInspPassedNoRe: new FormControl('', Validators.required),
+      // holderInspFailedNoOb: new FormControl('', Validators.required),
+      // holderInspFailedNoRe: new FormControl('', Validators.required),
+      flag: new FormControl('true'),
+    });
+  }
+  getTypeAEarthingControls(form:any) {
+    return form.controls.TypeAEarthing?.controls;
+  }
   onChangeClamps(event: any,a:any) {
     let changedValue;
     if(event.target != undefined) {
@@ -581,6 +638,7 @@ export class LpsEarthingComponent implements OnInit {
     }
     if (changedValue == 'Not applicable') {
       this.applicableClamps=false;
+      this.applicableClampsNote=true;
       for(let y in a.controls){
         console.log(y);
         a.controls[y].clearValidators();
@@ -592,6 +650,7 @@ export class LpsEarthingComponent implements OnInit {
     }
     else{
       this.applicableClamps=true;
+      this.applicableClampsNote=false;
       for(let y in a.controls){
         console.log(y);
         a.controls[y].setValidators([Validators.required]);
@@ -612,6 +671,7 @@ export class LpsEarthingComponent implements OnInit {
     }
     if (changedValue == 'Not applicable') {
       this.applicableChambers=false;
+      this.applicableChambersNote=true;
       for(let y in a.controls){
         console.log(y);
         a.controls[y].clearValidators();
@@ -623,6 +683,7 @@ export class LpsEarthingComponent implements OnInit {
     }
     else{
       this.applicableChambers=true;
+      this.applicableChambersNote=false;
       for(let y in a.controls){
         console.log(y);
         a.controls[y].setValidators([Validators.required]);

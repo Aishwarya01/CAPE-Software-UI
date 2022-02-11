@@ -1,7 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmationBoxComponent } from 'src/app/confirmation-box/confirmation-box.component';
 import { GlobalsService } from 'src/app/globals.service';
 import { Airtermination } from 'src/app/LPS_model/airtermination';
 import { AirterminationService } from 'src/app/LPS_services/airtermination.service';
@@ -20,6 +22,8 @@ export class LpsAirTerminationComponent implements OnInit {
   
   airTerminationForm!: FormGroup;
   lpsVerticalAirTermination!: FormArray;
+  AirTUnit!: FormArray;
+  airHolder!: FormArray;
   airMeshDescription!: FormArray;
   airHolderDescription!: FormArray;
   airClamps!: FormArray;
@@ -86,9 +90,17 @@ export class LpsAirTerminationComponent implements OnInit {
   applicableHolders: boolean=false;
   applicableMesh: boolean=false;
   applicableAir: boolean=false;
-   
+  airterminationArr: any = [];
+  airterminationArrHolder: any = [];
+  applicableAirNote: boolean=true;
+  applicableConnectorsNote: boolean=true;
+  applicableMeshNote: boolean=true;
+  applicableHoldersNote: boolean=true;
+  applicableClampsNote: boolean=true;
+  applicableExpansionNote: boolean=true;
+
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder,private dialog: MatDialog,
     private airterminationServices:AirterminationService,
     private modalService: NgbModal,private router: ActivatedRoute,
     private matstepper: LpsMatstepperComponent,
@@ -124,8 +136,112 @@ export class LpsAirTerminationComponent implements OnInit {
       airBasicDescription: this.formBuilder.array([this.createLpsDescriptionarr()]),
     })
   }
-  
+  addItemAir(a:any) {
+    const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+      width: '420px',
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    // dialogRef.componentInstance.editModal = false;
+    // dialogRef.componentInstance.viewModal = false;
+    // dialogRef.componentInstance.triggerModal = false;
+    // dialogRef.componentInstance.linkModal = false;
+    // dialogRef.componentInstance.summaryModal = false;
+    dialogRef.componentInstance.lpsAirTModal = true;
+    dialogRef.componentInstance.lpsAirHModal = false;
+    dialogRef.componentInstance.lpsTypeEModal = false;
 
+    dialogRef.componentInstance.confirmBox.subscribe(data=>{
+      if(data) {
+        this.airterminationArr = a.controls.AirTUnit as FormArray;
+        this.airterminationArr.push(this.createAirIteration());
+      }
+      else{
+        return;
+      }
+    })
+  }
+ 
+  removeItemAir(a: any,w:any) {
+    this.airTerminationForm.markAsTouched();
+    this.airterminationArr = a.controls.AirTUnit as FormArray;
+    // if(this.flag && this.AirTUnit.value[w].equipmentId!=null && this.AirTUnit.value[w].equipmentId!='' && this.AirTUnit.value[w].equipmentId!=undefined){
+    //   this.AirTUnit.value[w].testingEquipmentStatus='R';
+    //   this.deletedTestingEquipment.push(this.AirTUnit.value[w]);
+    // }
+    this.airterminationArr.removeAt(w);
+    this.airTerminationForm.markAsDirty();
+  }
+ 
+  createAirIteration()  : FormGroup {
+    return this.formBuilder.group({
+      sizeOfTerminalOb: new FormControl('', Validators.required),
+      heightOfTerminalOb: new FormControl('', Validators.required),
+      materialOfTerminalOb: new FormControl('', Validators.required),
+      installationTerminationsystemOb: new FormControl('', Validators.required),
+      angleProtectionHeightOb: new FormControl('', Validators.required),
+      supportFlatSurfaceOb: new FormControl('', Validators.required),
+      heightFlatSurfaceOb: new FormControl('', Validators.required),
+      heightFlatSurfaceRe: new FormControl(''),
+      supportFlatSurfaceRe: new FormControl(''),
+      installationTerminationsystemRem: new FormControl(''),
+      angleProtectionHeightRe: new FormControl(''),
+      heightOfTerminalRe: new FormControl(''),
+      sizeOfTerminalRe: new FormControl(''),
+      materialOfTerminalRe: new FormControl(''),
+      flag: new FormControl('true'),
+    });
+  }
+ //holder
+ addItemAirHolder(a:any) {
+  const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+    width: '420px',
+    maxHeight: '90vh',
+    disableClose: true,
+  });
+  dialogRef.componentInstance.lpsAirTModal = false;
+    dialogRef.componentInstance.lpsAirHModal = true;
+    dialogRef.componentInstance.lpsTypeEModal = false;
+  dialogRef.componentInstance.confirmBox.subscribe(data=>{
+    if(data) {
+      this.airterminationArrHolder = a.controls.airHolder as FormArray;
+      this.airterminationArrHolder.push(this.createAirHolderIteration());
+    }
+    else{
+      return;
+    }
+  })
+}
+
+removeItemAirHolder(a: any,x:any) {
+  this.airTerminationForm.markAsTouched();
+  this.airterminationArrHolder = a.controls.airHolder as FormArray;
+  this.airterminationArrHolder.removeAt(x);
+  this.airTerminationForm.markAsDirty();
+}
+
+createAirHolderIteration()  : FormGroup {
+  return this.formBuilder.group({
+    holderTypeOb: new FormControl('', Validators.required),
+    holderTypeRe: new FormControl(''),
+
+    materailOfHolderOb: new FormControl('', Validators.required),
+    materailOfHolderRem: new FormControl(''),
+
+    totalHolderNoOb: new FormControl('', Validators.required),
+    totalHolderNoRe: new FormControl(''),
+
+    holderInspNoOb: new FormControl('', Validators.required),
+    holderInspNoRe: new FormControl(''),
+
+    holderInspPassedNoOb: new FormControl('', Validators.required),
+    holderInspPassedNoRe: new FormControl(''),
+
+    holderInspFailedNoOb: new FormControl('', Validators.required),
+    holderInspFailedNoRe: new FormControl(''),
+    flag: new FormControl('true'),
+  });
+}
   // Only Accept numbers
   keyPressNumbers(event:any) {
     var charCode = (event.which) ? event.which : event.keyCode;
@@ -612,6 +728,7 @@ export class LpsAirTerminationComponent implements OnInit {
       }
       if (changedValue == 'Not applicable') {
         this.applicableAir=false;
+        this.applicableAirNote=true;
         for(let x in a.controls){
           console.log(x);
           a.controls[x].clearValidators();
@@ -623,6 +740,7 @@ export class LpsAirTerminationComponent implements OnInit {
       }
       else{
         this.applicableAir=true;
+        this.applicableAirNote=false;
         for(let x in a.controls){
           console.log(x);
           a.controls[x].setValidators([Validators.required]);
@@ -643,6 +761,8 @@ export class LpsAirTerminationComponent implements OnInit {
       }
       if (changedValue == 'Not applicable') {
         this.applicableMesh=false;
+        this.applicableMeshNote=true;
+
         for(let y in a.controls){
           console.log(y);
           a.controls[y].clearValidators();
@@ -654,6 +774,8 @@ export class LpsAirTerminationComponent implements OnInit {
       }
       else{
         this.applicableMesh=true;
+        this.applicableMeshNote=false;
+
         for(let y in a.controls){
           console.log(y);
           a.controls[y].setValidators([Validators.required]);
@@ -674,6 +796,8 @@ export class LpsAirTerminationComponent implements OnInit {
       }
       if (changedValue == 'Not applicable') {
         this.applicableHolders=false;
+        this.applicableHoldersNote=true;
+
         for(let y in a.controls){
           console.log(y);
           a.controls[y].clearValidators();
@@ -685,6 +809,8 @@ export class LpsAirTerminationComponent implements OnInit {
       }
       else{
         this.applicableHolders=true;
+        this.applicableHoldersNote=false;
+
         for(let y in a.controls){
           console.log(y);
           a.controls[y].setValidators([Validators.required]);
@@ -705,6 +831,8 @@ export class LpsAirTerminationComponent implements OnInit {
       }
       if (changedValue == 'Not applicable') {
         this.applicableClamps=false;
+        this.applicableClampsNote=true;
+
         for(let y in a.controls){
           console.log(y);
           a.controls[y].clearValidators();
@@ -716,6 +844,8 @@ export class LpsAirTerminationComponent implements OnInit {
       }
       else{
         this.applicableClamps=true;
+        this.applicableClampsNote=false;
+
         for(let y in a.controls){
           console.log(y);
           a.controls[y].setValidators([Validators.required]);
@@ -736,6 +866,8 @@ export class LpsAirTerminationComponent implements OnInit {
       }
       if (changedValue == 'Not applicable') {
         this.applicableExpansion=false;
+        this.applicableExpansionNote=true;
+
         for(let y in a.controls){
           console.log(y);
           a.controls[y].clearValidators();
@@ -747,6 +879,8 @@ export class LpsAirTerminationComponent implements OnInit {
       }
       else{
         this.applicableExpansion=true;
+        this.applicableExpansionNote=false;
+
         for(let y in a.controls){
           console.log(y);
           a.controls[y].setValidators([Validators.required]);
@@ -767,6 +901,8 @@ export class LpsAirTerminationComponent implements OnInit {
       }
       if (changedValue == 'Not applicable') {
         this.applicableConnectors=false;
+        this.applicableConnectorsNote=true;
+
         for(let y in a.controls){
           console.log(y);
           a.controls[y].clearValidators();
@@ -778,6 +914,8 @@ export class LpsAirTerminationComponent implements OnInit {
       }
       else{
         this.applicableConnectors=true;
+        this.applicableConnectorsNote=false;
+
         for(let y in a.controls){
           console.log(y);
           a.controls[y].setValidators([Validators.required]);
@@ -788,6 +926,8 @@ export class LpsAirTerminationComponent implements OnInit {
      
       }
     }
+
+   
 
     onChangeForm(event:any){
       if(!this.airTerminationForm.invalid){
@@ -965,7 +1105,12 @@ export class LpsAirTerminationComponent implements OnInit {
   vatControls(form:any) {
     return form.controls.lpsVerticalAirTermination?.controls;
   }
-
+  getAirTUnitControls(form:any) {
+    return form.controls.AirTUnit?.controls;
+  }
+  getAirHolderControls(form:any) {
+    return form.controls.airHolder?.controls;
+  }
   meshControls(form:any) {
     return form.controls.airMeshDescription?.controls;
   }
@@ -985,28 +1130,14 @@ export class LpsAirTerminationComponent implements OnInit {
   connectorsControls(form:any) {
     return form.controls.airConnectors?.controls;
   }
-
+  
   private createVatArrForm(): FormGroup{
     return new FormGroup({
-       
+    
       // locationNumber: new FormControl('', Validators.required),
       // locationName: new FormControl('', Validators.required),
       physicalInspectionOb: new FormControl('', Validators.required),
       physicalInspectionRe: new FormControl(''),
-      installationTerminationsystemOb: new FormControl('', Validators.required),
-      installationTerminationsystemRem: new FormControl(''),
-      sizeOfTerminalOb: new FormControl('', Validators.required),
-      sizeOfTerminalRe: new FormControl(''),
-      heightOfTerminalOb: new FormControl('', Validators.required),
-      heightOfTerminalRe: new FormControl(''),
-      angleProtectionHeightOb: new FormControl('', Validators.required),
-      angleProtectionHeightRe: new FormControl(''),
-      materialOfTerminalOb: new FormControl('', Validators.required),
-      materialOfTerminalRe: new FormControl(''),
-      supportFlatSurfaceOb: new FormControl('', Validators.required),
-      supportFlatSurfaceRe: new FormControl(''),
-      heightFlatSurfaceOb: new FormControl('', Validators.required),
-      heightFlatSurfaceRe: new FormControl(''),
       vatToRoofConductorOB: new FormControl('', Validators.required),
       vatToRoofConductorRe: new FormControl(''),
       totalNumberOb: new FormControl('', Validators.required),
@@ -1018,8 +1149,10 @@ export class LpsAirTerminationComponent implements OnInit {
       inspFaileddNoOb: new FormControl('', Validators.required),
       inspFaileddNoRe: new FormControl(''),
       flag: new FormControl('true'),
+      AirTUnit: this.formBuilder.array([this.createAirIteration()]),
     })
   }
+  
 
   private createMeshArrForm(): FormGroup{
     return new FormGroup({
@@ -1057,24 +1190,6 @@ export class LpsAirTerminationComponent implements OnInit {
       conductorHolderOb: new FormControl('', Validators.required),
       conductorHolderRe: new FormControl(''),
 
-      holderTypeOb: new FormControl('', Validators.required),
-      holderTypeRe: new FormControl(''),
-
-      materailOfHolderOb: new FormControl('', Validators.required),
-      materailOfHolderRem: new FormControl(''),
-
-      totalHolderNoOb: new FormControl('', Validators.required),
-      totalHolderNoRe: new FormControl(''),
-
-      holderInspNoOb: new FormControl('', Validators.required),
-      holderInspNoRe: new FormControl(''),
-
-      holderInspPassedNoOb: new FormControl('', Validators.required),
-      holderInspPassedNoRe: new FormControl(''),
-
-      holderInspFailedNoOb: new FormControl('', Validators.required),
-      holderInspFailedNoRe: new FormControl(''),
-
       totalParpetHolderNoOb: new FormControl('', Validators.required),
       totalParpetHolderNoRe: new FormControl(''),
 
@@ -1089,8 +1204,8 @@ export class LpsAirTerminationComponent implements OnInit {
       
       parpetInspectionFailedNoOb: new FormControl('', Validators.required),
       parpetInspectionFailedNoRe: new FormControl(''),
-      flag: new FormControl('true')
-    
+      flag: new FormControl('true'),
+      airHolder: this.formBuilder.array([this.createAirHolderIteration()]),
     }) 
   }
 

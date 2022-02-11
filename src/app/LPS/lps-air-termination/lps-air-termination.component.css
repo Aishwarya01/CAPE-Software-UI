@@ -97,8 +97,8 @@ textarea{
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  left: 83%;
+  /* position: absolute;
+  left: 83%; */
 }
 .ButtonSave:hover {
   background-color: #04AA6D;
@@ -108,7 +108,7 @@ textarea{
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  left: 83%;
+  /* position: absolute;
+  left: 83%; */
   border-radius: 5px;
 }

@@ -360,17 +360,19 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    <div formArrayName="TypeAEarthing" *ngFor="let h of getTypeAEarthingControls(a); let x = index">
+                                        <div [formGroupName]="x">
                                     <tr>
-                                        <td style="text-align: center;">4(f)</td>
-                                        <td>Material of earthing conductor</td>
-                                        <td>
+                                        <td style="width: 1rem;text-align: center;">4(f)</td>
+                                        <td style="width: 24rem;">Material of earthing conductor</td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                    <select class="form-control" formControlName="grountLevelComponentFilledInOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && a.get('grountLevelComponentFilledInOb')?.errors}">
+                                                    <select class="form-control" formControlName="grountLevelComponentFilledInOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && h.get('grountLevelComponentFilledInOb')?.errors}">
                                                         <option  value="" selected>Select Option</option>
                                                         <option value="" >Copper</option>
                                                         <option value="" >Copper bonded steel</option>
@@ -380,12 +382,12 @@
                                                         <option value="" >Mild Steel</option>
                                                         <option value="" >Cast Iron</option>
                                                     </select>
-                                                    <div *ngIf="submitted && a.get('grountLevelComponentFilledInOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="a.get('grountLevelComponentFilledInOb')?.errors?.required">Coumpound filled properly upto gorund level observation is required</div>
+                                                    <div *ngIf="submitted && h.get('grountLevelComponentFilledInOb')?.errors" class="invalid-feedback">
+                                                        <div *ngIf="h.get('grountLevelComponentFilledInOb')?.errors?.required">Coumpound filled properly upto gorund level observation is required</div>
                                                     </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -399,17 +401,18 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="text-align: center;">4(g)</td>
-                                        <td>Material of earth electrode</td>
-                                        <td>
+                                        <td style="width: 1rem;text-align: center;">4(g)</td>
+                                        <td style="width: 24rem;">Material of earth electrode</td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                    <select class="form-control" formControlName="earthElectrodeLocationInOb" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('earthElectrodeLocationInOb')?.errors}">
+                                                    <select class="form-control" formControlName="earthElectrodeLocationInOb" 
+                                                    placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && h.get('earthElectrodeLocationInOb')?.errors}">
                                                         <option  value="" selected>Select Option</option>
                                                         <option value="" >Copper</option>
                                                         <option value="" >Copper bonded steel</option>
@@ -419,14 +422,14 @@
                                                         <option value="" >Mild Steel</option>
                                                         <option value="" >Cast Iron</option>
                                                     </select>
-                                                <div *ngIf="submitted && a.get('earthElectrodeLocationInOb')?.errors"
+                                                <div *ngIf="submitted && h.get('earthElectrodeLocationInOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('earthElectrodeLocationInOb')?.errors?.required">
+                                                    <div *ngIf="h.get('earthElectrodeLocationInOb')?.errors?.required">
                                                         Location of earth electrode observation is required</div>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -440,29 +443,30 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="text-align: center;">4(h)</td>
-                                        <td>Type of earth electrode</td>
-                                        <td>
+                                        <td style="width: 1rem;text-align: center;">4(h)</td>
+                                        <td style="width: 24rem;">Type of earth electrode</td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                    <select class="form-control" formControlName="earthElectrodeMaterialInOb" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('earthElectrodeMaterialInOb')?.errors}">
+                                                    <select class="form-control" formControlName="earthElectrodeMaterialInOb" 
+                                                    placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && h.get('earthElectrodeMaterialInOb')?.errors}">
                                                         <option  value="" selected>Select Option</option>
                                                         <option value="rod" >Rod</option>
                                                         <option value="pipe" >Pipe</option>
                                                         <option value="flat" >Flat or plate</option>
                                                         <option value="chemical" >Chemical pipe</option>
                                                     </select>
-                                                <div *ngIf="submitted && a.get('earthElectrodeMaterialInOb')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="a.get('earthElectrodeMaterialInOb')?.errors?.required">Material of earth electrode observation is required</div>
+                                                <div *ngIf="submitted && h.get('earthElectrodeMaterialInOb')?.errors" class="invalid-feedback">
+                                                    <div *ngIf="h.get('earthElectrodeMaterialInOb')?.errors?.required">Material of earth electrode observation is required</div>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -476,9 +480,9 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="text-align: center;">4(i)</td>
-                                        <td>Size/cross section area of earth electrode</td>
-                                        <td>
+                                        <td style="width: 1rem;text-align: center;">4(i)</td>
+                                        <td style="width: 24rem;">Size/cross section area of earth electrode</td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -487,15 +491,15 @@
                                                 </div>
                                                 <textarea type="text" class="form-control"
                                                     [readonly]="isEditable" formControlName="earthElectrodeSizeInOb" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('earthElectrodeSizeInOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('earthElectrodeSizeInOb')?.errors"
+                                                    [ngClass]="{ 'is-invalid': submitted && h.get('earthElectrodeSizeInOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && h.get('earthElectrodeSizeInOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('earthElectrodeSizeInOb')?.errors?.required">
+                                                    <div *ngIf="h.get('earthElectrodeSizeInOb')?.errors?.required">
                                                         Size/cross section area of earth electrode observation is required</div>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -508,12 +512,11 @@
                                             </div>
                                         </td>
                                     </tr>
-
                                     <tr>
 
-                                        <td style="text-align: center;">4(j)</td>
-                                        <td>Length/depth of earth electrode in meters</td>
-                                        <td>
+                                        <td style="width: 1rem;text-align: center;">4(j)</td>
+                                        <td style="width: 24rem;">Length/depth of earth electrode in meters</td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -522,15 +525,15 @@
                                                 </div>
                                                 <textarea type="text" class="form-control"
                                                     [readonly]="isEditable" formControlName="earthElectrodeLengthingOb" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('earthElectrodeLengthingOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('earthElectrodeLengthingOb')?.errors"
+                                                    [ngClass]="{ 'is-invalid': submitted && h.get('earthElectrodeLengthingOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && h.get('earthElectrodeLengthingOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('earthElectrodeLengthingOb')?.errors?.required">
+                                                    <div *ngIf="h.get('earthElectrodeLengthingOb')?.errors?.required">
                                                         Length of earth electrode observation is required</div>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -541,12 +544,25 @@
                                                     [readonly]="isEditable" formControlName="earthElectrodeLengthingRem"
                                                     ></textarea>
                                             </div>
+                                            <div class="row" style="float: right;
+                                            margin-right: 10px;">
+                                            <mat-icon style="cursor: pointer;padding: 0px 33px 0px 0px;" 
+                                            [ngClass]="{'disableForm':service.allFieldsDisable}" 
+                                            (click)="addItemTypeAEarthing(a)">add_box</mat-icon>
+
+                                            <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" 
+                                            *ngIf="getTypeAEarthingControls(a).length > 1" 
+                                            (click)="removeItemTypeAEarthing(a,x)" style="cursor: pointer;float: right;">remove_circle_outline</mat-icon>
+                                        </div>
                                         </td>
                                     </tr>
+                                    </div>
+                                    </div>
+
                                     <tr>
-                                        <td style="text-align: center;">4(k)</td>
-                                        <td>Maximum distance between earth electrode and wall in meters</td>
-                                        <td>
+                                        <td style="width: 1rem;text-align: center;">4(k)</td>
+                                        <td style="width: 24rem;">Maximum distance between earth electrode and wall in meters</td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -563,7 +579,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -577,9 +593,9 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="text-align: center;">4(l)</td>
-                                        <td>Minimum distance between earth electrode and wall in meters</td>
-                                        <td>
+                                        <td style="width: 1rem;text-align: center;">4(l)</td>
+                                        <td style="width: 24rem;">Minimum distance between earth electrode and wall in meters</td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -598,7 +614,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -612,9 +628,9 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="text-align: center;">4(m)</td>
-                                        <td>Maximum distance between earth electrodes in meters (in case of multiple rods in one location)</td>
-                                        <td>
+                                        <td style="width: 1rem;text-align: center;">4(m)</td>
+                                        <td style="width: 24rem;">Maximum distance between earth electrodes in meters (in case of multiple rods in one location)</td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -631,7 +647,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -645,9 +661,9 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="text-align: center;">4(n)</td>
-                                        <td>Minimum distance between earth electrodes in meters (in case of multiple rods in one location)</td>
-                                        <td>
+                                        <td style="width: 1rem;text-align: center;">4(n)</td>
+                                        <td style="width: 24rem;">Minimum distance between earth electrodes in meters (in case of multiple rods in one location)</td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -664,7 +680,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -678,9 +694,9 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="text-align: center;">4(o)</td>
-                                        <td>Total number of earthing electrodes</td>
-                                        <td>
+                                        <td style="width: 1rem;text-align: center;">4(o)</td>
+                                        <td style="width: 24rem;">Total number of earthing electrodes</td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -697,7 +713,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="width: 43rem;"> 
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -711,9 +727,9 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="text-align: center;">4(p)</td>
-                                        <td>Number of earthing electrode inspected</td>
-                                        <td>
+                                        <td style="width: 1rem;text-align: center;">4(p)</td>
+                                        <td style="width: 24rem;">Number of earthing electrode inspected</td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -730,7 +746,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -743,9 +759,9 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="text-align: center;">4(q)</td>
-                                        <td>Number of inspection passed</td>
-                                        <td>
+                                        <td style="width: 1rem;text-align: center;">4(q)</td>
+                                        <td style="width: 24rem;">Number of inspection passed</td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -762,7 +778,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -776,9 +792,9 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="text-align: center;">4(r)</td>
-                                        <td>Number of inspection failed (loose rods/pipe in soil are also considered as a failure in all tests)</td>
-                                        <td>
+                                        <td style="width: 1rem;text-align: center;">4(r)</td>
+                                        <td style="width: 24rem;">Number of inspection failed (loose rods/pipe in soil are also considered as a failure in all tests)</td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -795,7 +811,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -827,15 +843,18 @@
                         <mat-panel-title>
                             <h3>Clamps</h3>
                         </mat-panel-title>
-                            <mat-panel-description *ngFor="let a of earthingClampsarr(q); let j = index">
-                                <select class="ButtonSave" 
+                           
+                    </mat-expansion-panel-header>
+                    <div *ngFor="let a of earthingClampsarr(q); let j = index">
+                        <select class="form-control" style="width: 30%;" 
                                 (change)="onChangeClamps($event,a)">
                                 <option value="" selected>Select Option</option>
                                 <option value="Applicable" >Applicable </option>
-                            <option value="Not applicable" >Not applicable</option>
+                                <option value="Not applicable" >Not applicable</option>
                                 </select>
-                              </mat-panel-description>
-                    </mat-expansion-panel-header>
+                            </div>
+                            <div style="margin-top: 10px;" *ngIf="applicableClampsNote"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Clamps</div>
+                            <br>
                     <div class="row">
                     <div class="col-sm-12">
                     <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableClamps">
@@ -1182,15 +1201,18 @@
                         <mat-panel-title>
                             <h3>Earth electrode chambers</h3>
                         </mat-panel-title>
-                            <mat-panel-description *ngFor="let a of earthElectrodeChambearr(q); let j = index">
-                                <select class="ButtonSave" 
+                           
+                    </mat-expansion-panel-header>
+                    <div *ngFor="let a of earthElectrodeChambearr(q); let j = index">
+                        <select class="form-control" style="width: 30%;" 
                                 (change)="onChangeChambers($event,a)">
                                 <option value="" selected>Select Option</option>
                                 <option value="Applicable" >Applicable </option>
-                            <option value="Not applicable" >Not applicable</option>
+                                <option value="Not applicable" >Not applicable</option>
                                 </select>
-                              </mat-panel-description>
-                    </mat-expansion-panel-header>
+                            </div>
+                            <div style="margin-top: 10px;" *ngIf="applicableChambersNote"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Earth electrode chambers</div>
+                            <br>
                     <div class="row">
                     <div class="col-sm-12">
                     <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableChambers">

@@ -11,11 +11,14 @@ export class ConfirmationBoxComponent implements OnInit {
  
   confirmBox= new EventEmitter();
  // confirmBoxView= new EventEmitter();
-editModal:boolean=false;
-viewModal:boolean=false;
-triggerModal:boolean=false;
-linkModal:boolean=false;
-summaryModal:boolean=false;
+  editModal:boolean=false;
+  viewModal:boolean=false;
+  triggerModal:boolean=false;
+  linkModal:boolean=false;
+  summaryModal:boolean=false;
+  lpsAirTModal:boolean=false;
+  lpsAirHModal:boolean=false;
+  lpsTypeEModal:boolean=false;
   constructor(private dialog: MatDialog,public service: GlobalsService,) { }
 
   ngOnInit(): void {

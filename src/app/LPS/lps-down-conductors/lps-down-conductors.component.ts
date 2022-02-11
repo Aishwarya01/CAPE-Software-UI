@@ -69,13 +69,20 @@ export class LpsDownConductorsComponent implements OnInit {
  
 
   stepBack:any;
-  Notapplicable: boolean=false;
+  NotapplicableJoints: boolean=false;
+  NotapplicableCounters: boolean=false;
   applicableJoints: boolean=false;
   applicableCounters: boolean=false;
   applicableConnectors: boolean=false;
   applicableHolders: boolean=false;
   applicableCables: boolean=false;
-  
+  applicableDown: boolean=false;
+  applicableJointsNote: boolean=true;
+  applicableCountersNote: boolean=true;
+  applicableConnectorsNote: boolean=true;
+  applicableHoldersNote: boolean=true;
+  applicableCablesNote: boolean=true;
+  applicableDownNote: boolean=true;
   constructor(
     private formBuilder: FormBuilder, lpsDownconductorService: LpsDownconductorService,
     private modalService: NgbModal, private router: ActivatedRoute,
@@ -755,6 +762,39 @@ debugger
     }
   }
   }
+  onChangeDownCon(event: any,a:any) {
+    let changedValue;
+    if(event.target != undefined) {
+      changedValue = event.target.value;
+    }
+    else{
+      changedValue = event;
+    }
+    if (changedValue == 'Not applicable') {
+      this.applicableDown=false;
+      this.applicableDownNote=true;
+      for(let y in a.controls){
+        console.log(y);
+        a.controls[y].clearValidators();
+        a.controls[y].updateValueAndValidity();
+      }
+     // a.controls['physicalInspectionOb'].clearValidators();
+     // a.controls['physicalInspectionOb'].updateValueAndValidity();
+
+    }
+    else{
+      this.applicableDown=true;
+      this.applicableDownNote=false;
+      for(let y in a.controls){
+        console.log(y);
+        a.controls[y].setValidators([Validators.required]);
+        a.controls[y].updateValueAndValidity();
+      }
+     // a.controls['physicalInspectionOb'].setValidators([Validators.required]);
+      //a.controls['physicalInspectionOb'].updateValueAndValidity();
+   
+    }
+  }
   onChangeCables(event: any,a:any) {
     let changedValue;
     if(event.target != undefined) {
@@ -765,6 +805,7 @@ debugger
     }
     if (changedValue == 'Not applicable') {
       this.applicableCables=false;
+      this.applicableCablesNote=true;
       for(let y in a.controls){
         console.log(y);
         a.controls[y].clearValidators();
@@ -776,6 +817,7 @@ debugger
     }
     else{
       this.applicableCables=true;
+      this.applicableCablesNote=false;
       for(let y in a.controls){
         console.log(y);
         a.controls[y].setValidators([Validators.required]);
@@ -796,6 +838,7 @@ debugger
     }
     if (changedValue == 'Not applicable') {
       this.applicableHolders=false;
+      this.applicableHoldersNote=true;
       for(let y in a.controls){
         console.log(y);
         a.controls[y].clearValidators();
@@ -807,6 +850,7 @@ debugger
     }
     else{
       this.applicableHolders=true;
+      this.applicableHoldersNote=false;
       for(let y in a.controls){
         console.log(y);
         a.controls[y].setValidators([Validators.required]);
@@ -827,6 +871,7 @@ debugger
     }
     if (changedValue == 'Not applicable') {
       this.applicableConnectors=false;
+      this.applicableConnectorsNote=true;
       for(let y in a.controls){
         console.log(y);
         a.controls[y].clearValidators();
@@ -838,6 +883,7 @@ debugger
     }
     else{
       this.applicableConnectors=true;
+      this.applicableConnectorsNote=false;
       for(let y in a.controls){
         console.log(y);
         a.controls[y].setValidators([Validators.required]);
@@ -858,7 +904,8 @@ debugger
     }
     if (changedValue == 'Not applicable') {
       this.applicableCounters=false;
-      this.Notapplicable=true;
+      this.applicableCountersNote=true;
+      this.NotapplicableCounters=true;
       for(let y in a.controls){
         console.log(y);
         a.controls[y].clearValidators();
@@ -870,7 +917,8 @@ debugger
     }
     else{
       this.applicableCounters=true;
-      this.Notapplicable=false;
+      this.applicableCountersNote=false;
+      this.NotapplicableCounters=false;
       for(let y in a.controls){
         console.log(y);
         a.controls[y].setValidators([Validators.required]);
@@ -891,7 +939,8 @@ debugger
     }
     if (changedValue == 'Not applicable') {
       this.applicableJoints=false;
-      this.Notapplicable=true;
+      this.applicableJointsNote=true;
+      this.NotapplicableJoints=true;
       for(let y in a.controls){
         console.log(y);
         a.controls[y].clearValidators();
@@ -903,7 +952,8 @@ debugger
     }
     else{
       this.applicableJoints=true;
-      this.Notapplicable=false;
+      this.NotapplicableJoints=false;
+      this.applicableJointsNote=false;
       for(let y in a.controls){
         console.log(y);
         a.controls[y].setValidators([Validators.required]);

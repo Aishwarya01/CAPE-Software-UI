@@ -758,16 +758,17 @@
                      <mat-panel-title>
                         <h3>Vertical air terminal (VAT)</h3>
                     </mat-panel-title>
-                        <mat-panel-description *ngFor="let a of vatControls(q); let j = index">
-                            <select class="ButtonSave" 
+                    </mat-expansion-panel-header>
+                    <div *ngFor="let a of vatControls(q); let j = index"> 
+                      <select class="form-control" style="width: 30%;"
                             (change)="onChangeAir($event,a)">
                             <option value="" selected>Select Option</option>
-                            <option value="Applicable" >Applicable </option>
-                            <option value="Not applicable" >Not applicable</option>
-                            </select>
-                          </mat-panel-description>
-                    </mat-expansion-panel-header>
-                    
+                            <option value="Applicable">Applicable </option>
+                            <option value="Not applicable">Not applicable</option>
+                       </select>
+                    </div>
+                        <div style="margin-top: 10px;" *ngIf="applicableAirNote"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Vertical Air Termination</div>
+                        <br>
                             <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableAir">
                                 <table class="table TableBorder">
                             <!-- <thead>
@@ -778,12 +779,6 @@
                             </thead> -->
                             <!-- Form Array -->
                             <tbody formArrayName="lpsVerticalAirTermination" *ngFor="let a of vatControls(q); let j = index">
-                                <!-- <select class="ButtonSave" 
-                                (change)="onChange1($event,a)">
-                                <option value="" selected>Select Option</option>
-                                <option value="applicable" >applicable </option>
-                                <option value="not applicable" >not applicable</option>
-                                </select> -->
                                 <div class="form-group" [formGroupName]="j">
                                     <thead>
                                         <th>SI.No</th>
@@ -793,8 +788,8 @@
                                     </thead>
                                     <tr>
                                         <td style="width: 1rem; text-align: center;">6(a)</td>
-                                        <td style="width: 24rem;">Physical inspection (check for any damage/break/bend/interception tip/position)</td>
-                                        <td style="width: 43rem;">
+                                        <td style="width: 22.5%;">Physical inspection (check for any damage/break/bend/interception tip/position)</td>
+                                        <td style="width: 35.5%;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -827,10 +822,12 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    <div formArrayName="AirTUnit" *ngFor="let z of getAirTUnitControls(a); let w = index">
+                                        <div [formGroupName]="w" >
                                     <tr>
                                         <td style="text-align: center;">6(b)</td>
-                                        <td>Material of air terminal</td>
-                                        <td>
+                                        <td style="width: 20.5%;">Material of air terminal</td>
+                                        <td style="width: 35.5%;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -838,7 +835,7 @@
                                                     </span>
                                                 </div>
                                                     <select class="form-control" formControlName="materialOfTerminalOb"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('materialOfTerminalOb')?.errors}">
+                                                    [ngClass]="{ 'is-invalid': submitted && z.get('materialOfTerminalOb')?.errors}">
                                                     <option value="" selected>Select Option</option>
                                                     <option value="" >copper</option>
                                                     <option value="" >copper bonded steel</option>
@@ -850,10 +847,10 @@
                                                     <option value="" >Cast Iron</option>
                                                     <option value="" >ESE</option>
                                                     </select>
-                                                <div *ngIf="submitted && a.get('materialOfTerminalOb')?.errors"
+                                                <div *ngIf="submitted && z.get('materialOfTerminalOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div
-                                                        *ngIf="a.get('materialOfTerminalOb')?.errors?.required">
+                                                        *ngIf="z.get('materialOfTerminalOb')?.errors?.required">
                                                         Material of air terminal observation is Required</div>
                                                 </div>
                                             </div>
@@ -865,15 +862,16 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="materialOfTerminalRe" type="text"
+                                                <textarea [readonly]="isEditable" formControlName="materialOfTerminalRe" 
+                                                type="text"
                                                     class="form-control" ></textarea>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="text-align: center;">6(c)</td>
-                                        <td>Size/cross section area of air terminal</td>
-                                        <td>
+                                        <td style="width: 20.5%;">Size/cross section area of air terminal</td>
+                                        <td style="width: 35.5%;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -882,10 +880,10 @@
                                                 </div>
                                                 <textarea type="text" class="form-control" placeholder="Please enter Observation here"
                                                 [readonly]="isEditable" formControlName="sizeOfTerminalOb"
-                                                [ngClass]="{ 'is-invalid': submitted && a.get('sizeOfTerminalOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('sizeOfTerminalOb')?.errors"
+                                                [ngClass]="{ 'is-invalid': submitted && z.get('sizeOfTerminalOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && z.get('sizeOfTerminalOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('sizeOfTerminalOb')?.errors?.required">
+                                                    <div *ngIf="z.get('sizeOfTerminalOb')?.errors?.required">
                                                         Size/cross section area of air terminal observation is Required
                                                     </div>
                                                 </div>
@@ -905,8 +903,8 @@
                                     </tr>
                                     <tr>
                                         <td style="text-align: center;">6(d)</td>
-                                        <td>Height of vertical air terminal in meters</td>
-                                        <td>
+                                        <td style="width: 20.5%;">Height of vertical air terminal in meters</td>
+                                        <td style="width: 35.5%;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -915,10 +913,10 @@
                                                 </div>
                                                 <textarea type="text" class="form-control" placeholder="Please enter Observation here"
                                                     [readonly]="isEditable" formControlName="heightOfTerminalOb"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('heightOfTerminalOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('heightOfTerminalOb')?.errors"
+                                                    [ngClass]="{ 'is-invalid': submitted && z.get('heightOfTerminalOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && z.get('heightOfTerminalOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('heightOfTerminalOb')?.errors?.required">
+                                                    <div *ngIf="z.get('heightOfTerminalOb')?.errors?.required">
                                                         Height of vertical air terminal observation is Required</div>
                                                 </div>
                                             </div>
@@ -937,8 +935,8 @@
                                     </tr>
                                     <tr>
                                         <td style="text-align: center;">6(e)</td>
-                                        <td>Angle of protection based on height</td>
-                                        <td>
+                                        <td style="width: 20.5%;">Angle of protection based on height</td>
+                                        <td style="width: 35.5%;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -947,10 +945,10 @@
                                                 </div>
                                                 <textarea type="text" class="form-control" placeholder="Please enter Observation here"
                                                     [readonly]="isEditable" formControlName="angleProtectionHeightOb"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('angleProtectionHeightOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('angleProtectionHeightOb')?.errors"
+                                                    [ngClass]="{ 'is-invalid': submitted && z.get('angleProtectionHeightOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && z.get('angleProtectionHeightOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('angleProtectionHeightOb')?.errors?.required">
+                                                    <div *ngIf="z.get('angleProtectionHeightOb')?.errors?.required">
                                                         Angle of protection based on height observation is required
                                                     </div>
                                                 </div>
@@ -970,8 +968,8 @@
                                     </tr>
                                     <tr>
                                         <td style="text-align: center;">6(f)</td>
-                                        <td>Any metal installations protrudes outside the building volume protected by air termination systems (check coverage area check based on angle of protection)</td>
-                                        <td> 
+                                        <td style="width: 20.5%;">Any metal installations protrudes outside the building volume protected by air termination systems (check coverage area check based on angle of protection)</td>
+                                        <td style="width: 35.5%;"> 
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -979,14 +977,14 @@
                                                     </span>
                                                 </div>
                                                     <select class="form-control" formControlName="installationTerminationsystemOb"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('installationTerminationsystemOb')?.errors}">
+                                                    [ngClass]="{ 'is-invalid': submitted && z.get('installationTerminationsystemOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
                                                         <option value="" >Protected</option>
                                                         <option value="" >Not protected</option>
                                                     </select>
-                                                <div *ngIf="submitted && a.get('installationTerminationsystemOb')?.errors"
+                                                <div *ngIf="submitted && z.get('installationTerminationsystemOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('installationTerminationsystemOb')?.errors?.required">
+                                                    <div *ngIf="z.get('installationTerminationsystemOb')?.errors?.required">
                                                         Any metal installations protrudes outside the volume protected
                                                         observation is required</div>
                                                 </div>
@@ -1006,8 +1004,8 @@
                                     </tr>
                                     <tr>
                                         <td style="text-align: center;">6(g)</td>
-                                        <td>Type of support for vertical air terminal</td>
-                                        <td>
+                                        <td style="width: 20.5%;">Type of support for vertical air terminal</td>
+                                        <td style="width: 35.5%;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1015,15 +1013,15 @@
                                                     </span>
                                                 </div>
                                                     <select class="form-control" formControlName="supportFlatSurfaceOb"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('supportFlatSurfaceOb')?.errors}">
+                                                    [ngClass]="{ 'is-invalid': submitted && z.get('supportFlatSurfaceOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
                                                         <option value="" >Clip</option>
                                                         <option value="" >Clamp</option>
                                                         <option value="" >Concrete</option>
                                                     </select>
-                                                <div *ngIf="submitted && a.get('supportFlatSurfaceOb')?.errors"
+                                                <div *ngIf="submitted && z.get('supportFlatSurfaceOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('supportFlatSurfaceOb')?.errors?.required">
+                                                    <div *ngIf="z.get('supportFlatSurfaceOb')?.errors?.required">
                                                         Support for vertical air terminal observation
                                                         is required</div>
                                                 </div>
@@ -1043,8 +1041,8 @@
                                     </tr>
                                     <tr>
                                         <td style="text-align: center;">6(h)</td>
-                                        <td>Vertical air terminal is firmly fixed/mounted/pasted over the flat surface</td>
-                                        <td>
+                                        <td style="width: 20.5%;">Vertical air terminal is firmly fixed/mounted/pasted over the flat surface</td>
+                                        <td style="width: 35.5%;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1052,21 +1050,22 @@
                                                     </span>
                                                 </div>
                                                     <select class="form-control" formControlName="heightFlatSurfaceOb"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('heightFlatSurfaceOb')?.errors}">
+                                                    [ngClass]="{ 'is-invalid': submitted && z.get('heightFlatSurfaceOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
                                                         <option value="" >Yes</option>
                                                         <option value="" >No</option>
                                                     </select>
-                                                <div *ngIf="submitted && a.get('heightFlatSurfaceOb')?.errors"
+                                                <div *ngIf="submitted && z.get('heightFlatSurfaceOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('heightFlatSurfaceOb')?.errors?.required">
+                                                    <div *ngIf="z.get('heightFlatSurfaceOb')?.errors?.required">
                                                         Height of air terminals above flat surface observation
                                                         is required</div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
-                                            <div class="input-group">
+                                            <div class="input-group" style="position: relative;
+                                            top: 10%;">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
                                                         <i class="bi bi-text-paragraph"></i>
@@ -1075,12 +1074,23 @@
                                                 <textarea [readonly]="isEditable" formControlName="heightFlatSurfaceRe" type="text"
                                                     class="form-control" ></textarea>
                                             </div>
+                                            <div class="row" style="float: right;
+                                            margin-right: 10px;">
+                                            <mat-icon style="cursor: pointer;padding: 0px 33px 0px 0px;" 
+                                            [ngClass]="{'disableForm':service.allFieldsDisable}" 
+                                            (click)="addItemAir(a)">add_box</mat-icon>
+
+                                            <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="getAirTUnitControls(a).length > 1" 
+                                            (click)="removeItemAir(a,w)" style="cursor: pointer;float: right;">remove_circle_outline</mat-icon>
+                                        </div>
                                         </td>
                                     </tr>
+                                    </div>
+                                  </div>
                                     <tr>
                                         <td style="text-align: center;">6(i)</td>
-                                        <td>Physical inspection of interconnection of VAT to roof conductor & metal bodies to roof conductors (check for connections (tight/loose), its conditions (healthy/corroded)and its position/location w.r.t. design</td>
-                                        <td>
+                                        <td style="width: 20.5%;">Physical inspection of interconnection of VAT to roof conductor & metal bodies to roof conductors (check for connections (tight/loose), its conditions (healthy/corroded)and its position/location w.r.t. design</td>
+                                        <td style="width: 35.5%;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1112,8 +1122,8 @@
                                     </tr>
                                     <tr>
                                         <td style="text-align: center;">6(j)</td>
-                                        <td>Total number of air terminals</td>
-                                        <td>
+                                        <td style="width: 20.5%;">Total number of air terminals</td>
+                                        <td style="width: 35.5%;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1144,8 +1154,8 @@
                                     </tr>
                                     <tr>
                                         <td style="text-align: center;">6(k)</td>
-                                        <td>Number of air terminals inspected</td>
-                                        <td>
+                                        <td style="width: 20.5%;">Number of air terminals inspected</td>
+                                        <td style="width: 35.5%;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1177,8 +1187,8 @@
                                     </tr>
                                     <tr>
                                         <td style="text-align: center;">6(l)</td>
-                                        <td>Number of inspections passed</td>
-                                        <td>
+                                        <td style="width: 20.5%;">Number of inspections passed</td>
+                                        <td style="width: 35.5%;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1209,8 +1219,8 @@
                                     </tr>
                                     <tr>
                                         <td style="text-align: center;">6(m)</td>
-                                        <td>Number of inspections failed</td>
-                                        <td>
+                                        <td style="width: 20.5%;">Number of inspections failed</td>
+                                        <td style="width: 35.5%;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1253,15 +1263,17 @@
                         <mat-panel-title>
                             <h3>Mesh conductors</h3>
                           </mat-panel-title>
-                          <mat-panel-description *ngFor="let a of meshControls(q); let i = index">
-                            <select class="ButtonSave" 
-                            (change)="onChangeMesh($event,a)">
-                            <option value="" selected>Select Option</option>
-                            <option value="Applicable" >Applicable </option>
-                            <option value="Not applicable" >Not applicable</option>
-                            </select>
-                          </mat-panel-description>
                     </mat-expansion-panel-header>
+                    <div *ngFor="let a of meshControls(q); let i = index">
+                        <select class="form-control" style="width: 30%;" 
+                                (change)="onChangeMesh($event,a)">
+                                <option value="" selected>Select Option</option>
+                                <option value="Applicable" >Applicable </option>
+                                <option value="Not applicable" >Not applicable</option>
+                                </select>
+                            </div>
+                            <div style="margin-top: 10px;" *ngIf="applicableMeshNote"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Mesh conductors</div>
+                            <br>
                     <div *ngIf="applicableMesh">
                         <select class="form-control">
                             <option value="" selected>Select Option</option>
@@ -1610,16 +1622,17 @@
                         <mat-panel-title>
                             <h3>Holders</h3>
                           </mat-panel-title>
-                          <mat-panel-description *ngFor="let a of holdersContols(q); let j = index">
-                            <select class="ButtonSave" 
-                            (change)="onChangeHolders($event,a)">
-                            <option value="" selected>Select Option</option>
-                            <option value="Applicable" >Applicable </option>
-                            <option value="Not applicable" >Not applicable</option>
-                            </select>
-                          </mat-panel-description>          
                     </mat-expansion-panel-header>
-                    
+                    <div *ngFor="let a of holdersContols(q); let j = index">
+                        <select class="form-control" style="width: 30%;" 
+                                (change)="onChangeHolders($event,a)">
+                                <option value="" selected>Select Option</option>
+                                <option value="Applicable" >Applicable </option>
+                                <option value="Not applicable" >Not applicable</option>
+                                </select>
+                            </div>
+                            <div style="margin-top: 10px;" *ngIf="applicableHoldersNote"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Holders</div>
+                            <br>
                             <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableHolders">
                                 <table class="table TableBorder">
                             <tbody formArrayName="airHolderDescription" *ngFor="let a of holdersContols(q); let j = index">
@@ -1734,31 +1747,34 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    <div formArrayName="airHolder" *ngFor="let h of getAirHolderControls(a); let x = index">
+                                        <div [formGroupName]="x">
                                     <tr>
-                                        <td style="text-align: center;">8(d)</td>
-                                        <td>Type of holder</td>
-                                        <td>
+                                        <td style="width: 1rem;text-align: center;">8(d)</td>
+                                        <td style="width: 24rem;">Type of holder</td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <select class="form-control" formControlName="holderTypeOb" [ngClass]="{ 'is-invalid': submitted && a.get('holderTypeOb')?.errors}">
+                                                <select class="form-control" formControlName="holderTypeOb" 
+                                                [ngClass]="{ 'is-invalid': submitted && h.get('holderTypeOb')?.errors}">
                                                     <option value="" selected>Select Option</option>
                                                     <option value="" >concrete flat roof conductor holder (CFRCH)</option>
                                                     <option value="" >metal roof conductor holder (MRCH)</option>
                                                     <option value="" >metal holder for ridge tiles (MHRT)</option>
                                                     <option value="" >Plastic roof conductor holder (PRCH)</option>
                                                 </select>
-                                                <div *ngIf="submitted && a.get('holderTypeOb')?.errors"
+                                                <div *ngIf="submitted && h.get('holderTypeOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('holderTypeOb')?.errors?.required">Type of holder observation is
+                                                    <div *ngIf="h.get('holderTypeOb')?.errors?.required">Type of holder observation is
                                                         required</div>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1771,16 +1787,16 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="text-align: center;">8(e)</td>
-                                        <td>Material of holder</td>
-                                        <td>
+                                        <td style="width: 1rem;text-align: center;">8(e)</td>
+                                        <td style="width: 24rem;">Material of holder</td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                    <select class="form-control" formControlName="materailOfHolderOb" [ngClass]="{ 'is-invalid': submitted && a.get('materailOfHolderOb')?.errors}">
+                                                    <select class="form-control" formControlName="materailOfHolderOb" [ngClass]="{ 'is-invalid': submitted && h.get('materailOfHolderOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
                                                         <option value="" >copper</option>
                                                         <option value="" >copper bonded steel</option>
@@ -1791,14 +1807,14 @@
                                                         <option value="" >Mild Steel</option>
                                                         <option value="" >Cast Iron</option>
                                                     </select>
-                                                <div *ngIf="submitted && a.get('materailOfHolderOb')?.errors"
+                                                <div *ngIf="submitted && h.get('materailOfHolderOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('materailOfHolderOb')?.errors?.required">
+                                                    <div *ngIf="h.get('materailOfHolderOb')?.errors?.required">
                                                         Material of holder observation is Required</div>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1811,9 +1827,9 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="text-align: center;">8(f)</td>
-                                        <td>Total number of holders</td>
-                                        <td>
+                                        <td style="width: 1rem;text-align: center;">8(f)</td>
+                                        <td style="width: 24rem;">Total number of holders</td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1822,15 +1838,15 @@
                                                 </div>
                                                 <textarea [readonly]="isEditable" formControlName="totalHolderNoOb" type="text"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('totalHolderNoOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('totalHolderNoOb')?.errors"
+                                                    [ngClass]="{ 'is-invalid': submitted && h.get('totalHolderNoOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && h.get('totalHolderNoOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('totalHolderNoOb')?.errors?.required">
+                                                    <div *ngIf="h.get('totalHolderNoOb')?.errors?.required">
                                                         Total number of holders observation is Required</div>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1843,9 +1859,9 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="text-align: center;">8(g)</td>
-                                        <td>Number of holders inspected</td>
-                                        <td>
+                                        <td style="width: 1rem;text-align: center;">8(g)</td>
+                                        <td style="width: 24rem;">Number of holders inspected</td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1854,15 +1870,15 @@
                                                 </div>
                                                 <textarea [readonly]="isEditable" formControlName="holderInspNoOb" type="text"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('holderInspNoOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('holderInspNoOb')?.errors"
+                                                    [ngClass]="{ 'is-invalid': submitted && h.get('holderInspNoOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && h.get('holderInspNoOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('holderInspNoOb')?.errors?.required">
+                                                    <div *ngIf="h.get('holderInspNoOb')?.errors?.required">
                                                         Number of holders inspected observation is required</div>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1875,9 +1891,9 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="text-align: center;">8(h)</td>
-                                        <td>Number of inspections passed</td>
-                                        <td>
+                                        <td style="width: 1rem;text-align: center;">8(h)</td>
+                                        <td style="width: 24rem;">Number of inspections passed</td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1886,15 +1902,15 @@
                                                 </div>
                                                 <textarea [readonly]="isEditable" formControlName="holderInspPassedNoOb" type="text"
                                                     class="form-control"  placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('holderInspPassedNoOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('holderInspPassedNoOb')?.errors"
+                                                    [ngClass]="{ 'is-invalid': submitted && h.get('holderInspPassedNoOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && h.get('holderInspPassedNoOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('holderInspPassedNoOb')?.errors?.required">
+                                                    <div *ngIf="h.get('holderInspPassedNoOb')?.errors?.required">
                                                         Number of holders inspected observation is Required</div>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1907,9 +1923,9 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="text-align: center;">8(i)</td>
-                                        <td>Number of inspections failed</td>
-                                        <td>
+                                        <td style="width: 1rem;text-align: center;">8(i)</td>
+                                        <td style="width: 24rem;">Number of inspections failed</td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1918,16 +1934,17 @@
                                                 </div>
                                                 <textarea [readonly]="isEditable" formControlName="holderInspFailedNoOb" type="text"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('holderInspFailedNoOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('holderInspFailedNoOb')?.errors"
+                                                    [ngClass]="{ 'is-invalid': submitted && h.get('holderInspFailedNoOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && h.get('holderInspFailedNoOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('holderInspFailedNoOb')?.errors?.required">
+                                                    <div *ngIf="h.get('holderInspFailedNoOb')?.errors?.required">
                                                         Number of inspections passed observation is Required</div>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
-                                            <div class="input-group">
+                                        <td style="width: 43rem;">
+                                            <div class="input-group" style="position: relative;
+                                            top: 10%;">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
                                                         <i class="bi bi-text-paragraph"></i>
@@ -1936,19 +1953,32 @@
                                                 <textarea [readonly]="isEditable" formControlName="holderInspFailedNoRe" type="text"
                                                     class="form-control" ></textarea>
                                             </div>
+                                            <div class="row" style="float: right;
+                                            margin-right: 10px;">
+                                            <mat-icon style="cursor: pointer;padding: 0px 33px 0px 0px;" 
+                                            [ngClass]="{'disableForm':service.allFieldsDisable}" 
+                                            (click)="addItemAirHolder(a)">add_box</mat-icon>
+
+                                            <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" 
+                                            *ngIf="getAirHolderControls(a).length > 1" 
+                                            (click)="removeItemAirHolder(a,x)" style="cursor: pointer;float: right;">remove_circle_outline</mat-icon>
+                                        </div>
                                         </td>
                                     </tr>
+                                        </div>
+                                    </div>
                                     <tr>
-                                        <td style="text-align: center;">8(j)</td>
-                                        <td>Material of parpet holder</td>
-                                        <td>
+                                        <td style="width: 1rem;text-align: center;">8(j)</td>
+                                        <td style="width: 24rem;">Material of parpet holder</td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                    <select class="form-control" formControlName="materailOfParpetHolderOb" [ngClass]="{ 'is-invalid': submitted && a.get('materailOfParpetHolderOb')?.errors}">
+                                                    <select class="form-control" formControlName="materailOfParpetHolderOb" 
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('materailOfParpetHolderOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
                                                         <option value="" >Plastic</option>
                                                         <option value="" >Copper</option>
@@ -1968,7 +1998,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -1981,9 +2011,9 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="text-align: center;">8(k)</td>
-                                        <td>Total number of holders</td>
-                                        <td>
+                                        <td style="width: 1rem;text-align: center;">8(k)</td>
+                                        <td style="width: 24rem;">Total number of holders</td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -2000,7 +2030,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -2013,9 +2043,9 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="text-align: center;">8(l)</td>
-                                        <td>Number of holders inspected</td>
-                                        <td>
+                                        <td style="width: 1rem;text-align: center;">8(l)</td>
+                                        <td style="width: 24rem;">Number of holders inspected</td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -2032,7 +2062,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -2046,9 +2076,9 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="text-align: center;">8(m)</td>
-                                        <td>Number of inspections passed</td>
-                                        <td>
+                                        <td style="width: 1rem;text-align: center;">8(m)</td>
+                                        <td style="width: 24rem;">Number of inspections passed</td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -2065,7 +2095,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -2078,9 +2108,9 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="text-align: center;">8(n)</td>
-                                        <td>Number of inspections failed</td>
-                                        <td>
+                                        <td style="width: 1rem;text-align: center;">8(n)</td>
+                                        <td style="width: 24rem;">Number of inspections failed</td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -2097,7 +2127,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -2126,16 +2156,17 @@
                         <mat-panel-title>
                             <h3>Clamps</h3>
                           </mat-panel-title>
-                          <mat-panel-description *ngFor="let a of clampsControls(q); let i = index">
-                            <select class="ButtonSave" 
-                            (change)="onChangeClamps($event,a)">
-                            <option value="" selected>Select Option</option>
-                            <option value="Applicable" >Applicable </option>
-                            <option value="Not applicable" >Not applicable</option>
-                            </select>
-                          </mat-panel-description>                          
                         </mat-expansion-panel-header>
-                   
+                        <div *ngFor="let a of clampsControls(q); let i = index">
+                            <select class="form-control" style="width: 30%;" 
+                                    (change)="onChangeClamps($event,a)">
+                                    <option value="" selected>Select Option</option>
+                                    <option value="Applicable" >Applicable </option>
+                                    <option value="Not applicable" >Not applicable</option>
+                                    </select>
+                                </div>
+                                <div style="margin-top: 10px;" *ngIf="applicableClampsNote"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Clamps</div>
+                                <br>
                             <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableClamps">
                                 <table class="table TableBorder">
                             <tbody formArrayName="airClamps" *ngFor="let a of clampsControls(q); let i = index">
@@ -2515,16 +2546,17 @@
                         <mat-panel-title>
                             <h3>Expansion Pieces</h3>
                           </mat-panel-title>
-                          <mat-panel-description *ngFor="let a of expansionControls(q); let i = index">
-                            <select class="ButtonSave" 
-                            (change)="onChangeExpansion($event,a)">
-                            <option value="" selected>Select Option</option>
-                            <option value="Applicable" >Applicable </option>
-                            <option value="Not applicable" >Not applicable</option>
-                            </select>
-                          </mat-panel-description>                    
                         </mat-expansion-panel-header>
-                    
+                        <div *ngFor="let a of expansionControls(q); let i = index">
+                            <select class="form-control" style="width: 30%;" 
+                                    (change)="onChangeExpansion($event,a)">
+                                    <option value="" selected>Select Option</option>
+                                    <option value="Applicable" >Applicable </option>
+                                    <option value="Not applicable" >Not applicable</option>
+                                    </select>
+                                </div>
+                                <div style="margin-top: 10px;" *ngIf="applicableExpansionNote"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Expansion Pieces</div>
+                                <br>
                             <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableExpansion">
                                 <table class="table TableBorder">
                             <tbody formArrayName="airExpansion" *ngFor="let a of expansionControls(q); let i = index">
@@ -2858,16 +2890,17 @@
                         <mat-panel-title>
                             <h3>Connectors</h3>
                           </mat-panel-title>
-                          <mat-panel-description *ngFor="let a of connectorsControls(q); let i = index">
-                            <select class="ButtonSave" 
-                            (change)="onChangeConnectors($event,a)">
-                            <option value="" selected>Select Option</option>
-                            <option value="Applicable" >Applicable </option>
-                            <option value="Not applicable" >Not applicable</option>
-                            </select>
-                          </mat-panel-description>
                     </mat-expansion-panel-header>
-                   
+                    <div *ngFor="let a of connectorsControls(q); let i = index">
+                        <select class="form-control" style="width: 30%;" 
+                                (change)="onChangeConnectors($event,a)">
+                                <option value="" selected>Select Option</option>
+                                <option value="Applicable" >Applicable </option>
+                                <option value="Not applicable" >Not applicable</option>
+                                </select>
+                            </div>
+                            <div style="margin-top: 10px;" *ngIf="applicableConnectorsNote"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Connectors</div>
+                            <br>
                             <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableConnectors">
                                 <table class="table TableBorder">
                             <tbody formArrayName="airConnectors" *ngFor="let a of connectorsControls(q); let i = index">
