@@ -10,7 +10,20 @@
   <div class="card">
     <div class="card-body">
       <div class="row">
-        <div class="col">
+        <div class="col-sm-12">
+   <h4>
+    You are entitled to allot the license to your clients / users (Called as viewers). First time viewers need to be registered. 
+    Kindly enter the e-mail id of viewer's whom you want to allot the license.
+</h4>
+  <p>
+ <b>Note:</b> The viewer can login, understand the report and include his comments in the report. 
+ This facility is for better understanding of the various methods recommended in inspection and testing.
+ </p>
+ 
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
           <label>Enter Viewer Email:</label>
           <input
             type="text"
@@ -57,434 +70,453 @@
 <ng-template #contentViewer let-modal>
   <div class="modal-header" style="text-align: center; display: block">
     <h2 class="modal-title" style="display: contents">Assign Viewer</h2>
+    <p>
+      <b>Note:</b>
+      First time viewers need to be registered by the inspector. Viewer can also register directly.
+    </p>
   </div>
   <div class="modal-body" modal-xl>
     <div class="card">
       <div class="card-body">
         <form [formGroup]="viewerRegisterForm" (ngSubmit)="onSubmit(flag)">
-          <div class="row">
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="name">* Site Name</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="bi bi-person-fill"></i>
-                    </span>
+          <div formArrayName="viewerArr" *ngFor="let a of getViewerControls(); let i = index">
+            <div [formGroupName]="i">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="name">* Site Name</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="bi bi-person-fill"></i>
+                        </span>
+                      </div>
+                      <input
+                        type="text"
+                        formControlName="siteName"
+                        class="form-control"
+                        placeholder="Enter the Site Name"
+                        [ngClass]="[ existSite  ? 'is-invalid' : '',submitted && a.get('siteName')?.errors ? 'is-invalid' : '']"
+                        [(ngModel)]="register.siteName"
+                        (focusout)="onFocusOutEvent($event,a)"
+                      />
+                      <div
+                        *ngIf="submitted && a.get('siteName')?.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="a.get('siteName')?.errors?.required">
+                          Site Name is required
+                        </div>
+                        <div *ngIf="a.get('siteName')?.errors?.minlength">
+                          Site Name should be more than 2 characters
+                        </div>
+                      </div>
+
+                      <div *ngIf="existSite" class="invalid-feedback">
+                        <div>
+                          Note: Site Name already exist
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <input
-                    type="text"
-                    formControlName="siteName"
-                    class="form-control"
-                    placeholder="Enter the Site Name"
-                    [ngClass]="{ 'is-invalid': submitted && f.siteName.errors }"
-                    [(ngModel)]="register.siteName"
-                  />
-                  <div
-                    *ngIf="submitted && f.siteName.errors"
-                    class="invalid-feedback"
-                  >
-                    <div *ngIf="f.siteName.errors?.required">
-                      Site Name is required
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="name">* Name</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="bi bi-person-fill"></i>
+                        </span>
+                      </div>
+                      <input
+                        type="text"
+                        formControlName="name"
+                        [readonly]="setReadOnly"
+                        class="form-control"
+                        placeholder="Enter your Name"
+                        [ngClass]="{ 'is-invalid': submitted && a.get('name')?.errors }"
+                        [(ngModel)]="register.name"
+                      />
+                      <div
+                        *ngIf="submitted && a.get('name')?.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="a.get('name')?.errors?.required">Name is required</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+    
+               
+    
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="email">* User Name: (email ID)</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="bi bi-envelope-fill"></i>
+                        </span>
+                      </div>
+                      <input
+                        type="email"
+                        formControlName="email"
+                        class="form-control"
+                        placeholder="Enter your email address"
+                        maxlength="50"
+                        [ngClass]="{ 'is-invalid': submitted && a.get('email')?.errors }"
+                        readonly
+                        [ngStyle]="{ 'border-color': alert ? 'red' : '' }"
+                        [(ngModel)]="register.username"
+                      />
+                      <div
+                        *ngIf="submitted && a.get('email')?.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="a.get('email')?.errors?.required">Email is required</div>
+                        <div *ngIf="a.get('email')?.errors?.pattern">Enter valid email</div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="name">* Name</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="bi bi-person-fill"></i>
-                    </span>
-                  </div>
+    
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="contactNumber">* Contact Number</label>
+    
                   <input
-                    type="text"
-                    formControlName="name"
-                    [readonly]="setReadOnly"
-                    class="form-control"
-                    placeholder="Enter your Name"
-                    [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
-                    [(ngModel)]="register.name"
-                  />
-                  <div
-                    *ngIf="submitted && f.name.errors"
-                    class="invalid-feedback"
-                  >
-                    <div *ngIf="f.name.errors?.required">Name is required</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-           
-
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="email">* User Name: (email ID)</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="bi bi-envelope-fill"></i>
-                    </span>
-                  </div>
-                  <input
-                    type="email"
-                    formControlName="email"
-                    class="form-control"
-                    placeholder="Enter your email address"
-                    maxlength="50"
-                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
-                    readonly
-                    [ngStyle]="{ 'border-color': alert ? 'red' : '' }"
-                    [(ngModel)]="register.username"
-                  />
-                  <div
-                    *ngIf="submitted && f.email.errors"
-                    class="invalid-feedback"
-                  >
-                    <div *ngIf="f.email.errors.required">Email is required</div>
-                    <div *ngIf="f.email.errors.pattern">Enter valid email</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-4">
-              <label for="contactNumber">* Contact Number</label>
-
-              <input
-                type="tel"
-                ng2TelInput
-                [ng2TelInputOptions]="{
-                  initialCountry: 'in',
-                  separateDialCode: 'true'
-                }"
-                (countryChange)="countryChange($event)"
-                formControlName="contactNumber"
-                [readonly]="setReadOnly"
-                class="form-control"
-                placeholder="Enter your contact number"
-                [ngClass]="{
-                  'is-invalid': submitted && f.contactNumber.errors
-                }"
-              />
-              <div
-                *ngIf="submitted && f.contactNumber.errors"
-                class="invalid-feedback"
-              >
-                <div *ngIf="f.contactNumber?.errors?.required">
-                  Mobile Number Is Required
-                </div>
-                <!-- <div *ngIf="f.mobileNumber?.errors?.minlength">Enter 10 Digit Number</div> -->
-                <div *ngIf="f.contactNumber?.errors?.maxlength">
-                  Enter 10 Digit Number
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="userType">* User Type</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="bi bi-card-heading"></i>
-                    </span>
-                  </div>
-                  <input
-                    type="text"
-                    formControlName="userType"
-                    class="form-control"
-                    readonly
-                    [(ngModel)]="register.role"
-                  />
-                  <!-- <div *ngIf="submitted && f.userType.errors" class="invalid-feedback">
-                                        <div *ngIf="f.userType.errors.required">Usertype is required</div>
-                                    </div> -->
-                  <!-- <select  formControlName="userType" class="form-control"
-                                    [ngClass]="{ 'is-invalid': submitted && f.userType.errors }"   [(ngModel)]="register.role">
-                                        <option value="" disabled>Select Type</option>
-                                        <option value="Viewer" selected>Viewer</option>
-                                        <option value="Inspector" disabled>Inspector</option>
-                                    </select> -->
-                  <!-- <div *ngIf="submitted && f.userType.errors" class="invalid-feedback">
-                                        <div *ngIf="f.userType.errors.required">Please select user type</div>
-                                    </div> -->
-                  <div
-                    *ngIf="f.userType.value == 'Viewer'"
-                    class="invalid-feedback"
-                    style="color: #919994; font-weight: 500"
-                  >
-                    <div>
-                      *As a viewer you can view, comment, download or print the
-                      report
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="companyName">* Company Name</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="bi bi-building"></i>
-                    </span>
-                  </div>
-                  <input
-                    type="text"
-                    formControlName="companyName"
-                    class="form-control"
-                    [readonly]="setReadOnly"
-                    placeholder="Enter your company name"
-                    [ngClass]="{
-                      'is-invalid': submitted && f.companyName.errors
+                    type="tel"
+                    ng2TelInput
+                    [ng2TelInputOptions]="{
+                      initialCountry: 'in',
+                      separateDialCode: 'true'
                     }"
-                    [(ngModel)]="register.companyName"
-                  />
-                  <div
-                    *ngIf="submitted && f.companyName.errors"
-                    class="invalid-feedback"
-                  >
-                    <div *ngIf="f.companyName.errors?.required">
-                      Company name is required
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="department"
-                  >* Department Based on the Company</label
-                >
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="bi bi-card-heading"></i>
-                    </span>
-                  </div>
-                  <input
-                    type="text"
-                    formControlName="department"
-                    class="form-control"
+                    (countryChange)="countryChange($event)"
+                    formControlName="contactNumber"
                     [readonly]="setReadOnly"
-                    placeholder="Enter your department"
+                    class="form-control"
+                    placeholder="Enter your contact number"
                     [ngClass]="{
-                      'is-invalid': submitted && f.department.errors
+                      'is-invalid': submitted && a.get('contactNumber')?.errors
                     }"
-                    [(ngModel)]="register.department"
                   />
                   <div
-                    *ngIf="submitted && f.department.errors"
+                    *ngIf="submitted && a.get('contactNumber')?.errors"
                     class="invalid-feedback"
                   >
-                    <div *ngIf="f.department.errors.required">
-                      Department is required
+                    <div *ngIf="a.get('contactNumber')?.errors?.required">
+                      Mobile Number Is Required
+                    </div>
+                    <!-- <div *ngIf="f.mobileNumber?.errors?.minlength">Enter 10 Digit Number</div> -->
+                    <div *ngIf="a.get('contactNumber')?.errors?.maxlength">
+                      Enter 10 Digit Number
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="userType">* User Type</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="bi bi-card-heading"></i>
+                        </span>
+                      </div>
+                      <input
+                        type="text"
+                        formControlName="userType"
+                        class="form-control"
+                        readonly
+                        [(ngModel)]="register.role"
+                      />
+                      <!-- <div *ngIf="submitted && f.userType.errors" class="invalid-feedback">
+                                            <div *ngIf="f.userType.errors.required">Usertype is required</div>
+                                        </div> -->
+                      <!-- <select  formControlName="userType" class="form-control"
+                                        [ngClass]="{ 'is-invalid': submitted && f.userType.errors }"   [(ngModel)]="register.role">
+                                            <option value="" disabled>Select Type</option>
+                                            <option value="Viewer" selected>Viewer</option>
+                                            <option value="Inspector" disabled>Inspector</option>
+                                        </select> -->
+                      <!-- <div *ngIf="submitted && f.userType.errors" class="invalid-feedback">
+                                            <div *ngIf="f.userType.errors.required">Please select user type</div>
+                                        </div> -->
+                      <div
+                        *ngIf="a.get('userType')?.value == 'Viewer'"
+                        class="invalid-feedback"
+                        style="color: #919994; font-weight: 500"
+                      >
+                        <div>
+                          *As a viewer you can view, comment, download or print the
+                          report
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+    
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="companyName">* Company Name</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="bi bi-building"></i>
+                        </span>
+                      </div>
+                      <input
+                        type="text"
+                        formControlName="companyName"
+                        class="form-control"
+                        [readonly]="setReadOnly"
+                        placeholder="Enter your company name"
+                        [ngClass]="{
+                          'is-invalid': submitted && a.get('companyName')?.errors
+                        }"
+                        (focusout)="onFocusOutEventCompany($event,a)"
+                        [(ngModel)]="register.companyName"
+                      />
+                      <div
+                        *ngIf="submitted && a.get('companyName')?.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="a.get('companyName')?.errors?.required">
+                          Company name is required
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="designation">* Designation</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="bi bi-person-lines-fill"></i>
-                    </span>
-                  </div>
-                  <input
-                    type="text"
-                    formControlName="designation"
-                    class="form-control"
-                    [readonly]="setReadOnly"
-                    placeholder="Enter your designation"
-                    [ngClass]="{
-                      'is-invalid': submitted && f.designation.errors
-                    }"
-                    [(ngModel)]="register.designation"
-                  />
-                  <div
-                    *ngIf="submitted && f.designation.errors"
-                    class="invalid-feedback"
-                  >
-                    <div *ngIf="f.designation.errors.required">
-                      Designation is required
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="country">* Country</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="bi bi-geo-alt-fill"></i>
-                    </span>
-                  </div>
-                  <select
-                    formControlName="country"
-                    class="form-control"
-                    [ngClass]="{ 'is-invalid': submitted && f.country.errors }"
-                    [(ngModel)]="register.country"
-                    (change)="selectCountry($event)"
-                  >
-                    <option value="" selected>Select country</option>
-                    <option value="IND" selected>India</option>
-
-                    <!-- <option *ngFor="let a of countryList">{{a}}</option> -->
-                  </select>
-                  <div
-                    *ngIf="submitted && f.country.errors"
-                    class="invalid-feedback"
-                  >
-                    <div *ngIf="f.country.errors.required">
-                      Please select country
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="state">* State</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="bi bi-geo-alt-fill"></i>
-                    </span>
-                  </div>
-                  <select
-                    formControlName="state"
-                    class="form-control"
-                    [ngClass]="{ 'is-invalid': submitted && f.state.errors }"
-                    [(ngModel)]="register.state"
-                  >
-                    <option value="" selected>Select state</option>
-                    <option
-                      *ngFor="let a of stateList"
-                      [selected]="a.name === state"
+    
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="department"
+                      >* Department Based on the Company</label
                     >
-                      {{ a.name }}
-                    </option>
-                  </select>
-                  <div
-                    *ngIf="submitted && f.state.errors"
-                    class="invalid-feedback"
-                  >
-                    <div *ngIf="f.state.errors.required">
-                      Please select state
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="bi bi-card-heading"></i>
+                        </span>
+                      </div>
+                      <input
+                        type="text"
+                        formControlName="department"
+                        class="form-control"
+                        [readonly]="setReadOnly"
+                        placeholder="Enter your department"
+                        [ngClass]="{
+                          'is-invalid': submitted && a.get('department')?.errors
+                        }"
+                        [(ngModel)]="register.department"
+                        (focusout)="onFocusOutEventDepartment($event,a)"
+                      />
+                      <div
+                        *ngIf="submitted && a.get('department')?.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="a.get('department')?.errors?.required">
+                          Department is required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="designation">* Designation</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="bi bi-person-lines-fill"></i>
+                        </span>
+                      </div>
+                      <input
+                        type="text"
+                        formControlName="designation"
+                        class="form-control"
+                        [readonly]="setReadOnly"
+                        placeholder="Enter your designation"
+                        [ngClass]="{
+                          'is-invalid': submitted && a.get('designation')?.errors
+                        }"
+                        [(ngModel)]="register.designation"
+                      />
+                      <div
+                        *ngIf="submitted && a.get('designation')?.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="a.get('designation')?.errors?.required">
+                          Designation is required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+    
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="country">* Country</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="bi bi-geo-alt-fill"></i>
+                        </span>
+                      </div>
+                      <select
+                        formControlName="country"
+                        class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && a.get('country')?.errors }"
+                        [(ngModel)]="register.country"
+                        (change)="selectCountry($event)"
+                      >
+                        <option value="" selected>Select country</option>
+                        <!-- <option value="IND" selected>India</option> -->
+    
+                        <option *ngFor="let country of countryList" [selected]="country.name=== a.get('country')?.value">{{country.name}}</option>
+                      </select>
+                      <div
+                        *ngIf="submitted && a.get('country')?.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="a.get('country')?.errors?.required">
+                          Please select country
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="district"> District</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="bi bi-geo-alt-fill"></i>
-                    </span>
+    
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="state">* State</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="bi bi-geo-alt-fill"></i>
+                        </span>
+                      </div>
+                      <select
+                        formControlName="state"
+                        class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && a.get('state')?.errors }"
+                        [(ngModel)]="register.state"
+                      >
+                        <option value="" selected>Select state</option>
+                        <option
+                          *ngFor="let a of stateList"
+                          [selected]="a.name === state"
+                        >
+                          {{ a.name }}
+                        </option>
+                      </select>
+                      <div
+                        *ngIf="submitted && a.get('state')?.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="a.get('state')?.errors?.required">
+                          Please select state
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <input
-                    type="text"
-                    formControlName="district"
-                    class="form-control"
-                    placeholder="Enter your District"
-                    [(ngModel)]="register.district"
-                  />
                 </div>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="address">* Address</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="bi bi-geo-alt-fill"></i>
-                    </span>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="district"> District</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="bi bi-geo-alt-fill"></i>
+                        </span>
+                      </div>
+                      <input
+                        type="text"
+                        formControlName="district"
+                        class="form-control"
+                        placeholder="Enter your District"
+                        [(ngModel)]="register.district"
+                      />
+                    </div>
                   </div>
-                  <input
-                    type="text"
-                    formControlName="address"
-                    class="form-control"
-                    placeholder="Enter your address"
-                    [ngClass]="{ 'is-invalid': submitted && f.address.errors }"
-                    [(ngModel)]="register.address"
-                  />
-                  <div
-                    *ngIf="submitted && f.address.errors"
-                    class="invalid-feedback"
-                  >
-                    <div *ngIf="f.address.errors.required">
-                      Address is required
+                </div>
+    
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="address">* Address</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="bi bi-geo-alt-fill"></i>
+                        </span>
+                      </div>
+                      <input
+                        type="text"
+                        formControlName="address"
+                        class="form-control"
+                        placeholder="Enter your address"
+                        [ngClass]="{ 'is-invalid': submitted && a.get('address')?.errors }"
+                        [(ngModel)]="register.address"
+                      />
+                      <div
+                        *ngIf="submitted && a.get('address')?.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="a.get('address')?.errors?.required">
+                          Address is required
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="pinCode">* Pincode</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="bi bi-geo-fill"></i>
-                    </span>
-                  </div>
-                  <input
-                    type="number"
-                    formControlName="pinCode"
-                    class="form-control"
-                    placeholder="Enter your pinCode"
-                    [ngClass]="{ 'is-invalid': submitted && f.pinCode.errors }"
-                    [(ngModel)]="register.pinCode"
-                  />
-                  <div
-                    *ngIf="submitted && f.pinCode.errors"
-                    class="invalid-feedback"
-                  >
-                    <div *ngIf="f.pinCode.errors.required">
-                      Pincode is required
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="pinCode">* Pincode</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="bi bi-geo-fill"></i>
+                        </span>
+                      </div>
+                      <input
+                        type="number"
+                        formControlName="pinCode"
+                        class="form-control"
+                        placeholder="Enter your pinCode"
+                        [ngClass]="{ 'is-invalid': submitted && a.get('pinCode')?.errors }"
+                        [(ngModel)]="register.pinCode"
+                      />
+                      <div
+                        *ngIf="submitted && a.get('pinCode')?.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="a.get('pinCode')?.errors?.required">
+                          Pincode is required
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  formControlName="terms"
+                  (change)="showSubmit()"
+                  [(ngModel)]="isChecked"
+                />
+                I agree to the <a style="cursor: pointer; text-decoration: underline;" (click)="termsCondition(termsContent)">Terms and Conditions</a> for using online
+                services of SOLVE Applications
+              </div>
             </div>
-          </div>
-
-          <div class="form-check">
-            <input
-              type="checkbox"
-              formControlName="terms"
-              (change)="showSubmit()"
-              [(ngModel)]="isChecked"
-            />
-            I agree to the <a href="#">Terms and Conditions</a> for using online
-            services of Rush Applications
           </div>
           <div
             *ngIf="successMsgOTP"
@@ -500,7 +532,7 @@
           >
             {{ errorMsg }}
           </div>
-          <br />
+          <br>
           <div style="display: inline">
             <button
               *ngIf="showAssign"
@@ -545,6 +577,189 @@
             </button>
           </div>
         </form>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #termsContent let-modal>
+  <div class="modal-header" style="text-align: center; display: block">
+    <h2 class="modal-title" style="display: contents">Terms of Use\ End  User  License  Agreement</h2>
+    <!-- <button type="button" #closebutton class="close" data-dismiss="modal">&times;</button> -->
+    <p>
+      Effective as of  [........insert the Date]
+    </p>
+  </div>
+  <!-- <div class="modal-header">
+    <button type="button" class="btn btn-primary" printSectionId="printdiv">Print</button>
+    <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('cancel click')"><i class="bi bi-x icon"></i> Cancel</button>
+  </div> -->
+  <div class="modal-body" modal-xl style="height: 1078px;
+  overflow-y: scroll;">
+    <div class="card">
+      <div class="card-body">
+        <div class="row" style="display: block;">
+          <div class="col-xs-12">
+              <div class="text-align" style="text-align: end;margin: 10px;">
+                <button   type="button" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" 
+                printSectionId="printdiv" ngxPrint style="margin: 10px;">Print</button>
+                <!-- <button  type="button" class="btn btn-danger cancel">
+                  <i class="bi bi-x icon"></i> Cancel</button> -->
+
+                  <!-- <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button> -->
+
+                  <button type="button" class="btn btn-danger" id="closeModal"  (click)="onCancel()">Cancel</button>
+                 </div>
+      </div>
+       </div>
+       <div id="printdiv">
+       <p>IMPORTANT – This is a legal agreement between you [‘’you’’ or the ‘authorized  user’’] and the CAPE ELECTRIC PRIVATE LIMITED 
+         [‘’We’’ or’’ Company ‘’]. Before downloading, accessing or using any Part of the SOFTWARE RUSH, you should read carefully  
+         the following terms and conditions contained in this TERMS OF USE as they govern your access to and use of SOFTWARE RUSH 
+         [Collectively, the or this SOFTWARE ] Company is wWilling to license and allow the use of this 
+         SOFTWARE RUSH only on the conditioned in that you accept and agree to all of the terms and conditions contained in 
+         this TOU. If you do not agree with this TOU, you are not granted permission to access or otherwise use the SOFTWARE RUSH. 
+        </p>
+        <br>
+           <h2>TERMS AND CONDITIONS</h2>
+           <ol>
+           <li>
+License grant. The SOFTWARE RUSH is provided by company, and this TOU provides to you a personal, revocable limited, 
+non-exclusive, royalty-free, non-transferable license to use the SOFTWARE RUSH conditioned on your continued compliance with the 
+terms and conditions of this TOU. This TOU permits you to use and access for personal or business purposes only the SOFTWARE RUSH
+a single laptop, workstation, or computer and from the Internet or through an online network. You may also load information from the 
+SOFTWARE RUSH into your laptop’s, workstation’s, or computer’s, temporary memory [RAM] and print and download materials and  
+information from the SOFTWARE RUSH solely for your personal or business use, provides that all hard copies contain all 
+copyright and other applicable notices contained in such materials and information if you are using the SOFTWARE RUSH on behalf  
+of a company or other form of entity. Please note that such a company or entity may have a separate agreement with Company  
+regarding access and usage privileges for the SOFTWARE RUSH Nevertheless, your personal use of the SOFTWARE RUSH will be  
+subject to the obligations and restrictions regarding use of the SOFTWARE RUSH as set forth in this TOU. 
+           </li>
+           <li>
+Restrictions: The foregoing license is limited. You may not use, copy, store, reproduce, transmit distribute, display, rent, lease, 
+sell, modify, alter, license, sublicense, or commercially exploit any data provided by company through the SOFTWARE RUSH in any 
+manner not expressly permitted by this TOU. In addition, you may not modify translate decompile, create derivative work[s] of, 
+copy, distribute disassemble broadcast, transmit publish, remove or alter any proprietary notices or labels, license, sublicense, 
+transfer, sell, mirror, frame exploit, rent, lease, private label, grant a security interest in, or otherwise use in any manner not  
+expressly permitted herein the SOFTWARE RUSH. 
+ </li>
+ <li>
+User obligations: By downloading accessing, or using the SOFTWARE RUSH in order to view out information and materials or submit  
+information of any kind, you represent that you are at least the legal age of majority and will, at all times, provide true, 
+accurate, current, and complete information when submitting information or materials on the SOFTWARE RUSH, including without 
+limitation, when you provide information via a SOFTWARE RUSH registration or submission form. In addition, you agree to abide  
+by all applicable local, state, national, and international laws and regulations with respect to your use of the SOFTWARE RUSH 
+.This TOU is a expressly made subject to any applicable export laws, orders, restrictions, or regulations. 
+</li>
+<li>
+Proprietary rights. This TOU provides only a limited license to access and use the SOFTWARE RUSH. Accordingly you expressly  
+acknowledge and agree that company transfers no ownership or Intellectual property interest or title in and to the SOFTWARE 
+RUSH to you or anyone else. All text, graphics, user interfaces, visual interfaces, photographs, sounds, artwork, computer code 
+[including html code], programs, software, products, information, and documentation as  well as the design, structure, selection, 
+coordination, expression, ‘’look  and  feel’’, and arrangement of any content contained on or available through the SOFTWARE RUSH. 
+Unless otherwise indicated, are owned, controlled and licensed by company and its successors and assigns and are protected 
+by law including, but not limited to, Indian copyright, trade secret, patent, and trademark law, as well as other state, national
+, and international laws and regulations. Except as expressly provided herein, Company does not grant any express or  
+implied right to your or any other person under any intellectual or proprietary rights. Accordingly, your unauthorized  
+use of the SOFTWARE RUSH may violate intellectual property or other proprietary rights laws as well as other laws,  
+regulations, and statutes. This SOFTWARE RUSH is Copyright @ 2021 and\or its licensors. All rights reserved CAPE ELECTRIC PRIVATE 
+LIMITED, the Company logo, and all other names, logos, and icons identifying. Company and its Programs, products, and services 
+are proprietary trademarks of Company and its programs, products, and services are proprietary trademarks of Company, 
+and any use of such marks, including  without limitation, as domain names, without the Express written Permission of Company 
+is strictly Prohibited. Other service and entity name mentioned herein may be the trademarks and \ or service marks of their 
+respective owners.
+</li>
+<li>
+Feedback and submissions: Company welcomes your feedback and suggestions, about company’s 
+Products or services or the SOFTWARE RUSH. By transmitting any suggestions, information, material, or other Content [collectively, 
+‘’feedback’’] to Company, you represent and warrant that such feedback does not infringe or violate the intellectual property  
+rights of any third party [including, without limitation, Patents, copyrights or trademark rights] and that you have all rights 
+necessary convey to Company and enable company to use such feedback in addition any feedback received through the SOFTWARE RUSH 
+will be deemed to include a royalty-free, perpetual, irrevocable, transferable, non-exclusive right and license for Company to adopt, 
+publish, reproduce, disseminate, transmit , distribute, copy, use, create derivative works, and display [in whole or in part] 
+worldwide, or act on such feedback without additional approval or consideration, in any form, media, or technology now known or 
+later developed for the full term of any rights that may exist in such content, and you hereby waive any claim to the contrary.
+</li>
+<li>
+Disclaimer. While company endeavors to provide reliable information, services programs, Software, and materials, the SOFTWARE 
+RUSH is provided on an ‘’as-is ‘’and’’ as available’’ basis and may include errors, omissions, or other inaccuracies, you  
+assume the sole risk of making use of the SOFTWARE RUSH, company makes on representations or warranties about the results  
+that can be achieved from or the suitability, completeness, timeliness, reliability legality or accuracy of the SOFTWARE RUSH for 
+any purpose, and expressly disclaims all warranties, express or implied, including without limitation, any warranty of 
+merchantability, fitness for a particular purpose, or non-infringement or any other implied warranty under the uniform 
+computer information transactions act as enacted by any state, Company also makes to representation or warranty that the 
+SOFTWARE RUSH will operate error free or in an uninterrupted fashion or that any downloadable files or information will  
+be free of viruses or contamination or destructive features. 
+</li>
+<li>
+Limitation of liability : You expressly absolve and release Ccompany from any claim of harm resulting from a cause beyond Ccompany’s  
+control, including, but not limited of failure of electronic or mechanical equipment or communication lines, telephone or  
+other connection  problems, computer viruses, unauthorized access, theft, operator errors, severe weather earthquakes, or natural  
+disasters, strikes, or other labor problems, wars or governmental restrictions. Moreover, in no event shall company be liable 
+for any indirect, punitive, incidental, special, or consequential damages arising out of or in any why connected with the  
+use of the SOFTWARE RUSH, with the delay or inability to use the SOFTWARE RUSH, or for any information, services, programs, 
+products, and materials available through the SOFTWARE RUSH, whether based in contract, tort, strict liability, or otherwise, 
+even if company has been advised of the possibility of such damages, because some states/jurisdictions do not allow the exclusion 
+or limitation of liability for consequential or incidental damages, the above limitation may not apply withstanding the 
+foregoing, total liability of company for any reason whatsoever related to use of the shall not exceed the total amount paid  
+by you to company in connection with the subject-matter of the particular dispute during the prior three months.  
+</li>
+<li>
+Indemnity: You agree to demand indemnify, and hold harmless company and affiliates and all of 
+their respective employees, agents, directors, officers, shareholders, attorneys, successors, and assigns from and against any and all  
+claims, proceedings, damages, injuries, liabilities, losses, costs, and expenses [including reasonable attorney’s fees and  
+litigation expenses] relating to or arising from any breach by you of this TOU. 
+</li>
+<li>
+Governing law: This TOU has been made in and will be construed and enforced solely in accordance with the lays of the Republic of 
+India as applied to agreement entered into and completely confirmed. You and Company each agree to submit to exclusive  
+subject-matter jurisdiction, personal jurisdiction, and venue of the Courts in the city of Chennai for any disputes between  
+us under or arising out of this TOU. You also agree to waive any right to a jury trial in connection with any action or 
+litigation in any way arising out of or related to this TOU and acknowledge that either party may seek attorney’s fees in 
+any proceeding. Any claim you might have against Company must be brought within two [2] years after the cause of action arises, 
+or such claim or cause of action is barred. You also acknowledge and agree that any applicable law implementation of the  
+Information Technology Act [including any available remedies or laws] shall not apply to this TOU and is hereby disclaimed.  
+Company makes no representation that the SOFTWARE RUSH is appropriate or available for use in other locations outside the 
+Republic of India and access to the SOFTWARE RUSH from states, territories, or nations where any aspect of the SOFTWARE RUSH is 
+illegal is prohibited, you access the SOFTWARE RUSH on your own volition and are responsible for compliance with all  
+applicable local laws with respect to you access and use of the SOFTWARE RUSH. A printed version of this TOU and of any 
+related notice given in electronic form shall be admissible in judicial or administrative proceedings based upon or relating  
+to this TOU. To the same extent and subject to the same conditions as other business documents and records originally  
+generated and maintained in printed form. Please contact Company if you wish to receive a copy of this TOU. 
+</li>
+<li>
+Term and termination: This TOU and your right to use the SOFTWARE RUSH will take effect at the moment you click ‘’I accept ‘’ 
+or you install, access, or use the SOFTWARE RUSH and is effective until Terminated at set forth below. This TOU will terminate 
+automatically if you click ‘’I reject’’. In addition, Company reserves the right at any time and on reasonable grounds, which  
+shall Include, without limitation, any reasonable belief of fraudulent or unlawful activity or actions Or omissions that violate any 
+term or condition of this TOU, to deny your access to the SOFTWARE RUSH Or to any portion thereof in order to protect its name  
+and good will, its business, and \or other Authorized Users, and this TOU will also terminate automatically if you fail to 
+comply with this TOU, subject to the survival rights of certain provisions identified below Termination will be effective without notice. You may also terminate this TOU at any time by ceasing to use the SOFTWARE RUSH but all applicable provisions of this TOU will survive termination, as identified below. Upon termination, you must destroy all copies of any aspect of the SOFTWARE RUSH in your possession. In addition to the miscellaneous  section below, the provisions concerning  Company’s proprietary rights, feedback , indemnity, disclaimers  of  warranty, limitation of  liability, and governing  law will survive the  termination  of this TOU for any  reason. 
+</li>
+<li>
+Miscellaneous: you acknowledge that any breach threatened or actual, of this TOU will cause irreparable injury to Company, 
+such injury would not be quantifiable in monetary damages, and Company would not have an adequate remedy at law. You therefore  
+agree that Company shall be entitled, in addition to other available remedies, to seek and be awarded an injunction or other 
+appropriate equitable relief from a Court of Competent jurisdiction restraining any breach threatened or actual, of your  
+obligations under any provision of this TOU. Accordingly You hereby waive any requirement that Company post any bond or  
+other security in the event any injunctive or equitable relief is sought by or awarded to Company to enforce any 
+Provision of this TOU. The parties agree that this TOU is for the benefit of the parties here to as well as Company’s  
+licensors. Accordingly, this TOU is personal to you, and you may not assign your rights or obligations to any other  
+person or entity without Company’s prior Written consent Failure by Company to insist on strict Performance of any of  
+the terms and Conditions of this TOU will not operate is a waiver by Company of that or any subsequent default of  
+failure of performance. If any provision for part thereof contained in this TOU is determined to be void, invalid, or otherwise  
+unenforceable by a Court of competent jurisdiction or on account of a conflict with an applicable Government regulation,  
+such determination shall not affect the remaining provisions [or parts  thereof] contained herein And the illegal, 
+invalid, or unenforceable clause shall be modified in compliance with applicable law in a manner that most closely  
+matches the intent of the original language. No joint venture, partnership, employment, or agency relationship exists  
+between you and company as a result of this TOU or your utilization of the SOFTWARE RUSH. Headings herein are for convenience  
+only This TOU represents the entire agreement between you and Company With respect to use of the SOFTWARE RUSH, and it  
+supersedes all prior or contemporaneous communications and proposals, whether electronic oral or written between you and  
+company with respect to the SOFTWARE RUSH. 
+</li>
+</ol>
+        </div>
       </div>
     </div>
   </div>

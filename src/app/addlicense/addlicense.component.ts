@@ -44,8 +44,7 @@ export class AddlicenseComponent implements OnInit {
       }
     )
     const dialogRef = this.dialog.open(AssignViewerComponent, {
-      width: '500px',
-      height: '235px',
+      width: '720px',
       disableClose: true,
     });
 

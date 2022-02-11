@@ -1,5 +1,5 @@
 .bg-image {
-    background: url(../../assets/img/login-bg.jpg);
+    background: url(../../assets/img/electrical-panel-testing1.jpg);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: left;
@@ -23,8 +23,12 @@
     /* margin-top: 2rem; */
 }
 
+.loginMargin {
+    border-top: 1px solid rgba(0, 0, 0, 0.125) !important;
+}
 .brand-logo img{
-    width: 150px;
+    width: 20%;
+    margin: 50px auto 20px 0px;
 }
 
 .login-title {
@@ -34,10 +38,24 @@
     font-weight: bold;
     font-size: 1.5rem;
 }
+.auth-form-btn {
+    /* margin-top: 40px; */
+    width: 25%;
+}
 
+.auth-form-btn .icon {
+    float: left;
+    margin-top: -2px;
+}
+
+.cancel {
+    /* margin-top: 40px; */
+    width: 25%; 
+    /* height: 47px; */
+}
 
 .auth-form-btn {
-    margin-top: 40px;
+    /* margin-top: 40px; */
     width: auto;
 }
 
@@ -47,7 +65,7 @@
 } */
 
 .cancel {
-    margin-top: 40px;
+    /* margin-top: 40px; */
     width: auto;
     /* height: 47px; */
 }

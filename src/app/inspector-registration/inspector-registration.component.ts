@@ -7,6 +7,7 @@ import { Register } from '../model/register';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -54,9 +55,12 @@ export class InspectorRegistrationComponent implements OnInit {
   isChecked: boolean = false;
   countryCode: String = '';
   contactNumber: string = '';
+  modalReference: any;
+  existFlag: boolean = false;
+  notExistFlag: boolean = false;
 
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: FormBuilder, private modalService: NgbModal,
               private siteService: SiteService,
               private applicationService: ApplicationTypeService,
               private inspectorRegisterService: InspectorregisterService,
@@ -72,7 +76,7 @@ export class InspectorRegistrationComponent implements OnInit {
       email: ['', [
         Validators.required,
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-      contactNumber: ['', [Validators.required,Validators.maxLength(10)]],
+      contactNumber: ['', [Validators.required,Validators.maxLength(10),Validators.minLength(10)]],
       applicationType: ['', Validators.required],
       department: ['', Validators.required],
       designation: ['', Validators.required],
@@ -85,11 +89,11 @@ export class InspectorRegistrationComponent implements OnInit {
       terms: ['', Validators.required]
     });
 
-    // this.siteService.retrieveCountry().subscribe(
-    //   data => {
-    //     this.countryList = JSON.parse(data);
-    //   }
-    // )
+    this.siteService.retrieveCountry().subscribe(
+      data => {
+        this.countryList = JSON.parse(data);
+      }
+    )
     // this.dropdownList = [
     //   { item_id: 1, item_text: 'Mumbai' },
     //   { item_id: 2, item_text: 'Bangaluru' },
@@ -129,31 +133,66 @@ export class InspectorRegistrationComponent implements OnInit {
   get f() {
     return this.InspectorRegisterForm.controls;
   }
-
-
+  termsCondition(termsContent:any){
+    this.modalReference = this.modalService.open(termsContent,{size: 'xl'})
+  }
+  onCancel() {
+    this.modalReference.close();
+  }
   selectCountry(e: any) {
     let changedValue = e.target.value;
     this.stateList = [];
-      // for(let arr of this.countryList) {
-      //   if( arr.name == changedValue) {
-      //     this.siteService.retrieveState(arr.code).subscribe(
-      //       data => {
-      //         this.stateList = JSON.parse(data)
-      //       }
-      //     )};
-      // }
-      if(changedValue == "IND") {
-        this.siteService.retrieveStateV2(changedValue).subscribe(
-          data => {
-            this.stateList = JSON.parse(data)
-          }
-        );
+      for(let arr of this.countryList) {
+        if( arr.name == changedValue) {
+          this.siteService.retrieveState(arr.code).subscribe(
+            data => {
+              this.stateList = JSON.parse(data)
+            }
+          )};
       }
+      // if(changedValue == "IND") {
+      //   this.siteService.retrieveStateV2(changedValue).subscribe(
+      //     data => {
+      //       this.stateList = JSON.parse(data)
+      //     }
+      //   );
+      // }
        
   }
 
   countryChange(country: any) {
     this.countryCode = country.dialCode;
+  }
+
+  onFocusOutEvent(a: any) {  
+    if(a.target.value != '') {
+      if(!this.f.email.errors?.pattern) {
+        let changedValue = a.target.value;
+        this.inspectorRegisterService.retrieveRegisterName(changedValue).subscribe(
+          data => {
+            debugger;
+            if(data != '') {
+              this.notExistFlag = false;
+              this.existFlag = true;
+            }
+            else {
+              this.notExistFlag = true;
+              this.existFlag = false;
+            }
+          },
+          error => {
+          }
+        );
+      }
+      else {
+        this.notExistFlag = false;
+        this.existFlag = false;
+      }
+    }
+    else {
+      this.notExistFlag = false;
+      this.existFlag = false;
+    }
   }
 
   onSelect(e: any) {
@@ -182,8 +221,9 @@ export class InspectorRegistrationComponent implements OnInit {
 
 onSubmit() {
   this.submitted = true;
-  console.log(this.InspectorRegisterForm.value.applicationType)
-
+  if(this.existFlag) {
+    return;
+  }
   //Breaks if form is invalid
   if(this.InspectorRegisterForm.invalid) {
     return;
@@ -238,8 +278,9 @@ onSubmit() {
     error => {
       this.loading= false;
       this.errorMsgflag=true;
-      this.errorMsg=error.error.message;
-      setTimeout(()=>{
+      this.errorMsg = JSON.parse(error.error);
+      this.errorMsg=this.errorMsg.message;
+      setTimeout(()=>{ 
         this.errorMsgflag=false;
         this.errorMsg=" ";
       }, 3000);

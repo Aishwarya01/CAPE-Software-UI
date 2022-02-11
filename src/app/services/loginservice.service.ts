@@ -34,6 +34,7 @@ export class LoginserviceService {
   logout() {
     sessionStorage.removeItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
     this.token = '';
+    localStorage.removeItem('rememberMe');
   }
 
 

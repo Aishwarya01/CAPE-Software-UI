@@ -34,7 +34,7 @@ export class GenerateOtpComponent implements OnInit {
   ngOnInit(): void {
     this.countryCode = '91';
     this.generateOtpForm = this.formBuilder.group({
-      mobileNumber: ['',[Validators.maxLength(10),Validators.required]]
+      mobileNumber: ['',[Validators.maxLength(10),Validators.minLength(10),Validators.required]]
   });
   }
 
@@ -60,7 +60,7 @@ export class GenerateOtpComponent implements OnInit {
     this.inspectorRegisterService.sendOTPInspector(this.email,this.contactNumber).subscribe(
       data=> { 
         this.successMsgOTP=true;
-        this.successMsg="OTP has been successfully sent to your mobile number"
+        this.successMsg="OTP has been successfully sent to your mobile number";
         setTimeout(()=>{
           this.successMsgOTP=false;
           this.successMsg="";

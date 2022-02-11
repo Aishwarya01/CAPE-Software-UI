@@ -1,4 +1,10 @@
-<mat-tab-group [selectedIndex]="selectedIndex" style="background-color:white;">
+<div style="position: relative;left: 75%;top: 33px;"> 
+  <h3 class="ShowingSiteName"> Showing Site Name: 
+    <a style="cursor: pointer; text-decoration: underline;color: black;" (click)="siteNameMethod(contentSiteName);">{{siteN | truncate : 15 : "..."}}</a>
+  <div class="horizontalLine"></div>
+ </h3> 
+</div>
+<mat-tab-group [selectedIndex]="selectedIndex" style="background-color:white;" class="globalSite" #tabs>
   <!-- <mat-tab label="Site Details">
     <mat-horizontal-stepper #stepper>
       <mat-step>
@@ -14,7 +20,7 @@
                 <span class="col-md-5" style="display: table-cell; width: 1000px;
                   padding: 0 4px 0 4px;"><select class="form-control" (change)="changeClient($event)"
                     [(ngModel)]="site.clientName">
-                    <option value="0" selected>Select Company Name</option>
+                    <option value="" selected>Select Company Name</option>
                     <option *ngFor="let client of clientList">{{client.clientName}}</option>
                   </select></span>
                 
@@ -24,7 +30,7 @@
                 <span class="col-md-5" style="display: table-cell; width: 1000px;
                   padding: 0 4px 0 4px;"><select class="form-control" [(ngModel)]="site.departmentName"
                     (change)="retrieveSiteDetails()">
-                    <option value="0" selected>Select Department Name</option>
+                    <option value="" selected>Select Department Name</option>
                     <option *ngFor="let department of departmentList">{{department.departmentName}}</option>
                   </select></span>
               </div> -->
@@ -141,65 +147,101 @@
             <!-- <button class="btn btn-info next" mat-button (click)="continue()" [disabled]="disable">
               <span class="material-icons" style="margin-left: -13px;">
                 arrow_right
-              </span>
+              </span> [ngClass]="[goBacktoprevious ? 'mat-step-icon-state-edit' : 'mat-step-icon mat-step-icon-state-number']"
               Continue
-            </button> -->
+            </button> (selectionChange)="stepChanged($event, stepper);" -->
         <!-- </div>
 
       </mat-step>
     </mat-horizontal-stepper>
   </mat-tab> -->
-  <mat-tab label="Inspection Verification & Testing of Installation" >
-    <mat-horizontal-stepper linear #stepper>
+  <mat-tab label="Inspection Verification & Testing of Installation"> 
+
+    <mat-horizontal-stepper [linear]="service.isLinear" #stepper [selectedIndex]="selectedIndexStepper">
       <!-- step 1 (proceedNext)="doSomething1($event)"-->
-      <mat-step [completed]="true">
-
-        <ng-template matStepLabel >Basic Information</ng-template>
-
-        <app-inspection-verification-basic-information  (proceedNext)="doSomething1($event)"
-        ></app-inspection-verification-basic-information>
-
+      <mat-step [completed]="service.isCompleted" [editable]="service.editable">
+        <ng-template matStepLabel>
+             <!-- <span (click)="triggerClickTab();">Basic Information</span> -->
+             <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
+             Basic Information
+            </ng-template>
+        <app-inspection-verification-basic-information *ngIf="basicValue" (proceedNext)="NextStep1($event)"></app-inspection-verification-basic-information>
       </mat-step>
 
 <!-- step 2 -->
-      <mat-step [completed]="true">
-
-        <ng-template matStepLabel>Supply Characteristics</ng-template>
-
-        <app-inspection-verification-supply-characteristics  (proceedNext)="doSomething2($event)"></app-inspection-verification-supply-characteristics>
-
+      <mat-step [completed]="service.isCompleted2" [editable]="service.editable">
+        <ng-template matStepLabel>
+          <!-- <span (click)="triggerClickTab();">Supply Characteristics</span>-->
+          <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
+          Supply Characteristics
+          </ng-template> 
+        <app-inspection-verification-supply-characteristics *ngIf="supplyValue" (proceedNext)="NextStep2($event)"></app-inspection-verification-supply-characteristics>
+        <button class="previousSupply" mat-button (click)="goBack2(stepper)">&laquo; Back</button> 
       </mat-step>
 
 <!-- step 3 -->
-      <mat-step [completed]="true">
-        <ng-template matStepLabel>Inspection</ng-template>
-        <app-inspection-verification-incoming-equipment (proceedNext)="doSomething3($event)"></app-inspection-verification-incoming-equipment>
+      <mat-step [completed]="service.isCompleted3" [editable]="service.editable">
+        <ng-template matStepLabel>
+           <!-- <span (click)="triggerClickTab();">Inspection</span> -->
+           <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
+           Inspection
+          </ng-template>
+        <app-inspection-verification-incoming-equipment *ngIf="incomingValue" (proceedNext)="NextStep3($event)"></app-inspection-verification-incoming-equipment>
+        <button class="previousIncoming" mat-button (click)="goBack3(stepper)">&laquo; Back</button> 
       </mat-step>
 
-      <mat-step [completed]="true">
-        <ng-template matStepLabel>Testing</ng-template>
-        <app-inspection-verification-testing (proceedNext)="doSomething4($event)"></app-inspection-verification-testing>
-
-
+      <mat-step [completed]="service.isCompleted4" [editable]="service.editable">
+        <ng-template matStepLabel>
+          <!-- <span (click)="triggerClickTab();">Testing</span> -->
+          <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
+          Testing
+        </ng-template>
+        <app-inspection-verification-testing *ngIf="testingValue" (proceedNext)="NextStep4($event)"></app-inspection-verification-testing>
+        <button class="previousSupply" mat-button (click)="goBack4(stepper)">&laquo; Back</button> 
       </mat-step>
 
-      <mat-step [completed]="true">
-        <ng-template matStepLabel>Summary</ng-template>
-       <app-summary (proceedNext)="NextStep5($event)"></app-summary>
+      <mat-step [completed]="service.isCompleted5" [editable]="service.editable">
+        <ng-template matStepLabel>
+          <!-- <span (click)="triggerClickTab();">Summary</span> -->
+          <div class="stepper-header-overlay" (click)="triggerClickTab()"></div>
+          Summary
+        </ng-template>
+       <app-summary *ngIf="summaryValue" (proceedNext)="NextStep5($event)"></app-summary>
+       <button class="previousSummary" mat-button (click)="goBack5(stepper)">&laquo; Back</button> 
       </mat-step>
+      
     </mat-horizontal-stepper>
-
-
-
+    <!-- <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+      <span class="alert alert-danger">{{validationErrorMsg}}</span>
+    </div> -->
   </mat-tab>
   <mat-tab label="Saved Reports">
     <app-savedreports></app-savedreports>
   </mat-tab>
 
-  <mat-tab label="Final Reports">
+  <mat-tab label="Final Reports" [disabled]="service.allStepsCompleted" class="disableTab">
     <app-finalreports></app-finalreports>
   </mat-tab>
+
+  <!-- <mat-tab>
+		<ng-template mat-tab-label>
+      <div style="position: relative;left: 70%;top: 33px;" > 
+        <h3 style="color: lightslategrey;
+        font-weight: 500;position: absolute;
+          top: -20px;">Working for Site Name:</h3>
+        <input type="text" maxlength="50" [value]="siteN" style="border: none;" title="{{siteN}}">
+      </div>
+		</ng-template>
+	</mat-tab> -->
+
+  <!-- <mat-tab label="Working for Site Name:" class="disableTab" [disabled]="true"></mat-tab>
+  <mat-tab [label]="siteN | truncate  : 10" class="disableTab" title="Click here!"
+  (click)="tabClick($event)"></mat-tab> -->
+
+   
+
 </mat-tab-group>
+
 
 <!-- Exeption Messages For Client -->
 <ng-template #clientdelete let-modal>
@@ -241,7 +283,6 @@
 
 <!-- Exeption Messages For Site -->
 <ng-template #sitedelete let-modal>
-
   <div class="modal-body">
    <div class="centre-text m-btm30">
     <div *ngIf="success" style="text-align: center;">
@@ -253,7 +294,25 @@
     </div>
    </div>
   <br>
-  <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" aria-label="Close"  (click)="closeModalDialog()">
+  <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn" 
+  aria-label="Close"  (click)="closeModalDialog()">
     <span aria-hidden="true">Ok</span>
   </button>
+</ng-template>
+
+<ng-template #contentSiteName let-modal>
+  <div class="modal-body">
+      <div class="centre-text m-btm30">
+          <div style="text-align: center;">
+            Showcasing Site Name:
+          </div>
+          <div class="successshow">
+             {{siteN}}
+          </div>
+      </div>
+  </div>
+  <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+  aria-label="Close" (click)="closeModalDialog()">
+   <span aria-hidden="true">Ok</span>
+</button>
 </ng-template>

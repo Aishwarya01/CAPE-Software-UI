@@ -8,7 +8,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ForgotpasswordService {
-  apiUrl = environment.apiUrl;
+  apiUrl = environment.apiUrl_v2;
  
   constructor ( private http: HttpClient) {
 

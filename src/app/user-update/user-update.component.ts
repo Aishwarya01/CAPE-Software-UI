@@ -109,7 +109,6 @@ export class UserUpdateComponent implements OnInit {
         this.dialog.closeAll();
       },
       (error) => {
-        console.log("error");
       }
     )
 

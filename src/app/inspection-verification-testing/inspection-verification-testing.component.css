@@ -12,6 +12,7 @@
   border: 2px solid #b1b1b1;
   padding: 15px;
   border-radius: 4px;
+  margin-top: 10px;
   }
 #table1   {
     font-family: arial, sans-serif;
@@ -42,10 +43,16 @@
     .previous {
       background-color: #f1f1f1;
       color: black;
+      /* position: relative;
+      bottom: 57px;
+      left: 40%; */
     }
     .previous:hover {
       background-color: #747a76;
       color: white; 
+      /* position: relative;
+      bottom: 57px;
+      left: 40%; */
     }
     .next{
       background-color: #f1f1f1;
@@ -60,3 +67,43 @@
     .disable{
       pointer-events: none;
       }
+      .disableForm{
+        pointer-events: none;
+      }
+      ::ng-deep .multiline-tooltip{
+        white-space: pre-line;
+        }
+
+        
+      .long-value-input {
+          width: 206px;
+          height: 30px;
+          padding: 0 10px;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+      }
+ /* .button {
+    background-color: unset;
+    border-radius: 10px;
+    border: none;
+    color: black;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Arial;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    -webkit-animation: glowing 1500ms infinite;
+    animation: glowing 1500ms infinite;
+  }
+  @-webkit-keyframes glowing {
+    0% {  -webkit-box-shadow: 0 0 3px #17b881; }
+   50% {  -webkit-box-shadow: 0 0 40px #17b881; }
+   100% {  -webkit-box-shadow: 0 0 3px #17b881; }
+   }
+  @keyframes glowing {
+    0% {box-shadow: 0 0 3px #17b881; }
+    50% {  box-shadow: 0 0 40px #17b881; }
+    100% { box-shadow: 0 0 3px #17b881; }
+ } */

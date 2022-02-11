@@ -1,7 +1,7 @@
 import { Component, OnInit,Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, EventEmitter} from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ViewerRegisterComponent } from '../viewer-register/viewer-register.component';
 import { Register } from '../model/register';
 import { ApplicationTypeService } from '../services/application.service';
@@ -19,6 +19,7 @@ import { SiteaddComponent } from '../site/siteadd/siteadd.component';
   styleUrls: ['./assign-viewer.component.css']
 })
 export class AssignViewerComponent implements OnInit {
+
   assignViewerForm = new FormGroup({
     viewerEmail: new FormControl(''),
   });
@@ -38,6 +39,7 @@ export class AssignViewerComponent implements OnInit {
     userType: new FormControl(''),
     terms: new FormControl('')
   });
+  modalReference: any;
 
   loading = true;
   submitted = false;
@@ -81,7 +83,8 @@ export class AssignViewerComponent implements OnInit {
   data: boolean = false;
   onSave = new EventEmitter();
   inspectorData: any = [];
-
+  demoArr: any = [];
+  existSite: boolean = false;
 
   constructor(private dialog: MatDialog,
               private formBuilder: FormBuilder, private modalService: NgbModal,
@@ -91,8 +94,7 @@ export class AssignViewerComponent implements OnInit {
               private router: Router,
               private componentFactoryResolver: ComponentFactoryResolver,
               private route: ActivatedRoute,
-              private globalService: GlobalsService
-
+              private globalService: GlobalsService,
               ) {
                 this.urlEmail = this.route.snapshot.paramMap.get('email') || '{}';
                }
@@ -106,22 +108,9 @@ export class AssignViewerComponent implements OnInit {
     this.countryCode = '91';
 
     this.viewerRegisterForm = this.formBuilder.group({
-      siteName: ['', Validators.required],
-      name: ['', Validators.required],
-      companyName: ['', Validators.required],
-      email: ['', [
-        Validators.required,
-        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-      contactNumber: [this.mobileArr, [Validators.required,Validators.maxLength(10)]],
-      department: ['', Validators.required],
-      designation: ['', Validators.required],
-      address: ['', Validators.required],
-      district: [''],
-      country: ['', Validators.required],
-      state: ['', Validators.required],
-      pinCode: ['', Validators.required],
-      userType: ['Viewer'],
-      terms: ['', Validators.required]
+      viewerArr: this.formBuilder.array([
+        this.createViewer(),
+      ])
     });
 
       this.inspectorRegisterService.retrieveInspector(this.email).subscribe(
@@ -129,51 +118,172 @@ export class AssignViewerComponent implements OnInit {
           this.inspectorData = JSON.parse(data);
         }
       )
+
+      this.siteService.retrieveCountry().subscribe(
+        data => {
+          this.countryList = JSON.parse(data);
+        }
+      )
   }
+ 
+  createViewer(): FormGroup {
+    return new FormGroup({
+    name: new FormControl('', Validators.required),
+    companyName: new FormControl('', Validators.required),
+    siteName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    email: new FormControl('', Validators.required),
+    designation: new FormControl('', Validators.required),
+    contactNumber: new FormControl('', Validators.required),
+    department: new FormControl('', Validators.required),
+    address: new FormControl('', Validators.required),
+    district: new FormControl('', Validators.required),
+    country: new FormControl('', Validators.required),
+    state: new FormControl('', Validators.required),
+    pinCode: new FormControl('', Validators.required),
+    userType: new FormControl('', Validators.required),
+    terms: new FormControl(''),
+    })
+    
+    }
 
   populateData() {
     this.viewerRegisterForm.reset();
-
       if((this.registerData.role == 'ROLE') || (this.registerData.role == 'Viewer')) {
-       this.createGroup(this.registerData);
-      // this.viewerRegisterForm.setControl('designer1Arr', this._formBuilder.array(this.mobilearr || []))
+      this.demoArr = [];
+      this.viewerRegisterForm.reset();
+      this.demoArr.push(this.createGroup(this.registerData));
+      this.viewerRegisterForm.setControl('viewerArr', this.formBuilder.array(this.demoArr || []))
       }
       else {
         this.register = new Register;
         this.register.username = this.assignViewerForm.value.viewerEmail;
         this.register.role = 'Viewer';
+        this.demoArr = [];
+        this.demoArr.push(this.createNewGroup(this.register));
+        this.viewerRegisterForm.setControl('viewerArr', this.formBuilder.array(this.demoArr || []))
         this.setReadOnly = false;
         this.state = '';
       }
     this.registerData = [];
-
   }
 
-createGroup(item: any) {
-  this.mobileArr = [];
-  this.mobileArr= item.contactNumber.split('-');
+  getViewerControls() : AbstractControl[] {
+    return (<FormArray> this.viewerRegisterForm.get('viewerArr')).controls
+  }
+
+  onFocusOutEvent(e: any,a: any) {
+    if(e.target.value != '' && a.get('companyName')?.value != '' && a.get('companyName')?.value != undefined && a.get('department')?.value != '' && a.get('department')?.value != undefined) {
+      let siteName = a.get('siteName')?.value;
+      let companyName = a.get('companyName')?.value;
+      let departmentName = a.get('department')?.value;
+
+      if(!a.get('siteName')?.errors?.minlength) {
+        this.siteService.retrieveSiteName(companyName,departmentName,siteName).subscribe(
+          data => {
+            debugger
+            if(data != '') {
+              this.existSite = true;
+            }
+            else {
+              this.existSite = false;
+            }
+          }
+        )
+      }
+      else {
+        this.existSite = false;
+      }
+    }
+    else {
+      this.existSite = false;
+    }
+  }
+
+  onFocusOutEventCompany(e: any,a: any) {
+    if(e.target.value != '' && a.get('siteName')?.value != '' && a.get('siteName')?.value != undefined && a.get('department')?.value != '' && a.get('department')?.value != undefined) {
+      let siteName = a.get('siteName')?.value;
+      let companyName = a.get('companyName')?.value;
+      let departmentName = a.get('department')?.value;
+
+      if(!a.get('siteName')?.errors?.minlength) {
+        this.siteService.retrieveSiteName(companyName,departmentName,siteName).subscribe(
+          data => {
+            debugger
+            if(data != '') {
+              this.existSite = true;
+            }
+            else {
+              this.existSite = false;
+            }
+          }
+        )
+      }
+      else {
+        this.existSite = false;
+      }
+    }
+    else {
+      this.existSite = false;
+    }
+  }
+
+  onFocusOutEventDepartment(e: any,a: any) {
+    if(e.target.value != '' && a.get('siteName')?.value != '' && a.get('siteName')?.value != undefined && a.get('companyName')?.value != '' && a.get('companyName')?.value != undefined) {
+      let siteName = a.get('siteName')?.value;
+      let companyName = a.get('companyName')?.value;
+      let departmentName = a.get('department')?.value;
+
+      if(!a.get('siteName')?.errors?.minlength) {
+        this.siteService.retrieveSiteName(companyName,departmentName,siteName).subscribe(
+          data => {
+            debugger
+            if(data != '') {
+              this.existSite = true;
+            }
+            else {
+              this.existSite = false;
+            }
+          }
+        )
+      }
+      else {
+        this.existSite = false;
+      }
+    }
+    else {
+      this.existSite = false;
+    }
+  }
+
+
+createGroup(item: any): FormGroup{
+  // this.mobileArr = [];
+  // this.mobileArr= item.contactNumber.split('-');
   this.setReadOnly = true;
-  this.viewerRegisterForm = this.formBuilder.group({
-    name: [item.name, [Validators.required,]],
-    companyName: [item.companyName, Validators.required],
-    siteName: ['', Validators.required],
-    email: [item.username, [
-      Validators.required,
-      Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-    contactNumber: [this.mobileArr[1], [Validators.required,Validators.maxLength(10)]],
-    department: [item.department, Validators.required],
-    designation: [item.designation, Validators.required],
-    address: [item.address, Validators.required],
-    district: [item.district],
-    country: [item.country, Validators.required],
-    state: [item.state, Validators.required],
-    pinCode: [item.pinCode, Validators.required],
-    userType: ['Viewer', Validators.required],
-    terms: ['', Validators.required]
-  });
+  // this.viewerRegisterForm = this.formBuilder.group({
+  //   name: [item.name, [Validators.required,]],
+  //   companyName: [item.companyName, Validators.required],
+  //   siteName: ['', Validators.required],
+  //   email: [item.username, [
+  //     Validators.required,
+  //     Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+  //   contactNumber: [item.contactNumber, [Validators.required,Validators.maxLength(10)]],
+  //   department: [item.department, Validators.required],
+  //   designation: [item.designation, Validators.required],
+  //   address: [item.address, Validators.required],
+  //   district: [item.district],
+  //   country: [item.country, Validators.required],
+  //   state: [item.state, Validators.required],
+  //   pinCode: [item.pinCode, Validators.required],
+  //   userType: ['Viewer', Validators.required],
+  //   terms: ['', Validators.required]
+
+    
+  // });
   this.register.name=item.name;
   this.register.companyName=item.companyName;
   this.register.username=item.username;
+  // this.register.contactNumber = item.contactNumber;
   this.register.department=item.department;
   this.register.designation=item.designation;
   this.register.address=item.address;
@@ -185,16 +295,63 @@ createGroup(item: any) {
   this.register.createdBy = item.createdBy
   this.register.createdDate = item.createdDate
   this.register.password = item.password
+  this.register.role = 'Viewer';
+
   
   this.selectCountry(item.country);
   this.state = this.registerData.state;
+  // item.contactNumber = this.mobileArr[0]+this.mobileArr[1];
+  return this.formBuilder.group({
+    name: new FormControl({value: item.name}),
+    companyName: new FormControl({value: item.companyName}),
+    siteName: new FormControl('',[Validators.required, Validators.minLength(3)]),
+    email: new FormControl({value: item.username}),
+    designation: new FormControl({value: item.designation}),
+    contactNumber: new FormControl(item.contactNumber),
+    department: new FormControl({value: item.department}),
+    address: new FormControl({value: item.address}),
+    district: new FormControl({value: item.district},Validators.required),
+    country: new FormControl({value: item.country},Validators.required),
+    state: new FormControl({value: item.state},Validators.required),
+    pinCode: new FormControl({value: item.pinCode},Validators.required),
+    userType: new FormControl({value: 'Viewer'}),
+    terms: new FormControl(''),
+    
+
+  });
+}
+
+createNewGroup(item: any): FormGroup{
+  return this.formBuilder.group({
+    name: new FormControl('',Validators.required),
+    companyName: new FormControl('',Validators.required),
+    siteName: new FormControl('',[Validators.required, Validators.minLength(3)]),
+    email: new FormControl({value: item.username}),
+    designation: new FormControl('',Validators.required),
+    contactNumber: new FormControl('',Validators.required),
+    department: new FormControl('',Validators.required),
+    address: new FormControl('',Validators.required),
+    district: new FormControl(''),
+    country: new FormControl('',Validators.required),
+    state: new FormControl('',Validators.required),
+    pinCode: new FormControl('',Validators.required),
+    userType: new FormControl({value: 'Viewer'}),
+    terms: new FormControl(''),
+  });
 }
 
   openModal(contentViewer: any) {
     this.modalService.open(contentViewer,{size: 'xl', backdrop: 'static' })
   }
- 
+  termsCondition(termsContent:any){
+    this.modalReference = this.modalService.open(termsContent,{size: 'xl'})
+  }
+  onCancel() {
+    this.modalReference.close();
+  }
   continue(contentViewer:any) {
+
+    this.existSite = false;
     this.submitted1 = true;
     if(this.assignViewerForm.invalid) {
       return;
@@ -228,9 +385,10 @@ createGroup(item: any) {
         }, 3000);
       },
       (error) => {
-        let errorArr = JSON.parse(error.error);
         this.Error = true;
-        this.errorMsg1 = errorArr.message;
+         let errorArr = [];
+         errorArr = JSON.parse(error.error);
+          this.errorMsg1 = errorArr.message;
         this.showAssign = false;
         this.showRegister = true;
         this.viewerFlag = true;
@@ -254,6 +412,9 @@ createGroup(item: any) {
   closeModalDialog(contentViewer2:any){
    this.modalService.dismissAll(contentViewer2)
   }
+  // closeModalDialogTerms(termsContent:any){
+  //   this.modalService.dismissAll(termsContent)
+  //  }
   closeModalDialogContinue(){
     if(!this.globalService.useClicked){
       this.globalService.noofLicense=0; //aish
@@ -287,21 +448,21 @@ createGroup(item: any) {
       changedValue = e;
     }    
     this.stateList = [];
-      // for(let arr of this.countryList) {
-      //   if( arr.name == changedValue) {
-      //     this.siteService.retrieveState(arr.code).subscribe(
-      //       data => {
-      //         this.stateList = JSON.parse(data)
-      //       }
-      //     )};
-      // }
-      if(changedValue == "IND") {
-        this.siteService.retrieveStateV2(changedValue).subscribe(
-          data => {
-            this.stateList = JSON.parse(data)
-          }
-        );
+      for(let arr of this.countryList) {
+        if( arr.name == changedValue) {
+          this.siteService.retrieveState(arr.code).subscribe(
+            data => {
+              this.stateList = JSON.parse(data)
+            }
+          )};
       }
+      // if(changedValue == "IND") {
+      //   this.siteService.retrieveStateV2(changedValue).subscribe(
+      //     data => {
+      //       this.stateList = JSON.parse(data)
+      //     }
+      //   );
+      // }
        
   }
 
@@ -350,20 +511,22 @@ createGroup(item: any) {
   onSubmit(flag: any) {
     
   this.submitted = true;
-
+  if(this.existSite) {
+    return;
+  }
   //Breaks if form is invalid
   if(this.viewerRegisterForm.invalid) {
     return;
   }
   this.loading = true;
-  this.contactNumber = "";
-  this.contactNumber = "+"+this.countryCode+"-"+this.viewerRegisterForm.value.contactNumber
-
-  this.register.contactNumber = this.contactNumber;
+  
   this.register.role = 'Viewer';
   this.register.permission = 'Yes';
   this.register.assignedBy = this.email;
   if(!flag) {
+    this.contactNumber = "";
+    this.contactNumber = "+"+this.countryCode+"-"+this.viewerRegisterForm.controls.viewerArr.value[0].contactNumber;
+    this.register.contactNumber = this.contactNumber;
     this.inspectorRegisterService.registerViewer(this.register).subscribe(
       data=> {
         this.successMsgOTP=true;
@@ -394,10 +557,11 @@ createGroup(item: any) {
     )  
   }
   else{
+    this.register.contactNumber = this.viewerRegisterForm.controls.viewerArr.value[0].contactNumber
     this.inspectorRegisterService.updateRegister(this.register).subscribe(
       data=> {
         this.successMsgOTP=true;
-        this.successMsg="You have successfully updated viewer profile"
+        this.successMsg=data;
         setTimeout(()=>{
           this.successMsgOTP=false;
           this.successMsg="";
@@ -418,7 +582,8 @@ createGroup(item: any) {
       error => {
         this.loading= false;
         this.errorMsgflag=true;
-        this.errorMsg=error.error.message;
+        this.errorMsg = JSON.parse(error.error);
+        this.errorMsg=this.errorMsg.message;
         setTimeout(()=>{
           this.errorMsgflag=false;
           this.errorMsg=" ";

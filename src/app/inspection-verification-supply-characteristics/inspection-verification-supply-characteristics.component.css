@@ -9,10 +9,16 @@
   .previous {
     background-color: #f1f1f1;
     color: black;
+    /* position: relative;
+    bottom: 57px;
+    left: 40%; */
   }
   .previous:hover {
     background-color: #747a76;
     color: white; 
+    /* position: relative;
+    bottom: 57px;
+    left: 40%; */
   }
   .next{
     background-color: #f1f1f1;
@@ -34,3 +40,43 @@
     margin-left: 30px;
     cursor: not-allowed;
   }   
+  .disableForm{
+    pointer-events: none;
+  }
+  ::ng-deep .multiline-tooltip{
+  white-space: pre-line;
+  }
+
+  /* .dlt{
+    background-color: #f1f1f1;
+    color: black;
+  } */
+  .dlt:hover{
+    background-color: #df0000;
+    color: white;
+    size-adjust: calc();
+  }
+  /* .button {
+    background-color: unset;
+    border-radius: 10px;
+    border: none;
+    color: black;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Arial;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    -webkit-animation: glowing 1500ms infinite;
+    animation: glowing 1500ms infinite;
+  }
+  @-webkit-keyframes glowing {
+    0% {  -webkit-box-shadow: 0 0 3px #17b881; }
+   50% {  -webkit-box-shadow: 0 0 40px #17b881; }
+   100% {  -webkit-box-shadow: 0 0 3px #17b881; }
+   }
+  @keyframes glowing {
+    0% {box-shadow: 0 0 3px #17b881; }
+    50% {  box-shadow: 0 0 40px #17b881; }
+    100% { box-shadow: 0 0 3px #17b881; }
+ } */

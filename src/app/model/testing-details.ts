@@ -22,11 +22,30 @@ export class Testing{
   designation!: String;
   companyName!: String;
   Impedance!: String;
-  testDistribution!:TestDistribution[];
-  testingRecords!: TestingRecords[];
+  testingEquipment!:TestingEquipment[];
+  testDistRecords!: TestingDistRecords[];
+  testingStatus!: String;
 }
 
- 
+export class TestingEquipment {
+  testingId: number;
+  equipmentId!: number;
+  equipmentName!: String;
+  equipmentMake!: String;
+  equipmentModel!: String;
+  equipmentSerialNo!: String;
+  equipmentCalibrationDueDate!: String;
+  testingEquipmentStatus: String;
+}
+
+export class TestingDistRecords {
+  testDistRecordId: number;
+  testingId: number;
+  testDistribution!:TestDistribution[];
+  testingRecords!: TestingRecords[];
+  testDistRecordStatus!: String;
+  testingInnerObservation!: TestingInnerObservation[];
+}
 
 export class TestDistribution {
 
@@ -49,6 +68,9 @@ export class TestDistribution {
 
 
 export class TestingRecords {
+  testingRecordId: number;
+  testingId: number
+  testDistRecordId: number;
   circuitNo!: String;
   circuitDesc!: String;
   circuitStandardNo!: String;
@@ -79,16 +101,22 @@ export class TestingRecords {
   rcdOperatingFiveCurrent!: String;
   testButtonOperation!: String;
   rcdRemarks!: String;
-
+  testingRecordStatus!: String;
 }
 
 export class TestIncomingDistribution {
-
   incomingDistributionId!: String;
   incomingVoltage!: String;
   incomingLoopImpedance!: String;
   incomingFaultCurrent!: String;
   sourceFromSupply!: String;
- 
 }
-  
+
+export class TestingInnerObservation{  
+  testDistRecordId: number;
+  testingId: number
+  testingInnerObervationsId: number;
+  observationComponentDetails: String;
+  observationDescription:String;    
+  testingInnerObservationStatus: String;
+}

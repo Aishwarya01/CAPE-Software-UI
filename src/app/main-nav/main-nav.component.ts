@@ -33,8 +33,12 @@ import { Register } from '../model/register';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
-
+import { InspectionVerificationBasicInformationComponent } from '../inspection-verification-basic-information/inspection-verification-basic-information.component';
 import { SavedreportsComponent } from '../savedreports/savedreports.component';
+import { LpsMatstepperComponent } from '../LPS/lps-matstepper/lps-matstepper.component';
+import { LpsWelcomePageComponent } from '../LPS/lps-welcome-page/lps-welcome-page.component';
+import { wind } from 'ngx-bootstrap-icons';
+import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
 
 export interface PeriodicElement {
   siteCd: string;
@@ -79,6 +83,10 @@ export class MainNavComponent implements OnInit, OnDestroy {
   //@ViewChild('ongoingSiteSort', { static: false }) ongoingSiteSort!: MatSort;
   private ongoingSitePaginator!: MatPaginator;
   private ongoingSiteSort!: MatSort;
+  superAdminFlag: boolean = false;
+  allData: any = [];
+  selectedIndex: any;
+ 
 
   @ViewChild('ongoingSiteSort') set matSortOn(ms: MatSort) {
     this.ongoingSiteSort = ms;
@@ -137,13 +145,16 @@ export class MainNavComponent implements OnInit, OnDestroy {
   Error: boolean=false;
   errorMsg: string="";
   errorArr: any=[];
-
+  superAdminArr: any = [];
   @ViewChild('ref', { read: ViewContainerRef })
   viewContainerRef!: ViewContainerRef;
   
   @ViewChild('verify')
   verification: any; 
   
+  @ViewChild(InspectionVerificationBasicInformationComponent)
+  basic!: InspectionVerificationBasicInformationComponent;
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -188,7 +199,8 @@ export class MainNavComponent implements OnInit, OnDestroy {
   showREP: boolean = false;
   currentUser: any = [];
   currentUser1: any = [];
- 
+  modalReference: any;
+
   mainApplications: any =   [{'name': 'Introduction', 'code': 'IN'},
                             {'name': 'TIC', 'code': 'TIC'},
                             {'name': 'RENT Meter', 'code': 'RM'},
@@ -226,7 +238,7 @@ export class MainNavComponent implements OnInit, OnDestroy {
     private inspectionService: InspectionVerificationService,
     private router: ActivatedRoute,
     public service: GlobalsService,
-    private route: Router,
+    private route: Router,private dialog: MatDialog,
     private componentFactoryResolver: ComponentFactoryResolver,
     private applicationService: ApplicationTypeService,
     private modalService: NgbModal, private bnIdle: BnNgIdleService,
@@ -251,16 +263,18 @@ export class MainNavComponent implements OnInit, OnDestroy {
    this.newNotify();
     this.mobileDisplay = false;
     this.desktopDisplay = true;
-    this.bnIdle.startWatching(environment.sessionTimeOut).subscribe((isTimedOut: boolean) => {
-      if (isTimedOut) {
-        alert('Your session is timed out')
-        this.logout();
-        this.bnIdle.stopTimer();
-      }
-    });
+    // this.bnIdle.startWatching(environment.sessionTimeOut).subscribe((isTimedOut: boolean) => {
+    //   if (isTimedOut) {
+    //     alert('Your session is timed out')
+    //     this.logout();
+    //     this.bnIdle.stopTimer();
+    //   }
+    // });
     this.currentUser=sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
     this.currentUser1=JSON.parse(this.currentUser);
+    this.superAdminArr = [];
+    this.superAdminArr.push('gk@capeindia.net');
     if(this.currentUser1.role == 'Inspector') {
       this.showTIC = true;
       this.showREP = false;
@@ -278,7 +292,6 @@ export class MainNavComponent implements OnInit, OnDestroy {
     if(this.showREP) {
       this.retrieveSiteDetails();
     }
-  
   }
   
   setCompletedDataSourceAttributes() {
@@ -437,58 +450,150 @@ notification(number: any,viewerName: any,inspectorName: any,viewerDate: any,insp
 }
 
 triggerNavigateTo(siteName:any){
-  //this.service.triggerScrollTo();
-  this.welcome= false;  
-  this.ongoingSite=false;
-  this.completedSite=false;
-  this.value= false;
-  this.service.mainNavToSaved=1;
-  this.service.commentScrollToBottom=1;
-  this.service.filterSiteName=siteName;
-  this.service.highlightText=true;
-  this.viewContainerRef.clear();
-  const VerificationlvFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
-  const lvInspectionRef = this.viewContainerRef.createComponent(VerificationlvFactory);
-  lvInspectionRef.changeDetectorRef.detectChanges();
+  if((this.service.lvClick==1) && (this.service.allStepsCompleted==true))
+  {
+    const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+      width: '420px',
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.editModal = false;
+    dialogRef.componentInstance.viewModal = false;
+    dialogRef.componentInstance.triggerModal = true;
+    dialogRef.componentInstance.linkModal = false;
+    dialogRef.componentInstance.summaryModal = false;
+
+    dialogRef.componentInstance.confirmBox.subscribe(data=>{
+      if(data) {
+        this.welcome= false;  
+        this.ongoingSite=false;
+        this.completedSite=false;
+        this.value= false;
+        this.service.mainNavToSaved=1;
+        this.service.commentScrollToBottom=1;
+        this.service.filterSiteName=siteName;
+        this.service.highlightText=true;
+        this.viewContainerRef.clear();
+        const VerificationlvFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
+        const lvInspectionRef = this.viewContainerRef.createComponent(VerificationlvFactory);
+        lvInspectionRef.changeDetectorRef.detectChanges();
+        this.service.windowTabClick=0;
+        this.service.logoutClick=0; 
+      }
+      else{
+        return;
+      }
+    })
+//    if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
+//      //this.service.triggerScrollTo();
+//   this.welcome= false;  
+//   this.ongoingSite=false;
+//   this.completedSite=false;
+//   this.value= false;
+//   this.service.mainNavToSaved=1;
+//   this.service.commentScrollToBottom=1;
+//   this.service.filterSiteName=siteName;
+//   this.service.highlightText=true;
+//   this.viewContainerRef.clear();
+//   const VerificationlvFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
+//   const lvInspectionRef = this.viewContainerRef.createComponent(VerificationlvFactory);
+//   lvInspectionRef.changeDetectorRef.detectChanges();
+//   this.service.windowTabClick=0;
+//   this.service.logoutClick=0; 
+//  }
+//  else{
+//    return;
+//  }
+   }
+   else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
+    this.welcome= false;  
+    this.ongoingSite=false;
+    this.completedSite=false;
+    this.value= false;
+    this.service.mainNavToSaved=1;
+    this.service.commentScrollToBottom=1;
+    this.service.filterSiteName=siteName;
+    this.service.highlightText=true;
+    this.viewContainerRef.clear();
+    const VerificationlvFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
+    const lvInspectionRef = this.viewContainerRef.createComponent(VerificationlvFactory);
+    lvInspectionRef.changeDetectorRef.detectChanges();
+   this.service.windowTabClick=0;
+   this.service.logoutClick=0;
+   }
 }
   retrieveSiteDetails() {
-    if(this.currentUser1.role == 'Inspector') {
-      this.siteService.retrieveSite(this.email).subscribe((data) => {
-        this.ongoingSite_dataSource = new MatTableDataSource(JSON.parse(data));
-        this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
-        this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
-  
-        this.completedLicense_dataSource = new MatTableDataSource(JSON.parse(data));
-        //this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
-        //this.completedLicense_dataSource.sort = this.completedLicenseSort;
-      });
+    this.completedFilterData = [];
+    this.ongoingFilterData = [];
+
+    for(let i of this.superAdminArr) {
+      if(this.email == i) {
+        this.superAdminFlag = true;
+      }
+    }
+
+    if(this.superAdminFlag) {
+      this.siteService.retrieveAllSite(this.email).subscribe(
+        data => {
+          this.allData = JSON.parse(data);
+          for(let i of this.allData){
+              if(i.allStepsCompleted=="AllStepCompleted"){
+                this.completedFilterData.push(i);
+              }
+              else{
+               this.ongoingFilterData.push(i);
+              }
+          }
+          this.ongoingSite_dataSource = new MatTableDataSource(this.ongoingFilterData);
+          this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
+          this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
+    
+          this.completedLicense_dataSource = new MatTableDataSource(this.completedFilterData);
+          //this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
+          //this.completedLicense_dataSource.sort = this.completedLicenseSort;
+        });
+
+      this.superAdminFlag = false;
     }
     else {
-      if(this.currentUser1.assignedBy!=null) {
-        this.ongoingFilterData=[];
-        this.completedFilterData=[];
-        this.siteService.retrieveListOfSite(this.currentUser1.assignedBy).subscribe(
-          data => {
-            this.userData=JSON.parse(data);
-           for(let i of this.userData){
-             if(i.assignedTo==this.email){
-               if(i.allStepsCompleted=="AllStepCompleted"){
-                 this.completedFilterData.push(i);
-               }
-               else{
-                this.ongoingFilterData.push(i);
+      if(this.currentUser1.role == 'Inspector') {
+        this.siteService.retrieveSite(this.email).subscribe((data) => {
+          this.ongoingSite_dataSource = new MatTableDataSource(JSON.parse(data));
+          this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
+          this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
+    
+          this.completedLicense_dataSource = new MatTableDataSource(JSON.parse(data));
+          //this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
+          //this.completedLicense_dataSource.sort = this.completedLicenseSort;
+        });
+      }
+      else {
+        if(this.currentUser1.assignedBy!=null) {
+          this.ongoingFilterData=[];
+          this.completedFilterData=[];
+          this.siteService.retrieveListOfSite(this.currentUser1.assignedBy).subscribe(
+            data => {
+              this.userData=JSON.parse(data);
+             for(let i of this.userData){
+               if(i.assignedTo==this.email){
+                 if(i.allStepsCompleted=="AllStepCompleted"){
+                   this.completedFilterData.push(i);
+                 }
+                 else{
+                  this.ongoingFilterData.push(i);
+                 }
                }
              }
-           }
-        this.ongoingSite_dataSource = new MatTableDataSource(this.ongoingFilterData);
-        //this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
-        //this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
-  
-        this.completedLicense_dataSource = new MatTableDataSource(this.completedFilterData);
-       // this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
-        //this.completedLicense_dataSource.sort = this.completedLicenseSort;
-      });
-    }
+          this.ongoingSite_dataSource = new MatTableDataSource(this.ongoingFilterData);
+          //this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
+          //this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
+    
+          this.completedLicense_dataSource = new MatTableDataSource(this.completedFilterData);
+         // this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
+          //this.completedLicense_dataSource.sort = this.completedLicenseSort;
+        });
+        }
+      }
     }
     
   }
@@ -532,12 +637,50 @@ triggerNavigateTo(siteName:any){
       }
     );
   }
-
+ 
   logout() {
-    this.loginservice.logout();
-    this.route.navigate(['login']);
-  }
+    if((this.service.logoutClick==1) && (this.service.allStepsCompleted==true)){
+      const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+        width: '420px',
+        maxHeight: '90vh',
+        disableClose: true,
+      });
+      dialogRef.componentInstance.editModal = false;
+      dialogRef.componentInstance.viewModal = false;
+      dialogRef.componentInstance.triggerModal = true;
+      dialogRef.componentInstance.linkModal = false;
+      dialogRef.componentInstance.summaryModal = false;
 
+      dialogRef.componentInstance.confirmBox.subscribe(data=>{
+        if(data) {
+          this.loginservice.logout();
+          this.service.windowTabClick=0;
+          this.route.navigate(['login']);
+          window.location.reload();
+          this.service.logoutClick=0;  
+        }
+        else{
+          return;
+        }
+      })
+    //   if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
+    //     this.loginservice.logout();
+    //     this.service.windowTabClick=0;
+    //     this.route.navigate(['login']);
+    //     window.location.reload();
+    //     this.service.logoutClick=0;  
+    // }
+    // else{
+    //   return;
+    // }
+  }
+    else if((this.service.logoutClick==0) || (this.service.allStepsCompleted==false)){
+      this.loginservice.logout();
+      this.route.navigate(['login']);
+      window.location.reload();
+    }
+  }
+ 
   displayUserFullName(email: String) {
     this.inspectorService.retrieveInspector(email).subscribe(
       data => {
@@ -562,9 +705,23 @@ triggerNavigateTo(siteName:any){
  }
 
  editSite(siteId: any,userName: any,site: any) {
-  if (confirm("Are you sure you want to edit site details?"))
-  {
-    this.value= true;
+  this.service.allStepsCompleted=true;
+  this.service.disableSubmitSummary=false;
+  this.service.allFieldsDisable = false;
+  const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+    width: '420px',
+    maxHeight: '90vh',
+    disableClose: true,
+  });
+  dialogRef.componentInstance.editModal = true;
+    dialogRef.componentInstance.viewModal = false;
+    dialogRef.componentInstance.triggerModal = false;
+    dialogRef.componentInstance.linkModal = false;
+    dialogRef.componentInstance.summaryModal = false;
+
+  dialogRef.componentInstance.confirmBox.subscribe(data=>{
+    if(data) {
+      this.value= true;
     this.welcome= false;  
     this.ongoingSite=false;
     this.completedSite=false;
@@ -572,33 +729,90 @@ triggerNavigateTo(siteName:any){
     setTimeout(()=>{
       this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
     }, 1000);
-  } 
-  else {
-    this.value= false;
+    this.service.disableFields=false;
+    }
+    else{
+      this.value= false;
     this.welcome= false;  
     this.ongoingSite=true;
     this.completedSite=false;
-  }
+    }
+  })
+  // if (confirm("Are you sure you want to edit site details?"))
+  // {
+  //   this.value= true;
+  //   this.welcome= false;  
+  //   this.ongoingSite=false;
+  //   this.completedSite=false;
+  //   this.service.mainNavToSaved=0;
+  //   setTimeout(()=>{
+  //     this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
+  //   }, 1000);
+  //   this.service.disableFields=false;
+  // } 
+  // else {
+  //   this.value= false;
+  //   this.welcome= false;  
+  //   this.ongoingSite=true;
+  //   this.completedSite=false;
+  // }
  }
 
  viewSite(siteId: any,userName: any,site: any){
-  if (confirm("Are you sure you want to view site details?"))
-  {
-    this.value= true;
-    this.welcome= false;  
-    this.ongoingSite=false;
-    this.completedSite=false;
-    this.service.mainNavToSaved=0;
-    setTimeout(()=>{
-      this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
-    }, 1000);
-  } 
-  else {
-    this.value= false;
-    this.welcome= false;   
-    this.ongoingSite=false;
-    this.completedSite=true;
-  }
+  this.service.allStepsCompleted=false;
+  this.service.disableSubmitSummary=true;
+  this.service.disableFields=true;
+  this.service.allFieldsDisable = true;
+
+  const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+    width: '420px',
+    maxHeight: '90vh',
+    disableClose: true,
+  });
+  dialogRef.componentInstance.editModal = true;
+    dialogRef.componentInstance.viewModal = false;
+    dialogRef.componentInstance.triggerModal = false;
+    dialogRef.componentInstance.linkModal = false;
+    dialogRef.componentInstance.summaryModal = false;
+
+
+  dialogRef.componentInstance.confirmBox.subscribe(data=>{
+    if(data) {
+      this.value= true;
+      this.welcome= false;  
+      this.ongoingSite=false;
+      this.completedSite=false;
+      this.service.mainNavToSaved=0;
+      setTimeout(()=>{
+        this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
+      }, 1000);
+      // this.service.disableFields=true;
+    }
+    else{
+      this.value= false;
+      this.welcome= false;   
+      this.ongoingSite=false;
+      this.completedSite=true;
+    }
+  })
+  // if (confirm("Are you sure you want to view site details?"))
+  // {
+  //   this.value= true;
+  //   this.welcome= false;  
+  //   this.ongoingSite=false;
+  //   this.completedSite=false;
+  //   this.service.mainNavToSaved=0;
+  //   setTimeout(()=>{
+  //     this.verification.changeTab(0,siteId,userName,'clientName','departmentName',site);
+  //   }, 1000);
+  //  // this.service.disableFields=true;
+  // } 
+  // else {
+  //   this.value= false;
+  //   this.welcome= false;   
+  //   this.ongoingSite=false;
+  //   this.completedSite=true;
+  // }
   // this.welcome= false;
   // this.ongoingSite=false;
   // this.completedSite=false;
@@ -610,21 +824,20 @@ triggerNavigateTo(siteName:any){
   // lvInspectionRef.changeDetectorRef.detectChanges();
 }
 
-pdfModal(siteId: any,userName: any){
+pdfModal(siteId: any,userName: any, siteName: any){
   this.disable=false;
-  this.inspectionService.printPDF(siteId,userName);
+  this.inspectionService.printPDF(siteId,userName, siteName);
 }
 
-downloadPdf(siteId: any,userName: any): any {
+downloadPdf(siteId: any,userName: any, siteName: any): any {
   this.disable=false;
-  this.inspectionService.downloadPDF(siteId,userName);
+  this.inspectionService.downloadPDF(siteId,userName, siteName);
 }
 
-emailPDF(siteId: any,userName: any){
+emailPDF(siteId: any,userName: any, siteName: any){
   this.disable=false;
-  this.inspectionService.mailPDF(siteId,userName).subscribe(
+  this.inspectionService.mailPDF(siteId,userName, siteName).subscribe(
   data => {
-  console.log('worked');
   this.success = true;
   this.successMsg = data;
   setTimeout(()=>{
@@ -656,12 +869,86 @@ emailPDF(siteId: any,userName: any){
   this.selectedRowIndexType = type;
   this.selectedRowIndexSub ="";
  }
-  changePassword(email: String) {
+ 
+ changePassword(email: String) {
+  if((this.service.lvClick==1) && (this.service.allStepsCompleted==true)){
+    const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+      width: '420px',
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.editModal = false;
+    dialogRef.componentInstance.viewModal = false;
+    dialogRef.componentInstance.triggerModal = true;
+    dialogRef.componentInstance.linkModal = false;
+    dialogRef.componentInstance.summaryModal = false;
+
+
+    dialogRef.componentInstance.confirmBox.subscribe(data=>{
+      if(data) {
+        this.service.windowTabClick=0;
+        this.route.navigate(['changePassword', { email: email }])
+        this.service.logoutClick=0;  
+        this.service.lvClick=0;  
+      }
+      else{
+        return;
+      }
+    })
+  //   if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
+  //     this.service.windowTabClick=0;
+  //     this.route.navigate(['changePassword', { email: email }])
+  //     this.service.logoutClick=0;  
+  //     this.service.lvClick=0; 
+  // }
+  // else{
+  //   return;
+  // }
+}
+  else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
     this.route.navigate(['changePassword', { email: email }])
   }
-  profileUpdate(email: String) {
+}
+ 
+profileUpdate(email: String) {
+  if((this.service.lvClick==1) && (this.service.allStepsCompleted==true)){
+    const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+      width: '420px',
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.editModal = false;
+    dialogRef.componentInstance.viewModal = false;
+    dialogRef.componentInstance.triggerModal = true;
+    dialogRef.componentInstance.linkModal = false;
+    dialogRef.componentInstance.summaryModal = false;
+
+    dialogRef.componentInstance.confirmBox.subscribe(data=>{
+      if(data) {
+        this.service.windowTabClick=0;
+        this.route.navigate(['profile', { email: email }])
+        this.service.logoutClick=0;
+        this.service.lvClick=0; 
+      }
+      else{
+        return;
+      }
+    })
+  //   if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To update the details, kindly click on next button!")){
+  //     this.service.windowTabClick=0;
+  //     this.route.navigate(['profile', { email: email }])
+  //     this.service.logoutClick=0;
+  //     this.service.lvClick=0; 
+  // }
+  // else{
+  //   return;
+  // }
+}
+  else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
     this.route.navigate(['profile', { email: email }])
   }
+}
+ 
   openModal() {
     const modalRef = this.modalService.open(AddApplicationTypesComponent);
     modalRef.componentInstance.email = this.email;
@@ -671,37 +958,137 @@ emailPDF(siteId: any,userName: any){
       }
     });
   }
+ 
+
   showLinkDescription(id: any) {
     this.welcome= false;
-    switch (id) {
-      case 'LV Systems':
-        this.viewContainerRef.clear();
-        const lvInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LvInspectionDetailsComponent);
-        const lvInspectionRef = this.viewContainerRef.createComponent(lvInspectionFactory);
-        lvInspectionRef.changeDetectorRef.detectChanges();
-        break;
-      case 'HV Systems':
-        this.viewContainerRef.clear();
-        break;
-      case 'Risk Assessment':
-        this.viewContainerRef.clear();
-        const riskAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(RiskAssessmentInspectionMaintenanceComponent);
-        const riskAssessmentInspectionRef = this.viewContainerRef.createComponent(riskAssessmentInspectionFactory);
-        riskAssessmentInspectionRef.changeDetectorRef.detectChanges();
-        break;
-      case 'EMC Assessment':
-        this.viewContainerRef.clear();
-        const emcAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(EmcAssessmentInstallationComponent);
-        const emcAssessmentInspectionRef = this.viewContainerRef.createComponent(emcAssessmentInspectionFactory);
-        emcAssessmentInspectionRef.changeDetectorRef.detectChanges();
-        break;
-      case 5:
-        this.viewContainerRef.clear();
-        break;
-      case 6:
-        this.viewContainerRef.clear();
-        break;
+    if((this.service.lvClick==1) && (this.service.allStepsCompleted==true)){
+      const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+        width: '420px',
+        maxHeight: '90vh',
+        disableClose: true,
+      });
+      dialogRef.componentInstance.editModal = false;
+      dialogRef.componentInstance.viewModal = false;
+      dialogRef.componentInstance.triggerModal = false;
+      dialogRef.componentInstance.linkModal = true;
+      dialogRef.componentInstance.summaryModal = false;
+
+      dialogRef.componentInstance.confirmBox.subscribe(data=>{
+        if(data) {
+          this.service.lvClick=0;
+          switch (id) {
+            case 'LV Systems':
+              this.viewContainerRef.clear();
+              const lvInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LvInspectionDetailsComponent);
+              const lvInspectionRef = this.viewContainerRef.createComponent(lvInspectionFactory);
+              lvInspectionRef.changeDetectorRef.detectChanges();
+              break;
+            case 'HV Systems':
+              this.viewContainerRef.clear();
+              break;
+            case 'Risk Assessment':
+              this.viewContainerRef.clear();
+              const riskAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(RiskAssessmentInspectionMaintenanceComponent);
+              const riskAssessmentInspectionRef = this.viewContainerRef.createComponent(riskAssessmentInspectionFactory);
+              riskAssessmentInspectionRef.changeDetectorRef.detectChanges();
+              break;
+            case 'EMC Assessment':
+              this.viewContainerRef.clear();
+              const emcAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(EmcAssessmentInstallationComponent);
+              const emcAssessmentInspectionRef = this.viewContainerRef.createComponent(emcAssessmentInspectionFactory);
+              emcAssessmentInspectionRef.changeDetectorRef.detectChanges();
+              break;
+            case 'LPS Systems':
+              this.viewContainerRef.clear();
+              const LpsInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LpsWelcomePageComponent);
+              const LpsInspectionRef = this.viewContainerRef.createComponent(LpsInspectionFactory);
+              LpsInspectionRef.changeDetectorRef.detectChanges();
+              break;
+            case 6:
+              this.viewContainerRef.clear();
+              break;
+          }
+        }
+        else{
+          return;
+        }
+      })
+      // if(confirm("Are you sure you want to proceed without saving?\r\n\r\nNote: To save the details, kindly fill all fields & click on next button!")){
+      //   this.service.lvClick=0;
+      //   switch (id) {
+      //     case 'LV Systems':
+      //       this.viewContainerRef.clear();
+      //       const lvInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LvInspectionDetailsComponent);
+      //       const lvInspectionRef = this.viewContainerRef.createComponent(lvInspectionFactory);
+      //       lvInspectionRef.changeDetectorRef.detectChanges();
+      //       break;
+      //     case 'HV Systems':
+      //       this.viewContainerRef.clear();
+      //       break;
+      //     case 'Risk Assessment':
+      //       this.viewContainerRef.clear();
+      //       const riskAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(RiskAssessmentInspectionMaintenanceComponent);
+      //       const riskAssessmentInspectionRef = this.viewContainerRef.createComponent(riskAssessmentInspectionFactory);
+      //       riskAssessmentInspectionRef.changeDetectorRef.detectChanges();
+      //       break;
+      //     case 'EMC Assessment':
+      //       this.viewContainerRef.clear();
+      //       const emcAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(EmcAssessmentInstallationComponent);
+      //       const emcAssessmentInspectionRef = this.viewContainerRef.createComponent(emcAssessmentInspectionFactory);
+      //       emcAssessmentInspectionRef.changeDetectorRef.detectChanges();
+      //       break;
+      //     case 'LPS Systems':
+      //       this.viewContainerRef.clear();
+      //       const LpsInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LpsWelcomePageComponent);
+      //       const LpsInspectionRef = this.viewContainerRef.createComponent(LpsInspectionFactory);
+      //       LpsInspectionRef.changeDetectorRef.detectChanges();
+      //       break;
+      //     case 6:
+      //       this.viewContainerRef.clear();
+      //       break;
+      //   }
+      // }
+      // else{
+      //   return;
+      // }
+     }
+     else if((this.service.lvClick==0) || (this.service.allStepsCompleted==false)){
+      switch (id) {
+        case 'LV Systems':
+          this.viewContainerRef.clear();
+          const lvInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LvInspectionDetailsComponent);
+          const lvInspectionRef = this.viewContainerRef.createComponent(lvInspectionFactory);
+          lvInspectionRef.changeDetectorRef.detectChanges();
+          break;
+        case 'HV Systems':
+          this.viewContainerRef.clear();
+          break;
+        case 'Risk Assessment':
+          this.viewContainerRef.clear();
+          const riskAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(RiskAssessmentInspectionMaintenanceComponent);
+          const riskAssessmentInspectionRef = this.viewContainerRef.createComponent(riskAssessmentInspectionFactory);
+          riskAssessmentInspectionRef.changeDetectorRef.detectChanges();
+          break;
+        case 'EMC Assessment':
+          this.viewContainerRef.clear();
+          const emcAssessmentInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(EmcAssessmentInstallationComponent);
+          const emcAssessmentInspectionRef = this.viewContainerRef.createComponent(emcAssessmentInspectionFactory);
+          emcAssessmentInspectionRef.changeDetectorRef.detectChanges();
+          break;
+        case 'LPS Systems':
+          this.service.allStepsCompleted=true;
+          this.viewContainerRef.clear();
+          const LpsInspectionFactory = this.componentFactoryResolver.resolveComponentFactory(LpsWelcomePageComponent);
+          const LpsInspectionRef = this.viewContainerRef.createComponent(LpsInspectionFactory);
+          LpsInspectionRef.changeDetectorRef.detectChanges();
+          break;
+        case 6:
+          this.viewContainerRef.clear();
+          break;
+      }
     }
+  
   }
 
   editApplicationType(id: any, type: String, code: String) {

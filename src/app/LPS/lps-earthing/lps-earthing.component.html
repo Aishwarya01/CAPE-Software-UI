@@ -1,0 +1,2057 @@
+<div class="card">
+    <div class="card-body">
+        <form [formGroup]="earthingForm" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>Basic Details</mat-expansion-panel-header>
+                        
+                    <div class="d-flex" style="margin-bottom: 4rem;margin-inline: 6rem;">  
+                        <div class="pr-2" > <u><b>Client Name:</b></u> <span> &nbsp; {{ClientName}}</span></div> &nbsp;&nbsp;
+                        <div class="pr-2"> <u><b>Project Name:</b></u>  <span> &nbsp; {{projectName}}</span></div> &nbsp;&nbsp;
+                        <div class="pr-2"> <u><b>Type of Industry:</b></u>  <span> &nbsp; {{industryType}}</span> </div> &nbsp;&nbsp;
+                        <div class="pr-2"> <u><b>Type of Building:</b></u>  <span> &nbsp; {{buildingType}}</span> </div> &nbsp;&nbsp;
+                      </div>
+
+                    <div style="margin-top: 0px;">
+                        <div class="table-responsive" style="border: 1px solid black;">
+                        <table class="table">
+                            <thead>
+                                <th>SI.No</th>
+                                <th>Description</th>
+                                <th>Observation</th>
+                                <th>Remarks(Optional)</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="width: 1rem; text-align: center;">1</td>
+                                    <td style="width: 24rem;">Type of Earthing (Type-A/Type-B/both)</td>
+                                    <td style="width: 35rem;">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control"
+                                                [readonly]="isEditable" formControlName="earthingTypeInOb"  [(ngModel)]="earthingLpsDescription.earthingTypeInOb" placeholder="Please enter Observation here"
+                                                [ngClass]="{ 'is-invalid': submitted && f.earthingTypeInOb.errors}"></textarea>
+                                            <div *ngIf="submitted && f.earthingTypeInOb.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="f.earthingTypeInOb.errors.required">Type of Earthing
+                                                    Observation is required</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td style="width: 35rem;">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" [(ngModel)]="earthingLpsDescription.earthingTypeInRem"
+                                                [readonly]="isEditable" formControlName="earthingTypeInRem" ></textarea>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">2</td>
+                                    <td>Check for bimetallic issue (connections between dissimilar metals are not
+                                        allowed)</td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" [(ngModel)]="earthingLpsDescription.bimetallicIssueInOb"
+                                                [readonly]="isEditable" formControlName="bimetallicIssueInOb" placeholder="Please enter Observation here"
+                                                [ngClass]="{ 'is-invalid': submitted && f.bimetallicIssueInOb.errors}"></textarea>
+                                            <div *ngIf="submitted && f.bimetallicIssueInOb.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="f.bimetallicIssueInOb.errors.required">Bimetallic issue
+                                                    Observation is required</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" [(ngModel)]="earthingLpsDescription.bimetallicIssueInRem"
+                                                [readonly]="isEditable" formControlName="bimetallicIssueInRem" ></textarea>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">3</td>
+                                    <td>Connections made by brazing/welding/crimping /seaming/screwing/bolting</td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control" [(ngModel)]="earthingLpsDescription.brazingConnectInOb"
+                                                [readonly]="isEditable" formControlName="brazingConnectInOb" placeholder="Please enter Observation here"
+                                                [ngClass]="{ 'is-invalid': submitted && f.brazingConnectInOb.errors}"></textarea>
+                                            <div *ngIf="submitted && f.brazingConnectInOb.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="f.brazingConnectInOb.errors.required">Connections
+                                                    Observation is required</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-text-paragraph"></i>
+                                                </span>
+                                            </div>
+                                            <textarea type="text" class="form-control"  [(ngModel)]="earthingLpsDescription.brazingConnectInRem"
+                                                [readonly]="isEditable" formControlName="brazingConnectInRem" ></textarea>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>Type-A earthing system</mat-expansion-panel-header>
+                    <div class="table-responsive" style="overflow-x: unset;">
+                        <table class="table TableBorder">
+                        <tbody formArrayName="descriptionArr" *ngFor="let a of earthingDescriptionarr(); let j = index">
+                         <div class="form-group" [formGroupName]="j">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="lname">Location Name</label>
+                                    <input class="form-control" [readonly]="isEditable" formControlName="locationName" type="text" placeholder="Location Name"
+                                        [ngClass]="{ 'is-invalid': submitted && a.get('locationName')?.errors}">
+                                    <div *ngIf="submitted && a.get('locationName')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="a.get('locationName')?.errors?.required">
+                                            Location Name is required</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="lnumber">Location Number</label>
+                                    <input class="form-control" (keypress)="keyPressNumbers($event)" [readonly]="isEditable" formControlName="locationNumber" placeholder="Location Number"
+                                        [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors}">
+                                    <div *ngIf="submitted && a.get('locationNumber')?.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="a.get('locationNumber')?.errors?.required">
+                                            Location Number is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                    <!-- Table -->
+                              <thead>
+                                        <th>SI.No</th>
+                                        <th>Description</th>
+                                        <th>Observation</th>
+                                        <th>Remarks(Optional)</th>
+                                    </thead>
+                                    <tr>
+                                        <td style="width: 1rem; text-align: center;">4.1</td>
+                                        <td style="width: 24rem;">Soil resistivity</td>
+                                        <td style="width: 40rem;">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="soilResistivityInOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('soilResistivityInOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('soilResistivityInOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('soilResistivityInOb')?.errors?.required">
+                                                        Soil resistivity observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td style="width: 40rem;">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="soilResistivityInRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">4.2</td>
+                                        <td>Earth pit work - Digging or Boring to ensure the soil nature</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="earthPitDigOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('earthPitDigOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('earthPitDigOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('earthPitDigOb')?.errors?.required">Earth pit work - Digging observation is
+                                                        required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="earthPitDigRem" ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">4.3</td>
+                                        <td>Number of earth electrode should not be less than the number of down
+                                            conductors</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="earthElectrodeLesthanDownConductorInOb"
+                                                    placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('earthElectrodeLesthanDownConductorInOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('earthElectrodeLesthanDownConductorInOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div
+                                                        *ngIf="a.get('earthElectrodeLesthanDownConductorInOb')?.errors?.required">
+                                                        Number of earth electrode observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="earthElectrodeLesthanDownConductorInRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">4.4</td>
+                                        <td>Ensure all down conductors are connected to earth termination system</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="connectedEarthTerminalInOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('connectedEarthTerminalInOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('connectedEarthTerminalInOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('connectedEarthTerminalInOb')?.errors?.required">
+                                                        Ensure all down conductors are connected observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="connectedEarthTerminalInRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">4.5</td>
+                                        <td>Route of earthing conductor from test joint to earth electrode (under
+                                            soil/under concrete/via gutter)</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="testJointEarthElectrodeInOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('testJointEarthElectrodeInOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('testJointEarthElectrodeInOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('testJointEarthElectrodeInOb')?.errors?.required">
+                                                        Route of earthing conductor from test joint to earth electrode observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="testJointEarthElectrodeInRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">4.6</td>
+                                        <td>Coumpound filled properly upto gorund level</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="grountLevelComponentFilledInOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('grountLevelComponentFilledInOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('grountLevelComponentFilledInOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div
+                                                        *ngIf="a.get('grountLevelComponentFilledInOb')?.errors?.required">
+                                                        Coumpound filled properly upto gorund level observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="grountLevelComponentFilledInRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">4.7</td>
+                                        <td>Location of earth electrode (walk pathway/ vehicle runway)</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="earthElectrodeLocationInOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('earthElectrodeLocationInOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('earthElectrodeLocationInOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('earthElectrodeLocationInOb')?.errors?.required">
+                                                        Location of earth electrode observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="earthElectrodeLocationInRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">4.8</td>
+                                        <td>Material of earth electrode</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="earthElectrodeMaterialInOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('earthElectrodeMaterialInOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('earthElectrodeMaterialInOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('earthElectrodeMaterialInOb')?.errors?.required">
+                                                        Material of earth electrode observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="earthElectrodeMaterialInRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">4.9</td>
+                                        <td>Size/cross section area of earth electrode</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="earthElectrodeSizeInOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('earthElectrodeSizeInOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('earthElectrodeSizeInOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('earthElectrodeSizeInOb')?.errors?.required">
+                                                        Size/cross section area of earth electrode observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="earthElectrodeSizeInRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+
+                                        <td style="text-align: center;">4.10</td>
+                                        <td>Length of earth electrode</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="earthElectrodeLengthingOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('earthElectrodeLengthingOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('earthElectrodeLengthingOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('earthElectrodeLengthingOb')?.errors?.required">
+                                                        Length of earth electrode observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="earthElectrodeLengthingRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">4.11</td>
+                                        <td>Maximum distance between earth electrode and wall</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="earthelectMaxiDistWallInOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('earthelectMaxiDistWallInOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('earthelectMaxiDistWallInOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('earthelectMaxiDistWallInOb')?.errors?.required">
+                                                        Maximum distance between earth electrode and wall observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="earthelectMaxiDistWallInRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">4.12</td>
+                                        <td>Minimum distance between earth electrode and wall</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="earthelectManimumDistanceWallInOb"
+                                                    placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('earthelectManimumDistanceWallInOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('earthelectManimumDistanceWallInOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div
+                                                        *ngIf="a.get('earthelectManimumDistanceWallInOb')?.errors?.required">
+                                                        Minimum distance between earth electrode and wall observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="earthelectManimumDistanceWallInRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">4.13</td>
+                                        <td>Maximum distance between earth electrodes</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="earthelectMaxiDistOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('earthelectMaxiDistOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('earthelectMaxiDistOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('earthelectMaxiDistOb')?.errors?.required">
+                                                        Maximum distance between earth electrodes observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="earthelectMaxiDistRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">4.14</td>
+                                        <td>Minimum distance between earth electrodes</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="earthelectManiDistOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('earthelectManiDistOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('earthelectManiDistOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('earthelectManiDistOb')?.errors?.required">
+                                                        Minimum distance between earth electrodes observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="earthelectManiDistRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">4.15</td>
+                                        <td>Total number of earthing electrodes</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="totalNumberOfElectrodeOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('totalNumberOfElectrodeOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('totalNumberOfElectrodeOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('totalNumberOfElectrodeOb')?.errors?.required">
+                                                        Total number of earthing electrodes observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="totalNumberOfElectrodeRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">4.16</td>
+                                        <td>Number of earthing electrode inspected</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="inspectedNoOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspectedNoOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('inspectedNoOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('inspectedNoOb')?.errors?.required">Number of earthing electrode inspected observation is
+                                                        required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="inspectedNoRem" ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">4.17</td>
+                                        <td>Number of inspection passed</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="inspectedPassedNoOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspectedPassedNoOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('inspectedPassedNoOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('inspectedPassedNoOb')?.errors?.required">
+                                                        Number of inspection passed observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="inspectedPassedNoRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">4.18</td>
+                                        <td>Number of inspection failed</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="inspectedFailedNoOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspectedFailedNoOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('inspectedFailedNoOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('inspectedFailedNoOb')?.errors?.required">
+                                                        Number of inspection failed observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="inspectedFailedNoRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </div>
+                                <mat-icon class="mousechange" class="add" type="button"  (click)="submit1()" *ngIf="earthingDescriptionarr().length == j+1"
+                                    style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section" [ngClass]="{'disableForm':isEditable}"
+                                  >add_box</mat-icon>
+                                <mat-icon class="mousechange" class="dlt" type="button" title="delete"  *ngIf="earthingDescriptionarr().length > 1"
+                                    (click)="removeItem1(a,j)"
+                                    style="margin-inline: 0rem;float: right;position: relative;" [ngClass]="{'disableForm':isEditable}">delete</mat-icon>
+                            </tbody>
+                        </table>
+                    </div>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>Clamps</mat-expansion-panel-header>
+                    <div class="table-responsive" style="overflow-x: unset;">
+                        <table class="table TableBorder">
+                                <tbody formArrayName="ClampsArr" *ngFor="let a of earthingClampsarr(); let j = index">
+                                    <div class="form-group" [formGroupName]="j">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="lname">Location Name</label>
+                                                <input class="form-control" [readonly]="isEditable" formControlName="locationName" type="text" placeholder="Location Name"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('locationName')?.errors}">
+                                                <div *ngIf="submitted && a.get('locationName')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('locationName')?.errors?.required">
+                                                        Location Name is required</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="lnumber">Location Number</label>
+                                                <input class="form-control" (keypress)="keyPressNumbers($event)" [readonly]="isEditable" formControlName="locationNumber" placeholder="Location Number"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors}">
+                                                <div *ngIf="submitted && a.get('locationNumber')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('locationNumber')?.errors?.required">
+                                                        Location Number is required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <thead>
+                                            <th>SI.No</th>
+                                            <th>Description</th>
+                                            <th>Observation</th>
+                                            <th>Remarks(Optional)</th>
+                                        </thead>
+                                        <tr>
+                                            <td style="width: 1rem; text-align: center;">5.1</td>
+                                            <td style="width: 24rem;">Physical inspection (damage/break/corroded)</td>
+                                            <td style="width: 40rem;">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" class="form-control"
+                                                        [readonly]="isEditable" formControlName="physicalInspectionInOb" placeholder="Please enter Observation here"
+                                                        [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionInOb')?.errors}"></textarea>
+                                                    <div *ngIf="submitted && a.get('physicalInspectionInOb')?.errors"
+                                                        class="invalid-feedback">
+                                                        <div *ngIf="a.get('physicalInspectionInOb')?.errors?.required">
+                                                            Physical inspection observation is required</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td style="width: 40rem;">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" class="form-control"
+                                                        [readonly]="isEditable" formControlName="psysicalInspectionInRem"
+                                                        ></textarea>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center;">5.2</td>
+                                            <td>Clamp is firmly fixed/mounted on to earth electrode</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" class="form-control"
+                                                        [readonly]="isEditable" formControlName="clampsFirmlyOb" placeholder="Please enter Observation here"
+                                                        [ngClass]="{ 'is-invalid': submitted && a.get('clampsFirmlyOb')?.errors}"></textarea>
+                                                    <div *ngIf="submitted && a.get('clampsFirmlyOb')?.errors"
+                                                        class="invalid-feedback">
+                                                        <div *ngIf="a.get('clampsFirmlyOb')?.errors?.required">
+                                                            Clamp is firmly fixed observation is required</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" class="form-control"
+                                                        [readonly]="isEditable" formControlName="clampsFirmlyRem" ></textarea>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>5.3</td>
+                                            <td>Interconnection of earthing conductor with clamp (tight/loose/corroded)
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" class="form-control"
+                                                        [readonly]="isEditable" formControlName="interConnectOfEarthClampInOb"
+                                                        placeholder="Please enter Observation here"
+                                                        [ngClass]="{ 'is-invalid': submitted && a.get('interConnectOfEarthClampInOb')?.errors}"></textarea>
+                                                    <div *ngIf="submitted && a.get('interConnectOfEarthClampInOb')?.errors"
+                                                        class="invalid-feedback">
+                                                        <div
+                                                            *ngIf="a.get('interConnectOfEarthClampInOb')?.errors?.required">
+                                                            Interconnection of earthing conductor with clamp observation is required</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" class="form-control"
+                                                        [readonly]="isEditable" formControlName="interConnectOfEarthClampInRem"
+                                                        ></textarea>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>5.4</td>
+                                            <td>Type of clamp</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" class="form-control"
+                                                        [readonly]="isEditable" formControlName="typeOfClampsInOb" placeholder="Please enter Observation here"
+                                                        [ngClass]="{ 'is-invalid': submitted && a.get('typeOfClampsInOb')?.errors}"></textarea>
+                                                    <div *ngIf="submitted && a.get('typeOfClampsInOb')?.errors"
+                                                        class="invalid-feedback">
+                                                        <div *ngIf="a.get('typeOfClampsInOb')?.errors?.required">
+                                                            Type of clamp observation is required</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" class="form-control"
+                                                        [readonly]="isEditable" formControlName="typeOfClampsInRem"
+                                                        ></textarea>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>5.5</td>
+                                            <td>Material of clamp</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" class="form-control"
+                                                        [readonly]="isEditable" formControlName="materialOfClampsInOb" placeholder="Please enter Observation here"
+                                                        [ngClass]="{ 'is-invalid': submitted && a.get('materialOfClampsInOb')?.errors}"></textarea>
+                                                    <div *ngIf="submitted && a.get('materialOfClampsInOb')?.errors"
+                                                        class="invalid-feedback">
+                                                        <div *ngIf="a.get('materialOfClampsInOb')?.errors?.required">
+                                                            Material of clamp observation is required</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" class="form-control"
+                                                        [readonly]="isEditable" formControlName="materialOfClampsInRem"
+                                                        ></textarea>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>5.6</td>
+                                            <td>Total number of clamps</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" class="form-control"
+                                                        [readonly]="isEditable" formControlName="totalNoClampsInOb" placeholder="Please enter Observation here"
+                                                        [ngClass]="{ 'is-invalid': submitted && a.get('totalNoClampsInOb')?.errors}"></textarea>
+                                                    <div *ngIf="submitted && a.get('totalNoClampsInOb')?.errors"
+                                                        class="invalid-feedback">
+                                                        <div *ngIf="a.get('totalNoClampsInOb')?.errors?.required">
+                                                            Total number of clamps observation is required</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" class="form-control"
+                                                        [readonly]="isEditable" formControlName="totalNoClampsInRem"
+                                                        ></textarea>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>5.7</td>
+                                            <td>Number of clamps inspected</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" class="form-control"
+                                                        [readonly]="isEditable" formControlName="inspectedClampsInOb" placeholder="Please enter Observation here"
+                                                        [ngClass]="{ 'is-invalid': submitted && a.get('inspectedClampsInOb')?.errors}"></textarea>
+                                                    <div *ngIf="submitted && a.get('inspectedClampsInOb')?.errors"
+                                                        class="invalid-feedback">
+                                                        <div *ngIf="a.get('inspectedClampsInOb')?.errors?.required">
+                                                            Number of clamps inspected observation is required</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" class="form-control"
+                                                        [readonly]="isEditable" formControlName="inspectedClampsInRem"
+                                                        ></textarea>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>5.8</td>
+                                            <td>Number of inspections passed</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" class="form-control"
+                                                        [readonly]="isEditable" formControlName="inspectionPassedInOb" placeholder="Please enter Observation here"
+                                                        [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedInOb')?.errors}"></textarea>
+                                                    <div *ngIf="submitted && a.get('inspectionPassedInOb')?.errors"
+                                                        class="invalid-feedback">
+                                                        <div *ngIf="a.get('inspectionPassedInOb')?.errors?.required">
+                                                            Number of inspections passed observation is required</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" class="form-control"
+                                                        [readonly]="isEditable" formControlName="inspectionPassedInRem"
+                                                        ></textarea>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>5.9</td>
+                                            <td>Number of inspections failed</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" class="form-control"
+                                                        [readonly]="isEditable" formControlName="inspectionFailedInOb" placeholder="Please enter Observation here"
+                                                        [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedInOb')?.errors}"></textarea>
+                                                    <div *ngIf="submitted && a.get('inspectionFailedInOb')?.errors"
+                                                        class="invalid-feedback">
+                                                        <div *ngIf="a.get('inspectionFailedInOb')?.errors?.required">
+                                                            Number of inspections failed observation is required</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                    <textarea type="text" class="form-control"
+                                                        [readonly]="isEditable" formControlName="inspectionFailedInRem"
+                                                        ></textarea>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </div>
+                                    <mat-icon class="mousechange" class="add" type="button" [ngClass]="{'disableForm':isEditable}" (click)="submit2()" *ngIf="earthingClampsarr().length == j+1"
+                                    style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section"
+                                  >add_box</mat-icon>
+                                <mat-icon class="mousechange" class="dlt" type="button" [ngClass]="{'disableForm':isEditable}" title="delete" *ngIf="earthingClampsarr().length > 1"
+                                    (click)="removeItem2(a,j)"
+                                    style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
+                                </tbody>
+                            </table>
+                        </div>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>Earth electrode chambers</mat-expansion-panel-header>
+                    <div class="table-responsive" style="overflow-x: unset;">
+                        <table class="table TableBorder">
+                            <tbody formArrayName="chamberArr"
+                                *ngFor="let a of earthElectrodeChambearr(); let j = index">
+                                <div class="form-group" [formGroupName]="j">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="lname">Location Name</label>
+                                            <input class="form-control" [readonly]="isEditable" formControlName="locationName" type="text" placeholder="Location Name"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('locationName')?.errors}">
+                                            <div *ngIf="submitted && a.get('locationName')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="a.get('locationName')?.errors?.required">
+                                                    Location Name is required</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="lnumber">Location Number</label>
+                                            <input class="form-control" (keypress)="keyPressNumbers($event)" [readonly]="isEditable" formControlName="locationNumber" placeholder="Location Number"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors}">
+                                            <div *ngIf="submitted && a.get('locationNumber')?.errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="a.get('locationNumber')?.errors?.required">
+                                                    Location Number is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <thead>
+                                        <th>SI.No</th>
+                                        <th>Description</th>
+                                        <th>Observation</th>
+                                        <th>Remarks(Optional)</th>
+                                    </thead>
+                                    <tr>
+                                        <td style="width: 1rem; text-align: center;">6.1</td>
+                                        <td style="width: 24rem;">Physical inspection (damage/break/corroded)</td>
+                                        <td style="width: 40rem;">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="physicalInspeOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspeOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('physicalInspeOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('physicalInspeOb')?.errors?.required">Physical inspection observation
+                                                        is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td style="width: 40rem;">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="physicalInspeRem" ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">6.2</td>
+                                        <td>Type of chamber (concrete/metal/plastic)</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="chamberTypeOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('chamberTypeOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('chamberTypeOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('chamberTypeOb')?.errors?.required">Type of chamber observation is
+                                                        required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="chamberTypeRem" ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">6.3</td>
+                                        <td>Size of chamber</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="chamberSizeOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('chamberSizeOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('chamberSizeOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('chamberSizeOb')?.errors?.required">Size of chamber observation is
+                                                        required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="chamberSizeRem" ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">6.4</td>
+                                        <td>Maximum withstand load</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="maximumWithStandLoadOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('maximumWithStandLoadOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('maximumWithStandLoadOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('maximumWithStandLoadOb')?.errors?.required">
+                                                        Maximum withstand load observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="maximumWithStandLoadRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">6.5</td>
+                                        <td>Chamber is properly placed in soil</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="maximumPlacedSoilOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('maximumPlacedSoilOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('maximumPlacedSoilOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('maximumPlacedSoilOb')?.errors?.required">
+                                                        Chamber is properly placed in soil observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="maximumPlacedSoilRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">6.6</td>
+                                        <td>Total number of chambers</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="totalChamberNoOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('totalChamberNoOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('totalChamberNoOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('totalChamberNoOb')?.errors?.required">Total number of chambers observation
+                                                        is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="totalChamberNoRem" ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">6.7</td>
+                                        <td>Number of chambers inspected</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="inspectedChamberInOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspectedChamberInOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('inspectedChamberInOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('inspectedChamberInOb')?.errors?.required">
+                                                        Number of chambers inspected observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="inspectedChamberInRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">6.8</td>
+                                        <td>Number of inspections passed</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="inspectionPassedInOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedInOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('inspectionPassedInOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('inspectionPassedInOb')?.errors?.required">
+                                                        Number of inspections passed observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="inspectionPassedInRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">6.9</td>
+                                        <td>Number of inspections failed</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="inspectionFailedInOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedInOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('inspectionFailedInOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('inspectionFailedInOb')?.errors?.required">
+                                                        Number of inspections failed observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="inspectionFailedInRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </div>
+                                <mat-icon class="mousechange" class="add" type="button" [ngClass]="{'disableForm':isEditable}" (click)="submit3()" *ngIf="earthElectrodeChambearr().length == j+1"
+                                    style="margin-inline: 1rem;float: right;position: relative;"  title="add another Section"
+                                  >add_box</mat-icon>
+                                <mat-icon class="mousechange" class="dlt" type="button" [ngClass]="{'disableForm':isEditable}" title="delete" *ngIf="earthElectrodeChambearr().length > 1"
+                                    (click)="removeItem3(a,j)"
+                                    style="margin-inline: 0rem;float: right;position: relative;">delete</mat-icon>
+                            </tbody>
+                        </table>
+                    </div>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>Type-B earthing system</mat-expansion-panel-header>
+                    <div class="table-responsive" style="border: 1px solid black;">
+                        <table class="table">
+                            <tbody formArrayName="earthingArr" *ngFor="let a of earthingSystemarr(); let j = index">
+                                <div class="form-group" [formGroupName]="j">
+                                    <thead>
+                                        <th>SI.No</th>
+                                        <th>Description</th>
+                                        <th>Observation</th>
+                                        <th>Remarks(Optional)</th>
+                                    </thead>
+                                    <tr>
+                                        <td style="width: 1rem; text-align: center;">7.1</td>
+                                        <td style="width: 24rem;">Earth electrode must be buried atleast 0.5m depth and
+                                            1m distance from external wall as closed loop.</td>
+                                        <td style="width: 40rem;">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="buriedElectrodeOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('buriedElectrodeOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('buriedElectrodeOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('buriedElectrodeOb')?.errors?.required">
+                                                        Earth electrode must be buried atleast 0.5m depth observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td style="width: 40rem;">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="buriedElectrodeRem" ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="5" style="text-align: center;">7.2</td>
+                                        <td>Depth of electrode from ground level</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="depthOfElectrodeOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('depthOfElectrodeOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('depthOfElectrodeOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('depthOfElectrodeOb')?.errors?.required">
+                                                        Depth of electrode from ground level observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="depthOfElectrodeRem" ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>East</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="earthOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('earthOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('earthOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('earthOb')?.errors?.required">East observation is
+                                                        required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="earthRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>West</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="westOb"
+                                                placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('westOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('westOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('westOb')?.errors?.required">West observation is
+                                                        required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="westRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>North</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="northOb"
+                                                placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('northOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('northOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('northOb')?.errors?.required">North observation is
+                                                        required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="northRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>South</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="southOb"
+                                                placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('southOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('southOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('southOb')?.errors?.required">South observation is
+                                                        required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="southRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="5" style="text-align: center;">7.3</td>
+                                        <td>Distance of ring earthing from wall</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="ringEarthWallDistanceOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('ringEarthWallDistanceOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('ringEarthWallDistanceOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('ringEarthWallDistanceOb')?.errors?.required">
+                                                        Distance of ring earthing from wall observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="ringEarthWallDistanceRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>East</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="ringWallEarthEastOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('ringWallEarthEastOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('ringWallEarthEastOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('ringWallEarthEastOb')?.errors?.required">
+                                                        East observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="ringWallEarthEastRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>West</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="ringWallEarthWestOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('ringWallEarthWestOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('ringWallEarthWestOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('ringWallEarthWestOb')?.errors?.required">
+                                                        West observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="ringWallEarthWestRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>North</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="ringWallEarthNorthOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('ringWallEarthNorthOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('ringWallEarthNorthOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('ringWallEarthNorthOb')?.errors?.required">
+                                                        North observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="ringWallEarthNorthRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>South</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="ringWallEarthSouthOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('ringWallEarthSouthOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('ringWallEarthSouthOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('ringWallEarthSouthOb')?.errors?.required">
+                                                        South observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="ringWallEarthSouthRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">7.4</td>
+                                        <td>Joints made by brazing/welding/crimping/seaming/screwing/bolting</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="jointsMadeBrazingOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('jointsMadeBrazingOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('jointsMadeBrazingOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('jointsMadeBrazingOb')?.errors?.required">
+                                                        Joints made by brazing observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="jointsMadeBrazingRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">7.5</td>
+                                        <td>Material of earth electrode</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="materialOfEartElectrodeOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('materialOfEartElectrodeOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('materialOfEartElectrodeOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('materialOfEartElectrodeOb')?.errors?.required">
+                                                        Material of earth electrode observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="materialOfEartElectrodeRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">7.6</td>
+                                        <td>Size/cross section area of earth electrode</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="sizeOfEarthElectrodeOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('sizeOfEarthElectrodeOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('sizeOfEarthElectrodeOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('sizeOfEarthElectrodeOb')?.errors?.required">
+                                                        Size/cross section area of earth electrode observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="sizeOfEarthElectrodeRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">7.7</td>
+                                        <td>Maximum distance between earth electrode and wall</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="maximumDistanceEartElectrodeWalOb"
+                                                    placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('maximumDistanceEartElectrodeWalOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('maximumDistanceEartElectrodeWalOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div
+                                                        *ngIf="a.get('maximumDistanceEartElectrodeWalOb')?.errors?.required">
+                                                        Maximum distance between earth electrode and wall observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="maximumDistanceEartElectrodeWalRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">7.8</td>
+                                        <td>Minimum distance between earth electrode and wall</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="manimumDistanceEartElectrodeWalOb"
+                                                    placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('manimumDistanceEartElectrodeWalOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('manimumDistanceEartElectrodeWalOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div
+                                                        *ngIf="a.get('manimumDistanceEartElectrodeWalOb')?.errors?.required">
+                                                        Minimum distance between earth electrode and wall observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" formControlName="manimumDistanceEartElectrodeWalRem"
+                                                    ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </div>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </mat-expansion-panel>
+
+            </mat-accordion>
+            <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
+                <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
+                <button class="next" (click)="gotoNextModal(content,contents)" mat-button >Next &raquo;</button>
+           </div>
+            <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+                <span class="alert alert-danger">{{validationErrorMsg}}</span>
+            </div>
+        </form>
+    </div>
+</div>
+<!--  -->
+<ng-template #content let-modal>
+    <div class="modal-body">
+        <div class="centre-text m-btm30">
+            <div *ngIf="success" style="text-align: center;">
+                <span class="successshow">{{successMsg}}</span>
+            </div>
+            <div *ngIf="Error" style="text-align: center;">
+                <span class="errorshow">{{errorMsg}}</span>
+            </div>
+        </div>
+    </div>
+    <br>
+     <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+     aria-label="Close"  (click)="closeModalDialog()" matStepperNext>
+
+      <span aria-hidden="true">Ok</span>
+
+  </button>
+</ng-template> 
+<ng-template #contents let-modal>
+    <div class="modal-body">
+     <div class="centre-text m-btm30">
+      <div style="text-align: center;">
+        <span class="successshow">Are you sure you want to procced? </span>
+        <br>
+        <span style="font-size: 12px;">Note: Please verify all the details! </span>
+       </div>
+      </div>
+     </div>
+    <br>
+    <div class="row">
+       <button type="button" class="col-md-6" style="text-align:center; width: auto;" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+       aria-label="Close" (click)="closeModalDialog()" matStepperNext>
+       <i class="bi bi-arrow-right-circle"></i>&nbsp;
+        <span aria-hidden="true">Ok</span>
+    </button>
+    <button type="button" class="col-md-6" style="width: auto;" class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn"
+       aria-label="Close" (click)="closeModalDialog()">
+       <i class="bi bi-x icon"></i>
+        <span aria-hidden="true">Cancel</span>
+    </button>
+  </div>
+  
+    </ng-template>     

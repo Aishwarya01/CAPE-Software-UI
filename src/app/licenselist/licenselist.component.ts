@@ -17,6 +17,8 @@ import { FinalreportsComponent } from '../finalreports/finalreports.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InspectorregisterService } from '../services/inspectorregister.service';
 import { InspectionVerificationService } from '../services/inspection-verification.service';
+import { environment } from 'src/environments/environment';
+import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
 
 @Component({
   selector: 'app-licenselist',
@@ -90,7 +92,11 @@ export class LicenselistComponent implements OnInit {
   errorMsg: string="";
   errorArr: any=[];
   disable: boolean=false;
-  
+  allData: any = [];
+  superAdminFlag: boolean = false;
+  //confirmBox: boolean = false;
+  urlEmail:any='';
+  superAdminArr: any = [];
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
               private siteService: SiteService,
@@ -110,6 +116,8 @@ export class LicenselistComponent implements OnInit {
     this.licenseForm = this.formBuilder.group({
       noOfAvailableLicense: [this.service.noofLicense],
     })
+    this.superAdminArr = [];
+    this.superAdminArr.push('gk@capeindia.net');
     this.retrieveSiteDetails();
   }
  
@@ -128,90 +136,180 @@ export class LicenselistComponent implements OnInit {
   }
 
   retrieveSiteDetails() {
-    this.ongoingFilterData=[];
-    this.completedFilterData=[];
-    this.siteService.retrieveListOfSite(this.email).subscribe(
-    data => {
-      this.inspectorData=JSON.parse(data);
-     for(let i of this.inspectorData){
-         if(i.allStepsCompleted=="AllStepCompleted"){
-           this.completedFilterData.push(i);
-         }
-         else{
-          this.ongoingFilterData.push(i);
-         }
-     }
-  this.ongoingSite_dataSource = new MatTableDataSource(this.ongoingFilterData);
-  this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
-  this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
+  this.ongoingFilterData=[];
+  this.completedFilterData=[];
+    
 
-  this.completedLicense_dataSource = new MatTableDataSource(this.completedFilterData);
-  this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
-  this.completedLicense_dataSource.sort = this.completedLicenseSort;
+  for(let i of this.superAdminArr) {
+    if(this.email == i) {
+      this.superAdminFlag = true;
+    }
+  }
 
-  
-});
-}
+  if(this.superAdminFlag) {
+    this.siteService.retrieveAllSite(this.email).subscribe(
+      data => {
+        this.allData = JSON.parse(data);
+        for(let i of this.allData){
+          if(i.allStepsCompleted=="AllStepCompleted"){
+            this.completedFilterData.push(i);
+          }
+          else{
+            this.ongoingFilterData.push(i);
+          }
+        }
+        this.ongoingSite_dataSource = new MatTableDataSource(this.ongoingFilterData);
+        this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
+        this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
+
+        this.completedLicense_dataSource = new MatTableDataSource(this.completedFilterData);
+        this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
+        this.completedLicense_dataSource.sort = this.completedLicenseSort;
+      });
+
+    this.superAdminFlag = false;
+  }
+  else {
+      this.siteService.retrieveListOfSite(this.email).subscribe(
+        data => {
+          this.inspectorData=JSON.parse(data);
+        for(let i of this.inspectorData){
+            if(i.allStepsCompleted=="AllStepCompleted"){
+              this.completedFilterData.push(i);
+            }
+            else{
+              this.ongoingFilterData.push(i);
+            }
+        }
+        this.ongoingSite_dataSource = new MatTableDataSource(this.ongoingFilterData);
+        this.ongoingSite_dataSource.paginator = this.ongoingSitePaginator;
+        this.ongoingSite_dataSource.sort = this.ongoingSiteSort;
+
+        this.completedLicense_dataSource = new MatTableDataSource(this.completedFilterData);
+        this.completedLicense_dataSource.paginator = this.completedLicensePaginator;
+        this.completedLicense_dataSource.sort = this.completedLicenseSort;
+      });
+    }
+  }
   
  
   editSite(siteId:any,userName:any,site:any,departmentName:any,companyName:any){
-    if (confirm("Are you sure you want to edit site details?"))
-    {
+    this.service.allStepsCompleted=true;
+    this.service.disableSubmitSummary=false;
+    this.service.allFieldsDisable = false;
+    const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+      width: '420px',
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.editModal = true;
+    dialogRef.componentInstance.viewModal = false;
+    dialogRef.componentInstance.triggerModal = false;
+    dialogRef.componentInstance.linkModal = false;
+    dialogRef.componentInstance.summaryModal = false;
+
+    dialogRef.componentInstance.confirmBox.subscribe(data=>{
+      if(data) {
+        this.viewContainerRef.clear();
+        this.destroy = true;
+        this.value=true;
+        this.service.disableFields=false;
+        setTimeout(()=>{
+          this.verification.changeTab(0,siteId,userName,companyName,departmentName,site);
+        }, 1000);
+      }
+      else{
+        this.destroy = false;
+        this.value=false;
+      }
+    })
+    // if((confirm("Are you sure you want to view site details?"))){
+    //   this.viewContainerRef.clear();
+    //   this.destroy = true;
+    //   this.value=true;
+    //   this.service.disableFields=false;
+    //   setTimeout(()=>{
+    //     this.verification.changeTab(0,siteId,userName,companyName,departmentName,site);
+    //   }, 1000);
       
+    // }
+    // else{
+    //   this.destroy = false;
+    // this.value=false;
+    // }
     // this.viewContainerRef.clear();
     // this.destroy = true;
     // const verificationFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
     // const verificationRef = this.viewContainerRef.createComponent(verificationFactory);
     // verificationRef.changeDetectorRef.detectChanges();
     // this.change.emit(siteId);
-    this.viewContainerRef.clear();
-    this.destroy = true;
-    this.value=true;
-    setTimeout(()=>{
-      this.verification.changeTab(0,siteId,userName,companyName,departmentName,site);
-    }, 1000);
-    } 
-    else {
-      this.destroy = false;
-      this.value=false;
-    }
   }
 
   viewSite(siteId: any,userName: any,site: any,departmentName:any,companyName:any){
-    if (confirm("Are you sure you want to view site details?"))
-  {
-    // this.viewContainerRef.clear();
-    // this.destroy = true;
-    // const verificationFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
-    // const verificationRef = this.viewContainerRef.createComponent(verificationFactory);
-    // verificationRef.changeDetectorRef.detectChanges();
-    this.viewContainerRef.clear();
-    this.destroy = true;
-    this.value=true;
-    setTimeout(()=>{
-      this.verification.changeTab(0,siteId,userName,companyName,departmentName,site);
-    }, 1000);
-  } 
-  else {
-    this.destroy = false;
-    this.value=false;
-  } 
+    this.service.allStepsCompleted=false;
+    this.service.disableSubmitSummary=true;
+    this.service.disableFields=true;
+    this.service.allFieldsDisable = true;
+    const dialogRef = this.dialog.open(ConfirmationBoxComponent, {
+      width: '420px',
+      maxHeight: '90vh',
+      disableClose: true,
+    });
+    dialogRef.componentInstance.editModal = false;
+    dialogRef.componentInstance.viewModal = true;
+    dialogRef.componentInstance.triggerModal = false;
+    dialogRef.componentInstance.linkModal = false;
+    dialogRef.componentInstance.summaryModal = false;
+
+    dialogRef.componentInstance.confirmBox.subscribe(data=>{
+      if(data) {
+        this.viewContainerRef.clear();
+        this.destroy = true;
+        this.value=true;
+        setTimeout(()=>{
+          this.verification.changeTab(0,siteId,userName,companyName,departmentName,site);
+        }, 1000);
+      }
+      else{
+        this.destroy = false;
+        this.value=false;
+        +3
+      }
+    })
+  //   if (confirm("Are you sure you want to view site details?"))
+  // {
+  //   // this.viewContainerRef.clear();
+  //   // this.destroy = true;
+  //   // const verificationFactory = this.componentFactoryResolver.resolveComponentFactory(VerificationlvComponent);
+  //   // const verificationRef = this.viewContainerRef.createComponent(verificationFactory);
+  //   // verificationRef.changeDetectorRef.detectChanges();
+  //   this.viewContainerRef.clear();
+  //   this.destroy = true;
+  //   this.value=true;
+  //   setTimeout(()=>{
+  //     this.verification.changeTab(0,siteId,userName,companyName,departmentName,site);
+  //   }, 1000);
+  // } 
+  // else {
+  //   this.destroy = false;
+  //   this.value=false;
+  // } 
   }
-  pdfModal(siteId: any,userName: any){
+  pdfModal(siteId: any,userName: any, siteName: any){
     this.disable=false;
-    this.inspectionService.printPDF(siteId,userName)
+    this.inspectionService.printPDF(siteId,userName, siteName)
   }
   
-  downloadPdf(siteId: any,userName: any): any {
+  downloadPdf(siteId: any,userName: any, siteName: any): any {
     this.disable=false;
-    this.inspectionService.downloadPDF(siteId,userName)
+    this.inspectionService.downloadPDF(siteId,userName, siteName)
   }
-  emailPDF(siteId: any,userName: any){
+  emailPDF(siteId: any,userName: any, siteName: any){
     this.disable=false;
-    this.inspectionService.mailPDF(siteId,userName).subscribe(
+    this.inspectionService.mailPDF(siteId,userName, siteName).subscribe(
     data => {
     this.success = true;
-    this.successMsg = data;
+    this.successMsg = "Email has been sent successfully. Please check your email box.";
     setTimeout(()=>{
       this.success=false;
   }, 3000);
@@ -243,7 +341,7 @@ export class LicenselistComponent implements OnInit {
   decreaseLicense() {
     this.service.useClicked=true;
     const dialogRef = this.dialog.open(AssignViewerComponent, {
-      width: '500px',
+      width: '720px',
     });
     dialogRef.componentInstance.email = this.email;
     dialogRef.componentInstance.onSave.subscribe(data=>{

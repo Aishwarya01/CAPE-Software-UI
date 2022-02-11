@@ -10,7 +10,7 @@
                         <label>Client Name:</label>
                         <!-- <select formControlName="clientName" id="client" class="form-control" (change)="changeClient($event)"
                     [(ngModel)]="site.clientName" [ngClass]="{ 'is-invalid': submitted && a.clientName.errors }">
-                    <option value="0" selected>Select Client Name</option>
+                    <option value="" selected>Select Client Name</option>
                     <option *ngFor="let client of clientList">{{client.clientName}}</option>
             </select> -->
                         <input type="text" formControlName="companyName" class="form-control" readonly
@@ -24,7 +24,7 @@
                     <div class="col-md-4">
                         <label>Department:</label>
                         <!-- <select formControlName="departmentName" class="form-control" [(ngModel)]="site.departmentName" [ngClass]="{'is-invalid': submitted && a.clientName.errors}">
-                    <option value="0" selected>Select Department Name</option>
+                    <option value="" selected>Select Department Name</option>
                     <option *ngFor="let department of departmentList">{{department.departmentName}}</option>
                 </select> -->
                         <input type="text" formControlName="departmentName" class="form-control" readonly
@@ -159,7 +159,7 @@
                         <label>Country:</label>
                         <select formControlName="country" class="form-control" (change)="changeCountry($event)"
                             [(ngModel)]="site.country" [ngClass]="{ 'is-invalid': submitted && a.country?.errors }">
-                            <option value="0" selected>Select Country Name</option>
+                            <option value="" selected>Select Country Name</option>
                             <option *ngFor="let country of countryList">{{country.name}}</option>
                         </select>
                         <div *ngIf="submitted && a.country?.errors" class="invalid-feedback">
@@ -171,7 +171,7 @@
                         <label>State:</label>
                         <select formControlName="state" class="form-control" [(ngModel)]="site.state"
                             [ngClass]="{ 'is-invalid': submitted && a.state?.errors }">
-                            <option value="0" selected>Select State Name</option>
+                            <option value="" selected>Select State Name</option>
                             <option *ngFor="let state of stateList">{{state.name}}</option>
                         </select>
                         <div *ngIf="submitted && a.state?.errors" class="invalid-feedback">
@@ -215,7 +215,7 @@
             <br>
             <div class="row">
                 <div class="col-md-6" style="text-align: right;">
-                    <button (click)="onSubmit()" type="submit"
+                    <button (click)="onSubmit()" type="submit" [disabled] = "loading"
                         class="btn btn-primary btn-rounded btn-md font-weight-medium"
                         id="login-btn">
                         <i class="bi bi-person-plus-fill icon"></i> Save

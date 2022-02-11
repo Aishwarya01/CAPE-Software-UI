@@ -9,7 +9,7 @@
             <span class="col-md-5" style="display: table-cell; width: 1000px;
               padding: 0 4px 0 4px;"><select class="form-control" (change)="changeClient($event)"
                 [(ngModel)]="site.clientName">
-                <option value="0" selected>Select Company Name</option>
+                <option value="" selected>Select Company Name</option>
                 <option *ngFor="let client of clientList">{{client.clientName}}</option>
               </select></span>
             <label style="display: table-cell;
@@ -18,7 +18,7 @@
             <span class="col-md-5" style="display: table-cell; width: 1000px;
               padding: 0 4px 0 4px;"><select class="form-control" [(ngModel)]="site.departmentName"
                 (change)="retrieveSiteDetails()">
-                <option value="0" selected>Select Department Name</option>
+                <option value="" selected>Select Department Name</option>
                 <option *ngFor="let department of departmentList">{{department.departmentName}}</option>
               </select></span>
           </div>
@@ -26,8 +26,9 @@
         </div> -->
         <!-- </div> -->
       <!-- </div> -->
+     
 
-    <div class="card-body">
+    <div class="card-body" >
       <mat-form-field appearance="standard" style=" font-size: 14px;width: 30%;">
         <mat-label>Filter Sites</mat-label>
         <input matInput (keyup)="applyFilter1($event)" (focus)="applyFilter(siteName)"
@@ -38,7 +39,17 @@
         <mat-label>Filter Sites</mat-label>
         <input matInput placeholder="Ex. ium" #input [(ngModel)]="siteName">
       </mat-form-field> -->
-      <table mat-table [dataSource]="savedReport_dataSource" class="mat-elevation-z8 table" matSort
+      <mat-progress-spinner style="margin: 0 auto;" *ngIf="savedReportSpinner"
+      color="primary"
+      [mode]="mode"
+      value="50"
+      diameter="50">
+      </mat-progress-spinner>
+      <br>
+      <div *ngIf="savedReportSpinner" style="text-align: center;">
+        {{spinnerValue}}
+      </div>
+      <table mat-table *ngIf="savedReportBody" [dataSource]="savedReport_dataSource" class="mat-elevation-z8 table" matSort
         #savedReportSort="matSort" >
 
         <ng-container matColumnDef="siteCD">
@@ -67,7 +78,7 @@
         <!-- Weight Column -->
         <ng-container matColumnDef="contactDetails">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact Details </th>
-          <td mat-cell *matCellDef="let element"> {{element.addressLine_1+","+element.addressLine_2+","+element.zipCode}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.addressLine_1+","+element.city+","+element.zipCode}} </td>
         </ng-container>
 
         <!-- Symbol Column -->
@@ -85,7 +96,7 @@
         <ng-container matColumnDef="continue">
             <th mat-header-cell *matHeaderCellDef> Action </th>        
             <td mat-cell *matCellDef="let element"> 
-                <button class="btn btn-info" (click)="continue(element.siteId,element.userName,element.site)"
+                <button class="btn btn-info" (click)="continue(element.siteId,element.userName,element.site, element.departmentName,element.companyName)"
                 >continue</button>
             </td>
         </ng-container>
