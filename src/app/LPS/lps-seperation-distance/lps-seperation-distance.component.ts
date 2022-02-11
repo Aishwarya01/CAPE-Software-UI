@@ -100,9 +100,11 @@ export class LpsSeperationDistanceComponent implements OnInit {
       buildingNumber: new FormControl(buildingNumber),
       buildingCount: new FormControl(''),
       buildingName:new FormControl(buildingName),
+      continutyExistaEarthOb:new FormControl(''),
       flag:new FormControl(''),
 
       separateDistance: this.formBuilder.array([this.separateDistanceArrForm()]),
+      separateDistanceDownConductors: this.formBuilder.array([this.separateDistanceArr2Form()]),
     });
   }
 
@@ -128,6 +130,16 @@ export class LpsSeperationDistanceComponent implements OnInit {
       seperationDistanceDesc: new FormControl('',Validators.required),
       seperationDistanceOb: new FormControl('',Validators.required),
       seperationDistanceRem: new FormControl(''),
+      flag: new FormControl('true'),
+
+    })
+  }
+
+  private separateDistanceArr2Form(): FormGroup {
+    return new FormGroup({
+      noPannelSupplittingDsc: new FormControl('',Validators.required),
+      noPannelSupplittingOb: new FormControl('',Validators.required),
+      noPannelSupplittingRem: new FormControl(''),
       flag: new FormControl('true'),
 
     })
@@ -185,6 +197,10 @@ export class LpsSeperationDistanceComponent implements OnInit {
 
   getSeparateDistanceDownConductorsControls(form:any) {
     return form.controls.separateDistanceDownConductors?.controls;
+  }
+
+  get f() {
+    return this.separeteDistanceForm.controls;
   }
 
   add(form:any) {
