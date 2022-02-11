@@ -7,11 +7,11 @@
       <!-- <button mat-button (click)="onToggleSidenav()" *ngIf="mobileDisplay">
         <mat-icon>menu</mat-icon>
       </button> -->
-      <div class="brand-logo">
-        <a href="#"><img src="assets/img/Rush_Final_logo.png"></a>
+      <div class="col-md-2 brand-logo">
+        <a href="#"><img src="assets/img/Original-green.png"></a>
       </div>
       <div class="appName">
-      <span>Rush: Interactive-Intelligent-Modern</span>
+      <span>SOLVE: Interactive-Intelligent-Modern</span>
     </div>
       <span class="spacer"></span>
       <!-- <button mat-button [matMenuTriggerFor]="notify" *ngIf="oldNotification">
@@ -233,7 +233,7 @@
 
   <mat-sidenav-content fullscreen fxFlexFill id="destination" class="pagePadding" [ngStyle]="{'padding': currentUser1.role == 'Viewer' ? '20px' : 'unset'}">
     <div class="col-sm-12 welcome-text" style="text-align: center;" *ngIf="welcome">
-    <h1 style="font-size: 35px;">Welcome to Rush Safety Applications</h1>
+    <h1 style="font-size: 35px;">Welcome to SOLVE Applications</h1>
     <p>Note: Kindly go through the sub-menus on the left side panel.</p>
   </div>
     <ng-template #ref></ng-template>
@@ -405,17 +405,17 @@
               <mat-icon>visibility</mat-icon>
             </button>
             <button class="btn btn-outline-danger delete" title="Download Final PDF" 
-            (click)="downloadPdf(element.siteId,element.userName)" [disabled]="disable"
+            (click)="downloadPdf(element.siteId,element.userName, element.site)" [disabled]="disable"
             style="border-color: #cdcecf;box-shadow: unset;">
               <mat-icon>download</mat-icon>
             </button>
             <button class="btn btn-outline-danger delete" title="Trigger Email With Final PDF" 
-            (click)="emailPDF(element.siteId,element.userName)" [disabled]="disable"
+            (click)="emailPDF(element.siteId,element.userName, element.site)" [disabled]="disable"
             style="border-color: #cdcecf;box-shadow: unset;">
               <mat-icon>email</mat-icon>
             </button>
             <button class="btn btn-outline-danger delete" title="Print Final PDF" 
-            (click)="pdfModal(element.siteId,element.userName)" [disabled]="disable"
+            (click)="pdfModal(element.siteId,element.userName, element.site)" [disabled]="disable"
             style="border-color: #cdcecf;box-shadow: unset;">
             <mat-icon>print</mat-icon></button>
           </td>

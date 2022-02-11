@@ -145,7 +145,6 @@ export class ViewerRegisterComponent implements OnInit {
   }
 onSubmit() {
   this.submitted = true;
-  console.log(this.viewerRegisterForm.value.applicationType)
 
   //Breaks if form is invalid
   if(this.viewerRegisterForm.invalid) {

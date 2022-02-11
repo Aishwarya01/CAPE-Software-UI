@@ -45,6 +45,21 @@ mat-header-cell.mat-header-cell {
 .client-box-description {
   height: 100px;
 }
+.auth-form-btn {
+  /* margin-top: 40px; */
+  width: 25%;
+}
+
+.auth-form-btn .icon {
+  float: left;
+  margin-top: -2px;
+}
+
+.cancel {
+  /* margin-top: 40px; */
+  width: 25%; 
+  /* height: 47px; */
+}
 
 .auth-form-btn {
   width: auto;
@@ -53,7 +68,7 @@ mat-header-cell.mat-header-cell {
 
 
 .cancel {
-  margin-top: 40px;
+  /* margin-top: 40px; */
   width: 87px;
   height: 47px;
   border-radius: 1.25rem !important;
@@ -105,3 +120,6 @@ mat-header-cell.mat-header-cell {
     border-color: hsl(101deg 45% 100%);
     border-radius: 0.25rem;
   }
+.modal-xl{
+  height: 1px;
+}

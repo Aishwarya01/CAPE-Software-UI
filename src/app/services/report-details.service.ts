@@ -25,4 +25,7 @@ export class ReportDetailsService {
   public approveRejectComments(comment: CommentsSection,siteId: any): Observable<any> {
     return this.http.post<any>(this.apiUrl + '/approveBasicInfoComments'+'/'+comment.userName+ '/' +siteId, comment, { responseType: 'text' as 'json' })
   }
+  public retrieveBasic(siteId: any,userName:any): Observable<any> {
+    return this.http.get<any>(this.apiUrl + '/retrieveInstalReport'+'/'+userName+ '/' +siteId, { responseType: 'text' as 'json' })
+  }
 }

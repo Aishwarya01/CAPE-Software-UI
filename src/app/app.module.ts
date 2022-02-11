@@ -44,6 +44,7 @@ import { InspectionVerificationIncomingEquipmentComponent } from './inspection-v
 import { InspectionVerificationSupplyCharacteristicsComponent } from './inspection-verification-supply-characteristics/inspection-verification-supply-characteristics.component';
 import {  InspectionVerificationTestingComponent} from './inspection-verification-testing/inspection-verification-testing.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+//import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SavedreportsComponent } from './savedreports/savedreports.component';
 import { FinalreportsComponent } from './finalreports/finalreports.component';
 import {Ng2TelInputModule} from 'ng2-tel-input';
@@ -51,7 +52,7 @@ import { BnNgIdleService } from 'bn-ng-idle';
 //import { Ng9PasswordStrengthBarModule } from 'ng9-password-strength-bar/projects/ng9-password-strength-bar/src/public-api';
 import { InspectorRegistrationComponent } from './inspector-registration/inspector-registration.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-
+import {MatTooltipModule} from '@angular/material/tooltip';
 import { UserUpdateComponent } from './user-update/user-update.component';
 import { InspectorUpdatePasswordComponent } from './inspector-update-password/inspector-update-password.component';
 import { AngularWebStorageModule } from 'angular-web-storage';
@@ -69,6 +70,7 @@ import { NgbTooltipModule } from "@ng-bootstrap/ng-bootstrap";
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { DateAgoPipe } from './pipes/date-ago.pipe';
+import { TruncateModule } from 'ng2-truncate';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { GenerateOtpContactnumberComponent } from './generate-otp-contactnumber/generate-otp-contactnumber.component';
 import { ChangeContactnumberComponent } from './change-contactnumber/change-contactnumber.component';
@@ -79,6 +81,23 @@ import { EmcMatstepperComponent } from './EMC/emc-matstepper/emc-matstepper.comp
 import { EmcSavedReportComponent } from './EMC/emc-saved-report/emc-saved-report.component';
 import { EmcFinalReportComponent } from './EMC/emc-final-report/emc-final-report.component';
 import { EmcClientDetailsComponent } from './EMC/emc-client-details/emc-client-details.component';
+import { LpsEarthingComponent } from './LPS/lps-earthing/lps-earthing.component';
+import { LpsSpdComponent } from './LPS/lps-spd/lps-spd.component';
+import { LpsSeperationDistanceComponent } from './LPS/lps-seperation-distance/lps-seperation-distance.component';
+import { LpsEarthing } from './LPS_services/lps-earthing';
+import { LpsMatstepperComponent } from './LPS/lps-matstepper/lps-matstepper.component';
+import { LpsAirTerminationComponent } from './LPS/lps-air-termination/lps-air-termination.component';
+import { LpsBasicPageComponent } from './LPS/lps-basic-page/lps-basic-page.component';
+import { LpsDownConductorsComponent } from './LPS/lps-down-conductors/lps-down-conductors.component';
+import { LpsEarthStudComponent } from './LPS/lps-earth-stud/lps-earth-stud.component';
+import { LpsSavedReportComponent } from './LPS/lps-saved-report/lps-saved-report.component';
+import { LpsWelcomePageComponent } from './LPS/lps-welcome-page/lps-welcome-page.component';
+import { LpsFinalReportComponent } from './LPS/lps-final-report/lps-final-report.component';
+import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
+//import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
+import { ConfirmationBoxComponent } from './confirmation-box/confirmation-box.component';
+import { SignaturePadModule } from 'angular2-signaturepad';
+import { SignatureComponent } from './signature/signature.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +110,7 @@ import { EmcClientDetailsComponent } from './EMC/emc-client-details/emc-client-d
     MainNavComponent,
     HeaderComponent,
     ChangePasswordComponent,
+    ConfirmationBoxComponent,
     ProfileComponent,
     LvInspectionDetailsComponent,
     RiskAssessmentInspectionMaintenanceComponent,
@@ -129,10 +149,22 @@ import { EmcClientDetailsComponent } from './EMC/emc-client-details/emc-client-d
     EmcMatstepperComponent,
     EmcSavedReportComponent,
     EmcFinalReportComponent,
-    EmcClientDetailsComponent
+    EmcClientDetailsComponent,
 
+    LpsSpdComponent,
+    LpsSeperationDistanceComponent,
+    LpsMatstepperComponent,
+    LpsEarthingComponent,
+    LpsAirTerminationComponent,
+    LpsBasicPageComponent,
+    LpsDownConductorsComponent,
+    LpsEarthStudComponent,
+    LpsSavedReportComponent,
+    LpsWelcomePageComponent, 
+    LpsFinalReportComponent, SignatureComponent, 
   ],
   imports: [
+    TruncateModule,
     NgbTooltipModule,
     NgbModule,
     BrowserModule,
@@ -156,13 +188,21 @@ import { EmcClientDetailsComponent } from './EMC/emc-client-details/emc-client-d
     NgxBootstrapIconsModule.pick(allIcons),
     NgMultiSelectDropDownModule.forRoot(),
     ScrollToModule.forRoot(),
+    SignaturePadModule,
     NgOtpInputModule,
     MatBadgeModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTooltipModule,
+    BackButtonDisableModule.forRoot({
+      preserveScrollPosition: true
+    }),
+    
+    //LoggerModule.forRoot({ level: NgxLoggerLevel.DEBUG }),
+    //NgbActiveModal, NgbModal 
   ],
  // exports: [WebStorageCodec, WebStorageCodec, SessionStorage],
   providers: [GlobalsService, { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }, BnNgIdleService,DatePipe],
   bootstrap: [AppComponent],
-  entryComponents: [ AddApplicationTypesComponent, UpdateApplicationTypesComponent, VerificationlvComponent ]
+  entryComponents: [ AddApplicationTypesComponent, UpdateApplicationTypesComponent, VerificationlvComponent, LpsMatstepperComponent ]
 })
 export class AppModule { }

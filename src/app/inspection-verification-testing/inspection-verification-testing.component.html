@@ -1,25 +1,33 @@
+<div *ngIf="tabError" style="text-align: center;">
+  <span class="alert alert-danger">{{tabErrorMsg}}</span> 
+</div>
+<div *ngIf="validationErrorTab" style="text-align: center;">
+  <span class="alert alert-danger">{{validationErrorMsgTab}}</span>
+</div>
 <div class="card">
     <div class="card-body">
-    <!-- <button class="btn btn-info mousechange"
-        style="padding: 7px 10px 0px 10px;left: 93%;top: 10px;width: 4%;position: relative;">
-            <mat-icon aria-hidden="false" (click)="addItem()" aria-label="Example home icon" mat-list-icon>add_box</mat-icon>
-    </button> -->
-     <form [formGroup]="testingForm" (ngSubmit)="nextTab(flag)">
+      <div class="row">
+        <div class="col-sm-12">
+          <a  [ngClass]="{'glow':service.observationGlowTesting}"
+          style="margin-top: -10px;margin-bottom: 5px;float: right;text-decoration: underline;">Observations</a>
+        </div>
+        </div>
+     <form [formGroup]="testingForm" (ngSubmit)="nextTab(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
        <div formArrayName="testaccordianArr" *ngFor="let a of getTestControls(); let i = index;" >
             <div [formGroupName]="i">
                     <div class="search-bar">
                         <div class="form-group">
                             <div class="row" *ngIf="inspectionRetrieve">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label>Location Number*</label>
-                                    <input type="number" class="form-control" formControlName="locationNumber"
+                                    <input type="text" class="form-control" formControlName="locationNumber" (keypress)="keyPressNumbers($event)" maxlength="10"
                                         placeholder="Enter Location Number"
                                         value="{{location.locationArr[i]?.locationNumber}}"
                                         [(ngModel)]="location.locationArr[i].locationNumber" [readonly]="true"
                                         style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label>Location Name*</label>
                                     <input type="text" class="form-control" formControlName="locationName"
                                         placeholder="Enter Location Name"
@@ -27,23 +35,45 @@
                                         [(ngModel)]="location.locationArr[i].locationName" [readonly]="true"
                                         style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
                                 </div>
+
+                                <div class="col-md-4" *ngIf="false">
+                                  <input type="text" class="form-control" formControlName="locationCount"
+                                      placeholder="Enter Location Name"
+                                      value="{{location.locationArr[i]?.locationCount}}"
+                                      [(ngModel)]="location.locationArr[i].locationCount" >
+                                 </div>
                             </div>
-
-
                             <div class="row" *ngIf="testingRetrieve">
                                 <div class="col-md-6">
                                     <label>Location Number*</label>
                                     <input type="number" class="form-control" formControlName="locationNumber"
                                         placeholder="Enter Location Number" [readonly]="true"
-                                        style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
+                                        style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;"
+                                        [ngClass]="{ 'is-invalid': submitted && a.get('locationNumber')?.errors }">
+                                        <div *ngIf="submitted && a.get('locationNumber')?.errors" class="invalid-feedback">
+                                            <div *ngIf="a.get('locationNumber')?.errors?.required">Please fill out the details in Inspection form!</div>
+                                        </div>
+                                        <!-- (focus)="focusPersonFunction()"
+                                    <div *ngIf="showPersonNameMsg" class="invalid-feedback">
+                                    Please fill out the details in Inspection form!
+                                    </div> -->
                                 </div>
 
                                 <div class="col-md-6">
                                     <label>Location Name*</label>
                                     <input type="text" class="form-control" formControlName="locationName"
                                         placeholder="Enter Location Name" [readonly]="true"
-                                        style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;">
+                                        style="cursor: not-allowed; border-color: #cdcecf;box-shadow: unset;"
+                                        [ngClass]="{ 'is-invalid': submitted && a.get('locationName')?.errors }">
+                                        <div *ngIf="submitted && a.get('locationName')?.errors" class="invalid-feedback">
+                                            <div *ngIf="a.get('locationName')?.errors?.required">Please fill out the details in Inspection form!</div>
+                                        </div>
                                 </div>
+
+                                <div class="col-md-6" *ngIf="false">
+                                  <input type="text" class="form-control" formControlName="locationCount"
+                                      placeholder="Enter Location Name" >
+                                 </div>
                             </div>
                         </div>
                     </div>
@@ -55,61 +85,133 @@
             </mat-panel-title>
          </mat-expansion-panel-header>
 
-    <div class="row">
-        <div class="col-md-4">
+    <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
+        <div class="col-md-3">
             <label>Test Engineer Name </label>
-            <input type="text" formControlName="testEngineerName" class="form-control"    placeholder="Enter Test Engineer Name "
-                [ngClass]="{ 'is-invalid': submitted && a.get('testEngineerName')?.errors }">
+            <input type="text" formControlName="testEngineerName" class="form-control"  placeholder="Enter Test Engineer Name "
+                [ngClass]="{ 'is-invalid': submitted && a.get('testEngineerName')?.errors }" [readonly]="service.allFieldsDisable">
             <div *ngIf="submitted && a.get('testEngineerName')?.errors" class="invalid-feedback">
                 <div *ngIf="a.get('testEngineerName')?.errors?.required">Test engineer name is required</div>
             </div>
         </div>
 
-        <div class="col-md-4">
-            <label>Date</label>
+        <div class="col-md-3">
+          <label>Designation</label>
+           <input type="text" formControlName="designation"   placeholder="Enter Designation " class="form-control" 
+           [ngClass]="{ 'is-invalid': submitted && a.get('designation')?.errors }"  [readonly]="service.allFieldsDisable">
+            <div *ngIf="submitted && a.get('designation')?.errors" class="invalid-feedback">
+              <div *ngIf="a.get('designation')?.errors?.required">Designation value is required</div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <label>Date of testing </label>
             <input type='date' formControlName="date" class="form-control"   placeholder="Enter Date "
-                [ngClass]="{ 'is-invalid': submitted && a.get('date')?.errors }">
+                [ngClass]="{ 'is-invalid': submitted && a.get('date')?.errors }" [readonly]="service.allFieldsDisable">
             <div *ngIf="submitted && a.get('date')?.errors" class="invalid-feedback">
                 <div *ngIf="a.get('date')?.errors?.required">Date is required</div>
             </div>
         </div>
-
-                        <div class="col-md-4">
+       
+            <div class="col-md-3">
+            <label> Company Name</label>
+             <input type="text" formControlName="companyName"  placeholder="Enter Company Name " class="form-control" 
+             [ngClass]="{ 'is-invalid': submitted && a.get('companyName')?.errors }"  [readonly]="service.allFieldsDisable">
+           <div *ngIf="submitted && a.get('companyName')?.errors" class="invalid-feedback">
+          <div *ngIf="a.get('companyName')?.errors?.required">Company name is required</div>
+           </div>
+  </div>
+                        <!-- <div class="col-md-4">
                             <label>Designation</label>
                             <input type="text" formControlName="designation"   placeholder="Enter Designation " class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('designation')?.errors }"  >
                             <div *ngIf="submitted && a.get('designation')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('designation')?.errors?.required">Designation value is required</div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
-                    <div class="row">
+                    <!-- <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                         <div class="col-md-4">
                             <label> Company Name</label>
                             <input type="text" formControlName="companyName"  placeholder="Enter Company Name " class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('companyName')?.errors }"  >
                             <div *ngIf="submitted && a.get('companyName')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('companyName')?.errors?.required">Company name is required</div>
                             </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label>Details Of Test Instrument</label>
-                            <input type="text" formControlName="detailsTestInstrument"    placeholder="Enter Details Of test instrument Name"class="form-control"[ngClass]="{ 'is-invalid': submitted && a.get('detailsTestInstrument')?.errors }"  >
-                            <div *ngIf="submitted && a.get('detailsTestInstrument')?.errors" class="invalid-feedback">
-                              <div *ngIf="a.get('detailsTestInstrument')?.errors?.required">Details Of test instrument value is required</div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
+                        </div> -->
+                        <!-- <div class="col-md-4">
                             <label>Continuity </label>
                             <input type="text" formControlName="continuity"  placeholder="Enter Continuity"class="form-control"[ngClass]="{ 'is-invalid': submitted && a.get('continuity')?.errors }"  >
                             <div *ngIf="submitted && a.get('continuity')?.errors" class="invalid-feedback">
                               <div *ngIf="a.get('continuity')?.errors?.required">Continuity  value is required</div>
                             </div>
-                        </div>
-                    </div>
-
+                        </div> -->
+                          <!-- <input type="text" formControlName="detailsTestInstrument"    placeholder="Enter Details Of test instrument Name"class="form-control"[ngClass]="{ 'is-invalid': submitted && a.get('detailsTestInstrument')?.errors }"  >
+                      <div *ngIf="submitted && a.get('detailsTestInstrument')?.errors" class="invalid-feedback">
+                        <div *ngIf="a.get('detailsTestInstrument')?.errors?.required">Details Of test instrument value is required</div>
+                      </div> -->
+                    <!-- </div> -->
+<br>
+                    <h2>Details of testing instruments:</h2>
                     <div class="row">
+                      <div class="col-sm-12">
+                          <div class="table-responsive">
+                              <table  class="table testingTable">
+                                  <div style="width: 94%;">
+                                      <div class="form-group" style="border:1px solid #dee2e6;">
+                                          <thead>
+                                              <tr align="center">
+                                                  <th>Equipment Name</th>
+                                                  <th>Equipment Make</th>
+                                                  <th>Equipment Model</th>
+                                                  <th>Equipment SL.NO</th>
+                                                  <th>Calibration Due Date</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                              <tr>
+                                                <td><input type="text"  class="form-control" readonly
+                                                  ></td>
+                                                <td><input type="text" class="form-control" readonly
+                                                  ></td>
+                                                <td><input type="text"  class="form-control" readonly
+                                                 ></td>
+                                                <td><input type="text" class="form-control" readonly
+                                                 ></td>
+                                                <td><input type="date" class="form-control" readonly
+                                                  ></td>
+                                                  <mat-icon style="cursor: pointer;margin: 20px 5px 20px 5px;" [ngClass]="{'disableForm':service.allFieldsDisable}" (click)="addDesigner(a)">add_box</mat-icon>
+                                            </tr>
+
+                                          </tbody>
+                                          <tbody formArrayName="testingEquipment" style="border-top: unset;"
+                                          *ngFor="let e of gettestInstrumentControls(a); let j= index">
+                                            <tr [formGroupName]="j">
+                                              <td><input type="text" formControlName="equipmentName" class="form-control" [readonly]="service.allFieldsDisable"></td>
+                                              <td><input type="text" formControlName="equipmentMake" class="form-control" [readonly]="service.allFieldsDisable"></td>
+                                              <td><input type="text"  formControlName="equipmentModel" class="form-control" [readonly]="service.allFieldsDisable"
+                                               ></td>
+                                              <td><input type="text" formControlName="equipmentSerialNo" class="form-control" [readonly]="service.allFieldsDisable"
+                                               ></td>
+                                              <td>
+                                                <input type="date" formControlName="equipmentCalibrationDueDate" class="form-control" placeholder="Enter Date" [readonly]="service.allFieldsDisable">
+                                              </td>
+                                                <!-- <mat-icon style="cursor: pointer;margin: 20px 5px 20px 5px;" *ngIf="gettestInstrumentControls(a).length > 1" 
+                                                  (click)="removeItem(a,j)">
+                                                  delete</mat-icon>         -->
+                                                  
+                                                  <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="gettestInstrumentControls(a).length > 1" 
+                                                    (click)="removeItem(a,j)" style="cursor: pointer;margin: 20px 5px 20px 5px;">remove_circle_outline</mat-icon>
+
+                                                </tr>
+                                          </tbody>
+                                      </div>
+                                  </div>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+  
+                    <!-- <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                         <div class="col-md-4">
                             <label>Insulation Resistance</label>
                             <input type="number" min="0" formControlName="insulationResisance"   placeholder=" Enter Insulation resistance"class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('insulationResisance')?.errors }"  >
@@ -134,7 +236,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                     <div class="col-md-4">
                         <label>Earth Electrode Resistance</label>
                         <input type="number" min="0" formControlName="earthElectrodeResistance"  placeholder=" Enter Earth Electrode Resistance" class="form-control" [ngClass]="{ 'is-invalid': submitted && a.get('earthElectrodeResistance')?.errors }"  >
@@ -142,7 +244,7 @@
                           <div *ngIf="a.get('earthElectrodeResistance')?.errors?.required">Earth electrode resistance value is required</div>
                         </div>
                     </div>
-                    </div>
+                    </div> -->
                     </mat-expansion-panel>
                     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                         <mat-expansion-panel-header>
@@ -150,21 +252,28 @@
                                 <h3>Detailed Testing</h3>
                             </mat-panel-title>
                         </mat-expansion-panel-header>
-
-                   <div formArrayName="testDistribution" *ngFor="let c of gettestDistributionFormControls(a); let i = index">
-                        <div class="form-group" [formGroupName]="i">
-                            <div class="row">
+                      
+                 <div formArrayName="testDistRecords" *ngFor="let z of gettestDistRecordsFormControls(a); let w = index">
+                   <div [formGroupName]="w">
+                   <div formArrayName="testDistribution"  *ngFor="let c of gettestDistributionFormControls(z); let i = index">
+                        <div class="form-group" [formGroupName]="i" >
+                            <div class="row" [ngClass]="{'disableForm':service.allFieldsDisable}">
                                 <div class="col-md-4">
                                     <label>Distribution Board Details </label>
-                                    <input type="text" formControlName="distributionBoardDetails"  placeholder=" Enter Distribution board details"  class="form-control" [ngClass]="{ 'is-invalid': submitted && c.get('distributionBoardDetails')?.errors }"  >
+                                    <input type="text" formControlName="distributionBoardDetails"  
+                                    placeholder="Enter Distribution board details"  class="form-control" 
+                                   [value]="c.get('distributionBoardDetails')?.value"
+                                    [ngClass]="{ 'is-invalid': submitted && c.get('distributionBoardDetails')?.errors }" readonly>
                                     <div *ngIf="submitted && c.get('distributionBoardDetails')?.errors" class="invalid-feedback">
                                       <div *ngIf="c.get('distributionBoardDetails')?.errors?.required">Distribution board details  value is required</div>
                                     </div>
                               </div>
 
                                 <div class="col-md-4">
-                                    <label>Reference (name)</label>
-                                    <input type="text" formControlName="referance" placeholder=" Enter Reference Name" class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('referance')?.errors }"  >
+                                    <label>Distribution board name</label>
+                                    <input type="text" formControlName="referance" placeholder="Enter Distribution board name" 
+                                    [value]="c.get('referance')?.value"
+                                    class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('referance')?.errors }" readonly>
                                     <div *ngIf="submitted && c.get('referance')?.errors" class="invalid-feedback">
                                       <div *ngIf="c.get('referance')?.errors?.required">Reference name  is required</div>
                                     </div>
@@ -172,7 +281,9 @@
 
                                 <div class="col-md-4">
                                     <label>Location</label>
-                                    <input type="text" formControlName="location"  placeholder=" Enter Location Name" class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('location')?.errors }"  >
+                                    <input type="text" formControlName="location"  placeholder="Enter Location Name" 
+                                    [value]="c.get('location')?.value"
+                                    class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('location')?.errors }" readonly>
                                     <div *ngIf="submitted && c.get('location')?.errors" class="invalid-feedback">
                                       <div *ngIf="c.get('location')?.errors?.required">Location  name  is required</div>
                                     </div>
@@ -180,10 +291,19 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-4">
+                            
+                                <div class="col-md-4 PolarityTT">
                                     <label>Correct Supply Polarity </label>
-                                    <select class="form-control" formControlName="correctSupplyPolarity" [ngClass]="{ 'is-invalid': submitted && c.get('correctSupplyPolarity')?.errors }">
-                                        <option value="0" selected>Select Option</option>
+                                    <mat-icon style="font-size: 18px;"
+                                    matTooltip="Phase sequence – clockwise or anti-clockwise"
+                                    matTooltipClass="multiline-tooltip"
+                                    aria-label="Button that shows a red tooltip"
+                                    class="example-button">
+                                    info_outline
+                                   </mat-icon>
+                                    <select class="form-control" formControlName="correctSupplyPolarity" [disabled]="service.allFieldsDisable" [tabindex]="service.allFieldsDisable ? -1 : 0"
+                                    [ngClass]="[submitted && c.get('correctSupplyPolarity')?.errors ? 'is-invalid' : '' , service.allFieldsDisable ? 'disableForm' : '']">
+                                    <option value="" selected>Select Option</option>
                                         <option value="Yes" selected>Yes</option>
                                         <option value="No" selected>No</option>
                                     </select>
@@ -193,68 +313,102 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label> Number Of Output Circuits - Spare </label>
-                                    <input type="number" min="0" formControlName="numOutputCircuitsSpare"  placeholder=" Enter Number of output circuits - Spare"class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('numOutputCircuitsSpare')?.errors }"  >
+                                    <label>Total number of output circuits including spare </label>
+                                    <input type="number" min="0" formControlName="numOutputCircuitsSpare"  [readonly]="service.allFieldsDisable" placeholder="Enter Number of output circuits - Spare"class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('numOutputCircuitsSpare')?.errors }"  >
                                     <div *ngIf="submitted && c.get('numOutputCircuitsSpare')?.errors" class="invalid-feedback">
                                       <div *ngIf="c.get('numOutputCircuitsSpare')?.errors?.required">Number of output circuits -spare value is required</div>
                                     </div>
                                 </div>
-
                                 <div class="col-md-4">
-                                    <label> Installed Equipment Vulnarable To Testing </label>
-                                    <input type="number" min="0" formControlName="installedEquipmentVulnarable" placeholder=" Enter Installed Equipment Vulnarable To  Testing Name"
-                                        class="form-control"[ngClass]="{ 'is-invalid': submitted && c.get('installedEquipmentVulnarable')?.errors }"  >
-                                        <div *ngIf="submitted && c.get('installedEquipmentVulnarable')?.errors" class="invalid-feedback">
-                                          <div *ngIf="c.get('installedEquipmentVulnarable')?.errors?.required">Installed equipment vulnarable to testing  value is required</div>
-                                        </div>
-                                </div>
+                                  <label>Number Of Output Circuits Tested</label>
+                                  <input type="tel" min="1" formControlName="numOutputCircuitsUse"  [readonly]="service.allFieldsDisable" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                  placeholder="Enter Number of output circuits tested"
+                                  class="form-control"  (keyup)="onKey($event,c,z)" [ngClass]="{ 'is-invalid': submitted && c.get('numOutputCircuitsUse')?.errors }"  >
+                                  <div *ngIf="submitted && c.get('numOutputCircuitsUse')?.errors" class="invalid-feedback">
+                                    <div *ngIf="c.get('numOutputCircuitsUse')?.errors?.required">Number of output circuits in use value is required</div>
+                                    <div *ngIf="c.get('numOutputCircuitsUse')?.errors?.max">Number of output circuits in use value cannot exceed 5</div>
+                                    <div *ngIf="c.get('numOutputCircuitsUse')?.errors?.min">Number of output circuits in use value more than 0</div>
+                                  </div>
+                              </div>
                             </div>
 
-
                              <div class="row">
-                                <div class="col-md-4">
-                                    <label>Number Of Output Circuits In Use</label>
-                                    <input type="tel" min=1 formControlName="numOutputCircuitsUse"  placeholder=" Enter Number of output circuits in use"
-                                    maxlength="2" class="form-control"  (keyup)="onKey($event,c,a)" [ngClass]="{ 'is-invalid': submitted && c.get('numOutputCircuitsUse')?.errors }"  >
-                                    <div *ngIf="submitted && c.get('numOutputCircuitsUse')?.errors" class="invalid-feedback">
-                                      <div *ngIf="c.get('numOutputCircuitsUse')?.errors?.required">Number of output circuits in use value is required</div>
+                              <div class="col-md-4 VulnerableTT">
+                                <label> Installed Equipment Vulnarable To Testing </label>
+                                <mat-icon style="font-size: 18px;"
+                                matTooltip="Live conductors of any equipment exposed at risk / any known susceptible issues in equipment/ flash over/ any incident"
+                                matTooltipClass="multiline-tooltip"
+                                aria-label="Button that shows a red tooltip"
+                                class="example-button">
+                                info_outline
+                               </mat-icon>
+                                <input type="number" min="0" [readonly]="service.allFieldsDisable" 
+                                formControlName="installedEquipmentVulnarable" 
+                                placeholder="Enter Installed Equipment Vulnarable To  Testing Name"
+                                    class="form-control"
+                                    [ngClass]="[submitted && c.get('installedEquipmentVulnarable')?.errors ? 'is-invalid' : '' , service.allFieldsDisable ? 'disableForm' : '']">
+                                    <div *ngIf="submitted && c.get('installedEquipmentVulnarable')?.errors" class="invalid-feedback">
+                                      <div *ngIf="c.get('installedEquipmentVulnarable')?.errors?.required">Installed equipment vulnarable to testing  value is required</div>
                                     </div>
-                                </div>
+                            </div>
 
-                                <div class="col-md-4" formArrayName="rateArr" *ngFor="let d of gettestrateFormControls(c); let j = index">
+                                <div class="col-md-4 RatedCurrentTT" formArrayName="rateArr" 
+                                *ngFor="let d of gettestrateFormControls(c); let j = index">
                                     <div class="form-group" [formGroupName]="j">
-                                        <label>Ratings In Amps </label>
-                                        <input type="number" min="0" formControlName="ratingsAmps" class="form-control" placeholder=" Enter Ratings in Amps "
-                                            [ngClass]="{ 'is-invalid': submitted && d.get('ratingsAmps')?.errors }">
+                                        <label>Rated Current (A) </label>
+                                        <mat-icon style="font-size: 18px;"
+                                        matTooltip="Note: Based on number of circuits in use this field should be added."
+                                        matTooltipClass="multiline-tooltip"
+                                        aria-label="Button that shows a red tooltip"
+                                        class="example-button">
+                                        info_outline
+                                       </mat-icon>
+                                        <input type="number" min="0" [readonly]="service.allFieldsDisable" 
+                                        formControlName="ratingsAmps" 
+                                        class="form-control" placeholder="Enter Ratings in Amps "
+                                        [ngClass]="[submitted && d.get('ratingsAmps')?.errors ? 'is-invalid' : '' , service.allFieldsDisable ? 'disableForm' : '']">
                                         <div *ngIf="submitted && d.get('ratingsAmps')?.errors" class="invalid-feedback">
                                             <div *ngIf="d.get('ratingsAmps')?.errors?.required">Ratings in Amps value is required</div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-md-4"> 
-                                    <label>Selected Source:</label>
-                                    <select class="form-control" formControlName="sourceFromSupply" (change)="changeSource($event,c)"
-                                    [ngClass]="{ 'is-invalid': submitted && c.get('sourceFromSupply')?.errors }">
-                                    <option value="0" selected>Select Option</option>
+                             
+                                <div class="col-md-4 SourceIncomingTT"> 
+                                    <label>Source Of Incoming:</label>
+                                    <mat-icon style="font-size: 18px;"
+                                    matTooltip="Based on availability of number of supplies as in P2, drop down option to be given"
+                                    matTooltipClass="multiline-tooltip"
+                                    aria-label="Button that shows a red tooltip"
+                                    class="example-button">
+                                    info_outline
+                                   </mat-icon>
+                                    <select class="form-control" formControlName="sourceFromSupply" (change)="changeSource($event,c)" 
+                                    [tabindex]="service.allFieldsDisable ? -1 : 0"
+                                    [ngClass]="[submitted && c.get('sourceFromSupply')?.errors ? 'is-invalid' : '' , service.allFieldsDisable ? 'disableForm' : '']">
+                                    [disabled]="service.allFieldsDisable">
+                                   <option value="" selected>Select Option</option>
                                     <option *ngFor="let value of SourceList" [selected]="value=== c.get('sourceFromSupply')?.value">
                                       {{value}}</option>
                                   </select>
-                                    <div *ngIf="submitted && c.get('sourceFromSupply')?.errors" class="invalid-feedback">
-                                      <div *ngIf="c.get('sourceFromSupply')?.errors?.required">Source is required</div>
+                                    <div *ngIf="submitted && SourceList.length == 0" class="invalid-feedback">
+                                      <div>Please fill out the details in Supplycharesteristic form!</div> 
                                   </div>
+                                  <div *ngIf="submitted && c.get('sourceFromSupply')?.errors" class="invalid-feedback">
+                                    <div *ngIf="c.get('sourceFromSupply')?.errors?.required">Source is required</div>
+                                </div>
                               </div>
                               </div>
 <br>
                 <div class="row" *ngIf="c.get('sourceFromSupply').value=='Mains Incoming'">
                     <div class="col-sm-12">
-                        <div class="table-responsive" >
+                        <div class="table-responsive">
                             <table  class="table testingTable" id="table1">
-                                <div formArrayName="distributionIncomingValueArr" *ngFor="let e of getdistributionIncomingValueControls(c); let j= index">
-                                    <div class="form-group" style="border: 1px solid black;">
+                                <div formArrayName="distributionIncomingValueArr" 
+                                *ngFor="let e of getdistributionIncomingValueControls(c); let j= index">
+                                    <div class="form-group" style="border:1px solid #dee2e6;">
                                         <thead>
                                             <tr align="center">
-                                                <th></th>
+                                                <th>Reference</th>
                                                 <th>L1-L2</th>
                                                 <th>L2-L3</th>
                                                 <th>L1-L3</th>
@@ -270,68 +424,79 @@
                                             <tr>
                                                 <td>Nominal Voltage U/U0 (V)</td>
                                                 <td><input type="text" formControlName="incomingVoltage1" class="form-control disable" 
+                                                  readonly></td>
+                                                <td><input type="text"  formControlName="incomingVoltage2" class="form-control disable" readonly
                                                  ></td>
-                                                <td><input type="text"  formControlName="incomingVoltage2" class="form-control disable"
+                                                <td><input type="text"  formControlName="incomingVoltage3" class="form-control disable" readonly
+                                                  ></td>
+                                                <td><input type="text" formControlName="incomingVoltage4" class="form-control disable" readonly
+                                                  ></td>
+                                                <td><input type="text"  formControlName="incomingVoltage5" class="form-control disable" readonly
                                                  ></td>
-                                                <td><input type="text"  formControlName="incomingVoltage3" class="form-control disable"
-                                                  ></td>
-                                                <td><input type="text" formControlName="incomingVoltage4" class="form-control disable"
-                                                  ></td>
-                                                <td><input type="text"  formControlName="incomingVoltage5" class="form-control disable"
+                                                <td><input type="text" formControlName="incomingVoltage6" class="form-control disable" readonly
                                                  ></td>
-                                                <td><input type="text" formControlName="incomingVoltage6" class="form-control disable"
-                                                 ></td>
-                                                <td><input type="text" formControlName="incomingVoltage7" class="form-control disable"
+                                                <td><input type="text" formControlName="incomingVoltage7" class="form-control disable" readonly
                                                   ></td>
-                                                <td><input type="text" formControlName="incomingVoltage8" class="form-control disable"
+                                                <td><input type="text" formControlName="incomingVoltage8" class="form-control disable" readonly
                                                   ></td>
-                                                <td><input type="text" formControlName="incomingVoltage9" class="form-control disable"
+                                                <td><input type="text" formControlName="incomingVoltage9" class="form-control disable" readonly
                                                   ></td>
                                             </tr>
-
+                                          
                                             <tr>
                                                 <td>External Loop Impedance Ze (Ω)</td>
-                                                <td><input type="text" formControlName="incomingZs1" class="form-control disable"
+                                                <td><input type="text" formControlName="incomingZs1" class="form-control disable" readonly
                                                   ></td>
-                                                <td><input type="text"formControlName="incomingZs2" class="form-control disable"
+                                                <td><input type="text"formControlName="incomingZs2" class="form-control disable" readonly
                                                   ></td>
-                                                <td><input type="text" formControlName="incomingZs3" class="form-control disable"
+                                                <td><input type="text" formControlName="incomingZs3" class="form-control disable" readonly
                                                  ></td>
-                                                <td><input type="text" formControlName="incomingZs4" class="form-control disable"
+                                                <td><input type="text" formControlName="incomingZs4" class="form-control disable" readonly
                                                   ></td>
-                                                <td><input type="text" formControlName="incomingZs5" class="form-control disable"
+                                                <td><input type="text" formControlName="incomingZs5" class="form-control disable"readonly
                                                   ></td>
-                                                <td><input type="text"  formControlName="incomingZs6" class="form-control disable"
+                                                <td><input type="text"  formControlName="incomingZs6" class="form-control disable" readonly
                                                   ></td>
-                                                <td><input type="text" formControlName="incomingZs7" class="form-control disable"
+                                                <td><input type="text" formControlName="incomingZs7" class="form-control disable" readonly
                                                   ></td>
-                                                <td><input type="text" formControlName="incomingZs8" class="form-control disable"
+                                                <td><input type="text" formControlName="incomingZs8" class="form-control disable"readonly
                                                   ></td>
-                                                <td><input type="text" formControlName="incomingZs9" class="form-control disable"
+                                                <td><input type="text" formControlName="incomingZs9" class="form-control disable" readonly
                                                   ></td>
                                             </tr>
 
                                             <tr>
-                                                <td>Prospective fault current Ipfc (kA)</td>
-                                                <td><input type="text" formControlName="incomingIpf1" class="form-control disable"
-                                                  ></td>
-                                                <td><input type="text"  formControlName="incomingIpf2" class="form-control disable"
-                                                  ></td>
-                                                <td><input type="text" formControlName="incomingIpf3" class="form-control disable"
-                                                  ></td>
-                                                <td><input type="text" formControlName="incomingIpf4" class="form-control disable"
-                                                  ></td>
-                                                <td><input type="text"  formControlName="incomingIpf5" class="form-control disable"
-                                                  ></td>
-                                                <td><input type="text" formControlName="incomingIpf6" class="form-control disable"
-                                                  ></td>
-                                                <td><input type="text" formControlName="incomingIpf7" class="form-control disable"
-                                                  ></td>
-                                                <td><input type="text" formControlName="incomingIpf8" class="form-control disable"
-                                                  ></td>
-                                                <td><input type="text" formControlName="incomingIpf9" class="form-control disable"
-                                                  ></td>
-                                            </tr>
+                                              <td>Prospective fault current Ipfc (kA)</td>
+                                              <td><input type="text" formControlName="incomingIpf1" class="form-control disable" readonly
+                                                ></td>
+                                              <td><input type="text"  formControlName="incomingIpf2" class="form-control disable" readonly
+                                                ></td>
+                                              <td><input type="text" formControlName="incomingIpf3" class="form-control disable" readonly
+                                                ></td>
+                                              <td><input type="text" formControlName="incomingIpf4" class="form-control disable" readonly
+                                                ></td>
+                                              <td><input type="text"  formControlName="incomingIpf5" class="form-control disable" readonly
+                                                ></td>
+                                              <td><input type="text" formControlName="incomingIpf6" class="form-control disable" readonly
+                                                ></td>
+                                              <td><input type="text" formControlName="incomingIpf7" class="form-control disable" readonly
+                                                ></td>
+                                              <td><input type="text" formControlName="incomingIpf8" class="form-control disable" readonly
+                                                ></td>
+                                              <td><input type="text" formControlName="incomingIpf9" class="form-control disable" readonly
+                                                ></td>
+                                          </tr>
+                                          <tr>
+                                            <td>Actual load current connected to this source (A)</td>
+                                            <td colspan="2"><input type="text" formControlName="actualLoadAl1" class="form-control disable" readonly
+                                              ></td>
+                                            <td colspan="2"><input type="text"  formControlName="actualLoadAl2" class="form-control disable" readonly
+                                              ></td>
+                                            <td colspan="3"><input type="text" formControlName="actualLoadAl3" class="form-control disable" readonly
+                                              ></td>
+                                            <td colspan="2"><input type="text" formControlName="actualLoadAl4" class="form-control disable" readonly
+                                              ></td>
+                                        </tr>
 
                                         </tbody>
                                     </div>
@@ -346,10 +511,10 @@
                       <div class="table-responsive" >
                           <table  class="table testingTable" id="table1">
                               <div formArrayName="distributionIncomingValueArr2" *ngFor="let e of getdistributionIncomingValueControls2(c); let j= index">
-                                  <div class="form-group" style="border: 1px solid black;">
+                                  <div class="form-group" style="border:1px solid #dee2e6;">
                                       <thead>
                                           <tr align="center">
-                                              <th></th>
+                                              <th>Reference</th>
                                               <th>L1-L2</th>
                                               <th>L2-L3</th>
                                               <th>L1-L3</th>
@@ -364,70 +529,79 @@
                                       <tbody [formGroupName]="j">
                                           <tr>
                                               <td>Nominal Voltage U/U0 (V)</td>
-                                              <td><input type="text" formControlName="incomingVoltage1" class="form-control disable" 
+                                              <td><input type="text" formControlName="incomingVoltage1" class="form-control disable"  readonly
                                                 ></td>
-                                              <td><input type="text"  formControlName="incomingVoltage2" class="form-control disable"
+                                              <td><input type="text"  formControlName="incomingVoltage2" class="form-control disable" readonly
                                                 ></td>
-                                              <td><input type="text"  formControlName="incomingVoltage3" class="form-control disable"
+                                              <td><input type="text"  formControlName="incomingVoltage3" class="form-control disable" readonly
                                                 ></td>
-                                              <td><input type="text" formControlName="incomingVoltage4" class="form-control disable"
+                                              <td><input type="text" formControlName="incomingVoltage4" class="form-control disable" readonly
                                                ></td>
-                                              <td><input type="text"  formControlName="incomingVoltage5" class="form-control disable"
+                                              <td><input type="text"  formControlName="incomingVoltage5" class="form-control disable" readonly
                                                 ></td>
-                                              <td><input type="text" formControlName="incomingVoltage6" class="form-control disable"
+                                              <td><input type="text" formControlName="incomingVoltage6" class="form-control disable" readonly
                                                 ></td>
-                                              <td><input type="text" formControlName="incomingVoltage7" class="form-control disable"
+                                              <td><input type="text" formControlName="incomingVoltage7" class="form-control disable" readonly
                                                 ></td>
-                                              <td><input type="text" formControlName="incomingVoltage8" class="form-control disable"
+                                              <td><input type="text" formControlName="incomingVoltage8" class="form-control disable" readonly
                                                 ></td>
-                                              <td><input type="text" formControlName="incomingVoltage9" class="form-control disable"
+                                              <td><input type="text" formControlName="incomingVoltage9" class="form-control disable" readonly
                                                 ></td>
                                           </tr>
+                                          <tr>
+                                            <td>External Loop Impedance Ze (Ω)</td>
+                                            <td><input type="text" formControlName="incomingZs1" class="form-control disable" readonly
+                                              ></td>
+                                            <td><input type="text"formControlName="incomingZs2" class="form-control disable" readonly
+                                              ></td>
+                                            <td><input type="text" formControlName="incomingZs3" class="form-control disable" readonly
+                                              ></td>
+                                            <td><input type="text" formControlName="incomingZs4" class="form-control disable" readonly
+                                              ></td>
+                                            <td><input type="text" formControlName="incomingZs5" class="form-control disable" readonly
+                                              ></td>
+                                            <td><input type="text"  formControlName="incomingZs6" class="form-control disable" readonly
+                                              ></td>
+                                            <td><input type="text" formControlName="incomingZs7" class="form-control disable" readonly
+                                              ></td>
+                                            <td><input type="text" formControlName="incomingZs8" class="form-control disable" readonly
+                                              ></td>
+                                            <td><input type="text" formControlName="incomingZs9" class="form-control disable" readonly
+                                              ></td>
+                                        </tr>
 
                                           <tr>
-                                              <td>External Loop Impedance Ze (Ω)</td>
-                                              <td><input type="text" formControlName="incomingZs1" class="form-control disable"
-                                                ></td>
-                                              <td><input type="text"formControlName="incomingZs2" class="form-control disable"
-                                                ></td>
-                                              <td><input type="text" formControlName="incomingZs3" class="form-control disable"
-                                                ></td>
-                                              <td><input type="text" formControlName="incomingZs4" class="form-control disable"
-                                                ></td>
-                                              <td><input type="text" formControlName="incomingZs5" class="form-control disable"
-                                                ></td>
-                                              <td><input type="text"  formControlName="incomingZs6" class="form-control disable"
-                                                ></td>
-                                              <td><input type="text" formControlName="incomingZs7" class="form-control disable"
-                                                ></td>
-                                              <td><input type="text" formControlName="incomingZs8" class="form-control disable"
-                                                ></td>
-                                              <td><input type="text" formControlName="incomingZs9" class="form-control disable"
-                                                ></td>
-                                          </tr>
-
-                                          <tr>
-                                              <td>Prospective fault current Ipfc (kA)</td>
-                                              <td><input type="text" formControlName="incomingIpf1" class="form-control disable"
-                                                ></td>
-                                              <td><input type="text"  formControlName="incomingIpf2" class="form-control disable"
-                                                ></td>
-                                              <td><input type="text" formControlName="incomingIpf3" class="form-control disable"
-                                                ></td>
-                                              <td><input type="text" formControlName="incomingIpf4" class="form-control disable"
-                                                ></td>
-                                              <td><input type="text"  formControlName="incomingIpf5" class="form-control disable"
-                                                ></td>
-                                              <td><input type="text" formControlName="incomingIpf6" class="form-control disable"
-                                                ></td>
-                                              <td><input type="text" formControlName="incomingIpf7" class="form-control disable"
-                                                ></td>
-                                              <td><input type="text" formControlName="incomingIpf8" class="form-control disable"
-                                                ></td>
-                                              <td><input type="text" formControlName="incomingIpf9" class="form-control disable"
-                                                ></td>
-                                          </tr>
-
+                                            <td>Prospective fault current Ipfc (kA)</td>
+                                            <td><input type="text" formControlName="incomingIpf1" class="form-control disable" readonly
+                                              ></td>
+                                            <td><input type="text"  formControlName="incomingIpf2" class="form-control disable" readonly
+                                              ></td>
+                                            <td><input type="text" formControlName="incomingIpf3" class="form-control disable" readonly
+                                              ></td>
+                                            <td><input type="text" formControlName="incomingIpf4" class="form-control disable" readonly
+                                              ></td>
+                                            <td><input type="text"  formControlName="incomingIpf5" class="form-control disable" readonly
+                                              ></td>
+                                            <td><input type="text" formControlName="incomingIpf6" class="form-control disable"readonly
+                                              ></td>
+                                            <td><input type="text" formControlName="incomingIpf7" class="form-control disable" readonly
+                                              ></td>
+                                            <td><input type="text" formControlName="incomingIpf8" class="form-control disable" readonly
+                                              ></td>
+                                            <td><input type="text" formControlName="incomingIpf9" class="form-control disable" readonly
+                                              ></td>
+                                        </tr>
+                                        <tr>
+                                          <td>Actual load current connected to this source (A)</td>
+                                          <td colspan="2"><input type="text" formControlName="actualLoadAl1" class="form-control disable" readonly
+                                            ></td>
+                                          <td colspan="2"><input type="text"  formControlName="actualLoadAl2" class="form-control disable" readonly
+                                            ></td>
+                                          <td colspan="3"><input type="text" formControlName="actualLoadAl3" class="form-control disable" readonly
+                                            ></td>
+                                          <td colspan="2"><input type="text" formControlName="actualLoadAl4" class="form-control disable" readonly
+                                            ></td>
+                                      </tr>
                                       </tbody>
                                   </div>
                               </div>
@@ -437,62 +611,152 @@
               </div>
             </div>
           </div>
-
+       
           <div class="row">
             <div class="col">
                 <div class="table-responsive" id="style-1">
-                  <table class="table" border="1" id="table2" style="margin-bottom: unset;">
+                  <table class="table" border="1" id="table2" style="margin-bottom: unset;"   >
                       <thead>
                             <tr align="center">
-                                <th colspan="8"> Circuit Details </th>
+                                <th colspan="11"> Circuit Details </th>
                                 <th colspan="4"> Conductor Details </th>
-                                <th colspan="3"> Continuity (Ω) </th>
-                                <th colspan="9" rowspan="2">Insulation Resistance</th>
+                                <th colspan="5"> Continuity (Ω) </th>
                                 <th rowspan="2"></th>
-                                <th colspan="9" rowspan="2"> Voltage (V)(note)</th>
-                                <th colspan="9" rowspan="2"> Fault Loop Impedance (Ω)(note) </th>
-                                <th colspan="9" rowspan="2"> Actual Short Circuit / Fault Current (Amps) (note)</th>
-                                <th colspan="9" rowspan="2"> Disconnection Time (For a Short Circuit/Fault Of
-                                    Negligible Impedance) (seconds) </th>
+                                <th colspan="9" rowspan="2">Insulation Resistance (MΩ)
+                                  <mat-icon style="float: right;font-size: 18px;
+                                  line-height: unset;"
+                                  matTooltip="If 1-phase, 2-wire (LN) is selected, column L1-N, L1-PE to be filled. 
+                                  If 1-phase, 3-wire (LLM) is selected, column L1-L2, L1-N, L2-N, L1-PE & L2-PE to be filled. 
+                                  If 2-phase, 3-wire (LLN) is selected, column L1-L2, L1-N, L2-N, L1-PE & L2-PE to be filled. 
+                                  If 3-phase, 3-wire (LLL) is selected, column L1-L2, L2-L3, L3-L1, L1-PE, L2-PE & L3-PE to be filled. 
+                                  If 3-phase, 4-wire (LLLN) is selected, all fields to be filled. 
+                                  Fill not applicable for unfilled fields.
+                                  14.24 = 14.22/14.23 * 10-3 (calculation will be automatically done)"
+                                  matTooltipClass="multiline-tooltip"
+                                  aria-label="Button that shows a red tooltip"
+                                  class="example-button">
+                                  info_outline
+                                 </mat-icon>
+
+                                </th>
+                              
+                                <th colspan="9" rowspan="2"> Voltage (V)</th>
+                                <th colspan="9" rowspan="2"> Short circuit / Fault loop impedance (Ω)  </th>
+                                <th colspan="9" rowspan="2"> Actual Short circuit / fault current (kA) </th>
+                                <th colspan="9" rowspan="2"> Disconnection Time(sec) </th>
                                 <th colspan="4">RCD </th>
                                 <th rowspan="2"></th>
                             </tr>
                             <tr  align="center">
                                 <th></th>
                                 <th></th>
-                                <th colspan="6">Over Current Device</th>
+                                <th colspan="9">OCPD</th>
                                 <th></th>
-                                <th colspan="3">CrosssectionalArea(mm2)</th>
-                                <th colspan="3">Required For Final Circuits And Protective Conductor Only</th>
+                                <th colspan="3">Cross sectional area (sq.mm.) </th>
+                                <th colspan="5">Applicable to live and protective conductors in final circuits only </th>
                                 <th></th>
                                 <th colspan="2">Operating Time</th>
                                 <th></th>
                             </tr>
                             <tr align="center">
-                                <th rowspan="2">Circuit No</th>
-                                <th>Description</th>
-                                <th>Standard No</th>
-                                <th>Type</th>
-                                <th>Rating (A)</th>
-                                <th>Breaking Capacity (kA)</th>
-                                <th>Short Circuit Setting</th>
-                                <th>E and F setting</th>
+                            
+                                <th rowspan="2">Circuit No
+                                  <mat-icon style="font-size: 18px;
+                                  line-height: unset;"
+                                  matTooltip="Follow the circuit number of client or Start with 1 if circuit numbers are not available / followed in the installation"
+                                  matTooltipClass="example-tooltip-red."
+                                  aria-label="Button that shows a red tooltip"
+                                  class="example-button">
+                                  info_outline
+                                 </mat-icon>
+                                </th>
+                                <th>Description
+                                  <mat-icon style="float: right;font-size: 18px;
+                                line-height: unset;margin-right: 20%;"
+                                matTooltip="(e.g., lighting / power socket/air conditioner/ motor/ name of any equipment’s connected)."
+                                matTooltipClass="multiline-tooltip"
+                                aria-label="Button that shows a red tooltip"
+                                class="example-button">
+                                info_outline
+                               </mat-icon>
+                                </th>
+                               
+                                <th>Standard No
+                                  <mat-icon style="font-size: 18px;
+                                line-height: unset;"
+                                matTooltip="Manufacturer’s reference standard"
+                                matTooltipClass="example-tooltip-red."
+                                aria-label="Button that shows a red tooltip"
+                                class="example-button">
+                                info_outline
+                               </mat-icon>
+                                </th>
+                               
+                                <th>Make
+                                  <mat-icon style="float: right;font-size: 18px;
+                                  line-height: unset;"
+                                  matTooltip="Manufacturer’s name"
+                                  matTooltipClass="multiline-tooltip"
+                                  aria-label="Button that shows a red tooltip"
+                                  class="example-button">
+                                  info_outline
+                                 </mat-icon>
+                                </th>
+                                
+                                <th>Type
+                                  <mat-icon style="float: right;font-size: 18px;
+                                  line-height: unset;"
+                                  matTooltip="MCB/MCCB/RCBO/MCB with RCD/ACB with micrologic relay/ ACB with numerical protection relay (enter details of relay in case of ACB"
+                                  matTooltipClass="multiline-tooltip"
+                                  aria-label="Button that shows a red tooltip"
+                                  class="example-button">
+                                  info_outline
+                                 </mat-icon>
+                                </th>
+
+                                <th>No of poles
+                                  <mat-icon style="font-size: 18px;
+                                  line-height: unset;"
+                                  matTooltip="1 / 2 / 3 / 4"
+                                  matTooltipClass="example-tooltip-red."
+                                  aria-label="Button that shows a red tooltip"
+                                  class="example-button">
+                                  info_outline
+                                 </mat-icon>
+                                </th>
+                               
+                                <th>Model/ current curve 
+                                  <mat-icon style="float: right;font-size: 18px;
+                                  line-height: unset;"
+                                  matTooltip="MCB Type B / C / D / K / Z & others specify manufacturer’s model"
+                                  matTooltipClass="multiline-tooltip"
+                                  aria-label="Button that shows a red tooltip"
+                                  class="example-button">
+                                  info_outline
+                                 </mat-icon>
+                                </th>
+                                <th>Rating current (A) </th>
+                                <th>Breaking capacity (kA) 
+                                  <mat-icon style="float: right;font-size: 18px;
+                                  line-height: unset;"
+                                  matTooltip="As specified by manufacturer"
+                                  matTooltipClass="multiline-tooltip"
+                                  aria-label="Button that shows a red tooltip"
+                                  class="example-button">
+                                  info_outline
+                                 </mat-icon>
+                                </th>
+                                <th>Short circuit setting (A) </th>
+                                <th>Earth fault setting (A) </th>
                                 <th>Installation Reference Method</th>
                                 <th>Phase</th>
                                 <th>Neutral</th>
-                                <th>PE / CPC</th>
-                                <th>Approximate Length</th>
+                                <th>PE</th>
+                                <th>Length(meter)</th>
                                 <th>R1+R2 (Ω)</th>
                                 <th>R2 (Ω)</th>
-                                <th>L1-L2</th>
-                                <th>L2-L3</th>
-                                <th>L1-L3</th>
-                                <th>L1-N</th>
-                                <th>L2-N</th>
-                                <th>L3-N</th>
-                                <th>L1-PE</th>
-                                <th>L2-PE</th>
-                                <th>L3-PE</th>
+                                <th>Maximum allowed value</th>
+                                <th>Remarks</th>
                                 <th>Polarity</th>
                                 <th>L1-L2</th>
                                 <th>L2-L3</th>
@@ -500,6 +764,17 @@
                                 <th>L1-N</th>
                                 <th>L2-N</th>
                                 <th>L3-N</th>
+
+                                <th>L1-PE</th>
+                                <th>L2-PE</th>
+                                <th>L3-PE</th>
+                                <th>L1-L2</th>
+                                <th>L2-L3</th>
+                                <th>L1-L3</th>
+                                <th>L1-N</th>
+                                <th>L2-N</th>
+                                <th>L3-N</th>
+
                                 <th>L1-PE</th>
                                 <th>L2-PE</th>
                                 <th>L3-PE</th>
@@ -530,89 +805,226 @@
                                 <th>L1-PE</th>
                                 <th>L2-PE</th>
                                 <th>L3-PE</th>
-                                <th>Sensitivity</th>
-                                <th>I∆n </th>
-                                <th>5 I∆n</th>
+                                <th>Type (A/B/AC/F)  </th>
+                                <th>Sensitivity I∆n (mA) </th>
+                                <th> I∆n (ms) </th>
+                                <th>5*I∆n (ms)</th>
                                 <th rowspan="2">Test Button Operation</th>
-                                <th>Remarks</th>
+                                <th>Observations</th>
                           </tr>
                        </thead>
-                      <tbody formArrayName="testingRecords" >
-                        <tr *ngFor="let f of gettestValueControls(a); let i = index"  class="form-group"[formGroupName]="i" >
-                                <td><input type="text" formControlName="circuitNo" class="form-control"   style="width:80px"></td>
-                                <td ><textarea  formControlName="circuitDesc"  class="form-control" style="height:40px;width:170px;"  ></textarea> </td>
-                                <td><input type="text" formControlName="circuitStandardNo" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="circuitType" class="form-control" style="width:80px"></td>
-                                <td><input type="text" formControlName="circuitRating" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="circuitBreakingCapacity" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="shortCircuitSetting" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="eFSetting" class="form-control"   style="width:80px"></td>
-                                <td><textarea  formControlName="conductorInstallation"  class="form-control"  style="height:40px;width:170px;"></textarea>
-                                <td><input type="text" formControlName="conductorPhase" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="conductorNeutral" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="conductorPecpc" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="continutiyApproximateLength" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="continutiyRR" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="continutiyR" class="form-control"   style="width:80px"></td>
-                                
-                                <td><input type="text" formControlName="rycontinutiy" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="rbcontinutiy" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ybcontinutiy" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="rncontinutiy" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="yncontinutiy" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="bncontinutiy" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="rpecontinutiy" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ypecontinutiy" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="bpecontinutiy" class="form-control"  style="width:80px"></td>
+                      <tbody formArrayName="testingRecords" *ngFor="let f of gettestValueControls(z); let i = index">
+                        <ng-container [formGroupName]="i">
+                          <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}"
+                            (click)="removeItemRecords(z,i,f)" *ngIf="gettestValueControls(z).length > 1" style="cursor: pointer;margin: 20px 5px 20px 5px;">remove_circle_outline</mat-icon>
+                        <tr  class="form-group">
+                                <td><input type="text" formControlName="circuitNo" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td ><textarea  formControlName="circuitDesc"  class="form-control" style="height:40px;width:170px;"  [readonly]="service.allFieldsDisable"></textarea> </td>
+                                <td><input type="text" formControlName="circuitStandardNo" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="circuitMake" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="circuitType" class="form-control" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="numberOfPoles" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="circuitCurrentCurve" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
 
-                                <td><input type="text" formControlName="continutiyPolarity" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ryVoltage" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="rbVoltage" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ybVoltage" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="rnVoltage" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ynVoltage" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="bnVoltage" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="rpeVoltage" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ypeVoltage" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="bpeVoltage" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ryLoopImpedance" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="rbLoopImpedance" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ybLoopImpedance" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="rnLoopImpedance" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ynLoopImpedance" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="bnLoopImpedance" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="rpeLoopImpedance" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ypeLoopImpedance" class="form-control"  style="width:70px"></td>
-                                <td><input type="text" formControlName="bpeLoopImpedance" class="form-control"  style="width:80px"></td>
-                                <td> <input type="text" formControlName="ryFaultCurrent" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="rbFaultCurrent" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ybFaultCurrent" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="rnFaultCurrent" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ynFaultCurrent" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="bnFaultCurrent" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="rpeFaultCurrent" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="ypeFaultCurrent" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="bpeFaultCurrent" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="ryDisconnect" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="rbDisconnect" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ybDisconnect" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="rnDisconnect" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ynDisconnect" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="bnDisconnect" class="form-control"   style="width:80px"></td>
-                                <td><input type="text" formControlName="rpeDisconnect" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="ypeDisconnect" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="bpeDisconnect" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="rcdCurrent" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="rcdOperatingCurrent" class="form-control"  style="width:80px"></td>
-                                <td><input type="text" formControlName="rcdOperatingFiveCurrent" class="form-control"   style="width:80px"></td>
-                                <td><textarea  formControlName="rcdTestButtonOperation"  class="form-control" style="height:40px;width:170px;"></textarea>
-                                <td><textarea  formControlName="rcdRemarks"  class="form-control" style="height:40px;width:170px;"></textarea>
+                                <td><input type="text" formControlName="circuitRating" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="circuitBreakingCapacity" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="shortCircuitSetting" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="eFSetting" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><textarea formControlName="conductorInstallation"  class="form-control"  style="height:40px;width:170px;" [readonly]="service.allFieldsDisable"></textarea>
+                                <td><input type="number" formControlName="conductorPhase" class="form-control"  (focusout)="onFocusOut($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"
+                                  [ngClass]="[ f.get('conductorPhaseFlag')?.value  ? 'is-invalid' : '',submitted && f.get('conductorPhase')?.errors ? 'is-invalid' : '']">
+                                <div class="invalid-feedback" style="font-size: 75%" *ngIf="f.get('conductorPhaseFlag')?.value">
+                                  <div>Value entered doesn't match the standard</div>
+                                </div>
+                                <div *ngIf="submitted && f.get('conductorPhase')?.errors" style="font-size: 75%" class="invalid-feedback">
+                                  <div *ngIf="f.get('conductorPhase')?.errors?.required">Value is required</div>
+                                </div>
+                                </td>
+                                <td><input type="number" formControlName="conductorNeutral" class="form-control" (focusout)="onFocusOutNeutral($event,f)"  style="width:80px" [readonly]="service.allFieldsDisable"
+                                  [ngClass]="[ f.get('conductorNeutralFlag')?.value  ? 'is-invalid' : '',submitted && f.get('conductorNeutral')?.errors ? 'is-invalid' : '']">
+                                <div class="invalid-feedback" style="font-size: 75%" *ngIf="f.get('conductorNeutralFlag')?.value">
+                                  <div>Value entered doesn't match the standard</div>
+                                </div>
+                                </td>
+                                <td><input type="number" formControlName="conductorPecpc" class="form-control" (focusout)="onFocusOutPe($event,f)"  style="width:80px" [readonly]="service.allFieldsDisable"
+                                  [ngClass]="[ f.get('conductorPecpcFlag')?.value  ? 'is-invalid' : '',submitted && f.get('conductorPecpc')?.errors ? 'is-invalid' : '']">
+                                  <div class="invalid-feedback" style="font-size: 75%" *ngIf="f.get('conductorPecpcFlag')?.value">
+                                    <div>Value entered doesn't match the standard</div>
+                                  </div>
+                                </td>
+                                <td><input type="text" formControlName="continutiyApproximateLength" class="form-control" (focusout)="onFocusOut($event,f)"  style="width:80px" [readonly]="service.allFieldsDisable"
+                                  [ngClass]="[submitted && f.get('continutiyApproximateLength')?.errors ? 'is-invalid' : '' , service.allFieldsDisable ? 'disableForm' : '']">
+                                  <div *ngIf="submitted && f.get('continutiyApproximateLength')?.errors" style="font-size: 75%" class="invalid-feedback">
+                                    <div *ngIf="f.get('continutiyApproximateLength')?.errors?.required">Value is required</div>
+                                  </div></td>
+                                <td><input type="text" formControlName="continutiyRR" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="continutiyR" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
+
+                                <td><input type="text" formControlName="maximumAllowedValue" class="form-control"   style="width:80px" readonly
+                                  [ngClass]="[submitted && f.get('maximumAllowedValue')?.errors ? 'is-invalid' : '' , service.allFieldsDisable ? 'disableForm' : '']">
+                                  <div *ngIf="submitted && f.get('maximumAllowedValue')?.errors" style="font-size: 75%" class="invalid-feedback">
+                                    <div *ngIf="f.get('maximumAllowedValue')?.errors?.required">Value is required</div>
+                                  </div>
+                                </td>
+                                <td>
+                                  <!-- <textarea  formControlName="continuityRemarks"  class="form-control" style="height:40px;width: 170px;" matTooltip="{{f.get('continuityRemarks')?.value}}" readonly></textarea> -->
+                                  <input type="text" formControlName="continuityRemarks" class="form-control long-value-input" matTooltip="{{f.get('continuityRemarks')?.value}}"   readonly>
+                                </td>
+
+                                <td><input type="text" formControlName="continutiyPolarity" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+
+                                <td><input type="text" formControlName="rycontinutiy" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="rbcontinutiy" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="ybcontinutiy" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="rncontinutiy" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="yncontinutiy" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="bncontinutiy" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="rpecontinutiy" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="ypecontinutiy" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="bpecontinutiy" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <!-- voltage -->
+                              <td><input type="text" formControlName="ryVoltage" class="form-control"  (keyup)="onKeyVoltage1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="rbVoltage" class="form-control"  (keyup)="onKeyVoltage1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="ybVoltage" class="form-control"  (keyup)="onKeyVoltage1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="rnVoltage" class="form-control"  (keyup)="onKeyVoltage1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="ynVoltage" class="form-control"  (keyup)="onKeyVoltage1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="bnVoltage" class="form-control"   (keyup)="onKeyVoltage1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="rpeVoltage" class="form-control" (keyup)="onKeyVoltage1($event,f)"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="ypeVoltage" class="form-control"  (keyup)="onKeyVoltage1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="bpeVoltage" class="form-control"  (keyup)="onKeyVoltage1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <!-- impedance -->
+                              <td><input type="text" formControlName="ryLoopImpedance" class="form-control"   (keyup)="onKeyImpedance1($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="rbLoopImpedance" class="form-control"  (keyup)="onKeyImpedance2($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="ybLoopImpedance" class="form-control"  (keyup)="onKeyImpedance3($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="rnLoopImpedance" class="form-control"  (keyup)="onKeyImpedance4($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="ynLoopImpedance" class="form-control" (keyup)="onKeyImpedance5($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="bnLoopImpedance" class="form-control" (keyup)="onKeyImpedance6($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="rpeLoopImpedance" class="form-control" (keyup)="onKeyImpedance7($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="ypeLoopImpedance" class="form-control"  (keyup)="onKeyImpedance8($event,f)" style="width:70px" [readonly]="service.allFieldsDisable"></td>
+                              <td><input type="text" formControlName="bpeLoopImpedance" class="form-control"  (keyup)="onKeyImpedance9($event,f)" style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                           <!-- mains calculation -->
+                                <td> <input type="text" formControlName="ryFaultCurrent" class="form-control" [value]="f.get('ryFaultCurrent')?.value" style="width:85px;pointer-events: none;" readonly ></td>
+                                <td><input type="text" formControlName="rbFaultCurrent" class="form-control" [value]="f.get('rbFaultCurrent')?.value" style="width:85px;pointer-events: none;" readonly ></td>
+                                <td><input type="text" formControlName="ybFaultCurrent" class="form-control" [value]="f.get('ybFaultCurrent')?.value" style="width:85px;pointer-events: none;" readonly ></td>
+                                <td><input type="text" formControlName="rnFaultCurrent" class="form-control" [value]="f.get('rnFaultCurrent')?.value" style="width:85px;pointer-events: none;" readonly ></td>
+                                <td><input type="text" formControlName="ynFaultCurrent" class="form-control" [value]="f.get('ynFaultCurrent')?.value" style="width:85px;pointer-events: none;" readonly ></td>
+                                <td><input type="text" formControlName="bnFaultCurrent" class="form-control" [value]="f.get('bnFaultCurrent')?.value" style="width:85px;pointer-events: none;" readonly ></td>
+                                <td><input type="text" formControlName="rpeFaultCurrent" class="form-control" [value]="f.get('rpeFaultCurrent')?.value" style="width:85px;pointer-events: none;" readonly ></td>
+                                <td><input type="text" formControlName="ypeFaultCurrent"  class="form-control" [value]="f.get('ypeFaultCurrent')?.value" style="width:85px;pointer-events: none;" readonly ></td>
+                                <td><input type="text" formControlName="bpeFaultCurrent"  class="form-control" [value]="f.get('bpeFaultCurrent')?.value" style="width:85px;pointer-events: none;" readonly ></td>
+                               <!-- mains calculation -->
+                                <td><input type="text" formControlName="ryDisconnect" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="rbDisconnect" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="ybDisconnect" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="rnDisconnect" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="ynDisconnect" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="bnDisconnect" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="rpeDisconnect" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="ypeDisconnect" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="bpeDisconnect" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="rcdType" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="rcdCurrent" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="rcdOperatingCurrent" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="rcdOperatingFiveCurrent" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><textarea  formControlName="rcdTestButtonOperation"  class="form-control" style="height:40px;width:170px;" [readonly]="service.allFieldsDisable"></textarea>
+                                <td><textarea  formControlName="rcdRemarks"  class="form-control" style="height:40px;width:170px;" 
+                                 [readonly]="service.allFieldsDisable"></textarea>
                                </tr>
+                        <ng-container formArrayName="testingRecordsSourceSupply" *ngFor="let g of gettestAlternateValueControls(f); let j = index">
+                        <tr  class="form-group"  [formGroupName]="j">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                
+
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                              
+                                
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                
+
+                                <td></td>
+                                <td><input type="text" formControlName="ryVoltage" class="form-control" (change)="callValue($event)" style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="rbVoltage" class="form-control"  style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="ybVoltage" class="form-control"  style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="rnVoltage" class="form-control"  style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="ynVoltage" class="form-control"  style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="bnVoltage" class="form-control"   style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="rpeVoltage" class="form-control"  style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="ypeVoltage" class="form-control"  style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="bpeVoltage" class="form-control"  style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="ryLoopImpedance" [value]="g.get('ryLoopImpedance')?.value"  class="form-control"    style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="rbLoopImpedance" [value]="g.get('rbLoopImpedance')?.value" class="form-control"   style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="ybLoopImpedance" [value]="g.get('ybLoopImpedance')?.value" class="form-control"   style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="rnLoopImpedance" [value]="g.get('rnLoopImpedance')?.value" class="form-control"   style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="ynLoopImpedance" [value]="g.get('ynLoopImpedance')?.value" class="form-control"    style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="bnLoopImpedance" [value]="g.get('bnLoopImpedance')?.value" class="form-control"   style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="rpeLoopImpedance" [value]="g.get('rpeLoopImpedance')?.value" class="form-control"   style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="ypeLoopImpedance" [value]="g.get('ypeLoopImpedance')?.value" class="form-control"   style="width:70px" readonly></td>
+                                <td><input type="text" formControlName="bpeLoopImpedance" [value]="g.get('bpeLoopImpedance')?.value" class="form-control"   style="width:80px" readonly></td>
+                                <td> <input type="text" formControlName="ryFaultCurrent" [value]="g.get('ryFaultCurrent')?.value" class="form-control"  style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="rbFaultCurrent" [value]="g.get('rbFaultCurrent')?.value" class="form-control"  style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="ybFaultCurrent" [value]="g.get('ybFaultCurrent')?.value" class="form-control"  style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="rnFaultCurrent" [value]="g.get('rnFaultCurrent')?.value" class="form-control"  style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="ynFaultCurrent" [value]="g.get('ynFaultCurrent')?.value" class="form-control"  style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="bnFaultCurrent" [value]="g.get('bnFaultCurrent')?.value" class="form-control"  style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="rpeFaultCurrent" [value]="g.get('rpeFaultCurrent')?.value" class="form-control"   style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="ypeFaultCurrent" [value]="g.get('ypeFaultCurrent')?.value" class="form-control"   style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="bpeFaultCurrent" [value]="g.get('bpeFaultCurrent')?.value" class="form-control"   style="width:80px" readonly></td>
+                                <td><input type="text" formControlName="ryDisconnect" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="rbDisconnect" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="ybDisconnect" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="rnDisconnect" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="ynDisconnect" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="bnDisconnect" class="form-control"   style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="rpeDisconnect" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="ypeDisconnect" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+                                <td><input type="text" formControlName="bpeDisconnect" class="form-control"  style="width:80px" [readonly]="service.allFieldsDisable"></td>
+
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                
+                               </tr>
+                              </ng-container>    
+                          </ng-container>                        
                         </tbody>
                      </table>
                     </div>
                   </div>
                 </div>
+               
+              </div>
+              <br>
+              <br>
+              </div>
             </mat-expansion-panel>
 </mat-accordion>
 </div>
@@ -672,8 +1084,6 @@ style="margin-left: 10px;">
          <mat-icon class="mousechange" (click)="ViewerRemoveComment(i)" style="float:right;position: relative;left: 630%;"
          *ngIf="(a.get('inspectorComments')?.value=='' || a.get('viewerComments')?.value=='') && hideDelete" >delete</mat-icon>
          &nbsp;&nbsp;&nbsp;&nbsp;
-
-        
   </div>
 </div>
 
@@ -812,15 +1222,25 @@ style="margin-left: 10px;" >
                 <span class="alert alert-danger">Your response to comments has been rejected</span>
               </div>
               <br>
-            <div style="text-align: center;margin-top: 40px;">
-                <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
-                <button class="next" [disabled]="disable" (click)="gotoNextModal(content4)" mat-button>Next &raquo;</button>
+            <div style="text-align: center;margin-top: 20px;">
+                <!-- <button class="previous" mat-button matStepperPrevious>&laquo; Back</button> -->
+                <button class="next" (click)="gotoNextModal(content4,content2)" mat-button>Next &raquo;</button>
         </div>
       </form>
     </div>
   </div>
     <ng-template #content4 let-modal>
-        <div class="modal-body">
+        <mat-progress-spinner style="margin: 0 auto;" *ngIf="finalSpinner"
+        color="primary"
+        [mode]="mode"
+        value="50"
+        diameter="50">
+        </mat-progress-spinner>
+        <br>
+        <div *ngIf="finalSpinner" style="text-align: center;">
+          Testing Save in Progress!
+        </div>
+        <div class="modal-body" *ngIf="popup">
             <div class="centre-text m-btm30">
                 <div *ngIf="success" style="text-align: center;">
                     <span class="successshow">{{successMsg}}</span>
@@ -832,10 +1252,69 @@ style="margin-left: 10px;" >
         </div>
         <br>
 
-        <button type="button" class="close" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+        <button type="button" class="close" *ngIf="popup" class="btn btn-block btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
         aria-label="Close" (click)="closeModalDialog()" matStepperNext>
          <span aria-hidden="true">Ok</span>
      </button>
 
     </ng-template>
 
+    <ng-template #content2 let-modal>
+      <div class="modal-body">
+       <div class="centre-text m-btm30">
+        <div style="text-align: center;">
+          <span class="successshow">Are you sure you want to procced? </span>
+          <br>
+          <span style="font-size: 12px;">Note: Please verify all the details! </span>
+         </div>
+        </div>
+       </div>
+      <br>
+      <div class="row">
+         <button type="button" class="col-md-6" style="text-align:center; width: auto;" class="btn btn-primary btn-rounded btn-md font-weight-medium auth-form-btn"
+         aria-label="Close" (click)="closeModalDialog()" matStepperNext>
+         <i class="bi bi-arrow-right-circle"></i>&nbsp;
+          <span aria-hidden="true">Ok</span>
+      </button>
+      <button type="button" class="col-md-6" style="width: auto;" class="btn btn-danger btn-rounded btn-md font-weight-medium auth-form-btn"
+         aria-label="Close" (click)="closeModalDialog()">
+         <i class="bi bi-x icon"></i>
+          <span aria-hidden="true">Cancel</span>
+      </button>
+    </div>
+    
+      </ng-template>
+
+      <!-- <ng-template #observationIter let-modal>
+        <form [formGroup]="ObservationsForm">
+          <div class="modal-header" style="text-align: center; display: block">
+            <h2 class="modal-title" style="display: contents">Observations:</h2>
+          </div>
+          <div class="modal-body">
+                <textarea col=60 row=1 (keyup)="onKeyObservation($event);" 
+                class="form-control"  [(ngModel)]="observationValuesT"
+                formControlName="observations"  placeholder="Ex. Observations ..." >
+                </textarea>
+                <br>
+                <div style="text-align: center">
+                  <button class="btn btn-primary" (click)="submit(observationUpdateFlag)" [disabled]="disableObservation" 
+                  style="font-size: 14px;">
+                    Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <button type="button" aria-label="Close" class="btn btn-danger" (click)="closeModalDialog()"
+                    style="font-size: 14px;">
+                    <i class="bi bi-x icon"></i>
+                    <span aria-hidden="true">Cancel</span>
+                  </button>
+                </div>
+      
+            
+          </div>
+          <div *ngIf="success" style="text-align: center;">
+            <span class="successshow">{{successMsg}}</span>
+          </div>
+          <div *ngIf="Error" style="text-align: center;">
+            <span class="errorshow">{{errorMsg}}</span>
+          </div>
+        </form>
+      
+      </ng-template> -->

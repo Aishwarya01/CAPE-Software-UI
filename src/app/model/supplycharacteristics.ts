@@ -2,6 +2,7 @@ export class Supplycharacteristics {
   userName:String;
   siteId:number;
   supplyCharacteristicsId:number;
+  shortName:String;
   mainSystemEarthing:String;
   systemEarthingBNote:String;
   liveConductorType:String;
@@ -10,8 +11,10 @@ export class Supplycharacteristics {
   liveConductorBNote:String;
   mainNominalVoltage:String;
   mainNominalFrequency:String;
+  mainNominalCapacity: String;
   mainNominalCurrent:String;
   mainLoopImpedance:String;
+  mainActualLoad:String;
   mainNominalProtectiveDevice:String;
   mainRatedCurrent:String;
   mainCurrentDisconnection:String;
@@ -20,6 +23,7 @@ export class Supplycharacteristics {
   maximumDemand:String;
   maximumLoad:String;
   meansEarthing:String;
+  meansEarthingRemark:String;
   electrodeType:String;
   electrodeMaterial:String;
   noOfLocation:number;
@@ -45,6 +49,7 @@ export class Supplycharacteristics {
   boundingLocationReport: BoundingLocationReport[];
   earthingLocationReport: EarthingLocationReport[];
   circuitBreaker:CircuitBreaker[];
+  supplyOuterObservation: SupplyOuterObservation[];
 }
   export class Supplyparameters {
     supplyparametersId:number;
@@ -65,22 +70,29 @@ export class Supplycharacteristics {
     protectiveDevice: String;
     ratedCurrent:String;
     currentDissconnection:String;
+    supplyParameterStatus: String;
   }
 
   export class CircuitBreaker{
     circuitBreakerId: number;
     location:String;
     type:String;
+    sourceName: String;
+    make: String;
+    currentCurve: String;
     noPoles:String;
     current:String;
     voltage:String;
     fuse:String;
+    typeOfResidualCurrent: String;
     residualCurrent:String;
     residualTime:String;
+    circuitStatus: String;
   }
 
   export class InstallLocationReport{
     locationReportId: number;
+    instalLocationReportStatus: String;
     locationNo:String;
     locationName:String;
     electrodeResistanceEarth:String;
@@ -89,14 +101,33 @@ export class Supplycharacteristics {
 
   export class BoundingLocationReport{
     locationReportId: number;
+    instalLocationReportStatus: String;
     location:String;
     jointNo:String;
+    jointReference:String;
     jointResistance:String;
   }
 
   export class EarthingLocationReport{  
     locationReportId: number;
+    instalLocationReportStatus: String;
     location:String;
     jointNo:String;
+    jointReference:String;
     jointResistance:String;
+  }
+
+  export class SupplyOuterObservation{  
+    supplyOuterObservationId: number;
+    observationComponentDetails: String;
+    observationDescription:String;
+    alternativeInnerObservation: AlternativeInnerObservation[];  
+    supplyOuterObservationStatus: String;
+  }
+
+  export class AlternativeInnerObservation{  
+    supplyInnerObervationsId: number;
+    observationComponentDetails: String;
+    observationDescription:String;    
+    alternativeInnerObservationStatus: String;
   }

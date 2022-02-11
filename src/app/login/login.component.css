@@ -1,11 +1,11 @@
 
 .bg-image {
-    background: url(../../assets/img/login-bg.jpg);
+    background: url(../../assets/img/electrical-panel-testing1.jpg);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: left;
     background-size: 100%;
-    /* height: 800px; */
+    /* height: 800px; */ 
     height: 100%;
     width: 100%;
     position: absolute;
@@ -16,18 +16,23 @@
     float: left;
     max-width: 500px;
     width:100%;
+    margin-top: 40px;
     /* height: 600px; */
     /* margin-top: 40px; */
 }
-
+.loginMargin {
+    border-top: 1px solid rgba(0, 0, 0, 0.125) !important;
+}
+.brand-logo img{
+    width: 45%;
+    margin: 50px auto 20px 0px;
+}
 .brand-logo {
     text-align: center;
     /* margin-top: 2rem; */
 }
 
-.brand-logo img{
-    width: 150px;
-}
+
 
 .login-title {
     margin-top: 2rem;

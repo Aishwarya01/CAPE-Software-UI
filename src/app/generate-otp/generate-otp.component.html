@@ -3,14 +3,15 @@
         <div class="col-md-12 bg-image">
             <div class="col-md-12">
                 <div class="card col-md-5">
-                    <div class="card-header">
+                  
                         <div class="brand-logo">
-                            <a href="#"><img src="assets/img/Rush_Final_logo.png"></a>
+                            <a href="#"><img src="assets/img/Original-green.png"></a>
                         </div>
                         <div class="login-header">
-                            <h3 class="login-title">Rush Safety Applications</h3>
+                            <h3 class="login-title">SOLVE Applications</h3>
                         </div>
-                    </div>
+                        <div class="loginMargin"></div>
+<br>
                     <div class="card-body">
                         <form [formGroup]="generateOtpForm" (ngSubmit)="onSubmit()">
                             <div *ngIf="showErrorMessage" class="errorshow">{{errorMsg}}</div>
@@ -21,7 +22,7 @@
                                     <input type="tel" ng2TelInput id="changeContactPadding" [ng2TelInputOptions]="{initialCountry: 'in',separateDialCode: 'true'}" (countryChange)="countryChange($event)" formControlName="mobileNumber" class="form-control"   placeholder="Enter Number" [ngClass]="{ 'is-invalid': submitted && f.mobileNumber?.errors }">
                                     <div *ngIf="submitted && f.mobileNumber?.errors" class="invalid-feedback">
                                         <div *ngIf="f.mobileNumber?.errors?.required">Mobile Number Is Required</div>
-                                        <!-- <div *ngIf="f.mobileNumber?.errors?.minlength">Enter 10 Digit Number</div> -->
+                                        <div *ngIf="f.mobileNumber?.errors?.minlength">Enter 10 Digit Number</div>
                                         <div *ngIf="f.mobileNumber?.errors?.maxlength">Enter 10 Digit Number</div>
                                     </div>                                        
                             </div>
@@ -43,8 +44,9 @@
                 </div>
                 <div class="col-md-7" style="text-align: center;
                 float: right;
-
-                margin-top: 10px;">
+                margin: 24px;
+                background: rgba(228, 224, 223, 0.5);
+                color: #365520;">
                 <h2>Digital Support for Testing, Inspection and Ceritification of Electrical Installation</h2>
                 <h1 style="font-weight: 600;">INTERACTIVE - INTELLIGENT - MODERN</h1>
                 </div>

@@ -29,6 +29,10 @@ export class SiteService {
     return this.http.get<Site>(this.apiUrl + '/retriveSite' + '/' + userName, { responseType: 'text' as 'json' })
   }
 
+  public retrieveAllSite(userName: any): Observable<any> {
+    return this.http.get<Site>(this.apiUrl + '/retrieveAllSites', { responseType: 'text' as 'json' })
+  }
+
   public retrieveListOfSite(userName: any): Observable<any> { 
     return this.http.get<Site>(this.apiUrl + '/retrieveListOfSite' + '/' + userName , { responseType: 'text' as 'json' })
   }
@@ -54,5 +58,9 @@ export class SiteService {
   }
   public retrieveStateV2(countryName: String): Observable<any> {
     return this.http.get<any>(this.apiUrlV2 + '/fetchStatesByCountryCode' + '/' +countryName, { responseType: 'text' as 'json' })
+  }
+
+  public retrieveSiteName(companyName: String,departmentName: String,siteName: String): Observable<any> {
+    return this.http.get<any>(this.apiUrl + '/retrieveSiteName' + '/' +companyName+ '/' +departmentName+ '/'+siteName, { responseType: 'text' as 'json' })
   }
 }

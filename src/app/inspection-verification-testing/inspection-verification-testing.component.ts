@@ -1,5 +1,5 @@
 import {
-  Component,
+  Component, 
   EventEmitter,
   Input,
   OnInit,
@@ -34,13 +34,18 @@ import { MainNavComponent } from '../main-nav/main-nav.component';
 //import { convertTypeAcquisitionFromJson } from 'typescript';
 import { SupplyCharacteristicsService } from '../services/supply-characteristics.service';
 import { concat } from 'rxjs';
+import { DatePipe } from '@angular/common'
+import { ValueTransformer } from '@angular/compiler/src/util';
+import { MatDialog } from '@angular/material/dialog';
+import { ObservationService } from '../services/observation.service';
+// import { ObservationTesting } from '../model/observation-testing';
 
 @Component({
   selector: 'app-inspection-verification-testing',
   templateUrl: './inspection-verification-testing.component.html',
   styleUrls: ['./inspection-verification-testing.component.css'],
 })
-export class InspectionVerificationTestingComponent implements OnInit {
+export class InspectionVerificationTestingComponent implements OnInit, OnDestroy {
   j: any;
   i: any;
   delarr: any;
@@ -50,17 +55,17 @@ export class InspectionVerificationTestingComponent implements OnInit {
   loc1length: any;
   testingForm!: FormGroup;
   submitted = false;
-  testaccordianArr!: FormArray;
+  testaccordianArr : any  = [];
   panelOpenState = false;
   // email: String = '';
-
+  isHidden=true;
   @Output() proceedNext = new EventEmitter<any>();
   testingDetails = new TestingDetails();
   incomingVoltage: String = '';
   incomingLoopImpedance: String = '';
   incomingFaultCurrent: String = '';
+  incomingActualLoad: String = '';
   rateArr: any = [];
-  locationNumberList: any = [];
   //@Input()
   userName: String = '';
   //@Input()
@@ -68,12 +73,11 @@ export class InspectionVerificationTestingComponent implements OnInit {
   rateValueArr: any = [];
   testingRecordTableArr: any = [];
 
-  locationNameList: any = [];
   distributionIncomingValueArr: any = [];
   distributionIncomingValueArr2: any = [];
-
+  testDistRecords: any=[];
   testingRecords: any = [];
-
+  testingAlternateRecords: any = [];
   ratingAmps1: any;
   testDistribution!: FormArray;
   testingDistribution!: FormArray;
@@ -82,7 +86,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   // success: boolean = false;
   // Error: boolean = false;
   // errorMsg: string = '';
-  email: string;
+ // email: string;
   validationError: boolean = false;
   validationErrorMsg: String = '';
   location = new Location();
@@ -93,21 +97,30 @@ export class InspectionVerificationTestingComponent implements OnInit {
   fcname: any[] = [
     'circuitNo',
     'circuitDesc',
+    'circuitMake',
     'circuitStandardNo',
     'circuitType',
+    'numberOfPoles',
+    'circuitCurrentCurve',
     'circuitRating',
     'circuitBreakingCapacity',
     'shortCircuitSetting',
     'eFSetting',
     'conductorInstallation',
     'conductorPhase',
+    'conductorPhaseFlag',
     'conductorNeutral',
+    'conductorNeutralFlag',
     'conductorPecpc',
+    'conductorPecpcFlag',
     'continutiyApproximateLength',
     'continutiyRR',
     'continutiyR',
+    'maximumAllowedValue',
+    'continuityRemarks',
     'continutiyPolarity',
 
+    'rcdType',
     'rcdCurrent',
     'rcdOperatingCurrent',
     'rcdOperatingFiveCurrent',
@@ -118,9 +131,10 @@ export class InspectionVerificationTestingComponent implements OnInit {
   testList: any = [];
   arr: any = [];
   Ratearr1: any = [];
-  testingRetrieve: boolean = false;
+  testingRetrieve: boolean = true;
   inspectionRetrieve: boolean = false;
-  SourceList: any = ['Mains Incoming'];
+  SourceList: any = [];
+  //observation= new ObservationTesting();
   //disableSource:boolean=true;
   //comments starts
   completedCommentArr3: any = [];
@@ -191,6 +205,8 @@ export class InspectionVerificationTestingComponent implements OnInit {
   isClicked: boolean[] = [];
   arrViewer: any = [];
   @ViewChild('target') private myScrollContainer!: ElementRef;
+ 
+
   expandedIndexx!: number;
   inspectorName: String = '';
   hideShowComment: boolean = false;
@@ -208,6 +224,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
   mainNominalArr: any = [];
   nominalVoltageArr1:any = [];
   nominalVoltageArr3: any = [];
+  nominalVoltageArr4: any = [];
   nominalVoltageArr2: any = [];
   alternateNominalArr: any = [];
   changedIndex:number=0;
@@ -215,99 +232,267 @@ export class InspectionVerificationTestingComponent implements OnInit {
   formList1!: FormArray;
   tempArr: any = [];
   incomingValues: any;
+  modalReference: any;
+  tabErrorMsg: string="";
+  tabError: boolean = false;
+  testingEquipment: any=[];
+  showAdd: boolean = true;
+  validationErrorTab: boolean = false;
+  validationErrorMsgTab: string="";
+  testingCalculation: any=[];
+  testingRecordTableArr1: any=[];
+  testingAlternateRecords1: any = [];
+  testList1: any = [];
+  deletedTestingRecord: any = [];
+  deletedTestingEquipment: any= [];
+  deleteDataFlag: boolean = false;
+  deleteRecordDataFlag: boolean = false;
+  observationUpdateFlag: boolean= false;
+  alArr: any = [];
 
+  // ObservationsForm = new FormGroup({
+  //   observations: new FormControl(''),
+  // });
+  observationFlag: boolean= false;
+  errorArrObservation: any=[];
+  observationValues: any="";
+  disableObservation: boolean=true;
+  observationArr: any=[];
+ 
+  observArr: any = [];
+  deletedObservation: any = [];
+  observationCircuitArr: any= [];
+
+  email: string;
+  observationValuesT: any="";
+  observationModalReference: any;
+  tempArray: any = [];
+  observeMainArr: any = [];
+  deletedObservationArr: any = [];
+  testDistRecords1: any = [];
+  deleteObRecordDataFlag: boolean=false;
+  finalSpinner: boolean = true;
+  popup: boolean = false;
+  tempConsumerArr: any = [];
+  dataRefresher: any;
+  nominalCrossSection: any = ['1.5','2.5','4','6','10','16','25','35','50','70','95','120','150','185'];
+  specificConductor: any = ['12.575','7.566','4.739','3.149','1.881','1.185','0.752','0.546','0.404','0.281','0.204','0.163','0.134','0.109'];
+  valueMismatchingFlag: boolean = false;
+
+  
   constructor(
     private testingService: TestingService,
     private supplyCharacteristicsService: SupplyCharacteristicsService,
     private formBuilder: FormBuilder,
     public service: GlobalsService,
+    private dialog: MatDialog,
     private modalService: NgbModal,
     private router: ActivatedRoute,
+    private observationService: ObservationService,
     private inspectionDetailsService: InspectiondetailsService,
     private siteService: SiteService,
-    private basic: MainNavComponent,
+    private basic: MainNavComponent,public datepipe: DatePipe,
     private UpateInspectionService: InspectionVerificationService,
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
   }
-
+  ngOnDestroy(): void {
+    this.service.siteCount=0;
+    this.location=new Location();
+    this.supply=new Location();
+    this.service.iterationList=[];
+    this.service.nominalVoltageArr2=[];
+    this.service.retrieveMainNominalVoltage=[];	
+    this.service.mainNominalVoltageValue="";	
+    this.service.mainLoopImpedanceValue="";	
+    this.service.mainNominalCurrentValue="";
+    this.service.mainActualLoadValue="";
+    this.service.testingTable2=[];	
+    this.service.observationGlowTesting=false;
+    this.service.testingTable=[];	
+    this.service.supplyList=[];			
+    this.service.isCompleted4= true;
+    this.service.isLinear=false;
+    this.service.editable=true;
+    this.service.lvClick=0;
+    this.service.logoutClick=0;
+    this.service.windowTabClick=0;
+  }
+ 
   ngOnInit(): void {
     this.currentUser = sessionStorage.getItem('authenticatedUser');
     this.currentUser1 = [];
     this.currentUser1 = JSON.parse(this.currentUser);
+    
     this.testingForm = this.formBuilder.group({
        testIncomingDistribution: this.formBuilder.array([
         this.IncomingValue(),
       ]),
-      testaccordianArr: this.formBuilder.array([]),
+      testaccordianArr: this.formBuilder.array([this.createItem()]),
       viewerCommentArr: this.formBuilder.array([this.addCommentViewer()]),
       completedCommentArr1: this.formBuilder.array([]),
     });
-    
     this.retrieveDetailsFromIncoming();
     this.expandedIndex = -1;
     this.retrieveDetailsFromSupply();
-  }
+    // this.ObservationsForm = this.formBuilder.group({
+    //   observations: [''],
+    //  })
+  } 
 
  retrieveDetailsFromIncoming() {
   if(this.service.siteCount !=0 && this.service.siteCount!=undefined) {
     if(this.currentUser1.role == 'Inspector') {
       this.inspectionDetailsService.retrieveInspectionDetails(this.email, this.service.siteCount).subscribe(
         data=>{
-        console.log(data);
         this.incomingValues = JSON.parse(data);
-        for(let i of this.incomingValues) {
-          console.log(i);
-          this.service.iterationList=i.ipaoInspection;
-        }
+        this.testingForm = this.formBuilder.group({
+          testIncomingDistribution: this.formBuilder.array([
+           this.IncomingValue(),
+         ]),
+         testaccordianArr: this.formBuilder.array([]),
+         viewerCommentArr: this.formBuilder.array([this.addCommentViewer()]),
+         completedCommentArr1: this.formBuilder.array([]),
+       });
+        //for(let i of this.incomingValues) {	
+          this.service.iterationList=this.incomingValues.ipaoInspection;	
+        // }
         //location iteration
         if (this.service.iterationList != '' && this.service.iterationList != undefined && this.service.iterationList.length != 0) {
           this.testingRetrieve = false;
           this.inspectionRetrieve = true;
-          
           let a = this.service.iterationList.length;
           for (let i = 0; i < a; i++) {
             this.addItem();
           }
+          // for (let j = 0; j < this.testaccordianArr.controls.length; j++) {
+          //   let v= this.service.iterationList[j].consumerUnit.length;
+          //   for(let k = 0; k < v; k++){
+          //    this.testaccordianArr.value[j].testDistRecords.value[k].distributionBoardDetails= this.service.iterationList[j].consumerUnit[k].distributionBoardDetails;
+          //    this.testaccordianArr.value[j].testDistRecords.value[k].referance= this.service.iterationList[j].consumerUnit[k].referance;
+          //    this.testaccordianArr.value[j].testDistRecords.value[k].location= this.service.iterationList[j].consumerUnit[k].location;
+          //   }
+          // }
+          for(let r = 0; r < this.testaccordianArr.controls.length; r++){
+          let testDistRecords:any=[];
+          testDistRecords= this.testaccordianArr.controls[r].controls.testDistRecords as FormArray;
+          let d= this.service.iterationList[r].consumerUnit.length-1;
+          for(let k = 0; k < d; k++){
+            testDistRecords.push(this.createtestDistRecordsForm());
+           }
+          }
           for (let j = 0; j < this.testaccordianArr.controls.length; j++) {
             this.testaccordianArr.value[j].locationNumber = this.service.iterationList[j].locationNumber;
             this.testaccordianArr.value[j].locationName = this.service.iterationList[j].locationName;
+            // this.testaccordianArr.value[j].locationCount = this.service.iterationList[j].locationCount;
+            this.testaccordianArr.controls[j].controls.locationCount.setValue(this.service.iterationList[j].locationCount);
+            let v= this.service.iterationList[j].consumerUnit.length;
+            for(let k = 0; k < v; k++){
+            this.testaccordianArr.controls[j].controls.testDistRecords.controls[k].
+            controls.locationCount.setValue(this.service.iterationList[j].consumerUnit[k].locationCount);
+
+            this.testaccordianArr.controls[j].controls.testDistRecords.controls[k].controls.testDistribution.controls[0].
+            controls.distributionBoardDetails.setValue(this.service.iterationList[j].consumerUnit[k].distributionBoardDetails);
+           
+            this.testaccordianArr.controls[j].controls.testDistRecords.controls[k].controls.testDistribution.controls[0].
+            controls.referance.setValue(this.service.iterationList[j].consumerUnit[k].referance);
+
+            this.testaccordianArr.controls[j].controls.testDistRecords.controls[k].controls.testDistribution.controls[0].
+            controls.location.setValue(this.service.iterationList[j].consumerUnit[k].location);
+            }
           }
           this.location.locationArr = this.service.iterationList;
           this.service.iterationList = [];
         }
+        this.testingForm.markAsPristine();
       });
     }
     else {
       this.inspectionDetailsService.retrieveInspectionDetails(this.currentUser1.assignedBy, this.service.siteCount).subscribe(
         data=>{
-        console.log(data);
-        this.incomingValues = JSON.parse(data);
-        for(let i of this.incomingValues) {
-          console.log(i);
-          this.service.iterationList = i.ipaoInspection;
-        }
-        //location iteration
-        if (this.service.iterationList != '' && this.service.iterationList != undefined && this.service.iterationList.length != 0) {
-          this.testingRetrieve = false;
-          this.inspectionRetrieve = true;
-          
-          let a = this.service.iterationList.length;
-          for (let i = 0; i < a; i++) {
-            this.addItem();
+          this.incomingValues = JSON.parse(data);
+          this.testingForm = this.formBuilder.group({
+            testIncomingDistribution: this.formBuilder.array([
+             this.IncomingValue(),
+           ]),
+           testaccordianArr: this.formBuilder.array([]),
+           viewerCommentArr: this.formBuilder.array([this.addCommentViewer()]),
+           completedCommentArr1: this.formBuilder.array([]),
+         });
+          //for(let i of this.incomingValues) {	
+            this.service.iterationList=this.incomingValues.ipaoInspection;	
+          // }
+          //location iteration
+          if (this.service.iterationList != '' && this.service.iterationList != undefined && this.service.iterationList.length != 0) {
+            this.testingRetrieve = false;
+            this.inspectionRetrieve = true;
+            let a = this.service.iterationList.length;
+            for (let i = 0; i < a; i++) {
+              this.addItem();
+            }
+            // for (let j = 0; j < this.testaccordianArr.controls.length; j++) {
+            //   let v= this.service.iterationList[j].consumerUnit.length;
+            //   for(let k = 0; k < v; k++){
+            //    this.testaccordianArr.value[j].testDistRecords.value[k].distributionBoardDetails= this.service.iterationList[j].consumerUnit[k].distributionBoardDetails;
+            //    this.testaccordianArr.value[j].testDistRecords.value[k].referance= this.service.iterationList[j].consumerUnit[k].referance;
+            //    this.testaccordianArr.value[j].testDistRecords.value[k].location= this.service.iterationList[j].consumerUnit[k].location;
+            //   }
+            // }
+            for(let r = 0; r < this.testaccordianArr.controls.length; r++){
+            let testDistRecords:any=[];
+            testDistRecords= this.testaccordianArr.controls[r].controls.testDistRecords as FormArray;
+            let d= this.service.iterationList[r].consumerUnit.length-1;
+            for(let k = 0; k < d; k++){
+              testDistRecords.push(this.createtestDistRecordsForm());
+             }
+            }
+            for (let j = 0; j < this.testaccordianArr.controls.length; j++) {
+              this.testaccordianArr.value[j].locationNumber = this.service.iterationList[j].locationNumber;
+              this.testaccordianArr.value[j].locationName = this.service.iterationList[j].locationName;
+              // this.testaccordianArr.value[j].locationCount = this.service.iterationList[j].locationCount;
+              this.testaccordianArr.controls[j].controls.locationCount.setValue(this.service.iterationList[j].locationCount);
+              let v= this.service.iterationList[j].consumerUnit.length;
+              for(let k = 0; k < v; k++){
+              this.testaccordianArr.controls[j].controls.testDistRecords.controls[k].
+              controls.locationCount.setValue(this.service.iterationList[j].consumerUnit[k].locationCount);
+  
+              this.testaccordianArr.controls[j].controls.testDistRecords.controls[k].controls.testDistribution.controls[0].
+              controls.distributionBoardDetails.setValue(this.service.iterationList[j].consumerUnit[k].distributionBoardDetails);
+             
+              this.testaccordianArr.controls[j].controls.testDistRecords.controls[k].controls.testDistribution.controls[0].
+              controls.referance.setValue(this.service.iterationList[j].consumerUnit[k].referance);
+  
+              this.testaccordianArr.controls[j].controls.testDistRecords.controls[k].controls.testDistribution.controls[0].
+              controls.location.setValue(this.service.iterationList[j].consumerUnit[k].location);
+              }
+            }
+            this.location.locationArr = this.service.iterationList;
+            this.service.iterationList = [];
           }
-          for (let j = 0; j < this.testaccordianArr.controls.length; j++) {
-            this.testaccordianArr.value[j].locationNumber = this.service.iterationList[j].locationNumber;
-            this.testaccordianArr.value[j].locationName = this.service.iterationList[j].locationName;
-          }
-          this.location.locationArr = this.service.iterationList;
-          this.service.iterationList = [];
-        }
-      });
+          this.testingForm.markAsPristine();
+        });
     }
   }
 }
+
+reset(){
+  //this.ngOnInit();
+  //setTimeout(() => {
+    this.testingForm.reset();
+  //}, 1000);
+}
   
+   // Only Accept numbers
+   keyPressNumbers(event:any) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
 
  retrieveDetailsFromSupply(){
   this.pushJsonArray=[];
@@ -315,36 +500,54 @@ export class InspectionVerificationTestingComponent implements OnInit {
      if(this.currentUser1.role == 'Inspector') {
       this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.email, this.service.siteCount).subscribe(
         data=>{
-        console.log(data);
         this.supplyValues = JSON.parse(data);
-        for(let i of this.supplyValues) {
-          this.service.nominalVoltageArr2=i.supplyParameters;
-          if(i.liveConductorType == "AC") {
-            this.addValues("Mains Incoming", i.mainNominalVoltage,i.mainNominalFrequency, i.mainNominalCurrent);
-            this.mainNominalVoltageArr1 = [];
-            this.mainNominalVoltageArr2 = [];
-            this.mainNominalVoltageArr3 = [];
-        
-            this.mainNominalVoltageArr1 = i.mainNominalVoltage.split(",");
-            this.mainNominalVoltageArr2 = i.mainNominalFrequency.split(",");
-            this.mainNominalVoltageArr3 = i.mainNominalCurrent.split(",");
-        
-            this.mainNominalArr = [];
-            this.mainNominalArr.push(this.mainNominalVoltageArr1,this.mainNominalVoltageArr2,this.mainNominalVoltageArr3);
-            this.service.retrieveMainNominalVoltage=this.mainNominalArr;
-            this.service.mainNominalVoltageValue=i.mainNominalVoltage;
-            this.service.mainNominalFrequencyValue=i.mainNominalFrequency;
-            this.service.mainNominalCurrentValue=i.mainNominalCurrent;
-          }
-          this.service.supplyList = i.supplyNumber;
-          let count =1;
-          for(let j of i.supplyParameters) {
-           if(j.aLLiveConductorType == "AC") {
-            this.addValues("Alternate Source of Supply-" +count, j.nominalVoltage,j.nominalFrequency, j.faultCurrent);
-            count++;
-           }
-          }
-        }
+       	        //for(let i of this.supplyValues) {	
+                  this.service.nominalVoltageArr2=this.supplyValues.supplyParameters;	
+                  this.pushJsonArray=[];
+                  this.testingAlternateRecords = [];
+                  let testaccordianValueArr = this.testingForm.get(
+                    'testaccordianArr'
+                  ) as FormArray;
+                  if(this.supplyValues.liveConductorType == "AC") {	
+                    this.SourceList=['Mains Incoming'];	
+                    this.addValues("Mains Incoming", this.supplyValues.mainNominalVoltage,this.supplyValues.mainLoopImpedance, this.supplyValues.mainNominalCurrent, this.supplyValues.mainActualLoad);	
+                    this.mainNominalVoltageArr1 = [];	
+                    this.mainNominalVoltageArr2 = [];	
+                    this.mainNominalVoltageArr3 = [];	
+                    this.mainNominalVoltageArr4 = [];	
+                    this.mainNominalVoltageArr1 = this.supplyValues.mainNominalVoltage.split(",");	
+                    this.mainNominalVoltageArr2 = this.supplyValues.mainLoopImpedance.split(",");	
+                    this.mainNominalVoltageArr3 = this.supplyValues.mainNominalCurrent.split(",");	
+                    this.mainNominalVoltageArr4 = this.supplyValues.mainActualLoad.split(",");
+                    this.mainNominalArr = [];	
+                    this.mainNominalArr.push(this.mainNominalVoltageArr1,this.mainNominalVoltageArr2,this.mainNominalVoltageArr3,this.mainNominalVoltageArr4);	
+                    this.service.retrieveMainNominalVoltage=this.mainNominalArr;	
+                    this.service.mainNominalVoltageValue=this.supplyValues.mainNominalVoltage;	
+                    this.service.mainLoopImpedanceValue=this.supplyValues.mainLoopImpedance;	
+                    this.service.mainNominalCurrentValue=this.supplyValues.mainNominalCurrent;
+                    this.service.mainActualLoadValue=this.supplyValues.mainActualLoad;		
+                  }	
+                  this.service.supplyList = this.supplyValues.supplyNumber;	
+                  let count =1;	
+                  for(let j of this.supplyValues.supplyParameters) {	
+                   if(j.aLLiveConductorType == "AC") {	
+                    this.addValues("Alternate Source of Supply-" +count, j.nominalVoltage,j.loopImpedance, j.faultCurrent, j.actualLoad);	
+                    count++;	
+                   }	
+                  }	
+                  for(let j of this.supplyValues.supplyParameters) { 
+                    for(let x of testaccordianValueArr.controls) {
+                      let testingDistRecordArr= x.get('testDistRecords') as FormArray;
+                      for(let w of testingDistRecordArr.controls){
+                        let testingRecordsArr = w.get('testingRecords') as FormArray;
+                      for(let y of testingRecordsArr.controls) {
+                        this.testingAlternateRecords = y.get('testingRecordsSourceSupply') as FormArray;
+                        this.testingAlternateRecords.push(this.createValue(this.supplyValues.mainLoopImpedance,j.nominalVoltage,j.loopImpedance));
+                      }
+                      }
+                    }
+                  }
+               // }
         //retrieve selected source dd from supply to testing
       if (this.service.supplyList != '' && this.service.supplyList != undefined) {
         this.SourceList=['Mains Incoming'];
@@ -361,44 +564,62 @@ export class InspectionVerificationTestingComponent implements OnInit {
      else {
       this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.currentUser1.assignedBy, this.service.siteCount).subscribe(
         data=>{
-        console.log(data);
-        this.supplyValues = JSON.parse(data);
-        for(let i of this.supplyValues) {
-          this.service.nominalVoltageArr2=i.supplyParameters;
-          if(i.liveConductorType == "AC") {
-            this.addValues("Mains Incoming", i.mainNominalVoltage,i.mainNominalFrequency, i.mainNominalCurrent);
-            this.mainNominalVoltageArr1 = [];
-            this.mainNominalVoltageArr2 = [];
-            this.mainNominalVoltageArr3 = [];
-        
-            this.mainNominalVoltageArr1 = i.mainNominalVoltage.split(",");
-            this.mainNominalVoltageArr2 = i.mainNominalFrequency.split(",");
-            this.mainNominalVoltageArr3 = i.mainNominalCurrent.split(",");
-        
-            this.mainNominalArr = [];
-            this.mainNominalArr.push(this.mainNominalVoltageArr1,this.mainNominalVoltageArr2,this.mainNominalVoltageArr3);
-            this.service.retrieveMainNominalVoltage=this.mainNominalArr;
-            this.service.mainNominalVoltageValue=i.mainNominalVoltage;
-            this.service.mainNominalFrequencyValue=i.mainNominalFrequency;
-            this.service.mainNominalCurrentValue=i.mainNominalCurrent;
-          }
-          this.service.supplyList = i.supplyNumber;
-          let count =1;
-          for(let j of i.supplyParameters) {
-           if(j.aLLiveConductorType == "AC") {
-            this.addValues("Alternate Source of Supply-" +count, j.nominalVoltage,j.nominalFrequency, j.faultCurrent);
-            count++;
-           }
+          this.supplyValues = JSON.parse(data);
+                   //for(let i of this.supplyValues) {	
+                    this.service.nominalVoltageArr2=this.supplyValues.supplyParameters;	
+                    this.pushJsonArray=[];
+                    this.testingAlternateRecords = [];
+                    let testaccordianValueArr = this.testingForm.get(
+                      'testaccordianArr'
+                    ) as FormArray;
+                    if(this.supplyValues.liveConductorType == "AC") {	
+                      this.SourceList=['Mains Incoming'];	
+                      this.addValues("Mains Incoming", this.supplyValues.mainNominalVoltage,this.supplyValues.mainLoopImpedance, this.supplyValues.mainNominalCurrent, this.supplyValues.mainActualLoad);	
+                      this.mainNominalVoltageArr1 = [];	
+                      this.mainNominalVoltageArr2 = [];	
+                      this.mainNominalVoltageArr3 = [];	
+                      this.mainNominalVoltageArr4 = [];	
+                      this.mainNominalVoltageArr1 = this.supplyValues.mainNominalVoltage.split(",");	
+                      this.mainNominalVoltageArr2 = this.supplyValues.mainLoopImpedance.split(",");	
+                      this.mainNominalVoltageArr3 = this.supplyValues.mainNominalCurrent.split(",");	
+                      this.mainNominalVoltageArr4 = this.supplyValues.mainActualLoad.split(",");
+                      this.mainNominalArr = [];	
+                      this.mainNominalArr.push(this.mainNominalVoltageArr1,this.mainNominalVoltageArr2,this.mainNominalVoltageArr3,this.mainNominalVoltageArr4);	
+                      this.service.retrieveMainNominalVoltage=this.mainNominalArr;	
+                      this.service.mainNominalVoltageValue=this.supplyValues.mainNominalVoltage;	
+                      this.service.mainLoopImpedanceValue=this.supplyValues.mainLoopImpedance;	
+                      this.service.mainNominalCurrentValue=this.supplyValues.mainNominalCurrent;
+                      this.service.mainActualLoadValue=this.supplyValues.mainActualLoad;		
+                    }	
+                    this.service.supplyList = this.supplyValues.supplyNumber;	
+                    let count =1;	
+                    for(let j of this.supplyValues.supplyParameters) {	
+                     if(j.aLLiveConductorType == "AC") {	
+                      this.addValues("Alternate Source of Supply-" +count, j.nominalVoltage,j.loopImpedance, j.faultCurrent, j.actualLoad);	
+                      count++;	
+                     }	
+                    }	
+                    for(let j of this.supplyValues.supplyParameters) { 
+                      for(let x of testaccordianValueArr.controls) {
+                        let testingDistRecordArr= x.get('testDistRecords') as FormArray;
+                        for(let w of testingDistRecordArr.controls){
+                          let testingRecordsArr = w.get('testingRecords') as FormArray;
+                        for(let y of testingRecordsArr.controls) {
+                          this.testingAlternateRecords = y.get('testingRecordsSourceSupply') as FormArray;
+                          this.testingAlternateRecords.push(this.createValue(this.supplyValues.mainLoopImpedance,j.nominalVoltage,j.loopImpedance));
+                        }
+                        }
+                      }
+                    }
+                 // }
+          //retrieve selected source dd from supply to testing
+        if (this.service.supplyList != '' && this.service.supplyList != undefined) {
+          this.SourceList=['Mains Incoming'];
+          for (let i = 1; i <= this.service.supplyList; i++) {
+            this.SourceList.push('Alternate Source of Supply-' + i);
           }
         }
-        //retrieve selected source dd from supply to testing
-      if (this.service.supplyList != '' && this.service.supplyList != undefined) {
-        this.SourceList=['Mains Incoming'];
-        for (let i = 1; i <= this.service.supplyList; i++) {
-          this.SourceList.push('Alternate Source of Supply-' + i);
-        }
-      }
-        },
+          },
         error=>{
   
         }
@@ -408,33 +629,300 @@ export class InspectionVerificationTestingComponent implements OnInit {
    }
  }
 
- addValues(sourceFromSupply: any, incomingVoltage: String, incomingLoopImpedance: String, incomingFaultCurrent: String) {
+ addValues(sourceFromSupply: any, incomingVoltage: String, incomingLoopImpedance: String, incomingFaultCurrent: String, incomingActualLoad: String) {
   if(sourceFromSupply != "" ) {
-     this.jsonArray = {"sourceFromSupply": sourceFromSupply, "incomingVoltage": incomingVoltage, "incomingLoopImpedance": incomingLoopImpedance, "incomingFaultCurrent": incomingFaultCurrent}
+     this.jsonArray = {"incomingDistributionId": '',"sourceFromSupply": sourceFromSupply, "incomingVoltage": incomingVoltage, "incomingLoopImpedance": incomingLoopImpedance, "incomingFaultCurrent": incomingFaultCurrent, "incomingActualLoad":incomingActualLoad}
      this.pushJsonArray.push(this.jsonArray);
     }
 }
 
-  retrieveDetailsfromSavedReports(userName: any, siteId: any, clientName: any, departmentName: any, site: any, data: any) {
+// retrieveFromObservationTesting(data:any){
+//   this.observation=JSON.parse(data);
+//   this.observationValues=this.observation.observations;
+//   this.observationUpdateFlag=true;
+//   this.ObservationsForm.markAsPristine();
+//   }
+
+//   addObservationTesting(observationIter:any){
+//     if(this.testingForm.touched || this.testingForm.untouched){
+//       this.observationModalReference = this.modalService.open(observationIter, {
+//          centered: true, 
+//          size: 'md'
+//         })
+//      }
+//   }
+
+
+  // onKeyCirtcuit(event: KeyboardEvent) {
+  //   this.values = (<HTMLInputElement>event.target).value;
+  //   this.value = this.values;
+    
+  //   if (this.value != '' && this.value != undefined) {
+  //     this.observationArr = this.testingForm.get('observationArr') as FormArray;
+  //       this.observationCircuitArr = this.observationArr.controls.circuitInnerObservation as FormArray;
+  //       let c = 0;
+  //       if(this.testingRecordTableArr.length < this.value){
+  //       for (this.i = c; this.i < this.value; this.i++) {
+  //         this.observationCircuitArr.push(this.generateCircuitForm());
+  //       }
+  //     } 
+  //     else if ((this.testingRecordTableArr.length < this.value) && this.testingRecordTableArr.length!=0)  {
+  //       if (this.value != '') {
+  //         this.delarr = this.value - this.testingRecordTableArr.length;
+  //         this.delarr1 = this.delarr;
+  //         for (this.i = 0; this.i < this.delarr; this.i++) {
+  //           this.observationCircuitArr.push(this.generateCircuitForm());
+  //         }
+  //       }
+  //     } 
+  //     else if((this.testingRecordTableArr.length > this.value))
+  //     {
+  //       if (this.value != '') {
+  //         this.delarr = this.testingRecordTableArr.length - this.value;
+  //         this.delarr1 = this.delarr;
+  
+  //         for (this.i = 0; this.i < this.delarr; this.i++) {
+  //           this.testingRecordTableArr = this.testingForm.get(
+  //             'testDistRecords'
+  //           ) as FormArray;
+  //           this.observationCircuitArr.removeAt(this.observationCircuitArr.length - 1);
+  //         }
+  //       }
+  //     }
+  //     else {
+  //       if(!this.testingRecordTableArr.length == this.value){ //removed from elango's yesterday commit by Aish
+  //       for (this.i = 0; this.i < this.value; this.i++) {
+  //         this.observationCircuitArr.push(this.generateCircuitForm());
+  //       }
+  //      }
+  //   }
+  //   } 
+  // }
+
+callValue(e: any) {
+  console.log(e);
+}
+
+  retrieveDetailsforTesting(userName: any, siteId: any,data: any) {
+    // if(this.service.disableFields==true){
+    //   this.testingForm.disable();
+    //  }
+    this.valueMismatchingFlag = false;    
     this.testingRetrieve = true;
+    this.inspectionRetrieve = false;
+    this.testList1 = JSON.parse(data);
+    this.testingDetails.siteId = siteId;
+    this.deletedTestingEquipment = [];
+    this.deletedTestingRecord = [];
+    this.deletedObservationArr = [];
+
+    this.retrieveDetailsFromIncoming();
+    this.retrieveDetailsFromSupply();
+    if(this.testList1 != null) {
+    this.testingDetails.testingReportId = this.testList1.testingReportId;
+    this.testingDetails.createdBy = this.testList1.createdBy;
+    this.testingDetails.createdDate = this.testList1.createdDate;
+    setTimeout(() => {
+      this.populateData(this.testList1);
+    }, 1000);
+    this.flag = true;
+    }    
+  }
+  retrieveDetailsfromSavedReports(userName: any, siteId: any, clientName: any, departmentName: any, site: any, data: any) {
+    //this.service.lvClick=1;
+    this.testingRetrieve = true;
+    this.valueMismatchingFlag = false;    
     this.inspectionRetrieve = false;
     this.testList = JSON.parse(data);
     this.testingDetails.siteId = siteId;
-    this.retrieveDetailsFromSupply();
+    this.deletedTestingEquipment = [];
+    this.deletedTestingRecord = [];
+    this.deletedObservationArr = [];
+    //this.testingDetails.testingOuterObservation = this.testList.testingReport.testingOuterObservation;
     this.retrieveDetailsFromIncoming();
+    this.retrieveDetailsFromSupply();
     if(this.testList.testingReport != null) {
-    this.testingDetails.testingReportId = this.testList.testingReport.testingReportId;
+    this.testingDetails.testingReportId = this.testList.testingReport.testingReportId; 
     this.testingDetails.createdBy = this.testList.testingReport.createdBy;
     this.testingDetails.createdDate = this.testList.testingReport.createdDate;
     setTimeout(() => {
-      this.populateData();
+      this.populateData(this.testList.testingReport);      
       this.populateDataComments();
     }, 1000);
     this.flag = true;
-
-    }    
+    } 
+    if(this.testList.testingReport != null) {
+      this.updateMethod();   
+    }
   }
 
+  updateMethod(){
+    this.ngOnInit();
+    this.testingService.retrieveTesting(this.testingDetails.siteId,this.email).subscribe(
+      data=>{
+       this.retrieveDetailsforTesting(this.email,this.testingDetails.siteId,data);    
+       
+       setTimeout(() => {
+        this.testaccordianArr = this.testingForm.get(
+          'testaccordianArr'
+        ) as FormArray;
+        if(this.incomingValues.ipaoInspection.length != this.testList1.testing.length) {
+          this.tempArray = [];
+          for(let i=0;  i<this.testList1.testing.length; i++) {
+            for(let j=0;  j<this.incomingValues.ipaoInspection.length; j++) {
+              if(this.incomingValues.ipaoInspection[j].locationCount != this.testList1.testing[i].locationCount) {
+              this.tempArray.push(this.incomingValues.ipaoInspection[j]);
+              } 
+              else {
+              this.tempArray = [];
+              }
+            }
+          }
+
+          if(this.tempArray.length != 0) {
+            for(let k=0; k<this.tempArray.length; k++) {
+            this.addItem();
+            }
+
+            for(let r = this.testList1.testing.length; r < this.testaccordianArr.controls.length; r++){
+              let testDistRecords:any=[];
+              testDistRecords= this.testaccordianArr.controls[r].controls.testDistRecords as FormArray;
+              let d= this.incomingValues.ipaoInspection[r].consumerUnit.length-1;
+              for(let k = 0; k < d; k++){
+                testDistRecords.push(this.createtestDistRecordsForm());              
+              }
+
+              for(let l=0;l<this.incomingValues.ipaoInspection[r].consumerUnit.length; l++) {
+
+                this.testaccordianArr.controls[r].controls.testDistRecords.controls[l].
+                controls.locationCount.setValue(this.incomingValues.ipaoInspection[r].consumerUnit[l].locationCount);
+    
+                this.testaccordianArr.controls[r].controls.testDistRecords.controls[l].controls.testDistribution.controls[0].
+                controls.distributionBoardDetails.setValue(this.incomingValues.ipaoInspection[r].consumerUnit[l].distributionBoardDetails);
+              
+                this.testaccordianArr.controls[r].controls.testDistRecords.controls[l].controls.testDistribution.controls[0].
+                controls.referance.setValue(this.incomingValues.ipaoInspection[r].consumerUnit[l].referance);
+    
+                this.testaccordianArr.controls[r].controls.testDistRecords.controls[l].controls.testDistribution.controls[0].
+                controls.location.setValue(this.incomingValues.ipaoInspection[r].consumerUnit[l].location);
+              }
+
+              this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.email, this.service.siteCount).subscribe(
+                data=>{
+                this.supplyValues = JSON.parse(data);
+                for(let j of this.supplyValues.supplyParameters) {                  
+                    for(let w of testDistRecords.controls){
+                      let testingRecordsArr = w.get('testingRecords') as FormArray;
+                    for(let y of testingRecordsArr.controls) {
+                      this.testingAlternateRecords = y.get('testingRecordsSourceSupply') as FormArray;
+                      this.testingAlternateRecords.push(this.createValue(this.supplyValues.mainLoopImpedance,j.nominalVoltage,j.loopImpedance));
+                    }
+                    }                 
+                }
+                });
+
+                this.testaccordianArr.controls[r].controls.locationNumber.setValue(this.incomingValues.ipaoInspection[r].locationNumber);
+                this.testaccordianArr.controls[r].controls.locationName.setValue(this.incomingValues.ipaoInspection[r].locationName);
+                this.testaccordianArr.controls[r].controls.locationCount.setValue(this.incomingValues.ipaoInspection[r].locationCount);
+              }
+          } 
+          for(let i=0; i<this.incomingValues.ipaoInspection.length; i++) {
+            if(this.testList1.testing[i] != undefined ) {
+              if(this.incomingValues.ipaoInspection[i].locationCount == this.testList1.testing[i].locationCount) {
+                if(this.incomingValues.ipaoInspection[i].consumerUnit.length 
+                  != this.testList1.testing[i].testDistRecords.length) {
+  
+                  let testDistRecords:any=[];
+                  testDistRecords= this.testaccordianArr.controls[i].controls.testDistRecords as FormArray;
+  
+                    for(let k=this.testList1.testing[i].testDistRecords.length;
+                      k<this.incomingValues.ipaoInspection[i].consumerUnit.length; k++) {
+                        testDistRecords.push(this.createtestDistRecordsForm());            
+                    }
+  
+                for(let j=this.testList1.testing[i].testDistRecords.length ;
+                  j<this.incomingValues.ipaoInspection[i].consumerUnit.length; j++) {
+                      
+                  
+                  this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].
+                  controls.locationCount.setValue(this.incomingValues.ipaoInspection[i].consumerUnit[j].locationCount);
+      
+                  this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].controls.testDistribution.controls[0].
+                  controls.distributionBoardDetails.setValue(this.incomingValues.ipaoInspection[i].consumerUnit[j].distributionBoardDetails);
+                  
+                  this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].controls.testDistribution.controls[0].
+                  controls.referance.setValue(this.incomingValues.ipaoInspection[i].consumerUnit[j].referance);
+      
+                  this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].controls.testDistribution.controls[0].
+                  controls.location.setValue(this.incomingValues.ipaoInspection[i].consumerUnit[j].location);
+  
+                  this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.email, this.service.siteCount).subscribe(
+                    data=>{
+                    this.supplyValues = JSON.parse(data);
+                    for(let k of this.supplyValues.supplyParameters) {                  
+                        let testingRecordsArr = this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].controls.testingRecords as FormArray;
+                        for(let y of testingRecordsArr.controls) {
+                          this.testingAlternateRecords = y.get('testingRecordsSourceSupply') as FormArray;
+                          this.testingAlternateRecords.push(this.createValue(this.supplyValues.mainLoopImpedance,k.nominalVoltage,k.loopImpedance));
+                        }
+                    }
+                    });
+                  }
+                }
+              }
+            }
+          }
+        }
+        else {
+          for(let i=0; i<this.incomingValues.ipaoInspection.length; i++) {
+            if(this.incomingValues.ipaoInspection[i].locationCount == this.testList1.testing[i].locationCount) {
+              if(this.incomingValues.ipaoInspection[i].consumerUnit.length 
+                != this.testList1.testing[i].testDistRecords.length) {
+
+                let testDistRecords:any=[];
+                testDistRecords= this.testaccordianArr.controls[i].controls.testDistRecords as FormArray;
+
+                  for(let k=this.testList1.testing[i].testDistRecords.length;
+                    k<this.incomingValues.ipaoInspection[i].consumerUnit.length; k++) {
+                     testDistRecords.push(this.createtestDistRecordsForm());            
+                 }
+
+              for(let j=this.testList1.testing[i].testDistRecords.length ;
+                j<this.incomingValues.ipaoInspection[i].consumerUnit.length; j++) {
+                   
+                
+                this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].
+                controls.locationCount.setValue(this.incomingValues.ipaoInspection[i].consumerUnit[j].locationCount);
+    
+                this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].controls.testDistribution.controls[0].
+                controls.distributionBoardDetails.setValue(this.incomingValues.ipaoInspection[i].consumerUnit[j].distributionBoardDetails);
+                
+                this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].controls.testDistribution.controls[0].
+                controls.referance.setValue(this.incomingValues.ipaoInspection[i].consumerUnit[j].referance);
+    
+                this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].controls.testDistribution.controls[0].
+                controls.location.setValue(this.incomingValues.ipaoInspection[i].consumerUnit[j].location);
+
+                this.supplyCharacteristicsService.retrieveSupplyCharacteristics(this.email, this.service.siteCount).subscribe(
+                  data=>{
+                  this.supplyValues = JSON.parse(data);
+                  for(let k of this.supplyValues.supplyParameters) {                  
+                      let testingRecordsArr = this.testaccordianArr.controls[i].controls.testDistRecords.controls[j].controls.testingRecords as FormArray;
+                      for(let y of testingRecordsArr.controls) {
+                        this.testingAlternateRecords = y.get('testingRecordsSourceSupply') as FormArray;
+                        this.testingAlternateRecords.push(this.createValue(this.supplyValues.mainLoopImpedance,k.nominalVoltage,k.loopImpedance));
+                      }
+                  }
+                  });
+                }
+              }
+            }
+          }
+        }
+      }, 3000);	
+      } 
+    )
+  }
   //comments section starts
 
   populateDataComments() {
@@ -825,64 +1313,133 @@ export class InspectionVerificationTestingComponent implements OnInit {
   }
   //comments section ends
 
-  populateData() {
-    this.arr = [];
-    for (let item of this.testList.testingReport.testing) {
-      this.arr.push(this.createGroup(item));
-    }
+   populateData(value:any) {	
+    this.arr = [];	
+    for (let item of value.testing) {	
+      this.arr.push(this.createGroup(item));	
+    }	
     this.testingForm.setControl('testaccordianArr', this.formBuilder.array(this.arr || []))
   }
-
+ 
   createGroup(item: any): FormGroup {
     return this.formBuilder.group({
       testingId: new FormControl({ disabled: false, value: item.testingId }),
       locationNumber: new FormControl({ disabled: false, value: item.locationNumber }),
       locationName: new FormControl({ disabled: false, value: item.locationName }),
-      testEngineerName: new FormControl({ disabled: false, value: item.testEngineerName }),
-      date: new FormControl({ disabled: false, value: item.date }),
-      companyName: new FormControl({ disabled: false, value: item.companyName }),
-      designation: new FormControl({ disabled: false, value: item.designation }),
-      detailsTestInstrument: new FormControl({ disabled: false, value: item.detailsTestInstrument }),
-      continuity: new FormControl({ disabled: false, value: item.continuity }),
-      insulationResisance: new FormControl({ disabled: false, value: item.insulationResisance }),
-      impedance: new FormControl({ disabled: false, value: item.impedance }),
-      rcd: new FormControl({ disabled: false, value: item.rcd }),
-      earthElectrodeResistance: new FormControl({ disabled: false, value: item.earthElectrodeResistance }),
-      testDistribution: this.formBuilder.array([this.populateTestDistributionForm(item.testDistribution)]),
-      testingRecords: this.formBuilder.array(this.populateTestRecordsForm(item.testingRecords)),
+      locationCount: new FormControl({ disabled: false, value: item.locationCount }),
+      testEngineerName: new FormControl({ disabled: false, value: item.testEngineerName },[Validators.required]),
+      date: new FormControl({ disabled: false, value: item.date },[Validators.required]),
+      companyName: new FormControl({ disabled: false, value: item.companyName },[Validators.required]),
+      designation: new FormControl({ disabled: false, value: item.designation },[Validators.required]),
+      // detailsTestInstrument: new FormControl({ disabled: false, value: item.detailsTestInstrument }),
+      // continuity: new FormControl({ disabled: false, value: item.continuity }),
+      // insulationResisance: new FormControl({ disabled: false, value: item.insulationResisance }),
+      // impedance: new FormControl({ disabled: false, value: item.impedance }),
+      // rcd: new FormControl({ disabled: false, value: item.rcd }),
+      // earthElectrodeResistance: new FormControl({ disabled: false, value: item.earthElectrodeResistance }),
+      testingEquipment: this.formBuilder.array(this.populateTestInstrumentForm(item.testingEquipment,item.testingId)),
+      testDistRecords: this.formBuilder.array(this.populateTestDistRecordsForm(item.testDistRecords,item.testingId)),
+    
+      testingStatus: new FormControl(item.testingStatus),
+    });
+  }
+  private populateTestInstrumentForm(testEquipmentItem: any,testingId: any) {
+    let testingEquipmentArr = [];
+    for (let item of testEquipmentItem) {
+      testingEquipmentArr.push(this.pushTestEquipmentTable(item,testingId))
+    }
+    return testingEquipmentArr;
+  }
+
+  private populateTestDistRecordsForm(testDistRecordsItem: any,testingId: any) {
+    let testDistRecordsItemArr = [];
+    for (let item of testDistRecordsItem) {
+      testDistRecordsItemArr.push(this.pushTestDistRecordsTable(item,testingId))
+    }
+    return testDistRecordsItemArr;
+  }
+  
+  pushTestEquipmentTable(testingEquipmentItem: any,testingId: any): FormGroup {
+    let latest_date =this.datepipe.transform(testingEquipmentItem.equipmentCalibrationDueDate, 'yyyy-MM-dd');
+    return new FormGroup({
+      testingId: new FormControl({ disabled: false, value: testingId }),
+      equipmentId: new FormControl({ disabled: false, value: testingEquipmentItem.equipmentId }),
+      equipmentName: new FormControl({ disabled: false, value: testingEquipmentItem.equipmentName },[Validators.required]),
+      equipmentMake: new FormControl({ disabled: false, value: testingEquipmentItem.equipmentMake },[Validators.required]),
+      equipmentModel: new FormControl({ disabled: false, value: testingEquipmentItem.equipmentModel },[Validators.required]),
+      equipmentSerialNo: new FormControl({ disabled: false, value: testingEquipmentItem.equipmentSerialNo },[Validators.required]),
+      equipmentCalibrationDueDate: new FormControl({ disabled: false, value: latest_date },[Validators.required]),
+      testingEquipmentStatus: new FormControl(testingEquipmentItem.testingEquipmentStatus),
     });
   }
 
+  pushTestDistRecordsTable(testDistRecordsItem: any,testingId: any): FormGroup {
+    return new FormGroup({
+      testDistRecordId: new FormControl({disabled: false, value: testDistRecordsItem.testDistRecordId }),
+      testingId: new FormControl({ disabled: false, value: testingId }),
+      locationCount: new FormControl({disabled: false, value: testDistRecordsItem.locationCount }),
+      testDistribution: this.formBuilder.array([this.populateTestDistributionForm(testDistRecordsItem.testDistribution)]),
+      testingRecords: this.formBuilder.array(this.populateTestRecordsForm(testDistRecordsItem.testingRecords,testDistRecordsItem.testDistRecordId,testingId)),
+      testingInnerObservation: this.formBuilder.array(this.pushTestObservationRecord(testDistRecordsItem.testingInnerObservation,testDistRecordsItem.testDistRecordId,testingId)),
+
+      testDistRecordStatus: new FormControl(testDistRecordsItem.testDistRecordStatus),
+    });
+  }
+  
+pushTestObservationRecord(testInnerObservationItem: any,testDistRecordId: any,testingId: any) {
+  let testingInnerObservation = [];
+  for (let item of testInnerObservationItem) {
+    testingInnerObservation.push(this.pushTestingInnerObservationTable(item,testDistRecordId,testingId))
+  
+    if(item.observationDescription!=null && item.observationDescription!=undefined && item.observationDescription!=''){
+      this.service.observationGlowTesting=true;
+     }
+  }
+  return testingInnerObservation;
+}
+private pushTestingInnerObservationTable(item: any,testDistRecordId: any,testingId: any): FormGroup {
+  return new FormGroup({
+    testDistRecordId: new FormControl({ disabled: false, value: testDistRecordId }),
+    testingId: new FormControl({ disabled: false, value: testingId }),
+    testingInnerObervationsId: new FormControl({disabled: false, value: item.testingInnerObervationsId}),
+    observationComponentDetails: new FormControl({disabled: false, value: item.observationComponentDetails}),
+    observationDescription: new FormControl({disabled: false, value: item.observationDescription}),
+    testingInnerObservationStatus: new FormControl(item.testingInnerObservationStatus),
+  });
+}
+
   private populateTestDistributionForm(testDistributionItem: any): FormGroup {
     //this.changeSource(testDistributionItem[0].sourceFromSupply,c);
-    console.log(this.pushJsonArray);
     for(let p of this.pushJsonArray){
       if(p.sourceFromSupply==testDistributionItem[0].sourceFromSupply){
         this.tempArr=p;
       }
     }
-    console.log(this.tempArr);
     return new FormGroup({
       distributionId: new FormControl({ disabled: false, value: testDistributionItem[0].distributionId }),
       distributionBoardDetails: new FormControl({ disabled: false, value: testDistributionItem[0].distributionBoardDetails }),
       referance: new FormControl({ disabled: false, value: testDistributionItem[0].referance }),
       location: new FormControl({ disabled: false, value: testDistributionItem[0].location }),
-      correctSupplyPolarity: new FormControl({ disabled: false, value: testDistributionItem[0].correctSupplyPolarity }),
-      numOutputCircuitsUse: new FormControl({ disabled: false, value: testDistributionItem[0].numOutputCircuitsUse }),
-      ratingsAmps: new FormControl({ disabled: false, value: testDistributionItem[0].ratingsAmps }),
-      sourceFromSupply: new FormControl({ disabled: false, value: testDistributionItem[0].sourceFromSupply }),
+      correctSupplyPolarity: new FormControl({ disabled: false, value: testDistributionItem[0].correctSupplyPolarity },[Validators.required]),
+      numOutputCircuitsUse: new FormControl({ disabled: false, value: testDistributionItem[0].numOutputCircuitsUse },[Validators.required,Validators.min(1)]),
+      ratingsAmps: new FormControl({ disabled: false, value: testDistributionItem[0].ratingsAmps },[Validators.required]),
+      sourceFromSupply: new FormControl({ disabled: false, value: testDistributionItem[0].sourceFromSupply },[Validators.required]),
       rateArr: this.formBuilder.array(this.populateRating(testDistributionItem[0].ratingsAmps)),
-      numOutputCircuitsSpare: new FormControl({ disabled: false, value: testDistributionItem[0].numOutputCircuitsSpare }),
-      installedEquipmentVulnarable: new FormControl({ disabled: false, value: testDistributionItem[0].installedEquipmentVulnarable }),
+      numOutputCircuitsSpare: new FormControl({ disabled: false, value: testDistributionItem[0].numOutputCircuitsSpare },[Validators.required]),
+      installedEquipmentVulnarable: new FormControl({ disabled: false, value: testDistributionItem[0].installedEquipmentVulnarable },[Validators.required]),
       incomingVoltage: new FormControl({ disabled: false, value: testDistributionItem[0].incomingVoltage }),
       incomingLoopImpedance: new FormControl({ disabled: false, value: testDistributionItem[0].incomingLoopImpedance }),
       incomingFaultCurrent: new FormControl({ disabled: false, value: testDistributionItem[0].incomingFaultCurrent }),
+      incomingActualLoad: new FormControl({ disabled: false, value: testDistributionItem[0].incomingActualLoad }),
       distributionIncomingValueArr: this.formBuilder.array([
-        this.populatedistributionIncomingValue(this.tempArr.incomingVoltage,this.tempArr.incomingLoopImpedance,this.tempArr.incomingFaultCurrent),
+        this.populatedistributionIncomingValue(this.tempArr.incomingVoltage,this.tempArr.incomingLoopImpedance,this.tempArr.incomingFaultCurrent,this.tempArr.incomingActualLoad),
       ]),
       distributionIncomingValueArr2: this.formBuilder.array([
-        this.populatedistributionIncomingValue(this.tempArr.incomingVoltage,this.tempArr.incomingLoopImpedance,this.tempArr.incomingFaultCurrent),
+        this.populatedistributionIncomingValue(this.tempArr.incomingVoltage,this.tempArr.incomingLoopImpedance,this.tempArr.incomingFaultCurrent,this.tempArr.incomingActualLoad),
       ]),
+      // testingAlternateRecords: this.formBuilder.array([
+      //   this.populatedistributionIncomingValue(this.tempArr.incomingVoltage,this.tempArr.incomingLoopImpedance,this.tempArr.incomingFaultCurrent,this.tempArr.incomingActualLoad),
+      // ]),
     });
   }
 
@@ -898,16 +1455,15 @@ export class InspectionVerificationTestingComponent implements OnInit {
   }
   private populateratingAmps(ratingsAmps: any): FormGroup {
     return new FormGroup({
-      ratingsAmps: new FormControl({ disabled: false, value: ratingsAmps }),
+      ratingsAmps: new FormControl({ disabled: false, value: ratingsAmps },[Validators.required]),
     });
   }
 
   //selected source dd from supply to testing
   changeSource(event: any,c:any) {
-    console.log(c);
     this.formList = c.get('distributionIncomingValueArr') as FormArray;
     this.formList1 = c.get('distributionIncomingValueArr2') as FormArray;
-   
+   // this.formList2 = f.get('testingAlternateRecords') as FormArray;
     if(event.target != undefined) {
       this.changedValue = event.target.value;
     }
@@ -920,45 +1476,50 @@ export class InspectionVerificationTestingComponent implements OnInit {
       }
     }
     if ( this.changedValue == 'Mains Incoming') {
+      this.isHidden=true;
       this.service.testingTable = this.service.retrieveMainNominalVoltage;
     if(this.service.mainNominalVoltageValue!=""){
       this.formList.clear();
-      this.formList.push(this.populatedistributionIncomingValue(this.service.mainNominalVoltageValue, this.service.mainNominalFrequencyValue,this.service.mainNominalCurrentValue));
+      this.formList.push(this.populatedistributionIncomingValue(this.service.mainNominalVoltageValue, this.service.mainLoopImpedanceValue,this.service.mainNominalCurrentValue, this.service.mainActualLoadValue));
       }
     }
     else {
+      this.isHidden=false;
       if(this.changedValue == 'Alternate Source of Supply-' + this.currentIndex){
           this.nominalVoltageArr1 = [];
           this.nominalVoltageArr2 = [];
           this.nominalVoltageArr3 = [];
-      
+          this.nominalVoltageArr4 = [];
+
           this.nominalVoltageArr1 = this.service.nominalVoltageArr2[this.currentIndex-1].nominalVoltage.split(",");
-          this.nominalVoltageArr2 = this.service.nominalVoltageArr2[this.currentIndex-1].nominalFrequency.split(",");
+          this.nominalVoltageArr2 = this.service.nominalVoltageArr2[this.currentIndex-1].loopImpedance.split(",");
           this.nominalVoltageArr3 = this.service.nominalVoltageArr2[this.currentIndex-1].faultCurrent.split(",");
-      
+          this.nominalVoltageArr4 = this.service.nominalVoltageArr2[this.currentIndex-1].actualLoad.split(",");
+
           this.alternateNominalArr = [];
-          this.alternateNominalArr.push(this.nominalVoltageArr1,this.nominalVoltageArr2,this.nominalVoltageArr3);
+          this.alternateNominalArr.push(this.nominalVoltageArr1,this.nominalVoltageArr2,this.nominalVoltageArr3, this.nominalVoltageArr4);
           this.formList1.clear();
           this.formList1.push(this.populatedistributionIncomingValue
             (this.service.nominalVoltageArr2[this.currentIndex-1].nominalVoltage, 
-              this.service.nominalVoltageArr2[this.currentIndex-1].nominalFrequency,
-              this.service.nominalVoltageArr2[this.currentIndex-1].faultCurrent));
+              this.service.nominalVoltageArr2[this.currentIndex-1].loopImpedance,
+              this.service.nominalVoltageArr2[this.currentIndex-1].faultCurrent,
+              this.service.nominalVoltageArr2[this.currentIndex-1].actualLoad));
         }
       this.service.testingTable2 = this.alternateNominalArr;
     }
   }
 
-  private populatedistributionIncomingValue(incomingVoltage: any, incomingLoopImpedance: any, incomingFaultCurrent: any): FormGroup {
+  private populatedistributionIncomingValue(incomingVoltage: any, incomingLoopImpedance: any, incomingFaultCurrent: any, incomingActualLoad:any): FormGroup {
     let incomingVoltageArray = [];
     let incomingLoopImpedanceArray = [];
     let incomingFaultCurrentArray = [];
-    
+    let incomingActualLoadArray=[];
     incomingVoltageArray = incomingVoltage.split(",");
     incomingLoopImpedanceArray = incomingLoopImpedance.split(",");
     incomingFaultCurrentArray = incomingFaultCurrent.split(",");
-
+    incomingActualLoadArray= incomingActualLoad.split(",");
     let item = [];
-    item.push(incomingVoltageArray, incomingLoopImpedanceArray, incomingFaultCurrentArray);
+    item.push(incomingVoltageArray, incomingLoopImpedanceArray, incomingFaultCurrentArray,incomingActualLoadArray);
     return new FormGroup({
       incomingVoltage1: new FormControl({ disabled: false, value: item[0][0] }),
       incomingVoltage2: new FormControl({ disabled: false, value: item[0][1] }),
@@ -989,17 +1550,21 @@ export class InspectionVerificationTestingComponent implements OnInit {
       incomingIpf7: new FormControl({ disabled: false, value: item[2][6] }),
       incomingIpf8: new FormControl({ disabled: false, value: item[2][7] }),
       incomingIpf9: new FormControl({ disabled: false, value: item[2][8] }),
+
+      actualLoadAl1: new FormControl({ disabled: false, value: item[3][0] }),
+      actualLoadAl2: new FormControl({ disabled: false, value: item[3][1] }),
+      actualLoadAl3: new FormControl({ disabled: false, value: item[3][2] }),
+      actualLoadAl4: new FormControl({ disabled: false, value: item[3][3] }),
+     
     });
   }
-  private populateTestRecordsForm(testRecordsItem: any) {
-
+  private populateTestRecordsForm(testRecordsItem: any,testDistRecordId: any,testingId: any) {
     let disconnectionTimeArr = [];
     let testFaultCurrentArr = [];
     let testLoopImpedanceArr = [];
     let testVoltageArr = [];
     let insulationResistanceArr = [];
     this.testingRecordTableArr = [];
-
 
     for (let item of testRecordsItem) {
       disconnectionTimeArr = item.disconnectionTime.split(",");
@@ -1008,34 +1573,41 @@ export class InspectionVerificationTestingComponent implements OnInit {
       testVoltageArr = item.testVoltage.split(",");
       insulationResistanceArr = item.insulationResistance.split(",");
 
-      this.testingRecordTableArr.push(this.pushTestingTable(item, disconnectionTimeArr, testFaultCurrentArr, testLoopImpedanceArr, testVoltageArr, insulationResistanceArr))
+      this.testingRecordTableArr.push(this.pushTestingTable(item, disconnectionTimeArr, testFaultCurrentArr, testLoopImpedanceArr, testVoltageArr, insulationResistanceArr,testDistRecordId,testingId))
     }
-
     // let item = [];
     // item.push(nominalVoltageAL,nominalFrequencyAL,faultCurrentAL,loopImpedanceAL,installedCapacityAL,actualLoadAL);
     return this.testingRecordTableArr
   }
 
-  pushTestingTable(itemTestingValue: any, disconnectionTimeArr: any, testFaultCurrentArr: any, testLoopImpedanceArr: any, testVoltageArr: any, insulationResistanceArr: any): FormGroup {
+  pushTestingTable(itemTestingValue: any, disconnectionTimeArr: any, testFaultCurrentArr: any, testLoopImpedanceArr: any, testVoltageArr: any, insulationResistanceArr: any, testDistRecordId: any, testingId: any): FormGroup {
     return new FormGroup({
+      testDistRecordId: new FormControl({ disabled: false, value: testDistRecordId }),
+      testingId: new FormControl({ disabled: false, value: testingId }),
       testingRecordId: new FormControl({ disabled: false, value: itemTestingValue.testingRecordId }),
       circuitNo: new FormControl({ disabled: false, value: itemTestingValue.circuitNo }),
       circuitDesc: new FormControl({ disabled: false, value: itemTestingValue.circuitDesc }),
+      circuitMake: new FormControl({ disabled: false, value: itemTestingValue.circuitMake }),
       circuitStandardNo: new FormControl({ disabled: false, value: itemTestingValue.circuitStandardNo }),
       circuitType: new FormControl({ disabled: false, value: itemTestingValue.circuitType }),
+      numberOfPoles: new FormControl({ disabled: false, value: itemTestingValue.numberOfPoles }),
+      circuitCurrentCurve: new FormControl({ disabled: false, value: itemTestingValue.circuitCurrentCurve }),
       circuitRating: new FormControl({ disabled: false, value: itemTestingValue.circuitRating }),
       circuitBreakingCapacity: new FormControl({ disabled: false, value: itemTestingValue.circuitBreakingCapacity }),
       shortCircuitSetting: new FormControl({ disabled: false, value: itemTestingValue.shortCircuitSetting }),
       eFSetting: new FormControl({ disabled: false, value: itemTestingValue.eFSetting }),
       conductorInstallation: new FormControl({ disabled: false, value: itemTestingValue.conductorInstallation }),
-      conductorPhase: new FormControl({ disabled: false, value: itemTestingValue.conductorPhase }),
+      conductorPhase: new FormControl({ disabled: false, value: itemTestingValue.conductorPhase },[Validators.required]),
+      conductorPhaseFlag: new FormControl(false),
       conductorNeutral: new FormControl({ disabled: false, value: itemTestingValue.conductorNeutral }),
+      conductorNeutralFlag: new FormControl(false),
       conductorPecpc: new FormControl({ disabled: false, value: itemTestingValue.conductorPecpc }),
-      continutiyApproximateLength: new FormControl({ disabled: false, value: itemTestingValue.continutiyApproximateLength }),
+      conductorPecpcFlag: new FormControl(false),
+      continutiyApproximateLength: new FormControl({ disabled: false, value: itemTestingValue.continutiyApproximateLength },[Validators.required]),
       continutiyRR: new FormControl({ disabled: false, value: itemTestingValue.continutiyRR }),
       continutiyR: new FormControl({ disabled: false, value: itemTestingValue.continutiyR }),
-      // continutiyLL: new FormControl({disabled: false,value: itemTestingValue.continutiyLL}),
-      // continutiyLE: new FormControl({disabled: false,value: itemTestingValue.continutiyLE}),
+      maximumAllowedValue: new FormControl({disabled: false,value: itemTestingValue.maximumAllowedValue},[Validators.required]),
+      continuityRemarks: new FormControl({disabled: false,value: itemTestingValue.continuityRemarks}),
       continutiyPolarity: new FormControl({ disabled: false, value: itemTestingValue.continutiyPolarity }),
 
       rycontinutiy: new FormControl({ disabled: false, value: insulationResistanceArr[0] }),
@@ -1093,14 +1665,86 @@ export class InspectionVerificationTestingComponent implements OnInit {
       testLoopImpedance: new FormControl({ disabled: false, value: itemTestingValue.testLoopImpedance }),
       testFaultCurrent: new FormControl({ disabled: false, value: itemTestingValue.testFaultCurrent }),
       disconnectionTime: new FormControl({ disabled: false, value: itemTestingValue.disconnectionTime }),
+      rcdType: new FormControl({ disabled: false, value: itemTestingValue.rcdType }),
       rcdCurrent: new FormControl({ disabled: false, value: itemTestingValue.rcdCurrent }),
       rcdOperatingCurrent: new FormControl({ disabled: false, value: itemTestingValue.rcdOperatingCurrent }),
       rcdOperatingFiveCurrent: new FormControl({ disabled: false, value: itemTestingValue.rcdOperatingFiveCurrent }),
       rcdTestButtonOperation: new FormControl({ disabled: false, value: itemTestingValue.rcdTestButtonOperation }),
       rcdRemarks: new FormControl({ disabled: false, value: itemTestingValue.rcdRemarks }),
+      testingRecordsSourceSupply: this.formBuilder.array(this.populateTestSourceSupplyForm(itemTestingValue)),
+      testingRecordStatus: new FormControl(itemTestingValue.testingRecordStatus),
+
     });
   }
+  populateTestSourceSupplyForm(itemTestingValue: any) {
+    let disconnectionTimeArr1 = [];
+    let testFaultCurrentArr1 = [];
+    let testLoopImpedanceArr1 = [];
+    let testVoltageArr1 = [];
+   this.testingRecordTableArr1= [];
+   
+    for(let w of itemTestingValue.testingRecordsSourceSupply){
+      disconnectionTimeArr1 = w.disconnectionTime.split(",");
+      testFaultCurrentArr1 = w.testFaultCurrent.split(",");
+      testLoopImpedanceArr1 = w.testLoopImpedance.split(",");
+      testVoltageArr1 = w.testVoltage.split(",");
 
+      this.testingRecordTableArr1.push(this.pushTestingSourceSupplyTable(w, disconnectionTimeArr1, testFaultCurrentArr1, testLoopImpedanceArr1, testVoltageArr1));
+    }
+    return this.testingRecordTableArr1;
+  }
+  pushTestingSourceSupplyTable(itemTestingValue: any, disconnectionTimeArr: any, testFaultCurrentArr: any, testLoopImpedanceArr: any, testVoltageArr: any): FormGroup {
+    return new FormGroup({
+      sourceSupplyId: new FormControl({ disabled: false, value: itemTestingValue.sourceSupplyId }),
+      ryVoltage: new FormControl({ disabled: false, value: testVoltageArr[0] }),
+      rbVoltage: new FormControl({ disabled: false, value: testVoltageArr[1] }),
+      ybVoltage: new FormControl({ disabled: false, value: testVoltageArr[2] }),
+      rnVoltage: new FormControl({ disabled: false, value: testVoltageArr[3] }),
+      ynVoltage: new FormControl({ disabled: false, value: testVoltageArr[4] }),
+      bnVoltage: new FormControl({ disabled: false, value: testVoltageArr[5] }),
+      rpeVoltage: new FormControl({ disabled: false, value: testVoltageArr[6] }),
+      ypeVoltage: new FormControl({ disabled: false, value: testVoltageArr[7] }),
+      bpeVoltage: new FormControl({ disabled: false, value: testVoltageArr[8] }),
+
+      ryLoopImpedance: new FormControl({ disabled: false, value: testLoopImpedanceArr[0] }),
+      rbLoopImpedance: new FormControl({ disabled: false, value: testLoopImpedanceArr[1] }),
+      ybLoopImpedance: new FormControl({ disabled: false, value: testLoopImpedanceArr[2] }),
+      rnLoopImpedance: new FormControl({ disabled: false, value: testLoopImpedanceArr[3] }),
+      ynLoopImpedance: new FormControl({ disabled: false, value: testLoopImpedanceArr[4] }),
+      bnLoopImpedance: new FormControl({ disabled: false, value: testLoopImpedanceArr[5] }),
+      rpeLoopImpedance: new FormControl({ disabled: false, value: testLoopImpedanceArr[6] }),
+      ypeLoopImpedance: new FormControl({ disabled: false, value: testLoopImpedanceArr[7] }),
+      bpeLoopImpedance: new FormControl({ disabled: false, value: testLoopImpedanceArr[8] }),
+
+      ryFaultCurrent: new FormControl({ disabled: false, value: testFaultCurrentArr[0] }),
+      rbFaultCurrent: new FormControl({ disabled: false, value: testFaultCurrentArr[1] }),
+      ybFaultCurrent: new FormControl({ disabled: false, value: testFaultCurrentArr[2] }),
+      rnFaultCurrent: new FormControl({ disabled: false, value: testFaultCurrentArr[3] }),
+      ynFaultCurrent: new FormControl({ disabled: false, value: testFaultCurrentArr[4] }),
+      bnFaultCurrent: new FormControl({ disabled: false, value: testFaultCurrentArr[5] }),
+      rpeFaultCurrent: new FormControl({ disabled: false, value: testFaultCurrentArr[6] }),
+      ypeFaultCurrent: new FormControl({ disabled: false, value: testFaultCurrentArr[7] }),
+      bpeFaultCurrent: new FormControl({ disabled: false, value: testFaultCurrentArr[8] }),
+
+      ryDisconnect: new FormControl({ disabled: false, value: disconnectionTimeArr[0] }),
+      rbDisconnect: new FormControl({ disabled: false, value: disconnectionTimeArr[1] }),
+      ybDisconnect: new FormControl({ disabled: false, value: disconnectionTimeArr[2] }),
+      rnDisconnect: new FormControl({ disabled: false, value: disconnectionTimeArr[3] }),
+      ynDisconnect: new FormControl({ disabled: false, value: disconnectionTimeArr[4] }),
+      bnDisconnect: new FormControl({ disabled: false, value: disconnectionTimeArr[5] }),
+      rpeDisconnect: new FormControl({ disabled: false, value: disconnectionTimeArr[6] }),
+      ypeDisconnect: new FormControl({ disabled: false, value: disconnectionTimeArr[7] }),
+      bpeDisconnect: new FormControl({ disabled: false, value: disconnectionTimeArr[8] }),
+
+      testVoltage: new FormControl({ disabled: false, value: itemTestingValue.testVoltage }),
+      testLoopImpedance: new FormControl({ disabled: false, value: itemTestingValue.testLoopImpedance }),
+      testFaultCurrent: new FormControl({ disabled: false, value: itemTestingValue.testFaultCurrent }),
+      disconnectionTime: new FormControl({ disabled: false, value: itemTestingValue.disconnectionTime })
+     });
+  }
+  gettestInstrumentControls(form: any) {
+    return form.controls.testingEquipment?.controls;
+  }
   getdistributionIncomingValueControls(form: any) {
     return form.controls.distributionIncomingValueArr?.controls;
   }
@@ -1110,8 +1754,14 @@ export class InspectionVerificationTestingComponent implements OnInit {
   gettestDistributionFormControls(form: any) {
     return form.controls.testDistribution?.controls;
   }
+  gettestDistRecordsFormControls(form: any) {
+    return form.controls.testDistRecords?.controls;
+  }
   gettestValueControls(form: any) {
     return form.controls.testingRecords?.controls;
+  }
+  gettestAlternateValueControls(form: any) {
+    return form.controls.testingRecordsSourceSupply?.controls;
   }
   gettestrateFormControls(form: any) {
     return form.controls.rateArr?.controls;
@@ -1122,12 +1772,12 @@ export class InspectionVerificationTestingComponent implements OnInit {
 
   private createtestDistributionForm(): FormGroup {
     return new FormGroup({
-      distributionBoardDetails: new FormControl('', [Validators.required]),
-      referance: new FormControl('', [Validators.required]),
-      location: new FormControl('', [Validators.required]),
+      distributionBoardDetails: new FormControl(''),
+      referance: new FormControl(''),
+      location: new FormControl(''),
       sourceFromSupply: new FormControl('', [Validators.required]),
       correctSupplyPolarity: new FormControl('', [Validators.required]),
-      numOutputCircuitsUse: new FormControl('', [Validators.required]),
+      numOutputCircuitsUse: new FormControl('', [Validators.required,Validators.min(1)]),
       ratingsAmps: new FormControl(''),
       rateArr: this.formBuilder.array([this.ratingAmps()]),
       numOutputCircuitsSpare: new FormControl('', [Validators.required]),
@@ -1135,13 +1785,53 @@ export class InspectionVerificationTestingComponent implements OnInit {
       incomingVoltage: new FormControl(''),
       incomingLoopImpedance: new FormControl(''),
       incomingFaultCurrent: new FormControl(''),
+      incomingActualLoad:new FormControl(''),
       distributionIncomingValueArr: this.formBuilder.array([
         this.distributionIncomingValue(),
       ]),
       distributionIncomingValueArr2: this.formBuilder.array([
         this.distributionIncomingValue(),
       ]),
+      // testingAlternateRecords: this.formBuilder.array([
+      //   this.distributionIncomingValue(),
+      // ]),
+
     });
+  }
+  private createtestDistRecordsForm(): FormGroup {
+    return new FormGroup({
+      locationCount: new FormControl(''),
+      testingId: new FormControl(''),
+      testDistRecordId: new FormControl(''),
+      testDistribution: this.formBuilder.array([
+        this.createtestDistributionForm(),
+      ]),
+      testingInnerObservation: this.formBuilder.array([this.createObservationForm()]),
+      testingRecords: this.formBuilder.array([this.createtestValueForm()]),
+      testDistRecordStatus: new FormControl('A'),
+    });
+  }
+
+  createObservationForm(): FormGroup {
+    return new FormGroup({
+      testDistRecordId: new FormControl(''),
+      testingInnerObervationsId: new FormControl(''),
+      testingId: new FormControl(''),
+      observationComponentDetails: new FormControl(''),
+      observationDescription: new FormControl(''),
+      testingInnerObservationStatus: new FormControl('A'),
+    })
+  }
+
+  createObservationForm1(testDistRecordId: any,testingId: any): FormGroup {
+    return new FormGroup({
+      testDistRecordId: new FormControl({ disabled: false, value: testDistRecordId }),
+      testingInnerObervationsId: new FormControl(''),
+      testingId: new FormControl({ disabled: false, value: testingId }),
+      observationComponentDetails: new FormControl(''),
+      observationDescription: new FormControl(''),
+      testingInnerObservationStatus: new FormControl('A'),
+    })
   }
 
   IncomingValue(): FormGroup {
@@ -1150,6 +1840,7 @@ export class InspectionVerificationTestingComponent implements OnInit {
       incomingVoltage: new FormControl('240'),
       incomingLoopImpedance: new FormControl('260'),
       incomingFaultCurrent: new FormControl('100'),
+      incomingActualLoad: new FormControl('100'),
       sourceFromSupply: new FormControl('mains'),
     })
   }
@@ -1185,6 +1876,11 @@ export class InspectionVerificationTestingComponent implements OnInit {
       incomingIpf7: new FormControl(''),
       incomingIpf8: new FormControl(''),
       incomingIpf9: new FormControl(''),
+
+      actualLoadAl1: new FormControl(''),
+      actualLoadAl2: new FormControl(''),
+      actualLoadAl3: new FormControl(''),
+      actualLoadAl4: new FormControl(''),
     });
   }
   ratingAmps(): FormGroup {
@@ -1194,23 +1890,32 @@ export class InspectionVerificationTestingComponent implements OnInit {
   }
   private createtestValueForm(): FormGroup {
     return new FormGroup({
+      testingId: new FormControl(''),
+      testingRecordId: new FormControl(''),
+      testDistRecordId: new FormControl(''),
       circuitNo: new FormControl(''),
       circuitDesc: new FormControl(''),
+      circuitMake: new FormControl(''),
       circuitStandardNo: new FormControl(''),
       circuitType: new FormControl(''),
+      numberOfPoles: new FormControl(''),
+      circuitCurrentCurve: new FormControl(''),
       circuitRating: new FormControl(''),
       circuitBreakingCapacity: new FormControl(''),
       shortCircuitSetting: new FormControl(''),
       eFSetting: new FormControl(''),
       conductorInstallation: new FormControl(''),
-      conductorPhase: new FormControl(''),
+      conductorPhase: new FormControl('',[Validators.required]),
+      conductorPhaseFlag: new FormControl(false),
       conductorNeutral: new FormControl(''),
+      conductorNeutralFlag: new FormControl(false),
       conductorPecpc: new FormControl(''),
-      continutiyApproximateLength: new FormControl(''),
+      conductorPecpcFlag: new FormControl(false),
+      continutiyApproximateLength: new FormControl('',[Validators.required]),
       continutiyRR: new FormControl(''),
       continutiyR: new FormControl(''),
-      // continutiyLL: new FormControl(''),
-      // continutiyLE: new FormControl(''),
+      maximumAllowedValue: new FormControl('',[Validators.required]),
+      continuityRemarks: new FormControl(''),
       continutiyPolarity: new FormControl(''),
       rycontinutiy: new FormControl(''),
       rbcontinutiy: new FormControl(''),
@@ -1262,45 +1967,275 @@ export class InspectionVerificationTestingComponent implements OnInit {
       testLoopImpedance: new FormControl(''),
       testFaultCurrent: new FormControl(''),
       disconnectionTime: new FormControl(''),
+      rcdType: new FormControl(''),
       rcdCurrent: new FormControl(''),
       rcdOperatingCurrent: new FormControl(''),
       rcdOperatingFiveCurrent: new FormControl(''),
       rcdTestButtonOperation: new FormControl(''),
       rcdRemarks: new FormControl(''),
+      testingRecordsSourceSupply: this.formBuilder.array([
+        // this.createValue(),
+      ]),
+      //observationArr: this.formBuilder.array([]),
+      testingRecordStatus: new FormControl('A'),
     });
   }
 
+  private createtestValuePushForm(value: any,testDistRecordId: any,testingId: any): FormGroup {
+    return new FormGroup({
+      testDistRecordId: new FormControl({ disabled: false, value: testDistRecordId }),
+      testingId: new FormControl({ disabled: false, value: testingId }),
+      testingRecordId: new FormControl(''),
+      circuitNo: new FormControl(''),
+      circuitDesc: new FormControl(''),
+      circuitMake: new FormControl(''),
+      circuitStandardNo: new FormControl(''),
+      circuitType: new FormControl(''),
+      numberOfPoles: new FormControl(''),
+      circuitCurrentCurve: new FormControl(''),
+      circuitRating: new FormControl(''),
+      circuitBreakingCapacity: new FormControl(''),
+      shortCircuitSetting: new FormControl(''),
+      eFSetting: new FormControl(''),
+      conductorInstallation: new FormControl(''),
+      conductorPhase: new FormControl('',[Validators.required]),
+      conductorPhaseFlag: new FormControl(false),
+      conductorNeutral: new FormControl(''),
+      conductorNeutralFlag: new FormControl(false),
+      conductorPecpc: new FormControl(''),
+      conductorPecpcFlag: new FormControl(false),
+      continutiyApproximateLength: new FormControl('',[Validators.required]),
+      continutiyRR: new FormControl(''),
+      continutiyR: new FormControl(''),
+      maximumAllowedValue: new FormControl('',[Validators.required]),
+      continuityRemarks: new FormControl(''),
+      continutiyPolarity: new FormControl(''),
+      rycontinutiy: new FormControl(''),
+      rbcontinutiy: new FormControl(''),
+      ybcontinutiy: new FormControl(''),
+      rncontinutiy: new FormControl(''),
+      yncontinutiy: new FormControl(''),
+      bncontinutiy: new FormControl(''),
+      rpecontinutiy: new FormControl(''),
+      ypecontinutiy: new FormControl(''),
+      bpecontinutiy: new FormControl(''),
+      ryVoltage: new FormControl(''),
+      rbVoltage: new FormControl(''),
+      ybVoltage: new FormControl(''),
+      rnVoltage: new FormControl(''),
+      ynVoltage: new FormControl(''),
+      bnVoltage: new FormControl(''),
+      rpeVoltage: new FormControl(''),
+      ypeVoltage: new FormControl(''),
+      bpeVoltage: new FormControl(''),
+      ryLoopImpedance: new FormControl(''),
+      rbLoopImpedance: new FormControl(''),
+      ybLoopImpedance: new FormControl(''),
+      rnLoopImpedance: new FormControl(''),
+      ynLoopImpedance: new FormControl(''),
+      bnLoopImpedance: new FormControl(''),
+      rpeLoopImpedance: new FormControl(''),
+      ypeLoopImpedance: new FormControl(''),
+      bpeLoopImpedance: new FormControl(''),
+      ryFaultCurrent: new FormControl(''),
+      rbFaultCurrent: new FormControl(''),
+      ybFaultCurrent: new FormControl(''),
+      rnFaultCurrent: new FormControl(''),
+      ynFaultCurrent: new FormControl(''),
+      bnFaultCurrent: new FormControl(''),
+      rpeFaultCurrent: new FormControl(''),
+      ypeFaultCurrent: new FormControl(''),
+      bpeFaultCurrent: new FormControl(''),
+      ryDisconnect: new FormControl(''),
+      rbDisconnect: new FormControl(''),
+      ybDisconnect: new FormControl(''),
+      rnDisconnect: new FormControl(''),
+      ynDisconnect: new FormControl(''),
+      bnDisconnect: new FormControl(''),
+      rpeDisconnect: new FormControl(''),
+      ypeDisconnect: new FormControl(''),
+      bpeDisconnect: new FormControl(''),
+      testVoltage: new FormControl(''),
+      insulationResistance: new FormControl(''),
+      testLoopImpedance: new FormControl(''),
+      testFaultCurrent: new FormControl(''),
+      disconnectionTime: new FormControl(''),
+      rcdType: new FormControl(''),
+      rcdCurrent: new FormControl(''),
+      rcdOperatingCurrent: new FormControl(''),
+      rcdOperatingFiveCurrent: new FormControl(''),
+      rcdTestButtonOperation: new FormControl(''),
+      rcdRemarks: new FormControl(''),
+      testingRecordsSourceSupply: this.formBuilder.array(this.pushData(value)),
+      testingRecordStatus: new FormControl('A'),
+    });
+  }
+
+  private pushData(value: any) {
+    this.testingAlternateRecords1 = [];
+      for(let j of this.supplyValues.supplyParameters) {	
+        if(j.aLLiveConductorType == "AC") {	  
+          this.testingAlternateRecords1.push(this.createValue(this.supplyValues.mainLoopImpedance,j.nominalVoltage,j.loopImpedance));
+        }
+      }
+  
+    return this.testingAlternateRecords1;
+  }
+  
+  private createValue(mainsLoopImpedance: any,voltage: any,loopImpedance: any): FormGroup {
+    let mainsLoopImpedanceArr = [];
+    let nominalVoltage = [];	
+    let loopImpedanceArr = [];
+    
+    mainsLoopImpedanceArr = mainsLoopImpedance.split(",");
+    nominalVoltage = voltage.split(",");	
+    loopImpedanceArr = loopImpedance.split(",")
+    return new FormGroup({
+      
+      ryVoltage: new FormControl(nominalVoltage[0]),
+      rbVoltage: new FormControl(nominalVoltage[1]),
+      ybVoltage: new FormControl(nominalVoltage[2]),
+      rnVoltage: new FormControl(nominalVoltage[3]),
+      ynVoltage: new FormControl(nominalVoltage[4]),
+      bnVoltage: new FormControl(nominalVoltage[5]),
+      rpeVoltage: new FormControl(nominalVoltage[6]),
+      ypeVoltage: new FormControl(nominalVoltage[7]),
+      bpeVoltage: new FormControl(nominalVoltage[8]),
+
+      ryLoopImpedanceMains: new FormControl(mainsLoopImpedanceArr[0]),
+      rbLoopImpedanceMains: new FormControl(mainsLoopImpedanceArr[1]),
+      ybLoopImpedanceMains: new FormControl(mainsLoopImpedanceArr[2]),
+      rnLoopImpedanceMains: new FormControl(mainsLoopImpedanceArr[3]),
+      ynLoopImpedanceMains: new FormControl(mainsLoopImpedanceArr[4]),
+      bnLoopImpedanceMains: new FormControl(mainsLoopImpedanceArr[5]),
+      rpeLoopImpedanceMains: new FormControl(mainsLoopImpedanceArr[6]),
+      ypeLoopImpedanceMains: new FormControl(mainsLoopImpedanceArr[7]),
+      bpeLoopImpedanceMains: new FormControl(mainsLoopImpedanceArr[8]),
+
+      ryLoopImpedanceExternal: new FormControl(loopImpedanceArr[0]),
+      rbLoopImpedanceExternal: new FormControl(loopImpedanceArr[1]),
+      ybLoopImpedanceExternal: new FormControl(loopImpedanceArr[2]),
+      rnLoopImpedanceExternal: new FormControl(loopImpedanceArr[3]),
+      ynLoopImpedanceExternal: new FormControl(loopImpedanceArr[4]),
+      bnLoopImpedanceExternal: new FormControl(loopImpedanceArr[5]),
+      rpeLoopImpedanceExternal: new FormControl(loopImpedanceArr[6]),
+      ypeLoopImpedanceExternal: new FormControl(loopImpedanceArr[7]),
+      bpeLoopImpedanceExternal: new FormControl(loopImpedanceArr[8]),
+
+      ryLoopImpedance: new FormControl(''),
+      rbLoopImpedance: new FormControl(''),
+      ybLoopImpedance: new FormControl(''),
+      rnLoopImpedance: new FormControl(''),
+      ynLoopImpedance: new FormControl(''),
+      bnLoopImpedance: new FormControl(''),
+      rpeLoopImpedance: new FormControl(''),
+      ypeLoopImpedance: new FormControl(''),
+      bpeLoopImpedance: new FormControl(''),
+
+      ryFaultCurrent: new FormControl(''),
+      rbFaultCurrent: new FormControl(''),
+      ybFaultCurrent: new FormControl(''),
+      rnFaultCurrent: new FormControl(''),
+      ynFaultCurrent: new FormControl(''),
+      bnFaultCurrent: new FormControl(''),
+      rpeFaultCurrent: new FormControl(''),
+      ypeFaultCurrent: new FormControl(''),
+      bpeFaultCurrent: new FormControl(''),
+
+      ryDisconnect: new FormControl(''),
+      rbDisconnect: new FormControl(''),
+      ybDisconnect: new FormControl(''),
+      rnDisconnect: new FormControl(''),
+      ynDisconnect: new FormControl(''),
+      bnDisconnect: new FormControl(''),
+      rpeDisconnect: new FormControl(''),
+      ypeDisconnect: new FormControl(''),
+      bpeDisconnect: new FormControl(''),
+
+      testVoltage: new FormControl(''),
+      testLoopImpedance: new FormControl(''),
+      testFaultCurrent: new FormControl(''),
+      disconnectionTime: new FormControl(''),
+    });
+  }
+  onChangeForm(event:any){
+    if(!this.testingForm.invalid){
+      if(this.testingForm.dirty){
+        this.validationError=false;
+        this.service.lvClick=1;
+        this.service.logoutClick=1;
+         this.service.windowTabClick=1;
+      }
+      else{
+        this.validationError=false;
+        this.service.lvClick=0;
+        this.service.logoutClick=0;
+        this.service.windowTabClick=0;
+      }
+     }
+     else {
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+     }
+  }
+  onKeyForm(event: KeyboardEvent) { 
+   if(!this.testingForm.invalid){ 
+    if(this.testingForm.dirty){
+      this.validationError=false;
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+    }
+    else{
+      this.validationError=false;
+      this.service.lvClick=0;
+      this.service.logoutClick=0;
+      this.service.windowTabClick=0;
+    }
+   }
+   else {
+    this.service.lvClick=1;
+    this.service.logoutClick=1;
+    this.service.windowTabClick=1;
+   }
+  } 
   // Dynamically iterate some fields
   onKey(event: KeyboardEvent, c: any, a: any) {
     this.values = (<HTMLInputElement>event.target).value;
     this.value = this.values;
     this.testingRecords = a.controls.testingRecords as FormArray;
+    this.observationArr = a.controls.testingInnerObservation as FormArray;
     this.rateArr = c.controls.rateArr as FormArray;
     if (this.testingRecords.length == 0 && this.rateArr.length == 0) {
-      if (this.value != '') {
+      if (this.value != '' && this.value != 0) {
         for (this.i = 1; this.i < this.value; this.i++) {
-          this.testingRecords.push(this.createtestValueForm());
+          this.testingRecords.push(this.createtestValuePushForm(this.testingRecords,a.controls.testDistRecordId.value,a.controls.testingId.value));
+          this.observationArr.push(this.createObservationForm1(a.controls.testDistRecordId.value,a.controls.testingId.value));
           this.rateArr.push(this.ratingAmps());
         }
       }
-    } else if (this.value == '') {
-      this.loclength = this.testingRecords.length;
-      this.loclength = this.rateArr.length;
+    } 
+    // else if (this.value == '') {
+    //   this.loclength = this.testingRecords.length;
+    //   this.loclength = this.rateArr.length;
 
-      for (this.i = 1; this.i < this.loclength; this.i++) {
-        this.testingRecords.removeAt(this.testingRecords.length - 1);
-        this.rateArr.removeAt(this.rateArr.length - 1);
-      }
-    } else if (
+    //   for (this.i = 1; this.i < this.loclength; this.i++) {
+    //     this.testingRecords.removeAt(this.testingRecords.length - 1);
+    //     this.rateArr.removeAt(this.rateArr.length - 1);
+    //   }
+    // } 
+    else if (
       this.testingRecords.length < this.value &&
       this.rateArr.length < this.value
     ) {
-      if (this.value != '') {
+      if (this.value != '' && this.value != 0) {
         this.delarr = this.value - this.testingRecords.length;
         this.delarr = this.value - this.rateArr.length;
 
         for (this.i = 0; this.i < this.delarr; this.i++) {
-          this.testingRecords.push(this.createtestValueForm());
+          this.testingRecords.push(this.createtestValuePushForm(this.testingRecords,a.controls.testDistRecordId.value,a.controls.testingId.value));
+          this.observationArr.push(this.createObservationForm1(a.controls.testDistRecordId.value,a.controls.testingId.value));
           this.rateArr.push(this.ratingAmps());
         }
       }
@@ -1308,38 +2243,141 @@ export class InspectionVerificationTestingComponent implements OnInit {
       this.testingRecords.length > this.value &&
         this.rateArr.length > this.value;
     {
-      if (this.value != '') {
+      if (this.value != '' && this.value != 0) {
         this.delarr = this.testingRecords.length - this.value;
         this.delarr = this.rateArr.length - this.value;
 
         for (this.i = 0; this.i < this.delarr; this.i++) {
+          if(this.flag && this.testingRecords.value[this.testingRecords.length - 1].testingRecordId != 0 
+              && this.testingRecords.value[this.testingRecords.length - 1].testingRecordId != '' 
+               && this.testingRecords.value[this.testingRecords.length - 1].testingRecordId != undefined) {
+                 this.testingRecords.value[this.testingRecords.length - 1].testingRecordStatus = 'R';
+                 this.deletedTestingRecord.push(this.testingRecords.value[this.testingRecords.length - 1]);
+               }
+               if(this.flag && this.observationArr.value[this.observationArr.length - 1].testingInnerObervationsId != 0 
+                && this.observationArr.value[this.observationArr.length - 1].testingInnerObervationsId != '' 
+                 && this.observationArr.value[this.observationArr.length - 1].testingInnerObervationsId != undefined) {
+                   this.observationArr.value[this.observationArr.length - 1].testingInnerObservationStatus = 'R';
+                   this.deletedObservationArr.push(this.observationArr.value[this.observationArr.length - 1]);
+                 }
           this.testingRecords.removeAt(this.testingRecords.length - 1);
           this.rateArr.removeAt(this.rateArr.length - 1);
+          this.observationArr.removeAt(this.testingRecords.length - 1);
         }
       }
     }
   }
-
+  removeItemRecords(a:any,i:any,f:any) {
+    this.testingForm.markAsTouched();
+    if(f.value.testingRecordId !=0  
+       && f.value.testingRecordId !=undefined 
+        && f.value.testingRecordId !='' 
+         && f.value.testingRecordId !=null)
+    {
+      f.value.testingRecordStatus='R';
+      this.deletedTestingRecord.push( a.controls.testingRecords.value[i]);
+      a.controls.testingRecords.removeAt(i);
+     // a.controls.testDistribution.value[0].numOutputCircuitsUse.value=a.controls.testDistribution.value[0].numOutputCircuitsUse.value - 1;
+      a.controls.testDistribution.controls[0].controls.numOutputCircuitsUse.setValue(a.controls.testDistribution.controls[0].controls.numOutputCircuitsUse.value - 1);
+      a.controls.testDistribution.controls[0].controls.rateArr.removeAt(i);
+      this.testingForm.markAsDirty();
+    }
+    
+    else
+    {
+      this.testingForm.markAsTouched();
+      a.controls.testingRecords.removeAt(i);
+     // a.controls.testDistribution.value[0].numOutputCircuitsUse.value=a.controls.testDistribution.value[0].numOutputCircuitsUse.value - 1;
+     a.controls.testDistribution.controls[0].controls.numOutputCircuitsUse.setValue(a.controls.testDistribution.controls[0].controls.numOutputCircuitsUse.value - 1);
+     a.controls.testDistribution.controls[0].controls.rateArr.removeAt(i);
+     this.testingForm.markAsDirty();
+    }
+//for observation
+    if(a.controls.testingInnerObservation.value[i].testingInnerObervationsId !=0  
+      && a.controls.testingInnerObservation.value[i].testingInnerObervationsId !=undefined 
+       && a.controls.testingInnerObservation.value[i].testingInnerObervationsId !='' 
+        && a.controls.testingInnerObservation.value[i].testingInnerObervationsId !=null)
+   {
+    a.controls.testingInnerObservation.value[i].testingInnerObservationStatus='R';
+     this.deletedObservationArr.push( a.controls.testingInnerObservation.value[i]);
+     a.controls.testingInnerObservation.removeAt(i);
+     this.testingForm.markAsDirty();
+   }
+   
+   else
+   {
+     this.testingForm.markAsTouched();
+     a.controls.testingInnerObservation.removeAt(i);
+    this.testingForm.markAsDirty();
+   }
+   }
+   
   createItem() {
     return this.formBuilder.group({
-      locationNumber: new FormControl(),
-      locationName: new FormControl(),
+      testingId: [''],
+      locationNumber: ['', Validators.required],
+      locationName: ['', Validators.required],
+      locationCount: [''],
       testEngineerName: ['', Validators.required],
       date: ['', Validators.required],
       companyName: ['', Validators.required],
       designation: ['', Validators.required],
-      detailsTestInstrument: ['', Validators.required],
-      continuity: ['', Validators.required],
-      insulationResisance: ['', Validators.required],
-      impedance: ['', Validators.required],
-      rcd: ['', Validators.required],
-      earthElectrodeResistance: ['', Validators.required],
-      testDistribution: this.formBuilder.array([
-        this.createtestDistributionForm(),
+      // detailsTestInstrument: ['', Validators.required],
+      // continuity: ['', Validators.required],
+      // insulationResisance: ['', Validators.required],
+      // impedance: ['', Validators.required],
+      // rcd: ['', Validators.required],
+      // earthElectrodeResistance: ['', Validators.required],
+      testingEquipment:this.formBuilder.array([
+        this.createTestInstrumentForm(),
       ]),
-      testingRecords: this.formBuilder.array([this.createtestValueForm()]),
+      testDistRecords: this.formBuilder.array([
+        this.createtestDistRecordsForm(),
+      ]),
+      testingStatus: ['A'],
     });
   }
+  addDesigner(a:any) {
+    this.testingEquipment = a.controls.testingEquipment as FormArray;
+    this.testingEquipment.push(this.createTestInstrumentForm1(a.controls.testingId.value));
+  }
+  removeItem(a: any,j:any) {
+    this.testingForm.markAsTouched();
+    this.testingEquipment = a.controls.testingEquipment as FormArray;
+    if(this.flag && this.testingEquipment.value[j].equipmentId!=null && this.testingEquipment.value[j].equipmentId!='' && this.testingEquipment.value[j].equipmentId!=undefined){
+      this.testingEquipment.value[j].testingEquipmentStatus='R';
+      this.deletedTestingEquipment.push(this.testingEquipment.value[j]);
+    }
+    this.testingEquipment.removeAt(j);
+    this.testingForm.markAsDirty();
+  }
+
+  createTestInstrumentForm(): FormGroup {
+    return new FormGroup({
+      testingId: new FormControl(''),
+      equipmentName: new FormControl('',[Validators.required]),
+      equipmentId: new FormControl(''),
+      equipmentMake: new FormControl('',[Validators.required]),
+      equipmentModel: new FormControl('',[Validators.required]),
+      equipmentSerialNo: new FormControl('',[Validators.required]),
+      equipmentCalibrationDueDate: new FormControl('',[Validators.required]),
+      testingEquipmentStatus: new FormControl('A'),
+    });
+  }
+
+  createTestInstrumentForm1(testingId: any): FormGroup {
+    return new FormGroup({
+      testingId: new FormControl({ disabled: false, value: testingId }),
+      equipmentName: new FormControl('',[Validators.required]),
+      equipmentId: new FormControl(''),
+      equipmentMake: new FormControl('',[Validators.required]),
+      equipmentModel: new FormControl('',[Validators.required]),
+      equipmentSerialNo: new FormControl('',[Validators.required]),
+      equipmentCalibrationDueDate: new FormControl('',[Validators.required]),
+      testingEquipmentStatus: new FormControl('A'),
+    });
+  }
+
   createtestDistribution(): FormGroup {
     return new FormGroup({
       distributionBoardDetails: new FormControl(''),
@@ -1354,9 +2392,19 @@ export class InspectionVerificationTestingComponent implements OnInit {
       incomingVoltage: new FormControl(''),
       incomingLoopImpedance: new FormControl(''),
       incomingFaultCurrent: new FormControl(''),
-
+      incomingActualLoad: new FormControl('')
     });
   }
+  
+  // addObservation(observationIter:any){
+  //   if(this.ObservationsForm.touched || this.ObservationsForm.untouched){
+  //     this.observationModalReference = this.modalService.open(observationIter, {
+  //        centered: true, 
+  //        size: 'md'
+  //       })
+  //    }
+
+  // }
 
   addItem() {
     this.testaccordianArr = this.testingForm.get(
@@ -1371,31 +2419,715 @@ export class InspectionVerificationTestingComponent implements OnInit {
   get f(): any {
     return this.testingForm.controls;
   }
+  // clickAcc(){
+  //   this.gotoNextTab();
+  // }
 
-  gotoNextModal(content4: any) {
-    if (this.testingForm.invalid) {
-      this.validationError = true;
-      this.validationErrorMsg = 'Please check all the fields';
+  onFocusOut(e: any,a: any) {
+    if(a.controls.conductorPhase.value != '' && a.controls.conductorPhase.value != undefined
+    && a.controls.continutiyApproximateLength.value != '' && a.controls.continutiyApproximateLength.value != undefined && a.controls.continutiyApproximateLength.value != 'NA') {
+      for(let i=0; i<this.nominalCrossSection.length; i++) {
+        if(this.nominalCrossSection[i] == a.controls.conductorPhase.value) {
+          a.controls.maximumAllowedValue.setValue(2*a.controls.continutiyApproximateLength.value*this.specificConductor[i]);
+          a.controls.continuityRemarks.setValue('R1 + R2 is the combined resistance of Phase and Neutral conductor measured at one location as a loop (note: up to 16 sqmm, Phase, Neutral and PE shall be of similar size)')
+          a.controls.conductorPhaseFlag.setValue(false);   
+          this.valueMismatchingFlag = false;   
+          break;
+        }
+        else {
+          a.controls.maximumAllowedValue.setValue('');
+          a.controls.conductorPhaseFlag.setValue(true);  
+          this.valueMismatchingFlag = true;       
+        }
+      }
+     }
+     else {
+      a.controls.maximumAllowedValue.setValue('');
+      a.controls.conductorPhaseFlag.setValue(false);  
+     }
+  }
+
+  onFocusOutNeutral(e: any,a: any) {
+    if(a.controls.conductorNeutral.value != '' && a.controls.conductorNeutral.value != undefined) {
+      for(let i=0; i<this.nominalCrossSection.length; i++) {
+        if(this.nominalCrossSection[i] == a.controls.conductorNeutral.value) {
+          a.controls.conductorNeutralFlag.setValue(false);  
+          this.valueMismatchingFlag = false;    
+          break;
+        }
+        else {
+          a.controls.conductorNeutralFlag.setValue(true);  
+          this.valueMismatchingFlag = true;   
+        }
+      }
+     }
+     else {
+      a.controls.conductorNeutralFlag.setValue(false);  
+     }
+  }
+
+  onFocusOutPe(e: any,a: any) {
+    if(a.controls.conductorPecpc.value != '' && a.controls.conductorPecpc.value != undefined) {
+      for(let i=0; i<this.nominalCrossSection.length; i++) {
+        if(this.nominalCrossSection[i] == a.controls.conductorPecpc.value) {
+          a.controls.conductorPecpcFlag.setValue(false); 
+          this.valueMismatchingFlag = false;     
+          break;
+        }
+        else {
+          a.controls.conductorPecpcFlag.setValue(true);  
+          this.valueMismatchingFlag = true;   
+        }
+      }
+     }
+     else {
+      a.controls.conductorPecpcFlag.setValue(false);  
+     }
+  }
+
+  onKeyVoltage1(event:KeyboardEvent,f:any){
+    if(f.controls.ryVoltage.value!='' && f.controls.ryLoopImpedance.value!='' && f.controls.ryLoopImpedance.value!=undefined && f.controls.ryVoltage.value!=undefined && f.controls.ryVoltage.value!='NA' && f.controls.ryLoopImpedance.value!='NA'){
+    //f.controls.ryFaultCurrent.value= f.controls.ryVoltage.value/f.controls.ryLoopImpedance.value; 
+    var ryFaultCurrent= f.controls.ryVoltage.value/f.controls.ryLoopImpedance.value;	
+    f.controls.ryFaultCurrent.value=ryFaultCurrent.toFixed(3);	
+   }
+   else if((f.controls.ryVoltage.value=='NA' && f.controls.ryLoopImpedance.value=='NA') || (f.controls.ryVoltage.value=='NA' || f.controls.ryLoopImpedance.value=='NA')){
+     f.controls.ryFaultCurrent.value='NA';
+    }
+   else{
+     f.controls.ryFaultCurrent.value='';
+   }
+   if(f.controls.rbVoltage.value!='' && f.controls.rbLoopImpedance.value!='' && f.controls.rbLoopImpedance.value!=undefined && f.controls.rbVoltage.value!=undefined && f.controls.rbVoltage.value!='NA' && f.controls.rbLoopImpedance.value!='NA'){
+     //f.controls.rbFaultCurrent.value= f.controls.rbVoltage.value/f.controls.rbLoopImpedance.value;
+     var rbFaultCurrent= f.controls.rbVoltage.value/f.controls.rbLoopImpedance.value;	
+        f.controls.rbFaultCurrent.value=rbFaultCurrent.toFixed(3);	
+    }
+    else if((f.controls.rbVoltage.value=='NA' && f.controls.rbLoopImpedance.value=='NA') || (f.controls.rbVoltage.value=='NA' || f.controls.rbLoopImpedance.value=='NA')){
+     f.controls.rbFaultCurrent.value='NA';
+    }
+    else{
+      f.controls.rbFaultCurrent.value='';
+    }
+    if(f.controls.ybVoltage.value!='' && f.controls.ybLoopImpedance.value!='' && f.controls.ybLoopImpedance.value!=undefined && f.controls.ybVoltage.value!=undefined && f.controls.ybVoltage.value!='NA' && f.controls.ybLoopImpedance.value!='NA'){
+     //f.controls.ybFaultCurrent.value= f.controls.ybVoltage.value/f.controls.ybLoopImpedance.value;
+     var ybFaultCurrent= f.controls.ybVoltage.value/f.controls.ybLoopImpedance.value;	
+        f.controls.ybFaultCurrent.value=ybFaultCurrent.toFixed(3);	
+    }
+    else if((f.controls.ybVoltage.value=='NA' && f.controls.ybLoopImpedance.value=='NA') || (f.controls.ybVoltage.value=='NA' || f.controls.ybLoopImpedance.value=='NA')){
+     f.controls.ybFaultCurrent.value='NA';
+    }
+    else{
+      f.controls.ybFaultCurrent.value='';
+    }
+    if(f.controls.rnVoltage.value!='' && f.controls.rnLoopImpedance.value!='' && f.controls.rnLoopImpedance.value!=undefined && f.controls.rnVoltage.value!=undefined && f.controls.rnVoltage.value!='NA' && f.controls.rnLoopImpedance.value!='NA'){
+     //f.controls.rnFaultCurrent.value= f.controls.rnVoltage.value/f.controls.rnLoopImpedance.value;
+     var rnFaultCurrent= f.controls.rnVoltage.value/f.controls.rnLoopImpedance.value;	
+        f.controls.rnFaultCurrent.value=rnFaultCurrent.toFixed(3);	
+    }
+    else if((f.controls.rnVoltage.value=='NA' && f.controls.rnLoopImpedance.value=='NA') || (f.controls.rnVoltage.value=='NA' || f.controls.rnLoopImpedance.value=='NA')){
+     f.controls.rnFaultCurrent.value='NA';
+    }
+    else{
+      f.controls.rnFaultCurrent.value='';
+    }
+    if(f.controls.ynVoltage.value!='' && f.controls.ynLoopImpedance.value!='' && f.controls.ynLoopImpedance.value!=undefined && f.controls.ynVoltage.value!=undefined && f.controls.ynVoltage.value!='NA' && f.controls.ynLoopImpedance.value!='NA'){
+     //f.controls.ynFaultCurrent.value= f.controls.ynVoltage.value/f.controls.ynLoopImpedance.value;
+     var ynFaultCurrent= f.controls.ynVoltage.value/f.controls.ynLoopImpedance.value;	
+        f.controls.ynFaultCurrent.value=ynFaultCurrent.toFixed(3);	
+    }
+    else if((f.controls.ynVoltage.value=='NA' && f.controls.ynLoopImpedance.value=='NA') || (f.controls.ynVoltage.value=='NA' || f.controls.ynLoopImpedance.value=='NA')){
+     f.controls.ynFaultCurrent.value='NA';
+    }
+    else{
+      f.controls.ynFaultCurrent.value='';
+    }
+    if(f.controls.bnVoltage.value!='' && f.controls.bnLoopImpedance.value!='' && f.controls.bnLoopImpedance.value!=undefined && f.controls.bnVoltage.value!=undefined && f.controls.bnVoltage.value!='NA' && f.controls.bnLoopImpedance.value!='NA'){
+     //f.controls.bnFaultCurrent.value= f.controls.bnVoltage.value/f.controls.bnLoopImpedance.value;
+     var bnFaultCurrent= f.controls.bnVoltage.value/f.controls.bnLoopImpedance.value;	
+        f.controls.bnFaultCurrent.value=bnFaultCurrent.toFixed(3);	
+    }
+    else if((f.controls.bnVoltage.value=='NA' && f.controls.bnLoopImpedance.value=='NA') || (f.controls.bnVoltage.value=='NA' || f.controls.bnLoopImpedance.value=='NA')){
+     f.controls.bnFaultCurrent.value='NA';
+    }
+    else{
+      f.controls.bnFaultCurrent.value='';
+    }
+    if(f.controls.rpeVoltage.value!='' && f.controls.rpeLoopImpedance.value!='' && f.controls.rpeLoopImpedance.value!=undefined && f.controls.rpeVoltage.value!=undefined && f.controls.rpeVoltage.value!='NA' && f.controls.rpeLoopImpedance.value!='NA'){
+     //f.controls.rpeFaultCurrent.value= f.controls.rpeVoltage.value/f.controls.rpeLoopImpedance.value;
+     var rpeFaultCurrent= f.controls.rpeVoltage.value/f.controls.rpeLoopImpedance.value;	
+        f.controls.rpeFaultCurrent.value=rpeFaultCurrent.toFixed(3);	
+    }
+    else if((f.controls.rpeVoltage.value=='NA' && f.controls.rpeLoopImpedance.value=='NA') || (f.controls.rpeVoltage.value=='NA' || f.controls.rpeLoopImpedance.value=='NA')){
+     f.controls.rpeFaultCurrent.value='NA';
+    }
+    else{
+      f.controls.rpeFaultCurrent.value='';
+    }
+    if(f.controls.ypeVoltage.value!='' && f.controls.ypeLoopImpedance.value!='' && f.controls.ypeVoltage.value!=undefined && f.controls.ypeVoltage.value!=undefined && f.controls.ypeVoltage.value!='NA' && f.controls.ypeLoopImpedance.value!='NA'){
+     //f.controls.ypeFaultCurrent.value= f.controls.ypeVoltage.value/f.controls.ypeLoopImpedance.value;
+     var ypeFaultCurrent= f.controls.ypeVoltage.value/f.controls.ypeLoopImpedance.value;	
+        f.controls.ypeFaultCurrent.value=ypeFaultCurrent.toFixed(3);	
+    }
+    else if((f.controls.ypeVoltage.value=='NA' && f.controls.ypeLoopImpedance.value=='NA') || (f.controls.ypeVoltage.value=='NA' || f.controls.ypeLoopImpedance.value=='NA')){
+     f.controls.ypeFaultCurrent.value='NA';
+    }
+    else{
+      f.controls.ypeFaultCurrent.value='';
+    }
+    if(f.controls.bpeVoltage.value!='' && f.controls.bpeLoopImpedance.value!='' && f.controls.bpeLoopImpedance.value!=undefined && f.controls.bpeVoltage.value!=undefined && f.controls.bpeVoltage.value!='NA' && f.controls.bpeLoopImpedance.value!='NA'){
+    // f.controls.bpeFaultCurrent.value= f.controls.bpeVoltage.value/f.controls.bpeLoopImpedance.value;
+    var bpeFaultCurrent= f.controls.bpeVoltage.value/f.controls.bpeLoopImpedance.value;	
+        f.controls.bpeFaultCurrent.value=bpeFaultCurrent.toFixed(3);	
+    }
+    else if((f.controls.bpeVoltage.value=='NA' && f.controls.bpeLoopImpedance.value=='NA') || (f.controls.bpeVoltage.value=='NA' || f.controls.bpeLoopImpedance.value=='NA')){
+     f.controls.bpeFaultCurrent.value='NA';
+    }
+    else{
+      f.controls.bpeFaultCurrent.value='';
+    }
+    }
+    onKeyImpedance1(event:KeyboardEvent,f:any){
+      
+        for(let i of f.controls.testingRecordsSourceSupply.controls) {
+          if(f.controls.ryLoopImpedance.value!='' && f.controls.ryLoopImpedance.value!=undefined && f.controls.ryLoopImpedance.value!= 'NA'
+          && i.controls.ryLoopImpedanceMains.value!='NA' && i.controls.ryLoopImpedanceExternal.value!='NA') {
+          i.controls.ryLoopImpedance.value =(f.controls.ryLoopImpedance.value - i.controls.ryLoopImpedanceMains.value);
+          i.controls.ryLoopImpedance.value = +i.controls.ryLoopImpedance.value + +i.controls.ryLoopImpedanceExternal.value;
+          i.controls.ryLoopImpedance.setValue(i.controls.ryLoopImpedance.value.toFixed(3));
+        }
+        else if(f.controls.ryLoopImpedance.value=='NA' || i.controls.ryLoopImpedanceMains.value=='NA' || i.controls.ryLoopImpedanceExternal.value=='NA'){
+         i.controls.ryLoopImpedance.setValue('NA');
+         }
+        else{
+          i.controls.ryLoopImpedance.setValue('');
+        }
+        //fault current division for alternate
+        if(i.controls.ryLoopImpedance.value!='' && i.controls.ryLoopImpedance.value!='NA' && i.controls.ryVoltage.value!= 'NA') {
+          i.controls.ryFaultCurrent.value =(i.controls.ryVoltage.value/i.controls.ryLoopImpedance.value)/1000;
+          i.controls.ryFaultCurrent.setValue(i.controls.ryFaultCurrent.value.toFixed(3));
+        }
+        else if(i.controls.ryLoopImpedance.value=='NA' || i.controls.ryVoltage.value=='NA'){
+         i.controls.ryFaultCurrent.setValue('NA');
+         }
+        else{
+          i.controls.ryFaultCurrent.setValue('');
+        }
+      }
+      //for mains division
+      if(f.controls.ryVoltage.value!='' && f.controls.ryLoopImpedance.value!='' && f.controls.ryLoopImpedance.value!=undefined && f.controls.ryVoltage.value!=undefined && f.controls.ryVoltage.value!='NA' && f.controls.ryLoopImpedance.value!='NA'){
+        //f.controls.ryFaultCurrent.value= f.controls.ryVoltage.value/f.controls.ryLoopImpedance.value; 
+        var ryFaultCurrent= (f.controls.ryVoltage.value/f.controls.ryLoopImpedance.value)/1000;	
+        f.controls.ryFaultCurrent.setValue(ryFaultCurrent.toFixed(3));	
+        
+       }
+       else if((f.controls.ryVoltage.value=='NA' && f.controls.ryLoopImpedance.value=='NA') || (f.controls.ryVoltage.value=='NA' || f.controls.ryLoopImpedance.value=='NA')){
+         f.controls.ryFaultCurrent.setValue('NA');
+        }
+       else{
+         f.controls.ryFaultCurrent.setValue('');
+       }
+    }
+    onKeyImpedance2(event:KeyboardEvent,f:any){
+      
+        for(let i of f.controls.testingRecordsSourceSupply.controls) {
+         
+        if(f.controls.rbLoopImpedance.value!='' && f.controls.rbLoopImpedance.value!=undefined && f.controls.rbLoopImpedance.value!= 'NA'
+        && i.controls.rbLoopImpedanceMains.value!='NA' && i.controls.rbLoopImpedanceExternal.value!='NA') {
+          i.controls.rbLoopImpedance.value =(f.controls.rbLoopImpedance.value - i.controls.rbLoopImpedanceMains.value);
+          i.controls.rbLoopImpedance.value = +i.controls.rbLoopImpedance.value + +i.controls.rbLoopImpedanceExternal.value;
+          i.controls.rbLoopImpedance.setValue(i.controls.rbLoopImpedance.value.toFixed(3));
+        }
+        else if(f.controls.rbLoopImpedance.value=='NA' || i.controls.rbLoopImpedanceMains.value=='NA' || i.controls.rbLoopImpedanceExternal.value=='NA'){
+         i.controls.rbLoopImpedance.setValue('NA');
+         }
+        else{
+          i.controls.rbLoopImpedance.setValue('');
+        }
+          //fault current division for alternate
+          if(i.controls.rbLoopImpedance.value!='' && i.controls.rbLoopImpedance.value!='NA' && i.controls.rbVoltage.value!= 'NA') {
+            i.controls.rbFaultCurrent.value =(i.controls.rbVoltage.value/i.controls.rbLoopImpedance.value)/1000;
+            i.controls.rbFaultCurrent.setValue(i.controls.rbFaultCurrent.value.toFixed(3));
+          }
+          else if(i.controls.rbLoopImpedance.value=='NA' || i.controls.rbVoltage.value=='NA'){
+           i.controls.rbFaultCurrent.setValue('NA');
+           }
+          else{
+            i.controls.rbFaultCurrent.setValue('');
+          }
+      }
+      
+       if(f.controls.rbVoltage.value!='' && f.controls.rbLoopImpedance.value!='' && f.controls.rbLoopImpedance.value!=undefined && f.controls.rbVoltage.value!=undefined && f.controls.rbVoltage.value!='NA' && f.controls.rbLoopImpedance.value!='NA'){
+         //f.controls.rbFaultCurrent.value= f.controls.rbVoltage.value/f.controls.rbLoopImpedance.value;
+         var rbFaultCurrent= (f.controls.rbVoltage.value/f.controls.rbLoopImpedance.value)/1000;	
+            f.controls.rbFaultCurrent.setValue(rbFaultCurrent.toFixed(3));	
+        }
+        else if((f.controls.rbVoltage.value=='NA' && f.controls.rbLoopImpedance.value=='NA') || (f.controls.rbVoltage.value=='NA' || f.controls.rbLoopImpedance.value=='NA')){
+         f.controls.rbFaultCurrent.setValue('NA');
+        }
+        else{
+          f.controls.rbFaultCurrent.setValue('');
+        }
+    }
+    onKeyImpedance3(event:KeyboardEvent,f:any){
+      
+        for(let i of f.controls.testingRecordsSourceSupply.controls) {
+         
+        if(f.controls.ybLoopImpedance.value!='' && f.controls.ybLoopImpedance.value!=undefined && f.controls.ybLoopImpedance.value!= 'NA'
+        && i.controls.ybLoopImpedanceMains.value!='NA' && i.controls.ybLoopImpedanceExternal.value!='NA') {
+          i.controls.ybLoopImpedance.value =(f.controls.ybLoopImpedance.value - i.controls.ybLoopImpedanceMains.value);
+          i.controls.ybLoopImpedance.value = +i.controls.ybLoopImpedance.value + +i.controls.ybLoopImpedanceExternal.value;
+          i.controls.ybLoopImpedance.setValue(i.controls.ybLoopImpedance.value.toFixed(3));
+        }
+        else if(f.controls.ybLoopImpedance.value=='NA' || i.controls.ybLoopImpedanceMains.value=='NA' || i.controls.ybLoopImpedanceExternal.value=='NA'){
+         i.controls.ybLoopImpedance.setValue('NA');
+         }
+        else{
+          i.controls.ybLoopImpedance.setValue('');
+        }
+          //fault current division for alternate
+          if(i.controls.ybLoopImpedance.value!='' && i.controls.ybLoopImpedance.value!='NA' && i.controls.ybVoltage.value!= 'NA') {
+            i.controls.ybFaultCurrent.value =(i.controls.ybVoltage.value/i.controls.ybLoopImpedance.value)/1000;
+            i.controls.ybFaultCurrent.setValue( i.controls.ybFaultCurrent.value.toFixed(3));
+          }
+          else if(i.controls.ybLoopImpedance.value=='NA' || i.controls.ybVoltage.value=='NA'){
+           i.controls.ybFaultCurrent.setValue('NA');
+           }
+          else{
+            i.controls.ybFaultCurrent.setValue('');
+          }
+      }
+     
+        if(f.controls.ybVoltage.value!='' && f.controls.ybLoopImpedance.value!='' && f.controls.ybLoopImpedance.value!=undefined && f.controls.ybVoltage.value!=undefined && f.controls.ybVoltage.value!='NA' && f.controls.ybLoopImpedance.value!='NA'){
+         //f.controls.ybFaultCurrent.value= f.controls.ybVoltage.value/f.controls.ybLoopImpedance.value;
+         var ybFaultCurrent= (f.controls.ybVoltage.value/f.controls.ybLoopImpedance.value)/1000;	
+            f.controls.ybFaultCurrent.setValue(ybFaultCurrent.toFixed(3));	
+        }
+        else if((f.controls.ybVoltage.value=='NA' && f.controls.ybLoopImpedance.value=='NA') || (f.controls.ybVoltage.value=='NA' || f.controls.ybLoopImpedance.value=='NA')){
+         f.controls.ybFaultCurrent.setValue('NA');
+        }
+        else{
+          f.controls.ybFaultCurrent.setValue('');
+        }
+       
+    }
+    onKeyImpedance4(event:KeyboardEvent,f:any){
+      
+        for(let i of f.controls.testingRecordsSourceSupply.controls) {
+         
+        if(f.controls.rnLoopImpedance.value!='' && f.controls.rnLoopImpedance.value!=undefined && f.controls.rnLoopImpedance.value!= 'NA'
+        && i.controls.rnLoopImpedanceMains.value!='NA' && i.controls.rnLoopImpedanceExternal.value!='NA') {
+          i.controls.rnLoopImpedance.value =(f.controls.rnLoopImpedance.value - i.controls.rnLoopImpedanceMains.value);
+          i.controls.rnLoopImpedance.value = +i.controls.rnLoopImpedance.value + +i.controls.rnLoopImpedanceExternal.value;
+          i.controls.rnLoopImpedance.setValue(i.controls.rnLoopImpedance.value.toFixed(3));
+        }
+        else if(f.controls.rnLoopImpedance.value=='NA' || i.controls.rnLoopImpedanceMains.value=='NA' || i.controls.rnLoopImpedanceExternal.value=='NA'){
+         i.controls.rnLoopImpedance.setValue('NA');
+         }
+        else{
+          i.controls.rnLoopImpedance.setValue('');
+        }
+        //fault current division for alternate
+        if(i.controls.rnLoopImpedance.value!='' && i.controls.rnLoopImpedance.value!='NA' && i.controls.rnVoltage.value!= 'NA') {
+          i.controls.rnFaultCurrent.value =(i.controls.rnVoltage.value/i.controls.rnLoopImpedance.value)/1000;
+          i.controls.rnFaultCurrent.setValue(i.controls.rnFaultCurrent.value.toFixed(3));
+        }
+        else if(i.controls.rnLoopImpedance.value=='NA' || i.controls.rnVoltage.value=='NA'){
+         i.controls.rnFaultCurrent.setValue('NA');
+         }
+        else{
+          i.controls.rnFaultCurrent.setValue('');
+        }
+      }
+      
+        if(f.controls.rnVoltage.value!='' && f.controls.rnLoopImpedance.value!='' && f.controls.rnLoopImpedance.value!=undefined && f.controls.rnVoltage.value!=undefined && f.controls.rnVoltage.value!='NA' && f.controls.rnLoopImpedance.value!='NA'){
+         //f.controls.rnFaultCurrent.value= f.controls.rnVoltage.value/f.controls.rnLoopImpedance.value;
+         var rnFaultCurrent= (f.controls.rnVoltage.value/f.controls.rnLoopImpedance.value)/1000;	
+            f.controls.rnFaultCurrent.setValue(rnFaultCurrent.toFixed(3));	
+        }
+        else if((f.controls.rnVoltage.value=='NA' && f.controls.rnLoopImpedance.value=='NA') || (f.controls.rnVoltage.value=='NA' || f.controls.rnLoopImpedance.value=='NA')){
+         f.controls.rnFaultCurrent.setValue('NA');
+        }
+        else{
+          f.controls.rnFaultCurrent.setValue('');
+        }
+    }
+    onKeyImpedance5(event:KeyboardEvent,f:any){
+      
+        for(let i of f.controls.testingRecordsSourceSupply.controls) {
+         
+        if(f.controls.ynLoopImpedance.value!='' && f.controls.ynLoopImpedance.value!=undefined && f.controls.ynLoopImpedance.value!= 'NA'
+        && i.controls.ynLoopImpedanceMains.value!='NA' && i.controls.ynLoopImpedanceExternal.value!='NA') {
+          i.controls.ynLoopImpedance.value =(f.controls.ynLoopImpedance.value - i.controls.ynLoopImpedanceMains.value);
+          i.controls.ynLoopImpedance.value = +i.controls.ynLoopImpedance.value + +i.controls.ynLoopImpedanceExternal.value;
+          i.controls.ynLoopImpedance.setValue(i.controls.ynLoopImpedance.value.toFixed(3));
+        }
+        else if(f.controls.ynLoopImpedance.value=='NA' || i.controls.ynLoopImpedanceMains.value=='NA' || i.controls.ynLoopImpedanceExternal.value=='NA'){
+         i.controls.ynLoopImpedance.setValue('NA');
+         }
+        else{
+          i.controls.ynLoopImpedance.setValue('');
+        }
+          //fault current division for alternate
+          if(i.controls.ynLoopImpedance.value!='' && i.controls.ynLoopImpedance.value!='NA' && i.controls.ynVoltage.value!= 'NA') {
+            i.controls.ynFaultCurrent.value =(i.controls.ynVoltage.value/i.controls.ynLoopImpedance.value)/1000;
+            i.controls.ynFaultCurrent.setValue(i.controls.ynFaultCurrent.value.toFixed(3));
+          }
+          else if(i.controls.ynLoopImpedance.value=='NA' || i.controls.ynVoltage.value=='NA'){
+           i.controls.ynFaultCurrent.setValue('NA');
+           }
+          else{
+            i.controls.ynFaultCurrent.setValue('');
+          }
+      }
+     
+        if(f.controls.ynVoltage.value!='' && f.controls.ynLoopImpedance.value!='' && f.controls.ynLoopImpedance.value!=undefined && f.controls.ynVoltage.value!=undefined && f.controls.ynVoltage.value!='NA' && f.controls.ynLoopImpedance.value!='NA'){
+         //f.controls.ynFaultCurrent.value= f.controls.ynVoltage.value/f.controls.ynLoopImpedance.value;
+         var ynFaultCurrent= (f.controls.ynVoltage.value/f.controls.ynLoopImpedance.value)/1000;	
+            f.controls.ynFaultCurrent.setValue(ynFaultCurrent.toFixed(3));	
+        }
+        else if((f.controls.ynVoltage.value=='NA' && f.controls.ynLoopImpedance.value=='NA') || (f.controls.ynVoltage.value=='NA' || f.controls.ynLoopImpedance.value=='NA')){
+         f.controls.ynFaultCurrent.setValue('NA');
+        }
+        else{
+          f.controls.ynFaultCurrent.setValue('');
+        }
+       
+    }
+    onKeyImpedance6(event:KeyboardEvent,f:any){
+      
+        for(let i of f.controls.testingRecordsSourceSupply.controls) {
+         
+        if(f.controls.bnLoopImpedance.value!='' && f.controls.bnLoopImpedance.value!=undefined && f.controls.bnLoopImpedance.value!= 'NA'
+        && i.controls.bnLoopImpedanceMains.value!='NA' && i.controls.bnLoopImpedanceExternal.value!='NA') {
+          i.controls.bnLoopImpedance.value =(f.controls.bnLoopImpedance.value - i.controls.bnLoopImpedanceMains.value);
+          i.controls.bnLoopImpedance.value = +i.controls.bnLoopImpedance.value + +i.controls.bnLoopImpedanceExternal.value;
+          i.controls.bnLoopImpedance.setValue( i.controls.bnLoopImpedance.value.toFixed(3));
+        }
+        else if(f.controls.bnLoopImpedance.value=='NA' || i.controls.bnLoopImpedanceMains.value=='NA' || i.controls.bnLoopImpedanceExternal.value=='NA'){
+         i.controls.bnLoopImpedance.setValue('NA');
+         }
+        else{
+          i.controls.bnLoopImpedance.setValue('');
+        }
+         //fault current division for alternate
+         if(i.controls.bnLoopImpedance.value!='' && i.controls.bnLoopImpedance.value!='NA' && i.controls.bnVoltage.value!= 'NA') {
+          i.controls.bnFaultCurrent.value =(i.controls.bnVoltage.value/i.controls.bnLoopImpedance.value)/1000;
+          i.controls.bnFaultCurrent.setValue(i.controls.bnFaultCurrent.value.toFixed(3));
+        }
+        else if(i.controls.bnLoopImpedance.value=='NA' || i.controls.bnVoltage.value=='NA'){
+         i.controls.bnFaultCurrent.setValue('NA');
+         }
+        else{
+          i.controls.bnFaultCurrent.setValue('');
+        }
+      }
+     
+
+      
+        if(f.controls.bnVoltage.value!='' && f.controls.bnLoopImpedance.value!='' && f.controls.bnLoopImpedance.value!=undefined && f.controls.bnVoltage.value!=undefined && f.controls.bnVoltage.value!='NA' && f.controls.bnLoopImpedance.value!='NA'){
+         //f.controls.bnFaultCurrent.value= f.controls.bnVoltage.value/f.controls.bnLoopImpedance.value;
+         var bnFaultCurrent= (f.controls.bnVoltage.value/f.controls.bnLoopImpedance.value)/1000;	
+            f.controls.bnFaultCurrent.setValue(bnFaultCurrent.toFixed(3));	
+        }
+        else if((f.controls.bnVoltage.value=='NA' && f.controls.bnLoopImpedance.value=='NA') || (f.controls.bnVoltage.value=='NA' || f.controls.bnLoopImpedance.value=='NA')){
+         f.controls.bnFaultCurrent.setValue('NA');
+        }
+        else{
+          f.controls.bnFaultCurrent.setValue('');
+        }
+      
+    }
+    onKeyImpedance7(event:KeyboardEvent,f:any){
+      
+        for(let i of f.controls.testingRecordsSourceSupply.controls) {
+         
+        if(f.controls.rpeLoopImpedance.value!='' && f.controls.rpeLoopImpedance.value!=undefined && f.controls.rpeLoopImpedance.value!= 'NA'
+        && i.controls.rpeLoopImpedanceMains.value!='NA' && i.controls.rpeLoopImpedanceExternal.value!='NA') {
+          i.controls.rpeLoopImpedance.value =(f.controls.rpeLoopImpedance.value - i.controls.rpeLoopImpedanceMains.value);
+          i.controls.rpeLoopImpedance.value = +i.controls.rpeLoopImpedance.value + +i.controls.rpeLoopImpedanceExternal.value;
+          i.controls.rpeLoopImpedance.setValue( i.controls.rpeLoopImpedance.value.toFixed(3));
+        }
+        else if(f.controls.rpeLoopImpedance.value=='NA' || i.controls.rpeLoopImpedanceMains.value=='NA' || i.controls.rpeLoopImpedanceExternal.value=='NA'){
+         i.controls.rpeLoopImpedance.setValue('NA');
+         }
+        else{
+          i.controls.rpeLoopImpedance.setValue('');
+        }
+         //fault current division for alternate
+         if(i.controls.rpeLoopImpedance.value!='' && i.controls.rpeLoopImpedance.value!='NA' && i.controls.rpeVoltage.value!= 'NA') {
+          i.controls.rpeFaultCurrent.value =(i.controls.rpeVoltage.value/i.controls.rpeLoopImpedance.value)/1000;
+          i.controls.rpeFaultCurrent.setValue(i.controls.rpeFaultCurrent.value.toFixed(3));
+        }
+        else if(i.controls.rpeLoopImpedance.value=='NA' || i.controls.rpeVoltage.value=='NA'){
+         i.controls.rpeFaultCurrent.setValue('NA');
+         }
+        else{
+          i.controls.rpeFaultCurrent.setValue('');
+        }
+      }
+        if(f.controls.rpeVoltage.value!='' && f.controls.rpeLoopImpedance.value!='' && f.controls.rpeLoopImpedance.value!=undefined && f.controls.rpeVoltage.value!=undefined && f.controls.rpeVoltage.value!='NA' && f.controls.rpeLoopImpedance.value!='NA'){
+         //f.controls.rpeFaultCurrent.value= f.controls.rpeVoltage.value/f.controls.rpeLoopImpedance.value;
+         var rpeFaultCurrent= (f.controls.rpeVoltage.value/f.controls.rpeLoopImpedance.value)/1000;	
+            f.controls.rpeFaultCurrent.setValue(rpeFaultCurrent.toFixed(3));	
+        }
+        else if((f.controls.rpeVoltage.value=='NA' && f.controls.rpeLoopImpedance.value=='NA') || (f.controls.rpeVoltage.value=='NA' || f.controls.rpeLoopImpedance.value=='NA')){
+         f.controls.rpeFaultCurrent.setValue('NA');
+        }
+        else{
+          f.controls.rpeFaultCurrent.setValue('');
+        }
+        
+    }
+    onKeyImpedance8(event:KeyboardEvent,f:any){
+        for(let i of f.controls.testingRecordsSourceSupply.controls) {
+        if(f.controls.ypeLoopImpedance.value!='' && f.controls.ypeLoopImpedance.value!=undefined && f.controls.ypeLoopImpedance.value!= 'NA'
+        && i.controls.ypeLoopImpedanceMains.value!='NA' && i.controls.ypeLoopImpedanceExternal.value!='NA') {
+          i.controls.ypeLoopImpedance.value =(f.controls.ypeLoopImpedance.value - i.controls.ypeLoopImpedanceMains.value);
+          i.controls.ypeLoopImpedance.value = +i.controls.ypeLoopImpedance.value + +i.controls.ypeLoopImpedanceExternal.value;
+          i.controls.ypeLoopImpedance.setValue( i.controls.ypeLoopImpedance.value.toFixed(3));
+        }
+        else if(f.controls.ypeLoopImpedance.value=='NA' || i.controls.ypeLoopImpedanceMains.value=='NA' || i.controls.ypeLoopImpedanceExternal.value=='NA'){
+         i.controls.ypeLoopImpedance.setValue('NA');
+         }
+        else{
+          i.controls.ypeLoopImpedance.setValue('');
+        }
+         //fault current division for alternate
+         if(i.controls.ypeLoopImpedance.value!='' && i.controls.ypeLoopImpedance.value!='NA' && i.controls.ypeVoltage.value!= 'NA') {
+          i.controls.ypeFaultCurrent.value =(i.controls.ypeVoltage.value/i.controls.ypeLoopImpedance.value)/1000;
+          i.controls.ypeFaultCurrent.setValue(i.controls.ypeFaultCurrent.value.toFixed(3));
+        }
+        else if(i.controls.ypeLoopImpedance.value=='NA' || i.controls.ypeVoltage.value=='NA'){
+         i.controls.ypeFaultCurrent.setValue('NA');
+         }
+        else{
+          i.controls.ypeFaultCurrent.setValue('');
+        }
+      }
+       
+        if(f.controls.ypeVoltage.value!='' && f.controls.ypeLoopImpedance.value!='' && f.controls.ypeVoltage.value!=undefined && f.controls.ypeVoltage.value!=undefined && f.controls.ypeVoltage.value!='NA' && f.controls.ypeLoopImpedance.value!='NA'){
+         //f.controls.ypeFaultCurrent.value= f.controls.ypeVoltage.value/f.controls.ypeLoopImpedance.value;
+         var ypeFaultCurrent= (f.controls.ypeVoltage.value/f.controls.ypeLoopImpedance.value)/1000;	
+            f.controls.ypeFaultCurrent.setValue(ypeFaultCurrent.toFixed(3));	
+        }
+        else if((f.controls.ypeVoltage.value=='NA' && f.controls.ypeLoopImpedance.value=='NA') || (f.controls.ypeVoltage.value=='NA' || f.controls.ypeLoopImpedance.value=='NA')){
+         f.controls.ypeFaultCurrent.setValue('NA');
+        }
+        else{
+          f.controls.ypeFaultCurrent.setValue('');
+        }
+    }
+    onKeyImpedance9(event:KeyboardEvent,f:any){
+        for(let i of f.controls.testingRecordsSourceSupply.controls) {
+        if(f.controls.bpeLoopImpedance.value!='' && f.controls.bpeLoopImpedance.value!=undefined && f.controls.bpeLoopImpedance.value!= 'NA'
+        && i.controls.bpeLoopImpedanceMains.value!='NA' && i.controls.bpeLoopImpedanceExternal.value!='NA') {
+          i.controls.bpeLoopImpedance.value =(f.controls.bpeLoopImpedance.value - i.controls.bpeLoopImpedanceMains.value);
+          i.controls.bpeLoopImpedance.value = +i.controls.bpeLoopImpedance.value + +i.controls.bpeLoopImpedanceExternal.value;
+          i.controls.bpeLoopImpedance.setValue(i.controls.bpeLoopImpedance.value.toFixed(3));
+        }
+        else if(f.controls.bpeLoopImpedance.value=='NA' || i.controls.bpeLoopImpedanceMains.value=='NA' || i.controls.bpeLoopImpedanceExternal.value=='NA'){
+         i.controls.bpeLoopImpedance.setValue('NA');
+         }
+        else{
+          i.controls.bpeLoopImpedance.setValue('');
+        }
+          //fault current division for alternate
+          if(i.controls.bpeLoopImpedance.value!='' && i.controls.bpeLoopImpedance.value!='NA' && i.controls.bpeVoltage.value!= 'NA') {
+            i.controls.bpeFaultCurrent.value =(i.controls.bpeVoltage.value/i.controls.bpeLoopImpedance.value)/1000;
+            i.controls.bpeFaultCurrent.setValue(i.controls.bpeFaultCurrent.value.toFixed(3));
+          }
+          else if(i.controls.bpeLoopImpedance.value=='NA' || i.controls.bpeVoltage.value=='NA'){
+           i.controls.bpeFaultCurrent.setValue('NA');
+           }
+          else{
+            i.controls.bpeFaultCurrent.setValue('');
+          }
+      }
+        if(f.controls.bpeVoltage.value!='' && f.controls.bpeLoopImpedance.value!='' && f.controls.bpeLoopImpedance.value!=undefined && f.controls.bpeVoltage.value!=undefined && f.controls.bpeVoltage.value!='NA' && f.controls.bpeLoopImpedance.value!='NA'){
+        // f.controls.bpeFaultCurrent.value= f.controls.bpeVoltage.value/f.controls.bpeLoopImpedance.value;
+        var bpeFaultCurrent= (f.controls.bpeVoltage.value/f.controls.bpeLoopImpedance.value)/1000;	
+            f.controls.bpeFaultCurrent.setValue(bpeFaultCurrent.toFixed(3));	
+        }
+        else if((f.controls.bpeVoltage.value=='NA' && f.controls.bpeLoopImpedance.value=='NA') || (f.controls.bpeVoltage.value=='NA' || f.controls.bpeLoopImpedance.value=='NA')){
+         f.controls.bpeFaultCurrent.setValue('NA');
+        }
+        else{
+          f.controls.bpeFaultCurrent.setValue('');
+        }
+    }
+    
+  reloadFromBack(){
+    if(this.testingForm.invalid){
+     this.service.isCompleted4= false;
+     this.service.isLinear=true;
+     this.service.editable=false;
+     this.validationErrorTab = true;
+     this.validationErrorMsgTab= 'Please check all the fields in testing';
+     setTimeout(() => {
+       this.validationErrorTab = false;
+     }, 3000);
+     return false;
+    }
+    else if(this.testingForm.dirty && this.testingForm.touched){
+      this.service.isCompleted4= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
       setTimeout(() => {
-        this.validationError = false;
+        this.tabError = false;
+      }, 3000);
+      return false;
+    }
+    else{
+      this.service.isCompleted4= true;
+      this.service.isLinear=false;
+      this.service.editable=true;
+   this.testingForm.markAsPristine();
+   return true;
+    }
+  }
+  gotoNextTab() {
+    if ((this.testingForm.dirty && this.testingForm.invalid) || this.service.isCompleted3==false){
+      this.service.isCompleted4= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
+      this.validationErrorTab = true;
+      this.validationErrorMsgTab= 'Please check all the fields in testing';
+      setTimeout(() => {
+        this.validationErrorTab = false;
       }, 3000);
       return;
     }
-    this.modalService.open(content4, { centered: true });
+    else if(this.testingForm.dirty && this.testingForm.touched){
+      this.service.isCompleted4= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+   }
+    else{
+      this.service.isCompleted4= true;
+      this.service.isLinear=false;
+      this.service.editable=true;
+    }
+  }
+  gotoNextModal(content4: any,content2:any) {
+    if (this.testingForm.invalid) {
+      this.validationError = true;
+      this.validationErrorMsg = 'Please check all the fields';
+      // setTimeout(() => {
+      //   this.validationError = false;
+      // }, 3000);
+      return;
+    }
+    if(this.testingForm.touched || this.testingForm.untouched){
+      this.modalReference = this.modalService.open(content2, {
+         centered: true, 
+         size: 'md',
+         backdrop: 'static'
+        })
+     }
+     if(this.testingForm.dirty && this.testingForm.touched){ //update
+      this.modalService.open(content4, { centered: true,backdrop: 'static'});
+      this.modalReference.close();
+     }
+
   }
 
   callMethod() {
     this.ngOnInit();
   }
   closeModalDialog() {
-    if (this.errorMsg != '') {
+    this.finalSpinner=true;
+    this.popup=false;
+    if (this.errorMsg != "") {
       this.Error = false;
-      this.modalService.dismissAll((this.errorMsg = ''));
-    } else {
+      this.service.isCompleted4= false;
+      this.service.isLinear=true;
+      this.modalService.dismissAll((this.errorMsg = ""));
+    } 
+    else {
       this.success = false;
-      this.modalService.dismissAll((this.successMsg = ''));
+      this.service.isCompleted4= true;
+      this.service.isLinear=false;
+      this.modalService.dismissAll((this.successMsg = ""));
     }
   }
+  // onKeyObservation(event:any){
+  //   if(this.ObservationsForm.dirty){
+  //     this.disableObservation=false;
+  //   }
+  //   else{
+  //     this.disableObservation=true;
+  //   }
+  // }
+  // submit(observeFlag:any){
+  //   if(this.ObservationsForm.invalid) {
+  //     return;
+  //   }
+  //   this.observation.siteId = this.service.siteCount;
+  //   this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
+  //   this.observation.observationComponent ="Testing-Component";
+  //   this.observation.observations =this.ObservationsForm.value.observations;
+  //   this.submitted = true;
+  //   if(!observeFlag) {
+  //     this.observationService.addObservation(this.observation).subscribe(
+  //       (data) => {
+  //         this.success = true;
+  //         this.successMsg = "Observation Information sucessfully Saved";
+  //         this.proceedNext.emit(true);
+  //         this.disableObservation=true;
+  //         this.observationFlag=true;
+  //         this.observationService.retrieveObservation(this.observation.siteId,this.observation.observationComponent,this.observation.userName).subscribe(
+  //           (data) => {
+  //           this.retrieveFromObservationTesting(data);
+  //           },
+  //           (error) => {
+  //             this.errorArr = [];
+  //             this.errorArr = JSON.parse(error.error);
+  //             console.log(this.errorArr.message);
+  //           }
+  //         )
+  //         setTimeout(() => {
+  //           this.success = false;
+  //           this.observationModalReference.close();
+  //         }, 3000);
+  //     },
+  //       (error) => {
+  //         this.errorArrObservation = [];
+  //         this.Error = true;
+  //         this.errorArrObservation = JSON.parse(error.error);
+  //         this.errorMsg = this.errorArrObservation.message;
+  //         this.observationFlag=false;
+  //       }
+  //     )
+  //   }
+  //   else {
+  //     this.observationService.updateObservation(this.observation).subscribe(
+  //       (data) => {
+  //         this.success = true;
+  //         this.successMsg = "Observation Information sucessfully updated";
+  //         this.proceedNext.emit(false);
+  //         this.disableObservation=true;
+  //         setTimeout(() => {
+  //           this.success = false;
+  //           this.observationModalReference.close();
+  //         }, 3000);
+  //     },
+  //       (error) => {
+  //         this.errorArrObservation = [];
+  //         this.Error = true;
+  //         this.errorArrObservation = JSON.parse(error.error);
+  //         this.errorMsg = this.errorArrObservation.message;
+  //       }
+  //     )
+  //   }   
+  //   }
+
 
   nextTab(flag: any) {
     if (!flag) {
@@ -1411,55 +3143,108 @@ export class InspectionVerificationTestingComponent implements OnInit {
     ) as FormArray;
 
     for (let i of this.testaccordianArr.controls) {
-      this.testDistribution = i.get('testDistribution') as FormArray;
-      this.testingRecords = i.get('testingRecords') as FormArray;
-
-      // coma separated value for first table
+      this.testDistRecords = i.get('testDistRecords') as FormArray;
+      for(let v of this.testDistRecords.controls){
+        this.testDistribution = v.get('testDistribution') as FormArray;
+        this.testingRecords = v.get('testingRecords') as FormArray;
+         // coma separated value for first table
       for (let j of this.testDistribution.value) {
         let arr: any = [];
         let arr1: any = [];
         let arr2: any = [];
         let arr3: any = [];
-
-        for (let k of j.distributionIncomingValueArr) {
-          arr.push(
-            k.incomingVoltage1,
-            k.incomingVoltage2,
-            k.incomingVoltage3,
-            k.incomingVoltage4,
-            k.incomingVoltage5,
-            k.incomingVoltage6,
-            k.incomingVoltage7,
-            k.incomingVoltage8,
-            k.incomingVoltage9
-          );
-          arr1.push(
-            k.incomingZs1,
-            k.incomingZs2,
-            k.incomingZs3,
-            k.incomingZs4,
-            k.incomingZs5,
-            k.incomingZs6,
-            k.incomingZs7,
-            k.incomingZs8,
-            k.incomingZs9
-          );
-          arr2.push(
-            k.incomingIpf1,
-            k.incomingIpf2,
-            k.incomingIpf3,
-            k.incomingIpf4,
-            k.incomingIpf5,
-            k.incomingIpf6,
-            k.incomingIpf7,
-            k.incomingIpf8,
-            k.incomingIpf9
-          );
+        let arr4: any = [];
+        if(j.sourceFromSupply=='Mains Incoming'){
+          for (let k of j.distributionIncomingValueArr) {
+            arr.push(
+              k.incomingVoltage1,
+              k.incomingVoltage2,
+              k.incomingVoltage3,
+              k.incomingVoltage4,
+              k.incomingVoltage5,
+              k.incomingVoltage6,
+              k.incomingVoltage7,
+              k.incomingVoltage8,
+              k.incomingVoltage9
+            );
+            arr1.push(
+              k.incomingZs1,
+              k.incomingZs2,
+              k.incomingZs3,
+              k.incomingZs4,
+              k.incomingZs5,
+              k.incomingZs6,
+              k.incomingZs7,
+              k.incomingZs8,
+              k.incomingZs9
+            );
+            arr2.push(
+              k.incomingIpf1,
+              k.incomingIpf2,
+              k.incomingIpf3,
+              k.incomingIpf4,
+              k.incomingIpf5,
+              k.incomingIpf6,
+              k.incomingIpf7,
+              k.incomingIpf8,
+              k.incomingIpf9
+            );
+            arr4.push(
+              k.actualLoadAl1,
+              k.actualLoadAl2,
+              k.actualLoadAl3,
+              k.actualLoadAl4,
+            );
+          }
         }
-
+        else{
+          for (let k of j.distributionIncomingValueArr2) {
+            arr.push(
+              k.incomingVoltage1,
+              k.incomingVoltage2,
+              k.incomingVoltage3,
+              k.incomingVoltage4,
+              k.incomingVoltage5,
+              k.incomingVoltage6,
+              k.incomingVoltage7,
+              k.incomingVoltage8,
+              k.incomingVoltage9
+            );
+            arr1.push(
+              k.incomingZs1,
+              k.incomingZs2,
+              k.incomingZs3,
+              k.incomingZs4,
+              k.incomingZs5,
+              k.incomingZs6,
+              k.incomingZs7,
+              k.incomingZs8,
+              k.incomingZs9
+            );
+            arr2.push(
+              k.incomingIpf1,
+              k.incomingIpf2,
+              k.incomingIpf3,
+              k.incomingIpf4,
+              k.incomingIpf5,
+              k.incomingIpf6,
+              k.incomingIpf7,
+              k.incomingIpf8,
+              k.incomingIpf9
+            );
+            arr4.push(
+              k.actualLoadAl1,
+              k.actualLoadAl2,
+              k.actualLoadAl3,
+              k.actualLoadAl4,
+            );
+          }
+        }
         let incomingVoltage: String = '';
         let incomingLoopImpedance: String = '';
         let incomingFaultCurrent: String = '';
+        let incomingActualLoad: String = '';
+
         for (let a of arr) {
           if (a != '') {
             incomingVoltage += a + ',';
@@ -1490,6 +3275,16 @@ export class InspectionVerificationTestingComponent implements OnInit {
         incomingFaultCurrent = incomingFaultCurrent.replace(/,\s*$/, '');
         j.incomingFaultCurrent = incomingFaultCurrent;
 
+        for (let d of arr4) {
+          if (d != '') {
+            incomingActualLoad += d + ',';
+          } else {
+            incomingActualLoad += 'NA,';
+          }
+        }
+        incomingActualLoad = incomingActualLoad.replace(/,\s*$/, '');
+        j.incomingActualLoad = incomingActualLoad;
+
         // rateamps coma saparated value
         for (let k of j.rateArr) {
           arr3.push(k.ratingsAmps);
@@ -1505,139 +3300,255 @@ export class InspectionVerificationTestingComponent implements OnInit {
         //delete j.rateArr;
         //delete j.distributionIncomingValueArr;
       }
-      for (let x of this.testingRecords.value) {
-        if (x.circuitNo == '') {
-          x.circuitNo = 'NA';
-        }
-        if (x.continutiyRR == '') {
-          x.continutiyRR = 'NA';
-        }
-        if (x.continutiyLL == '') {
-          x.continutiyLL = 'NA';
-        }
-        if (x.continutiyLE == '') {
-          x.continutiyLE = 'NA';
-        }
-        if (x.continutiyPolarity == '') {
-          x.continutiyPolarity = 'NA';
-        }
-        if (x.conductorPecpc == '') {
-          x.conductorPecpc = 'NA';
-        }
-        if (x.continutiyApproximateLength == '') {
-          x.continutiyApproximateLength = 'NA';
-        }
-        if (x.continutiyR == '') {
-          x.continutiyR = 'NA';
-        }
-        if (x.circuitStandardNo == '') {
-          x.circuitStandardNo = 'NA';
-        }
-        if (x.conductorInstallation == '') {
-          x.conductorInstallation = 'NA';
-        }
-        if (x.circuitType == '') {
-          x.circuitType = 'NA';
-        }
-        if (x.circuitRating == '') {
-          x.circuitRating = 'NA';
-        }
-        if (x.circuitBreakingCapacity == '') {
-          x.circuitBreakingCapacity = 'NA';
-        }
-        if (x.shortCircuitSetting == '') {
-          x.shortCircuitSetting = 'NA';
-        }
-        if (x.eFSetting == '') {
-          x.eFSetting = 'NA';
-        }
-        if (x.conductorPhase == '') {
-          x.conductorPhase = 'NA';
-        }
-        if (x.conductorNeutral == '') {
-          x.conductorNeutral = 'NA';
-        }
-        if (x.circuitDesc == '') {
-          x.circuitDesc = 'NA';
-        }
-        if (x.rcdTestButtonOperation == '') {
-          x.rcdTestButtonOperation = 'NA';
-        }
-        if (x.rcdRemarks == '') {
-          x.rcdRemarks = 'NA';
-        }
-        if (x.rcdCurrent == '') {
-          x.rcdCurrent = 'NA';
-        }
+      for(let n of this.testingRecords.controls){
+        this.testingCalculation = n.get('testingRecordsSourceSupply') as FormArray;
+        for(let o of this.testingCalculation.controls) {
+          let arr1: any = [];
+          let arr2: any = [];
+          let arr3: any = [];
+          let arr4: any = [];
 
-        if (x.rcdOperatingCurrent == '') {
-          x.rcdOperatingCurrent = 'NA';
+          arr1.push(
+           o.controls.ryVoltage.value,
+           o.controls.rbVoltage.value,
+           o.controls.ybVoltage.value,
+           o.controls.rnVoltage.value,
+           o.controls.ynVoltage.value,
+           o.controls.bnVoltage.value,
+           o.controls.rpeVoltage.value,
+           o.controls.ypeVoltage.value,
+           o.controls.bpeVoltage.value
+          );
+          arr2.push(
+           o.controls.ryLoopImpedance.value,
+           o.controls.rbLoopImpedance.value,
+           o.controls.ybLoopImpedance.value,
+           o.controls.rnLoopImpedance.value,
+           o.controls.ynLoopImpedance.value,
+           o.controls.bnLoopImpedance.value,
+           o.controls.rpeLoopImpedance.value,
+           o.controls.ypeLoopImpedance.value,
+           o.controls.bpeLoopImpedance.value
+          );
+          arr3.push(
+           o.controls.ryFaultCurrent.value,
+           o.controls.rbFaultCurrent.value,
+           o.controls.ybFaultCurrent.value,
+           o.controls.rnFaultCurrent.value,
+           o.controls.ynFaultCurrent.value,
+           o.controls.bnFaultCurrent.value,
+           o.controls.rpeFaultCurrent.value,
+           o.controls.ypeFaultCurrent.value,
+           o.controls.bpeFaultCurrent.value
+          );
+          arr4.push(
+           o.controls.ryDisconnect.value,
+           o.controls.rbDisconnect.value,
+           o.controls.ybDisconnect.value,
+           o.controls.rnDisconnect.value,
+           o.controls.ynDisconnect.value,
+           o.controls.bnDisconnect.value,
+           o.controls.rpeDisconnect.value,
+           o.controls.ypeDisconnect.value,
+           o.controls.bpeDisconnect.value
+          );
+
+        let testVoltage1: String = '';
+        let testLoopImpedance1: String = '';
+        let testFaultCurrent1: String = '';
+        let disconnectionTime1: String = '';
+        for (let p of arr1) {
+          if (p != '') {
+            testVoltage1 += p + ',';
+          } else {
+            testVoltage1 += 'NA,';
+          }
         }
-        if (x.rcdOperatingFiveCurrent == '') {
-          x.rcdOperatingFiveCurrent = 'NA';
+        testVoltage1 = testVoltage1.replace(/,\s*$/, '');
+       o.controls.testVoltage.setValue(testVoltage1);
+
+        for (let q of arr2) {
+          if (q != '') {
+            testLoopImpedance1 += q + ',';
+          } else {
+            testLoopImpedance1 += 'NA,';
+          }
+        }
+        testLoopImpedance1 = testLoopImpedance1.replace(/,\s*$/, '');
+       o.controls.testLoopImpedance.setValue(testLoopImpedance1);
+
+        for (let r of arr3) {
+          if (r != '') {
+            testFaultCurrent1 += r + ',';
+          } else {
+            testFaultCurrent1 += 'NA,';
+          }
+        }
+        testFaultCurrent1 = testFaultCurrent1.replace(/,\s*$/, '');
+       o.controls.testFaultCurrent.setValue(testFaultCurrent1);
+
+        for (let s of arr4) {
+          if (s != '') {
+            disconnectionTime1 += s + ',';
+          } else {
+            disconnectionTime1 += 'NA,';
+          }
+        }
+        disconnectionTime1 = disconnectionTime1.replace(/,\s*$/, '');
+       o.controls.disconnectionTime.setValue(disconnectionTime1);
         }
       }
-      // coma saparated value for second table
-      for (let n of this.testingRecords.value) {
+
+      for (let x of this.testingRecords.controls) {
+        if (x.controls.circuitNo.value == '' || x.controls.circuitNo.value == undefined || x.controls.circuitNo.value == null) {
+          x.controls.circuitNo.setValue('NA');
+        }
+        if (x.controls.continutiyRR.value == '' || x.controls.continutiyRR.value == undefined || x.controls.continutiyRR.value == null) {
+          x.controls.continutiyRR.setValue('NA');
+        }
+        if (x.controls.maximumAllowedValue?.value == '' || x.controls.maximumAllowedValue?.value == undefined || x.controls.maximumAllowedValue?.value == null) {
+          x.controls.maximumAllowedValue.setValue('NA');
+        }
+        if (x.controls.continuityRemarks.value == '' || x.controls.continuityRemarks.value == undefined || x.controls.continuityRemarks.value == null) {
+          x.controls.continuityRemarks.setValue('NA');
+        }
+        if (x.controls.continutiyPolarity.value == '' || x.controls.continutiyPolarity.value == undefined || x.controls.continutiyPolarity.value == null) {
+          x.controls.continutiyPolarity.setValue('NA');
+        }
+        if (x.controls.conductorPecpc.value == '' || x.controls.conductorPecpc.value == undefined || x.controls.conductorPecpc.value == null) {
+          x.controls.conductorPecpc.setValue('NA');
+        }
+        if (x.controls.continutiyApproximateLength.value == '' || x.controls.continutiyApproximateLength.value == undefined || x.controls.continutiyApproximateLength.value == null) {
+          x.controls.continutiyApproximateLength.setValue('NA');
+        }
+        if (x.controls.continutiyR.value == '' || x.controls.continutiyR.value == undefined || x.controls.continutiyR.value == null) {
+          x.controls.continutiyR.setValue('NA');
+        }
+        if (x.controls.circuitMake.value == '' || x.controls.circuitMake.value == undefined || x.controls.circuitMake.value == null) {
+          x.controls.circuitMake.setValue('NA');
+        }
+        if (x.controls.circuitStandardNo.value == '' || x.controls.circuitStandardNo.value == undefined || x.controls.circuitStandardNo.value == null) {
+          x.controls.circuitStandardNo.setValue('NA');
+        }
+        if (x.controls.numberOfPoles.value == '' || x.controls.numberOfPoles.value == undefined || x.controls.numberOfPoles.value == null) {
+          x.controls.numberOfPoles.setValue('NA');
+        }
+        if (x.controls.conductorInstallation.value == '' || x.controls.conductorInstallation.value == undefined || x.controls.conductorInstallation.value == null) {
+          x.controls.conductorInstallation.setValue('NA');
+        }
+        if (x.controls.circuitType.value == '' || x.controls.circuitType.value == undefined || x.controls.circuitType.value == null) {
+          x.controls.circuitType.setValue('NA');
+        }
+        if (x.controls.circuitCurrentCurve.value == '' || x.controls.circuitCurrentCurve.value == undefined || x.controls.circuitCurrentCurve.value == null) {
+          x.controls.circuitCurrentCurve.setValue('NA');
+        }
+        // if (x.circuitType == '') {
+        //   x.circuitType = 'NA';
+        // }
+        if (x.controls.circuitRating.value == '' || x.controls.circuitRating.value == undefined || x.controls.circuitRating.value == null) {
+          x.controls.circuitRating.setValue('NA');
+        }
+        if (x.controls.circuitBreakingCapacity.value == '' || x.controls.circuitBreakingCapacity.value == undefined || x.controls.circuitBreakingCapacity.value == null) {
+          x.controls.circuitBreakingCapacity.setValue('NA');
+        }
+        if (x.controls.shortCircuitSetting.value == '' || x.controls.shortCircuitSetting.value == undefined || x.controls.shortCircuitSetting.value == null) {
+          x.controls.shortCircuitSetting.setValue('NA');
+        }
+        if (x.controls.eFSetting.value == '' || x.controls.eFSetting.value == undefined || x.controls.eFSetting.value == null) {
+          x.controls.eFSetting.setValue('NA');
+        }
+        if (x.controls.conductorPhase.value == '' || x.controls.conductorPhase.value == undefined || x.controls.conductorPhase.value == null) {
+          x.controls.conductorPhase.setValue('NA');
+        }
+        if (x.controls.conductorNeutral.value == '' || x.controls.conductorNeutral.value == undefined || x.controls.conductorNeutral.value == null) {
+          x.controls.conductorNeutral.setValue('NA');
+        }
+        if (x.controls.circuitDesc.value == '' || x.controls.circuitDesc.value == undefined || x.controls.circuitDesc.value == null) {
+          x.controls.circuitDesc.setValue('NA');
+        }
+        if (x.controls.rcdTestButtonOperation.value == '' || x.controls.rcdTestButtonOperation.value == undefined || x.controls.rcdTestButtonOperation.value == null) {
+          x.controls.rcdTestButtonOperation.setValue('NA');
+        }
+        if (x.controls.rcdRemarks.value == '' || x.controls.rcdRemarks.value == undefined || x.controls.rcdRemarks.value == null) {
+          x.controls.rcdRemarks.setValue('NA');
+        }
+        if (x.controls.rcdType.value == '' || x.controls.rcdType.value == undefined || x.controls.rcdType.value == null) {
+          x.controls.rcdType.setValue('NA');
+        }
+
+        if (x.controls.rcdCurrent.value == '' || x.controls.rcdCurrent.value == undefined || x.controls.rcdCurrent.value == null) {
+          x.controls.rcdCurrent.setValue('NA');
+        }
+
+        if (x.controls.rcdOperatingCurrent.value == '' || x.controls.rcdOperatingCurrent.value == undefined || x.controls.rcdOperatingCurrent.value == null) {
+          x.controls.rcdOperatingCurrent.setValue('NA');
+        }
+        if (x.controls.rcdOperatingFiveCurrent.value == '' || x.controls.rcdOperatingFiveCurrent.value == undefined || x.controls.rcdOperatingFiveCurrent.value == null) {
+          x.controls.rcdOperatingFiveCurrent.setValue('NA');
+        }
+      }
+      // coma saparated value for second table  
+      for (let n of this.testingRecords.controls) {
         let arr: any = [];
         let arr1: any = [];
         let arr2: any = [];
         let arr3: any = [];
         let arr4: any = [];
         arr4.push(
-          n.rycontinutiy,
-          n.rbcontinutiy,
-          n.ybcontinutiy,
-          n.rncontinutiy,
-          n.yncontinutiy,
-          n.bncontinutiy,
-          n.rpecontinutiy,
-          n.ypecontinutiy,
-          n.bpecontinutiy
+          n.controls.rycontinutiy.value,
+          n.controls.rbcontinutiy.value,
+          n.controls.ybcontinutiy.value,
+          n.controls.rncontinutiy.value,
+          n.controls.yncontinutiy.value,
+          n.controls.bncontinutiy.value,
+          n.controls.rpecontinutiy.value,
+          n.controls.ypecontinutiy.value,
+          n.controls.bpecontinutiy.value
         );
         arr.push(
-          n.ryVoltage,
-          n.rbVoltage,
-          n.ybVoltage,
-          n.rnVoltage,
-          n.ynVoltage,
-          n.bnVoltage,
-          n.rpeVoltage,
-          n.ypeVoltage,
-          n.bpeVoltage
+          n.controls.ryVoltage.value,
+          n.controls.rbVoltage.value,
+          n.controls.ybVoltage.value,
+          n.controls.rnVoltage.value,
+          n.controls.ynVoltage.value,
+          n.controls.bnVoltage.value,
+          n.controls.rpeVoltage.value,
+          n.controls.ypeVoltage.value,
+          n.controls.bpeVoltage.value
+
         );
         arr1.push(
-          n.ryLoopImpedance,
-          n.rbLoopImpedance,
-          n.ybLoopImpedance,
-          n.rnLoopImpedance,
-          n.ynLoopImpedance,
-          n.bnLoopImpedance,
-          n.rpeLoopImpedance,
-          n.ypeLoopImpedance,
-          n.bpeLoopImpedance
+          n.controls.ryLoopImpedance.value,
+          n.controls.rbLoopImpedance.value,
+          n.controls.ybLoopImpedance.value,
+          n.controls.rnLoopImpedance.value,
+          n.controls.ynLoopImpedance.value,
+          n.controls.bnLoopImpedance.value,
+          n.controls.rpeLoopImpedance.value,
+          n.controls.ypeLoopImpedance.value,
+          n.controls.bpeLoopImpedance.value
         );
         arr2.push(
-          n.ryFaultCurrent,
-          n.rbFaultCurrent,
-          n.ybFaultCurrent,
-          n.rnFaultCurrent,
-          n.ynFaultCurrent,
-          n.bnFaultCurrent,
-          n.rpeFaultCurrent,
-          n.ypeFaultCurrent,
-          n.bpeFaultCurrent
+          n.controls.ryFaultCurrent.value,
+          n.controls.rbFaultCurrent.value,
+          n.controls.ybFaultCurrent.value,
+          n.controls.rnFaultCurrent.value,
+          n.controls.ynFaultCurrent.value,
+          n.controls.bnFaultCurrent.value,
+          n.controls.rpeFaultCurrent.value,
+          n.controls.ypeFaultCurrent.value,
+          n.controls.bpeFaultCurrent.value
         );
         arr3.push(
-          n.ryDisconnect,
-          n.rbDisconnect,
-          n.ybDisconnect,
-          n.rnDisconnect,
-          n.ynDisconnect,
-          n.bnDisconnect,
-          n.rpeDisconnect,
-          n.ypeDisconnect,
-          n.bpeDisconnect
+          n.controls.ryDisconnect.value,
+          n.controls.rbDisconnect.value,
+          n.controls.ybDisconnect.value,
+          n.controls.rnDisconnect.value,
+          n.controls.ynDisconnect.value,
+          n.controls.bnDisconnect.value,
+          n.controls.rpeDisconnect.value,
+          n.controls.ypeDisconnect.value,
+          n.controls.bpeDisconnect.value
         );
         let testVoltage: String = '';
         let testLoopImpedance: String = '';
@@ -1646,37 +3557,38 @@ export class InspectionVerificationTestingComponent implements OnInit {
         let insulationResistance: String = '';
 
         for (let x of arr4) {
-          if (x != '') {
+          if (x != '' && x != undefined && x != null) {
             insulationResistance += x + ',';
           } else {
             insulationResistance += 'NA,';
           }
         }
         insulationResistance = insulationResistance.replace(/,\s*$/, '');
-        n.insulationResistance = insulationResistance;
+        n.controls.insulationResistance.setValue(insulationResistance);
 
         for (let a of arr) {
-          if (a != '') {
+          if (a != '' && a != undefined && a != null) {
             testVoltage += a + ',';
           } else {
             testVoltage += 'NA,';
           }
         }
         testVoltage = testVoltage.replace(/,\s*$/, '');
-        n.testVoltage = testVoltage;
-
+        n.controls.testVoltage.setValue(testVoltage);
+        
         for (let b of arr1) {
-          if (b != '') {
+          if (b != '' && b != undefined && b != null) {
             testLoopImpedance += b + ',';
-          } else {
+          }
+          else {
             testLoopImpedance += 'NA,';
           }
         }
         testLoopImpedance = testLoopImpedance.replace(/,\s*$/, '');
-        n.testLoopImpedance = testLoopImpedance;
+        n.controls.testLoopImpedance.setValue(testLoopImpedance);
 
         for (let c of arr2) {
-          if (c != '') {
+          if (c != '' && c != undefined && c != null) {
             testFaultCurrent += c + ',';
           } else {
             testFaultCurrent += 'NA,';
@@ -1684,50 +3596,215 @@ export class InspectionVerificationTestingComponent implements OnInit {
         }
 
         testFaultCurrent = testFaultCurrent.replace(/,\s*$/, '');
-        n.testFaultCurrent = testFaultCurrent;
+        n.controls.testFaultCurrent.setValue(testFaultCurrent);
 
         for (let d of arr3) {
-          if (d != '') {
+          if (d != '' && d != undefined && d != null) {
             disconnectionTime += d + ',';
           } else {
             disconnectionTime += 'NA,';
           }
         }
         disconnectionTime = disconnectionTime.replace(/,\s*$/, '');
-        n.disconnectionTime = disconnectionTime;
+        n.controls.disconnectionTime.setValue(disconnectionTime);
+      }
+      }
+    }
+ //if(!flag){
+    for (let i of this.testaccordianArr.controls) {
+      this.testDistRecords1 = i.get('testDistRecords') as FormArray;
+      for(let v of this.testDistRecords1.controls){
+        this.observationArr = v.get('testingInnerObservation') as FormArray;
+        this.testingRecords = v.get('testingRecords') as FormArray;
+        for(let z=0; z < this.testingRecords.length; z++){
+         this.observationArr.controls[z].controls.observationComponentDetails.setValue('circuit');
+         if(this.testingRecords.controls[z].controls.rcdRemarks.value == '' 
+         || this.testingRecords.controls[z].controls.rcdRemarks.value == undefined 
+          || this.testingRecords.controls[z].controls.rcdRemarks.value == null) {
+          this.testingRecords.controls[z].controls.rcdRemarks.setValue('NA');
+         }
+         this.observationArr.controls[z].controls.observationDescription.setValue(this.testingRecords.controls[z].controls.rcdRemarks.value);
+        }
+      }
+    }
+  //}
+    //from saved report update
+    for(let i of this.pushJsonArray) {
+      if(this.testList.testingReport != null && this.testList.testingReport != undefined ) {
+        for(let j of this.testList.testingReport.testIncomingDistribution) {
+          if(j.sourceFromSupply == i.sourceFromSupply){
+            i.incomingDistributionId = j.incomingDistributionId;
+          }
+        }
+      }
+    }
+
+    //Not from saved report update
+    for(let i of this.pushJsonArray) {
+      if(this.testList1 != null  && this.testList1.testIncomingDistribution != undefined) {
+        for(let j of this.testList1.testIncomingDistribution) {
+          if(j.sourceFromSupply == i.sourceFromSupply){
+            i.incomingDistributionId = j.incomingDistributionId;
+          }
+        }
       }
     }
     this.testingDetails.testIncomingDistribution=this.pushJsonArray;
     this.testingDetails.testing = this.testingForm.value.testaccordianArr;
+
     if (flag) {
+      if(this.testingForm.dirty){
+        //Testing Equipment 
+        for(let i of this.deletedTestingEquipment) {
+          for(let j of this.testingDetails.testing) {
+            for(let k of j.testingEquipment) {
+              if(k.testingId == i.testingId) {
+                if(k.equipmentId != i.equipmentId) {
+                  this.deleteDataFlag = true;
+                }
+                else {
+                  this.deleteDataFlag = false;
+                }
+              }
+            }
+            if(this.deleteDataFlag) {
+              j.testingEquipment.push(i);
+              this.deleteDataFlag = false;
+            }
+          }
+        }
+        //Testing Records
+        for(let i of this.deletedTestingRecord) {
+          for(let j of this.testingDetails.testing) {
+            for(let l of j.testDistRecords) {
+              for(let k of l.testingRecords) {
+                if(k.testingId == i.testingId && k.testDistRecordId == i.testDistRecordId) {
+                  if(k.testingRecordId != i.testingRecordId) {
+                    this.deleteRecordDataFlag = true;
+                  }
+                  else {
+                    this.deleteRecordDataFlag = false;
+                  }
+                }
+              }
+              if(this.deleteRecordDataFlag) {
+                l.testingRecords.push(i);
+                this.deleteRecordDataFlag = false;
+              }
+            }
+          }
+        }
+//observation
+        for(let i of this.deletedObservationArr) {
+          for(let j of this.testingDetails.testing) {
+            for(let l of j.testDistRecords) {
+              for(let k of l.testingInnerObservation) {
+                if(k.testingId == i.testingId && k.testDistRecordId == i.testDistRecordId) {
+                  if(k.testingInnerObervationsId != i.testingInnerObervationsId) {
+                    this.deleteObRecordDataFlag = true;
+                  }
+                  else {
+                    this.deleteObRecordDataFlag = false;
+                  }
+                }
+              }
+              if(this.deleteObRecordDataFlag) {
+                l.testingInnerObservation.push(i);
+                this.deleteObRecordDataFlag = false;
+              }
+            }
+          }
+        }
       this.UpateInspectionService.updateTesting(this.testingDetails).subscribe(
         data => {
+          this.popup=true;
+          this.finalSpinner=false;
           this.success = true;
+          this.service.isCompleted4= true;
+          this.service.isLinear=false;
           this.successMsg = data;
+          this.testingForm.markAsPristine();
+          this.service.windowTabClick=0;
+       this.service.logoutClick=0; 
+       this.service.lvClick=0; 
+       this.testingService.retrieveTesting(this.testingDetails.siteId,this.testingDetails.userName).subscribe(
+        data=>{
+         this.retrieveDetailsforTesting(this.testingDetails.userName,this.testingDetails.siteId,data);
+        }
+      )
         },
         (error) => {
+          this.popup=true;
+          this.finalSpinner=false;
           this.Error = true;
+          this.service.isCompleted4= false;
+        this.service.isLinear=true;
           this.errorArr = [];
           this.errorArr = JSON.parse(error.error);
           this.errorMsg = this.errorArr.message;
         });
+      }
     }
     else {
       this.testingService.savePeriodicTesting(this.testingDetails).subscribe(
         (data) => {
           this.proceedNext.emit(true);
           // show success message ofter click button
+          this.popup=true;
+          this.finalSpinner=false;
           this.success = true;
           this.successMsg = data;
-          this.disable = true;
+          this.service.isCompleted4= true;
+          this.service.isLinear=false;
+          this.testingForm.markAsPristine();
+          this.service.windowTabClick=0;
+       this.service.logoutClick=0; 
+       this.service.lvClick=0; 
+          this.testingService.retrieveTesting(this.testingDetails.siteId,this.testingDetails.userName).subscribe(
+            data=>{
+             this.retrieveDetailsforTesting(this.testingDetails.userName,this.testingDetails.siteId,data);
+            }
+          )
+         
+
+          //  if(!this.observationFlag){
+          //   this.observation.siteId = this.service.siteCount;
+          //   this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
+          //   this.observation.observationComponent ="Testing-Component";
+          //   this.observation.observations="No observation recorded"
+          //   this.observationService.addObservation(this.observation).subscribe(
+          //     (data) => {
+          //       this.proceedNext.emit(true);
+          //       this.observationService.retrieveObservation(this.observation.siteId,this.observation.observationComponent,this.observation.userName).subscribe(
+          //         (data) => {
+          //         this.retrieveFromObservationTesting(data);
+          //         },
+          //         (error) => {
+          //           this.errorArr = [];
+          //           this.errorArr = JSON.parse(error.error);
+          //         console.log(this.errorArr.message);
+          //         }
+          //       )
+               
+          //   },
+          //     (error:any) => {
+          //       this.errorArrObservation = [];
+          //       this.errorArrObservation = JSON.parse(error.error);
+          //       console.log(this.errorArrObservation.message);
+          //     }
+          //   )
+          // }
         },
         (error) => {
-          this.Error = true;
-          // show error button
+          this.popup=true;
+          this.finalSpinner=false;
+          this.Error = true;      
           this.proceedNext.emit(false);
           this.errorArr = [];
           this.errorArr = JSON.parse(error.error);
           this.errorMsg = this.errorArr.message;
+          this.service.isCompleted4= false;
+          this.service.isLinear=true;    
         }
       );
     }

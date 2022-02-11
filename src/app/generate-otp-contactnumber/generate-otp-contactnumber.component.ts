@@ -37,7 +37,7 @@ export class GenerateOtpContactnumberComponent implements OnInit {
   ngOnInit(): void {
     this.countryCode = '91';
     this.generateContactNumberOtpForm = this.formBuilder.group({
-      mobileNumber: ['',[Validators.maxLength(10),Validators.required]]
+      mobileNumber: ['',[Validators.minLength(10),Validators.maxLength(10),Validators.required]]
   });
   }
 
@@ -63,7 +63,7 @@ export class GenerateOtpContactnumberComponent implements OnInit {
     this.inspectorRegisterService.sendOtpContactNumber(this.email,this.contactNumber).subscribe(
       data=> { 
         this.successMsgOTP=true;
-        this.successMsg="OTP has been successfully sent to your mobile number";
+        this.successMsg=data;
         this.globalService.changeNumberSession = data;
         this.globalService.changeNumber = this.contactNumber;
 

@@ -16,7 +16,7 @@ export class UpdatepasswordComponent implements OnInit {
     email: new FormControl(''),
     password: new FormControl(''),
     confirmpassword: new FormControl('') ,
-    otp: new FormControl('')
+    // otp: new FormControl('')
   });
 
   loading = false;
@@ -39,7 +39,7 @@ export class UpdatepasswordComponent implements OnInit {
     this.updatepassform = this.formBuilder.group({
       password: ['', Validators.required],
       confirmpassword: ['', Validators.required],
-      otp: ['', Validators.required]
+      // otp: ['', Validators.required]
       });
 
 
@@ -51,7 +51,7 @@ export class UpdatepasswordComponent implements OnInit {
 
   onSubmit(){
     this.submitted=true;
-
+    ;
     //Breaks if form is invalid
     if(this.updatepassform.invalid) {
       return;
@@ -59,7 +59,7 @@ export class UpdatepasswordComponent implements OnInit {
 
     this.loading=true;
 
-    this.updatepasswordservice.updatePassword(this.user.email, this.user.password, this.user.otp).subscribe(
+    this.updatepasswordservice.updatePassword(this.user.email, this.user.password).subscribe(
       data=> {
         this.successMsg = data;
         setTimeout(() => {

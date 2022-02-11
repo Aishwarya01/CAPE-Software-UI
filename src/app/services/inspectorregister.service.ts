@@ -56,4 +56,8 @@ export class InspectorregisterService {
   public  retrieveInspector (userName: any): Observable<any> {
     return this.http.get<any>(this.apiUrl+'/retrieveRegistration'+'/'+userName,  { responseType: 'text' as 'json' })
   }
+
+  public  retrieveRegisterName (userName: any): Observable<any> {
+    return this.http.get<any>(this.apiUrl+'/retrieveUserNameFromRegister'+'/'+userName,  { responseType: 'text' as 'json' })
+  }
 }

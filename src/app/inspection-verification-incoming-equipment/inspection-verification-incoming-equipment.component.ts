@@ -6,7 +6,8 @@ import {
   OnInit,
   Output,
   ViewChild,
-  ElementRef
+  ElementRef,
+  OnDestroy
 } from '@angular/core';
 import {
   AbstractControl,
@@ -14,6 +15,7 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
+  NgControlStatus,
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -27,6 +29,10 @@ import { InspectionVerificationService } from '../services/inspection-verificati
 import { CommentsSection } from '../model/comments-section';
 import { MainNavComponent } from '../main-nav/main-nav.component';
 import { VerificationlvComponent } from '../verificationlv/verificationlv.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ObservationService } from '../services/observation.service';
+import { flatten } from '@angular/compiler';
+import { TestingService } from '../services/testing.service';
 
 @Component({
   selector: 'app-inspection-verification-incoming-equipment',
@@ -34,7 +40,7 @@ import { VerificationlvComponent } from '../verificationlv/verificationlv.compon
   styleUrls: ['./inspection-verification-incoming-equipment.component.css'],
 })
 export class InspectionVerificationIncomingEquipmentComponent
-  implements OnInit
+  implements OnInit,OnDestroy
 {
   submitted = false;
   locationList: any = [];
@@ -43,7 +49,8 @@ export class InspectionVerificationIncomingEquipmentComponent
   @Output() callTesting = new EventEmitter<any>();
 
   addstep3!: FormGroup;
-
+  observationFlag: boolean= false;
+  errorArrObservation: any=[];
   i: any;
   j: any;
   loclength: any;
@@ -52,15 +59,19 @@ export class InspectionVerificationIncomingEquipmentComponent
   email: String = '';
   showField1: boolean = true;
   showField2: boolean = false;
+  errorArr: any=[];
 
   inspectionDetails = new InspectionDetails();
   validationError: boolean = false;
   validationErrorMsg: String = '';
   disable: boolean = false;
+  consumerArr: any = [];
+  circuitArr: any = [];
 
   // Second Tab dependencies
   panelOpenState = false;
   InspectionList: String[] = ['Yes', 'No', 'Not Applicable'];
+  cableBusBarList: String[] = ['Cable', 'Busbar'];
   incomingArr!: FormArray;
   arr: any = [];
   formBuilder: any;
@@ -69,7 +80,8 @@ export class InspectionVerificationIncomingEquipmentComponent
   step3List: any = [];
   flag: boolean=false;
   @Output() testing = new EventEmitter<any>();
-
+  validationErrorTab: boolean = false;
+  validationErrorMsgTab: string="";
   //comments starts
   successMsg: string="";
   commentSuccess: boolean=false;
@@ -142,7 +154,37 @@ export class InspectionVerificationIncomingEquipmentComponent
   inspectorName: String = '';	
   completedCommentArr3: any = [];
   hideShowComment: boolean=false;
+  modalReference: any;
+  tabErrorMsg: string="";
+  tabError: boolean = false;
+  deletedArr: any = [];
+  step3List1: any= [];
+  deletedConsumer: any = [];
+  deletedCircuit: any = [];
+  deleteDataFlag: boolean = false;
+  deleteDataFlag1: boolean = false;
+
   //comments end
+  observationUpdateFlag: boolean= false;
+
+  // ObservationsForm = new FormGroup({
+  //   observations: new FormControl(''),
+  // });
+  observationValuesI: any="";
+  observationModalReference: any;
+  disableObservation: boolean=true;
+   innerObservationArr: any =  [];
+  inspectionOuterObservation: any=[];
+  inspectionInnerObservation: any=[];
+  deletedInnerObservation: any=[];
+  deleteObDataFlag: boolean= false;
+  finalSpinner: boolean = true;
+  popup: boolean = false;
+  partialSpinner: boolean = true;
+  partialPopup: boolean = false;
+  intermediateSave:boolean=false;
+  intermediateSaveInspection:boolean=true;
+  intermediateSaveInspectionInCircuits:boolean=true;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -150,13 +192,26 @@ export class InspectionVerificationIncomingEquipmentComponent
     private modalService: NgbModal,
     private inspectionDetailsService: InspectiondetailsService,
     public service: GlobalsService,
+    private dialog: MatDialog,
     private ChangeDetectorRef: ChangeDetectorRef,
+    private observationService: ObservationService,
     private siteService: SiteService,
     private UpateInspectionService: InspectionVerificationService,
     private basic: MainNavComponent,
-    private verification: VerificationlvComponent
+    private verification: VerificationlvComponent,
+    private testingService: TestingService
   ) {
     this.email = this.router.snapshot.paramMap.get('email') || '{}';
+  }
+  ngOnDestroy(): void {
+    this.service.observationGlowInspection=false;
+    this.service.iterationList=[];
+    this.service.isCompleted3= true;
+    this.service.isLinear=false;
+    this.service.editable=true;
+    this.service.lvClick=0;
+    this.service.logoutClick=0;
+    this.service.windowTabClick=0;
   }
 
   ngOnInit(): void {
@@ -170,17 +225,55 @@ export class InspectionVerificationIncomingEquipmentComponent
     });
     this.refresh();
     this.expandedIndex = -1 ;
+
+    // this.ObservationsForm = this._formBuilder.group({
+    //   observations: [''],
+    //  })
   }
 
   retrieveDetailsfromSavedReports(userName: any,siteId: any,clientName: any,departmentName: any,site: any,data: any){ 
+    //this.service.lvClick=1;
         this.step3List = JSON.parse(data);
         this.inspectionDetails.siteId = siteId;
+        this.deletedArr = [];
+        this.deletedConsumer = [];
+        this.deletedInnerObservation = [];
+        this.deletedCircuit = [];
         this.inspectionDetails.periodicInspectionId = this.step3List.periodicInspection.periodicInspectionId;
         this.inspectionDetails.createdBy = this.step3List.periodicInspection.createdBy;
         this.inspectionDetails.createdDate  = this.step3List.periodicInspection.createdDate;
         this.flag = true;
-        this.populateData();
+        this.populateData(this.step3List.periodicInspection);
         this.populateDataComments();
+  }
+
+  retrieveAllDetailsforIncoming(userName: any,siteId: any,data: any){ 
+    // if(this.service.disableFields==true){
+    //   this.addstep3.disable();
+    //  }
+        this.step3List1 = JSON.parse(data);
+        this.inspectionDetails.siteId = siteId;
+        this.deletedArr = [];
+        this.deletedConsumer = [];
+        this.deletedInnerObservation = [];
+        this.deletedCircuit = [];
+        this.inspectionDetails.periodicInspectionId = this.step3List1.periodicInspectionId;
+        this.inspectionDetails.createdBy = this.step3List1.createdBy;
+        this.inspectionDetails.createdDate  = this.step3List1.createdDate;
+        this.flag = true;
+        this.populateData(this.step3List1);
+  }
+
+   // Only Accept numbers
+   keyPressNumbers(event:any) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
   }
  
 //comments section starts
@@ -361,6 +454,25 @@ populateDataComments() {
        this.addstep3.setControl('viewerCommentArr', this._formBuilder.array(this.arrViewer || []))
        this.addstep3.setControl('completedCommentArr1', this._formBuilder.array(this.completedCommentArr4 || []));
 }
+// retrieveFromObservationInspection(data:any){
+//   this.observation=JSON.parse(data);
+//   this.observationValuesI=this.observation.observations;
+//   this.observationUpdateFlag=true;
+//   this.ObservationsForm.markAsPristine();
+//   }
+
+//   addObservation(observationIter:any){
+//     if(this.ObservationsForm.touched || this.ObservationsForm.untouched){
+//       this.observationModalReference = this.modalService.open(observationIter, {
+//          centered: true, 
+//          size: 'md'
+//         })
+//      }
+
+ 
+//    }
+
+
 
 showHideAccordion(index: number) {  
   //console.log(x);
@@ -579,177 +691,267 @@ showHideAccordion(index: number) {
   }
 //comments section ends
 
-  populateData() {
+
+  populateData(value:any) {
+ 
     this.arr = [];
-    for (let item of this.step3List.periodicInspection.ipaoInspection) {
-      this.arr.push(this.createGroup(item));
-      
+    for (let item of value.ipaoInspection) {
+      this.arr.push(this.createGroup(item,item.inspectionOuterObervation[0]));
+      if(item.ipaoInspectionId !=''&&item.ipaoInspectionId !=undefined&&item.ipaoInspectionId !=null){
+       this.intermediateSaveInspection=false;
+         } 
     }
     this.addstep3.setControl('incomingArr', this._formBuilder.array(this.arr || []))
   }
-
-  createGroup(item: any): FormGroup {
+  createGroup(item: any,H:any): FormGroup {
     return this._formBuilder.group({
       ipaoInspectionId: new FormControl({disabled: false,value: item.ipaoInspectionId}),
-      locationName: new FormControl({disabled: false,value: item.locationName}),
-      locationNumber: new FormControl({disabled: false,value: item.locationNumber}),
-      serviceCable: new FormControl({disabled: false,value: item.serviceCable}),
-      serviceFuse: new FormControl({disabled: false,value: item.serviceFuse}),
-      meterDistributor: new FormControl({disabled: false,value: item.meterDistributor}),
-      meterConsumer: new FormControl({disabled: false,value: item.meterConsumer}),
-      meterEqu: new FormControl({disabled: false,value: item.meterEqu}),
-      isolator: new FormControl({disabled: false,value: item.isolator}),
+      locationName: new FormControl({disabled: false,value: item.locationName}, [Validators.required]),
+      locationNumber: new FormControl({disabled: false,value: item.locationNumber}, [Validators.required]),
+      locationCount: new FormControl({disabled: false,value: item.locationCount}),
+      serviceCable: new FormControl({disabled: false,value: item.serviceCable}, [Validators.required]),
+      serviceFuse: new FormControl({disabled: false,value: item.serviceFuse}, [Validators.required]),
+      meterDistributor: new FormControl({disabled: false,value: item.meterDistributor}, [Validators.required]),
+      meterConsumer: new FormControl({disabled: false,value: item.meterConsumer}, [Validators.required]),
+      meterEqu: new FormControl({disabled: false,value: item.meterEqu}, [Validators.required]),
+      tovMeasuresLVHV: new FormControl({disabled: false,value: item.tovMeasuresLVHV}, [Validators.required]),
+      isolator: new FormControl({disabled: false,value: item.isolator}, [Validators.required]),
 
-      earthingArrangement: new FormControl({disabled: false,value: item.earthingArrangement}),
-      adequateArrangement: new FormControl({disabled: false,value: item.adequateArrangement}),
-      connectionGenerator: new FormControl({disabled: false,value: item.connectionGenerator}),
-      compatibilityCharacteristics: new FormControl({disabled: false,value: item.compatibilityCharacteristics}),
-      automaticDisconnectGenerator: new FormControl({disabled: false,value: item.automaticDisconnectGenerator}),
-      preventConnectGenerator: new FormControl({disabled: false,value: item.preventConnectGenerator}),
-      isolateGenerator: new FormControl({disabled: false,value: item.isolateGenerator}),
+      earthingArrangement: new FormControl({disabled: false,value: item.earthingArrangement}, [Validators.required]),
+      adequateArrangement: new FormControl({disabled: false,value: item.adequateArrangement}, [Validators.required]),
+      connectionGenerator: new FormControl({disabled: false,value: item.connectionGenerator}, [Validators.required]),
+      compatibilityCharacteristics: new FormControl({disabled: false,value: item.compatibilityCharacteristics}, [Validators.required]),
+      automaticDisconnectGenerator: new FormControl({disabled: false,value: item.automaticDisconnectGenerator}, [Validators.required]),
+      preventConnectGenerator: new FormControl({disabled: false,value: item.preventConnectGenerator}, [Validators.required]),
+      isolateGenerator: new FormControl({disabled: false,value: item.isolateGenerator}, [Validators.required]),
 
-      mainEarting: new FormControl({disabled: false,value: item.mainEarting}),
-      earthElectordeArrangement: new FormControl({disabled: false,value: item.earthElectordeArrangement}),
-      earthConductorConnection: new FormControl({disabled: false,value: item.earthConductorConnection}),
-      accessibility: new FormControl({disabled: false,value: item.accessibility}),
-      aainProtectBonding: new FormControl({disabled: false,value: item.aainProtectBonding}),
-      allProtectBonding: new FormControl({disabled: false,value: item.allProtectBonding}),
-      allAppropriateLocation: new FormControl({disabled: false,value: item.allAppropriateLocation}),
-      felvRequirement: new FormControl({disabled: false,value: item.felvRequirement}),
+      mainEarting: new FormControl({disabled: false,value: item.mainEarting}, [Validators.required]),
+      earthElectordeArrangement: new FormControl({disabled: false,value: item.earthElectordeArrangement}, [Validators.required]),
+      earthConductorConnection: new FormControl({disabled: false,value: item.earthConductorConnection}, [Validators.required]),
+      accessibility: new FormControl({disabled: false,value: item.accessibility}, [Validators.required]),
+      aainProtectBonding: new FormControl({disabled: false,value: item.aainProtectBonding}, [Validators.required]),
+      allProtectBonding: new FormControl({disabled: false,value: item.allProtectBonding}, [Validators.required]),
+      allAppropriateLocation: new FormControl({disabled: false,value: item.allAppropriateLocation}, [Validators.required]),
+      felvRequirement: new FormControl({disabled: false,value: item.felvRequirement}, [Validators.required]),
 
-      selvSystem: new FormControl({disabled: false,value: item.selvSystem}),
-      pelvSystem: new FormControl({disabled: false,value: item.pelvSystem}),
-      doubleInsulation: new FormControl({disabled: false,value: item.doubleInsulation}),
-      reinforcedInsulation: new FormControl({disabled: false,value: item.reinforcedInsulation}),
-      basicElectricalSepartion: new FormControl({disabled: false,value: item.basicElectricalSepartion}),
-      isolatePublicSupply: new FormControl({disabled: false,value: item.isolatePublicSupply}),
-      insulationLiveParts: new FormControl({disabled: false,value: item.insulationLiveParts}),
-      barriersEnclosers: new FormControl({disabled: false,value: item.barriersEnclosers}),
-      obstacles: new FormControl({disabled: false,value: item.obstacles}),
-      placingOutReach: new FormControl({disabled: false,value: item.placingOutReach}),
-      nonConductLocation: new FormControl({disabled: false,value: item.nonConductLocation}),
-      faultElectricalSepartion: new FormControl({disabled: false,value: item.faultElectricalSepartion}),
-     // faultNonConductLocation: new FormControl({disabled: false,value: item.faultNonConductLocation}),
-      operatingCurrent: new FormControl({disabled: false,value: item.operatingCurrent}),
-      supplementaryBonding: new FormControl({disabled: false,value: item.supplementaryBonding}),
-      consumerUnit: this._formBuilder.array([this.populateEarthingForm(item.consumerUnit)]),
-      circuit: this._formBuilder.array([this.populateCircuitForm(item.circuit)]),
+      selvSystem: new FormControl({disabled: false,value: item.selvSystem}, [Validators.required]),
+      pelvSystem: new FormControl({disabled: false,value: item.pelvSystem}, [Validators.required]),
+      doubleInsulation: new FormControl({disabled: false,value: item.doubleInsulation}, [Validators.required]),
+      reinforcedInsulation: new FormControl({disabled: false,value: item.reinforcedInsulation}, [Validators.required]),
+      basicElectricalSepartion: new FormControl({disabled: false,value: item.basicElectricalSepartion}, [Validators.required]),
+      //isolatePublicSupply: new FormControl({disabled: false,value: item.isolatePublicSupply}, [Validators.required]),
+      insulationLiveParts: new FormControl({disabled: false,value: item.insulationLiveParts}, [Validators.required]),
+      barriersEnclosers: new FormControl({disabled: false,value: item.barriersEnclosers}, [Validators.required]),
+      obstacles: new FormControl({disabled: false,value: item.obstacles}, [Validators.required]),
+      placingOutReach: new FormControl({disabled: false,value: item.placingOutReach}, [Validators.required]),
+      // nonConductLocation: new FormControl({disabled: false,value: item.nonConductLocation}, [Validators.required]),
+      faultElectricalSepartion: new FormControl({disabled: false,value: item.faultElectricalSepartion}, [Validators.required]),
+      faultNonConductLocation: new FormControl({disabled: false,value: item.faultNonConductLocation}, [Validators.required]),
+      operatingCurrent: new FormControl({disabled: false,value: item.operatingCurrent}, [Validators.required]),
+      supplementaryBonding: new FormControl({disabled: false,value: item.supplementaryBonding}, [Validators.required]),
+      specificInspectionRe: new FormControl({disabled: false,value: item.specificInspectionRe}),
+      inspectionOuterObervation: this._formBuilder.array(this.populateInspectionOuterObervation(item.inspectionOuterObervation,item.ipaoInspectionId)),
+      consumerUnit: this._formBuilder.array(this.populateEarthing(item.consumerUnit,item.ipaoInspectionId,H.inspectionInnerObservations)),
+      circuit: this._formBuilder.array(this.populateCircuit(item.circuit,item.ipaoInspectionId)),
       isolationCurrent: this._formBuilder.array([
         this.populateIsolationCurrentForm(item.isolationCurrent),
       ]),
+      inspectionFlag: new FormControl(item.inspectionFlag),
     });
   }
 
-  private populateEarthingForm(itemvalue: any): FormGroup {
+  private populateInspectionOuterObervation(itemValue: any,ipaoInspectionId: any) {
+    let outerObservationArr: any =  [];
+    for(let i of itemValue) {
+      outerObservationArr.push(this.populateOuterObservationForm(i,ipaoInspectionId));
+    }
+    return outerObservationArr;
+  }
+
+  populateOuterObservationForm(itemvalue: any,ipaoInspectionId: any): FormGroup {
     return new FormGroup({
-      consumerId: new FormControl({disabled: false,value: itemvalue[0]['consumerId']}),
-      accessWorking: new FormControl({disabled: false,value: itemvalue[0]['accessWorking']}),
-      securityFixing: new FormControl({disabled: false,value: itemvalue[0]['securityFixing']}),
-      livePartsDamage: new FormControl({disabled: false,value: itemvalue[0]['livePartsDamage']}),
-      securityBarriers: new FormControl({disabled: false,value: itemvalue[0]['securityBarriers']}),
-      suitabilityEnclosure: new FormControl({disabled: false,value: itemvalue[0]['suitabilityEnclosure']}),
-      enclosureDamaged: new FormControl({disabled: false,value: itemvalue[0]['enclosureDamaged']}),
-      presenceObstacles: new FormControl({disabled: false,value: itemvalue[0]['presenceObstacles']}),
-      placingOutOfConsumer: new FormControl({disabled: false,value: itemvalue[0]['placingOutOfConsumer']}),
-      presenceMainSwitches: new FormControl({disabled: false,value: itemvalue[0]['presenceMainSwitches']}),
-      operationMainSwitches: new FormControl({disabled: false,value: itemvalue[0]['operationMainSwitches']}),
-      manualCircuitBreakers: new FormControl({disabled: false,value: itemvalue[0]['manualCircuitBreakers']}),
-      switchCausesRcd: new FormControl({disabled: false,value: itemvalue[0]['switchCausesRcd']}),
-      rcdFaultProtection: new FormControl({disabled: false,value: itemvalue[0]['rcdFaultProtection']}),
-      rcdAdditionalProtection: new FormControl({disabled: false,value: itemvalue[0]['rcdAdditionalProtection']}),
-      overVoltageProtection: new FormControl({disabled: false,value: itemvalue[0]['overVoltageProtection']}),
-      indicationOfSpd: new FormControl({disabled: false,value: itemvalue[0]['indicationOfSpd']}),
-      rcdQuarterlyTest: new FormControl({disabled: false,value: itemvalue[0]['rcdQuarterlyTest']}),
-      diagramsCharts: new FormControl({disabled: false,value: itemvalue[0]['diagramsCharts']}),
-      nonstandardCableColour: new FormControl({disabled: false,value: itemvalue[0]['nonstandardCableColour']}),
-      alSupplyOfOrign: new FormControl({disabled: false,value: itemvalue[0]['alSupplyOfOrign']}),
-      alSupplyOfMeter: new FormControl({disabled: false,value: itemvalue[0]['alSupplyOfMeter']}),
-      alSupplyDistribution: new FormControl({disabled: false,value: itemvalue[0]['alSupplyDistribution']}),
-      allPointsIsolation: new FormControl({disabled: false,value: itemvalue[0]['allPointsIsolation']}),
-      nextInspection: new FormControl({disabled: false,value: itemvalue[0]['nextInspection']}),
-      otherRequiredLabelling: new FormControl({disabled: false,value: itemvalue[0]['otherRequiredLabelling']}),
-      basesCorrectType: new FormControl({disabled: false,value: itemvalue[0]['basesCorrectType']}),
-      singlePole: new FormControl({disabled: false,value: itemvalue[0]['singlePole']}),
-      mechanicalDamage: new FormControl({disabled: false,value: itemvalue[0]['mechanicalDamage']}),
-      electromagnetic: new FormControl({disabled: false,value: itemvalue[0]['electromagnetic']}),
-      allConductorCon: new FormControl({disabled: false,value: itemvalue[0]['allConductorCon']}),
+      ipaoInspectionId: new FormControl({disabled: false,value: ipaoInspectionId}),
+      inspectionOuterObservationId: new FormControl({disabled: false,value: itemvalue.inspectionOuterObservationId}),
+      observationComponentDetails: new FormControl({disabled: false,value: itemvalue.observationComponentDetails}),
+      observationDescription: new FormControl({disabled: false,value: itemvalue.observationDescription}),
+      inspectionOuterObservationStatus:new FormControl({disabled: false,value: itemvalue.inspectionOuterObservationStatus}),
+      inspectionInnerObservations: this._formBuilder.array(this.populateInspectionInnerObervation(itemvalue.inspectionInnerObservations,itemvalue.inspectionOuterObservationId,ipaoInspectionId)),
     });
   }
 
-  private populateCircuitForm(itemvalue: any): FormGroup {
+
+  private populateInspectionInnerObervation(itemValue: any,inspectionOuterObservationId: any,ipaoInspectionId: any) {
+    let innerObservationArr: any =  [];
+    for(let i of itemValue) {
+      innerObservationArr.push(this.populateInnerObservationForm(i,inspectionOuterObservationId,ipaoInspectionId));
+       if(i.observationDescription!=null && i.observationDescription!=undefined && i.observationDescription!=''){
+        this.intermediateSaveInspectionInCircuits=false;
+        this.service.observationGlowInspection=true;
+       }
+    }
+    
+    return innerObservationArr;
+  }
+
+  populateInnerObservationForm(itemvalue: any,inspectionOuterObservationId: any,ipaoInspectionId: any): FormGroup {
     return new FormGroup({
-      circuitId: new FormControl({disabled: false,value: itemvalue[0]['circuitId']}),
-      identificationConductors: new FormControl({disabled: false,value: itemvalue[0]['identificationConductors']}),
-      cableInstallation: new FormControl({disabled: false,value: itemvalue[0]['cableInstallation']}),
-      examinationCables: new FormControl({disabled: false,value: itemvalue[0]['examinationCables']}),
-      examinationInsulation: new FormControl({disabled: false,value: itemvalue[0]['examinationInsulation']}),
-      nonSheathedCables: new FormControl({disabled: false,value: itemvalue[0]['nonSheathedCables']}),
-      containmentSystems: new FormControl({disabled: false,value: itemvalue[0]['containmentSystems']}),
-      temperatureRating: new FormControl({disabled: false,value: itemvalue[0]['temperatureRating']}),
-      cablesTerminated: new FormControl({disabled: false,value: itemvalue[0]['cablesTerminated']}),
-      currentCarryCapacity: new FormControl({disabled: false,value: itemvalue[0]['currentCarryCapacity']}),
-      adequacyProtectDevices: new FormControl({disabled: false,value: itemvalue[0]['adequacyProtectDevices']}),
-      presenceProtectConductors: new FormControl({disabled: false,value: itemvalue[0]['presenceProtectConductors']}),
-      coOrdination: new FormControl({disabled: false,value: itemvalue[0]['coOrdination']}),
-      wiringSystems: new FormControl({disabled: false,value: itemvalue[0]['wiringSystems']}),
-      cablesConcealUnderFloors: new FormControl({disabled: false,value: itemvalue[0]['cablesConcealUnderFloors']}),
-      provisionFireBarriers: new FormControl({disabled: false,value: itemvalue[0]['provisionFireBarriers']}),
-      sectionsRegardlessDepth: new FormControl({disabled: false,value: itemvalue[0]['sectionsRegardlessDepth']}),
-      cablesConcDepth: new FormControl({disabled: false,value: itemvalue[0]['cablesConcDepth']}),
-      operatingCurrentSocket: new FormControl({disabled: false,value: itemvalue[0]['operatingCurrentSocket']}),
-      operatingCurrentCircuits: new FormControl({disabled: false,value: itemvalue[0]['operatingCurrentCircuits']}),
-      separationBand: new FormControl({disabled: false,value: itemvalue[0]['separationBand']}),
-      separationElectrical: new FormControl({disabled: false,value: itemvalue[0]['separationElectrical']}),
-      conditionCircuitAccessories: new FormControl({disabled: false,value: itemvalue[0]['conditionCircuitAccessories']}),
-      conductorCorrectTerminated: new FormControl({disabled: false,value: itemvalue[0]['conductorCorrectTerminated']}),
-      conductorVisibleOutside: new FormControl({disabled: false,value: itemvalue[0]['conductorVisibleOutside']}),
-      connLiveConductors: new FormControl({disabled: false,value: itemvalue[0]['connLiveConductors']}),
-      adequatelyConnectedEnclosure: new FormControl({disabled: false,value: itemvalue[0]['adequatelyConnectedEnclosure']}),
-      suitabilityCircuitAccessories: new FormControl({disabled: false,value: itemvalue[0]['suitabilityCircuitAccessories']}),
-      conditionAccessories: new FormControl({disabled: false,value: itemvalue[0]['conditionAccessories']}),
-      singlePoleDevices: new FormControl({disabled: false,value: itemvalue[0]['singlePoleDevices']}),
-      adequacyConnections: new FormControl({disabled: false,value: itemvalue[0]['adequacyConnections']}),
-      isolationSwitching: new FormControl({disabled: false,value: itemvalue[0]['isolationSwitching']}),
+      ipaoInspectionId: new FormControl({disabled: false,value: ipaoInspectionId}),
+      inspectionOuterObservationId: new FormControl({disabled: false,value: inspectionOuterObservationId}),
+      inspectionInnerObservationsId: new FormControl({disabled: false,value: itemvalue.inspectionInnerObservationsId}),
+      observationComponentDetails: new FormControl({disabled: false,value: itemvalue.observationComponentDetails}),
+      observationDescription: new FormControl({disabled: false,value: itemvalue.observationDescription}),
+      inspectionInnerObservationStatus:new FormControl({disabled: false,value: itemvalue.inspectionInnerObservationStatus}),
+    });
+  }
+
+
+
+  private populateEarthing(itemValue: any,ipaoInspectionId: any,inspectionInnerObservations:any) {
+    let earthingArr: any =  [];
+    for(let i of itemValue) {
+      earthingArr.push(this.populateEarthingForm(i,ipaoInspectionId));
+
+  }
+  
+    for(let h=0;h<earthingArr.length; h++) {
+      earthingArr[h].controls.observationDescription.setValue(inspectionInnerObservations[h].observationDescription);
+    }
+    return earthingArr;
+  }
+
+  private populateCircuit(itemValue: any,ipaoInspectionId: any) {
+    let earthingArr1: any =  [];
+    for(let i of itemValue) {
+    
+      earthingArr1.push(this.populateCircuitForm(i,ipaoInspectionId));
+    }
+  
+    return earthingArr1;
+  }
+
+  private populateEarthingForm(itemvalue: any,ipaoInspectionId: any): FormGroup {
+    return new FormGroup({
+      consumerId: new FormControl({disabled: false,value: itemvalue.consumerId}),
+      ipaoInspectionId: new FormControl({disabled: false,value: ipaoInspectionId}),
+      locationCount: new FormControl({disabled: false,value: itemvalue.locationCount}),
+      locationFlag: new FormControl(false),
+      distributionBoardDetails: new FormControl({ disabled: false, value: itemvalue.distributionBoardDetails },[Validators.required]),
+      referance: new FormControl({ disabled: false, value: itemvalue.referance },[Validators.required]),
+      location: new FormControl({ disabled: false, value: itemvalue.location },[Validators.required]),
+      accessWorking: new FormControl({disabled: false,value: itemvalue.accessWorking}, [Validators.required]),
+      securityFixing: new FormControl({disabled: false,value: itemvalue.securityFixing}, [Validators.required]),
+      livePartsDamage: new FormControl({disabled: false,value: itemvalue.livePartsDamage}, [Validators.required]),
+      securityBarriers: new FormControl({disabled: false,value: itemvalue.securityBarriers}, [Validators.required]),
+      suitabilityEnclosure: new FormControl({disabled: false,value: itemvalue.suitabilityEnclosure}, [Validators.required]),
+      enclosureDamaged: new FormControl({disabled: false,value: itemvalue.enclosureDamaged}, [Validators.required]),
+      presenceObstacles: new FormControl({disabled: false,value: itemvalue.presenceObstacles}, [Validators.required]),
+      placingOutOfConsumer: new FormControl({disabled: false,value: itemvalue.placingOutOfConsumer}, [Validators.required]),
+      presenceMainSwitches: new FormControl({disabled: false,value: itemvalue.presenceMainSwitches}, [Validators.required]),
+      operationMainSwitches: new FormControl({disabled: false,value: itemvalue.operationMainSwitches}, [Validators.required]),
+      manualCircuitBreakers: new FormControl({disabled: false,value: itemvalue.manualCircuitBreakers}, [Validators.required]),
+      switchCausesRcd: new FormControl({disabled: false,value: itemvalue.switchCausesRcd}, [Validators.required]),
+      rcdFaultProtection: new FormControl({disabled: false,value: itemvalue.rcdFaultProtection}, [Validators.required]),
+      rcdAdditionalProtection: new FormControl({disabled: false,value: itemvalue.rcdAdditionalProtection}, [Validators.required]),
+      overVoltageProtection: new FormControl({disabled: false,value: itemvalue.overVoltageProtection}, [Validators.required]),
+      indicationOfSpd: new FormControl({disabled: false,value: itemvalue.indicationOfSpd}, [Validators.required]),
+      rcdQuarterlyTest: new FormControl({disabled: false,value: itemvalue.rcdQuarterlyTest}, [Validators.required]),
+      diagramsCharts: new FormControl({disabled: false,value: itemvalue.diagramsCharts}, [Validators.required]),
+      nonstandardCableColour: new FormControl({disabled: false,value: itemvalue.nonstandardCableColour}, [Validators.required]),
+      alSupplyOfOrign: new FormControl({disabled: false,value: itemvalue.alSupplyOfOrign}, [Validators.required]),
+      alSupplyOfMeter: new FormControl({disabled: false,value: itemvalue.alSupplyOfMeter}, [Validators.required]),
+      alSupplyDistribution: new FormControl({disabled: false,value: itemvalue.alSupplyDistribution}, [Validators.required]),
+      allPointsIsolation: new FormControl({disabled: false,value: itemvalue.allPointsIsolation}, [Validators.required]),
+      nextInspection: new FormControl({disabled: false,value: itemvalue.nextInspection}, [Validators.required]),
+      otherRequiredLabelling: new FormControl({disabled: false,value: itemvalue.otherRequiredLabelling}, [Validators.required]),
+      basesCorrectType: new FormControl({disabled: false,value: itemvalue.basesCorrectType}, [Validators.required]),
+      singlePole: new FormControl({disabled: false,value: itemvalue.singlePole}, [Validators.required]),
+      mechanicalDamage: new FormControl({disabled: false,value: itemvalue.mechanicalDamage}, [Validators.required]),
+      electromagnetic: new FormControl({disabled: false,value: itemvalue.electromagnetic}, [Validators.required]),
+      allConductorCon: new FormControl({disabled: false,value: itemvalue.allConductorCon}, [Validators.required]),
+      observationDescription: new FormControl('', [Validators.required]),
+      consumerStatus: new FormControl(itemvalue.consumerStatus),
+    });
+  }
+
+  private populateCircuitForm(itemvalue: any,ipaoInspectionId: any): FormGroup {
+    return new FormGroup({
+      circuitId: new FormControl({disabled: false,value: itemvalue.circuitId}),
+      ipaoInspectionId: new FormControl({disabled: false,value: ipaoInspectionId}),
+      identificationConductors: new FormControl({disabled: false,value: itemvalue.identificationConductors}, [Validators.required]),
+      distributionBoardDetails: new FormControl({ disabled: false, value: itemvalue.distributionBoardDetails },[Validators.required]),
+      referance: new FormControl({ disabled: false, value: itemvalue.referance },[Validators.required]),
+      location: new FormControl({ disabled: false, value: itemvalue.location },[Validators.required]),
+      cableInstallation: new FormControl({disabled: false,value: itemvalue.cableInstallation}, [Validators.required]),
+      examinationCables: new FormControl({disabled: false,value: itemvalue.examinationCables}, [Validators.required]),
+      examinationInsulation: new FormControl({disabled: false,value: itemvalue.examinationInsulation}, [Validators.required]),
+      nonSheathedCables: new FormControl({disabled: false,value: itemvalue.nonSheathedCables}, [Validators.required]),
+      containmentSystems: new FormControl({disabled: false,value: itemvalue.containmentSystems}, [Validators.required]),
+      temperatureRating: new FormControl({disabled: false,value: itemvalue.temperatureRating}, [Validators.required]),
+      cablesTerminated: new FormControl({disabled: false,value: itemvalue.cablesTerminated}, [Validators.required]),
+      currentCarryCapacity: new FormControl({disabled: false,value: itemvalue.currentCarryCapacity}, [Validators.required]),
+      adequacyProtectDevices: new FormControl({disabled: false,value: itemvalue.adequacyProtectDevices}, [Validators.required]),
+      presenceProtectConductors: new FormControl({disabled: false,value: itemvalue.presenceProtectConductors}, [Validators.required]),
+      coOrdination: new FormControl({disabled: false,value: itemvalue.coOrdination}, [Validators.required]),
+      wiringSystems: new FormControl({disabled: false,value: itemvalue.wiringSystems}, [Validators.required]),
+      cablesConcealUnderFloors: new FormControl({disabled: false,value: itemvalue.cablesConcealUnderFloors}, [Validators.required]),
+      provisionFireBarriers: new FormControl({disabled: false,value: itemvalue.provisionFireBarriers}, [Validators.required]),
+      sectionsRegardlessDepth: new FormControl({disabled: false,value: itemvalue.sectionsRegardlessDepth}, [Validators.required]),
+      cablesConcDepth: new FormControl({disabled: false,value: itemvalue.cablesConcDepth}, [Validators.required]),
+      operatingCurrentSocket: new FormControl({disabled: false,value: itemvalue.operatingCurrentSocket}, [Validators.required]),
+      operatingCurrentCircuits: new FormControl({disabled: false,value: itemvalue.operatingCurrentCircuits}, [Validators.required]),
+      separationBand: new FormControl({disabled: false,value: itemvalue.separationBand}, [Validators.required]),
+      separationElectrical: new FormControl({disabled: false,value: itemvalue.separationElectrical}, [Validators.required]),
+      conditionCircuitAccessories: new FormControl({disabled: false,value: itemvalue.conditionCircuitAccessories}, [Validators.required]),
+      conductorCorrectTerminated: new FormControl({disabled: false,value: itemvalue.conductorCorrectTerminated}, [Validators.required]),
+      conductorVisibleOutside: new FormControl({disabled: false,value: itemvalue.conductorVisibleOutside}, [Validators.required]),
+      connLiveConductors: new FormControl({disabled: false,value: itemvalue.connLiveConductors}, [Validators.required]),
+      adequatelyConnectedEnclosure: new FormControl({disabled: false,value: itemvalue.adequatelyConnectedEnclosure}, [Validators.required]),
+      suitabilityCircuitAccessories: new FormControl({disabled: false,value: itemvalue.suitabilityCircuitAccessories}, [Validators.required]),
+      conditionAccessories: new FormControl({disabled: false,value: itemvalue.conditionAccessories}, [Validators.required]),
+      singlePoleDevices: new FormControl({disabled: false,value: itemvalue.singlePoleDevices}, [Validators.required]),
+      adequacyConnections: new FormControl({disabled: false,value: itemvalue.adequacyConnections}, [Validators.required]),
+      isolationSwitching: new FormControl({disabled: false,value: itemvalue.isolationSwitching}, [Validators.required]),
+      circuitStatus: new FormControl(itemvalue.circuitStatus),
     });
   }
 
   private populateIsolationCurrentForm(itemvalue: any): FormGroup {
     return new FormGroup({
       isolationCurrentId: new FormControl({disabled: false,value: itemvalue[0]['isolationCurrentId']}),
-      presenceDevices: new FormControl({disabled: false,value: itemvalue[0]['presenceDevices']}),
-      conditionDevices: new FormControl({disabled: false,value: itemvalue[0]['conditionDevices']}),
-      locationDevices: new FormControl({disabled: false,value: itemvalue[0]['locationDevices']}),
-      capableSecured: new FormControl({disabled: false,value: itemvalue[0]['capableSecured']}),
-      operationVerify: new FormControl({disabled: false,value: itemvalue[0]['operationVerify']}),
-      installCircuit: new FormControl({disabled: false,value: itemvalue[0]['installCircuit']}),
-      warningLabel: new FormControl({disabled: false,value: itemvalue[0]['warningLabel']}),
-      swPresenceDevices: new FormControl({disabled: false,value: itemvalue[0]['swPresenceDevices']}),
-      swConditionDevices: new FormControl({disabled: false,value: itemvalue[0]['swConditionDevices']}),
-      swAcceptableLocation: new FormControl({disabled: false,value: itemvalue[0]['swAcceptableLocation']}),
-      swCapableOffPosition: new FormControl({disabled: false,value: itemvalue[0]['swCapableOffPosition']}),
-      swCorrectOperation: new FormControl({disabled: false,value: itemvalue[0]['swCorrectOperation']}),
-      swCircuit: new FormControl({disabled: false,value: itemvalue[0]['swCircuit']}),
-      swWarningLabel: new FormControl({disabled: false,value: itemvalue[0]['swWarningLabel']}),
-      emSwitPresenceDevices: new FormControl({disabled: false,value: itemvalue[0]['emSwitPresenceDevices']}),
-      emSwitConditionDevices: new FormControl({disabled: false,value: itemvalue[0]['emSwitConditionDevices']}),
-      emSwitLocationDevices: new FormControl({disabled: false,value: itemvalue[0]['emSwitLocationDevices']}),
-      emSwitOperationVerify: new FormControl({disabled: false,value: itemvalue[0]['emSwitOperationVerify']}),
-      emSwitInstallCircuit: new FormControl({disabled: false,value: itemvalue[0]['emSwitInstallCircuit']}),
-      fuSwitPresenceDevices: new FormControl({disabled: false,value: itemvalue[0]['fuSwitPresenceDevices']}),
-      fuSwitLocationDevices: new FormControl({disabled: false,value: itemvalue[0]['fuSwitLocationDevices']}),
-      fuSwitOperationVerify: new FormControl({disabled: false,value: itemvalue[0]['fuSwitOperationVerify']}),
+      presenceDevices: new FormControl({disabled: false,value: itemvalue[0]['presenceDevices']}, [Validators.required]),
+      conditionDevices: new FormControl({disabled: false,value: itemvalue[0]['conditionDevices']}, [Validators.required]),
+      locationDevices: new FormControl({disabled: false,value: itemvalue[0]['locationDevices']}, [Validators.required]),
+      capableSecured: new FormControl({disabled: false,value: itemvalue[0]['capableSecured']}, [Validators.required]),
+      operationVerify: new FormControl({disabled: false,value: itemvalue[0]['operationVerify']}, [Validators.required]),
+      installCircuit: new FormControl({disabled: false,value: itemvalue[0]['installCircuit']}, [Validators.required]),
+      warningLabel: new FormControl({disabled: false,value: itemvalue[0]['warningLabel']}, [Validators.required]),
+      swPresenceDevices: new FormControl({disabled: false,value: itemvalue[0]['swPresenceDevices']}, [Validators.required]),
+      swConditionDevices: new FormControl({disabled: false,value: itemvalue[0]['swConditionDevices']}, [Validators.required]),
+      swAcceptableLocation: new FormControl({disabled: false,value: itemvalue[0]['swAcceptableLocation']}, [Validators.required]),
+      swCapableOffPosition: new FormControl({disabled: false,value: itemvalue[0]['swCapableOffPosition']}, [Validators.required]),
+      swCorrectOperation: new FormControl({disabled: false,value: itemvalue[0]['swCorrectOperation']}, [Validators.required]),
+      swCircuit: new FormControl({disabled: false,value: itemvalue[0]['swCircuit']}, [Validators.required]),
+      swWarningLabel: new FormControl({disabled: false,value: itemvalue[0]['swWarningLabel']}, [Validators.required]),
+      emSwitPresenceDevices: new FormControl({disabled: false,value: itemvalue[0]['emSwitPresenceDevices']}, [Validators.required]),
+      emSwitConditionDevices: new FormControl({disabled: false,value: itemvalue[0]['emSwitConditionDevices']}, [Validators.required]),
+      emSwitLocationDevices: new FormControl({disabled: false,value: itemvalue[0]['emSwitLocationDevices']}, [Validators.required]),
+      emSwitOperationVerify: new FormControl({disabled: false,value: itemvalue[0]['emSwitOperationVerify']}, [Validators.required]),
+      emSwitInstallCircuit: new FormControl({disabled: false,value: itemvalue[0]['emSwitInstallCircuit']}, [Validators.required]),
+      fuSwitPresenceDevices: new FormControl({disabled: false,value: itemvalue[0]['fuSwitPresenceDevices']}, [Validators.required]),
+      fuSwitLocationDevices: new FormControl({disabled: false,value: itemvalue[0]['fuSwitLocationDevices']}, [Validators.required]),
+      fuSwitOperationVerify: new FormControl({disabled: false,value: itemvalue[0]['fuSwitOperationVerify']}, [Validators.required]),
 
-      suitabilityEquipment: new FormControl({disabled: false,value: itemvalue[0]['suitabilityEquipment']}),
-      enclosureNotDamaged: new FormControl({disabled: false,value: itemvalue[0]['enclosureNotDamaged']}),
-      suitabilityEnvironment: new FormControl({disabled: false,value: itemvalue[0]['suitabilityEnvironment']}),
-      securityFixing: new FormControl({disabled: false,value: itemvalue[0]['securityFixing']}),
-      cableEntryHoles: new FormControl({disabled: false,value: itemvalue[0]['cableEntryHoles']}),
-      provisionVoltage: new FormControl({disabled: false,value: itemvalue[0]['provisionVoltage']}),
-      provisionOverload: new FormControl({disabled: false,value: itemvalue[0]['provisionOverload']}),
-      correctTypeLamps: new FormControl({disabled: false,value: itemvalue[0]['correctTypeLamps']}),
-      insulaDisplacementBox: new FormControl({disabled: false,value: itemvalue[0]['insulaDisplacementBox']}),
-      overheatSurrounding: new FormControl({disabled: false,value: itemvalue[0]['overheatSurrounding']}),
-      overheatConductors: new FormControl({disabled: false,value: itemvalue[0]['overheatConductors']}),
+      suitabilityEquipment: new FormControl({disabled: false,value: itemvalue[0]['suitabilityEquipment']}, [Validators.required]),
+      enclosureNotDamaged: new FormControl({disabled: false,value: itemvalue[0]['enclosureNotDamaged']}, [Validators.required]),
+      suitabilityEnvironment: new FormControl({disabled: false,value: itemvalue[0]['suitabilityEnvironment']}, [Validators.required]),
+      securityFixing: new FormControl({disabled: false,value: itemvalue[0]['securityFixing']}, [Validators.required]),
+      cableEntryHoles: new FormControl({disabled: false,value: itemvalue[0]['cableEntryHoles']}, [Validators.required]),
+      provisionVoltage: new FormControl({disabled: false,value: itemvalue[0]['provisionVoltage']}, [Validators.required]),
+      provisionOverload: new FormControl({disabled: false,value: itemvalue[0]['provisionOverload']}, [Validators.required]),
+      correctTypeLamps: new FormControl({disabled: false,value: itemvalue[0]['correctTypeLamps']}, [Validators.required]),
+      insulaDisplacementBox: new FormControl({disabled: false,value: itemvalue[0]['insulaDisplacementBox']}, [Validators.required]),
+      overheatSurrounding: new FormControl({disabled: false,value: itemvalue[0]['overheatSurrounding']}, [Validators.required]),
+      overheatConductors: new FormControl({disabled: false,value: itemvalue[0]['overheatConductors']}, [Validators.required]),
     });
   }
 
@@ -757,8 +959,49 @@ showHideAccordion(index: number) {
   getearthingControls(form: any) {
     return form.controls.consumerUnit.controls;
   }
+
+  getObservationControls(form: any) {
+    return form.controls.inspectionOuterObervation?.controls;
+  }
+
+  private createObservationForm(): FormGroup {
+    return new FormGroup({
+      observationComponentDetails:  new FormControl('inspectionComponent'),
+      observationDescription:  new FormControl(''),
+      inspectionOuterObservationStatus:  new FormControl('A'),
+      inspectionInnerObservations: this._formBuilder.array([this.createInnerObservationForm()]),
+    });
+  }
+
+  private createInnerObservationForm(): FormGroup {
+    return new FormGroup({
+      inspectionInnerObservationsId:new FormControl(''),
+      ipaoInspectionId: new FormControl(''),
+      observationComponentDetails:  new FormControl('consumer-unit'),
+      observationDescription:  new FormControl(''),
+      inspectionInnerObservationStatus:  new FormControl('A'),
+    
+    });
+  }
+
+  private createInnerObservationForm1(ipaoInspectionId: any): FormGroup {
+    return new FormGroup({
+      inspectionInnerObservationsId:new FormControl(''),
+      ipaoInspectionId: new FormControl({disabled: false,value: ipaoInspectionId}),
+      observationComponentDetails:  new FormControl('consumer-unit'),
+      observationDescription:  new FormControl(''),
+      inspectionInnerObservationStatus:  new FormControl('A'),
+    
+    });
+  }
   private createEarthingForm(): FormGroup {
     return new FormGroup({
+      ipaoInspectionId: new FormControl(''),
+      consumerId: new FormControl(''),
+      distributionBoardDetails:  new FormControl('', [Validators.required]),
+      locationFlag: new FormControl(false),
+      referance:  new FormControl('', [Validators.required]),
+      location: new FormControl('', [Validators.required]),
       accessWorking: new FormControl('', [Validators.required]),
       securityFixing: new FormControl('', [Validators.required]),
       livePartsDamage: new FormControl('', [Validators.required]),
@@ -789,6 +1032,52 @@ showHideAccordion(index: number) {
       mechanicalDamage: new FormControl('', [Validators.required]),
       electromagnetic: new FormControl('', [Validators.required]),
       allConductorCon: new FormControl('', [Validators.required]),
+      observationDescription: new FormControl('', [Validators.required]),
+      consumerStatus: new FormControl('A'),
+   
+    });
+  }
+  private createEarthingForm1(ipaoInspectionId: any): FormGroup {
+    return new FormGroup({
+      distributionBoardDetails:  new FormControl('', [Validators.required]),
+      ipaoInspectionId: new FormControl({disabled: false,value: ipaoInspectionId}),
+      consumerId: new FormControl(''),
+      locationFlag: new FormControl(false),
+      referance:  new FormControl('', [Validators.required]),
+      location: new FormControl('', [Validators.required]),
+      accessWorking: new FormControl('', [Validators.required]),
+      securityFixing: new FormControl('', [Validators.required]),
+      livePartsDamage: new FormControl('', [Validators.required]),
+      securityBarriers: new FormControl('', [Validators.required]),
+      suitabilityEnclosure: new FormControl('', [Validators.required]),
+      enclosureDamaged: new FormControl('', [Validators.required]),
+      presenceObstacles: new FormControl('', [Validators.required]),
+      placingOutOfConsumer: new FormControl('', [Validators.required]),
+      presenceMainSwitches: new FormControl('', [Validators.required]),
+      operationMainSwitches: new FormControl('', [Validators.required]),
+      manualCircuitBreakers: new FormControl('', [Validators.required]),
+      switchCausesRcd: new FormControl('', [Validators.required]),
+      rcdFaultProtection: new FormControl('', [Validators.required]),
+      rcdAdditionalProtection: new FormControl('', [Validators.required]),
+      overVoltageProtection: new FormControl('', [Validators.required]),
+      indicationOfSpd: new FormControl('', [Validators.required]),
+      rcdQuarterlyTest: new FormControl('', [Validators.required]),
+      diagramsCharts: new FormControl('', [Validators.required]),
+      nonstandardCableColour: new FormControl('', [Validators.required]),
+      alSupplyOfOrign: new FormControl('', [Validators.required]),
+      alSupplyOfMeter: new FormControl('', [Validators.required]),
+      alSupplyDistribution: new FormControl('', [Validators.required]),
+      allPointsIsolation: new FormControl('', [Validators.required]),
+      nextInspection: new FormControl('', [Validators.required]),
+      otherRequiredLabelling: new FormControl('', [Validators.required]),
+      basesCorrectType: new FormControl('', [Validators.required]),
+      singlePole: new FormControl('', [Validators.required]),
+      mechanicalDamage: new FormControl('', [Validators.required]),
+      electromagnetic: new FormControl('', [Validators.required]),
+      allConductorCon: new FormControl('', [Validators.required]),
+      observationDescription: new FormControl('', [Validators.required]),
+      consumerStatus: new FormControl('A'),
+   
     });
   }
   getcircuitControls(form: any) {
@@ -796,7 +1085,12 @@ showHideAccordion(index: number) {
   }
   private createcircuitForm(): FormGroup {
     return new FormGroup({
+      ipaoInspectionId: new FormControl(''),
+      circuitId: new FormControl(''),
       identificationConductors: new FormControl('', [Validators.required]),
+      distributionBoardDetails:  new FormControl('', [Validators.required]),
+      referance:  new FormControl('', [Validators.required]),
+      location: new FormControl('', [Validators.required]),
       cableInstallation: new FormControl('', [Validators.required]),
       examinationCables: new FormControl('', [Validators.required]),
       examinationInsulation: new FormControl('', [Validators.required]),
@@ -827,6 +1121,49 @@ showHideAccordion(index: number) {
       singlePoleDevices: new FormControl('', [Validators.required]),
       adequacyConnections: new FormControl('', [Validators.required]),
       isolationSwitching: new FormControl('', [Validators.required]),
+      circuitStatus: new FormControl('A'),
+    });
+  }
+
+  private createcircuitForm1(ipaoInspectionId: any): FormGroup {
+    return new FormGroup({
+      ipaoInspectionId: new FormControl({disabled: false,value: ipaoInspectionId}),
+      circuitId: new FormControl(''),
+      identificationConductors: new FormControl('', [Validators.required]),
+      distributionBoardDetails:  new FormControl('', [Validators.required]),
+      referance:  new FormControl('', [Validators.required]),
+      location: new FormControl('', [Validators.required]),
+      cableInstallation: new FormControl('', [Validators.required]),
+      examinationCables: new FormControl('', [Validators.required]),
+      examinationInsulation: new FormControl('', [Validators.required]),
+      nonSheathedCables: new FormControl('', [Validators.required]),
+      containmentSystems: new FormControl('', [Validators.required]),
+      temperatureRating: new FormControl('', [Validators.required]),
+      cablesTerminated: new FormControl('', [Validators.required]),
+      currentCarryCapacity: new FormControl('', [Validators.required]),
+      adequacyProtectDevices: new FormControl('', [Validators.required]),
+      presenceProtectConductors: new FormControl('', [Validators.required]),
+      coOrdination: new FormControl('', [Validators.required]),
+      wiringSystems: new FormControl('', [Validators.required]),
+      cablesConcealUnderFloors: new FormControl('', [Validators.required]),
+      provisionFireBarriers: new FormControl('', [Validators.required]),
+      sectionsRegardlessDepth: new FormControl('', [Validators.required]),
+      cablesConcDepth: new FormControl('', [Validators.required]),
+      operatingCurrentSocket: new FormControl('', [Validators.required]),
+      operatingCurrentCircuits: new FormControl('', [Validators.required]),
+      separationBand: new FormControl('', [Validators.required]),
+      separationElectrical: new FormControl('', [Validators.required]),
+      conditionCircuitAccessories: new FormControl('', [Validators.required]),
+      conductorCorrectTerminated: new FormControl('', [Validators.required]),
+      conductorVisibleOutside: new FormControl('', [Validators.required]),
+      connLiveConductors: new FormControl('', [Validators.required]),
+      adequatelyConnectedEnclosure: new FormControl('', [Validators.required]),
+      suitabilityCircuitAccessories: new FormControl('', [Validators.required]),
+      conditionAccessories: new FormControl('', [Validators.required]),
+      singlePoleDevices: new FormControl('', [Validators.required]),
+      adequacyConnections: new FormControl('', [Validators.required]),
+      isolationSwitching: new FormControl('', [Validators.required]),
+      circuitStatus: new FormControl('A'),
     });
   }
 
@@ -883,6 +1220,90 @@ showHideAccordion(index: number) {
     return (<FormArray>this.addstep3.get('incomingArr')).controls;
   }
 
+  onFocusOutEventBoard(e: any,b: any) {
+    if(e.target.value != '' && b.get('location')?.value != '' && b.get('location')?.value != undefined && b.get('referance')?.value != '' && b.get('referance')?.value != undefined) {
+      let distributionBoardDetails = b.get('distributionBoardDetails')?.value;
+      let referance = b.get('referance')?.value;
+      let location = b.get('location')?.value;
+
+      if(!b.get('location')?.errors?.minlength) {
+        this.inspectionDetailsService.retrieveLocationDetails(distributionBoardDetails,referance,location).subscribe(
+          data => {
+            debugger
+            if(data != '') {
+              b.controls.locationFlag.setValue(true);
+            }
+            else {
+              b.controls.locationFlag.setValue(false);
+            }
+          }
+        )
+      }
+      else {
+        b.controls.locationFlag.setValue(false);
+      }
+    }
+    else {
+      b.controls.locationFlag.setValue(false);
+    }
+  }
+
+  onFocusOutEventReferance(e: any,b: any) {
+    if(e.target.value != '' && b.get('distributionBoardDetails')?.value != '' && b.get('distributionBoardDetails')?.value != undefined && b.get('location')?.value != '' && b.get('location')?.value != undefined) {
+      let distributionBoardDetails = b.get('distributionBoardDetails')?.value;
+      let referance = b.get('referance')?.value;
+      let location = b.get('location')?.value;
+
+      if(!b.get('location')?.errors?.minlength) {
+        this.inspectionDetailsService.retrieveLocationDetails(distributionBoardDetails,referance,location).subscribe(
+          data => {
+            debugger
+            if(data != '') {
+              b.controls.locationFlag.setValue(true);
+            }
+            else {
+              b.controls.locationFlag.setValue(false);
+            }
+          }
+        )
+      }
+      else {
+        b.controls.locationFlag.setValue(false);
+      }
+    }
+    else {
+      b.controls.locationFlag.setValue(false);
+    }
+  }
+
+  onFocusOutEventLocation(e: any,b: any) {
+    if(e.target.value != '' && b.get('distributionBoardDetails')?.value != '' && b.get('distributionBoardDetails')?.value != undefined && b.get('referance')?.value != '' && b.get('referance')?.value != undefined) {
+      let distributionBoardDetails = b.get('distributionBoardDetails')?.value;
+      let referance = b.get('referance')?.value;
+      let location = e.target.value;
+
+      if(!b.get('location')?.errors?.minlength) {
+        this.inspectionDetailsService.retrieveLocationDetails(distributionBoardDetails,referance,location).subscribe(
+          data => {
+            debugger
+            if(data != '') {
+              b.controls.locationFlag.setValue(true);
+            }
+            else {
+              b.controls.locationFlag.setValue(false);
+            }
+          }
+        )
+      }
+      else {
+        b.controls.locationFlag.setValue(false);
+      }
+    }
+    else {
+      b.controls.locationFlag.setValue(false);
+    }
+  }
+
   // populateData() {
   //   for (let item of this.sitePersons) {
   //     this.arr.push(this.createGroup(item));
@@ -905,6 +1326,7 @@ showHideAccordion(index: number) {
 
   createItem() {
     return this._formBuilder.group({
+      ipaoInspectionId: new FormControl(''),
       locationName: new FormControl('', [Validators.required]),
       locationNumber: new FormControl('', [Validators.required]),
       serviceCable: new FormControl('', [Validators.required]),
@@ -912,6 +1334,7 @@ showHideAccordion(index: number) {
       meterDistributor: new FormControl('', [Validators.required]),
       meterConsumer: new FormControl('', [Validators.required]),
       meterEqu: new FormControl('', [Validators.required]),
+      tovMeasuresLVHV: new FormControl('', [Validators.required]),
       isolator: new FormControl('', [Validators.required]),
 
       earthingArrangement: new FormControl('', [Validators.required]),
@@ -936,92 +1359,617 @@ showHideAccordion(index: number) {
       doubleInsulation: new FormControl('', [Validators.required]),
       reinforcedInsulation: new FormControl('', [Validators.required]),
       basicElectricalSepartion: new FormControl('', [Validators.required]),
-      isolatePublicSupply: new FormControl('', [Validators.required]),
+      //isolatePublicSupply: new FormControl('', [Validators.required]),
       insulationLiveParts: new FormControl('', [Validators.required]),
       barriersEnclosers: new FormControl('', [Validators.required]),
       obstacles: new FormControl('', [Validators.required]),
       placingOutReach: new FormControl('', [Validators.required]),
-      nonConductLocation: new FormControl('', [Validators.required]),
+      // nonConductLocation: new FormControl('', [Validators.required]),
       faultElectricalSepartion: new FormControl('', [Validators.required]),
-      //faultNonConductLocation: new FormControl('', [Validators.required]),
+      faultNonConductLocation: new FormControl('', [Validators.required]),
       operatingCurrent: new FormControl('', [Validators.required]),
       supplementaryBonding: new FormControl('', [Validators.required]),
+      specificInspectionRe: new FormControl(''),
 
+      inspectionOuterObervation: this._formBuilder.array([this.createObservationForm()]),
       consumerUnit: this._formBuilder.array([this.createEarthingForm()]),
       circuit: this._formBuilder.array([this.createcircuitForm()]),
       isolationCurrent: this._formBuilder.array([
         this.createisolationCurrentForm(),
       ]),
-     
+      inspectionFlag: new FormControl('A'),
     });
+  }
+
+  addIncoming(a: any) {
+    this.consumerArr = a.controls.consumerUnit as FormArray;
+    this.circuitArr = a.controls.circuit as FormArray;
+    this.inspectionOuterObservation=a.controls.inspectionOuterObervation as FormArray;
+    this.inspectionInnerObservation=this.inspectionOuterObservation.controls[0].controls.inspectionInnerObservations as FormArray;
+
+    this.inspectionInnerObservation.push(this.createInnerObservationForm1(a.controls.ipaoInspectionId.value));
+    
+    this.consumerArr.push(this.createEarthingForm1(a.controls.ipaoInspectionId.value));
+    this.circuitArr.push(this.createcircuitForm1(a.controls.ipaoInspectionId.value));
+  }
+
+  removeConsumerCircuit(a: any,j: any) {
+    this.addstep3.markAsTouched();
+    this.consumerArr = a.controls.consumerUnit as FormArray;
+    this.circuitArr = a.controls.circuit as FormArray;
+    this.inspectionOuterObservation=a.controls.inspectionOuterObervation as FormArray;
+   this.inspectionInnerObservation=this.inspectionOuterObservation.controls[0].controls.inspectionInnerObservations as FormArray;
+    if(this.flag && this.consumerArr.value[j].consumerId!=null && this.consumerArr.value[j].consumerId!='' && this.consumerArr.value[j].consumerId!=undefined){
+      this.consumerArr.value[j].consumerStatus='R';
+      this.deletedConsumer.push(this.consumerArr.value[j]);
+    }
+
+    if(this.flag && this.inspectionInnerObservation.value[j].inspectionInnerObservationsId!=null && this.inspectionInnerObservation.value[j].inspectionInnerObservationsId!='' && this.inspectionInnerObservation.value[j].inspectionInnerObservationsId!=undefined){
+      this.inspectionInnerObservation.value[j].inspectionInnerObservationStatus='R';
+      this.deletedInnerObservation.push(this.inspectionInnerObservation.value[j]);
+    }
+
+    if(this.flag && this.circuitArr.value[j].circuitId!=null && this.circuitArr.value[j].circuitId!='' && this.circuitArr.value[j].circuitId!=undefined){
+      this.circuitArr.value[j].circuitStatus='R';
+
+      this.deletedCircuit.push(this.circuitArr.value[j]);
+    }
+    this.inspectionInnerObservation.removeAt(j);
+    this.consumerArr.removeAt(j);
+    this.circuitArr.removeAt(j);
+    this.addstep3.markAsDirty();
+  }
+
+  ChangeBoardDetails(e: any, a: any,i: any){
+    let values = e.target.value;
+    this.circuitArr = a.controls.circuit as FormArray;
+    this.circuitArr.controls[i].controls.distributionBoardDetails.setValue(values);
+  }
+
+  ChangeBoardName(e: any,a: any, i: any){
+    let values = e.target.value;
+    this.circuitArr = a.controls.circuit as FormArray;
+    this.circuitArr.controls[i].controls.referance.setValue(values);
+  }
+
+  ChangeLocation(e: any,a: any, i: any){
+    let values = e.target.value;
+    this.circuitArr = a.controls.circuit as FormArray;
+    this.circuitArr.controls[i].controls.location.setValue(values);
   }
 
   refresh() {
     this.ChangeDetectorRef.detectChanges();
   }
   removeItem(index: any) {
+    this.addstep3.markAsDirty();
+    if(this.flag) {
+      this.addstep3.markAsTouched();
+      if(this.addstep3.value.incomingArr[index].ipaoInspectionId != 0 
+        && this.addstep3.value.incomingArr[index].ipaoInspectionId != '' 
+         && this.addstep3.value.incomingArr[index].ipaoInspectionId != undefined ) {
+          this.addstep3.value.incomingArr[index].inspectionFlag = 'R';
+          this.deletedArr.push(this.addstep3.value.incomingArr[index]);
+         }
+    }
     (this.addstep3.get('incomingArr') as FormArray).removeAt(index);
   }
-  gotoNextModal(content3: any) {
-    if (this.addstep3.invalid) {
-      this.validationError = true;
-      this.validationErrorMsg = 'Please check all the fields';
+  onChangeForm(event:any){
+    
+    if(!this.addstep3.invalid){
+      if(this.addstep3.dirty){
+        this.validationError=false;
+        this.intermediateSaveInspectionInCircuits=false;
+        this.intermediateSaveInspection=false;
+        this.service.lvClick=1;
+        this.service.logoutClick=1;
+        this.service.windowTabClick=1;
+      }
+      else{
+        this.validationError=false;
+        this.intermediateSaveInspectionInCircuits=false;
+        this.intermediateSaveInspection=false;
+        this.service.lvClick=0;
+        this.service.logoutClick=0;
+        this.service.windowTabClick=0;
+      }
+     }
+     else {
+      if(this.addstep3.dirty) {
+        this.intermediateSaveInspectionInCircuits=true;
+      }
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+     }
+  }
+  onKeyForm(event: KeyboardEvent) { 
+   if(!this.addstep3.invalid){ 
+    if(this.addstep3.dirty){
+      this.validationError=false;
+      this.intermediateSaveInspectionInCircuits=true;
+      this.intermediateSaveInspection=false;
+      this.service.lvClick=1;
+      this.service.logoutClick=1;
+      this.service.windowTabClick=1;
+    }
+    else{
+      if(this.addstep3.dirty) {
+        this.intermediateSaveInspectionInCircuits=true;
+      }
+      this.validationError=false;
+      this.intermediateSaveInspectionInCircuits=false;
+      this.intermediateSaveInspection=false;
+      this.service.lvClick=0;
+      this.service.logoutClick=0;
+      this.service.windowTabClick=0;
+    }
+  
+   }
+   else {
+    this.service.lvClick=1;
+    this.service.logoutClick=1;
+    this.service.windowTabClick=1;
+   }
+  } 
+   reloadFromBack(){
+    if(this.addstep3.invalid){
+     this.service.isCompleted3= false;
+     this.service.isLinear=true;
+     this.service.editable=false;
+     this.validationErrorTab = true;
+     this.validationErrorMsgTab= 'Please check all the fields in inspection';
+     setTimeout(() => {
+       this.validationErrorTab = false;
+     }, 3000);
+     return false;
+    }
+    else if(this.addstep3.dirty && this.addstep3.touched){
+      this.service.isCompleted3= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
       setTimeout(() => {
-        this.validationError = false;
+        this.tabError = false;
+      }, 3000);
+      return false;
+    }
+    else{
+   this.service.isCompleted3= true;
+   this.service.isLinear=false;
+   this.service.editable=true;
+   this.addstep3.markAsPristine();
+   return true;
+    }
+  }
+  intermedeateIpaoSave(content4:any){
+    this.intermediateSave=true;
+  this.successMsg="Partial Inspection Data Saved, Click on Next Button for further steps";
+   if(this.addstep3.touched){
+     this.modalReference = this.modalService.open(content4, {
+         centered: true, 
+         size: 'md',
+         backdrop: 'static'
+        })
+     
+    //  setTimeout(() => {
+    //   this.modalService.dismissAll((this.errorMsg = ""));
+    // }, 3000);
+  }
+  }
+  intermedeateIpaoSave1(content4:any){
+    this.intermediateSave=true;
+    this.successMsg="Partial Inspection Data Saved, Click on Next Button for further steps";
+  if(this.addstep3.touched){
+    this.intermediateSaveInspection=false;
+      this.modalReference = this.modalService.open(content4, {
+         centered: true, 
+         size: 'md',
+         backdrop: 'static'
+        })
+     
+    //  setTimeout(() => {
+    //   this.modalService.dismissAll((this.errorMsg = ""));
+    // }, 3000);
+  }
+    
+  }
+     
+  gotoNextTab() {
+    if ((this.addstep3.dirty && this.addstep3.invalid) || this.service.isCompleted2==false) {
+      this.service.isCompleted3= false;
+      this.service.isLinear=true;      
+      this.service.editable=false;
+      this.validationErrorTab = true;
+      this.validationErrorMsgTab= 'Please check all the fields in inspection';
+      setTimeout(() => {
+        this.validationErrorTab = false;
       }, 3000);
       return;
     }
-    this.modalService.open(content3, { centered: true });
-  }
-  closeModalDialog() {
-    if (this.errorMsg != '') {
-      this.Error = false;
-      this.modalService.dismissAll((this.errorMsg = ''));
-    } else {
-      this.success = false;
-      this.modalService.dismissAll((this.successMsg = ''));
+    else if(this.addstep3.dirty && this.addstep3.touched){
+      this.service.isCompleted3= false;
+      this.service.isLinear=true;
+      this.service.editable=false;
+      this.tabError = true;
+      this.tabErrorMsg = 'Kindly click on next button to update the changes!';
+      setTimeout(() => {
+        this.tabError = false;
+      }, 3000);
+   }
+    else{
+      this.service.isCompleted3= true;
+      this.service.isLinear=false;
+      this.service.editable=true;
     }
   }
+  gotoNextModal(content3: any,content2:any) {
+    if (this.addstep3.invalid) {
+      this.validationError = true;
+      this.validationErrorMsg = 'Please check all the fields';
+      // setTimeout(() => {
+      //   this.validationError = false;
+      // }, 3000);
+      return;
+    }
+    if(this.addstep3.touched || this.addstep3.untouched){
+      this.modalReference = this.modalService.open(content2, {
+         centered: true, 
+         size: 'md',
+         backdrop: 'static'
+        })
+     }
+     if(this.addstep3.dirty && this.addstep3.touched){ //update
+      this.modalService.open(content3, { centered: true,backdrop: 'static'});
+      this.modalReference.close();
+     }
+   
+  }
+  closeModalDialog() {
+    this.finalSpinner=true;
+    this.popup=false;
+    if (this.errorMsg != "") {
+      this.Error = false;
+      this.service.isCompleted3= false;
+      this.service.isLinear=true;
+      this.modalService.dismissAll((this.errorMsg = ""));
+    } 
+    else {
+      this.success = false;
+      this.service.isCompleted3= true;
+      this.service.isLinear=false;
+      this.modalService.dismissAll((this.successMsg = ""));
+      this.disable = false;
+    }
+  }
+  
+  // onKeyObservation(event:any){
+  //   if(this.ObservationsForm.dirty){
+  //     this.disableObservation=false;
+  //   }
+  //   else{
+  //     this.disableObservation=true;
+  //   }
+  // }
+  // submit(observeFlag:any){
+  //   if (this.ObservationsForm.invalid) {
+  //    return;
+  //  }
+  //  this.observation.siteId = this.service.siteCount;
+  //  this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
+  //  this.observation.observationComponent ="Inspection-Component";
+  //  this.observation.observations =this.ObservationsForm.value.observations;
+  //  this.submitted = true;
+  //  if(!observeFlag) {
+  //   this.observationService.addObservation(this.observation).subscribe(
+  //     (data) => {
+  //       this.success = true;
+  //       this.successMsg = "Observation Information sucessfully Saved";
+  //       this.proceedNext.emit(true);
+  //       this.disableObservation=true;
+  //       this.observationFlag=true;
+  //       this.observationService.retrieveObservation(this.observation.siteId,this.observation.observationComponent,this.observation.userName).subscribe(
+  //         (data) => {
+  //         this.retrieveFromObservationInspection(data);
+  //         },
+  //         (error) => {
+  //           this.errorArr = [];
+  //           this.errorArr = JSON.parse(error.error);
+  //           console.log(this.errorArr.message);
+  //         }
+  //       )
+  //       setTimeout(() => {
+  //         this.success = false;
+  //         this.observationModalReference.close();
+  //       }, 3000);
+  //   },
+  //     (error) => {
+  //       this.errorArrObservation = [];
+  //       this.Error = true;
+  //       this.errorArrObservation = JSON.parse(error.error);
+  //       this.errorMsg = this.errorArrObservation.message;
+  //       this.observationFlag=false;
+  //     }
+  //   )
+  // }
+  // else {
+  //   this.observationService.updateObservation(this.observation).subscribe(
+  //     (data) => {
+  //       this.success = true;
+  //       this.successMsg = "Observation Information sucessfully updated";
+  //       this.proceedNext.emit(false);
+  //       this.disableObservation=true;
+  //       setTimeout(() => {
+  //         this.success = false;
+  //         this.observationModalReference.close();
+  //       }, 3000);
+  //   },
+  //     (error) => {
+  //       this.errorArrObservation = [];
+  //       this.Error = true;
+  //       this.errorArrObservation = JSON.parse(error.error);
+  //       this.errorMsg = this.errorArrObservation.message;
+  //     }
+  //   )
+  // }   
+  //    }
+
+  reset(){
+    this.addstep3.reset();
+    }
+     
   nextTab3(flag: any) {
-    
     if(!flag) {
       this.inspectionDetails.siteId = this.service.siteCount;
     }
     this.incomingArr = this.addstep3.get('incomingArr') as FormArray;
     this.inspectionDetails.userName = this.email;
-    this.submitted = true;
-    if (this.addstep3.invalid) {
-      return;
-    }
+    if(this.intermediateSave == false){
+      this.submitted = true;
+     if (this.addstep3.invalid) {
+       return;
+     }
+   }
+
+      for(let h of this.incomingArr.value){
+          for(let g of h.inspectionOuterObervation){
+            for(let i=0;i<h.consumerUnit.length; i++){ 
+             // h.inspectionOuterObervation[0].inspectionInnerObservations[i].inspectionInnerObservationsId
+                 g.inspectionInnerObservations[i].observationDescription = h.consumerUnit[i].observationDescription;
+                 g.inspectionInnerObservations[i].observationComponentDetails="consumer-UnitIter";
+                 if(g.inspectionInnerObservations[i].inspectionInnerObservationStatus!='R'){
+                  g.inspectionInnerObservations[i].inspectionInnerObservationStatus='A';
+                 }
+          }
+        }
+        }
+
+
+  // for(let h of this.incomingArr.value){
+  //   for(let g of h.inspectionOuterObervation){
+  //     for(let i=0;i<h.consumerUnit.length; i++){ 
+  //       if (g.inspectionInnerObservations[i].inspectionInnerObservationsId!=0&&
+  //       g.inspectionInnerObservations[i].inspectionInnerObservationsId!=undefined) {
+       
+  //       g.inspectionInnerObservations[i].observationDescription = h.consumerUnit[i].observationDescription;
+  //       g.inspectionInnerObservations[i].observationComponentDetails="consumer-UnitIter";
+  //       g.inspectionInnerObservations[i].inspectionInnerObservationStatus="A";
+         
+  //        for(let k of this.deletedConsumer)
+  //        if(h.consumerUnit[i].consumerId== k.consumerId){
+  //         g.inspectionInnerObservations[i].observationDescription = h.consumerUnit[i].observationDescription;
+  //         g.inspectionInnerObservations[i].inspectionInnerObservationStatus="R";
+  //         h.consumerUnit[i].consumerStatus="R";
+  //         }
+  //       }
+  //   else{
+  //     g.inspectionInnerObservations[i]={};
+  //     g.inspectionInnerObservations[i].observationDescription = h.consumerUnit[i].observationDescription;
+  //     g.inspectionInnerObservations[i].observationComponentDetails="consumer-UnitIter";
+  //     g.inspectionInnerObservations[i].inspectionInnerObservationStatus="A";
+
+  //   } 
+  //   }
+
+  //   }
+
+  // }
+ 
+
     this.service.iterationList = this.incomingArr.value;
     this.inspectionDetails.ipaoInspection = this.addstep3.value.incomingArr;
-
+   
     if(flag) {
+      if(this.addstep3.dirty){
+        if(this.deletedArr.length != 0) {
+          for(let i of this.deletedArr) {
+            this.inspectionDetails.ipaoInspection.push(i);
+          }
+        }
+       //Consumer
+       for(let i of this.deletedConsumer) {
+          for(let j of this.inspectionDetails.ipaoInspection) {
+            for(let k of j.consumerUnit) {
+              if(k.ipaoInspectionId == i.ipaoInspectionId) {
+                if(k.consumerId != i.consumerId) {
+                  this.deleteDataFlag = true;
+                }
+                else {
+                  this.deleteDataFlag = false;
+                }
+              }
+            }
+            if(this.deleteDataFlag) {
+              j.consumerUnit.push(i);
+              this.deleteDataFlag = false;
+            }
+          }
+        }
+        //Circuit
+       for(let i of this.deletedCircuit) {
+        for(let j of this.inspectionDetails.ipaoInspection) {
+          for(let k of j.circuit) {
+            if(k.ipaoInspectionId == i.ipaoInspectionId) {
+              if(k.circuitId != i.circuitId) {
+                this.deleteDataFlag1 = true;
+              }
+              else {
+                this.deleteDataFlag1 = false;
+              }
+            }
+          }
+          if(this.deleteDataFlag1) {
+     
+            j.circuit.push(i);
+            this.deleteDataFlag1 = false;
+          }
+        }
+      }
+//observation
+for(let i of this.deletedInnerObservation) {
+  for(let j of this.inspectionDetails.ipaoInspection) {
+    for(let k of j.inspectionOuterObervation[0].inspectionInnerObservations) {
+      if(k.ipaoInspectionId == i.ipaoInspectionId) {
+        if(k.inspectionInnerObservationsId != i.inspectionInnerObservationsId) {
+          this.deleteObDataFlag = true;
+        }
+        else { 
+          this.deleteObDataFlag = false;
+        }
+      }
+    }
+    if(this.deleteObDataFlag) {
+      j.inspectionOuterObervation[0].inspectionInnerObservations.push(i);
+      this.deleteObDataFlag = false;
+    }
+  }
+}
       this.UpateInspectionService.updateIncoming(this.inspectionDetails).subscribe(
         data=> {
+          this.popup=true;
+          this.finalSpinner=false;
+          this.testingService.retrieveTesting(this.inspectionDetails.siteId,this.inspectionDetails.userName).subscribe(
+            (data) => {
+              this.proceedNext.emit(false);
+            },
+            (error) => {
+              this.proceedNext.emit(true);
+            }
+          )
+          // if(this.step3List.testingReport != null){
+          //   this.proceedNext.emit(false);
+          // }
+          // else{
+          //   this.proceedNext.emit(true);
+          // }
+          
           this.success = true;
-          this.successMsg = 'Incoming Equipment Successfully Updated';
+          this.service.isCompleted3= true;
+          this.service.isLinear=false;
+          if(this.intermediateSaveInspection){
+          this.intermediateSaveInspection=false;
+          }
+          else if(this.intermediateSaveInspectionInCircuits){
+          this.intermediateSaveInspectionInCircuits=false;
+          }
+          if(this.intermediateSave == false){
+            this.successMsg = 'Incoming Equipment Successfully Updated';
+            }
+          this.intermediateSave=false;
+          this.addstep3.markAsPristine();
+          this.service.windowTabClick=0;
+          this.service.logoutClick=0; 
+          this.service.lvClick=0; 
+          this.inspectionDetailsService.retrieveInspectionDetails(this.inspectionDetails.userName,this.inspectionDetails.siteId).subscribe(
+            data=>{
+            this.retrieveAllDetailsforIncoming(this.inspectionDetails.userName,this.inspectionDetails.siteId,data);
+            }
+      )
          },
          (error) => {
+          this.popup=true;
+          this.finalSpinner=false;
           this.Error = true;
-          this.errorMsg = 'Something went wrong, kindly check all the fields';
+          this.service.isCompleted3= false;
+          this.service.isLinear=true;
+          this.errorArr = [];
+          this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.errorArr.message;
          });
+        }
     }
     else {
-      this.inspectionDetailsService
+      if(this.addstep3.dirty) {
+        this.inspectionDetailsService
       .addInspectionDetails(this.inspectionDetails)
       .subscribe(
         (data: any) => {
           this.proceedNext.emit(true);
+          this.popup=true;
+          this.finalSpinner=false;
           this.success = true;
-          this.successMsg = 'Incoming Equipment Successfully Saved';
-          this.disable = true;
+          this.service.isCompleted3= true;
+          this.service.isLinear=false;
+          this.addstep3.markAsPristine();
+          this.service.windowTabClick=0;
+       this.service.logoutClick=0; 
+       this.service.lvClick=0;
+       if(this.intermediateSaveInspection){
+        this.intermediateSaveInspection=false;
+        }
+        else if(this.intermediateSaveInspectionInCircuits){
+        this.intermediateSaveInspectionInCircuits=false; 
+        }
+       if(this.intermediateSave == false){
+        this.successMsg = data; 
+        }
+         this.intermediateSave=false;
+          this.inspectionDetailsService.retrieveInspectionDetails(this.inspectionDetails.userName,this.inspectionDetails.siteId).subscribe(
+            data=>{
+             this.retrieveAllDetailsforIncoming(this.inspectionDetails.userName,this.inspectionDetails.siteId,data);
+            }
+          )
+          // if(!this.observationFlag){
+          //   this.observation.siteId = this.service.siteCount;
+          //   this.observation.userName = this.router.snapshot.paramMap.get('email') || '{}';
+          //   this.observation.observationComponent ="Inspection-Component";
+          //   this.observation.observations="No observation recorded"
+          //     this.observationService.addObservation(this.observation).subscribe(
+          //       (data) => {
+          //         this.proceedNext.emit(true);
+          //               this.observationService.retrieveObservation(this.observation.siteId,this.observation.observationComponent,this.observation.userName).subscribe(
+          //                 (data) => {
+          //                 this.retrieveFromObservationInspection(data);
+          //                 },
+          //                 (error) => {
+          //                   this.errorArr = [];
+          //                   this.errorArr = JSON.parse(error.error);
+          //                 console.log(this.errorArr.message);
+          //                 }
+          //               )
+                  
+          //     },
+          //       (error) => {
+          //         this.errorArrObservation = [];
+          //         this.errorArrObservation = JSON.parse(error.error);
+          //         console.log(this.errorArrObservation.message);
+          //       }
+          //     )
+          // }
         },
-        (error: any) => {
+        (error) => {
           this.proceedNext.emit(false);
+          this.popup=true;
+          this.finalSpinner=false;
           this.Error = true;
-          this.errorMsg = 'Something went wrong, kindly check all the fields';
+          this.errorArr = [];
+          this.errorArr = JSON.parse(error.error);
+          this.errorMsg = this.errorArr.message;
+          this.service.isCompleted3= false;
+          this.service.isLinear=true;
         });
+      }
     }
     // this.verification.testingNgOnINit();
   }

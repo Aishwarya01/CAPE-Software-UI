@@ -132,7 +132,13 @@ clear() {
        setTimeout(()=>{
         this.showOTPMessage=false;
       }, 3000);
-      this.updatePassInspector.otpSession = data;
+      this.updateInspectorService.retrieveInspector(this.email).subscribe(
+        data =>{ 
+          this.inspector = JSON.parse(data);
+          this.updatePassInspector.otpSession = this.inspector.otpSessionKey; 
+        }
+      ) 
+      //this.updatePassInspector.otpSession = data;
 
       },
       error => {

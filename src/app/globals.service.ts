@@ -1,4 +1,5 @@
 import {Injectable } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
 
 @Injectable({
@@ -10,6 +11,10 @@ export class GlobalsService {
    
   private data = {};  
   backBtn:boolean=true;
+  //observationGlow:any=[];
+  observationGlowSupply:boolean=false;
+  observationGlowInspection:boolean=false;
+  observationGlowTesting:boolean=false;
   siteCount: number = 0; 
   iterationList: any=[]; //for location no. & name
 //from supply to testing table
@@ -18,13 +23,16 @@ export class GlobalsService {
   nominalVoltageArr2:any=[];
   testingTable:any=[];
   testingTable2:any=[];
+
   retrieveTable:boolean=false;
   mainNominalVoltage :any=[];
   mainNominalFrequency :any=[];
   mainNominalCurrent:any=[];
+  mainActualLoad:any=[];
   mainNominalVoltageValue:String="";
-  mainNominalFrequencyValue:String="";
+  mainLoopImpedanceValue:String="";
   mainNominalCurrentValue:String="";
+  mainActualLoadValue:String="";
 //viewer inspector details
   viewerName!: String;
   inspectorName!: String;
@@ -43,8 +51,42 @@ export class GlobalsService {
 //get complimentary license
   noofLicense!: number;  
   useClicked:boolean=false;
+//completed-saved-final
+ disableFields:boolean=false;
+ allStepsCompleted:boolean=false;
+ allFieldsDisable:boolean=false; //after submiting all 5 steps
+ disableSubmitSummary:boolean=false; //after submiting all 5 steps
+//verification component for stepper
+ isLinear:boolean=false; 
+ isCompleted: boolean = true;
+ isCompleted2: boolean = true;
+ isCompleted4: boolean = true;
+ isCompleted5: boolean = true;
+ isCompleted3: boolean = true;
+ goBacktoprevious: boolean=false;
+ editable: boolean = true;
+jointType: any;
+noOfjoint: any; 
+msgForStep1:boolean=false;
+msgForStep1Flag:boolean=false;
+lvClick: number=0;  
+windowTabClick: number=0; 
+logoutClick:number=0;
+//siganture
+signatureImg1:string="";
+signatureImg2:string="";
+signatureImg3:string="";
+signatureImg4:string="";
+signatureImg5:string="";
+signatureImg6:string="";
 
-  constructor(private _scrollToService: ScrollToService) {}
+sigInput:number=0;
+
+//remember me
+autoLoginToken:number=0;
+
+ constructor(private _scrollToService: ScrollToService
+  ) {}
   
 //Scroll Top to Bottom for notification
   public triggerScrollTo() {
