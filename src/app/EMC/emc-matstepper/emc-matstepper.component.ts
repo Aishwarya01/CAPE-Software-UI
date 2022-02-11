@@ -61,7 +61,7 @@ export class EmcMatstepperComponent implements OnInit {
 
   }
   ngOnInit(): void {
-   // this.refresh();
+   this.refresh();
   }
 
 
@@ -77,8 +77,8 @@ export class EmcMatstepperComponent implements OnInit {
     this.electroMagneticCopatibility.emcId = this.clientData.emcClientDetails.emcId;
 
     this.Completed = this.clientData.success;
-   // this.saved.ngOnInit();
-   // this.refresh();
+   this.saved.ngOnInit();
+   this.refresh();
   }
 
   public doSomething1(next: any): void {
@@ -107,7 +107,7 @@ export class EmcMatstepperComponent implements OnInit {
          
           this.selectedIndex = index;
           this.clientData.retrieveDetailsfromSavedReports(userName, emcId, this.dataJSON);
-          //this.doSomething(false);
+          this.doSomething(false);
           this.Completed = true;
 
           if (this.dataJSON.facilityData != null) {

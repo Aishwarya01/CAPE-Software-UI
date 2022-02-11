@@ -295,7 +295,9 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
       //  }, 3000);
       return;
     }
-    if (this.EMCElectroMagneticFormm.touched || this.EMCElectroMagneticFormm.untouched) {
+
+    // || this.EMCElectroMagneticFormm.untouched
+    if (this.EMCElectroMagneticFormm.touched ) {
       this.modalReference = this.modalService.open(content3, {
         centered: true,
         size: 'md',

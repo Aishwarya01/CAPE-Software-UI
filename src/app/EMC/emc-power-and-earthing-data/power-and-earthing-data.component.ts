@@ -157,7 +157,8 @@ export class PowerAndEarthingDataComponent implements OnInit {
       //  }, 3000);
       return;
     }
-    if (this.EMCPowerAndEarthForm.touched || this.EMCPowerAndEarthForm.untouched) {
+    // || this.EMCPowerAndEarthForm.untouched
+    if (this.EMCPowerAndEarthForm.touched ) {
       this.modalReference = this.modalService.open(content2, {
         centered: true,
         size: 'md',

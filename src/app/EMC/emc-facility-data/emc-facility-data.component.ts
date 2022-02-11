@@ -381,8 +381,8 @@ export class EmcFacilityDataComponent implements OnInit {
       //  }, 3000);
       return;
     }
-
-    if (this.EMCFacilityForm.touched || this.EMCFacilityForm.untouched) {
+// || this.EMCFacilityForm.untouched
+    if (this.EMCFacilityForm.touched ) {
       this.modalReference = this.modalService.open(content1, {
         centered: true,
         size: 'md',

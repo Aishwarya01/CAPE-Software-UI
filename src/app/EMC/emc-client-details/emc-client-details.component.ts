@@ -253,7 +253,8 @@ export class EmcClientDetailsComponent implements OnInit {
       return;
     }
 
-    if (this.EmcClientDetailsForm.touched || this.EmcClientDetailsForm.untouched) {
+    // || this.EmcClientDetailsForm.untouched
+    if (this.EmcClientDetailsForm.touched ) {
       this.modalReference = this.modalService.open(content, {
         centered: true,
         size: 'md',
