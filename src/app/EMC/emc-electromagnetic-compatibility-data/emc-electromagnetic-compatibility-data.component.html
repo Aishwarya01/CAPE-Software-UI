@@ -656,6 +656,10 @@
                     </div>
                 </div>
 
+                <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+                    <span class="alert alert-danger">{{validationErrorMsg}}</span>
+                </div>
+
                 <div class="row" style="margin-top: 20px;">
                     <div class="col-sm-12">
                         <div style="text-align: center;">
@@ -669,10 +673,7 @@
                     </div>
                 </div>
 
-                <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
-                    <span class="alert alert-danger">{{validationErrorMsg}}</span>
-                </div>
-
+            
             </form>
         </mat-accordion>
     </div>

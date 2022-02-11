@@ -633,7 +633,7 @@
                             width: 50px;
                             background: transparent;
                             border: none;
-                            border-bottom: 1px solid #000000;" formControlName="mainCircuteBrakerRating"
+                            border-bottom: 1px solid #000000;"  formControlName="mainCircuteBrakerRating" style="width:60px"
                                                         [ngClass]="{'is-invalid':submitted && a.get('mainCircuteBrakerRating')?.errors}">
                                                 </p>
                                                 <div *ngIf="submitted &&a.get('mainCircuteBrakerRating')?.errors"
@@ -650,17 +650,27 @@
                                 width: 50px;
                                 background: transparent;
                                 border: none;
-                                border-bottom: 1px solid #000000;" formControlName="emergencyTripRemote"
+                                border-bottom: 1px solid #000000;"  formControlName="emergencyTripRemote"   style="width:60px"
                                                         [ngClass]="{'is-invalid':submitted && a.get('emergencyTripRemote')?.errors}" />
                                                     local<input type="text" style=" 
                                 width: 50px;
                                 background: transparent;
                                 border: none;
-                                border-bottom: 1px solid #000000;" formControlName="emergencyTripLocal"
+                                border-bottom: 1px solid #000000;"  formControlName="emergencyTripLocal"  style="width:60px"
                                                         [ngClass]="{'is-invalid':submitted && a.get('emergencyTripLocal')?.errors}" />
                                                     none</p>
-
+                                                    <div *ngIf="submitted &&a.get('emergencyTripRemote')?.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="a.get('emergencyTripRemote')?.errors?.required">
+                                                Remote  Field Is Required</div>
+                                            </div>
+                                            <div *ngIf="submitted &&a.get('emergencyTripLocal')?.errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="a.get('emergencyTripLocal')?.errors?.required">
+                                                Local  Field Is Required</div>
+                                          </div>
                                             </td>
+                                           
                                         </tr>
                                     </table>
 
@@ -1273,14 +1283,16 @@
                 </div>
             </mat-accordion>
 
+            <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
+                <span class="alert alert-danger">{{validationErrorMsg}}</span>
+            </div>
+
             <div style="text-align: center;margin-top: 40px;margin-bottom: 20px;">
                 <button class="previous" mat-button matStepperPrevious>&laquo; Back</button>
                 <button class="next" (click)="gotoNextModal(content2)" mat-button>Next &raquo;</button>
             </div>
 
-            <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
-                <span class="alert alert-danger">{{validationErrorMsg}}</span>
-            </div>
+           
 
         </form>
     </div>
