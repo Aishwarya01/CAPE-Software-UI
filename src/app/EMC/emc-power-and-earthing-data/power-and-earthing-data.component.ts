@@ -193,6 +193,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
 
     this.step1List2 = data.powerEarthingData
     this.emcPowerAndEarthingData.emcId = emcId;
+    this.emcPowerAndEarthingData.userName = this.step1List2.userName;
     this.emcPowerAndEarthingData.powerEarthingDataId = this.step1List2.powerEarthingDataId;
     this.emcPowerAndEarthingData.powerElectricalUtility = this.step1List2.powerElectricalUtility;
     this.emcPowerAndEarthingData.powerBackupSource = this.step1List2.powerBackupSource;
@@ -220,10 +221,11 @@ export class PowerAndEarthingDataComponent implements OnInit {
     this.emcPowerAndEarthingData.descOfTestingService = this.step1List2.descOfTestingService;
     this.emcPowerAndEarthingData.descOfEquipotentilaBonding = this.step1List2.descOfEquipotentilaBonding;
 
-    this.emcPowerAndEarthingData.createdBy = this.step1List2.createdBy;
     this.emcPowerAndEarthingData.createdDate = this.step1List2.createdDate;
-    this.emcPowerAndEarthingData.userName = this.step1List2.userName;
-
+    this.emcPowerAndEarthingData.createdBy = this.step1List2.createdBy;
+    this.emcPowerAndEarthingData.updatedDate = this.step1List2.updatedDate;
+    this.emcPowerAndEarthingData.updatedBy = this.step1List2.updatedBy;
+    
     // this.populateData();
     this.flag = true;
 

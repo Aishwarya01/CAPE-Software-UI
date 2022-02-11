@@ -182,6 +182,7 @@ export class EmcFacilityDataComponent implements OnInit {
     this.emcFacilityData.ftCleanliness = this.step1List.ftCleanliness;
     this.emcFacilityData.ftOtherDescription = this.step1List.ftOtherDescription;
 
+    this.emcFacilityData.createdDate = this.step1List.createdDate;
     this.emcFacilityData.createdBy = this.step1List.createdBy;
     this.emcFacilityData.createdDate = this.step1List.createdDate;
     this.emcFacilityData.userName = this.step1List.userName;
@@ -294,10 +295,10 @@ export class EmcFacilityDataComponent implements OnInit {
     this.emcFacilityData.ftCleanliness = this.step1List[0].ftCleanliness;
     this.emcFacilityData.ftOtherDescription = this.step1List[0].ftOtherDescription;
     this.emcFacilityData.createdDate = this.step1List[0].createdDate;
-    this.emcFacilityData.createdDate = this.step1List[0].createdDate;
     this.emcFacilityData.createdBy = this.step1List[0].createdBy;
-    this.emcFacilityData.updatedBy = this.step1List[0].updatedBy;
     this.emcFacilityData.updatedDate = this.step1List[0].updatedDate;
+    this.emcFacilityData.updatedBy = this.step1List[0].updatedBy;
+   
     for (let i of this.step1List[0].floorCovering) {
       this.EMCFacilityForm.patchValue({
         floorCoveringArr: [i],

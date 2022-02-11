@@ -97,11 +97,10 @@ export class EmcClientDetailsComponent implements OnInit {
     this.emcClientDetails.state = this.step1List[0].state;
 
     this.emcClientDetails.createdDate = this.step1List[0].createdDate;
-    this.emcClientDetails.createdDate = this.step1List[0].createdDate;
     this.emcClientDetails.createdBy = this.step1List[0].createdBy;
-    this.emcClientDetails.updatedBy = this.step1List[0].updatedBy;
     this.emcClientDetails.updatedDate = this.step1List[0].updatedDate;
-
+    this.emcClientDetails.updatedBy = this.step1List[0].updatedBy;
+  
   }
 
 
@@ -121,8 +120,10 @@ export class EmcClientDetailsComponent implements OnInit {
     this.emcClientDetails.country = this.step1List.country;
     this.changeCountry (this.emcClientDetails.country);
     this.emcClientDetails.state = this.step1List.state;
-    this.emcClientDetails.createdBy = this.step1List.createdBy;
     this.emcClientDetails.createdDate = this.step1List.createdDate;
+    this.emcClientDetails.createdBy = this.step1List.createdBy;
+    this.emcClientDetails.updatedDate = this.step1List.updatedDate;
+    this.emcClientDetails.updatedBy = this.step1List.updatedBy;
   }
 
 

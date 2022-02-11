@@ -153,9 +153,10 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
     this.emcElectromagneticCompatibility.operationFrequency = this.step1List.operationFrequency;
     this.emcElectromagneticCompatibility.radiatedPower = this.step1List.radiatedPower;
 
-    this.emcElectromagneticCompatibility.createdBy = this.step1List.createdBy;
     this.emcElectromagneticCompatibility.createdDate = this.step1List.createdDate;
-    this.emcElectromagneticCompatibility.userName = this.step1List.userName;
+    this.emcElectromagneticCompatibility.createdBy = this.step1List.createdBy;
+    this.emcElectromagneticCompatibility.updatedDate = this.step1List.updatedDate;
+    this.emcElectromagneticCompatibility.updatedBy = this.step1List.updatedBy;
 
     // this.populateData2();
 
@@ -235,9 +236,9 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
     this.emcElectromagneticCompatibility.radiatedPower = this.step1List[0].radiatedPower;
     this.emcElectromagneticCompatibility.createdDate = this.step1List[0].createdDate;
     this.emcElectromagneticCompatibility.createdBy = this.step1List[0].createdBy;
-    this.emcElectromagneticCompatibility.updatedBy = this.step1List[0].updatedBy;
     this.emcElectromagneticCompatibility.updatedDate = this.step1List[0].updatedDate;
-
+    this.emcElectromagneticCompatibility.updatedBy = this.step1List[0].updatedBy;
+    
     // this.populateData(this.step1List[0].externalCompatibility)
 
     for (let i of this.step1List[0].externalCompatibility) {
