@@ -61,7 +61,7 @@ export class EmcMatstepperComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.refresh();
+   // this.refresh();
   }
 
 
@@ -77,8 +77,8 @@ export class EmcMatstepperComponent implements OnInit {
     this.electroMagneticCopatibility.emcId = this.clientData.emcClientDetails.emcId;
 
     this.Completed = this.clientData.success;
-    this.saved.ngOnInit();
-    this.refresh();
+   // this.saved.ngOnInit();
+   // this.refresh();
   }
 
   public doSomething1(next: any): void {
@@ -96,7 +96,7 @@ export class EmcMatstepperComponent implements OnInit {
     this.final.ngOnInit();
   }
 
-  public changeTabEmcSavedReport(index: number, emcId: any, userName: any) {
+  public changeTabEmcSavedReport(index: number, emcId: any, userName: any, ClientName: any) {
 
     this.selectedIndex = 1;
     this.emcSavedReportService.retrieveFinalEmcReport(userName, emcId).subscribe(
@@ -107,7 +107,7 @@ export class EmcMatstepperComponent implements OnInit {
          
           this.selectedIndex = index;
           this.clientData.retrieveDetailsfromSavedReports(userName, emcId, this.dataJSON);
-          this.doSomething(false);
+          //this.doSomething(false);
           this.Completed = true;
 
           if (this.dataJSON.facilityData != null) {
@@ -139,7 +139,7 @@ export class EmcMatstepperComponent implements OnInit {
   // changeTab1(index: number): void {
   //   this.ngOnInit();
   //   let userName=this.router.snapshot.paramMap.get('email') || '{}';
-  //   this.changeTabLpsSavedReport(index,this.earthStud.basicLpsId,userName,this.earthStud.ClientName);
+  //   // this.changeTabEmcSavedReport(index,this.emcClientDetails.emcId,userName,this.emcClientDetails.ClientName);
   //   this.selectedIndex = index;
   // }
 
@@ -152,7 +152,7 @@ export class EmcMatstepperComponent implements OnInit {
     this.ngOnInit();
     this.isEditable = true;
     let userName = this.router.snapshot.paramMap.get('email') || '{}';
-    this.changeTabEmcSavedReport(0, emcId, userName);
+    this.changeTabEmcSavedReport(0, emcId, userName, ClientName);
 
   }
 
@@ -161,7 +161,7 @@ export class EmcMatstepperComponent implements OnInit {
     this.ngOnInit();
     this.isEditable = false;
     let userName = this.router.snapshot.paramMap.get('email') || '{}';
-    this.changeTabEmcSavedReport(0, emcId, userName);
+    this.changeTabEmcSavedReport(0, emcId, userName, ClientName);
 
   }
 }

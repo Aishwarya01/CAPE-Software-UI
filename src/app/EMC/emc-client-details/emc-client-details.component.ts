@@ -69,7 +69,7 @@ export class EmcClientDetailsComponent implements OnInit {
       landMark: ['', Validators.required],
       clientLocation: ['', Validators.required],
       clientAddress: ['', Validators.required],
-      email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]] ,
+      email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       country: ['', Validators.required],
       state: ['', Validators.required],
     });
@@ -119,6 +119,7 @@ export class EmcClientDetailsComponent implements OnInit {
     this.emcClientDetails.clientAddress = this.step1List.clientAddress;
     this.emcClientDetails.email = this.step1List.email;
     this.emcClientDetails.country = this.step1List.country;
+    this.changeCountry (this.emcClientDetails.country);
     this.emcClientDetails.state = this.step1List.state;
     this.emcClientDetails.createdBy = this.step1List.createdBy;
     this.emcClientDetails.createdDate = this.step1List.createdDate;
@@ -135,7 +136,7 @@ export class EmcClientDetailsComponent implements OnInit {
 
   // Only Integer Numbers
 
-  keyPressNumbers(event:any) {
+  keyPressNumbers(event: any) {
     var charCode = (event.which) ? event.which : event.keyCode;
     // Only Numbers 0-9
     if ((charCode < 48 || charCode > 57)) {
@@ -147,7 +148,13 @@ export class EmcClientDetailsComponent implements OnInit {
   }
 
   changeCountry(e: any) {
-    let changedValue = e.target.value;
+    let changedValue = '';
+    if (e.target != undefined) {
+      changedValue = e.target.value
+    }
+    else {
+      changedValue = e;
+    }
     this.stateList = [];
     for (let arr of this.countryList) {
       if (arr.name == changedValue) {
@@ -170,7 +177,7 @@ export class EmcClientDetailsComponent implements OnInit {
   //   a.controls.countryCode.value = this.countryCode;
   // }
 
-  
+
   closeModalDialog() {
     this.finalSpinner = true;
     this.popup = false;
@@ -212,7 +219,7 @@ export class EmcClientDetailsComponent implements OnInit {
     }
   }
 
-  
+
   onChangeForm(event: any) {
     if (!this.EmcClientDetailsForm.invalid) {
       if (this.EmcClientDetailsForm.dirty) {
