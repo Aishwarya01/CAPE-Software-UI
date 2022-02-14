@@ -148,7 +148,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
     return (<FormArray>this.EMCPowerAndEarthForm.get('distributionPannelArr')).controls
   }
 
-  gotoNextModal(content2: any) {
+  gotoNextModal(content2: any,content:any) {
     if (this.EMCPowerAndEarthForm.invalid) {
       this.validationError = true;
       this.validationErrorMsg = "Please check all the fields";
@@ -157,9 +157,9 @@ export class PowerAndEarthingDataComponent implements OnInit {
       //  }, 3000);
       return;
     }
-    // || this.EMCPowerAndEarthForm.untouched
-    if (this.EMCPowerAndEarthForm.touched ) {
-      this.modalReference = this.modalService.open(content2, {
+    
+    if (this.EMCPowerAndEarthForm.touched || this.EMCPowerAndEarthForm.untouched) {
+      this.modalReference = this.modalService.open(content, {
         centered: true,
         size: 'md',
         backdrop: 'static'
