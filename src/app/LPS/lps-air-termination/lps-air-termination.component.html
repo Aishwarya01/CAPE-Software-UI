@@ -151,12 +151,12 @@
                                         <i class="bi bi-distribute-horizontal"></i>
                                     </span>
                                 </div>
-                                <textarea type="number" class="form-control" formControlName="buildingHeight" placeholder="Height of tallest protrution (eg. over head tank  chimney)"
-                                [ngClass]="{ 'is-invalid': submitted && q.get('buildingHeight')?.errors }"
+                                <textarea type="number" class="form-control" formControlName="protrusionHeight" placeholder="Height of tallest protrution (eg. over head tank  chimney)"
+                                [ngClass]="{ 'is-invalid': submitted && q.get('protrusionHeight')?.errors }"
                                         required></textarea>
-                                        <div *ngIf="submitted && q.get('buildingHeight')?.errors"
+                                        <div *ngIf="submitted && q.get('protrusionHeight')?.errors"
                                                 class="invalid-feedback">
-                                                <div *ngIf="q.get('buildingHeight')?.errors?.required">Height is required</div>
+                                                <div *ngIf="q.get('protrusionHeight')?.errors?.required">Height is required</div>
                                         </div>
                         </div>
                         </div>
@@ -197,6 +197,13 @@
                         <th>Observation</th>
                         <th>Remarks(Optional)</th>
                     </thead> -->
+                    <select class="form-control" formControlName="airBasicDescriptionAvailabilityOb"
+                    [ngClass]="{ 'is-invalid': submitted && q.get('airBasicDescriptionAvailabilityOb')?.errors }"
+                    required>
+                        <option value="" selected>Select Option</option>
+                        <option value="" >Available</option>
+                        <option value="" >Not available</option>
+                    </select>
                     <tbody formArrayName="airBasicDescription" *ngFor="let a of getDescriptionControl(q); let j = index">
                         <div class="form-group" [formGroupName]="j">
 
@@ -206,7 +213,7 @@
                                 <th>Observation</th>
                                 <th>Remarks(Optional)</th>
                             </thead>
-                        <tr>
+                        <!-- <tr>
                             <td style="width: 1rem; text-align: center;">1.</td>
                             <td style="width: 24rem;">Drawing details</td>
                             <td style="width: 43rem;">
@@ -239,7 +246,7 @@
                                     <textarea type="text" [readonly]="isEditable" formControlName="approvedDrawingRemarks" class="form-control" ></textarea>
                                 </div>
                             </td>
-                        </tr>
+                        </tr> -->
 
                         <tr>
                             <td style="width: 1rem; text-align: center;">1(a)</td>
@@ -252,12 +259,12 @@
                                         </span>
                                     </div>
                                     <textarea type="text" class="form-control" placeholder="Please enter Observation here"
-                                        [readonly]="isEditable" formControlName="architectNameObserv"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('architectNameObserv')?.errors }"
+                                        [readonly]="isEditable" formControlName="consultantNameObserv"
+                                        [ngClass]="{ 'is-invalid': submitted && a.get('consultantNameObserv')?.errors }"
                                         required></textarea>
-                                        <div *ngIf="submitted && a.get('architectNameObserv')?.errors"
+                                        <div *ngIf="submitted && a.get('consultantNameObserv')?.errors"
                                                 class="invalid-feedback">
-                                                <div *ngIf="a.get('architectNameObserv')?.errors?.required">Architect Name is required</div>
+                                                <div *ngIf="a.get('consultantNameObserv')?.errors?.required">Architect Name is required</div>
                                         </div>
                                 </div>
                             </td>
@@ -268,7 +275,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" [readonly]="isEditable" formControlName="architectNameRemarks" class="form-control" ></textarea>
+                                    <textarea type="text" [readonly]="isEditable" formControlName="consultantNameRemarks" class="form-control" ></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -508,16 +515,16 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                        <select class="form-control" formControlName="installationQualityObserv"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('installationQualityObserv')?.errors }"
+                                        <select class="form-control" formControlName="deviationInstallationObserv"
+                                        [ngClass]="{ 'is-invalid': submitted && a.get('deviationInstallationObserv')?.errors }"
                                         required>
                                             <option value="" selected>Select Option</option>
                                             <option value="" >Yes</option>
                                             <option value="" >No</option>
                                         </select>
-                                        <div *ngIf="submitted && a.get('installationQualityObserv')?.errors"
+                                        <div *ngIf="submitted && a.get('deviationInstallationObserv')?.errors"
                                                 class="invalid-feedback">
-                                                <div *ngIf="a.get('installationQualityObserv')?.errors?.required">Quality of installation is required</div>
+                                                <div *ngIf="a.get('deviationInstallationObserv')?.errors?.required">Quality of installation is required</div>
                                         </div>
                                 </div>
                             </td>
@@ -528,7 +535,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" [readonly]="isEditable" formControlName="installationQualityRemarks" class="form-control" ></textarea>
+                                    <textarea type="text" [readonly]="isEditable" formControlName="deviationInstallationRemarks" class="form-control" ></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -544,12 +551,12 @@
                                         </span>
                                     </div>
                                     <textarea type="text" class="form-control" placeholder="Please enter Observation here"
-                                        [readonly]="isEditable" formControlName="installationQualityObserv"
-                                        [ngClass]="{ 'is-invalid': submitted && a.get('installationQualityObserv')?.errors }"
+                                        [readonly]="isEditable" formControlName="companyNameObserv"
+                                        [ngClass]="{ 'is-invalid': submitted && a.get('companyNameObserv')?.errors }"
                                         required></textarea>
-                                        <div *ngIf="submitted && a.get('installationQualityObserv')?.errors"
+                                        <div *ngIf="submitted && a.get('companyNameObserv')?.errors"
                                                 class="invalid-feedback">
-                                                <div *ngIf="a.get('installationQualityObserv')?.errors?.required">Quality of installation is required</div>
+                                                <div *ngIf="a.get('companyNameObserv')?.errors?.required">Quality of installation is required</div>
                                         </div>
                                 </div>
                             </td>
@@ -560,7 +567,7 @@
                                             <i class="bi bi-text-paragraph"></i>
                                         </span>
                                     </div>
-                                    <textarea type="text" [readonly]="isEditable" formControlName="installationQualityRemarks" class="form-control" ></textarea>
+                                    <textarea type="text" [readonly]="isEditable" formControlName="companyNameRemarks" class="form-control" ></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -759,14 +766,12 @@
                         <h3>Vertical air terminal (VAT)</h3>
                     </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <div *ngFor="let a of vatControls(q); let j = index"> 
                       <select class="form-control" style="width: 30%;"
-                            (change)="onChangeAir($event,a)">
+                            (change)="onChangeAir($event,q)" formControlName="verticalAirTerminationAvailabilityOb">
                             <option value="" selected>Select Option</option>
                             <option value="Applicable">Applicable </option>
                             <option value="Not applicable">Not applicable</option>
                        </select>
-                    </div>
                         <div style="margin-top: 10px;" *ngIf="applicableAirNote"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Vertical Air Termination</div>
                         <br>
                             <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableAir">
@@ -822,7 +827,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <div formArrayName="AirTUnit" *ngFor="let z of getAirTUnitControls(a); let w = index">
+                                    <div formArrayName="verticalAirTerminationList" *ngFor="let z of getAirTUnitControls(a); let w = index">
                                         <div [formGroupName]="w" >
                                     <tr>
                                         <td style="text-align: center;">6(b)</td>
@@ -1087,7 +1092,11 @@
                                     </tr>
                                     </div>
                                   </div>
-                                    <tr>
+
+                                   <span>
+                                       <p>Physical inspection of interconnection of VAT to roof conductor & metal bodies to roof conductors (check for connections (tight/loose), its conditions (healthy/corroded)and its position/location w.r.t. design</p>
+                                   </span>
+                                    <!-- <tr>
                                         <td style="text-align: center;">6(i)</td>
                                         <td style="width: 20.5%;">Physical inspection of interconnection of VAT to roof conductor & metal bodies to roof conductors (check for connections (tight/loose), its conditions (healthy/corroded)and its position/location w.r.t. design</td>
                                         <td style="width: 35.5%;">
@@ -1119,7 +1128,7 @@
                                                     class="form-control" ></textarea>
                                             </div>
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                     <tr>
                                         <td style="text-align: center;">6(j)</td>
                                         <td style="width: 20.5%;">Total number of air terminals</td>
@@ -1264,9 +1273,9 @@
                             <h3>Mesh conductors</h3>
                           </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <div *ngFor="let a of meshControls(q); let i = index">
+                    <div>
                         <select class="form-control" style="width: 30%;" 
-                                (change)="onChangeMesh($event,a)">
+                                (change)="onChangeMesh($event,q)" formControlName="airMeshDescriptionAvailabilityOb">
                                 <option value="" selected>Select Option</option>
                                 <option value="Applicable" >Applicable </option>
                                 <option value="Not applicable" >Not applicable</option>
@@ -1443,12 +1452,12 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="maximumDistanceOb" type="text"
+                                                <textarea [readonly]="isEditable" formControlName="maximumDistanceXOb" type="text"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('maximumDistanceOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('maximumDistanceOb')?.errors"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('maximumDistanceXOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('maximumDistanceXOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('maximumDistanceOb')?.errors?.required">
+                                                    <div *ngIf="a.get('maximumDistanceXOb')?.errors?.required">
                                                         Maximum distance between mesh conductors observation is required
                                                     </div>
                                                 </div>
@@ -1461,7 +1470,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="maximumDistanceRe" type="text"
+                                                <textarea [readonly]="isEditable" formControlName="maximumDistanceXRe" type="text"
                                                     class="form-control" ></textarea>
                                             </div>
                                         </td>
@@ -1476,12 +1485,12 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="minimumDistanceOb" type="text"
+                                                <textarea [readonly]="isEditable" formControlName="minimumDistanceXOb" type="text"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('minimumDistanceOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('minimumDistanceOb')?.errors"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('minimumDistanceXOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('minimumDistanceXOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('minimumDistanceOb')?.errors?.required">
+                                                    <div *ngIf="a.get('minimumDistanceXOb')?.errors?.required">
                                                         Minimum distance between mesh conductors observation is required
                                                     </div>
                                                 </div>
@@ -1494,7 +1503,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="minimumDistanceRe" type="text"
+                                                <textarea [readonly]="isEditable" formControlName="minimumDistanceXRe" type="text"
                                                     class="form-control" ></textarea>
                                             </div>
                                         </td>
@@ -1510,12 +1519,12 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="minimumDistanceOb" type="text"
+                                                <textarea [readonly]="isEditable" formControlName="maximumDistanceYOb" type="text"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('minimumDistanceOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('minimumDistanceOb')?.errors"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('maximumDistanceYOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('maximumDistanceYOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('minimumDistanceOb')?.errors?.required">
+                                                    <div *ngIf="a.get('maximumDistanceYOb')?.errors?.required">
                                                         Minimum distance between mesh conductors observation is required
                                                     </div>
                                                 </div>
@@ -1528,7 +1537,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="minimumDistanceRe" type="text"
+                                                <textarea [readonly]="isEditable" formControlName="maximumDistanceYRe" type="text"
                                                     class="form-control" ></textarea>
                                             </div>
                                         </td>
@@ -1544,12 +1553,12 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="minimumDistanceOb" type="text"
+                                                <textarea [readonly]="isEditable" formControlName="minimumDistanceYOb" type="text"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('minimumDistanceOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('minimumDistanceOb')?.errors"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('minimumDistanceYOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('minimumDistanceYOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('minimumDistanceOb')?.errors?.required">
+                                                    <div *ngIf="a.get('minimumDistanceYOb')?.errors?.required">
                                                         Minimum distance between mesh conductors observation is required
                                                     </div>
                                                 </div>
@@ -1562,7 +1571,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="minimumDistanceRe" type="text"
+                                                <textarea [readonly]="isEditable" formControlName="minimumDistanceYRe" type="text"
                                                     class="form-control" ></textarea>
                                             </div>
                                         </td>
@@ -1623,9 +1632,9 @@
                             <h3>Holders</h3>
                           </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <div *ngFor="let a of holdersContols(q); let j = index">
+                    <div>
                         <select class="form-control" style="width: 30%;" 
-                                (change)="onChangeHolders($event,a)">
+                                (change)="onChangeHolders($event,q)" formControlName="airHolderDescriptionAvailabilityOb">
                                 <option value="" selected>Select Option</option>
                                 <option value="Applicable" >Applicable </option>
                                 <option value="Not applicable" >Not applicable</option>
@@ -2157,9 +2166,9 @@
                             <h3>Clamps</h3>
                           </mat-panel-title>
                         </mat-expansion-panel-header>
-                        <div *ngFor="let a of clampsControls(q); let i = index">
+                        <div >
                             <select class="form-control" style="width: 30%;" 
-                                    (change)="onChangeClamps($event,a)">
+                                    (change)="onChangeClamps($event,q)" formControlName="airClampsAvailabilityOb">
                                     <option value="" selected>Select Option</option>
                                     <option value="Applicable" >Applicable </option>
                                     <option value="Not applicable" >Not applicable</option>
@@ -2326,7 +2335,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                    <select class="form-control" formControlName="materialOfClampsOb" [ngClass]="{ 'is-invalid': submitted && a.get('materialOfClampsOb')?.errors}">
+                                                    <select class="form-control" formControlName="materialOfWallClampsOb" [ngClass]="{ 'is-invalid': submitted && a.get('materialOfWallClampsOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
                                                         <option value="" >copper</option>
                                                         <option value="" >copper bonded steel</option>
@@ -2339,9 +2348,9 @@
                                                         <option value="" >Plastic</option>
                                                         <option value="" >Not applicable</option>
                                                     </select>
-                                                <div *ngIf="submitted && a.get('materialOfClampsOb')?.errors"
+                                                <div *ngIf="submitted && a.get('materialOfWallClampsOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('materialOfClampsOb')?.errors?.required">
+                                                    <div *ngIf="a.get('materialOfWallClampsOb')?.errors?.required">
                                                         Material of clamp observation is required</div>
                                                 </div>
                                             </div>
@@ -2353,7 +2362,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="materialOfClampsRe" type="text"
+                                                <textarea [readonly]="isEditable" formControlName="materialOfWallClampsRe" type="text"
                                                     class="form-control" ></textarea>
                                             </div>
                                         </td>
@@ -2368,7 +2377,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                    <select class="form-control" formControlName="totalClampsNoOb" [ngClass]="{ 'is-invalid': submitted && a.get('totalClampsNoOb')?.errors}">
+                                                    <select class="form-control" formControlName="materialOfFoldingClampsOb" [ngClass]="{ 'is-invalid': submitted && a.get('materialOfFoldingClampsOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
                                                         <option value="" >copper</option>
                                                         <option value="" >copper bonded steel</option>
@@ -2380,9 +2389,9 @@
                                                         <option value="" >Cast Iron</option>
                                                         <option value="" >Not applicable</option>
                                                     </select>
-                                                <div *ngIf="submitted && a.get('totalClampsNoOb')?.errors"
+                                                <div *ngIf="submitted && a.get('materialOfFoldingClampsOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('totalClampsNoOb')?.errors?.required">
+                                                    <div *ngIf="a.get('materialOfFoldingClampsOb')?.errors?.required">
                                                         Total number of clamps observation is required</div>
                                                 </div>
                                             </div>
@@ -2394,7 +2403,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="totalClampsNoRe" type="text"
+                                                <textarea [readonly]="isEditable" formControlName="materialOfFoldingClampsRe" type="text"
                                                     class="form-control" ></textarea>
                                             </div>
                                         </td>
@@ -2547,9 +2556,9 @@
                             <h3>Expansion Pieces</h3>
                           </mat-panel-title>
                         </mat-expansion-panel-header>
-                        <div *ngFor="let a of expansionControls(q); let i = index">
+                        <div >
                             <select class="form-control" style="width: 30%;" 
-                                    (change)="onChangeExpansion($event,a)">
+                                    (change)="onChangeExpansion($event,q)"  formControlName="airExpansionAvailabilityOb">
                                     <option value="" selected>Select Option</option>
                                     <option value="Applicable" >Applicable </option>
                                     <option value="Not applicable" >Not applicable</option>
@@ -2645,7 +2654,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                    <select class="form-control" formControlName="materialOfExpansionOb" [ngClass]="{ 'is-invalid': submitted && a.get('materialOfExpansionOb')?.errors}">
+                                                    <select class="form-control" formControlName="materialOfConnectorOb" [ngClass]="{ 'is-invalid': submitted && a.get('materialOfConnectorOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
                                                         <option value="" >copper</option>
                                                         <option value="" >copper bonded steel</option>
@@ -2656,10 +2665,50 @@
                                                         <option value="" >Mild Steel</option>
                                                         <option value="" >Cast Iron</option>
                                                     </select>
+                                                <div *ngIf="submitted && a.get('materialOfConnectorOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('materialOfConnectorOb')?.errors?.required">
+                                                        Material of expansion piece observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea [readonly]="isEditable" formControlName="materialOfConnectorRe" type="text"
+                                                    class="form-control" ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">10(d)</td>
+                                        <td>Material of expansion arrangements</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                    <select class="form-control" formControlName="materialOfExpansionOb" [ngClass]="{ 'is-invalid': submitted && a.get('materialOfExpansionOb')?.errors}">
+                                                        <option value="" selected>Select Option</option>
+                                                        <option value="" >Copper</option>
+                                                        <option value="" >Copper bonded steel</option>
+                                                        <option value="" >Aluminum</option>
+                                                        <option value="" >Stainless steel</option>
+                                                        <option value="" >Galvanised Iron</option>
+                                                        <option value="" >Galvanised Steel</option>
+                                                        <option value="" >Mild Steel</option>
+                                                        <option value="" >Cast Iron</option>
+                                                    </select>
                                                 <div *ngIf="submitted && a.get('materialOfExpansionOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('materialOfExpansionOb')?.errors?.required">
-                                                        Material of expansion piece observation is required</div>
+                                                        Total number of expansion pieces observation is required</div>
                                                 </div>
                                             </div>
                                         </td>
@@ -2676,8 +2725,8 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="text-align: center;">10(d)</td>
-                                        <td>Material of expansion arrangements</td>
+                                        <td style="text-align: center;">10(e)</td>
+                                        <td>Interval between two successice expansion piece in meters</td>
                                         <td>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
@@ -2685,21 +2734,45 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                    <select class="form-control" formControlName="totalNoExpansionOb" [ngClass]="{ 'is-invalid': submitted && a.get('totalNoExpansionOb')?.errors}">
-                                                        <option value="" selected>Select Option</option>
-                                                        <option value="" >Copper</option>
-                                                        <option value="" >Copper bonded steel</option>
-                                                        <option value="" >Aluminum</option>
-                                                        <option value="" >Stainless steel</option>
-                                                        <option value="" >Galvanised Iron</option>
-                                                        <option value="" >Galvanised Steel</option>
-                                                        <option value="" >Mild Steel</option>
-                                                        <option value="" >Cast Iron</option>
-                                                    </select>
+                                                <textarea [readonly]="isEditable" formControlName="intervalBwExpansionOb" type="text"
+                                                    class="form-control" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('intervalBwExpansionOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('intervalBwExpansionOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('intervalBwExpansionOb')?.errors?.required">
+                                                        Number of expansion pieces inspected observation is required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea [readonly]="isEditable" formControlName="intervalBwExpansionRe" type="text"
+                                                    class="form-control" ></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">10(f)</td>
+                                        <td>Total number of arrangements</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-text-paragraph"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea [readonly]="isEditable" formControlName="totalNoExpansionOb" type="text"
+                                                    class="form-control" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('totalNoExpansionOb')?.errors}"></textarea>
                                                 <div *ngIf="submitted && a.get('totalNoExpansionOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('totalNoExpansionOb')?.errors?.required">
-                                                        Total number of expansion pieces observation is required</div>
+                                                        Number of inspections passed observation is required</div>
                                                 </div>
                                             </div>
                                         </td>
@@ -2716,8 +2789,8 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="text-align: center;">10(e)</td>
-                                        <td>Interval between two successice expansion piece in meters</td>
+                                        <td style="text-align: center;">10(g)</td>
+                                        <td>Number of expansion arrangements inspected</td>
                                         <td>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
@@ -2731,7 +2804,7 @@
                                                 <div *ngIf="submitted && a.get('inspectionNoOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('inspectionNoOb')?.errors?.required">
-                                                        Number of expansion pieces inspected observation is required</div>
+                                                        Number of inspections failed observation is required</div>
                                                 </div>
                                             </div>
                                         </td>
@@ -2747,9 +2820,10 @@
                                             </div>
                                         </td>
                                     </tr>
+
                                     <tr>
-                                        <td style="text-align: center;">10(f)</td>
-                                        <td>Total number of arrangements</td>
+                                        <td style="text-align: center;">10(h)</td>
+                                        <td>Number of inspections passed</td>
                                         <td>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
@@ -2763,7 +2837,7 @@
                                                 <div *ngIf="submitted && a.get('inspectionPassedNoOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('inspectionPassedNoOb')?.errors?.required">
-                                                        Number of inspections passed observation is required</div>
+                                                        Number of inspections failed observation is required</div>
                                                 </div>
                                             </div>
                                         </td>
@@ -2775,71 +2849,6 @@
                                                     </span>
                                                 </div>
                                                 <textarea [readonly]="isEditable" formControlName="inspectionPassedNoRe" type="text"
-                                                    class="form-control" ></textarea>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: center;">10(g)</td>
-                                        <td>Number of expansion arrangements inspected</td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <textarea [readonly]="isEditable" formControlName="inspectionFailedNoOb" type="text"
-                                                    class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedNoOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('inspectionFailedNoOb')?.errors"
-                                                    class="invalid-feedback">
-                                                    <div *ngIf="a.get('inspectionFailedNoOb')?.errors?.required">
-                                                        Number of inspections failed observation is required</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <textarea [readonly]="isEditable" formControlName="inspectionFailedNoRe" type="text"
-                                                    class="form-control" ></textarea>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td style="text-align: center;">10(h)</td>
-                                        <td>Number of inspections passed</td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <textarea [readonly]="isEditable" formControlName="inspectionFailedNoOb" type="text"
-                                                    class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedNoOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('inspectionFailedNoOb')?.errors"
-                                                    class="invalid-feedback">
-                                                    <div *ngIf="a.get('inspectionFailedNoOb')?.errors?.required">
-                                                        Number of inspections failed observation is required</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <textarea [readonly]="isEditable" formControlName="inspectionFailedNoRe" type="text"
                                                     class="form-control" ></textarea>
                                             </div>
                                         </td>
@@ -2891,9 +2900,9 @@
                             <h3>Connectors</h3>
                           </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <div *ngFor="let a of connectorsControls(q); let i = index">
+                    <div >
                         <select class="form-control" style="width: 30%;" 
-                                (change)="onChangeConnectors($event,a)">
+                                (change)="onChangeConnectors($event,q)" formControlName="airConnectorsAvailabilityOb">
                                 <option value="" selected>Select Option</option>
                                 <option value="Applicable" >Applicable </option>
                                 <option value="Not applicable" >Not applicable</option>

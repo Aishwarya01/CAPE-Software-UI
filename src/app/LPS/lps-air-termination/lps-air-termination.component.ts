@@ -22,7 +22,7 @@ export class LpsAirTerminationComponent implements OnInit {
   
   airTerminationForm!: FormGroup;
   lpsVerticalAirTermination!: FormArray;
-  AirTUnit!: FormArray;
+  verticalAirTerminationList!: FormArray;
   airHolder!: FormArray;
   airMeshDescription!: FormArray;
   airHolderDescription!: FormArray;
@@ -122,10 +122,27 @@ export class LpsAirTerminationComponent implements OnInit {
       buildingNumber: new FormControl('',Validators.required),
       buildingName: new FormControl('', Validators.required),
       buildingType: new FormControl('', Validators.required),
+      buildingTypeOthers: new FormControl(''),
       buildingLength: new FormControl('', Validators.required),
       buildingHeight: new FormControl('', Validators.required),
       buildingWidth: new FormControl('', Validators.required),
+      protrusionHeight: new FormControl('', Validators.required), 
       protectionLevel: new FormControl('', Validators.required),
+      airBasicDescriptionAvailabilityOb: new FormControl('', Validators.required),
+      verticalAirTerminationAvailabilityOb: new FormControl('', Validators.required),
+      airClampsAvailabilityOb: new FormControl('', Validators.required),
+      airConnectorsAvailabilityOb: new FormControl('', Validators.required),
+      airExpansionAvailabilityOb: new FormControl('', Validators.required),
+      airHolderDescriptionAvailabilityOb: new FormControl('', Validators.required),
+      airMeshDescriptionAvailabilityOb: new FormControl('', Validators.required),
+
+      airBasicDescriptionAvailabilityRem: new FormControl(''),
+      verticalAirTerminationAvailabilityRem: new FormControl(''),
+      airClampsAvailabilityRem: new FormControl(''),
+      airConnectorsAvailabilityRem: new FormControl(''),
+      airExpansionAvailabilityRem: new FormControl(''),
+      airHolderDescriptionAvailabilityRem: new FormControl(''),
+      airMeshDescriptionAvailabilityRem: new FormControl(''),
 
       lpsVerticalAirTermination: this.formBuilder.array([this.createVatArrForm()]),
       airMeshDescription: this.formBuilder.array([this.createMeshArrForm()]),
@@ -134,6 +151,7 @@ export class LpsAirTerminationComponent implements OnInit {
       airExpansion: this.formBuilder.array([this.createExpansioArrForm()]),
       airConnectors: this.formBuilder.array([this.createConArrForm()]),
       airBasicDescription: this.formBuilder.array([this.createLpsDescriptionarr()]),
+      flag: new FormControl('A'),
     })
   }
   addItemAir(a:any) {
@@ -153,7 +171,7 @@ export class LpsAirTerminationComponent implements OnInit {
 
     dialogRef.componentInstance.confirmBox.subscribe(data=>{
       if(data) {
-        this.airterminationArr = a.controls.AirTUnit as FormArray;
+        this.airterminationArr = a.controls.verticalAirTerminationList as FormArray;
         this.airterminationArr.push(this.createAirIteration());
       }
       else{
@@ -164,7 +182,7 @@ export class LpsAirTerminationComponent implements OnInit {
  
   removeItemAir(a: any,w:any) {
     this.airTerminationForm.markAsTouched();
-    this.airterminationArr = a.controls.AirTUnit as FormArray;
+    this.airterminationArr = a.controls.verticalAirTerminationList as FormArray;
     // if(this.flag && this.AirTUnit.value[w].equipmentId!=null && this.AirTUnit.value[w].equipmentId!='' && this.AirTUnit.value[w].equipmentId!=undefined){
     //   this.AirTUnit.value[w].testingEquipmentStatus='R';
     //   this.deletedTestingEquipment.push(this.AirTUnit.value[w]);
@@ -189,7 +207,7 @@ export class LpsAirTerminationComponent implements OnInit {
       heightOfTerminalRe: new FormControl(''),
       sizeOfTerminalRe: new FormControl(''),
       materialOfTerminalRe: new FormControl(''),
-      flag: new FormControl('true'),
+      flag: new FormControl('A'),
     });
   }
  //holder
@@ -239,7 +257,7 @@ createAirHolderIteration()  : FormGroup {
 
     holderInspFailedNoOb: new FormControl('', Validators.required),
     holderInspFailedNoRe: new FormControl(''),
-    flag: new FormControl('true'),
+    flag: new FormControl('A'),
   });
 }
   // Only Accept numbers
@@ -390,8 +408,8 @@ createAirHolderIteration()  : FormGroup {
     private createLpsDescriptionarr(): FormGroup{
     return new FormGroup({
        //new changes
-      approvedDrawingObserv:  new FormControl('', Validators.required),
-      approvedDrawingRemarks: new FormControl(''),
+      consultantNameObserv:  new FormControl('', Validators.required),
+      consultantNameRemarks: new FormControl(''),
       architectNameObserv:  new FormControl('', Validators.required),
       architectNameRemarks: new FormControl(''),
       designDateObserv:  new FormControl('', Validators.required),
@@ -406,9 +424,12 @@ createAirHolderIteration()  : FormGroup {
       revisionNoRemarks: new FormControl(''),
       deviationObserv:  new FormControl('', Validators.required),
       deviationRemarks: new FormControl(''),
+      deviationInstallationObserv:  new FormControl('', Validators.required),
+      deviationInstallationRemarks: new FormControl(''),
       installationQualityObserv:  new FormControl('', Validators.required),
       installationQualityRemarks: new FormControl(''),
-
+      companyNameObserv:  new FormControl('', Validators.required),
+      companyNameRemarks: new FormControl(''),
       connectionMadeBraOb:  new FormControl('', Validators.required),
       connectionMadeBraRe: new FormControl(''),
       electricalEquipPlacedOb:  new FormControl('', Validators.required),
@@ -418,7 +439,9 @@ createAirHolderIteration()  : FormGroup {
       terminationMeshConductorOb:  new FormControl('', Validators.required),
       terminationMeshConductorRe: new FormControl(''),
       bondingEquipotentialOb:  new FormControl('', Validators.required),
-      bondingEquipotentialRe: new FormControl('')
+      bondingEquipotentialRe: new FormControl(''),
+      flag: new FormControl('A'),
+
       });
     }
 
@@ -1106,7 +1129,7 @@ createAirHolderIteration()  : FormGroup {
     return form.controls.lpsVerticalAirTermination?.controls;
   }
   getAirTUnitControls(form:any) {
-    return form.controls.AirTUnit?.controls;
+    return form.controls.verticalAirTerminationList?.controls;
   }
   getAirHolderControls(form:any) {
     return form.controls.airHolder?.controls;
@@ -1138,8 +1161,6 @@ createAirHolderIteration()  : FormGroup {
       // locationName: new FormControl('', Validators.required),
       physicalInspectionOb: new FormControl('', Validators.required),
       physicalInspectionRe: new FormControl(''),
-      vatToRoofConductorOB: new FormControl('', Validators.required),
-      vatToRoofConductorRe: new FormControl(''),
       totalNumberOb: new FormControl('', Validators.required),
       totalNumberRe: new FormControl(''),
       inspNoOb: new FormControl('', Validators.required),
@@ -1148,8 +1169,8 @@ createAirHolderIteration()  : FormGroup {
       inspPassedNoRe: new FormControl(''),
       inspFaileddNoOb: new FormControl('', Validators.required),
       inspFaileddNoRe: new FormControl(''),
-      flag: new FormControl('true'),
-      AirTUnit: this.formBuilder.array([this.createAirIteration()]),
+      flag: new FormControl('A'),
+      verticalAirTerminationList: this.formBuilder.array([this.createAirIteration()]),
     })
   }
   
@@ -1166,13 +1187,17 @@ createAirHolderIteration()  : FormGroup {
       sizeOfConductorRe: new FormControl(''),
       meshSizeOb: new FormControl('', Validators.required),
       meshSizeRe: new FormControl(''),
-      maximumDistanceOb: new FormControl('', Validators.required),
-      maximumDistanceRe: new FormControl(''),
-      minimumDistanceOb: new FormControl('', Validators.required),
-      minimumDistanceRe: new FormControl(''),
+      maximumDistanceXOb: new FormControl('', Validators.required),
+      maximumDistanceXRe: new FormControl(''),
+      maximumDistanceYOb: new FormControl('', Validators.required),
+      maximumDistanceYRe: new FormControl(''),
+      minimumDistanceXOb: new FormControl('', Validators.required),
+      minimumDistanceXRe: new FormControl(''),
+      minimumDistanceYOb: new FormControl('', Validators.required),
+      minimumDistanceYRe: new FormControl(''),
       heightOfConductorFlatSurfaceOb: new FormControl('', Validators.required),
       heightOfConductorFlatSurfaceRe: new FormControl(''),
-      flag: new FormControl('true')
+      flag: new FormControl('A'),
     })
   }
 
@@ -1204,7 +1229,7 @@ createAirHolderIteration()  : FormGroup {
       
       parpetInspectionFailedNoOb: new FormControl('', Validators.required),
       parpetInspectionFailedNoRe: new FormControl(''),
-      flag: new FormControl('true'),
+      flag: new FormControl('A'),
       airHolder: this.formBuilder.array([this.createAirHolderIteration()]),
     }) 
   }
@@ -1221,9 +1246,10 @@ createAirHolderIteration()  : FormGroup {
       interConnectionOfClampsRe: new FormControl(''),
       clampTypeOb: new FormControl('', Validators.required),
       clampTypRe: new FormControl(''),
-
-      materialOfClampsOb: new FormControl('', Validators.required),
-      materialOfClampsRe: new FormControl(''),
+      materialOfWallClampsOb: new FormControl('', Validators.required),
+      materialOfWallClampsRe: new FormControl(''),
+      materialOfFoldingClampsOb: new FormControl('', Validators.required),
+      materialOfFoldingClampsRe: new FormControl(''),
       totalClampsNoOb: new FormControl('', Validators.required),
       totalClampsNoRe: new FormControl(''),
       inspectionNoOb: new FormControl('', Validators.required),
@@ -1232,7 +1258,7 @@ createAirHolderIteration()  : FormGroup {
       inspectionPassedRe: new FormControl(''),
       inspectionFailedReOb: new FormControl('', Validators.required),
       inspectionFailedReRe: new FormControl(''),
-      flag: new FormControl('true')
+      flag: new FormControl('A'),
     })
   }
 
@@ -1246,6 +1272,10 @@ createAirHolderIteration()  : FormGroup {
       strightConnectorPiecRe: new FormControl(''),
       materialOfExpansionOb: new FormControl('', Validators.required),
       materialOfExpansionRe: new FormControl(''),
+      materialOfConnectorOb: new FormControl('', Validators.required),
+      materialOfConnectorRe: new FormControl(''),
+      intervalBwExpansionOb: new FormControl('', Validators.required),
+      intervalBwExpansionRe: new FormControl(''),
       totalNoExpansionOb: new FormControl('', Validators.required),
       totalNoExpansionRe: new FormControl(''),
       inspectionNoOb: new FormControl('', Validators.required),
@@ -1254,7 +1284,7 @@ createAirHolderIteration()  : FormGroup {
       inspectionPassedNoRe: new FormControl(''),
       inspectionFailedNoOb: new FormControl('', Validators.required),
       inspectionFailedNoRe: new FormControl(''),
-      flag: new FormControl('true')
+      flag: new FormControl('A'),
     })
   }
   
@@ -1282,7 +1312,7 @@ createAirHolderIteration()  : FormGroup {
       inspectionPassedNoRe: new FormControl(''),
       inspectionFailedOb: new FormControl('', Validators.required),
       inspectionFailedRe: new FormControl(''),
-      flag: new FormControl('true')
+      flag: new FormControl('A'),
     })
   }
 
