@@ -243,7 +243,7 @@ export class EmcClientDetailsComponent implements OnInit {
     }
   }
 
-  gotoNextModal(content: any) {
+  gotoNextModal(content: any,content2:any) {
     if (this.EmcClientDetailsForm.invalid) {
       this.validationError = true;
       this.validationErrorMsg = "Please check all the fields";
@@ -254,8 +254,8 @@ export class EmcClientDetailsComponent implements OnInit {
     }
 
     // || this.EmcClientDetailsForm.untouched
-    if (this.EmcClientDetailsForm.touched ) {
-      this.modalReference = this.modalService.open(content, {
+    if (this.EmcClientDetailsForm.touched || this.EmcClientDetailsForm.untouched ) {
+      this.modalReference = this.modalService.open(content2, {
         centered: true,
         size: 'md',
         backdrop: 'static'
