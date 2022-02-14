@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-body">
         <form [formGroup]="earthingForm" (ngSubmit)="onSubmit(flag)" (keyup)="onKeyForm($event)" (change)="onChangeForm($event)">
-            <div formArrayName="earthingLpsDescription" *ngFor="let q of overAllEarthingControl(); let j = index">
+            <div formArrayName="earthing" *ngFor="let q of overAllEarthingControl(); let j = index">
             <div class="form-group" [formGroupName]="j">
             <mat-accordion>
                 <mat-expansion-panel>
@@ -20,8 +20,7 @@
                                         <i class="bi bi-align-start"></i>
                                     </span>
                                 </div>
-                                <input class="form-control"  placeholder="Enter length in meter"
-                                     />
+                                <input class="form-control" formControlName="buildingNumber" placeholder="Enter length in meter" />
                             </div>
                         </div>
         
@@ -33,7 +32,7 @@
                                         <i class="bi bi-align-start"></i>
                                     </span>
                                 </div>
-                                <input  class="form-control"  placeholder="Enter length in meter"/>
+                                <input  class="form-control" formControlName="buildingName" placeholder="Enter length in meter"/>
                             </div>
                         </div>
                     </div>
@@ -176,7 +175,7 @@
                     <div class="col-sm-12">
                     <div class="table-responsive" style="overflow-x: unset;">
                         <table class="table TableBorder">
-                        <tbody formArrayName="descriptionArr" *ngFor="let a of earthingDescriptionarr(q); let j = index">
+                        <tbody formArrayName="earthingLpsDescription" *ngFor="let a of earthingDescriptionarr(q); let j = index">
                          <div class="form-group" [formGroupName]="j">
                     <!-- Table -->
                               <thead>
@@ -360,7 +359,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <div formArrayName="TypeAEarthing" *ngFor="let h of getTypeAEarthingControls(a); let x = index">
+                                    <div formArrayName="earthingDescriptionList" *ngFor="let h of earthingDescriptionListControls(a); let x = index">
                                         <div [formGroupName]="x">
                                     <tr>
                                         <td style="width: 1rem;text-align: center;">4(f)</td>
@@ -372,7 +371,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                    <select class="form-control" formControlName="grountLevelComponentFilledInOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && h.get('grountLevelComponentFilledInOb')?.errors}">
+                                                    <select class="form-control" formControlName="earthingConductorMaterialInOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && h.get('earthingConductorMaterialInOb')?.errors}">
                                                         <option  value="" selected>Select Option</option>
                                                         <option value="" >Copper</option>
                                                         <option value="" >Copper bonded steel</option>
@@ -382,8 +381,8 @@
                                                         <option value="" >Mild Steel</option>
                                                         <option value="" >Cast Iron</option>
                                                     </select>
-                                                    <div *ngIf="submitted && h.get('grountLevelComponentFilledInOb')?.errors" class="invalid-feedback">
-                                                        <div *ngIf="h.get('grountLevelComponentFilledInOb')?.errors?.required">Coumpound filled properly upto gorund level observation is required</div>
+                                                    <div *ngIf="submitted && h.get('earthingConductorMaterialInOb')?.errors" class="invalid-feedback">
+                                                        <div *ngIf="h.get('earthingConductorMaterialInOb')?.errors?.required">Coumpound filled properly upto gorund level observation is required</div>
                                                     </div>
                                             </div>
                                         </td>
@@ -395,7 +394,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea type="text" class="form-control"
-                                                    [readonly]="isEditable" formControlName="grountLevelComponentFilledInRem"
+                                                    [readonly]="isEditable" formControlName="earthingConductorMaterialInRem"
                                                     ></textarea>
                                             </div>
                                         </td>
@@ -410,9 +409,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                    <select class="form-control" formControlName="earthElectrodeLocationInOb" 
+                                                    <select class="form-control" formControlName="earthElectrodeMaterialInOb" 
                                                     placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && h.get('earthElectrodeLocationInOb')?.errors}">
+                                                    [ngClass]="{ 'is-invalid': submitted && h.get('earthElectrodeMaterialInOb')?.errors}">
                                                         <option  value="" selected>Select Option</option>
                                                         <option value="" >Copper</option>
                                                         <option value="" >Copper bonded steel</option>
@@ -422,9 +421,9 @@
                                                         <option value="" >Mild Steel</option>
                                                         <option value="" >Cast Iron</option>
                                                     </select>
-                                                <div *ngIf="submitted && h.get('earthElectrodeLocationInOb')?.errors"
+                                                <div *ngIf="submitted && h.get('earthElectrodeMaterialInOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="h.get('earthElectrodeLocationInOb')?.errors?.required">
+                                                    <div *ngIf="h.get('earthElectrodeMaterialInOb')?.errors?.required">
                                                         Location of earth electrode observation is required</div>
                                                 </div>
                                             </div>
@@ -437,7 +436,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea type="text" class="form-control"
-                                                    [readonly]="isEditable" formControlName="earthElectrodeLocationInRem"
+                                                    [readonly]="isEditable" formControlName="earthElectrodeMaterialInRem"
                                                     ></textarea>
                                             </div>
                                         </td>
@@ -452,17 +451,17 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                    <select class="form-control" formControlName="earthElectrodeMaterialInOb" 
+                                                    <select class="form-control" formControlName="earthElectrodeTypeInOb" 
                                                     placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && h.get('earthElectrodeMaterialInOb')?.errors}">
+                                                    [ngClass]="{ 'is-invalid': submitted && h.get('earthElectrodeTypeInOb')?.errors}">
                                                         <option  value="" selected>Select Option</option>
                                                         <option value="rod" >Rod</option>
                                                         <option value="pipe" >Pipe</option>
                                                         <option value="flat" >Flat or plate</option>
                                                         <option value="chemical" >Chemical pipe</option>
                                                     </select>
-                                                <div *ngIf="submitted && h.get('earthElectrodeMaterialInOb')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="h.get('earthElectrodeMaterialInOb')?.errors?.required">Material of earth electrode observation is required</div>
+                                                <div *ngIf="submitted && h.get('earthElectrodeTypeInOb')?.errors" class="invalid-feedback">
+                                                    <div *ngIf="h.get('earthElectrodeTypeInOb')?.errors?.required">Material of earth electrode observation is required</div>
                                                 </div>
                                             </div>
                                         </td>
@@ -474,7 +473,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea type="text" class="form-control"
-                                                    [readonly]="isEditable" formControlName="earthElectrodeMaterialInRem"
+                                                    [readonly]="isEditable" formControlName="earthElectrodeTypeInRem"
                                                     ></textarea>
                                             </div>
                                         </td>
@@ -551,12 +550,12 @@
                                             (click)="addItemTypeAEarthing(a)">add_box</mat-icon>
 
                                             <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" 
-                                            *ngIf="getTypeAEarthingControls(a).length > 1" 
+                                            *ngIf="earthingDescriptionListControls(a).length > 1" 
                                             (click)="removeItemTypeAEarthing(a,x)" style="cursor: pointer;float: right;">remove_circle_outline</mat-icon>
                                         </div>
                                         </td>
                                     </tr>
-                                    </div>
+                                </div>
                                     </div>
 
                                     <tr>
@@ -859,7 +858,7 @@
                     <div class="col-sm-12">
                     <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableClamps">
                         <table class="table TableBorder">
-                                <tbody formArrayName="ClampsArr" *ngFor="let a of earthingClampsarr(q); let j = index">
+                                <tbody formArrayName="earthingClamps" *ngFor="let a of earthingClampsarr(q); let j = index">
                                     <div class="form-group" [formGroupName]="j">
                                         <thead>
                                             <th>SI.No</th>
@@ -1217,7 +1216,7 @@
                     <div class="col-sm-12">
                     <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableChambers">
                         <table class="table TableBorder">
-                            <tbody formArrayName="chamberArr"
+                            <tbody formArrayName="earthingElectrodeChamber"
                                 *ngFor="let a of earthElectrodeChambearr(q); let j = index">
                                 <div class="form-group" [formGroupName]="j">
                                     <thead>
@@ -1370,15 +1369,15 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <select class="form-control" formControlName="maximumPlacedSoilOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && a.get('maximumPlacedSoilOb')?.errors}">
+                                                <select class="form-control" formControlName="chamberLocationOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && a.get('chamberLocationOb')?.errors}">
                                                     <option  value="" selected>Select Option</option>
                                                     <option value="YES" >Walk pathway</option>
                                                     <option value="NO" >Vehicle runway</option>
                                                     <option value="NO" >Neither both</option>
                                                 </select>
-                                                <div *ngIf="submitted && a.get('maximumPlacedSoilOb')?.errors"
+                                                <div *ngIf="submitted && a.get('chamberLocationOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('maximumPlacedSoilOb')?.errors?.required">
+                                                    <div *ngIf="a.get('chamberLocationOb')?.errors?.required">
                                                         Chamber is properly placed in soil observation is required</div>
                                                 </div>
                                             </div>
@@ -1391,7 +1390,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea type="text" class="form-control"
-                                                    [readonly]="isEditable" formControlName="maximumPlacedSoilRem"
+                                                    [readonly]="isEditable" formControlName="chamberLocationRem"
                                                     ></textarea>
                                             </div>
                                         </td>
@@ -1588,7 +1587,7 @@
                     <div class="col-sm-12">
                     <div class="table-responsive" style="overflow-x: unset;">
                         <table class="table TableBorder">
-                            <tbody formArrayName="earthingArr" *ngFor="let a of earthingSystemarr(q); let j = index">
+                            <tbody formArrayName="earthingSystem" *ngFor="let a of earthingSystemarr(q); let j = index">
                                 <div class="form-group" [formGroupName]="j">
                                     <thead>
                                         <th>SI.No</th>
@@ -1618,11 +1617,11 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="earthOb" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('earthOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('earthOb')?.errors"
+                                                <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="eastOb" placeholder="Please enter Observation here"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('eastOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('eastOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('earthOb')?.errors?.required">East observation is
+                                                    <div *ngIf="a.get('eastOb')?.errors?.required">East observation is
                                                         required</div>
                                                 </div>
                                             </div>
@@ -1634,7 +1633,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="earthRem"
+                                                <textarea type="text" class="form-control" [readonly]="isEditable" formControlName="eastRem"
                                                     ></textarea>
                                             </div>
                                         </td>
@@ -1876,7 +1875,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <select class="form-control">
+                                                <select class="form-control" formControlName="connectedEarthElectrodeOb">
                                                     <option  value="" selected>Select Option</option>
                                                     <option value="YES" >Every 5 meters</option>
                                                     <option value="NO" >Every 10 meters</option>
@@ -1892,7 +1891,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" class="form-control"></textarea>
+                                                <textarea type="text" formControlName="connectedEarthElectrodeRem" class="form-control"></textarea>
                                             </div>
                                         </td>
                                     </tr>
@@ -1906,7 +1905,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <select class="form-control">
+                                                <select class="form-control" formControlName="jointsMadeBrazingOb">
                                                     <option  value="" selected>Select Option</option>
                                                     <option value="YES" >brazing</option>
                                                     <option value="NO" >welding</option>
@@ -1925,7 +1924,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea type="text" class="form-control"
-                                                    [readonly]="isEditable" formControlName="materialOfEartElectrodeRem"
+                                                    [readonly]="isEditable" formControlName="jointsMadeBrazingRem"
                                                     ></textarea>
                                             </div>
                                         </td>
@@ -1940,7 +1939,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <select class="form-control">
+                                                <select class="form-control" formControlName="materialOfEartElectrodeOb">
                                                     <option  value="" selected>Select Option</option>
                                                     <option value="" >Copper</option>
                                                     <option value="" >Copper bonded steel</option>
@@ -1961,7 +1960,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea type="text" class="form-control"
-                                                    [readonly]="isEditable" formControlName="sizeOfEarthElectrodeRem"
+                                                    [readonly]="isEditable" formControlName="materialOfEartElectrodeRem"
                                                     ></textarea>
                                             </div>
                                         </td>
@@ -1976,7 +1975,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <select class="form-control">
+                                                <select class="form-control"  formControlName="typeOfEarthElectrodeOb">
                                                     <option  value="" selected>Select Option</option>
                                                     <option value="YES" >rod</option>
                                                     <option value="NO" >pipe</option>
@@ -1993,7 +1992,7 @@
                                                     </span>
                                                 </div>
                                                 <textarea type="text" class="form-control"
-                                                    [readonly]="isEditable" formControlName="maximumDistanceEartElectrodeWalRem"
+                                                    [readonly]="isEditable" formControlName="typeOfEarthElectrodeRem"
                                                     ></textarea>
                                             </div>
                                         </td>
@@ -2009,7 +2008,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea class="form-control"></textarea>
+                                                <textarea class="form-control"  formControlName="sizeOfEarthElectrodeOb"></textarea>
                                             </div>
                                         </td>
                                         <td>
@@ -2019,7 +2018,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" class="form-control" ></textarea>
+                                                <textarea type="text" formControlName="sizeOfEarthElectrodeRem" class="form-control" ></textarea>
                                             </div>
                                         </td>
                                     </tr>
@@ -2112,8 +2111,8 @@
                         <div class="col-sm-12">
                         <div class="table-responsive" style="overflow-x: unset;">
                             <table class="table TableBorder">
-                                <tbody>
-                                    <div class="form-group">
+                                <tbody formArrayName="earthElectrodeTesting" *ngFor="let a of earthElectrodeTestingarr(q); let j = index">
+                                    <div class="form-group" [formGroupName]="j">
                                         <thead>
                                             <th>SI.No</th>
                                             <th>Types of earth electrode(rod/pipe/flat/chemical pipe)</th>
@@ -2132,7 +2131,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                <textarea class="form-control" placeholder="Types of earth electrode(rod/pipe/flat/chemical pipe)"></textarea>
+                                                <textarea class="form-control" formControlName="earthingElectrodeType" placeholder="Types of earth electrode(rod/pipe/flat/chemical pipe)"></textarea>
                                                 </div>
                                             </td>
                                             <td>
@@ -2142,7 +2141,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                <textarea class="form-control" placeholder="Material of earth elctrode (copper/copper bonded steel/galvanised steel/galvanised iron/cast iron)"></textarea>
+                                                <textarea class="form-control" formControlName="earthingElectrodeMaterial" placeholder="Material of earth elctrode (copper/copper bonded steel/galvanised steel/galvanised iron/cast iron)"></textarea>
                                                 </div>
                                             </td>
                                             <td>
@@ -2152,7 +2151,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                <textarea class="form-control" placeholder="Information to user: incase of 1. rod -diameter (mm)/cross sectional area (sq.mm), 2. pipe- inner&outer diameter (mm), 3.flat - cross sectional area (sq.mm), 4. chemical pipe-diameter (mm)"></textarea>
+                                                <textarea class="form-control"  formControlName="earthingElectrodeSize" placeholder="Information to user: incase of 1. rod -diameter (mm)/cross sectional area (sq.mm), 2. pipe- inner&outer diameter (mm), 3.flat - cross sectional area (sq.mm), 4. chemical pipe-diameter (mm)"></textarea>
                                                 </div>
                                             </td>
                                             <td>
@@ -2162,7 +2161,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                <textarea class="form-control" placeholder="Depth /length of earth electrode (m)"></textarea>
+                                                <textarea class="form-control" formControlName="earthingElectrodeDepth" placeholder="Depth /length of earth electrode (m)"></textarea>
                                                 </div>
                                             </td>
                                             <td>
@@ -2172,7 +2171,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                <textarea class="form-control" placeholder="Electrode resistance to earth in (Ω)"></textarea>
+                                                <textarea class="form-control" formControlName="earthingElectrodeResistance" placeholder="Electrode resistance to earth in (Ω)"></textarea>
                                                 </div>
                                             </td>
                                             <td>
@@ -2182,7 +2181,7 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                <textarea class="form-control" placeholder="Remarks"></textarea>
+                                                <textarea class="form-control" formControlName="earthingElectrodeRemarks" placeholder="Remarks"></textarea>
                                                 </div>
                                             </td>
                                         </tr>

@@ -1,4 +1,4 @@
-import { Earthing } from './earthing';
+import { Earthing } from './earthingReport';
 
 describe('Earthing', () => {
   it('should create an instance', () => {
