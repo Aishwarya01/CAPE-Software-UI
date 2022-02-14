@@ -416,6 +416,7 @@ export class EmcFacilityDataComponent implements OnInit {
               this.popup = true;
               this.success = true;
               this.successMsg = data;
+              this.retriveFacilityDetails();
 
             },
             (error: any) => {

@@ -284,6 +284,7 @@ export class EmcClientDetailsComponent implements OnInit {
               this.popup = true;
               this.success = true;
               this.successMsg = data;
+              this.retriveClientDetails();
 
             },
             (error: any) => {

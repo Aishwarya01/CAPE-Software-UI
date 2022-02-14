@@ -376,6 +376,7 @@ export class EmcElectromagneticCompatibilityDataComponent implements OnInit {
               this.popup = true;
               this.success = true;
               this.successMsg = data;
+              this.retriveElectroMagneticCompatibilityDetails();
 
             },
             (error: any) => {

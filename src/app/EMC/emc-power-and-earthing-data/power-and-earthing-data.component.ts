@@ -433,6 +433,7 @@ export class PowerAndEarthingDataComponent implements OnInit {
               this.popup = true;
               this.success = true;
               this.successMsg = data;
+              this.retrivePowerAndEarthingDetails();
 
             },
             (error: any) => {
