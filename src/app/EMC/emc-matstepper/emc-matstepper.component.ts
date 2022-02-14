@@ -93,6 +93,7 @@ export class EmcMatstepperComponent implements OnInit {
 
   public doSomething3(next: any): void {
     this.Completed3 = this.electroMagneticCopatibility.success;
+    this.saved.ngOnInit();
     this.final.ngOnInit();
   }
 
