@@ -943,14 +943,16 @@
                     </div>
                 </div>
 
-                <div formArrayName="distributionPannelArr"
-                    *ngFor="let b of getDistributionPannelControl(); let j = index">
-                    <div class="form-group" [formGroupName]="j">
+               
 
-                        <mat-expansion-panel [hideToggle]="false" class="body">
+                        <mat-expansion-panel [hideToggle]="false" class="body" style="margin-top: -16px;">
                             <!-- Distribution panel at load (final circuits) -->
                             <mat-expansion-panel-header>Distribution panel At Load (Final Circuits)
                             </mat-expansion-panel-header>
+
+                            <div formArrayName="distributionPannelArr"
+                            *ngFor="let b of getDistributionPannelControl(); let j = index">
+                            <div class="form-group" [formGroupName]="j">
 
                             <!-- a. Branch circuit wire size -->
                             <div>
@@ -1278,9 +1280,10 @@
                                     </div>
                                 </div>
                             </div>
-                        </mat-expansion-panel>
+                        </div>
                     </div>
-                </div>
+                        </mat-expansion-panel>
+                   
             </mat-accordion>
 
             <div *ngIf="validationError" style="text-align: center;margin-top: 30px;">
