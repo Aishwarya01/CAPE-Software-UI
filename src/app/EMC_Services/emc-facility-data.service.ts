@@ -9,17 +9,17 @@ import { EmcFacilityData } from '../EMC_Model/emc-facility-data';
 })
 export class EmcFacilityDataService {
 
-  apiUrl = environment.apiUrl;
+  apiUrl_EMC = environment.apiUrl_EMC;
   constructor(private http: HttpClient) { }
 
   public addFacilityData(emcFacilityData: EmcFacilityData): Observable<any> {
-    return this.http.post<any>(this.apiUrl + '/saveFacilityData', emcFacilityData, { responseType: 'text' as 'json' })
+    return this.http.post<any>(this.apiUrl_EMC + '/saveFacilityData', emcFacilityData, { responseType: 'text' as 'json' })
   }
   public retrieveFacilityData(userName:any, emcId:any): Observable<any> {
-    return this.http.get<any>(this.apiUrl + '/retrieveFacilityData'+'/'+userName+ '/' +emcId, { responseType: 'text' as 'json' })
+    return this.http.get<any>(this.apiUrl_EMC + '/retrieveFacilityData'+'/'+userName+ '/' +emcId, { responseType: 'text' as 'json' })
   }
   public upDateFacilityData(emcFacilityData: EmcFacilityData): Observable<any> {
-    return this.http.put<any>(this.apiUrl + '/updateFacilityData', emcFacilityData, { responseType: 'text' as 'json' })
+    return this.http.put<any>(this.apiUrl_EMC + '/updateFacilityData', emcFacilityData, { responseType: 'text' as 'json' })
   }
 
 
