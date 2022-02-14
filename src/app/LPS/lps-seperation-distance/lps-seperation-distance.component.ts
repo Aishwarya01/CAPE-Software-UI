@@ -48,6 +48,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
   flag: boolean = false;
   arr: any  = [];
   separatedistancePushArr:any=[];
+  separateDistanceDownConductorsPushArr:any=[];
   isEditable!:boolean
   constructor(
 
@@ -101,6 +102,7 @@ export class LpsSeperationDistanceComponent implements OnInit {
       buildingCount: new FormControl(''),
       buildingName:new FormControl(buildingName),
       continutyExistaEarthOb:new FormControl(''),
+      continutyExistaEarthRem:new FormControl(''),
       flag:new FormControl(''),
 
       separateDistance: this.formBuilder.array([this.separateDistanceArrForm()]),
@@ -203,14 +205,20 @@ export class LpsSeperationDistanceComponent implements OnInit {
     return this.separeteDistanceForm.controls;
   }
 
-  add(form:any) {
-    debugger
+   //SeparateDistance
+  addSeparateDistance(form:any,a:any) {
     this.separateDistance = form.get('separateDistance') as FormArray;
     this.separateDistance.push(this.separateDistanceArrForm());
-    // form.push(this.separateDistance);
+  }
+
+   //separateDistanceDownConductors
+  addSeparateDistanceDownConductors(form:any,a:any) {
+    this.separateDistanceDownConductors = form.get('separateDistanceDownConductors') as FormArray;
+    this.separateDistanceDownConductors.push(this.separateDistanceArr2Form());
   }
   
-  removeItem(form:any,a:any,index:any) {
+  //SeparateDistance
+  removeSeparateDistance(form:any,a:any,index:any) {
     debugger
     if(a.value.seperationDistanceDescId !=0 && a.value.seperationDistanceDescId !=undefined)
     {
@@ -218,10 +226,21 @@ export class LpsSeperationDistanceComponent implements OnInit {
       (form.get('separateDistance') as FormArray).removeAt(index);
       this.separatedistancePushArr= this.separatedistancePushArr.concat(a.value);
     }
+  else{
+    (form.get('separateDistance') as FormArray).removeAt(index);}
+  }
 
-
-  else
-  {(form.get('separateDistance') as FormArray).removeAt(index);}
+  //separateDistanceDownConductors
+  removeSeparateDistanceDownConductors(form:any,a:any,index:any) {
+    debugger
+    if(a.value.seperationDistanceDownConductorId !=0 && a.value.seperationDistanceDownConductorId !=undefined)
+    {
+      a.value.flag=false;
+      (form.get('separateDistanceDownConductors') as FormArray).removeAt(index);
+      this.separateDistanceDownConductorsPushArr= this.separateDistanceDownConductorsPushArr.concat(a.value);
+    }
+  else{
+    (form.get('separateDistanceDownConductors') as FormArray).removeAt(index);}
   }
 
   onChangeForm(event:any){
@@ -331,9 +350,15 @@ export class LpsSeperationDistanceComponent implements OnInit {
       return;
     }
 
-    this.seperationDistanceReport.seperationDistanceDescription = this.separeteDistanceForm.value.seperationDistanceDescription;
-    
+    this.seperationDistanceReport = this.separeteDistanceForm.value;
+
+    for(let arr of this.seperationDistanceReport.seperationDistanceDescription) {
+      this.seperationDistanceReport.seperationDistanceDescription
+    }
+
     this.seperationDistanceReport.seperationDistanceDescription=this.seperationDistanceReport.seperationDistanceDescription.concat(this.separatedistancePushArr);
+    this.seperationDistanceReport.seperationDistanceDescription=this.seperationDistanceReport.seperationDistanceDescription.concat(this.separatedistancePushArr);
+
     this.separatedistancePushArr=[];
     if (!this.validationError) {
       if(flag) {

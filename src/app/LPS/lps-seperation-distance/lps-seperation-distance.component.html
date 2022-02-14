@@ -29,7 +29,7 @@
                                         <i class="bi bi-align-start"></i>
                                     </span>
                                 </div>
-                                <input class="form-control" formControlName="buildingNumber"
+                                <input class="form-control" formControlName="buildingName"
                                     placeholder="Enter length in meter" />
                             </div>
                         </div>
@@ -73,10 +73,11 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <textarea type="text" class="form-control"></textarea>
+                                                    <textarea type="text" formControlName="continutyExistaEarthRem" class="form-control"></textarea>
                                                 </div>
                                             </td>
                                         </tr>
+                                       
                                     </tbody>
                                 </div>
                                 </table>
@@ -102,12 +103,12 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <textarea type="number" [readonly]="isEditable" formControlName="seperationDistanceOb" class="form-control" placeholder="Please enter Observation here" 
-                                                        [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceOb')?.errors }"></textarea>
-                                                        <div *ngIf="submitted && f.get('seperationDistanceOb')?.errors"
+                                                        <textarea type="number" [readonly]="isEditable" formControlName="seperationDistanceDesc" class="form-control" placeholder="Please enter Observation here" 
+                                                        [ngClass]="{ 'is-invalid': submitted && f.get('seperationDistanceDesc')?.errors }"></textarea>
+                                                        <div *ngIf="submitted && f.get('seperationDistanceDesc')?.errors"
                                                             class="invalid-feedback">
                                                             <div
-                                                                *ngIf="f.get('seperationDistanceOb')?.errors?.required">SeparateDistance Observation is required</div>
+                                                                *ngIf="f.get('seperationDistanceDesc')?.errors?.required">SeparateDistance Observation is required</div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -136,10 +137,21 @@
                                                                 <i class="bi bi-text-paragraph"></i>
                                                             </span>
                                                         </div>
-                                                        <textarea type="number" class="form-control"></textarea>
+                                                        <textarea type="number"  formControlName="seperationDistanceRem" class="form-control"></textarea>
                                                     </div>
                                                 </td>
                                         </tr>
+                                        <div class="row" style="float: right;
+                                        margin-right: 10px;">
+                                        <mat-icon style="cursor: pointer;padding: 0px 33px 0px 0px;"  *ngIf="getseparateDistanceDescriptionControls(q).length == i+1" 
+                                        [ngClass]="{'disableForm':service.allFieldsDisable}" 
+                                        (click)="addSeparateDistance(q,f)">add_box</mat-icon>
+
+                                        <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" 
+                                        *ngIf="getseparateDistanceDescriptionControls(q).length > 1 " 
+                                            (click)="removeSeparateDistance(q,f,i)" style="cursor: pointer;float: right;margin-left: inherit;">remove_circle_outline</mat-icon>
+                                        
+                                      </div>
                                         </tbody>
                                     <!-- </div> -->
                                 </table>
@@ -203,6 +215,16 @@
                                                     </div>
                                                 </td>
                                             </tr>
+                                            <div class="row" style="float: right;
+                                            margin-right: 10px;">
+                                            <mat-icon style="cursor: pointer;padding: 0px 33px 0px 0px;" 
+                                            [ngClass]="{'disableForm':service.allFieldsDisable}"  *ngIf="getSeparateDistanceDownConductorsControls(q).length == i+1 "
+                                            (click)="addSeparateDistanceDownConductors(q,f)">add_box</mat-icon>
+
+                                            <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="getSeparateDistanceDownConductorsControls(q).length > 1" 
+                                                (click)="removeSeparateDistanceDownConductors(q,f,i)" style="cursor: pointer;float: right;margin-left: inherit;">remove_circle_outline</mat-icon>
+                                            
+                                          </div>
                                         </tbody>
                                 </table>
                             </div>
