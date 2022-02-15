@@ -83,7 +83,6 @@
                                 </table>
 
                                 <table class="table TableBorder">
-                                    <!-- <div > -->
                                         <tbody>
                                         <tr>
                                             <td colspan="4">
@@ -94,9 +93,10 @@
                                         </tr>
                                         </tbody>
                                         <tbody formArrayName="separateDistance" *ngFor="let f of getseparateDistanceDescriptionControls(q); let i = index">
-                                        <tr class="form-group" [formGroupName]="i">
+                                        <div class="form-group" [formGroupName]="i">
+                                            <tr>
                                                 <td>2.{{i+1}}</td>
-                                                <td style="width: 33rem;">
+                                                <td style="width: 38rem;">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">
@@ -113,7 +113,7 @@
                                                     </div>
                                                 </td>
 
-                                                <td style="width: 33rem;">
+                                                <td style="width: 38rem;">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">
@@ -130,7 +130,7 @@
                                                     </div>
                                                 </td>
 
-                                                <td style="width: 33rem;">
+                                                <td style="width: 38rem;">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">
@@ -140,20 +140,16 @@
                                                         <textarea type="number"  formControlName="seperationDistanceRem" class="form-control"></textarea>
                                                     </div>
                                                 </td>
-                                        </tr>
-                                        <div class="row" style="float: right;
-                                        margin-right: 10px;">
-                                        <mat-icon style="cursor: pointer;padding: 0px 33px 0px 0px;"  *ngIf="getseparateDistanceDescriptionControls(q).length == i+1" 
-                                        [ngClass]="{'disableForm':service.allFieldsDisable}" 
-                                        (click)="addSeparateDistance(q,f)">add_box</mat-icon>
+                                            </tr>
+                                        <div class="row" style="float: right;">
+                                            <mat-icon class="mousechange" type="button" *ngIf="getseparateDistanceDescriptionControls(q).length == i+1" 
+                                            [ngClass]="{'disableForm':service.allFieldsDisable}" style="float: right;position: relative; margin-top: 5px;"
+                                            (click)="addSeparateDistance(q,f)">add_box</mat-icon>
 
-                                        <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" 
-                                        *ngIf="getseparateDistanceDescriptionControls(q).length > 1 " 
-                                            (click)="removeSeparateDistance(q,f,i)" style="cursor: pointer;float: right;margin-left: inherit;">remove_circle_outline</mat-icon>
-                                        
-                                      </div>
+                                            <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="getseparateDistanceDescriptionControls(q).length > 1 " style="float: right;position: relative; margin-top: 5px; margin-bottom: 5px;" (click)="removeSeparateDistance(q,f,i)">remove_circle_outline</mat-icon>
+                                        </div>
+                                        </div>
                                         </tbody>
-                                    <!-- </div> -->
                                 </table>
 
                                 <table class="table TableBorder">
@@ -168,9 +164,10 @@
                                         </tbody>
 
                                         <tbody formArrayName="separateDistanceDownConductors" *ngFor="let f of getSeparateDistanceDownConductorsControls(q); let i = index">
-                                            <tr class="form-group" [formGroupName]="i">
+                                            <div class="form-group" [formGroupName]="i">
+                                                <tr>
                                                 <td>3.{{i+1}}</td>
-                                                <td style="width: 33rem;">
+                                                <td style="width: 38rem;">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">
@@ -187,7 +184,7 @@
                                                     </div>
                                                 </td>
 
-                                                <td style="width: 33rem;">
+                                                <td style="width: 38rem;">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">
@@ -204,7 +201,7 @@
                                                     </div>
                                                 </td>
 
-                                                <td style="width: 33rem;">
+                                                <td style="width: 38rem;">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">
@@ -214,16 +211,15 @@
                                                         <textarea type="number" class="form-control" formControlName="noPannelSupplittingRem"></textarea>
                                                     </div>
                                                 </td>
-                                            </tr>
-                                            <div class="row" style="float: right;
-                                            margin-right: 10px;">
-                                            <mat-icon style="cursor: pointer;padding: 0px 33px 0px 0px;" 
-                                            [ngClass]="{'disableForm':service.allFieldsDisable}"  *ngIf="getSeparateDistanceDownConductorsControls(q).length == i+1 "
-                                            (click)="addSeparateDistanceDownConductors(q,f)">add_box</mat-icon>
+                                                </tr>
+                                            <div class="row" style="float: right;">
+                                                <mat-icon  
+                                                [ngClass]="{'disableForm':service.allFieldsDisable}" style="float: right;position: relative; margin-top: 5px;"  *ngIf="getSeparateDistanceDownConductorsControls(q).length == i+1 "
+                                                (click)="addSeparateDistanceDownConductors(q,f)">add_box</mat-icon>
 
-                                            <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="getSeparateDistanceDownConductorsControls(q).length > 1" 
-                                                (click)="removeSeparateDistanceDownConductors(q,f,i)" style="cursor: pointer;float: right;margin-left: inherit;">remove_circle_outline</mat-icon>
-                                            
+                                                <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" *ngIf="getSeparateDistanceDownConductorsControls(q).length > 1" 
+                                                    (click)="removeSeparateDistanceDownConductors(q,f,i)" style="float: right;position: relative; margin-top: 5px; margin-bottom: 5px;">remove_circle_outline</mat-icon>
+                                            </div>
                                           </div>
                                         </tbody>
                                 </table>

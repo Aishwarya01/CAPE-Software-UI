@@ -2269,43 +2269,10 @@
                                         <th>Observation</th>
                                         <th>Remarks(Optional)</th>
                                     </thead>
-                                    <!-- <tr>
-                                        <td style="width: 1rem; text-align: center;">12.1</td>
-                                        <td style="width: 24rem;">Test joint available or not</td>
-                                        <td style="width: 43rem;">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <textarea type="text" class="form-control"
-                                                    [readonly]="isEditable" formControlName="testJointTypeOb"
-                                                    placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('testJointTypeOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('testJointTypeOb')?.errors"
-                                                    class="invalid-feedback">
-                                                    <div *ngIf="a.get('testJointTypeOb')?.errors?.required">Test joint
-                                                        available or not observation is required</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td style="width: 43rem;">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-text-paragraph"></i>
-                                                    </span>
-                                                </div>
-                                                <textarea type="text" class="form-control"
-                                                    [readonly]="isEditable" formControlName="testJointTypeRem" ></textarea>
-                                            </div>
-                                        </td>
-                                    </tr> -->
                                     <tr>
-                                        <td style="text-align: center;">12(a)</td>
-                                        <td>Material of test joint</td>
-                                        <td>
+                                        <td style="text-align: center; width: 1rem;">12(a)</td>
+                                        <td style="width: 24rem;">Material of test joint</td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -2331,7 +2298,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td style="width: 43rem;">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
@@ -2354,7 +2321,6 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" ></textarea>
                                                     <select class="form-control" class="form-control" formControlName="accessibilityOfTestJointOb" placeholder="Please enter Observation here"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('accessibilityOfTestJointOb')?.errors}">
                                                         <option  value="" selected>Select Option</option>
