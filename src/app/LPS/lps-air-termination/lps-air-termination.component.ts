@@ -426,8 +426,6 @@ createAirHolderIteration()  : FormGroup {
       deviationRemarks: new FormControl(''),
       deviationInstallationObserv:  new FormControl('', Validators.required),
       deviationInstallationRemarks: new FormControl(''),
-      installationQualityObserv:  new FormControl('', Validators.required),
-      installationQualityRemarks: new FormControl(''),
       companyNameObserv:  new FormControl('', Validators.required),
       companyNameRemarks: new FormControl(''),
       connectionMadeBraOb:  new FormControl('', Validators.required),
@@ -543,9 +541,6 @@ createAirHolderIteration()  : FormGroup {
         revisionNoRemarks: new FormControl({disabled: false, value: item.revisionNoRemarks}),
         deviationObserv:  new FormControl({disabled: false, value: item.deviationObserv}, Validators.required),
         deviationRemarks: new FormControl({disabled: false, value: item.deviationRemarks}),
-        installationQualityObserv:  new FormControl({disabled: false, value: item.installationQualityObserv}, Validators.required),
-        installationQualityRemarks: new FormControl({disabled: false, value: item.installationQualityRemarks}),
-  
         connectionMadeBraOb:  new FormControl({disabled: false, value: item.connectionMadeBraOb}, Validators.required),
         connectionMadeBraRe: new FormControl({disabled: false, value: item.connectionMadeBraRe}),
         electricalEquipPlacedOb:  new FormControl({disabled: false, value: item.electricalEquipPlacedOb}, Validators.required),

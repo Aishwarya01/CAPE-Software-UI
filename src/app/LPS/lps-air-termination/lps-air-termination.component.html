@@ -12,7 +12,7 @@
                     </mat-expansion-panel-header>
 
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label for="buildingNumber">Building Number</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
@@ -30,7 +30,7 @@
                             </div>
                         </div>
         
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label for="buildingName">Building Name</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
@@ -63,9 +63,9 @@
                                 <select class="form-control" formControlName="buildingType" [ngClass]="{ 'is-invalid': submitted && q.get('buildingType')?.errors }"
                                 required>
                                     <option value="" selected>Select Option</option>
-                                    <option value="" >RCC with brick</option>
-                                    <option value="" >PEB with metal sheet</option>
-                                    <option value="" >Others</option>
+                                    <option value="RCC with brick" >RCC with brick</option>
+                                    <option value="PEB with metal sheet" >PEB with metal sheet</option>
+                                    <option value="Others" >Others</option>
                                 </select>
                                     <div *ngIf="submitted && q.get('buildingType')?.errors" class="invalid-feedback">
                                         <div *ngIf="q.get('buildingType')?.errors?.required">Type of Building is required</div>
@@ -81,7 +81,7 @@
                                         <i class="bi bi-building"></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" formControlName="buildingTypeOthers">
                             </div>
                         </div>
                     </div>
@@ -151,18 +151,15 @@
                                         <i class="bi bi-distribute-horizontal"></i>
                                     </span>
                                 </div>
-                                <textarea type="number" class="form-control" formControlName="protrusionHeight" placeholder="Height of tallest protrution (eg. over head tank  chimney)"
-                                [ngClass]="{ 'is-invalid': submitted && q.get('protrusionHeight')?.errors }"
-                                        required></textarea>
+                                <input type="number" class="form-control" placeholder="Height of tallest protrution" formControlName="protrusionHeight" 
+                                [ngClass]="{ 'is-invalid': submitted && q.get('protrusionHeight')?.errors }" required>
                                         <div *ngIf="submitted && q.get('protrusionHeight')?.errors"
                                                 class="invalid-feedback">
                                                 <div *ngIf="q.get('protrusionHeight')?.errors?.required">Height is required</div>
                                         </div>
                         </div>
                         </div>
-                    </div>
-        
-                    <div class="row">
+
                         <div class="col-md-4">
                             <label for="levelofprotection">Level of protection</label>
                             <div class="input-group">
@@ -173,19 +170,45 @@
                                 </div>
                                 <select class="form-control" formControlName="protectionLevel" [ngClass]="{ 'is-invalid': submitted && q.get('protectionLevel')?.errors }" required>
                                     <option value="" selected>Select Option</option>
-                                    <option value="" >Level I</option>
-                                    <option value="" >Level II</option>
-                                    <option value="" >Level III</option>
-                                    <option value="" >Level IV</option>
-                                    <option value="" >Risk Assesment not carried out</option>
+                                    <option value="Level I" >Level I</option>
+                                    <option value="Level II" >Level II</option>
+                                    <option value="Level III" >Level III</option>
+                                    <option value="Level IV" >Level IV</option>
+                                    <option value="Risk Assesment not carried out" >Risk Assesment not carried out</option>
                                 </select>
                                     <div *ngIf="submitted && q.get('protectionLevel')?.errors" class="invalid-feedback">
                                     <div *ngIf="q.get('protectionLevel')?.errors?.required">Level of protection is required</div>
                                 </div>
                         </div>
-                    </div> 
+                        </div> 
                     </div>
 
+                    <br>
+            <div class="table-responsive" style="overflow-x: unset;">
+                <table class="table TableBorder">
+                    <thead>
+                        <th>Availability</th>
+                        <th>Remarks</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <select class="form-control"  formControlName="airBasicDescriptionAvailabilityOb">
+                                    <option value="" selected>Select Option</option>
+                                    <option value="Available">Available </option>
+                                    <option value="Not available">Not availablee</option>
+                                </select>
+                            </td>
+                            <td>
+                                <textarea [readonly]="isEditable" formControlName="airBasicDescriptionAvailabilityRem" type="text"
+                                    class="form-control" ></textarea>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br>
+            <h2>Drawing Details:</h2>
             <!-- Table -->
             <div class="row">
                 <div class="col-sm-16">
@@ -197,13 +220,7 @@
                         <th>Observation</th>
                         <th>Remarks(Optional)</th>
                     </thead> -->
-                    <select class="form-control" formControlName="airBasicDescriptionAvailabilityOb"
-                    [ngClass]="{ 'is-invalid': submitted && q.get('airBasicDescriptionAvailabilityOb')?.errors }"
-                    required>
-                        <option value="" selected>Select Option</option>
-                        <option value="" >Available</option>
-                        <option value="" >Not available</option>
-                    </select>
+        
                     <tbody formArrayName="airBasicDescription" *ngFor="let a of getDescriptionControl(q); let j = index">
                         <div class="form-group" [formGroupName]="j">
 
@@ -484,8 +501,8 @@
                                         [ngClass]="{ 'is-invalid': submitted && a.get('deviationObserv')?.errors }"
                                         required>
                                             <option value="" selected>Select Option</option>
-                                            <option value="" >Yes</option>
-                                            <option value="" >No</option>
+                                            <option value="Yes" >Yes</option>
+                                            <option value="No" >No</option>
                                         </select>
                                         <div *ngIf="submitted && a.get('deviationObserv')?.errors"
                                                 class="invalid-feedback">
@@ -519,8 +536,8 @@
                                         [ngClass]="{ 'is-invalid': submitted && a.get('deviationInstallationObserv')?.errors }"
                                         required>
                                             <option value="" selected>Select Option</option>
-                                            <option value="" >Yes</option>
-                                            <option value="" >No</option>
+                                            <option value="Yes" >Yes</option>
+                                            <option value="No" >No</option>
                                         </select>
                                         <div *ngIf="submitted && a.get('deviationInstallationObserv')?.errors"
                                                 class="invalid-feedback">
@@ -585,12 +602,12 @@
                                                 <select class="form-control" formControlName="connectionMadeBraOb" 
                                                 [ngClass]="{ 'is-invalid': submitted && a.get('connectionMadeBraOb')?.errors}" required>
                                                     <option value="" selected>Select Option</option>
-                                                    <option value="" >Brazing</option>
-                                                    <option value="" >Welding</option>
-                                                    <option value="" >Crimping</option>
-                                                    <option value="" >Seaming</option>
-                                                    <option value="" >Screwing</option>
-                                                    <option value="" >Bolting (connectors)</option>
+                                                    <option value="Brazing" >Brazing</option>
+                                                    <option value="Welding" >Welding</option>
+                                                    <option value="Crimping" >Crimping</option>
+                                                    <option value="Seaming" >Seaming</option>
+                                                    <option value="Screwing" >Screwing</option>
+                                                    <option value="Bolting" >Bolting (connectors)</option>
                                                 </select>
                                             <div *ngIf="submitted && a.get('connectionMadeBraOb')?.errors"
                                                     class="invalid-feedback">
@@ -624,8 +641,8 @@
                                                 <select class="form-control" formControlName="electricalEquipPlacedOb" 
                                                 [ngClass]="{ 'is-invalid': submitted && a.get('electricalEquipPlacedOb')?.errors}" required>
                                                     <option value="" selected>Select Option</option>
-                                                    <option value="" >Yes</option>
-                                                    <option value="" >No</option>
+                                                    <option value="Yes" >Yes</option>
+                                                    <option value="No" >No</option>
                                                 </select>
                                             <div *ngIf="submitted && a.get('electricalEquipPlacedOb')?.errors"
                                                     class="invalid-feedback">
@@ -660,8 +677,8 @@
                                                 <select class="form-control" formControlName="combustablePartOb"
                                                 [ngClass]="{ 'is-invalid': submitted && a.get('combustablePartOb')?.errors}" required>
                                                     <option value="" selected>Select Option</option>
-                                                    <option value="" >Yes</option>
-                                                    <option value="" >No</option>
+                                                    <option value="Yes" >Yes</option>
+                                                    <option value="No" >No</option>
                                                 </select>
                                             <div *ngIf="submitted && a.get('combustablePartOb')?.errors"
                                                     class="invalid-feedback">
@@ -695,8 +712,8 @@
                                                 <select class="form-control" formControlName="terminationMeshConductorOb"
                                                 [ngClass]="{ 'is-invalid': submitted && a.get('terminationMeshConductorOb')?.errors}" required>
                                                     <option value="" selected>Select Option</option>
-                                                    <option value="" >Yes</option>
-                                                    <option value="" >No</option>
+                                                    <option value="Yes" >Yes</option>
+                                                    <option value="No" >No</option>
                                                 </select>
                                                 <div *ngIf="submitted && a.get('terminationMeshConductorOb')?.errors"
                                                     class="invalid-feedback">
@@ -730,8 +747,8 @@
                                                 <select class="form-control" formControlName="bondingEquipotentialOb"
                                                 [ngClass]="{ 'is-invalid': submitted && a.get('bondingEquipotentialOb')?.errors}" required>
                                                     <option value="" selected>Select Option</option>
-                                                    <option value="" >Yes</option>
-                                                    <option value="" >No</option>
+                                                    <option value="Yes" >Yes</option>
+                                                    <option value="No" >No</option>
                                                 </select>
                                             <div *ngIf="submitted && a.get('bondingEquipotentialOb')?.errors"
                                                     class="invalid-feedback">
@@ -766,14 +783,33 @@
                         <h3>Vertical air terminal (VAT)</h3>
                     </mat-panel-title>
                     </mat-expansion-panel-header>
-                      <select class="form-control" style="width: 30%;"
-                            (change)="onChangeAir($event,q)" formControlName="verticalAirTerminationAvailabilityOb">
-                            <option value="" selected>Select Option</option>
-                            <option value="Applicable">Applicable </option>
-                            <option value="Not applicable">Not applicable</option>
-                       </select>
+                    <div class="table-responsive" style="overflow-x: unset;">
+                        <table class="table TableBorder">
+                            <thead>
+                                <th>Availability</th>
+                                <th>Remarks</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <select class="form-control"  (change)="onChangeAir($event,q)" formControlName="verticalAirTerminationAvailabilityOb">
+                                            <option value="" selected>Select Option</option>
+                                            <option value="Applicable">Applicable </option>
+                                            <option value="Not applicable">Not applicable</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <textarea [readonly]="isEditable" formControlName="verticalAirTerminationAvailabilityRem" type="text"
+                                            class="form-control" ></textarea>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                      
                         <div style="margin-top: 10px;" *ngIf="applicableAirNote"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Vertical Air Termination</div>
                         <br>
+                        <h2 *ngIf="applicableAir">Vertical Air Termintion</h2>
                             <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableAir">
                                 <table class="table TableBorder">
                             <!-- <thead>
@@ -805,8 +841,8 @@
                                                     placeholder="Please enter Observation here"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
-                                                        <option value="" >physically good</option>
-                                                        <option value="" >not good</option>
+                                                        <option value="physically good" >physically good</option>
+                                                        <option value="not good" >not good</option>
                                                     </select>
                                                 <div *ngIf="submitted && a.get('physicalInspectionOb')?.errors"
                                                     class="invalid-feedback">
@@ -842,15 +878,15 @@
                                                     <select class="form-control" formControlName="materialOfTerminalOb"
                                                     [ngClass]="{ 'is-invalid': submitted && z.get('materialOfTerminalOb')?.errors}">
                                                     <option value="" selected>Select Option</option>
-                                                    <option value="" >copper</option>
-                                                    <option value="" >copper bonded steel</option>
-                                                    <option value="" >aluminum</option>
-                                                    <option value="" >stainless steel</option>
-                                                    <option value="" >Galvanised Iron</option>
-                                                    <option value="" >Galvanised Steel</option>
-                                                    <option value="" >Mild Steel</option>
-                                                    <option value="" >Cast Iron</option>
-                                                    <option value="" >ESE</option>
+                                                    <option value="copper" >copper</option>
+                                                    <option value="copper bonded steel" >copper bonded steel</option>
+                                                    <option value="aluminum" >aluminum</option>
+                                                    <option value="stainless steel" >stainless steel</option>
+                                                    <option value="Galvanised Iron" >Galvanised Iron</option>
+                                                    <option value="Galvanised Steel" >Galvanised Steel</option>
+                                                    <option value="Mild Steel" >Mild Steel</option>
+                                                    <option value="Cast Iron" >Cast Iron</option>
+                                                    <option value="ESE" >ESE</option>
                                                     </select>
                                                 <div *ngIf="submitted && z.get('materialOfTerminalOb')?.errors"
                                                     class="invalid-feedback">
@@ -916,9 +952,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" class="form-control" placeholder="Please enter Observation here"
+                                                <input type="number" class="form-control" placeholder="Please enter Observation here"
                                                     [readonly]="isEditable" formControlName="heightOfTerminalOb"
-                                                    [ngClass]="{ 'is-invalid': submitted && z.get('heightOfTerminalOb')?.errors}"></textarea>
+                                                    [ngClass]="{ 'is-invalid': submitted && z.get('heightOfTerminalOb')?.errors}">
                                                 <div *ngIf="submitted && z.get('heightOfTerminalOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="z.get('heightOfTerminalOb')?.errors?.required">
@@ -984,8 +1020,8 @@
                                                     <select class="form-control" formControlName="installationTerminationsystemOb"
                                                     [ngClass]="{ 'is-invalid': submitted && z.get('installationTerminationsystemOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
-                                                        <option value="" >Protected</option>
-                                                        <option value="" >Not protected</option>
+                                                        <option value="Protected" >Protected</option>
+                                                        <option value="Not protected" >Not protected</option>
                                                     </select>
                                                 <div *ngIf="submitted && z.get('installationTerminationsystemOb')?.errors"
                                                     class="invalid-feedback">
@@ -1020,9 +1056,9 @@
                                                     <select class="form-control" formControlName="supportFlatSurfaceOb"
                                                     [ngClass]="{ 'is-invalid': submitted && z.get('supportFlatSurfaceOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
-                                                        <option value="" >Clip</option>
-                                                        <option value="" >Clamp</option>
-                                                        <option value="" >Concrete</option>
+                                                        <option value="Clip" >Clip</option>
+                                                        <option value="Clamp" >Clamp</option>
+                                                        <option value="Concrete" >Concrete</option>
                                                     </select>
                                                 <div *ngIf="submitted && z.get('supportFlatSurfaceOb')?.errors"
                                                     class="invalid-feedback">
@@ -1057,8 +1093,8 @@
                                                     <select class="form-control" formControlName="heightFlatSurfaceOb"
                                                     [ngClass]="{ 'is-invalid': submitted && z.get('heightFlatSurfaceOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
-                                                        <option value="" >Yes</option>
-                                                        <option value="" >No</option>
+                                                        <option value="Yes" >Yes</option>
+                                                        <option value="No" >No</option>
                                                     </select>
                                                 <div *ngIf="submitted && z.get('heightFlatSurfaceOb')?.errors"
                                                     class="invalid-feedback">
@@ -1139,9 +1175,8 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" class="form-control" placeholder="Please enter Observation here"
-                                                    [readonly]="isEditable" formControlName="totalNumberOb"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('totalNumberOb')?.errors}"></textarea>
+                                                <input type="number" class="form-control"  placeholder="Please enter Observation here" formControlName="totalNumberOb" 
+                                                    [readonly]="isEditable" [ngClass]="{ 'is-invalid': submitted && a.get('totalNumberOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('totalNumberOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('totalNumberOb')?.errors?.required">
@@ -1171,9 +1206,8 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" class="form-control" placeholder="Please enter Observation here"
-                                                    [readonly]="isEditable" formControlName="inspNoOb"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspNoOb')?.errors}"></textarea>
+                                                <input type="number" class="form-control"  placeholder="Please enter Observation here" 
+                                                [readonly]="isEditable" formControlName="inspNoOb" [ngClass]="{ 'is-invalid': submitted && a.get('inspNoOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('inspNoOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('inspNoOb')?.errors?.required">
@@ -1204,9 +1238,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" class="form-control" placeholder="Please enter Observation here"
+                                                <input type="number" class="form-control" placeholder="Please enter Observation here"
                                                     [readonly]="isEditable" formControlName="inspPassedNoOb"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspPassedNoOb')?.errors}"></textarea>
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspPassedNoOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('inspPassedNoOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('inspPassedNoOb')?.errors?.required">
@@ -1236,9 +1270,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" class="form-control" placeholder="Please enter Observation here"
+                                                <input type="number" class="form-control" placeholder="Please enter Observation here"
                                                     [readonly]="isEditable" formControlName="inspFaileddNoOb"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspFaileddNoOb')?.errors}"></textarea>
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspFaileddNoOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('inspFaileddNoOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('inspFaileddNoOb')?.errors?.required">
@@ -1273,24 +1307,33 @@
                             <h3>Mesh conductors</h3>
                           </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <div>
-                        <select class="form-control" style="width: 30%;" 
-                                (change)="onChangeMesh($event,q)" formControlName="airMeshDescriptionAvailabilityOb">
-                                <option value="" selected>Select Option</option>
-                                <option value="Applicable" >Applicable </option>
-                                <option value="Not applicable" >Not applicable</option>
-                                </select>
+
+                            <div class="table-responsive" style="overflow-x: unset;">
+                                <table class="table TableBorder">
+                                    <thead>
+                                        <th>Availability</th>
+                                        <th>Remarks</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <select class="form-control" (change)="onChangeMesh($event,q)" formControlName="airMeshDescriptionAvailabilityOb">
+                                                    <option value="" selected>Select Option</option>
+                                                    <option value="Applicable" >Applicable </option>
+                                                    <option value="Not applicable" >Not applicable</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <textarea [readonly]="isEditable" formControlName="airMeshDescriptionAvailabilityRem" type="text"
+                                                    class="form-control" ></textarea>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                             <div style="margin-top: 10px;" *ngIf="applicableMeshNote"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Mesh conductors</div>
                             <br>
-                    <div *ngIf="applicableMesh">
-                        <select class="form-control">
-                            <option value="" selected>Select Option</option>
-                            <option value="" >Yes</option>
-                            <option value="" >No</option>
-                        </select>
-                    </div>
-                   
+                            <h2 *ngIf="applicableMesh">Mesh Conductors</h2>
                             <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableMesh">
                                 <table class="table TableBorder">
                             <tbody formArrayName="airMeshDescription" *ngFor="let a of meshControls(q); let i = index">
@@ -1314,8 +1357,8 @@
                                                     <select class="form-control" formControlName="physicalInspectionOb"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
-                                                        <option value="" >Physically good</option>
-                                                        <option value="" >Not good</option>
+                                                        <option value="Physically good" >Physically good</option>
+                                                        <option value="Not good" >Not good</option>
                                                     </select>
                                                 <div *ngIf="submitted && a.get('physicalInspectionOb')?.errors"
                                                     class="invalid-feedback">
@@ -1349,14 +1392,14 @@
                                                     <select class="form-control" formControlName="materailOfConductorOb" 
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('materailOfConductorOb')?.errors}">
                                                     <option value="" selected>Select Option</option>
-                                                    <option value="" >copper</option>
-                                                    <option value="" >copper bonded steel</option>
-                                                    <option value="" >aluminum</option>
-                                                    <option value="" >stainless steel</option>
-                                                    <option value="" >Galvanised Iron</option>
-                                                    <option value="" >Galvanised Steel</option>
-                                                    <option value="" >Mild Steel</option>
-                                                    <option value="" >Cast Iron</option>
+                                                    <option value="copper" >copper</option>
+                                                    <option value="copper bonded steel" >copper bonded steel</option>
+                                                    <option value="aluminum" >aluminum</option>
+                                                    <option value="stainless steel" >stainless steel</option>
+                                                    <option value="Galvanised Iron" >Galvanised Iron</option>
+                                                    <option value="Galvanised Steel" >Galvanised Steel</option>
+                                                    <option value="Mild Steel" >Mild Steel</option>
+                                                    <option value="Cast Iron" >Cast Iron</option>
                                                     </select>
                                                 <div *ngIf="submitted && a.get('materailOfConductorOb')?.errors"
                                                     class="invalid-feedback">
@@ -1452,9 +1495,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="maximumDistanceXOb" type="text"
+                                                <input [readonly]="isEditable" formControlName="maximumDistanceXOb" type="number"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('maximumDistanceXOb')?.errors}"></textarea>
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('maximumDistanceXOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('maximumDistanceXOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('maximumDistanceXOb')?.errors?.required">
@@ -1485,9 +1528,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="minimumDistanceXOb" type="text"
+                                                <input [readonly]="isEditable" formControlName="minimumDistanceXOb" type="number"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('minimumDistanceXOb')?.errors}"></textarea>
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('minimumDistanceXOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('minimumDistanceXOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('minimumDistanceXOb')?.errors?.required">
@@ -1519,9 +1562,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="maximumDistanceYOb" type="text"
+                                                <input [readonly]="isEditable" formControlName="maximumDistanceYOb" type="number"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('maximumDistanceYOb')?.errors}"></textarea>
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('maximumDistanceYOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('maximumDistanceYOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('maximumDistanceYOb')?.errors?.required">
@@ -1553,9 +1596,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="minimumDistanceYOb" type="text"
+                                                <input [readonly]="isEditable" formControlName="minimumDistanceYOb" type="number"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('minimumDistanceYOb')?.errors}"></textarea>
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('minimumDistanceYOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('minimumDistanceYOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('minimumDistanceYOb')?.errors?.required">
@@ -1588,9 +1631,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="heightOfConductorFlatSurfaceOb" type="text"
+                                                <input [readonly]="isEditable" formControlName="heightOfConductorFlatSurfaceOb" type="number"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('heightOfConductorFlatSurfaceOb')?.errors}"></textarea>
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('heightOfConductorFlatSurfaceOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('heightOfConductorFlatSurfaceOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div
@@ -1632,16 +1675,32 @@
                             <h3>Holders</h3>
                           </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <div>
-                        <select class="form-control" style="width: 30%;" 
-                                (change)="onChangeHolders($event,q)" formControlName="airHolderDescriptionAvailabilityOb">
-                                <option value="" selected>Select Option</option>
-                                <option value="Applicable" >Applicable </option>
-                                <option value="Not applicable" >Not applicable</option>
-                                </select>
+                            <div class="table-responsive" style="overflow-x: unset;">
+                                <table class="table TableBorder">
+                                    <thead>
+                                        <th>Availability</th>
+                                        <th>Remarks</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <select class="form-control"  (change)="onChangeHolders($event,q)" formControlName="airHolderDescriptionAvailabilityOb">
+                                                    <option value="" selected>Select Option</option>
+                                                    <option value="Applicable" >Applicable </option>
+                                                    <option value="Not applicable" >Not applicable</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <textarea [readonly]="isEditable" formControlName="airHolderDescriptionAvailabilityRem" type="text"
+                                                    class="form-control" ></textarea>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                             <div style="margin-top: 10px;" *ngIf="applicableHoldersNote"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Holders</div>
                             <br>
+                            <h2>Holders : </h2>
                             <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableHolders">
                                 <table class="table TableBorder">
                             <tbody formArrayName="airHolderDescription" *ngFor="let a of holdersContols(q); let j = index">
@@ -1664,8 +1723,8 @@
                                                 </div>
                                                     <select class="form-control" formControlName="physicalInspectionOb" [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
-                                                        <option value="" >Physically good</option>
-                                                        <option value="" >Not good</option>
+                                                        <option value="Physically good" >Physically good</option>
+                                                        <option value="Not good" >Not good</option>
                                                     </select>
                                                 <div *ngIf="submitted && a.get('physicalInspectionOb')?.errors"
                                                     class="invalid-feedback">
@@ -1699,8 +1758,8 @@
                                                 </div>
                                                     <select class="form-control" formControlName="conductorHolderFlatSurfaceOb" [ngClass]="{ 'is-invalid': submitted && a.get('conductorHolderFlatSurfaceOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
-                                                        <option value="" >Yes</option>
-                                                        <option value="" >No</option>
+                                                        <option value="Yes" >Yes</option>
+                                                        <option value="No" >No</option>
                                                     </select>
                                                 <div *ngIf="submitted && a.get('conductorHolderFlatSurfaceOb')?.errors"
                                                     class="invalid-feedback">
@@ -1734,8 +1793,8 @@
                                                 </div>
                                                     <select class="form-control" formControlName="conductorHolderOb" [ngClass]="{ 'is-invalid': submitted && a.get('conductorHolderOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
-                                                        <option value="" >Physically good</option>
-                                                        <option value="" >Not good</option>
+                                                        <option value="Physically good" >Physically good</option>
+                                                        <option value="Not good" >Not good</option>
                                                     </select>
                                                 <div *ngIf="submitted && a.get('conductorHolderOb')?.errors"
                                                     class="invalid-feedback">
@@ -1771,10 +1830,10 @@
                                                 <select class="form-control" formControlName="holderTypeOb" 
                                                 [ngClass]="{ 'is-invalid': submitted && h.get('holderTypeOb')?.errors}">
                                                     <option value="" selected>Select Option</option>
-                                                    <option value="" >concrete flat roof conductor holder (CFRCH)</option>
-                                                    <option value="" >metal roof conductor holder (MRCH)</option>
-                                                    <option value="" >metal holder for ridge tiles (MHRT)</option>
-                                                    <option value="" >Plastic roof conductor holder (PRCH)</option>
+                                                    <option value="concrete flat roof conductor holder (CFRCH)" >concrete flat roof conductor holder (CFRCH)</option>
+                                                    <option value="metal roof conductor holder (MRCH)" >metal roof conductor holder (MRCH)</option>
+                                                    <option value="metal holder for ridge tiles (MHRT)" >metal holder for ridge tiles (MHRT)</option>
+                                                    <option value="Plastic roof conductor holder (PRCH)" >Plastic roof conductor holder (PRCH)</option>
                                                 </select>
                                                 <div *ngIf="submitted && h.get('holderTypeOb')?.errors"
                                                     class="invalid-feedback">
@@ -1807,14 +1866,14 @@
                                                 </div>
                                                     <select class="form-control" formControlName="materailOfHolderOb" [ngClass]="{ 'is-invalid': submitted && h.get('materailOfHolderOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
-                                                        <option value="" >copper</option>
-                                                        <option value="" >copper bonded steel</option>
-                                                        <option value="" >aluminum</option>
-                                                        <option value="" >stainless steel</option>
-                                                        <option value="" >Galvanised Iron</option>
-                                                        <option value="" >Galvanised Steel</option>
-                                                        <option value="" >Mild Steel</option>
-                                                        <option value="" >Cast Iron</option>
+                                                        <option value="copper" >copper</option>
+                                                        <option value="copper bonded steel" >copper bonded steel</option>
+                                                        <option value="aluminum" >aluminum</option>
+                                                        <option value="stainless steel" >stainless steel</option>
+                                                        <option value="Galvanised Iron" >Galvanised Iron</option>
+                                                        <option value="Galvanised Steel" >Galvanised Steel</option>
+                                                        <option value="Mild Steel" >Mild Steel</option>
+                                                        <option value="Cast Iron" >Cast Iron</option>
                                                     </select>
                                                 <div *ngIf="submitted && h.get('materailOfHolderOb')?.errors"
                                                     class="invalid-feedback">
@@ -1845,9 +1904,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="totalHolderNoOb" type="text"
+                                                <input [readonly]="isEditable" formControlName="totalHolderNoOb" type="number"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && h.get('totalHolderNoOb')?.errors}"></textarea>
+                                                    [ngClass]="{ 'is-invalid': submitted && h.get('totalHolderNoOb')?.errors}">
                                                 <div *ngIf="submitted && h.get('totalHolderNoOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="h.get('totalHolderNoOb')?.errors?.required">
@@ -1877,9 +1936,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="holderInspNoOb" type="text"
+                                                <input [readonly]="isEditable" formControlName="holderInspNoOb" type="number"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && h.get('holderInspNoOb')?.errors}"></textarea>
+                                                    [ngClass]="{ 'is-invalid': submitted && h.get('holderInspNoOb')?.errors}">
                                                 <div *ngIf="submitted && h.get('holderInspNoOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="h.get('holderInspNoOb')?.errors?.required">
@@ -1909,9 +1968,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="holderInspPassedNoOb" type="text"
+                                                <input [readonly]="isEditable" formControlName="holderInspPassedNoOb" type="number"
                                                     class="form-control"  placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && h.get('holderInspPassedNoOb')?.errors}"></textarea>
+                                                    [ngClass]="{ 'is-invalid': submitted && h.get('holderInspPassedNoOb')?.errors}">
                                                 <div *ngIf="submitted && h.get('holderInspPassedNoOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="h.get('holderInspPassedNoOb')?.errors?.required">
@@ -1941,9 +2000,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="holderInspFailedNoOb" type="text"
+                                                <input [readonly]="isEditable" formControlName="holderInspFailedNoOb" type="number"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && h.get('holderInspFailedNoOb')?.errors}"></textarea>
+                                                    [ngClass]="{ 'is-invalid': submitted && h.get('holderInspFailedNoOb')?.errors}">
                                                 <div *ngIf="submitted && h.get('holderInspFailedNoOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="h.get('holderInspFailedNoOb')?.errors?.required">
@@ -1989,16 +2048,16 @@
                                                     <select class="form-control" formControlName="materailOfParpetHolderOb" 
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('materailOfParpetHolderOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
-                                                        <option value="" >Plastic</option>
-                                                        <option value="" >Copper</option>
-                                                        <option value="" >Copper bonded steel</option>
-                                                        <option value="" >Aluminum</option>
-                                                        <option value="" >Stainless steel</option>
-                                                        <option value="" >Galvanised Iron</option>
-                                                        <option value="" >Galvanised Steel</option>
-                                                        <option value="" >Mild Steel</option>
-                                                        <option value="" >Cast Iron</option>
-                                                        <option value="" >Not applicable</option>
+                                                        <option value="Plastic" >Plastic</option>
+                                                        <option value="Copper" >Copper</option>
+                                                        <option value="Copper bonded steel" >Copper bonded steel</option>
+                                                        <option value="Aluminum" >Aluminum</option>
+                                                        <option value="Stainless steel" >Stainless steel</option>
+                                                        <option value="Galvanised Iron" >Galvanised Iron</option>
+                                                        <option value="Galvanised Steel" >Galvanised Steel</option>
+                                                        <option value="Mild Steel" >Mild Steel</option>
+                                                        <option value="Cast Iron" >Cast Iron</option>
+                                                        <option value="Not applicable" >Not applicable</option>
                                                     </select>
                                                 <div *ngIf="submitted && a.get('materailOfParpetHolderOb')?.errors"
                                                     class="invalid-feedback">
@@ -2029,9 +2088,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" [readonly]="isEditable" formControlName="totalParpetHolderNoOb"
+                                                <input type="number" [readonly]="isEditable" formControlName="totalParpetHolderNoOb"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('totalParpetHolderNoOb')?.errors}"></textarea>
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('totalParpetHolderNoOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('totalParpetHolderNoOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('totalParpetHolderNoOb')?.errors?.required">
@@ -2061,9 +2120,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" class="form-control"
+                                                <input type="number" class="form-control"
                                                     [readonly]="isEditable" formControlName="parpetInspectionNoOb" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('parpetInspectionNoOb')?.errors}"></textarea>
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('parpetInspectionNoOb')?.errors}">>
                                                 <div *ngIf="submitted && a.get('parpetInspectionNoOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('parpetInspectionNoOb')?.errors?.required">
@@ -2094,9 +2153,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="parpetInspectionPassedNoOb" type="text"
+                                                <input [readonly]="isEditable" formControlName="parpetInspectionPassedNoOb" type="number"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('parpetInspectionPassedNoOb')?.errors}"></textarea>
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('parpetInspectionPassedNoOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('parpetInspectionPassedNoOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('parpetInspectionPassedNoOb')?.errors?.required">
@@ -2126,9 +2185,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="parpetInspectionFailedNoOb" type="text"
+                                                <input [readonly]="isEditable" formControlName="parpetInspectionFailedNoOb" type="number"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('parpetInspectionFailedNoOb')?.errors}"></textarea>
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('parpetInspectionFailedNoOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('parpetInspectionFailedNoOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('parpetInspectionFailedNoOb')?.errors?.required">
@@ -2166,16 +2225,32 @@
                             <h3>Clamps</h3>
                           </mat-panel-title>
                         </mat-expansion-panel-header>
-                        <div >
-                            <select class="form-control" style="width: 30%;" 
-                                    (change)="onChangeClamps($event,q)" formControlName="airClampsAvailabilityOb">
-                                    <option value="" selected>Select Option</option>
-                                    <option value="Applicable" >Applicable </option>
-                                    <option value="Not applicable" >Not applicable</option>
-                                    </select>
+                                <div class="table-responsive" style="overflow-x: unset;">
+                                    <table class="table TableBorder">
+                                        <thead>
+                                            <th>Availability</th>
+                                            <th>Remarks</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <select class="form-control" (change)="onChangeClamps($event,q)" formControlName="airClampsAvailabilityOb">
+                                                        <option value="" selected>Select Option</option>
+                                                        <option value="Applicable" >Applicable </option>
+                                                        <option value="Not applicable" >Not applicable</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <textarea [readonly]="isEditable" formControlName="airClampsAvailabilityRem" type="text"
+                                                        class="form-control" ></textarea>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                                 <div style="margin-top: 10px;" *ngIf="applicableClampsNote"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Clamps</div>
                                 <br>
+                                <h2 *ngIf="applicableClamps">Clamps :</h2>
                             <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableClamps">
                                 <table class="table TableBorder">
                             <tbody formArrayName="airClamps" *ngFor="let a of clampsControls(q); let i = index">
@@ -2198,8 +2273,8 @@
                                                 </div>
                                                     <select class="form-control" formControlName="physicalInspectionOb" [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
-                                                        <option value="" >Physically good</option>
-                                                        <option value="" >Not good</option>
+                                                        <option value="Physically good" >Physically good</option>
+                                                        <option value="Not good" >Not good</option>
                                                     </select>
                                                 <div *ngIf="submitted && a.get('physicalInspectionOb')?.errors"
                                                     class="invalid-feedback">
@@ -2232,8 +2307,8 @@
                                                 </div>
                                                     <select class="form-control" formControlName="conductorClampsFlatSurafaceOb" [ngClass]="{ 'is-invalid': submitted && a.get('conductorClampsFlatSurafaceOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
-                                                        <option value="" >Yes</option>
-                                                        <option value="" >No</option>
+                                                        <option value="Yes" >Yes</option>
+                                                        <option value="No" >No</option>
                                                     </select>
                                                 <div *ngIf="submitted && a.get('conductorClampsFlatSurafaceOb')?.errors"
                                                     class="invalid-feedback">
@@ -2267,8 +2342,8 @@
                                                 </div>
                                                     <select class="form-control" formControlName="interConnectionOfClampsOb" [ngClass]="{ 'is-invalid': submitted && a.get('interConnectionOfClampsOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
-                                                        <option value="" >Physically good</option>
-                                                        <option value="" >Not good</option>
+                                                        <option value="Physically good" >Physically good</option>
+                                                        <option value="Not good" >Not good</option>
                                                     </select>
                                                 <div *ngIf="submitted && a.get('interConnectionOfClampsOb')?.errors"
                                                     class="invalid-feedback">
@@ -2301,9 +2376,9 @@
                                                 </div>
                                                     <select class="form-control" formControlName="clampTypeOb" [ngClass]="{ 'is-invalid': submitted && a.get('clampTypeOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
-                                                        <option value="" >Wall clamp</option>
-                                                        <option value="" >Folding clamp</option>
-                                                        <option value="" >Both</option>
+                                                        <option value="Wall clamp" >Wall clamp</option>
+                                                        <option value="Folding clamp" >Folding clamp</option>
+                                                        <option value="Both" >Both</option>
                                                     </select>
                                                 <div *ngIf="submitted && a.get('clampTypeOb')?.errors"
                                                     class="invalid-feedback">
@@ -2337,16 +2412,16 @@
                                                 </div>
                                                     <select class="form-control" formControlName="materialOfWallClampsOb" [ngClass]="{ 'is-invalid': submitted && a.get('materialOfWallClampsOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
-                                                        <option value="" >copper</option>
-                                                        <option value="" >copper bonded steel</option>
-                                                        <option value="" >aluminum</option>
-                                                        <option value="" >stainless steel</option>
-                                                        <option value="" >Galvanised Iron</option>
-                                                        <option value="" >Galvanised Steel</option>
-                                                        <option value="" >Mild Steel</option>
-                                                        <option value="" >Cast Iron</option>
-                                                        <option value="" >Plastic</option>
-                                                        <option value="" >Not applicable</option>
+                                                        <option value="copper" >copper</option>
+                                                        <option value="copper bonded steel" >copper bonded steel</option>
+                                                        <option value="aluminum" >aluminum</option>
+                                                        <option value="stainless steel" >stainless steel</option>
+                                                        <option value="Galvanised Iron" >Galvanised Iron</option>
+                                                        <option value="Galvanised Steel" >Galvanised Steel</option>
+                                                        <option value="Mild Steel" >Mild Steel</option>
+                                                        <option value="Cast Iron" >Cast Iron</option>
+                                                        <option value="Plastic" >Plastic</option>
+                                                        <option value="Not applicable" >Not applicable</option>
                                                     </select>
                                                 <div *ngIf="submitted && a.get('materialOfWallClampsOb')?.errors"
                                                     class="invalid-feedback">
@@ -2379,15 +2454,15 @@
                                                 </div>
                                                     <select class="form-control" formControlName="materialOfFoldingClampsOb" [ngClass]="{ 'is-invalid': submitted && a.get('materialOfFoldingClampsOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
-                                                        <option value="" >copper</option>
-                                                        <option value="" >copper bonded steel</option>
-                                                        <option value="" >aluminum</option>
-                                                        <option value="" >stainless steel</option>
-                                                        <option value="" >Galvanised Iron</option>
-                                                        <option value="" >Galvanised Steel</option>
-                                                        <option value="" >Mild Steel</option>
-                                                        <option value="" >Cast Iron</option>
-                                                        <option value="" >Not applicable</option>
+                                                        <option value="copper" >copper</option>
+                                                        <option value="copper bonded steel" >copper bonded steel</option>
+                                                        <option value="aluminum" >aluminum</option>
+                                                        <option value="stainless steel" >stainless steel</option>
+                                                        <option value="Galvanised Iron" >Galvanised Iron</option>
+                                                        <option value="Galvanised Steel" >Galvanised Steel</option>
+                                                        <option value="Mild Steel" >Mild Steel</option>
+                                                        <option value="Cast Iron" >Cast Iron</option>
+                                                        <option value="Not applicable" >Not applicable</option>
                                                     </select>
                                                 <div *ngIf="submitted && a.get('materialOfFoldingClampsOb')?.errors"
                                                     class="invalid-feedback">
@@ -2419,12 +2494,12 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="inspectionNoOb" type="text"
+                                                <input [readonly]="isEditable" formControlName="totalClampsNoOb" type="number"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspectionNoOb')?.errors}"></textarea>
-                                                <div *ngIf="submitted && a.get('inspectionNoOb')?.errors"
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('totalClampsNoOb')?.errors}">
+                                                <div *ngIf="submitted && a.get('totalClampsNoOb')?.errors"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="a.get('inspectionNoOb')?.errors?.required">
+                                                    <div *ngIf="a.get('totalClampsNoOb')?.errors?.required">
                                                         Number of clamps inspected observation is required</div>
                                                 </div>
                                             </div>
@@ -2436,7 +2511,7 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="inspectionNoRe" type="text"
+                                                <textarea [readonly]="isEditable" formControlName="totalClampsNoRe" type="text"
                                                     class="form-control" ></textarea>
                                             </div>
                                         </td>
@@ -2452,9 +2527,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="inspectionNoOb" type="text"
+                                                <input [readonly]="isEditable" formControlName="inspectionNoOb" type="number"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspectionNoOb')?.errors}"></textarea>
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspectionNoOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('inspectionNoOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('inspectionNoOb')?.errors?.required">
@@ -2484,9 +2559,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="inspectionPassedOb" type="text"
+                                                <input [readonly]="isEditable" formControlName="inspectionPassedOb" type="number"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedOb')?.errors}"></textarea>
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('inspectionPassedOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('inspectionPassedOb')?.errors?.required">
@@ -2516,9 +2591,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="inspectionFailedReOb" type="text"
+                                                <input [readonly]="isEditable" formControlName="inspectionFailedReOb" type="number"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedReOb')?.errors}"></textarea>
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedReOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('inspectionFailedReOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('inspectionFailedReOb')?.errors?.required">
@@ -2556,16 +2631,32 @@
                             <h3>Expansion Pieces</h3>
                           </mat-panel-title>
                         </mat-expansion-panel-header>
-                        <div >
-                            <select class="form-control" style="width: 30%;" 
-                                    (change)="onChangeExpansion($event,q)"  formControlName="airExpansionAvailabilityOb">
-                                    <option value="" selected>Select Option</option>
-                                    <option value="Applicable" >Applicable </option>
-                                    <option value="Not applicable" >Not applicable</option>
-                                    </select>
+                                <div class="table-responsive" style="overflow-x: unset;">
+                                    <table class="table TableBorder">
+                                        <thead>
+                                            <th>Availability</th>
+                                            <th>Remarks</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <select class="form-control" (change)="onChangeExpansion($event,q)"  formControlName="airExpansionAvailabilityOb">
+                                                        <option value="" selected>Select Option</option>
+                                                        <option value="Applicable" >Applicable </option>
+                                                        <option value="Not applicable" >Not applicable</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <textarea [readonly]="isEditable" formControlName="airExpansionAvailabilityRem" type="text"
+                                                        class="form-control" ></textarea>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                                 <div style="margin-top: 10px;" *ngIf="applicableExpansionNote"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Expansion Pieces</div>
                                 <br>
+                                <h2 *ngIf="applicableExpansion">Expansion Pieces :</h2>
                             <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableExpansion">
                                 <table class="table TableBorder">
                             <tbody formArrayName="airExpansion" *ngFor="let a of expansionControls(q); let i = index">
@@ -2588,8 +2679,8 @@
                                                 </div>
                                                     <select class="form-control" formControlName="physicalInspectionOb" [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
-                                                        <option value="" >Physically good</option>
-                                                        <option value="" >Not good</option>
+                                                        <option value="Physically good" >Physically good</option>
+                                                        <option value="Not good" >Not good</option>
                                                     </select>
                                                 <div *ngIf="submitted && a.get('physicalInspectionOb')?.errors"
                                                     class="invalid-feedback">
@@ -2622,8 +2713,8 @@
                                                 </div>
                                                     <select class="form-control" formControlName="strightConnectorPiecOb" [ngClass]="{ 'is-invalid': submitted && a.get('strightConnectorPiecOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
-                                                        <option value="" >Yes</option>
-                                                        <option value="" >No</option>
+                                                        <option value="Yes" >Yes</option>
+                                                        <option value="No" >No</option>
                                                     </select>
                                                 <div *ngIf="submitted && a.get('strightConnectorPiecOb')?.errors"
                                                     class="invalid-feedback">
@@ -2656,14 +2747,14 @@
                                                 </div>
                                                     <select class="form-control" formControlName="materialOfConnectorOb" [ngClass]="{ 'is-invalid': submitted && a.get('materialOfConnectorOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
-                                                        <option value="" >copper</option>
-                                                        <option value="" >copper bonded steel</option>
-                                                        <option value="" >aluminum</option>
-                                                        <option value="" >stainless steel</option>
-                                                        <option value="" >Galvanised Iron</option>
-                                                        <option value="" >Galvanised Steel</option>
-                                                        <option value="" >Mild Steel</option>
-                                                        <option value="" >Cast Iron</option>
+                                                        <option value="copper" >copper</option>
+                                                        <option value="copper bonded steel" >copper bonded steel</option>
+                                                        <option value="aluminum" >aluminum</option>
+                                                        <option value="stainless steel" >stainless steel</option>
+                                                        <option value="Galvanised Iron" >Galvanised Iron</option>
+                                                        <option value="Galvanised Steel" >Galvanised Steel</option>
+                                                        <option value="Mild Steel" >Mild Steel</option>
+                                                        <option value="Cast Iron" >Cast Iron</option>
                                                     </select>
                                                 <div *ngIf="submitted && a.get('materialOfConnectorOb')?.errors"
                                                     class="invalid-feedback">
@@ -2696,14 +2787,14 @@
                                                 </div>
                                                     <select class="form-control" formControlName="materialOfExpansionOb" [ngClass]="{ 'is-invalid': submitted && a.get('materialOfExpansionOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
-                                                        <option value="" >Copper</option>
-                                                        <option value="" >Copper bonded steel</option>
-                                                        <option value="" >Aluminum</option>
-                                                        <option value="" >Stainless steel</option>
-                                                        <option value="" >Galvanised Iron</option>
-                                                        <option value="" >Galvanised Steel</option>
-                                                        <option value="" >Mild Steel</option>
-                                                        <option value="" >Cast Iron</option>
+                                                        <option value="Copper" >Copper</option>
+                                                        <option value="Copper bonded steel" >Copper bonded steel</option>
+                                                        <option value="Aluminum" >Aluminum</option>
+                                                        <option value="Stainless steel" >Stainless steel</option>
+                                                        <option value="Galvanised Iron" >Galvanised Iron</option>
+                                                        <option value="Galvanised Steel" >Galvanised Steel</option>
+                                                        <option value="Mild Steel" >Mild Steel</option>
+                                                        <option value="Cast Iron" >Cast Iron</option>
                                                     </select>
                                                 <div *ngIf="submitted && a.get('materialOfExpansionOb')?.errors"
                                                     class="invalid-feedback">
@@ -2734,9 +2825,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="intervalBwExpansionOb" type="text"
+                                                <input [readonly]="isEditable" formControlName="intervalBwExpansionOb" type="number"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('intervalBwExpansionOb')?.errors}"></textarea>
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('intervalBwExpansionOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('intervalBwExpansionOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('intervalBwExpansionOb')?.errors?.required">
@@ -2766,9 +2857,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="totalNoExpansionOb" type="text"
+                                                <input [readonly]="isEditable" formControlName="totalNoExpansionOb" type="number"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('totalNoExpansionOb')?.errors}"></textarea>
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('totalNoExpansionOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('totalNoExpansionOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('totalNoExpansionOb')?.errors?.required">
@@ -2798,9 +2889,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="inspectionNoOb" type="text"
+                                                <input [readonly]="isEditable" formControlName="inspectionNoOb" type="number"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspectionNoOb')?.errors}"></textarea>
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspectionNoOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('inspectionNoOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('inspectionNoOb')?.errors?.required">
@@ -2831,9 +2922,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="inspectionPassedNoOb" type="text"
+                                                <input [readonly]="isEditable" formControlName="inspectionPassedNoOb" type="number"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedNoOb')?.errors}"></textarea>
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedNoOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('inspectionPassedNoOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('inspectionPassedNoOb')?.errors?.required">
@@ -2864,9 +2955,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="inspectionFailedNoOb" type="text"
+                                                <input [readonly]="isEditable" formControlName="inspectionFailedNoOb" type="number"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedNoOb')?.errors}"></textarea>
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedNoOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('inspectionFailedNoOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('inspectionFailedNoOb')?.errors?.required">
@@ -2900,16 +2991,32 @@
                             <h3>Connectors</h3>
                           </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <div >
-                        <select class="form-control" style="width: 30%;" 
-                                (change)="onChangeConnectors($event,q)" formControlName="airConnectorsAvailabilityOb">
-                                <option value="" selected>Select Option</option>
-                                <option value="Applicable" >Applicable </option>
-                                <option value="Not applicable" >Not applicable</option>
-                                </select>
+                            <div class="table-responsive" style="overflow-x: unset;">
+                                <table class="table TableBorder">
+                                    <thead>
+                                        <th>Availability</th>
+                                        <th>Remarks</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <select class="form-control" (change)="onChangeConnectors($event,q)" formControlName="airConnectorsAvailabilityOb">
+                                                    <option value="" selected>Select Option</option>
+                                                    <option value="Applicable" >Applicable </option>
+                                                    <option value="Not applicable" >Not applicable</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <textarea [readonly]="isEditable" formControlName="airConnectorsAvailabilityRem" type="text"
+                                                    class="form-control" ></textarea>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                             <div style="margin-top: 10px;" *ngIf="applicableConnectorsNote"><b>Note:</b> &nbsp; Select applicable if you intend to fill details for Connectors</div>
                             <br>
+                            <h2 *ngIf="applicableConnectors">Connectors :</h2>
                             <div class="table-responsive" style="overflow-x: unset;" *ngIf="applicableConnectors">
                                 <table class="table TableBorder">
                             <tbody formArrayName="airConnectors" *ngFor="let a of connectorsControls(q); let i = index">
@@ -2932,8 +3039,8 @@
                                                 </div>
                                                     <select class="form-control" formControlName="physicalInspectionOb" [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
-                                                        <option value="" >Physically good</option>
-                                                        <option value="" >Not good</option>
+                                                        <option value="Physically good" >Physically good</option>
+                                                        <option value="Not good" >Not good</option>
                                                     </select>
                                                 <div *ngIf="submitted && a.get('physicalInspectionOb')?.errors"
                                                     class="invalid-feedback">
@@ -2966,8 +3073,8 @@
                                                 </div>
                                                     <select class="form-control" formControlName="checkConnectionConnectorsOb" [ngClass]="{ 'is-invalid': submitted && a.get('checkConnectionConnectorsOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
-                                                        <option value="" >Physically good</option>
-                                                        <option value="" >Not good</option>
+                                                        <option value="Physically good" >Physically good</option>
+                                                        <option value="Not good" >Not good</option>
                                                     </select>
                                                 <div *ngIf="submitted && a.get('checkConnectionConnectorsOb')?.errors"
                                                     class="invalid-feedback">
@@ -3000,16 +3107,16 @@
                                                 </div>
                                                     <select class="form-control" formControlName="materialOfConnectorOb" [ngClass]="{ 'is-invalid': submitted && a.get('materialOfConnectorOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
-                                                        <option value="" >copper</option>
-                                                        <option value="" >copper bonded steel</option>
-                                                        <option value="" >aluminum</option>
-                                                        <option value="" >stainless steel</option>
-                                                        <option value="" >Galvanised Iron</option>
-                                                        <option value="" >Galvanised Steel</option>
-                                                        <option value="" >Mild Steel</option>
-                                                        <option value="" >Cast Iron</option>
-                                                        <option value="" >Plastic</option>
-                                                        <option value="" >Not applicable</option>
+                                                        <option value="copper" >copper</option>
+                                                        <option value="copper bonded steel" >copper bonded steel</option>
+                                                        <option value="aluminum" >aluminum</option>
+                                                        <option value="stainless steel" >stainless steel</option>
+                                                        <option value="Galvanised Iron" >Galvanised Iron</option>
+                                                        <option value="Galvanised Steel" >Galvanised Steel</option>
+                                                        <option value="Mild Steel" >Mild Steel</option>
+                                                        <option value="Cast Iron" >Cast Iron</option>
+                                                        <option value="Plastic" >Plastic</option>
+                                                        <option value="Not applicable" >Not applicable</option>
                                                     </select>
                                                 <div *ngIf="submitted && a.get('materialOfConnectorOb')?.errors"
                                                     class="invalid-feedback">
@@ -3042,16 +3149,16 @@
                                                 </div>
                                                     <select class="form-control" formControlName="strightConnectorOb" [ngClass]="{ 'is-invalid': submitted && a.get('strightConnectorOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
-                                                        <option value="" >copper</option>
-                                                        <option value="" >copper bonded steel</option>
-                                                        <option value="" >aluminum</option>
-                                                        <option value="" >stainless steel</option>
-                                                        <option value="" >Galvanised Iron</option>
-                                                        <option value="" >Galvanised Steel</option>
-                                                        <option value="" >Mild Steel</option>
-                                                        <option value="" >Cast Iron</option>
-                                                        <option value="" >Plastic</option>
-                                                        <option value="" >Not applicable</option>
+                                                        <option value="copper" >copper</option>
+                                                        <option value="copper bonded steel" >copper bonded steel</option>
+                                                        <option value="aluminum" >aluminum</option>
+                                                        <option value="stainless steel" >stainless steel</option>
+                                                        <option value="Galvanised Iron" >Galvanised Iron</option>
+                                                        <option value="Galvanised Steel" >Galvanised Steel</option>
+                                                        <option value="Mild Steel" >Mild Steel</option>
+                                                        <option value="Cast Iron" >Cast Iron</option>
+                                                        <option value="Plastic" >Plastic</option>
+                                                        <option value="Not applicable" >Not applicable</option>
                                                     </select>
                                                 <div *ngIf="submitted && a.get('strightConnectorOb')?.errors"
                                                     class="invalid-feedback">
@@ -3084,16 +3191,16 @@
                                                 </div>
                                                     <select class="form-control" formControlName="tConnectorOb" [ngClass]="{ 'is-invalid': submitted && a.get('tConnectorOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
-                                                        <option value="" >copper</option>
-                                                        <option value="" >copper bonded steel</option>
-                                                        <option value="" >aluminum</option>
-                                                        <option value="" >stainless steel</option>
-                                                        <option value="" >Galvanised Iron</option>
-                                                        <option value="" >Galvanised Steel</option>
-                                                        <option value="" >Mild Steel</option>
-                                                        <option value="" >Cast Iron</option>
-                                                        <option value="" >Plastic</option>
-                                                        <option value="" >Not applicable</option>
+                                                        <option value="copper" >copper</option>
+                                                        <option value="copper bonded steel" >copper bonded steel</option>
+                                                        <option value="aluminum" >aluminum</option>
+                                                        <option value="stainless steel" >stainless steel</option>
+                                                        <option value="Galvanised Iron" >Galvanised Iron</option>
+                                                        <option value="Galvanised Steel" >Galvanised Steel</option>
+                                                        <option value="Mild Steel" >Mild Steel</option>
+                                                        <option value="Cast Iron" >Cast Iron</option>
+                                                        <option value="Plastic" >Plastic</option>
+                                                        <option value="Not applicable" >Not applicable</option>
                                                     </select>
                                                 <div *ngIf="submitted && a.get('tConnectorOb')?.errors"
                                                     class="invalid-feedback">
@@ -3126,16 +3233,16 @@
                                                 </div>
                                                     <select class="form-control" formControlName="lConnectorOb" [ngClass]="{ 'is-invalid': submitted && a.get('lConnectorOb')?.errors}">
                                                         <option value="" selected>Select Option</option>
-                                                        <option value="" >copper</option>
-                                                        <option value="" >copper bonded steel</option>
-                                                        <option value="" >aluminum</option>
-                                                        <option value="" >stainless steel</option>
-                                                        <option value="" >Galvanised Iron</option>
-                                                        <option value="" >Galvanised Steel</option>
-                                                        <option value="" >Mild Steel</option>
-                                                        <option value="" >Cast Iron</option>
-                                                        <option value="" >Plastic</option>
-                                                        <option value="" >Not applicable</option>
+                                                        <option value="copper" >copper</option>
+                                                        <option value="copper bonded steel" >copper bonded steel</option>
+                                                        <option value="aluminum" >aluminum</option>
+                                                        <option value="stainless steel" >stainless steel</option>
+                                                        <option value="Galvanised Iron" >Galvanised Iron</option>
+                                                        <option value="Galvanised Steel" >Galvanised Steel</option>
+                                                        <option value="Mild Steel" >Mild Steel</option>
+                                                        <option value="Cast Iron" >Cast Iron</option>
+                                                        <option value="Plastic" >Plastic</option>
+                                                        <option value="Not applicable" >Not applicable</option>
                                                     </select>
                                                 <div *ngIf="submitted && a.get('lConnectorOb')?.errors"
                                                     class="invalid-feedback">
@@ -3166,9 +3273,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="totalNoConnectorOb" type="text"
+                                                <input [readonly]="isEditable" formControlName="totalNoConnectorOb" type="number"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('totalNoConnectorOb')?.errors}"></textarea>
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('totalNoConnectorOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('totalNoConnectorOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('totalNoConnectorOb')?.errors?.required">
@@ -3198,9 +3305,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="inspectionNoOb" type="text"
+                                                <input [readonly]="isEditable" formControlName="inspectionNoOb" type="number"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspectionNoOb')?.errors}"></textarea>
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspectionNoOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('inspectionNoOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('inspectionNoOb')?.errors?.required">
@@ -3230,9 +3337,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="inspectionPassedNoOb" type="text"
+                                                <input [readonly]="isEditable" formControlName="inspectionPassedNoOb" type="number"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedNoOb')?.errors}"></textarea>
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspectionPassedNoOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('inspectionPassedNoOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('inspectionPassedNoOb')?.errors?.required">
@@ -3262,9 +3369,9 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea [readonly]="isEditable" formControlName="inspectionFailedOb" type="text"
+                                                <input [readonly]="isEditable" formControlName="inspectionFailedOb" type="number"
                                                     class="form-control" placeholder="Please enter Observation here"
-                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedOb')?.errors}"></textarea>
+                                                    [ngClass]="{ 'is-invalid': submitted && a.get('inspectionFailedOb')?.errors}">
                                                 <div *ngIf="submitted && a.get('inspectionFailedOb')?.errors"
                                                     class="invalid-feedback">
                                                     <div *ngIf="a.get('inspectionFailedOb')?.errors?.required">
