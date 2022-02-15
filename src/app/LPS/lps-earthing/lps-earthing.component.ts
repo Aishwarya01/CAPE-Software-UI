@@ -702,7 +702,7 @@ export class LpsEarthingComponent implements OnInit {
     if (!this.validationError) {
       if(flag) {
         if(this.earthingForm.dirty && this.earthingForm.touched){ 
-        this.lpsEarthingService.updateEarthingLps(this.earthingLpsDescription).subscribe(
+        this.lpsEarthingService.updateEarthingLps(this.earthingReport).subscribe(
           (data) => {
             this.success = true;
             this.successMsg = data;
