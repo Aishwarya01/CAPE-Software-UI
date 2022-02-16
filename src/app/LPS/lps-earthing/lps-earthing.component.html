@@ -58,11 +58,11 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                                <select class="form-control" formControlName="earthingTypeInOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && q.get('earthingTypeInOb')?.errors}">
+                                                <select class="form-control" (mouseleave)="onKey($event)" formControlName="earthingTypeInOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && q.get('earthingTypeInOb')?.errors}">
                                                     <option  value="" selected>Select Option</option>
                                                     <option value="Type A" >Type A</option>
-                                                    <option value="Type-B" >Type-B (ring)</option>
-                                                    <option value="A&B" >Type A & Type B combined</option>
+                                                    <option value="Type-B (ring)" >Type-B (ring)</option>
+                                                    <option value="Type A & Type B combined" >Type A & Type B combined</option>
                                                     <option value="Foundation" >Foundation</option>
                                                 </select>
                                                 <div *ngIf="submitted && q.get('earthingTypeInOb')?.errors"
@@ -133,15 +133,15 @@
                                                 <select class="form-control" formControlName="brazingConnectInOb" placeholder="Please enter Observation here"
                                                 [ngClass]="{ 'is-invalid': submitted && q.get('brazingConnectInOb')?.errors}">
                                                     <option  value="" selected>Select Option</option>
-                                                    <option value="" >Brazing</option>
-                                                    <option value="" >Welding</option>
-                                                    <option value="" >Crimping</option>
-                                                    <option value="" >Seaming</option>
-                                                    <option value="" >Screwing</option>
-                                                    <option value="" >Bolting (clamps)</option>
+                                                    <option value="Brazing" >Brazing</option>
+                                                    <option value="Welding" >Welding</option>
+                                                    <option value="Crimping" >Crimping</option>
+                                                    <option value="Seaming" >Seaming</option>
+                                                    <option value="Screwing" >Screwing</option>
+                                                    <option value="Bolting" >Bolting (clamps)</option>
                                                 </select>
                                                 <div *ngIf="submitted && q.get('brazingConnectInOb')?.errors" class="invalid-feedback">
-                                                    <div *ngIf="q.get('brazingConnectInOb')?.errors?.required">Connections Observation is required</div>
+                                                    <div *ngIf="q.get('brazingConnectInOb')?.errors?.required">Connections made by brazing/welding/crimping /seaming/screwing/bolting Observation is required</div>
                                                 </div>
                                         </div>
                                     </td>
@@ -165,7 +165,7 @@
                     </div>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel>
+                <mat-expansion-panel *ngIf="typeAearthingsystem">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <h3>Type-A earthing system</h3>
@@ -230,8 +230,8 @@
                                                     <select class="form-control" formControlName="earthPitDigOb" placeholder="Please enter Observation here"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('earthPitDigOb')?.errors}">
                                                         <option  value="" selected>Select Option</option>
-                                                        <option value="" >Ok</option>
-                                                        <option value="" >Not Ok</option>
+                                                        <option value="Ok" >Ok</option>
+                                                        <option value="Not Ok" >Not Ok</option>
                                                     </select>
                                                 <div *ngIf="submitted && a.get('earthPitDigOb')?.errors"
                                                     class="invalid-feedback">
@@ -262,12 +262,12 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea type="text" class="form-control"
-                                                    [readonly]="isEditable" ></textarea>
+                                                <!-- <textarea type="text" class="form-control"
+                                                    [readonly]="isEditable" ></textarea> -->
                                                     <select class="form-control" formControlName="earthElectrodeLesthanDownConductorInOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && a.get('earthElectrodeLesthanDownConductorInOb')?.errors}">
                                                         <option  value="" selected>Select Option</option>
-                                                        <option value="" >Ok</option>
-                                                        <option value="" >Not Ok</option>
+                                                        <option value="Ok" >Ok</option>
+                                                        <option value="Not Ok" >Not Ok</option>
                                                     </select>
                                                     <div *ngIf="submitted && a.get('earthElectrodeLesthanDownConductorInOb')?.errors" class="invalid-feedback">
                                                         <div *ngIf="a.get('earthElectrodeLesthanDownConductorInOb')?.errors?.required">Number of earth electrode observation is required</div>
@@ -300,9 +300,9 @@
                                                     <select class="form-control" formControlName="connectedEarthTerminalInOb" placeholder="Please enter Observation here"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('connectedEarthTerminalInOb')?.errors}">
                                                         <option  value="" selected>Select Option</option>
-                                                        <option value="YES" >Under soil</option>
-                                                        <option value="NO" >Under concrete</option>
-                                                        <option value="NO" >Via gutter</option>
+                                                        <option value="Under soil" >Under soil</option>
+                                                        <option value="Under concrete" >Under concrete</option>
+                                                        <option value="Via gutter" >Via gutter</option>
                                                     </select>
                                                 <div *ngIf="submitted && a.get('connectedEarthTerminalInOb')?.errors"
                                                     class="invalid-feedback">
@@ -336,8 +336,8 @@
                                                 </div>
                                                     <select class="form-control" formControlName="testJointEarthElectrodeInOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && a.get('testJointEarthElectrodeInOb')?.errors}">
                                                         <option  value="" selected>Select Option</option>
-                                                        <option value="" >Yes</option>
-                                                        <option value="" >No</option>
+                                                        <option value="Yes" >Yes</option>
+                                                        <option value="No" >No</option>
                                                     </select>
                                                 <div *ngIf="submitted && a.get('testJointEarthElectrodeInOb')?.errors"
                                                     class="invalid-feedback">
@@ -373,13 +373,13 @@
                                                 </div>
                                                     <select class="form-control" formControlName="earthingConductorMaterialInOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && h.get('earthingConductorMaterialInOb')?.errors}">
                                                         <option  value="" selected>Select Option</option>
-                                                        <option value="" >Copper</option>
-                                                        <option value="" >Copper bonded steel</option>
-                                                        <option value="" >Stainless steel</option>
-                                                        <option value="" >Galvanised Iron</option>
-                                                        <option value="" >Galvanised Steel</option>
-                                                        <option value="" >Mild Steel</option>
-                                                        <option value="" >Cast Iron</option>
+                                                        <option value="Copper" >Copper</option>
+                                                        <option value="Copper bonded steel" >Copper bonded steel</option>
+                                                        <option value="Stainless steel" >Stainless steel</option>
+                                                        <option value="Galvanised Iron" >Galvanised Iron</option>
+                                                        <option value="Galvanised Steel" >Galvanised Steel</option>
+                                                        <option value="Mild Steel" >Mild Steel</option>
+                                                        <option value="Cast Iron" >Cast Iron</option>
                                                     </select>
                                                     <div *ngIf="submitted && h.get('earthingConductorMaterialInOb')?.errors" class="invalid-feedback">
                                                         <div *ngIf="h.get('earthingConductorMaterialInOb')?.errors?.required">Coumpound filled properly upto gorund level observation is required</div>
@@ -413,13 +413,13 @@
                                                     placeholder="Please enter Observation here"
                                                     [ngClass]="{ 'is-invalid': submitted && h.get('earthElectrodeMaterialInOb')?.errors}">
                                                         <option  value="" selected>Select Option</option>
-                                                        <option value="" >Copper</option>
-                                                        <option value="" >Copper bonded steel</option>
-                                                        <option value="" >Stainless steel</option>
-                                                        <option value="" >Galvanised Iron</option>
-                                                        <option value="" >Galvanised Steel</option>
-                                                        <option value="" >Mild Steel</option>
-                                                        <option value="" >Cast Iron</option>
+                                                        <option value="Copper" >Copper</option>
+                                                        <option value="Copper bonded steel" >Copper bonded steel</option>
+                                                        <option value="Stainless steel" >Stainless steel</option>
+                                                        <option value="Galvanised Iron" >Galvanised Iron</option>
+                                                        <option value="Galvanised Steel" >Galvanised Steel</option>
+                                                        <option value="Mild Steel" >Mild Steel</option>
+                                                        <option value="Cast Iron" >Cast Iron</option>
                                                     </select>
                                                 <div *ngIf="submitted && h.get('earthElectrodeMaterialInOb')?.errors"
                                                     class="invalid-feedback">
@@ -455,10 +455,10 @@
                                                     placeholder="Please enter Observation here"
                                                     [ngClass]="{ 'is-invalid': submitted && h.get('earthElectrodeTypeInOb')?.errors}">
                                                         <option  value="" selected>Select Option</option>
-                                                        <option value="rod" >Rod</option>
-                                                        <option value="pipe" >Pipe</option>
-                                                        <option value="flat" >Flat or plate</option>
-                                                        <option value="chemical" >Chemical pipe</option>
+                                                        <option value="Rod" >Rod</option>
+                                                        <option value="Pipe" >Pipe</option>
+                                                        <option value="Flat or plate" >Flat or plate</option>
+                                                        <option value="Chemical pipe" >Chemical pipe</option>
                                                     </select>
                                                 <div *ngIf="submitted && h.get('earthElectrodeTypeInOb')?.errors" class="invalid-feedback">
                                                     <div *ngIf="h.get('earthElectrodeTypeInOb')?.errors?.required">Material of earth electrode observation is required</div>
@@ -546,7 +546,7 @@
                                             <div class="row" style="float: right;
                                             margin-right: 10px;">
                                             <mat-icon style="cursor: pointer;padding: 0px 33px 0px 0px;" 
-                                            [ngClass]="{'disableForm':service.allFieldsDisable}" 
+                                            [ngClass]="{'disableForm':service.allFieldsDisable}"  *ngIf="earthingDescriptionListControls(a).length == x+1" 
                                             (click)="addItemTypeAEarthing(a)">add_box</mat-icon>
 
                                             <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" 
@@ -837,7 +837,7 @@
                 </div>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel>
+                <mat-expansion-panel *ngIf="clamps">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <h3>Clamps</h3>
@@ -878,8 +878,8 @@
                                                     </div>
                                                         <select class="form-control" formControlName="physicalInspectionInOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspectionInOb')?.errors}">
                                                             <option  value="" selected>Select Option</option>
-                                                            <option value="" >Physically good</option>
-                                                            <option value="" >Not good</option>
+                                                            <option value="Physically good" >Physically good</option>
+                                                            <option value="Not good" >Not good</option>
                                                         </select>
                                                     <div *ngIf="submitted && a.get('physicalInspectionInOb')?.errors"
                                                         class="invalid-feedback">
@@ -944,12 +944,12 @@
                                                             <i class="bi bi-text-paragraph"></i>
                                                         </span>
                                                     </div>
-                                                    <textarea type="text" class="form-control"
-                                                        [readonly]="isEditable" ></textarea>
+                                                    <!-- <textarea type="text" class="form-control"
+                                                        [readonly]="isEditable" ></textarea> -->
                                                         <select class="form-control" formControlName="interConnectOfEarthClampInOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && a.get('interConnectOfEarthClampInOb')?.errors}">
                                                             <option  value="" selected>Select Option</option>
-                                                            <option value="" >Physically good</option>
-                                                            <option value="" >Not good</option>
+                                                            <option value="Physically good" >Physically good</option>
+                                                            <option value="Not good" >Not good</option>
                                                         </select>
                                                     <div *ngIf="submitted && a.get('interConnectOfEarthClampInOb')?.errors"
                                                         class="invalid-feedback">
@@ -985,8 +985,8 @@
                                                         <select class="form-control" formControlName="typeOfClampsInOb" placeholder="Please enter Observation here"
                                                         [ngClass]="{ 'is-invalid': submitted && a.get('typeOfClampsInOb')?.errors}">
                                                             <option  value="" selected>Select Option</option>
-                                                            <option value="universal" >Universal</option>
-                                                            <option value="bonding" >Bonding</option>universal/bonding
+                                                            <option value="Universal" >Universal</option>
+                                                            <option value="Bonding" >Bonding</option>
                                                         </select>
                                                     <div *ngIf="submitted && a.get('typeOfClampsInOb')?.errors"
                                                         class="invalid-feedback">
@@ -1020,14 +1020,14 @@
                                                     </div>
                                                         <select class="form-control" formControlName="materialOfClampsInOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && a.get('materialOfClampsInOb')?.errors}">
                                                             <option  value="" selected>Select Option</option>
-                                                            <option value="" >Copper</option>
-                                                            <option value="" >Copper bonded steel</option>
-                                                            <option value="" >Aluminum</option>
-                                                            <option value="" >Galvanised Iron</option>
-                                                            <option value="" >Galvanised Steel</option>
-                                                            <option value="" >Mild Steel</option>
-                                                            <option value="" >Cast Iron</option>
-                                                            <option value="" >Brass</option>
+                                                            <option value="Copper" >Copper</option>
+                                                            <option value="Copper bonded steel" >Copper bonded steel</option>
+                                                            <option value="Aluminum" >Aluminum</option>
+                                                            <option value="Galvanised Iron" >Galvanised Iron</option>
+                                                            <option value="Galvanised Steel" >Galvanised Steel</option>
+                                                            <option value="Mild Steel" >Mild Steel</option>
+                                                            <option value="Cast Iron" >Cast Iron</option>
+                                                            <option value="Brass" >Brass</option>
                                                         </select>
                                                     <div *ngIf="submitted && a.get('materialOfClampsInOb')?.errors"
                                                         class="invalid-feedback">
@@ -1195,7 +1195,7 @@
                     </div>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel>
+                <mat-expansion-panel *ngIf="earthelectrodechambers">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <h3>Earth electrode chambers</h3>
@@ -1237,8 +1237,8 @@
                                                 </div>
                                                     <select class="form-control" formControlName="physicalInspeOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && a.get('physicalInspeOb')?.errors}">
                                                         <option  value="" selected>Select Option</option>
-                                                        <option value="" >Physically good</option>
-                                                        <option value="" >Not good</option>
+                                                        <option value="Physically good" >Physically good</option>
+                                                        <option value="Not good" >Not good</option>
                                                     </select>
                                                 <div *ngIf="submitted && a.get('physicalInspeOb')?.errors"
                                                     class="invalid-feedback">
@@ -1272,10 +1272,10 @@
                                                     <select class="form-control" formControlName="chamberTypeOb" placeholder="Please enter Observation here"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('chamberTypeOb')?.errors}">
                                                         <option  value="" selected>Select Option</option>
-                                                        <option value="" >Concrete</option>
-                                                        <option value="" >Metal</option>
-                                                        <option value="" >Plastic</option>
-                                                        <option value="" >Brick wall construction</option>
+                                                        <option value="Concrete" >Concrete</option>
+                                                        <option value="Metal" >Metal</option>
+                                                        <option value="Plastic" >Plastic</option>
+                                                        <option value="Brick wall construction" >Brick wall construction</option>
                                                     </select>
                                                 <div *ngIf="submitted && a.get('chamberTypeOb')?.errors" class="invalid-feedback">
                                                     <div *ngIf="a.get('chamberTypeOb')?.errors?.required">Type of chamber observation is required</div>
@@ -1371,9 +1371,9 @@
                                                 </div>
                                                 <select class="form-control" formControlName="chamberLocationOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && a.get('chamberLocationOb')?.errors}">
                                                     <option  value="" selected>Select Option</option>
-                                                    <option value="YES" >Walk pathway</option>
-                                                    <option value="NO" >Vehicle runway</option>
-                                                    <option value="NO" >Neither both</option>
+                                                    <option value="Walk pathway" >Walk pathway</option>
+                                                    <option value="Vehicle runway" >Vehicle runway</option>
+                                                    <option value="Neither both" >Neither both</option>
                                                 </select>
                                                 <div *ngIf="submitted && a.get('chamberLocationOb')?.errors"
                                                     class="invalid-feedback">
@@ -1408,9 +1408,9 @@
                                                     <select class="form-control" formControlName="maximumPlacedSoilOb" placeholder="Please enter Observation here"
                                                     [ngClass]="{ 'is-invalid': submitted && a.get('maximumPlacedSoilOb')?.errors}">
                                                         <option  value="" selected>Select Option</option>
-                                                        <option value="YES" >Yes</option>
-                                                        <option value="NO" >No</option>
-                                                        <option value="NO" >Placed, but no numbering</option>
+                                                        <option value="Yes" >Yes</option>
+                                                        <option value="No" >No</option>
+                                                        <option value="Placed, but no numbering" >Placed, but no numbering</option>
                                                     </select>
                                                 <div *ngIf="submitted && a.get('maximumPlacedSoilOb')?.errors"
                                                     class="invalid-feedback">
@@ -1577,7 +1577,7 @@
                     </div>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel>
+                <mat-expansion-panel  *ngIf="typeBearthingsystem">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <h3>Type-B earthing system</h3>
@@ -1875,13 +1875,19 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <select class="form-control" formControlName="connectedEarthElectrodeOb">
+                                                <select class="form-control" formControlName="connectedEarthElectrodeOb"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('connectedEarthElectrodeOb')?.errors}">
                                                     <option  value="" selected>Select Option</option>
-                                                    <option value="YES" >Every 5 meters</option>
-                                                    <option value="NO" >Every 10 meters</option>
-                                                    <option value="NO" >Other distance</option>
-                                                    <option value="NO" >Connected only to every down conductor and no connection to foundation steel</option>
+                                                    <option value="Every 5 meters" >Every 5 meters</option>
+                                                    <option value="Every 10 meters" >Every 10 meters</option>
+                                                    <option value="Other distance" >Other distance</option>
+                                                    <option value="Connected only to every down conductor and no connection to foundation steel" >Connected only to every down conductor and no connection to foundation steel</option>
                                                 </select>
+                                                <div *ngIf="submitted && a.get('connectedEarthElectrodeOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('connectedEarthElectrodeOb')?.errors?.required">
+                                                        South observation is required</div>
+                                                </div>
                                             </div>
                                         </td>
                                         <td style="width: 43rem;">
@@ -1905,15 +1911,21 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <select class="form-control" formControlName="jointsMadeBrazingOb">
+                                                <select class="form-control" formControlName="jointsMadeBrazingOb"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('jointsMadeBrazingOb')?.errors}">
                                                     <option  value="" selected>Select Option</option>
-                                                    <option value="YES" >brazing</option>
-                                                    <option value="NO" >welding</option>
-                                                    <option value="NO" >crimping</option>
-                                                    <option value="NO" >seaming</option>
-                                                    <option value="NO" >screwing</option>
-                                                    <option value="NO" >bolting (connectors)</option>
+                                                    <option value="brazing" >brazing</option>
+                                                    <option value="welding" >welding</option>
+                                                    <option value="crimping" >crimping</option>
+                                                    <option value="seaming" >seaming</option>
+                                                    <option value="screwing" >screwing</option>
+                                                    <option value="bolting (connectors)" >bolting (connectors)</option>
                                                 </select>
+                                                <div *ngIf="submitted && a.get('jointsMadeBrazingOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('jointsMadeBrazingOb')?.errors?.required">
+                                                        South observation is required</div>
+                                                </div>
                                             </div>
                                         </td>
                                         <td>
@@ -1939,17 +1951,23 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <select class="form-control" formControlName="materialOfEartElectrodeOb">
+                                                <select class="form-control" formControlName="materialOfEartElectrodeOb"
+                                                 [ngClass]="{ 'is-invalid': submitted && a.get('materialOfEartElectrodeOb')?.errors}">
                                                     <option  value="" selected>Select Option</option>
-                                                    <option value="" >Copper</option>
-                                                    <option value="" >Copper bonded steel</option>
-                                                    <option value="" >Aluminum</option>
-                                                    <option value="" >stainless Steel</option>
-                                                    <option value="" >Galvanised Iron</option>
-                                                    <option value="" >Galvanised Steel</option>
-                                                    <option value="" >Mild Steel</option>
-                                                    <option value="" >Cast Iron</option>
+                                                    <option value="Copper" >Copper</option>
+                                                    <option value="Copper bonded steel" >Copper bonded steel</option>
+                                                    <option value="Aluminum" >Aluminum</option>
+                                                    <option value="Stainless Steel" >Stainless Steel</option>
+                                                    <option value="Galvanised Iron" >Galvanised Iron</option>
+                                                    <option value="Galvanised Steel" >Galvanised Steel</option>
+                                                    <option value="Mild Steel" >Mild Steel</option>
+                                                    <option value="Cast Iron" >Cast Iron</option>
                                                 </select>
+                                                <div *ngIf="submitted && a.get('materialOfEartElectrodeOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('materialOfEartElectrodeOb')?.errors?.required">
+                                                        South observation is required</div>
+                                                </div>
                                             </div>
                                         </td>
                                         <td>
@@ -1962,6 +1980,7 @@
                                                 <textarea type="text" class="form-control"
                                                     [readonly]="isEditable" formControlName="materialOfEartElectrodeRem"
                                                     ></textarea>
+                                                    
                                             </div>
                                         </td>
                                     </tr>
@@ -1975,13 +1994,19 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <select class="form-control"  formControlName="typeOfEarthElectrodeOb">
+                                                <select class="form-control"  formControlName="typeOfEarthElectrodeOb"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('typeOfEarthElectrodeOb')?.errors}">
                                                     <option  value="" selected>Select Option</option>
-                                                    <option value="YES" >rod</option>
-                                                    <option value="NO" >pipe</option>
-                                                    <option value="NO" >flat</option>
-                                                    <option value="NO" >chemical pipe</option>
+                                                    <option value="rod" >rod</option>
+                                                    <option value="pipe" >pipe</option>
+                                                    <option value="flat" >flat</option>
+                                                    <option value="chemical pipe" >chemical pipe</option>
                                                 </select>
+                                                <div *ngIf="submitted && a.get('typeOfEarthElectrodeOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('typeOfEarthElectrodeOb')?.errors?.required">
+                                                        South observation is required</div>
+                                                </div>
                                             </div>
                                         </td>
                                         <td>
@@ -2008,7 +2033,13 @@
                                                         <i class="bi bi-text-paragraph"></i>
                                                     </span>
                                                 </div>
-                                                <textarea class="form-control"  formControlName="sizeOfEarthElectrodeOb"></textarea>
+                                                <textarea class="form-control"  formControlName="sizeOfEarthElectrodeOb"
+                                                [ngClass]="{ 'is-invalid': submitted && a.get('sizeOfEarthElectrodeOb')?.errors}"></textarea>
+                                                <div *ngIf="submitted && a.get('sizeOfEarthElectrodeOb')?.errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="a.get('sizeOfEarthElectrodeOb')?.errors?.required">
+                                                        South observation is required</div>
+                                                </div>
                                             </div>
                                         </td>
                                         <td>
@@ -2096,7 +2127,7 @@
                     </div>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel>
+                <mat-expansion-panel *ngIf="testingofearthelectrodes">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <h3>Testing of earth electrodes</h3>

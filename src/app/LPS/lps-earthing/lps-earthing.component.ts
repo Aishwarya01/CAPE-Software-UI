@@ -53,7 +53,9 @@ export class LpsEarthingComponent implements OnInit {
   chamberArr!: FormArray;
   earthingArr!: FormArray;
   earthing!: FormArray;
+  earthingDescriptionList!: FormArray;
   
+  earthingDescriptionListArr: any = [];
   descriptionPushArr: any = [];
   ClampsPushArr: any = [];
   chamberPushArr: any = [];
@@ -63,6 +65,13 @@ export class LpsEarthingComponent implements OnInit {
   applicableChambersNote: boolean=true;
   applicableClampsNote: boolean=true;
   TypeAEarthingArr: any = [];
+
+  typeAearthingsystem: boolean=false;
+  clamps: boolean=false;
+  earthelectrodechambers: boolean=false;
+  typeBearthingsystem: boolean=false;
+  testingofearthelectrodes: boolean=false;
+
   constructor(
     private formBuilder: FormBuilder,private dialog: MatDialog,
     private lpsEarthings: LpsEarthing,
@@ -94,7 +103,7 @@ export class LpsEarthingComponent implements OnInit {
       flag: new FormControl('A'),   
       earthingLpsDescription: this.formBuilder.array([this.earthingDescriptionArray()]),
 
-     // earthingDescriptionList: this.formBuilder.array([this.earthingDescriptionArray()]),
+      earthingDescriptionList: this.formBuilder.array([this.earthingDescriptionArray()]),
       earthingClamps: this.formBuilder.array([this.earthingClampsArray()]),
       earthingElectrodeChamber: this.formBuilder.array([this.earthingElectrodeChamberArray()]),
       earthingSystem: this.formBuilder.array([this.earthingSystemArray()]),
@@ -102,11 +111,7 @@ export class LpsEarthingComponent implements OnInit {
       
     });
   }
-  allEarthing():FormGroup {
-    return new FormGroup({
-    //  earthingLpsDescription: this.formBuilder.array([this.earthingLpsDescriptionForm()])
-    });
-  }
+  
 
   earthingDescriptionArray():FormGroup {
     return new FormGroup({
@@ -246,7 +251,7 @@ export class LpsEarthingComponent implements OnInit {
       southRem: new FormControl('', Validators.required),
       ringWallEarthEastOb: new FormControl(null, Validators.required),
       ringWallEarthEastRem: new FormControl('', Validators.required),
-      ringWallEarthWestO: new FormControl(null, Validators.required),
+      ringWallEarthWestOb: new FormControl(null, Validators.required),
       ringWallEarthWestRem: new FormControl('', Validators.required),
       ringWallEarthNorthOb: new FormControl(null, Validators.required),
       ringWallEarthNorthRem: new FormControl('', Validators.required),
@@ -563,133 +568,133 @@ export class LpsEarthingComponent implements OnInit {
     return form.controls.earthElectrodeTesting?.controls;
   }
   
-  earthingLpsDescriptionForm1(c:any): FormGroup {
-    return new FormGroup({
+  // earthingLpsDescriptionForm1(c:any): FormGroup {
+  //   return new FormGroup({
      
-      buriedElectrodeOb: new FormControl('', Validators.required),
-      buriedElectrodeRem: new FormControl(''),
-      depthOfElectrodeOb: new FormControl('', Validators.required),
-      depthOfElectrodeRem: new FormControl(''),
-      earthOb: new FormControl('', Validators.required),
-      earthRem: new FormControl(''),
-      westOb: new FormControl('', Validators.required),
-      westRem: new FormControl(''),
-      northOb: new FormControl('', Validators.required),
-      northRem: new FormControl(''),
-      southOb: new FormControl('', Validators.required),
-      southRem: new FormControl(''),
-      ringEarthWallDistanceOb: new FormControl('', Validators.required),
-      ringEarthWallDistanceRem: new FormControl(''),
-      ringWallEarthEastOb: new FormControl('', Validators.required),
-      ringWallEarthEastRem: new FormControl(''),
-      ringWallEarthWestOb: new FormControl('', Validators.required),
-      ringWallEarthWestRem: new FormControl(''),
-      ringWallEarthNorthOb: new FormControl('', Validators.required),
-      ringWallEarthNorthRem: new FormControl(''),
-      ringWallEarthSouthOb: new FormControl('', Validators.required),
-      ringWallEarthSouthRem: new FormControl(''),
-      jointsMadeBrazingOb: new FormControl('', Validators.required),
-      jointsMadeBrazingRem: new FormControl(''),
-      materialOfEartElectrodeOb: new FormControl('', Validators.required),
-      materialOfEartElectrodeRem: new FormControl(''),
-      sizeOfEarthElectrodeOb: new FormControl('', Validators.required),
-      sizeOfEarthElectrodeRem: new FormControl(''),
-      maximumDistanceEartElectrodeWalOb: new FormControl('', Validators.required),
-      maximumDistanceEartElectrodeWalRem: new FormControl(''),
-      manimumDistanceEartElectrodeWalOb: new FormControl('', Validators.required),
-      manimumDistanceEartElectrodeWalRem: new FormControl(''),
+  //     buriedElectrodeOb: new FormControl('', Validators.required),
+  //     buriedElectrodeRem: new FormControl(''),
+  //     depthOfElectrodeOb: new FormControl('', Validators.required),
+  //     depthOfElectrodeRem: new FormControl(''),
+  //     earthOb: new FormControl('', Validators.required),
+  //     earthRem: new FormControl(''),
+  //     westOb: new FormControl('', Validators.required),
+  //     westRem: new FormControl(''),
+  //     northOb: new FormControl('', Validators.required),
+  //     northRem: new FormControl(''),
+  //     southOb: new FormControl('', Validators.required),
+  //     southRem: new FormControl(''),
+  //     ringEarthWallDistanceOb: new FormControl('', Validators.required),
+  //     ringEarthWallDistanceRem: new FormControl(''),
+  //     ringWallEarthEastOb: new FormControl('', Validators.required),
+  //     ringWallEarthEastRem: new FormControl(''),
+  //     ringWallEarthWestOb: new FormControl('', Validators.required),
+  //     ringWallEarthWestRem: new FormControl(''),
+  //     ringWallEarthNorthOb: new FormControl('', Validators.required),
+  //     ringWallEarthNorthRem: new FormControl(''),
+  //     ringWallEarthSouthOb: new FormControl('', Validators.required),
+  //     ringWallEarthSouthRem: new FormControl(''),
+  //     jointsMadeBrazingOb: new FormControl('', Validators.required),
+  //     jointsMadeBrazingRem: new FormControl(''),
+  //     materialOfEartElectrodeOb: new FormControl('', Validators.required),
+  //     materialOfEartElectrodeRem: new FormControl(''),
+  //     sizeOfEarthElectrodeOb: new FormControl('', Validators.required),
+  //     sizeOfEarthElectrodeRem: new FormControl(''),
+  //     maximumDistanceEartElectrodeWalOb: new FormControl('', Validators.required),
+  //     maximumDistanceEartElectrodeWalRem: new FormControl(''),
+  //     manimumDistanceEartElectrodeWalOb: new FormControl('', Validators.required),
+  //     manimumDistanceEartElectrodeWalRem: new FormControl(''),
 
-    })
-  }
-  earthElectrodeChamber(): FormGroup {
-    return new FormGroup({
-      locationNumber: new FormControl('', Validators.required),
-      locationName: new FormControl('', Validators.required),
-      physicalInspeOb: new FormControl('', Validators.required),
-      physicalInspeRem: new FormControl(''),
-      chamberTypeOb: new FormControl('', Validators.required),
-      chamberTypeRem: new FormControl(''),
-      chamberSizeOb: new FormControl('', Validators.required),
-      chamberSizeRem: new FormControl(''),
-      maximumWithStandLoadOb: new FormControl('', Validators.required),
-      maximumWithStandLoadRem: new FormControl(''),
-      maximumPlacedSoilOb: new FormControl('', Validators.required),
-      maximumPlacedSoilRem: new FormControl(''),
-      totalChamberNoOb: new FormControl('', Validators.required),
-      totalChamberNoRem: new FormControl(''),
-      inspectedChamberInOb: new FormControl('', Validators.required),
-      inspectedChamberInRem: new FormControl(''),
-      inspectionPassedInOb: new FormControl('', Validators.required),
-      inspectionPassedInRem: new FormControl(''),
-      inspectionFailedInOb: new FormControl('', Validators.required),
-      inspectionFailedInRem: new FormControl(''),
-      flag: new FormControl('true')
-    })
-  }
-  earthingClamps(): FormGroup {
-    return new FormGroup({
-      locationNumber: new FormControl('', Validators.required),
-      locationName: new FormControl('', Validators.required),
-      physicalInspectionInOb: new FormControl('', Validators.required),
-      psysicalInspectionInRem: new FormControl(''),
-      clampsFirmlyOb: new FormControl('', Validators.required),
-      clampsFirmlyRem: new FormControl(''),
-      interConnectOfEarthClampInOb: new FormControl('', Validators.required),
-      interConnectOfEarthClampInRem: new FormControl(''),
-      typeOfClampsInOb: new FormControl('', Validators.required),
-      typeOfClampsInRem: new FormControl(''),
-      materialOfClampsInOb: new FormControl('', Validators.required),
-      materialOfClampsInRem: new FormControl(''),
-      totalNoClampsInOb: new FormControl('', Validators.required),
-      totalNoClampsInRem: new FormControl(''),
-      inspectedClampsInOb: new FormControl('', Validators.required),
-      inspectedClampsInRem: new FormControl(''),
-      inspectionPassedInOb: new FormControl('', Validators.required),
-      inspectionPassedInRem: new FormControl(''),
-      inspectionFailedInOb: new FormControl('', Validators.required),
-      inspectionFailedInRem: new FormControl(''),
-      flag: new FormControl('true')
-    })
-  }
-  earthingDescription(): FormGroup {
-    return new FormGroup({
-      locationNumber: new FormControl('', Validators.required),
-      locationName: new FormControl('', Validators.required),
-      soilResistivityInOb: new FormControl('', Validators.required),
-      soilResistivityInRem: new FormControl(''),
-      earthPitDigOb: new FormControl('', Validators.required),
-      earthPitDigRem: new FormControl(''),
-      earthElectrodeLesthanDownConductorInOb: new FormControl('', Validators.required),
-      earthElectrodeLesthanDownConductorInRem: new FormControl(''),
+  //   })
+  // }
+  // earthElectrodeChamber(): FormGroup {
+  //   return new FormGroup({
+  //     locationNumber: new FormControl('', Validators.required),
+  //     locationName: new FormControl('', Validators.required),
+  //     physicalInspeOb: new FormControl('', Validators.required),
+  //     physicalInspeRem: new FormControl(''),
+  //     chamberTypeOb: new FormControl('', Validators.required),
+  //     chamberTypeRem: new FormControl(''),
+  //     chamberSizeOb: new FormControl('', Validators.required),
+  //     chamberSizeRem: new FormControl(''),
+  //     maximumWithStandLoadOb: new FormControl('', Validators.required),
+  //     maximumWithStandLoadRem: new FormControl(''),
+  //     maximumPlacedSoilOb: new FormControl('', Validators.required),
+  //     maximumPlacedSoilRem: new FormControl(''),
+  //     totalChamberNoOb: new FormControl('', Validators.required),
+  //     totalChamberNoRem: new FormControl(''),
+  //     inspectedChamberInOb: new FormControl('', Validators.required),
+  //     inspectedChamberInRem: new FormControl(''),
+  //     inspectionPassedInOb: new FormControl('', Validators.required),
+  //     inspectionPassedInRem: new FormControl(''),
+  //     inspectionFailedInOb: new FormControl('', Validators.required),
+  //     inspectionFailedInRem: new FormControl(''),
+  //     flag: new FormControl('true')
+  //   })
+  // }
+  // earthingClamps(): FormGroup {
+  //   return new FormGroup({
+  //     locationNumber: new FormControl('', Validators.required),
+  //     locationName: new FormControl('', Validators.required),
+  //     physicalInspectionInOb: new FormControl('', Validators.required),
+  //     psysicalInspectionInRem: new FormControl(''),
+  //     clampsFirmlyOb: new FormControl('', Validators.required),
+  //     clampsFirmlyRem: new FormControl(''),
+  //     interConnectOfEarthClampInOb: new FormControl('', Validators.required),
+  //     interConnectOfEarthClampInRem: new FormControl(''),
+  //     typeOfClampsInOb: new FormControl('', Validators.required),
+  //     typeOfClampsInRem: new FormControl(''),
+  //     materialOfClampsInOb: new FormControl('', Validators.required),
+  //     materialOfClampsInRem: new FormControl(''),
+  //     totalNoClampsInOb: new FormControl('', Validators.required),
+  //     totalNoClampsInRem: new FormControl(''),
+  //     inspectedClampsInOb: new FormControl('', Validators.required),
+  //     inspectedClampsInRem: new FormControl(''),
+  //     inspectionPassedInOb: new FormControl('', Validators.required),
+  //     inspectionPassedInRem: new FormControl(''),
+  //     inspectionFailedInOb: new FormControl('', Validators.required),
+  //     inspectionFailedInRem: new FormControl(''),
+  //     flag: new FormControl('true')
+  //   })
+  // }
+  // earthingDescription(): FormGroup {
+  //   return new FormGroup({
+  //     locationNumber: new FormControl('', Validators.required),
+  //     locationName: new FormControl('', Validators.required),
+  //     soilResistivityInOb: new FormControl('', Validators.required),
+  //     soilResistivityInRem: new FormControl(''),
+  //     earthPitDigOb: new FormControl('', Validators.required),
+  //     earthPitDigRem: new FormControl(''),
+  //     earthElectrodeLesthanDownConductorInOb: new FormControl('', Validators.required),
+  //     earthElectrodeLesthanDownConductorInRem: new FormControl(''),
 
-      connectedEarthTerminalInOb: new FormControl('', Validators.required),
-      connectedEarthTerminalInRem: new FormControl(''),
-      testJointEarthElectrodeInOb: new FormControl('', Validators.required),
-      testJointEarthElectrodeInRem: new FormControl(''),
+  //     connectedEarthTerminalInOb: new FormControl('', Validators.required),
+  //     connectedEarthTerminalInRem: new FormControl(''),
+  //     testJointEarthElectrodeInOb: new FormControl('', Validators.required),
+  //     testJointEarthElectrodeInRem: new FormControl(''),
     
-      earthelectMaxiDistWallInOb: new FormControl('', Validators.required),
-      earthelectMaxiDistWallInRem: new FormControl(''),
-      earthelectManimumDistanceWallInOb: new FormControl('', Validators.required),
-      earthelectManimumDistanceWallInRem: new FormControl(''),
-      earthelectMaxiDistOb: new FormControl('', Validators.required),
-      earthelectMaxiDistRem: new FormControl(''),
-      earthelectManiDistOb: new FormControl('', Validators.required),
-      earthelectManiDistRem: new FormControl(''),
-      totalNumberOfElectrodeOb: new FormControl('', Validators.required),
-      totalNumberOfElectrodeRem: new FormControl(''),
-      inspectedNoOb: new FormControl('', Validators.required),
-      inspectedNoRem: new FormControl(''),
-      inspectedPassedNoOb: new FormControl('', Validators.required),
-      inspectedPassedNoRem: new FormControl(''),
-      inspectedFailedNoOb: new FormControl('', Validators.required),
-      inspectedFailedNoRem: new FormControl(''),
-      flag: new FormControl('true'),
-      TypeAEarthing: this.formBuilder.array([this.createTypeAEarthingIteration()]),
-    })
-  }
+  //     earthelectMaxiDistWallInOb: new FormControl('', Validators.required),
+  //     earthelectMaxiDistWallInRem: new FormControl(''),
+  //     earthelectManimumDistanceWallInOb: new FormControl('', Validators.required),
+  //     earthelectManimumDistanceWallInRem: new FormControl(''),
+  //     earthelectMaxiDistOb: new FormControl('', Validators.required),
+  //     earthelectMaxiDistRem: new FormControl(''),
+  //     earthelectManiDistOb: new FormControl('', Validators.required),
+  //     earthelectManiDistRem: new FormControl(''),
+  //     totalNumberOfElectrodeOb: new FormControl('', Validators.required),
+  //     totalNumberOfElectrodeRem: new FormControl(''),
+  //     inspectedNoOb: new FormControl('', Validators.required),
+  //     inspectedNoRem: new FormControl(''),
+  //     inspectedPassedNoOb: new FormControl('', Validators.required),
+  //     inspectedPassedNoRem: new FormControl(''),
+  //     inspectedFailedNoOb: new FormControl('', Validators.required),
+  //     inspectedFailedNoRem: new FormControl(''),
+  //     flag: new FormControl('true'),
+  //   //  TypeAEarthing: this.formBuilder.array([this.createTypeAEarthingIteration()]),
+  //   })
+  // }
   onSubmit(flag: any) {
     this.submitted=true;
-   
+   debugger
     
     if(this.earthingForm.invalid){return}
     this.earthingReport.userName = this.router.snapshot.paramMap.get('email') || '{}';;
@@ -770,19 +775,19 @@ export class LpsEarthingComponent implements OnInit {
     
     dialogRef.componentInstance.confirmBox.subscribe(data=>{
       if(data) {
-        this.TypeAEarthingArr = a.controls.TypeAEarthing as FormArray;
-        this.TypeAEarthingArr.push(this.createTypeAEarthingIteration());
+        this.earthingDescriptionList = a.controls.earthingDescriptionList as FormArray;
+        this.earthingDescriptionList.push(this.earthingDescriptionListForm());
       }
       else{
         return;
       }
     })
   }
-  
+ // earthingDescriptionList: this.formBuilder.array([this.earthingDescriptionArray()]),
   removeItemTypeAEarthing(a: any,x:any) {
     this.earthingForm.markAsTouched();
-    this.TypeAEarthingArr = a.controls.TypeAEarthing as FormArray;
-    this.TypeAEarthingArr.removeAt(x);
+    this.earthingDescriptionListArr = a.controls.earthingDescriptionList as FormArray;
+    this.earthingDescriptionListArr.removeAt(x);
     this.earthingForm.markAsDirty();
   }
   
@@ -985,4 +990,46 @@ export class LpsEarthingComponent implements OnInit {
         }
       );  
     }
+
+    onKey(e: any){
+      if(e.target.value==""){
+        this.typeAearthingsystem=false; 
+        this.clamps=false;              
+        this.earthelectrodechambers=false; 
+        this.typeBearthingsystem=false; 
+        this.testingofearthelectrodes=false; 
+      }
+      if(e.target.value=="Type A"){
+        this.typeAearthingsystem=true; 
+        this.clamps=true;              
+        this.earthelectrodechambers=true; 
+        this.typeBearthingsystem=false; 
+        this.testingofearthelectrodes=true; 
+      }
+      if(e.target.value=="Type-B (ring)"){
+        this.typeAearthingsystem=false; 
+        this.clamps=false;              
+        this.earthelectrodechambers=false; 
+        this.typeBearthingsystem=true; 
+        this.testingofearthelectrodes=true; 
+      }
+      if(e.target.value=="Type A & Type B combined"){
+        this.typeAearthingsystem=true; 
+        this.clamps=true;              
+        this.earthelectrodechambers=true; 
+        this.typeBearthingsystem=true; 
+        this.testingofearthelectrodes=true; 
+      }
+      if(e.target.value=="Foundation"){
+        this.typeAearthingsystem=false; 
+        this.clamps=false;              
+        this.earthelectrodechambers=false; 
+        this.typeBearthingsystem=false; 
+        this.testingofearthelectrodes=true; 
+      }
+    }
 }
+function elesif(arg0: boolean) {
+  throw new Error('Function not implemented.');
+}
+
