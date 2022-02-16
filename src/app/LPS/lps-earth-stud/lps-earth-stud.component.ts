@@ -63,7 +63,7 @@ export class LpsEarthStudComponent implements OnInit {
 
   allEartStud():FormGroup {
     return new FormGroup({
-      //earthStudDescId: new FormControl(''),
+      earthStudDescId: new FormControl(''),
       buildingNumber: new FormControl(''),
       buildingName: new FormControl(''),
       buildingCount: new FormControl(''),
@@ -154,6 +154,23 @@ export class LpsEarthStudComponent implements OnInit {
       this.flag=true;
     }
 
+
+
+    retrieveDetailsfromEarthStud(userName: any,basicLpsId: any,clientName: any,data: any){
+      this.step7List = JSON.parse(data);
+      this.earthStudReport.basicLpsId = this.step7List[0].basicLpsId;
+      this.earthStudReport.earthStudReportId = this.step7List[0].earthStudReportId;
+      this.earthStudReport.userName = this.step7List[0].userName;
+      this.earthStudReport.createdBy = this.step7List[0].createdBy;
+      this.earthStudReport.createdDate = this.step7List[0].createdDate;
+      this.flag=true;
+     for(let i of this.step7List[0].earthStudDescription)
+      this.EarthStudForm.patchValue({
+        earthStud: [i],  
+      });
+    
+    }
+
     populateData(earthStudDescription:any){
       debugger
       for(let item of earthStudDescription){
@@ -163,15 +180,13 @@ export class LpsEarthStudComponent implements OnInit {
     }
 
   onSubmit(flag: any){
-    debugger
     this.submitted=true;
     if(this.EarthStudForm.invalid){return}
 
-    this.earthStudReport=this.EarthStudForm.value
+  //  this.earthStudReport=this.EarthStudForm.value
     this.earthStudReport.userName = this.router.snapshot.paramMap.get('email') || '{}';;
     this.earthStudReport.basicLpsId = this.basicLpsId; 
-
-    // this.earthStudReport.earthStudDescription = this.EarthStudForm.
+    this.earthStudReport.earthStudDescription = this.EarthStudForm.value.earthStud;
 
     if (!this.validationError) {
       if(flag) {
@@ -320,7 +335,7 @@ export class LpsEarthStudComponent implements OnInit {
   retriveStud(){
     this.earthStudService.retrieveEarthStud(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
       data => {
-        this.retrieveDetailsfromSavedReports(this.earthStudReport.userName,this.basicLpsId,this.ClientName,data);
+        this.retrieveDetailsfromEarthStud(this.earthStudReport.userName,this.basicLpsId,this.ClientName,data);
       },
       error=>{
       }
