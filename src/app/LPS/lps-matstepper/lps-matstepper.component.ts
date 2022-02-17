@@ -234,13 +234,13 @@ export class LpsMatstepperComponent implements OnInit {
         if(this.dataJSON.basicLps != null) {
           this.selectedIndex = index;            
           this.basic.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
+          this.airTermination.appendBasicLpsId(basicLpsId);
           setTimeout(() => {
           this.doSomething1(false);
           this.Completed1 = true;
           }, 500);
         }
-        if(this.dataJSON.airTermination != null) {
-            
+        if(this.dataJSON.airTermination != null) {          
             this.airTermination.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
            // this.doSomething2(false);
             this.Completed2 = true;
