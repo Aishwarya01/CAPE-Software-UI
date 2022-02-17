@@ -58,7 +58,7 @@
                                                     <i class="bi bi-text-paragraph"></i>
                                                 </span>
                                             </div>
-                                                <select class="form-control" (mouseleave)="onKey($event)" formControlName="earthingTypeInOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && q.get('earthingTypeInOb')?.errors}">
+                                                <select class="form-control" (mouseleave)="onKey($event,q,j)" formControlName="earthingTypeInOb" placeholder="Please enter Observation here" [ngClass]="{ 'is-invalid': submitted && q.get('earthingTypeInOb')?.errors}">
                                                     <option  value="" selected>Select Option</option>
                                                     <option value="Type A" >Type A</option>
                                                     <option value="Type-B (ring)" >Type-B (ring)</option>
@@ -2154,7 +2154,16 @@
                                             <th>Remarks</th>
                                         </thead>
                                         <tr>
-                                            <td>1</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="bi bi-text-paragraph"></i>
+                                                        </span>
+                                                    </div>
+                                                <textarea class="form-control" formControlName="serialNo" placeholder="Enter SerialNo"></textarea>
+                                                </div>
+                                            </td>
                                             <td>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
@@ -2216,6 +2225,13 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                        <!-- <mat-icon style="cursor: pointer;padding: 0px 33px 0px 0px;" 
+                                            [ngClass]="{'disableForm':service.allFieldsDisable}"  *ngIf="earthElectrodeTestingarr(a).length == j+1" 
+                                            (click)="addElectrodeTesting(a)">add_box</mat-icon>
+
+                                            <mat-icon class="mousechange" class="dlt" type="button" title="Delete" [ngClass]="{'disableForm':service.allFieldsDisable}" 
+                                            *ngIf="earthElectrodeTestingarr(a).length > 1" 
+                                            (click)="removeElectrodeTesting(a,j)" style="cursor: pointer;float: right;">remove_circle_outline</mat-icon> -->
                                     </div>
                                 </tbody>
                             </table>

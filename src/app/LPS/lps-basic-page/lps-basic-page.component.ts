@@ -60,7 +60,7 @@ export class LpsBasicPageComponent implements OnInit {
       address: ['', Validators.required],
       location: ['', Validators.required],
       industryType: ['', Validators.required],
-      soilResistivity: ['', Validators.required],
+      soilResistivity: [''],
       name: ['', Validators.required],
       company: ['', Validators.required],
       designation: ['', Validators.required],
@@ -92,6 +92,7 @@ debugger
     //  if(this.step1List.clientName != null){
       this.success = true;
       this.basicLpsIdRetrive = basicLpsId;
+      this.basicDetails.basicLpsId = basicLpsId;
       this.basicDetails.clientName = this.step1List.clientName;
       this.basicDetails.projectName = this.step1List.projectName;
       this.basicDetails.pmcName = this.step1List.pmcName;
