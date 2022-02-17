@@ -51,6 +51,7 @@ export class LpsMatstepperComponent implements OnInit {
   Completed5: boolean=true;
   Completed6: boolean=true;
   Completed7: boolean=true;
+  // Completed8: boolean=true;
 
   basicDetails: boolean = true;
   airTermValue: boolean = true;
@@ -197,8 +198,12 @@ export class LpsMatstepperComponent implements OnInit {
   }
   public doSomething7(next: any): void {
     this.Completed7 = this.earthStud.success;
-    this.final.ngOnInit();
+    // this.final.ngOnInit();
   }
+  // public doSomething8(next: any): void {
+  //   // this.Completed8 = this.earthStud.success;
+  //   // this.final.ngOnInit();
+  // }
 
   public changeTabLpsSavedReport(index: number, basicLpsId: any, userName: any, clientName: any) {
    
@@ -264,8 +269,9 @@ export class LpsMatstepperComponent implements OnInit {
                  //   this.doSomething6(false);
                     this.Completed6 = true;
         }
-        if(this.dataJSON.earthStudDescription != null) {
-         
+        debugger
+        if(this.dataJSON.earthStudReport != null) {
+          
           this.earthStud.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
           //this.doSomething7(false);
           this.Completed7 = true;

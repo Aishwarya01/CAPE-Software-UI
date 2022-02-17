@@ -28,7 +28,8 @@ export class spd {
     noPannelSupplittingOb!: String;
     noPannelSupplittingRem!: String;
     totalNoOutDoorRequipmentOb!: String;
-    totalNoOutDoorRequipmentRem!: String;     
+    totalNoOutDoorRequipmentRem!: String;  
+
     spdDescription!: spdDescription[];
 }
 
@@ -39,7 +40,7 @@ export class spdDescription {
     spdMakeOb!: String;
     spdMakeRem!: String;
     spdModelOb!: String;
-    spΩdModelRem!: String;
+    spdModelRem!: String;
     spdClassTypeOb!: String;
     spdClassTypeRem!: String;
     spdApplicationOb!: String;
@@ -48,17 +49,17 @@ export class spdDescription {
     spdMainApplicationRem!: String;
     properConnectionOb!: String;
     properConnectionRem!: String;
-    incomerRatingOb!: String;
+    incomerRatingOb!: number;
     incomerRatingRem!: String;
-    fuseBackUpOb!: String;
+    fuseBackUpOb!: number;
     fuseBackUpRem!: String;
-    lengthOfConnectingWirePhaseOb!: String;
+    lengthOfConnectingWirePhaseOb!: number;
     lengthOfConnectingWirePhaseRem!: String;
-    lengthOfConnectingWireProtectiveOb!: String;
+    lengthOfConnectingWireProtectiveOb!: number;
     lengthOfConnectingWireProtectiveRem!: String;
-    sizeOfConnectingWirePhaseOb!: String;
+    sizeOfConnectingWirePhaseOb!: number;
     sizeOfConnectingWirePhaseRem!: String;
-    sizeOfConnectingWireProtectiveOb!: String;
+    sizeOfConnectingWireProtectiveOb!: number;
     sizeOfConnectingWireProtectiveRem!: String;
     spdDescriptionId!: number;
 }

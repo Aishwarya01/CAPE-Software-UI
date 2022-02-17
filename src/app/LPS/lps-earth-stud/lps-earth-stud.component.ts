@@ -144,19 +144,21 @@ export class LpsEarthStudComponent implements OnInit {
   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
       // this.service.lvClick=1;
       debugger
-      this.step7List = data.earthStudDescription;
+      this.step7List = data.earthStudReport;
       this.earthStudReport.basicLpsId = this.step7List.basicLpsId;
       this.earthStudReport.earthStudReportId = this.step7List.earthStudReportId;
       this.earthStudReport.userName = this.step7List.userName;
       this.earthStudReport.createdBy = this.step7List.createdBy;
       this.earthStudReport.createdDate = this.step7List.createdDate;
-      this.populateData(this.step7List.earthStudDescription);
+      for(let i of this.step7List.earthStudDescription)
+      this.EarthStudForm.patchValue({
+        earthStud: [i],  
+      });
       this.flag=true;
-    }
+  }
 
-
-
-    retrieveDetailsfromEarthStud(userName: any,basicLpsId: any,clientName: any,data: any){
+  retrieveDetailsfromEarthStud(userName: any,basicLpsId: any,clientName: any,data: any){
+    debugger
       this.step7List = JSON.parse(data);
       this.earthStudReport.basicLpsId = this.step7List[0].basicLpsId;
       this.earthStudReport.earthStudReportId = this.step7List[0].earthStudReportId;
@@ -168,8 +170,7 @@ export class LpsEarthStudComponent implements OnInit {
       this.EarthStudForm.patchValue({
         earthStud: [i],  
       });
-    
-    }
+  }
 
     populateData(earthStudDescription:any){
       debugger
@@ -303,7 +304,7 @@ export class LpsEarthStudComponent implements OnInit {
   }
 
   gotoNextModal(content: any,contents:any) {
-    this.basicLpsId = 280;
+     this.basicLpsId = 302;
      if (this.EarthStudForm.invalid) {
        this.validationError = true;
       

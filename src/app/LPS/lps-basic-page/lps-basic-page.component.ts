@@ -354,9 +354,9 @@ debugger
   }
 
 
-  getDescriptionControl(): AbstractControl[] {
-    return (<FormArray>this.LPSBasicForm.get('basicLpsDescription')).controls;
-  }
+  // getDescriptionControl(): AbstractControl[] {
+  //   return (<FormArray>this.LPSBasicForm.get('basicLpsDescription')).controls;
+  // }
   
   get f() {
     return this.LPSBasicForm.controls;
