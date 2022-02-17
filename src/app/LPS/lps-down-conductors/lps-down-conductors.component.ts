@@ -531,6 +531,11 @@ export class LpsDownConductorsComponent implements OnInit {
     return form.controls.testingJoint?.controls;
   }
 
+  downConductorTestingControls(form:any){
+    // return (<FormArray>this.downConductorForm.get('testingJoint')).controls
+    return form.controls.downConductorTesting?.controls;
+  }
+
   private createDownArrForm(): FormGroup {
 
     return new FormGroup({
