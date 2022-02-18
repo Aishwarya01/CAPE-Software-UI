@@ -98,45 +98,21 @@ export class LpsMatstepperComponent implements OnInit {
     this.basic.isEditable=this.isEditable;
     // AirTermination
     this.airTermination.basicLpsId=this.basic.basicDetails.basicLpsId;
-    // this.airTermination.ClientName=this.basic.basicDetails.clientName;
-    // this.airTermination.projectName=this.basic.basicDetails.projectName;
-    // this.airTermination.industryType=this.basic.basicDetails.industryType;
-   // this.airTermination.buildingType=this.basic.basicDetails.buildingType;
     this.airTermination.isEditable=this.isEditable;
     // DownConductor
     this.downConductors.basicLpsId=this.basic.basicDetails.basicLpsId;
-    // this.downConductors.ClientName=this.basic.basicDetails.clientName;
-    // this.downConductors.projectName=this.basic.basicDetails.projectName;
-    // this.downConductors.industryType=this.basic.basicDetails.industryType;
-    //this.downConductors.buildingType=this.basic.basicDetails.buildingType;
     this.downConductors.isEditable=this.isEditable;
     // Earthing
     this.earthing.basicLpsId=this.basic.basicDetails.basicLpsId;
-    // this.earthing.ClientName=this.basic.basicDetails.clientName;
-    // this.earthing.projectName=this.basic.basicDetails.projectName;
-    // this.earthing.industryType=this.basic.basicDetails.industryType;
-   // this.earthing.buildingType=this.basic.basicDetails.buildingType;
     this.earthing.isEditable=this.isEditable;
     // SPD
     this.spd.basicLpsId=this.basic.basicDetails.basicLpsId;
-    // this.spd.ClientName=this.basic.basicDetails.clientName;
-    // this.spd.projectName=this.basic.basicDetails.projectName;
-    // this.spd.industryType=this.basic.basicDetails.industryType;
-   // this.spd.buildingType=this.basic.basicDetails.buildingType;
     this.spd.isEditable=this.isEditable;
     // Seperation Distance
     this.seperationDistance.basicLpsId=this.basic.basicDetails.basicLpsId;
-    // this.seperationDistance.ClientName=this.basic.basicDetails.clientName;
-    // this.seperationDistance.projectName=this.basic.basicDetails.projectName;
-    // this.seperationDistance.industryType=this.basic.basicDetails.industryType;
-    //this.seperationDistance.buildingType=this.basic.basicDetails.buildingType;
     this.seperationDistance.isEditable=this.isEditable;
     // EarthStud
     this.earthStud.basicLpsId=this.basic.basicDetails.basicLpsId;
-    // this.earthStud.ClientName=this.basic.basicDetails.clientName;
-    // this.earthStud.projectName=this.basic.basicDetails.projectName;
-    // this.earthStud.industryType=this.basic.basicDetails.industryType;
-    //this.earthStud.buildingType=this.basic.basicDetails.buildingType;
     this.earthStud.isEditable=this.isEditable;
 
     this.Completed1 = this.basic.success;
@@ -144,40 +120,8 @@ export class LpsMatstepperComponent implements OnInit {
     this.refresh();
   }
   public doSomething2(next: any): void {
-    debugger
+   
     this.Completed2 = this.airTermination.success;
-
-   if(this.airTermination.airterminationDataDeleted) {
-    this.downValue = false;
-    this.earthingValue = false;
-    this.spdValue = false;
-    this.seperationValue = false;
-    this.equipotentialBond = false;
-
-    setTimeout(() => {
-      this.downValue = true;
-      this.earthingValue = true;
-      this.spdValue = true;
-      this.seperationValue = true;
-      this.equipotentialBond = true;
-    }, 500);
-
-      setTimeout(() => {
-      this.downConductors.dosomethingRetriveDownConductor(this.router.snapshot.paramMap.get('email') || '{}',this.basic.basicDetails.basicLpsId);  
-      this.seperationDistance.dosomthingRetriveSeperationDistance(this.router.snapshot.paramMap.get('email') || '{}',this.basic.basicDetails.basicLpsId); 
-      this.earthing.dosomethingRetriveEarthingDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basic.basicDetails.basicLpsId); 
-      this.spd.dosomthingRetriveSPD(this.router.snapshot.paramMap.get('email') || '{}',this.basic.basicDetails.basicLpsId); 
-       // this.earthStud.retrieveDetails
-
-      }, 500),setTimeout(() => {
-        this.downConductors.createDwonconductorForm(this.airTermination.buildingNumberArr);
-        this.seperationDistance.createSeperationForm(this.airTermination.buildingNumberArr)
-      }, 500);;}
-      else{
-      this.downConductors.createDwonconductorForm(this.airTermination.buildingNumberArr);
-      this.seperationDistance.createSeperationForm(this.airTermination.buildingNumberArr)
-      }
-      
     this.refresh();
   }
 
@@ -206,7 +150,7 @@ export class LpsMatstepperComponent implements OnInit {
   // }
 
   public changeTabLpsSavedReport(index: number, basicLpsId: any, userName: any, clientName: any) {
-   
+
     this.selectedIndex = 1;
 
     this.basicDetails = false;
@@ -228,65 +172,53 @@ export class LpsMatstepperComponent implements OnInit {
     }, 50);
 
     setTimeout(() => {
-    this.basicLpsService.retrieveFinalLps(userName,basicLpsId).subscribe(
-      (data) => {
-        this.dataJSON = JSON.parse(data);
-        if(this.dataJSON.basicLps != null) {
-          this.selectedIndex = index;            
-          this.basic.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
-          this.airTermination.appendBasicLpsId(basicLpsId);
-          setTimeout(() => {
-          this.doSomething1(false);
-          this.Completed1 = true;
-          }, 500);
-        }
-        if(this.dataJSON.airTermination != null) {          
-            this.airTermination.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
-           // this.doSomething2(false);
+      this.basicLpsService.retrieveFinalLps(userName, basicLpsId).subscribe(
+        (data) => {
+          this.dataJSON = JSON.parse(data);
+          if (this.dataJSON.basicLps != null) {
+            this.selectedIndex = index;
+            this.basic.retrieveDetailsfromSavedReports(basicLpsId, this.dataJSON);
+            this.airTermination.appendBasicLpsId(basicLpsId);
+            setTimeout(() => {
+              this.doSomething1(false);
+              this.Completed1 = true;
+            }, 500);
+          }
+          if (this.dataJSON.airTermination != null) {
+            this.airTermination.retrieveDetailsfromSavedReports(userName, basicLpsId, clientName, this.dataJSON);
             this.Completed2 = true;
-        }
-        if(this.dataJSON.downConductorDesc != null) {
-              
-              this.downConductors.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
-            //  this.doSomething3(false);
-              this.Completed3 = true;
-        }
-        if(this.dataJSON.earthingLpsDescription != null) {
-                
-                this.earthing.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
-             //   this.doSomething4(false);
-                this.Completed4 = true;
-        }
-        if(this.dataJSON.spddesc != null) {
-                  
-                  this.spd.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
-               //   this.doSomething5(false);
-                  this.Completed5 = true;
-        }
-        if(this.dataJSON.seperationDistanceDesc != null) {
-                    
-                    this.seperationDistance.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
-                 //   this.doSomething6(false);
-                    this.Completed6 = true;
-        }
-        debugger
-        if(this.dataJSON.earthStudReport != null) {
-          
-          this.earthStud.retrieveDetailsfromSavedReports(userName,basicLpsId,clientName,this.dataJSON);
-          //this.doSomething7(false);
-          this.Completed7 = true;
-          // this.doSomething2(false)                                   
-        }
-        setTimeout(() => {
-          this.downConductors.createDwonconductorForm(this.airTermination.buildingNumberArr);
-          this.seperationDistance.createSeperationForm(this.airTermination.buildingNumberArr)
-        }, 500);
+          }
+          if (this.dataJSON.downConductorDesc != null) {
 
-      },
-      (error) => {
+            this.downConductors.retrieveDetailsfromSavedReports(userName, basicLpsId, clientName, this.dataJSON);
+            this.Completed3 = true;
+          }
+          if (this.dataJSON.earthingReport != null) {
 
-      }
-      )}, 3000);
+            this.earthing.retrieveDetailsfromSavedReports(basicLpsId,this.dataJSON);
+            this.Completed4 = true;
+          }
+          if (this.dataJSON.spddesc != null) {
+
+            this.spd.retrieveDetailsfromSavedReports(userName, basicLpsId, clientName, this.dataJSON);
+            this.Completed5 = true;
+          }
+          if (this.dataJSON.seperationDistanceDesc != null) {
+
+            this.seperationDistance.retrieveDetailsfromSavedReports(userName, basicLpsId, clientName, this.dataJSON);
+            this.Completed6 = true;
+          }
+          debugger
+          if (this.dataJSON.earthStudReport != null) {
+            this.earthStud.retrieveDetailsfromSavedReports(userName, basicLpsId, clientName, this.dataJSON);
+            this.Completed7 = true;
+          }
+        },
+        (error) => {
+
+        }
+      )
+    }, 3000);
   }
 
   // Final Report 

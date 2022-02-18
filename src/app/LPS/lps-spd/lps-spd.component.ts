@@ -101,7 +101,7 @@ export class LpsSpdComponent implements OnInit {
     this.spdForm.reset();
   }
 
-//   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
+   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
 //     // this.service.lvClick=1;
 //     debugger
 //     this.step5List = data.earthStudReport;
@@ -115,7 +115,7 @@ export class LpsSpdComponent implements OnInit {
 //       earthStud: [i],  
 //     });
 //     this.flag=true;
-// }
+ }
 
 retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
    // this.service.lvClick=1;
