@@ -285,7 +285,7 @@ export class LpsMatstepperComponent implements OnInit {
         if((tabs==="Lightning Protection System"))
           
            {
-              // this.selectedIndex=0; 
+             this.selectedIndex=0; 
               // this.basic.reset();
               // this.airTermination.reset();
               // this.downConductors.reset();
