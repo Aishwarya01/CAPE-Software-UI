@@ -13,7 +13,7 @@ import { LpsMatstepperComponent } from '../lps-matstepper/lps-matstepper.compone
   styleUrls: ['./lps-spd.component.css']
 })
 export class LpsSpdComponent implements OnInit {
-  spd=new spdReport();
+  spdReport=new spdReport();
   lpsSpd_Service;
   j: any;
   submitted=false;
@@ -43,6 +43,7 @@ export class LpsSpdComponent implements OnInit {
   mobilearr: any = [];
   mobilearr2: any = [];
   mobilearr3: any = [];
+  spd: any=[];
   isEditable!:boolean
   constructor(
     private formBuilder: FormBuilder, 
@@ -62,13 +63,26 @@ export class LpsSpdComponent implements OnInit {
     });
   }
 
+    // Only Accept numbers
+    keyPressNumbers(event:any) {
+      var charCode = (event.which) ? event.which : event.keyCode;
+          // Only Numbers 0-9
+      if ((charCode < 48 || charCode > 57)) {
+        event.preventDefault();
+        return false;
+        } else {
+            return true;
+      }
+    }
+
   allSPD(buildingNumber:any,buildingName:any):FormGroup {
     return new FormGroup({
       spdId: new FormControl(''),
       buildingNumber: new FormControl(buildingNumber),
       buildingName: new FormControl(buildingName),
       buildingCount: new FormControl(''),
-      flag: new FormControl(''),
+      flag: new FormControl('A'),
+      
       mainsIncomingOb: new FormControl('', Validators.required),
       mainsIncomingRem: new FormControl('', Validators.required),
       totalMainsIncomingOb: new FormControl('', Validators.required),
@@ -86,93 +100,48 @@ export class LpsSpdComponent implements OnInit {
     this.spdForm.reset();
   }
 
-  retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
-    // this.service.lvClick=1;
-
-      this.step5List = data.spddesc;
-      this.spd.basicLpsId = basicLpsId;
-      // this.spd.spdId = this.step5List.spdId
-      // this.spd.mainsIncomingOb = this.step5List.mainsIncomingOb;
-      // this.spd.mainsIncomingRem = this.step5List.mainsIncomingRem;
-      // this.spd.totalMainsIncomingOb = this.step5List.totalMainsIncomingOb;
-      // this.spd.totalMainsIncomingRem = this.step5List.totalMainsIncomingRem;
-      // this.spd.noPannelSupplittingOb = this.step5List.noPannelSupplittingOb;
-      // this.spd.noPannelSupplittingRem = this.step5List.noPannelSupplittingRem;
-      // this.spd.totalNoOutDoorRequipmentOb = this.step5List.totalNoOutDoorRequipmentOb;
-      // this.spd.totalNoOutDoorRequipmentRem = this.step5List.totalNoOutDoorRequipmentRem;
-      this.spd.createdBy = this.step5List.createdBy;
-      this.spd.createdDate = this.step5List.createdDate;      
-      this.spd.userName = this.step5List.userName;
- 
-      //this.populateData();
-      this.flag=true;
-    }
-
-    // populateData() {
-    //   for (let item of this.step5List.spdDescription) {
-    //     if(item.spdDescriptionRole == "Mains_SPD") {
-    //     this.mobilearr.push(this.createGroup(item));
-    //     this.spdForm.setControl('spdarr', this.formBuilder.array(this.mobilearr || []))
-    //     this.mobilearr = [];
-    //     }
-    //     else if(item.spdDescriptionRole == "Street_SPD") {
-    //       this.mobilearr2.push(this.createGroup(item))
-    //       this.spdForm.setControl('panelarr', this.formBuilder.array(this.mobilearr2 || []))  
-    //       this.mobilearr2 = [];
-    //     }
-    //     else if(item.spdDescriptionRole == "Other_SPD") {
-    //       this.mobilearr3.push(this.createGroup(item))
-    //       this.spdForm.setControl('powerarr', this.formBuilder.array(this.mobilearr3 || []))
-    //       this.mobilearr3 = [];
-    //     }
-    //   }
-    // }
+//   retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
+//     // this.service.lvClick=1;
+//     debugger
+//     this.step5List = data.earthStudReport;
+//     this.spdReport.basicLpsId = this.step7List.basicLpsId;
+//     this.spdReport.earthStudReportId = this.step7List.earthStudReportId;
+//     this.earthStudReport.userName = this.step7List.userName;
+//     this.earthStudReport.createdBy = this.step7List.createdBy;
+//     this.earthStudReport.createdDate = this.step7List.createdDate;
+//     for(let i of this.step7List.earthStudDescription)
+//     this.EarthStudForm.patchValue({
+//       earthStud: [i],  
+//     });
+//     this.flag=true;
+// }
 
     retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
-      // this.service.lvClick=1;
+   // this.service.lvClick=1;
 
       this.step5List = JSON.parse(data);
-      this.spd.basicLpsId = basicLpsId;
-      // this.spd.spdId = this.step5List[0].spdId
-      // this.spd.mainsIncomingOb = this.step5List[0].mainsIncomingOb;
-      // this.spd.mainsIncomingRem = this.step5List[0].mainsIncomingRem;
-      // this.spd.totalMainsIncomingOb = this.step5List[0].totalMainsIncomingOb;
-      // this.spd.totalMainsIncomingRem = this.step5List[0].totalMainsIncomingRem;
-      // this.spd.noPannelSupplittingOb = this.step5List[0].noPannelSupplittingOb;
-      // this.spd.noPannelSupplittingRem = this.step5List[0].noPannelSupplittingRem;
-      // this.spd.totalNoOutDoorRequipmentOb = this.step5List[0].totalNoOutDoorRequipmentOb;
-      // this.spd.totalNoOutDoorRequipmentRem = this.step5List[0].totalNoOutDoorRequipmentRem;
-      this.spd.createdBy = this.step5List[0].createdBy;
-      this.spd.createdDate = this.step5List[0].createdDate;      
-      this.spd.userName = this.step5List[0].userName;
-      //this.populateData1();
+      this.spdReport.basicLpsId = basicLpsId;
+      this.spdReport.createdBy = this.step5List[0].createdBy;
+      this.spdReport.createdDate = this.step5List[0].createdDate;      
+      this.spdReport.userName = this.step5List[0].userName;
+      // for(let i of this.step5List[0].spd)
+      // this.spdForm.patchValue({
+      //   spd: [i],
+      // });
+      this.populateData(this.step5List[0].spd)
       this.flag=true;
     }
 
-    // populateData1() {
-    //   for (let item of this.step5List[0].spdDescription) {
-    //     if(item.spdDescriptionRole == "Mains_SPD") {
-    //     this.mobilearr.push(this.createGroup(item));
-    //     this.spdForm.setControl('spdarr', this.formBuilder.array(this.mobilearr || []))
-    //     this.mobilearr = [];
-    //     }
-    //     else if(item.spdDescriptionRole == "Street_SPD") {
-    //       this.mobilearr2.push(this.createGroup(item))
-    //       this.spdForm.setControl('panelarr', this.formBuilder.array(this.mobilearr2 || []))  
-    //       this.mobilearr2 = [];
-    //     }
-    //     else if(item.spdDescriptionRole == "Other_SPD") {
-    //       this.mobilearr3.push(this.createGroup(item))
-    //       this.spdForm.setControl('powerarr', this.formBuilder.array(this.mobilearr3 || []))
-    //       this.mobilearr3 = [];
-    //     }
-    //   }
-    //   this.spdForm.markAsPristine();
-    // }
+    populateData(spd:any){
+      debugger
+      for(let item of spd){
+        this.spd.push(this.createGroup(item));
+      }
+    }
 
     createGroup(item: any): FormGroup {
       return this.formBuilder.group({
-        SpdDescriptionId:new FormControl({disabled: false, value: item.SpdDescriptionId}),
+        spdDescriptionId:new FormControl({disabled: false, value: item.spdDescriptionId}),
         location: new FormControl({disabled: false, value: item.location}),
         panelName: new FormControl({disabled: false, value: item.panelName}),
         flag: new FormControl({disabled: false, value: item.flag}),
@@ -207,7 +176,7 @@ export class LpsSpdComponent implements OnInit {
     return new FormGroup({
       location: new FormControl(''),
       panelName: new FormControl(''),
-      flag: new FormControl(''),
+      flag: new FormControl('A'),
       spdMakeOb: new FormControl('', Validators.required),
       spdMakeRem: new FormControl(''),
       spdModelOb: new FormControl('', Validators.required),
@@ -267,16 +236,21 @@ export class LpsSpdComponent implements OnInit {
   }
 
   onSubmit(flag: any){
-        
+      debugger
       this.submitted=true;
       if(this.spdForm.invalid){return}
-        this.spd.userName = this.router.snapshot.paramMap.get('email') || '{}';;
-        this.spd.basicLpsId = this.basicLpsId;
+        
+       // this.spdReport.spd[0]=[]
+        //this.spdReport=this.spdForm.value
+        this.spdReport.userName = this.router.snapshot.paramMap.get('email') || '{}';
+        this.spdReport.basicLpsId = this.basicLpsId;
+
+        this.spdReport.spd = this.spdForm.value.spd;
 
         if (!this.validationError) {
           if(flag) {
             if(this.spdForm.dirty && this.spdForm.touched){ 
-            this.lpsSpd_Service.updateSpdDetails(this.spd).subscribe(
+            this.lpsSpd_Service.updateSpdDetails(this.spdReport).subscribe(
               (data) => {
                 this.success = true;
                 this.successMsg = data;
@@ -306,7 +280,7 @@ export class LpsSpdComponent implements OnInit {
           }
           }
           else {
-            this.lpsSpd_Service.saveSPDDetails(this.spd).subscribe(       
+            this.lpsSpd_Service.saveSPDDetails(this.spdReport).subscribe(      
               (data) => {
                 this.success = true;
                 this.successMsg = data;
@@ -380,6 +354,7 @@ export class LpsSpdComponent implements OnInit {
       }
     
       gotoNextModal(content: any,contents:any) {
+        this.basicLpsId = 302;
          if (this.spdForm.invalid) {
            this.validationError = true;
           
@@ -409,7 +384,7 @@ export class LpsSpdComponent implements OnInit {
     retriveSPD(){
       this.lpsSpd_Services.retrieveSPDDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
         data => {
-          this.retrieveDetailsfromSavedReports1(this.spd.userName,this.basicLpsId,this.ClientName,data);
+          this.retrieveDetailsfromSavedReports1(this.spdReport.userName,this.basicLpsId,this.ClientName,data);
         },
         error=>{
         }

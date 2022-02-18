@@ -2,14 +2,6 @@ export class spdReport {
 
     basicLpsId!: number;
     userName!: String;
-    mainsIncomingOb!: String;
-    mainsIncomingRem!: String;
-    totalMainsIncomingOb!: String;
-    totalMainsIncomingRem!: String;
-    noPannelSupplittingOb!: String;
-    noPannelSupplittingRem!: String;
-    totalNoOutDoorRequipmentOb!: String;
-    totalNoOutDoorRequipmentRem!: String;
     createdBy!: String;
     createdDate!: Date;   
     spd!: spd[];     
