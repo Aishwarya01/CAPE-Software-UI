@@ -98,6 +98,16 @@ export class LpsAirTerminationComponent implements OnInit {
   applicableExpansionNote: boolean=true;
   applicableBasicNote: boolean = true;
   applicableBasic: boolean = false;
+  deletedLpsDescArr: any = [];
+  deletedAirBasicArr: any = [];
+  deletedAirTerminationArr: any = [];
+  deletedAirTerminationListArr: any = [];
+  deletedAirMeshArr: any = [];
+  deletedHoldersArr: any = [];
+  deletedHoldersListArr: any = [];
+  deletedAirClampsArr: any = [];
+  deletedExpansionArr: any = [];
+  deletedAirConnectorsArr: any = [];
 
   constructor(
     private formBuilder: FormBuilder,private dialog: MatDialog,
@@ -181,10 +191,10 @@ export class LpsAirTerminationComponent implements OnInit {
   removeItemAir(a: any,w:any) {
     this.airTerminationForm.markAsTouched();
     this.airterminationArr = a.controls.verticalAirTerminationList as FormArray;
-    // if(this.flag && this.AirTUnit.value[w].equipmentId!=null && this.AirTUnit.value[w].equipmentId!='' && this.AirTUnit.value[w].equipmentId!=undefined){
-    //   this.AirTUnit.value[w].testingEquipmentStatus='R';
-    //   this.deletedTestingEquipment.push(this.AirTUnit.value[w]);
-    // }
+    if(this.flag && this.airterminationArr.value[w].verticalAirTerminationListId !=null && this.airterminationArr.value[w].verticalAirTerminationListId !='' && this.airterminationArr.value[w].verticalAirTerminationListId !=undefined){
+      this.airterminationArr.value[w].flag ='R';
+      this.deletedAirTerminationListArr.push(this.airterminationArr.value[w]);
+    }
     this.airterminationArr.removeAt(w);
     this.airTerminationForm.markAsDirty();
   }
@@ -232,6 +242,10 @@ export class LpsAirTerminationComponent implements OnInit {
 removeItemAirHolder(a: any,x:any) {
   this.airTerminationForm.markAsTouched();
   this.airterminationArrHolder = a.controls.airHolderList as FormArray;
+  if(this.flag && this.airterminationArrHolder.value[x].holderListId !=null && this.airterminationArrHolder.value[x].holderListId !='' && this.airterminationArrHolder.value[x].holderListId !=undefined){
+    this.airterminationArrHolder.value[x].flag ='R';
+    this.deletedHoldersListArr.push(this.airterminationArrHolder.value[x]);
+  }
   this.airterminationArrHolder.removeAt(x);
   this.airTerminationForm.markAsDirty();
 }
@@ -282,7 +296,15 @@ createAirHolderIteration()  : FormGroup {
       this.airtermination.createdBy = this.step2List.createdBy;
       this.airtermination.createdDate = this.step2List.createdDate;     
       this.airtermination.userName = this.step2List.userName;
-      debugger
+      this.deletedAirBasicArr = [];
+      this.deletedAirTerminationArr = [];
+      this.deletedAirMeshArr = [];
+      this.deletedAirClampsArr = [];
+      this.deletedHoldersArr = [];
+      this.deletedExpansionArr = [];
+      this.deletedAirConnectorsArr = [];
+      this.deletedAirTerminationListArr = [];
+      this.deletedHoldersListArr = [];
       this.airRetrieve();
       this.flag=true;
     }
@@ -313,6 +335,15 @@ createAirHolderIteration()  : FormGroup {
         this.airtermination.createdBy = this.step2List.createdBy;
         this.airtermination.createdDate = this.step2List.createdDate;     
         this.airtermination.userName = this.step2List.userName;
+        this.deletedAirBasicArr = [];
+        this.deletedAirTerminationArr = [];
+        this.deletedAirMeshArr = [];
+        this.deletedAirClampsArr = [];
+        this.deletedHoldersArr = [];
+        this.deletedExpansionArr = [];
+        this.deletedAirConnectorsArr = [];
+        this.deletedAirTerminationListArr = [];
+        this.deletedHoldersListArr = [];
         this.airRetrieve();
         this.flag=true;
       }
@@ -396,7 +427,7 @@ createAirHolderIteration()  : FormGroup {
     retriveLpsVerticalAirTerminationData(item:any){
       let retriveLpsVerticalAirTerminationDataArr:any=[];
       for (let value of item.lpsVerticalAirTermination) {
-        retriveLpsVerticalAirTerminationDataArr.push(this.createGroup(value));   
+        retriveLpsVerticalAirTerminationDataArr.push(this.createGroup(value,item.lpsAirDescId));   
       } 
       return retriveLpsVerticalAirTerminationDataArr;
     }
@@ -404,7 +435,7 @@ createAirHolderIteration()  : FormGroup {
     retriveAirMeshDescription(item:any){
       let retriveLpsAirMeshDescriptionDataArr:any=[];
       for (let value of item.airMeshDescription) {
-        retriveLpsAirMeshDescriptionDataArr.push(this.createGroup1(value));   
+        retriveLpsAirMeshDescriptionDataArr.push(this.createGroup1(value,item.lpsAirDescId));   
       } 
       return retriveLpsAirMeshDescriptionDataArr;
     }
@@ -412,7 +443,7 @@ createAirHolderIteration()  : FormGroup {
     retriveAirHolderDesc(item:any){
       let retriveLpsAirHolderDescriptionDataArr:any=[];
       for (let value of item.airHolderDescription) {
-        retriveLpsAirHolderDescriptionDataArr.push(this.createGroup2(value));   
+        retriveLpsAirHolderDescriptionDataArr.push(this.createGroup2(value,item.lpsAirDescId));   
       } 
       return retriveLpsAirHolderDescriptionDataArr;
     }
@@ -420,7 +451,7 @@ createAirHolderIteration()  : FormGroup {
     retriveAirClamps(item:any){
       let retriveLpsAirClampsDataArr:any=[];
       for (let value of item.airClamps) {
-        retriveLpsAirClampsDataArr.push(this.createGroup3(value));   
+        retriveLpsAirClampsDataArr.push(this.createGroup3(value,item.lpsAirDescId));   
       } 
       return retriveLpsAirClampsDataArr;
     }
@@ -428,7 +459,7 @@ createAirHolderIteration()  : FormGroup {
     retriveAirExpansion(item:any){
       let retriveLpsAirExpansionDataArr:any=[];
       for (let value of item.airExpansion) {
-        retriveLpsAirExpansionDataArr.push(this.createGroup4(value));   
+        retriveLpsAirExpansionDataArr.push(this.createGroup4(value,item.lpsAirDescId));   
       } 
       return retriveLpsAirExpansionDataArr;
     }
@@ -436,7 +467,7 @@ createAirHolderIteration()  : FormGroup {
     retriveAirConnectors(item:any){
       let retriveLpsAirConnectorsDataArr:any=[];
       for (let value of item.airConnectors) {
-        retriveLpsAirConnectorsDataArr.push(this.createGroup5(value));   
+        retriveLpsAirConnectorsDataArr.push(this.createGroup5(value,item.lpsAirDescId));   
       } 
       return retriveLpsAirConnectorsDataArr;
     }
@@ -444,14 +475,15 @@ createAirHolderIteration()  : FormGroup {
     retriveAirBasicDesc(item:any){
       let retriveairBasicDescriptionDataArr:any=[];
       for (let value of item.airBasicDescription) {
-        retriveairBasicDescriptionDataArr.push(this.basicDetailsGroup(value));   
+        retriveairBasicDescriptionDataArr.push(this.basicDetailsGroup(value,item.lpsAirDescId));   
       } 
       return retriveairBasicDescriptionDataArr;
     }
 
-    basicDetailsGroup(item:any){
+    basicDetailsGroup(item:any,lpsAirDescId: any){
       return this.formBuilder.group({
-        airBasicDescriptionId: new FormControl({disabled: false, value: item.airBasicDescriptionId}),    
+        airBasicDescriptionId: new FormControl({disabled: false, value: item.airBasicDescriptionId}),  
+        lpsAirDescId: new FormControl({disabled: false, value: lpsAirDescId}),  
         consultantNameObserv:  new FormControl({disabled: false, value: item.consultantNameObserv}, Validators.required),
         consultantNameRemarks: new FormControl({disabled: false, value: item.consultantNameRemarks}),
         architectNameObserv:  new FormControl({disabled: false, value: item.architectNameObserv}, Validators.required),
@@ -486,9 +518,10 @@ createAirHolderIteration()  : FormGroup {
       });
     }
 
-    createGroup(item: any): FormGroup {
+    createGroup(item: any,lpsAirDescId: any): FormGroup {
       return this.formBuilder.group({
       lpsVerticalAirTerminationId: new FormControl({disabled: false, value: item.lpsVerticalAirTerminationId}),
+      lpsAirDescId: new FormControl({disabled: false, value: lpsAirDescId}),
       physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
       physicalInspectionRe: new FormControl({disabled: false, value: item.physicalInspectionRe}),
       totalNumberOb: new FormControl({disabled: false, value: item.totalNumberOb}, Validators.required),
@@ -500,21 +533,22 @@ createAirHolderIteration()  : FormGroup {
       inspFaileddNoOb: new FormControl({disabled: false, value: item.inspFaileddNoOb}, Validators.required),
       inspFaileddNoRe: new FormControl({disabled: false, value: item.inspFaileddNoRe}),
       flag: new FormControl({disabled: false, value: item.flag}),
-      verticalAirTerminationList: this.formBuilder.array(this.populateVerticalList(item))
+      verticalAirTerminationList: this.formBuilder.array(this.populateVerticalList(item,lpsAirDescId))
       });
     }
 
-    populateVerticalList(item:any){
+    populateVerticalList(item:any,lpsAirDescId: any){
       let verticalAirListArr:any=[];
       for (let value of item.verticalAirTerminationList) {
-        verticalAirListArr.push(this.populateVATListGroup(value));   
+        verticalAirListArr.push(this.populateVATListGroup(value,lpsAirDescId));   
       } 
       return verticalAirListArr;
     }
 
-    populateVATListGroup(item: any): FormGroup {
+    populateVATListGroup(item: any,lpsAirDescId: any): FormGroup {
       return this.formBuilder.group({
       verticalAirTerminationListId: new FormControl({disabled: false, value: item.verticalAirTerminationListId}),
+      lpsAirDescId: new FormControl({disabled: false, value: lpsAirDescId}),
       installationTerminationsystemOb: new FormControl({disabled: false, value: item.installationTerminationsystemOb}, Validators.required),
       installationTerminationsystemRem: new FormControl({disabled: false, value: item.installationTerminationsystemRem}),
       sizeOfTerminalOb: new FormControl({disabled: false, value: item.sizeOfTerminalOb}, Validators.required),
@@ -534,9 +568,10 @@ createAirHolderIteration()  : FormGroup {
     }
 
 
-    createGroup1(item: any): FormGroup {
+    createGroup1(item: any,lpsAirDescId: any): FormGroup {
       return this.formBuilder.group({
         meshDescriptionId: new FormControl({disabled: false, value: item.meshDescriptionId}),
+        lpsAirDescId: new FormControl({disabled: false, value: lpsAirDescId}),
         physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
         physicalInspectionRe: new FormControl({disabled: false, value: item.physicalInspectionRe}),
         materailOfConductorOb: new FormControl({disabled: false, value: item.materailOfConductorOb}, Validators.required),
@@ -559,9 +594,10 @@ createAirHolderIteration()  : FormGroup {
       });
     }
 
-    createGroup2(item: any): FormGroup {
+    createGroup2(item: any,lpsAirDescId: any): FormGroup {
       return this.formBuilder.group({
         holderDescriptionId: new FormControl({disabled: false, value: item.holderDescriptionId}),
+        lpsAirDescId: new FormControl({disabled: false, value: lpsAirDescId}),
         physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
         physicalInspectionRe: new FormControl({disabled: false, value: item.physicalInspectionRe}), 
         conductorHolderFlatSurfaceOb: new FormControl({disabled: false, value: item.conductorHolderFlatSurfaceOb}, Validators.required),
@@ -579,21 +615,22 @@ createAirHolderIteration()  : FormGroup {
         parpetInspectionFailedNoOb: new FormControl({disabled: false, value: item.parpetInspectionFailedNoOb}, Validators.required),
         parpetInspectionFailedNoRe: new FormControl({disabled: false, value: item.parpetInspectionFailedNoRe}),
         flag: new FormControl({disabled: false, value: item.flag}),
-        airHolderList: this.formBuilder.array(this.popuateHolderList(item))
+        airHolderList: this.formBuilder.array(this.popuateHolderList(item,lpsAirDescId))
       });
     }
 
-    popuateHolderList(item:any){
+    popuateHolderList(item:any,lpsAirDescId: any){
       let HolderListArr:any=[];
       for (let value of item.airHolderList) {
-        HolderListArr.push(this.populateHolderListGroup(value));   
+        HolderListArr.push(this.populateHolderListGroup(value,lpsAirDescId));   
       } 
       return HolderListArr;
     }
 
-    populateHolderListGroup(item: any): FormGroup {
+    populateHolderListGroup(item: any,lpsAirDescId: any): FormGroup {
       return this.formBuilder.group({
         holderListId: new FormControl({disabled: false, value: item.holderListId}),
+        lpsAirDescId: new FormControl({disabled: false, value: lpsAirDescId}),
         holderTypeOb: new FormControl({disabled: false, value: item.holderTypeOb}, Validators.required),
         holderTypeRe: new FormControl({disabled: false, value: item.holderTypeRe}), 
         materailOfHolderOb: new FormControl({disabled: false, value: item.materailOfHolderOb}, Validators.required),
@@ -610,9 +647,10 @@ createAirHolderIteration()  : FormGroup {
       });
     }
 
-    createGroup3(item: any): FormGroup {
+    createGroup3(item: any,lpsAirDescId: any): FormGroup {
       return this.formBuilder.group({
         clampsId: new FormControl({disabled: false, value: item.clampsId}),
+        lpsAirDescId: new FormControl({disabled: false, value: lpsAirDescId}),
         physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
         physicalInspectionRe: new FormControl({disabled: false, value: item.physicalInspectionRe}),
         conductorClampsFlatSurafaceOb: new FormControl({disabled: false, value: item.conductorClampsFlatSurafaceOb}, Validators.required),
@@ -637,9 +675,10 @@ createAirHolderIteration()  : FormGroup {
       });
     }
 
-    createGroup4(item: any): FormGroup {
+    createGroup4(item: any,lpsAirDescId: any): FormGroup {
       return this.formBuilder.group({
         expansionId: new FormControl({disabled: false, value: item.expansionId}),
+        lpsAirDescId: new FormControl({disabled: false, value: lpsAirDescId}),
         physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
         physicalInspectionRe: new FormControl({disabled: false, value: item.physicalInspectionRe}),
         strightConnectorPiecOb: new FormControl({disabled: false, value: item.strightConnectorPiecOb}, Validators.required),
@@ -663,9 +702,10 @@ createAirHolderIteration()  : FormGroup {
     }
 
 
-    createGroup5(item: any): FormGroup {
+    createGroup5(item: any,lpsAirDescId: any): FormGroup {
       return this.formBuilder.group({
         connectorId: new FormControl({disabled: false, value: item.connectorId}),
+        lpsAirDescId: new FormControl({disabled: false, value: lpsAirDescId}),
         physicalInspectionOb: new FormControl({disabled: false, value: item.physicalInspectionOb}, Validators.required),
         physicalInspectionRe: new FormControl({disabled: false, value: item.physicalInspectionRe}),
         checkConnectionConnectorsOb: new FormControl({disabled: false, value: item.checkConnectionConnectorsOb}, Validators.required),
@@ -709,6 +749,7 @@ createAirHolderIteration()  : FormGroup {
     }
 
     onChangeBasic(event: any,a:any) {
+      this.airTerminationForm.markAsTouched();
       let changedValue;
       if(event.target != undefined) {
         changedValue = event.target.value;
@@ -720,6 +761,10 @@ createAirHolderIteration()  : FormGroup {
       basicArray =  a.controls.airBasicDescription as FormArray;
       if (changedValue == 'Not available') {    
         if(basicArray.length>0) {
+          if(this.flag && basicArray.value[0].airBasicDescriptionId !=null && basicArray.value[0].airBasicDescriptionId !='' && basicArray.value[0].airBasicDescriptionId !=undefined){
+            basicArray.value[0].flag ='R';
+            this.deletedAirBasicArr.push(basicArray.value[0]);
+          }
           basicArray.removeAt(basicArray.length-1)    
         }
       // for(let x in a.controls){
@@ -737,8 +782,12 @@ createAirHolderIteration()  : FormGroup {
        // a.controls['physicalInspectionOb'].setValidators([Validators.required]);
         //a.controls['physicalInspectionOb'].updateValueAndValidity();   
       }
+      this.airTerminationForm.markAsDirty();
+
     }
     onChangeAir(event: any,a:any) {
+      this.airTerminationForm.markAsTouched();
+
       let changedValue;
       if(event.target != undefined) {
         changedValue = event.target.value;
@@ -750,16 +799,23 @@ createAirHolderIteration()  : FormGroup {
       vatArray =  a.controls.lpsVerticalAirTermination as FormArray;
       if (changedValue == 'Not applicable') {
         if(vatArray.length>0) {
+          if(this.flag && vatArray.value[0].lpsVerticalAirTerminationId !=null && vatArray.value[0].lpsVerticalAirTerminationId !='' && vatArray.value[0].lpsVerticalAirTerminationId !=undefined){
+            vatArray.value[0].flag ='R';
+            this.deletedAirTerminationArr.push(vatArray.value[0]);
+          }
           vatArray.removeAt(vatArray.length-1)    
         }
       }
       else if(changedValue == 'Applicable'){
         if(vatArray.length == 0) {
-          vatArray.push(this.createLpsDescriptionarr());
+          vatArray.push(this.createVatArrForm());
         }
       }
+
+      this.airTerminationForm.markAsDirty();
     }
     onChangeMesh(event: any,a:any) {
+      this.airTerminationForm.markAsTouched();
       let changedValue;
       if(event.target != undefined) {
         changedValue = event.target.value;
@@ -771,6 +827,10 @@ createAirHolderIteration()  : FormGroup {
       meshArray =  a.controls.airMeshDescription as FormArray;
       if (changedValue == 'Not applicable') {
         if(meshArray.length>0) {
+          if(this.flag && meshArray.value[0].meshDescriptionId !=null && meshArray.value[0].meshDescriptionId !='' && meshArray.value[0].meshDescriptionId !=undefined){
+            meshArray.value[0].flag ='R';
+            this.deletedAirMeshArr.push(meshArray.value[0]);
+          }
           meshArray.removeAt(meshArray.length-1)    
         }
       }
@@ -779,8 +839,11 @@ createAirHolderIteration()  : FormGroup {
           meshArray.push(this.createMeshArrForm());
         }
       }
+      this.airTerminationForm.markAsDirty();
+
     }
     onChangeHolders(event: any,a:any) {
+      this.airTerminationForm.markAsTouched();
       let changedValue;
       if(event.target != undefined) {
         changedValue = event.target.value;
@@ -792,6 +855,10 @@ createAirHolderIteration()  : FormGroup {
       holdersArray =  a.controls.airHolderDescription as FormArray;
       if (changedValue == 'Not applicable') {
         if(holdersArray.length>0) {
+          if(this.flag && holdersArray.value[0].holderDescriptionId !=null && holdersArray.value[0].holderDescriptionId !='' && holdersArray.value[0].holderDescriptionId !=undefined){
+            holdersArray.value[0].flag ='R';
+            this.deletedHoldersArr.push(holdersArray.value[0]);
+          }
           holdersArray.removeAt(holdersArray.length-1)    
         }
       }
@@ -800,8 +867,11 @@ createAirHolderIteration()  : FormGroup {
           holdersArray.push(this.createHolderArrForm());
         }
       }
+      this.airTerminationForm.markAsDirty();
+
     }
     onChangeClamps(event: any,a:any) {
+      this.airTerminationForm.markAsTouched();
       let changedValue;
       if(event.target != undefined) {
         changedValue = event.target.value;
@@ -813,6 +883,10 @@ createAirHolderIteration()  : FormGroup {
       clampsArray =  a.controls.airClamps as FormArray;
       if (changedValue == 'Not applicable') {
         if(clampsArray.length>0) {
+          if(this.flag && clampsArray.value[0].clampsId !=null && clampsArray.value[0].clampsId !='' && clampsArray.value[0].clampsId !=undefined){
+            clampsArray.value[0].flag ='R';
+            this.deletedAirClampsArr.push(clampsArray.value[0]);
+          }
           clampsArray.removeAt(clampsArray.length-1)    
         }
       }
@@ -821,8 +895,10 @@ createAirHolderIteration()  : FormGroup {
           clampsArray.push(this.createClampArrForm());
         }
       }
+      this.airTerminationForm.markAsDirty();
     }
     onChangeExpansion(event: any,a:any) {
+      this.airTerminationForm.markAsTouched();
       let changedValue;
       if(event.target != undefined) {
         changedValue = event.target.value;
@@ -834,6 +910,10 @@ createAirHolderIteration()  : FormGroup {
       expansionArray =  a.controls.airExpansion as FormArray;
       if (changedValue == 'Not applicable') {
         if(expansionArray.length>0) {
+          if(this.flag && expansionArray.value[0].expansionId !=null && expansionArray.value[0].expansionId !='' && expansionArray.value[0].expansionId !=undefined){
+            expansionArray.value[0].flag ='R';
+            this.deletedExpansionArr.push(expansionArray.value[0]);
+          }
           expansionArray.removeAt(expansionArray.length-1)    
         }
       }
@@ -842,8 +922,10 @@ createAirHolderIteration()  : FormGroup {
           expansionArray.push(this.createExpansioArrForm());
         }
       }
+      this.airTerminationForm.markAsDirty();
     }
     onChangeConnectors(event: any,a:any) {
+      this.airTerminationForm.markAsTouched();
       let changedValue;
       if(event.target != undefined) {
         changedValue = event.target.value;
@@ -855,6 +937,10 @@ createAirHolderIteration()  : FormGroup {
       connectorsArray =  a.controls.airConnectors as FormArray;
       if (changedValue == 'Not applicable') {
         if(connectorsArray.length>0) {
+          if(this.flag && connectorsArray.value[0].connectorId !=null && connectorsArray.value[0].connectorId !='' && connectorsArray.value[0].connectorId !=undefined){
+            connectorsArray.value[0].flag ='R';
+            this.deletedAirConnectorsArr.push(connectorsArray.value[0]);
+          }
           connectorsArray.removeAt(connectorsArray.length-1)    
         }
       }
@@ -863,6 +949,7 @@ createAirHolderIteration()  : FormGroup {
           connectorsArray.push(this.createConArrForm());
         }
       }
+      this.airTerminationForm.markAsDirty();
     }
 
     // Parent Array Controls:
@@ -1092,20 +1179,19 @@ addItem() {
   this.lpsAirDescription.push(this.allLPSAirterminationArr());
 }
 
-removeItem(a:any,index: any) {
-  
-      if(a.value.lpsAirDescId !=0 && a.value.lpsAirDescId !=undefined){
-        a.value.flag="R";
+removeItem(a:any,index: any) { 
+  this.airTerminationForm.markAsTouched();
+    if(a.value.lpsAirDescId !=0 && a.value.lpsAirDescId !=undefined && a.value.lpsAirDescId != ''){
+      a.value.flag="R";
+      this.deletedLpsDescArr.push(a.value);
       (this.airTerminationForm.get('lpsAirDescription') as FormArray).removeAt(index);
-      this.airTerminationPushArr= this.airTerminationPushArr.concat(a.value);
-      this.airTerminationForm.markAsTouched();
-      this.airTerminationForm.markAsDirty(); 
-      this.airterminationDataDeleted=true; 
+      // this.airTerminationPushArr= this.airTerminationPushArr.concat(a.value);
+      // this.airterminationDataDeleted=true; 
     }
     else{
       (this.airTerminationForm.get('lpsAirDescription') as FormArray).removeAt(index);
     }
-        
+    this.airTerminationForm.markAsDirty(); 
 }
 
 
@@ -1231,7 +1317,6 @@ get f() {
     } 
 
     retriveAirTermination(){
-      debugger
       this.airterminationServices.retriveAirTerminationDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
         data => {
           this.retrieveDetailsfromSavedReports1(this.airtermination.userName,this.basicLpsId,this.ClientName,data);
@@ -1287,25 +1372,92 @@ get f() {
       }
       this.airtermination.userName=this.router.snapshot.paramMap.get('email') || '{}';
       this.airtermination.lpsAirDescription = this.airTerminationForm.value.lpsAirDescription
-      // this.airtermination.basicLpsId=this.basicLpsId; 
-
-      // let airTerminationData = this.airTerminationForm.value;
-        
-      //   let i=0;
-      //   this.airtermination.lpsAirDescription=[];
-
-          // for (let a of airTerminationData.lpsAirDescription) {
-          //   this.airtermination.lpsAirDescription[i]=a;
-          //   if(this.airtermination.lpsAirDescription[i] !=null || this.airtermination.lpsAirDescription[i] !=undefined
-          //     ||this.airtermination.lpsAirDescription !=[]){
-          //     this.airtermination.lpsAirDescription=this.airtermination.lpsAirDescription.concat(this.airTerminationPushArr);
-          //   }
-          //   i=i+1;
-          // }  
-
+      
         if (!this.validationError) {
           if(flag) {
             if(this.airTerminationForm.dirty && this.airTerminationForm.touched){ 
+              if(this.deletedLpsDescArr.length != 0) {
+                for(let i of this.deletedLpsDescArr) {
+                  this.airtermination.lpsAirDescription.push(i);
+                }
+              }
+
+              for(let i of this.deletedAirBasicArr) {
+                for(let j of this.airtermination.lpsAirDescription) {
+                  if(i.lpsAirDescId == j.lpsAirDescId) {
+                    j.airBasicDescription.push(i);
+                  }
+                }
+              }
+
+              for(let i of this.deletedAirTerminationArr) {
+                for(let j of this.airtermination.lpsAirDescription) {
+                  if(i.lpsAirDescId == j.lpsAirDescId) {
+                    j.lpsVerticalAirTermination.push(i);
+                  }
+                }
+              }
+
+              for(let i of this.deletedAirMeshArr) {
+                for(let j of this.airtermination.lpsAirDescription) {
+                  if(i.lpsAirDescId == j.lpsAirDescId) {
+                    j.airMeshDescription.push(i);
+                  }
+                }
+              }
+
+              for(let i of this.deletedAirClampsArr) {
+                for(let j of this.airtermination.lpsAirDescription) {
+                  if(i.lpsAirDescId == j.lpsAirDescId) {
+                    j.airClamps.push(i);
+                  }
+                }
+              }
+
+              for(let i of this.deletedHoldersArr) {
+                for(let j of this.airtermination.lpsAirDescription) {
+                  if(i.lpsAirDescId == j.lpsAirDescId) {
+                    j.airHolderDescription.push(i);
+                  }
+                }
+              }
+
+              for(let i of this.deletedExpansionArr) {
+                for(let j of this.airtermination.lpsAirDescription) {
+                  if(i.lpsAirDescId == j.lpsAirDescId) {
+                    j.airExpansion.push(i);
+                  }
+                }
+              }
+
+              for(let i of this.deletedAirConnectorsArr) {
+                for(let j of this.airtermination.lpsAirDescription) {
+                  if(i.lpsAirDescId == j.lpsAirDescId) {
+                    j.airConnectors.push(i);
+                  }
+                }
+              }
+
+              for(let i of this.deletedAirTerminationListArr) {
+                for(let j of this.airtermination.lpsAirDescription) {
+                  for(let k of j.lpsVerticalAirTermination) {
+                      if(i.lpsAirDescId == k.lpsAirDescId) {
+                        k.verticalAirTerminationList.push(i);
+                      }
+                  }
+                }
+              }
+
+              for(let i of this.deletedHoldersListArr) {
+                for(let j of this.airtermination.lpsAirDescription) {
+                  for(let k of j.airHolderDescription) {
+                      if(i.lpsAirDescId == k.lpsAirDescId) {
+                        k.airHolderList.push(i);
+                      }
+                  }
+                }
+              }
+
             this.airterminationService.updateAirtermination(this.airtermination).subscribe(
               (data) => {
                 this.success1 = false;
