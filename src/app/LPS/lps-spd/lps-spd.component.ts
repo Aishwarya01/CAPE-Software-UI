@@ -32,6 +32,7 @@ export class LpsSpdComponent implements OnInit {
   success: boolean=false;
   successMsg: string="";
   Error: boolean=false;
+  spdDescriptionArr: any=[];
   errorArr: any=[];
   errorMsg: string="";
   validationError: boolean = false;
@@ -116,10 +117,11 @@ export class LpsSpdComponent implements OnInit {
 //     this.flag=true;
 // }
 
-    retrieveDetailsfromSavedReports1(userName: any,basicLpsId: any,clientName: any,data: any){
+retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,data: any){
    // this.service.lvClick=1;
-
+   this.flag=true;
       this.step5List = JSON.parse(data);
+      this.spdReport.spdReportId=this.step5List[0].spdReportId;
       this.spdReport.basicLpsId = basicLpsId;
       this.spdReport.createdBy = this.step5List[0].createdBy;
       this.spdReport.createdDate = this.step5List[0].createdDate;      
@@ -128,20 +130,22 @@ export class LpsSpdComponent implements OnInit {
       // this.spdForm.patchValue({
       //   spd: [i],
       // });
+     
       this.populateData(this.step5List[0].spd)
-      this.flag=true;
+    
     }
 
     populateData(spd:any){
-      debugger
       for(let item of spd){
+        console.log(item.spdId);
         this.spd.push(this.createGroup(item));
       }
     }
 
     createGroup(item: any): FormGroup {
       return this.formBuilder.group({
-        spdDescriptionId:new FormControl({disabled: false, value: item.spdDescriptionId}),
+        spdReportId:new FormControl({disabled: false, value: item.spdReportId}),
+        spdId:new FormControl({disabled: false, value: item.spdId}),
         location: new FormControl({disabled: false, value: item.location}),
         panelName: new FormControl({disabled: false, value: item.panelName}),
         flag: new FormControl({disabled: false, value: item.flag}),
@@ -168,7 +172,55 @@ export class LpsSpdComponent implements OnInit {
         sizeOfConnectingWirePhaseOb: new FormControl({disabled: false, value: item.sizeOfConnectingWirePhaseOb},Validators.required),
         sizeOfConnectingWirePhaseRem: new FormControl({disabled: false, value: item.sizeOfConnectingWirePhaseRem}),
         sizeOfConnectingWireProtectiveOb: new FormControl({disabled: false, value: item.sizeOfConnectingWireProtectiveOb},Validators.required),
+        spdDescription: this.formBuilder.array(this.populateSpdDescription(item)),
         sizeOfConnectingWireProtectiveRem: new FormControl({disabled: false, value: item.sizeOfConnectingWireProtectiveRem}),
+      });
+    }
+
+    populateSpdDescription(item:any){
+      
+      this.spdDescriptionArr= [];
+      for(let item1 of item.spdDescription){
+        console.log(item.spdId)
+        console.log(item.SpdDescriptionId)
+        this.spdDescriptionArr.push(this.createGroup1(item1));
+      }
+      return  this.spdDescriptionArr;
+    }
+
+    createGroup1(item: any): FormGroup {
+      return this.formBuilder.group({
+        spdId:new FormControl({disabled: false, value: item.spdId}),
+        SpdDescriptionId:new FormControl({disabled: false, value: item.spdDescriptionId}),
+
+        location:new FormControl({disabled: false, value: item.location}),
+        panelName:new FormControl({disabled: false, value: item.panelName}),
+        flag:new FormControl({disabled: false, value: item.flag}),
+        spdMakeOb:new FormControl({disabled: false, value: item.spdMakeOb}),
+        spdMakeRem:new FormControl({disabled: false, value: item.spdMakeRem}),
+        spdModelOb:new FormControl({disabled: false, value: item.spdModelOb}),
+        spdModelRem:new FormControl({disabled: false, value: item.spdModelRem}),
+        spdClassTypeOb:new FormControl({disabled: false, value: item.spdClassTypeOb}),
+        spdClassTypeRem:new FormControl({disabled: false, value: item.spdClassTypeRem}),
+        spdApplicationOb:new FormControl({disabled: false, value: item.spdApplicationOb}),
+        spdApplicationRem:new FormControl({disabled: false, value: item.spdApplicationRem}),
+        spdMainApplicationOb:new FormControl({disabled: false, value: item.spdMainApplicationOb}),
+        spdMainApplicationRem:new FormControl({disabled: false, value: item.spdMainApplicationRem}),
+        properConnectionOb:new FormControl({disabled: false, value: item.properConnectionOb}),
+        properConnectionRem:new FormControl({disabled: false, value: item.properConnectionRem}),
+        incomerRatingOb:new FormControl({disabled: false, value: item.incomerRatingOb}),
+        incomerRatingRem:new FormControl({disabled: false, value: item.incomerRatingRem}),
+        fuseBackUpOb:new FormControl({disabled: false, value: item.fuseBackUpOb}),
+        fuseBackUpRem:new FormControl({disabled: false, value: item.fuseBackUpRem}),
+        lengthOfConnectingWirePhaseOb:new FormControl({disabled: false, value: item.lengthOfConnectingWirePhaseOb}),
+        lengthOfConnectingWirePhaseRem:new FormControl({disabled: false, value: item.lengthOfConnectingWirePhaseRem}),
+        lengthOfConnectingWireProtectiveOb:new FormControl({disabled: false, value: item.lengthOfConnectingWireProtectiveOb}),
+        lengthOfConnectingWireProtectiveRem:new FormControl({disabled: false, value: item.lengthOfConnectingWireProtectiveRem}),
+        sizeOfConnectingWirePhaseOb:new FormControl({disabled: false, value: item.sizeOfConnectingWirePhaseOb}),
+        sizeOfConnectingWirePhaseRem:new FormControl({disabled: false, value: item.sizeOfConnectingWirePhaseRem}),
+        sizeOfConnectingWireProtectiveOb:new FormControl({disabled: false, value: item.sizeOfConnectingWireProtectiveOb}),
+        sizeOfConnectingWireProtectiveRem:new FormControl({disabled: false, value: item.sizeOfConnectingWireProtectiveRem}),
+
       });
     }
   
@@ -236,7 +288,7 @@ export class LpsSpdComponent implements OnInit {
   }
 
   onSubmit(flag: any){
-      debugger
+      
       this.submitted=true;
       if(this.spdForm.invalid){return}
         
@@ -246,6 +298,7 @@ export class LpsSpdComponent implements OnInit {
         this.spdReport.basicLpsId = this.basicLpsId;
 
         this.spdReport.spd = this.spdForm.value.spd;
+    
 
         if (!this.validationError) {
           if(flag) {
@@ -384,7 +437,7 @@ export class LpsSpdComponent implements OnInit {
     retriveSPD(){
       this.lpsSpd_Services.retrieveSPDDetails(this.router.snapshot.paramMap.get('email') || '{}',this.basicLpsId).subscribe(
         data => {
-          this.retrieveDetailsfromSavedReports1(this.spdReport.userName,this.basicLpsId,this.ClientName,data);
+          this.retrieveDetailsfromSavedReports(this.spdReport.userName,this.basicLpsId,this.ClientName,data);
         },
         error=>{
         }
