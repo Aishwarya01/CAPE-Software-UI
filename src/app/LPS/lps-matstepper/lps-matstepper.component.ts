@@ -25,6 +25,7 @@ import { SeparatedistanceService } from 'src/app/LPS_services/separatedistance.s
 import { MatTabGroup, MatTabHeader, MatTab } from '@angular/material/tabs';
 import { GlobalsService } from 'src/app/globals.service';
 import { ConfirmationBoxComponent } from 'src/app/confirmation-box/confirmation-box.component';
+import { tree } from 'ngx-bootstrap-icons';
 
 @Component({
   selector: 'app-lps-matstepper',
@@ -51,7 +52,9 @@ export class LpsMatstepperComponent implements OnInit {
   Completed5: boolean=true;
   Completed6: boolean=true;
   Completed7: boolean=true;
+
   // Completed8: boolean=true;
+
 
   basicDetails: boolean = true;
   airTermValue: boolean = true;
@@ -151,6 +154,7 @@ export class LpsMatstepperComponent implements OnInit {
 
   public changeTabLpsSavedReport(index: number, basicLpsId: any, userName: any, clientName: any) {
 
+
     this.selectedIndex = 1;
 
     this.basicDetails = false;
@@ -160,6 +164,7 @@ export class LpsMatstepperComponent implements OnInit {
     this.spdValue = false;
     this.seperationValue = false;
     this.equipotentialBond = false;
+
 
     setTimeout(() => {
       this.basicDetails = true;
@@ -186,6 +191,7 @@ export class LpsMatstepperComponent implements OnInit {
           }
           if (this.dataJSON.airTermination != null) {
             this.airTermination.retrieveDetailsfromSavedReports(userName, basicLpsId, clientName, this.dataJSON);
+ 
             this.Completed2 = true;
           }
           if (this.dataJSON.downConductorDesc != null) {
@@ -199,6 +205,7 @@ export class LpsMatstepperComponent implements OnInit {
             this.Completed4 = true;
           }
           if (this.dataJSON.spddesc != null) {
+
 
             this.spd.retrieveDetailsfromSavedReports(userName, basicLpsId, clientName, this.dataJSON);
             this.Completed5 = true;
@@ -219,6 +226,7 @@ export class LpsMatstepperComponent implements OnInit {
         }
       )
     }, 3000);
+
   }
 
   // Final Report 
