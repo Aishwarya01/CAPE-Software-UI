@@ -261,8 +261,10 @@ retrieveDetailsfromSavedReports(userName: any,basicLpsId: any,clientName: any,da
     return(<FormArray>this.spdForm.get('spd')).controls;
   }
 
+
   spdDescriptionControl(form:any) {
     return form.controls.spdDescription?.controls;
+
   }
 
   get f() {

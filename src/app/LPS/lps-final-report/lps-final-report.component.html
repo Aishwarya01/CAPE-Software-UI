@@ -68,18 +68,18 @@
           </button>
             <!-- Download -->
           <button class="btn btn-outline-danger delete" title="Download Final PDF" 
-          (click)="downloadPdf(element.basicLpsId)" 
+          (click)="downloadPdf(element.basicLpsId, element.projectName)" 
           style="border-color: #cdcecf;box-shadow: unset;">
             <mat-icon>download</mat-icon>
           </button>
             <!-- Email -->
           <button class="btn btn-outline-danger delete" title="Trigger Email With Final PDF"
-          style="border-color: #cdcecf;box-shadow: unset;" (click)="emailPDF(element.basicLpsId,element.userName)">
+          style="border-color: #cdcecf;box-shadow: unset;" (click)="emailPDF(element.basicLpsId,element.userName, element.projectName)">
             <mat-icon>email</mat-icon>
           </button>
             <!-- Print -->
           <button class="btn btn-outline-danger delete" title="Print Final PDF" 
-          style="border-color: #cdcecf;box-shadow: unset;" (click)="printPDF(element.basicLpsId,element.userName)">
+          style="border-color: #cdcecf;box-shadow: unset;" (click)="printPDF(element.basicLpsId,element.userName, element.projectName)">
             <mat-icon>print</mat-icon>
           </button>
 

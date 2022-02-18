@@ -112,8 +112,8 @@ export class LpsFinalReportComponent implements OnInit {
 
   userName=this.router.snapshot.paramMap.get('email') || '{}';
 
-  downloadPdf(basicLpsId: any): any {
-     this.finalpdf.downloadPDF(basicLpsId,this.userName)
+  downloadPdf(basicLpsId: any, projectName: any): any {
+     this.finalpdf.downloadPDF(basicLpsId,this.userName, projectName)
    }
 
   priviewPdf(basicLpsId:any,clientName:any){
@@ -121,12 +121,12 @@ export class LpsFinalReportComponent implements OnInit {
      this.matstepper.preview(basicLpsId,clientName);
    }
 
-  emailPDF(basicLpsId:any,userName:any){
+  emailPDF(basicLpsId:any,userName:any, projectName: any){
     this.disable=false;
-    this.finalpdf.mailPDF(basicLpsId,userName).subscribe(
+    this.finalpdf.mailPDF(basicLpsId,userName,projectName).subscribe(
     data => {
     this.success = true;
-    this.successMsg = data;
+    this.successMsg = "Email has been sent successfully. Please check your email box.";
     setTimeout(()=>{
       this.success=false;
         },5000);
@@ -142,10 +142,10 @@ export class LpsFinalReportComponent implements OnInit {
     });
   }
 
-  printPDF(basicLpsId:any,userName:any){
+  printPDF(basicLpsId:any,userName:any, projectName: any){
     
     this.disable=false;
-    this.finalpdf.printPDF(basicLpsId,userName)
+    this.finalpdf.printPDF(basicLpsId,userName,projectName);
   }
 }
 

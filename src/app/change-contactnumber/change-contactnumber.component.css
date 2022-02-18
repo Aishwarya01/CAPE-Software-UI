@@ -1,6 +1,6 @@
 
 .bg-image {
-    background: url(../../assets/img/login-bg.jpg);
+    background: url(../../assets/img/electrical-panel-testing1.jpg);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: left;
@@ -28,7 +28,7 @@
     border-top: 1px solid rgba(0, 0, 0, 0.125) !important;
 }
 .brand-logo img{
-    width: 65%;
+    width: 45%;
     margin: 50px auto 20px 0px;
 }
 
